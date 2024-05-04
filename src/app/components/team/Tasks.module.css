@@ -1,0 +1,23 @@
+.task-card {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 0 16px;
+
+  .task-card-header {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+
+    .task-card-header-actions {
+      display: flex;
+      gap: 16px;
+    }
+  }
+
+  .task-card-condition {
+    display: flex;
+    gap: 16px;
+  }
+}

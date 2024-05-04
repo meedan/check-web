@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ArrowDropDownIcon from '../../icons/arrow_drop_down.svg';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TeamTaskCardForm from './TeamTaskCardForm';
+import settingsStyles from './Settings.module.css';
+import styles from './Tasks.module.css';
 
 const TeamTaskCard = ({
   about,
@@ -35,19 +37,8 @@ const TeamTaskCard = ({
   };
 
   return (
-    <Box
-      mb={2}
-      bgcolor="var(--brandBackground)"
-      padding="16px"
-      borderRadius="5px"
-      minHeight="100px"
-      width="100%"
-    >
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+    <div className={cx(styles['task-card'], settingsStyles['setting-content-container-inner'])}>
+      <div className={styles['task-card-header']}>
         <ButtonMain
           className="team-tasks__menu-item-button"
           onClick={e => setAnchorEl(e.currentTarget)}
@@ -65,33 +56,29 @@ const TeamTaskCard = ({
             />
           }
         />
-        <Box display="flex">
-          <Box mr={4}>
-            <SwitchComponent
-              onChange={() => setRequired(!required)}
-              checked={required}
-              labelPlacement="end"
-              label={<FormattedMessage
-                id="teamTaskCard.required"
-                defaultMessage="Required"
-                description="Toggle switch to make field required"
-              />}
-            />
-          </Box>
-          <span>
-            <SwitchComponent
-              onChange={() => setShowInBrowserExtension(!showInBrowserExtension)}
-              checked={showInBrowserExtension}
-              labelPlacement="end"
-              label={<FormattedMessage
-                id="teamTaskCard.showInBrowserExtension"
-                defaultMessage="Show in browser extension"
-                description="Toggle switch to make field visible in the browser extension"
-              />}
-            />
-          </span>
-        </Box>
-      </Box>
+        <div className={styles['task-card-header-actions']}>
+          <SwitchComponent
+            onChange={() => setRequired(!required)}
+            checked={required}
+            labelPlacement="end"
+            label={<FormattedMessage
+              id="teamTaskCard.required"
+              defaultMessage="Required"
+              description="Toggle switch to make field required"
+            />}
+          />
+          <SwitchComponent
+            onChange={() => setShowInBrowserExtension(!showInBrowserExtension)}
+            checked={showInBrowserExtension}
+            labelPlacement="end"
+            label={<FormattedMessage
+              id="teamTaskCard.showInBrowserExtension"
+              defaultMessage="Show in browser extension"
+              description="Toggle switch to make field visible in the browser extension"
+            />}
+          />
+        </div>
+      </div>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -112,21 +99,19 @@ const TeamTaskCard = ({
           />
         </MenuItem>
       </Menu>
-      <hr />
-      <div className="typography-body1">
-        <Box my={2} className="team-tasks__task-label">
-          <Box fontWeight="500">
+      <div className={settingsStyles['setting-content-container-inner-accent']}>
+        <div className="team-tasks__task-label">
+          <strong>
             {task.label}
-          </Box>
+          </strong>
           {task.description}
-        </Box>
+        </div>
+        <TeamTaskCardForm task={task} about={about} />
       </div>
-      <TeamTaskCardForm task={task} about={about} />
-      <hr />
-      <Box px={2} py={1}>
+      <div>
         {children}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 
