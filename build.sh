@@ -49,9 +49,9 @@ else
   # Uncomment to debug Check API and Alegre. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
   # tail -f check-api/log/test.log &
   # docker-compose logs -f api &
-  # docker-compose logs -f alegre &
+  docker-compose logs -f alegre &
   # docker-compose logs -f presto-server &
   # docker-compose logs -f presto-image &
   # docker-compose logs -f presto-audio &
-  docker-compose logs -f presto-video &
+  # docker-compose logs -f presto-video &
 fi
