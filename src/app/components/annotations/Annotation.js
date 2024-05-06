@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
 import styled from 'styled-components';
-import { stripUnit } from 'polished';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -22,15 +21,12 @@ import {
 } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
-import { units } from '../../styles/js/shared';
-
-const dotOffset = stripUnit(units(4)) - stripUnit(3);
 
 const StyledDefaultAnnotation = styled.div`
   color: var(--textPrimary);
   display: flex;
   width: 100%;
-  ${props => (props.theme.dir === 'rtl' ? 'padding-right' : 'padding-left')}: ${units(10)};
+  ${props => (props.theme.dir === 'rtl' ? 'padding-right' : 'padding-left')}: 80px;
 
   .annotation__default-content {
     width: 100%;
@@ -38,14 +34,14 @@ const StyledDefaultAnnotation = styled.div`
     overflow-wrap: break-word;
     word-break: break-word;
     display: block;
-    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
+    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: 16px;
   }
 `;
 
 const StyledAnnotationWrapper = styled.section`
   position: relative;
   display: flex;
-  padding: ${units(1)} 0;
+  padding: 8px 0;
   position: relative;
 
   &:not(.annotation--card) {
@@ -54,18 +50,18 @@ const StyledAnnotationWrapper = styled.section`
       background-color: var(--grayBorderMain);
       border-radius: 100%;
       content: '';
-      height: ${units(1)};
+      height: 8px;
       outline: 3px solid var(--otherWhite);
       position: absolute;
-      top: ${units(2)};
-      width: ${units(1)};
-      ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${dotOffset}px;
+      top: 16px;
+      width: 8px;
+      ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: 8px;
     }
   }
 
   .annotation__card-text {
     display: flex;
-    padding: ${units(3)} ${units(2)} ${units(1)} !important;
+    padding: 24px 16px 8px !important;
   }
 
   .annotation__card-activity-move-to-trash {
@@ -83,7 +79,7 @@ const StyledAnnotationWrapper = styled.section`
     display: inline;
     flex: 1;
     white-space: pre;
-    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
+    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: 8px;
   }
 
   .annotation__actions {
@@ -100,8 +96,8 @@ const StyledAnnotationWrapper = styled.section`
   }
 
   .annotation__embedded-media {
-    padding-bottom: ${units(1)};
-    padding-top: ${units(1)};
+    padding-bottom: 8px;
+    padding-top: 8px;
   }
 
   .annotation__tag {
@@ -116,7 +112,7 @@ const StyledAnnotationWrapper = styled.section`
 
   .annotation__card-embedded-medias {
     clear: both;
-    margin-top: ${units(0.5)};
+    margin-top: 4px;
   }
 
   .annotation__keep a {

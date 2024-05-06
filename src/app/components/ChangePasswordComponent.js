@@ -5,9 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
+import Alert from './cds/alerts-and-prompts/Alert';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from './cds/inputs/TextField';
-import Message from './Message';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
 import { getErrorMessage } from '../helpers';
 import inputStyles from '../styles/css/inputs.module.css';
@@ -106,7 +106,7 @@ function ChangePasswordComponent({
 
   return (
     <div className={cx('int-user-password-change__password-input', inputStyles['form-fieldset'])}>
-      <Message message={errorMsg} />
+      { errorMsg && <><Alert variant="error" contained title={errorMsg} /><br /></> }
       {showCurrentPassword === true ? (
         <TextField
           required
