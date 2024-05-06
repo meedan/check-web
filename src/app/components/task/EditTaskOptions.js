@@ -8,7 +8,7 @@ import AddIcon from '../../icons/add.svg';
 import CheckBoxOutlineBlankIcon from '../../icons/check_box.svg';
 import ClearIcon from '../../icons/clear.svg';
 import RadioButtonUncheckedIcon from '../../icons/radio_button_checked.svg';
-import { Row } from '../../styles/js/shared';
+import styles from './Task.module.css';
 
 const messages = defineMessages({
   value: {
@@ -124,7 +124,7 @@ const EditTaskOptions = ({
       <Box mt={1}>
         { options.map((item, index) => (
           <div key={`edit-task-options__option-${index.toString()}`}>
-            <Row style={{ alignItems: 'center' }}>
+            <div className={styles['task-multi-select']}>
               <ButtonMain
                 key="create-task__remove-option-button"
                 className="create-task__remove-option-button create-task__md-icon"
@@ -164,7 +164,7 @@ const EditTaskOptions = ({
                   theme="lightText"
                 /> : null
               }
-            </Row>
+            </div>
           </div>
         ))}
         <Box mt={1} display="flex">

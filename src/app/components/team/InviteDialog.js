@@ -6,10 +6,10 @@ import { FormattedMessage } from 'react-intl';
 import * as EmailValidator from 'email-validator';
 import Dialog from '@material-ui/core/Dialog';
 import ListItemText from '@material-ui/core/ListItemText';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import RoleSelect from './RoleSelect';
-import Message from '../Message';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
@@ -150,7 +150,7 @@ const InviteDialog = ({
         />
       </div>
       <div className={styles['dialog-content']}>
-        <Message message={errorMessage} />
+        { errorMessage && <><Alert variant="error" contained title={errorMessage} /><br /></> }
         <div className={inputStyles['form-fieldset']}>
           <div className={inputStyles['form-fieldset-field']}>
             <FormattedMessage id="inviteDialog.textInputPlaceholder" defaultMessage="example: team_member@example.org, team_member2@example.org" description="Placeholder for input for invited emails">

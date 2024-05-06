@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import cx from 'classnames/bind';
 import AutoCompleteMediaItem from './AutoCompleteMediaItem';
 import CreateMediaInput from './CreateMediaInput';
-import Message from '../Message';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import dialogStyles from '../../styles/css/dialog.module.css';
 import mediaStyles from './media.module.css';
@@ -110,7 +110,7 @@ class CreateRelatedMediaDialog extends React.Component {
           }
           { mode === 'existing' &&
             <>
-              <Message message={this.props.message} />
+              { this.props.message && <><Alert variant="error" contained title={this.props.message} /><br /></> }
               <AutoCompleteMediaItem
                 media={media}
                 dbid={media ? media.dbid : null}
