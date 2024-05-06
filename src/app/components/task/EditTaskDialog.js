@@ -23,7 +23,6 @@ import TextField2 from '../cds/inputs/TextField';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import EditTaskAlert from './EditTaskAlert';
 import EditTaskOptions from './EditTaskOptions';
-import Message from '../Message';
 import CheckBoxIcon from '../../icons/check_box.svg';
 import CloudUploadIcon from '../../icons/file_upload.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
@@ -408,7 +407,7 @@ class EditTaskDialog extends React.Component {
           />
         </div>
         <div className={dialogStyles['dialog-content']}>
-          <Message message={this.props.message} />
+          { this.props.message && <><Alert variant="error" contained title={this.props.message} /><br /></> }
           <div className={inputStyles['form-fieldset']}>
             <FormattedMessage id="task.TitlePlaceholder" defaultMessage="Enter a title for this annotation" description="Input Placeholder for the Title field for custom annotation field">
               {placeholder => (

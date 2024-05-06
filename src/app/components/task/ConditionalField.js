@@ -4,14 +4,13 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
-import { units } from '../../styles/js/shared';
 import CdsSelect from '../cds/inputs/Select';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import Chip from '../cds/buttons-checkboxes-chips/Chip';
 import styles from './Task.module.css';
 
 const StyledConditionalMultiSelect = styled.span`
-  margin-left: ${units(2)};
+  margin-left: 16px;
   .MuiInputBase-root {
     width: 270px;
     height: 38px;
@@ -28,7 +27,7 @@ const StyledConditionalMultiSelect = styled.span`
     content: "";
   }
   #mui-component-select-multiple-conditions {
-    height: ${units(3)};
+    height: 24px;
   }
   .MuiChip-root {
     max-width: 90px;

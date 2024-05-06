@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import MediasLoading from './media/MediasLoading';
-import { units } from '../styles/js/shared';
 
 const PenderCardContainer = styled.div`
-  max-height: ${units(250)};
-  min-height: ${units(25)};
+  max-height: 2000px;
+  min-height: 200px;
   overflow-x: hidden;
   overflow-y: hidden;
   position: relative;

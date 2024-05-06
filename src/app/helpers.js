@@ -6,7 +6,6 @@ import { toArray } from 'react-emoji-render';
 import { getTimeZones } from '@vvo/tzdb';
 import styled from 'styled-components';
 import CheckError from './CheckError';
-import { units } from './styles/js/shared';
 
 /**
  * TODO
@@ -179,7 +178,7 @@ function getErrorObjectsForRelayModernProblem(errorOrErrors) {
 // Requires an CheckNetworkLayer c. 2019 object with the `code` and `message` properties
 function createFriendlyErrorMessage(error) {
   const StyledContainer = styled.div`
-    margin: 0 0 0 ${units(2)};
+    margin: 0 0 0 16px;
     max-width: 500px;
   `;
   const StyledSummary = styled.summary`
