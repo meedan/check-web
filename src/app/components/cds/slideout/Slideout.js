@@ -13,6 +13,7 @@ const Slideout = ({
   footer,
   onClose,
   showCancel,
+  cancelProps,
   mainActionButton,
   secondaryActionButton,
   optionalNode,
@@ -36,9 +37,9 @@ const Slideout = ({
 
   return (
     <div className={cx(styles.slideoutMain, 'slideout', isOpen ? styles.slide : null)}>
-      <div className={cx(styles.slideoutContainer)}>
-        <div className={cx(styles.slideoutTitle)}>
-          <div className={cx(styles.slideoutTitleContent)}>
+      <div className={styles.slideoutContainer}>
+        <div className={styles.slideoutTitle}>
+          <div className={styles.slideoutTitleContent}>
             <h6>
               {title}
             </h6>
@@ -50,13 +51,13 @@ const Slideout = ({
             />
           </div>
         </div>
-        <div className={cx(styles.slideoutBody, footer ? styles.withFooter : null)}>
+        <div className={styles.slideoutBody}>
           {content}
         </div>
         { footer &&
-          <div className={cx(styles.slideoutFooter)}>
-            <div className={cx(styles.slideoutFooterMain)}>
-              <div className={cx(styles.slideoutFooterLeftContent)}>
+          <div className={styles.slideoutFooter}>
+            <div className={styles.slideoutFooterMain}>
+              <div className={styles.slideoutFooterContent}>
                 { showCancel &&
                   <ButtonMain
                     variant="text"
@@ -64,11 +65,12 @@ const Slideout = ({
                     onClick={() => handleClose()}
                     label={
                       <FormattedMessage
-                        id="label.SlideoutCancelButton"
-                        description="Label of slideout cancel button"
+                        id="global.cancel"
                         defaultMessage="Cancel"
+                        description="Regular Cancel action label"
                       />
                     }
+                    {...cancelProps}
                   />
                 }
                 { mainActionButton &&
@@ -83,7 +85,7 @@ const Slideout = ({
                 }
               </div>
               { secondaryActionButton &&
-                <div className={cx(styles.slideoutFooterRightContent)}>
+                <div className={styles.slideoutFooterContent}>
                   {secondaryActionButton}
                 </div>
               }
@@ -100,6 +102,7 @@ Slideout.defaultProps = {
   content: null,
   footer: true,
   showCancel: false,
+  cancelProps: {},
   mainActionButton: null,
   secondaryActionButton: null,
   optionalNode: null,
@@ -111,6 +114,7 @@ Slideout.propTypes = {
   footer: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   showCancel: PropTypes.bool,
+  cancelProps: PropTypes.object,
   mainActionButton: PropTypes.instanceOf(ButtonMain),
   secondaryActionButton: PropTypes.instanceOf(ButtonMain),
   optionalNode: PropTypes.node,

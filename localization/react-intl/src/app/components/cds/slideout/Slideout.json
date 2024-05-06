@@ -1,7 +1,7 @@
 [
   {
-    "id": "label.SlideoutCancelButton",
-    "description": "Label of slideout cancel button",
+    "id": "global.cancel",
+    "description": "Regular Cancel action label",
     "defaultMessage": "Cancel"
   }
 ]

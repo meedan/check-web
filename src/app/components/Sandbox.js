@@ -1835,6 +1835,9 @@ const SandboxComponent = ({ admin }) => {
               }
               footer={slideoutFooter}
               showCancel={slideoutCancel}
+              cancelProps={{
+                size: 'small',
+              }}
               onClose={setOpenSlideout}
               mainActionButton={slideoutMainAction && <ButtonMain size="small" label="Main content" />}
               secondaryActionButton={slideoutSecondaryAction && <ButtonMain size="small" label="Secondary content" />}
