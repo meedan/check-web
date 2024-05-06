@@ -20,4 +20,15 @@
     display: flex;
     gap: 16px;
   }
+
+  .task-card-label {
+    strong {
+      display: block;
+      margin: 0 0 8px;
+    }
+  }
+
+  .task-card-form {
+    margin: 16px 0 0;
+  }
 }

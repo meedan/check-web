@@ -100,7 +100,7 @@ const TeamTaskCard = ({
         </MenuItem>
       </Menu>
       <div className={settingsStyles['setting-content-container-inner-accent']}>
-        <div className="team-tasks__task-label">
+        <div className={cx('team-tasks__task-label', styles['task-card-label'])}>
           <strong>
             {task.label}
           </strong>

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import {
   MetadataDate,
   MetadataFile,
@@ -12,9 +11,10 @@ import {
 } from '@meedan/check-ui';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import MetadataText from '../metadata/MetadataText';
+import styles from './Tasks.module.css';
 
 const TeamTaskCardForm = ({ task, about }) => (
-  <Box mx={2} mb={2}>
+  <div className={styles['task-card-form']}>
     { (task.type === 'single_choice' || task.type === 'multiple_choice') ?
       <MetadataMultiselect
         isSingle={task.type === 'single_choice'}
@@ -182,7 +182,7 @@ const TeamTaskCardForm = ({ task, about }) => (
         }}
       /> : null
     }
-  </Box>
+  </div>
 );
 
 TeamTaskCardForm.propTypes = {
