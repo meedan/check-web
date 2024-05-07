@@ -4,8 +4,9 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Button from '@material-ui/core/Button';
-import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
+import { MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
 import moment from 'moment';
+import MetadataText from '../metadata/MetadataText';
 import Can, { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
