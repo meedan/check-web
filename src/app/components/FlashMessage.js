@@ -6,7 +6,7 @@ import reactStringReplace from 'react-string-replace';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import IconClose from '../icons/clear.svg';
 import ErrorIcon from '../icons/error.svg';
-import Message from './Message';
+import Alert from './cds/alerts-and-prompts/Alert';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
 
@@ -142,6 +142,7 @@ const FlashMessageProvider = ({ children }) => {
 
 const useStyles = makeStyles({
   flashMessageStyle: {
+    left: '0',
     marginTop: '0',
     position: 'fixed',
     width: '100%',
@@ -203,13 +204,18 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
     });
   }
 
-  return (
-    <Message
-      message={message}
-      onClick={resetMessage}
-      className={`home__message ${classes.flashMessageStyle}`}
-    />
-  );
+  if (message) {
+    return (
+      <Alert
+        content={message}
+        onButtonClick={resetMessage}
+        buttonLabel={<IconClose />}
+        className={`home__message ${classes.flashMessageStyle}`}
+      />
+    );
+  }
+
+  return null;
 }));
 
 /**

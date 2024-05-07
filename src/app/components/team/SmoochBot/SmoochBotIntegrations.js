@@ -101,6 +101,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   </Box>
                   <Box display="flex" alignItems="center">
                     <TextField
+                      className={styles['smoochbot-component-input']}
                       variant="outlined"
                       defaultValue={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`}
                       InputProps={{
@@ -152,14 +153,13 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                       description="Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
                     />
                   </Box>
-                  <Box display="flex" alignItems="flex-start" justifyContent="space-between">
+                  <Box>
                     <Box display="flex" alignItems="flex-start">
                       <TextField
+                        className={styles['smoochbot-component-input']}
                         variant="outlined"
                         defaultValue={`<img src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}" />`}
                         disabled
-                        multiline
-                        rows={8}
                       />
                       <Tooltip
                         PopperProps={{
@@ -190,8 +190,8 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                         </CopyToClipboard>
                       </Tooltip>
                     </Box>
-                    <Box ml={4} display="flex" alignItems="flex-start">
-                      <QRCodeCanvas size={192} value={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`} id="whatsapp-qr-code-canvas" />
+                    <Box mt={2} display="flex" alignItems="flex-start">
+                      <QRCodeCanvas size={192} value={`https://wa.me/${enabledIntegrations?.whatsapp?.phoneNumber.replace(/[^0-9]/g, '')}`} id="whatsapp-qr-code-canvas" />
                       <IconButton onClick={handleDownloadWhatsAppQrCode}>
                         <GetAppIcon />
                       </IconButton>

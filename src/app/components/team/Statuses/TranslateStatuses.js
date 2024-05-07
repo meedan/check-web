@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
 import cx from 'classnames/bind';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -188,21 +187,18 @@ const TranslateStatuses = ({
         }
         body={
           <div>
-            <Typography variant="body1">
-              <FormattedMessage
-                id="translateStatuses.missingTranslationsBody"
-                defaultMessage="Some statuses are missing translations. Users may not be able to read untranslated statuses."
-                description="Modal paragraph description informing the user that there are missing translations"
-              />
-            </Typography>
-            <p />
-            <Typography variant="body1">
-              <FormattedMessage
-                id="translateStatuses.missingTranslationsBody2"
-                defaultMessage="If the message for a status is not translated in a language, any requester using that language will not receive the message."
-                description="Description paragraph telling the user what will happen is a translation is missing"
-              />
-            </Typography>
+            <FormattedMessage
+              tagName="p"
+              id="translateStatuses.missingTranslationsBody"
+              defaultMessage="Some statuses are missing translations. Users may not be able to read untranslated statuses."
+              description="Modal paragraph description informing the user that there are missing translations"
+            />
+            <FormattedMessage
+              tagName="p"
+              id="translateStatuses.missingTranslationsBody2"
+              defaultMessage="If the message for a status is not translated in a language, any requester using that language will not receive the message."
+              description="Description paragraph telling the user what will happen is a translation is missing"
+            />
           </div>
         }
         onCancel={handleDialogCancel}

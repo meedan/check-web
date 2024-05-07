@@ -2,7 +2,7 @@ import React from 'react';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
-import DateRangeFilter from './DateRangeFilter';
+import DateRangeFilter, { getUTCOffset } from './DateRangeFilter';
 
 describe('<DateRangeFilter />', () => {
   it('should render basic filter', () => {
@@ -63,5 +63,29 @@ describe('<DateRangeFilter />', () => {
     );
 
     expect(wrapper.find('select').first().props().value).toBe('media_published_at');
+  });
+
+  it('should calculate UTC offset for start', () => {
+    const isoDateTimeString = '2023-02-14T08:00:00.000Z'; // location: Portland, Oregon
+    const isStart = true;
+    const result = getUTCOffset(isoDateTimeString, isStart);
+
+    expect(result).toBe('UTC-8:00');
+  });
+
+  it('should calculate UTC offset for end time in ', () => {
+    const isoDateTimeString = '2023-03-14T14:59:59.000Z'; // location: Tokyo
+    const isStart = false;
+    const result = getUTCOffset(isoDateTimeString, isStart);
+
+    expect(result).toBe('UTC+9:00');
+  });
+
+  it('should calculate UTC offset for timezones with minute offsets', () => {
+    const isoDateTimeString = '2024-04-09T18:29:59.000Z'; // location: Mumbai
+    const isStart = false;
+    const result = getUTCOffset(isoDateTimeString, isStart);
+
+    expect(result).toBe('UTC+5:30');
   });
 });

@@ -44,13 +44,13 @@ shared_examples 'tag' do
     wait_for_selector('#team-tags__create').click
     wait_for_selector('#confirm-dialog__confirm-action-button')
     fill_field('#team-tags__name-input', 'tag added automatically')
-    wait_for_selector('.MuiAutocomplete-popupIndicator').click
+    wait_for_selector('.MuiAutocomplete-input').click
     wait_for_selector('.MuiAutocomplete-inputFocused').click
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:enter).perform
-    wait_for_selector('textarea').send_keys('new media')
+    wait_for_selector('.rules__rule-field .int-rules__rule-field-string-input input').send_keys('new media')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.team-tags__row')
     expect(@driver.page_source.include?('tag added automatically')).to be(true)

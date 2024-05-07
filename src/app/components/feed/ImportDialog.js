@@ -10,7 +10,6 @@ import {
   MenuItem,
   Select,
   TextField,
-  Typography,
 } from '@material-ui/core';
 import SystemUpdateAltOutlinedIcon from '../../icons/file_download.svg';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -144,13 +143,12 @@ const ImportDialog = ({
         }
         body={(
           <React.Fragment>
-            <Typography paragraph>
-              <FormattedMessage
-                id="importDialog.importDescription"
-                defaultMessage="A new claim will be created in your workspace with all selected media."
-                description="Dialog description when importing a claim from feed page."
-              />
-            </Typography>
+            <FormattedMessage
+              tagName="p"
+              id="importDialog.importDescription"
+              defaultMessage="A new claim will be created in your workspace with all selected media."
+              description="Dialog description when importing a claim from feed page."
+            />
             <Box my={3}>
               <FormControl variant="outlined" fullWidth>
                 <InputLabel id="import-to-workspace-label">

@@ -135,7 +135,7 @@ Select.propTypes = {
   error: PropTypes.bool,
   helpContent: PropTypes.element,
   iconLeft: PropTypes.element,
-  label: PropTypes.string,
+  label: PropTypes.node,
   onRemove: PropTypes.func,
   required: PropTypes.bool,
   textArea: PropTypes.bool,

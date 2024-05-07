@@ -6,17 +6,16 @@ import styled from 'styled-components';
 import reactStringReplace from 'react-string-replace';
 import styles from './ParsedText.module.css';
 import MediaChip from './cds/buttons-checkboxes-chips/MediaChip';
-import { units } from '../styles/js/shared';
 
 const StyledEmojiOnly = styled.span`
-  line-height: ${units(4)};
-  font-size: ${units(4)};
+  line-height: 32px;
+  font-size: 32px;
 `;
 
 const Styled = styled.span`
   overflow-wrap: break-word;
   word-wrap: break-word;
-  line-height: ${units(2.5)};
+  line-height: 20px;
 `;
 
 const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {

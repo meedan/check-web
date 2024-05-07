@@ -9,9 +9,9 @@ import NotFound from '../NotFound';
 import FeedMediaRequests from './FeedMediaRequests';
 import MediaCardLarge from '../media/MediaCardLarge';
 
-const FeedItemMediaDialog = ({ itemDbid, classes }) => {
-  const urlParseRegex = new RegExp('^/(?<currentTeamSlug>[^/]+)/feed/(?<feedDbid>[0-9]+)/item/(?<projectMediaDbid>[0-9]+)$');
-  const { currentTeamSlug, feedDbid, projectMediaDbid } = urlParseRegex.test(window.location.pathname) && window.location.pathname.match(urlParseRegex).groups;
+const FeedItemMediaDialog = ({ itemDbid, feedDbid, classes }) => {
+  const urlParseRegex = new RegExp('^/(?<currentTeamSlug>[^/]+)/');
+  const { currentTeamSlug } = urlParseRegex.test(window.location.pathname) && window.location.pathname.match(urlParseRegex).groups;
 
   return (
     <ErrorBoundary component="FeedItemMediaDialog">
@@ -34,7 +34,7 @@ const FeedItemMediaDialog = ({ itemDbid, classes }) => {
         variables={{
           currentTeamSlug,
           feedDbid: parseInt(feedDbid, 10),
-          projectMediaDbid: parseInt(projectMediaDbid, 10),
+          projectMediaDbid: parseInt(itemDbid, 10),
           itemDbid: parseInt(itemDbid, 10),
         }}
         render={({ props, error }) => {
@@ -68,6 +68,7 @@ FeedItemMediaDialog.defaultProps = {
 FeedItemMediaDialog.propTypes = {
   classes: PropTypes.object,
   itemDbid: PropTypes.number.isRequired,
+  feedDbid: PropTypes.number.isRequired,
 };
 
 export default FeedItemMediaDialog;
