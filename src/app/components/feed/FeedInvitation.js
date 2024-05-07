@@ -25,6 +25,10 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
     browserHistory.push(`/${team.node.slug}/feed/${routeParams.feedId}/invitation`);
   }
 
+  const teamDbids = props.feed_invitation.feed.feed_teams.edges.map(edge => edge.node.team.dbid);
+  // eslint-disable-next-line
+  console.log('teamDbids', teamDbids);
+
   const handleClick = team => browserHistory.push(`/${team.node.slug}/feed/${routeParams.feedId}/invitation`);
 
   return (
@@ -108,6 +112,16 @@ const FeedInvitation = ({ routeParams }) => (
             state
             feed {
               name
+              feed_teams(first: 100) {
+                edges {
+                  node {
+                    team {
+                      name
+                      dbid
+                    }
+                  }
+                }
+              }
             }
             user {
               name

@@ -41,6 +41,24 @@ const rejectMutation = graphql`
 `;
 
 const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
+  const teamDbids = props.feed_invitation.feed.feed_teams.edges.map(edge => edge.node.team.dbid);
+  const currentTeamDbid = props.me.current_team.dbid;
+  const isCurrentTeamDbidInTeamDbids = teamDbids.includes(currentTeamDbid);
+  // const [redirected, setRedirected] = React.useState(false);
+
+  // if (isCurrentTeamDbidInTeamDbids && !redirected) {
+  //   setRedirected(true);
+  //   browserHistory.push(`/${props.me.current_team?.slug}/feed/${parseInt(routeParams.feedId, 10)}/edit`);
+  // }
+
+  React.useEffect(() => {
+    if (isCurrentTeamDbidInTeamDbids) {
+      browserHistory.push(`/${props.me.current_team?.slug}/feed/${parseInt(routeParams.feedId, 10)}/edit`);
+    }
+  }, [isCurrentTeamDbidInTeamDbids, props.me.current_team?.slug, routeParams.feedId]);
+
+  // eslint-disable-next-line
+  console.log('isCurrentTeamDbidInTeamDbidss', isCurrentTeamDbidInTeamDbids, props);
   const [saving, setSaving] = React.useState(false);
   const [confirmReject, setConfirmReject] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
@@ -240,6 +258,16 @@ const FeedInvitationRespond = ({ routeParams }) => (
               dbid
               name
               description
+              feed_teams(first: 100) {
+                edges {
+                  node {
+                    team {
+                      name
+                      dbid
+                    }
+                  }
+                }
+              }
             }
             feed_metadata: feed {
               ...FeedMetadata_feed
