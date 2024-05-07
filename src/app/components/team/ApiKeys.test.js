@@ -3,13 +3,13 @@ import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/in
 import StyledBlankState from '../layout/BlankState';
 import { ApiKeys } from './ApiKeys';
 
-const teamWithoutApiKeys = { api_keys: { edges: [] }};
+const teamWithoutApiKeys = { api_keys: { edges: [] } };
 const teamWithApiKeys = {
   api_keys: {
     edges: [
-      { node: { dbid: 1, title: 'a', description: 'aa', user: { name: 'j. doe' } } },
-      { node: { dbid: 2, title: 'b', description: 'bb', user: { name: 'g. joe' } } },
-      { node: { dbid: 3, title: 'c', description: 'cc', user: { name: 'a. poe' } } },
+      { node: { dbid: 1, title: 'a', description: 'aa', user: { name: 'j. doe' } } }, // eslint-disable-line object-curly-newline
+      { node: { dbid: 2, title: 'b', description: 'bb', user: { name: 'g. joe' } } }, // eslint-disable-line object-curly-newline
+      { node: { dbid: 3, title: 'c', description: 'cc', user: { name: 'a. poe' } } }, // eslint-disable-line object-curly-newline
     ],
   },
 };
