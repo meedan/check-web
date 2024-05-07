@@ -73,6 +73,7 @@ const ApiKeyCreate = () => {
   return (
     <>
       <ButtonMain
+        className="api-key-create__open-dialog-button"
         onClick={() => setDialogOpen(true)}
         label={
           <FormattedMessage
@@ -103,6 +104,7 @@ const ApiKeyCreate = () => {
               >
                 { placeholder => (
                   <TextField
+                    className="api-key-create__name-field"
                     required
                     placeholder={placeholder}
                     label={
@@ -141,6 +143,7 @@ const ApiKeyCreate = () => {
               >
                 { placeholder => (
                   <LimitedTextField
+                    className="api-key-create__description-field"
                     required={false}
                     maxChars={720}
                     value={description}
@@ -161,6 +164,7 @@ const ApiKeyCreate = () => {
         </div>
         <div className={styles['dialog-actions']}>
           <ButtonMain
+            className="api-key-create__cancel-button"
             onClick={() => {
               setDialogOpen(false);
               resetForm();
@@ -176,6 +180,7 @@ const ApiKeyCreate = () => {
             theme="text"
           />
           <ButtonMain
+            className="api-key-create__submit-button"
             onClick={handleSubmit}
             label={
               <FormattedMessage

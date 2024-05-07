@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import cx from 'classnames/bind';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
@@ -28,7 +29,7 @@ const ApiKeyEntry = ({ apiKey }) => {
   const expired = new Date(apiKey.expire_at) < new Date();
 
   return (
-    <div className={styles['apikey-entry-root']}>
+    <div className={cx('api-key', styles['apikey-entry-root'])}>
       <div className={`typography-subtitle2 ${styles['key-title']}`}>
         { expired && <ErrorOutlineIcon className={styles['key-expired']} /> }
         { expired && (
@@ -47,7 +48,7 @@ const ApiKeyEntry = ({ apiKey }) => {
       <div className={`typography-body2 ${styles['key-description']}`}><strong>{apiKey.description}</strong></div>
       <div className={styles['key-row']}>
         <TextField
-          className={styles['key-textfield']}
+          className={cx('api-key__textfield', styles['key-textfield'])}
           label={
             <FormattedMessage
               id="apiKeyEntry.apiKeyTitle"
@@ -62,6 +63,7 @@ const ApiKeyEntry = ({ apiKey }) => {
         <div className={styles['key-row__buttons']}>
           <CopyToClipboard text={apiKey.access_token} onCopy={handleCopyToClipboard}>
             <ButtonMain
+              className="api-key__copy-button"
               theme="text"
               variant="outlined"
               iconLeft={<ContentCopyIcon />}

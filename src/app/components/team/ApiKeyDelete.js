@@ -68,6 +68,7 @@ const ApiKeyDelete = ({ keyId }) => {
   return (
     <>
       <ButtonMain
+        className="api-key-delete__open-dialog-button"
         onClick={() => setDialogOpen(true)}
         theme="error"
         label={

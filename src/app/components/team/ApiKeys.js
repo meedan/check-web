@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Collapse from '@material-ui/core/Collapse';
+import cx from 'classnames/bind';
 import ApiKeyCreate from './ApiKeyCreate';
 import ApiKeyEntry from './ApiKeyEntry';
 import styles from './ApiKeys.module.css';
@@ -20,7 +21,7 @@ const ApiKeys = ({ team }) => {
   const [expandKeys, setExpandKeys] = React.useState(false);
   const [toggleChecked, setToggleChecked] = React.useState(apiKeys.edges.length !== 0);
   return (
-    <div className={settingsStyles['setting-content-container']}>
+    <div className={cx('api-keys', settingsStyles['setting-content-container'])}>
       <div className={settingsStyles['setting-content-container-title']}>
         <FormattedMessage
           id="apiKeys.title"
@@ -34,13 +35,14 @@ const ApiKeys = ({ team }) => {
             size="default"
             theme="text"
             onClick={() => setExpandKeys(!expandKeys)}
-            className="settingsIcon"
+            className="api-keys__settings-icon"
             disabled={!toggleChecked}
             iconCenter={<SettingsIcon />}
           />
         </div>
       </div>
       <SwitchComponent
+        className="api-keys__toggle-switch"
         label={
           <FormattedMessage
             id="apiKeys.toggleLabel"
@@ -95,12 +97,12 @@ const ApiKeys = ({ team }) => {
                 defaultMessage="Check out our guide to using the {checkApi} or to troubleshoot common issues."
                 description="Footer text in API key creation widget"
                 values={{
-                  checkApi: <ExternalLink url="https://help.checkmedia.org/en/articles/8773856-check-api-introduction">Check API</ExternalLink>,
+                  checkApi: <ExternalLink className="api-keys__api-doc-link" url="https://help.checkmedia.org/en/articles/8773856-check-api-introduction">Check API</ExternalLink>,
                 }}
               />
               {' '}
               { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a href="#" onClick={(e) => { if (Intercom) { Intercom('showNewMessage'); e.preventDefault(); } }}>
+              <a className="api-keys__intercom-link" href="#" onClick={(e) => { if (Intercom) { Intercom('showNewMessage'); e.preventDefault(); } }}>
                 <FormattedMessage
                   id="apiKeys.footerSupport"
                   defaultMessage="Connect with us directly for support."
