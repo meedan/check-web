@@ -10,25 +10,44 @@
     gap: 8px;
     justify-content: space-between;
 
-    .task-card-header-actions {
-      display: flex;
-      gap: 16px;
+    .task-card-label-description {
+      width: 100%;
+
+      .task-card-label {
+        align-items: center;
+        display: flex;
+        gap: 8px;
+        margin: 0 0 8px;
+
+        .task-card-label-description-index {
+          align-items: center;
+          background-color: var(--brandBackgroundAccent);
+          border-radius: 5px;
+          display: flex;
+          font-size: var(--fontSizeLarge);
+          gap: 3px;
+          padding: 8px;
+        }
+
+        strong {
+          display: block;
+          flex: 1 1 auto;
+        }
+      }
     }
+  }
+
+  .task-card-actions {
+    display: flex;
+    gap: 16px;
+  }
+
+  .task-card-form {
+    margin: 16px 0 0;
   }
 
   .task-card-condition {
     display: flex;
     gap: 16px;
-  }
-
-  .task-card-label {
-    strong {
-      display: block;
-      margin: 0 0 8px;
-    }
-  }
-
-  .task-card-form {
-    margin: 16px 0 0;
   }
 }

@@ -5,7 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import ArrowDropDownIcon from '../../icons/arrow_drop_down.svg';
+import IconMoreVert from '../../icons/more_vert.svg';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TeamTaskCardForm from './TeamTaskCardForm';
 import settingsStyles from './Settings.module.css';
@@ -39,24 +39,53 @@ const TeamTaskCard = ({
   return (
     <div className={cx(styles['task-card'], settingsStyles['setting-content-container-inner'])}>
       <div className={styles['task-card-header']}>
-        <ButtonMain
-          className="team-tasks__menu-item-button"
-          onClick={e => setAnchorEl(e.currentTarget)}
-          iconLeft={icon}
-          size="default"
-          variant="text"
-          theme="text"
-          iconRight={<ArrowDropDownIcon />}
-          label={
-            <FormattedMessage
-              id="teamTaskCard.menu"
-              defaultMessage="Field {number}"
-              values={{ number: index }}
-              description="E.g. Field 1, Field 2..."
-            />
-          }
-        />
-        <div className={styles['task-card-header-actions']}>
+        <div className={cx('team-tasks__task-label', styles['task-card-label-description'])}>
+          <div className={styles['task-card-label']}>
+            <div className={styles['task-card-label-description-index']}>
+              {index}
+              {icon}
+            </div>
+            <strong>
+              {task.label}
+            </strong>
+            <div className={settingsStyles['setting-content-list-actions']}>
+              <ButtonMain
+                className="team-tasks__menu-item-button"
+                iconCenter={<IconMoreVert />}
+                variant="outlined"
+                size="default"
+                theme="text"
+                onClick={e => setAnchorEl(e.currentTarget)}
+              />
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => setAnchorEl(null)}
+              >
+                <MenuItem className="team-tasks__edit-button" onClick={handleMenuEdit}>
+                  <FormattedMessage
+                    id="global.edit"
+                    defaultMessage="Edit"
+                    description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
+                  />
+                </MenuItem>
+                <MenuItem className="team-tasks__delete-button" onClick={handleMenuDelete}>
+                  <FormattedMessage
+                    id="global.delete"
+                    defaultMessage="Delete"
+                    description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
+                  />
+                </MenuItem>
+              </Menu>
+            </div>
+          </div>
+          <p>
+            {task.description}
+          </p>
+        </div>
+      </div>
+      <div className={settingsStyles['setting-content-container-inner-accent']}>
+        <div className={styles['task-card-actions']}>
           <SwitchComponent
             onChange={() => setRequired(!required)}
             checked={required}
@@ -77,34 +106,6 @@ const TeamTaskCard = ({
               description="Toggle switch to make field visible in the browser extension"
             />}
           />
-        </div>
-      </div>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={() => setAnchorEl(null)}
-      >
-        <MenuItem className="team-tasks__edit-button" onClick={handleMenuEdit}>
-          <FormattedMessage
-            id="global.edit"
-            defaultMessage="Edit"
-            description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
-          />
-        </MenuItem>
-        <MenuItem className="team-tasks__delete-button" onClick={handleMenuDelete}>
-          <FormattedMessage
-            id="global.delete"
-            defaultMessage="Delete"
-            description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
-          />
-        </MenuItem>
-      </Menu>
-      <div className={settingsStyles['setting-content-container-inner-accent']}>
-        <div className={cx('team-tasks__task-label', styles['task-card-label'])}>
-          <strong>
-            {task.label}
-          </strong>
-          {task.description}
         </div>
         <TeamTaskCardForm task={task} about={about} />
       </div>
