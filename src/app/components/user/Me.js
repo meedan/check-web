@@ -19,7 +19,7 @@ const Me = (props) => {
       <Relay.RootContainer
         Component={MeContainer}
         route={route}
-        renderLoading={() => <MediasLoading theme="grey" variant="page" size="large" />}
+        renderLoading={() => <MediasLoading theme="white" variant="page" size="large" />}
         renderFetched={data => <MeContainer {...props} {...data} />}
       />
     </ErrorBoundary>

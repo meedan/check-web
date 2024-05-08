@@ -1,5 +1,3 @@
-import styled, { keyframes } from 'styled-components';
-
 // Styles for overriding material UI
 // Check Design System Colors
 // These are deprecated and only used in this file, use css variables in other files
@@ -15,12 +13,7 @@ const grayDisabledBackground = '#f3f3f3';
 const grayBorderMain = '#e4e4e4';
 const grayBorderAccent = '#b4b4b4';
 
-// Units
-export function units(unit) {
-  return `${unit * 8}px`;
-}
-
-export const MuiTheme = {
+export const MuiTheme = { // eslint-disable-line import/prefer-default-export
   palette: {
     type: 'light',
     primary: {
@@ -218,51 +211,3 @@ export const MuiTheme = {
     },
   },
 };
-
-// ===================================================================
-// Styled Components
-//
-// Used as components, like: <Row />
-//
-// ===================================================================
-
-// <Row />
-//
-// The prop `containsEllipsis` adds overflow to flex-items in case any descendant uses ellipsis
-// See: https://codepen.io/unthinkingly/pen/XMwJLG
-//
-export const Row = styled.div`
-  display: flex;
-  ${props => props.flexWrap ? 'flex-wrap: wrap;' : 'flex-wrap: nowrap;'}
-`;
-
-// FadeIn
-//
-// 1. This is a styled component that uses their keyframes function
-const fadeInKeyframes = keyframes`
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-`;
-
-// 2. Now we can wrap elements in <FadeIn>
-export const FadeIn = styled.div`
-  animation: ${fadeInKeyframes} ease-in .3s;
-  animation-duration: .3s;
-  animation-fill-mode: forwards;
-  opacity: 0;
-`;
-
-export const Column = styled.div`
-  flex: 1;
-  min-width: 340px;
-  max-width: ${props => props.maxWidth ? props.maxWidth : '720px'};
-  padding: ${units(2)};
-  height: calc(100vh - 64px);
-  max-height: calc(100vh - 64px);
-  overflow: ${props => props.overflow ? props.overflow : 'auto'};
-`;

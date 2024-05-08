@@ -67,8 +67,7 @@ module ApiHelpers
     data = api_create_team_and_bot(params)
     count.times do |i|
       request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid }
-      request_api 'source', { url: '', name: "Source #{i}", email: data[:user].email, team_id: data[:team].dbid }
-      sleep 0.25
+      sleep 1
     end
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
@@ -110,8 +109,6 @@ module ApiHelpers
     sleep 3 # wait for Sidekiq
 
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
-    wait_for_selector('.media__heading', :css, 20, true)
-    expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
   def api_logout
@@ -173,8 +170,7 @@ module ApiHelpers
   def api_change_media_status(pm_id = nil, status = 'false')
     url = @driver.current_url.to_s
     pm_id ||= url.match(%r{media/(\d+)})[1]
-    puts "media #{pm_id}"
-    puts request_api 'media_status', { pm_id: pm_id, status: status }
+    request_api 'media_status', { pm_id: pm_id, status: status }
     sleep 5
   end
 

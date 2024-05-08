@@ -147,7 +147,6 @@
     "moment": "^2.29.4",
     "node-fetch": "^2.6.7",
     "notistack": "^1.0.3",
-    "polished": "^1.2.1",
     "postcss-cli": "^7.1.2",
     "postcss-for": "^2.1.1",
     "postcss-import": "^12.0.1",
