@@ -104,12 +104,14 @@ const SmoochBotIntegrationButton = ({
 
   const handleOpenUrl = () => {
     const win = window.open(url);
-    const timer = window.setInterval(() => {
-      if (win.closed) {
-        window.clearInterval(timer);
-        window.location.reload();
-      }
-    }, 500);
+    if (win) {
+      const timer = window.setInterval(() => {
+        if (win.closed) {
+          window.clearInterval(timer);
+          window.location.reload();
+        }
+      }, 500);
+    }
   };
 
   const handleClick = () => {

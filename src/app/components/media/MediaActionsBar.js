@@ -254,6 +254,9 @@ class MediaActionsBarComponent extends Component {
   render() {
     const { classes, media } = this.props;
 
+    // This is to safeguard agains a null media object that can happen when the component is rendered before the data is fetched
+    if (!media) return null;
+
     const isParent = !(media?.suggested_main_item || media?.is_confirmed_similar_to_another_item);
 
     const published = media?.dynamic_annotation_report_design?.data?.state === 'published';
@@ -289,7 +292,7 @@ class MediaActionsBarComponent extends Component {
     }
 
     return (
-      <div className={styles['media-actions-wrapper']}>
+      <div className={cx('media-actions-bar', styles['media-actions-wrapper'])}>
         <ItemThumbnail picture={media.media?.picture} maskContent={media.show_warning_cover} type={media.media?.type} url={media.media?.url} />
         <div className={styles['media-actions-title']}>
           <ItemTitle projectMediaId={this.props.media?.dbid} />
