@@ -34,6 +34,7 @@ module AnnotationSpecHelpers
 
   def delete_annotation
     wait_for_selector('.team-tasks__menu-item-button').click
+    wait_for_selector('.team-tasks__edit-button')
     wait_for_selector('.team-tasks__delete-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
     wait_for_selector('#confirm-dialog__confirm-action-button').click
