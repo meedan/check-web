@@ -25,6 +25,8 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
     browserHistory.push(`/${team.node.slug}/feed/${routeParams.feedId}/invitation`);
   }
 
+  const teamDbids = props.feed_invitation.feed.feed_teams.edges.map(edge => edge.node.team.dbid);
+
   const handleClick = team => browserHistory.push(`/${team.node.slug}/feed/${routeParams.feedId}/invitation`);
 
   return (
@@ -77,8 +79,20 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
               </div>
               <span className="typography-body1">{team.node.name}</span>
               <ButtonMain
-                className="int-feed-invitation__button--workspace"
-                label={<FormattedMessage id="feedInvitation.viewButton" defaultMessage="View invitation" description="Label for a button that the user presses to view an invitation that they are going to accept or reject" />}
+                className={`int-feed-invitation__button--workspace ${teamDbids.includes(team.node.dbid) ? styles['feed-invitation-accepted'] : ''}`}
+                label={
+                  teamDbids.includes(team.node.dbid) ?
+                    <FormattedMessage
+                      id="feedInvitation.acceptedButton"
+                      defaultMessage="Invitation accepted"
+                      description="Label for a button indicating the invitation has been accepted"
+                    /> :
+                    <FormattedMessage
+                      id="feedInvitation.viewButton"
+                      defaultMessage="View invitation"
+                      description="Label for a button that the user presses to view an invitation that they are going to accept or reject"
+                    />
+                }
                 iconLeft={<DoneIcon />}
                 variant="text"
                 size="small"
@@ -108,6 +122,15 @@ const FeedInvitation = ({ routeParams }) => (
             state
             feed {
               name
+              feed_teams(first: 100) {
+                edges {
+                  node {
+                    team {
+                      dbid
+                    }
+                  }
+                }
+              }
             }
             user {
               name
@@ -118,6 +141,7 @@ const FeedInvitation = ({ routeParams }) => (
             teams(first: 1000) {
               edges {
                 node {
+                  dbid
                   name
                   avatar
                   slug
