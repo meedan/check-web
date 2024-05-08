@@ -1,5 +1,6 @@
 .itemCard {
   background-color: transparent;
+  margin: 0 16px 16px;
   position: relative;
 
   .listItemUnread {
