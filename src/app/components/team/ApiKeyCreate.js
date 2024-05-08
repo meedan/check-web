@@ -196,4 +196,6 @@ const ApiKeyCreate = () => {
   );
 };
 
+ApiKeyCreate.propTypes = {}; // No props
+
 export default ApiKeyCreate;
