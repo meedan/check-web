@@ -12,7 +12,7 @@ const SearchResultsCards = ({ projectMedias, team }) => (
       return (
         <div className="fact-check-card-wrapper" key={values.fact_check_title}>
           <FactCheckCard
-            title={projectMedia.title}
+            title={values.fact_check_title || projectMedia.title}
             summary={values.fact_check_summary}
             date={values.updated_at_timestamp}
             statusLabel={status.label || values.status}
