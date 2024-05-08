@@ -20,6 +20,11 @@
     "defaultMessage": "You are not an admin of any workspaces. Please contact your workspace administrator if you think this is in error."
   },
   {
+    "id": "feedInvitation.acceptedButton",
+    "description": "Label for a button indicating the invitation has been accepted",
+    "defaultMessage": "Invitation accepted"
+  },
+  {
     "id": "feedInvitation.viewButton",
     "description": "Label for a button that the user presses to view an invitation that they are going to accept or reject",
     "defaultMessage": "View invitation"
