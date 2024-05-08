@@ -51,7 +51,6 @@ shared_examples 'annotation' do
     wait_for_selector('.task__response-inputs')
     # answer the annotation
     wait_for_selector('.form-edit').click
-    wait_for_selector('.clear-button')
     wait_for_selector('#metadata-input').send_keys('answer')
     wait_for_selector('.form-save').click
     wait_for_selector('.form-edit')
@@ -70,7 +69,6 @@ shared_examples 'annotation' do
     expect(@driver.page_source.include?('answer - edited')).to be(true)
     # delete response
     wait_for_selector('.form-edit').click
-    wait_for_selector('.clear-button').click
     wait_for_selector('.form-save').click
     wait_for_selector_none('.form-cancel')
     expect(@driver.page_source.include?('answer - edited')).to be(false)
