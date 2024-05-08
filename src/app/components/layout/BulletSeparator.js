@@ -8,6 +8,7 @@ const BulletSeparator = ({
   icon,
   details,
   compact,
+  caption,
   className,
 }) => {
   const subtitleDetails = details.filter(d => !!d).map((d, index) => (
@@ -24,6 +25,7 @@ const BulletSeparator = ({
         {
           [className]: true,
           [styles.compactBulletSeparator]: compact,
+          [styles.captionTypography]: caption,
         })
       }
     >
@@ -37,11 +39,13 @@ BulletSeparator.propTypes = {
   details: PropTypes.array.isRequired,
   icon: PropTypes.node,
   compact: PropTypes.bool,
+  caption: PropTypes.bool,
 };
 
 BulletSeparator.defaultProps = {
   icon: null,
   compact: false,
+  caption: false,
 };
 
 export default BulletSeparator;

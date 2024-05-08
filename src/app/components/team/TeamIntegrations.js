@@ -1,11 +1,11 @@
 /* eslint-disable relay/unused-fields */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import SettingsHeader from './SettingsHeader';
+import ApiKeys from './ApiKeys'; // eslint-disable-line no-unused-vars
 import TeamBots from './TeamBots';
 import settingsStyles from './Settings.module.css';
 
@@ -17,6 +17,7 @@ const TeamIntegrations = () => (<QueryRenderer
         current_team {
           id
           dbid
+          ...ApiKeys_team
           team_bot_installations(first: 10000) {
             edges {
               node {
@@ -101,10 +102,5 @@ const TeamIntegrations = () => (<QueryRenderer
     return null;
   }}
 />);
-
-TeamIntegrations.propTypes = {
-  // FIXME: Specify the required fields of "team"
-  team: PropTypes.object.isRequired,
-};
 
 export default TeamIntegrations;

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "apiKeyEntry.copiedToClipboard",
+    "description": "success message fro when an API Key has been copied to the clipboard",
+    "defaultMessage": "The API Key has been copied to the clipboard"
+  },
+  {
+    "id": "apiKeyEntry.expiredTitle",
+    "description": "Prefix to the name of an expired API key",
+    "defaultMessage": "Expired:"
+  },
+  {
+    "id": "apiKeyEntry.apiKeyTitle",
+    "description": "Label for Text field that shows the API key token",
+    "defaultMessage": "API Key"
+  },
+  {
+    "id": "apiKeyEntry.copy",
+    "description": "Label for button that will copy the API key token to the clipboard",
+    "defaultMessage": "Copy"
+  },
+  {
+    "id": "apiKeyEntry.addedBy",
+    "description": "Details when API key was created and by which user",
+    "defaultMessage": "Added on {date} by {user}"
+  },
+  {
+    "id": "apiKeyEntry.expiredDate",
+    "description": "Expiry date of the API key",
+    "defaultMessage": "Expired: {date}"
+  },
+  {
+    "id": "apiKeyEntry.expiryDate",
+    "description": "Expiry date of the API key",
+    "defaultMessage": "Expires: {date}"
+  },
+  {
+    "id": "apiKeyEntry.role",
+    "description": "Details role (access level) of the API key",
+    "defaultMessage": "Role: Editor"
+  }
+]
