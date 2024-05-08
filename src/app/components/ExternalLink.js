@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { truncateLength } from '../helpers';
 
 const ExternalLink = ({
+  className,
   children,
   url,
   maxUrlLength,
@@ -16,7 +17,7 @@ const ExternalLink = ({
   displayUrl = maxUrlLength ? truncateLength(displayUrl, maxUrlLength) : displayUrl;
 
   return (
-    <a href={url} style={{ color: 'var(--textLink)', ...style }} target="_blank" rel="noopener noreferrer">
+    <a className={className} href={url} style={{ color: 'var(--textLink)', ...style }} target="_blank" rel="noopener noreferrer">
       {children || displayUrl}
     </a>
   );
