@@ -39,13 +39,13 @@ const TeamTaskCard = ({
   return (
     <div className={cx(styles['task-card'], settingsStyles['setting-content-container-inner'])}>
       <div className={styles['task-card-header']}>
-        <div className={cx('team-tasks__task-label', styles['task-card-label-description'])}>
+        <div className={styles['task-card-label-description']}>
           <div className={styles['task-card-label']}>
             <div className={styles['task-card-label-description-index']}>
               {index}
               {icon}
             </div>
-            <strong>
+            <strong className="team-tasks__task-label">
               {task.label}
             </strong>
             <div className={settingsStyles['setting-content-list-actions']}>

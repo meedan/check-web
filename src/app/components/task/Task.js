@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import Button from '@material-ui/core/Button';
 import { MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
 import moment from 'moment';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import MetadataText from '../metadata/MetadataText';
 import Can, { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -359,31 +359,42 @@ class Task extends Component {
 
     const EditButton = () => (
       <div className={styles['task-metadata-button']}>
-        <Button onClick={() => this.handleAction('edit_response', responseObj)} className="metadata-edit">
-          <FormattedMessage
-            id="metadata.edit"
-            defaultMessage="Edit"
-            description="This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
-          />
-        </Button>
+        <ButtonMain
+          onClick={() => this.handleAction('edit_response', responseObj)}
+          size="default"
+          variant="contained"
+          theme="brand"
+          className="metadata-edit"
+          label={
+            <FormattedMessage
+              id="metadata.edit"
+              defaultMessage="Edit"
+              description="This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
+            />
+          }
+        />
       </div>
     );
 
     const CancelButton = () => (
       <div className={styles['task-metadata-button']}>
-        <Button
+        <ButtonMain
           className="metadata-cancel"
+          size="default"
+          variant="text"
+          theme="lightText"
           onClick={() => {
             this.setState({ editingResponse: false });
             this.setState({ textValue: this.getMultiselectInitialValue(task) || task.first_response_value || '' });
           }}
-        >
-          <FormattedMessage
-            id="metadata.cancel"
-            defaultMessage="Cancel"
-            description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
-          />
-        </Button>
+          label={
+            <FormattedMessage
+              id="metadata.cancel"
+              defaultMessage="Cancel"
+              description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
+            />
+          }
+        />
       </div>
     );
 
@@ -402,11 +413,16 @@ class Task extends Component {
         null;
       return (
         <div className={styles['task-metadata-button']}>
-          <Button
+          <ButtonMain
             className="metadata-save"
-            data-required={required}
-            data-empty={empty}
-            data-urlerror={anyInvalidUrls}
+            size="default"
+            variant="contained"
+            theme="brand"
+            buttonProps={{
+              'data-required': required,
+              'data-empty': empty,
+              'data-urlerror': anyInvalidUrls,
+            }}
             onClick={() => {
               let tempTextValue;
               const isEmptyUrlArray = () => task.type === 'url' && Array.isArray(this.state.textValue) && this.state.textValue?.filter(item => item.url !== '' || item.title !== '').length === 0;
@@ -444,13 +460,14 @@ class Task extends Component {
               }
             }}
             disabled={disabled}
-          >
-            <FormattedMessage
-              id="metadata.save"
-              defaultMessage="Save"
-              description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
-            />
-          </Button>
+            label={
+              <FormattedMessage
+                id="metadata.save"
+                defaultMessage="Save"
+                description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
+              />
+            }
+          />
         </div>
       );
     };
@@ -459,21 +476,25 @@ class Task extends Component {
       const { onClick } = props;
       return (
         <div className={styles['task-metadata-button']}>
-          <Button
+          <ButtonMain
             className="metadata-delete"
+            size="default"
+            variant="contained"
+            theme="error"
             onClick={() => {
               if (onClick) {
                 onClick();
               }
               this.submitDeleteTaskResponse(task.first_response.id);
             }}
-          >
-            <FormattedMessage
-              id="metadata.delete"
-              defaultMessage="Delete"
-              description="This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
-            />
-          </Button>
+            label={
+              <FormattedMessage
+                id="metadata.delete"
+                defaultMessage="Delete"
+                description="This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
+              />
+            }
+          />
         </div>
       );
     };
