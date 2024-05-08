@@ -15,7 +15,7 @@ shared_examples 'annotation' do
 
     # Edit annotation
     edit_annotation('my metadata - Edited')
-    wait_for_selector("//div[contains(text(), 'Edited')]", :xpath)
+    wait_for_selector("//strong[contains(text(), 'Edited')]", :xpath)
     expect(@driver.page_source.include?('my metadata - Edited')).to be(true)
 
     # Edit annotation type
