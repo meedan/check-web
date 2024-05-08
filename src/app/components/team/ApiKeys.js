@@ -87,7 +87,7 @@ const ApiKeys = ({ team }) => {
                 </div>
               </div>
             }
-            {apiKeys.edges.slice().reverse().map(ak => (<ApiKeyEntry key={ak.node.dbid} apiKey={ak.node} />))}
+            {apiKeys.edges.map(ak => (<ApiKeyEntry key={ak.node.dbid} apiKey={ak.node} />))}
           </div>
           <div className={`typography-caption ${styles['api-keys-footer']}`}>
             <HelpIcon />
@@ -101,6 +101,7 @@ const ApiKeys = ({ team }) => {
                 }}
               />
               {' '}
+              { /* The following <a /> element requires Intercom to be configured. Make sure `intercomAppId` is set correctly in config.js  */}
               { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a className="api-keys__intercom-link" href="#" onClick={(e) => { if (Intercom) { Intercom('showNewMessage'); e.preventDefault(); } }}>
                 <FormattedMessage
