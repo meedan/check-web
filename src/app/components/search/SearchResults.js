@@ -20,6 +20,7 @@ import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
 import SearchResultsTable from './SearchResultsTable';
+import SelectAllTh from './SearchResultsTable/SelectAllTh';
 import SearchResultsCards from './SearchResultsCards';
 import WorkspaceItemCard from './SearchResultsCards/WorkspaceItemCard';
 import SearchRoute from '../../relay/SearchRoute';
@@ -410,11 +411,13 @@ function SearchResultsComponent({
           <WorkspaceItemCard
             onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
             isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
+            isPublished={item.report_status === 'published'}
             cardUrl={buildProjectMediaUrl(item)}
             date={new Date(+item.last_seen * 1000)}
             title={item.title}
             description={item.description}
-            rating={item.list_columns_values.status}
+            lastRequestDate={new Date(+item.list_columns_values.updated_at_timestamp * 1000)}
+            rating={item.team.verification_statuses.statuses.find(s => s.id === item.list_columns_values.status).label}
             ratingColor={item.team.verification_statuses.statuses.find(s => s.id === item.list_columns_values.status).style.color}
             requestsCount={item.requests_count}
             mediaCount={item.list_columns_values.linked_items_count}
@@ -426,6 +429,7 @@ function SearchResultsComponent({
               },
             }}
             mediaType={item.media.type}
+            suggestionsCount={item.list_columns_values.suggestions_count}
           />
         ))}
       </div>
@@ -574,6 +578,12 @@ function SearchResultsComponent({
                     />
                   </div> : null
                 }
+                <SelectAllTh
+                  className={styles.noBottomBorder}
+                  selectedIds={filteredSelectedProjectMediaIds}
+                  projectMedias={projectMedias}
+                  onChangeSelectedIds={handleChangeSelectedIds}
+                />
                 <span className={styles['search-pagination']}>
                   <Tooltip title={
                     <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />

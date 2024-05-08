@@ -16,6 +16,7 @@ import styles from './ItemCard.module.css';
 const WorkspaceItemCard = ({
   cardUrl,
   channels,
+  className,
   date,
   description,
   factCheckUrl,
@@ -33,7 +34,7 @@ const WorkspaceItemCard = ({
   suggestionsCount,
   title,
 }) => (
-  <div className={cx(styles.itemCard, 'workspace-item--card')}>
+  <div className={cx(styles.itemCard, 'workspace-item--card', className)}>
     <Card
       className={cx({ [styles.listItemUnread]: isUnread })}
       cardUrl={cardUrl}
@@ -75,7 +76,7 @@ const WorkspaceItemCard = ({
       <div className={styles.sharedItemCardRight}>
         <div className={styles.workspaceItemCardRating}>
           <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
-          { isPublished && <div className={styles.publishedLabel}><ButtonMain variant="contained" size="small" iconCenter={<FactCheckIcon />} disabled /></div> }
+          <div className={cx({ [styles.publishedLabel]: isPublished })}><ButtonMain variant="contained" size="small" iconCenter={<FactCheckIcon />} disabled /></div>
         </div>
         { date && <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} />}
       </div>
@@ -85,6 +86,8 @@ const WorkspaceItemCard = ({
 
 WorkspaceItemCard.defaultProps = {
   cardUrl: null,
+  channels: null,
+  className: null,
   description: null,
   factCheckUrl: null,
   isChecked: false,
@@ -104,6 +107,11 @@ WorkspaceItemCard.defaultProps = {
 
 WorkspaceItemCard.propTypes = {
   cardUrl: PropTypes.string,
+  channels: PropTypes.exact({
+    main: PropTypes.number,
+    others: PropTypes.arrayOf(PropTypes.number),
+  }),
+  className: PropTypes.string,
   date: PropTypes.instanceOf(Date).isRequired, // Timestamp
   description: PropTypes.string,
   factCheckUrl: PropTypes.string,
