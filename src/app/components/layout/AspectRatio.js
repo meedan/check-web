@@ -47,7 +47,7 @@ const AspectRatio = ({
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
-  const uniqueClassName = projectMedia.id.replace(/[^a-zA-Z0-9]/g, '');
+  const uniqueClassName = projectMedia?.id.replace(/[^a-zA-Z0-9]/g, '');
 
   const handleOnExpand = () => {
     // If this is video, use the button to enter or exit fullscreen for the container div depending on whether we are already in fullscreen
@@ -89,6 +89,7 @@ const AspectRatio = ({
         <SensitiveContentMenuButton
           projectMedia={projectMedia}
           currentUserRole={currentUserRole}
+          onSave={(enabled) => { setMaskContent(enabled); }}
         /> : null
       }
     </div>
@@ -99,7 +100,7 @@ const AspectRatio = ({
     // Sort by flag category likelihood and display most likely
     let sortable = [];
     // Put custom flag at beginning of array
-    if (projectMedia.dynamic_annotation_flag.data.custom) {
+    if (projectMedia?.dynamic_annotation_flag.data.custom) {
       sortable = sortable.concat([...Object.entries(projectMedia.dynamic_annotation_flag.data.custom)]);
     }
     const filteredFlags = {};
@@ -229,7 +230,7 @@ AspectRatio.propTypes = {
     id: PropTypes.string.isRequired,
     show_warning_cover: PropTypes.bool.isRequired,
     dynamic_annotation_flag: PropTypes.object.isRequired,
-  }).isRequired,
+  }),
   intl: intlShape.isRequired,
 };
 
@@ -238,6 +239,7 @@ AspectRatio.defaultProps = {
   expandedImage: '',
   isPenderCard: false,
   isVideoFile: false,
+  projectMedia: null,
   superAdminMask: false,
 };
 

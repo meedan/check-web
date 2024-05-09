@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import CircularProgress from './CircularProgress';
-import { units } from '../styles/js/shared';
+import MediasLoading from './media/MediasLoading';
 
 const PenderCardContainer = styled.div`
-  max-height: ${units(250)};
-  min-height: ${units(25)};
+  max-height: 2000px;
+  min-height: 200px;
   overflow-x: hidden;
   overflow-y: hidden;
   position: relative;
@@ -92,7 +91,7 @@ class PenderCard extends Component {
               return this.props.fallback;
             }
             return (
-              <div><CircularProgress thickness={1} /></div>
+              <MediasLoading theme="white" variant="inline" size="medium" />
             );
           })()}
         </PenderCardLoader>

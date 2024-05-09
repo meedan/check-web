@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '../../cds/inputs/TextField';
 import { labels, descriptions, placeholders, footnotes } from './localizables';
 
 const useStyles = makeStyles(theme => ({
@@ -26,8 +25,8 @@ const SmoochBotTextEditor = (props) => {
 
   return (
     <React.Fragment>
-      { labels[field] ? <Typography variant="subtitle2" component="div">{labels[field]}</Typography> : null }
-      { descriptions[field] ? <Typography component="div">{descriptions[field]}</Typography> : null }
+      { labels[field] ? <div className="typography-subtitle2">{labels[field]}</div> : null }
+      { descriptions[field] ? <div>{descriptions[field]}</div> : null }
       <ValueOrPlaceholder value={value} field={field}>
         {valueOrPlaceholder => (
           <TextField
@@ -48,7 +47,7 @@ const SmoochBotTextEditor = (props) => {
           />
         )}
       </ValueOrPlaceholder>
-      { footnotes[field] ? <Typography component="div">{footnotes[field]}</Typography> : null }
+      { footnotes[field] ? <div>{footnotes[field]}</div> : null }
     </React.Fragment>
   );
 };

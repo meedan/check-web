@@ -47,7 +47,7 @@
   {
     "id": "media.typeTiktok",
     "description": "Label to show that the type of media is a Tiktok video",
-    "defaultMessage": "Tiktok Post"
+    "defaultMessage": "TikTok Post"
   },
   {
     "id": "media.typeTwitter",

@@ -105,6 +105,10 @@
   }
 }
 
+.feed-invitation-accepted {
+  visibility: visible !important;
+}
+
 .feed-invitation-container {
   align-items: center;
   align-self: center;

@@ -2,7 +2,7 @@
   {
     "id": "feedInvitation.invited",
     "description": "This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence.",
-    "defaultMessage": "has invited your organization to contribute to a Check Shared Feed"
+    "defaultMessage": "has invited your organization to contribute to a Shared Feed"
   },
   {
     "id": "feedInvitation.prompt",
@@ -18,6 +18,11 @@
     "id": "feedInvitation.noWorkspaces",
     "description": "An error message that informs the user that they are not a workspace administrator and as such cannot perform any actions on this page.",
     "defaultMessage": "You are not an admin of any workspaces. Please contact your workspace administrator if you think this is in error."
+  },
+  {
+    "id": "feedInvitation.acceptedButton",
+    "description": "Label for a button indicating the invitation has been accepted",
+    "defaultMessage": "Invitation accepted"
   },
   {
     "id": "feedInvitation.viewButton",

@@ -7,7 +7,7 @@ import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import AddIcon from '../../icons/add.svg';
-import Message from '../Message';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
 import SetSourceDialog from './SetSourceDialog';
@@ -171,7 +171,7 @@ function CreateMediaSource({
 
   return (
     <React.Fragment>
-      <Message message={message} />
+      { message && <><Alert variant="error" contained title={message} /><br /></> }
       <div className={inputStyles['form-inner-wrapper']}>
         <div className={styles['media-sources-header']}>
           <div className={styles['media-sources-header-left']}>

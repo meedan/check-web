@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Running only unit tests
-if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ '[full ci]' ]]
+if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ \[full\ ci\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[similarity\ tests\] ]]
 then
+  echo "Running only unit tests"
   docker-compose build web
   docker-compose -f docker-compose.yml -f docker-test.yml up -d web
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
@@ -19,7 +20,7 @@ else
     while [ -z "$NGROK_URL" -a $i -lt 5 ]; do
       i=$(($i + 1))
       ngrok http 9000 >/dev/null &
-      until curl --silent -I -f --fail http://localhost:4040; do printf .; sleep 1; done
+      until curl --silent -I -f --fail http://localhost:4040; do printf "."; sleep 10; done
       curl -I -v http://localhost:4040
       curl localhost:4040/api/tunnels > ngrok.json
       cat ngrok.json
@@ -52,4 +53,5 @@ else
   # docker-compose logs -f presto-server &
   # docker-compose logs -f presto-image &
   # docker-compose logs -f presto-audio &
+  # docker-compose logs -f presto-video &
 fi

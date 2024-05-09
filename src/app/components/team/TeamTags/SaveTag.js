@@ -244,7 +244,6 @@ const SaveTag = ({
           <br />
           <FormattedMessage tagName="p" id="saveTag.rule" defaultMessage="Automatically tag items matching the following conditions:" description="Help text about automatically matching tags to a rule" />
           <RuleBody
-            noMargin
             hideName
             hideActions
             schema={filteredRulesSchema}

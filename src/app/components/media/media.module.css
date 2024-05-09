@@ -210,6 +210,12 @@
         overflow: visible;
       }
 
+      .media-item-claim,
+      .media-item-medias,
+      .media-item-annotations {
+        max-height: unset;
+      }
+
       .media-item-claim {
         flex: 0 0 420px;
         margin: 0 0 16px;

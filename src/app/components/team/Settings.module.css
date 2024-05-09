@@ -322,6 +322,16 @@
   text-align: center;
 }
 
+.similarity-component-input {
+  display: inline-block;
+  max-width: 100px;
+  padding: 10px;
+}
+
+.smoochbot-component-input {
+  min-width: 500px;
+}
+
 .bot-designer {
   display: flex;
   flex-direction: row;

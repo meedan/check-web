@@ -47,7 +47,7 @@
   {
     "id": "saveList.update",
     "description": "'Save' here is an infinitive verb",
-    "defaultMessage": "Save changes to the list \"<strong>{listName}</strong>\""
+    "defaultMessage": "Save changes to the list <strong>{listName}</strong>"
   },
   {
     "id": "saveList.warningAlert",

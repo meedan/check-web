@@ -1,0 +1,7 @@
+[
+  {
+    "id": "sharedItemCard.requests",
+    "description": "A count of requests for an item. Title-case where applicable. Example: 3 Requests",
+    "defaultMessage": "{requestsCount, plural, one {# Request} other {{requestsCount, number} Requests}}"
+  }
+]

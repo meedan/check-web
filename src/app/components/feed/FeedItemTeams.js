@@ -7,7 +7,7 @@ import FeedTeamCard from './FeedTeamCard';
 import FeedItemMedia from './FeedItemMedia';
 import styles from './FeedItem.module.css';
 
-const findTeamInCluster = (cluster, teamDbid) => (cluster.cluster_teams.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === teamDbid));
+const findTeamInCluster = (cluster, teamDbid) => (cluster.cluster_teams?.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === teamDbid));
 
 const FeedItemTeams = ({
   team,
@@ -25,7 +25,7 @@ const FeedItemTeams = ({
           <FormattedMessage
             id="feedItemTeams.title"
             defaultMessage="Workspaces [{count}]"
-            values={{ count: cluster.cluster_teams.edges.length }}
+            values={{ count: cluster.cluster_teams?.edges?.length }}
             description="Title of the workspaces box on feed item page"
           />
         </div>
@@ -49,7 +49,7 @@ const FeedItemTeams = ({
         </div>
 
         {/* Workspaces part of the cluster (except current one), sorted by number of media items, descending */}
-        {cluster.cluster_teams.edges.map(edge => edge.node).filter(clusterTeam => clusterTeam.team.dbid !== team.dbid).sort((a, b) => (a.media_count < b.media_count) ? 1 : -1).map(clusterTeam => (
+        {cluster.cluster_teams?.edges?.map(edge => edge.node).filter(clusterTeam => clusterTeam?.team.dbid !== team.dbid).sort((a, b) => (a.media_count < b.media_count) ? 1 : -1).map(clusterTeam => (
           <FeedTeamCard
             key={clusterTeam.team.dbid}
             feed={feed}

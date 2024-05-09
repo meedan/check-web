@@ -5,9 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Dialog from '@material-ui/core/Dialog';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import TextArea from '../cds/inputs/TextArea.js';
 import MultiSelector from '../layout/MultiSelector';
 import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaTags from './MediaTags';
@@ -41,6 +41,11 @@ const Styles = theme => ({
   title: {
     margin: theme.spacing(2),
     outline: 0,
+  },
+  textField: {
+    margin: theme.spacing(1),
+    maxWidth: '14em',
+    width: '100%',
   },
 });
 
@@ -249,6 +254,9 @@ class MediaActionsBarComponent extends Component {
   render() {
     const { classes, media } = this.props;
 
+    // This is to safeguard agains a null media object that can happen when the component is rendered before the data is fetched
+    if (!media) return null;
+
     const isParent = !(media?.suggested_main_item || media?.is_confirmed_similar_to_another_item);
 
     const published = media?.dynamic_annotation_report_design?.data?.state === 'published';
@@ -284,7 +292,7 @@ class MediaActionsBarComponent extends Component {
     }
 
     return (
-      <div className={styles['media-actions-wrapper']}>
+      <div className={cx('media-actions-bar', styles['media-actions-wrapper'])}>
         <ItemThumbnail picture={media.media?.picture} maskContent={media.show_warning_cover} type={media.media?.type} url={media.media?.url} />
         <div className={styles['media-actions-title']}>
           <ItemTitle projectMediaId={this.props.media?.dbid} />
@@ -364,7 +372,7 @@ class MediaActionsBarComponent extends Component {
                   />
                 )}
               </FormattedMessage>
-              <div className={classes.spaced}>
+              <div className={classes.textField}>
                 <div className={cx('typography-body1', classes.spaced)}>
                   <FormattedMessage
                     id="mediaActionsBar.assignmentNotesTitle"
@@ -372,15 +380,13 @@ class MediaActionsBarComponent extends Component {
                     description="Helper text to field for adding details about the assignment"
                   />
                 </div>
-                <TextField
+                <TextArea
                   variant="outlined"
-                  inputRef={(element) => {
+                  ref={(element) => {
                     this.assignmentMessageRef = element;
                     return element;
                   }}
-                  rows={21}
-                  InputProps={{ classes: { root: classes.inputRoot } }}
-                  multiline
+                  rows="21"
                 />
               </div>
             </Box>

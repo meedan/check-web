@@ -120,7 +120,7 @@ const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequests
         media {
           file_path
         }
-        requests(last: $pageSize) {
+        requests(last: $pageSize, includeChildren: true) {
           edges {
             node {
               id
@@ -165,7 +165,7 @@ const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequests
         media {
           file_path
         }
-        requests(last: $pageSize) {
+        requests(last: $pageSize, includeChildren: false) {
           edges {
             node {
               id

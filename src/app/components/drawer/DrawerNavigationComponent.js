@@ -72,7 +72,7 @@ class DrawerNavigationComponent extends Component {
 
   render() {
     const {
-      team, currentUserIsMember, classes, drawerOpen, drawerType,
+      team, currentUserIsMember, drawerOpen, drawerType,
     } = this.props;
 
     // This component now renders based on teamPublicFragment
@@ -88,7 +88,6 @@ class DrawerNavigationComponent extends Component {
         open={Boolean(drawerOpen)}
         variant="persistent"
         anchor="left"
-        classes={classes}
       >
         <React.Fragment>
           {!!team && (currentUserIsMember || !team.private) ? (
@@ -103,7 +102,6 @@ class DrawerNavigationComponent extends Component {
 DrawerNavigationComponent.propTypes = {
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
 };
 
 DrawerNavigationComponent.contextTypes = {

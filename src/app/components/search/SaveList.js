@@ -321,7 +321,7 @@ const SaveList = ({
                 <FormControlLabel
                   value="UPDATE"
                   control={<Radio />}
-                  label={<FormattedHTMLMessage id="saveList.update" defaultMessage='Save changes to the list "<strong>{listName}</strong>"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
+                  label={<FormattedHTMLMessage id="saveList.update" defaultMessage="Save changes to the list <strong>{listName}</strong>" values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
                 />
                 { savedSearch?.is_part_of_feeds && operation === 'UPDATE' ?
                   <Alert

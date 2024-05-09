@@ -108,6 +108,10 @@ const LanguageRegistry = {
     name: 'Chamorro',
     nativeName: 'Chamoru',
   },
+  ckb: {
+    name: 'Kurdish (Sorani)',
+    nativeName: 'کوردی',
+  },
   co: {
     name: 'Corsican',
     nativeName: 'corsu',

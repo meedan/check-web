@@ -6,18 +6,13 @@
   },
   {
     "id": "projectsComponent.sharedFeedNavHeader",
-    "description": "The navigation name of the shared feeds section with included Beta messaging",
-    "defaultMessage": "Shared Feeds <sup>BETA</sup>"
-  },
-  {
-    "id": "projectsComponent.sharedFeeds",
-    "description": "Feeds of content shared across workspaces",
-    "defaultMessage": "Collaborating [{feedsLength}]"
+    "description": "The navigation name of the shared feeds section with included Beta messaging and the total count of items in the list below",
+    "defaultMessage": "Shared Feeds [{feedsLength}] <sup>BETA</sup>"
   },
   {
     "id": "projectsComponent.newSharedFeed",
-    "description": "Tooltip for the button that navigates to shared feed creation page",
-    "defaultMessage": "New shared feed"
+    "description": "Label for the button that navigates to shared feed creation page",
+    "defaultMessage": "New Shared Feed"
   },
   {
     "id": "projectsComponent.noSharedFeeds",

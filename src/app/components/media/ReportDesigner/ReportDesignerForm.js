@@ -368,7 +368,7 @@ const ReportDesignerForm = (props) => {
                   </FormattedMessage>
                   <FormattedMessage
                     id="reportDesigner.datePublishedPlaceholder"
-                    defaultMessage="Add a date when this report was published"
+                    defaultMessage="Add the report publication date"
                     description="Placeholder for report date published field"
                   >
                     { placeholder => (

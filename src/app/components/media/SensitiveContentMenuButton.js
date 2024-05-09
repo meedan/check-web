@@ -25,6 +25,7 @@ const SensitiveContentMenu = ({
   projectMedia,
   setFlashMessage,
   container,
+  onSave,
 }) => {
   let warningType = null;
   let warningTypeCustom = null;
@@ -86,7 +87,10 @@ const SensitiveContentMenu = ({
       const message = getErrorMessage(error, <GenericUnknownErrorMessage />);
       setFlashMessage(message, 'error');
     };
-    const onSuccess = () => { onDismiss(); };
+    const onSuccess = () => {
+      onDismiss();
+      onSave(enableSwitch);
+    };
 
     if (enableSwitch && !contentType) {
       setFormError('no_warning_type');
@@ -328,6 +332,7 @@ const SensitiveContentMenu = ({
 const SensitiveContentMenuButton = ({
   currentUserRole,
   projectMedia,
+  onSave,
   setFlashMessage,
 }) => {
   const { show_warning_cover } = projectMedia;
@@ -352,12 +357,17 @@ const SensitiveContentMenuButton = ({
         key={anchorEl}
         anchorEl={anchorEl}
         onDismiss={() => setAnchorEl(null)}
+        onSave={onSave}
         projectMedia={projectMedia}
         setFlashMessage={setFlashMessage}
         container={containerRef.current}
       />
     </div>
   );
+};
+
+SensitiveContentMenuButton.defaultProps = {
+  onSave: () => {},
 };
 
 SensitiveContentMenuButton.propTypes = {
@@ -367,6 +377,7 @@ SensitiveContentMenuButton.propTypes = {
     show_warning_cover: PropTypes.bool.isRequired,
   }).isRequired,
   setFlashMessage: PropTypes.func.isRequired,
+  onSave: PropTypes.func,
 };
 
 export default createFragmentContainer(withSetFlashMessage(SensitiveContentMenuButton), graphql`

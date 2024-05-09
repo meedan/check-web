@@ -5,6 +5,7 @@ import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
+import ApiKeys from './ApiKeys';
 import TeamBot from './TeamBot';
 import CreateTeamBotInstallationMutation from '../../relay/mutations/CreateTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
@@ -101,6 +102,7 @@ class TeamBots extends Component {
 
     return (
       <>
+        <ApiKeys team={team} />
         { root.team_bots_listed.edges.map((teamBot) => {
           const bot = teamBot.node;
           const installation = this.getInstallation(bot.id);

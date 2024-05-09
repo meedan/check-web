@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import ErrorBoundary from '../error/ErrorBoundary';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import { getErrorMessageForRelayModernProblem, safelyParseJSON } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -19,6 +20,7 @@ import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import MediasLoading from '../media/MediasLoading';
 import NotFound from '../NotFound';
 import { can } from '../Can';
+import CheckError from '../../CheckError';
 
 const acceptMutation = graphql`
   mutation FeedInvitationRespondAcceptFeedInvitationMutation($input: UpdateFeedInvitationInput!) {
@@ -39,6 +41,17 @@ const rejectMutation = graphql`
 `;
 
 const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
+  const teamDbids = props.feed_invitation.feed.feed_teams.edges.map(edge => edge.node.team.dbid);
+  const currentTeamDbid = props.me.current_team.dbid;
+  const isCurrentTeamDbidInTeamDbids = teamDbids.includes(currentTeamDbid);
+
+  // if the current team is already in the list of teams that the feed is shared with, redirect to the feed edit page
+  React.useEffect(() => {
+    if (isCurrentTeamDbidInTeamDbids) {
+      browserHistory.push(`/${props.me.current_team?.slug}/feed/${parseInt(routeParams.feedId, 10)}/edit`);
+    }
+  }, [isCurrentTeamDbidInTeamDbids, props.me.current_team?.slug, routeParams.feedId]);
+
   const [saving, setSaving] = React.useState(false);
   const [confirmReject, setConfirmReject] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
@@ -49,9 +62,17 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
   const alreadyAccepted = props.feed_invitation?.state === 'accepted';
 
   const onFailure = (error) => {
-    const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
-    setFlashMessage(message, 'error');
-    setSaving(false);
+    // In some cases, two users in the same workspace could receive invitations to join a shared feed.
+    // If the first one accepts, and then the second one tries to accept shortly after, then there is currently an error message about a unique key constraint conflict from the database.
+    const json = safelyParseJSON(error.source);
+    if (json.errors[0].code === CheckError.codes.CONFLICT) {
+      // Redirect the user to the feed edit page if a unique key constraint error occurs
+      browserHistory.push(`/${props.me.current_team?.slug}/feed/${props.feed_invitation?.feed.dbid}/edit`);
+    } else {
+      const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
+      setFlashMessage(message, 'error');
+      setSaving(false);
+    }
   };
 
   const handleAcceptInvite = () => {
@@ -96,7 +117,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
         description={
           <FormattedMessage
             id="feedInvitation.noPermissionDescription"
-            defaultMessage="Make sure you are an admin of the Check workspace to accept invitations. If not, ask your Check workspace admin for asssitance."
+            defaultMessage="Make sure you are a workspace admin to accept invitations. If not, ask the workspace admin for assistance."
             description="Description of the error page that is displayed when a user does not have permission to accept or reject a feed invitation."
           />
         }
@@ -116,7 +137,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
               {props.feed_invitation.user.name}, <span className={styles.email}>{props.feed_invitation.user.email}</span>
             </div>
             <div className={cx('typography-body1', styles.invited)}>
-              <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Check Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
+              <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
             </div>
             <div>
               <span className={cx('typography-body1-bold')}>&ldquo;{props.feed_invitation.feed.name}&rdquo;</span>
@@ -230,6 +251,16 @@ const FeedInvitationRespond = ({ routeParams }) => (
               dbid
               name
               description
+              feed_teams(first: 100) {
+                edges {
+                  node {
+                    team {
+                      name
+                      dbid
+                    }
+                  }
+                }
+              }
             }
             feed_metadata: feed {
               ...FeedMetadata_feed

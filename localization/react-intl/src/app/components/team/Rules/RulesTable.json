@@ -13,5 +13,10 @@
     "id": "rulesTableToolbar.add",
     "description": "Button label for creating a new rule",
     "defaultMessage": "New rule"
+  },
+  {
+    "id": "rulesTableTool.blank",
+    "description": "Message displayed when there are no rules items",
+    "defaultMessage": "No Workspace Rules"
   }
 ]

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import styled from 'styled-components';
 import cx from 'classnames/bind';
 import MediasLoading from './MediasLoading';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -10,29 +9,7 @@ import Tasks from '../task/Tasks';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
-import { units } from '../../styles/js/shared';
 import styles from './media.module.css';
-
-const StyledAnnotationRow = styled.div`
-  /* Tasks and metadata tab have shared styles */
-
-  .annotation-header-row {
-    padding: ${units(1)} ${units(3)};
-    margin: 0;
-    border-bottom: 1px solid var(--brandBorder);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--textSecondary);
-  }
-
-  h2 {
-    color: var(--textPrimary);
-    flex: 1;
-    font: 400 16px/28px var(--fontStackSans);
-    margin: 0;
-  }
-`;
 
 class MediaTasksComponent extends Component {
   constructor(props) {
@@ -139,9 +116,9 @@ class MediaTasksComponent extends Component {
     const itemTasks = media.item_metadata;
 
     return (
-      <StyledAnnotationRow className={cx(styles['media-tasks'], styles['media-item-content'])}>
+      <div className={cx(styles['media-tasks'], styles['media-item-content'])}>
         <Tasks tasks={itemTasks.edges} media={media} about={about} />
-      </StyledAnnotationRow>
+      </div>
     );
   }
 }
