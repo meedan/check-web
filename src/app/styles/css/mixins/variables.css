@@ -2,16 +2,28 @@
 :root {
   --columnWidthMedium: 680px;
   --columnWidthLarge: 880px;
-  --fontStackSans: 'Roboto', -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
+  --fontStackSans: inter, -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
+  --font-family: Inter var;
 
-  --fontSizeSmall: 12px;
-  --fontSizeDefault: 14px;
-  --fontSizeBaseText: 16px;
   --iconSizeTiny: 16px;
-  --fontSizeLarge: 18px;
   --iconSizeSmall: 20px;
   --iconSizeDefault: 24px;
   --iconSizeBig: 176px;
+
+  --font-size-base: 16px;
+  --font-size-h1: 96px;
+  --font-size-h2: 60px;
+  --font-size-h3: 48px;
+  --font-size-h4: 34px;
+  --font-size-h5: 24px;
+  --font-size-h6: 20px;
+  --font-size-subtitle-1: 18px;
+  --font-size-subtitle-2: 14px;
+  --font-size-button: 14px;
+  --font-size-overline: 12px;
+  --font-size-body-1: 14px;
+  --font-size-body-2: 12px;
+  --font-size-caption: 12px;
 
   --brandMain: #567bff;
   --brandSecondary: #3b5cd0;

@@ -134,7 +134,7 @@
 .feedItemTeamCardNotSharing {
   color: var(--textPlaceholder);
   flex-wrap: wrap;
-  font-size: var(--fontSizeSmall);
+  font-size: var(--font-size-body-2);
   font-style: italic;
   margin-top: 8px;
   width: 100%;
@@ -182,7 +182,7 @@
 .feedItemDialogBulletSeparatorComponent {
   align-items: center;
   display: flex;
-  font-size: var(--fontSizeSmall);
+  font-size: var(--font-size-body-2);
   gap: 4px;
 
   svg {

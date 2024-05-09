@@ -29,7 +29,7 @@
   align-items: center;
   color: var(--textLink);
   display: flex;
-  font-size: var(--fontSizeSmall);
+  font-size: var(--font-size-body-2);
   gap: 3px;
 
   div {
@@ -138,7 +138,7 @@
     }
 
     svg {
-      font-size: var(--fontSizeLarge);
+      font-size: var(--font-size-subtitle-1);
     }
   }
 

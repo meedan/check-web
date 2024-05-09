@@ -31,12 +31,12 @@
 
 .mediaIcon {
   color: var(--textPlaceholder);
-  font-size: var(--fontSizeSmall);
+  font-size: var(--font-size-body-2);
 }
 
 .visibilityOffIcon {
   color: var(--otherWhite);
-  font-size: var(--fontSizeSmall);
+  font-size: var(--font-size-body-2);
 }
 
 .emptyMedia {

@@ -1,3 +1,12 @@
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+
+@supports (font-variation-settings: normal) {
+  :root { font-family: var(--font-family), sans-serif; }
+}
+
 html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -5,14 +14,14 @@ html {
 
 body {
   color: var(--textPrimary);
-  font: 400 var(--fontSizeDefault) var(--fontStackSans);
+  font: 400 var(--font-size-body-1) var(--fontStackSans);
   text-rendering: optimizelegibility;
   -webkit-text-size-adjust: none;
 }
 
 /* This is so we can remove the shared.js overrides with less code */
 .MuiTypography-root {
-  font-size: var(--fontSizeDefault);
+  font-size: var(--font-size-body-1);
   font-weight: 400;
 }
 
