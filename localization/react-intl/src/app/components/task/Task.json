@@ -55,23 +55,23 @@
     "defaultMessage": "Must be a valid URL"
   },
   {
-    "id": "metadata.edit",
-    "description": "This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable.",
+    "id": "global.edit",
+    "description": "Generic label for a button or link for a user to press when they wish to edit content or functionality",
     "defaultMessage": "Edit"
   },
   {
-    "id": "metadata.cancel",
-    "description": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert.",
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
     "defaultMessage": "Cancel"
   },
   {
-    "id": "metadata.save",
-    "description": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making.",
+    "id": "global.save",
+    "description": "Generic label for a button or link for a user to press when they wish to save an action or setting",
     "defaultMessage": "Save"
   },
   {
-    "id": "metadata.delete",
-    "description": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted.",
+    "id": "global.delete",
+    "description": "Generic label for a button or link for a user to press when they wish to delete content or remove functionality",
     "defaultMessage": "Delete"
   },
   {
