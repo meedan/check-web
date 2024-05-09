@@ -50,6 +50,10 @@
   width: 100%;
   z-index: 100;
 
+  .toggleShowHideButton {
+    pointer-events: auto;
+  }
+
   .visibilityIcon {
     display: none;
     font-size: var(--iconSizeDefault);
@@ -72,5 +76,5 @@
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 20;
+  z-index: 1002;
 }
