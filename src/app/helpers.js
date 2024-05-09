@@ -184,43 +184,46 @@ function createFriendlyErrorMessage(error) {
         <strong>
           {friendlyMessage}
         </strong>
-        {' '}Please report this issue to Meedan to help us fix it.
       </p>
-      <p>
-        <FormattedMessage
-          id="check.helpers.intercom_help"
-          defaultMessage="Click the 'send' arrow to the right to send the report."
-          description="This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
-        >
-          {help_text => (
-            <ButtonMain
-              size="default"
-              theme="lightError"
-              variant="contained"
-              onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
-              label={
-                <FormattedMessage
-                  id="check.helpers.report_issue"
-                  defaultMessage="Report issue"
-                  description="This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
-                />
-              }
-            />
-          )}
-        </FormattedMessage>
-      </p>
-      <p>
-        <details className={styles['snackbar-message-details']}>
-          <FormattedMessage
-            id="check.helpers.more_info"
-            defaultMessage="More info…"
-            description="This is a label on a button that users press in order to get more info related to an error message."
+      <FormattedMessage
+        tagName="p"
+        id="check.helpers.report_please"
+        defaultMessage="Please report this issue to Meedan to help us fix it."
+        description="Paragraph asking the user to report the issue that happened to Meedan."
+      />
+      <FormattedMessage
+        tagName="p"
+        id="check.helpers.intercom_help"
+        defaultMessage="Click the 'send' arrow to the right to send the report."
+        description="This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
+      >
+        {help_text => (
+          <ButtonMain
+            size="default"
+            theme="lightError"
+            variant="contained"
+            onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
+            label={
+              <FormattedMessage
+                id="check.helpers.report_issue"
+                defaultMessage="Report issue"
+                description="This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+              />
+            }
           />
-          <textarea id="error-message" name="error-message" rows="5">
-            {error.message}
-          </textarea>
-        </details>
-      </p>
+        )}
+      </FormattedMessage>
+      <details className={styles['snackbar-message-details']}>
+        <FormattedMessage
+          tagName="summary"
+          id="check.helpers.more_info"
+          defaultMessage="More info…"
+          description="This is a label on a button that users press in order to get more info related to an error message."
+        />
+        <textarea id="error-message" name="error-message" rows="5">
+          {error.message}
+        </textarea>
+      </details>
     </div>
   );
 }
