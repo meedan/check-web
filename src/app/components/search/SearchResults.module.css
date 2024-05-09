@@ -183,7 +183,7 @@
   table {
     th,
     td {
-      font-size: var(--fontSizeDefault);
+      font-size: var(--font-size-body-1);
     }
 
     thead {
@@ -289,7 +289,7 @@
   border-radius: 50px;
   color: var(--otherWhite);
   display: inline-block;
-  font-size: var(--fontSizeSmall);
+  font-size: var(--font-size-body-2);
   font-weight: 400;
   padding: 3px 10px;
   white-space: nowrap;

@@ -17,7 +17,7 @@ input:-webkit-autofill {
   }
 
   body {
-    font-size: var(--fontSizeBaseText);
+    font-size: var(--font-size-base);
   }
 
   .home__disclaimer > span {
@@ -26,7 +26,7 @@ input:-webkit-autofill {
   }
 
   footer {
-    font-size: var(--fontSizeDefault);
+    font-size: var(--font-size-body-1);
   }
 
   .rc-tooltip-inner {

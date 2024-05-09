@@ -132,7 +132,7 @@
       }
 
       .filter-label {
-        font-size: var(--fontSizeSmall);
+        font-size: var(--font-size-body-2);
       }
 
       button:disabled {
@@ -146,7 +146,7 @@
       border-radius: 8px;
       color: var(--otherWhite);
       display: flex;
-      font-size: var(--fontSizeSmall);
+      font-size: var(--font-size-body-2);
       height: 30px;
       max-width: 100%;
       padding: 0 6px;
@@ -173,27 +173,27 @@
       gap: 4px;
 
       svg {
-        font-size: var(--fontSizeBaseText);
+        font-size: var(--font-size-base);
       }
     }
 
     .filter-select,
     .filter-input-number {
-      font-size: var(--fontSizeSmall);
+      font-size: var(--font-size-body-2);
       height: 30px;
 
       select,
       input {
-        font-size: var(--fontSizeSmall);
+        font-size: var(--font-size-body-2);
         height: 30px;
         min-height: 30px;
         padding-bottom: 0;
         padding-top: 0;
 
         + div {
-          font-size: var(--fontSizeBaseText);
-          height: var(--fontSizeBaseText);
-          width: var(--fontSizeBaseText);
+          font-size: var(--font-size-base);
+          height: var(--font-size-base);
+          width: var(--font-size-base);
         }
       }
     }

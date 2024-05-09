@@ -64,11 +64,11 @@
 }
 
 @define-mixin typography-subtitle1 {
-  @mixin typography-definition var(--font-size-subtitle-1), 500, .15px, 21px;
+  @mixin typography-definition var(--font-size-subtitle-1), 700, .15px, 21px;
 }
 
 @define-mixin typography-subtitle2 {
-  @mixin typography-definition var(--font-size-subtitle-2), 500, .1px, 21px;
+  @mixin typography-definition var(--font-size-subtitle-2), 700, .1px, 21px;
 }
 
 @define-mixin typography-body1 {
@@ -105,6 +105,10 @@
 
 @define-mixin typography-caption {
   @mixin typography-definition var(--font-size-caption), 400, .4px, 15px;
+}
+
+@define-mixin typography-caption-bold {
+  @mixin typography-definition var(--font-size-caption), 500, .4px, 15px;
 }
 
 @define-mixin typography-overline {
