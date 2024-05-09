@@ -39,76 +39,76 @@
 }
 
 @define-mixin typography-h1 {
-  @mixin typography-definition 96px, 300, -1.5px, 112px;
+  @mixin typography-definition var(--font-size-h1), 300, -1.5px, 112px;
 }
 
 @define-mixin typography-h2 {
-  @mixin typography-definition 60px, 300, -.5px, 72px;
+  @mixin typography-definition var(--font-size-h2), 300, -.5px, 72px;
 }
 
 @define-mixin typography-h3 {
-  @mixin typography-definition 48px, 400, 0, 56px;
+  @mixin typography-definition var(--font-size-h3), 400, 0, 56px;
 }
 
 @define-mixin typography-h4 {
-  @mixin typography-definition 34px, 400, .25px, 42px;
+  @mixin typography-definition var(--font-size-h4), 400, .25px, 42px;
 }
 
 @define-mixin typography-h5 {
-  @mixin typography-definition 24px, 400, 0, 32px;
+  @mixin typography-definition var(--font-size-h5), 400, 0, 32px;
   color: currentcolor;
 }
 
 @define-mixin typography-h6 {
-  @mixin typography-definition 20px, 500, .15px, 32px;
+  @mixin typography-definition var(--font-size-h6), 500, .15px, 32px;
 }
 
 @define-mixin typography-subtitle1 {
-  @mixin typography-definition var(--fontSizeLarge), 500, .15px, 21px;
+  @mixin typography-definition var(--font-size-subtitle-1), 500, .15px, 21px;
 }
 
 @define-mixin typography-subtitle2 {
-  @mixin typography-definition var(--fontSizeDefault), 500, .1px, 21px;
+  @mixin typography-definition var(--font-size-subtitle-2), 500, .1px, 21px;
 }
 
 @define-mixin typography-body1 {
-  @mixin typography-definition var(--fontSizeDefault), 400, .15px, 20px;
+  @mixin typography-definition var(--font-size-body-1), 400, .15px, 20px;
 }
 
 @define-mixin typography-body1-bold {
-  @mixin typography-definition var(--fontSizeDefault), 700, .15px, 20px;
+  @mixin typography-definition var(--font-size-body-1), 700, .15px, 20px;
 }
 
 @define-mixin typography-body1-italic {
-  @mixin typography-definition var(--fontSizeDefault), 400, .15px, 20px;
+  @mixin typography-definition var(--font-size-body-1), 400, .15px, 20px;
   font-style: italic;
 }
 
 @define-mixin typography-body2 {
-  @mixin typography-definition var(--fontSizeSmall), 400, .15px, 17px;
+  @mixin typography-definition var(--font-size-body-2), 400, .15px, 17px;
 }
 
 @define-mixin typography-body2-bold {
-  @mixin typography-definition var(--fontSizeSmall), 700, .15px, 17px;
+  @mixin typography-definition var(--font-size-body-2), 700, .15px, 17px;
 }
 
 @define-mixin typography-body2-italic {
-  @mixin typography-definition var(--fontSizeSmall), 400, .15px, 17px;
+  @mixin typography-definition var(--font-size-body-2), 400, .15px, 17px;
   font-style: italic;
 }
 
 @define-mixin typography-button {
-  @mixin typography-definition var(--fontSizeDefault), 500, .4px, 24px;
+  @mixin typography-definition var(--font-size-button), 500, .4px, 24px;
   color: currentcolor;
   text-transform: none;
 }
 
 @define-mixin typography-caption {
-  @mixin typography-definition var(--fontSizeSmall), 400, .4px, 15px;
+  @mixin typography-definition var(--font-size-caption), 400, .4px, 15px;
 }
 
 @define-mixin typography-overline {
-  @mixin typography-definition var(--fontSizeSmall), 400, 1px, 32px;
+  @mixin typography-definition var(--font-size-overline), 400, 1px, 32px;
   text-transform: uppercase;
 }
 

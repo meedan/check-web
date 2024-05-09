@@ -4,7 +4,7 @@
 }
 
 @supports (font-variation-settings: normal) {
-  :root { font-family: Inter var, sans-serif; }
+  :root { font-family: var(--font-family), sans-serif; }
 }
 
 html {
