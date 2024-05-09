@@ -39,14 +39,24 @@ export const FeedComponent = ({ routeParams, ...props }) => {
   const commonSearchProps = {
     searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
     title: feed.name,
-    extra: () => (
-      <FeedTopBar
-        team={team}
-        feed={feed}
-        teamFilters={teamFilters}
-        setTeamFilters={setTeamFilters}
-      />
-    ),
+    extra: tab === 'feed' && feed.published && !feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) && feed.requests_count > 0 ?
+      () => (
+        <>
+          <FeedSwitcher teamSlug={routeParams.team} feedDbid={routeParams.feedId} value="feed" />
+          <FeedTopBar
+            team={team}
+            feed={feed}
+            teamFilters={teamFilters}
+            setTeamFilters={setTeamFilters}
+          />
+        </>
+      ) : () =>
+        (<FeedTopBar
+          team={team}
+          feed={feed}
+          teamFilters={teamFilters}
+          setTeamFilters={setTeamFilters}
+        />),
     listSubtitle: <FormattedMessage id="feedHeader.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />,
     icon: null,
     teamSlug: routeParams.team,
@@ -138,9 +148,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               listActions={
                 <FeedHeader feedTeam={feedTeam} feed={feed} />
               }
-              extra={feed.requests_count > 0 ? () => (
-                <FeedSwitcher teamSlug={routeParams.team} feedDbid={routeParams.feedId} value="feed" />
-              ) : null}
             />
           </div>
           : null
