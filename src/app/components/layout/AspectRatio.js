@@ -89,6 +89,7 @@ const AspectRatio = ({
         <SensitiveContentMenuButton
           projectMedia={projectMedia}
           currentUserRole={currentUserRole}
+          onSave={(enabled) => { setMaskContent(enabled); }}
         /> : null
       }
     </div>
