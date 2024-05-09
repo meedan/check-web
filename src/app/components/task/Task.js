@@ -367,9 +367,9 @@ class Task extends Component {
           className="metadata-edit"
           label={
             <FormattedMessage
-              id="metadata.edit"
+              id="global.edit"
               defaultMessage="Edit"
-              description="This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
+              description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
             />
           }
         />
@@ -389,9 +389,9 @@ class Task extends Component {
           }}
           label={
             <FormattedMessage
-              id="metadata.cancel"
+              id="global.cancel"
               defaultMessage="Cancel"
-              description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
+              description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
             />
           }
         />
@@ -462,9 +462,9 @@ class Task extends Component {
             disabled={disabled}
             label={
               <FormattedMessage
-                id="metadata.save"
+                id="global.save"
                 defaultMessage="Save"
-                description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
+                description="Generic label for a button or link for a user to press when they wish to save an action or setting"
               />
             }
           />
@@ -489,9 +489,9 @@ class Task extends Component {
             }}
             label={
               <FormattedMessage
-                id="metadata.delete"
+                id="global.delete"
                 defaultMessage="Delete"
-                description="This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
+                description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
               />
             }
           />
