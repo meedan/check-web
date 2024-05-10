@@ -140,7 +140,6 @@ const FeedClustersComponent = ({
           feed={feed}
           teamFilters={teamFilters}
           setTeamFilters={handleChangeTeamFilters}
-          hideQuickFilterMenu
         />
         <FeedFilters
           onSubmit={handleChangeFilters}
