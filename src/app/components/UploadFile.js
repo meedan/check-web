@@ -4,53 +4,11 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
 import MediasLoading from './media/MediasLoading';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import ClearIcon from '../icons/clear.svg';
 import { unhumanizeSize } from '../helpers';
-
-const StyledUploader = styled.div`
-    display: flex;
-    gap: 8px;
-    margin: 8px 0 16px;
-    align-items: center;
-
-    .with-file,
-    .without-file {
-      align-items: center;
-      border: 2px dashed var(--textDisabled);
-      color: var(--textDisabled);
-      cursor: pointer;
-      display: flex;
-      height: auto;
-      justify-content: center;
-      padding: 24px;
-      text-align: center;
-      width: 100%;
-    }
-`;
-
-const NoPreview = styled.span`
-  // Hmm, not sure what conditions trigger this state
-  // @chris 2017-1012
-  height: 0;
-  width: 0;
-  display: block;
-  margin: 16px 0 0;
-  position: relative;
-`;
-
-const Preview = styled.span`
-  background-image: url(${props => props.image});
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: block;
-  position: relative;
-  height: 80px;
-  width: 80px;
-`;
+import styles from './UploadFile.module.css';
 
 const UploadMessage = ({ type, about }) => {
   switch (type) {
@@ -203,7 +161,7 @@ class UploadFileComponent extends React.PureComponent {
     if (value) {
       return (
         <div style={{ display: 'flex' }}>
-          {noPreview ? <NoPreview /> : <Preview image={value.preview} />}
+          {noPreview ? <span className={styles.NoPreview} /> : <span className={styles.Preview} styles={{ backgroundImage: `url(${props => props.image})` }} image={value.preview} />}
           <span className="no-preview" />
           <ButtonMain
             iconCenter={<ClearIcon />}
@@ -229,12 +187,12 @@ class UploadFileComponent extends React.PureComponent {
       disabled,
     } = this.props;
     return (
-      <StyledUploader>
+      <div className={styles.UploadFile}>
         {this.maybePreview()}
         <Dropzone
           onDrop={this.onDrop}
           multiple={false}
-          className={value ? 'with-file' : 'without-file'}
+          className={value ? styles['UploadFile-with-file'] : styles['UploadFile-without-file']}
           disabled={disabled}
         >
           <div>
@@ -251,7 +209,7 @@ class UploadFileComponent extends React.PureComponent {
           </div>
         </Dropzone>
         <br />
-      </StyledUploader>
+      </div>
     );
   }
 }
