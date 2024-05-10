@@ -2,8 +2,8 @@
 :root {
   --columnWidthMedium: 680px;
   --columnWidthLarge: 880px;
-  --fontStackSans: inter, -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
-  --font-family: Inter var;
+  --font-family: inter var;
+  --fontStackSans: var(--font-family), -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
 
   --iconSizeTiny: 16px;
   --iconSizeSmall: 20px;
