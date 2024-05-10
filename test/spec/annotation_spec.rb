@@ -15,7 +15,7 @@ shared_examples 'annotation' do
 
     # Edit annotation
     edit_annotation('my metadata - Edited')
-    wait_for_selector("//div[contains(text(), 'Edited')]", :xpath)
+    wait_for_selector("//strong[contains(text(), 'Edited')]", :xpath)
     expect(@driver.page_source.include?('my metadata - Edited')).to be(true)
 
     # Edit annotation type
@@ -51,7 +51,7 @@ shared_examples 'annotation' do
     wait_for_selector('.task__response-inputs')
     # answer the annotation
     wait_for_selector('.form-edit').click
-    wait_for_selector('.clear-button')
+    wait_for_selector('.int-clear-input__button--textfield')
     wait_for_selector('#metadata-input').send_keys('answer')
     wait_for_selector('.form-save').click
     wait_for_selector('.form-edit')
@@ -70,7 +70,7 @@ shared_examples 'annotation' do
     expect(@driver.page_source.include?('answer - edited')).to be(true)
     # delete response
     wait_for_selector('.form-edit').click
-    wait_for_selector('.clear-button').click
+    wait_for_selector('.int-clear-input__button--textfield').click
     wait_for_selector('.form-save').click
     wait_for_selector_none('.form-cancel')
     expect(@driver.page_source.include?('answer - edited')).to be(false)
