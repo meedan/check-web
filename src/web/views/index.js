@@ -89,7 +89,8 @@ module.exports = ({ config, metadata, url }) => {
           <script src="/js/config.js" defer="defer"></script>
           <script src="/js/vendor.bundle${BUNDLE_PREFIX}.js" defer="defer"></script>
           <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
-          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono" rel="stylesheet" type="text/css">
+          <link rel="preconnect" href="https://rsms.me/">
+          <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
           ${heapAnalytics(config)}
           <link rel="stylesheet" href="/css/index.bundle${BUNDLE_PREFIX}.css" />

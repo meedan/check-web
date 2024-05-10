@@ -93,7 +93,7 @@
 
   span {
     color: var(--textSecondary);
-    font-size: var(--fontSizeSmall);
+    font-size: var(--font-size-body-2);
   }
 }
 

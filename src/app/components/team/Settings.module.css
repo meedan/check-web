@@ -11,7 +11,7 @@
 
     th,
     td {
-      font-size: var(--fontSizeDefault);
+      font-size: var(--font-size-body-1);
 
       &.tableCell {
         white-space: nowrap;
