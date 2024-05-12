@@ -60,7 +60,7 @@ shared_examples 'app' do |webdriver_url|
   end
 
   before :each do |example|
-    @password = '12345678'
+    @password = 'checkTest@12'
 
     test_hash = [example.metadata[:description_args], Process.pid].hash.to_s
     @email = "sysops+#{test_hash}@meedan.com"
