@@ -23,7 +23,7 @@ module ApiHelpers
 
   def api_create_and_confirm_user(params = {})
     email = params[:email] || "test-#{Time.now.to_i}-#{rand(1000)}@test.com"
-    password = params[:password] || '12345678'
+    password = params[:password] || 'checkTest@12'
     user = request_api 'user', { name: 'User With Email', email: email, password: password, password_confirmation: password, provider: '' }
     request_api 'confirm_user', { email: email }
     user
