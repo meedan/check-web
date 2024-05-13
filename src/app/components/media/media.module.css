@@ -364,6 +364,17 @@
       outline: none;
     }
   }
+
+  .quote-mediacard-wrapper {
+    padding: 16px 16px 0;
+  }
+
+  .empty-media-card-large {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 400px;
+  }
 }
 
 body[dir='rtl'] {

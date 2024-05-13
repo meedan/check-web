@@ -9,7 +9,6 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, createFragmentContainer, QueryRenderer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
-import { Box } from '@material-ui/core';
 import cx from 'classnames/bind';
 import MediaCardLargeFooter from './MediaCardLargeFooter';
 import BlankMediaButton from './BlankMediaButton';
@@ -61,12 +60,12 @@ const MediaCardLarge = ({
       }
     >
       { type === 'Claim' && !inModal ? (
-        <Box pt={2} px={2}>
+        <div className={styles['quote-mediacard-wrapper']}>
           <QuoteMediaCard
             showAll={inModal}
             quote={media.quote}
           />
-        </Box>
+        </div>
       ) : null }
       { type === 'UploadedImage' ? (
         <ImageMediaCard
@@ -112,17 +111,12 @@ const MediaCardLarge = ({
         </AspectRatio>
       ) : null }
       { isBlank ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          style={{ minHeight: 400 }}
-        >
+        <div className={styles['empty-media-card-large']}>
           <BlankMediaButton
             projectMediaId={projectMedia.id}
             team={projectMedia.team}
           />
-        </Box>
+        </div>
       ) : null }
       { !isBlank ?
         <MediaCardLargeFooter
