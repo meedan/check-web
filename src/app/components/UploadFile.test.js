@@ -25,7 +25,7 @@ describe('<UploadFileComponent />', () => {
       onError={() => {}}
     />);
     expect(wrapper.html()).toMatch('Drop an audio file here, or click to upload a file');
-    expect(wrapper.find('.without-file').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
   it('Should render if media type is video', () => {
@@ -37,7 +37,7 @@ describe('<UploadFileComponent />', () => {
       onError={() => {}}
     />);
     expect(wrapper.html()).toMatch('Drop a video file here, or click to upload a file');
-    expect(wrapper.find('.without-file').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
   it('Should render if media type is image', () => {
@@ -49,7 +49,7 @@ describe('<UploadFileComponent />', () => {
       onError={() => {}}
     />);
     expect(wrapper.html()).toMatch('Drop an image file here, or click to upload a file');
-    expect(wrapper.find('.without-file').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
   it('Should render if media type is file', () => {
@@ -61,7 +61,7 @@ describe('<UploadFileComponent />', () => {
       onError={() => {}}
     />);
     expect(wrapper.html()).toMatch('Drop a file here, or click to upload a file');
-    expect(wrapper.find('.without-file').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
   it('Should render if media type is image+video+audio', () => {
@@ -74,7 +74,7 @@ describe('<UploadFileComponent />', () => {
     />);
     //
     expect(wrapper.html()).toMatch('Drop a file here, or click to upload a file');
-    expect(wrapper.find('.without-file').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
   it('Should not render upload file message if already have a file', () => {
@@ -86,6 +86,6 @@ describe('<UploadFileComponent />', () => {
       onError={() => {}}
     />);
     expect(wrapper.html()).not.toMatch('Drop a file here, or click to upload a file');
-    expect(wrapper.find('.with-file').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-uploadfile__dropzone-with-file').hostNodes()).toHaveLength(1);
   });
 });

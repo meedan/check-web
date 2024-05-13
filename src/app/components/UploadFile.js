@@ -4,6 +4,7 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import MediasLoading from './media/MediasLoading';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import ClearIcon from '../icons/clear.svg';
@@ -192,7 +193,10 @@ class UploadFileComponent extends React.PureComponent {
         <Dropzone
           onDrop={this.onDrop}
           multiple={false}
-          className={value ? styles['UploadFile-with-file'] : styles['UploadFile-without-file']}
+          className={cx(
+            value ? styles['UploadFile-with-file'] : styles['UploadFile-without-file'],
+            value ? 'int-uploadfile__dropzone-with-file' : 'int-uploadfile__dropzone-without-file',
+          )}
           disabled={disabled}
         >
           <div>
