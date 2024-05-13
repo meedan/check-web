@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
-import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
@@ -23,83 +22,6 @@ import {
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './Annotation.module.css';
-
-const StyledAnnotationWrapper = styled.section`
-  &:not(.annotation--card) {
-    // The timeline dot
-    &::before {
-      background-color: var(--grayBorderMain);
-      border-radius: 100%;
-      content: '';
-      height: 8px;
-      outline: 3px solid var(--otherWhite);
-      position: absolute;
-      top: 16px;
-      width: 8px;
-      ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: 8px;
-    }
-  }
-
-  .annotation__card-text {
-    display: flex;
-    padding: 24px 16px 8px !important;
-  }
-
-  .annotation__card-activity-move-to-trash {
-    background: var(--brandMain);
-    color: var(--otherWhite);
-    border-radius: 2px;
-
-    .annotation__timestamp {
-      color: var(--otherWhite);
-    }
-  }
-
-  .annotation__timestamp {
-    color: var(--textDisabled);
-    display: inline;
-    flex: 1;
-    white-space: pre;
-    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: 8px;
-  }
-
-  .annotation__actions {
-    align-self: flex-start;
-    display: none;
-    flex: 1;
-    text-align: ${props => (props.theme.dir === 'rtl' ? 'left' : 'right')};
-  }
-
-  .annotation__body {
-    hyphens: auto;
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
-
-  .annotation__embedded-media {
-    padding-bottom: 8px;
-    padding-top: 8px;
-  }
-
-  .annotation__tag {
-    &::before {
-      content: '#';
-    }
-  }
-
-  .annotation__update-task > span {
-    display: block;
-  }
-
-  .annotation__card-embedded-medias {
-    clear: both;
-    margin-top: 4px;
-  }
-
-  .annotation__keep a {
-    text-decoration: underline;
-  }
-`;
 
 const messages = defineMessages({
   editedBy: {
@@ -169,7 +91,7 @@ class Annotation extends Component {
     const { annotation: activity, annotation: { annotation } } = this.props;
     const updatedAt = parseStringUnixTimestamp(activity.created_at);
     const timestamp = updatedAt
-      ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
+      ? <span className={cx('test-annotation__timestamp', styles['annotation-timestamp'])}><TimeBefore date={updatedAt} /></span>
       : null;
     const authorName = activity.user
       ? <ProfileLink className="annotation__author-name" user={activity.user} /> : null;
@@ -795,7 +717,7 @@ class Annotation extends Component {
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
 
     return (
-      <StyledAnnotationWrapper
+      <section
         className={cx(
           `annotation ${templateClass} ${typeClass}`,
           styles['annotation-wrapper'],
@@ -810,11 +732,11 @@ class Annotation extends Component {
           )}
         >
           <span>
-            <span className={styles['annotation-default-content']}>{contentTemplate}</span>
+            <span className={cx('test-annotation__default-content', styles['annotation-default-content'])}>{contentTemplate}</span>
             {timestamp}
           </span>
         </div>
-      </StyledAnnotationWrapper>
+      </section>
     );
   }
 }

@@ -1,14 +1,24 @@
 .annotation-wrapper {
-  border: solid 5px var(--validationMain);
   display: flex;
   padding: 8px 0;
   position: relative;
 
+  &::before {
+    background-color: var(--grayBorderMain);
+    border-radius: 100%;
+    content: '';
+    height: 8px;
+    left: -4px;
+    outline: 3px solid var(--otherWhite);
+    position: absolute;
+    top: 16px;
+    width: 8px;
+  }
+
   .annotation-default {
-    border: solid 5px var(--alertMain);
     color: var(--textPrimary);
     display: flex;
-    padding: 0 0 0 80px;
+    padding: 4px 0 0 16px;
     width: 100%;
 
     .annotation-default-content {
@@ -20,12 +30,24 @@
       word-break: break-word;
     }
   }
+
+  .annotation-timestamp {
+    color: var(--textDisabled);
+    display: inline;
+    flex: 1;
+    white-space: pre;
+  }
 }
 
 body[dir='rtl'] {
   .annotation-wrapper {
+    &::before {
+      left: auto;
+      right: -4px;
+    }
+
     .annotation-default {
-      padding: 0 80px 0 0;
+      padding: 4px 16px 0 0;
 
       .annotation-default-content {
         margin: 0 0 0 16px;
