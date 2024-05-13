@@ -10,7 +10,7 @@ import Relay from 'react-relay/classic';
 import { graphql, createFragmentContainer, QueryRenderer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
 import MediaCardLargeFooter from './MediaCardLargeFooter';
 import BlankMediaButton from './BlankMediaButton';
 import MediasLoading from './MediasLoading';
@@ -21,15 +21,7 @@ import WebPageMediaCard from './WebPageMediaCard';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import { getMediaType } from '../../helpers';
-
-const StyledCardBorder = styled.div`
-  background: var(--otherWhite);
-  border-radius: ${props => props.roundedTopCorners ? '8px' : ' 0 0 8px 8px'};
-  // For rounded corners, the border should cover the content... otherwise, we want the player to cover the border
-  outline: ${props => props.inModal || props.roundedTopCorners ? 'none' : '1px solid var(--brandBorder)'};
-  border: ${props => props.inModal || !props.roundedTopCorners ? 'none' : '1px solid var(--brandBorder)'};
-  outline-offset: -1px;
-`;
+import styles from './media.module.css';
 
 const MediaCardLarge = ({
   inModal,
@@ -55,85 +47,91 @@ const MediaCardLarge = ({
   const coverImage = media.thumbnail_path || '/images/player_cover.svg';
 
   return (
-    <div className="media-card-large">
-      <StyledCardBorder
-        inModal={inModal}
-        roundedTopCorners={type === 'Claim' || isBlank || isWebPage || isPender}
-      >
-        { type === 'Claim' && !inModal ? (
-          <Box pt={2} px={2}>
-            <QuoteMediaCard
-              showAll={inModal}
-              quote={media.quote}
-            />
-          </Box>
-        ) : null }
-        { type === 'UploadedImage' ? (
-          <ImageMediaCard
-            projectMedia={projectMedia}
-            imagePath={media.embed_path}
-            currentUserRole={currentUserRole}
-            superAdminMask={superAdminMask}
+    <div
+      inModal={inModal}
+      className={cx(
+        'media-card-large',
+        styles['media-card-large'],
+        styles['media-card-large-border'],
+        {
+          [styles['rounded-top-corners']]: (type === 'Claim' || isBlank || isWebPage || isPender),
+          [styles['no-border']]: inModal || !(type === 'Claim' || isBlank || isWebPage || isPender),
+          [styles['no-outline']]: inModal || (type === 'Claim' || isBlank || isWebPage || isPender),
+        })
+      }
+    >
+      { type === 'Claim' && !inModal ? (
+        <Box pt={2} px={2}>
+          <QuoteMediaCard
+            showAll={inModal}
+            quote={media.quote}
           />
-        ) : null }
-        { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
-          <MediaPlayerCard
-            projectMedia={projectMedia}
-            isYoutube={isYoutube}
-            filePath={media.file_path || media.url}
-            currentUserRole={currentUserRole}
-            isAudio={type === 'UploadedAudio'}
-            coverImage={coverImage}
-            superAdminMask={superAdminMask}
+        </Box>
+      ) : null }
+      { type === 'UploadedImage' ? (
+        <ImageMediaCard
+          projectMedia={projectMedia}
+          imagePath={media.embed_path}
+          currentUserRole={currentUserRole}
+          superAdminMask={superAdminMask}
+        />
+      ) : null }
+      { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
+        <MediaPlayerCard
+          projectMedia={projectMedia}
+          isYoutube={isYoutube}
+          filePath={media.file_path || media.url}
+          currentUserRole={currentUserRole}
+          isAudio={type === 'UploadedAudio'}
+          coverImage={coverImage}
+          superAdminMask={superAdminMask}
+        />
+      ) : null }
+      { isWebPage && !isYoutube ? (
+        <WebPageMediaCard
+          projectMedia={projectMedia}
+          currentUserRole={currentUserRole}
+          data={data}
+          inModal={inModal}
+          superAdminMask={superAdminMask}
+        />
+      ) : null }
+      { isPender ? (
+        <AspectRatio
+          projectMedia={projectMedia}
+          currentUserRole={currentUserRole}
+          superAdminMask={superAdminMask}
+          isPenderCard={isPender}
+        >
+          <PenderCard
+            url={media.url}
+            fallback={null}
+            domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
+            mediaVersion={data.refreshes_count}
           />
-        ) : null }
-        { isWebPage && !isYoutube ? (
-          <WebPageMediaCard
-            projectMedia={projectMedia}
-            currentUserRole={currentUserRole}
-            data={data}
-            inModal={inModal}
-            superAdminMask={superAdminMask}
+        </AspectRatio>
+      ) : null }
+      { isBlank ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          style={{ minHeight: 400 }}
+        >
+          <BlankMediaButton
+            projectMediaId={projectMedia.id}
+            team={projectMedia.team}
           />
-        ) : null }
-        { isPender ? (
-          <AspectRatio
-            projectMedia={projectMedia}
-            currentUserRole={currentUserRole}
-            superAdminMask={superAdminMask}
-            isPenderCard={isPender}
-          >
-            <PenderCard
-              url={media.url}
-              fallback={null}
-              domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
-              mediaVersion={data.refreshes_count}
-            />
-          </AspectRatio>
-        ) : null }
-        { isBlank ? (
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            style={{ minHeight: 400 }}
-          >
-            <BlankMediaButton
-              projectMediaId={projectMedia.id}
-              team={projectMedia.team}
-            />
-          </Box>
-        ) : null }
-
-        { !isBlank ?
-          <MediaCardLargeFooter
-            inModal={inModal}
-            projectMedia={projectMedia}
-            onClickMore={onClickMore}
-            mediaType={type}
-            data={data}
-          /> : null }
-      </StyledCardBorder>
+        </Box>
+      ) : null }
+      { !isBlank ?
+        <MediaCardLargeFooter
+          inModal={inModal}
+          projectMedia={projectMedia}
+          onClickMore={onClickMore}
+          mediaType={type}
+          data={data}
+        /> : null }
     </div>
   );
 };
