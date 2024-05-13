@@ -1,0 +1,35 @@
+.annotation-wrapper {
+  border: solid 5px var(--validationMain);
+  display: flex;
+  padding: 8px 0;
+  position: relative;
+
+  .annotation-default {
+    border: solid 5px var(--alertMain);
+    color: var(--textPrimary);
+    display: flex;
+    padding: 0 0 0 80px;
+    width: 100%;
+
+    .annotation-default-content {
+      display: block;
+      hyphens: auto;
+      margin: 0 16px 0 0;
+      overflow-wrap: break-word;
+      width: 100%;
+      word-break: break-word;
+    }
+  }
+}
+
+body[dir='rtl'] {
+  .annotation-wrapper {
+    .annotation-default {
+      padding: 0 80px 0 0;
+
+      .annotation-default-content {
+        margin: 0 0 0 16px;
+      }
+    }
+  }
+}

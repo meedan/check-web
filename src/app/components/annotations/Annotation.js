@@ -4,6 +4,7 @@ import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, int
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
+import cx from 'classnames/bind';
 import { withSetFlashMessage } from '../FlashMessage';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import ParsedText from '../ParsedText';
@@ -21,29 +22,9 @@ import {
 } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
-
-const StyledDefaultAnnotation = styled.div`
-  color: var(--textPrimary);
-  display: flex;
-  width: 100%;
-  ${props => (props.theme.dir === 'rtl' ? 'padding-right' : 'padding-left')}: 80px;
-
-  .annotation__default-content {
-    width: 100%;
-    hyphens: auto;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    display: block;
-    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: 16px;
-  }
-`;
+import styles from './Annotation.module.css';
 
 const StyledAnnotationWrapper = styled.section`
-  position: relative;
-  display: flex;
-  padding: 8px 0;
-  position: relative;
-
   &:not(.annotation--card) {
     // The timeline dot
     &::before {
@@ -815,15 +796,24 @@ class Annotation extends Component {
 
     return (
       <StyledAnnotationWrapper
-        className={`annotation ${templateClass} ${typeClass}`}
+        className={cx(
+          `annotation ${templateClass} ${typeClass}`,
+          styles['annotation-wrapper'],
+        )}
         id={`annotation-${activity.dbid}`}
       >
-        <StyledDefaultAnnotation className="annotation__default typography-caption">
+        <div
+          className={cx(
+            styles['annotation-default'],
+            'annotation__default',
+            'typography-caption',
+          )}
+        >
           <span>
-            <span className="annotation__default-content">{contentTemplate}</span>
+            <span className={styles['annotation-default-content']}>{contentTemplate}</span>
             {timestamp}
           </span>
-        </StyledDefaultAnnotation>
+        </div>
       </StyledAnnotationWrapper>
     );
   }
