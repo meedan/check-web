@@ -47,7 +47,6 @@ const MediaCardLarge = ({
 
   return (
     <div
-      inModal={inModal}
       className={cx(
         'media-card-large',
         styles['media-card-large'],
