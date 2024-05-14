@@ -3,36 +3,10 @@ import { FormattedMessage } from 'react-intl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
-import styled from 'styled-components';
 import CdsSelect from '../cds/inputs/Select';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import Chip from '../cds/buttons-checkboxes-chips/Chip';
 import styles from './Task.module.css';
-
-const StyledConditionalMultiSelect = styled.span`
-  margin-left: 16px;
-  .MuiInputBase-root {
-    width: 270px;
-    height: 38px;
-  }
-  #mui-component-select-multiple-conditions::after {
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 1px;
-    left: 230px;
-    width: 40px;
-    background: linear-gradient(to right, rgba(246,246,246,0), rgba(246,246,246,1) 60%, rgba(246,246,246,1));
-    content: "";
-  }
-  #mui-component-select-multiple-conditions {
-    height: 24px;
-  }
-  .MuiChip-root {
-    max-width: 90px;
-  }
-`;
 
 const conditionalVerbs = [
   {
@@ -187,7 +161,7 @@ const ConditionalField = ({ task, tasks, onChange }) => {
                   }
                 </CdsSelect>
               ),
-              'is any of...': (<StyledConditionalMultiSelect>
+              'is any of...': (<span className={styles['task-conditional-multiselect']}>
                 <Select
                   multiple
                   name="multiple-conditions"
@@ -208,8 +182,8 @@ const ConditionalField = ({ task, tasks, onChange }) => {
                       .map(option => <MenuItem key={option.label} value={option.label}>{option.label}</MenuItem>)
                   }
                 </Select>
-              </StyledConditionalMultiSelect>),
-              'is none of...': (<StyledConditionalMultiSelect>
+              </span>),
+              'is none of...': (<span className={styles['task-conditional-multiselect']}>
                 <Select
                   multiple
                   name="multiple-conditions"
@@ -230,7 +204,7 @@ const ConditionalField = ({ task, tasks, onChange }) => {
                       .map(option => <MenuItem key={option.label} value={option.label}>{option.label}</MenuItem>)
                   }
                 </Select>
-              </StyledConditionalMultiSelect>),
+              </span>),
               'is empty': null,
               'is not empty': null,
             }[selectedConditional]

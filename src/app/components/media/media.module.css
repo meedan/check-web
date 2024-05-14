@@ -262,7 +262,7 @@
         bottom: 0;
         content: '';
         display: block;
-        left: 32px;
+        left: 0;
         position: absolute;
         right: auto;
         top: 0;
@@ -341,6 +341,39 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+  }
+}
+
+.media-card-large {
+  &.media-card-large-border {
+    background-color: var(--otherWhite);
+    border: 1px solid var(--brandBorder);
+    border-radius: 0 0 8px 8px;
+    outline: 1px solid var(--brandBorder);
+    outline-offset: -1px;
+
+    &.rounded-top-corners {
+      border-radius: 8px;
+    }
+
+    &.no-border {
+      border: 0;
+    }
+
+    &.no-outline {
+      outline: none;
+    }
+  }
+
+  .quote-mediacard-wrapper {
+    padding: 16px 16px 0;
+  }
+
+  .empty-media-card-large {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 400px;
   }
 }
 

@@ -47,3 +47,33 @@
   align-items: center;
   display: flex;
 }
+
+.task-conditional-multiselect {
+  margin-left: 16px;
+
+  :global(.MuiInputBase-root) {
+    height: 38px;
+    width: 270px;
+  }
+
+  :global(#mui-component-select-multiple-conditions)::after {
+    /* stylelint-disable-next-line color-function-notation */
+    background: linear-gradient(to right, rgba(246, 246, 246, 0), rgba(246, 246, 246, 1) 60%, rgba(246, 246, 246, 1));
+    bottom: 1px;
+    content: '';
+    display: block;
+    left: 230px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+  }
+
+  :global(#mui-component-select-multiple-conditions) {
+    height: 24px;
+  }
+
+  :global(.MuiChip-root) {
+    max-width: 90px;
+  }
+}

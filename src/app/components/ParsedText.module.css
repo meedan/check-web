@@ -9,3 +9,15 @@
     text-decoration: underline;
   }
 }
+
+.StyledEmojiOnly {
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+  font-size: 32px;
+  line-height: 32px;
+}
+
+.styledLinkified {
+  line-height: 20px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
