@@ -78,7 +78,7 @@ class CheckContext {
       if (window.opener && config.extensionUrls) {
         config.extensionUrls.forEach((uri) => {
           if (!/^moz-extension/.test(uri) || navigator.userAgent.indexOf('Firefox') > -1) {
-            window.opener.postMessage(`loggedIn:${userData.token}`, uri);
+            window.opener.postMessage('loggedIn', uri);
           }
         });
       }
