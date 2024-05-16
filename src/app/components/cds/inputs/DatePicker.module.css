@@ -1,9 +1,9 @@
 .datepicker-container {
   .input {
-    background-color: var(--otherWhite);
-    border: 2px solid var(--grayBorderMain);
+    background-color: var(--color-white-100);
+    border: 2px solid var(--color-gray-88);
     border-radius: 8px;
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
     font: 400 14px var(--fontStackSans);
     letter-spacing: .15px;
     line-height: 20px;
@@ -15,7 +15,7 @@
     }
 
     &:hover {
-      border-color: var(--grayBorderAccent);
+      border-color: var(--color-gray-75);
     }
 
     &::placeholder {
@@ -35,8 +35,8 @@
 
     &:disabled,
     &.disabled {
-      background-color: var(--grayDisabledBackground);
-      color: var(--textDisabledInput);
+      background-color: var(--color-gray-88);
+      color: var(--color-gray-59Input);
       cursor: not-allowed;
       opacity: 1;
 
@@ -45,7 +45,7 @@
       }
 
       &:hover {
-        border-color: var(--grayBorderMain);
+        border-color: var(--color-gray-88);
       }
     }
 

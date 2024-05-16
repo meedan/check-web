@@ -13,18 +13,18 @@
 }
 
 .receipt-gray {
-  background-color: var(--grayBackground);
+  background-color: var(--color-gray-96);
 
   .receipt-icon {
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
   }
 }
 
 .receipt-green {
-  background-color: var(--validationLight);
+  background-color: var(--color-green-97);
 
   .receipt-icon {
-    color: var(--validationMain);
+    color: var(--color-green-35);
   }
 }
 

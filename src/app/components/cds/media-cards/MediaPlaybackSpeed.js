@@ -14,10 +14,10 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'var(--brandBackground)',
   },
   icon: {
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     fontSize: '24px',
     '&:hover': {
-      color: 'var(--otherWhite)',
+      color: 'var(--color-white-100)',
       backgroundColor: 'var(--overlayLight)',
     },
   },

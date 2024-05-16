@@ -21,7 +21,7 @@
 }
 
 .feedClustersToolbar {
-  background: var(--otherWhite);
+  background: var(--color-white-100);
   display: flex;
   justify-content: space-between;
   padding: 16px 0;
@@ -74,6 +74,6 @@
   }
 
   .requests-column {
-    border-left: 1px solid var(--grayBorderMain);
+    border-left: 1px solid var(--color-gray-88);
   }
 }

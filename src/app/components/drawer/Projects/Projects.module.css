@@ -1,13 +1,13 @@
 .listTitle {
   @mixin typography-subtitle2;
-  color: var(--textPrimary);
+  color: var(--color-gray-15);
   padding: 16px 20px 16px 18px;
   text-transform: uppercase;
 
   sup {
-    background-color: var(--validationMain);
+    background-color: var(--color-green-35);
     border-radius: 16px;
-    color: var(--otherWhite);
+    color: var(--color-white-100);
     /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     font-size: 50%;
     line-height: 0;
@@ -62,8 +62,8 @@
   .listHeader {
     @mixin typography-caption;
     align-items: center;
-    border: solid 1px var(--otherWhite);
-    color: var(--textPlaceholder);
+    border: solid 1px var(--color-white-100);
+    color: var(--color-gray-75);
     cursor: pointer;
     display: flex;
     font-weight: 500;
@@ -86,9 +86,9 @@
       }
 
       .listHeaderLabelButton {
-        background-color: var(--grayBackground);
+        background-color: var(--color-gray-96);
         border-radius: 8px;
-        color: var(--textSecondary);
+        color: var(--color-gray-37);
         flex: 0 0 30px;
         font-size: var(--iconSizeSmall);
         height: 30px;
@@ -98,7 +98,7 @@
 
         &:hover {
           background-color: var(--color-blue-98);
-          color: var(--textLink);
+          color: var(--color-blue-32);
         }
       }
     }
@@ -107,7 +107,7 @@
   .listItem {
     /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     background-color: unset;
-    border: solid 1px var(--otherWhite);
+    border: solid 1px var(--color-white-100);
     border-radius: 5px;
     display: flex;
     height: 42px;
@@ -118,14 +118,14 @@
     width: 100%;
 
     .listIcon {
-      color: var(--textSecondary);
+      color: var(--color-gray-37);
       display: flex;
       font-size: var(--drawerListIconSize);
       margin: 0 10px 0 0;
     }
 
     .listIconFeed {
-      color: var(--validationMain);
+      color: var(--color-green-35);
     }
 
     .listLabel {
@@ -170,7 +170,7 @@
       padding: 5px 5px 5px 15px;
 
       .listLabel {
-        color: var(--textDisabled);
+        color: var(--color-gray-59);
 
         span {
           cursor: text;
@@ -183,7 +183,7 @@
       }
 
       &:hover {
-        background-color: var(--otherWhite);
+        background-color: var(--color-white-100);
       }
     }
 
@@ -194,7 +194,7 @@
 
   .listItemCount {
     @mixin typography-body1;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     position: absolute;
     right: 10px;
     top: 50%;
@@ -219,7 +219,7 @@
   position: relative;
 
   &::before {
-    background-color: var(--grayBorderMain);
+    background-color: var(--color-gray-88);
     content: '';
     display: block;
     height: 2px;
@@ -230,7 +230,7 @@
   }
 
   &::after {
-    background-color: var(--grayBorderMain);
+    background-color: var(--color-gray-88);
     bottom: 0;
     content: '';
     height: 2px;
@@ -244,7 +244,7 @@
     padding: 6px 6px 0;
 
     &::before {
-      background-color: var(--otherWhite);
+      background-color: var(--color-white-100);
       content: '';
       display: block;
       height: 2px;
@@ -256,7 +256,7 @@
     }
 
     &::after {
-      background-color: var(--otherWhite);
+      background-color: var(--color-white-100);
       content: '';
       display: block;
       flex-shrink: 0;

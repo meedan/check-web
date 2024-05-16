@@ -10,7 +10,7 @@ body {
 }
 
 html {
-  background-color: var(--grayBackground);
+  background-color: var(--color-gray-96);
 }
 
 body {
@@ -18,7 +18,7 @@ body {
 }
 
 hr {
-  background-color: var(--grayBorderMain);
+  background-color: var(--color-gray-88);
   border: none;
   flex-shrink: 0;
   height: 1px;

@@ -71,7 +71,7 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
       size="small"
       theme="text"
       disabled={waitRequest}
-      customStyle={{ color: waitRequest ? null : 'var(--textPrimary)' }}
+      customStyle={{ color: waitRequest ? null : 'var(--color-gray-15)' }}
       className="media-actions__refresh" // For integration test
     />
   );

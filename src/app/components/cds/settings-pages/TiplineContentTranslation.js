@@ -11,7 +11,7 @@ import styles from '../../team/Settings.module.css';
 const StyledTextField = withStyles({
   root: {
     '& .MuiOutlinedInput-input::placeholder': {
-      color: 'var(--textSecondary)',
+      color: 'var(--color-gray-37)',
       opacity: 1,
     },
     '& .MuiFormHelperText-root.Mui-error': {
@@ -25,15 +25,15 @@ const StyledTextField = withStyles({
         borderColor: 'var(--errorMain)',
       },
       '& fieldset': {
-        borderColor: 'var(--grayBorderMain)',
+        borderColor: 'var(--color-gray-88)',
         borderWidth: 1,
       },
       '&:hover fieldset': {
-        borderColor: 'var(--grayBorderMain)',
+        borderColor: 'var(--color-gray-88)',
         borderWidth: 1,
       },
       '&.Mui-focused fieldset': {
-        borderColor: 'var(--grayBorderMain)',
+        borderColor: 'var(--color-gray-88)',
         borderWidth: 1,
       },
     },
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
   defaultString: {
     borderTopLeftRadius: theme.spacing(1),
     borderTopRightRadius: theme.spacing(1),
-    border: '1px solid var(--grayBorderMain)',
+    border: '1px solid var(--color-gray-88)',
     borderBottom: 0,
     background: 'var(--brandBackground)',
     padding: '12px 10px',
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     borderTopRightRadius: 0,
     fontSize: 14,
     fontWeight: 400,
-    color: 'var(--textPrimary)',
+    color: 'var(--color-gray-15)',
   },
 }));
 

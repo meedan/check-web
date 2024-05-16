@@ -10,7 +10,7 @@
 }
 
 .itemTitleMenuHeader {
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
 }
 
 .itemTitleOptionIcon {
@@ -38,7 +38,7 @@
 }
 
 .itemTitleOptionHelperText {
-  color: var(--textDisabled);
+  color: var(--color-gray-59);
   font-style: italic;
 }
 
@@ -53,7 +53,7 @@
 .itemTitleOptionNotSelected {
   span,
   svg {
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
   }
 }
 

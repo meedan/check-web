@@ -18,7 +18,7 @@
 
         :global(.Mui-disabled) {
           .thumb {
-            color: var(--grayBorderAccent);
+            color: var(--color-gray-75);
           }
         }
       }
@@ -28,8 +28,8 @@
       }
 
       .track {
-        background-color: var(--grayBorderMain);
-        border: 1px solid var(--grayBorderMain);
+        background-color: var(--color-gray-88);
+        border: 1px solid var(--color-gray-88);
         border-radius: 8px;
         opacity: 1;
       }
@@ -37,7 +37,7 @@
       .thumb {
         align-items: center;
         border-radius: 6px;
-        color: var(--otherWhite);
+        color: var(--color-white-100);
         height: 26px;
         margin: 3px;
         padding: 0;
@@ -59,20 +59,20 @@
         color: var(--errroMain);
 
         .thumb {
-          color: var(--grayBorderAccent);
+          color: var(--color-gray-75);
           cursor: not-allowed;
           opacity: .6;
         }
 
         + .track {
-          background-color: var(--grayBorderMain);
+          background-color: var(--color-gray-88);
           cursor: not-allowed;
           opacity: .6;
         }
 
         &.checked {
           .thumb {
-            color: var(--otherWhite);
+            color: var(--color-white-100);
             opacity: .9;
           }
 
@@ -86,7 +86,7 @@
 
     :global(+ .MuiFormControlLabel-label) {
       @mixin typography-body2;
-      color: var(--textSecondary);
+      color: var(--color-gray-37);
       margin: 0 0 8px 10px;
     }
   }
@@ -98,7 +98,7 @@
 
     .switch {
       :global(+ .MuiFormControlLabel-label) {
-        color: var(--textPlaceholder);
+        color: var(--color-gray-75);
       }
     }
   }

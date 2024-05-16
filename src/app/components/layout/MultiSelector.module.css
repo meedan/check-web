@@ -21,7 +21,7 @@
   }
 
   .multiselector-scroller {
-    background-color: var(--grayBackground);
+    background-color: var(--color-gray-96);
     height: 320px;
     max-height: 320px;
     min-width: 256px;
@@ -45,7 +45,7 @@
 
     .list-item-category {
       background-color: var(--errorMain);
-      color: var(--textPlaceholder);
+      color: var(--color-gray-75);
       margin-top: 8px;
     }
 
@@ -63,7 +63,7 @@
   }
 
   .not-found {
-    color: var(--textPlaceholder);
+    color: var(--color-gray-75);
     display: flex;
     justify-content: center;
     padding-bottom: 112px;

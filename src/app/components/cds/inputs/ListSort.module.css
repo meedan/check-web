@@ -6,7 +6,7 @@
 
 .listSortDirectionButton {
   align-items: center;
-  background: var(--grayBackground);
+  background: var(--color-gray-96);
   border: 0;
   border-radius: 5px;
   cursor: pointer;
@@ -18,7 +18,7 @@
   width: 32px;
 
   svg {
-    color: var(--textPlaceholder);
+    color: var(--color-gray-75);
     font-size: var(--iconSizeSmall);
   }
 

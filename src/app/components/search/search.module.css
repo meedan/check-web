@@ -68,7 +68,7 @@
 
 .search-expanded-popover {
   :global(.MuiPopover-paper) {
-    background-color: var(--otherWhite);
+    background-color: var(--color-white-100);
     border-radius: 8px;
     box-shadow: var(--dropShadowMedium);
     margin: 16px 0 0 2px;
@@ -144,7 +144,7 @@
       align-items: center;
       background-color: var(--color-blue-54);
       border-radius: 8px;
-      color: var(--otherWhite);
+      color: var(--color-white-100);
       display: flex;
       font-size: var(--font-size-body-2);
       height: 30px;

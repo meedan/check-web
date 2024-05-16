@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     textOverflow: 'ellipsis',
   },
   chip: {
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     fontSize: 12,
     marginTop: '2px',
   },

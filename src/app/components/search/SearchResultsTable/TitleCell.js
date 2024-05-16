@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
   icon: {
     fontSize: '40px',
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
   },
   textBox: {
     // This is a <div>, not a <th> with vertical-align center, because we need
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: ({ isRead }) => ({
-    color: 'var(--textPrimary)',
+    color: 'var(--color-gray-15)',
     fontWeight: !isRead || isFeedPage() ? 'bold' : 'normal',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
   }),
   description: {
     maxHeight: '40px',
-    color: 'var(--textSecondary)',
+    color: 'var(--color-gray-37)',
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',

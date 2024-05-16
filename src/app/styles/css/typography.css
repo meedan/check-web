@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  color: var(--textPrimary);
+  color: var(--color-gray-15);
   font: 400 var(--font-size-body-1) var(--fontStackSans);
   text-rendering: optimizelegibility;
   -webkit-text-size-adjust: none;
@@ -31,23 +31,23 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--textPrimary);
+  color: var(--color-gray-15);
   margin: 0;
   padding: 0;
 }
 
 a {
-  color: var(--textLink);
+  color: var(--color-blue-32);
   cursor: pointer;
   text-decoration: underline;
 
   &:hover {
-    color: var(--textLink);
+    color: var(--color-blue-32);
     text-decoration: none;
   }
 
   &:visited {
-    color: var(--textLink);
+    color: var(--color-blue-32);
   }
 
   &:not([href]) {
@@ -58,7 +58,7 @@ a {
   }
 
   &.link__internal {
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
     text-decoration: none;
   }
 }
@@ -162,7 +162,7 @@ h6,
 
     li {
       -webkit-box-orient: vertical;
-      color: var(--textPrimary);
+      color: var(--color-gray-15);
       /* stylelint-disable-next-line value-no-vendor-prefix */
       display: -webkit-box;
       -webkit-line-clamp: 2;

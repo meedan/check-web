@@ -16,15 +16,15 @@ import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 const useStyles = makeStyles(theme => ({
   smoochBotIntegrationButton: {
     margin: theme.spacing(1),
-    background: 'var(--grayDisabledBackground)',
+    background: 'var(--color-gray-88)',
     minWidth: 262,
     justifyContent: 'space-between',
     '&:hover': {
-      background: 'var(--grayDisabledBackground)',
+      background: 'var(--color-gray-88)',
     },
   },
   smoochBotIntegrationButtonIcon: {
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     padding: theme.spacing(0.5),
     display: 'flex',
     borderRadius: theme.spacing(1),
@@ -43,12 +43,12 @@ const useStyles = makeStyles(theme => ({
     minWidth: 80,
   },
   smoochBotIntegrationButtonConnected: {
-    color: 'var(--otherWhite)',
-    backgroundColor: 'var(--validationMain)',
+    color: 'var(--color-white-100)',
+    backgroundColor: 'var(--color-green-35)',
   },
   smoochBotIntegrationButtonDisconnected: {
-    color: 'var(--textPrimary)',
-    borderColor: 'var(--textPrimary)',
+    color: 'var(--color-gray-15)',
+    borderColor: 'var(--color-gray-15)',
   },
   smoochBotIntegrationButtonWarning: {
     color: 'var(--errorMain)',

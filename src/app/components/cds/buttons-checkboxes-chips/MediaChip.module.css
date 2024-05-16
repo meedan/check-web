@@ -8,7 +8,7 @@
 }
 
 .media-chip-icon svg {
-  color: var(--textPrimary);
+  color: var(--color-gray-15);
   display: block;
 }
 

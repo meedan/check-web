@@ -1,7 +1,7 @@
 .container {
   align-items: center;
-  background-color: var(--otherWhite);
-  border: 2px dashed var(--grayBorderMain);
+  background-color: var(--color-white-100);
+  border: 2px dashed var(--color-gray-88);
   border-radius: 8px;
   display: grid;
   min-height: 84px;
@@ -70,7 +70,7 @@ a.link-text {
 }
 
 .error {
-  background-color: var(--errorLight);
+  background-color: var(--color-pink-96);
   border-radius: 5px;
   color: var(--errorSecondary) !important;
   font-size: var(--iconSizeSmall);

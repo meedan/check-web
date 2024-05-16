@@ -7,7 +7,7 @@
     user-select: none;
 
     span {
-      color: var(--textPrimary);
+      color: var(--color-gray-15);
     }
 
     input[type='checkbox'] {
@@ -27,12 +27,12 @@
     }
 
     &.disabled {
-      color: var(--textDisabled);
+      color: var(--color-gray-59);
 
       &:hover {
         background-color: transparent;
         border-radius: 50px;
-        color: var(--textDisabled);
+        color: var(--color-gray-59);
       }
     }
 

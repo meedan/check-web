@@ -1,10 +1,10 @@
 .tooltip {
   &:global(.MuiTooltip-tooltip) {
     @mixin typography-body2;
-    background-color: var(--otherWhite);
+    background-color: var(--color-white-100);
     border: 1px solid var(--color-blue-81);
     box-shadow: var(--dropShadowMedium);
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
     padding: 4px 8px;
 
     ul {
@@ -14,7 +14,7 @@
   }
 
   :global(.MuiTooltip-arrow) {
-    color: var(--otherWhite);
+    color: var(--color-white-100);
 
     &::before {
       border: 1px solid var(--color-blue-81);

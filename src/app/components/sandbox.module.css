@@ -1,5 +1,5 @@
 .sandbox {
-  background-color: var(--grayBackground);
+  background-color: var(--color-gray-96);
   height: 100%;
   overflow: auto;
   padding: 16px 32px;
@@ -18,7 +18,7 @@
   }
 
   section {
-    background-color: var(--otherWhite);
+    background-color: var(--color-white-100);
     border-radius: 8px;
     margin: 0 0 16px;
     padding: 16px;
@@ -50,7 +50,7 @@
         width: 100%;
 
         &.componentInlineGreyVariants {
-          background-color: var(--grayBackground);
+          background-color: var(--color-gray-96);
         }
       }
 
@@ -83,7 +83,7 @@
       }
 
       .fixed-width-tags {
-        background-color: var(--validationLight);
+        background-color: var(--color-green-97);
         width: 300px;
       }
     }
@@ -91,7 +91,7 @@
 }
 
 .listItem {
-  border: solid 1px var(--grayBorderMain);
+  border: solid 1px var(--color-gray-88);
   border-radius: 8px;
   display: flex;
   flex-flow: row wrap;
@@ -108,7 +108,7 @@
     background-color: var(--brandBackground);
 
     &::before {
-      background-color: var(--textPlaceholder);
+      background-color: var(--color-gray-75);
       border-radius: 3px;
       bottom: 6px;
       content: '';
@@ -123,7 +123,7 @@
 
   .checkbox {
     align-items: center;
-    background-color: var(--errorLight);
+    background-color: var(--color-pink-96);
     display: flex;
     flex: 0 0 42px;
     flex-direction: row;
@@ -131,7 +131,7 @@
   }
 
   .thumbail {
-    background-color: var(--errorLight);
+    background-color: var(--color-pink-96);
     border-radius: 5px;
     flex: 0 0 96px;
     height: 96px;
@@ -139,7 +139,7 @@
   }
 
   .content {
-    background-color: var(--errorLight);
+    background-color: var(--color-pink-96);
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
@@ -159,7 +159,7 @@
     }
 
     .mediaAndRequest {
-      background-color: var(--errorLight);
+      background-color: var(--color-pink-96);
       display: flex;
       flex-flow: row wrap;
       gap: 4px;
@@ -167,11 +167,11 @@
   }
 
   .factCheckLastUpdated {
-    background-color: var(--errorLight);
+    background-color: var(--color-pink-96);
     flex: 0 0 160px;
 
     .factCheck {
-      background-color: var(--validationLight);
+      background-color: var(--color-green-97);
     }
   }
 }

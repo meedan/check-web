@@ -1,5 +1,5 @@
 .feed-collab-card {
-  background: var(--otherWhite);
+  background: var(--color-white-100);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@
 }
 
 .feed-collab-icon {
-  border: 2px solid var(--grayBorderMain);
+  border: 2px solid var(--color-gray-88);
   border-radius: 8px;
   box-sizing: border-box;
   display: flex;
@@ -47,7 +47,7 @@
 }
 
 .invitationNewIcon {
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
 }
 
 .invitationSentLabel {
@@ -59,7 +59,7 @@
 }
 
 .feed-collab-organizer {
-  color: var(--textPlaceholder);
+  color: var(--color-gray-75);
 }
 
 .feed-collab-text-field {

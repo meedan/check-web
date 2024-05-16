@@ -22,7 +22,7 @@ const OperatorToggle = ({ onClick, operator }) => (
     theme="text"
     size="small"
     variant="text"
-    customStyle={{ color: 'var(--textPrimary' }}
+    customStyle={{ color: 'var(--color-gray-15' }}
     label={operator === 'and' ? <FormattedMessage id="search.and" defaultMessage="and" description="Logical operator to be applied when filtering by multiple tags" /> : <FormattedMessage id="search.or" defaultMessage="or" description="Logical operator to be applied when filtering by multiple tags" />}
   />
 );

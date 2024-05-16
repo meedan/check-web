@@ -9,7 +9,7 @@
 }
 
 .slideoutContainer {
-  background-color: var(--otherWhite);
+  background-color: var(--color-white-100);
   display: flex;
   flex-direction: column;
   height: 100%;

@@ -13,8 +13,8 @@
   min-width: 0;
 
   > div {
-    background-color: var(--grayBorderMain);
-    color: var(--textPrimary);
+    background-color: var(--color-gray-88);
+    color: var(--color-gray-15);
     flex: 0 1 auto;
     min-width: 0;
   }
@@ -32,7 +32,7 @@
 
 .empty-list {
   align-self: center;
-  color: var(--textPlaceholder);
+  color: var(--color-gray-75);
 }
 
 .tooltip-container {

@@ -4,11 +4,11 @@
   gap: 8px;
 
   .request-time {
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
   }
 
   .request-content {
-    background-color: var(--grayBackground);
+    background-color: var(--color-gray-96);
     border-radius: 8px;
     gap: 8px;
     padding: 12px;

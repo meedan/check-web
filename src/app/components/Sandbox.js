@@ -745,7 +745,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--textPrimary)' : null }}>
+          <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--color-gray-15)' : null }}>
             <ButtonMain label="Default" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
@@ -805,7 +805,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentInlineVariants} style={{ backgroundColor: reorderTheme === 'white' ? 'var(--grayBackground)' : 'var(--otherWhite' }}>
+          <div className={styles.componentInlineVariants} style={{ backgroundColor: reorderTheme === 'white' ? 'var(--color-gray-96)' : 'var(--color-white-100' }}>
             <Reorder
               variant={reorderVariant}
               theme={reorderTheme}

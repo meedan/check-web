@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     display: 'inline-block',
   },
   checkIcon: {
-    color: 'var(--validationMain)',
+    color: 'var(--color-green-35)',
     fontWeight: 700,
     fontSize: 12,
   },

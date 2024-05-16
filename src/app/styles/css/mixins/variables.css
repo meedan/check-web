@@ -3,7 +3,7 @@
   --columnWidthMedium: 680px;
   --columnWidthLarge: 880px;
   --font-family: inter var;
-  --fontStackSans: var(--font-family), -apple-system, blinkmacsystemfont, 'corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
+  --fontStackSans: var(--font-family), -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
 
   --color-beige-40: #6f6a5e;
   --color-beige-47: #827d6e;
@@ -22,6 +22,7 @@
   --color-blue-81: #9fdbfc;
   --color-blue-90: #cbecfe;
   --color-blue-98: #f3fbff;
+
   --color-gray-15: #262626;
   --color-gray-28: #474747;
   --color-gray-37: #5e5e5e;
@@ -79,6 +80,8 @@
   --color-yellow-79: #ffee96;
   --color-yellow-95: #fffae3;
 
+  --color-white-100: #fff;
+
   --iconSizeTiny: 16px;
   --iconSizeSmall: 20px;
   --iconSizeDefault: 24px;
@@ -102,31 +105,12 @@
   --brandBackground: #f1f5f6;
   --brandBackgroundAccent: #eaeeef;
 
-  --textPrimary: #262626;
-  --textSecondary: #656565;
-  --textPlaceholder: #949494;
-  --textDisabled: #999;
-  --textDisabledInput: #4a4a4a;
-  --textLink: #3b5cd0;
-
-  --validationMain: #4caf50;
-  --validationSecondary: #237c27;
-  --validationLight: #f0fff1;
-  --validationBorder: #c0f0c2;
-
   --errorMain: #f44336;
   --errorSecondary: #c9291d;
-  --errorLight: #ffeeed;
 
-  --grayBackground: #f7f7f7;
-  --grayDisabledBackground: #f3f3f3;
-  --grayBorderMain: #e4e4e4;
-  --grayBorderAccent: #b4b4b4;
   --grayShadow: rgb(0 0 0 / .15);
 
   --overlayLight: rgb(34 34 34 / .7);
-
-  --otherWhite: #fff;
 
   /* https://facebookbrand.com/facebookapp/advertisers-and-partners/ */
   --facebookBlue: #1877f2;

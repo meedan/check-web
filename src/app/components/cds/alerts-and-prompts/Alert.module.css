@@ -23,9 +23,9 @@
   }
 
   &.success {
-    background-color: var(--validationLight);
-    border-color: var(--validationSecondary);
-    color: var(--validationSecondary);
+    background-color: var(--color-green-97);
+    border-color: var(--color-green-23);
+    color: var(--color-green-23);
   }
 
   &.warning {
@@ -41,7 +41,7 @@
   }
 
   &.error {
-    background-color: var(--errorLight);
+    background-color: var(--color-pink-96);
     border-color: var(--errorSecondary);
     color: var(--errorSecondary);
   }

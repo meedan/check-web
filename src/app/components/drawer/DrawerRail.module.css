@@ -37,7 +37,7 @@
     background-color: var(--brandBackgroundAccent);
     border: 0;
     border-radius: 8px;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     cursor: pointer;
     display: block;
     font-size: var(--drawerRailIcon);
@@ -52,12 +52,12 @@
     }
 
     &:hover {
-      color: var(--textLink);
+      color: var(--color-blue-32);
     }
 
     &.railIconLinkActive {
       background-color: var(--brandBackgroundAccent);
-      color: var(--textLink);
+      color: var(--color-blue-32);
     }
   }
   /* stylelint-disable no-descending-specificity */
