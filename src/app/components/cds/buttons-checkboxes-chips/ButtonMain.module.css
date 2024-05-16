@@ -292,7 +292,7 @@
 
   &.theme-black:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--color-gray-15), var(--color-gray-59Input), var(--color-white-100), var(--color-white-100);
+      @mixin main-button-contained-theme var(--color-gray-15), var(--color-gray-59), var(--color-white-100), var(--color-white-100);
     }
 
     &.outlined {
