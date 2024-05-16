@@ -321,7 +321,7 @@
 
       .media-item-autocomplete-selected-item {
         background-color: var(--grayBackground);
-        outline: solid 2px var(--brandMain);
+        outline: solid 2px var(--color-blue-54);
       }
     }
   }
@@ -347,9 +347,9 @@
 .media-card-large {
   &.media-card-large-border {
     background-color: var(--otherWhite);
-    border: 1px solid var(--brandBorder);
+    border: 1px solid var(--color-blue-81);
     border-radius: 0 0 8px 8px;
-    outline: 1px solid var(--brandBorder);
+    outline: 1px solid var(--color-blue-81);
     outline-offset: -1px;
 
     &.rounded-top-corners {

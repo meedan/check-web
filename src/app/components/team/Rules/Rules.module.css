@@ -39,7 +39,7 @@
         border: solid 3px var(--errorMain);
 
         + .rule-operator-wrapper {
-          background-color: var(--alertMain);
+          background-color: var(--color-orange-54);
           margin: 0 0 16px;
         }
       }

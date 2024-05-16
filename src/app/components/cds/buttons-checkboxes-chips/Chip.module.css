@@ -1,5 +1,5 @@
 .chip-container {
-  background-color: var(--brandMain);
+  background-color: var(--color-blue-54);
   border-radius: 50px;
   color: var(--otherWhite);
   cursor: pointer;

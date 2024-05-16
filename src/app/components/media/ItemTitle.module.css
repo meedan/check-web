@@ -27,7 +27,7 @@
     padding: 12px 16px;
 
     &:hover {
-      background: var(--brandHoverAccent);
+      background: var(--color-blue-98);
     }
   }
 
@@ -45,7 +45,7 @@
 .itemTitleOptionSelected {
   span,
   svg {
-    color: var(--brandMain);
+    color: var(--color-blue-54);
     font-weight: 700;
   }
 }
@@ -60,6 +60,6 @@
 .itemTitleOptionNotSelected:hover {
   span,
   svg {
-    color: var(--brandSecondary);
+    color: var(--color-blue-38);
   }
 }

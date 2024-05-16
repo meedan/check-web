@@ -17,7 +17,7 @@
 }
 
 .slideoutTitle {
-  background-color: var(--brandLight);
+  background-color: var(--color-blue-98);
 
   .slideoutTitleContent {
     align-items: center;

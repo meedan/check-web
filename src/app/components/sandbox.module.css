@@ -100,8 +100,8 @@
   position: relative;
 
   &:hover {
-    border-color: var(--brandMain);
-    outline: solid 1px var(--brandMain);
+    border-color: var(--color-blue-54);
+    outline: solid 1px var(--color-blue-54);
   }
 
   &.listItemUnread {
@@ -153,7 +153,7 @@
     }
 
     .workspaces {
-      background-color: var(--alertLight);
+      background-color: var(--color-orange-95);
       display: flex;
       flex-flow: row wrap;
     }

@@ -29,9 +29,9 @@
 }
 
 .receipt-yellow {
-  background-color: var(--alertLight);
+  background-color: var(--color-orange-95);
 
   .receipt-icon {
-    color: var(--alertMain);
+    color: var(--color-orange-54);
   }
 }

@@ -24,9 +24,9 @@ const useStyles = makeStyles(theme => ({
   correctionLink: {
     display: 'inline-flex',
     gap: `${theme.spacing(0.5)}px`,
-    color: 'var(--brandMain)',
+    color: 'var(--color-blue-54)',
     '&:visited': {
-      color: 'var(--brandMain)',
+      color: 'var(--color-blue-54)',
     },
     '&:hover': {
       textDecoration: 'none',

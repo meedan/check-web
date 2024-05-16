@@ -8,7 +8,7 @@ import NotificationsNoneIcon from '../../icons/notifications.svg';
 
 const useStyles = makeStyles({
   bellIcon: {
-    color: 'var(--alertMain)',
+    color: 'var(--color-orange-54)',
     display: 'inline-block',
   },
   checkIcon: {

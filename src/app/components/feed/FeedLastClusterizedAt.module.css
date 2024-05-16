@@ -1,5 +1,5 @@
 .feedLastClusterizedAtContainer {
-  color: var(--alertSecondary);
+  color: var(--color-orange-31);
   cursor: default;
   display: flex;
   gap: 3px;
@@ -7,7 +7,7 @@
 }
 
 .feedLastClusterizedAtDashedBorder {
-  border-bottom: 1px dashed var(--alertSecondary);
+  border-bottom: 1px dashed var(--color-orange-31);
 }
 
 .feedLastClusterizedAtIconWrapper {

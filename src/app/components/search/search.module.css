@@ -48,7 +48,7 @@
 
     &.search-field-active {
       input {
-        border-color: var(--brandMain);
+        border-color: var(--color-blue-54);
       }
     }
 
@@ -127,7 +127,7 @@
       min-height: 36px;
 
       &.filter-removable-wrapper-icon {
-        border-color: var(--alertMain);
+        border-color: var(--color-orange-54);
         margin: 0 4px 0 0;
       }
 
@@ -142,7 +142,7 @@
 
     .filter-value {
       align-items: center;
-      background-color: var(--brandMain);
+      background-color: var(--color-blue-54);
       border-radius: 8px;
       color: var(--otherWhite);
       display: flex;

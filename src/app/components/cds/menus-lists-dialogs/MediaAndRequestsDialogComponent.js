@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
     '&::after': {
       content: '\'\'',
-      backgroundColor: 'var(--brandBorder)',
+      backgroundColor: 'var(--color-blue-81)',
       position: 'absolute',
       left: '50%',
       top: '0',

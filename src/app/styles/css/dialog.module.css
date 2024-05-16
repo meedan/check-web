@@ -7,7 +7,7 @@
   }
 
   .dialog-title {
-    border-bottom: solid 1px var(--brandBorder);
+    border-bottom: solid 1px var(--color-blue-81);
     padding: 16px 48px 16px 24px;
   }
 
@@ -30,7 +30,7 @@
 
   .dialog-actions {
     align-items: center;
-    border-top: solid 1px var(--brandBorder);
+    border-top: solid 1px var(--color-blue-81);
     display: flex;
     gap: 8px;
     justify-content: flex-end;

@@ -1,6 +1,6 @@
 .toggleCollapse {
   align-items: center;
-  background-color: var(--brandHoverAccent);
+  background-color: var(--color-blue-98);
   border: 0 solid var(--grayBorderMain);
   border-radius: 8px;
   color: var(--textSecondary);
@@ -20,8 +20,8 @@
   }
 
   &:hover {
-    background-color: var(--brandHoverAccent);
-    color: var(--brandMain);
+    background-color: var(--color-blue-98);
+    color: var(--color-blue-54);
   }
 }
 

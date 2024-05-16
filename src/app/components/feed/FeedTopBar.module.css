@@ -13,7 +13,7 @@
 
   .feedTopBarItem {
     align-items: center;
-    border: 2px solid var(--brandMain);
+    border: 2px solid var(--color-blue-54);
     border-radius: 6px;
     display: inline-flex;
     gap: 12px;
@@ -25,7 +25,7 @@
     cursor: pointer;
 
     &:hover:not(:has(*:hover.feedListIcon)) {
-      background-color: var(--brandHoverAccent);
+      background-color: var(--color-blue-98);
     }
   }
 

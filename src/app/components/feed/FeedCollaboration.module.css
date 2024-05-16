@@ -43,7 +43,7 @@
 }
 
 .invitationSentIcon {
-  color: var(--alertMain);
+  color: var(--color-orange-54);
 }
 
 .invitationNewIcon {
@@ -51,7 +51,7 @@
 }
 
 .invitationSentLabel {
-  color: var(--alertSecondary);
+  color: var(--color-orange-31);
 }
 
 .feed-collab-label {

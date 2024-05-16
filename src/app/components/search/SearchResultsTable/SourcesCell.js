@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: 'var(--brandMain)',
+    color: 'var(--color-blue-54)',
     textDecoration: 'underline',
   },
 });

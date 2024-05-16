@@ -97,7 +97,7 @@
         width: 26px;
 
         &:hover {
-          background-color: var(--brandHoverAccent);
+          background-color: var(--color-blue-98);
           color: var(--textLink);
         }
       }
@@ -145,7 +145,7 @@
     }
 
     &:hover {
-      background-color: var(--brandHoverAccent);
+      background-color: var(--color-blue-98);
     }
 
     &.listItem_containsCount {
@@ -154,14 +154,14 @@
 
     &.listItem_active,
     &.listItem_active:hover {
-      background-color: var(--brandLight);
-      color: var(--brandSecondary);
+      background-color: var(--color-blue-98);
+      color: var(--color-blue-38);
 
       .listIcon {
-        color: var(--brandSecondary);
+        color: var(--color-blue-38);
 
         &.listIconInvitedFeed {
-          color: var(--alertMain);
+          color: var(--color-orange-54);
         }
       }
     }
@@ -202,7 +202,7 @@
   }
 
   .groupList {
-    border: solid 1px var(--brandLight);
+    border: solid 1px var(--color-blue-98);
     border-radius: 0 0 5px 5px;
     border-width: 0 1px 1px;
     margin: 0 0 0 1px;

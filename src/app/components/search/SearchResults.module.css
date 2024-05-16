@@ -77,8 +77,8 @@
         width: 32px;
 
         &:hover {
-          background: var(--brandHoverAccent);
-          border-color: var(--brandBorder);
+          background: var(--color-blue-98);
+          border-color: var(--color-blue-81);
           color: var(--textSecondary);
         }
       }
@@ -147,7 +147,7 @@
     }
 
     .search-selected {
-      color: var(--brandMain);
+      color: var(--color-blue-54);
       margin: 0 0 0 8px;
     }
 
@@ -247,10 +247,10 @@
           &:hover,
           &:hover th,
           &:hover td {
-            background-color: var(--brandHoverAccent);
+            background-color: var(--color-blue-98);
 
             .unread-status {
-              background-color: var(--brandHoverAccent);
+              background-color: var(--color-blue-98);
             }
           }
 
@@ -285,7 +285,7 @@
 }
 
 .ine-no-fact-check {
-  background: var(--alertMain);
+  background: var(--color-orange-54);
   border-radius: 50px;
   color: var(--otherWhite);
   display: inline-block;

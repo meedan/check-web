@@ -67,7 +67,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
 
 const useSnackBarStyles = makeStyles({
   info: {
-    backgroundColor: 'var(--brandMain) !important',
+    backgroundColor: 'var(--color-blue-54) !important',
   },
   icon: {
     color: 'var(--otherWhite) !important',

@@ -22,7 +22,7 @@
       transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
 
       &.checked {
-        color: var(--brandMain);
+        color: var(--color-blue-54);
       }
     }
 
@@ -38,11 +38,11 @@
 
     &:hover {
       .checkboxIcon {
-        background-color: var(--brandHoverAccent);
-        color: var(--brandMain);
+        background-color: var(--color-blue-98);
+        color: var(--color-blue-54);
 
         &.checked {
-          color: var(--brandSecondary);
+          color: var(--color-blue-38);
         }
       }
     }

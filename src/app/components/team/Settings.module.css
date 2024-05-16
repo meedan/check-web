@@ -47,7 +47,7 @@
 
         :global(.MuiTableSortLabel-root.MuiTableSortLabel-active) {
           .table-header-tooltip {
-            color: var(--brandMain);
+            color: var(--color-blue-54);
           }
         }
       }
@@ -174,7 +174,7 @@
             .teammembers-table-identity-pending {
               border: solid 2px var(--grayBorderMain);
               border-radius: 6px;
-              color: var(--alertMain);
+              color: var(--color-orange-54);
               font-size: var(--iconSizeDefault);
               height: 40px;
               padding: 6px;
@@ -190,7 +190,7 @@
               justify-content: center;
 
               &.teammembers-table-identity-invited {
-                color: var(--alertSecondary);
+                color: var(--color-orange-31);
               }
 
               .text-truncate {
@@ -225,9 +225,9 @@
 
       .table-toolbar {
         align-items: center;
-        background-color: var(--brandLight);
+        background-color: var(--color-blue-98);
         border-radius: 5px;
-        color: var(--brandMain);
+        color: var(--color-blue-54);
         display: flex;
         margin: 0 0 16px;
         padding: 8px 16px;

@@ -113,7 +113,7 @@
   grid-template-rows: 1fr;
 
   &.feedItemTeamCardSelected > div {
-    border: 2px solid var(--brandMain);
+    border: 2px solid var(--color-blue-54);
   }
 }
 

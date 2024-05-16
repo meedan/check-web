@@ -16,7 +16,7 @@ import { getMediaType } from '../../../helpers';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    border: '1px solid var(--brandBorder)',
+    border: '1px solid var(--color-blue-81)',
     borderRadius: 8,
     color: 'var(--textPrimary)',
     backgroundColor: 'var(--otherWhite)',

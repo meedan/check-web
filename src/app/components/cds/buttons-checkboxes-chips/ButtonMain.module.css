@@ -126,11 +126,11 @@
 
   &.theme-brand:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--brandMain), var(--brandSecondary), var(--otherWhite), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-blue-54), var(--color-blue-38), var(--otherWhite), var(--otherWhite);
 
       &:active {
-        background-color: var(--brandAccent);
-        border-color: var(--brandAccent);
+        background-color: var(--color-blue-32);
+        border-color: var(--color-blue-32);
       }
 
       &:focus {
@@ -140,10 +140,10 @@
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--brandMain), var(--brandSecondary), var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+      @mixin main-button-outlined-theme var(--color-blue-54), var(--color-blue-38), var(--color-blue-54), var(--color-blue-38), var(--color-blue-98);
 
       &:active {
-        border-color: var(--brandAccent);
+        border-color: var(--color-blue-32);
       }
 
       &:focus {
@@ -152,10 +152,10 @@
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+      @mixin main-button-text-theme var(--color-blue-54), var(--color-blue-38), var(--color-blue-98);
 
       &:active {
-        color: var(--brandAccent);
+        color: var(--color-blue-32);
       }
 
       &:focus {
@@ -166,15 +166,15 @@
 
   &.theme-lightBrand:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--brandLight), var(--brandMain), var(--brandSecondary), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-blue-98), var(--color-blue-54), var(--color-blue-38), var(--otherWhite);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--brandLight), var(--brandMaine), var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+      @mixin main-button-outlined-theme var(--color-blue-98), var(--color-blue-54e), var(--color-blue-54), var(--color-blue-38), var(--color-blue-98);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary, var(--brandHoverAccent));
+      @mixin main-button-text-theme var(--color-blue-54), var(--color-blue-38, var(--color-blue-98));
     }
   }
 
@@ -264,29 +264,29 @@
 
   &.theme-alert:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--alertMain), var(--alertSecondary), var(--otherWhite), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-orange-54), var(--color-orange-31), var(--otherWhite), var(--otherWhite);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--alertMain), var(--alertSecondary), var(--alertMain), var(--alertSecondary), var(--alertLight);
+      @mixin main-button-outlined-theme var(--color-orange-54), var(--color-orange-31), var(--color-orange-54), var(--color-orange-31), var(--color-orange-95);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
+      @mixin main-button-text-theme var(--color-orange-54), var(--color-orange-31), var(--color-orange-95);
     }
   }
 
   &.theme-lightAlert:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--alertLight), var(--alertMain), var(--alertSecondary), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-orange-95), var(--color-orange-54), var(--color-orange-31), var(--otherWhite);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--alertLight), var(--alertMain), var(--alertMain), var(--alertSecondary), var(--alertLight);
+      @mixin main-button-outlined-theme var(--color-orange-95), var(--color-orange-54), var(--color-orange-54), var(--color-orange-31), var(--color-orange-95);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
+      @mixin main-button-text-theme var(--color-orange-54), var(--color-orange-31), var(--color-orange-95);
     }
   }
 

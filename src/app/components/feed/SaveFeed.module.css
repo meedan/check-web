@@ -45,7 +45,7 @@
 }
 
 .saveFeedButtonMoreActions {
-  color: var(--brandMain);
+  color: var(--color-blue-54);
 }
 
 .saveFeedCard {
@@ -106,7 +106,7 @@
   display: flex;
 
   svg {
-    color: var(--brandMain);
+    color: var(--color-blue-54);
     font-size: var(--iconSizeSmall);
   }
 }

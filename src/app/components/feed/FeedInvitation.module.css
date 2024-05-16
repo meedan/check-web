@@ -23,7 +23,7 @@
     justify-content: center;
 
     svg {
-      color: var(--alertMain);
+      color: var(--color-orange-54);
       height: 48px;
       width: 48px;
     }

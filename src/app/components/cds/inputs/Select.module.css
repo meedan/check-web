@@ -33,7 +33,7 @@
 
       &:focus,
       &:active {
-        border-color: var(--brandMain);
+        border-color: var(--color-blue-54);
         outline: none;
 
         &::placeholder {

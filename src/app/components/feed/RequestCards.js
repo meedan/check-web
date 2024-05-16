@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   subscriptions: {
-    color: 'var(--alertMain)',
+    color: 'var(--color-orange-54)',
   },
 });
 

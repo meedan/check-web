@@ -18,8 +18,8 @@
 }
 
 .dropping {
-  background-color: var(--brandHoverAccent);
-  border-color: var(--brandMain);
+  background-color: var(--color-blue-98);
+  border-color: var(--color-blue-54);
 }
 
 .drag-text {
@@ -27,16 +27,16 @@
 }
 
 a.link-text {
-  color: var(--brandMain);
+  color: var(--color-blue-54);
 }
 
 .drop-text {
-  color: var(--brandSecondary) !important;
+  color: var(--color-blue-38) !important;
   pointer-events: none; /* suppress drag and drop events, default to parent */
 }
 
 .file-name {
-  color: var(--brandSecondary) !important;
+  color: var(--color-blue-38) !important;
   padding: 8px;
   text-align: left;
 
@@ -47,7 +47,7 @@ a.link-text {
 }
 
 .file-name-container {
-  background-color: var(--brandLight);
+  background-color: var(--color-blue-98);
   border: none;
   min-height: 60px;
 }
@@ -79,7 +79,7 @@ a.link-text {
 }
 
 .delete-button {
-  color: var(--brandSecondary) !important;
+  color: var(--color-blue-38) !important;
   font-size: var(--iconSizeSmall) !important;
   padding: 0 !important;
 }

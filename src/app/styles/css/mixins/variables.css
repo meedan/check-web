@@ -99,14 +99,8 @@
   --font-size-body-2: 12px;
   --font-size-caption: 12px;
 
-  --brandMain: #567bff;
-  --brandSecondary: #3b5cd0;
-  --brandLight: #e7efff;
-  --brandaccent: #293e86;
-  --brandborder: #d0d6ec;
   --brandbackground: #f1f5f6;
   --brandbackgroundaccent: #eaeeef;
-  --brandHoveraccent: #f2f8ff;
 
   --textPrimary: #262626;
   --textSecondary: #656565;
@@ -119,10 +113,6 @@
   --validationSecondary: #237c27;
   --validationLight: #f0fff1;
   --validationborder: #c0f0c2;
-
-  --alertMain: #e78a00;
-  --alertSecondary: #a66300;
-  --alertLight: #fff8ed;
 
   --errorMain: #f44336;
   --errorSecondary: #c9291d;

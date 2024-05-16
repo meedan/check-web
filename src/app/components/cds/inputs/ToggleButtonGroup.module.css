@@ -26,14 +26,14 @@
     text-transform: none;
 
     &:hover {
-      background-color: var(--brandHoverAccent);
+      background-color: var(--color-blue-98);
       color: var(--textLink);
       transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
     }
   }
 
   :global(.MuiToggleButton-root.Mui-selected + .MuiToggleButton-root.Mui-selected) {
-    border-left: 2px solid var(--brandMain);
+    border-left: 2px solid var(--color-blue-54);
     margin-left: -1px;
   }
 
@@ -76,13 +76,13 @@
   &.contained,
   &.outlined {
     :global(.MuiButtonBase-root.Mui-selected) {
-      background-color: var(--brandMain);
-      border-color: var(--brandMain);
+      background-color: var(--color-blue-54);
+      border-color: var(--color-blue-54);
       color: var(--otherWhite);
 
       &:hover {
-        background-color: var(--brandMain);
-        border-color: var(--brandMain);
+        background-color: var(--color-blue-54);
+        border-color: var(--color-blue-54);
       }
     }
   }

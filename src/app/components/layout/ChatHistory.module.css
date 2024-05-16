@@ -10,7 +10,7 @@
 
   .chat-header {
     align-items: center;
-    border-bottom: 1px solid var(--brandBorder);
+    border-bottom: 1px solid var(--color-blue-81);
     display: flex;
     height: 64px;
     justify-content: space-between;
@@ -70,7 +70,7 @@
       gap: 8px;
 
       .user {
-        background-color: var(--brandMain);
+        background-color: var(--color-blue-54);
         border-radius: 16px 16px 16px 4px;
         /* stylelint-disable-next-line color-function-notation */
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
@@ -94,7 +94,7 @@
       }
 
       .selection {
-        background-color: var(--brandLight);
+        background-color: var(--color-blue-98);
         border-radius: 16px 16px 16px 4px;
         /* stylelint-disable-next-line color-function-notation */
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
@@ -112,7 +112,7 @@
 
       /* Styles for different message events */
       .message-event-no-results {
-        background-color: var(--alertMain);
+        background-color: var(--color-orange-54);
         color: var(--otherWhite);
       }
 
@@ -134,12 +134,12 @@
       }
 
       .message-event-custom-message {
-        background-color: var(--brandSecondary);
+        background-color: var(--color-blue-38);
         color: var(--otherWhite);
       }
 
       .message-event-status-change {
-        background-color: var(--brandLight);
+        background-color: var(--color-blue-98);
       }
     }
   }

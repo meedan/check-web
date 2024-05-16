@@ -17,10 +17,10 @@ const useStyles = makeStyles({
     marginTop: '2px',
   },
   noFactCheck: {
-    background: 'var(--alertMain)',
+    background: 'var(--color-orange-54)',
   },
   more: {
-    background: 'var(--brandMain)',
+    background: 'var(--color-blue-54)',
   },
 });
 

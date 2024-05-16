@@ -102,13 +102,13 @@ const IconOrNothing = ({
     return null;
   }
   if (isMain) {
-    return <ContentCopyIcon style={{ color: 'var(--brandMain)' }} className={`${className} similarity-is-main`} />;
+    return <ContentCopyIcon style={{ color: 'var(--color-blue-54)' }} className={`${className} similarity-is-main`} />;
   }
   if (isConfirmed) {
     return <ContentCopyIcon style={{ transform: 'rotate(180deg)' }} className={`${className} similarity-is-confirmed`} />;
   }
   if (isSuggested) {
-    return <ContentCopyIcon style={{ color: 'var(--alertMain)' }} className={`${className} similarity-is-suggested`} />;
+    return <ContentCopyIcon style={{ color: 'var(--color-orange-54)' }} className={`${className} similarity-is-suggested`} />;
   }
   return null;
 };
