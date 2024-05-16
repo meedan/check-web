@@ -99,29 +99,29 @@
   --font-size-body-2: 12px;
   --font-size-caption: 12px;
 
-  --brandbackground: #f1f5f6;
-  --brandbackgroundaccent: #eaeeef;
+  --brandBackground: #f1f5f6;
+  --brandBackgroundaccent: #eaeeef;
 
   --textPrimary: #262626;
   --textSecondary: #656565;
   --textPlaceholder: #949494;
-  --textdisabled: #999;
-  --textdisabledInput: #4a4a4a;
+  --textDisabled: #999;
+  --textDisabledInput: #4a4a4a;
   --textLink: #3b5cd0;
 
   --validationMain: #4caf50;
   --validationSecondary: #237c27;
   --validationLight: #f0fff1;
-  --validationborder: #c0f0c2;
+  --validationBorder: #c0f0c2;
 
   --errorMain: #f44336;
   --errorSecondary: #c9291d;
   --errorLight: #ffeeed;
 
-  --graybackground: #f7f7f7;
-  --graydisabledbackground: #f3f3f3;
-  --grayborderMain: #e4e4e4;
-  --grayborderaccent: #b4b4b4;
+  --grayBackground: #f7f7f7;
+  --grayDisabledBackground: #f3f3f3;
+  --grayBorderMain: #e4e4e4;
+  --grayBorderAccent: #b4b4b4;
   --grayShadow: rgb(0 0 0 / .15);
 
   --overlayLight: rgb(34 34 34 / .7);
