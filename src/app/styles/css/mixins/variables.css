@@ -81,8 +81,8 @@
 
   --iconSizeTiny: 16px;
   --iconSizeSmall: 20px;
-  --iconSizedefault: 24px;
-  --iconSizebig: 176px;
+  --iconSizeDefault: 24px;
+  --iconSizeBig: 176px;
 
   --font-size-base: 16px;
   --font-size-h1: 96px;
@@ -100,7 +100,7 @@
   --font-size-caption: 12px;
 
   --brandBackground: #f1f5f6;
-  --brandBackgroundaccent: #eaeeef;
+  --brandBackgroundAccent: #eaeeef;
 
   --textPrimary: #262626;
   --textSecondary: #656565;
@@ -129,11 +129,11 @@
   --otherWhite: #fff;
 
   /* https://facebookbrand.com/facebookapp/advertisers-and-partners/ */
-  --facebookblue: #1877f2;
+  --facebookBlue: #1877f2;
 
-  /* https://about.twitter.com/content/dam/about-twitter/company/brand-resources/en_us/Twitter_brand_Guidelines_V2_0.pdf */
-  --twitterblue: #1da1f2;
-  --xblack: #000;
+  /* https://about.twitter.com/content/dam/about-twitter/company/brand-resources/en_us/Twitter_Brand_Guidelines_V2_0.pdf */
+  --twitterBlue: #1da1f2;
+  --xBlack: #000;
 
   /* https://slack.com/intl/en-it/marketing/img/media-kit/slack_brand_guidelines_september2020.pdf */
   --slackGreen: #2eb67d;
@@ -145,7 +145,7 @@
   --whatsappGreen: #25d366;
 
   /* https://www.schemecolor.com/telegram-color.php */
-  --telegramblue: #08c;
+  --telegramBlue: #08c;
 
   /* https://www.viber.com/en/brand-center/ */
   --viberPurple: #7360f2;
