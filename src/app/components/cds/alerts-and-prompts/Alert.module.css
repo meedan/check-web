@@ -42,8 +42,8 @@
 
   &.error {
     background-color: var(--color-pink-96);
-    border-color: var(--errorSecondary);
-    color: var(--errorSecondary);
+    border-color: var(--color-pink-40);
+    color: var(--color-pink-40);
   }
 
   .iconWrapper {

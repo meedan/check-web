@@ -55,7 +55,7 @@
 }
 
 .key-expired {
-  color: var(--errorSecondary);
+  color: var(--color-pink-40);
 }
 
 .key-row {

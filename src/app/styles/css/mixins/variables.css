@@ -52,6 +52,10 @@
   --color-orange-85: #f8d2bc;
   --color-orange-95: #fff1e8;
 
+  --color-pink-40: #bc0f38;
+  --color-pink-49: #ce2b41;
+  --color-pink-53: #e22b45;
+  --color-pink-60: #f73954;
   --color-pink-65: #ff4b64;
   --color-pink-71: #ff6c77;
   --color-pink-76: #ff858b;
@@ -104,9 +108,6 @@
 
   --brandBackground: #f1f5f6;
   --brandBackgroundAccent: #eaeeef;
-
-  --errorMain: #f44336;
-  --errorSecondary: #c9291d;
 
   --grayShadow: rgb(0 0 0 / .15);
 

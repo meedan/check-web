@@ -159,7 +159,7 @@
       }
 
       &.filter-value-missing {
-        background-color: var(--errorMain);
+        background-color: var(--color-pink-53);
       }
 
       &.filter-value-removable {
@@ -168,7 +168,7 @@
     }
 
     .filter-error {
-      color: var(--errorMain);
+      color: var(--color-pink-53);
       display: flex;
       gap: 4px;
 

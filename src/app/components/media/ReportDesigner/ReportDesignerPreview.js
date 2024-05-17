@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     fontSize: '80px',
-    color: 'var(--errorMain)',
+    color: 'var(--color-pink-53)',
   },
 }));
 

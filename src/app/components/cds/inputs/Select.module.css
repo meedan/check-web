@@ -50,14 +50,14 @@
       }
 
       &.error {
-        border-color: var(--errorMain) !important;
+        border-color: var(--color-pink-53) !important;
 
         &:hover {
-          border-color: var(--errorSecondary) !important;
+          border-color: var(--color-pink-40) !important;
         }
 
         &:focus {
-          border-color: var(--errorMain) !important;
+          border-color: var(--color-pink-53) !important;
         }
       }
 

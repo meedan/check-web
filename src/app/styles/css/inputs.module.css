@@ -22,7 +22,7 @@
     }
 
     &.error-label {
-      color: var(--errorSecondary);
+      color: var(--color-pink-40);
     }
   }
 
@@ -62,7 +62,7 @@
     }
 
     &.error-label {
-      color: var(--errorSecondary);
+      color: var(--color-pink-40);
       white-space: pre-line;
 
       .help-counter {

@@ -10,7 +10,7 @@
 }
 
 .container-error {
-  border-color: var(--errorMain);
+  border-color: var(--color-pink-53);
 }
 
 .input {
@@ -72,7 +72,7 @@ a.link-text {
 .error {
   background-color: var(--color-pink-96);
   border-radius: 5px;
-  color: var(--errorSecondary) !important;
+  color: var(--color-pink-40) !important;
   font-size: var(--iconSizeSmall);
   padding: 5px;
   pointer-events: none; /* suppress drag and drop events, default to parent */

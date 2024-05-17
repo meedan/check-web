@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     borderColor: 'var(--color-gray-15)',
   },
   smoochBotIntegrationButtonWarning: {
-    color: 'var(--errorMain)',
+    color: 'var(--color-pink-53)',
   },
   smoochBotIntegrationButtonHeader: {
     marginBottom: 0,

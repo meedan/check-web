@@ -208,29 +208,29 @@
 
   &.theme-error:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--errorMain), var(--errorSecondary), var(--color-white-100), var(--color-white-100);
+      @mixin main-button-contained-theme var(--color-pink-53), var(--color-pink-40), var(--color-white-100), var(--color-white-100);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--errorMain), var(--errorSecondary), var(--errorMain), var(--errorSecondary), var(--color-pink-96);
+      @mixin main-button-outlined-theme var(--color-pink-53), var(--color-pink-40), var(--color-pink-53), var(--color-pink-40), var(--color-pink-96);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary), var(--color-pink-96);
+      @mixin main-button-text-theme var(--color-pink-53), var(--color-pink-40), var(--color-pink-96);
     }
   }
 
   &.theme-lightError:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--color-pink-96), var(--errorMain), var(--errorSecondary), var(--color-white-100);
+      @mixin main-button-contained-theme var(--color-pink-96), var(--color-pink-53), var(--color-pink-40), var(--color-white-100);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--color-pink-96), var(--errorMain), var(--errorMain), var(--errorSecondary), var(--color-pink-96);
+      @mixin main-button-outlined-theme var(--color-pink-96), var(--color-pink-53), var(--color-pink-53), var(--color-pink-40), var(--color-pink-96);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary), var(--color-pink-96);
+      @mixin main-button-text-theme var(--color-pink-53), var(--color-pink-40), var(--color-pink-96);
     }
   }
 

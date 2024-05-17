@@ -44,7 +44,7 @@
     }
 
     .list-item-category {
-      background-color: var(--errorMain);
+      background-color: var(--color-pink-53);
       color: var(--color-gray-75);
       margin-top: 8px;
     }

@@ -15,14 +15,14 @@ const StyledTextField = withStyles({
       opacity: 1,
     },
     '& .MuiFormHelperText-root.Mui-error': {
-      color: 'var(--errorMain)',
+      color: 'var(--color-pink-53)',
       marginLeft: 0,
       fontSize: 12,
       fontWeight: 400,
     },
     '& .MuiOutlinedInput-root': {
       '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'var(--errorMain)',
+        borderColor: 'var(--color-pink-53)',
       },
       '& fieldset': {
         borderColor: 'var(--color-gray-88)',
