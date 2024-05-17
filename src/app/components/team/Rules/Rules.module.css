@@ -16,20 +16,20 @@
   }
 
   .rule-field-wrapper {
-    background: var(--brandBackgroundAccent);
+    background: var(--color-beige-86);
     border-radius: 3px;
     padding: 16px;
   }
 
   .rule-if-group,
   .rule-then-group {
-    background-color: var(--brandBackground);
+    background-color: var(--color-beige-93);
     border-radius: 5px;
     padding: 16px;
 
     .rule-field-wrapper {
       + .rule-operator-wrapper {
-        background-color: var(--brandBackgroundAccent);
+        background-color: var(--color-beige-86);
         border-radius: 5px;
         margin: 0 0 16px;
         padding: 0 16px 16px;

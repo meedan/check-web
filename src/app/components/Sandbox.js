@@ -885,7 +885,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--brandBackground' }}>
+          <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--color-beige-93' }}>
             <ToggleButtonGroup
               label={toggleButtonGroupLabel ? 'I am a toggleButtonGroup label' : null}
               variant={toggleButtonGroupVariant}

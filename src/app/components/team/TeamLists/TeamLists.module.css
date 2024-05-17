@@ -56,7 +56,7 @@
 
     &.teamlist-column-selected {
       .teamlist-column-items {
-        background-color: var(--brandBackground);
+        background-color: var(--color-beige-93);
       }
     }
 

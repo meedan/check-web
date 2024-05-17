@@ -3,7 +3,7 @@
   --drawerRailIcon: 26px;
 
   align-items: center;
-  background-color: var(--brandBackground);
+  background-color: var(--color-beige-93);
   display: flex;
   flex-direction: column;
   padding: 15px 0;
@@ -34,7 +34,7 @@
 
   .railIconButton,
   .railIconLink {
-    background-color: var(--brandBackgroundAccent);
+    background-color: var(--color-beige-86);
     border: 0;
     border-radius: 8px;
     color: var(--color-gray-37);
@@ -56,16 +56,16 @@
     }
 
     &.railIconLinkActive {
-      background-color: var(--brandBackgroundAccent);
+      background-color: var(--color-beige-86);
       color: var(--color-blue-32);
     }
   }
   /* stylelint-disable no-descending-specificity */
   .railIconLink {
-    background-color: var(--brandBackground);
+    background-color: var(--color-beige-93);
 
     &:hover {
-      background-color: var(--brandBackgroundAccent);
+      background-color: var(--color-beige-86);
     }
   }
 }

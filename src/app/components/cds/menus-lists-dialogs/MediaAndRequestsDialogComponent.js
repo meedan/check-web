@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(2),
   },
   toggle: {
-    backgroundColor: 'var(--brandBackground)',
+    backgroundColor: 'var(--color-beige-93)',
     borderRadius: 8,
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),

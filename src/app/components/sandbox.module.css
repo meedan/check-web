@@ -59,7 +59,7 @@
       }
 
       .componentControls {
-        background-color: var(--brandBackground);
+        background-color: var(--color-beige-93);
         border-radius: 5px 5px 0 0;
         padding: 8px;
 
@@ -76,7 +76,7 @@
 
         + .componentInlineVariants,
         + .componentBlockVariants {
-          border: solid 4px var(--brandBackground);
+          border: solid 4px var(--color-beige-93);
           border-radius: 0 0 5px 5px;
           padding: 20px;
         }
@@ -105,7 +105,7 @@
   }
 
   &.listItemUnread {
-    background-color: var(--brandBackground);
+    background-color: var(--color-beige-93);
 
     &::before {
       background-color: var(--color-gray-75);

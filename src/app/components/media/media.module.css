@@ -300,8 +300,8 @@
     }
 
     .media-item-autocomplete-results {
-      background-color: var(--brandBackground);
-      border: solid 2px var(--brandBackgroundAccent);
+      background-color: var(--color-beige-93);
+      border: solid 2px var(--color-beige-86);
       border-radius: 5px;
       display: flex;
       flex: 1 1 auto;

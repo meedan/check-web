@@ -126,7 +126,7 @@
 }
 
 .feedItemCurrentTeam {
-  background: var(--brandBackground);
+  background: var(--color-beige-93);
   border-radius: 8px;
   padding: 8px;
 }
@@ -147,7 +147,7 @@
 }
 
 .feedItemDialogBox {
-  background: var(--brandBackground);
+  background: var(--color-beige-93);
   border-radius: 5px;
   display: flex;
   flex-direction: column;

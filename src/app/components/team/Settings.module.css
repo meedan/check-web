@@ -150,13 +150,13 @@
         }
 
         .setting-content-container-inner {
-          background-color: var(--brandBackground);
+          background-color: var(--color-beige-93);
           border-radius: 5px;
           padding: 16px;
         }
 
         .setting-content-container-inner-accent {
-          background: var(--brandBackgroundAccent);
+          background: var(--color-beige-86);
           border-radius: 3px;
           padding: 16px;
         }
@@ -313,7 +313,7 @@
 }
 
 .tipline-settings-toggle {
-  background-color: var(--brandBackground);
+  background-color: var(--color-beige-93);
   border-radius: 5px;
   display: flex;
   justify-content: center;

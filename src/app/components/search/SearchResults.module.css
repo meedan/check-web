@@ -216,7 +216,7 @@
 
       tr {
         &.search-results-row {
-          background-color: var(--brandBackground);
+          background-color: var(--color-beige-93);
           position: relative;
           transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
 
@@ -227,7 +227,7 @@
           }
 
           .unread-status {
-            background-color: var(--brandBackground);
+            background-color: var(--color-beige-93);
             border-right: solid 1px var(--color-gray-88);
             box-shadow: inset 3px 0 0 0 var(--color-gray-75);
             left: 0;

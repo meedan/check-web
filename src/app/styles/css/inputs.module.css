@@ -101,7 +101,7 @@
 }
 
 .form-inner-wrapper {
-  background-color: var(--brandBackground);
+  background-color: var(--color-beige-93);
   border-radius: 5px;
   padding: 16px;
 
@@ -113,7 +113,7 @@
   }
 
   .form-inner-wrapper {
-    background: var(--brandBackgroundAccent);
+    background: var(--color-beige-86);
     border-radius: 3px;
     padding: 16px;
   }

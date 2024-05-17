@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     borderTopRightRadius: theme.spacing(1),
     border: '1px solid var(--color-gray-88)',
     borderBottom: 0,
-    background: 'var(--brandBackground)',
+    background: 'var(--color-beige-93)',
     padding: '12px 10px',
   },
   customString: {
