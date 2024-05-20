@@ -125,7 +125,7 @@
 
     &.disabled {
       .input {
-        background-color: var(--color-gray-88);
+        background-color: var(--color-gray-96);
         color: var(--color-gray-59);
         cursor: not-allowed;
 

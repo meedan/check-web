@@ -10,7 +10,6 @@
 }
 
 .mainContentWrapper {
-  background-color: var(--color-gray-96);
   display: flex;
   flex-direction: column;
   height: 100%;

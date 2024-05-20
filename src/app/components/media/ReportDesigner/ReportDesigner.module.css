@@ -1,5 +1,4 @@
 .report-designer-wrapper {
-  background-color: var(--color-gray-96);
   display: flex;
   flex-direction: column;
   gap: 16px;

@@ -144,7 +144,6 @@
     margin: 0 0 16px;
 
     &.form-autocomplete-create {
-      border: solid 1px var(--errroMain);
       display: flex;
       gap: 8px;
 

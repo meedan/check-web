@@ -56,8 +56,6 @@
       }
 
       :global(.Mui-disabled) {
-        color: var(--errroMain);
-
         .thumb {
           color: var(--color-gray-75);
           cursor: not-allowed;
