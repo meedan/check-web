@@ -57,8 +57,9 @@ const WorkspaceItemCard = ({
             <ItemDescription
               title={title}
               description={description}
-              factCheckUrl={factCheckUrl}
+              url={factCheckUrl}
               showCollapseButton={isHovered}
+              variant="fact-check"
             />
           )}
         </CardHoverContext.Consumer>
