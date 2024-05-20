@@ -4,8 +4,6 @@
   .articleCardDescription {
     align-items: flex-start;
     display: flex;
-
-    /* flex: 1 0 0; */
     flex-direction: column;
     gap: 6px;
     width: calc(100% - 170px);

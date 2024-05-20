@@ -16,7 +16,7 @@ const ArticleUrl = ({
   if (!url) return null;
 
   return (
-    <span className={styles.articleLink}>
+    <span className={`article-url ${styles.articleLink}`}>
       { icons[variant] }
       <div>
         <a href={url} target="_blank" rel="noreferrer noopener">{url}</a>

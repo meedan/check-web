@@ -20,6 +20,7 @@ const SearchResultsCards = ({ projectMedias, team }) => (
             url={values.fact_check_url}
             teamAvatar={values.team_avatar}
             teamName={values?.team_name}
+            variant="fact-check"
           />
         </div>
       );
