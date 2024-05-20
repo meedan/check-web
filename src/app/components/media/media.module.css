@@ -346,9 +346,9 @@
 .media-card-large {
   &.media-card-large-border {
     background-color: var(--color-white-100);
-    border: 1px solid var(--color-blue-81);
+    border: 1px solid var(--color-gray-88);
     border-radius: 0 0 8px 8px;
-    outline: 1px solid var(--color-blue-81);
+    outline: 1px solid var(--color-gray-88);
     outline-offset: -1px;
 
     &.rounded-top-corners {

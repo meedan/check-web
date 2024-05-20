@@ -29,6 +29,10 @@
     &.disabled {
       color: var(--color-gray-59);
 
+      span {
+        color: var(--color-gray-75);
+      }
+
       &:hover {
         background-color: transparent;
         border-radius: 50px;

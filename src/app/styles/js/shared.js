@@ -4,6 +4,8 @@
 const brandMain = '#37a0de';
 const brandBorder = '#9fdbfc';
 
+const colorPurple61 = '#9643f5';
+
 const textPrimary = '#262626';
 const textSecondary = '#5e5e5e';
 const textPlaceholder = '#bfbfbf';
@@ -69,10 +71,10 @@ export const MuiTheme = { // eslint-disable-line import/prefer-default-export
     },
     MuiTableSortLabel: {
       active: {
-        color: `${brandMain} !important`,
+        color: `${colorPurple61} !important`,
       },
       icon: {
-        color: `${brandMain} !important`,
+        color: `${colorPurple61} !important`,
       },
     },
     MuiIconButton: { // Buttons with Icons

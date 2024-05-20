@@ -13,7 +13,6 @@
 }
 
 .saveFeedContainer {
-  background: var(--color-gray-96);
   display: flex;
   gap: 32px;
   height: 100%;

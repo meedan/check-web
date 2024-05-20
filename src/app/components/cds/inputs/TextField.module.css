@@ -130,7 +130,7 @@
         cursor: not-allowed;
 
         &:hover {
-          border-color: var(--color-gray-88);
+          border-color: var(--color-gray-96);
         }
       }
     }

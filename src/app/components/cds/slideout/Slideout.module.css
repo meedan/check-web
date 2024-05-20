@@ -17,7 +17,7 @@
 }
 
 .slideoutTitle {
-  background-color: var(--color-blue-98);
+  background-color: var(--color-beige-86);
 
   .slideoutTitleContent {
     align-items: center;
@@ -44,7 +44,7 @@
 }
 
 .slideoutFooter {
-  background-color: var(--color-beige-86);
+  background-color: var(--color-beige-93);
   width: 100%;
 
   .slideoutFooterMain {

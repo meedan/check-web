@@ -10,7 +10,7 @@
 
   .search-form-config {
     align-items: center;
-    background-color: var(--color-beige-93);
+    background-color: var(--color-beige-86);
     border-radius: 8px;
     display: flex;
     flex-direction: row;
@@ -103,14 +103,14 @@
   gap: 8px;
 
   .filter-wrapper {
-    background-color: var(--color-beige-86);
+    background-color: var(--color-beige-93);
     border-radius: 12px;
     max-width: 100%;
     padding: 3px 6px;
     transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
 
     &:hover {
-      background-color: var(--color-beige-93);
+      background-color: var(--color-beige-86);
     }
 
     .filter-wrapper {

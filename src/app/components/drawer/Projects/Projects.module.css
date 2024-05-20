@@ -108,11 +108,11 @@
     /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     background-color: unset;
     border: solid 1px var(--color-beige-93);
-    border-radius: 5px;
+    border-radius: 44px;
     display: flex;
     height: 42px;
     margin: 0;
-    padding: 10px 5px;
+    padding: 10px 15px;
     position: relative;
     text-align: left;
     width: 100%;
@@ -154,11 +154,11 @@
     }
 
     &:hover {
-      background-color: var(--color-beige-93);
+      background-color: var(--color-beige-86);
     }
 
     &.listItem_containsCount {
-      padding: 10px 48px 10px 6px;
+      padding: 10px 48px 10px 15px;
     }
 
     &.listItem_active,
