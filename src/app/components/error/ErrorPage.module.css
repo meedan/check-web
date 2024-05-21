@@ -1,6 +1,6 @@
 .error-page {
   align-items: center;
-  background-color: var(--otherWhite);
+  background-color: var(--color-white-100);
   border-radius: 8px;
   display: flex;
   flex-direction: column;

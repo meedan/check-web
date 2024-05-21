@@ -7,8 +7,8 @@
   .UploadFile-with-file,
   .UploadFile-without-file {
     align-items: center;
-    border: 2px dashed var(--textDisabled);
-    color: var(--textDisabled);
+    border: 2px dashed var(--color-gray-59);
+    color: var(--color-gray-59);
     cursor: pointer;
     display: flex;
     height: auto;

@@ -4,19 +4,19 @@
   position: relative;
 
   &::before {
-    background-color: var(--grayBorderMain);
+    background-color: var(--color-gray-88);
     border-radius: 100%;
     content: '';
     height: 8px;
     left: -4px;
-    outline: 3px solid var(--otherWhite);
+    outline: 3px solid var(--color-white-100);
     position: absolute;
     top: 16px;
     width: 8px;
   }
 
   .annotation-default {
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
     display: flex;
     padding: 4px 0 0 16px;
     width: 100%;
@@ -32,7 +32,7 @@
   }
 
   .annotation-timestamp {
-    color: var(--textDisabled);
+    color: var(--color-gray-59);
     display: inline;
     flex: 1;
     white-space: pre;

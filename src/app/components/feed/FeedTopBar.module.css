@@ -13,7 +13,7 @@
 
   .feedTopBarItem {
     align-items: center;
-    border: 2px solid var(--brandMain);
+    border: 2px solid var(--color-blue-54);
     border-radius: 6px;
     display: inline-flex;
     gap: 12px;
@@ -25,18 +25,18 @@
     cursor: pointer;
 
     &:hover:not(:has(*:hover.feedListIcon)) {
-      background-color: var(--brandHoverAccent);
+      background-color: var(--color-blue-98);
     }
   }
 
   .feedTopBarButtonDisabled {
     background-color: transparent;
-    border: 2px solid var(--grayDisabledBackground);
+    border: 2px solid var(--color-gray-88);
     cursor: pointer;
 
     &:hover:not(:has(*:hover.feedListIcon)) {
-      background-color: var(--grayDisabledBackground);
-      border: 2px solid var(--grayBorderAccent);
+      background-color: var(--color-gray-88);
+      border: 2px solid var(--color-gray-75);
     }
 
     .feedListTitle {
@@ -64,26 +64,26 @@
 
     .feedListTitle {
       @mixin text-truncate inline-block;
-      color: var(--textPrimary);
+      color: var(--color-gray-15);
       max-width: 250px;
     }
 
     .feedListIcon {
-      background-color: var(--grayBackground);
+      background-color: var(--color-gray-96);
       border-radius: 8px;
-      color: var(--textSecondary);
+      color: var(--color-gray-37);
       /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
       font-size: 16px;
       margin-left: 8px;
 
       &:hover {
-        background-color: var(--grayBorderMain);
+        background-color: var(--color-gray-88);
       }
     }
   }
 
   .feedNoListTitle {
-    color: var(--textPlaceholder);
+    color: var(--color-gray-75);
     font-style: italic;
   }
 }
@@ -94,7 +94,7 @@
 }
 
 .quickFilterHeader {
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
 }
 
 .itemIcon {

@@ -114,7 +114,7 @@ class MediaExpandedActions extends React.Component {
         style={
           bottomSeparator ?
             {
-              borderBottom: '1px solid var(--brandBorder)',
+              borderBottom: '1px solid var(--color-blue-81)',
               paddingBottom: '16px',
             } :
             {}

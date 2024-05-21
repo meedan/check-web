@@ -86,7 +86,7 @@ class AnnotationFilterDate extends React.Component {
                 theme="text"
                 size="small"
                 variant="text"
-                customStyle={{ color: 'var(--textPrimary' }}
+                customStyle={{ color: 'var(--color-gray-15' }}
                 label={<FormattedMessage id="search.afterDate" defaultMessage="after" description="String displayed before a date picker" />}
               />
               <ButtonMain
@@ -145,7 +145,7 @@ class AnnotationFilterDate extends React.Component {
                 theme="text"
                 size="small"
                 variant="text"
-                customStyle={{ color: 'var(--textPrimary' }}
+                customStyle={{ color: 'var(--color-gray-15' }}
                 label={<FormattedMessage id="search.beforeDate" defaultMessage="and before" description="String displayed between after and before date pickers" />}
               />
               <ButtonMain

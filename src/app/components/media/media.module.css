@@ -1,5 +1,4 @@
 .media-item-wrapper {
-  background-color: var(--grayBackground);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -15,7 +14,7 @@
 
   .media-actions-bar {
     align-items: center;
-    background-color: var(--otherWhite);
+    background-color: var(--color-white-100);
     border-radius: 8px;
     display: flex;
     flex: 0 0 64px;
@@ -26,7 +25,7 @@
     width: auto;
 
     .paging-not-found {
-      color: var(--textDisabled);
+      color: var(--color-gray-59);
       cursor: not-allowed;
       display: flex;
       font-size: var(--iconSizeSmall);
@@ -54,7 +53,7 @@
     gap: 4px;
 
     button:disabled > span:first-of-type {
-      color: var(--textSecondary);
+      color: var(--color-gray-37);
     }
   }
 
@@ -89,7 +88,7 @@
     .media-item-claim,
     .media-item-medias,
     .media-item-annotations {
-      background-color: var(--otherWhite);
+      background-color: var(--color-white-100);
       border-radius: 8px;
       overflow: hidden;
     }
@@ -136,7 +135,7 @@
 
     .empty-list {
       @mixin typography-h5;
-      color: var(--textPlaceholder);
+      color: var(--color-gray-75);
       padding: 16px;
       text-align: center;
     }
@@ -172,7 +171,7 @@
       .media-sources-header-right {
         @mixin typography-caption;
         align-items: flex-end;
-        color: var(--textSecondary);
+        color: var(--color-gray-37);
         display: flex;
         flex: 1 0 auto;
         flex-direction: column;
@@ -183,7 +182,7 @@
 
   .media-item-annotations-list {
     li {
-      border-bottom: solid 1px var(--grayBorderMain);
+      border-bottom: solid 1px var(--color-gray-88);
       padding: 16px 0;
 
       &:first-of-type {
@@ -236,7 +235,7 @@
 
 .media-list {
   .media-list-item {
-    border-bottom: solid 1px var(--grayBorderMain);
+    border-bottom: solid 1px var(--color-gray-88);
     padding: 16px 0;
 
     &:first-of-type {
@@ -258,7 +257,7 @@
       position: relative;
 
       &::before {
-        background-color: var(--grayBorderMain);
+        background-color: var(--color-gray-88);
         bottom: 0;
         content: '';
         display: block;
@@ -300,8 +299,8 @@
     }
 
     .media-item-autocomplete-results {
-      background-color: var(--brandBackground);
-      border: solid 2px var(--brandBackgroundAccent);
+      background-color: var(--color-beige-93);
+      border: solid 2px var(--color-beige-86);
       border-radius: 5px;
       display: flex;
       flex: 1 1 auto;
@@ -320,8 +319,8 @@
       }
 
       .media-item-autocomplete-selected-item {
-        background-color: var(--grayBackground);
-        outline: solid 2px var(--brandMain);
+        background-color: var(--color-gray-96);
+        outline: solid 2px var(--color-blue-54);
       }
     }
   }
@@ -346,10 +345,10 @@
 
 .media-card-large {
   &.media-card-large-border {
-    background-color: var(--otherWhite);
-    border: 1px solid var(--brandBorder);
+    background-color: var(--color-white-100);
+    border: 1px solid var(--color-gray-88);
     border-radius: 0 0 8px 8px;
-    outline: 1px solid var(--brandBorder);
+    outline: 1px solid var(--color-gray-88);
     outline-offset: -1px;
 
     &.rounded-top-corners {

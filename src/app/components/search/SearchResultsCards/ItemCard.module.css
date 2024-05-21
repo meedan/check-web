@@ -5,7 +5,7 @@
 
   .listItemUnread {
     &::before {
-      background-color: var(--textPlaceholder);
+      background-color: var(--color-gray-75);
       border-radius: 3px;
       bottom: 6px;
       content: '';
@@ -41,10 +41,10 @@
 
       .extraWorkspaces {
         align-items: center;
-        background-color: var(--otherWhite);
-        border: 2px solid var(--grayBorderMain);
+        background-color: var(--color-white-100);
+        border: 2px solid var(--color-gray-88);
         border-radius: 6px;
-        color: var(--textSecondary);
+        color: var(--color-gray-37);
         cursor: pointer;
         display: flex;
         flex-shrink: 0;
@@ -60,7 +60,7 @@
   }
 
   .bulletSeparator > div {
-    color: var(--grayBorderAccent);
+    color: var(--color-gray-75);
   }
 
   .workspaceItemCardRating {
@@ -70,7 +70,7 @@
     justify-content: flex-end;
 
     .publishedLabel > button > div > svg {
-      color: var(--validationMain);
+      color: var(--color-green-35);
     }
   }
 

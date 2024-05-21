@@ -7,7 +7,7 @@ import MediaSimilarityBarAdd from './MediaSimilarityBarAdd';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: 'var(--otherWhite)',
+    backgroundColor: 'var(--color-white-100)',
     padding: `0 0 ${theme.spacing(1)}px`,
     position: 'sticky',
     top: -16,

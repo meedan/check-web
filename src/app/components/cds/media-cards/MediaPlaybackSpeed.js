@@ -11,13 +11,13 @@ import SlowMotionVideoIcon from '../../../icons/slow_motion_video.svg';
 
 const useStyles = makeStyles(() => ({
   active: {
-    backgroundColor: 'var(--brandBackground)',
+    backgroundColor: 'var(--color-beige-93)',
   },
   icon: {
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     fontSize: '24px',
     '&:hover': {
-      color: 'var(--otherWhite)',
+      color: 'var(--color-white-100)',
       backgroundColor: 'var(--overlayLight)',
     },
   },

@@ -1,7 +1,7 @@
 .bulletSeparator {
   @mixin typography-body1;
   align-items: center;
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
   display: flex;
   flex-wrap: wrap;
   gap: 8px 0;

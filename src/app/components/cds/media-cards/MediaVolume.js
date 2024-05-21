@@ -33,10 +33,10 @@ const useStyles = makeStyles(theme => ({
     opacity: 0,
   },
   icon: {
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     fontSize: '24px',
     '&:hover': {
-      color: 'var(--otherWhite)',
+      color: 'var(--color-white-100)',
       backgroundColor: 'var(--overlayLight)',
     },
     marginRight: theme.spacing(-1),
@@ -52,7 +52,7 @@ const CustomSlider = withStyles(theme => ({
     },
   },
   thumb: {
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     height: theme.spacing(1.5),
     width: theme.spacing(1.5),
     opacity: 0,
@@ -67,7 +67,7 @@ const CustomSlider = withStyles(theme => ({
   track: {
     height: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
   },
   rail: {
     height: theme.spacing(0.5),

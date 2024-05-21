@@ -42,7 +42,7 @@
 
 .feedItemColumn {
   align-self: flex-start;
-  background: var(--otherWhite);
+  background: var(--color-white-100);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -65,7 +65,7 @@
 }
 
 .feedTeamFactCheckCard {
-  border-bottom: 1px solid var(--grayBorderMain);
+  border-bottom: 1px solid var(--color-gray-88);
   margin-top: 8px;
   padding: 8px 0;
   width: 100%;
@@ -113,7 +113,7 @@
   grid-template-rows: 1fr;
 
   &.feedItemTeamCardSelected > div {
-    border: 2px solid var(--brandMain);
+    border: 2px solid var(--color-blue-54);
   }
 }
 
@@ -126,13 +126,13 @@
 }
 
 .feedItemCurrentTeam {
-  background: var(--brandBackground);
+  background: var(--color-beige-93);
   border-radius: 8px;
   padding: 8px;
 }
 
 .feedItemTeamCardNotSharing {
-  color: var(--textPlaceholder);
+  color: var(--color-gray-75);
   flex-wrap: wrap;
   font-size: var(--font-size-body-2);
   font-style: italic;
@@ -147,7 +147,7 @@
 }
 
 .feedItemDialogBox {
-  background: var(--brandBackground);
+  background: var(--color-beige-93);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -156,7 +156,7 @@
 }
 
 .feedItemDialogSubtitle {
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
 }
 
 .feedItemDialogSubtitleFactCheck {
@@ -191,7 +191,7 @@
 }
 
 .feedContentNotAvailable {
-  color: var(--textPlaceholder);
+  color: var(--color-gray-75);
   margin: 64px 0;
   text-align: center;
   width: 100%;
@@ -210,17 +210,17 @@
 }
 
 .feedImportNotInCluster {
-  color: var(--textPlaceholder);
+  color: var(--color-gray-75);
 }
 
 .feedImportLink {
-  color: var(--textLink);
+  color: var(--color-blue-32);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .feedImportSuccessLink {
-  color: var(--otherWhite) !important;
+  color: var(--color-white-100) !important;
 }
 
 .feedImportSearch a {

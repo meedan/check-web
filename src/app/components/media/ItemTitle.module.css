@@ -10,7 +10,7 @@
 }
 
 .itemTitleMenuHeader {
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
 }
 
 .itemTitleOptionIcon {
@@ -27,7 +27,7 @@
     padding: 12px 16px;
 
     &:hover {
-      background: var(--brandHoverAccent);
+      background: var(--color-blue-98);
     }
   }
 
@@ -38,14 +38,14 @@
 }
 
 .itemTitleOptionHelperText {
-  color: var(--textDisabled);
+  color: var(--color-gray-59);
   font-style: italic;
 }
 
 .itemTitleOptionSelected {
   span,
   svg {
-    color: var(--brandMain);
+    color: var(--color-blue-54);
     font-weight: 700;
   }
 }
@@ -53,13 +53,13 @@
 .itemTitleOptionNotSelected {
   span,
   svg {
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
   }
 }
 
 .itemTitleOptionNotSelected:hover {
   span,
   svg {
-    color: var(--brandSecondary);
+    color: var(--color-blue-38);
   }
 }

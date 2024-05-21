@@ -8,6 +8,7 @@
   z-index: 1;
 
   :global(.MuiDrawer-paperAnchorLeft) {
+    background-color: var(--color-beige-93);
     border: 0;
     overflow: hidden;
     padding: 0;

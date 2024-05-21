@@ -1,5 +1,5 @@
 /* Button mixin used only for building out ButtonMain component */
-@define-mixin main-button-contained-theme $primary-color: var(--brandMain), $secondary-color: var(--brandSecondary), $text-color: var(--otherWhite), $text-secondary: var(--otherWhite) {
+@define-mixin main-button-contained-theme $primary-color: var(--color-blue-54), $secondary-color: var(--color-blue-38), $text-color: var(--color-white-100), $text-secondary: var(--color-white-100) {
   background-color: $primary-color;
   border: solid 2px $primary-color;
   color: $text-color;
@@ -11,7 +11,7 @@
   }
 }
 
-@define-mixin main-button-outlined-theme $border-primary: var(--grayBorderMain), $border-secondary: var(--grayBorderMain), $text-primary: var(--brandMain), $text-secondary: var(--brandSecondary), $background-hover: var(--brandHoverAccent) {
+@define-mixin main-button-outlined-theme $border-primary: var(--color-gray-88), $border-secondary: var(--color-gray-88), $text-primary: var(--color-blue-54), $text-secondary: var(--color-blue-38), $background-hover: var(--color-blue-98) {
   border: solid 2px $border-primary;
   color: $text-primary;
 
@@ -22,7 +22,7 @@
   }
 }
 
-@define-mixin main-button-text-theme $text-primary: var(--brandMain), $text-secondary: var(--brandSecondary), $background-hover: var(--brandHoverAccent) {
+@define-mixin main-button-text-theme $text-primary: var(--color-blue-54), $text-secondary: var(--color-blue-38), $background-hover: var(--color-blue-98) {
   color: $text-primary;
 
   &:hover {

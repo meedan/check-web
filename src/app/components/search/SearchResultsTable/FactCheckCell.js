@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: {
-    color: 'var(--textPrimary)',
+    color: 'var(--color-gray-15)',
     fontWeight: 'bold',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
   },
   description: {
     maxHeight: '40px',
-    color: 'var(--textSecondary)',
+    color: 'var(--color-gray-37)',
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',

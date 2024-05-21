@@ -10,7 +10,7 @@
 
   .search-form-config {
     align-items: center;
-    background-color: var(--brandBackground);
+    background-color: var(--color-beige-86);
     border-radius: 8px;
     display: flex;
     flex-direction: row;
@@ -48,7 +48,7 @@
 
     &.search-field-active {
       input {
-        border-color: var(--brandMain);
+        border-color: var(--color-blue-54);
       }
     }
 
@@ -68,7 +68,7 @@
 
 .search-expanded-popover {
   :global(.MuiPopover-paper) {
-    background-color: var(--otherWhite);
+    background-color: var(--color-white-100);
     border-radius: 8px;
     box-shadow: var(--dropShadowMedium);
     margin: 16px 0 0 2px;
@@ -103,14 +103,14 @@
   gap: 8px;
 
   .filter-wrapper {
-    background-color: var(--brandBackgroundAccent);
+    background-color: var(--color-beige-93);
     border-radius: 12px;
     max-width: 100%;
     padding: 3px 6px;
     transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
 
     &:hover {
-      background-color: var(--brandBackground);
+      background-color: var(--color-beige-86);
     }
 
     .filter-wrapper {
@@ -127,7 +127,7 @@
       min-height: 36px;
 
       &.filter-removable-wrapper-icon {
-        border-color: var(--alertMain);
+        border-color: var(--color-orange-54);
         margin: 0 4px 0 0;
       }
 
@@ -142,9 +142,9 @@
 
     .filter-value {
       align-items: center;
-      background-color: var(--brandMain);
+      background-color: var(--color-blue-54);
       border-radius: 8px;
-      color: var(--otherWhite);
+      color: var(--color-white-100);
       display: flex;
       font-size: var(--font-size-body-2);
       height: 30px;
@@ -159,7 +159,7 @@
       }
 
       &.filter-value-missing {
-        background-color: var(--errorMain);
+        background-color: var(--color-pink-53);
       }
 
       &.filter-value-removable {
@@ -168,7 +168,7 @@
     }
 
     .filter-error {
-      color: var(--errorMain);
+      color: var(--color-pink-53);
       display: flex;
       gap: 4px;
 

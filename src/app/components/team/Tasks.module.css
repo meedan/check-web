@@ -21,7 +21,7 @@
 
         .task-card-label-description-index {
           align-items: center;
-          background-color: var(--brandBackgroundAccent);
+          background-color: var(--color-beige-86);
           border-radius: 5px;
           display: flex;
           font-size: var(--fontSizeLarge);

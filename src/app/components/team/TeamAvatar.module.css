@@ -1,9 +1,9 @@
 .team-avatar {
-  background-color: var(--otherWhite);
+  background-color: var(--color-white-100);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border: 2px solid var(--grayBorderMain);
+  border: 2px solid var(--color-gray-88);
   border-radius: 5px;
   flex: 0 0 auto;
   height: 40px;

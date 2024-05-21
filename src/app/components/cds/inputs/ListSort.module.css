@@ -6,7 +6,7 @@
 
 .listSortDirectionButton {
   align-items: center;
-  background: var(--grayBackground);
+  background: var(--color-gray-96);
   border: 0;
   border-radius: 5px;
   cursor: pointer;
@@ -18,19 +18,19 @@
   width: 32px;
 
   svg {
-    color: var(--textPlaceholder);
+    color: var(--color-gray-75);
     font-size: var(--iconSizeSmall);
   }
 
   &:hover {
-    background-color: var(--brandHoverAccent);
+    background-color: var(--color-blue-98);
   }
 }
 
 .listSortDesc svg + svg {
-  color: var(--brandMain);
+  color: var(--color-blue-54);
 }
 
 .listSortAsc svg:first-child {
-  color: var(--brandMain);
+  color: var(--color-blue-54);
 }
