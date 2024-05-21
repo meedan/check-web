@@ -21,6 +21,7 @@ const SharedItemCardFooter = ({
   languageCode,
   lastRequestDate,
   tags,
+  onChangeTags,
   channels,
   onSeeMore,
 }) => (
@@ -31,7 +32,7 @@ const SharedItemCardFooter = ({
       languageCode && (
         <Language languageCode={languageCode} />
       ),
-      tags && <TagList tags={tags} />,
+      tags && onChangeTags && <TagList tags={tags} setTags={onChangeTags} />,
       mediaCount !== null && (
         <MediaCount
           mediaCount={mediaCount}
@@ -74,6 +75,8 @@ SharedItemCardFooter.defaultProps = {
   suggestionsCount: null,
   languageCode: null,
   lastRequestDate: null,
+  tags: null,
+  onChangeTags: null,
   channels: null,
   onSeeMore: null,
 };
@@ -85,6 +88,8 @@ SharedItemCardFooter.propTypes = {
   suggestionsCount: PropTypes.number,
   languageCode: PropTypes.string,
   lastRequestDate: PropTypes.instanceOf(Date),
+  tags: PropTypes.arrayOf(PropTypes.string),
+  onChangeTags: PropTypes.func,
   channels: PropTypes.exact({
     main: PropTypes.number,
     others: PropTypes.arrayOf(PropTypes.number),

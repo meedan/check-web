@@ -76,18 +76,23 @@ ArticleCard.defaultProps = {
   statusColor: 'black',
   teamAvatar: null,
   teamName: null,
+  languageCode: null,
+  tags: [],
   variant: 'explainer',
 };
 
 ArticleCard.propTypes = {
   title: PropTypes.string.isRequired,
-  statusLabel: PropTypes.string.isRequired,
-  statusColor: PropTypes.string,
-  date: PropTypes.number.isRequired, // Timestamp
   summary: PropTypes.string,
   url: PropTypes.string,
+  date: PropTypes.number.isRequired, // Timestamp
+  statusLabel: PropTypes.string.isRequired,
+  statusColor: PropTypes.string,
   teamAvatar: PropTypes.string, // URL
   teamName: PropTypes.string,
+  languageCode: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  onChangeTags: PropTypes.func.isRequired,
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
 };
 
