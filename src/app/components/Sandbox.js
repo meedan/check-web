@@ -23,7 +23,7 @@ import AddIcon from '../icons/settings.svg';
 import CalendarIcon from '../icons/calendar_month.svg';
 import ListIcon from '../icons/list.svg';
 import FigmaColorLogo from '../icons/figma_color.svg';
-import FactCheckCard from './search/SearchResultsCards/FactCheckCard';
+import ArticleCard from './search/SearchResultsCards/ArticleCard';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
@@ -91,6 +91,9 @@ const SandboxComponent = ({ admin }) => {
       name: 'Eighth Workspace',
     },
   ];
+
+  const [articleCardShared, setArticleCardShared] = React.useState(false);
+  const [articleCardVariant, setArticleCardVariant] = React.useState('explainer');
 
   const [listItemShared, setListItemShared] = React.useState(Boolean(false));
   const [listItemCluster, setListItemCluster] = React.useState(Boolean(false));
@@ -377,6 +380,9 @@ const SandboxComponent = ({ admin }) => {
       </h5>
       <ul className={styles.sandboxNav}>
         <li>
+          <a href="#sandbox-cards" title="Cards">Cards</a>
+        </li>
+        <li>
           <a href="#sandbox-buttons" title="Buttons">Buttons</a>
         </li>
         <li>
@@ -384,9 +390,6 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <a href="#sandbox-chips" title="Chips">Chips</a>
-        </li>
-        <li>
-          <a href="#sandbox-cards" title="Cards">Cards</a>
         </li>
         <li>
           <a href="#sandbox-tags" title="Tags">Tags</a>
@@ -404,12 +407,55 @@ const SandboxComponent = ({ admin }) => {
           <a href="#sandbox-slideout" title="Slideout">Slideout</a>
         </li>
       </ul>
-      <section id="sandbox-row">
-        <h6>List Item</h6>
+      <section id="sandbox-cards">
+        <h6>Item Cards</h6>
         <div className={styles.componentWrapper}>
           <div className={styles.componentControls}>
             <div className={cx('typography-subtitle2', [styles.componentName])}>
-              ListItem
+              ArticleCard
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="In Shared Feed"
+                  labelPlacement="top"
+                  checked={articleCardShared}
+                  onChange={() => setArticleCardShared(!articleCardShared)}
+                />
+              </li>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={e => setArticleCardVariant(e.target.value)}
+                  value={articleCardVariant}
+                >
+                  <option value="explainer">explainer (default)</option>
+                  <option value="fact-check">fact-check</option>
+                </Select>
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <ArticleCard
+              title="Moby-Dick; or, The Whale."
+              summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
+              date={1702677106.846}
+              statusLabel={articleCardVariant === 'fact-check' ? 'The Status' : null}
+              statusColor={articleCardVariant === 'fact-check' ? '#ff0000' : null}
+              teamName={articleCardShared ? 'Kitty Team' : null}
+              teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}
+              languageCode="en"
+              tags={['Novel', 'Moby Dick', '19th Century']}
+              onChangeTags={() => {}}
+              url="https://example.com"
+              variant={articleCardVariant}
+            />
+          </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              ClusterCard
               <a
                 href="https://www.figma.com/file/N1W1p7anE8xxekD7EyepVE/Shared-Feeds?type=design&node-id=2411-37415&mode=design"
                 rel="noopener noreferrer"
@@ -1515,19 +1561,6 @@ const SandboxComponent = ({ admin }) => {
               onRemove={chipRemovable ? () => {} : null}
             />
           </div>
-        </div>
-      </section>
-      <section id="sandbox-cards">
-        <h6>Media Cards</h6>
-        <div className={styles.componentWrapper}>
-          <FactCheckCard
-            title="Moby-Dick; or, The Whale."
-            statusLabel="The Status"
-            statusColor="#ff0000"
-            summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
-            date={1702677106.846}
-            url="https://example.com"
-          />
         </div>
       </section>
       <section id="sandbox-tags">

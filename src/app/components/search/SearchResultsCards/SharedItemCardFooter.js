@@ -9,6 +9,8 @@ import SuggestionsCount from '../../cds/media-cards/SuggestionsCount';
 import MediaCount from '../../cds/media-cards/MediaCount';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
+import Language from '../../cds/media-cards/Language';
+import TagList from '../../cds/menus-lists-dialogs/TagList';
 import styles from './ItemCard.module.css';
 
 const SharedItemCardFooter = ({
@@ -16,7 +18,10 @@ const SharedItemCardFooter = ({
   mediaType,
   requestsCount,
   suggestionsCount,
+  languageCode,
   lastRequestDate,
+  tags,
+  onChangeTags,
   channels,
   onSeeMore,
 }) => (
@@ -24,6 +29,10 @@ const SharedItemCardFooter = ({
     className={styles.bulletSeparator}
     compact
     details={[
+      languageCode && (
+        <Language languageCode={languageCode} />
+      ),
+      tags && onChangeTags && <TagList tags={tags} setTags={onChangeTags} />,
       mediaCount !== null && (
         <MediaCount
           mediaCount={mediaCount}
@@ -64,7 +73,10 @@ SharedItemCardFooter.defaultProps = {
   mediaType: null,
   requestsCount: null,
   suggestionsCount: null,
+  languageCode: null,
   lastRequestDate: null,
+  tags: null,
+  onChangeTags: null,
   channels: null,
   onSeeMore: null,
 };
@@ -74,7 +86,10 @@ SharedItemCardFooter.propTypes = {
   mediaType: PropTypes.string,
   requestsCount: PropTypes.number,
   suggestionsCount: PropTypes.number,
+  languageCode: PropTypes.string,
   lastRequestDate: PropTypes.instanceOf(Date),
+  tags: PropTypes.arrayOf(PropTypes.string),
+  onChangeTags: PropTypes.func,
   channels: PropTypes.exact({
     main: PropTypes.number,
     others: PropTypes.arrayOf(PropTypes.number),
