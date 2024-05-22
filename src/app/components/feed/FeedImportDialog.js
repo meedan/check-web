@@ -13,8 +13,9 @@ import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import AutoCompleteMediaItem from '../media/AutoCompleteMediaItem';
 import dialogStyles from '../../styles/css/dialog.module.css';
 import { withSetFlashMessage } from '../FlashMessage';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import ParsedText from '../ParsedText';
 import mediaStyles from '../media/media.module.css';
 import styles from './FeedItem.module.css';
 
@@ -61,8 +62,9 @@ const FeedImportDialog = ({
   };
 
   const onError = (error) => {
-    const errorMessage = getErrorMessageForRelayModernProblem(error) || <GenericUnknownErrorMessage />;
-    setFlashMessage(errorMessage);
+    const errorMessage = getErrorMessage(error);
+    const errorComponent = errorMessage ? <ParsedText text={errorMessage} /> : <GenericUnknownErrorMessage />;
+    setFlashMessage(errorComponent);
     setSaving(false);
     onClose();
   };
