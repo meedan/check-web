@@ -22,6 +22,17 @@ const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
     ));
   }
 
+  // Turn Markdown URLs into links (e.g., [Text](https://url))
+
+  parsedText = reactStringReplace(parsedText, /(\[[^\]]+\]\(https?:\/\/[^ ]+\))/gm, (match, i) => {
+    const markdown = match.match(/\[(?<text>[^\]]+)\]\((?<url>https?:\/\/[^ ]+)\)/m); // Extract "text" and "url" from Markdown link
+    return (
+      <a className={styles['markdown-link']} href={markdown.groups.url} target="_blank" key={i} rel="noopener noreferrer">
+        {markdown.groups.text}
+      </a>
+    );
+  });
+
   // Turn other URLs into links
 
   parsedText = reactStringReplace(parsedText, /(https?:\/\/[^ ]+)/gm, (match, i) => (
