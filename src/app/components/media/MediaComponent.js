@@ -56,7 +56,7 @@ class MediaComponent extends Component {
     if (!this.props.projectMedia.is_read) {
       commitMutation(Store, {
         mutation: graphql`
-          mutation BulkActionsMenuMarkAsReadMutation($input: BulkProjectMediaMarkReadInput!) {
+          mutation MediaComponentMarkAsReadMutation($input: BulkProjectMediaMarkReadInput!) {
             bulkProjectMediaMarkRead(input: $input) {
               updated_objects {
                 id
