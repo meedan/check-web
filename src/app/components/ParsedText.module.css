@@ -22,3 +22,10 @@
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
+
+.markdown-link {
+  &:hover {
+    color: inherit !important;
+    text-decoration: none;
+  }
+}
