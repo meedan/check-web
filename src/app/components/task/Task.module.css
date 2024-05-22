@@ -8,7 +8,7 @@
     margin: 0 0 8px;
 
     sup {
-      color: var(--errorMain);
+      color: var(--color-pink-53);
     }
   }
 
@@ -18,7 +18,7 @@
 
   .task-map {
     :global(#map-edit) {
-      border: dashed 3px var(--validationMain);
+      border: dashed 3px var(--color-green-35);
       height: 500px;
       width: 100%;
     }
@@ -26,7 +26,7 @@
 
   .task-footer {
     @mixin typography-caption;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     flex: 1 1 auto;
     margin: 8px 0 0;
     text-align: left;

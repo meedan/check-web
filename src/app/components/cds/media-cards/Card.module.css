@@ -1,9 +1,9 @@
 .toggleCollapse {
   align-items: center;
-  background-color: var(--brandHoverAccent);
-  border: 0 solid var(--grayBorderMain);
+  background-color: var(--color-blue-98);
+  border: 0 solid var(--color-gray-88);
   border-radius: 8px;
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -20,14 +20,14 @@
   }
 
   &:hover {
-    background-color: var(--brandHoverAccent);
-    color: var(--brandMain);
+    background-color: var(--color-blue-98);
+    color: var(--color-blue-54);
   }
 }
 
-.factCheckLink {
+.articleLink {
   align-items: center;
-  color: var(--textLink);
+  color: var(--color-blue-32);
   display: flex;
   font-size: var(--font-size-body-2);
   gap: 3px;
@@ -50,14 +50,14 @@
 }
 
 .card {
-  background-color: var(--otherWhite);
-  border: 1px solid var(--grayBorderMain);
+  background-color: var(--color-white-100);
+  border: 1px solid var(--color-gray-88);
   border-radius: 8px;
   padding: 16px;
   width: 100%;
 
   &:hover {
-    border-color: var(--textLink);
+    border-color: var(--color-blue-32);
   }
 
   .cardContent {
@@ -95,7 +95,7 @@
 
   .cardDescription {
     -webkit-box-orient: vertical;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     display: -webkit-box; /* stylelint-disable-line */
     white-space: pre-line;
   }
@@ -122,7 +122,7 @@
   }
 
   .cardDate {
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
     margin-top: 8px;
     padding-right: 8px;
     text-align: right;

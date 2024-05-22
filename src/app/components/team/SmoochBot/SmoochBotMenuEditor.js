@@ -16,10 +16,10 @@ import ArrowDownwardIcon from '../../../icons/arrow_downward.svg';
 
 const useStyles = makeStyles(theme => ({
   button: {
-    color: 'var(--brandMain)',
+    color: 'var(--color-blue-54)',
   },
   iconButton: {
-    color: 'var(--brandMain)',
+    color: 'var(--color-blue-54)',
     display: 'block',
   },
   content: {

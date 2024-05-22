@@ -1,7 +1,7 @@
 .input-wrapper {
   .label-container {
     @mixin typography-body2;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     display: grid;
     grid-gap: 8px;
     margin-bottom: 4px;
@@ -22,7 +22,7 @@
     }
 
     &.error-label {
-      color: var(--errorSecondary);
+      color: var(--color-pink-40);
     }
   }
 
@@ -31,7 +31,7 @@
 
     .input-icon-left-icon,
     .input-icon-right-icon {
-      color: var(--textSecondary);
+      color: var(--color-gray-37);
       font-size: var(--iconSizeDefault);
       height: 24px;
       pointer-events: none;
@@ -62,7 +62,7 @@
     }
 
     &.error-label {
-      color: var(--errorSecondary);
+      color: var(--color-pink-40);
       white-space: pre-line;
 
       .help-counter {
@@ -74,13 +74,13 @@
   &.disabled {
     .label-container:not(.error-label),
     .help-container:not(.error-label) {
-      color: var(--textPlaceholder);
+      color: var(--color-gray-75);
     }
 
     .input-container {
       .input-icon-left-icon,
       .input-icon-right-icon {
-        color: var(--textPlaceholder);
+        color: var(--color-gray-75);
       }
     }
   }
@@ -94,14 +94,14 @@
 
   .form-footer-actions-context {
     @mixin typography-caption;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     flex: 1 1 auto;
     text-align: left;
   }
 }
 
 .form-inner-wrapper {
-  background-color: var(--brandBackground);
+  background-color: var(--color-beige-93);
   border-radius: 5px;
   padding: 16px;
 
@@ -113,7 +113,7 @@
   }
 
   .form-inner-wrapper {
-    background: var(--brandBackgroundAccent);
+    background: var(--color-beige-86);
     border-radius: 3px;
     padding: 16px;
   }
@@ -144,7 +144,6 @@
     margin: 0 0 16px;
 
     &.form-autocomplete-create {
-      border: solid 1px var(--errroMain);
       display: flex;
       gap: 8px;
 

@@ -1,5 +1,4 @@
 .user-settings-wrapper {
-  background-color: var(--grayBackground);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -41,7 +40,7 @@
       width: 100%;
 
       .user-setting-content-container {
-        background-color: var(--otherWhite);
+        background-color: var(--color-white-100);
         border-radius: 8px;
         padding: 16px;
 
@@ -62,7 +61,7 @@
         }
 
         .user-setting-content-container-inner {
-          background-color: var(--brandBackground);
+          background-color: var(--color-beige-93);
           border-radius: 5px;
           padding: 16px;
 
@@ -72,7 +71,7 @@
         }
 
         .user-setting-content-container-inner-accent {
-          background: var(--brandBackgroundAccent);
+          background: var(--color-beige-86);
           border-radius: 3px;
           padding: 16px;
 
@@ -93,7 +92,7 @@
 
           .contact-info {
             align-items: center;
-            color: var(--textSecondary);
+            color: var(--color-gray-37);
             display: flex;
             flex-flow: wrap row;
             gap: 8px;
@@ -109,7 +108,7 @@
       .user-setting-content-list {
         li {
           align-items: flex-start;
-          border-bottom: solid 1px var(--grayBorderMain);
+          border-bottom: solid 1px var(--color-gray-88);
           display: flex;
           gap: 16px;
           margin: 0 0 8px;

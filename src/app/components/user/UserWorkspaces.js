@@ -90,9 +90,9 @@ class UserWorkspaces extends Component {
     const pendingTeams = [];
 
     const teamAvatarStyle = {
-      border: '1px solid var(--grayDisabledBackground)',
+      border: '1px solid var(--color-gray-88)',
       borderRadius: '2px',
-      backgroundColor: 'var(--otherWhite)',
+      backgroundColor: 'var(--color-white-100)',
     };
 
     teamUsers.forEach((teamUser) => {
@@ -152,7 +152,7 @@ class UserWorkspaces extends Component {
                     </ListItemAvatar>
                     <ListItemText
                       primary={team.name}
-                      style={{ color: 'var(--textPrimary)' }}
+                      style={{ color: 'var(--color-gray-15)' }}
                       secondary={
                         <FormattedMessage
                           id="switchTeams.member"

@@ -1,17 +1,19 @@
 // Styles for overriding material UI
 // Check Design System Colors
 // These are deprecated and only used in this file, use css variables in other files
-const brandMain = '#567bff';
-const brandBorder = '#d0d6ec';
+const brandMain = '#37a0de';
+const brandBorder = '#9fdbfc';
+
+const colorPurple61 = '#9643f5';
 
 const textPrimary = '#262626';
-const textSecondary = '#656565';
-const textPlaceholder = '#949494';
-const textDisabled = '#999';
+const textSecondary = '#5e5e5e';
+const textPlaceholder = '#bfbfbf';
+const textDisabled = '#979797';
 
-const grayDisabledBackground = '#f3f3f3';
-const grayBorderMain = '#e4e4e4';
-const grayBorderAccent = '#b4b4b4';
+const grayDisabledBackground = '#e0e0e0';
+const grayBorderMain = '#e0e0e0';
+const grayBorderAccent = '#bfbfbf';
 
 export const MuiTheme = { // eslint-disable-line import/prefer-default-export
   palette: {
@@ -69,10 +71,10 @@ export const MuiTheme = { // eslint-disable-line import/prefer-default-export
     },
     MuiTableSortLabel: {
       active: {
-        color: `${brandMain} !important`,
+        color: `${colorPurple61} !important`,
       },
       icon: {
-        color: `${brandMain} !important`,
+        color: `${colorPurple61} !important`,
       },
     },
     MuiIconButton: { // Buttons with Icons

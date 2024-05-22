@@ -22,7 +22,7 @@ describe('<EditStatusDialog />', () => {
     locales: {
       en: { label: 'True', description: 'description A', message: 'message to be sent' },
     },
-    style: { color: 'var(--textPrimary)' },
+    style: { color: 'var(--color-gray-15)' },
     label: 'True',
     should_send_message: true,
   };

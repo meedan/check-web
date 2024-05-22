@@ -6,7 +6,7 @@
     animation-iteration-count: 1;
     animation-name: medias-loader;
     animation-timing-function: cubic-bezier(.8, 0, .6, 1);
-    background-color: var(--otherWhite);
+    background-color: var(--color-white-100);
     border-radius: 50%;
     padding: .35em;
     transform: scale3d(1, 1, 1);
@@ -103,7 +103,7 @@
 
   &.theme-grey {
     :global(.check-icon) {
-      background-color: var(--grayBackground);
+      background-color: var(--color-gray-96);
     }
   }
 

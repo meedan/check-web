@@ -53,7 +53,7 @@ const AnnotationFilterNumber = ({
         theme="text"
         size="small"
         variant="text"
-        customStyle={{ color: 'var(--textPrimary' }}
+        customStyle={{ color: 'var(--color-gray-15' }}
         label={<FormattedMessage id="numericRangeFilter.between" defaultMessage="between" description="Filter operator denoting user is filtering by numbers between two values" />}
       />
       <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">
@@ -73,7 +73,7 @@ const AnnotationFilterNumber = ({
         theme="text"
         size="small"
         variant="text"
-        customStyle={{ color: 'var(--textPrimary' }}
+        customStyle={{ color: 'var(--color-gray-15' }}
         label={<FormattedMessage id="numericRangeFilter.and" defaultMessage="and" description="Logical operator AND statement" />}
       />
       <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">

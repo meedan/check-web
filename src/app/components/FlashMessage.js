@@ -67,10 +67,10 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
 
 const useSnackBarStyles = makeStyles({
   info: {
-    backgroundColor: 'var(--brandMain) !important',
+    backgroundColor: 'var(--color-blue-54) !important',
   },
   icon: {
-    color: 'var(--otherWhite) !important',
+    color: 'var(--color-white-100) !important',
     marginTop: '8px !important',
     paddingTop: '0px !important',
     '&:hover': {
@@ -82,21 +82,21 @@ const useSnackBarStyles = makeStyles({
       alignItems: 'flex-start',
     },
     '& a': {
-      color: 'var(--otherWhite)',
+      color: 'var(--color-white-100)',
       textDecoration: 'underline',
       cursor: 'pointer',
       '&:not([href])': {
         textDecoration: 'underline',
       },
       '&:not([href]):hover': {
-        color: 'var(--textSecondary)',
+        color: 'var(--color-gray-37)',
         textDecoration: 'underline',
       },
       '&:visited': {
-        color: 'var(--otherWhite)',
+        color: 'var(--color-white-100)',
       },
       '&:hover': {
-        color: 'var(--textSecondary)',
+        color: 'var(--color-gray-37)',
       },
     },
   },
@@ -149,10 +149,10 @@ const useStyles = makeStyles({
     zIndex: '1000',
   },
   link: {
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     textDecoration: 'underline',
     '&:visited': {
-      color: 'var(--otherWhite)',
+      color: 'var(--color-white-100)',
     },
   },
 });

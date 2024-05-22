@@ -1,5 +1,5 @@
 .sharedFeedTitle {
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
   text-transform: uppercase;
 }
 
@@ -13,7 +13,6 @@
 }
 
 .saveFeedContainer {
-  background: var(--grayBackground);
   display: flex;
   gap: 32px;
   height: 100%;
@@ -45,11 +44,11 @@
 }
 
 .saveFeedButtonMoreActions {
-  color: var(--brandMain);
+  color: var(--color-blue-54);
 }
 
 .saveFeedCard {
-  background: var(--otherWhite);
+  background: var(--color-white-100);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -75,15 +74,15 @@
 }
 
 .licenseOptionDescription {
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
 }
 
 .licenseOptionDisabled {
-  color: var(--textDisabled);
+  color: var(--color-gray-59);
 }
 
 .saveFeedMetadata {
-  background-color: var(--otherWhite);
+  background-color: var(--color-white-100);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -92,7 +91,7 @@
   padding: 16px;
 
   span {
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     font-size: var(--font-size-body-2);
   }
 }
@@ -106,7 +105,7 @@
   display: flex;
 
   svg {
-    color: var(--brandMain);
+    color: var(--color-blue-54);
     font-size: var(--iconSizeSmall);
   }
 }
@@ -120,7 +119,7 @@
 }
 
 .dataPointsSection {
-  border: 1px solid var(--grayBorderMain);
+  border: 1px solid var(--color-gray-88);
   border-radius: 5px;
   margin-top: 8px;
   padding: 8px 8px 0;
@@ -155,7 +154,7 @@
 }
 
 .feedContentCard {
-  background: var(--brandBackground);
+  background: var(--color-beige-93);
 }
 
 .paragraphMarginTop {

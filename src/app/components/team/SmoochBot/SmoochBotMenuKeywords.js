@@ -131,7 +131,7 @@ const SmoochBotMenuKeywords = ({
           description="Helper text for tags component on tipline menu option editing screen."
         />
         { hasUnsavedChanges ?
-          <span style={{ color: 'var(--alertMain)' }}>
+          <span style={{ color: 'var(--color-orange-54)' }}>
             <br />
             <FormattedMessage
               tagName="small"

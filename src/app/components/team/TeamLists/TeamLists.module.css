@@ -21,8 +21,8 @@
 
         .item-details {
           align-items: center;
-          background-color: var(--otherWhite);
-          border: solid 1px var(--grayBorderMain);
+          background-color: var(--color-white-100);
+          border: solid 1px var(--color-gray-88);
           border-radius: 5px;
           display: grid;
           gap: 0 4px;
@@ -36,7 +36,7 @@
             }
 
             small {
-              color: var(--textSecondary);
+              color: var(--color-gray-37);
               display: none;
             }
           }
@@ -56,15 +56,15 @@
 
     &.teamlist-column-selected {
       .teamlist-column-items {
-        background-color: var(--brandBackground);
+        background-color: var(--color-beige-93);
       }
     }
 
     .teamlist-placeholder {
       align-items: center;
-      background-color: var(--grayBackground);
+      background-color: var(--color-gray-96);
       border-radius: 5px;
-      color: var(--textSecondary);
+      color: var(--color-gray-37);
       display: flex;
       justify-content: center;
       min-height: 80px;

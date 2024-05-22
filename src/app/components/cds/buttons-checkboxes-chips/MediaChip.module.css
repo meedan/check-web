@@ -1,6 +1,6 @@
 .media-chip {
   align-items: center;
-  background-color: var(--brandBackgroundAccent);
+  background-color: var(--color-beige-86);
   border-radius: 4px;
   display: flex;
   gap: 8px;
@@ -8,7 +8,7 @@
 }
 
 .media-chip-icon svg {
-  color: var(--textPrimary);
+  color: var(--color-gray-15);
   display: block;
 }
 
