@@ -5,7 +5,6 @@ import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import Dialog from '@material-ui/core/Dialog';
-import Linkify from 'react-linkify';
 import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
@@ -16,6 +15,7 @@ import dialogStyles from '../../styles/css/dialog.module.css';
 import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import ParsedText from '../ParsedText';
 import mediaStyles from '../media/media.module.css';
 import styles from './FeedItem.module.css';
 
@@ -63,7 +63,7 @@ const FeedImportDialog = ({
 
   const onError = (error) => {
     const errorMessage = getErrorMessage(error);
-    const errorComponent = errorMessage ? <Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{errorMessage}</Linkify> : <GenericUnknownErrorMessage />;
+    const errorComponent = errorMessage ? <ParsedText text={errorMessage} /> : <GenericUnknownErrorMessage />;
     setFlashMessage(errorComponent);
     setSaving(false);
     onClose();
