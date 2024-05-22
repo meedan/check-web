@@ -52,7 +52,13 @@ const SharedItemCard = ({
         <div className={styles.sharedItemCardMiddle}>
           <CardHoverContext.Consumer>
             { isHovered => (
-              <ItemDescription title={title} description={description} factCheckUrl={factCheckUrl} showCollapseButton={isHovered} />
+              <ItemDescription
+                title={title}
+                description={description}
+                url={factCheckUrl}
+                showCollapseButton={isHovered}
+                variant="fact-check"
+              />
             )}
           </CardHoverContext.Consumer>
           <div className={styles.sharedItemCardWorkspaces}>

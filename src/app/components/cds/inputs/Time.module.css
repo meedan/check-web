@@ -1,9 +1,9 @@
 .time-container {
   .input {
-    background-color: var(--otherWhite);
-    border: 2px solid var(--grayBorderMain);
+    background-color: var(--color-white-100);
+    border: 2px solid var(--color-gray-88);
     border-radius: 8px;
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
     font: 400 14px var(--fontStackSans);
     height: 100%;
     letter-spacing: .15px;
@@ -16,7 +16,7 @@
     }
 
     &:hover {
-      border-color: var(--grayBorderAccent);
+      border-color: var(--color-gray-75);
     }
 
     &::placeholder {
@@ -26,7 +26,7 @@
     }
 
     &:focus {
-      border-color: var(--brandMain);
+      border-color: var(--color-blue-54);
       outline: none;
 
       &::placeholder {
@@ -36,8 +36,8 @@
 
     &:disabled,
     &.disabled {
-      background-color: var(--grayDisabledBackground);
-      color: var(--textDisabledInput);
+      background-color: var(--color-gray-96);
+      color: var(--color-gray-59);
       cursor: not-allowed;
       opacity: 1;
 
@@ -46,19 +46,19 @@
       }
 
       &:hover {
-        border-color: var(--grayBorderMain);
+        border-color: var(--color-gray-88);
       }
     }
 
     &.error {
-      border-color: var(--errorMain) !important;
+      border-color: var(--color-pink-53) !important;
 
       &:hover {
-        border-color: var(--errorSecondary) !important;
+        border-color: var(--color-pink-40) !important;
       }
 
       &:focus {
-        border-color: var(--errorMain) !important;
+        border-color: var(--color-pink-53) !important;
       }
     }
   }

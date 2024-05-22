@@ -22,7 +22,7 @@ const SocialIcon = ({ domain, inColor }) => {
     return <YouTubeIcon className="logo" style={{ color: inColor ? 'var(--youTubeRed)' : '' }} />;
   case 'instagram.com':
   case 'instagram':
-    return <InstagramIcon className="logo" style={{ color: inColor ? 'var(--textPrimary)' : '' }} />;
+    return <InstagramIcon className="logo" style={{ color: inColor ? 'var(--color-gray-15)' : '' }} />;
   case 'facebook.com':
   case 'facebook':
     return <FacebookIcon className="logo" style={{ color: inColor ? 'var(--facebookBlue)' : '' }} />;

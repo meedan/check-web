@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     top: -theme.spacing(2.5),
     left: -theme.spacing(2),
     opacity: 0,
-    background: 'var(--brandLight)',
+    background: 'var(--color-blue-98)',
     height: 0,
     width: `calc(100% + ${theme.spacing(4)}px)`,
     display: 'block',

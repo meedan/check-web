@@ -1,6 +1,6 @@
 .chat-history {
-  background-color: var(--otherWhite);
-  border: 1px solid var(--grayBorderMain);
+  background-color: var(--color-white-100);
+  border: 1px solid var(--color-gray-88);
   border-radius: 16px;
   left: 50%;
   position: absolute;
@@ -10,7 +10,7 @@
 
   .chat-header {
     align-items: center;
-    border-bottom: 1px solid var(--brandBorder);
+    border-bottom: 1px solid var(--color-blue-81);
     display: flex;
     height: 64px;
     justify-content: space-between;
@@ -28,7 +28,7 @@
   }
 
   .chat-content {
-    background-color: var(--grayBackground);
+    background-color: var(--color-gray-96);
     border: 0 none;
     border-radius: 0 0 16px 16px;
     display: flex;
@@ -70,11 +70,11 @@
       gap: 8px;
 
       .user {
-        background-color: var(--brandMain);
+        background-color: var(--color-blue-54);
         border-radius: 16px 16px 16px 4px;
         /* stylelint-disable-next-line color-function-notation */
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
-        color: var(--otherWhite);
+        color: var(--color-white-100);
         max-width: 80%;
         padding: 8px;
         white-space: pre-wrap;
@@ -82,11 +82,11 @@
       }
 
       .bot {
-        background-color: var(--validationLight);
+        background-color: var(--color-green-97);
         border-radius: 16px 16px 4px;
         /* stylelint-disable-next-line color-function-notation */
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
-        color: var(--textPrimary);
+        color: var(--color-gray-15);
         max-width: 80%;
         padding: 8px;
         white-space: pre-wrap;
@@ -94,11 +94,11 @@
       }
 
       .selection {
-        background-color: var(--brandLight);
+        background-color: var(--color-blue-98);
         border-radius: 16px 16px 16px 4px;
         /* stylelint-disable-next-line color-function-notation */
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
-        color: var(--textPrimary);
+        color: var(--color-gray-15);
         max-width: 80%;
         padding: 8px;
         white-space: pre-wrap;
@@ -106,40 +106,40 @@
       }
 
       .delivered {
-        color: var(--validationMain);
+        color: var(--color-green-35);
         vertical-align: middle;
       }
 
       /* Styles for different message events */
       .message-event-no-results {
-        background-color: var(--alertMain);
-        color: var(--otherWhite);
+        background-color: var(--color-orange-54);
+        color: var(--color-white-100);
       }
 
       .message-event-report,
       .message-event-search-result,
       .message-event-newsletter,
       .message-event-resource {
-        background-color: var(--validationMain);
-        color: var(--otherWhite);
+        background-color: var(--color-green-35);
+        color: var(--color-white-100);
       }
 
       .message-event-timeout {
-        background-color: var(--textPrimary);
-        color: var(--otherWhite);
+        background-color: var(--color-gray-15);
+        color: var(--color-white-100);
       }
 
       .message-event-option-not-available {
-        background-color: var(--errorLight);
+        background-color: var(--color-pink-96);
       }
 
       .message-event-custom-message {
-        background-color: var(--brandSecondary);
-        color: var(--otherWhite);
+        background-color: var(--color-blue-38);
+        color: var(--color-white-100);
       }
 
       .message-event-status-change {
-        background-color: var(--brandLight);
+        background-color: var(--color-blue-98);
       }
     }
   }

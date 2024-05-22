@@ -67,8 +67,8 @@ const QuickFilterMenu = ({
           </ListItemIcon>
           <FormattedHTMLMessage
             id="quickFilterMenu.otherWorkspaces"
-            defaultMessage="Fact-checks <strong>not</strong> in my workspace"
-            description="Label for a menu item that filters a search of fact-checks so that the user only sees those that are *not* in their workspace"
+            defaultMessage="Items <strong>not</strong> in my workspace"
+            description="Label for a menu item that filters a search of items so that the user only sees those that are *not* in their workspace"
           />
         </MenuItem>
         <MenuItem
@@ -80,8 +80,8 @@ const QuickFilterMenu = ({
           </ListItemIcon>
           <FormattedHTMLMessage
             id="quickFilterMenu.myWorkspace"
-            defaultMessage="Fact-checks <strong>only</strong> in my workspace"
-            description="Label for a menu item that filters a search of fact-checks so that the user only sees those that are in their workspace"
+            defaultMessage="Items <strong>only</strong> in my workspace"
+            description="Label for a menu item that filters a search of items so that the user only sees those that are in their workspace"
           />
         </MenuItem>
       </Menu>

@@ -12,10 +12,10 @@ const MediaCardLargeFooterContent = ({
   return (
     <div className="media-card-large-footer-content">
       <div className="typography-body1">
-        <Box color="var(--textSecondary)">
+        <Box color="var(--color-gray-37)">
           {title}
         </Box>
-        <Box color="var(--textPrimary)">
+        <Box color="var(--color-gray-15)">
           <LongShort showAll={showAll} maxLines={2}>
             {body}
           </LongShort>

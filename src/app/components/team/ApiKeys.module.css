@@ -14,7 +14,7 @@
 
 .api-keys-footer {
   align-items: center;
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
   display: flex;
   gap: 4px;
   margin-top: 16px;
@@ -22,14 +22,14 @@
 }
 
 .apikey-entry-root {
-  background-color: var(--otherWhite);
-  border: solid 2px var(--grayBorderMain);
+  background-color: var(--color-white-100);
+  border: solid 2px var(--color-gray-88);
   border-radius: 5px;
   padding: 20px;
 }
 
 .api-keys-empty-blurb {
-  color: var(--textDisabled);
+  color: var(--color-gray-59);
   margin-top: 10px;
   text-align: center;
 }
@@ -43,11 +43,11 @@
 }
 
 .key-title--active {
-  color: var(--textPrimary);
+  color: var(--color-gray-15);
 }
 
 .key-title--expired {
-  color: var(--textDisabled);
+  color: var(--color-gray-59);
 }
 
 .key-description {
@@ -55,7 +55,7 @@
 }
 
 .key-expired {
-  color: var(--errorSecondary);
+  color: var(--color-pink-40);
 }
 
 .key-row {

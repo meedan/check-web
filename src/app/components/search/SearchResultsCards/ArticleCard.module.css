@@ -1,0 +1,16 @@
+.articleCard {
+  display: block;
+
+  .articleCardDescription {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: calc(100% - 170px);
+  }
+
+  .cardRight {
+    min-width: 150px;
+    text-align: right;
+  }
+}

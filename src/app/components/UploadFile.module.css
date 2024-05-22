@@ -1,0 +1,38 @@
+.UploadFile {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 16px;
+
+  .UploadFile-with-file,
+  .UploadFile-without-file {
+    align-items: center;
+    border: 2px dashed var(--color-gray-59);
+    color: var(--color-gray-59);
+    cursor: pointer;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.Preview {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+  height: 80px;
+  position: relative;
+  width: 80px;
+}
+
+.NoPreview {
+  display: block;
+  height: 0;
+  margin: 16px 0 0;
+  position: relative;
+  width: 0;
+}

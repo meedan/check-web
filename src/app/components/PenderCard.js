@@ -1,33 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import cx from 'classnames/bind';
 import MediasLoading from './media/MediasLoading';
-
-const PenderCardContainer = styled.div`
-  max-height: 2000px;
-  min-height: 200px;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  position: relative;
-
-  iframe {
-    bottom: 0;
-    position: relative;
-    top: 0;
-    z-index: 1;
-    left: 0;
-    right: 0;
-    width: 100%;
-  }
-`;
-
-const PenderCardLoader = styled.div`
-  align-items: center;
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  width: 100%;
-`;
+import styles from './PenderCard.module.css';
 
 class PenderCard extends Component {
   componentDidMount() {
@@ -75,16 +50,16 @@ class PenderCard extends Component {
 
   render() {
     return (
-      <div>
-        <PenderCardContainer
+      <div className={styles['pender-card-wrapper']}>
+        <div
           id={this.props.domId}
-          className="pender-card"
+          className={cx('pender-card', styles['pender-card'])}
           style={{ maxHeight: 'none' }}
         />
 
-        <PenderCardLoader
+        <div
           id={`pender-card-loader-${this.props.domId}`}
-          className="pender-card__loader"
+          className={cx('pender-card__loader', styles['pender-card-loader'])}
         >
           {(() => {
             if (this.props.fallback) {
@@ -94,7 +69,7 @@ class PenderCard extends Component {
               <MediasLoading theme="white" variant="inline" size="medium" />
             );
           })()}
-        </PenderCardLoader>
+        </div>
       </div>
     );
   }

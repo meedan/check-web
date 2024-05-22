@@ -54,7 +54,7 @@ const styles = {
     marginTop: '16px',
   },
   error: {
-    color: 'var(--errorMain)',
+    color: 'var(--color-pink-53)',
   },
 };
 

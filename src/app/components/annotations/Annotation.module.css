@@ -1,0 +1,57 @@
+.annotation-wrapper {
+  display: flex;
+  padding: 8px 0;
+  position: relative;
+
+  &::before {
+    background-color: var(--color-gray-88);
+    border-radius: 100%;
+    content: '';
+    height: 8px;
+    left: -4px;
+    outline: 3px solid var(--color-white-100);
+    position: absolute;
+    top: 16px;
+    width: 8px;
+  }
+
+  .annotation-default {
+    color: var(--color-gray-15);
+    display: flex;
+    padding: 4px 0 0 16px;
+    width: 100%;
+
+    .annotation-default-content {
+      display: block;
+      hyphens: auto;
+      margin: 0 16px 0 0;
+      overflow-wrap: break-word;
+      width: 100%;
+      word-break: break-word;
+    }
+  }
+
+  .annotation-timestamp {
+    color: var(--color-gray-59);
+    display: inline;
+    flex: 1;
+    white-space: pre;
+  }
+}
+
+body[dir='rtl'] {
+  .annotation-wrapper {
+    &::before {
+      left: auto;
+      right: -4px;
+    }
+
+    .annotation-default {
+      padding: 4px 16px 0 0;
+
+      .annotation-default-content {
+        margin: 0 0 0 16px;
+      }
+    }
+  }
+}

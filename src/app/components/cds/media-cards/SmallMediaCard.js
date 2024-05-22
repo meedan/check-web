@@ -16,10 +16,10 @@ import { getMediaType } from '../../../helpers';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    border: '1px solid var(--brandBorder)',
+    border: '1px solid var(--color-gray-88)',
     borderRadius: 8,
-    color: 'var(--textPrimary)',
-    backgroundColor: 'var(--otherWhite)',
+    color: 'var(--color-gray-15)',
+    backgroundColor: 'var(--color-white-100)',
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     padding: theme.spacing(1),
@@ -68,14 +68,14 @@ const useStyles = makeStyles(theme => ({
     height: 96,
     width: 96,
     marginRight: theme.spacing(1),
-    backgroundColor: 'var(--textPrimary)',
+    backgroundColor: 'var(--color-gray-15)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   icon: {
     fontSize: '40px',
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
   },
   alert: {
     marginTop: '16px',

@@ -98,7 +98,7 @@ const LanguageFilter = ({
                   theme="text"
                   size="small"
                   variant="text"
-                  customStyle={{ color: 'var(--textPrimary' }}
+                  customStyle={{ color: 'var(--color-gray-15' }}
                   label={<FormattedMessage id="languageFilter.is" defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" />}
                 />
                 <MultiSelectFilter

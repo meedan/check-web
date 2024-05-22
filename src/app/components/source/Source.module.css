@@ -1,0 +1,32 @@
+.source-picture {
+  align-self: flex-start;
+  background-color: var(--color-white-100);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+  height: 40px;
+  width: 40px;
+
+  &.sizeLarge {
+    height: 72px;
+    width: 72px;
+  }
+
+  &.sizeSmall {
+    height: 32px;
+    width: 32px;
+  }
+
+  &.sizeExtraSmall {
+    height: 24px;
+    width: 24px;
+  }
+
+  &.sourceImage {
+    background-size: contain;
+    border: 1px solid var(--color-gray-88);
+    border-radius: 2px;
+  }
+}

@@ -8,7 +8,7 @@ NOTE this means inputs all have to be on a white canvas unless you override this
  */
 
 input:-webkit-autofill {
-  -webkit-box-shadow: inset 0 0 0 9999px var(--otherWhite);
+  -webkit-box-shadow: inset 0 0 0 9999px var(--color-white-100);
 }
 
 [lang='ar'] {
@@ -17,7 +17,7 @@ input:-webkit-autofill {
   }
 
   body {
-    font-size: var(--fontSizeBaseText);
+    font-size: var(--font-size-base);
   }
 
   .home__disclaimer > span {
@@ -26,7 +26,7 @@ input:-webkit-autofill {
   }
 
   footer {
-    font-size: var(--fontSizeDefault);
+    font-size: var(--font-size-body-1);
   }
 
   .rc-tooltip-inner {

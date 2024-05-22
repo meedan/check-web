@@ -9,7 +9,7 @@
 }
 
 .slideoutContainer {
-  background-color: var(--otherWhite);
+  background-color: var(--color-white-100);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -17,7 +17,7 @@
 }
 
 .slideoutTitle {
-  background-color: var(--brandLight);
+  background-color: var(--color-beige-86);
 
   .slideoutTitleContent {
     align-items: center;
@@ -44,7 +44,7 @@
 }
 
 .slideoutFooter {
-  background-color: var(--brandBackgroundAccent);
+  background-color: var(--color-beige-93);
   width: 100%;
 
   .slideoutFooterMain {

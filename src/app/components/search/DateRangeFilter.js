@@ -191,7 +191,7 @@ function DateRangeSelectorStartEnd(props) {
               theme="text"
               size="small"
               variant="text"
-              customStyle={{ color: 'var(--textPrimary' }}
+              customStyle={{ color: 'var(--color-gray-15' }}
               label={<FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />}
             />
             <ButtonMain

@@ -17,8 +17,8 @@ describe('<MediaActionsBarComponent />', () => {
           id: 'undetermined',
           label: 'Unstarted',
           style: {
-            backgroundColor: 'var(--brandMain)',
-            color: 'var(--brandMain)',
+            backgroundColor: 'var(--color-blue-54)',
+            color: 'var(--color-blue-54)',
           },
         },
       ],
@@ -40,8 +40,8 @@ describe('<MediaActionsBarComponent />', () => {
           id: 'undetermined',
           label: 'Unstarted',
           style: {
-            backgroundColor: 'var(--brandMain)',
-            color: 'var(--brandMain)',
+            backgroundColor: 'var(--color-blue-54)',
+            color: 'var(--color-blue-54)',
           },
         },
       ],

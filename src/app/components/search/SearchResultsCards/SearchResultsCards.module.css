@@ -1,5 +1,5 @@
 .searchResultsCards {
-  background: var(--otherWhite);
+  background: var(--color-white-100);
   display: flex;
   flex-direction: column;
   overflow: auto;

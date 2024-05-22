@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     boxShadow: 'none',
-    border: '2px solid var(--brandMain)',
+    border: '2px solid var(--color-blue-54)',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
@@ -23,10 +23,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
   },
   ifTitle: {
-    color: 'var(--brandMain)',
+    color: 'var(--color-blue-54)',
   },
   thenTitle: {
-    color: 'var(--brandMain)',
+    color: 'var(--color-blue-54)',
   },
   caption: {
     margin: `0 ${theme.spacing(1)}px`,

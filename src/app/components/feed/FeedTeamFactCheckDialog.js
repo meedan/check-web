@@ -6,7 +6,7 @@ import cx from 'classnames/bind';
 import Dialog from '@material-ui/core/Dialog';
 import BulletSeparator from '../layout/BulletSeparator';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import FactCheckUrl from '../cds/media-cards/FactCheckUrl';
+import ArticleUrl from '../cds/media-cards/ArticleUrl';
 import IconClose from '../../icons/clear.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
 import LanguageIcon from '../../icons/language.svg';
@@ -105,10 +105,7 @@ const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
               null
             }
           </div>
-          { claimDescription?.fact_check?.url ?
-            <FactCheckUrl factCheckUrl={claimDescription.fact_check.url} /> :
-            null
-          }
+          <ArticleUrl url={claimDescription?.fact_check?.url} variant="fact-check" />
           { claimDescription?.fact_check?.title ?
             <div className="typography-body2-bold">
               {claimDescription.fact_check.title}
