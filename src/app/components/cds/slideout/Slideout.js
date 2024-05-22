@@ -46,6 +46,7 @@ const Slideout = ({
             <ButtonMain
               theme="text"
               variant="contained"
+              size="small"
               iconCenter={<IconClose />}
               onClick={() => handleClose()}
             />
