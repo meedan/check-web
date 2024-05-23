@@ -4,6 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import ProjectsComponent from './ProjectsComponent';
 import FeedsComponent from './FeedsComponent';
+import ArticlesComponent from './ArticlesComponent';
 import SettingsComponent from './SettingsComponent';
 import UserSettingsComponent from './UserSettingsComponent';
 
@@ -39,6 +40,14 @@ const renderQuery = ({ error, props, drawerType }) => {
       return (
         <UserSettingsComponent
           me={props.me}
+          params={props.params}
+        />
+      );
+    } else if (drawerType === 'articles') {
+      return (
+        <ArticlesComponent
+          me={props.me}
+          team={props.team}
           params={props.params}
         />
       );

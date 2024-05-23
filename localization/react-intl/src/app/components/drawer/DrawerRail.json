@@ -33,5 +33,10 @@
     "id": "workspaceMenu.teamFeeds",
     "description": "Tooltip for drawer navigation to shared feeds",
     "defaultMessage": "Shared Feeds"
+  },
+  {
+    "id": "drawerRail.articlesDescription",
+    "description": "Tooltip for the Articles rail navigation",
+    "defaultMessage": "Articles"
   }
 ]
