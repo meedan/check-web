@@ -1,7 +1,0 @@
-[
-  {
-    "id": "sharedItemCard.medias",
-    "description": "A count of media in an item. Title-case where applicable. Example: 3 Media. In English we prefer Media for both singular and plural",
-    "defaultMessage": "{mediaCount, plural, one {# Media} other {{mediaCount, number} Media}}"
-  }
-]

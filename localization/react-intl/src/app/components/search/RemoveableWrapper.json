@@ -1,7 +1,0 @@
-[
-  {
-    "id": "filter.removeFilter",
-    "description": "Tooltip to tell the user they can remove this filter",
-    "defaultMessage": "Remove filter"
-  }
-]

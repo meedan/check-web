@@ -1,7 +1,0 @@
-[
-  {
-    "id": "searchFieldSource.label",
-    "description": "Prefix label for field to filter by source",
-    "defaultMessage": "Source is"
-  }
-]

@@ -18,7 +18,7 @@
     "sourceMap": false
   },
   "scripts": {
-    "build": "rm -rf build/web && npm run build:gulp",
+    "build": "rm -rf build/web && rm -rf localization/react-intl && npm run build:gulp",
     "build:gulp": "NODE_ENV=production gulp build:web",
     "build:dev": "NODE_ENV=development gulp build:web:dev",
     "link:ui": "yalc link @meedan/check-ui",

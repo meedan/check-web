@@ -1,7 +1,0 @@
-[
-  {
-    "id": "mediaSimilarities.noMedia",
-    "description": "A message that shows when the matched media list is empty.",
-    "defaultMessage": "0 media"
-  }
-]

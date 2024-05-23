@@ -1,7 +1,0 @@
-[
-  {
-    "id": "search.file",
-    "description": "This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt.",
-    "defaultMessage": "Search with file"
-  }
-]

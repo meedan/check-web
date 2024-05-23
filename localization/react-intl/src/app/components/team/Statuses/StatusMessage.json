@@ -1,7 +1,0 @@
-[
-  {
-    "id": "statusListItem.messageTooltip",
-    "description": "Tooltip to tell the user when this message will be sent out",
-    "defaultMessage": "When you change an item to this status, the user who requested will receive the following message:"
-  }
-]

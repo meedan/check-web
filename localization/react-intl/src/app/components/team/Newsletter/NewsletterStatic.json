@@ -1,7 +1,0 @@
-[
-  {
-    "id": "newsletterStatic.articlePlaceholder",
-    "description": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article",
-    "defaultMessage": "Add text or link"
-  }
-]

@@ -1,7 +1,0 @@
-[
-  {
-    "id": "refreshButton.success",
-    "description": "Notification displayed when refresh action (re-parsing) of media is completed",
-    "defaultMessage": "Media refreshed successfully"
-  }
-]

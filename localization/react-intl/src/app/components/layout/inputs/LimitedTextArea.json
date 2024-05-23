@@ -1,7 +1,0 @@
-[
-  {
-    "id": "limitedTextAreaWithCounter.counter",
-    "description": "Label that displays how many characters more can be typed",
-    "defaultMessage": "{remaining, plural, one {# character left} other {# characters left}}"
-  }
-]
