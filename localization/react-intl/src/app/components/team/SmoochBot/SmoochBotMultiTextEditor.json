@@ -1,7 +1,0 @@
-[
-  {
-    "id": "smoochBotMultiTextEditor.errorNine",
-    "description": "Error message about a missing option",
-    "defaultMessage": "The option '9' must be included for users to access the Privacy Statement"
-  }
-]

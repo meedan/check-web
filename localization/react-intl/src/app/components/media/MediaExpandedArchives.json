@@ -1,7 +1,0 @@
-[
-  {
-    "id": "mediaExpandedArchives.archives",
-    "description": "This is a header that tells the user that what follows is a list of archival services on the internet that they can use to permanently save the content at a URL.",
-    "defaultMessage": "Archives:"
-  }
-]
