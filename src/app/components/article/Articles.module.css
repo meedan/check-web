@@ -1,0 +1,39 @@
+.articles {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding: 0 16px;
+  padding-right: 0;
+}
+
+.articlesHeader {
+  margin-bottom: 24px;
+}
+
+.articlesFilters {
+  border: 0;
+  overflow: visible;
+  padding: 16px;
+}
+
+.articlesToolbar {
+  background: var(--color-white-100);
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.articlesPagination {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  margin: 0 8px;
+}
+
+.articlesList {
+  overflow: auto;
+  padding-right: 16px;
+}
