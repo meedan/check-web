@@ -108,10 +108,10 @@ class Root extends Component {
                   <Route path=":team/all-items(/:query)" component={AllItems} />
                   <Route path=":team/assigned-to-me(/:query)" component={AssignedToMe} />
                   <Route path=":team/tipline-inbox(/:query)" component={TiplineInbox} />
-                  <Route path=":team/imported-fact-checks(/:query)" component={ImportedReports} />
+                  <Route path=":team/articles/imported-fact-checks(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
-                  <Route path=":team/published(/:query)" component={Published} />
+                  <Route path=":team/articles/published(/:query)" component={Published} />
                   <Route path=":team/feed/create" component={CreateFeed} />
                   <Route path=":team/feeds" component={FeedPage} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
