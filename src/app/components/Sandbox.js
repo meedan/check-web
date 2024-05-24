@@ -27,8 +27,7 @@ import ArticleCard from './search/SearchResultsCards/ArticleCard';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
-import SharedItemCard from './search/SearchResultsCards/SharedItemCard';
-import WorkspaceItemCard from './search/SearchResultsCards/WorkspaceItemCard';
+import ClusterCard from './search/SearchResultsCards/ClusterCard';
 import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
 import CheckFeedDataPoints from '../CheckFeedDataPoints';
 import Slideout from './cds/slideout/Slideout';
@@ -607,24 +606,24 @@ const SandboxComponent = ({ admin }) => {
             </ul>
           </div>
           <div className={styles.componentBlockVariants}>
-            <SharedItemCard
+            <ClusterCard
               title="Title of a Shared Item Card Item"
+              date={new Date('2023-12-15T17:19:40Z')}
               description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
               mediaThumbnail={listItemCluster && mediaThumbnail}
-              workspaces={workspaces}
-              date={new Date('2023-12-15T17:19:40Z')}
+              workspaces={listItemShared && workspaces}
               dataPoints={listItemDataPoints}
               mediaCount={12345}
-              suggestionsCount={567890}
-              requestsCount={7890}
+              requestsCount={listItemRequests ? 7890 : null}
               lastRequestDate={new Date('2024-01-15T12:00:22Z')}
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               factCheckCount={listItemFactCheckCount}
               channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
-              rating="False"
-              ratingColor="#f00"
+              rating={listItemFactCheck ? 'False' : null}
+              ratingColor={listItemFactCheck ? '#f00' : null}
+              onCheckboxChange={!listItemShared ? () => {} : null}
             />
-            <WorkspaceItemCard
+            <ClusterCard
               title="Title of a Workspace Item Card Item"
               date={new Date('2023-12-15T17:19:40Z')}
               description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
@@ -633,13 +632,14 @@ const SandboxComponent = ({ admin }) => {
               mediaType="UploadedImage"
               mediaThumbnail={listItemMedia && mediaThumbnail}
               channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
-              requestsCount={7890}
+              requestsCount={listItemRequests ? 7890 : null}
               isUnread={listItemUnread}
               isPublished={listItemPublished}
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               rating="False"
               ratingColor="#f00"
-              suggestionsCount={567890}
+              suggestionsCount={listItemSuggestions ? 567890 : null}
+              onCheckboxChange={!listItemShared ? () => {} : null}
             />
             <div
               className={cx(
@@ -684,7 +684,7 @@ const SandboxComponent = ({ admin }) => {
                 }
                 { listItemShared &&
                   <div className={styles.workspaces}>
-                    WORKPACES
+                    WORKSPACES
                   </div>
                 }
                 <div className={styles.mediaAndRequest}>

@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
-import SharedItemCard from '../search/SearchResultsCards/SharedItemCard';
+import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
@@ -211,7 +211,7 @@ const FeedClustersComponent = ({
 
             return (
               <div key={cluster.id} className={cx('feed-clusters__card', styles.feedClusterCard)}>
-                <SharedItemCard
+                <ClusterCard
                   title={
                     cluster.title ||
                     cluster.center.title ||

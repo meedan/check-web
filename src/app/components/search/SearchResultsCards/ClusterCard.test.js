@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import WorkspaceItemCard from './WorkspaceItemCard';
+import ClusterCard from './ClusterCard';
 
-describe('<WorkspaceItemCard />', () => {
+describe('<ClusterCard />', () => {
   it('should render', () => {
     const date = new Date();
-    const wrapper = shallow(<WorkspaceItemCard
+    const wrapper = shallow(<ClusterCard
       title="Title"
       date={date}
     />);
@@ -13,10 +13,10 @@ describe('<WorkspaceItemCard />', () => {
   });
 });
 
-describe('<WorkspaceItemCard />', () => {
+describe('<ClusterCard />', () => {
   it('should be selectable by checkbox if onCheckboxChange provided', () => {
     const date = new Date();
-    const wrapper = shallow(<WorkspaceItemCard
+    const wrapper = shallow(<ClusterCard
       title="Title"
       date={date}
       onCheckboxChange={() => {}}
@@ -26,7 +26,7 @@ describe('<WorkspaceItemCard />', () => {
 
   it('should render the date', () => {
     const date = new Date();
-    const wrapper = shallow(<WorkspaceItemCard
+    const wrapper = shallow(<ClusterCard
       title="Title"
       date={date}
     />);
