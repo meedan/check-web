@@ -1,6 +1,6 @@
 .media-chip {
   align-items: center;
-  background-color: var(--color-beige-86);
+  background-color: var(--color-blue-98);
   border-radius: 4px;
   display: flex;
   gap: 8px;
@@ -13,6 +13,7 @@
 }
 
 .media-chip-label {
+  @mixin typography-body2;
   flex: 0 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
