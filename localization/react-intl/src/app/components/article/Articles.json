@@ -13,5 +13,10 @@
     "id": "articles.nextPage",
     "description": "Pagination button to go to next page.",
     "defaultMessage": "Next page"
+  },
+  {
+    "id": "articles.blank",
+    "description": "Empty message that is displayed when there are no articles to display.",
+    "defaultMessage": "There are no articles here."
   }
 ]

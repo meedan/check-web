@@ -6,13 +6,14 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import BlankState from '../layout/BlankState';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ListSort from '../cds/inputs/ListSort';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
-import styles from './Articles.module.css';
 import MediasLoading from '../media/MediasLoading';
 import ArticleFilters from './ArticleFilters';
+import styles from './Articles.module.css';
 
 const pageSize = 50;
 
@@ -132,10 +133,14 @@ const ArticlesComponent = ({
           : null
         }
 
-        { articles.length === 0 ? // TODO: Add blank state like <FeedBlankState />
-          <div>
-            No results found!
-          </div>
+        { articles.length === 0 ?
+          <BlankState>
+            <FormattedMessage
+              id="articles.blank"
+              defaultMessage="There are no articles here."
+              description="Empty message that is displayed when there are no articles to display."
+            />
+          </BlankState>
           : null
         }
 
