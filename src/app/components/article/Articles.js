@@ -17,6 +17,7 @@ import ArticleFilters from './ArticleFilters';
 const pageSize = 50;
 
 const ArticlesComponent = ({
+  type,
   title,
   icon,
   page,
@@ -78,9 +79,10 @@ const ArticlesComponent = ({
       </div>
       <div className={cx(searchResultsStyles['search-results-wrapper'], styles.articlesFilters)}>
         <ArticleFilters
+          type={type}
           teamSlug={teamSlug}
           filterOptions={filterOptions}
-          currentFilters={filters}
+          currentFilters={{ ...filters, article_type: type }}
           className={styles.articleFilterBar}
           onSubmit={handleChangeFilters}
         />
@@ -159,6 +161,7 @@ ArticlesComponent.defaultProps = {
 };
 
 ArticlesComponent.propTypes = {
+  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
   icon: PropTypes.node.isRequired,
   page: PropTypes.number,
@@ -247,6 +250,7 @@ const Articles = ({
         if (!error && props) {
           return (
             <ArticlesComponent
+              type={type}
               title={title}
               icon={icon}
               page={page}
