@@ -49,7 +49,29 @@ const ArticlesComponent = ({ team }) => {
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper)}>
           <Link
-            onClick={() => { handleSpecialLists('published'); }}
+            onClick={() => { handleSpecialLists('fact-checks'); }}
+            to={`/${team.slug}/articles/fact-checks`}
+            className={styles.linkList}
+          >
+            <li
+              className={cx(
+                'projects-list__fact-checks',
+                styles.listItem,
+                styles.listItem_containsCount,
+                {
+                  [styles.listItem_active]: activeItem.type === 'fact-checks',
+                })
+              }
+            >
+              <PublishedIcon className={styles.listIcon} />
+              <div className={styles.listLabel}>
+                <FormattedMessage tagName="span" id="articlesComponent.claim&factChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
+              </div>
+              <ProjectsCoreListCounter query={publishedDefaultQuery} />
+            </li>
+          </Link>
+          <Link
+            onClick={() => { handleSpecialLists('explainers'); }}
             to={`/${team.slug}/articles/explainers`}
             className={styles.linkList}
           >
