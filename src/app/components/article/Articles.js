@@ -12,17 +12,21 @@ import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import styles from './Articles.module.css';
 import MediasLoading from '../media/MediasLoading';
+import ArticleFilters from './ArticleFilters';
 
 const pageSize = 50;
 
 const ArticlesComponent = ({
   title,
+  icon,
   page,
   sort,
   sortType,
   sortOptions,
+  filterOptions,
   filters,
   onChangeSearchParams,
+  teamSlug,
   articles,
   articlesCount,
 }) => {
@@ -66,14 +70,20 @@ const ArticlesComponent = ({
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderTitle}>
             <h6>
+              {icon}
               {title}
             </h6>
           </div>
         </div>
       </div>
       <div className={cx(searchResultsStyles['search-results-wrapper'], styles.articlesFilters)}>
-        {/* TODO: Include filters here like <FeedFilters /> */}
-        {JSON.stringify(filters)} <button onClick={handleChangeFilters}>Change filters</button>
+        <ArticleFilters
+          teamSlug={teamSlug}
+          filterOptions={filterOptions}
+          currentFilters={filters}
+          className={styles.articleFilterBar}
+          onSubmit={handleChangeFilters}
+        />
       </div>
       <div className={cx(searchResultsStyles['search-results-wrapper'], styles.articles)}>
         { articles.length > 0 ?
@@ -142,6 +152,7 @@ ArticlesComponent.defaultProps = {
   sort: 'title',
   sortType: 'ASC',
   sortOptions: [],
+  filterOptions: [],
   filters: {},
   articles: [],
   articlesCount: 0,
@@ -149,11 +160,14 @@ ArticlesComponent.defaultProps = {
 
 ArticlesComponent.propTypes = {
   title: PropTypes.node.isRequired, // <FormattedMessage />
+  icon: PropTypes.node.isRequired,
   page: PropTypes.number,
   sort: PropTypes.oneOf(['title', 'language', 'updated_at']),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   filters: PropTypes.object,
+  teamSlug: PropTypes.string.isRequired,
   onChangeSearchParams: PropTypes.func.isRequired,
+  filterOptions: PropTypes.arrayOf(PropTypes.string),
   sortOptions: PropTypes.arrayOf(PropTypes.exact({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired, // Localizable string
@@ -166,9 +180,11 @@ ArticlesComponent.propTypes = {
 
 const Articles = ({
   type,
+  icon,
   title,
   teamSlug,
   sortOptions,
+  filterOptions,
 }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
@@ -187,16 +203,25 @@ const Articles = ({
     setSearchParams(Object.assign({}, searchParams, newSearchParams));
   };
 
+  // Adjust some filters
+  if (filters.range?.updated_at) {
+    filters.updatedAt = JSON.stringify(filters.range.updated_at);
+  }
+
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
         query ArticlesQuery(
           $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
+          $users: [Int], $updatedAt: String, $tags: [String],
         ) {
           team(slug: $slug) {
             articles_count(article_type: $type)
-            articles(first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType) {
+            articles(
+              first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
+              user_ids: $users, tags: $tags, updated_at: $updatedAt,
+            ) {
               edges {
                 node {
                   ... on Explainer {
@@ -223,10 +248,13 @@ const Articles = ({
           return (
             <ArticlesComponent
               title={title}
+              icon={icon}
               page={page}
               sort={sort}
               sortType={sortType}
               sortOptions={sortOptions}
+              filterOptions={filterOptions}
+              teamSlug={teamSlug}
               filters={filters}
               articles={props.team.articles.edges.map(edge => edge.node)}
               articlesCount={props.team.articles_count}
@@ -242,12 +270,15 @@ const Articles = ({
 
 Articles.defaultProps = {
   sortOptions: [],
+  filterOptions: [],
 };
 
 Articles.propTypes = {
   type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
+  icon: PropTypes.node.isRequired,
   teamSlug: PropTypes.string.isRequired,
+  filterOptions: PropTypes.arrayOf(PropTypes.string),
   sortOptions: PropTypes.arrayOf(PropTypes.exact({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired, // Localizable string

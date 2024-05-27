@@ -1,0 +1,17 @@
+[
+  {
+    "id": "articleFilters.createdBy",
+    "description": "Prefix label for field to filter by item creator.",
+    "defaultMessage": "Created by"
+  },
+  {
+    "id": "articleFilters.applyFilters",
+    "description": "Button to perform query with specified filters",
+    "defaultMessage": "Apply"
+  },
+  {
+    "id": "articleFilters.reset",
+    "description": "Tooltip for button to remove any applied filters",
+    "defaultMessage": "Reset"
+  }
+]

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import FactCheckIcon from '../../icons/fact_check.svg';
 import Articles from './Articles';
 
 const messages = defineMessages({
@@ -32,8 +33,10 @@ const Explainers = ({ routeParams, intl }) => {
     <Articles
       type="explainer"
       title={<FormattedMessage id="explainers.title" defaultMessage="Explainers" description="Title of the explainers page." />}
+      icon={<FactCheckIcon />}
       teamSlug={routeParams.team}
       sortOptions={sortOptions}
+      filterOptions={['users', 'tags', 'range']}
     />
   );
 };

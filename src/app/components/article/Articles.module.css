@@ -8,6 +8,11 @@
 
 .articlesHeader {
   margin-bottom: 24px;
+
+  h6 {
+    align-items: center;
+    display: flex;
+  }
 }
 
 .articlesFilters {
@@ -36,4 +41,9 @@
 .articlesList {
   overflow: auto;
   padding-right: 16px;
+}
+
+.articleFilterBar {
+  margin: 0;
+  padding: 0;
 }
