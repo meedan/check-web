@@ -27,26 +27,27 @@ const ArticlesComponent = ({ team }) => {
     setActiveItem({ type: listId, id: null });
   };
 
-  const options = [
+  const menuOptions = [
     { label: 'Claim & Fact Check', icon: <PublishedIcon /> },
     { label: 'Explainer', icon: <BookIcon /> },
   ];
+
   const handleMenuItemClick = () => {};
 
   return (
     <React.Fragment>
       <div className={styles.listTitle}>
         <FormattedMessage
-          id="projectsComponent.ArticlesNavHeader"
+          id="articlesComponent.ArticlesNavHeader"
           defaultMessage="Articles"
           description="The navigation name of the articles section"
         />
       </div>
       <div className={styles.listTitle}>
-        <NewArticleButton options={options} onMenuItemClick={handleMenuItemClick} />
+        <NewArticleButton options={menuOptions} onMenuItemClick={handleMenuItemClick} />
       </div>
       <div className={styles.listWrapperScrollWrapper}>
-        <ul className={cx(styles.listWrapper, 'projects-list')}>
+        <ul className={cx(styles.listWrapper)}>
           <Link
             onClick={() => { handleSpecialLists('published'); }}
             to={`/${team.slug}/articles/explainers`}
@@ -64,29 +65,7 @@ const ArticlesComponent = ({ team }) => {
             >
               <BookIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.explainers" defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
-              </div>
-              <ProjectsCoreListCounter query={publishedDefaultQuery} />
-            </li>
-          </Link>
-          <Link
-            onClick={() => { handleSpecialLists('published'); }}
-            to={`/${team.slug}/articles/published`}
-            className={styles.linkList}
-          >
-            <li
-              className={cx(
-                'projects-list__published',
-                styles.listItem,
-                styles.listItem_containsCount,
-                {
-                  [styles.listItem_active]: activeItem.type === 'published',
-                })
-              }
-            >
-              <PublishedIcon className={styles.listIcon} />
-              <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
+                <FormattedMessage tagName="span" id="articlesComponent.explainers" defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
               </div>
               <ProjectsCoreListCounter query={publishedDefaultQuery} />
             </li>
@@ -108,9 +87,31 @@ const ArticlesComponent = ({ team }) => {
             >
               <FileDownloadIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
+                <FormattedMessage tagName="span" id="articlesComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
               </div>
               <ProjectsCoreListCounter query={importedReportsDefaultQuery} />
+            </li>
+          </Link>
+          <Link
+            onClick={() => { handleSpecialLists('published'); }}
+            to={`/${team.slug}/articles/published`}
+            className={styles.linkList}
+          >
+            <li
+              className={cx(
+                'projects-list__published',
+                styles.listItem,
+                styles.listItem_containsCount,
+                {
+                  [styles.listItem_active]: activeItem.type === 'published',
+                })
+              }
+            >
+              <PublishedIcon className={styles.listIcon} />
+              <div className={styles.listLabel}>
+                <FormattedMessage tagName="span" id="articlesComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
+              </div>
+              <ProjectsCoreListCounter query={publishedDefaultQuery} />
             </li>
           </Link>
         </ul>
