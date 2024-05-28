@@ -79,6 +79,7 @@ ArticleCard.defaultProps = {
   languageCode: null,
   tags: [],
   variant: 'explainer',
+  statusLabel: null,
 };
 
 ArticleCard.propTypes = {
@@ -86,7 +87,7 @@ ArticleCard.propTypes = {
   summary: PropTypes.string,
   url: PropTypes.string,
   date: PropTypes.number.isRequired, // Timestamp
-  statusLabel: PropTypes.string.isRequired,
+  statusLabel: PropTypes.string,
   statusColor: PropTypes.string,
   teamAvatar: PropTypes.string, // URL
   teamName: PropTypes.string,
