@@ -1,0 +1,17 @@
+[
+  {
+    "id": "articles.updateTagsSuccess",
+    "description": "Banner displayed after article tags are updated successfully.",
+    "defaultMessage": "Tags updated successfully."
+  },
+  {
+    "id": "articles.updateTagsError",
+    "description": "Banner displayed when article tags can't be updated.",
+    "defaultMessage": "Could not update tags, please try again later or connect the support if the error persists."
+  },
+  {
+    "id": "articles.blank",
+    "description": "Empty message that is displayed when there are no articles to display.",
+    "defaultMessage": "There are no articles here."
+  }
+]

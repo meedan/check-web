@@ -6,11 +6,15 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
+<<<<<<< HEAD
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
+=======
+import ListSort from '../cds/inputs/ListSort';
+import Paginator from '../cds/inputs/Paginator';
+>>>>>>> daf0d1ed8 (Explainers list (#1953))
 import NextIcon from '../../icons/chevron_right.svg';
-import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
 import FeedHeader from './FeedHeader';
 import FeedLastClusterizedAt from './FeedLastClusterizedAt';
@@ -34,8 +38,6 @@ const FeedClustersComponent = ({
   onChangeSearchParams,
 }) => {
   const clusters = feed.clusters.edges.map(edge => edge.node);
-  const startingIndex = (page - 1) * pageSize;
-  const endingIndex = startingIndex + (clusters.length - 1);
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
     onChangeSearchParams({
@@ -45,20 +47,8 @@ const FeedClustersComponent = ({
     });
   };
 
-  const handleGoToPreviousPage = () => {
-    if (page > 1) {
-      onChangeSearchParams({
-        page: (page - 1),
-      });
-    }
-  };
-
-  const handleGoToNextPage = () => {
-    if (endingIndex + 1 < feed.clusters_count) {
-      onChangeSearchParams({
-        page: (page + 1),
-      });
-    }
+  const handleChangePage = (newPage) => {
+    onChangeSearchParams({ page: newPage });
   };
 
   const handleChangeTeamFilters = (newTeamFilters) => {
