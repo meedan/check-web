@@ -263,6 +263,15 @@ const Articles = ({
                       updated_at
                       tags
                     }
+                    ... on FactCheck {
+                      id
+                      title
+                      description: summary
+                      url
+                      language
+                      updated_at
+                      tags
+                    }
                   }
                 }
               }
