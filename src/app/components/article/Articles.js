@@ -146,10 +146,10 @@ const ArticlesComponent = ({
             <ArticleCard
               key={article.id}
               variant={type}
-              title={article.title}
+              title={article.title || article.claim_description?.description}
               summary={article.description}
               url={article.url}
-              languageCode={article.language}
+              languageCode={article.language !== 'und' ? article.language : null}
               date={article.updated_at}
               tags={article.tags}
               onChangeTags={(tags) => {
@@ -199,6 +199,9 @@ ArticlesComponent.propTypes = {
     language: PropTypes.string,
     updated_at: PropTypes.number,
     tags: PropTypes.arrayOf(PropTypes.string),
+    claim_description: PropTypes.shape({
+      description: PropTypes.string,
+    }),
   })),
 };
 
@@ -235,6 +238,8 @@ const Articles = ({
   // Adjust some filters
   if (filters.range?.updated_at) {
     filters.updatedAt = JSON.stringify(filters.range.updated_at);
+  } else {
+    delete filters.updatedAt;
   }
 
   return (
@@ -244,13 +249,13 @@ const Articles = ({
         query={graphql`
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
-            $users: [Int], $updatedAt: String, $tags: [String],
+            $users: [Int], $updatedAt: String, $tags: [String], $language: String,
           ) {
             team(slug: $slug) {
-              articles_count(article_type: $type)
+              articles_count(article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language)
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
-                user_ids: $users, tags: $tags, updated_at: $updatedAt,
+                user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language,
               ) {
                 edges {
                   node {
@@ -271,6 +276,9 @@ const Articles = ({
                       language
                       updated_at
                       tags
+                      claim_description {
+                        description
+                      }
                     }
                   }
                 }
