@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
-import searchResultsStyles from '../search/SearchResults.module.css';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import { withSetFlashMessage } from '../FlashMessage';
 import BlankState from '../layout/BlankState';
-import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import ArticleCard from '../search/SearchResultsCards/ArticleCard';
+import searchResultsStyles from '../search/SearchResults.module.css';
+import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
-import NextIcon from '../../icons/chevron_right.svg';
-import PrevIcon from '../../icons/chevron_left.svg';
 import MediasLoading from '../media/MediasLoading';
 import ArticleFilters from './ArticleFilters';
 import styles from './Articles.module.css';
@@ -18,6 +17,7 @@ import styles from './Articles.module.css';
 const pageSize = 50;
 
 const ArticlesComponent = ({
+  teamSlug,
   type,
   title,
   icon,
@@ -28,13 +28,11 @@ const ArticlesComponent = ({
   filterOptions,
   filters,
   onChangeSearchParams,
-  teamSlug,
   articles,
   articlesCount,
+  updateMutation,
+  setFlashMessage,
 }) => {
-  const startingIndex = (page - 1) * pageSize;
-  const endingIndex = startingIndex + (articles.length - 1);
-
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
     onChangeSearchParams({
       page: 1,
@@ -43,26 +41,48 @@ const ArticlesComponent = ({
     });
   };
 
-  const handleGoToPreviousPage = () => {
-    if (page > 1) {
-      onChangeSearchParams({
-        page: (page - 1),
-      });
-    }
-  };
-
-  const handleGoToNextPage = () => {
-    if (endingIndex + 1 < articlesCount) {
-      onChangeSearchParams({
-        page: (page + 1),
-      });
-    }
+  const handleChangePage = (newPage) => {
+    onChangeSearchParams({ page: newPage });
   };
 
   const handleChangeFilters = (newFilters) => {
     onChangeSearchParams({
       filters: newFilters,
       page: 1,
+    });
+  };
+
+  const onCompleted = () => {
+    setFlashMessage(
+      <FormattedMessage
+        id="articles.updateTagsSuccess"
+        defaultMessage="Tags updated successfully."
+        description="Banner displayed after article tags are updated successfully."
+      />,
+      'success');
+  };
+
+  const onError = () => {
+    setFlashMessage(
+      <FormattedMessage
+        id="articles.updateTagsError"
+        defaultMessage="Could not update tags, please try again later or connect the support if the error persists."
+        description="Banner displayed when article tags can't be updated."
+      />,
+      'error');
+  };
+
+  const handleUpdateTags = (id, tags) => {
+    commitMutation(Relay.Store, {
+      mutation: updateMutation,
+      variables: {
+        input: {
+          id,
+          tags,
+        },
+      },
+      onCompleted,
+      onError,
     });
   };
 
@@ -97,38 +117,13 @@ const ArticlesComponent = ({
               options={sortOptions}
               onChange={handleChangeSort}
             />
-            <div className={styles.articlesPagination}>
-              <Tooltip title={<FormattedMessage id="articles.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page." />}>
-                <ButtonMain
-                  onClick={handleGoToPreviousPage}
-                  iconCenter={<PrevIcon />}
-                  disabled={page === 1}
-                  theme="text"
-                  variant="text"
-                />
-              </Tooltip>
-              <span className="typography-button">
-                <FormattedMessage
-                  id="articles.itemsCount"
-                  defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                  description="Pagination count of items returned"
-                  values={{
-                    from: startingIndex + 1,
-                    to: endingIndex + 1,
-                    count: articlesCount,
-                  }}
-                />
-              </span>
-              <Tooltip title={<FormattedMessage id="articles.nextPage" defaultMessage="Next page" description="Pagination button to go to next page." />}>
-                <ButtonMain
-                  onClick={handleGoToNextPage}
-                  iconCenter={<NextIcon />}
-                  disabled={endingIndex + 1 === articlesCount}
-                  theme="text"
-                  variant="text"
-                />
-              </Tooltip>
-            </div>
+            <Paginator
+              page={page}
+              pageSize={pageSize}
+              numberOfPageResults={articles.length}
+              numberOfTotalResults={articlesCount}
+              onChangePage={handleChangePage}
+            />
           </div>
           : null
         }
@@ -145,8 +140,19 @@ const ArticlesComponent = ({
         }
 
         <div className={styles.articlesList}>
-          {articles.map(article => ( // TODO: Use card component
-            <div key={article.id}>{article.title}</div>
+          {articles.map(article => (
+            <ArticleCard
+              key={article.id}
+              title={article.title}
+              summary={article.description}
+              url={article.url}
+              languageCode={article.language}
+              date={article.updated_at}
+              tags={article.tags}
+              onChangeTags={(tags) => {
+                handleUpdateTags(article.id, tags);
+              }}
+            />
           ))}
         </div>
       </div>
@@ -175,6 +181,7 @@ ArticlesComponent.propTypes = {
   filters: PropTypes.object,
   teamSlug: PropTypes.string.isRequired,
   onChangeSearchParams: PropTypes.func.isRequired,
+  updateMutation: PropTypes.object.isRequired,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   sortOptions: PropTypes.arrayOf(PropTypes.exact({
     value: PropTypes.string.isRequired,
@@ -182,9 +189,18 @@ ArticlesComponent.propTypes = {
   })),
   articlesCount: PropTypes.number,
   articles: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    url: PropTypes.string,
+    language: PropTypes.string,
+    updated_at: PropTypes.number,
+    tags: PropTypes.arrayOf(PropTypes.string),
   })),
+  setFlashMessage: PropTypes.func.isRequired,
 };
+
+const ConnectedArticlesComponent = withSetFlashMessage(ArticlesComponent);
 
 const Articles = ({
   type,
@@ -193,6 +209,7 @@ const Articles = ({
   teamSlug,
   sortOptions,
   filterOptions,
+  updateMutation,
 }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
@@ -235,6 +252,11 @@ const Articles = ({
                   ... on Explainer {
                     id
                     title
+                    description
+                    url
+                    language
+                    updated_at
+                    tags
                   }
                 }
               }
@@ -254,7 +276,7 @@ const Articles = ({
       render={({ error, props }) => {
         if (!error && props) {
           return (
-            <ArticlesComponent
+            <ConnectedArticlesComponent
               type={type}
               title={title}
               icon={icon}
@@ -268,6 +290,7 @@ const Articles = ({
               articles={props.team.articles.edges.map(edge => edge.node)}
               articlesCount={props.team.articles_count}
               onChangeSearchParams={handleChangeSearchParams}
+              updateMutation={updateMutation}
             />
           );
         }
@@ -288,6 +311,7 @@ Articles.propTypes = {
   icon: PropTypes.node.isRequired,
   teamSlug: PropTypes.string.isRequired,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
+  updateMutation: PropTypes.object.isRequired,
   sortOptions: PropTypes.arrayOf(PropTypes.exact({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired, // Localizable string

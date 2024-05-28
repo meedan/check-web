@@ -1,18 +1,13 @@
 [
   {
-    "id": "articles.previousPage",
-    "description": "Pagination button to go to previous page.",
-    "defaultMessage": "Previous page"
+    "id": "articles.updateTagsSuccess",
+    "description": "Banner displayed after article tags are updated successfully.",
+    "defaultMessage": "Tags updated successfully."
   },
   {
-    "id": "articles.itemsCount",
-    "description": "Pagination count of items returned",
-    "defaultMessage": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-  },
-  {
-    "id": "articles.nextPage",
-    "description": "Pagination button to go to next page.",
-    "defaultMessage": "Next page"
+    "id": "articles.updateTagsError",
+    "description": "Banner displayed when article tags can't be updated.",
+    "defaultMessage": "Could not update tags, please try again later or connect the support if the error persists."
   },
   {
     "id": "articles.blank",

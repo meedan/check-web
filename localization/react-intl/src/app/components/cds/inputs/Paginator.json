@@ -1,0 +1,17 @@
+[
+  {
+    "id": "paginator.previousPage",
+    "description": "Pagination button to go to previous page.",
+    "defaultMessage": "Previous page"
+  },
+  {
+    "id": "paginator.itemsCount",
+    "description": "Pagination count of items returned",
+    "defaultMessage": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+  },
+  {
+    "id": "paginator.nextPage",
+    "description": "Pagination button to go to next page.",
+    "defaultMessage": "Next page"
+  }
+]

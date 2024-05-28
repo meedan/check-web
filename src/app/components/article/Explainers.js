@@ -1,7 +1,8 @@
 import React from 'react';
+import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import FactCheckIcon from '../../icons/fact_check.svg';
+import BookIcon from '../../icons/book.svg';
 import Articles from './Articles';
 
 const messages = defineMessages({
@@ -29,14 +30,26 @@ const Explainers = ({ routeParams, intl }) => {
     { value: 'updated_at', label: intl.formatMessage(messages.sortDate) },
   ];
 
+  const updateMutation = graphql`
+    mutation ExplainersUpdateExplainerMutation($input: UpdateExplainerInput!) {
+      updateExplainer(input: $input) {
+        explainer {
+          id
+          tags
+        }
+      }
+    }
+  `;
+
   return (
     <Articles
       type="explainer"
       title={<FormattedMessage id="explainers.title" defaultMessage="Explainers" description="Title of the explainers page." />}
-      icon={<FactCheckIcon />}
+      icon={<BookIcon />}
       teamSlug={routeParams.team}
       sortOptions={sortOptions}
       filterOptions={['users', 'tags', 'range']}
+      updateMutation={updateMutation}
     />
   );
 };

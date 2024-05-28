@@ -30,13 +30,6 @@
   z-index: 1;
 }
 
-.feedClustersPagination {
-  align-items: center;
-  display: flex;
-  gap: 4px;
-  margin: 0 8px;
-}
-
 .feedClustersFilterBar {
   margin: 8px 0 0;
   padding: 0;
