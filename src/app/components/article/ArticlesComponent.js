@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import PublishedIcon from '../../../icons/fact_check.svg';
-import FileDownloadIcon from '../../../icons/file_download.svg';
-import BookIcon from '../../../icons/book.svg';
-import styles from './Projects.module.css';
-import { publishedDefaultQuery } from '../../team/Published';
-import ProjectsCoreListCounter from './ProjectsCoreListCounter';
+import PublishedIcon from '../../icons/fact_check.svg';
+import FileDownloadIcon from '../../icons/file_download.svg';
+import BookIcon from '../../icons/book.svg';
+import styles from './../drawer/Projects/Projects.module.css';
+import { publishedDefaultQuery } from '../team/Published';
+import ProjectsCoreListCounter from '../drawer/Projects/ProjectsCoreListCounter';
+import ArticleCoreListCounter from './ArticleCoreListCounter';
 import NewArticleButton from './NewArticleButton';
-import { importedReportsDefaultQuery } from '../../team/ImportedReports';
+import { importedReportsDefaultQuery } from '../team/ImportedReports';
 
 const ArticlesComponent = ({ team }) => {
   // Get/set which list item should be highlighted
@@ -60,7 +61,7 @@ const ArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="articlesComponent.claimAndFactChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim and fact-checks" />
               </div>
-              <ProjectsCoreListCounter query={publishedDefaultQuery} />
+              <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" />
             </li>
           </Link>
           <Link
@@ -82,7 +83,7 @@ const ArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="articlesComponent.explainers" defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have explainers" />
               </div>
-              <ProjectsCoreListCounter query={publishedDefaultQuery} />
+              <ArticleCoreListCounter teamSlug={team.slug} type="explainer" />
             </li>
           </Link>
           <Link

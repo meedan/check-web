@@ -4,11 +4,11 @@ import { FormattedMessage } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import AddIcon from '../../../icons/add.svg';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import AddIcon from '../../icons/add.svg';
 import styles from './NewArticleButton.module.css';
-import PublishedIcon from '../../../icons/fact_check.svg';
-import BookIcon from '../../../icons/book.svg';
+import PublishedIcon from '../../icons/fact_check.svg';
+import BookIcon from '../../icons/book.svg';
 
 const NewArticleButton = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
