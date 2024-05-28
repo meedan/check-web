@@ -6,12 +6,12 @@
   },
   {
     "id": "articlesComponent.claim&factChecks",
-    "description": "Label for a list displayed on the left sidebar that includes items that have published reports",
+    "description": "Label for a list displayed on the left sidebar that includes items that have claim e fact-checks",
     "defaultMessage": "Claim & Fact-Checks"
   },
   {
     "id": "articlesComponent.explainers",
-    "description": "Label for a list displayed on the left sidebar that includes items that have published reports",
+    "description": "Label for a list displayed on the left sidebar that includes items that have explainers",
     "defaultMessage": "Explainers"
   },
   {

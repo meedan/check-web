@@ -65,7 +65,7 @@ const ArticlesComponent = ({ team }) => {
             >
               <PublishedIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.claim&factChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
+                <FormattedMessage tagName="span" id="articlesComponent.claim&factChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim e fact-checks" />
               </div>
               <ProjectsCoreListCounter query={publishedDefaultQuery} />
             </li>
@@ -87,7 +87,7 @@ const ArticlesComponent = ({ team }) => {
             >
               <BookIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.explainers" defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
+                <FormattedMessage tagName="span" id="articlesComponent.explainers" defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have explainers" />
               </div>
               <ProjectsCoreListCounter query={publishedDefaultQuery} />
             </li>
