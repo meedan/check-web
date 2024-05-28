@@ -1,11 +1,11 @@
 [
   {
-    "id": "articlesComponent.ArticlesNavHeader",
+    "id": "articlesComponent.articles",
     "description": "The navigation name of the articles section",
     "defaultMessage": "Articles"
   },
   {
-    "id": "articlesComponent.claim&factChecks",
+    "id": "articlesComponent.claimAndFactChecks",
     "description": "Label for a list displayed on the left sidebar that includes items that have claim and fact-checks",
     "defaultMessage": "Claim & Fact-Checks"
   },
@@ -15,12 +15,12 @@
     "defaultMessage": "Explainers"
   },
   {
-    "id": "articlesComponent.importedReports",
+    "id": "projectsComponent.importedReports",
     "description": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel",
     "defaultMessage": "Imported"
   },
   {
-    "id": "articlesComponent.published",
+    "id": "projectsComponent.published",
     "description": "Label for a list displayed on the left sidebar that includes items that have published reports",
     "defaultMessage": "Published"
   }

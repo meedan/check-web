@@ -18,7 +18,7 @@ const ArticlesComponent = ({ team }) => {
 
   React.useEffect(() => {
     const path = window.location.pathname.split('/');
-    if (activeItem.type !== path[2] || activeItem.id !== path[3]) {
+    if (activeItem.type !== path[3] || activeItem.id !== path[3]) {
       setActiveItem({ type: path[3], id: parseInt(path[3], 10) });
     }
   }, [window.location.pathname]);
@@ -27,24 +27,17 @@ const ArticlesComponent = ({ team }) => {
     setActiveItem({ type: listId, id: null });
   };
 
-  const menuOptions = [
-    { label: 'Claim & Fact Check', icon: <PublishedIcon /> },
-    { label: 'Explainer', icon: <BookIcon /> },
-  ];
-
-  const handleMenuItemClick = () => {};
-
   return (
     <React.Fragment>
       <div className={styles.listTitle}>
         <FormattedMessage
-          id="articlesComponent.ArticlesNavHeader"
+          id="articlesComponent.articles"
           defaultMessage="Articles"
           description="The navigation name of the articles section"
         />
       </div>
       <div className={styles.listTitle}>
-        <NewArticleButton options={menuOptions} onMenuItemClick={handleMenuItemClick} />
+        <NewArticleButton />
       </div>
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper)}>
@@ -65,7 +58,7 @@ const ArticlesComponent = ({ team }) => {
             >
               <PublishedIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.claim&factChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim and fact-checks" />
+                <FormattedMessage tagName="span" id="articlesComponent.claimAndFactChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim and fact-checks" />
               </div>
               <ProjectsCoreListCounter query={publishedDefaultQuery} />
             </li>
@@ -77,7 +70,7 @@ const ArticlesComponent = ({ team }) => {
           >
             <li
               className={cx(
-                'projects-list__exaplainers',
+                'projects-list__explainers',
                 styles.listItem,
                 styles.listItem_containsCount,
                 {
@@ -109,7 +102,7 @@ const ArticlesComponent = ({ team }) => {
             >
               <FileDownloadIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
+                <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
               </div>
               <ProjectsCoreListCounter query={importedReportsDefaultQuery} />
             </li>
@@ -131,7 +124,7 @@ const ArticlesComponent = ({ team }) => {
             >
               <PublishedIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
+                <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
               </div>
               <ProjectsCoreListCounter query={publishedDefaultQuery} />
             </li>
