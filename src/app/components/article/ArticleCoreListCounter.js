@@ -8,7 +8,7 @@ const ArticlesListCounter = ({ teamSlug, type }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query ArticlesQuery($slug: String!, $type: String!) {
+      query ArticleCoreListCounterQuery($slug: String!, $type: String!) {
         team(slug: $slug) {
           articles_count(article_type: $type)
         }
