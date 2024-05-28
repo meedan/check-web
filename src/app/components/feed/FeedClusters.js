@@ -6,11 +6,9 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import SharedItemCard from '../search/SearchResultsCards/SharedItemCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ListSort from '../cds/inputs/ListSort';
+import Paginator from '../cds/inputs/Paginator';
 import NextIcon from '../../icons/chevron_right.svg';
-import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import FeedHeader from './FeedHeader';
@@ -64,8 +62,6 @@ const FeedClustersComponent = ({
   intl,
 }) => {
   const clusters = feed.clusters.edges.map(edge => edge.node);
-  const startingIndex = (page - 1) * pageSize;
-  const endingIndex = startingIndex + (clusters.length - 1);
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
     onChangeSearchParams({
@@ -75,20 +71,8 @@ const FeedClustersComponent = ({
     });
   };
 
-  const handleGoToPreviousPage = () => {
-    if (page > 1) {
-      onChangeSearchParams({
-        page: (page - 1),
-      });
-    }
-  };
-
-  const handleGoToNextPage = () => {
-    if (endingIndex + 1 < feed.clusters_count) {
-      onChangeSearchParams({
-        page: (page + 1),
-      });
-    }
+  const handleChangePage = (newPage) => {
+    onChangeSearchParams({ page: newPage });
   };
 
   const handleChangeTeamFilters = (newTeamFilters) => {
@@ -159,38 +143,13 @@ const FeedClustersComponent = ({
               options={sortOptions}
               onChange={handleChangeSort}
             />
-            <div className={styles.feedClustersPagination}>
-              <Tooltip title={<FormattedMessage id="feedClusters.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />}>
-                <ButtonMain
-                  onClick={handleGoToPreviousPage}
-                  iconCenter={<PrevIcon />}
-                  disabled={page === 1}
-                  theme="text"
-                  variant="text"
-                />
-              </Tooltip>
-              <span className="typography-button">
-                <FormattedMessage
-                  id="feedClusters.itemsCount"
-                  defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                  description="Pagination count of items returned"
-                  values={{
-                    from: startingIndex + 1,
-                    to: endingIndex + 1,
-                    count: feed.clusters_count,
-                  }}
-                />
-              </span>
-              <Tooltip title={<FormattedMessage id="feedClusters.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />}>
-                <ButtonMain
-                  onClick={handleGoToNextPage}
-                  iconCenter={<NextIcon />}
-                  disabled={endingIndex + 1 === feed.clusters_count}
-                  theme="text"
-                  variant="text"
-                />
-              </Tooltip>
-            </div>
+            <Paginator
+              page={page}
+              pageSize={pageSize}
+              numberOfPageResults={clusters.length}
+              numberOfTotalResults={feed.clusters_count}
+              onChangePage={handleChangePage}
+            />
           </div>
           : null
         }
