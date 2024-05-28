@@ -143,6 +143,7 @@ const ArticlesComponent = ({
           {articles.map(article => (
             <ArticleCard
               key={article.id}
+              variant={type}
               title={article.title}
               summary={article.description}
               url={article.url}
@@ -199,6 +200,10 @@ ArticlesComponent.propTypes = {
   })),
   setFlashMessage: PropTypes.func.isRequired,
 };
+
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { ArticlesComponent };
 
 const ConnectedArticlesComponent = withSetFlashMessage(ArticlesComponent);
 
