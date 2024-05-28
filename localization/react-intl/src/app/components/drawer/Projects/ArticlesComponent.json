@@ -6,7 +6,7 @@
   },
   {
     "id": "articlesComponent.claim&factChecks",
-    "description": "Label for a list displayed on the left sidebar that includes items that have claim e fact-checks",
+    "description": "Label for a list displayed on the left sidebar that includes items that have claim and fact-checks",
     "defaultMessage": "Claim & Fact-Checks"
   },
   {

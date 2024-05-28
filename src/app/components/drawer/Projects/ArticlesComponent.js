@@ -65,7 +65,7 @@ const ArticlesComponent = ({ team }) => {
             >
               <PublishedIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.claim&factChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim e fact-checks" />
+                <FormattedMessage tagName="span" id="articlesComponent.claim&factChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim and fact-checks" />
               </div>
               <ProjectsCoreListCounter query={publishedDefaultQuery} />
             </li>
