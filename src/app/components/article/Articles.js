@@ -4,7 +4,8 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import { withSetFlashMessage } from '../FlashMessage';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import ErrorBoundary from '../error/ErrorBoundary';
 import BlankState from '../layout/BlankState';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
@@ -31,8 +32,9 @@ const ArticlesComponent = ({
   articles,
   articlesCount,
   updateMutation,
-  setFlashMessage,
 }) => {
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
+
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
     onChangeSearchParams({
       page: 1,
@@ -198,14 +200,11 @@ ArticlesComponent.propTypes = {
     updated_at: PropTypes.number,
     tags: PropTypes.arrayOf(PropTypes.string),
   })),
-  setFlashMessage: PropTypes.func.isRequired,
 };
 
 // Used in unit test
 // eslint-disable-next-line import/no-unused-modules
 export { ArticlesComponent };
-
-const ConnectedArticlesComponent = withSetFlashMessage(ArticlesComponent);
 
 const Articles = ({
   type,
@@ -239,69 +238,71 @@ const Articles = ({
   }
 
   return (
-    <QueryRenderer
-      environment={Relay.Store}
-      query={graphql`
-        query ArticlesQuery(
-          $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
-          $users: [Int], $updatedAt: String, $tags: [String],
-        ) {
-          team(slug: $slug) {
-            articles_count(article_type: $type)
-            articles(
-              first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
-              user_ids: $users, tags: $tags, updated_at: $updatedAt,
-            ) {
-              edges {
-                node {
-                  ... on Explainer {
-                    id
-                    title
-                    description
-                    url
-                    language
-                    updated_at
-                    tags
+    <ErrorBoundary component="Articles">
+      <QueryRenderer
+        environment={Relay.Store}
+        query={graphql`
+          query ArticlesQuery(
+            $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
+            $users: [Int], $updatedAt: String, $tags: [String],
+          ) {
+            team(slug: $slug) {
+              articles_count(article_type: $type)
+              articles(
+                first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
+                user_ids: $users, tags: $tags, updated_at: $updatedAt,
+              ) {
+                edges {
+                  node {
+                    ... on Explainer {
+                      id
+                      title
+                      description
+                      url
+                      language
+                      updated_at
+                      tags
+                    }
                   }
                 }
               }
             }
           }
-        }
-      `}
-      variables={{
-        slug: teamSlug,
-        type,
-        pageSize,
-        sort,
-        sortType,
-        offset: pageSize * (page - 1),
-        ...filters,
-      }}
-      render={({ error, props }) => {
-        if (!error && props) {
-          return (
-            <ConnectedArticlesComponent
-              type={type}
-              title={title}
-              icon={icon}
-              page={page}
-              sort={sort}
-              sortType={sortType}
-              sortOptions={sortOptions}
-              filterOptions={filterOptions}
-              teamSlug={teamSlug}
-              filters={filters}
-              articles={props.team.articles.edges.map(edge => edge.node)}
-              articlesCount={props.team.articles_count}
-              onChangeSearchParams={handleChangeSearchParams}
-              updateMutation={updateMutation}
-            />
-          );
-        }
-        return <MediasLoading theme="white" variant="page" size="large" />;
-      }}
-    />
+        `}
+        variables={{
+          slug: teamSlug,
+          type,
+          pageSize,
+          sort,
+          sortType,
+          offset: pageSize * (page - 1),
+          ...filters,
+        }}
+        render={({ error, props }) => {
+          if (!error && props) {
+            return (
+              <ArticlesComponent
+                type={type}
+                title={title}
+                icon={icon}
+                page={page}
+                sort={sort}
+                sortType={sortType}
+                sortOptions={sortOptions}
+                filterOptions={filterOptions}
+                teamSlug={teamSlug}
+                filters={filters}
+                articles={props.team.articles.edges.map(edge => edge.node)}
+                articlesCount={props.team.articles_count}
+                onChangeSearchParams={handleChangeSearchParams}
+                updateMutation={updateMutation}
+              />
+            );
+          }
+          return <MediasLoading theme="white" variant="page" size="large" />;
+        }}
+      />
+    </ErrorBoundary>
   );
 };
 

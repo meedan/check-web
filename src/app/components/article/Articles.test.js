@@ -18,7 +18,6 @@ describe('<Articles />', () => {
     teamSlug: 'test',
     updateMutation: {},
     onChangeSearchParams: () => {},
-    setFlashMessage: () => {},
   };
 
   it('should render explainers as cards', () => {
