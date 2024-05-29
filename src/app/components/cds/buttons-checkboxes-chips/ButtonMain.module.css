@@ -335,15 +335,15 @@
 
   &.theme-lightBeige:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--color-beige-93), var(--color-beige-40), var(--color-beige-40), var(--color-beige-93);
+      @mixin main-button-contained-theme var(--color-beige-86), var(--color-beige-40), var(--color-beige-40), var(--color-beige-93);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--color-beige-93), var(--color-beige-47), var(--color-beige-47), var(--color-beige-40), var(--color-beige-93);
+      @mixin main-button-outlined-theme var(--color-beige-86), var(--color-beige-47), var(--color-beige-47), var(--color-beige-40), var(--color-beige-93);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--color-beige-60), var(--color-beige-40), var(--color-beige-93);
+      @mixin main-button-text-theme var(--color-beige-55), var(--color-beige-40), var(--color-beige-93);
     }
   }
 }

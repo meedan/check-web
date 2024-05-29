@@ -20,7 +20,7 @@ const NewArticleButton = () => {
       <ButtonMain
         variant="contained"
         size="default"
-        theme="beige"
+        theme="lightBeige"
         iconLeft={<AddIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
         label="New Article"
