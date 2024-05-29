@@ -158,7 +158,7 @@ const DrawerRail = (props) => {
                 }
                 id="side-navigation__article-toggle"
                 onClick={() => setDrawerTypeChange('articles')}
-                to={`/${props.team.slug}/articles404`}
+                to={`/${props.team.slug}/articles/fact-checks`}
               >
                 <DescriptionIcon />
               </Link>

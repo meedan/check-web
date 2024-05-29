@@ -20,11 +20,6 @@
     "defaultMessage": "Inbox"
   },
   {
-    "id": "projectsComponent.importedReports",
-    "description": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel",
-    "defaultMessage": "Imported"
-  },
-  {
     "id": "projectsComponent.suggestedMatches",
     "description": "Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1",
     "defaultMessage": "Suggestions"
@@ -33,11 +28,6 @@
     "id": "projectsComponent.unmatchedMedia",
     "description": "Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)",
     "defaultMessage": "Unmatched media"
-  },
-  {
-    "id": "projectsComponent.published",
-    "description": "Label for a list displayed on the left sidebar that includes items that have published reports",
-    "defaultMessage": "Published"
   },
   {
     "id": "projectsComponent.lists",
