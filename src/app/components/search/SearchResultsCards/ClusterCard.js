@@ -41,12 +41,13 @@ const ClusterCard = ({
   title,
   workspaces,
 }) => {
+  console.log('factCheckCount', factCheckCount); // eslint-disable-line no-console
   let feedContainsFactChecks = null;
-  let feedContainsMediaRequests = null;
+  // let feedContainsMediaRequests = null;
 
   if (dataPoints) {
     feedContainsFactChecks = dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS);
-    feedContainsMediaRequests = dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS);
+    // feedContainsMediaRequests = dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS);
   }
 
   return (
@@ -96,8 +97,8 @@ const ClusterCard = ({
             <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
             <div className={cx({ [styles.publishedLabel]: isPublished })}><ButtonMain variant="contained" size="small" iconCenter={<FactCheckIcon />} disabled /></div>
           </div>
-          { (date && (!dataPoints || (feedContainsMediaRequests && !feedContainsFactChecks))) ? <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} /> : null }
-          { (factCheckCount && feedContainsMediaRequests && feedContainsFactChecks) ? (
+          { date && <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} /> }
+          { (factCheckCount && feedContainsFactChecks) ? (
             <ButtonMain
               size="small"
               theme="lightBrand"
@@ -114,12 +115,6 @@ const ClusterCard = ({
                 />
               }
             />
-          ) : null }
-          { (date && !feedContainsMediaRequests && feedContainsFactChecks) ? (
-            <>
-              <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
-              <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} />
-            </>
           ) : null }
         </div>
       </Card>

@@ -19,10 +19,10 @@ import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
-import SearchResultsTable from './SearchResultsTable';
+// import SearchResultsTable from './SearchResultsTable';
 import SelectAllTh from './SearchResultsTable/SelectAllTh';
 import SearchResultsCards from './SearchResultsCards';
-import WorkspaceItemCard from './SearchResultsCards/WorkspaceItemCard';
+import ClusterCard from './SearchResultsCards/ClusterCard';
 import SearchRoute from '../../relay/SearchRoute';
 import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
@@ -329,13 +329,13 @@ function SearchResultsComponent({
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
-  const sortParams = stateQuery.sort ? {
-    key: stateQuery.sort,
-    ascending: stateQuery.sort_type !== 'DESC',
-  } : {
-    key: 'recent_added',
-    ascending: false,
-  };
+  // const sortParams = stateQuery.sort ? {
+  //   key: stateQuery.sort,
+  //   ascending: stateQuery.sort_type !== 'DESC',
+  // } : {
+  //   key: 'recent_added',
+  //   ascending: false,
+  // };
 
   const selectedProjectMedia = [];
 
@@ -404,19 +404,38 @@ function SearchResultsComponent({
         />
       );
     }
-  } else if (page === 'trash') {
-    content = (
-      <div>
+  } else {
+    // content = (
+    //   <SearchResultsTable
+    //     projectMedias={projectMedias}
+    //     team={team}
+    //     selectedIds={filteredSelectedProjectMediaIds}
+    //     sortParams={sortParams}
+    //     onChangeSelectedIds={handleChangeSelectedIds}
+    //     onChangeSortParams={handleChangeSortParams}
+    //     buildProjectMediaUrl={buildProjectMediaUrl}
+    //     resultType={resultType}
+    //     count={count}
+    //   />
+    // );
+
+    content = resultType === 'factCheck' ? (
+      <SearchResultsCards
+        team={team}
+        projectMedias={projectMedias}
+      />
+    ) : (
+      <div style={{ overflowY: 'auto' }}>
         { projectMedias.map(item => (
-          <WorkspaceItemCard
+          <ClusterCard
+            title={item.title}
+            description={item.description}
+            date={new Date(+item.list_columns_values.updated_at_timestamp * 1000)}
+            cardUrl={buildProjectMediaUrl(item)}
             onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
             isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
             isPublished={item.report_status === 'published'}
-            cardUrl={buildProjectMediaUrl(item)}
-            date={new Date(+item.last_seen * 1000)}
-            title={item.title}
-            description={item.description}
-            lastRequestDate={new Date(+item.list_columns_values.updated_at_timestamp * 1000)}
+            lastRequestDate={new Date(+item.last_seen * 1000)}
             rating={item.team.verification_statuses.statuses.find(s => s.id === item.list_columns_values.status).label}
             ratingColor={item.team.verification_statuses.statuses.find(s => s.id === item.list_columns_values.status).style.color}
             requestsCount={item.requests_count}
@@ -434,28 +453,6 @@ function SearchResultsComponent({
         ))}
       </div>
     );
-  } else {
-    content = (
-      <SearchResultsTable
-        projectMedias={projectMedias}
-        team={team}
-        selectedIds={filteredSelectedProjectMediaIds}
-        sortParams={sortParams}
-        onChangeSelectedIds={handleChangeSelectedIds}
-        onChangeSortParams={handleChangeSortParams}
-        buildProjectMediaUrl={buildProjectMediaUrl}
-        resultType={resultType}
-        count={count}
-      />
-    );
-    if (resultType === 'factCheck') {
-      content = (
-        <SearchResultsCards
-          team={team}
-          projectMedias={projectMedias}
-        />
-      );
-    }
   }
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
@@ -685,8 +682,6 @@ SearchResultsComponent.defaultProps = {
 };
 
 SearchResultsComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,

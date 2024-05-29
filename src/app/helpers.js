@@ -386,6 +386,9 @@ function getSuperAdminMask(state) {
  * Return a number formatted 12.2K, 130M, etc. Mostly to ensure same options across the app
  */
 function getCompactNumber(locale, number) {
+  console.log('locale', locale); // eslint-disable-line no-console
+  console.log('number', number); // eslint-disable-line no-console
+
   return new Intl.NumberFormat(locale, { notation: 'compact', compactDisplay: 'short' }).format(number);
 }
 
