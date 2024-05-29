@@ -1,5 +1,6 @@
 .media-chip-link {
   display: inline-block;
+  margin: -.2em 0 0;
   max-width: 100%;
   overflow-x: clip;
   overflow-y: visible;
