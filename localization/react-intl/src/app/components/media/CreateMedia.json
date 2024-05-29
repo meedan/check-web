@@ -12,6 +12,6 @@
   {
     "id": "createMedia.addNewItem",
     "description": "Dialog title for adding a new item",
-    "defaultMessage": "Add item"
+    "defaultMessage": "Add Media"
   }
 ]
