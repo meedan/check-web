@@ -24,7 +24,7 @@ const EditStatusDialog = ({
 }) => {
   const [statusLabel, setStatusLabel] = React.useState(status ? status.locales[defaultLanguage].label : '');
   const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].description : '');
-  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '#567bff');
+  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '#37a0de');
   const [statusMessage, setStatusMessage] = React.useState(status ? status.locales[defaultLanguage].message : '');
   const [statusMessageEnabled, setStatusMessageEnabled] = React.useState(status ? Boolean(status.should_send_message) : false);
   const [showSaveConfirmDialog, setShowSaveConfirmDialog] = React.useState(false);
@@ -32,7 +32,7 @@ const EditStatusDialog = ({
   const handleCancel = () => {
     setStatusLabel('');
     setStatusMessageEnabled(false);
-    setStatusColor('#567bff');
+    setStatusColor('#37a0de'); // this cannot be a CSS variable
     onCancel();
   };
 
