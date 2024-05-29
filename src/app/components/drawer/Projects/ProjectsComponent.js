@@ -13,11 +13,9 @@ import CategoryIcon from '../../../icons/category.svg';
 import ExpandLessIcon from '../../../icons/expand_less.svg';
 import ExpandMoreIcon from '../../../icons/expand_more.svg';
 import FeedIcon from '../../../icons/dynamic_feed.svg';
-import FileDownloadIcon from '../../../icons/file_download.svg';
 import InboxIcon from '../../../icons/inbox.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
 import PersonIcon from '../../../icons/person.svg';
-import PublishedIcon from '../../../icons/fact_check.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
 import DeleteIcon from '../../../icons/delete.svg';
@@ -25,9 +23,7 @@ import ReportIcon from '../../../icons/report.svg';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { assignedToMeDefaultQuery } from '../../team/AssignedToMe';
 import { suggestedMatchesDefaultQuery } from '../../team/SuggestedMatches';
-import { importedReportsDefaultQuery } from '../../team/ImportedReports';
 import { unmatchedMediaDefaultQuery } from '../../team/UnmatchedMedia';
-import { publishedDefaultQuery } from '../../team/Published';
 import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
 import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import styles from './Projects.module.css';
@@ -164,29 +160,6 @@ const ProjectsComponent = ({
               </li>
             </Link>
           }
-          <Link
-            onClick={() => { handleSpecialLists('imported-fact-checks'); }}
-            to={`/${team.slug}/imported-fact-checks`}
-            className={styles.linkList}
-          >
-            <li
-              className={cx(
-                'projects-list__imported-fact-checks',
-                styles.listItem,
-                styles.listItem_containsCount,
-                {
-                  [styles.listItem_active]: activeItem.type === 'imported-fact-checks',
-                })
-              }
-            >
-              <FileDownloadIcon className={styles.listIcon} />
-              <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
-              </div>
-              <ProjectsCoreListCounter query={importedReportsDefaultQuery} />
-            </li>
-          </Link>
-
           { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
             <Link
               onClick={() => { handleSpecialLists('suggested-matches'); }}
@@ -236,28 +209,6 @@ const ProjectsComponent = ({
               </li>
             </Link>
           }
-          <Link
-            onClick={() => { handleSpecialLists('published'); }}
-            to={`/${team.slug}/published`}
-            className={styles.linkList}
-          >
-            <li
-              className={cx(
-                'projects-list__published',
-                styles.listItem,
-                styles.listItem_containsCount,
-                {
-                  [styles.listItem_active]: activeItem.type === 'published',
-                })
-              }
-            >
-              <PublishedIcon className={styles.listIcon} />
-              <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
-              </div>
-              <ProjectsCoreListCounter query={publishedDefaultQuery} />
-            </li>
-          </Link>
 
           {/* Lists Header */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}

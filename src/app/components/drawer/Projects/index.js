@@ -4,7 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import ProjectsComponent from './ProjectsComponent';
 import FeedsComponent from './FeedsComponent';
-import ArticlesComponent from './ArticlesComponent';
+import ArticlesComponent from '../../article/ArticlesComponent';
 import SettingsComponent from './SettingsComponent';
 import UserSettingsComponent from './UserSettingsComponent';
 
