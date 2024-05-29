@@ -19,7 +19,6 @@ import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
-// import SearchResultsTable from './SearchResultsTable';
 import SelectAllTh from './SearchResultsTable/SelectAllTh';
 import SearchResultsCards from './SearchResultsCards';
 import ClusterCard from './SearchResultsCards/ClusterCard';
@@ -405,52 +404,44 @@ function SearchResultsComponent({
       );
     }
   } else {
-    // content = (
-    //   <SearchResultsTable
-    //     projectMedias={projectMedias}
-    //     team={team}
-    //     selectedIds={filteredSelectedProjectMediaIds}
-    //     sortParams={sortParams}
-    //     onChangeSelectedIds={handleChangeSelectedIds}
-    //     onChangeSortParams={handleChangeSortParams}
-    //     buildProjectMediaUrl={buildProjectMediaUrl}
-    //     resultType={resultType}
-    //     count={count}
-    //   />
-    // );
-
     content = resultType === 'factCheck' ? (
       <SearchResultsCards
         team={team}
         projectMedias={projectMedias}
       />
     ) : (
-      <div style={{ overflowY: 'auto' }}>
-        { projectMedias.map(item => (
-          <ClusterCard
-            title={item.title}
-            description={item.description}
-            date={new Date(+item.list_columns_values.updated_at_timestamp * 1000)}
-            cardUrl={buildProjectMediaUrl(item)}
-            onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
-            isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
-            isPublished={item.report_status === 'published'}
-            lastRequestDate={new Date(+item.last_seen * 1000)}
-            rating={item.team.verification_statuses.statuses.find(s => s.id === item.list_columns_values.status).label}
-            ratingColor={item.team.verification_statuses.statuses.find(s => s.id === item.list_columns_values.status).style.color}
-            requestsCount={item.requests_count}
-            mediaCount={item.list_columns_values.linked_items_count}
-            mediaThumbnail={{
-              media: {
-                picture: item.picture,
-                type: item.media.type,
-                url: item.media.url,
-              },
-            }}
-            mediaType={item.media.type}
-            suggestionsCount={item.list_columns_values.suggestions_count}
-          />
-        ))}
+      <div style={{ overflow: 'auto' }}>
+        { projectMedias.map((item) => {
+          // It appears that list_columns_values gotta be a json string in the optimistic object
+          const list_columns_values = typeof item.list_columns_values === 'string' ? JSON.parse(item.list_columns_values) : item.list_columns_values;
+
+          return (
+            <ClusterCard
+              title={item.title}
+              description={item.description}
+              date={new Date(+list_columns_values.updated_at_timestamp * 1000)}
+              cardUrl={buildProjectMediaUrl(item)}
+              onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
+              isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
+              isPublished={item.report_status === 'published'}
+              isUnread={!item.is_read}
+              lastRequestDate={new Date(+item.last_seen * 1000)}
+              rating={item.team.verification_statuses.statuses.find(s => s.id === list_columns_values.status)?.label}
+              ratingColor={item.team.verification_statuses.statuses.find(s => s.id === list_columns_values.status)?.style.color}
+              requestsCount={item.requests_count}
+              mediaCount={list_columns_values.linked_items_count}
+              mediaThumbnail={{
+                media: {
+                  picture: item.picture,
+                  type: item.media?.type,
+                  url: item.media?.url,
+                },
+              }}
+              mediaType={item.media?.type}
+              suggestionsCount={list_columns_values?.suggestions_count}
+            />
+          );
+        })}
       </div>
     );
   }

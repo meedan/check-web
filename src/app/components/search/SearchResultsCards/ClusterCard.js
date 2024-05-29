@@ -41,13 +41,13 @@ const ClusterCard = ({
   title,
   workspaces,
 }) => {
-  console.log('factCheckCount', factCheckCount); // eslint-disable-line no-console
   let feedContainsFactChecks = null;
   // let feedContainsMediaRequests = null;
 
   if (dataPoints) {
     feedContainsFactChecks = dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS);
-    // feedContainsMediaRequests = dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS);
+    // feedContainsMediaRequests = dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS); // eslint-disable-line no-unused-vars
+    // feedContainsMediaRequests doesn't do anything?
   }
 
   return (
