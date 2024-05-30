@@ -162,6 +162,7 @@ const ArticlesComponent = ({
                 tags={article.tags}
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
+                publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
                 onChangeTags={(tags) => {
                   handleUpdateTags(article.id, tags);
                 }}
@@ -216,6 +217,8 @@ ArticlesComponent.propTypes = {
       description: PropTypes.string,
       project_media: PropTypes.shape({
         status: PropTypes.string,
+        published: PropTypes.string, // Timestamp
+        report_status: PropTypes.string,
       }),
     }),
   })),
@@ -302,7 +305,8 @@ const Articles = ({
                         description
                         project_media {
                           status
-                          # report_status
+                          published
+                          report_status
                         }
                       }
                     }
