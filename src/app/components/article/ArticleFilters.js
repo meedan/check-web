@@ -9,6 +9,7 @@ import MultiSelectFilter from '../search/MultiSelectFilter';
 import SearchFieldUser from '../search/SearchFields/SearchFieldUser';
 import SearchFieldTag from '../search/SearchFields/SearchFieldTag';
 import DateRangeFilter from '../search/DateRangeFilter';
+import LanguageFilter from '../search/LanguageFilter';
 import PersonIcon from '../../icons/person.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import styles from '../search/SearchResults.module.css';
@@ -159,6 +160,21 @@ const ArticleFilters = ({
                     { value: 'fact-check', label: intl.formatMessage(messages.factCheck) },
                   ]}
                   readOnly
+                />
+              </>
+            );
+          }
+
+          if (filter === 'language_filter') {
+            return (
+              <>
+                {connector}
+                <LanguageFilter
+                  onChange={(newValue) => { handleOptionChange('language_filter', newValue); }}
+                  value={value}
+                  onRemove={() => handleRemoveFilter('language_filter')}
+                  teamSlug={teamSlug}
+                  optionsToHide={['request_language', 'language']}
                 />
               </>
             );

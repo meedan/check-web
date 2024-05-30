@@ -48,7 +48,7 @@ const FactChecks = ({ routeParams, intl }) => {
       icon={<FactCheckIcon />}
       teamSlug={routeParams.team}
       sortOptions={sortOptions}
-      filterOptions={['users', 'tags', 'range', 'language']}
+      filterOptions={['users', 'tags', 'range', 'language_filter']}
       updateMutation={updateMutation}
     />
   );
