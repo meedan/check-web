@@ -93,6 +93,7 @@
   &.theme-alert,
   &.theme-lightAlert,
   &.theme-white,
+  &.theme-beige,
   &.theme-lightBeige, {
     &:disabled {
       color: var(--color-gray-59);
