@@ -10,7 +10,7 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 const ItemThumbnail = ({
   type, picture, maskContent, url,
 }) => {
-  if (!type) {
+  if (!type && !picture) {
     return (
       <div className={`${styles.thumbnail} ${styles.container} ${styles.emptyMedia}`}>
         <div className={`${styles.iconContainer}`}>
