@@ -189,33 +189,36 @@ const ArticleFilters = ({
           onSelect={handleAddFilter}
         />
         <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
-        { Object.keys(filters).length > 0 ?
-          <ButtonMain
-            className="int-search-fields__button--apply-articlefilter"
-            variant="contained"
-            size="default"
-            theme="lightValidation"
-            onClick={handleSubmit}
-            label={
-              <FormattedMessage id="articleFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
-            }
-            buttonProps={{
-              id: 'search-fields__submit-button',
-            }}
-          /> : null }
-        <ButtonMain
-          className="int-search-fields__button--reset-articlefilter"
-          variant="contained"
-          size="default"
-          theme="lightText"
-          onClick={handleClear}
-          label={
-            <FormattedMessage id="articleFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
-          }
-          buttonProps={{
-            id: 'search-fields__clear-button',
-          }}
-        />
+        { Object.keys(filters).length > 1 && ( // Filter by article type is fixed
+          <>
+            <ButtonMain
+              className="int-search-fields__button--apply-articlefilter"
+              variant="contained"
+              size="default"
+              theme="lightValidation"
+              onClick={handleSubmit}
+              label={
+                <FormattedMessage id="articleFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
+              }
+              buttonProps={{
+                id: 'search-fields__submit-button',
+              }}
+            />
+            <ButtonMain
+              className="int-search-fields__button--reset-articlefilter"
+              variant="contained"
+              size="default"
+              theme="lightText"
+              onClick={handleClear}
+              label={
+                <FormattedMessage id="articleFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
+              }
+              buttonProps={{
+                id: 'search-fields__clear-button',
+              }}
+            />
+          </>
+        )}
       </div>
     </div>
   );
