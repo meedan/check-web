@@ -188,9 +188,9 @@ const ArticleFilters = ({
           addedFields={Object.keys(filters)}
           onSelect={handleAddFilter}
         />
-        <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
         { Object.keys(filters).length > 1 && ( // Filter by article type is fixed
           <>
+            <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
             <ButtonMain
               className="int-search-fields__button--apply-articlefilter"
               variant="contained"
