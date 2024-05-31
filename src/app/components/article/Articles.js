@@ -11,6 +11,7 @@ import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
+import { getStatus } from '../../helpers';
 import MediasLoading from '../media/MediasLoading';
 import ArticleFilters from './ArticleFilters';
 import styles from './Articles.module.css';
@@ -29,6 +30,7 @@ const ArticlesComponent = ({
   filterOptions,
   filters,
   onChangeSearchParams,
+  statuses,
   articles,
   articlesCount,
   updateMutation,
@@ -142,21 +144,31 @@ const ArticlesComponent = ({
         }
 
         <div className={styles.articlesList}>
-          {articles.map(article => (
-            <ArticleCard
-              key={article.id}
-              variant={type}
-              title={article.title}
-              summary={article.description}
-              url={article.url}
-              languageCode={article.language}
-              date={article.updated_at}
-              tags={article.tags}
-              onChangeTags={(tags) => {
-                handleUpdateTags(article.id, tags);
-              }}
-            />
-          ))}
+          {articles.map((article) => {
+            let currentStatus = null;
+            if (article.claim_description?.project_media?.status) {
+              currentStatus = getStatus(statuses, article.claim_description.project_media.status);
+            }
+
+            return (
+              <ArticleCard
+                key={article.id}
+                variant={type}
+                title={article.title || article.claim_description?.description}
+                summary={article.description}
+                url={article.url}
+                languageCode={article.language !== 'und' ? article.language : null}
+                date={article.updated_at}
+                tags={article.tags}
+                statusColor={currentStatus ? currentStatus.style?.color : null}
+                statusLabel={currentStatus ? currentStatus.label : null}
+                publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
+                onChangeTags={(tags) => {
+                  handleUpdateTags(article.id, tags);
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     </React.Fragment>
@@ -170,6 +182,7 @@ ArticlesComponent.defaultProps = {
   sortOptions: [],
   filterOptions: [],
   filters: {},
+  statuses: {},
   articles: [],
   articlesCount: 0,
 };
@@ -190,6 +203,7 @@ ArticlesComponent.propTypes = {
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired, // Localizable string
   })),
+  statuses: PropTypes.object,
   articlesCount: PropTypes.number,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -199,6 +213,14 @@ ArticlesComponent.propTypes = {
     language: PropTypes.string,
     updated_at: PropTypes.number,
     tags: PropTypes.arrayOf(PropTypes.string),
+    claim_description: PropTypes.shape({
+      description: PropTypes.string,
+      project_media: PropTypes.shape({
+        status: PropTypes.string,
+        published: PropTypes.string, // Timestamp
+        report_status: PropTypes.string,
+      }),
+    }),
   })),
 };
 
@@ -235,6 +257,13 @@ const Articles = ({
   // Adjust some filters
   if (filters.range?.updated_at) {
     filters.updatedAt = JSON.stringify(filters.range.updated_at);
+  } else {
+    delete filters.updatedAt;
+  }
+  if (filters.language_filter?.report_language) {
+    filters.language = filters.language_filter.report_language;
+  } else {
+    delete filters.language;
   }
 
   return (
@@ -244,13 +273,14 @@ const Articles = ({
         query={graphql`
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
-            $users: [Int], $updatedAt: String, $tags: [String],
+            $users: [Int], $updatedAt: String, $tags: [String], $language: [String],
           ) {
             team(slug: $slug) {
-              articles_count(article_type: $type)
+              verification_statuses
+              articles_count(article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language)
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
-                user_ids: $users, tags: $tags, updated_at: $updatedAt,
+                user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language,
               ) {
                 edges {
                   node {
@@ -262,6 +292,23 @@ const Articles = ({
                       language
                       updated_at
                       tags
+                    }
+                    ... on FactCheck {
+                      id
+                      title
+                      description: summary
+                      url
+                      language
+                      updated_at
+                      tags
+                      claim_description { # There will be no N + 1 problem here because the backend uses eager loading
+                        description
+                        project_media {
+                          status
+                          published
+                          report_status
+                        }
+                      }
                     }
                   }
                 }
@@ -294,6 +341,7 @@ const Articles = ({
                 filters={filters}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
+                statuses={props.team.verification_statuses}
                 onChangeSearchParams={handleChangeSearchParams}
                 updateMutation={updateMutation}
               />

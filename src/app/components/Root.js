@@ -40,6 +40,7 @@ import Sandbox from './Sandbox';
 import SandboxCrash from './SandboxCrash';
 import FeedPage from './feed/FeedPage';
 import Explainers from './article/Explainers';
+import FactChecks from './article/FactChecks';
 
 class Root extends Component {
   static logPageView() {
@@ -122,6 +123,7 @@ class Root extends Component {
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
                   <Route path=":team/articles/explainers" component={Explainers} />
+                  <Route path=":team/articles/fact-checks" component={FactChecks} />
                   <Route path="*" component={NotFound} public />
                 </Route>
               </Router>

@@ -39,4 +39,10 @@
       }
     }
   }
+
+  .cardRightTop {
+    display: flex;
+    gap: 3px;
+    justify-content: flex-end;
+  }
 }

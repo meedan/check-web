@@ -9,6 +9,7 @@ import MultiSelectFilter from '../search/MultiSelectFilter';
 import SearchFieldUser from '../search/SearchFields/SearchFieldUser';
 import SearchFieldTag from '../search/SearchFields/SearchFieldTag';
 import DateRangeFilter from '../search/DateRangeFilter';
+import LanguageFilter from '../search/LanguageFilter';
 import PersonIcon from '../../icons/person.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import styles from '../search/SearchResults.module.css';
@@ -164,6 +165,21 @@ const ArticleFilters = ({
             );
           }
 
+          if (filter === 'language_filter') {
+            return (
+              <>
+                {connector}
+                <LanguageFilter
+                  onChange={(newValue) => { handleOptionChange('language_filter', newValue); }}
+                  value={value}
+                  onRemove={() => handleRemoveFilter('language_filter')}
+                  teamSlug={teamSlug}
+                  optionsToHide={['request_language', 'language']}
+                />
+              </>
+            );
+          }
+
           return null;
         })}
         <AddFilterMenu
@@ -172,34 +188,37 @@ const ArticleFilters = ({
           addedFields={Object.keys(filters)}
           onSelect={handleAddFilter}
         />
-        <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
-        { Object.keys(filters).length > 0 ?
-          <ButtonMain
-            className="int-search-fields__button--apply-articlefilter"
-            variant="contained"
-            size="default"
-            theme="lightValidation"
-            onClick={handleSubmit}
-            label={
-              <FormattedMessage id="articleFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
-            }
-            buttonProps={{
-              id: 'search-fields__submit-button',
-            }}
-          /> : null }
-        <ButtonMain
-          className="int-search-fields__button--reset-articlefilter"
-          variant="contained"
-          size="default"
-          theme="lightText"
-          onClick={handleClear}
-          label={
-            <FormattedMessage id="articleFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
-          }
-          buttonProps={{
-            id: 'search-fields__clear-button',
-          }}
-        />
+        { Object.keys(filters).length > 1 && ( // Filter by article type is fixed
+          <>
+            <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
+            <ButtonMain
+              className="int-search-fields__button--apply-articlefilter"
+              variant="contained"
+              size="default"
+              theme="lightValidation"
+              onClick={handleSubmit}
+              label={
+                <FormattedMessage id="articleFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
+              }
+              buttonProps={{
+                id: 'search-fields__submit-button',
+              }}
+            />
+            <ButtonMain
+              className="int-search-fields__button--reset-articlefilter"
+              variant="contained"
+              size="default"
+              theme="lightText"
+              onClick={handleClear}
+              label={
+                <FormattedMessage id="articleFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
+              }
+              buttonProps={{
+                id: 'search-fields__clear-button',
+              }}
+            />
+          </>
+        )}
       </div>
     </div>
   );
