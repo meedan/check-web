@@ -20,7 +20,7 @@ const MediaChip = ({
     <Tooltip title={url} arrow>
       <div className={cx(styles['media-chip'], 'media-chip')}>
         <div className={cx(styles['media-chip-icon'], 'media-chip-icon')}><MediaTypeDisplayIcon mediaType={mediaType} /></div>
-        <div className={cx('typography-body2', styles['media-chip-label'], 'media-chip-label')}>{shortUrl || label}</div>
+        <div className={cx(styles['media-chip-label'], 'media-chip-label')}>{shortUrl || label}</div>
       </div>
     </Tooltip>
   );

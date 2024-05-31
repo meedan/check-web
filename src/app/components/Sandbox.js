@@ -29,7 +29,6 @@ import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
 import SharedItemCard from './search/SearchResultsCards/SharedItemCard';
 import WorkspaceItemCard from './search/SearchResultsCards/WorkspaceItemCard';
-import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
 import CheckFeedDataPoints from '../CheckFeedDataPoints';
 import Slideout from './cds/slideout/Slideout';
 
@@ -641,72 +640,6 @@ const SandboxComponent = ({ admin }) => {
               ratingColor="#f00"
               suggestionsCount={567890}
             />
-            <div
-              className={cx(
-                styles.listItem,
-                {
-                  [styles.listItemUnread]: listItemUnread && !listItemShared,
-                })
-              }
-            >
-              { !listItemShared &&
-                <div className={styles.checkbox}>
-                  <Checkbox
-                    disabled={checkboxDisabled}
-                    checked={checkboxChecked}
-                    onChange={() => setCheckboxChecked(!checkboxChecked)}
-                  />
-                </div>
-              }
-              { ((listItemMedia && !listItemShared) || (listItemShared && listItemCluster)) &&
-              <>
-                <div className={styles.thumbail}>
-                  <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent={mediaThumbnail.show_warning_cover} type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
-                </div>
-              </>
-              }
-              <div className={styles.content}>
-                <h6>Item Title</h6>
-                { listItemDescription &&
-                  <p>
-                    DESCRIPTION
-                  </p>
-                }
-                { listItemDescriptionLink &&
-                  <a href="www.meedan.com" className={styles.factDescriptionLink}>
-                    DESCRIPTION LINK
-                  </a>
-                }
-                { listItemFactCheckLink &&
-                  <a href="www.meedan.com" className={styles.factCheckLink}>
-                    FACT-CHECK LINK
-                  </a>
-                }
-                { listItemShared &&
-                  <div className={styles.workspaces}>
-                    WORKPACES
-                  </div>
-                }
-                <div className={styles.mediaAndRequest}>
-                  { listItemMedia ? <div>MEDIA</div> : null }
-                  { listItemSuggestions ? <div>SUGGESTIONS</div> : null }
-                  { listItemRequests ? <div>REQUESTS</div> : null }
-                  { listItemRequests ? <div>PLATFORMS</div> : null }
-                </div>
-              </div>
-              <div className={styles.factCheckLastUpdated}>
-                <div className={styles.factCheck}>
-                  { listItemShared && listItemFactCheck &&
-                    <>FACT-CHECK COUNT</>
-                  }
-                  { !listItemShared && listItemFactCheck &&
-                    <>WORKSPACE FACT-CHECK</>
-                  }
-                  { listItemFactCheckPublished && !listItemShared ? <>PUBLISHED</> : null }
-                </div>
-                May 27, 2022
-              </div>
-            </div>
           </div>
         </div>
       </section>
