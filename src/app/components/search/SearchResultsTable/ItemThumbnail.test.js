@@ -21,7 +21,7 @@ describe('<ItemThumbnail />', () => {
     const wrapper = mountWithIntl(
       <ItemThumbnail
         maskContent={false}
-        type="image"
+        type="UploadedImage"
       />);
     expect(wrapper.find(MediaTypeDisplayIcon).length).toEqual(1);
   });
