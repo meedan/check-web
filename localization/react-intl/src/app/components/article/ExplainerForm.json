@@ -1,0 +1,12 @@
+[
+  {
+    "id": "explainerForm.saveSuccess",
+    "description": "Save item action success message",
+    "defaultMessage": "Article created successfully!"
+  },
+  {
+    "id": "explainerForm.saveError",
+    "description": "save item action failure message",
+    "defaultMessage": "Error with saving your article"
+  }
+]
