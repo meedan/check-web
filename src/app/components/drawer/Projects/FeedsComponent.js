@@ -81,7 +81,7 @@ const FeedsComponent = ({
             iconLeft={<AddIcon />}
             variant="contained"
             size="default"
-            theme="text"
+            theme="lightBeige"
             onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }}
           />
         </div>
