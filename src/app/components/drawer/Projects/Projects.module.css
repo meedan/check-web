@@ -49,57 +49,24 @@
     min-height: auto !important;
   }
 
-  .listChevron {
-    font-size: var(--drawerexpandIconSize);
-    margin: 0 4px 0 1px;
-  }
-
   .linkList {
     color: inherit;
     text-decoration: none;
   }
 
   .listHeader {
-    @mixin typography-caption;
     align-items: center;
-    border: solid 1px var(--color-beige-93);
-    color: var(var(--color-beige-40));
     cursor: pointer;
-    display: flex;
-    font-weight: 500;
-    height: 30px;
-    justify-content: flex-start;
-    margin: 0 0 2px;
-    padding: 0 0 0 7px;
-    text-transform: uppercase;
-    width: auto;
+    overflow: hidden;
 
-    .listHeaderLabel {
-      align-items: center;
-      display: flex;
-      flex-basis: 100%;
-      margin: 0;
+    .listAddListButton {
+      display: none;
+      margin: 0 -12px 0 0;
+    }
 
-      > span {
-        flex: 1 1 auto;
-        margin: 0 6px 0 0;
-      }
-
-      .listHeaderLabelButton {
-        background-color: var(--color-gray-96);
-        border-radius: 8px;
-        color: var(--color-gray-37);
-        flex: 0 0 30px;
-        font-size: var(--iconSizeSmall);
-        height: 30px;
-        padding: 0;
-        transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
-        width: 26px;
-
-        &:hover {
-          background-color: var(--color-blue-98);
-          color: var(--color-blue-32);
-        }
+    &:hover {
+      .listAddListButton {
+        display: block;
       }
     }
   }

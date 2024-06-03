@@ -37,7 +37,7 @@ const ArticlesComponent = ({ team }) => {
           description="The navigation name of the articles section"
         />
       </div>
-      <div className={styles.listTitle}>
+      <div className={styles.listMainAction}>
         <NewArticleButton />
       </div>
       <div className={styles.listWrapperScrollWrapper}>
