@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -11,7 +11,6 @@ import ItemDate from '../../cds/media-cards/ItemDate';
 import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemWorkspaces from '../../cds/media-cards/ItemWorkspaces';
 import SharedItemCardFooter from './SharedItemCardFooter';
-import { getCompactNumber } from '../../../helpers';
 import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import styles from './ItemCard.module.css';
@@ -23,7 +22,6 @@ const ClusterCard = ({
   dataPoints,
   date,
   description,
-  intl,
   isChecked,
   isUnread,
   isPublished,
@@ -42,12 +40,9 @@ const ClusterCard = ({
   workspaces,
 }) => {
   let feedContainsFactChecks = null;
-  // let feedContainsMediaRequests = null;
 
   if (dataPoints) {
     feedContainsFactChecks = dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS);
-    // feedContainsMediaRequests = dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS); // eslint-disable-line no-unused-vars
-    // feedContainsMediaRequests doesn't do anything?
   }
 
   return (
@@ -94,28 +89,31 @@ const ClusterCard = ({
         </div>
         <div className={styles.clusterCardRight}>
           <div className={styles.clusterCardRating}>
-            <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
-            <div className={cx({ [styles.publishedLabel]: isPublished })}><ButtonMain variant="contained" size="small" iconCenter={<FactCheckIcon />} disabled /></div>
+            { (factCheckCount && feedContainsFactChecks) ? (
+              <ButtonMain
+                size="small"
+                theme="lightBrand"
+                iconLeft={<FactCheckIcon />}
+                variant="contained"
+                label={
+                  <FormattedMessage
+                    id="sharedItemCard.factCheckCount"
+                    defaultMessage="{count, plural, one {# Fact-check} other {# Fact-checks}}"
+                    description="A label showing the number of fact-checks represented in an item."
+                    values={{
+                      count: factCheckCount,
+                    }}
+                  />
+                }
+              />
+            ) : (
+              <>
+                <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
+                { rating ? <div className={cx({ [styles.publishedLabel]: isPublished })}><ButtonMain variant="contained" size="small" iconCenter={<FactCheckIcon />} disabled /></div> : null }
+              </>
+            ) }
           </div>
-          { date && <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} /> }
-          { (factCheckCount && feedContainsFactChecks) ? (
-            <ButtonMain
-              size="small"
-              theme="lightBrand"
-              iconLeft={<FactCheckIcon />}
-              variant="contained"
-              label={
-                <FormattedMessage
-                  id="sharedItemCard.factCheckCount"
-                  defaultMessage="{count, plural, one {# Fact-check} other {# Fact-checks}}"
-                  description="A label showing the number of fact-checks represented in an item."
-                  values={{
-                    count: getCompactNumber(intl.locale, factCheckCount),
-                  }}
-                />
-              }
-            />
-          ) : null }
+          { date ? <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} /> : null }
         </div>
       </Card>
     </div>
@@ -157,7 +155,6 @@ ClusterCard.propTypes = {
   description: PropTypes.string,
   factCheckCount: PropTypes.number,
   factCheckUrl: PropTypes.string,
-  intl: intlShape.isRequired,
   isChecked: PropTypes.bool,
   isUnread: PropTypes.bool,
   isPublished: PropTypes.bool,
