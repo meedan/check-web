@@ -58,12 +58,10 @@ const ExplainerForm = ({
   team,
   onClose,
   setFlashMessage,
-  projectMedia,
 }) => {
   const type = article?.dbid ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(Boolean(false));
   const [error, setError] = React.useState(Boolean(false));
-  const tags = projectMedia.tags || [];
   const [explainer, setExplainer] = React.useState({
     title: article?.title || null,
     description: article?.descripton || null,
@@ -156,7 +154,6 @@ const ExplainerForm = ({
         mode={type}
         article={article}
         team={team}
-        tags={tags}
         saving={saving}
         error={error}
       />
