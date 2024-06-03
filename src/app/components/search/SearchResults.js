@@ -328,6 +328,7 @@ function SearchResultsComponent({
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
+  // TODO in CV2-3924: Use ListSort component to sort the search results
   // const sortParams = stateQuery.sort ? {
   //   key: stateQuery.sort,
   //   ascending: stateQuery.sort_type !== 'DESC',
