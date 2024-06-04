@@ -418,19 +418,20 @@ function SearchResultsComponent({
 
           return (
             <ClusterCard
+              key={item.id}
               title={item.title}
               description={item.description}
-              date={new Date(+list_columns_values.updated_at_timestamp * 1000)}
+              date={new Date(+list_columns_values?.updated_at_timestamp * 1000)}
               cardUrl={buildProjectMediaUrl(item)}
               onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
               isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
               isPublished={item.report_status === 'published'}
               isUnread={!item.is_read}
               lastRequestDate={new Date(+item.last_seen * 1000)}
-              rating={item.team.verification_statuses.statuses.find(s => s.id === list_columns_values.status)?.label}
-              ratingColor={item.team.verification_statuses.statuses.find(s => s.id === list_columns_values.status)?.style.color}
+              rating={item.team?.verification_statuses.statuses.find(s => s.id === list_columns_values?.status)?.label}
+              ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === list_columns_values?.status)?.style.color}
               requestsCount={item.requests_count}
-              mediaCount={list_columns_values.linked_items_count}
+              mediaCount={list_columns_values?.linked_items_count}
               mediaThumbnail={{
                 media: {
                   picture: item.picture,
@@ -482,8 +483,8 @@ function SearchResultsComponent({
                             description="Tooltip for shared feeds icon"
                           />
                           <ul className="bulleted-list item-limited-list">
-                            {feeds.map(feedObj => (
-                              <li key={feedObj.id}>{feedObj}</li>
+                            {feeds.map(feedName => (
+                              <li key={feedName}>{feedName}</li>
                             ))}
                           </ul>
                         </>
