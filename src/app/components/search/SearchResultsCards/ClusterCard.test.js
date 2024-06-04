@@ -2,7 +2,6 @@ import React from 'react';
 import ClusterCard from './ClusterCard';
 import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
-import FactCheckIcon from '../../../icons/fact_check.svg';
 
 describe('<ClusterCard />', () => {
   it('should always render a card', () => {
@@ -10,8 +9,8 @@ describe('<ClusterCard />', () => {
       <ClusterCard
         title="Title"
         date={new Date()}
-       />
-      );
+      />,
+    );
     expect(wrapper.find('.cluster-card').length).toBe(1);
   });
 
@@ -31,7 +30,7 @@ describe('<ClusterCard />', () => {
         title="Title"
         date={new Date()}
         onCheckboxChange={() => {}}
-      />
+      />,
     );
     expect(wrapper.find('Checkbox').length).toBe(1);
   });
@@ -43,7 +42,7 @@ describe('<ClusterCard />', () => {
         date={new Date()}
         dataPoints={[CheckFeedDataPoints.PUBLISHED_FACT_CHECKS]}
         factCheckCount={3}
-      />
+      />,
     );
     expect(wrapper.find('ButtonMain').html()).toContain('3 Fact-checks');
   });
@@ -53,8 +52,9 @@ describe('<ClusterCard />', () => {
       <ClusterCard
         title="Title"
         date={new Date()}
-        rating="Verdadeiro" isPublished
-      />
+        rating="Verdadeiro"
+        isPublished
+      />,
     );
     expect(wrapper.find('ItemRating').html()).toContain('Verdadeiro');
   });
