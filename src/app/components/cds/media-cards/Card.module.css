@@ -142,6 +142,30 @@
     }
   }
 
+  .cardWorkspaces {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+
+    .extraWorkspaces {
+      align-items: center;
+      background-color: var(--color-white-100);
+      border: 2px solid var(--color-gray-88);
+      border-radius: 6px;
+      color: var(--color-gray-37);
+      cursor: pointer;
+      display: flex;
+      flex-shrink: 0;
+      font-feature-settings: 'clig' off, 'liga' off;
+      gap: 12px;
+      height: 30px;
+      justify-content: center;
+      padding: 6px;
+      text-align: center;
+      width: 30px;
+    }
+  }
+
   .cardFooter {
     margin-top: 6px;
   }

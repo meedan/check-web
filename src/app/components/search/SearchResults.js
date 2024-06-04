@@ -19,8 +19,9 @@ import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
-import SearchResultsTable from './SearchResultsTable';
+import SelectAllTh from './SearchResultsTable/SelectAllTh';
 import SearchResultsCards from './SearchResultsCards';
+import ClusterCard from './SearchResultsCards/ClusterCard';
 import SearchRoute from '../../relay/SearchRoute';
 import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
@@ -327,13 +328,14 @@ function SearchResultsComponent({
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
-  const sortParams = stateQuery.sort ? {
-    key: stateQuery.sort,
-    ascending: stateQuery.sort_type !== 'DESC',
-  } : {
-    key: 'recent_added',
-    ascending: false,
-  };
+  // TODO in CV2-3924: Use ListSort component to sort the search results
+  // const sortParams = stateQuery.sort ? {
+  //   key: stateQuery.sort,
+  //   ascending: stateQuery.sort_type !== 'DESC',
+  // } : {
+  //   key: 'recent_added',
+  //   ascending: false,
+  // };
 
   const selectedProjectMedia = [];
 
@@ -342,6 +344,28 @@ function SearchResultsComponent({
       selectedProjectMedia.push(pm);
     }
   });
+
+  const handleCheckboxChange = (checked, projectMedia) => {
+    const { id } = projectMedia;
+    if (!id) return; // Can't select unsaved object. Swallow mouse click.
+
+    let newIds;
+    if (checked) {
+      // Add
+      if (filteredSelectedProjectMediaIds.includes(id)) {
+        return;
+      }
+      newIds = [...filteredSelectedProjectMediaIds, id];
+      newIds.sort((a, b) => a - b);
+    } else {
+      // Remove
+      if (!filteredSelectedProjectMediaIds.includes(id)) {
+        return;
+      }
+      newIds = filteredSelectedProjectMediaIds.filter(oldId => oldId !== id);
+    }
+    setSelectedProjectMediaIds(newIds);
+  };
 
   let content = null;
 
@@ -381,27 +405,47 @@ function SearchResultsComponent({
       );
     }
   } else {
-    content = (
-      <SearchResultsTable
-        projectMedias={projectMedias}
+    content = resultType === 'factCheck' ? (
+      <SearchResultsCards
         team={team}
-        selectedIds={filteredSelectedProjectMediaIds}
-        sortParams={sortParams}
-        onChangeSelectedIds={handleChangeSelectedIds}
-        onChangeSortParams={handleChangeSortParams}
-        buildProjectMediaUrl={buildProjectMediaUrl}
-        resultType={resultType}
-        count={count}
+        projectMedias={projectMedias}
       />
+    ) : (
+      <div style={{ overflow: 'auto' }}>
+        { projectMedias.map((item) => {
+          // It appears that list_columns_values gotta be a json string in the optimistic object
+          const list_columns_values = typeof item.list_columns_values === 'string' ? JSON.parse(item.list_columns_values) : item.list_columns_values;
+
+          return (
+            <ClusterCard
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              date={new Date(+list_columns_values?.updated_at_timestamp * 1000)}
+              cardUrl={buildProjectMediaUrl(item)}
+              onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
+              isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
+              isPublished={item.report_status === 'published'}
+              isUnread={!item.is_read}
+              lastRequestDate={new Date(+item.last_seen * 1000)}
+              rating={item.team?.verification_statuses.statuses.find(s => s.id === list_columns_values?.status)?.label}
+              ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === list_columns_values?.status)?.style.color}
+              requestsCount={item.requests_count}
+              mediaCount={list_columns_values?.linked_items_count}
+              mediaThumbnail={{
+                media: {
+                  picture: item.picture,
+                  type: item.media?.type,
+                  url: item.media?.url,
+                },
+              }}
+              mediaType={item.media?.type}
+              suggestionsCount={list_columns_values?.suggestions_count}
+            />
+          );
+        })}
+      </div>
     );
-    if (resultType === 'factCheck') {
-      content = (
-        <SearchResultsCards
-          team={team}
-          projectMedias={projectMedias}
-        />
-      );
-    }
   }
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
@@ -439,8 +483,8 @@ function SearchResultsComponent({
                             description="Tooltip for shared feeds icon"
                           />
                           <ul className="bulleted-list item-limited-list">
-                            {feeds.map(feedObj => (
-                              <li key={feedObj.id}>{feedObj}</li>
+                            {feeds.map(feedName => (
+                              <li key={feedName}>{feedName}</li>
                             ))}
                           </ul>
                         </>
@@ -524,6 +568,12 @@ function SearchResultsComponent({
                     />
                   </div> : null
                 }
+                <SelectAllTh
+                  className={styles.noBottomBorder}
+                  selectedIds={filteredSelectedProjectMediaIds}
+                  projectMedias={projectMedias}
+                  onChangeSelectedIds={handleChangeSelectedIds}
+                />
                 <span className={styles['search-pagination']}>
                   <Tooltip title={
                     <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
@@ -625,8 +675,6 @@ SearchResultsComponent.defaultProps = {
 };
 
 SearchResultsComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,

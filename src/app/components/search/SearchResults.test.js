@@ -17,7 +17,7 @@ describe('<SearchResults />', () => {
       {
         node: {
           dbid: 1,
-          id: 1,
+          id: 'abc1',
           name: 'Feed test',
         },
       },
@@ -30,8 +30,10 @@ describe('<SearchResults />', () => {
       edges: [
         {
           node: {
+            id: 'zyx1',
             dbid: 1,
             quote: 'Hello Text Claim',
+            list_columns_values: {},
           },
         },
       ],
@@ -59,6 +61,7 @@ describe('<SearchResults />', () => {
         subscribe: () => () => null,
         unsubscribe: () => {},
       }}
+      page="list"
       relay={{}}
       feedTeam={null}
       query={{ verification_status: ['undetermined'] }}
@@ -75,6 +78,7 @@ describe('<SearchResults />', () => {
       mediaUrlPrefix=""
       searchUrlPrefix=""
       title="title"
+      page="all-items"
       relay={{}}
       pusher={{
         subscribe: () => () => null,
