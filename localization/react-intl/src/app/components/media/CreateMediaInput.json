@@ -1,25 +1,5 @@
 [
   {
-    "id": "createMedia.mediaClaimDescription",
-    "description": "Section title for the description of a claim",
-    "defaultMessage": "Claim"
-  },
-  {
-    "id": "createMedia.mediaClaim",
-    "description": "Placeholder message for the claim text field",
-    "defaultMessage": "For example: The earth is flat"
-  },
-  {
-    "id": "createMedia.mediaClaimLabel",
-    "description": "Label for the text input for claim title",
-    "defaultMessage": "Title"
-  },
-  {
-    "id": "createMedia.mediaClaimDescriptionSubtitle",
-    "description": "Subtitle for the claim's description that is under review",
-    "defaultMessage": "A description of the claim that needs to be reviewed."
-  },
-  {
     "id": "createMedia.media.media",
     "description": "Header for the claim media area",
     "defaultMessage": "Media"
