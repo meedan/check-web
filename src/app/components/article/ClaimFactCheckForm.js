@@ -4,7 +4,9 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ArticleForm from './ArticleForm';
-import { withSetFlashMessage } from '../FlashMessage';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 
 const updateClaimMutation = graphql`
   mutation ClaimFactCheckFormUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
@@ -98,12 +100,11 @@ const ClaimFactCheckForm = ({
   article,
   team,
   onClose,
-  setFlashMessage,
   projectMedia,
 }) => {
   const type = article?.dbid ? 'edit' : 'create';
-  const [saving, setSaving] = React.useState(Boolean(false));
-  const [error, setError] = React.useState(Boolean(false));
+  const [saving, setSaving] = React.useState(false);
+  const [error, setError] = React.useState(false);
   const [factCheck, setFactCheck] = React.useState({
     title: article?.factCheck?.title || null,
     description: article?.factCheck?.descripton || null,
@@ -116,8 +117,9 @@ const ClaimFactCheckForm = ({
     description: article?.description || null,
     context: article?.context || null,
   });
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
-  const handleSuccess = () => {
+  const onSuccess = () => {
     setSaving(false);
     setError(false);
     onClose(false);
@@ -128,16 +130,14 @@ const ClaimFactCheckForm = ({
     />, 'success');
   };
 
-  const handleError = () => {
-    onClose(false);
-    setFlashMessage(<FormattedMessage
-      id="claimFactCheckForm.saveError"
-      defaultMessage="Error with saving your article"
-      description="Fact check action failure message"
-    />, 'error');
+  const onFailure = (errors) => {
+    const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
+    setSaving(false);
+    setFlashMessage(errorMessage, 'error');
   };
 
   const handleSaveFactCheck = (response) => {
+    console.log('saving', response) //eslint-disable-line
     setSaving(true);
     commitMutation(Relay.Store, {
       mutation: createFactCheckMutation,
@@ -153,14 +153,14 @@ const ClaimFactCheckForm = ({
       onCompleted: (err) => {
         setSaving(false);
         if (err) {
-          handleError(err);
+          onFailure(err);
         } else {
-          handleSuccess();
+          onSuccess();
         }
       },
-      onError: () => {
+      onError: (err) => {
+        onFailure(err);
         setSaving(false);
-        setError(true);
       },
     });
   };
@@ -178,14 +178,14 @@ const ClaimFactCheckForm = ({
       },
       onCompleted: (response, err) => {
         if (err) {
-          handleError(err);
+          onFailure(err);
         } else {
           // claim has to exist before creating fact check
           handleSaveFactCheck(response);
         }
       },
-      onError: () => {
-        setSaving(false);
+      onError: (err) => {
+        onFailure(err);
         setError(true);
       },
     });
@@ -277,4 +277,4 @@ ClaimFactCheckForm.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(ClaimFactCheckForm);
+export default ClaimFactCheckForm;

@@ -3,10 +3,5 @@
     "id": "claimFactCheckForm.saveSuccess",
     "description": "Save item action success message",
     "defaultMessage": "Article created successfully!"
-  },
-  {
-    "id": "claimFactCheckForm.saveError",
-    "description": "Fact check action failure message",
-    "defaultMessage": "Error with saving your article"
   }
 ]

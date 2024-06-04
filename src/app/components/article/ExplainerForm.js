@@ -4,7 +4,9 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ArticleForm from './ArticleForm';
-import { withSetFlashMessage } from '../FlashMessage';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 
 const createMutation = graphql`
   mutation ExplainerFormCreateExplainerMutation($input: CreateExplainerInput!) {
@@ -57,11 +59,10 @@ const ExplainerForm = ({
   article,
   team,
   onClose,
-  setFlashMessage,
 }) => {
   const type = article?.dbid ? 'edit' : 'create';
-  const [saving, setSaving] = React.useState(Boolean(false));
-  const [error, setError] = React.useState(Boolean(false));
+  const [saving, setSaving] = React.useState(false);
+  const [error, setError] = React.useState(false);
   const [explainer, setExplainer] = React.useState({
     title: article?.title || null,
     description: article?.descripton || null,
@@ -70,7 +71,9 @@ const ExplainerForm = ({
     url: article?.url || null,
   });
 
-  const handleSuccess = () => {
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
+
+  const onSuccess = () => {
     setSaving(false);
     setError(false);
     onClose(false);
@@ -81,15 +84,10 @@ const ExplainerForm = ({
     />, 'success');
   };
 
-  const handleError = () => {
+  const onFailure = (errors) => {
+    const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
     setSaving(false);
-    setError(false);
-    onClose(false);
-    setFlashMessage(<FormattedMessage
-      id="explainerForm.saveError"
-      defaultMessage="Error with saving your article"
-      description="save item action failure message"
-    />, 'error');
+    setFlashMessage(errorMessage, 'error');
   };
 
   const handleSave = () => {
@@ -104,14 +102,13 @@ const ExplainerForm = ({
       onCompleted: (response, err) => {
         setSaving(false);
         if (err) {
-          handleError(err);
+          onFailure(err);
         } else {
-          handleSuccess(response);
+          onSuccess(response);
         }
       },
-      onError: () => {
-        setSaving(false);
-        setError(true);
+      onError: (err) => {
+        onFailure(err);
       },
     });
   };
@@ -171,4 +168,4 @@ ExplainerForm.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(ExplainerForm);
+export default ExplainerForm;

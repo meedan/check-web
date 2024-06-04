@@ -17,6 +17,18 @@ const NewArticleButton = (team) => {
   const [openExplainer, setOpenExplainer] = React.useState(false);
   const [openFactCheck, setOpenFactCheck] = React.useState(false);
 
+  const handleOpenExplainer = () => {
+    setOpenFactCheck(false);
+    setOpenExplainer(true);
+    setAnchorEl(null);
+  };
+
+  const handleOpenFactCheck = () => {
+    setOpenFactCheck(true);
+    setOpenExplainer(false);
+    setAnchorEl(null);
+  };
+
   return (
     <React.Fragment>
       <ButtonMain
@@ -38,7 +50,7 @@ const NewArticleButton = (team) => {
         onClose={() => setAnchorEl(null)}
         className={styles.menuList}
       >
-        <MenuItem onClick={() => setOpenFactCheck(true)} className={styles.menuItem}>
+        <MenuItem onClick={() => handleOpenFactCheck()} className={styles.menuItem}>
           <ListItemIcon className={styles.itemIcon}>
             <PublishedIcon />
           </ListItemIcon>
@@ -50,7 +62,7 @@ const NewArticleButton = (team) => {
             />
           </ListItemText>
         </MenuItem>
-        <MenuItem onClick={() => setOpenExplainer(true)} className={styles.menuItem}>
+        <MenuItem onClick={() => handleOpenExplainer(true)} className={styles.menuItem}>
           <ListItemIcon className={styles.itemIcon}>
             <BookIcon />
           </ListItemIcon>
