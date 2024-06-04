@@ -9,7 +9,7 @@
 
   small {
     @mixin typography-subtitle2;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     margin: 3px 0 0 3px;
   }
 }
@@ -21,7 +21,7 @@
 
 .settings-translated-statuses {
   .settings-translated-rows {
-    border-bottom: solid 2px var(--grayBorderMain);
+    border-bottom: solid 2px var(--color-gray-88);
     display: flex;
     gap: 16px;
     padding: 16px 0;
@@ -44,6 +44,18 @@
       flex-direction: row;
       justify-content: space-between;
       padding: 0 8px;
+    }
+  }
+}
+
+.edit-status-dialog {
+  .edit-status-label {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+
+    > div {
+      flex: 1 1 auto;
     }
   }
 }

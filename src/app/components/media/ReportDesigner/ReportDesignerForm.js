@@ -5,7 +5,7 @@ import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../../cds/inputs/TextArea';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
-import ColorPicker from '../../layout/ColorPicker';
+import ColorPicker from '../../cds/inputs/ColorPicker';
 import UploadFile from '../../UploadFile';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
@@ -368,7 +368,7 @@ const ReportDesignerForm = (props) => {
                   </FormattedMessage>
                   <FormattedMessage
                     id="reportDesigner.datePublishedPlaceholder"
-                    defaultMessage="Add a date when this report was published"
+                    defaultMessage="Add the report publication date"
                     description="Placeholder for report date published field"
                   >
                     { placeholder => (

@@ -1,11 +1,87 @@
+:global(.MuiTableContainer-root).engagement-data-table-wrapper {
+  border: 0;
+  border-radius: 8px;
+  flex: 1 1 auto;
+  overflow: auto;
+  width: 100%;
+
+  table {
+    background-color: var(--color-white-100);
+    border-radius: 8px;
+
+    th,
+    td {
+      font-size: var(--font-size-body-1);
+
+      &.tableCell {
+        white-space: nowrap;
+      }
+
+      &.stickyTableCell {
+        background-color: var(--color-white-100);
+        border-right: solid 1px var(--color-gray-88);
+        left: 0;
+        position: sticky;
+      }
+    }
+
+    thead {
+      display: table-header-group;
+
+      th,
+      td {
+        &.stickyTableCell {
+          z-index: 3;
+        }
+
+        :global(.MuiTableSortLabel-root) {
+          align-items: center;
+          gap: 4px;
+
+          .table-header-tooltip {
+            color: var(--color-gray-37);
+            display: inline-flex;
+            font-size: var(--iconSizeTiny);
+          }
+        }
+
+        :global(.MuiTableSortLabel-root.MuiTableSortLabel-active) {
+          .table-header-tooltip {
+            color: var(--color-blue-54);
+          }
+        }
+      }
+    }
+
+    tbody {
+      th,
+      td {
+        &.stickyTableCell {
+          z-index: 2;
+        }
+      }
+
+      tr {
+        &:last-of-type {
+          td,
+          th {
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
 .settings-wrapper {
-  background-color: var(--grayBackground);
   display: flex;
   flex-direction: column;
   height: 100vh;
 
   .settings-content {
+    display: flex;
     flex: 1 1 auto;
+    flex-direction: column;
     overflow: auto;
     padding: 16px 32px 32px;
 
@@ -14,7 +90,7 @@
         margin: 0 0 8px;
 
         &.smoochBotMenuSection {
-          color: var(--textSecondary);
+          color: var(--color-gray-37);
           font-weight: bold;
           margin: 8px 0;
         }
@@ -31,7 +107,7 @@
       width: 100%;
 
       .setting-content-container {
-        background-color: var(--otherWhite);
+        background-color: var(--color-white-100);
         border-radius: 8px;
         padding: 16px;
 
@@ -52,6 +128,17 @@
             :global(.check-icon) {
               font-size: var(--iconSizeDefault);
             }
+
+            &.tooltip-icon {
+              color: var(--color-gray-37);
+              flex: 0 0 var(--iconSizeSmall);
+              font-size: var(--iconSizeSmall);
+              margin: 0 0 1px 6px;
+
+              svg {
+                display: inline-block;
+              }
+            }
           }
 
           .setting-content-container-actions {
@@ -62,13 +149,13 @@
         }
 
         .setting-content-container-inner {
-          background-color: var(--brandBackground);
+          background-color: var(--color-beige-93);
           border-radius: 5px;
           padding: 16px;
         }
 
         .setting-content-container-inner-accent {
-          background: var(--brandBackgroundAccent);
+          background: var(--color-beige-86);
           border-radius: 3px;
           padding: 16px;
         }
@@ -76,19 +163,70 @@
         + .setting-content-container {
           margin: 16px 0 0;
         }
+
+        .teammembers-table {
+          .teammembers-table-identity {
+            align-items: center;
+            display: flex;
+            gap: 8px;
+
+            .teammembers-table-identity-pending {
+              border: solid 2px var(--color-gray-88);
+              border-radius: 6px;
+              color: var(--color-orange-54);
+              font-size: var(--iconSizeDefault);
+              height: 40px;
+              padding: 6px;
+              text-align: center;
+              width: 40px;
+            }
+
+            .teammembers-table-identity-status {
+              align-items: flex-start;
+              display: flex;
+              flex: 1 1 auto;
+              flex-direction: column;
+              justify-content: center;
+
+              &.teammembers-table-identity-invited {
+                color: var(--color-orange-31);
+              }
+
+              .text-truncate {
+                max-width: 320px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+            }
+
+            small {
+              @mixin typography-body2;
+            }
+          }
+
+          .main-cell {
+            max-width: 480px;
+            overflow: hidden;
+          }
+
+          .date-cell {
+            min-width: 144px;
+            white-space: nowrap;
+          }
+        }
       }
 
       :global(.MuiTableContainer-root) {
-        background-color: var(--otherWhite);
+        background-color: var(--color-white-100);
         border-radius: 8px;
         border-top: 0;
       }
 
       .table-toolbar {
         align-items: center;
-        background-color: var(--brandLight);
+        background-color: var(--color-blue-98);
         border-radius: 5px;
-        color: var(--brandMain);
+        color: var(--color-blue-54);
         display: flex;
         margin: 0 0 16px;
         padding: 8px 16px;
@@ -119,7 +257,7 @@
       .setting-content-list {
         li {
           align-items: flex-start;
-          border-bottom: solid 1px var(--grayBorderMain);
+          border-bottom: solid 1px var(--color-gray-88);
           display: flex;
           gap: 16px;
           margin: 0 0 8px;
@@ -139,7 +277,7 @@
             flex: 1 1 auto;
 
             p {
-              color: var(--textSecondary);
+              color: var(--color-gray-37);
               margin: 3px 0 0 26px;
             }
 
@@ -159,12 +297,38 @@
       }
 
       .tipline-admin-settings {
+        margin: 32px 0 0;
+
         .setting-content-container-inner {
           margin: 0 0 16px;
+
+          &:last-of-type {
+            margin: 0;
+          }
         }
       }
     }
   }
+}
+
+.tipline-settings-toggle {
+  background-color: var(--color-beige-93);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.similarity-component-input {
+  display: inline-block;
+  max-width: 100px;
+  padding: 10px;
+}
+
+.smoochbot-component-input {
+  min-width: 500px;
 }
 
 .bot-designer {
@@ -174,12 +338,12 @@
 
   .bot-designer-menu {
     flex: 0 0 250px;
-    margin: 16px 0;
+    margin: 0;
   }
 
   .bot-designer-content {
     flex: 1 1 auto;
-    margin: 16px 0;
+    margin: 0;
   }
 
   .tipline-menu-option {

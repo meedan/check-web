@@ -23,13 +23,14 @@ import AddIcon from '../icons/settings.svg';
 import CalendarIcon from '../icons/calendar_month.svg';
 import ListIcon from '../icons/list.svg';
 import FigmaColorLogo from '../icons/figma_color.svg';
-import Card from './cds/media-cards/Card.js';
-import FactCheckCard from './search/SearchResultsCards/FactCheckCard';
+import ArticleCard from './search/SearchResultsCards/ArticleCard';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
-import ItemCard from './search/SearchResultsCards/ItemCard';
-import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
+import SharedItemCard from './search/SearchResultsCards/SharedItemCard';
+import WorkspaceItemCard from './search/SearchResultsCards/WorkspaceItemCard';
+import CheckFeedDataPoints from '../CheckFeedDataPoints';
+import Slideout from './cds/slideout/Slideout';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -48,14 +49,52 @@ const SandboxComponent = ({ admin }) => {
 
   const mediaThumbnail = {
     media: {
-      picture: 'https://example.com/image.jpg',
-      type: 'image',
-      url: 'https://example.com/image.jpg',
+      picture: 'https://placekitten.com/200/300',
+      type: 'UploadedImage',
+      url: 'https://placekitten.com/200/300',
     },
     show_warning_cover: false,
   };
 
-  const [listItemShared, setListItemShared] = React.useState(Boolean(true));
+  const workspaces = [
+    {
+      url: 'https://placekitten.com/200/200',
+      name: 'First Workspace',
+    },
+    {
+      url: 'https://placekitten.com/300/300',
+      name: 'Second Workspace',
+    },
+    {
+      url: 'https://placekitten.com/301/300',
+      name: 'Third Workspace',
+    },
+    {
+      url: 'https://placekitten.com/302/300',
+      name: 'Fourth Workspace',
+    },
+    {
+      url: 'https://placekitten.com/303/300',
+      name: 'Fifth Workspace',
+    },
+    {
+      url: 'https://placekitten.com/304/300',
+      name: 'Sixth Workspace',
+    },
+    {
+      url: 'https://placekitten.com/305/300',
+      name: 'Seventh Workspace',
+    },
+    {
+      url: 'https://placekitten.com/306/300',
+      name: 'Eighth Workspace',
+    },
+  ];
+
+  const [articleCardShared, setArticleCardShared] = React.useState(false);
+  const [articleCardVariant, setArticleCardVariant] = React.useState('explainer');
+
+  const [listItemShared, setListItemShared] = React.useState(Boolean(false));
   const [listItemCluster, setListItemCluster] = React.useState(Boolean(false));
   const [listItemMedia, setListItemMedia] = React.useState(Boolean(true));
   const [listItemRequests, setListItemRequests] = React.useState(Boolean(true));
@@ -66,6 +105,24 @@ const SandboxComponent = ({ admin }) => {
   const [listItemFactCheckPublished, setListItemFactCheckPublished] = React.useState(Boolean(true));
   const [listItemSuggestions, setListItemSuggestions] = React.useState(Boolean(true));
   const [listItemUnread, setListItemUnread] = React.useState(Boolean(true));
+  const [listItemPublished, setListItemPublished] = React.useState(Boolean(true));
+  const [listItemDataPointsFactCheck, setListItemDataPointsFactCheck] = React.useState(Boolean(false));
+  const [listItemDataPointsMediaRequests, setListItemDataPointsMediaRequests] = React.useState(Boolean(false));
+  const [listItemDataPoints, setListItemDataPoints] = React.useState([]);
+  const [listItemFactCheckCount, setListItemFactCheckCount] = React.useState(1);
+
+  // This triggers when the list item data points are changed
+  React.useEffect(() => {
+    if (listItemDataPointsFactCheck && listItemDataPointsMediaRequests) {
+      setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
+    } else if (!listItemDataPointsFactCheck && listItemDataPointsMediaRequests) {
+      setListItemDataPoints([CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
+    } else if (listItemDataPointsFactCheck && !listItemDataPointsMediaRequests) {
+      setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS]);
+    } else if (!listItemDataPointsFactCheck && !listItemDataPointsMediaRequests) {
+      setListItemDataPoints([]);
+    }
+  }, [listItemDataPointsFactCheck, listItemDataPointsMediaRequests]);
 
   const onSetListItemShared = (shared) => {
     if (!listItemCluster) {
@@ -194,6 +251,14 @@ const SandboxComponent = ({ admin }) => {
   const [textareaDisabled, setTextareaDisabled] = React.useState(Boolean(false));
   const [textareaRequired, setTextareaRequired] = React.useState(Boolean(true));
 
+  const [slideoutTitle, setSlideoutTitle] = React.useState('');
+  const [openSlideout, setOpenSlideout] = React.useState(Boolean(false));
+  const [slideoutFooter, setSlideoutFooter] = React.useState(Boolean(true));
+  const [slideoutCancel, setSlideoutCancel] = React.useState(Boolean(true));
+  const [slideoutMainAction, setSlideoutMainAction] = React.useState(Boolean(true));
+  const [slideoutSecondaryAction, setSlideoutSecondaryAction] = React.useState(Boolean(false));
+  const [slideoutOptionalNode, setSlideoutOptionalNode] = React.useState(Boolean(false));
+
   const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
   const onChangeSwitchLabelPlacement = (event) => {
     setSwitchLabelPlacement(event.target.value);
@@ -314,6 +379,9 @@ const SandboxComponent = ({ admin }) => {
       </h5>
       <ul className={styles.sandboxNav}>
         <li>
+          <a href="#sandbox-cards" title="Cards">Cards</a>
+        </li>
+        <li>
           <a href="#sandbox-buttons" title="Buttons">Buttons</a>
         </li>
         <li>
@@ -321,9 +389,6 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <a href="#sandbox-chips" title="Chips">Chips</a>
-        </li>
-        <li>
-          <a href="#sandbox-cards" title="Cards">Cards</a>
         </li>
         <li>
           <a href="#sandbox-tags" title="Tags">Tags</a>
@@ -337,13 +402,59 @@ const SandboxComponent = ({ admin }) => {
         <li>
           <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
         </li>
+        <li>
+          <a href="#sandbox-slideout" title="Slideout">Slideout</a>
+        </li>
       </ul>
-      <section id="sandbox-row">
-        <h6>List Item</h6>
+      <section id="sandbox-cards">
+        <h6>Item Cards</h6>
         <div className={styles.componentWrapper}>
           <div className={styles.componentControls}>
             <div className={cx('typography-subtitle2', [styles.componentName])}>
-              ListItem
+              ArticleCard
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="In Shared Feed"
+                  labelPlacement="top"
+                  checked={articleCardShared}
+                  onChange={() => setArticleCardShared(!articleCardShared)}
+                />
+              </li>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={e => setArticleCardVariant(e.target.value)}
+                  value={articleCardVariant}
+                >
+                  <option value="explainer">explainer (default)</option>
+                  <option value="fact-check">fact-check</option>
+                </Select>
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <ArticleCard
+              title="Moby-Dick; or, The Whale."
+              summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
+              date={1702677106.846}
+              statusLabel={articleCardVariant === 'fact-check' ? 'The Status' : null}
+              statusColor={articleCardVariant === 'fact-check' ? '#ff0000' : null}
+              teamName={articleCardShared ? 'Kitty Team' : null}
+              teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}
+              languageCode="en"
+              tags={['Novel', 'Moby Dick', '19th Century']}
+              onChangeTags={() => {}}
+              url="https://example.com"
+              variant={articleCardVariant}
+            />
+          </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              ClusterCard
               <a
                 href="https://www.figma.com/file/N1W1p7anE8xxekD7EyepVE/Shared-Feeds?type=design&node-id=2411-37415&mode=design"
                 rel="noopener noreferrer"
@@ -452,78 +563,83 @@ const SandboxComponent = ({ admin }) => {
                   onChange={() => setListItemUnread(!listItemUnread)}
                 />
               </li>
+              <li>
+                <SwitchComponent
+                  label="Published"
+                  labelPlacement="top"
+                  checked={listItemPublished}
+                  onChange={() => setListItemPublished(!listItemPublished)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Shared Feed Data Points - Fact Checks"
+                  labelPlacement="top"
+                  checked={listItemDataPointsFactCheck}
+                  disabled={!listItemShared}
+                  onChange={() => setListItemDataPointsFactCheck(!listItemDataPointsFactCheck)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Shared Feed Data Points - Media & Requests"
+                  labelPlacement="top"
+                  checked={listItemDataPointsMediaRequests}
+                  disabled={!listItemShared}
+                  onChange={() => setListItemDataPointsMediaRequests(!listItemDataPointsMediaRequests)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact Check Count - More than 1"
+                  labelPlacement="top"
+                  checked={listItemFactCheckCount > 1}
+                  onChange={() => {
+                    if (listItemFactCheckCount === 1) {
+                      setListItemFactCheckCount(12345);
+                    } else {
+                      setListItemFactCheckCount(1);
+                    }
+                  }}
+                />
+              </li>
             </ul>
           </div>
           <div className={styles.componentBlockVariants}>
-            <ItemCard
-              description="Hello"
+            <SharedItemCard
+              title="Title of a Shared Item Card Item"
+              description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
+              mediaThumbnail={listItemCluster && mediaThumbnail}
+              workspaces={workspaces}
+              date={new Date('2023-12-15T17:19:40Z')}
+              dataPoints={listItemDataPoints}
+              mediaCount={12345}
+              suggestionsCount={567890}
+              requestsCount={7890}
+              lastRequestDate={new Date('2024-01-15T12:00:22Z')}
+              factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
+              factCheckCount={listItemFactCheckCount}
+              channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
+              rating="False"
+              ratingColor="#f00"
             />
-            <div
-              className={cx(
-                styles.listItem,
-                {
-                  [styles.listItemUnread]: listItemUnread && !listItemShared,
-                })
-              }
-            >
-              { !listItemShared &&
-                <div className={styles.checkbox}>
-                  <Checkbox
-                    disabled={checkboxDisabled}
-                    checked={checkboxChecked}
-                    onChange={() => setCheckboxChecked(!checkboxChecked)}
-                  />
-                </div>
-              }
-              { ((listItemMedia && !listItemShared) || (listItemShared && listItemCluster)) &&
-              <>
-                <div className={styles.thumbail}>
-                  <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent={mediaThumbnail.show_warning_cover} type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
-                </div>
-              </>
-              }
-              <div className={styles.content}>
-                <h6>Item Title</h6>
-                { listItemDescription &&
-                  <p>
-                    DESCRIPTION
-                  </p>
-                }
-                { listItemDescriptionLink &&
-                  <a href="www.meedan.com" className={styles.factDescriptionLink}>
-                    DESCRIPTION LINK
-                  </a>
-                }
-                { listItemFactCheckLink &&
-                  <a href="www.meedan.com" className={styles.factCheckLink}>
-                    FACT-CHECK LINK
-                  </a>
-                }
-                { listItemShared &&
-                  <div className={styles.workspaces}>
-                    WORKPACES
-                  </div>
-                }
-                <div className={styles.mediaAndRequest}>
-                  { listItemMedia ? <div>MEDIA</div> : null }
-                  { listItemSuggestions ? <div>SUGGESTIONS</div> : null }
-                  { listItemRequests ? <div>REQUESTS</div> : null }
-                  { listItemRequests ? <div>PLATFORMS</div> : null }
-                </div>
-              </div>
-              <div className={styles.factCheckLastUpdated}>
-                <div className={styles.factCheck}>
-                  { listItemShared && listItemFactCheck &&
-                    <>FACT-CHECK COUNT</>
-                  }
-                  { !listItemShared && listItemFactCheck &&
-                    <>WORKSPACE FACT-CHECK</>
-                  }
-                  { listItemFactCheckPublished && !listItemShared ? <>PUBLISHED</> : null }
-                </div>
-                May 27, 2022
-              </div>
-            </div>
+            <WorkspaceItemCard
+              title="Title of a Workspace Item Card Item"
+              date={new Date('2023-12-15T17:19:40Z')}
+              description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
+              lastRequestDate={new Date('2024-01-15T12:00:22Z')}
+              mediaCount={123456}
+              mediaType="UploadedImage"
+              mediaThumbnail={listItemMedia && mediaThumbnail}
+              channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
+              requestsCount={7890}
+              isUnread={listItemUnread}
+              isPublished={listItemPublished}
+              factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
+              rating="False"
+              ratingColor="#f00"
+              suggestionsCount={567890}
+            />
           </div>
         </div>
       </section>
@@ -592,6 +708,10 @@ const SandboxComponent = ({ admin }) => {
                     <option value="alert">alert</option>
                     <option value="lightAlert">lightAlert</option>
                   </optgroup>
+                  <optgroup label="primary">
+                    <option value="black">black</option>
+                    <option value="white">white</option>
+                  </optgroup>
                 </Select>
               </li>
               <li>
@@ -604,7 +724,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentInlineVariants}>
+          <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--color-gray-15)' : null }}>
             <ButtonMain label="Default" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
@@ -664,7 +784,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentInlineVariants} style={{ backgroundColor: reorderTheme === 'white' ? 'var(--grayBackground)' : 'var(--otherWhite' }}>
+          <div className={styles.componentInlineVariants} style={{ backgroundColor: reorderTheme === 'white' ? 'var(--color-gray-96)' : 'var(--color-white-100' }}>
             <Reorder
               variant={reorderVariant}
               theme={reorderTheme}
@@ -744,7 +864,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--brandBackground' }}>
+          <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--color-beige-93' }}>
             <ToggleButtonGroup
               label={toggleButtonGroupLabel ? 'I am a toggleButtonGroup label' : null}
               variant={toggleButtonGroupVariant}
@@ -1376,27 +1496,6 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </div>
       </section>
-      <section id="sandbox-cards">
-        <h6>Media Cards</h6>
-        <div className={styles.componentWrapper}>
-          <Card
-            title="Moby-Dick; or, The Whale. This is a very long title to test what happens when titles are very, very long. Hopefully we only see one line truncated but the whole thing shows up when we expand."
-            description="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
-            footer="I still haven't finished this"
-            tag="Novel"
-          />
-        </div>
-        <div className={styles.componentWrapper}>
-          <FactCheckCard
-            title="Moby-Dick; or, The Whale."
-            statusLabel="The Status"
-            statusColor="#ff0000"
-            summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
-            date={1702677106.846}
-            url="https://example.com"
-          />
-        </div>
-      </section>
       <section id="sandbox-tags">
         <h6>Tags</h6>
         <div className={styles.componentWrapper}>
@@ -1616,6 +1715,101 @@ const SandboxComponent = ({ admin }) => {
           >
             <MediasLoading theme={loadingTheme} variant={loadingVariant} size={loadingSize} />
           </div>
+        </div>
+      </section>
+      <section id="sandbox-slideout">
+        <h6>Slideout</h6>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Slideout
+              <a
+                href="https://www.figma.com/file/i1LSbpQXKyA7dLc8AkgtKA/Articles?type=design&node-id=106-63346&mode=design&t=1tA1BlK81Dh6DPCk-0"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <TextField
+                  value={slideoutTitle}
+                  label="Slideout Title"
+                  labelPlacement="top"
+                  onChange={e => setSlideoutTitle(e.target.value)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Footer"
+                  labelPlacement="top"
+                  checked={slideoutFooter}
+                  onChange={() => setSlideoutFooter(!slideoutFooter)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Cancel"
+                  labelPlacement="top"
+                  checked={slideoutCancel}
+                  onChange={() => setSlideoutCancel(!slideoutCancel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Main Button"
+                  labelPlacement="top"
+                  checked={slideoutMainAction}
+                  onChange={() => setSlideoutMainAction(!slideoutMainAction)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Secondary Action Button"
+                  labelPlacement="top"
+                  checked={slideoutSecondaryAction}
+                  onChange={() => setSlideoutSecondaryAction(!slideoutSecondaryAction)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show optional node"
+                  labelPlacement="top"
+                  checked={slideoutOptionalNode}
+                  onChange={() => setSlideoutOptionalNode(!slideoutOptionalNode)}
+                />
+              </li>
+            </ul>
+          </div>
+          <ButtonMain onClick={() => setOpenSlideout(true)} label="Open slideout" />
+          {openSlideout &&
+            <Slideout
+              title={slideoutTitle || 'Placeholder Title'}
+              content={
+                <>
+                  <TextField />
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet eget sit amet tellus cras adipiscing. Lacus luctus accumsan tortor posuere ac ut consequat. Amet tellus cras adipiscing enim eu turpis. Aliquet nibh praesent tristique magna. Convallis convallis tellus id interdum velit laoreet id. At tempor commodo ullamcorper a lacus vestibulum. Quam vulputate dignissim suspendisse in est ante. Pellentesque habitant morbi tristique senectus et netus et malesuada. Imperdiet nulla malesuada pellentesque elit eget gravida cum sociis natoque. In nisl nisi scelerisque eu ultrices vitae auctor. Ornare aenean euismod elementum nisi quis eleifend quam. Nunc faucibus a pellentesque sit amet porttitor eget dolor morbi. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Quis ipsum suspendisse ultrices gravida dictum fusce ut. Risus commodo viverra maecenas accumsan lacus vel. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Convallis aenean et tortor at risus. Magna sit amet purus gravida quis. Morbi leo urna molestie at elementum eu facilisis sed. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras.
+                    Bibendum arcu vitae elementum curabitur vitae nunc sed. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. Nunc eget lorem dolor sed viverra ipsum nunc aliquet. Tellus molestie nunc non blandit massa enim. Diam volutpat commodo sed egestas egestas. Mauris sit amet massa vitae tortor condimentum lacinia. Sem fringilla ut morbi tincidunt augue. Mi quis hendrerit dolor magna. Velit sed ullamcorper morbi tincidunt ornare massa eget egestas. Scelerisque felis imperdiet proin fermentum leo vel orci porta. Morbi tristique senectus et netus et malesuada fames ac turpis. Et leo duis ut diam quam nulla porttitor massa. Eget dolor morbi non arcu. Tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero. Ac feugiat sed lectus vestibulum mattis ullamcorper velit. Vitae proin sagittis nisl rhoncus.
+                    Amet aliquam id diam maecenas ultricies mi eget. Amet volutpat consequat mauris nunc congue nisi vitae suscipit. Penatibus et magnis dis parturient montes. Dignissim suspendisse in est ante in nibh mauris. Mauris rhoncus aenean vel elit. Tempus quam pellentesque nec nam aliquam sem et. Vestibulum mattis ullamcorper velit sed ullamcorper morbi. Sit amet volutpat consequat mauris nunc. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Sed viverra ipsum nunc aliquet bibendum enim facilisis. Tempus imperdiet nulla malesuada pellentesque elit eget. Arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque. Pretium fusce id velit ut tortor pretium.
+                    Malesuada proin libero nunc consequat interdum. Mi tempus imperdiet nulla malesuada pellentesque elit eget gravida. Massa id neque aliquam vestibulum. Mi tempus imperdiet nulla malesuada pellentesque elit eget. Pellentesque id nibh tortor id aliquet lectus proin nibh. Magnis dis parturient montes nascetur ridiculus mus. Velit laoreet id donec ultrices tincidunt arcu. Auctor eu augue ut lectus arcu. Lacus suspendisse faucibus interdum posuere lorem ipsum. Morbi tristique senectus et netus et malesuada fames ac turpis. Leo integer malesuada nunc vel. Id volutpat lacus laoreet non. Tincidunt dui ut ornare lectus sit amet est. Ultricies mi eget mauris pharetra et ultrices neque ornare aenean. Mi eget mauris pharetra et ultrices neque ornare aenean euismod. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Velit egestas dui id ornare. Enim praesent elementum facilisis leo vel fringilla.
+                  </p>
+                </>
+              }
+              footer={slideoutFooter}
+              showCancel={slideoutCancel}
+              cancelProps={{
+                size: 'small',
+              }}
+              onClose={setOpenSlideout}
+              mainActionButton={slideoutMainAction && <ButtonMain size="small" label="Main content" />}
+              secondaryActionButton={slideoutSecondaryAction && <ButtonMain size="small" label="Secondary content" />}
+              optionalNode={slideoutOptionalNode && <SwitchComponent label="Optional Node label" />}
+            />
+          }
         </div>
       </section>
     </div>

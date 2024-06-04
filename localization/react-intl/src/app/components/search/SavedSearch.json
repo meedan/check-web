@@ -2,12 +2,12 @@
   {
     "id": "savedSearch.deleteMessageWarning",
     "description": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace.",
-    "defaultMessage": "Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it <br /><br />"
+    "defaultMessage": "Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
   },
   {
     "id": "saveFeed.deleteCustomListWarning",
     "description": "Warning displayed on edit feed page when no list is selected.",
-    "defaultMessage": "<strong>Deleting list will result in no content for the following shared feed(s):</strong>"
+    "defaultMessage": "<strong>Deleting list will result in no content for the following shared feeds:</strong>"
   },
   {
     "id": "savedSearch.deleteMessage",

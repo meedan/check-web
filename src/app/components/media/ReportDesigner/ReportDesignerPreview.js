@@ -14,12 +14,12 @@ const useStyles = makeStyles(theme => ({
   },
   messagePreview: {
     borderRadius: '8px',
-    backgroundColor: 'var(--otherWhite)',
+    backgroundColor: 'var(--color-white-100)',
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
     width: 502,
-    color: 'var(--textPrimary)',
+    color: 'var(--color-gray-15)',
     lineHeight: '1.5em',
   },
   visualCardPreview: {
@@ -30,19 +30,19 @@ const useStyles = makeStyles(theme => ({
     height: 500,
     top: 0,
     padding: '64px 40px 16px 40px',
-    backgroundColor: 'var(--textPrimary)',
+    backgroundColor: 'var(--color-gray-15)',
     zIndex: 100,
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     textAlign: 'center',
   },
   icon: {
     fontSize: '80px',
-    color: 'var(--errorMain)',
+    color: 'var(--color-pink-53)',
   },
 }));
 
@@ -63,15 +63,13 @@ function isEmpty(data) {
   return empty;
 }
 
-function previewIntroduction(data, media) {
+function previewIntroduction(data, media, defaultReport) {
   let { introduction } = data;
   if (!introduction) {
     introduction = '';
   } else {
-    let firstSmoochRequest = media.first_smooch_request.edges;
-    if (firstSmoochRequest.length > 0) {
-      firstSmoochRequest = firstSmoochRequest[0].node;
-      introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(parseInt(firstSmoochRequest.created_at, 10) * 1000), data.language));
+    if (defaultReport.placeholders) {
+      introduction = introduction.replace(/{{query_date}}/g, defaultReport.placeholders.query_date);
     } else {
       introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(), data.language));
     }
@@ -143,7 +141,7 @@ const ReportDesignerPreview = (props) => {
   }
   text.push(previewFooter(defaultReport));
 
-  const introduction = previewIntroduction(data, media);
+  const introduction = previewIntroduction(data, media, defaultReport);
 
   const maskContent = media.show_warning_cover && media.media.picture === data.image;
   const originalMediaImage = !media.show_warning_cover ? media.media.picture : null;

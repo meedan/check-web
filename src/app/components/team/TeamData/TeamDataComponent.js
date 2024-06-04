@@ -1,65 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import HelpIcon from '../../../icons/help.svg';
 import GetAppIcon from '../../../icons/file_download.svg';
 import SettingsHeader from '../SettingsHeader';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
-import { ContentColumn } from '../../../styles/js/shared';
+import Select from '../../cds/inputs/Select';
 import settingsStyles from '../Settings.module.css';
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    maxHeight: 720,
-  },
-  dropDowns: {
-    gap: `${theme.spacing(2)}px`,
-  },
-  tableCell: {
-    whiteSpace: 'nowrap',
-  },
-  helpIcon: {
-    marginLeft: theme.spacing(1),
-    color: 'var(--textSecondary)',
-    cursor: 'help',
-  },
-  typographyButton: {
-    fontSize: 14,
-    textTransform: 'none',
-  },
-  typographyBody1: {
-    fontSize: 14,
-  },
-  sticky: {
-    position: 'sticky',
-    left: 0,
-    background: 'var(--otherWhite)',
-  },
-  stickyHeader: {
-    position: 'sticky',
-    left: 0,
-    background: 'var(--otherWhite)',
-    zIndex: '9999',
-  },
-}));
 
 const messagesDescription = 'Explanation on table header, when hovering the "help" icon, on data settings page';
 const messages = defineMessages({
@@ -123,6 +79,16 @@ const messages = defineMessages({
     defaultMessage: 'Conversations are 24-hour message threads between you and your users. They are opened when messages sent by Check to users are delivered.',
     description: messagesDescription,
   },
+  whatsappConversationsUser: {
+    id: 'teamDataComponent.whatsappConversationsUser',
+    defaultMessage: 'Conversations are 24-hour message threads between you and your users. Service conversations are initiated when no conversation exists between you and a user and a user messages you, triggering a message from the bot. If a user is blocked, no user conversation is created.',
+    description: messagesDescription,
+  },
+  whatsappConversationsBusiness: {
+    id: 'teamDataComponent.whatsappConversationsBusiness',
+    defaultMessage: 'Conversations are 24-hour message threads between you and your users. Business conversations are initiated when no open conversation exists between you and a user, and a message you send is received by that user.',
+    description: messagesDescription,
+  },
   positiveSearches: {
     id: 'teamDataComponent.positiveSearches',
     defaultMessage: 'Number of user searches that returned at least one report.',
@@ -131,6 +97,16 @@ const messages = defineMessages({
   negativeSearches: {
     id: 'teamDataComponent.negativeSearches',
     defaultMessage: 'Number of user searches that did not return a report.',
+    description: messagesDescription,
+  },
+  positiveFeedback: {
+    id: 'teamDataComponent.positiveFeedback',
+    defaultMessage: 'Number of conversations that returned at least one result and the user answered "Yes".',
+    description: messagesDescription,
+  },
+  negativeFeedback: {
+    id: 'teamDataComponent.negativeFeedback',
+    defaultMessage: 'Number of conversations that returned at least one result and the user answered "No".',
     description: messagesDescription,
   },
   newslettersSent: {
@@ -188,15 +164,15 @@ const TeamDataComponent = ({
   data,
   defaultLanguage,
 }) => {
-  const classes = useStyles();
   const defaultOrder = 'Month';
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState(defaultOrder);
 
-  const headers = data ? Object.keys(data[0]).filter(header => !['ID', 'Org', 'Language', 'Platform'].includes(header)) : null;
+  const headers = data ? Object.keys(data[0]).filter(header => !['ID', 'Org', 'Language', 'Platform'].includes(header)) : [];
 
   const languages = [];
   const platforms = [];
+
   if (data) {
     data.forEach((row) => {
       if (platforms.indexOf(row.Platform) === -1) {
@@ -212,6 +188,8 @@ const TeamDataComponent = ({
 
   const helpMessages = {
     'WhatsApp conversations': intl.formatMessage(messages.whatsappConversations),
+    'Business Conversations': intl.formatMessage(messages.whatsappConversationsBusiness),
+    'Service Conversations': intl.formatMessage(messages.whatsappConversationsUser),
     'Unique users': intl.formatMessage(messages.uniqueUsers),
     'Returning users': intl.formatMessage(messages.returningUsers),
     'Published reports': intl.formatMessage(messages.publishedReports),
@@ -225,6 +203,8 @@ const TeamDataComponent = ({
     'Total newsletters delivered': intl.formatMessage(messages.newslettersDelivered),
     'Positive searches': intl.formatMessage(messages.positiveSearches),
     'Negative searches': intl.formatMessage(messages.negativeSearches),
+    'Positive feedback': intl.formatMessage(messages.positiveFeedback),
+    'Negative feedback': intl.formatMessage(messages.negativeFeedback),
     'Total newsletters sent': intl.formatMessage(messages.newslettersSent),
   };
 
@@ -276,15 +256,16 @@ const TeamDataComponent = ({
           />
         }
         extra={(platforms.length > 1 || languages.length > 1) &&
-          <Box display="flex" className={classes.dropDowns}>
-            <FormControl variant="outlined">
-              { platforms.length > 1 ?
-                <Select value={currentPlatform} onChange={(e) => { setCurrentPlatform(e.target.value); }} margin="dense">
-                  {platforms.map(platform => (
-                    <MenuItem value={platform} key={platform}>{platform}</MenuItem>
-                  ))}
-                </Select> : null }
-            </FormControl>
+          <>
+            { platforms.length > 1 ?
+              <Select
+                value={currentPlatform}
+                onChange={(e) => { setCurrentPlatform(e.target.value); }}
+              >
+                {platforms.map(platform => (
+                  <option value={platform} key={platform}>{platform}</option>
+                ))}
+              </Select> : null }
             { languages.length > 1 ?
               <LanguagePickerSelect
                 selectedLanguage={currentLanguage}
@@ -292,7 +273,7 @@ const TeamDataComponent = ({
                 languages={languages}
               /> : null
             }
-          </Box>
+          </>
         }
         actionButton={
           <ButtonMain
@@ -314,77 +295,80 @@ const TeamDataComponent = ({
           <FormattedHTMLMessage
             id="teamDataComponent.helpContext"
             defaultMessage='View and export monthly tipline usage data. Data may take 24 hours to update; all data except for WhatsApp conversations are specific to each tipline language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about engagement data</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4511362' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data' }}
             description="Context description for the functionality of this page"
           />
         }
       />
       { data ?
-        <ContentColumn remainingWidth>
-          <Card>
-            <CardContent>
-              <TableContainer className={[classes.container, 'team-data-component__with-data'].join(' ')}>
-                <Table stickyHeader>
-                  <TableHead>
-                    <TableRow>
-                      {headers.map(header => (
-                        <TableCell key={header} className={[classes.tableCell, header === 'Month' ? classes.stickyHeader : ''].join(' ')} sortDirection={orderBy === header ? order : false}>
-                          <TableSortLabel active={orderBy === header} direction={orderBy === header ? order : 'asc'} onClick={createSortHandler(header)}>
-                            <Box display="flex" alignItems="center">
-                              <Typography variant="button" className={classes.typographyButton}>
-                                {header}
-                              </Typography>
-                              {' '}
-                              { helpMessages[header] ?
-                                <Tooltip key={header} title={helpMessages[header]} arrow>
-                                  <span>
-                                    <HelpIcon fontSize="small" className={classes.helpIcon} />
-                                  </span>
-                                </Tooltip> : null }
-                            </Box>
-                          </TableSortLabel>
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map(row => (
-                      <TableRow key={row.ID}>
-                        {headers.map(header => (
-                          <TableCell key={`${row.ID}-${header}`} className={[classes.tableCell, header === 'Month' ? classes.sticky : ''].join(' ')}>
-                            <Typography variant="body1" className={classes.typographyBody1}>
-                              {formatValue(header, row[header])}
-                            </Typography>
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </CardContent>
-          </Card>
-        </ContentColumn> :
+        <TableContainer className={cx('team-data-component__with-data', settingsStyles['engagement-data-table-wrapper'])}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                {headers.map(header => (
+                  <TableCell
+                    key={header}
+                    className={cx(
+                      [settingsStyles.tableCell],
+                      {
+                        [settingsStyles.stickyTableCell]: header === 'Month',
+                      })
+                    }
+                    sortDirection={orderBy === header ? order : false}
+                  >
+                    <TableSortLabel active={orderBy === header} direction={orderBy === header ? order : 'asc'} onClick={createSortHandler(header)}>
+                      <span>{header}</span>
+                      { helpMessages[header] ?
+                        <Tooltip key={header} title={helpMessages[header]} arrow>
+                          <span className={settingsStyles['table-header-tooltip']}>
+                            <HelpIcon />
+                          </span>
+                        </Tooltip> : null }
+                    </TableSortLabel>
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <tbody>
+              {rows.map(row => (
+                <TableRow key={row.ID}>
+                  {headers.map(header => (
+                    <TableCell
+                      key={`${row.ID}-${header}`}
+                      className={cx(
+                        [settingsStyles.tableCell],
+                        {
+                          [settingsStyles.stickyTableCell]: header === 'Month',
+                        })
+                      }
+                    >
+                      {formatValue(header, row[header])}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        </TableContainer> :
         <div className={cx(settingsStyles['setting-details-wrapper'])}>
           <div className={cx(settingsStyles['setting-content-container'], 'team-data-component__no-data')}>
-            <p className="typography-body1">
-              <FormattedMessage
-                id="teamDataComponent.set1"
-                defaultMessage="Fill {thisShortForm} to request access to your data report."
-                description="Paragraph text informing the user what they need to do to enable this feature"
-                values={{
-                  thisShortForm: (
-                    <a href="https://airtable.com/shrWpaztZ2SzD5TrA" target="_blank" rel="noopener noreferrer">
-                      <FormattedMessage
-                        id="teamDataComponent.formLinkText"
-                        defaultMessage="this short form"
-                        description="Link text taking the user to a form to fill out in order to request this feature be enabled"
-                      />
-                    </a>
-                  ),
-                }}
-              />
-            </p>
+            <FormattedMessage
+              tagName="p"
+              id="teamDataComponent.set1"
+              defaultMessage="Fill {thisShortForm} to request access to your data report."
+              description="Paragraph text informing the user what they need to do to enable this feature"
+              values={{
+                thisShortForm: (
+                  <a href="https://airtable.com/shrWpaztZ2SzD5TrA" target="_blank" rel="noopener noreferrer">
+                    <FormattedMessage
+                      id="teamDataComponent.formLinkText"
+                      defaultMessage="this short form"
+                      description="Link text taking the user to a form to fill out in order to request this feature be enabled"
+                    />
+                  </a>
+                ),
+              }}
+            />
             <span className="typography-body1">
               <FormattedMessage
                 id="teamDataComponent.set2"

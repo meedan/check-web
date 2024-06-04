@@ -4,7 +4,6 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { injectIntl, intlShape, defineMessages } from 'react-intl';
 import {
   Box,
-  Typography,
   TextField,
 } from '@material-ui/core';
 import styles from '../../team/Settings.module.css';
@@ -12,29 +11,29 @@ import styles from '../../team/Settings.module.css';
 const StyledTextField = withStyles({
   root: {
     '& .MuiOutlinedInput-input::placeholder': {
-      color: 'var(--textSecondary)',
+      color: 'var(--color-gray-37)',
       opacity: 1,
     },
     '& .MuiFormHelperText-root.Mui-error': {
-      color: 'var(--errorMain)',
+      color: 'var(--color-pink-53)',
       marginLeft: 0,
       fontSize: 12,
       fontWeight: 400,
     },
     '& .MuiOutlinedInput-root': {
       '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'var(--errorMain)',
+        borderColor: 'var(--color-pink-53)',
       },
       '& fieldset': {
-        borderColor: 'var(--grayBorderMain)',
+        borderColor: 'var(--color-gray-88)',
         borderWidth: 1,
       },
       '&:hover fieldset': {
-        borderColor: 'var(--grayBorderMain)',
+        borderColor: 'var(--color-gray-88)',
         borderWidth: 1,
       },
       '&.Mui-focused fieldset': {
-        borderColor: 'var(--grayBorderMain)',
+        borderColor: 'var(--color-gray-88)',
         borderWidth: 1,
       },
     },
@@ -45,15 +44,10 @@ const useStyles = makeStyles(theme => ({
   defaultString: {
     borderTopLeftRadius: theme.spacing(1),
     borderTopRightRadius: theme.spacing(1),
-    border: '1px solid var(--grayBorderMain)',
+    border: '1px solid var(--color-gray-88)',
     borderBottom: 0,
-    background: 'var(--brandBackground)',
+    background: 'var(--color-beige-93)',
     padding: '12px 10px',
-  },
-  // FIXME: Once Typography is implemented according to specs from the design system, this custom style can be removed
-  default: {
-    fontWeight: 400,
-    fontSize: 14,
   },
   customString: {
     borderTop: 0,
@@ -62,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     borderTopRightRadius: 0,
     fontSize: 14,
     fontWeight: 400,
-    color: 'var(--textPrimary)',
+    color: 'var(--color-gray-15)',
   },
 }));
 
@@ -101,9 +95,7 @@ const TiplineContentTranslation = ({
 
         {/* Default value */}
         <Box p={1} className={classes.defaultString}>
-          <Typography variant="body1" className={classes.default}>
-            {defaultValue}
-          </Typography>
+          {defaultValue}
         </Box>
 
         {/* Text field for custom value */}

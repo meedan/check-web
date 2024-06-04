@@ -3,15 +3,11 @@
 // Perhaps a better approach is to have TeamAvatar receive team.avatar value directly as prop
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
-import Relay from 'react-relay/classic';
+import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import cx from 'classnames/bind';
 import * as EmailValidator from 'email-validator';
 import styles from './FeedCollaboration.module.css';
-import { FlashMessageSetterContext } from '../FlashMessage';
-import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -31,59 +27,20 @@ const messages = defineMessages({
   },
 });
 
-const destroyInviteMutation = graphql`
-  mutation FeedCollaborationDestroyFeedInvitationMutation($input: DestroyFeedInvitationInput!) {
-    destroyFeedInvitation(input: $input) {
-      deletedId
-      feed {
-        teams_count
-        feed_invitations(first: 100) {
-          edges {
-            node {
-              id
-              email
-              state
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-const removeTeamMutation = graphql`
-  mutation FeedCollaborationDestroyFeedTeamMutation($input: DestroyFeedTeamInput!) {
-    destroyFeedTeam(input: $input) {
-      deletedId
-      feed {
-        teams_count
-        feed_teams(first: 100) {
-          edges {
-            node {
-              id
-              team {
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 const FeedCollaboration = ({
   collaboratorId,
   feed,
   intl,
   permissions,
   onChange,
+  onChangeCollaboratorsToRemove,
+  onChangeInvitesToDelete,
+  readOnly,
 }) => {
   const [textValue, setTextValue] = React.useState('');
   const [invites, setInvites] = React.useState([]);
-  const setFlashMessage = React.useContext(FlashMessageSetterContext);
-
-  const readOnly = collaboratorId ? (collaboratorId !== feed?.team?.dbid) : false;
+  const [invitesToDelete, setInvitesToDelete] = React.useState([]);
+  const [collaboratorsToRemove, setCollaboratorsToRemove] = React.useState([]);
 
   const handleAdd = (email) => {
     if (EmailValidator.validate(email)) {
@@ -95,11 +52,6 @@ const FeedCollaboration = ({
     }
   };
 
-  const onFailure = (error) => {
-    const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
-    setFlashMessage(message, 'error');
-  };
-
   const handleDelete = (email) => {
     const newInvites = [...invites];
     newInvites.splice(newInvites.indexOf(email), 1);
@@ -107,20 +59,18 @@ const FeedCollaboration = ({
     onChange(newInvites);
   };
 
-  const handleSubmitDeleteInvite = (id) => {
-    commitMutation(Relay.Store, {
-      mutation: destroyInviteMutation,
-      variables: { input: { id } },
-      onError: onFailure,
-    });
+  const handleSelectInvitesToDelete = (obj) => {
+    const newInvitesToDelete = [...invitesToDelete];
+    newInvitesToDelete.push(obj);
+    setInvitesToDelete(newInvitesToDelete);
+    onChangeInvitesToDelete(newInvitesToDelete);
   };
 
-  const handleSubmitRemoveTeam = (id) => {
-    commitMutation(Relay.Store, {
-      mutation: removeTeamMutation,
-      variables: { input: { id } },
-      onError: onFailure,
-    });
+  const handleSelectCollaboratorsToRemove = (obj) => {
+    const newCollaboratorsToRemove = [...collaboratorsToRemove];
+    newCollaboratorsToRemove.push(obj);
+    setCollaboratorsToRemove(newCollaboratorsToRemove);
+    onChangeCollaboratorsToRemove(newCollaboratorsToRemove);
   };
 
   const FeedCollabRow = ({
@@ -192,6 +142,14 @@ const FeedCollaboration = ({
       }
     </div>
   );
+
+  FeedCollabRow.propTypes = {
+    className: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    team: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    onRemove: PropTypes.func.isRequired,
+  };
 
   let error = null;
   const alreadyInvited = feed.feed_invitations?.edges.filter(fi => fi.node.email === textValue).length > 0;
@@ -293,25 +251,31 @@ const FeedCollaboration = ({
         />
       )}
       <div className={styles['feed-collab-invites']}>
-        { feed.feed_teams?.edges.map(ft => (
-          <FeedCollabRow
-            key={ft.node.team.name}
-            className="feed-collab-row__member"
-            label={ft.node.team.name}
-            team={ft.node.team}
-            type={ft.node.team.dbid === feed.team.dbid ? 'organizer' : 'collaborator'}
-            onRemove={() => handleSubmitRemoveTeam(ft.node.id)}
-          />
-        ))}
-        { feed.feed_invitations?.edges.filter(fi => fi.node.state === 'invited').map(fi => (
-          <FeedCollabRow
-            key={fi.node.email}
-            className="feed-collab-row__invitation-sent"
-            label={fi.node.email}
-            onRemove={() => handleSubmitDeleteInvite(fi.node.id)}
-            type="invitation-sent"
-          />
-        ))}
+        { feed.feed_teams?.edges
+          .filter(ft => !collaboratorsToRemove.map(c => c.value).includes(ft.node.id))
+          .map(ft => (
+            <FeedCollabRow
+              key={ft.node.team.name}
+              className="feed-collab-row__member"
+              label={ft.node.team.name}
+              team={ft.node.team}
+              type={ft.node.team.dbid === feed.team.dbid ? 'organizer' : 'collaborator'}
+              onRemove={() => handleSelectCollaboratorsToRemove({ label: ft.node.team.name, value: ft.node.id })}
+            />
+          ))
+        }
+        { feed.feed_invitations?.edges
+          .filter(fi => (fi.node.state === 'invited' && !invitesToDelete.map(i => i.value).includes(fi.node.id)))
+          .map(fi => (
+            <FeedCollabRow
+              key={fi.node.email}
+              className="feed-collab-row__invitation-sent"
+              label={fi.node.email}
+              onRemove={() => handleSelectInvitesToDelete({ label: fi.node.email, value: fi.node.id })}
+              type="invitation-sent"
+            />
+          ))
+        }
         { invites.map(email => (
           <FeedCollabRow
             key={email}
@@ -346,9 +310,12 @@ FeedCollaboration.defaultProps = {
 FeedCollaboration.propTypes = {
   collaboratorId: PropTypes.number,
   feed: PropTypes.object.isRequired,
+  readOnly: PropTypes.bool.isRequired,
   intl: intlShape.isRequired,
   permissions: PropTypes.object, // { key => value } (e.g., { 'create FeedTeam' => true })
   onChange: PropTypes.func.isRequired,
+  onChangeInvitesToDelete: PropTypes.func.isRequired,
+  onChangeCollaboratorsToRemove: PropTypes.func.isRequired,
 };
 
 export { FeedCollaboration }; // eslint-disable-line import/no-unused-modules

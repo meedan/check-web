@@ -2,22 +2,9 @@ import React from 'react';
 import Linkify from 'react-linkify';
 import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import reactStringReplace from 'react-string-replace';
 import styles from './ParsedText.module.css';
 import MediaChip from './cds/buttons-checkboxes-chips/MediaChip';
-import { units } from '../styles/js/shared';
-
-const StyledEmojiOnly = styled.span`
-  line-height: ${units(4)};
-  font-size: ${units(4)};
-`;
-
-const Styled = styled.span`
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  line-height: ${units(2.5)};
-`;
 
 const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
   let parsedText = text;
@@ -34,6 +21,17 @@ const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
       </a>
     ));
   }
+
+  // Turn Markdown URLs into links (e.g., [Text](https://url))
+
+  parsedText = reactStringReplace(parsedText, /(\[[^\]]+\]\(https?:\/\/[^ ]+\))/gm, (match, i) => {
+    const markdown = match.match(/\[(?<text>[^\]]+)\]\((?<url>https?:\/\/[^ ]+)\)/m); // Extract "text" and "url" from Markdown link
+    return (
+      <a className={styles['markdown-link']} href={markdown.groups.url} target="_blank" key={i} rel="noopener noreferrer">
+        {markdown.groups.text}
+      </a>
+    );
+  });
 
   // Turn other URLs into links
 
@@ -94,7 +92,7 @@ const ParsedText = (props) => {
     emojified.map((line, k1) =>
       line.map((element, k2) =>
         // eslint-disable-next-line react/no-array-index-key
-        <StyledEmojiOnly key={`${k1}${k2}`}>{element}</StyledEmojiOnly>))
+        <span className={styles.StyledEmojiOnly} key={`${k1}${k2}`}>{element}</span>))
     :
     emojified;
 
@@ -112,7 +110,7 @@ const ParsedText = (props) => {
 
   // Linkify the result.
   const linkified =
-    <Styled><Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{breakified}</Linkify></Styled>;
+    <span className={styles.styledLinkified}><Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{breakified}</Linkify></span>;
 
   // Block or not.
   return props.block ? <div>{linkified}</div> : linkified;

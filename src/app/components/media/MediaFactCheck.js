@@ -40,13 +40,13 @@ const MediaFactCheck = ({ projectMedia }) => {
   }, [factCheck?.title, factCheck?.summary, factCheck?.url, factCheck?.language]);
 
   const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
-  const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
+  const published = (projectMedia.report_status === 'published') || (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
   const isDisabled = Boolean(readOnly || published);
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
 
   const handleGoToReport = () => {
-    window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
+    window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)\/?$/, '').replace(/\/$/, '')}/report`);
   };
 
   const handleBlur = (field, value) => {
@@ -74,6 +74,13 @@ const MediaFactCheck = ({ projectMedia }) => {
                   language
                   user {
                     name
+                  }
+                  claim_description {
+                    project_media {
+                      title
+                      title_field
+                      custom_title
+                    }
                   }
                 }
               }
@@ -194,7 +201,7 @@ const MediaFactCheck = ({ projectMedia }) => {
                 id="mediaFactCheck.saved"
                 defaultMessage="saved by {userName} {timeAgo}"
                 values={{
-                  userName: factCheck.user.name,
+                  userName: factCheck?.user?.name,
                   timeAgo: <TimeBefore date={parseStringUnixTimestamp(factCheck.updated_at)} />,
                 }}
                 description="Caption that informs who last saved this fact-check and when it happened."

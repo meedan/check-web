@@ -15,8 +15,8 @@
     "defaultMessage": "New rule"
   },
   {
-    "id": "teamTagsActions.edit",
-    "description": "Menu item to edit a rule",
-    "defaultMessage": "Edit"
+    "id": "rulesTableTool.blank",
+    "description": "Message displayed when there are no rules items",
+    "defaultMessage": "No Workspace Rules"
   }
 ]

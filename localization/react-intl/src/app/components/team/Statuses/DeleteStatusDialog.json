@@ -35,6 +35,11 @@
     "defaultMessage": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
   },
   {
+    "id": "deleteStatusDialog.moveItemsToPlaceholder",
+    "description": "This is a field placeholder. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field.",
+    "defaultMessage": "Select status…"
+  },
+  {
     "id": "statusesComponent.moveItemsAndDelete",
     "description": "Label of a button that is displayed when a status in use is being deleted.",
     "defaultMessage": "Move items and delete status"

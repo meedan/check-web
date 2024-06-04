@@ -41,6 +41,13 @@ const heapAnalytics = (config) => {
     </script>` : '';
 };
 
+const simpleAnalytics = (config) => {
+  return config.useAnalytics ?
+    `<script async defer data-collect-dnt="true" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" />
+    </noscript>` : '';
+};
+
 const uptimeMonitoring = (config) => {
   return config.uptimeId ?
   `<script>(function(w,d,s){w._uptime_rum2={};w._uptime_rum2.errors=[];w._uptime_rum2.uuid='${config.uptimeId}';w._uptime_rum2.url='https://rumcollector.uptime.com';s=document.createElement('script');s.async=1;s.src='https://rum.uptime.com/static/rum/compiled/v2/rum.js';d.getElementsByTagName('head')[0].appendChild(s);w.addEventListener('error',function(e){w._uptime_rum2.errors.push({t:new Date(),err:e})});})(window,document);</script>`
@@ -82,7 +89,8 @@ module.exports = ({ config, metadata, url }) => {
           <script src="/js/config.js" defer="defer"></script>
           <script src="/js/vendor.bundle${BUNDLE_PREFIX}.js" defer="defer"></script>
           <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
-          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono" rel="stylesheet" type="text/css">
+          <link rel="preconnect" href="https://rsms.me/">
+          <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
           ${heapAnalytics(config)}
           <link rel="stylesheet" href="/css/index.bundle${BUNDLE_PREFIX}.css" />
@@ -90,6 +98,7 @@ module.exports = ({ config, metadata, url }) => {
         <body>
           <div id="root"></div>
           ${uptimeMonitoring(config)}
+          ${simpleAnalytics(config)}
         </body>
         <script src="/js/index.bundle${BUNDLE_PREFIX}.js" defer="defer"></script>
       </html>

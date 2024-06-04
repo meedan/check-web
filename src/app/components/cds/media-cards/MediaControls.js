@@ -5,7 +5,6 @@ import {
   Box,
   Grid,
   IconButton,
-  Typography,
 } from '@material-ui/core';
 import MediaTimeline from './MediaTimeline';
 import MediaVolume from './MediaVolume';
@@ -15,7 +14,7 @@ import PlayArrowIcon from '../../../icons/play_arrow.svg';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.31) 51.56%, rgba(0, 0, 0, 0.7) 100%)',
     position: 'absolute',
     bottom: 0,
@@ -23,11 +22,11 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1.5, 1, 0, 1),
   },
   icon: {
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
     fontSize: '24px',
     marginRight: theme.spacing(1),
     '&:hover': {
-      color: 'var(--otherWhite)',
+      color: 'var(--color-white-100)',
       backgroundColor: 'var(--overlayLight)',
     },
   },
@@ -97,9 +96,9 @@ const MediaControls = ({
   };
   const durationDisplay = prettyPrintTime(duration);
   const TimeDisplay = () => (
-    <Box>
-      <Typography>{prettyPrintTime(currentTime)} / {durationDisplay}</Typography>
-    </Box>
+    <div className="typography-body1">
+      {prettyPrintTime(currentTime)} / {durationDisplay}
+    </div>
   );
 
   return (

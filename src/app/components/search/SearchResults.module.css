@@ -1,3 +1,9 @@
+.no-search-results-add {
+  display: flex;
+  justify-content: center;
+  margin: 64px 0;
+}
+
 .search-results-status-cell {
   max-width: 224px;
   overflow: hidden;
@@ -12,7 +18,7 @@
 
 .searchResultsTitleWrapper {
   align-items: flex-start;
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -20,7 +26,9 @@
 
   .searchHeaderSubtitle {
     @mixin typography-caption;
-    margin: 0 0 1px;
+    align-items: center;
+    display: flex;
+    margin: 0 0 5px;
     text-transform: uppercase;
   }
 
@@ -32,7 +40,7 @@
     h6 {
       @mixin typography-h6;
       -webkit-box-orient: vertical;
-      color: var(--textPrimary);
+      color: var(--color-gray-15);
       /* stylelint-disable-next-line value-no-vendor-prefix */
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -47,9 +55,9 @@
       }
 
       :global(.check-icon) {
-        color: var(--textSecondary);
+        color: var(--color-gray-37);
         font-size: var(--iconSizeDefault);
-        margin: 0 2px 2px 0;
+        margin: 0 6px 2px 0;
         vertical-align: middle;
       }
     }
@@ -60,18 +68,18 @@
       gap: 12px;
 
       .searchHeaderActionButton {
-        background: var(--grayBackground);
-        border: 2px solid var(--grayBorderMain);
+        background: var(--color-gray-96);
+        border: 2px solid var(--color-gray-88);
         border-radius: 8px;
-        color: var(--textSecondary);
+        color: var(--color-gray-37);
         font-size: var(--iconSizeSmall);
         height: 32px;
         width: 32px;
 
         &:hover {
-          background: var(--brandHoverAccent);
-          border-color: var(--brandBorder);
-          color: var(--textSecondary);
+          background: var(--color-blue-98);
+          border-color: var(--color-blue-81);
+          color: var(--color-gray-37);
         }
       }
     }
@@ -93,7 +101,7 @@
 }
 
 .search-results-top {
-  background-color: var(--otherWhite);
+  background-color: var(--color-white-100);
   border-radius: 8px;
   margin: 0 32px 16px;
   padding: 16px;
@@ -104,8 +112,8 @@
 }
 
 .search-results-wrapper {
-  background-color: var(--otherWhite);
-  border: solid 3px var(--otherWhite);
+  background-color: var(--color-white-100);
+  border: solid 3px var(--color-white-100);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -113,20 +121,38 @@
   max-height: 100%;
   overflow: hidden;
 
+  .search-results-toolbar {
+    align-items: center;
+    display: flex;
+    margin: 16px;
+    min-height: 38px;
+
+    .search-results-add-item {
+      display: flex;
+      flex: 1 1 100%;
+      justify-content: flex-end;
+    }
+  }
+
   .search-results-heading {
     align-items: center;
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
     display: flex;
-    justify-content: space-between;
+    flex: 1 1 auto;
+    gap: 16px;
     text-align: center;
 
+    .search-results-sorting {
+      width: 100%;
+    }
+
     .search-selected {
-      color: var(--brandMain);
+      color: var(--color-blue-54);
       margin: 0 0 0 8px;
     }
 
     .search-nav {
-      color: var(--textPrimary);
+      color: var(--color-gray-15);
       cursor: pointer;
       display: flex;
       font-size: var(--iconSizeDefault);
@@ -134,20 +160,21 @@
     }
 
     .search-button-disabled {
-      color: var(--textPlaceholder);
+      color: var(--color-gray-75);
       cursor: not-allowed;
     }
 
     .search-pagination {
       align-items: center;
       display: flex;
+      white-space: nowrap;
     }
   }
 }
 
 .search-results-table-wrapper {
-  border: solid 3px var(--otherWhite);
-  border-top: solid 1px var(--grayBorderMain);
+  border: solid 3px var(--color-white-100);
+  border-top: solid 1px var(--color-gray-88);
   display: block;
   max-height: 100%;
   overflow: auto;
@@ -164,9 +191,9 @@
 
       tr {
         th {
-          background-color: var(--otherWhite);
-          border-bottom: solid 1px var(--grayBorderMain);
-          border-right: solid 1px var(--grayBorderMain);
+          background-color: var(--color-white-100);
+          border-bottom: solid 1px var(--color-gray-88);
+          border-right: solid 1px var(--color-gray-88);
           white-space: nowrap;
           width: auto;
 
@@ -175,7 +202,7 @@
           }
 
           &.unread-status {
-            background-color: var(--otherWhite);
+            background-color: var(--color-white-100);
             left: 0;
             position: sticky;
             z-index: 3;
@@ -189,30 +216,30 @@
 
       tr {
         &.search-results-row {
-          background-color: var(--brandBackground);
+          background-color: var(--color-beige-93);
           position: relative;
           transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
 
           th,
           td {
-            border-bottom: solid 1px var(--grayBorderMain);
+            border-bottom: solid 1px var(--color-gray-88);
             transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
           }
 
           .unread-status {
-            background-color: var(--brandBackground);
-            border-right: solid 1px var(--grayBorderMain);
-            box-shadow: inset 3px 0 0 0 var(--textPlaceholder);
+            background-color: var(--color-beige-93);
+            border-right: solid 1px var(--color-gray-88);
+            box-shadow: inset 3px 0 0 0 var(--color-gray-75);
             left: 0;
             position: sticky;
             z-index: 1;
           }
 
           &.search-results-read {
-            background-color: var(--otherWhite);
+            background-color: var(--color-white-100);
 
             .unread-status {
-              background-color: var(--otherWhite);
+              background-color: var(--color-white-100);
               box-shadow: none;
             }
           }
@@ -220,10 +247,10 @@
           &:hover,
           &:hover th,
           &:hover td {
-            background-color: var(--brandHoverAccent);
+            background-color: var(--color-blue-98);
 
             .unread-status {
-              background-color: var(--brandHoverAccent);
+              background-color: var(--color-blue-98);
             }
           }
 
@@ -237,4 +264,33 @@
       }
     }
   }
+}
+
+.noBottomBorder {
+  border-bottom: none !important;
+}
+
+/* ine- styles can be removed when deprecating the INE style shared feed */
+.ine-pager {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+}
+
+.ine-fact-check {
+  white-space: nowrap;
+}
+
+.ine-search-results-row:hover {
+  cursor: pointer;
+}
+
+.ine-no-fact-check {
+  background: var(--color-orange-54);
+  border-radius: 50px;
+  color: var(--color-white-100);
+  display: inline-block;
+  font-size: var(--fontSizeSmall);
+  font-weight: 400;
+  padding: 3px 10px;
+  white-space: nowrap;
 }

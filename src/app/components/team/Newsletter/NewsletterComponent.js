@@ -437,7 +437,7 @@ const NewsletterComponent = ({
           <FormattedHTMLMessage
             id="newsletterComponent.helpContext"
             defaultMessage='Manage, draft, and schedule newsletters sent to all subscribers. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about newsletters</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/5540430-tipline-newsletters' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8722205-newsletter' }}
             description="Context description for the functionality of this page"
           />
         }
@@ -463,7 +463,7 @@ const NewsletterComponent = ({
             }
           />
         }
-        // helpUrl="https://help.checkmedia.org/en/articles/123456" // FIXME: Add the real KB article URL here
+        helpUrl="https://help.checkmedia.org/en/articles/8722205-newsletter"
       />
       <div className={cx('newsletter-component', settingsStyles['setting-details-wrapper'])}>
         <div className={cx(settingsStyles['setting-content-container'])}>

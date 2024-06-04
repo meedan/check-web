@@ -15,6 +15,11 @@
     "defaultMessage": "Send message to {username} on {channel}"
   },
   {
+    "id": "sendTiplineMessage.placeholder",
+    "description": "Placeholder for message authoring field",
+    "defaultMessage": "Write a message to {username} on {channel}"
+  },
+  {
     "id": "sendTiplineMessage.inputLabel",
     "description": "Message input label",
     "defaultMessage": "Message"

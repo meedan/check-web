@@ -68,9 +68,9 @@ const TeamTagsComponent = ({
         }
         context={
           <FormattedHTMLMessage
-            id="rulesTableToolbar.helpContext"
+            id="teamTagsComponent.helpContext"
             defaultMessage='Automatically categorize items by keyword. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about tags</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/6542134-tags' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8720966-tags' }}
             description="Context description for the functionality of this page"
           />
         }
@@ -108,7 +108,7 @@ const TeamTagsComponent = ({
       { totalTags > pageSize && // only display paginator if there are more than pageSize worth of tags overall in the database
         <div className={styles['tags-wrapper']}>
           <Tooltip
-            disableHoverListener={isPaginationLoading || cursor - pageSize < 0}
+            arrow
             title={
               <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
             }
@@ -141,7 +141,6 @@ const TeamTagsComponent = ({
             />
           </span>
           <Tooltip
-            disableHoverListener={isPaginationLoading || cursor + pageSize >= totalCount}
             title={
               <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
             }

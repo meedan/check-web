@@ -1,8 +1,8 @@
 [
   {
-    "id": "projectsComponent.pendingInvitationFeedTitle",
-    "description": "Tooltip for a navigation item that has a status of a pending invitation",
-    "defaultMessage": "Pending invitation: {feedTitle}"
+    "id": "projectsComponent.tiplineNavHeader",
+    "description": "The navigation name of the tipline section",
+    "defaultMessage": "Tipline"
   },
   {
     "id": "projectsComponent.allItems",
@@ -55,21 +55,6 @@
     "defaultMessage": "No custom lists"
   },
   {
-    "id": "projectsComponent.sharedFeeds",
-    "description": "Feeds of content shared across workspaces",
-    "defaultMessage": "Shared feeds"
-  },
-  {
-    "id": "projectsComponent.newSharedFeed",
-    "description": "Tooltip for the button that navigates to shared feed creation page",
-    "defaultMessage": "New shared feed"
-  },
-  {
-    "id": "projectsComponent.noSharedFeeds",
-    "description": "Displayed under the shared feed header when there are no feeds in it",
-    "defaultMessage": "No shared feeds"
-  },
-  {
     "id": "projectsComponent.spam",
     "description": "Label for a list displayed on the left sidebar that includes items that have been trashed",
     "defaultMessage": "Spam"
@@ -82,12 +67,12 @@
   {
     "id": "projectsComponent.newList",
     "description": "Title for a dialog to create a new list displayed on the left sidebar.",
-    "defaultMessage": "New list"
+    "defaultMessage": "New List"
   },
   {
     "id": "projectsComponent.createList",
     "description": "Label for a button to create a new list displayed on the left sidebar.",
-    "defaultMessage": "Create list"
+    "defaultMessage": "Create List"
   },
   {
     "id": "projectsComponent.newListErrorMessage",

@@ -6,12 +6,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserDisconnectLoginAccountMutation from '../../relay/mutations/UserDisconnectLoginAccountMutation';
 import { login } from '../../redux/actions';
 import SocialIcon from '../SocialIcon';
-import { FlexRow } from '../../styles/js/shared';
+import AddIcon from '../../icons/add.svg';
 
 class UserConnectedAccount extends Component {
   static renderLabel(userAction) {
@@ -68,9 +68,7 @@ class UserConnectedAccount extends Component {
 
   render() {
     const { provider } = this.props;
-    const buttonStyle = {
-      color: 'var(--brandMain)',
-    };
+
     const confirmDialog = {
       title: <FormattedMessage
         id="UserConnectedAccount.disconnectAccountTitle"
@@ -86,7 +84,7 @@ class UserConnectedAccount extends Component {
     };
 
     return (
-      <div style={{ listStyleType: 'none' }} >
+      <>
         { provider.values.map((socialAccount, index) => {
           const userAction = (socialAccount.connected === true) ? 'disconnect' : 'connect';
           let disableDisconnect = false;
@@ -98,16 +96,17 @@ class UserConnectedAccount extends Component {
               <ListItemIcon className="user-connect__list-icon">
                 <SocialIcon inColor domain={this.props.provider.key} />
               </ListItemIcon>
-              <ListItemText style={{ minWidth: '500px', padding: '0px' }} primary={socialAccount.info} />
+              <ListItemText primary={socialAccount.info} />
               <ListItemSecondaryAction>
-                <Button
-                  style={disableDisconnect === false ? buttonStyle : {}}
+                <ButtonMain
+                  size="default"
+                  variant="contained"
+                  theme="brand"
                   onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
                   className="team-connect-account-button--disconnect"
                   disabled={disableDisconnect}
-                >
-                  {UserConnectedAccount.renderLabel(userAction)}
-                </Button>
+                  label={UserConnectedAccount.renderLabel(userAction)}
+                />
                 <ConfirmDialog
                   open={this.state.dialogOpen}
                   title={confirmDialog.title}
@@ -120,17 +119,20 @@ class UserConnectedAccount extends Component {
           );
         })}
         { provider.add_another === true ?
-          <FlexRow style={{ padding: '0px 10px' }} >
-            <Button
-              style={buttonStyle}
-              onClick={this.handleUserClick.bind(this, 'connect')}
-              className="team-connect-account-button--disconnect"
-            >
+          <ButtonMain
+            size="default"
+            variant="contained"
+            theme="text"
+            iconLeft={<AddIcon />}
+            onClick={this.handleUserClick.bind(this, 'connect')}
+            className="team-connect-account-button--disconnect"
+            label={
               <FormattedMessage id="UserConnectedAccount.addAnother" defaultMessage="Add another account" description="Button label for the user to connect another account" />
-            </Button>
-          </FlexRow>
-          : null}
-      </div>
+            }
+          />
+          : null
+        }
+      </>
     );
   }
 }

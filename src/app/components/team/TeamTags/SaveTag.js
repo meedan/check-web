@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../../cds/inputs/TextField';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import RuleBody from '../Rules/RuleBody';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -30,12 +28,6 @@ const defaultRule = {
   actions: [],
 };
 
-const useStyles = makeStyles(theme => ({
-  saveTagRulesTitle: {
-    marginTop: theme.spacing(5),
-  },
-}));
-
 const SaveTag = ({
   tag,
   teamId,
@@ -47,8 +39,6 @@ const SaveTag = ({
   pageSize,
   setFlashMessage,
 }) => {
-  const classes = useStyles();
-
   // Find the first rule associated with this tag
   let tagRuleIndex = -1;
   if (tag && rules) {
@@ -238,19 +228,22 @@ const SaveTag = ({
       }
       body={(
         <React.Fragment>
-          <TextField
-            id="team-tags__name-input"
-            defaultValue={text}
-            label={<FormattedMessage id="saveTag.name" defaultMessage="Name" description="Text field label for the input name of tag" />}
-            onBlur={(e) => { setText(e.target.value); }}
-            variant="outlined"
-            fullWidth
-          />
-          <Typography variant="body1" className={classes.saveTagRulesTitle}>
-            <FormattedMessage id="saveTag.rule" defaultMessage="Automatically tag items matching the following conditions:" description="Help text about automatically matching tags to a rule" />
-          </Typography>
+          <FormattedMessage id="saveTag.namePlaceholder" defaultMessage="New tag name" description="Text field placeholder for the input name of tag" >
+            { placeholder => (
+              <TextField
+                componentProps={{
+                  id: 'team-tags__name-input',
+                }}
+                defaultValue={text}
+                label={<FormattedMessage id="saveTag.name" defaultMessage="Name" description="Text field label for the input name of tag" />}
+                placeholder={placeholder}
+                onBlur={(e) => { setText(e.target.value); }}
+              />
+            )}
+          </FormattedMessage>
+          <br />
+          <FormattedMessage tagName="p" id="saveTag.rule" defaultMessage="Automatically tag items matching the following conditions:" description="Help text about automatically matching tags to a rule" />
           <RuleBody
-            noMargin
             hideName
             hideActions
             schema={filteredRulesSchema}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FactCheckCard from './FactCheckCard';
+import ArticleCard from './ArticleCard';
 import styles from './SearchResultsCards.module.css';
 
 const SearchResultsCards = ({ projectMedias, team }) => (
@@ -11,14 +11,16 @@ const SearchResultsCards = ({ projectMedias, team }) => (
 
       return (
         <div className="fact-check-card-wrapper" key={values.fact_check_title}>
-          <FactCheckCard
-            title={values.fact_check_title}
+          <ArticleCard
+            title={values.fact_check_title || projectMedia.title}
             summary={values.fact_check_summary}
             date={values.updated_at_timestamp}
             statusLabel={status.label || values.status}
             statusColor={status.style?.color}
             url={values.fact_check_url}
             teamAvatar={values.team_avatar}
+            teamName={values?.team_name}
+            variant="fact-check"
           />
         </div>
       );
@@ -39,6 +41,7 @@ SearchResultsCards.propTypes = {
     }).isRequired,
   }).isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
     feed_columns_values: PropTypes.shape({
       fact_check_title: PropTypes.string.isRequired,
       updated_at_timestamp: PropTypes.number.isRequired,

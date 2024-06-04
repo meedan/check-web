@@ -25,6 +25,8 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
     browserHistory.push(`/${team.node.slug}/feed/${routeParams.feedId}/invitation`);
   }
 
+  const teamDbids = props.feed_invitation.feed.feed_teams.edges.map(edge => edge.node.team.dbid);
+
   const handleClick = team => browserHistory.push(`/${team.node.slug}/feed/${routeParams.feedId}/invitation`);
 
   return (
@@ -38,7 +40,7 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
             {props.feed_invitation.user.name}, <span className={styles.email}>{props.feed_invitation.user.email}</span>
           </div>
           <div className={cx('typography-body1', styles.invited)}>
-            <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Check Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
+            <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
           </div>
           <div>
             <span className={cx('typography-body1-bold')}>&ldquo;{props.feed_invitation.feed.name}&rdquo;</span>
@@ -77,8 +79,20 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
               </div>
               <span className="typography-body1">{team.node.name}</span>
               <ButtonMain
-                className="int-feed-invitation__button--workspace"
-                label={<FormattedMessage id="feedInvitation.viewButton" defaultMessage="View invitation" description="Label for a button that the user presses to view an invitation that they are going to accept or reject" />}
+                className={`int-feed-invitation__button--workspace ${teamDbids.includes(team.node.dbid) ? styles['feed-invitation-accepted'] : ''}`}
+                label={
+                  teamDbids.includes(team.node.dbid) ?
+                    <FormattedMessage
+                      id="feedInvitation.acceptedButton"
+                      defaultMessage="Invitation accepted"
+                      description="Label for a button indicating the invitation has been accepted"
+                    /> :
+                    <FormattedMessage
+                      id="feedInvitation.viewButton"
+                      defaultMessage="View invitation"
+                      description="Label for a button that the user presses to view an invitation that they are going to accept or reject"
+                    />
+                }
                 iconLeft={<DoneIcon />}
                 variant="text"
                 size="small"
@@ -108,6 +122,15 @@ const FeedInvitation = ({ routeParams }) => (
             state
             feed {
               name
+              feed_teams(first: 100) {
+                edges {
+                  node {
+                    team {
+                      dbid
+                    }
+                  }
+                }
+              }
             }
             user {
               name
@@ -118,6 +141,7 @@ const FeedInvitation = ({ routeParams }) => (
             teams(first: 1000) {
               edges {
                 node {
+                  dbid
                   name
                   avatar
                   slug

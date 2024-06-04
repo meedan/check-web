@@ -1,9 +1,9 @@
 .toggleCollapse {
   align-items: center;
-  background-color: var(--brandHoverAccent);
-  border: 0 solid var(--grayBorderMain);
+  background-color: var(--color-blue-98);
+  border: 0 solid var(--color-gray-88);
   border-radius: 8px;
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -20,25 +20,51 @@
   }
 
   &:hover {
-    background-color: var(--brandHoverAccent);
-    color: var(--brandMain);
+    background-color: var(--color-blue-98);
+    color: var(--color-blue-54);
+  }
+}
+
+.articleLink {
+  align-items: center;
+  color: var(--color-blue-32);
+  display: flex;
+  font-size: var(--font-size-body-2);
+  gap: 3px;
+
+  div {
+    display: grid;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  svg {
+    font-size: var(--iconSizeTiny);
+  }
+
+  a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
 .card {
-  border: 1px solid var(--grayBorderMain);
+  background-color: var(--color-white-100);
+  border: 1px solid var(--color-gray-88);
   border-radius: 8px;
-  padding: 8px;
+  padding: 16px;
   width: 100%;
 
   &:hover {
-    border-color: var(--textLink);
+    border-color: var(--color-blue-32);
   }
 
   .cardContent {
     align-items: flex-start;
     display: flex;
-    gap: 16px;
+    flex-wrap: wrap;
+    gap: 0 16px;
     justify-content: space-between;
   }
 
@@ -48,6 +74,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    p {
+      margin: 0;
+    }
   }
 
   .cardTitle {
@@ -65,7 +95,7 @@
 
   .cardDescription {
     -webkit-box-orient: vertical;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     display: -webkit-box; /* stylelint-disable-line */
     white-space: pre-line;
   }
@@ -73,11 +103,6 @@
   .cardDescriptionCollapse {
     -webkit-line-clamp: 2;
     overflow: hidden;
-  }
-
-  .cardRight {
-    min-width: 150px;
-    text-align: right;
   }
 
   .cardTag {
@@ -97,31 +122,33 @@
   }
 
   .cardDate {
-    color: var(--textPrimary);
+    color: var(--color-gray-15);
     margin-top: 8px;
+    padding-right: 8px;
+    text-align: right;
+  }
+
+  .cardChannels {
+    align-items: center;
+    display: flex;
+    gap: 3px;
+
+    span {
+      display: flex;
+    }
+
+    svg {
+      font-size: var(--font-size-subtitle-1);
+    }
+  }
+
+  .cardFooter {
+    margin-top: 6px;
   }
 
   .clickableCard {
     color: inherit;
     cursor: pointer;
     text-decoration: none;
-  }
-
-  .factCheckLink {
-    align-items: center;
-    color: var(--textLink);
-    display: flex;
-    font-size: var(--fontSizeSmall);
-    gap: 3px;
-
-    svg {
-      font-size: var(--iconSizeTiny);
-    }
-
-    a {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
   }
 }

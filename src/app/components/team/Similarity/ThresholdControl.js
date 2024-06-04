@@ -4,7 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Slider from '@material-ui/core/Slider';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../../cds/inputs/TextField';
+import settingsStyles from '../Settings.module.css';
 
 const styles = theme => ({
   textFieldRoot: {
@@ -15,7 +16,7 @@ const styles = theme => ({
     maxWidth: theme.spacing(30),
   },
   error: {
-    color: 'var(--errorMain)',
+    color: 'var(--color-pink-53)',
   },
 });
 
@@ -55,7 +56,7 @@ const ThresholdControl = ({
       <TextField
         disabled={disabled}
         value={value}
-        classes={{ root: classes.textFieldRoot }}
+        className={settingsStyles['similarity-component-input']}
         variant="outlined"
         size="small"
         type="number"
@@ -68,7 +69,7 @@ const ThresholdControl = ({
         onChange={(e, newValue) => onChange(newValue)}
       />
     </Box>
-    <Box color="var(--errorMain)" my={1}>
+    <Box color="var(--color-pink-53)" my={1}>
       { error ?
         <FormattedMessage
           data-testid="threshold-control__error-message"

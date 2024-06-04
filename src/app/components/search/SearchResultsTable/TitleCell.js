@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
-import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
-import { units } from '../../../styles/js/shared';
 import ContentCopyIcon from '../../../icons/content_copy.svg';
 import ItemThumbnail from './ItemThumbnail';
 
@@ -16,58 +14,59 @@ const useStyles = makeStyles({
     // Use flexbox so thumbnail takes up very little space and then text takes
     // the rest. (display: float; is too finicky.)
     display: 'flex',
-    minWidth: units(45),
-    maxWidth: units(110),
+    minWidth: '360px',
+    maxWidth: '880px',
     textDecoration: 'none',
   },
   icon: {
     fontSize: '40px',
-    color: 'var(--otherWhite)',
+    color: 'var(--color-white-100)',
   },
   textBox: {
     // This is a <div>, not a <th> with vertical-align center, because we need
-    // to force the height to be `units(10)` plus padding and border. Use
+    // to force the height to be `80px` plus padding and border. Use
     // flexbox to center vertically.
     display: 'flex',
     flexGrow: 1,
     flexShrink: 1,
     whiteSpace: 'normal',
     overflowWrap: 'anywhere', // long URLs shouldn't affect page width
-    lineHeight: units(2.5),
+    lineHeight: '20px',
     flexDirection: 'column',
     justifyContent: 'center',
     minWidth: 470,
   },
   title: ({ isRead }) => ({
-    color: 'var(--textPrimary)',
+    color: 'var(--color-gray-15)',
     fontWeight: !isRead || isFeedPage() ? 'bold' : 'normal',
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
+    marginBottom: 0,
   }),
   description: {
-    maxHeight: units(5),
-    color: 'var(--textSecondary)',
+    maxHeight: '40px',
+    color: 'var(--color-gray-37)',
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
     '-webkit-line-clamp': 2,
   },
   similarityIcon: {
-    marginRight: units(0.5),
+    marginRight: '4px',
     display: 'inline-block',
     verticalAlign: 'middle',
     fontSize: 18,
   },
   titleViewModeShorter: {
-    maxHeight: units(5),
+    maxHeight: '40px',
     '-webkit-line-clamp': 2,
   },
   cellViewModeShorter: {
-    height: units(10),
+    height: '80px',
   },
   itemThumbnail: {
-    marginRight: units(1),
+    marginRight: '8px',
   },
 });
 
@@ -77,9 +76,9 @@ const TitleText = ({
   description,
 }) => (
   <div className={[classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <Typography variant="body1" className={[classes.title, classes.titleViewModeShorter].join(' ')}>
+    <p className={[classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
-    </Typography>
+    </p>
     {description ? (
       <div className={classes.description}>{description}</div>
     ) : null}
@@ -103,13 +102,13 @@ const IconOrNothing = ({
     return null;
   }
   if (isMain) {
-    return <ContentCopyIcon style={{ color: 'var(--brandMain)' }} className={`${className} similarity-is-main`} />;
+    return <ContentCopyIcon style={{ color: 'var(--color-blue-54)' }} className={`${className} similarity-is-main`} />;
   }
   if (isConfirmed) {
     return <ContentCopyIcon style={{ transform: 'rotate(180deg)' }} className={`${className} similarity-is-confirmed`} />;
   }
   if (isSuggested) {
-    return <ContentCopyIcon style={{ color: 'var(--alertMain)' }} className={`${className} similarity-is-suggested`} />;
+    return <ContentCopyIcon style={{ color: 'var(--color-orange-54)' }} className={`${className} similarity-is-suggested`} />;
   }
   return null;
 };

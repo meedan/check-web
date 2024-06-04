@@ -1,5 +1,5 @@
 .reorder {
-  background-color: var(--grayBackground);
+  background-color: var(--color-gray-96);
   border-radius: 8px;
   display: flex;
 
@@ -25,18 +25,18 @@
   }
 
   &.theme-gray {
-    background-color: var(--grayBackground);
+    background-color: var(--color-gray-96);
 
     hr {
-      background-color: var(--otherWhite);
+      background-color: var(--color-white-100);
     }
   }
 
   &.theme-white {
-    background-color: var(--otherWhite);
+    background-color: var(--color-white-100);
 
     hr {
-      background-color: var(--grayBackground);
+      background-color: var(--color-gray-96);
     }
   }
 }

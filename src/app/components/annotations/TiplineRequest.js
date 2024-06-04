@@ -74,13 +74,14 @@ function parseText(text, projectMedia, activity) {
 const TiplineRequest = ({
   annotation: activity,
   annotated: projectMedia,
+  hideButtons,
   intl,
 }) => {
   if (!activity) {
     return null;
   }
 
-  const objectValue = activity.value_json;
+  const objectValue = activity.smooch_data;
   const messageType = objectValue.source?.type;
   const messageText = objectValue.text ?
     objectValue.text.trim()
@@ -147,34 +148,39 @@ const TiplineRequest = ({
         intl.formatMessage(messages.smoochNoMessage)
       )}
       icon={<SmoochIcon name={messageType} />}
-      historyButton={
-        <TiplineHistoryButton
+      historyButton={(
+        !hideButtons && <TiplineHistoryButton
           uid={uid}
           name={userName}
           channel={channelLabel[messageType] || messageType}
           messageId={messageId}
         />
-      }
-      sendMessageButton={
-        <SendTiplineMessage
+      )}
+      sendMessageButton={(
+        !hideButtons && <SendTiplineMessage
           username={userName}
           channel={channelLabel[messageType] || messageType}
-          annotationId={activity.annotation_id}
+          annotationId={activity.dbid}
         />
-      }
+      )}
       receipt={<RequestReceipt events={reportHistory} />}
     />
   );
 };
 
+TiplineRequest.defaultProps = {
+  hideButtons: false,
+};
+
 TiplineRequest.propTypes = {
   annotation: PropTypes.shape({
-    value_json: PropTypes.object.isRequired,
+    smooch_data: PropTypes.object.isRequired,
     created_at: PropTypes.string.isRequired,
     smooch_user_external_identifier: PropTypes.string.isRequired,
     smooch_report_received_at: PropTypes.number,
     smooch_report_update_received_at: PropTypes.number,
     associated_graphql_id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
   }).isRequired,
   annotated: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -182,6 +188,7 @@ TiplineRequest.propTypes = {
       file_path: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  hideButtons: PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

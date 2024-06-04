@@ -1,0 +1,11 @@
+.colorPicker {
+  margin: 16px 0;
+  position: relative;
+
+  input {
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+  }
+}

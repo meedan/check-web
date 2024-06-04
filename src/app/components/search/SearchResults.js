@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
@@ -22,7 +22,33 @@ import ListSort from '../cds/inputs/ListSort';
 import SearchResultsTable from './SearchResultsTable';
 import SearchResultsCards from './SearchResultsCards';
 import SearchRoute from '../../relay/SearchRoute';
+import CreateMedia from '../media/CreateMedia';
+import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
+import Alert from '../cds/alerts-and-prompts/Alert';
+
+const messages = defineMessages({
+  sortTitle: {
+    id: 'searchResults.sortTitle',
+    defaultMessage: 'Title',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
+  sortDateUpdated: {
+    id: 'searchResults.sortDateUpdated',
+    defaultMessage: 'Date updated',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
+  sortRating: {
+    id: 'searchResults.sortRating',
+    defaultMessage: 'Rating',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
+  sortRequestsCount: {
+    id: 'searchResults.sortRequestsCount',
+    defaultMessage: 'Requests (count)',
+    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
+  },
+});
 
 /**
  * Delete `esoffset`, `timestamp` and `channels` -- whenever
@@ -36,12 +62,6 @@ function simplifyQuery(query) {
   delete ret.timestamp;
   if (ret.keyword && !ret.keyword.trim()) {
     delete ret.keyword;
-  }
-  if (/\/(imported-fact-checks)+/.test(window.location.pathname)) {
-    delete ret.channels;
-  }
-  if (/\/(unmatched-media)+/.test(window.location.pathname)) {
-    delete ret.unmatched;
   }
   return ret;
 }
@@ -69,9 +89,11 @@ function SearchResultsComponent({
   readOnlyFields,
   savedSearch,
   extra,
+  intl,
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
+  const [tooManyResults, setTooManyResults] = React.useState(false);
   const [stateQuery, setStateQuery] = React.useState(appliedQuery);
 
   const onUnselectAll = () => {
@@ -272,12 +294,20 @@ function SearchResultsComponent({
       urlPrefix = `/${projectMedia.team.slug}/${urlPrefix}`;
     }
 
-    let result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
-    if (resultType === 'feed') {
-      result = `${mediaUrlPrefix}/cluster/${projectMedia.cluster?.dbid}?${urlParams.toString()}`;
-    }
-
+    const result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
     return result;
+  };
+
+  /**
+   * After 10k results, Elastic Search stops returning items,
+   * user needs to be prompted to shorten their search
+   */
+  const handleNextPageClick = () => {
+    if (getEndIndex() < 10000) {
+      browserHistory.push(getNextPageLocation());
+    } else {
+      setTooManyResults(true);
+    }
   };
 
   React.useEffect(() => {
@@ -333,6 +363,12 @@ function SearchResultsComponent({
           defaultMessage="There are no items here."
           description="Empty message that is displayed when search results are zero"
         />
+        { page === 'all-items' ?
+          <Can permissions={team.permissions} permission="create ProjectMedia">
+            <div className={styles['no-search-results-add']}>
+              <CreateMedia search={search} team={team} />
+            </div>
+          </Can> : null }
       </BlankState>
     );
     if (resultType === 'factCheck' || resultType === 'emptyFeed') {
@@ -453,98 +489,121 @@ function SearchResultsComponent({
         />
       </div>
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
-        <Toolbar
-          resultType={resultType}
-          team={team}
-          actions={
-            projectMedias.length && selectedProjectMedia.length ?
-              <BulkActionsMenu
-              /*
-              FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
-              below to contain the PM objects as the tagging mutation currently requires dbids and
-              also for other requirements such as warning about published reports before bulk changing statuses
-              additional data is needed.
-              I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
-              */
-                team={team}
-                page={page}
-                selectedProjectMedia={selectedProjectMedia}
-                selectedMedia={filteredSelectedProjectMediaIds}
-                onUnselectAll={onUnselectAll}
-              /> : null
-          }
-          title={count ?
-            <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
-              { resultType === 'factCheck' && feed ?
-                <ListSort
-                  sort={stateQuery.sort}
-                  sortType={stateQuery.sort_type}
-                  onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
-                /> : null
-              }
-              <span className={styles['search-pagination']}>
-                <Tooltip title={
-                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+        { tooManyResults ?
+          <Alert
+            contained
+            title={
+              <FormattedMessage
+                id="searchResults.tooManyResults"
+                defaultMessage="Browsing this list is limited to the first {max, number} results. Use the filters above to refine this list."
+                description="An alert message that informs the user that their query is too large and need to narrow their filters if they want to continue search for items."
+                values={{
+                  max: 10000,
+                }}
+              />}
+            variant="info"
+          /> : null
+        }
+        { count > 0 ?
+          <Toolbar
+            resultType={resultType}
+            team={team}
+            title={count ?
+              <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
+                { resultType === 'factCheck' && feed ?
+                  <div className={styles['search-results-sorting']}>
+                    <ListSort
+                      sort={stateQuery.sort}
+                      sortType={stateQuery.sort_type}
+                      options={[
+                        { value: 'title', label: intl.formatMessage(messages.sortTitle) },
+                        { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
+                        { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
+                      ]}
+                      onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
+                    />
+                  </div> : null
                 }
-                >
-                  {getPreviousPageLocation() ? (
-                    <Link
-                      className={cx('search__previous-page', styles['search-nav'])}
-                      to={getPreviousPageLocation()}
-                    >
-                      <PrevIcon />
-                    </Link>
-                  ) : (
-                    <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
-                      <PrevIcon />
-                    </span>
-                  )}
-                </Tooltip>
-                <span className="typography-button">
-                  <FormattedMessage
-                    id="searchResults.itemsCount"
-                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                    description="Pagination count of items returned"
-                    values={{
-                      from: getBeginIndex() + 1,
-                      to: getEndIndex(),
-                      count,
-                    }}
-                  />
-                  {filteredSelectedProjectMediaIds.length ?
-                    <FormattedMessage
-                      id="searchResults.withSelection"
-                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                      description="Label for number of selected items"
-                      values={{
-                        selectedCount: filteredSelectedProjectMediaIds.length,
-                      }}
-                    >
-                      {txt => <span className={styles['search-selected']}>{txt}</span>}
-                    </FormattedMessage>
-                    : null
+                <span className={styles['search-pagination']}>
+                  <Tooltip title={
+                    <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
                   }
+                  >
+                    {getPreviousPageLocation() ? (
+                      <Link
+                        className={cx('search__previous-page', styles['search-nav'])}
+                        to={getPreviousPageLocation()}
+                      >
+                        <PrevIcon />
+                      </Link>
+                    ) : (
+                      <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
+                        <PrevIcon />
+                      </span>
+                    )}
+                  </Tooltip>
+                  <span className="typography-button">
+                    <FormattedMessage
+                      id="searchResults.itemsCount"
+                      defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                      description="Pagination count of items returned"
+                      values={{
+                        from: getBeginIndex() + 1,
+                        to: getEndIndex(),
+                        count,
+                      }}
+                    />
+                    {filteredSelectedProjectMediaIds.length ?
+                      <FormattedMessage
+                        id="searchResults.withSelection"
+                        defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                        description="Label for number of selected items"
+                        values={{
+                          selectedCount: filteredSelectedProjectMediaIds.length,
+                        }}
+                      >
+                        {txt => <span className={styles['search-selected']}>{txt}</span>}
+                      </FormattedMessage>
+                      : null
+                    }
+                  </span>
+                  <Tooltip title={
+                    <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+                  }
+                  >
+                    {getNextPageLocation() ? (
+                      <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
+                        <NextIcon />
+                      </span>
+                    ) : (
+                      <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
+                        <NextIcon />
+                      </span>
+                    )}
+                  </Tooltip>
                 </span>
-                <Tooltip title={
-                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+                { projectMedias.length && selectedProjectMedia.length ?
+                  <BulkActionsMenu
+                  /*
+                  FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
+                  below to contain the PM objects as the tagging mutation currently requires dbids and
+                  also for other requirements such as warning about published reports before bulk changing statuses
+                  additional data is needed.
+                  I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
+                  */
+                    team={team}
+                    page={page}
+                    selectedProjectMedia={selectedProjectMedia}
+                    selectedMedia={filteredSelectedProjectMediaIds}
+                    onUnselectAll={onUnselectAll}
+                  /> : null
                 }
-                >
-                  {getNextPageLocation() ? (
-                    <Link className={cx('search__next-page', styles['search-nav'])} to={getNextPageLocation()}>
-                      <NextIcon />
-                    </Link>
-                  ) : (
-                    <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
-                      <NextIcon />
-                    </span>
-                  )}
-                </Tooltip>
-              </span>
-            </span> : null
-          }
-          page={page}
-          search={search}
-        />
+              </span> : null
+            }
+            page={page}
+            search={search}
+          /> : null
+        }
         {content}
       </div>
     </React.Fragment>
@@ -604,7 +663,7 @@ SearchResultsComponent.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchResultsComponent as SearchResultsComponentTest };
 
-const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
+const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(SearchResultsComponent)), {
   initialVariables: {
     pageSize,
   },
@@ -618,6 +677,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
           ${SearchFields.getFragment('team')}
           id
           slug
+          name
           search_id,
           permissions,
           search { id, number_of_results },
@@ -658,15 +718,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
                 type
                 url
                 domain
-              }
-              cluster {
-                dbid
-                size
-                team_names
-                fact_checked_by_team_names
-                requests_count
-                first_item_at
-                last_item_at
               }
               team {
                 slug

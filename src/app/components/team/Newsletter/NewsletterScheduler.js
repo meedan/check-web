@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import { getTimeZoneOptions } from '../../../helpers';
 import Alert from '../../cds/alerts-and-prompts/Alert';
@@ -68,8 +68,8 @@ const NewsletterScheduler = ({
             }
             arrow
           >
-            <span>
-              <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            <span className={settingsStyles['tooltip-icon']}>
+              <InfoOutlinedIcon />
             </span>
           </Tooltip> :
           null
@@ -90,8 +90,8 @@ const NewsletterScheduler = ({
             }
             arrow
           >
-            <span>
-              <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            <span className={settingsStyles['tooltip-icon']}>
+              <InfoOutlinedIcon />
             </span>
           </Tooltip> :
           null
@@ -100,7 +100,7 @@ const NewsletterScheduler = ({
 
       { lastDeliveryError === 'CONTENT_HASNT_CHANGED' ?
         <Alert
-          floating
+          contained
           variant="error"
           title={
             <FormattedMessage
@@ -114,7 +114,7 @@ const NewsletterScheduler = ({
 
       { lastDeliveryError === 'RSS_ERROR' ?
         <Alert
-          floating
+          contained
           variant="error"
           title={
             <FormattedMessage
@@ -189,28 +189,28 @@ const NewsletterScheduler = ({
 
       <div className={styles['newsletter-schedule-actions']}>
         { scheduled ?
-          <Button
+          <ButtonMain
             variant="contained"
-            color="primary"
-            className={styles['newsletter-pause-button']}
+            theme="alert"
+            size="default"
             onClick={() => { onUpdate('scheduled', false); }}
-            startIcon={<PauseIcon />}
+            iconLeft={<PauseIcon />}
             disabled={disabled}
-            disableElevation
-          >
-            <FormattedMessage id="newsletterScheduler.pause" defaultMessage="Pause" description="Label for a button to pause a newsletter" />
-          </Button> :
-          <Button
+            label={
+              <FormattedMessage id="newsletterScheduler.pause" defaultMessage="Pause" description="Label for a button to pause a newsletter" />
+            }
+          /> :
+          <ButtonMain
             variant="contained"
-            color="primary"
-            className={styles['newsletter-schedule-button']}
+            theme="validation"
+            size="default"
             onClick={() => { onUpdate('scheduled', true); }}
-            startIcon={<PlayArrowIcon />}
+            iconLeft={<PlayArrowIcon />}
             disabled={disabled}
-            disableElevation
-          >
-            <FormattedMessage id="newsletterScheduler.schedule" defaultMessage="Schedule" description="Label for a button to schedule a newsletter" />
-          </Button>
+            label={
+              <FormattedMessage id="newsletterScheduler.schedule" defaultMessage="Schedule" description="Label for a button to schedule a newsletter" />
+            }
+          />
         }
         { subscribersCount !== null &&
           <div className={styles['newsletter-schedule-meta']}>

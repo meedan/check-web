@@ -56,9 +56,9 @@ describe('<TranslateStatuses/>', () => {
     expect(wrapper.html()).toMatch('False');
     expect(wrapper.html()).toMatch('True');
     expect(wrapper.html()).toMatch('In Progress');
-    expect(wrapper.find('#translate-statuses__input-1').at(0).prop('defaultValue')).toEqual('falso');
+    expect(wrapper.find('#translate-statuses__input-1').at(1).prop('defaultValue')).toEqual('falso');
     expect(wrapper.find('#translate-statuses__input-2').at(1).prop('defaultValue')).toEqual('verdadeiro');
-    expect(wrapper.find('#translate-statuses__input-3').at(2).prop('defaultValue')).toEqual('em progresso');
+    expect(wrapper.find('#translate-statuses__input-3').at(1).prop('defaultValue')).toEqual('em progresso');
     expect(wrapper.find('.test__status-message').hostNodes()).toHaveLength(0);
     expect(wrapper.find('.translate-statuses__message').hostNodes()).toHaveLength(0);
   });

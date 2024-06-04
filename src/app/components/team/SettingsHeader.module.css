@@ -34,15 +34,19 @@
       }
     }
 
+    .extra-wrapper {
+      gap: 8px;
+    }
+
     .buttons-wrapper {
       gap: 8px;
-      justify-content: end;
+      justify-content: flex-end;
     }
   }
 
   .settings-header-context {
     @mixin typography-body2;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     width: 100%;
   }
 }

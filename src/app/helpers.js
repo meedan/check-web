@@ -1,12 +1,11 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
 import { getTimeZones } from '@vvo/tzdb';
-import styled from 'styled-components';
+import ButtonMain from './components/cds/buttons-checkboxes-chips/ButtonMain';
 import CheckError from './CheckError';
-import { units } from './styles/js/shared';
+import styles from './helpers.module.css';
 
 /**
  * TODO
@@ -178,71 +177,54 @@ function getErrorObjectsForRelayModernProblem(errorOrErrors) {
 
 // Requires an CheckNetworkLayer c. 2019 object with the `code` and `message` properties
 function createFriendlyErrorMessage(error) {
-  const StyledContainer = styled.div`
-    margin: 0 0 0 ${units(2)};
-    max-width: 500px;
-  `;
-  const StyledSummary = styled.summary`
-    cursor: pointer;
-    margin-bottom: 8px;
-    user-select: none;
-  `;
-  const StyledTextarea = styled.textarea`
-    width: 100%;
-  `;
-  const StyledButton = styled.span`
-    & > .MuiButtonBase-root {
-      text-transform: uppercase;
-      color: var(--errorMain);
-      background-color: var(--otherWhite);
-    }
-  `;
   const friendlyMessage = CheckError.getMessageFromCode(error.code);
   return (
-    <StyledContainer id="snack-flex">
+    <div id="snack-flex" className={styles['snackbar-wrapper']}>
       <p>
         <strong>
           {friendlyMessage}
         </strong>
-        {' '}Please report this issue to Meedan to help us fix it.
       </p>
-      <p>
-        <StyledButton>
-          <FormattedMessage
-            id="check.helpers.intercom_help"
-            defaultMessage="Click the 'send' arrow to the right to send the report."
-            description="This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
-          >
-            {help_text => (
-              <Button
-                variant="contained"
-                onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
-              >
-                <FormattedMessage
-                  id="check.helpers.report_issue"
-                  defaultMessage="Report issue"
-                  description="This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
-                />
-              </Button>
-            )}
-          </FormattedMessage>
-        </StyledButton>
-      </p>
-      <p>
-        <details>
-          <StyledSummary>
-            <FormattedMessage
-              id="check.helpers.more_info"
-              defaultMessage="More info…"
-              description="This is a label on a button that users press in order to get more info related to an error message."
-            />
-          </StyledSummary>
-          <StyledTextarea id="error-message" name="error-message" rows="5">
-            {error.message}
-          </StyledTextarea>
-        </details>
-      </p>
-    </StyledContainer>
+      <FormattedMessage
+        tagName="p"
+        id="check.helpers.report_please"
+        defaultMessage="Please report this issue to Meedan to help us fix it."
+        description="Paragraph asking the user to report the issue that happened to Meedan."
+      />
+      <FormattedMessage
+        tagName="p"
+        id="check.helpers.intercom_help"
+        defaultMessage="Click the 'send' arrow to the right to send the report."
+        description="This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
+      >
+        {help_text => (
+          <ButtonMain
+            size="default"
+            theme="lightError"
+            variant="contained"
+            onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
+            label={
+              <FormattedMessage
+                id="check.helpers.report_issue"
+                defaultMessage="Report issue"
+                description="This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+              />
+            }
+          />
+        )}
+      </FormattedMessage>
+      <details className={styles['snackbar-message-details']}>
+        <FormattedMessage
+          tagName="summary"
+          id="check.helpers.more_info"
+          defaultMessage="More info…"
+          description="This is a label on a button that users press in order to get more info related to an error message."
+        />
+        <textarea id="error-message" name="error-message" rows="5">
+          {error.message}
+        </textarea>
+      </details>
+    </div>
   );
 }
 
@@ -400,6 +382,20 @@ function getSuperAdminMask(state) {
   return superAdminMaskSession !== 'false';
 }
 
+/**
+ * Return a number formatted 12.2K, 130M, etc. Mostly to ensure same options across the app
+ */
+function getCompactNumber(locale, number) {
+  return new Intl.NumberFormat(locale, { notation: 'compact', compactDisplay: 'short' }).format(number);
+}
+
+/**
+ * Return a number formatted like 1,234,567 -- locale-appropriate.
+ */
+function getSeparatedNumber(locale, number) {
+  return new Intl.NumberFormat(locale, {}).format(number);
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -425,4 +421,6 @@ export { // eslint-disable-line import/no-unused-modules
   escapeHtml,
   getTimeZoneOptions,
   getSuperAdminMask,
+  getCompactNumber,
+  getSeparatedNumber,
 };

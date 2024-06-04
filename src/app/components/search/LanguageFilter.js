@@ -43,7 +43,7 @@ const LanguageFilter = ({
     if (value && value.language) return 'language';
     if (value && value.report_language) return 'report_language';
     if (value && value.request_language) return 'request_language';
-    return 'language';
+    return 'report_language';
   };
   const defaultLanguages = value && value[getValueType()] ? value[getValueType()] : [];
   const [userLanguages, setUserLanguages] = React.useState(defaultLanguages);
@@ -98,7 +98,7 @@ const LanguageFilter = ({
                   theme="text"
                   size="small"
                   variant="text"
-                  customStyle={{ color: 'var(--textPrimary' }}
+                  customStyle={{ color: 'var(--color-gray-15' }}
                   label={<FormattedMessage id="languageFilter.is" defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" />}
                 />
                 <MultiSelectFilter

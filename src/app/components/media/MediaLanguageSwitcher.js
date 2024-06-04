@@ -70,7 +70,7 @@ const MediaLanguageSwitcher = ({ projectMedia, setFlashMessage }) => {
       label={<FormattedMessage id="mediaLanguageSwitcher.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language" />}
       selectedLanguage={projectMedia.language_code}
       onSubmit={handleUpdate}
-      languages={safelyParseJSON(projectMedia.team?.get_languages)}
+      languages={projectMedia.team ? safelyParseJSON(projectMedia.team.get_languages) : [projectMedia.language_code || 'und']}
       isDisabled={saving}
     />
   );

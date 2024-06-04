@@ -76,6 +76,35 @@ const messages = defineMessages({
   },
 });
 
+// Due to the need for ISO datetime string in the Datepicker textfield component
+// need to take the ISO value and break into substring and calculate UTC from that.
+// start times are always made at 00:00:00 in their timezone
+// end times are always made at 23:59:59
+
+// exported for testing
+// eslint-disable-next-line import/no-unused-modules
+export const getUTCOffset = (isoDateTimeString, isStart) => {
+  let [hours, minutes] = isoDateTimeString.split('T')[1].split('.')[0].split(':').map(Number);
+
+  if (!isStart) { // removed 59 minutes when added for end time
+    minutes -= 59;
+  }
+
+  let tzSign;
+  if (hours > 12) { // these are positive UTC value zones
+    tzSign = '+';
+    hours = 24 - hours;
+    hours -= isStart ? 0 : 1; // used for rounding up 59 minutes to 1 hr
+    hours -= isStart && minutes !== 0 ? 1 : 0; // special case for non-00 timezones
+  } else {
+    tzSign = '-';
+    hours += isStart ? 0 : 1;
+    hours += isStart && minutes !== 0 ? 1 : 0;
+  }
+  const tzOffsetMinutes = String(Math.abs(minutes)).padStart(2, '0');
+  return `UTC${tzSign}${hours}:${tzOffsetMinutes}`;
+};
+
 function parseStartDateAsISOString(moment) {
   const date = moment.toDate();
   return new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
@@ -120,7 +149,7 @@ function DateRangeSelectorStartEnd(props) {
                 !valueText ?
                   <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
                   :
-                  valueText
+                  `${valueText} ${getUTCOffset(getStartDateStringOrNull(), true)}`
               }
               onClick={onClick}
               iconRight={!valueText && <KeyboardArrowDownIcon />}
@@ -162,7 +191,7 @@ function DateRangeSelectorStartEnd(props) {
               theme="text"
               size="small"
               variant="text"
-              customStyle={{ color: 'var(--textPrimary' }}
+              customStyle={{ color: 'var(--color-gray-15' }}
               label={<FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />}
             />
             <ButtonMain
@@ -180,7 +209,7 @@ function DateRangeSelectorStartEnd(props) {
                 !valueText ?
                   <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
                   :
-                  valueText
+                  `${valueText} ${getUTCOffset(getEndDateStringOrNull(), false)}`
               }
               onClick={onClick}
               {...params}

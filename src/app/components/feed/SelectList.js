@@ -10,7 +10,7 @@ import styles from './SelectList.module.css';
 
 const SelectListQueryRenderer = ({
   required,
-  helperText,
+  label,
   onChange,
   onRemove,
   value,
@@ -61,7 +61,7 @@ const SelectListQueryRenderer = ({
                   description="Helper link in a warning displayed on edit feed page when the workspace has no lists."
                 />
               }
-              onButtonClick={() => { window.open('https://help.checkmedia.org/en/articles/5229474-filtered-lists#h_0ab5b97e97'); }}
+              onButtonClick={() => { window.open('https://help.checkmedia.org/en/articles/8720927-custom-lists'); }}
             />
           );
         }
@@ -87,7 +87,7 @@ const SelectListQueryRenderer = ({
                   value={value}
                   onChange={onChange}
                   onRemove={onRemove}
-                  helpContent={helperText}
+                  label={label}
                 >
                   <option value={null}>{selectLabel}</option>
                   { props.team.saved_searches.edges.map(l => (
@@ -106,14 +106,16 @@ const SelectListQueryRenderer = ({
 );
 
 SelectListQueryRenderer.defaultProps = {
-  helperText: null,
+  required: true,
+  label: null,
   onChange: null,
   onRemove: null,
   value: null,
 };
 
 SelectListQueryRenderer.propTypes = {
-  helperText: PropTypes.node,
+  required: PropTypes.bool,
+  label: PropTypes.node,
   onChange: PropTypes.func,
   onRemove: PropTypes.func,
   value: PropTypes.oneOfType([

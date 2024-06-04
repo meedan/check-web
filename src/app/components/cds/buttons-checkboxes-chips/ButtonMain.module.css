@@ -91,17 +91,18 @@
   &.theme-validation,
   &.theme-lightValidation,
   &.theme-alert,
-  &.theme-lightAlert {
+  &.theme-lightAlert,
+  &.theme-white, {
     &:disabled {
-      color: var(--textDisabled);
+      color: var(--color-gray-59);
       cursor: not-allowed;
       pointer-events: none;
     }
 
     &.contained {
       &:disabled {
-        background-color: var(--grayDisabledBackground);
-        border: solid 2px var(--grayDisabledBackground);
+        background-color: var(--color-gray-88);
+        border: solid 2px var(--color-gray-88);
       }
     }
 
@@ -109,7 +110,7 @@
       background-color: transparent;
 
       &:disabled {
-        border: solid 2px var(--grayBorderMain);
+        border: solid 2px var(--color-gray-88);
       }
     }
 
@@ -125,167 +126,195 @@
 
   &.theme-brand:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--brandMain), var(--brandSecondary), var(--otherWhite), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-blue-54), var(--color-blue-38), var(--color-white-100), var(--color-white-100);
 
       &:active {
-        background-color: var(--brandAccent);
-        border-color: var(--brandAccent);
+        background-color: var(--color-blue-32);
+        border-color: var(--color-blue-32);
       }
 
       &:focus {
-        background-color: var(--textLink);
-        border-color: var(--textLink);
+        background-color: var(--color-blue-32);
+        border-color: var(--color-blue-32);
       }
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--brandMain), var(--brandSecondary), var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+      @mixin main-button-outlined-theme var(--color-blue-54), var(--color-blue-38), var(--color-blue-54), var(--color-blue-38), var(--color-blue-98);
 
       &:active {
-        border-color: var(--brandAccent);
+        border-color: var(--color-blue-32);
       }
 
       &:focus {
-        border-color: var(--textLink);
+        border-color: var(--color-blue-32);
       }
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+      @mixin main-button-text-theme var(--color-blue-54), var(--color-blue-38), var(--color-blue-98);
 
       &:active {
-        color: var(--brandAccent);
+        color: var(--color-blue-32);
       }
 
       &:focus {
-        color: var(--textLink);
+        color: var(--color-blue-32);
       }
     }
   }
 
   &.theme-lightBrand:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--brandLight), var(--brandMain), var(--brandSecondary), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-blue-98), var(--color-blue-54), var(--color-blue-38), var(--color-white-100);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--brandLight), var(--brandMaine), var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+      @mixin main-button-outlined-theme var(--color-blue-98), var(--color-blue-54e), var(--color-blue-54), var(--color-blue-38), var(--color-blue-98);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary, var(--brandHoverAccent));
+      @mixin main-button-text-theme var(--color-blue-54), var(--color-blue-38, var(--color-blue-98));
     }
   }
 
   &.theme-text:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--grayBackground), var(--grayBorderMain), var(--textPrimary), var(--textSecondary);
+      @mixin main-button-contained-theme var(--color-gray-96), var(--color-gray-88), var(--color-gray-15), var(--color-gray-37);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--grayBorderMain), var(--grayBorderAccent), var(--textPrimary), var(--textSecondary), var(--grayDisabledBackground);
+      @mixin main-button-outlined-theme var(--color-gray-88), var(--color-gray-75), var(--color-gray-15), var(--color-gray-37), var(--color-gray-88);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--textPrimary), var(--textSecondary), var(--grayDisabledBackground);
+      @mixin main-button-text-theme var(--color-gray-15), var(--color-gray-37), var(--color-gray-88);
     }
   }
 
   &.theme-lightText:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--grayBackground), var(--grayBorderMain), var(--textSecondary), var(--textSecondary);
+      @mixin main-button-contained-theme var(--color-gray-96), var(--color-gray-88), var(--color-gray-37), var(--color-gray-37);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--grayBorderMain), var(--grayBorderAccent), var(--textSecondary), var(--textSecondary), var(--grayDisabledBackground);
+      @mixin main-button-outlined-theme var(--color-gray-88), var(--color-gray-75), var(--color-gray-37), var(--color-gray-37), var(--color-gray-88);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--textSecondary), var(--textPrimary), var(--grayDisabledBackground);
+      @mixin main-button-text-theme var(--color-gray-37), var(--color-gray-15), var(--color-gray-88);
     }
   }
 
   &.theme-error:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--errorMain), var(--errorSecondary), var(--otherWhite), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-pink-53), var(--color-pink-40), var(--color-white-100), var(--color-white-100);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--errorMain), var(--errorSecondary), var(--errorMain), var(--errorSecondary), var(--errorLight);
+      @mixin main-button-outlined-theme var(--color-pink-53), var(--color-pink-40), var(--color-pink-53), var(--color-pink-40), var(--color-pink-96);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary), var(--errorLight);
+      @mixin main-button-text-theme var(--color-pink-53), var(--color-pink-40), var(--color-pink-96);
     }
   }
 
   &.theme-lightError:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--errorLight), var(--errorMain), var(--errorSecondary), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-pink-96), var(--color-pink-53), var(--color-pink-40), var(--color-white-100);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--errorLight), var(--errorMain), var(--errorMain), var(--errorSecondary), var(--errorLight);
+      @mixin main-button-outlined-theme var(--color-pink-96), var(--color-pink-53), var(--color-pink-53), var(--color-pink-40), var(--color-pink-96);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary), var(--errorLight);
+      @mixin main-button-text-theme var(--color-pink-53), var(--color-pink-40), var(--color-pink-96);
     }
   }
 
   &.theme-validation:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--validationMain), var(--validationSecondary), var(--otherWhite), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-green-35), var(--color-green-23), var(--color-white-100), var(--color-white-100);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--validationMain), var(--validationSecondary), var(--validationMain), var(--validationSecondary), var(--validationLight);
+      @mixin main-button-outlined-theme var(--color-green-35), var(--color-green-23), var(--color-green-35), var(--color-green-23), var(--color-green-97);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--validationMain), var(--validationSecondary), var(--validationLight);
+      @mixin main-button-text-theme var(--color-green-35), var(--color-green-23), var(--color-green-97);
     }
   }
 
   &.theme-lightValidation:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--validationLight), var(--validationMain), var(--validationSecondary), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-green-97), var(--color-green-35), var(--color-green-23), var(--color-white-100);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--validationLight), var(--validationMain), var(--validationMain), var(--validationSecondary), var(--validationLight);
+      @mixin main-button-outlined-theme var(--color-green-97), var(--color-green-35), var(--color-green-35), var(--color-green-23), var(--color-green-97);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--validationMain), var(--validationSecondary), var(--validationLight);
+      @mixin main-button-text-theme var(--color-green-35), var(--color-green-23), var(--color-green-97);
     }
   }
 
   &.theme-alert:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--alertMain), var(--alertSecondary), var(--otherWhite), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-orange-54), var(--color-orange-31), var(--color-white-100), var(--color-white-100);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--alertMain), var(--alertSecondary), var(--alertMain), var(--alertSecondary), var(--alertLight);
+      @mixin main-button-outlined-theme var(--color-orange-54), var(--color-orange-31), var(--color-orange-54), var(--color-orange-31), var(--color-orange-95);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
+      @mixin main-button-text-theme var(--color-orange-54), var(--color-orange-31), var(--color-orange-95);
     }
   }
 
   &.theme-lightAlert:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--alertLight), var(--alertMain), var(--alertSecondary), var(--otherWhite);
+      @mixin main-button-contained-theme var(--color-orange-95), var(--color-orange-54), var(--color-orange-31), var(--color-white-100);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--alertLight), var(--alertMain), var(--alertMain), var(--alertSecondary), var(--alertLight);
+      @mixin main-button-outlined-theme var(--color-orange-95), var(--color-orange-54), var(--color-orange-54), var(--color-orange-31), var(--color-orange-95);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
+      @mixin main-button-text-theme var(--color-orange-54), var(--color-orange-31), var(--color-orange-95);
+    }
+  }
+
+  &.theme-black:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--color-gray-15), var(--color-gray-59), var(--color-white-100), var(--color-white-100);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--color-gray-15), var(--color-gray-37), var(--color-gray-15), var(--color-gray-37), transparent;
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--color-gray-15), var(--color-gray-37), var(--color-gray-88);
+    }
+  }
+
+  &.theme-white:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--color-white-100), var(--color-gray-88), var(--color-gray-15), var(--color-gray-37);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--color-white-100), var(--color-gray-88), var(--color-white-100), var(--color-gray-88), transparent;
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--color-white-100), var(--color-gray-37), var(--color-gray-88);
     }
   }
 }

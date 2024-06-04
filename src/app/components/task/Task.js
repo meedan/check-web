@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import Button from '@material-ui/core/Button';
-import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
-import styled from 'styled-components';
+import { MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
 import moment from 'moment';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import MetadataText from '../metadata/MetadataText';
 import Can, { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -19,49 +19,8 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
-import { units } from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './Task.module.css';
-
-const StyledWordBreakDiv = styled.div`
-  .task {
-    box-shadow: none;
-    border: 0;
-    border-bottom: 1px solid var(--grayBorderMain);
-    border-radius: 0;
-    margin-bottom: 0 !important;
-
-    .task__card-header {
-      padding: ${units(3)} 0;
-      flex-direction: row-reverse;
-      display: flex;
-      align-items: flex-start;
-
-      .task__card-expand {
-        margin: ${units(0)} ${units(1)} 0 0;
-      }
-
-      .task__card-description {
-        padding: ${units(2)} 0 0 0;
-      }
-    }
-  }
-
-  .task__resolved {
-    border-bottom: 1px solid var(--grayBorderMain);
-    padding-bottom: ${units(1)};
-    margin-bottom: ${units(1)};
-  }
-`;
-
-const StyledMultiselect = styled.div`
-  .Mui-checked + .MuiFormControlLabel-label.Mui-disabled {
-    color: var(--textPrimary);
-  }
-  .Mui-checked {
-    color: var(--brandMain) !important;
-  }
-`;
 
 function getResponseData(response) {
   const data = {};
@@ -72,7 +31,7 @@ function getResponseData(response) {
     if (response.attribution) {
       response.attribution.edges.forEach((user) => {
         const u = user.node;
-        data.by.push(<ProfileLink teamUser={u.team_user || null} />);
+        data.by.push(<ProfileLink user={u || null} />);
         data.byPictures.push(u);
       });
     }
@@ -206,7 +165,7 @@ class Task extends Component {
     const matchingTaskIndex = this.props.localResponses.findIndex(item => item.node.dbid === task.dbid);
     // deep copy the local responses object
     const mutatedLocalResponses = JSON.parse(JSON.stringify(this.props.localResponses));
-    if (task.type === 'single_choice') {
+    if (task.type === 'single_choice' && mutatedLocalResponses[matchingTaskIndex]?.node) {
       mutatedLocalResponses[matchingTaskIndex].node.first_response_value = textValue;
     } else {
       // value is an object, we transform it to a string separated by ', '
@@ -400,31 +359,42 @@ class Task extends Component {
 
     const EditButton = () => (
       <div className={styles['task-metadata-button']}>
-        <Button onClick={() => this.handleAction('edit_response', responseObj)} className="metadata-edit">
-          <FormattedMessage
-            id="metadata.edit"
-            defaultMessage="Edit"
-            description="This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
-          />
-        </Button>
+        <ButtonMain
+          onClick={() => this.handleAction('edit_response', responseObj)}
+          size="default"
+          variant="contained"
+          theme="brand"
+          className="metadata-edit"
+          label={
+            <FormattedMessage
+              id="global.edit"
+              defaultMessage="Edit"
+              description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
+            />
+          }
+        />
       </div>
     );
 
     const CancelButton = () => (
       <div className={styles['task-metadata-button']}>
-        <Button
+        <ButtonMain
           className="metadata-cancel"
+          size="default"
+          variant="text"
+          theme="lightText"
           onClick={() => {
             this.setState({ editingResponse: false });
             this.setState({ textValue: this.getMultiselectInitialValue(task) || task.first_response_value || '' });
           }}
-        >
-          <FormattedMessage
-            id="metadata.cancel"
-            defaultMessage="Cancel"
-            description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
-          />
-        </Button>
+          label={
+            <FormattedMessage
+              id="global.cancel"
+              defaultMessage="Cancel"
+              description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+            />
+          }
+        />
       </div>
     );
 
@@ -443,11 +413,16 @@ class Task extends Component {
         null;
       return (
         <div className={styles['task-metadata-button']}>
-          <Button
+          <ButtonMain
             className="metadata-save"
-            data-required={required}
-            data-empty={empty}
-            data-urlerror={anyInvalidUrls}
+            size="default"
+            variant="contained"
+            theme="brand"
+            buttonProps={{
+              'data-required': required,
+              'data-empty': empty,
+              'data-urlerror': anyInvalidUrls,
+            }}
             onClick={() => {
               let tempTextValue;
               const isEmptyUrlArray = () => task.type === 'url' && Array.isArray(this.state.textValue) && this.state.textValue?.filter(item => item.url !== '' || item.title !== '').length === 0;
@@ -485,13 +460,14 @@ class Task extends Component {
               }
             }}
             disabled={disabled}
-          >
-            <FormattedMessage
-              id="metadata.save"
-              defaultMessage="Save"
-              description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
-            />
-          </Button>
+            label={
+              <FormattedMessage
+                id="global.save"
+                defaultMessage="Save"
+                description="Generic label for a button or link for a user to press when they wish to save an action or setting"
+              />
+            }
+          />
         </div>
       );
     };
@@ -500,21 +476,25 @@ class Task extends Component {
       const { onClick } = props;
       return (
         <div className={styles['task-metadata-button']}>
-          <Button
+          <ButtonMain
             className="metadata-delete"
+            size="default"
+            variant="contained"
+            theme="error"
             onClick={() => {
               if (onClick) {
                 onClick();
               }
               this.submitDeleteTaskResponse(task.first_response.id);
             }}
-          >
-            <FormattedMessage
-              id="metadata.delete"
-              defaultMessage="Delete"
-              description="This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
-            />
-          </Button>
+            label={
+              <FormattedMessage
+                id="global.delete"
+                defaultMessage="Delete"
+                description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
+              />
+            }
+          />
         </div>
       );
     };
@@ -531,14 +511,13 @@ class Task extends Component {
     );
 
     const ProgressLabel = ({ fileName }) => (
-      <p>
-        <FormattedMessage
-          id="metadata.uploadProgressLabel"
-          defaultMessage="Saving {file}…"
-          description="This is a label that appears while a file upload is ongoing."
-          values={{ file: fileName }}
-        />
-      </p>
+      <FormattedMessage
+        tagName="p"
+        id="metadata.uploadProgressLabel"
+        defaultMessage="Saving {file}…"
+        description="This is a label that appears while a file upload is ongoing."
+        values={{ file: fileName }}
+      />
     );
 
     const AnnotatorInformation = () => {
@@ -565,7 +544,7 @@ class Task extends Component {
     };
 
     return (
-      <StyledWordBreakDiv key={responseObj?.dbid} className="task__resolved">
+      <div key={responseObj?.dbid} className="task__resolved">
         {task.type === 'free_text' ? (
           <div className="task__response">
             <MetadataText
@@ -667,51 +646,47 @@ class Task extends Component {
         ) : null}
         {task.type === 'single_choice' ? (
           <div className="task__response">
-            <StyledMultiselect>
-              <MetadataMultiselect
-                isSingle
-                node={task}
-                classes={{}}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
-                AnnotatorInformation={AnnotatorInformation}
-                FieldInformation={FieldInformation}
-                hasData={task.first_response_value}
-                isEditing={this.props.isEditing}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
-                metadataValue={
-                  this.state.textValue
-                }
-                setMetadataValue={this.handleUpdateMultiselectMetadata}
-              />
-            </StyledMultiselect>
+            <MetadataMultiselect
+              isSingle
+              node={task}
+              classes={{}}
+              DeleteButton={DeleteButton}
+              CancelButton={CancelButton}
+              SaveButton={SaveButton}
+              EditButton={EditButton}
+              AnnotatorInformation={AnnotatorInformation}
+              FieldInformation={FieldInformation}
+              hasData={task.first_response_value}
+              isEditing={this.props.isEditing}
+              disabled={!this.props.isEditing}
+              required={task.team_task.required}
+              metadataValue={
+                this.state.textValue
+              }
+              setMetadataValue={this.handleUpdateMultiselectMetadata}
+            />
           </div>
         ) : null}
         {task.type === 'multiple_choice' ? (
           <div className="task__response">
-            <StyledMultiselect>
-              <MetadataMultiselect
-                node={task}
-                classes={{}}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
-                AnnotatorInformation={AnnotatorInformation}
-                FieldInformation={FieldInformation}
-                hasData={task.first_response_value}
-                isEditing={this.props.isEditing}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
-                metadataValue={
-                  this.state.textValue
-                }
-                setMetadataValue={this.handleUpdateMultiselectMetadata}
-              />
-            </StyledMultiselect>
+            <MetadataMultiselect
+              node={task}
+              classes={{}}
+              DeleteButton={DeleteButton}
+              CancelButton={CancelButton}
+              SaveButton={SaveButton}
+              EditButton={EditButton}
+              AnnotatorInformation={AnnotatorInformation}
+              FieldInformation={FieldInformation}
+              hasData={task.first_response_value}
+              isEditing={this.props.isEditing}
+              disabled={!this.props.isEditing}
+              required={task.team_task.required}
+              metadataValue={
+                this.state.textValue
+              }
+              setMetadataValue={this.handleUpdateMultiselectMetadata}
+            />
           </div>
         ) : null}
         {task.type === 'file_upload' ? (
@@ -784,7 +759,7 @@ class Task extends Component {
             }}
           />
         ) : null}
-      </StyledWordBreakDiv>
+      </div>
     );
   }
 
@@ -809,7 +784,7 @@ class Task extends Component {
     const assignmentComponents = [];
     assignments.forEach((assignment) => {
       assignmentComponents.push(
-        <ProfileLink teamUser={assignment.node.team_user || null} />,
+        <ProfileLink user={assignment.node || null} />,
       );
       if (currentUser && assignment.node.dbid === currentUser.dbid) {
         taskAssigned = true;
@@ -913,9 +888,7 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
                     id
                     dbid
                     name
-                    team_user(team_slug: $teamSlug) {
-                      ${ProfileLink.getFragment('teamUser')},
-                    },
+                    is_active
                     source {
                       id
                       dbid
@@ -932,9 +905,6 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
                   dbid,
                   name,
                   is_active
-                  team_user(team_slug: $teamSlug) {
-                    ${ProfileLink.getFragment('teamUser')},
-                  },
                   source {
                     id,
                     dbid,
@@ -951,9 +921,7 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
               name
               id
               dbid
-              team_user(team_slug: $teamSlug) {
-                ${ProfileLink.getFragment('teamUser')},
-              },
+              is_active
               source {
                 id
                 dbid
@@ -975,9 +943,7 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
                 id
                 dbid
                 name
-                team_user(team_slug: $teamSlug) {
-                  ${ProfileLink.getFragment('teamUser')},
-                },
+                is_active
                 source {
                   id
                   dbid
@@ -994,9 +960,6 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
               dbid,
               name,
               is_active
-              team_user(team_slug: $teamSlug) {
-                ${ProfileLink.getFragment('teamUser')},
-              },
               source {
                 id,
                 dbid,

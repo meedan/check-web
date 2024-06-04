@@ -1,0 +1,22 @@
+.feedLastClusterizedAtContainer {
+  color: var(--color-orange-31);
+  cursor: default;
+  display: flex;
+  gap: 3px;
+  text-transform: capitalize;
+}
+
+.feedLastClusterizedAtDashedBorder {
+  border-bottom: 1px dashed var(--color-orange-31);
+}
+
+.feedLastClusterizedAtIconWrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  svg {
+    height: 15px;
+    width: 15px;
+  }
+}

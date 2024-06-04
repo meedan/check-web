@@ -60,6 +60,16 @@
     "defaultMessage": "Conversations are 24-hour message threads between you and your users. They are opened when messages sent by Check to users are delivered."
   },
   {
+    "id": "teamDataComponent.whatsappConversationsUser",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Conversations are 24-hour message threads between you and your users. Service conversations are initiated when no conversation exists between you and a user and a user messages you, triggering a message from the bot. If a user is blocked, no user conversation is created."
+  },
+  {
+    "id": "teamDataComponent.whatsappConversationsBusiness",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Conversations are 24-hour message threads between you and your users. Business conversations are initiated when no open conversation exists between you and a user, and a message you send is received by that user."
+  },
+  {
     "id": "teamDataComponent.positiveSearches",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
     "defaultMessage": "Number of user searches that returned at least one report."
@@ -68,6 +78,16 @@
     "id": "teamDataComponent.negativeSearches",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
     "defaultMessage": "Number of user searches that did not return a report."
+  },
+  {
+    "id": "teamDataComponent.positiveFeedback",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of conversations that returned at least one result and the user answered \"Yes\"."
+  },
+  {
+    "id": "teamDataComponent.negativeFeedback",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of conversations that returned at least one result and the user answered \"No\"."
   },
   {
     "id": "teamDataComponent.newslettersSent",

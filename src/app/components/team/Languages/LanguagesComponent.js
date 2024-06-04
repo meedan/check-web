@@ -51,8 +51,7 @@ const LanguagesComponent = ({ team }) => {
   const defaultCode = team.get_language || 'en';
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
-  let languages = safelyParseJSON(team.get_languages) || [];
-  languages = languages.sort((a, b) => compareLanguages(defaultCode, a, b));
+  const [languages, setLanguages] = React.useState(safelyParseJSON(team.get_languages).sort((a, b) => compareLanguages(defaultCode, a, b)) || []);
 
   const toggleLanguageDetection = (value) => {
     const onFailure = (errors) => {
@@ -82,14 +81,14 @@ const LanguagesComponent = ({ team }) => {
         }
         context={
           <FormattedHTMLMessage
-            id="teamMembers.helpContext"
+            id="languagesComponent.helpContext"
             defaultMessage='Manage tipline language settings. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about language support</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4498863-languages' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772818-tipline-languages' }}
             description="Context description for the functionality of this page"
           />
         }
         actionButton={
-          <AddLanguageAction team={team} />
+          <AddLanguageAction team={team} setLanguages={setLanguages} />
         }
       />
       <div className={settingsStyles['setting-details-wrapper']}>
@@ -165,6 +164,7 @@ const LanguagesComponent = ({ team }) => {
                 code={l}
                 key={l}
                 team={team}
+                setLanguages={setLanguages}
               />
             ))}
           </ul>

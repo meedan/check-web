@@ -50,6 +50,11 @@
     "defaultMessage": "Link shortening makes URLs more readable and a predictable length. If you’re using an RSS feed, the link service cannot be disabled. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about link shortening</a>."
   },
   {
+    "id": "teamDetails.utmCodePlaceholder",
+    "description": "Placeholder for the optional UTM code text field",
+    "defaultMessage": "Leave blank to disable UTM codes."
+  },
+  {
     "id": "teamDetails.utmCode",
     "description": "Label for 'UTM code' field",
     "defaultMessage": "UTM code (optional)"
@@ -67,6 +72,6 @@
   {
     "id": "teamDetails.warnContent",
     "description": "Text displayed in the content of a warning box on team details page when link shortening is on",
-    "defaultMessage": "<strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
+    "defaultMessage": "<strong>Before:</strong> https://www.example.com/your-link<br /><strong>After:</strong> https://chck.media/x1y2z3w4/{code}"
   }
 ]

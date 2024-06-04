@@ -20,6 +20,11 @@
     "defaultMessage": "Create new tag"
   },
   {
+    "id": "saveTag.namePlaceholder",
+    "description": "Text field placeholder for the input name of tag",
+    "defaultMessage": "New tag name"
+  },
+  {
     "id": "saveTag.name",
     "description": "Text field label for the input name of tag",
     "defaultMessage": "Name"

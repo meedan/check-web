@@ -11,7 +11,7 @@ shared_examples 'media actions' do
     expect(@driver.page_source.include?('Assignments updated successfully')).to be(true)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__history').click
-    wait_for_selector('.annotation__timestamp')
+    wait_for_selector('.test-annotation__timestamp')
     expect(@driver.page_source.include?('Item assigned to')).to be(true)
   end
 

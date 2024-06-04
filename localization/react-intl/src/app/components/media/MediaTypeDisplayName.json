@@ -28,5 +28,35 @@
     "id": "media.typeBlank",
     "description": "Label to show that the type of media is was imported into the application",
     "defaultMessage": "Imported fact-check"
+  },
+  {
+    "id": "media.typeFacebook",
+    "description": "Label to show that the type of media is a Facebook post",
+    "defaultMessage": "Facebook Post"
+  },
+  {
+    "id": "media.typeInstagram",
+    "description": "Label to show that the type of media is an Instagram post",
+    "defaultMessage": "Instagram Post"
+  },
+  {
+    "id": "media.typeTelegram",
+    "description": "Label to show that the type of media is a Telegram message",
+    "defaultMessage": "Telegram"
+  },
+  {
+    "id": "media.typeTiktok",
+    "description": "Label to show that the type of media is a Tiktok video",
+    "defaultMessage": "TikTok Post"
+  },
+  {
+    "id": "media.typeTwitter",
+    "description": "Label to show that the type of media is a Twitter tweet",
+    "defaultMessage": "X (Twitter) Post"
+  },
+  {
+    "id": "media.typeYoutube",
+    "description": "Label to show that the type of media is a Youtube video",
+    "defaultMessage": "Youtube Video"
   }
 ]

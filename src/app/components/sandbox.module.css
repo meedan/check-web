@@ -1,5 +1,4 @@
 .sandbox {
-  background-color: var(--grayBackground);
   height: 100%;
   overflow: auto;
   padding: 16px 32px;
@@ -18,7 +17,7 @@
   }
 
   section {
-    background-color: var(--otherWhite);
+    background-color: var(--color-white-100);
     border-radius: 8px;
     margin: 0 0 16px;
     padding: 16px;
@@ -50,7 +49,7 @@
         width: 100%;
 
         &.componentInlineGreyVariants {
-          background-color: var(--grayBackground);
+          background-color: var(--color-gray-96);
         }
       }
 
@@ -59,7 +58,7 @@
       }
 
       .componentControls {
-        background-color: var(--brandBackground);
+        background-color: var(--color-beige-93);
         border-radius: 5px 5px 0 0;
         padding: 8px;
 
@@ -76,102 +75,16 @@
 
         + .componentInlineVariants,
         + .componentBlockVariants {
-          border: solid 4px var(--brandBackground);
+          border: solid 4px var(--color-beige-93);
           border-radius: 0 0 5px 5px;
           padding: 20px;
         }
       }
 
       .fixed-width-tags {
-        background-color: var(--validationLight);
+        background-color: var(--color-green-97);
         width: 300px;
       }
-    }
-  }
-}
-
-.listItem {
-  border: solid 1px var(--grayBorderMain);
-  border-radius: 8px;
-  display: flex;
-  flex-flow: row wrap;
-  gap: 16px;
-  padding: 16px;
-  position: relative;
-
-  &:hover {
-    border-color: var(--brandMain);
-    outline: solid 1px var(--brandMain);
-  }
-
-  &.listItemUnread {
-    background-color: var(--brandBackground);
-
-    &::before {
-      background-color: var(--textPlaceholder);
-      border-radius: 3px;
-      bottom: 6px;
-      content: '';
-      left: 6px;
-      overflow: hidden;
-      position: absolute;
-      right: auto;
-      top: 6px;
-      width: 5px;
-    }
-  }
-
-  .checkbox {
-    align-items: center;
-    background-color: var(--errorLight);
-    display: flex;
-    flex: 0 0 42px;
-    flex-direction: row;
-    overflow: hidden;
-  }
-
-  .thumbail {
-    background-color: var(--errorLight);
-    border-radius: 5px;
-    flex: 0 0 96px;
-    height: 96px;
-    overflow: hidden;
-  }
-
-  .content {
-    background-color: var(--errorLight);
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-
-    h6 {
-      margin: 0;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    .workspaces {
-      background-color: var(--alertLight);
-      display: flex;
-      flex-flow: row wrap;
-    }
-
-    .mediaAndRequest {
-      background-color: var(--errorLight);
-      display: flex;
-      flex-flow: row wrap;
-      gap: 4px;
-    }
-  }
-
-  .factCheckLastUpdated {
-    background-color: var(--errorLight);
-    flex: 0 0 160px;
-
-    .factCheck {
-      background-color: var(--validationLight);
     }
   }
 }

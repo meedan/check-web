@@ -1,0 +1,27 @@
+[
+  {
+    "id": "global.delete",
+    "description": "Generic label for a button or link for a user to press when they wish to delete content or remove functionality",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "apiKeyDelete.title",
+    "description": "Dialog title for API key deletion",
+    "defaultMessage": "Delete API Key?"
+  },
+  {
+    "id": "apiKeyDelete.body",
+    "description": "Dialog body for API key deletion",
+    "defaultMessage": "This action <strong>CANNOT</strong> be undone. This will permanently delete the API key and if you'd like, you will need to generate a replacement key."
+  },
+  {
+    "id": "apiKeyDelete.checkboxLabel",
+    "description": "Dialog body for API key deletion",
+    "defaultMessage": "Yes, Delete API Key"
+  },
+  {
+    "id": "apiKeyDelete.submitLabel",
+    "description": "Dialog submit button label for API key deletion",
+    "defaultMessage": "Delete API Key"
+  }
+]

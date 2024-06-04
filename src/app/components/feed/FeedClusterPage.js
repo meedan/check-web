@@ -1,37 +1,22 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
 import FeedRequestedMedia from './FeedRequestedMedia';
 import RequestCards from './RequestCards';
 import ErrorBoundary from '../error/ErrorBoundary';
-import { Column } from '../../styles/js/shared';
-
-const StyledTwoColumnLayout = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 100vw;
-
-  .media__column {
-    background-color: var(--brandBackground);
-  }
-
-  .requests__column {
-    border-left: 1px solid var(--grayBorderMain);
-  }
-`;
+import styles from './FeedClusters.module.css';
 
 const FeedClusterPage = ({ request }) => (
   <div id="feed-cluster-page">
-    <StyledTwoColumnLayout>
-      <Column className="media__column" maxWidth="50%">
+    <div className={styles['feed-cluster-page-twocolumns']}>
+      <div className={cx(styles['media-column'], styles['max-width-column'])}>
         <FeedRequestedMedia request={request} />
-      </Column>
-      <Column className="requests__column" maxWidth="50%">
+      </div>
+      <div className={cx(styles['requests-column'], styles['max-width-column'])}>
         <RequestCards requestDbid={request.dbid} />
-      </Column>
-    </StyledTwoColumnLayout>
+      </div>
+    </div>
   </div>
 );
 

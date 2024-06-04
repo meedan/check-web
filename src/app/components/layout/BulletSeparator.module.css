@@ -1,0 +1,34 @@
+.bulletSeparator {
+  @mixin typography-body1;
+  align-items: center;
+  color: var(--color-gray-37);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 0;
+  line-height: 20px;
+  margin: 0 0 2px;
+
+  &.compactBulletSeparator {
+    margin: 0;
+  }
+
+  &.captionTypography {
+    @mixin typography-caption;
+  }
+
+  .detailSpan {
+    align-items: center;
+    display: flex;
+  }
+
+  .bullet {
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    font-size: 8px;
+    margin: 0 8px;
+  }
+
+  .icon {
+    font-size: var(--iconSizeDefault);
+    margin: 0 3px 0 0;
+  }
+}

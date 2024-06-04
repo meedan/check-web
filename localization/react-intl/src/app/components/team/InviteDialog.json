@@ -22,12 +22,12 @@
   {
     "id": "inviteDialog.textInputLabel",
     "description": "Label to input for invited emails. Requires that multiple emails be entered separated by comma.",
-    "defaultMessage": "Email address(es)"
+    "defaultMessage": "Email addresses"
   },
   {
     "id": "inviteDialog.textInputHelp",
     "description": "Help to input for invited emails. Requires that multiple emails be entered separated by comma.",
-    "defaultMessage": "To invite multiple members, separate email address with a comma"
+    "defaultMessage": "To invite multiple members, separate email addresses with a comma"
   },
   {
     "id": "global.cancel",

@@ -8,7 +8,6 @@ import TextField from '../cds/inputs/TextField';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
-import { avatarSizeLarge } from '../../styles/js/shared';
 import CreateTeamDialog from './CreateTeamDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamAvatar from './TeamAvatar';
@@ -134,7 +133,7 @@ const TeamDetails = ({
         <div className={styles['team-details-avatar']}>
           <TeamAvatar
             team={avatar && avatar.preview ? { avatar: avatar.preview } : { avatar: team.avatar }}
-            size={avatarSizeLarge}
+            size="72px"
           />
           { !editProfileImg ?
             <ButtonMain
@@ -174,7 +173,6 @@ const TeamDetails = ({
               id="team-details__name-input"
               defaultValue={team.name}
               disabled={!canEditTeam}
-              fullWidth
               label={
                 <FormattedMessage
                   id="teamDetails.workspaceName"
@@ -182,9 +180,7 @@ const TeamDetails = ({
                   description="Label for workspace name field"
                 />
               }
-              margin="normal"
               onChange={e => setName(e.target.value)}
-              variant="outlined"
               required
             />
           </div>
@@ -208,38 +204,45 @@ const TeamDetails = ({
                     id="teamDetails.linkManagementRss"
                     defaultMessage='Link shortening makes URLs more readable and a predictable length. If you’re using an RSS feed, the link service cannot be disabled. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about link shortening</a>.'
                     description="Helper text for link management switcher when workspace has RSS newsletters configured"
-                    values={{ helpLink: 'https://help.checkmedia.org/en/articles/5540430-tipline-newsletters' }}
+                    values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_99c0776acf' }}
                   />
                 }
                 onChange={setShortenOutgoingUrls}
               />
               { shortenOutgoingUrls ?
                 <>
-                  <TextField
-                    className={inputStyles['form-fieldset-field']}
-                    id="team-details__utm-code"
-                    defaultValue={utmCode}
-                    fullWidth
-                    label={
-                      <FormattedMessage
-                        id="teamDetails.utmCode"
-                        defaultMessage="UTM code (optional)"
-                        description="Label for 'UTM code' field"
+
+                  <FormattedMessage
+                    id="teamDetails.utmCodePlaceholder"
+                    defaultMessage="Leave blank to disable UTM codes."
+                    description="Placeholder for the optional UTM code text field"
+                  >
+                    { placeholder => (
+                      <TextField
+                        className={inputStyles['form-fieldset-field']}
+                        id="team-details__utm-code"
+                        defaultValue={utmCode}
+                        placeholder={placeholder}
+                        label={
+                          <FormattedMessage
+                            id="teamDetails.utmCode"
+                            defaultMessage="UTM code (optional)"
+                            description="Label for 'UTM code' field"
+                          />
+                        }
+                        onChange={e => setUtmCode(e.target.value)}
+                        helpContent={
+                          <FormattedHTMLMessage
+                            id="teamDetails.utmCodeHelp"
+                            defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
+                            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_9bfd0e654f' }}
+                            description="Helper text for UTM code field"
+                          />
+                        }
+                        disabled={hasScheduledNewsletters}
                       />
-                    }
-                    margin="normal"
-                    onChange={e => setUtmCode(e.target.value)}
-                    helpContent={
-                      <FormattedHTMLMessage
-                        id="teamDetails.utmCodeHelp"
-                        defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
-                        values={{ helpLink: 'https://help.checkmedia.org/en/articles/5540430-tipline-newsletters' }}
-                        description="Helper text for UTM code field"
-                      />
-                    }
-                    variant="outlined"
-                    disabled={hasScheduledNewsletters}
-                  />
+                    )}
+                  </FormattedMessage>
                   <Alert
                     className={inputStyles['form-fieldset-field']}
                     variant="warning"
@@ -248,7 +251,7 @@ const TeamDetails = ({
                     content={
                       <FormattedHTMLMessage
                         id="teamDetails.warnContent"
-                        defaultMessage="<strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
+                        defaultMessage="<strong>Before:</strong> https://www.example.com/your-link<br /><strong>After:</strong> https://chck.media/x1y2z3w4/{code}"
                         values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
                         description="Text displayed in the content of a warning box on team details page when link shortening is on"
                       />

@@ -21,6 +21,13 @@ module AppSpecHelpers
     false
   end
 
+  def verbose_wait(minutes = 1)
+    minutes.times do |i|
+      puts "Waiting... (#{i + 1} / #{minutes})"
+      sleep 60
+    end
+  end
+
   def wait_for_selector(selector, type = :css, timeout = 20, reload = false, index: 0)
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
@@ -139,8 +146,8 @@ module AppSpecHelpers
   end
 
   def create_media(url, wait_for_creation = true)
-    # open the side nav if it's closed, use very short retry periods, ignore a raised error if the closed button does not exist (it's fine, not actually an error, just means we don't do the .click)
-    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1, :css, 5, 2, 'unknown', false, true).size == 1
+    # show the side navigation for workspace tipline
+    wait_for_selector('#side-navigation__tipline-toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
@@ -151,16 +158,16 @@ module AppSpecHelpers
   end
 
   def create_image(file)
-    # open the side nav if it's closed, use very short retry periods, ignore a raised error if the closed button does not exist (it's fine, not actually an error, just means we don't do the .click)
-    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1, :css, 5, 2, 'unknown', false, true).size == 1
+    # show the side navigation for workspace tipline
+    wait_for_selector('#side-navigation__tipline-toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
-    wait_for_selector('#create-media-dialog-form .without-file')
+    wait_for_selector('#create-media-dialog-form .int-uploadfile__dropzone-without-file')
     wait_for_selector('#create-media-dialog-form input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))
-    wait_for_selector('#create-media-dialog-form .with-file')
+    wait_for_selector('#create-media-dialog-form .int-uploadfile__dropzone-with-file')
     wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector_none('#create-media-dialog-form .with-file')
+    wait_for_selector_none('#create-media-dialog-form .int-uploadfile__dropzone-with-file')
   end
 
   def team_url(path)
@@ -249,7 +256,7 @@ module AppSpecHelpers
     wait_for_selector('.task__log-icon > svg').click
     wait_for_selector('.add-annotation')
     wait_for_selector('.add-annotation__insert-photo').click
-    wait_for_selector('.without-file')
+    wait_for_selector('.int-uploadfile__dropzone-without-file')
     input = wait_for_selector('input[type=file]')
     input.send_keys(File.join(File.dirname(__FILE__), image_file))
     wait_for_selector('#remove-image')

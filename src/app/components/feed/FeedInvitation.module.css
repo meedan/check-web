@@ -1,9 +1,9 @@
 .feed-invitation-container-card {
   align-items: flex-start;
   align-self: stretch;
-  background-color: var(--otherWhite);
+  background-color: var(--color-white-100);
   border-radius: 8px;
-  color: var(--textPrimary);
+  color: var(--color-gray-15);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -23,14 +23,14 @@
     justify-content: center;
 
     svg {
-      color: var(--alertMain);
+      color: var(--color-orange-54);
       height: 48px;
       width: 48px;
     }
   }
 
   .email {
-    color: var(--textPlaceholder);
+    color: var(--color-gray-75);
   }
 
   .invited {
@@ -66,8 +66,8 @@
 
   .workspace {
     align-items: center;
-    background: var(--otherWhite);
-    border: 1px solid var(--grayBorderMain);
+    background: var(--color-white-100);
+    border: 1px solid var(--color-gray-88);
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -80,8 +80,8 @@
     }
 
     &:hover {
-      border: 1px solid var(--textLink);
-      outline: 1px solid var(--textLink);
+      border: 1px solid var(--color-blue-32);
+      outline: 1px solid var(--color-blue-32);
 
       button {
         visibility: visible;
@@ -90,8 +90,8 @@
 
     .avatar {
       align-items: flex-start;
-      background: var(--otherWhite);
-      border: 2px solid var(--grayBorderMain);
+      background: var(--color-white-100);
+      border: 2px solid var(--color-gray-88);
       border-radius: 6px;
       display: flex;
       gap: 12px;
@@ -103,6 +103,10 @@
       }
     }
   }
+}
+
+.feed-invitation-accepted {
+  visibility: visible !important;
 }
 
 .feed-invitation-container {

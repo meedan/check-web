@@ -2,26 +2,26 @@
   {
     "id": "saveFeed.feedContentTitle",
     "description": "Title of section where a list can be selected as the content of the feed",
-    "defaultMessage": "Feed content"
+    "defaultMessage": "Feed content from this workspace"
   },
   {
-    "id": "saveFeed.feedContentBlurb",
-    "description": "Helper text for the feed content section",
-    "defaultMessage": "Select a filtered list of fact-checks from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+    "id": "saveFeed.feedContentBlurbFactChecksOnly",
+    "description": "Helper text for the feed content section when the feed is sharing only fact-checks.",
+    "defaultMessage": "Select a custom filtered list of <strong>published fact-checks</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
   },
   {
-    "id": "saveFeed.feedContentBlurb2",
-    "description": "Helper text for the feed content section",
-    "defaultMessage": "<strong>Note:</strong> Your list must contain <strong>published fact-checks</strong> in order to be part of this shared feed."
+    "id": "saveFeed.feedContentBlurbMediaOnly",
+    "description": "Helper text for the feed content section when the feed is sharing only media.",
+    "defaultMessage": "Select a custom filtered list of <strong>media, claims & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
   },
   {
-    "id": "saveFeed.selectHelper",
-    "description": "Helper text for shared feed list selector",
-    "defaultMessage": "Fact-check title, summary, and URL will be shared with the feed."
+    "id": "saveFeed.feedContentBlurbFactChecksAndMedia",
+    "description": "Helper text for the feed content section when the feed is sharing fact-checks and media.",
+    "defaultMessage": "Select a custom filtered list of <strong>published fact-checks or media, claims & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
   },
   {
-    "id": "saveFeed.learnMore",
-    "description": "Link to external page with more details about shared feeds",
-    "defaultMessage": "Learn more."
+    "id": "saveFeed.feedContentSelectLabel",
+    "description": "Helper text for the feed content list select drop-down.",
+    "defaultMessage": "Custom List"
   }
 ]

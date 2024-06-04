@@ -10,6 +10,7 @@ describe('<ItemTitle />', () => {
     title: 'Title',
     custom_title: 'Custom Title',
     media_slug: 'test-text-1',
+    is_suggested: false,
     claim_description: {
       description: 'Claim Title',
       fact_check: {
@@ -29,18 +30,24 @@ describe('<ItemTitle />', () => {
   });
 
   it('should not have a claim title option if item has no claim', () => {
-    const wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: null }} />);
+    let wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: null }} />);
+    expect(wrapper.find('ItemTitleOption').at(2).render().text()).toMatch('Add a claim to enable');
+
+    wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: { description: '' } }} />);
     expect(wrapper.find('ItemTitleOption').at(2).render().text()).toMatch('Add a claim to enable');
   });
 
   it('should not have a fact-check title option if item has no fact-check', () => {
-    const wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: { description: 'Test', fact_check: null } }} />);
+    let wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: { description: 'Test', fact_check: null } }} />);
+    expect(wrapper.find('ItemTitleOption').last().render().text()).toMatch('Add a fact-check to enable');
+
+    wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: { description: 'Test', fact_check: { title: '' } } }} />);
     expect(wrapper.find('ItemTitleOption').last().render().text()).toMatch('Add a fact-check to enable');
   });
 
   it('should have default title', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: null }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Title');
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Claim Title');
   });
 
   it('should have custom title', () => {
@@ -75,6 +82,16 @@ describe('<ItemTitle />', () => {
 
   it('should be disabled if title field is custom title but item is in the trash', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title', archived: 1 }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+  });
+
+  it('should be disabled if title field is custom title but item is SPAM', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title', archived: 4 }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+  });
+
+  it('should be disabled if title field is custom title but item is a suggestion', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title', is_suggested: true }} />);
     expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
   });
 

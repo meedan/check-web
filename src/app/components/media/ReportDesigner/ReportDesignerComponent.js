@@ -176,7 +176,7 @@ const ReportDesignerComponent = (props) => {
   };
 
   const handleHelp = () => {
-    window.open('http://help.checkmedia.org/en/articles/3627266-check-message-report');
+    window.open('https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_274b08eeab');
   };
 
   const { routeParams, location } = props;

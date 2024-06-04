@@ -22,7 +22,7 @@ describe('<EditStatusDialog />', () => {
     locales: {
       en: { label: 'True', description: 'description A', message: 'message to be sent' },
     },
-    style: { color: 'var(--textPrimary)' },
+    style: { color: 'var(--color-gray-15)' },
     label: 'True',
     should_send_message: true,
   };
@@ -54,7 +54,7 @@ describe('<EditStatusDialog />', () => {
     expect(wrapper.html()).toMatch('Edit status');
     expect(wrapper.html()).toMatch('True');
     expect(wrapper.html()).toMatch('description A');
-    expect(wrapper.find('#edit-status-dialog__status-message-label').hostNodes()).toHaveLength(0);
+    expect(wrapper.find('#edit-status-dialog__status-message').hostNodes()).toHaveLength(0);
   });
 
   it('should render message field when smooch is installed on the team', () => {
@@ -70,7 +70,7 @@ describe('<EditStatusDialog />', () => {
     expect(wrapper.html()).toMatch('Edit status');
     expect(wrapper.html()).toMatch('True');
     expect(wrapper.html()).toMatch('Send a message to the user who requested the item when you change an item to this status');
-    expect(wrapper.find('#edit-status-dialog__status-message-label').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('#edit-status-dialog__status-message').hostNodes()).toHaveLength(1);
   });
 
   it('should call handleConfirmSubmit function when submitting dialog and smooch is installed on the team', () => {

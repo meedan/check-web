@@ -71,7 +71,7 @@ const messages = defineMessages({
   },
   tiktok: {
     id: 'search.tiktok',
-    defaultMessage: 'Tiktok post',
+    defaultMessage: 'TikTok post',
     description: 'Allow user to filter items by tiktok posts',
   },
   youtube: {
@@ -276,6 +276,10 @@ const SearchFields = ({
     { value: '1', label: intl.formatMessage(messages.read) },
   ];
 
+  const showSimilarValues = [
+    { value: '1', label: '' }, // Label not necessary for "oneOption" filters
+  ];
+
   const unmatchedValues = [
     { value: '1', label: intl.formatMessage(messages.unmatched) },
   ];
@@ -381,6 +385,23 @@ const SearchFields = ({
             readOnly={readOnlyFields.includes('show')}
             onChange={(newValue) => { handleFilterClick(newValue, 'show'); }}
             onRemove={() => handleRemoveField('show')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    show_similar: (
+      <FormattedMessage id="search.showSimilar" defaultMessage="Include matched media" description="Label for filter field to display matched media">
+        { label => (
+          <MultiSelectFilter
+            allowSearch={false}
+            label={label}
+            icon={<UnmatchedIcon />}
+            selected={stateQuery.show_similar}
+            options={showSimilarValues}
+            oneOption
+            readOnly={readOnlyFields.includes('show_similar')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'show_similar'); }}
+            onRemove={() => handleRemoveField('show_similar')}
           />
         )}
       </FormattedMessage>
@@ -556,6 +577,7 @@ const SearchFields = ({
         readOnly={readOnlyFields.includes('language_filter')}
         onRemove={() => handleRemoveField('language_filter')}
         teamSlug={team.slug}
+        optionsToHide={page === 'feed' ? ['request_language', 'language'] : []}
       />
     ),
     assigned_to: (

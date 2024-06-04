@@ -13,10 +13,5 @@
     "id": "userInfo.teamsCount",
     "description": "Count of how many work spaces this user account can access",
     "defaultMessage": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
-  },
-  {
-    "id": "UserMenu.signOut",
-    "description": "This is the sign out button on the user profile page",
-    "defaultMessage": "Sign Out"
   }
 ]

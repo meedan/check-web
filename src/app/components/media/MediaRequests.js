@@ -120,16 +120,15 @@ const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequests
         media {
           file_path
         }
-        requests(last: $pageSize) {
+        requests(last: $pageSize, includeChildren: true) {
           edges {
             node {
               id
               dbid
-              created_at
-              value_json
-              annotation_id
+              associated_id
               associated_graphql_id
-              smooch_user_slack_channel_url
+              created_at
+              smooch_data
               smooch_user_request_language
               smooch_user_external_identifier
               smooch_report_sent_at
@@ -166,16 +165,15 @@ const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequests
         media {
           file_path
         }
-        requests(last: $pageSize) {
+        requests(last: $pageSize, includeChildren: false) {
           edges {
             node {
               id
               dbid
-              created_at
-              value_json
-              annotation_id
+              associated_id
               associated_graphql_id
-              smooch_user_slack_channel_url
+              created_at
+              smooch_data
               smooch_user_request_language
               smooch_user_external_identifier
               smooch_report_sent_at

@@ -1,0 +1,7 @@
+[
+  {
+    "id": "suggestionsCount.suggestions",
+    "description": "A count of suggestions for an item. Title-case where applicable. Example: 3 Suggestions",
+    "defaultMessage": "{suggestionsCount, plural, one {# Suggestion} other {{suggestionsCount, number} Suggestions}}"
+  }
+]

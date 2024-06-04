@@ -1,56 +1,10 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
-import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import cx from 'classnames/bind';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/mutations/UpdateAccountMutation';
-import {
-  avatarSizeLarge,
-  avatarSize,
-  avatarSizeSmall,
-  avatarSizeExtraSmall,
-  defaultBorderRadius,
-} from '../../styles/js/shared';
-
-// Sources are square. If the image is not square,
-// shink it to show the whole logo.
-// Users are round. If the image is not round,
-// stretch it to cover it the whole circle.
-const StyledImage = styled.div`
-  flex-shrink: 0;
-  align-self: flex-start;
-  border-radius: ${props =>
-    props.type === 'source' ? defaultBorderRadius : '50%'};
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: ${props => props.type === 'source' ? 'contain' : 'cover'};
-  background-image: url('${props => props.avatarUrl}');
-  background-color: var(--otherWhite);
-  ${props => props.type === 'source' ? 'border: 1px solid var(--grayDisabledBackground);' : null}
-
-  ${props => (() => {
-    if (props.size === 'large') {
-      return (`
-        width: ${avatarSizeLarge};
-        height: ${avatarSizeLarge};
-        `);
-    } else if (props.size === 'small') {
-      return (`
-        width: ${avatarSizeSmall};
-        height: ${avatarSizeSmall};
-        `);
-    } else if (props.size === 'extraSmall') {
-      return (`
-        width: ${avatarSizeExtraSmall};
-        height: ${avatarSizeExtraSmall};
-        `);
-    }
-    return (`
-        width: ${avatarSize};
-        height: ${avatarSize};
-      `);
-  })()}
-`;
+import styles from './Source.module.css';
 
 class SourcePicture extends Component {
   constructor(props) {
@@ -161,13 +115,22 @@ class SourcePicture extends Component {
 
   render() {
     return (
-      <StyledImage
+      <div
         alt="avatar"
         size={this.props.size}
         type={this.props.type}
-        className={this.props.className}
+        className={cx(
+          styles['source-picture'],
+          {
+            [this.props.className]: true,
+            [styles.sizeLarge]: this.props.size === 'large',
+            [styles.sizeSmall]: this.props.size === 'small',
+            [styles.sizeExtraSmall]: this.props.size === 'extraSmall',
+            [styles.sourceImage]: this.props.type === 'source',
+          })
+        }
         onError={this.handleAvatarError.bind(this)}
-        style={this.props.style}
+        style={{ backgroundImage: `url(${this.state.avatarUrl})` }}
         avatarUrl={this.state.avatarUrl}
       />
     );

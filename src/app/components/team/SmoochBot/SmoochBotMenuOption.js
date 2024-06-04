@@ -4,10 +4,9 @@ import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-i
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '../../cds/inputs/TextField';
 import ClearIcon from '../../../icons/clear.svg';
 import { placeholders } from './localizables';
 import { languageLabel } from '../../../LanguageRegistry';
@@ -16,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     boxShadow: 'none',
-    border: '2px solid var(--brandMain)',
+    border: '2px solid var(--color-blue-54)',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
@@ -24,10 +23,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
   },
   ifTitle: {
-    color: 'var(--brandMain)',
+    color: 'var(--color-blue-54)',
   },
   thenTitle: {
-    color: 'var(--brandMain)',
+    color: 'var(--color-blue-54)',
   },
   caption: {
     margin: `0 ${theme.spacing(1)}px`,
@@ -150,20 +149,20 @@ const SmoochBotMenuOption = (props) => {
       <Box display="flex">
         <Box flex="1" className={classes.box}>
           <Box display="flex" alignItems="center">
-            <Typography className={[classes.title, classes.ifTitle].join(' ')} component="div" variant="subtitle1">
+            <div className={['typography-subtitle1', classes.title, classes.ifTitle].join(' ')}>
               <FormattedMessage
                 id="smoochBotMenuOption.if"
                 defaultMessage="If"
                 description="Logical operator IF statement"
               />
-            </Typography>
-            <Typography component="div" variant="caption" className={classes.caption}>
+            </div>
+            <div className={['typography-caption', classes.caption].join(' ')}>
               <FormattedMessage
                 id="smoochBotMenuOption.condition"
                 defaultMessage="The following keyword is matched"
                 description="Label for keyword matching rule"
               />
-            </Typography>
+            </div>
           </Box>
           <TextField
             key={Math.random().toString().substring(2, 10)}
@@ -181,25 +180,24 @@ const SmoochBotMenuOption = (props) => {
                 /> : null
             }
             error={option.smooch_menu_option_value !== 'tos' && error}
-            fullWidth
           />
         </Box>
         <Box flex="1" className={classes.box}>
           <Box display="flex" alignItems="center">
-            <Typography className={[classes.title, classes.thenTitle].join(' ')} component="div" variant="subtitle1">
+            <div className={['typography-subtitle1', classes.title, classes.thenTitle].join(' ')}>
               <FormattedMessage
                 id="smoochBotMenuOption.then"
                 defaultMessage="Then"
                 description="Logical operator THEN statement"
               />
-            </Typography>
-            <Typography component="div" variant="caption" className={classes.caption}>
+            </div>
+            <div className={['typography-caption', classes.caption].join(' ')}>
               <FormattedMessage
                 id="smoochBotMenuOption.action"
                 defaultMessage="Respond with"
                 description="Label for the field describing how the bot should respond"
               />
-            </Typography>
+            </div>
           </Box>
           { option.smooch_menu_option_value === 'tos' ?
             <TextField

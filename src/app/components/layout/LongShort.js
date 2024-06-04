@@ -1,14 +1,16 @@
-import styled from 'styled-components';
-import { breakWordStyles } from '../../styles/js/shared';
+import React from 'react';
+import styles from './LongShort.module.css';
 
-const LongShort = styled.p`
-  ${breakWordStyles}
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  /* start showing ellipsis when maxLines is reached */
-  -webkit-line-clamp: ${props => props.showAll ? 'none' : props.maxLines};
-  max-height: ${props => props.showAll ? 'none' : `${props.maxLines * 20}px`};
-`;
+const LongShort = props => (
+  <p
+    className={styles.longShort}
+    style={{
+      WebkitLineClamp: props.showAll ? null : props.maxLines,
+      maxHeight: props.showAll ? null : `${props.maxLines * 20}px`,
+    }}
+  >
+    {props.children}
+  </p>
+);
 
 export default LongShort;

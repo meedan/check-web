@@ -1,0 +1,14 @@
+.snackbar-wrapper {
+  margin: 0 0 0 16px;
+  width: 500px;
+
+  .snackbar-message-details {
+    cursor: pointer;
+    margin-bottom: 8px;
+    user-select: none;
+
+    textarea {
+      width: 100%;
+    }
+  }
+}

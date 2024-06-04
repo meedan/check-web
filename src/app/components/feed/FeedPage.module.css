@@ -1,0 +1,98 @@
+.feed-page-header {
+  margin: 32px 32px 16px;
+}
+
+.feed-page-title-wrapper {
+  align-items: flex-start;
+  color: var(--color-gray-37);
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  margin: 0 32px 0 0;
+
+  .feed-header-title {
+    align-items: flex-start;
+    display: flex;
+    gap: 12px;
+
+    h6 {
+      @mixin typography-h6;
+      -webkit-box-orient: vertical;
+      color: var(--color-gray-15);
+      /* stylelint-disable-next-line value-no-vendor-prefix */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      margin: 0;
+      max-height: 5em;
+      overflow: hidden;
+      white-space: pre-line;
+      word-break: break-all;
+
+      > span {
+        vertical-align: middle;
+      }
+
+      :global(.check-icon) {
+        color: var(--color-gray-37);
+        font-size: var(--iconSizeDefault);
+        margin: 0 6px 2px 0;
+        vertical-align: middle;
+      }
+
+      sup {
+        background-color: var(--color-green-35);
+        border-radius: 16px;
+        color: var(--color-white-100);
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        font-size: 50%;
+        line-height: 0;
+        padding: 4px 6px;
+        position: relative;
+        top: -1em;
+        vertical-align: baseline;
+      }
+    }
+  }
+}
+
+.feed-container {
+  background-color: var(--color-white-100);
+  border: solid 3px var(--color-white-100);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: '10px';
+  left: 326px;
+  margin: 0 32px 16px;
+  max-height: 100%;
+  overflow: hidden;
+  padding: '32px';
+  top: 96px;
+  width: 1048px;
+}
+
+.feed-content-wrapper {
+  background-color: var(--color-white-100);
+  border: solid 3px var(--color-white-100);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.feed-content {
+  color: var(--color-gray-15);
+  font-size: var(--textSizeDefault);
+  text-align: left;
+}
+
+.feed-section {
+  gap: 4px;
+  margin: 10px;
+}
+
+.createFeedButton {
+  margin: 0 32px;
+}

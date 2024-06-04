@@ -1,0 +1,80 @@
+.aspectRatio {
+  background-color: var(--color-gray-15);
+  height: 0;
+  padding-bottom: 56.25%;
+  position: relative;
+  width: 100%;
+
+  .innerWrapper {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    img {
+      height: 100%;
+      object-fit: contain;
+      width: 100%;
+    }
+
+    :global(div.aspect-ratio__overlay) {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+    }
+  }
+
+  .toggleShowHideButton {
+    pointer-events: auto;
+  }
+}
+
+.sensitiveScreen {
+  align-items: center;
+  background-color: transparent;
+  bottom: 0;
+  color: var(--color-white-100);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  left: 0;
+  padding: 64px 0 32px;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  .toggleShowHideButton {
+    pointer-events: auto;
+  }
+
+  .visibilityIcon {
+    display: none;
+    font-size: var(--iconSizeDefault);
+  }
+
+  &.contentWarning {
+    background-color: var(--color-gray-15);
+
+    .visibilityIcon.warningIcon {
+      display: block;
+    }
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 8px 0 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1002;
+}

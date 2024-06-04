@@ -3,32 +3,21 @@ import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
-import SettingsHeader from '../../team/SettingsHeader';
+import TextField from '../../cds/inputs/TextField';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
-
-const useStyles = makeStyles(theme => ({
-  newProjectHeader: {
-    marginBottom: theme.spacing(-3),
-    paddingBottom: 0,
-  },
-}));
 
 const NewProject = ({
   open,
   title,
   team,
   buttonLabel,
-  helpUrl,
   onClose,
   errorMessage,
   successMessage,
   setFlashMessage,
 }) => {
-  const classes = useStyles();
   const [newTitle, setNewTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);
 
@@ -100,29 +89,31 @@ const NewProject = ({
   return (
     <ConfirmProceedDialog
       open={open}
-      title={
-        <SettingsHeader
-          title={title}
-          helpUrl={helpUrl}
-          className={classes.newProjectHeader}
-        />
-      }
+      title={title}
       body={
-        <TextField
-          id="new-project__title"
-          label={
-            <FormattedMessage
-              id="projectsComponent.title"
-              defaultMessage="Title"
-              description="Text field label for the title input"
+        <FormattedMessage
+          id="projectsComponent.placeholder"
+          defaultMessage="Enter a short, easily remembered name for this custom list"
+          description="Placeholder for creating a new custom list"
+        >
+          { placeholder => (
+            <TextField
+              componentProps={{
+                id: 'new-project__title',
+              }}
+              placeholder={placeholder}
+              label={
+                <FormattedMessage
+                  id="projectsComponent.title"
+                  defaultMessage="Title"
+                  description="Text field label for the title input"
+                />
+              }
+              onChange={(e) => { setNewTitle(e.target.value); }}
+              className="new-project__title"
             />
-          }
-          onChange={(e) => { setNewTitle(e.target.value); }}
-          variant="outlined"
-          margin="normal"
-          className="new-project__title"
-          fullWidth
-        />
+          )}
+        </FormattedMessage>
       }
       proceedDisabled={!newTitle}
       proceedLabel={buttonLabel}
@@ -144,7 +135,6 @@ NewProject.propTypes = {
   title: PropTypes.object.isRequired,
   buttonLabel: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
-  helpUrl: PropTypes.string.isRequired,
   errorMessage: PropTypes.node.isRequired,
   successMessage: PropTypes.node.isRequired,
 };

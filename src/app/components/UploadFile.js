@@ -4,65 +4,12 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
-import HighlightOffIcon from '../icons/cancel.svg';
-import CircularProgress from './CircularProgress';
+import cx from 'classnames/bind';
+import MediasLoading from './media/MediasLoading';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import ClearIcon from '../icons/clear.svg';
 import { unhumanizeSize } from '../helpers';
-import {
-  Row,
-  units,
-  borderWidthMedium,
-  StyledIconButton,
-} from '../styles/js/shared';
-
-const previewSize = units(10);
-
-const StyledUploader = styled.div`
-    display: flex;
-    margin: ${units(1)} 0 ${units(2)};
-    align-items: center;
-
-    .with-file,
-    .without-file {
-      align-items: center;
-      border: ${borderWidthMedium} dashed var(--textDisabled);
-      color: var(--textDisabled);
-      cursor: pointer;
-      display: flex;
-      height: auto;
-      justify-content: center;
-      padding: ${units(3)};
-      text-align: center;
-      width: 100%;
-    }
-
-    #remove-image {
-      color: var(--textDisabled);
-      cursor: pointer;
-      margin: 0;
-    }
-`;
-
-const NoPreview = styled.span`
-  // Hmm, not sure what conditions trigger this state
-  // @chris 2017-1012
-  height: 0;
-  width: 0;
-  display: block;
-  margin: ${units(2)} 0 0;
-  position: relative;
-`;
-
-const Preview = styled.span`
-  background-image: url(${props => props.image});
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: block;
-  position: relative;
-  height: ${previewSize};
-  width: ${previewSize};
-`;
+import styles from './UploadFile.module.css';
 
 const UploadMessage = ({ type, about }) => {
   switch (type) {
@@ -214,13 +161,20 @@ class UploadFileComponent extends React.PureComponent {
 
     if (value) {
       return (
-        <Row>
-          {noPreview ? <NoPreview /> : <Preview image={value.preview} />}
+        <div style={{ display: 'flex' }}>
+          {noPreview ? <span className={styles.NoPreview} /> : <span className={styles.Preview} styles={{ backgroundImage: `url(${props => props.image})` }} image={value.preview} />}
           <span className="no-preview" />
-          <StyledIconButton id="remove-image" onClick={this.onDelete}>
-            <HighlightOffIcon />
-          </StyledIconButton>
-        </Row>
+          <ButtonMain
+            iconCenter={<ClearIcon />}
+            variant="contained"
+            size="small"
+            theme="text"
+            onClick={this.onDelete}
+            buttonProps={{
+              id: 'remove-image',
+            }}
+          />
+        </div>
       );
     }
     return null;
@@ -234,12 +188,15 @@ class UploadFileComponent extends React.PureComponent {
       disabled,
     } = this.props;
     return (
-      <StyledUploader>
+      <div className={styles.UploadFile}>
         {this.maybePreview()}
         <Dropzone
           onDrop={this.onDrop}
           multiple={false}
-          className={value ? 'with-file' : 'without-file'}
+          className={cx(
+            value ? styles['UploadFile-with-file'] : styles['UploadFile-without-file'],
+            value ? 'int-uploadfile__dropzone-with-file' : 'int-uploadfile__dropzone-without-file',
+          )}
           disabled={disabled}
         >
           <div>
@@ -256,7 +213,7 @@ class UploadFileComponent extends React.PureComponent {
           </div>
         </Dropzone>
         <br />
-      </StyledUploader>
+      </div>
     );
   }
 }
@@ -286,7 +243,7 @@ const UploadFile = childProps => (
       } else if (props) {
         return <UploadFileComponent about={props.about} {...childProps} />;
       }
-      return <CircularProgress />;
+      return <MediasLoading theme="grey" variant="inline" size="medium" />;
     }}
   />
 );

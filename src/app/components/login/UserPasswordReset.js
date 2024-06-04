@@ -121,7 +121,7 @@ const UserPasswordReset = (props) => {
                   <FormattedMessage
                     tagName="p"
                     id="passwordReset.confirmedTextSpam"
-                    defaultMessage="Make sure it did not end up in your spam mailbox."
+                    defaultMessage="Make sure password reset emails do not end up in your spam mailbox."
                     description="Confirmation text to tell the user that password resets may end up in spam folders"
                   />
                   <FormattedHTMLMessage

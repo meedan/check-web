@@ -58,32 +58,6 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('Report settings saved successfully')).to be(true)
   end
 
-  it 'should enable the Slack notifications', bin1: true do
-    team = "team#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
-    @driver.execute_script('window.scrollTo(10, 10000)')
-    wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector("//span[contains(text(), 'Slack')]", :xpath)
-    expect(@driver.find_elements(:css, '.Mui-checked').empty?)
-    @driver.execute_script('window.scrollTo(10, 10000)')
-    wait_for_selector('#slack-config__switch').click
-    wait_for_selector('.Mui-checked')
-    wait_for_selector('.slack-config__settings').click
-    wait_for_selector('div[role=dialog]')
-    wait_for_selector('#slack-config__webhook').send_keys('https://hooks.slack.com/services/00000/0000000000')
-    wait_for_selector('.slack-config__save').click
-    wait_for_selector_none('.slack-config__save')
-    @driver.navigate.refresh
-    wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector("//span[contains(text(), 'Slack')]", :xpath)
-    @driver.execute_script('window.scrollTo(10, 10000)')
-    wait_for_selector('.Mui-checked')
-    expect(@driver.find_elements(:css, '.Mui-checked').length == 1)
-    wait_for_selector('.slack-config__settings').click
-    wait_for_selector('#slack-config__webhook')
-    expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
-  end
-
   it 'should manage user permissions', bin3: true do
     utp = api_create_team_project_and_two_users
     user_editor = api_create_and_confirm_user
@@ -95,7 +69,7 @@ shared_examples 'team' do
     create_media('text')
     api_logout
 
-    # log in as colaborator
+    # log in as collaborator
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}/settings/members")
     wait_for_selector('button#team-members__invite-button')
@@ -134,16 +108,14 @@ shared_examples 'team' do
     expect(@driver.current_url.to_s.match(t1.slug).nil?).to be(false)
 
     # Navigate to second team
-    @driver.navigate.to "#{@config['self_url']}/check/me"
-    wait_for_selector('#teams-tab').click
+    @driver.navigate.to "#{@config['self_url']}/check/me/workspaces"
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
     wait_for_selector('#add-filter-menu__open-button')
     expect(@driver.current_url.to_s.match(t2.slug).nil?).to be(false)
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/settings/workspace\"]")
 
     # Navigate back to first team
-    @driver.navigate.to "#{@config['self_url']}/check/me"
-    wait_for_selector('#teams-tab').click
+    @driver.navigate.to "#{@config['self_url']}/check/me/workspaces"
     wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
     wait_for_selector('#search-input')
     expect(@driver.current_url.to_s.match(t1.slug).nil?).to be(false)

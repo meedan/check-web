@@ -1,29 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import AddCircleIcon from '../../../icons/add_circle.svg';
+import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
+import AddIcon from '../../../icons/add.svg';
 import ClearIcon from '../../../icons/clear.svg';
-import RuleOperatorButton from './RuleOperatorButton';
-
-const useStyles = makeStyles(() => ({
-  separator: {
-    color: 'var(--textSecondary)',
-  },
-  button: {
-    padding: 0,
-  },
-}));
+import styles from './Rules.module.css';
 
 const RuleOperatorWrapper = (props) => {
-  const classes = useStyles();
-
   const handleChangeOperator = (value) => {
-    props.onSetOperator(value);
+    if (value !== null) {
+      props.onSetOperator(value);
+    }
   };
 
   const handleAdd = () => {
@@ -46,37 +35,38 @@ const RuleOperatorWrapper = (props) => {
       {props.children.map((child, index) => (
         <React.Fragment key={Math.random().toString().substring(2, 10)}>
           {child}
-          <Box display="flex" justifyContent="space-between" className={classes.box}>
+          <div className={styles['rule-operator-wrapper']}>
             { index === props.children.length - 1 ?
-              <Box justifyContent={props.center ? 'center' : null} display="flex">
+              <>
                 { props.onAdd ? (
                   <ButtonMain
-                    iconCenter={<AddCircleIcon style={{ color: props.color }} />}
-                    variant="text"
-                    theme="brand"
-                    size="default"
+                    label={<FormattedMessage id="ruleOperatorWrapper.add" defaultMessage="Add Condition" description="Button label for the user to add another if/then condition to this rule" />}
+                    iconLeft={<AddIcon />}
+                    variant="contained"
+                    theme="text"
+                    size="small"
                     onClick={handleAdd}
-                    className={classes.button}
                   />
                 ) : null }
-              </Box> :
-              <Box display="flex" alignItems="center">
-                { props.operators.map((operator, index2) => (
-                  <React.Fragment key={operator}>
-                    <RuleOperatorButton
-                      value={operator}
-                      currentValue={props.operator}
-                      onClick={() => { handleChangeOperator(operator); }}
-                    >
-                      {operatorLabels[operator]}
-                    </RuleOperatorButton>
-                    { props.operators.length - 1 === index2 ? null : (<Typography className={classes.separator} component="span"> | </Typography>) }
-                  </React.Fragment>
+              </>
+              :
+              <ToggleButtonGroup
+                variant="contained"
+                value={props.operator}
+                onChange={(e, newValue) => handleChangeOperator(newValue)}
+                size="small"
+                exclusive
+              >
+                { props.operators.map(operator => (
+                  <ToggleButton value={operator} key={operator}>
+                    {operatorLabels[operator]}
+                  </ToggleButton>
                 ))}
-              </Box>
+              </ToggleButtonGroup>
             }
             { props.children.length > 1 || props.allowRemove ? (
               <Tooltip
+                arrow
                 title={
                   <FormattedMessage id="ruleOperatorWrapper.removeTheAbove" defaultMessage="Remove item above" description="Button to remove a new rule operator" />
                 }
@@ -88,12 +78,11 @@ const RuleOperatorWrapper = (props) => {
                     theme="lightText"
                     size="default"
                     onClick={() => { handleRemove(index); }}
-                    className={classes.button}
                   />
                 </span>
               </Tooltip>
             ) : null }
-          </Box>
+          </div>
         </React.Fragment>))}
     </React.Fragment>
   );
@@ -103,16 +92,14 @@ RuleOperatorWrapper.defaultProps = {
   allowRemove: false,
   operator: 'and',
   operators: ['and', 'or'],
-  deleteIconColor: 'var(--textSecondary)',
+  deleteIconColor: 'var(--color-gray-37)',
   onSetOperator: null,
 };
 
 RuleOperatorWrapper.propTypes = {
   allowRemove: PropTypes.bool,
-  center: PropTypes.bool.isRequired,
   operator: PropTypes.string,
   operators: PropTypes.arrayOf(PropTypes.string),
-  color: PropTypes.string.isRequired,
   deleteIconColor: PropTypes.string,
   onSetOperator: PropTypes.func,
   onAdd: PropTypes.func.isRequired,

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import AddIcon from '../../icons/add.svg';
 import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -57,13 +58,19 @@ const BulkActionsTag = ({
   const handleSelectChange = value => setSelectedValue(value);
 
   const actionButton = searchValue && !options.includes(searchValue) ? (
-    <Button
-      id="bulk-actions-tag__create-button"
-      color="primary"
+    <ButtonMain
+      buttonProps={{
+        id: 'bulk-actions-tag__create-button',
+      }}
+      iconLeft={<AddIcon />}
+      theme="lightBrand"
+      variant="contained"
+      size="default"
       onClick={() => handleAddNew(searchValue)}
-    >
-      <FormattedMessage id="tagMenu.create" defaultMessage="+ Create this tag" description="Button label for creating a new tag" />
-    </Button>
+      label={
+        <FormattedMessage id="tagMenu.create" defaultMessage="Create this tag" description="Button label for creating a new tag" />
+      }
+    />
   ) : null;
 
   const handleSubmit = (value) => {

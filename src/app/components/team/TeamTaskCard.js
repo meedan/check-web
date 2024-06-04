@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
-import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import ArrowDropDownIcon from '../../icons/arrow_drop_down.svg';
-import ExpandMoreIcon from '../../icons/expand_more.svg';
+import IconMoreVert from '../../icons/more_vert.svg';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TeamTaskCardForm from './TeamTaskCardForm';
+import settingsStyles from './Settings.module.css';
+import styles from './Tasks.module.css';
 
 const TeamTaskCard = ({
   about,
@@ -26,7 +25,6 @@ const TeamTaskCard = ({
   setRequired,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [expanded, setExpanded] = React.useState(true);
 
   const handleMenuEdit = () => {
     setAnchorEl(null);
@@ -39,111 +37,82 @@ const TeamTaskCard = ({
   };
 
   return (
-    <Box
-      mb={2}
-      bgcolor="var(--brandBackground)"
-      padding="16px"
-      borderRadius="5px"
-      minHeight="100px"
-      width="100%"
-    >
-      <Box
-        px={2}
-        py={1}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <ButtonMain
-          className="team-tasks__menu-item-button"
-          onClick={e => setAnchorEl(e.currentTarget)}
-          iconLeft={icon}
-          size="default"
-          variant="text"
-          theme="text"
-          iconRight={<ArrowDropDownIcon />}
-          label={
-            <FormattedMessage
-              id="teamTaskCard.menu"
-              defaultMessage="Field {number}"
-              values={{ number: index }}
-              description="E.g. Field 1, Field 2..."
-            />
-          }
-        />
-        <Box display="flex">
-          <Box mr={4}>
-            <SwitchComponent
-              onChange={() => setRequired(!required)}
-              checked={required}
-              labelPlacement="end"
-              label={<FormattedMessage
-                id="teamTaskCard.required"
-                defaultMessage="Required"
-                description="Toggle switch to make field required"
-              />}
-            />
-          </Box>
-          <span>
-            <SwitchComponent
-              onChange={() => setShowInBrowserExtension(!showInBrowserExtension)}
-              checked={showInBrowserExtension}
-              labelPlacement="end"
-              label={<FormattedMessage
-                id="teamTaskCard.showInBrowserExtension"
-                defaultMessage="Show in browser extension"
-                description="Toggle switch to make field visible in the browser extension"
-              />}
-            />
-          </span>
-        </Box>
-      </Box>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={() => setAnchorEl(null)}
-      >
-        <MenuItem className="team-tasks__edit-button" onClick={handleMenuEdit}>
-          <FormattedMessage
-            id="global.edit"
-            defaultMessage="Edit"
-            description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
-          />
-        </MenuItem>
-        <MenuItem className="team-tasks__delete-button" onClick={handleMenuDelete}>
-          <FormattedMessage
-            id="global.delete"
-            defaultMessage="Delete"
-            description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
-          />
-        </MenuItem>
-      </Menu>
-      <Divider />
-      <Box display="flex" ml={1}>
-        <ButtonMain
-          iconCenter={<ExpandMoreIcon />}
-          variant="text"
-          theme="text"
-          size="default"
-          onClick={() => setExpanded(!expanded)}
-        />
-        <div className="typography-body1">
-          <Box my={2} className="team-tasks__task-label">
-            <Box fontWeight="500">
+    <div className={cx(styles['task-card'], settingsStyles['setting-content-container-inner'])}>
+      <div className={styles['task-card-header']}>
+        <div className={styles['task-card-label-description']}>
+          <div className={styles['task-card-label']}>
+            <div className={styles['task-card-label-description-index']}>
+              {index}
+              {icon}
+            </div>
+            <strong className="team-tasks__task-label">
               {task.label}
-            </Box>
+            </strong>
+            <div className={settingsStyles['setting-content-list-actions']}>
+              <ButtonMain
+                className="team-tasks__menu-item-button"
+                iconCenter={<IconMoreVert />}
+                variant="outlined"
+                size="default"
+                theme="text"
+                onClick={e => setAnchorEl(e.currentTarget)}
+              />
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => setAnchorEl(null)}
+              >
+                <MenuItem className="team-tasks__edit-button" onClick={handleMenuEdit}>
+                  <FormattedMessage
+                    id="global.edit"
+                    defaultMessage="Edit"
+                    description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
+                  />
+                </MenuItem>
+                <MenuItem className="team-tasks__delete-button" onClick={handleMenuDelete}>
+                  <FormattedMessage
+                    id="global.delete"
+                    defaultMessage="Delete"
+                    description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
+                  />
+                </MenuItem>
+              </Menu>
+            </div>
+          </div>
+          <p>
             {task.description}
-          </Box>
+          </p>
         </div>
-      </Box>
-      <Collapse in={expanded}>
+      </div>
+      <div className={settingsStyles['setting-content-container-inner-accent']}>
+        <div className={styles['task-card-actions']}>
+          <SwitchComponent
+            onChange={() => setRequired(!required)}
+            checked={required}
+            labelPlacement="end"
+            label={<FormattedMessage
+              id="teamTaskCard.required"
+              defaultMessage="Required"
+              description="Toggle switch to make field required"
+            />}
+          />
+          <SwitchComponent
+            onChange={() => setShowInBrowserExtension(!showInBrowserExtension)}
+            checked={showInBrowserExtension}
+            labelPlacement="end"
+            label={<FormattedMessage
+              id="teamTaskCard.showInBrowserExtension"
+              defaultMessage="Show in browser extension"
+              description="Toggle switch to make field visible in the browser extension"
+            />}
+          />
+        </div>
         <TeamTaskCardForm task={task} about={about} />
-      </Collapse>
-      <Divider />
-      <Box px={2} py={1}>
+      </div>
+      <div>
         {children}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

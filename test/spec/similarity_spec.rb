@@ -75,23 +75,6 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should extract text from a image', bin7: true do
-    api_create_team_and_bot(bot: 'alegre', score: {})
-    @driver.navigate.to @config['self_url']
-    sleep 120
-    wait_for_selector('.team-settings__workspace-tab')
-    wait_for_selector('#side-navigation__toggle').click
-    wait_for_selector('.projects-list')
-    wait_for_selector('.projects-list__all-items').click
-    create_image('files/test.png')
-    sleep 60 # wait for the text extraction
-    wait_for_selector('.medias__item')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.image-media-card')
-    expect(@driver.page_source.include?('Extracted text')).to be(true)
-    expect(@driver.page_source.include?('RAILS')).to be(true)
-  end
-
   it 'should identify texts as similar', bin7: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     pm1 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1502s.')
@@ -105,22 +88,35 @@ shared_examples 'similarity' do
 
   it 'should identify images as similar', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
-    @driver.navigate.to @config['self_url']
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/similarity.jpg')
-    sleep 60 # Wait for the item to be indexed by Alegre
+    verbose_wait 4
     wait_for_selector('.medias__item')
     create_image('files/similarity2.jpg')
+    verbose_wait 4
     wait_for_selector('.medias__item')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
+  it 'should extract text from a image', bin7: true do
+    api_create_team_and_bot(bot: 'alegre')
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
+    create_image('files/ocr.png')
+    verbose_wait 4
+    wait_for_selector('.medias__item')
+    wait_for_selector('.media__heading').click
+    wait_for_selector('.image-media-card')
+    verbose_wait 4
+    expect(@driver.page_source.include?('Extracted text')).to be(true)
+    expect(@driver.page_source.include?('Test')).to be(true)
+  end
+
   it 'should identify videos as similar', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
-    @driver.navigate.to @config['self_url']
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/video.mp4')
     sleep 60 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
@@ -135,12 +131,12 @@ shared_examples 'similarity' do
 
   it 'should identify audios as similar', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
-    @driver.navigate.to @config['self_url']
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/audio.mp3')
-    sleep 200 # Wait for the item to be indexed by Alegre
+    verbose_wait 4
     wait_for_selector('.medias__item')
     create_image('files/audio.ogg')
-    sleep 250 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    verbose_wait 4
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('.media__more-medias')

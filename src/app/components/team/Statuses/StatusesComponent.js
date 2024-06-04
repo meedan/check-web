@@ -19,11 +19,11 @@ import { languageName } from '../../../LanguageRegistry';
 import settingsStyles from '../Settings.module.css';
 
 const StatusesComponent = ({ team, setFlashMessage }) => {
-  const statuses = [...team.verification_statuses.statuses];
   const defaultStatusId = team.verification_statuses.default;
   const defaultLanguage = team.get_language || 'en';
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
+  const [statuses, setStatuses] = React.useState([...team.verification_statuses.statuses]);
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const [addingNewStatus, setAddingNewStatus] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState(null);
@@ -93,7 +93,9 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
 
   const handleDelete = ({ status_id, fallback_status_id }) => {
     const onCompleted = () => {
+      setStatuses(statuses.filter(s => s.id !== status_id));
       setShowDeleteStatusDialogFor(null);
+      setSelectedStatus(null);
       setFlashMessage((
         <FormattedMessage
           id="statusesComponent.deleted"
@@ -157,16 +159,18 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
 
   const handleAddOrEditStatus = (status) => {
     const newStatuses = { ...team.verification_statuses };
-    const newStatusesArray = [...newStatuses.statuses];
+    const newStatusesArray = [...statuses];
 
     if (selectedStatus && (status.id === selectedStatus.id)) {
       const index = newStatusesArray.findIndex(s => s.id === status.id);
       newStatusesArray.splice(index, 1, status);
     } else {
       newStatusesArray.push(status);
+      setSelectedStatus(null);
     }
 
     newStatuses.statuses = newStatusesArray;
+    setStatuses(newStatusesArray);
     handleSubmit(newStatuses, (addingNewStatus ? 'created' : null));
   };
 
@@ -218,7 +222,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
           <FormattedHTMLMessage
             id="statusesComponent.helpContext"
             defaultMessage='Statuses represent the position of claims in the editorial workflow. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about statuses</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4838891-status-settings' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/3623387-item-status' }}
             description="Context description for the functionality of this page"
           />
         }
@@ -251,7 +255,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         <div className={cx(settingsStyles['setting-content-container'])}>
           {
             currentLanguage === defaultLanguage ? (
-              <ul className={settingsStyles['setting-content-list']}>
+              <ul className={settingsStyles['setting-content-list']} key={statuses.length}>
                 { statuses.map(s => (
                   <StatusListItem
                     defaultLanguage={defaultLanguage}

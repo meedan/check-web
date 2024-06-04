@@ -14,6 +14,7 @@ import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAnd
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
+import MediaFeedInformation from './MediaFeedInformation';
 import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
@@ -52,23 +53,21 @@ class MediaComponent extends Component {
 
   componentDidMount() {
     this.subscribe();
-
-    if (!this.props.projectMedia.read_by_me) {
+    if (!this.props.projectMedia.is_read) {
       commitMutation(Store, {
         mutation: graphql`
-          mutation MediaComponentCreateProjectMediaUserMutation($input: CreateProjectMediaUserInput!) {
-            createProjectMediaUser(input: $input) {
-              project_media {
+          mutation MediaComponentMarkAsReadMutation($input: BulkProjectMediaMarkReadInput!) {
+            bulkProjectMediaMarkRead(input: $input) {
+              updated_objects {
                 id
-                read_by_someone: is_read
-                read_by_me: is_read(by_me: true)
+                is_read
               }
             }
           }
         `,
         variables: {
           input: {
-            project_media_id: this.props.projectMedia.dbid,
+            ids: [this.props.projectMedia.id],
             read: true,
           },
         },
@@ -170,6 +169,8 @@ class MediaComponent extends Component {
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
                     projectMediaId={projectMedia.dbid}
+                    projectMediaImportedId={projectMedia.imported_from_project_media_id}
+                    feedId={projectMedia.imported_from_feed_id}
                     mediaSlug={
                       <MediaSlug
                         mediaType={projectMedia.type}
@@ -202,6 +203,7 @@ class MediaComponent extends Component {
                         )]}
                       />
                     }
+                    mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
                     onClick={e => e.stopPropagation()}
                     onClose={() => this.setState({ openMediaDialog: false })}
                   />
@@ -255,12 +257,12 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
   fragment MediaComponent_projectMedia on ProjectMedia {
     ...MediaSimilaritiesComponent_projectMedia
     ...MediaCardLarge_projectMedia
+    ...MediaFeedInformation_projectMedia
     id
     dbid
     title
     type
-    read_by_someone: is_read
-    read_by_me: is_read(by_me: true)
+    is_read
     permissions
     pusher_channel
     project_id
@@ -273,7 +275,10 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     user_id
     channel
     notes_count: annotations_count(annotation_type: "comment")
+    report_status
     suggested_similar_items_count
+    imported_from_feed_id
+    imported_from_project_media_id
     suggested_similar_relationships(first: 10000) {
       edges {
         node {

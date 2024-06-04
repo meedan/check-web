@@ -19,6 +19,7 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
   const [text, setText] = React.useState();
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isSending, setIsSending] = React.useState(false);
+  const [submitDisabled, setSubmitDisabled] = React.useState(true);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const submitMessage = (inReplyToId, message) => {
@@ -60,6 +61,11 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
       onCompleted: onSuccess,
       onError: onFailure,
     });
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value.trim();
+    setSubmitDisabled(value.length === 0);
   };
 
   return (
@@ -118,18 +124,33 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
           <div className={styles['dialog-content']}>
             <div className={inputStyles['form-fieldset']}>
               <div className={inputStyles['form-fieldset-field']}>
-                <LimitedTextArea
-                  value={text}
-                  label={
-                    <FormattedMessage
-                      id="sendTiplineMessage.inputLabel"
-                      defaultMessage="Message"
-                      description="Message input label"
+                <FormattedMessage
+                  id="sendTiplineMessage.placeholder"
+                  defaultMessage="Write a message to {username} on {channel}"
+                  description="Placeholder for message authoring field"
+                  values={{
+                    username,
+                    channel,
+                  }}
+                >
+                  { placeholder => (
+                    <LimitedTextArea
+                      value={text}
+                      placeholder={placeholder}
+                      label={
+                        <FormattedMessage
+                          id="sendTiplineMessage.inputLabel"
+                          defaultMessage="Message"
+                          description="Message input label"
+                        />
+                      }
+                      maxChars={800}
+                      maxlength="800"
+                      setValue={m => setText(m)}
+                      onChange={handleChange}
                     />
-                  }
-                  maxChars={800}
-                  setValue={m => setText(m)}
-                />
+                  )}
+                </FormattedMessage>
               </div>
             </div>
           </div>
@@ -150,7 +171,7 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
             />
             <ButtonMain
               className="send-tipline-message__submit-button"
-              disabled={isSending}
+              disabled={isSending || submitDisabled}
               size="default"
               variant="contained"
               theme="brand"

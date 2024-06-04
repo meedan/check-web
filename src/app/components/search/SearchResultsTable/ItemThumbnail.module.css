@@ -1,5 +1,5 @@
 .thumbnail {
-  border: 2px solid var(--grayBorderMain);
+  border: 2px solid var(--color-gray-88);
   border-radius: 6px;
   flex-grow: 0;
   flex-shrink: 0;
@@ -22,7 +22,7 @@
 
 .contentScreen {
   align-items: center;
-  background-color: var(--textPrimary);
+  background-color: var(--color-gray-15);
   display: flex;
   height: 92px;
   justify-content: center;
@@ -30,11 +30,20 @@
 }
 
 .mediaIcon {
-  color: var(--textPlaceholder);
-  font-size: var(--fontSizeSmall);
+  color: var(--color-gray-75);
+  font-size: var(--font-size-body-2);
 }
 
 .visibilityOffIcon {
-  color: var(--otherWhite);
-  font-size: var(--fontSizeSmall);
+  color: var(--color-white-100);
+  font-size: var(--font-size-body-2);
+}
+
+.emptyMedia {
+  background-color: var(--color-white-100);
+
+  svg {
+    color: var(--color-gray-75);
+    font-size: var(--iconSizeDefault);
+  }
 }

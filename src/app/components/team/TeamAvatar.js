@@ -1,28 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
-import {
-  avatarSize,
-  borderWidthSmall,
-  defaultBorderRadius,
-} from '../../styles/js/shared';
-
-const StyledAvatarDiv = styled.div`
-  border: ${borderWidthSmall} solid var(--grayDisabledBackground);
-  border-radius: ${defaultBorderRadius};
-  flex: 0 0 auto;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-color: var(--otherWhite);
-  width: ${props => (props.size ? props.size : avatarSize)};
-  height: ${props => (props.size ? props.size : avatarSize)};
-  border-radius: 5px;
-  border: 2px solid var(--grayBorderMain);
-  position: relative;
-`;
+import styles from './TeamAvatar.module.css';
 
 const TeamAvatar = props => (
-  <StyledAvatarDiv {...props} style={{ backgroundImage: `url(${props.team?.avatar})` }} />
+  <div
+    {...props}
+    className={styles['team-avatar']}
+    style={{
+      backgroundImage: `url(${props.team?.avatar})`,
+      width: props.size ? props.size : null,
+      height: props.size ? props.size : null,
+    }}
+  />
 );
 
 export default TeamAvatar;

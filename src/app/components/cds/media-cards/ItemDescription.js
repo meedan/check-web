@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import UnfoldLessIcon from '../../../icons/unfold_less.svg';
 import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
-import FactCheckIcon from '../../../icons/fact_check.svg';
+import ArticleUrl from './ArticleUrl';
 import styles from './Card.module.css';
 
 const ItemDescription = ({
+  className,
   description,
   title,
   showCollapseButton,
-  factCheckUrl,
-  className,
+  url,
+  variant,
 }) => {
   const [isTextOverflowing, setIsTextOverflowing] = React.useState(false);
   const [isCollapsed, setIsCollapsed] = React.useState(true);
@@ -54,12 +55,7 @@ const ItemDescription = ({
             <span className={`description-text ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} ref={descriptionRef}>
               {description}
             </span>
-            { factCheckUrl ?
-              <span className={styles.factCheckLink}>
-                <FactCheckIcon />
-                <a href={factCheckUrl} target="_blank" rel="noreferrer noopener">{factCheckUrl}</a>
-              </span>
-              : null }
+            <ArticleUrl url={url} variant={variant} />
           </p>
           : null }
       </div>
@@ -74,17 +70,19 @@ const ItemDescription = ({
 
 ItemDescription.defaultProps = {
   description: null,
-  factCheckUrl: null,
+  url: null,
   showCollapseButton: false,
   className: null,
+  variant: 'explainer',
 };
 
 ItemDescription.propTypes = {
   showCollapseButton: PropTypes.bool,
-  factCheckUrl: PropTypes.string,
+  url: PropTypes.string,
   description: PropTypes.string,
   title: PropTypes.string.isRequired,
   className: PropTypes.string,
+  variant: PropTypes.oneOf(['explainer', 'fact-check']),
 };
 
 export default ItemDescription;

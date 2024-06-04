@@ -4,91 +4,14 @@ import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, int
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SensitiveContentMenuButton from '../media/SensitiveContentMenuButton.js';
 import FullscreenIcon from '../../icons/fullscreen.svg';
 import FullscreenExitIcon from '../../icons/fullscreen_exit.svg';
 import VisibilityOffIcon from '../../icons/visibility_off.svg';
 import DownloadIcon from '../../icons/download.svg';
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    width: '100%',
-    height: 0,
-    paddingBottom: '56.25%',
-    position: 'relative',
-    backgroundColor: 'var(--textPrimary)',
-  },
-  innerWrapper: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    '& img': {
-      width: '100%',
-      height: '100%',
-      objectFit: 'contain',
-    },
-    '& div.aspect-ratio__overlay': {
-      width: '100%',
-      height: '100%',
-      position: 'absolute',
-      top: 0,
-      zIndex: 10,
-    },
-  },
-  buttonsContainer: {
-    position: 'absolute',
-    right: '0',
-    top: '0',
-    paddingTop: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    zIndex: 20,
-  },
-  sensitiveScreen: props => ({
-    pointerEvents: 'none',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: props.contentWarning ? 'var(--textPrimary)' : 'transparent',
-    zIndex: 100,
-    color: 'var(--otherWhite)',
-  }),
-  visibilityIcon: props => ({
-    fontSize: '24px',
-    visibility: props.contentWarning || props.superAdminMask ? 'visible' : 'hidden',
-  }),
-  iconButton: {
-    color: 'var(--otherWhite)',
-    backgroundColor: 'var(--textPrimary)',
-    fontSize: '24px',
-    margin: theme.spacing(0.5),
-    '&:hover': {
-      color: 'var(--otherWhite) !important',
-      backgroundColor: 'var(--textPrimary) !important',
-    },
-  },
-  button: props => ({
-    pointerEvents: 'auto',
-    bottom: 0,
-    color: 'var(--otherWhite)',
-    minWidth: theme.spacing(22),
-    backgroundColor: props.contentWarning ? 'var(--textPrimary)' : 'var(--brandMain)',
-    border: '2px solid var(--otherWhite)',
-    '& :hover': {
-      backgroundColor: 'unset',
-    },
-  }),
-}));
+import styles from './AspectRatio.module.css';
 
 const messages = defineMessages({
   adult: {
@@ -124,8 +47,7 @@ const AspectRatio = ({
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
-  const classes = useStyles({ contentWarning: contentWarning && maskContent, superAdminMask });
-  const uniqueClassName = projectMedia.id;
+  const uniqueClassName = projectMedia?.id.replace(/[^a-zA-Z0-9]/g, '');
 
   const handleOnExpand = () => {
     // If this is video, use the button to enter or exit fullscreen for the container div depending on whether we are already in fullscreen
@@ -143,38 +65,32 @@ const AspectRatio = ({
   };
 
   const ButtonsContainer = () => (
-    <div className={classes.buttonsContainer}>
+    <div className={styles.buttonsContainer}>
       { expandedImage || isVideoFile ?
-        <div>
-          <IconButton
-            className="int-aspect-ratio__button--fullscreen"
-            classes={{ root: classes.iconButton }}
-            onClick={handleOnExpand}
-            size="small"
-          >
-            { isFullscreenVideo ? <FullscreenExitIcon /> : <FullscreenIcon /> }
-          </IconButton>
-        </div> : null }
+        <ButtonMain
+          className="int-aspect-ratio__button--fullscreen"
+          theme="black"
+          size="default"
+          variant="contained"
+          onClick={handleOnExpand}
+          iconCenter={isFullscreenVideo ? <FullscreenExitIcon /> : <FullscreenIcon />}
+        /> : null }
       { downloadUrl ?
-        <div>
-          <a href={downloadUrl} download>
-            <IconButton
-              classes={{ root: classes.iconButton }}
-              className="int-aspect-ratio__button--download"
-              size="small"
-            >
-              <DownloadIcon />
-            </IconButton>
-          </a>
-        </div> : null }
-      { projectMedia ?
-        <div>
-          <SensitiveContentMenuButton
-            iconButtonClasses={{ root: classes.iconButton }}
-            projectMedia={projectMedia}
-            currentUserRole={currentUserRole}
+        <a href={downloadUrl} download>
+          <ButtonMain
+            className="int-aspect-ratio__button--download"
+            theme="black"
+            size="default"
+            variant="contained"
+            iconCenter={<DownloadIcon />}
           />
-        </div> : null
+        </a> : null }
+      { projectMedia ?
+        <SensitiveContentMenuButton
+          projectMedia={projectMedia}
+          currentUserRole={currentUserRole}
+          onSave={(enabled) => { setMaskContent(enabled); }}
+        /> : null
       }
     </div>
   );
@@ -184,7 +100,7 @@ const AspectRatio = ({
     // Sort by flag category likelihood and display most likely
     let sortable = [];
     // Put custom flag at beginning of array
-    if (projectMedia.dynamic_annotation_flag.data.custom) {
+    if (projectMedia?.dynamic_annotation_flag.data.custom) {
       sortable = sortable.concat([...Object.entries(projectMedia.dynamic_annotation_flag.data.custom)]);
     }
     const filteredFlags = {};
@@ -199,13 +115,13 @@ const AspectRatio = ({
   const skipAspectRatio = !maskContent && !superAdminMask && isPenderCard;
 
   const ToggleShowHideButton = () => (
-    <Button
-      className={classes.button}
+    <ButtonMain
+      className={styles.toggleShowHideButton}
       onClick={() => setMaskContent(!maskContent)}
-      color="primary"
-      variant="contained"
-    >
-      { maskContent ? (
+      variant={maskContent ? 'outlined' : 'contained'}
+      size="default"
+      theme={maskContent ? 'white' : 'brand'}
+      label={maskContent ? (
         <FormattedMessage
           id="contentScreen.viewContentButton"
           defaultMessage="Temporarily view content"
@@ -218,58 +134,59 @@ const AspectRatio = ({
           description="Button to disable view of sensitive content"
         />
       )}
-    </Button>
+    />
   );
 
   const SensitiveScreen = () => (
-    <div className={classes.sensitiveScreen}>
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="space-between"
-        height="100%"
-        alignItems="center"
-        pt={8}
-        pb={4}
-      >
-        <VisibilityOffIcon className={classes.visibilityIcon} />
-        { superAdminMask ? (
-          <div >
-            <Typography variant="body1">
-              <FormattedMessage
-                id="contentScreen.superAdminMaskMessage"
-                defaultMessage="Super admin screen is on"
-                description="Text to show that admin screen is on"
-              />
-            </Typography>
-          </div>
-        ) : null }
-        <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
-          <Typography variant="body1">
-            { warningCreator !== 'Alegre' ? (
-              <FormattedHTMLMessage
-                id="contentScreen.warning"
-                defaultMessage={'<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>'}
-                description="Content warning displayed over sensitive content"
-                values={{
-                  user_name: warningCreator,
-                  warning_category: (
-                    (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
-                  warningCategory
-                  ),
-                }}
-              />
-            ) : (
-              <FormattedHTMLMessage
-                id="contentScreen.warningByAutomationRule"
-                defaultMessage="An automation rule has detected this content as sensitive"
-                description="Content warning displayed over sensitive content"
-              />
-            )}
-          </Typography>
-        </div>
-        { contentWarning && !superAdminMask ? <ToggleShowHideButton /> : null }
-      </Box>
+    <div
+      className={cx(
+        styles.sensitiveScreen,
+        {
+          [styles.contentWarning]: maskContent || superAdminMask,
+        })
+      }
+    >
+      <VisibilityOffIcon
+        className={cx(
+          styles.visibilityIcon,
+          {
+            [styles.warningIcon]: contentWarning || superAdminMask,
+          })
+        }
+      />
+      { superAdminMask ? (
+        <FormattedMessage
+          tagName="p"
+          id="contentScreen.superAdminMaskMessage"
+          defaultMessage="Super admin screen is on"
+          description="Text to show that admin screen is on"
+        />
+      ) : null }
+      <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
+        { warningCreator !== 'Alegre' ? (
+          <FormattedHTMLMessage
+            tagName="p"
+            id="contentScreen.warning"
+            defaultMessage={'<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>'}
+            description="Content warning displayed over sensitive content"
+            values={{
+              user_name: warningCreator,
+              warning_category: (
+                (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
+              warningCategory
+              ),
+            }}
+          />
+        ) : (
+          <FormattedHTMLMessage
+            tagName="p"
+            id="contentScreen.warningByAutomationRule"
+            defaultMessage="An automation rule has detected this content as sensitive"
+            description="Content warning displayed over sensitive content"
+          />
+        )}
+      </div>
+      { contentWarning && !superAdminMask ? <ToggleShowHideButton /> : null }
     </div>
   );
 
@@ -284,7 +201,7 @@ const AspectRatio = ({
   }
 
   return (
-    <div className={`${uniqueClassName} ${classes.container}`}>
+    <div className={cx(uniqueClassName, styles.aspectRatio)}>
       { expandedContent ?
         <Lightbox
           onCloseRequest={() => setExpandedContent(null)}
@@ -292,7 +209,7 @@ const AspectRatio = ({
           reactModalStyle={{ overlay: { zIndex: 2000 } }}
         />
         : null }
-      <div className={classes.innerWrapper}>
+      <div className={styles.innerWrapper}>
         { !superAdminMask ? <ButtonsContainer /> : null }
         { !maskContent && !superAdminMask ? children : null }
         { contentWarning || superAdminMask ? <SensitiveScreen /> : null }
@@ -313,7 +230,7 @@ AspectRatio.propTypes = {
     id: PropTypes.string.isRequired,
     show_warning_cover: PropTypes.bool.isRequired,
     dynamic_annotation_flag: PropTypes.object.isRequired,
-  }).isRequired,
+  }),
   intl: intlShape.isRequired,
 };
 
@@ -322,6 +239,7 @@ AspectRatio.defaultProps = {
   expandedImage: '',
   isPenderCard: false,
   isVideoFile: false,
+  projectMedia: null,
   superAdminMask: false,
 };
 

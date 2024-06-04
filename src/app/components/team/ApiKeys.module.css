@@ -1,0 +1,78 @@
+.api-keys {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.api-keys-heading {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 16px 0;
+}
+
+.api-keys-footer {
+  align-items: center;
+  color: var(--color-gray-37);
+  display: flex;
+  gap: 4px;
+  margin-top: 16px;
+  padding: 0 4px 0 10px;
+}
+
+.apikey-entry-root {
+  background-color: var(--color-white-100);
+  border: solid 2px var(--color-gray-88);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.api-keys-empty-blurb {
+  color: var(--color-gray-59);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.key-title {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  line-height: 150% !important;
+  margin-bottom: 6px;
+}
+
+.key-title--active {
+  color: var(--color-gray-15);
+}
+
+.key-title--expired {
+  color: var(--color-gray-59);
+}
+
+.key-description {
+  line-height: 143% !important;
+}
+
+.key-expired {
+  color: var(--color-pink-40);
+}
+
+.key-row {
+  align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.key-row__buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  margin-bottom: 5px;
+}
+
+.key-textfield {
+  flex-grow: 1;
+}

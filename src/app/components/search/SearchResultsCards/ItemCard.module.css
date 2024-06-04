@@ -1,3 +1,85 @@
 .itemCard {
   background-color: transparent;
+  margin: 0 16px 16px;
+  position: relative;
+
+  .listItemUnread {
+    &::before {
+      background-color: var(--color-gray-75);
+      border-radius: 3px;
+      bottom: 6px;
+      content: '';
+      left: 6px;
+      overflow: hidden;
+      position: absolute;
+      right: auto;
+      top: 6px;
+      width: 5px;
+    }
+  }
+
+  .sharedItemCardLeft {
+    align-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 16px;
+    grid-gap: 0 16px;
+    justify-content: space-between;
+  }
+
+  .sharedItemCardMiddle {
+    align-items: flex-start;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    gap: 6px;
+
+    .sharedItemCardWorkspaces {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+
+      .extraWorkspaces {
+        align-items: center;
+        background-color: var(--color-white-100);
+        border: 2px solid var(--color-gray-88);
+        border-radius: 6px;
+        color: var(--color-gray-37);
+        cursor: pointer;
+        display: flex;
+        flex-shrink: 0;
+        font-feature-settings: 'clig' off, 'liga' off;
+        gap: 12px;
+        height: 30px;
+        justify-content: center;
+        padding: 6px;
+        text-align: center;
+        width: 30px;
+      }
+    }
+  }
+
+  .bulletSeparator > div {
+    color: var(--color-gray-75);
+  }
+
+  .workspaceItemCardRating {
+    align-items: flex-end;
+    display: flex;
+    gap: 3px;
+    justify-content: flex-end;
+
+    .publishedLabel > button > div > svg {
+      color: var(--color-green-35);
+    }
+  }
+
+  .checkbox {
+    align-items: center;
+    align-self: center;
+    display: flex;
+    flex: 0 0 42px;
+    flex-direction: row;
+    overflow: hidden;
+  }
 }

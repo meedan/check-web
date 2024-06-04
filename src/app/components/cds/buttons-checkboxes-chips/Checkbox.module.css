@@ -7,7 +7,7 @@
     user-select: none;
 
     span {
-      color: var(--textPrimary);
+      color: var(--color-gray-15);
     }
 
     input[type='checkbox'] {
@@ -22,27 +22,31 @@
       transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
 
       &.checked {
-        color: var(--brandMain);
+        color: var(--color-blue-54);
       }
     }
 
     &.disabled {
-      color: var(--textDisabled);
+      color: var(--color-gray-59);
+
+      span {
+        color: var(--color-gray-75);
+      }
 
       &:hover {
         background-color: transparent;
         border-radius: 50px;
-        color: var(--textDisabled);
+        color: var(--color-gray-59);
       }
     }
 
     &:hover {
       .checkboxIcon {
-        background-color: var(--brandHoverAccent);
-        color: var(--brandMain);
+        background-color: var(--color-blue-98);
+        color: var(--color-blue-54);
 
         &.checked {
-          color: var(--brandSecondary);
+          color: var(--color-blue-38);
         }
       }
     }

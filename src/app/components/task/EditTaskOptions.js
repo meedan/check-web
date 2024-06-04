@@ -1,18 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import {
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  TextField,
-} from '@material-ui/core';
+import { Box } from '@material-ui/core';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import TextField from '../cds/inputs/TextField';
 import AddIcon from '../../icons/add.svg';
 import CheckBoxOutlineBlankIcon from '../../icons/check_box.svg';
 import ClearIcon from '../../icons/clear.svg';
 import RadioButtonUncheckedIcon from '../../icons/radio_button_checked.svg';
-import { Row } from '../../styles/js/shared';
+import styles from './Task.module.css';
 
 const messages = defineMessages({
   value: {
@@ -124,64 +120,84 @@ const EditTaskOptions = ({
 
   return (
     <React.Fragment>
-      <Divider />
+      <hr />
       <Box mt={1}>
         { options.map((item, index) => (
           <div key={`edit-task-options__option-${index.toString()}`}>
-            <Row>
-              { taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null }
-              { taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null }
+            <div className={styles['task-multi-select']}>
+              <ButtonMain
+                key="create-task__remove-option-button"
+                className="create-task__remove-option-button create-task__md-icon"
+                disabled
+                iconCenter={
+                  <>
+                    { taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null }
+                    { taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null }
+                  </>
+                }
+                variant="text"
+                size="small"
+                theme="text"
+              />
               <Box clone py={0.5} px={1} width="75%">
                 <TextField
                   key="create-task__add-option-input"
                   className="create-task__add-option-input"
-                  id={index.toString()}
-                  onChange={e => handleEditOption(e.target.value, index)}
+                  componentProps={{
+                    id: index.toString(),
+                  }}
                   placeholder={`${intl.formatMessage(messages.value)} ${index + 1}`}
                   value={item.label}
+                  onChange={e => handleEditOption(e.target.value, index)}
                   disabled={item.other}
-                  variant="outlined"
-                  margin="dense"
                   error={item.label && options.filter(o => o.label === item.label).length > 1}
                 />
               </Box>
               { canRemove ?
-                <IconButton
+                <ButtonMain
                   key="create-task__remove-option-button"
                   className="create-task__remove-option-button create-task__md-icon"
                   onClick={() => handleRemoveOption(index)}
-                >
-                  <ClearIcon />
-                </IconButton>
-                : null }
-            </Row>
+                  iconCenter={<ClearIcon />}
+                  variant="contained"
+                  size="small"
+                  theme="lightText"
+                /> : null
+              }
+            </div>
           </div>
         ))}
         <Box mt={1} display="flex">
-          <Button
+          <ButtonMain
             onClick={handleAddOption}
-            startIcon={<AddIcon />}
+            iconLeft={<AddIcon />}
+            theme="text"
+            size="default"
             variant="contained"
-          >
-            <FormattedMessage
-              id="singleChoiceTask.addValue"
-              defaultMessage="Add Option"
-              description="Button for creating a new entry to a list of selectable options"
-            />
-          </Button>
+            label={
+              <FormattedMessage
+                id="singleChoiceTask.addValue"
+                defaultMessage="Add Option"
+                description="Button for creating a new entry to a list of selectable options"
+              />
+            }
+          />
           <Box ml={1}>
-            <Button
+            <ButtonMain
               onClick={handleAddOther}
-              startIcon={<AddIcon />}
+              iconLeft={<AddIcon />}
+              theme="text"
+              size="default"
               variant="contained"
               disabled={hasOther}
-            >
-              <FormattedMessage
-                id="singleChoiceTask.addOther"
-                defaultMessage='Add "Other"'
-                description="Button for creating a new entry to a list of selectable options, in which the user is free to specify the value that will be selected"
-              />
-            </Button>
+              label={
+                <FormattedMessage
+                  id="singleChoiceTask.addOther"
+                  defaultMessage='Add "Other"'
+                  description="Button for creating a new entry to a list of selectable options, in which the user is free to specify the value that will be selected"
+                />
+              }
+            />
           </Box>
         </Box>
       </Box>

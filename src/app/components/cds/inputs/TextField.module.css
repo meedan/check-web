@@ -8,10 +8,10 @@
     width: 100%;
 
     .input {
-      background-color: var(--otherWhite);
-      border: 2px solid var(--grayBorderMain);
+      background-color: var(--color-white-100);
+      border: 2px solid var(--color-gray-88);
       border-radius: 8px;
-      color: var(--textPrimary);
+      color: var(--color-gray-15);
       font: inherit;
       height: 100%;
       letter-spacing: .15px;
@@ -29,18 +29,18 @@
       }
 
       &:hover {
-        border-color: var(--grayBorderAccent);
+        border-color: var(--color-gray-75);
       }
 
       &::placeholder {
-        color: var(--textPlaceholder);
+        color: var(--color-gray-75);
         font: 400 14px var(--fontStackSans);
         letter-spacing: .15px;
         line-height: 20px;
       }
 
       &:focus {
-        border-color: var(--brandMain);
+        border-color: var(--color-blue-54);
         outline: none;
 
         &::placeholder {
@@ -53,14 +53,14 @@
       }
 
       &.error {
-        border-color: var(--errorMain) !important;
+        border-color: var(--color-pink-53) !important;
 
         &:hover {
-          border-color: var(--errorSecondary) !important;
+          border-color: var(--color-pink-40) !important;
         }
 
         &:focus {
-          border-color: var(--errorMain) !important;
+          border-color: var(--color-pink-53) !important;
         }
       }
     }
@@ -119,17 +119,18 @@
 
       textarea {
         max-width: 100%;
+        min-height: 32px;
       }
     }
 
     &.disabled {
       .input {
-        background-color: var(--grayDisabledBackground);
-        color: var(--textDisabledInput);
+        background-color: var(--color-gray-96);
+        color: var(--color-gray-59);
         cursor: not-allowed;
 
         &:hover {
-          border-color: var(--grayBorderMain);
+          border-color: var(--color-gray-96);
         }
       }
     }

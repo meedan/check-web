@@ -1,6 +1,6 @@
 .MediaSuggestionReview {
-  background-color: var(--alertLight);
-  border-color: var(--alertLight);
+  background-color: var(--color-orange-95);
+  border-color: var(--color-orange-95);
   border-radius: 5px;
   display: flex;
   flex-direction: column;

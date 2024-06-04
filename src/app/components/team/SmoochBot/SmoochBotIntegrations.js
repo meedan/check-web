@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
-import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
+import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import GetAppIcon from '../../../icons/file_download.svg';
 import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
@@ -41,7 +41,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
   };
 
   const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/5189362-connect-a-new-tipline', '_blank');
+    window.open('https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot', '_blank');
   };
 
   return (
@@ -65,7 +65,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="whatsapp"
           label="WhatsApp"
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7122ffbcd0"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ec472becaf"
           icon={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
           online={isOnline('whatsapp')}
           readOnly={isWabaSet || isCapiSet}
@@ -101,13 +101,12 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   </Box>
                   <Box display="flex" alignItems="center">
                     <TextField
+                      className={styles['smoochbot-component-input']}
                       variant="outlined"
-                      margin="normal"
                       defaultValue={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`}
                       InputProps={{
                         readOnly: true,
                       }}
-                      fullWidth
                     />
                     <Tooltip
                       PopperProps={{
@@ -154,17 +153,13 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                       description="Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
                     />
                   </Box>
-                  <Box display="flex" alignItems="flex-start" justifyContent="space-between">
+                  <Box>
                     <Box display="flex" alignItems="flex-start">
                       <TextField
+                        className={styles['smoochbot-component-input']}
                         variant="outlined"
-                        margin="none"
                         defaultValue={`<img src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}" />`}
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                        multiline
-                        rows={8}
+                        disabled
                       />
                       <Tooltip
                         PopperProps={{
@@ -195,8 +190,8 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                         </CopyToClipboard>
                       </Tooltip>
                     </Box>
-                    <Box ml={4} display="flex" alignItems="flex-start">
-                      <QRCodeCanvas size={192} value={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`} id="whatsapp-qr-code-canvas" />
+                    <Box mt={2} display="flex" alignItems="flex-start">
+                      <QRCodeCanvas size={192} value={`https://wa.me/${enabledIntegrations?.whatsapp?.phoneNumber.replace(/[^0-9]/g, '')}`} id="whatsapp-qr-code-canvas" />
                       <IconButton onClick={handleDownloadWhatsAppQrCode}>
                         <GetAppIcon />
                       </IconButton>
@@ -216,7 +211,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="twitter"
           label="X (Twitter)"
           url={null}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_5cfcbe09c7"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot"
           icon={<TwitterIcon style={{ color: 'var(--xBlack)' }} />}
           deprecationNotice={
             <FormattedMessage
@@ -232,7 +227,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="messenger"
           label="Messenger"
           url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/messenger')}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7e76e39cac"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
           icon={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
           online={isOnline('messenger')}
           readOnly={!isSmoochSet}
@@ -260,7 +255,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<TelegramIcon style={{ color: 'var(--telegramBlue)' }} />}
           online={isOnline('telegram')}
           readOnly={!isSmoochSet}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_6aa3557c62"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ff25899cc2"
           params={[
             {
               key: 'token',
@@ -291,7 +286,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<ViberIcon style={{ color: 'var(--viberPurple)' }} />}
           online={isOnline('viber')}
           readOnly={!isSmoochSet}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_895bbda0a6"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_71c06164f3"
           params={[
             {
               key: 'token',
@@ -318,7 +313,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
           online={isOnline('line')}
           readOnly={!isSmoochSet}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_351dd4f960"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
           params={[
             {
               key: 'channelAccessToken',
@@ -340,13 +335,11 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   />
                 }
                 variant="outlined"
-                margin="normal"
                 // eslint-disable-next-line no-underscore-dangle
                 defaultValue={`https://app.smooch.io:443/api/line/webhooks/${settings.smooch_app_id}/${enabledIntegrations.line._id}`}
                 InputProps={{
                   readOnly: true,
                 }}
-                fullWidth
               /> : null
           }
         />
@@ -356,7 +349,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="instagram"
           label="Instagram"
           url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
-          helpUrl="https://help.checkmedia.org/en/articles/5189362-connect-a-new-tipline#h_30c95a8357"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_b872d32c4d"
           icon={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
           online={isOnline('instagram')}
           readOnly={!isSmoochSet}

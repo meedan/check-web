@@ -1,5 +1,10 @@
 [
   {
+    "id": "projectsComponent.placeholder",
+    "description": "Placeholder for creating a new custom list",
+    "defaultMessage": "Enter a short, easily remembered name for this custom list"
+  },
+  {
     "id": "projectsComponent.title",
     "description": "Text field label for the title input",
     "defaultMessage": "Title"

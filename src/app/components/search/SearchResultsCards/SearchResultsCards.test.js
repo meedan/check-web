@@ -57,7 +57,7 @@ describe('<SearchResultsCards />', () => {
       team={team}
       projectMedias={[projectMedias[0]]}
     />);
-    const card = resultsComponent.find('FactCheckCard');
+    const card = resultsComponent.find('ArticleCard');
     expect(card.props().statusLabel).toBe('Test');
     expect(card.props().statusColor).toBe('red');
   });

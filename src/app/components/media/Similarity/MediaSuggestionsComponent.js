@@ -542,7 +542,7 @@ const MediaSuggestionsComponent = ({
               size="large"
               theme="validation"
               disabled={disableAcceptRejectButtons}
-              customStyle={relationshipItem.target.media ? {} : { display: 'none' }}
+              customStyle={relationshipItem?.target?.media ? {} : { display: 'none' }}
               className="similarity-media-item__accept-relationship"
             />
           </span>
@@ -558,7 +558,7 @@ const MediaSuggestionsComponent = ({
               size="large"
               theme="error"
               disabled={disableAcceptRejectButtons}
-              customStyle={relationshipItem.target.media ? {} : { display: 'none' }}
+              customStyle={relationshipItem?.target?.media ? {} : { display: 'none' }}
               className="similarity-media-item__reject-relationship"
             />
           </span>
@@ -568,13 +568,13 @@ const MediaSuggestionsComponent = ({
         {
           relationshipItem?.target && (
             <SmallMediaCard
-              customTitle={relationshipItem.target.title}
+              customTitle={relationshipItem?.target?.title}
               details={details}
-              media={relationshipItem.target.media}
-              description={relationshipItem.target.description}
-              maskContent={relationshipItem.target.show_warning_cover}
+              media={relationshipItem?.target?.media}
+              description={relationshipItem?.target?.description}
+              maskContent={relationshipItem?.target?.show_warning_cover}
               superAdminMask={superAdminMask}
-              onClick={() => setSelectedItemId(relationshipItem.target.dbid)}
+              onClick={() => setSelectedItemId(relationshipItem?.target?.dbid)}
             />
           )
         }
@@ -603,7 +603,7 @@ const MediaSuggestionsComponent = ({
               size="large"
               theme="lightText"
               disabled={disableAcceptRejectButtons}
-              customStyle={relationshipItem.target.media ? {} : { display: 'none' }}
+              customStyle={relationshipItem?.target?.media ? {} : { display: 'none' }}
             />
           </span>
         </Tooltip>
@@ -616,7 +616,7 @@ const MediaSuggestionsComponent = ({
               size="large"
               theme="lightText"
               disabled={disableAcceptRejectButtons}
-              customStyle={relationshipItem.target.media ? {} : { display: 'none' }}
+              customStyle={relationshipItem?.target?.media ? {} : { display: 'none' }}
             />
           </span>
         </Tooltip>

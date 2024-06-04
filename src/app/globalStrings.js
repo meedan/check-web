@@ -31,6 +31,11 @@ const globalStrings = defineMessages({
     defaultMessage: 'Delete',
     description: 'Generic label for a button or link for a user to press when they wish to delete content or remove functionality',
   },
+  description: {
+    id: 'global.description',
+    defaultMessage: 'Description',
+    description: 'Generic label for a text field to input a description',
+  },
   ok: {
     id: 'global.ok',
     defaultMessage: 'OK',

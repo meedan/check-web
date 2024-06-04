@@ -10,8 +10,8 @@ const useStyles = makeStyles({
     textAlign: 'right',
   },
   urlChip: {
-    backgroundColor: 'var(--textDisabled)',
-    color: 'var(--otherWhite)',
+    backgroundColor: 'var(--color-gray-59)',
+    color: 'var(--color-white-100)',
     marginTop: '4px',
   },
   link: {

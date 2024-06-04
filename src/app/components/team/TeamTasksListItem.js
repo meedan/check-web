@@ -290,11 +290,11 @@ class TeamTasksListItem extends React.Component {
 
     const icon = {
       free_text: <ShortTextIcon />,
-      number: <NumberIcon style={{ fontSize: '24px' }} />,
+      number: <NumberIcon />,
       geolocation: <LocationIcon />,
       datetime: <DateRangeIcon />,
       single_choice: <RadioButtonCheckedIcon />,
-      multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
+      multiple_choice: <CheckBoxIcon />,
       file_upload: <IconFileUpload />,
       url: <LinkOutlinedIcon />,
     };
