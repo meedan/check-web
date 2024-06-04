@@ -296,6 +296,7 @@ const FeedRequestsTable = ({
                           title: requestTitle,
                           description: '',
                           picture: requestPicture,
+                          type: r.node.media_type,
                         }}
                       />
                       <TableCell>
