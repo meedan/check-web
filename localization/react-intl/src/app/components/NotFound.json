@@ -7,7 +7,7 @@
   {
     "id": "notFound.title",
     "description": "Not found page title",
-    "defaultMessage": "Oh no! This page does not exist or you do not have authorized access."
+    "defaultMessage": "This page does not exist or you do not have authorized access."
   },
   {
     "id": "notFound.text",

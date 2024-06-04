@@ -83,7 +83,7 @@ ButtonMain.propTypes = {
   className: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   size: PropTypes.oneOf(['default', 'small', 'large']),
-  theme: PropTypes.oneOf(['brand', 'lightBrand', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert', 'black', 'white']),
+  theme: PropTypes.oneOf(['brand', 'lightBrand', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert', 'black', 'white', 'beige', 'lightBeige']),
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
   iconCenter: PropTypes.element,

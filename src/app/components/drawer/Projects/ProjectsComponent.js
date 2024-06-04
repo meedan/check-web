@@ -8,13 +8,14 @@ import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
-import AddCircleIcon from '../../../icons/add_circle.svg';
+import AddIcon from '../../../icons/add_filled.svg';
 import CategoryIcon from '../../../icons/category.svg';
-import ExpandLessIcon from '../../../icons/expand_less.svg';
-import ExpandMoreIcon from '../../../icons/expand_more.svg';
+import ExpandLessIcon from '../../../icons/chevron_down.svg';
+import ExpandMoreIcon from '../../../icons/chevron_right.svg';
 import FeedIcon from '../../../icons/dynamic_feed.svg';
 import InboxIcon from '../../../icons/inbox.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
+import ListIcon from '../../../icons/list.svg';
 import PersonIcon from '../../../icons/person.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
@@ -212,27 +213,27 @@ const ProjectsComponent = ({
 
           {/* Lists Header */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-          <li onClick={handleToggleListsExpand} className={cx(styles.listHeader, 'project-list__header')}>
-            { listsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-            <div className={styles.listHeaderLabel}>
+          <li onClick={handleToggleListsExpand} className={cx(styles.listItem, styles.listHeader, styles.listItem_containsCount, 'project-list__header')}>
+            { listsExpanded ? <ExpandLessIcon className={styles.listIcon} /> : <ExpandMoreIcon className={styles.listIcon} /> }
+            <div className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
-              <Can permissions={team.permissions} permission="create Project">
-                <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
-                  <span className={styles.listHeaderLabelButton}>
-                    <ButtonMain
-                      iconCenter={<AddCircleIcon />}
-                      variant="contained"
-                      size="small"
-                      theme="text"
-                      onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
-                      buttonProps={{
-                        id: 'projects-list__add-filtered-list',
-                      }}
-                    />
-                  </span>
-                </Tooltip>
-              </Can>
             </div>
+            <Can permissions={team.permissions} permission="create Project">
+              <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
+                <div className={cx(styles.listItemCount, styles.listAddListButton)}>
+                  <ButtonMain
+                    iconCenter={<AddIcon />}
+                    variant="text"
+                    size="default"
+                    theme="text"
+                    onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
+                    buttonProps={{
+                      id: 'projects-list__add-filtered-list',
+                    }}
+                  />
+                </div>
+              </Tooltip>
+            </Can>
           </li>
 
           {/* Lists */}
@@ -254,7 +255,7 @@ const ProjectsComponent = ({
                       routePrefix="list"
                       project={search}
                       teamSlug={team.slug}
-                      icon={search.is_part_of_feeds && <FeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} />}
+                      icon={search.is_part_of_feeds ? <FeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} /> : <ListIcon className={styles.listIcon} />}
                       isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
                     />
                   ))}

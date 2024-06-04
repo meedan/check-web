@@ -7,6 +7,7 @@ import ItemDate from '../../cds/media-cards/ItemDate';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
+import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
 import SharedItemCardFooter from './SharedItemCardFooter';
 import styles from './ArticleCard.module.css';
 
@@ -21,6 +22,7 @@ const ArticleCard = ({
   teamName,
   languageCode,
   tags,
+  publishedAt,
   onChangeTags,
   variant,
 }) => (
@@ -55,14 +57,17 @@ const ArticleCard = ({
           />
         </div>
       </div>
-      { (statusLabel || date) ?
+      { (statusLabel || date || variant === 'fact-check') ?
         <div className={styles.cardRight}>
-          { statusLabel ? <ItemRating rating={statusLabel} ratingColor={statusColor} /> : null }
-          { date ?
+          <div className={styles.cardRightTop}>
+            { statusLabel && <ItemRating rating={statusLabel} ratingColor={statusColor} /> }
+            { variant === 'fact-check' && <ItemReportStatus publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
+          </div>
+          { date &&
             <ItemDate
               date={new Date(date * 1000)}
               tooltipLabel={<FormattedMessage id="factCheckCard.dateLabel" defaultMessage="Published at" description="Date tooltip label for fact-check cards" />}
-            /> : null
+            />
           }
         </div> : null
       }
@@ -80,6 +85,7 @@ ArticleCard.defaultProps = {
   tags: [],
   variant: 'explainer',
   statusLabel: null,
+  publishedAt: null,
 };
 
 ArticleCard.propTypes = {
@@ -93,6 +99,7 @@ ArticleCard.propTypes = {
   teamName: PropTypes.string,
   languageCode: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
+  publishedAt: PropTypes.number, // Timestamp
   onChangeTags: PropTypes.func.isRequired,
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
 };

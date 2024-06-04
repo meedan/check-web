@@ -34,7 +34,7 @@ const NewArticleButton = (team) => {
       <ButtonMain
         variant="contained"
         size="default"
-        theme="text"
+        theme="lightBeige"
         iconLeft={<AddIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
         label="New Article"
