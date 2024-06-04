@@ -137,7 +137,6 @@ const ClaimFactCheckForm = ({
   };
 
   const handleSaveFactCheck = (response) => {
-    console.log('saving', response) //eslint-disable-line
     setSaving(true);
     commitMutation(Relay.Store, {
       mutation: createFactCheckMutation,
