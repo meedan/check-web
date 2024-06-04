@@ -5,7 +5,6 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../cds/inputs/TextArea';
 import ClearIcon from '../../icons/clear.svg';
-import MediaStatusCommon from './MediaStatusCommon';
 import UploadFile from '../UploadFile';
 import inputStyles from '../../styles/css/inputs.module.css';
 
@@ -155,40 +154,9 @@ class CreateMediaInput extends React.Component {
     return (
       <>
         <div className={inputStyles['form-fieldset-title']}>
-          <FormattedMessage id="createMedia.mediaClaimDescription" defaultMessage="Claim" description="Section title for the description of a claim" />
-        </div>
-        <div className={inputStyles['form-fieldset-field']}>
-          <FormattedMessage
-            id="createMedia.mediaClaim"
-            defaultMessage="For example: The earth is flat"
-            description="Placeholder message for the claim text field"
-          >
-            { placeholder => (
-              <TextArea
-                key="createMedia.media.claim"
-                maxHeight="266px"
-                id="create-media-claim"
-                name="claim"
-                placeholder={placeholder}
-                value={this.state.claimText}
-                onChange={this.handleClaimChange}
-                label={
-                  <FormattedMessage
-                    id="createMedia.mediaClaimLabel"
-                    defaultMessage="Title"
-                    description="Label for the text input for claim title"
-                  />
-                }
-                helpContent={
-                  <FormattedMessage id="createMedia.mediaClaimDescriptionSubtitle" defaultMessage="A description of the claim that needs to be reviewed." description="Subtitle for the claim's description that is under review" />
-                }
-              />
-            )}
-          </FormattedMessage>
-        </div>
-        <div className={inputStyles['form-fieldset-title']}>
           <FormattedMessage id="createMedia.media.media" defaultMessage="Media" description="Header for the claim media area" />
         </div>
+
         {
           this.state.mediaFile === null ? (
             <div className={inputStyles['form-fieldset-field']}>
@@ -284,18 +252,6 @@ class CreateMediaInput extends React.Component {
         >
           <div id="create-media__field" className={inputStyles['form-fieldset']}>
             {this.renderFormInput()}
-            <div className={inputStyles['form-fieldset']}>
-              <div className={inputStyles['form-fieldset-field']}>
-                <MediaStatusCommon
-                  media={{
-                    team: this.props.team,
-                  }}
-                  setStatus={this.setStatus}
-                  quickAdd
-                  currentStatus={this.state.status}
-                />
-              </div>
-            </div>
           </div>
         </form>
       </>
