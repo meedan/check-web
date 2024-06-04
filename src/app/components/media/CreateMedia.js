@@ -115,7 +115,7 @@ class CreateProjectMedia extends React.Component {
           size="default"
           variant="contained"
           label={
-            <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" description="Button label for adding an item" />
+            <FormattedMessage id="createMedia.addItem" defaultMessage="Add Media" description="Button label for adding an item" />
           }
           buttonProps={{
             id: 'create-media__add-item',

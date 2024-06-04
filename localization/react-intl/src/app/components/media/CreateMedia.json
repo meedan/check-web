@@ -7,7 +7,7 @@
   {
     "id": "createMedia.addItem",
     "description": "Button label for adding an item",
-    "defaultMessage": "Add Item"
+    "defaultMessage": "Add Media"
   },
   {
     "id": "createMedia.addNewItem",
