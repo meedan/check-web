@@ -46,7 +46,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
 
   const handleGoToReport = () => {
-    window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
+    window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)\/?$/, '').replace(/\/$/, '')}/report`);
   };
 
   const handleBlur = (field, value) => {
