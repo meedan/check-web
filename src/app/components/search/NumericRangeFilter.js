@@ -84,7 +84,7 @@ const NumericRangeFilter = ({
           theme="text"
           size="small"
           variant="text"
-          customStyle={{ color: 'var(--textPrimary' }}
+          customStyle={{ color: 'var(--color-gray-15' }}
           label={<FormattedMessage id="numericRangeFilter.between" defaultMessage="and" description="Logical operator AND statement" />}
         />
         <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">

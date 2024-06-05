@@ -2,55 +2,113 @@
 :root {
   --columnWidthMedium: 680px;
   --columnWidthLarge: 880px;
-  --fontStackSans: 'Roboto', -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
+  --font-family: inter var;
+  --fontStackSans: var(--font-family), -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
 
-  --fontSizeSmall: 12px;
-  --fontSizeDefault: 14px;
-  --fontSizeBaseText: 16px;
+  --color-beige-40: #6f6a5e;
+  --color-beige-47: #827d6e;
+  --color-beige-55: #969081;
+  --color-beige-60: #a39e91;
+  --color-beige-68: #b7b1a4;
+  --color-beige-76: #ccc6b6;
+  --color-beige-86: #e8e1d1;
+  --color-beige-93: #f2efe8;
+
+  --color-blue-32: #036e9e;
+  --color-blue-38: #0086c1;
+  --color-blue-54: #37a0de;
+  --color-blue-61: #52aae4;
+  --color-blue-69: #6abdf7;
+  --color-blue-81: #9fdbfc;
+  --color-blue-90: #cbecfe;
+  --color-blue-98: #f3fbff;
+
+  --color-gray-15: #262626;
+  --color-gray-28: #474747;
+  --color-gray-37: #5e5e5e;
+  --color-gray-42: #6b6b6b;
+  --color-gray-59: #979797;
+  --color-gray-75: #bfbfbf;
+  --color-gray-88: #e0e0e0;
+  --color-gray-96: #f5f5f5;
+
+  --color-green-23: #01722f;
+  --color-green-24: #4d7c00;
+  --color-green-27: #5f8c00;
+  --color-green-31: #759d00;
+  --color-green-35: #85b200;
+  --color-green-50: #9dc538;
+  --color-green-68: #c4e476;
+  --color-green-82: #e2faa6;
+  --color-green-97: #f8ffee;
+
+  --color-orange-31: #843f18;
+  --color-orange-49: #e24918;
+  --color-orange-51: #e7601d;
+  --color-orange-54: #f17522;
+  --color-orange-60: #f7843a;
+  --color-orange-67: #f8995f;
+  --color-orange-77: #f8b791;
+  --color-orange-85: #f8d2bc;
+  --color-orange-95: #fff1e8;
+
+  --color-pink-40: #bc0f38;
+  --color-pink-49: #ce2b41;
+  --color-pink-53: #e22b45;
+  --color-pink-60: #f73954;
+  --color-pink-65: #ff4b64;
+  --color-pink-71: #ff6c77;
+  --color-pink-76: #ff858b;
+  --color-pink-81: #ff9c9e;
+  --color-pink-85: #ffb2b2;
+  --color-pink-89: #ffc6c6;
+  --color-pink-93: #ffdbdb;
+  --color-pink-96: #ffeeed;
+
+  --color-purple-28: #50008f;
+  --color-purple-39: #7000c8;
+  --color-purple-50: #8e0bf5;
+  --color-purple-61: #9643f5;
+  --color-purple-73: #b97cf8;
+  --color-purple-85: #dab6fb;
+  --color-purple-92: #ecd8ff;
+  --color-purple-96: #f7edff;
+
+  --color-yellow-31: #91a000;
+  --color-yellow-37: #bb8900;
+  --color-yellow-43: #ddb200;
+  --color-yellow-44: #c8991a;
+  --color-yellow-47: #eec000;
+  --color-yellow-50: #fbd202;
+  --color-yellow-66: #ffe352;
+  --color-yellow-79: #ffee96;
+  --color-yellow-95: #fffae3;
+
+  --color-white-100: #fff;
+
   --iconSizeTiny: 16px;
-  --fontSizeLarge: 18px;
   --iconSizeSmall: 20px;
   --iconSizeDefault: 24px;
   --iconSizeBig: 176px;
 
-  --brandMain: #567bff;
-  --brandSecondary: #3b5cd0;
-  --brandLight: #e7efff;
-  --brandAccent: #293e86;
-  --brandBorder: #d0d6ec;
-  --brandBackground: #f1f5f6;
-  --brandBackgroundAccent: #eaeeef;
-  --brandHoverAccent: #f2f8ff;
+  --font-size-base: 16px;
+  --font-size-h1: 96px;
+  --font-size-h2: 60px;
+  --font-size-h3: 48px;
+  --font-size-h4: 34px;
+  --font-size-h5: 24px;
+  --font-size-h6: 20px;
+  --font-size-subtitle-1: 18px;
+  --font-size-subtitle-2: 14px;
+  --font-size-button: 14px;
+  --font-size-overline: 12px;
+  --font-size-body-1: 14px;
+  --font-size-body-2: 12px;
+  --font-size-caption: 12px;
 
-  --textPrimary: #262626;
-  --textSecondary: #656565;
-  --textPlaceholder: #949494;
-  --textDisabled: #999;
-  --textDisabledInput: #4a4a4a;
-  --textLink: #3b5cd0;
-
-  --validationMain: #4caf50;
-  --validationSecondary: #237c27;
-  --validationLight: #f0fff1;
-  --validationBorder: #c0f0c2;
-
-  --alertMain: #e78a00;
-  --alertSecondary: #a66300;
-  --alertLight: #fff8ed;
-
-  --errorMain: #f44336;
-  --errorSecondary: #c9291d;
-  --errorLight: #ffeeed;
-
-  --grayBackground: #f7f7f7;
-  --grayDisabledBackground: #f3f3f3;
-  --grayBorderMain: #e4e4e4;
-  --grayBorderAccent: #b4b4b4;
   --grayShadow: rgb(0 0 0 / .15);
 
   --overlayLight: rgb(34 34 34 / .7);
-
-  --otherWhite: #fff;
 
   /* https://facebookbrand.com/facebookapp/advertisers-and-partners/ */
   --facebookBlue: #1877f2;

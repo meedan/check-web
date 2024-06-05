@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { addLocaleData } from 'react-intl';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { ThemeProvider } from 'styled-components';
 import { Helmet } from 'react-helmet';
 import rtlDetect from 'rtl-detect';
 import thunk from 'redux-thunk';
@@ -55,7 +54,6 @@ const clientSessionId = generateRandomClientSessionId();
 const pusherContextValue = getPusherContextValueForClientSessionId(clientSessionId);
 
 const dir = rtlDetect.isRtlLang(locale) ? 'rtl' : 'ltr';
-const styledComponentsTheme = { dir };
 const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
 // JSS and StylesProvider and <Helmet><body> are to make material-ui
 // support right-to-left (e.g., Arabic).
@@ -72,13 +70,11 @@ const callback = (translations) => {
         <ClientSessionIdContext.Provider value={clientSessionId}>
           <PusherContext.Provider value={pusherContextValue}>
             <FlashMessageProvider>
-              <ThemeProvider theme={styledComponentsTheme}>
-                <StylesProvider jss={jss}>
-                  <MuiThemeProvider theme={muiTheme}>
-                    <Root store={store} translations={translations} locale={locale} />
-                  </MuiThemeProvider>
-                </StylesProvider>
-              </ThemeProvider>
+              <StylesProvider jss={jss}>
+                <MuiThemeProvider theme={muiTheme}>
+                  <Root store={store} translations={translations} locale={locale} />
+                </MuiThemeProvider>
+              </StylesProvider>
             </FlashMessageProvider>
           </PusherContext.Provider>
         </ClientSessionIdContext.Provider>

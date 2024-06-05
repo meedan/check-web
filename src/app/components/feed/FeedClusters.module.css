@@ -21,7 +21,7 @@
 }
 
 .feedClustersToolbar {
-  background: var(--otherWhite);
+  background: var(--color-white-100);
   display: flex;
   justify-content: space-between;
   padding: 16px 0;
@@ -45,4 +45,35 @@
 .feedClustersList {
   overflow: auto;
   padding-right: 16px;
+}
+
+/* ine- styles can be removed when deprecating the INE style shared feed */
+.feed-cluster-page-twocolumns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100vw;
+
+  .media-column,
+  .requets-column {
+    flex: 1;
+    height: calc(100vh - 64px);
+    max-height: calc(100vh - 64px);
+    max-width: 720px;
+    min-width: 340px;
+    overflow: auto;
+    padding: 16px;
+
+    &.max-width-column {
+      max-width: 50%;
+    }
+  }
+
+  .media-column {
+    background-color: var(--color-beige-93);
+  }
+
+  .requests-column {
+    border-left: 1px solid var(--color-gray-88);
+  }
 }

@@ -21,7 +21,7 @@ const ItemRating = ({
       label={<span className={styles.cardTagLabel}><EllipseIcon className={styles.cardTagIcon} style={{ color: ratingColor }} />{rating}</span>}
       customStyle={{
         borderColor: ratingColor,
-        color: 'var(--textPrimary)',
+        color: 'var(--color-gray-15)',
       }}
     />
   </div>)

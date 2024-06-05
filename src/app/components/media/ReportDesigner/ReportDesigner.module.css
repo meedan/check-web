@@ -1,5 +1,4 @@
 .report-designer-wrapper {
-  background-color: var(--grayBackground);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -7,7 +6,7 @@
 
   .report-header-bar {
     align-items: center;
-    background-color: var(--otherWhite);
+    background-color: var(--color-white-100);
     border-radius: 8px;
     display: flex;
     flex: 0 0 64px;
@@ -57,12 +56,12 @@
 
     .report-editor {
       .report-designer-form {
-        background-color: var(--otherWhite);
+        background-color: var(--color-white-100);
         border-radius: 8px;
         padding: 16px;
 
         .report-designer-form-container {
-          background-color: var(--brandBackground);
+          background-color: var(--color-beige-93);
           border-radius: 5px;
           padding: 16px;
           position: relative;
@@ -88,7 +87,7 @@
           }
 
           .report-rating-wrapper {
-            background: var(--brandBackgroundAccent);
+            background: var(--color-beige-86);
             border-radius: 3px;
             margin: 0 0 16px;
             padding: 16px;
@@ -118,7 +117,7 @@
 
           &.report-designer-form-disabled {
             &::after {
-              background-color: var(--textPrimary);
+              background-color: var(--color-gray-15);
               border-radius: 8px;
               bottom: 0;
               content: '';

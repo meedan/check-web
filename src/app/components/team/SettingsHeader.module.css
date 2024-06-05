@@ -46,7 +46,7 @@
 
   .settings-header-context {
     @mixin typography-body2;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     width: 100%;
   }
 }

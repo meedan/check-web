@@ -1,13 +1,27 @@
 .media-chip-link {
   display: inline-block;
+  margin: -.2em 0 0;
   max-width: 100%;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   text-decoration: none;
   vertical-align: middle;
 
   &:hover {
     text-decoration: underline;
   }
+}
+
+.StyledEmojiOnly {
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+  font-size: 32px;
+  line-height: 32px;
+}
+
+.styledLinkified {
+  line-height: 20px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .markdown-link {

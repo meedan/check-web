@@ -16,7 +16,7 @@ const styles = theme => ({
     maxWidth: theme.spacing(30),
   },
   error: {
-    color: 'var(--errorMain)',
+    color: 'var(--color-pink-53)',
   },
 });
 
@@ -69,7 +69,7 @@ const ThresholdControl = ({
         onChange={(e, newValue) => onChange(newValue)}
       />
     </Box>
-    <Box color="var(--errorMain)" my={1}>
+    <Box color="var(--color-pink-53)" my={1}>
       { error ?
         <FormattedMessage
           data-testid="threshold-control__error-message"

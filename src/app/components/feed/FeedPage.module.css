@@ -4,7 +4,7 @@
 
 .feed-page-title-wrapper {
   align-items: flex-start;
-  color: var(--textSecondary);
+  color: var(--color-gray-37);
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -18,7 +18,7 @@
     h6 {
       @mixin typography-h6;
       -webkit-box-orient: vertical;
-      color: var(--textPrimary);
+      color: var(--color-gray-15);
       /* stylelint-disable-next-line value-no-vendor-prefix */
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -33,16 +33,16 @@
       }
 
       :global(.check-icon) {
-        color: var(--textSecondary);
+        color: var(--color-gray-37);
         font-size: var(--iconSizeDefault);
         margin: 0 6px 2px 0;
         vertical-align: middle;
       }
 
       sup {
-        background-color: var(--validationMain);
+        background-color: var(--color-green-35);
         border-radius: 16px;
-        color: var(--otherWhite);
+        color: var(--color-white-100);
         /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
         font-size: 50%;
         line-height: 0;
@@ -56,8 +56,8 @@
 }
 
 .feed-container {
-  background-color: var(--otherWhite);
-  border: solid 3px var(--otherWhite);
+  background-color: var(--color-white-100);
+  border: solid 3px var(--color-white-100);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -72,8 +72,8 @@
 }
 
 .feed-content-wrapper {
-  background-color: var(--otherWhite);
-  border: solid 3px var(--otherWhite);
+  background-color: var(--color-white-100);
+  border: solid 3px var(--color-white-100);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -83,7 +83,7 @@
 }
 
 .feed-content {
-  color: var(--textPrimary);
+  color: var(--color-gray-15);
   font-size: var(--textSizeDefault);
   text-align: left;
 }

@@ -163,11 +163,11 @@ module AppSpecHelpers
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
-    wait_for_selector('#create-media-dialog-form .without-file')
+    wait_for_selector('#create-media-dialog-form .int-uploadfile__dropzone-without-file')
     wait_for_selector('#create-media-dialog-form input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))
-    wait_for_selector('#create-media-dialog-form .with-file')
+    wait_for_selector('#create-media-dialog-form .int-uploadfile__dropzone-with-file')
     wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector_none('#create-media-dialog-form .with-file')
+    wait_for_selector_none('#create-media-dialog-form .int-uploadfile__dropzone-with-file')
   end
 
   def team_url(path)
@@ -256,7 +256,7 @@ module AppSpecHelpers
     wait_for_selector('.task__log-icon > svg').click
     wait_for_selector('.add-annotation')
     wait_for_selector('.add-annotation__insert-photo').click
-    wait_for_selector('.without-file')
+    wait_for_selector('.int-uploadfile__dropzone-without-file')
     input = wait_for_selector('input[type=file]')
     input.send_keys(File.join(File.dirname(__FILE__), image_file))
     wait_for_selector('#remove-image')

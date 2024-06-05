@@ -2,21 +2,9 @@ import React from 'react';
 import Linkify from 'react-linkify';
 import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import reactStringReplace from 'react-string-replace';
 import styles from './ParsedText.module.css';
 import MediaChip from './cds/buttons-checkboxes-chips/MediaChip';
-
-const StyledEmojiOnly = styled.span`
-  line-height: 32px;
-  font-size: 32px;
-`;
-
-const Styled = styled.span`
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  line-height: 20px;
-`;
 
 const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
   let parsedText = text;
@@ -104,7 +92,7 @@ const ParsedText = (props) => {
     emojified.map((line, k1) =>
       line.map((element, k2) =>
         // eslint-disable-next-line react/no-array-index-key
-        <StyledEmojiOnly key={`${k1}${k2}`}>{element}</StyledEmojiOnly>))
+        <span className={styles.StyledEmojiOnly} key={`${k1}${k2}`}>{element}</span>))
     :
     emojified;
 
@@ -122,7 +110,7 @@ const ParsedText = (props) => {
 
   // Linkify the result.
   const linkified =
-    <Styled><Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{breakified}</Linkify></Styled>;
+    <span className={styles.styledLinkified}><Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{breakified}</Linkify></span>;
 
   // Block or not.
   return props.block ? <div>{linkified}</div> : linkified;

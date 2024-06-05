@@ -41,6 +41,6 @@ describe('<Annotation />', () => {
       />
     ));
     expect(wrapper.find('.annotation__default').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.annotation__default-content').hostNodes().html()).toMatch('Fact-check report edited by');
+    expect(wrapper.find('.test-annotation__default-content').hostNodes().html()).toMatch('Fact-check report edited by');
   });
 });

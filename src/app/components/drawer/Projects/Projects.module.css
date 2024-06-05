@@ -1,13 +1,13 @@
 .listTitle {
   @mixin typography-subtitle2;
-  color: var(--textPrimary);
+  color: var(--color-gray-15);
   padding: 16px 20px 16px 18px;
   text-transform: uppercase;
 
   sup {
-    background-color: var(--validationMain);
+    background-color: var(--color-green-35);
     border-radius: 16px;
-    color: var(--otherWhite);
+    color: var(--color-white-100);
     /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     font-size: 50%;
     line-height: 0;
@@ -62,8 +62,8 @@
   .listHeader {
     @mixin typography-caption;
     align-items: center;
-    border: solid 1px var(--otherWhite);
-    color: var(--textPlaceholder);
+    border: solid 1px var(--color-beige-93);
+    color: var(var(--color-beige-40));
     cursor: pointer;
     display: flex;
     font-weight: 500;
@@ -86,9 +86,9 @@
       }
 
       .listHeaderLabelButton {
-        background-color: var(--grayBackground);
+        background-color: var(--color-gray-96);
         border-radius: 8px;
-        color: var(--textSecondary);
+        color: var(--color-gray-37);
         flex: 0 0 30px;
         font-size: var(--iconSizeSmall);
         height: 30px;
@@ -97,8 +97,8 @@
         width: 26px;
 
         &:hover {
-          background-color: var(--brandHoverAccent);
-          color: var(--textLink);
+          background-color: var(--color-blue-98);
+          color: var(--color-blue-32);
         }
       }
     }
@@ -107,25 +107,25 @@
   .listItem {
     /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     background-color: unset;
-    border: solid 1px var(--otherWhite);
-    border-radius: 5px;
+    border: solid 1px var(--color-beige-93);
+    border-radius: 44px;
     display: flex;
     height: 42px;
     margin: 0;
-    padding: 10px 5px;
+    padding: 10px 15px;
     position: relative;
     text-align: left;
     width: 100%;
 
     .listIcon {
-      color: var(--textSecondary);
+      color: var(--color-gray-37);
       display: flex;
       font-size: var(--drawerListIconSize);
       margin: 0 10px 0 0;
     }
 
     .listIconFeed {
-      color: var(--validationMain);
+      color: var(--color-green-35);
     }
 
     .listLabel {
@@ -144,25 +144,38 @@
       }
     }
 
+    .listItemCount {
+      @mixin typography-body1;
+      color: var(--color-gray-37);
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
     &:hover {
-      background-color: var(--brandHoverAccent);
+      background-color: var(--color-beige-86);
     }
 
     &.listItem_containsCount {
-      padding: 10px 48px 10px 6px;
+      padding: 10px 48px 10px 15px;
     }
 
     &.listItem_active,
     &.listItem_active:hover {
-      background-color: var(--brandLight);
-      color: var(--brandSecondary);
+      background-color: var(--color-gray-15);
+      color: var(--color-white-100);
 
       .listIcon {
-        color: var(--brandSecondary);
+        color: var(--color-white-100);
 
         &.listIconInvitedFeed {
-          color: var(--alertMain);
+          color: var(--color-orange-54);
         }
+      }
+
+      .listItemCount {
+        color: var(--color-white-100);
       }
     }
 
@@ -170,7 +183,7 @@
       padding: 5px 5px 5px 15px;
 
       .listLabel {
-        color: var(--textDisabled);
+        color: var(--color-gray-59);
 
         span {
           cursor: text;
@@ -183,7 +196,7 @@
       }
 
       &:hover {
-        background-color: var(--otherWhite);
+        background-color: var(--color-white-100);
       }
     }
 
@@ -192,17 +205,8 @@
     }
   }
 
-  .listItemCount {
-    @mixin typography-body1;
-    color: var(--textSecondary);
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
   .groupList {
-    border: solid 1px var(--brandLight);
+    border: solid 1px var(--color-blue-98);
     border-radius: 0 0 5px 5px;
     border-width: 0 1px 1px;
     margin: 0 0 0 1px;
@@ -218,24 +222,24 @@
   padding: 0;
   position: relative;
 
-  &::before {
-    background-color: var(--grayBorderMain);
+  &::before,
+  &::after {
+    background-color: var(--color-beige-86);
     content: '';
-    display: block;
     height: 2px;
-    left: 6px;
     position: absolute;
+  }
+
+  &::before {
+    display: block;
+    left: 6px;
     right: 20px;
     z-index: 1;
   }
 
   &::after {
-    background-color: var(--grayBorderMain);
     bottom: 0;
-    content: '';
-    height: 2px;
     left: 6px;
-    position: absolute;
     right: 20px;
   }
 
@@ -244,7 +248,7 @@
     padding: 6px 6px 0;
 
     &::before {
-      background-color: var(--otherWhite);
+      background-color: var(--color-beige-93);
       content: '';
       display: block;
       height: 2px;
@@ -256,7 +260,7 @@
     }
 
     &::after {
-      background-color: var(--otherWhite);
+      background-color: var(--color-beige-93);
       content: '';
       display: block;
       flex-shrink: 0;

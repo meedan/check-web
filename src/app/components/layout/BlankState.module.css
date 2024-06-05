@@ -1,6 +1,6 @@
 .blankState {
   @mixin typography-h6;
-  color: var(--textDisabled);
+  color: var(--color-gray-59);
   margin: 40px 0;
   text-align: center;
 }

@@ -3,7 +3,7 @@
   --drawerRailIcon: 26px;
 
   align-items: center;
-  background-color: var(--brandBackground);
+  background-color: var(--color-beige-86);
   display: flex;
   flex-direction: column;
   padding: 15px 0;
@@ -34,10 +34,10 @@
 
   .railIconButton,
   .railIconLink {
-    background-color: var(--brandBackgroundAccent);
+    background-color: var(--color-beige-86);
     border: 0;
     border-radius: 8px;
-    color: var(--textSecondary);
+    color: var(--color-gray-37);
     cursor: pointer;
     display: block;
     font-size: var(--drawerRailIcon);
@@ -52,20 +52,26 @@
     }
 
     &:hover {
-      color: var(--textLink);
+      color: var(--color-gray-15);
     }
 
     &.railIconLinkActive {
-      background-color: var(--brandBackgroundAccent);
-      color: var(--textLink);
+      background-color: var(--color-gray-15);
+      color: var(--color-white-100);
     }
   }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  .railIconButton {
+    background-color: var(--color-beige-93);
+  }
+
   /* stylelint-disable no-descending-specificity */
-  .railIconLink {
-    background-color: var(--brandBackground);
+  .railIconLink:not(.railIconLinkActive) {
+    background-color: var(--color-beige-86);
 
     &:hover {
-      background-color: var(--brandBackgroundAccent);
+      background-color: var(--color-beige-93);
     }
   }
 }

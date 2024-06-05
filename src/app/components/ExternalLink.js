@@ -17,7 +17,7 @@ const ExternalLink = ({
   displayUrl = maxUrlLength ? truncateLength(displayUrl, maxUrlLength) : displayUrl;
 
   return (
-    <a className={className} href={url} style={{ color: 'var(--textLink)', ...style }} target="_blank" rel="noopener noreferrer">
+    <a className={className} href={url} style={{ color: 'var(--color-blue-32)', ...style }} target="_blank" rel="noopener noreferrer">
       {children || displayUrl}
     </a>
   );

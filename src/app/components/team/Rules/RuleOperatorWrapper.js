@@ -92,7 +92,7 @@ RuleOperatorWrapper.defaultProps = {
   allowRemove: false,
   operator: 'and',
   operators: ['and', 'or'],
-  deleteIconColor: 'var(--textSecondary)',
+  deleteIconColor: 'var(--color-gray-37)',
   onSetOperator: null,
 };
 
