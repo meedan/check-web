@@ -760,6 +760,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
               report_status # Needed by BulkActionsStatus
               requests_count
               feed_columns_values
+              list_columns_values
               last_seen
               source_id
               media {
