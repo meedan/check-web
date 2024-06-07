@@ -1,6 +1,5 @@
 .itemCard {
   background-color: transparent;
-  margin: 0 16px 16px;
   position: relative;
 
   .listItemUnread {
@@ -56,6 +55,7 @@
     display: flex;
     flex: 0 0 42px;
     flex-direction: row;
+    margin: 0 -8px 0 0;
     overflow: hidden;
   }
 }
