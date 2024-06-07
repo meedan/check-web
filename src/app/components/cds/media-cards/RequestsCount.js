@@ -27,10 +27,13 @@ const RequestsCount = ({
           <ButtonMain
             disabled
             size="small"
-            theme="brand"
+            theme="lightBeige"
             iconLeft={<RequestsIcon />}
             variant="contained"
             label={getCompactNumber(intl.locale, requestsCount)}
+            buttonProps={{
+              type: null,
+            }}
           />
         </span>
       </Tooltip>

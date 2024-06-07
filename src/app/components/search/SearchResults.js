@@ -411,7 +411,7 @@ function SearchResultsComponent({
         projectMedias={projectMedias}
       />
     ) : (
-      <div style={{ overflow: 'auto' }}>
+      <div className={styles['search-results-scroller']}>
         { projectMedias.map((item) => {
           // It appears that list_columns_values gotta be a json string in the optimistic object
           const list_columns_values = typeof item.list_columns_values === 'string' ? JSON.parse(item.list_columns_values) : item.list_columns_values;

@@ -99,7 +99,7 @@ const TagList = ({
           <ButtonMain
             iconCenter={<LocalOfferIcon />}
             variant="text"
-            theme="text"
+            theme="beige"
             size="small"
             disabled={readOnly || saving}
             className={`int-tag-list__button--manage ${styles['tag-icon']}`}
@@ -202,7 +202,7 @@ const TagList = ({
             <ButtonMain
               iconCenter={<AddCircleIcon />}
               variant="text"
-              theme="text"
+              theme="beige"
               size="small"
               className={`int-tag-list__button--add ${styles['circle-icon']}`}
               onClick={handleOpenMenu}

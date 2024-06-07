@@ -10,10 +10,6 @@
   margin-bottom: 24px;
 }
 
-.feedClusterCard {
-  margin-bottom: 16px;
-}
-
 .feedClustersFilters {
   border: 0;
   overflow: visible;
@@ -43,8 +39,11 @@
 }
 
 .feedClustersList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   overflow: auto;
-  padding-right: 16px;
+  padding: 1px 16px 16px 1px;
 }
 
 /* ine- styles can be removed when deprecating the INE style shared feed */

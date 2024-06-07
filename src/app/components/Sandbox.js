@@ -712,6 +712,10 @@ const SandboxComponent = ({ admin }) => {
                     <option value="black">black</option>
                     <option value="white">white</option>
                   </optgroup>
+                  <optgroup label="beige">
+                    <option value="beige">beige</option>
+                    <option value="lightBeige">lightBeige</option>
+                  </optgroup>
                 </Select>
               </li>
               <li>
