@@ -91,7 +91,7 @@ const SelectListQueryRenderer = ({
                 >
                   <option value={null}>{selectLabel}</option>
                   {
-                    // Attempting to sort a read-only array directly would result in a TypeError, so we create a new array first to avoid the error. 
+                    // Attempting to sort a read-only array directly would result in a TypeError, so we create a new array first to avoid the error.
                     [...props.team.saved_searches.edges]
                       .sort((a, b) => a.node.title.localeCompare(b.node.title))
                       .map(l => (
