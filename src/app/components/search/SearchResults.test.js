@@ -33,7 +33,6 @@ describe('<SearchResults />', () => {
             id: 'zyx1',
             dbid: 1,
             quote: 'Hello Text Claim',
-            list_columns_values: {},
           },
         },
       ],
