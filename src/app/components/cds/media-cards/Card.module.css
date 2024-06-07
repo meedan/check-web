@@ -53,11 +53,12 @@
   background-color: var(--color-white-100);
   border: 1px solid var(--color-gray-88);
   border-radius: 8px;
-  padding: 16px;
+  padding: 8px;
   width: 100%;
 
   &:hover {
     border-color: var(--color-blue-32);
+    outline: solid 1px var(--color-blue-32);
   }
 
   .cardContent {

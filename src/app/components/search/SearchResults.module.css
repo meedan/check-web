@@ -4,18 +4,6 @@
   margin: 64px 0;
 }
 
-.search-results-status-cell {
-  max-width: 224px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  :global(.check-icon) {
-    margin: 1px 0 0;
-    vertical-align: text-top;
-  }
-}
-
 .searchResultsTitleWrapper {
   align-items: flex-start;
   color: var(--color-gray-37);
@@ -169,6 +157,14 @@
       display: flex;
       white-space: nowrap;
     }
+  }
+
+  .search-results-scroller {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: auto;
+    padding: 1px 16px 16px;
   }
 }
 

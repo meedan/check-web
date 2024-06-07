@@ -13,8 +13,8 @@
   min-width: 0;
 
   > div {
-    background-color: var(--color-gray-88);
-    color: var(--color-gray-15);
+    background-color: var(--color-beige-86);
+    color: var(--color-beige-40);
     flex: 0 1 auto;
     min-width: 0;
   }

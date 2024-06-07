@@ -1,7 +1,0 @@
-.suggestionsCount {
-  span > button {
-    background: var(--color-orange-95) !important;
-    border: 2px solid var(--color-orange-95) !important;
-    color: var(--color-orange-31) !important;
-  }
-}
