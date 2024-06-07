@@ -233,7 +233,7 @@ const ClaimFactCheckForm = ({
               summary: factCheck.description,
               title: factCheck.title,
               url: factCheck.url,
-              tags: factCheck.url,
+              tags: factCheck.tags,
             },
           },
           onCompleted: (response, err) => {
