@@ -22,17 +22,19 @@ const LastRequestDate = ({
             </ul>
           </>
         )}
-
         placement="top"
       >
         <span>
           <ButtonMain
             disabled
             size="small"
-            theme="brand"
+            theme="lightBeige"
             iconLeft={<CalendarMonthIcon />}
             variant="contained"
             label={<FormattedDate value={lastRequestDate} year="numeric" month="long" day="numeric" />}
+            buttonProps={{
+              type: null,
+            }}
           />
         </span>
       </Tooltip>
