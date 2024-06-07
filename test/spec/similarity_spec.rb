@@ -4,7 +4,7 @@ shared_examples 'similarity' do
     sleep 90 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
     all_items_url = @driver.current_url.to_s
-    wait_for_selector('.media__heading').click
+    wait_for_selector('.cluster-card').click
     wait_for_selector('#media__claim')
     wait_for_selector('#media-similarity__add-button').click
     # import similarity item
@@ -15,7 +15,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Media')).to be(true)
     @driver.navigate.to all_items_url
     wait_for_selector('.search__results-heading')
-    wait_for_selector_list('.media__heading').last.click
+    wait_for_selector_list('.cluster-card').last.click
     wait_for_selector('#media__claim')
     # export similarity item
     wait_for_selector('#media-similarity__add-button').click
@@ -91,12 +91,11 @@ shared_examples 'similarity' do
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/similarity.jpg')
     verbose_wait 4
-    wait_for_selector('.medias__item')
+    wait_for_selector('.cluster-card')
     create_image('files/similarity2.jpg')
     verbose_wait 4
-    wait_for_selector('.medias__item')
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading', index: 1).click
+    wait_for_selector_list_size('.cluster-card', 2)
+    wait_for_selector('.cluster-card', index: 1).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
@@ -106,8 +105,7 @@ shared_examples 'similarity' do
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/ocr.png')
     verbose_wait 4
-    wait_for_selector('.medias__item')
-    wait_for_selector('.media__heading').click
+    wait_for_selector('.cluster-card').click
     wait_for_selector('.image-media-card')
     verbose_wait 4
     expect(@driver.page_source.include?('Extracted text')).to be(true)
@@ -119,12 +117,12 @@ shared_examples 'similarity' do
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/video.mp4')
     sleep 60 # Wait for the item to be indexed by Alegre
-    wait_for_selector('.medias__item')
+    wait_for_selector('.cluster-card')
     create_image('files/video2.mp4')
-    wait_for_selector('.medias__item')
+    wait_for_selector('.cluster-card')
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading', index: 1).click
+    wait_for_selector_list_size('.cluster-card', 2)
+    wait_for_selector('.cluster-card', index: 1).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
@@ -134,11 +132,11 @@ shared_examples 'similarity' do
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/audio.mp3')
     verbose_wait 4
-    wait_for_selector('.medias__item')
+    wait_for_selector('.cluster-card')
     create_image('files/audio.ogg')
     verbose_wait 4
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading', index: 1).click
+    wait_for_selector_list_size('.cluster-card', 2)
+    wait_for_selector('.cluster-card', index: 1).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end

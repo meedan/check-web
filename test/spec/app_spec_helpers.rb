@@ -154,7 +154,7 @@ module AppSpecHelpers
     fill_field('#create-media-input', url)
     press_button('#create-media-dialog__submit-button')
     wait_for_selector_none('#create-media-input', :css, 1)
-    wait_for_selector('.media__heading a') if wait_for_creation
+    wait_for_selector('.cluster-card a') if wait_for_creation
   end
 
   def create_image(file)

@@ -44,12 +44,12 @@ shared_examples 'source' do
     expect(@driver.page_source.include?('Brasil')).to be(true)
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
-    wait_for_selector_list_size('.medias__item', 1)
+    wait_for_selector_list_size('.cluster-card', 1)
     # create another media and add a existing source
     create_media('media 2')
     @driver.navigate.refresh
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading').click
+    wait_for_selector_list_size('.cluster-card', 2)
+    wait_for_selector('.cluster-card').click
     wait_for_selector('.test__media')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('#media-source__create-button')
