@@ -35,14 +35,15 @@ const ArticleForm = ({
 
   const [claimDescription, setClaimDescription] = React.useState(articleType === 'fact check' && projectMedia?.suggested_main_item ? projectMedia.suggested_main_item.claim_description : '');
   const [claimContext, setClaimContext] = React.useState('');
+  const options = team.team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || [];
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
-  const [articleTitle, setArticleTitle] = React.useState((article && article.title) ? article.title : '');
-  const [summary, setSummary] = React.useState(article && article.summary ? article.summary : '');
-  const [url, setUrl] = React.useState((article && article.url) ? article.url : '');
-  const [language, setLanguage] = React.useState(article && article.language ? article.language : null);
-  const [tags, setTags] = React.useState(article && article.tags ? article.tags : []);
+  const [articleTitle, setArticleTitle] = React.useState(article?.title || '');
+  const [summary, setSummary] = React.useState(article?.summary || '');
+  const [url, setUrl] = React.useState(article?.url || '');
+  const [language, setLanguage] = React.useState(article?.language || null);
+  const [tags, setTags] = React.useState(article?.tags || []);
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
 
   const [isValid, setIsValid] = React.useState(false);
@@ -81,6 +82,7 @@ const ArticleForm = ({
                 <TagList
                   tags={tags}
                   setTags={handleTagChange}
+                  options={options}
                 />
               </div>
             </div>

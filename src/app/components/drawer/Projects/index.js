@@ -129,6 +129,13 @@ const Projects = ({ drawerType }) => {
                 }
               }
             }
+            tag_texts(first: 100) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
             feed_teams(first: 10000) {
               edges {
                 node {

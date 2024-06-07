@@ -50,7 +50,7 @@ const NewArticleButton = (team) => {
         onClose={() => setAnchorEl(null)}
         className={styles.menuList}
       >
-        <MenuItem onClick={() => handleOpenFactCheck()} className={styles.menuItem}>
+        <MenuItem onClick={handleOpenFactCheck} className={styles.menuItem}>
           <ListItemIcon className={styles.itemIcon}>
             <PublishedIcon />
           </ListItemIcon>
@@ -62,7 +62,7 @@ const NewArticleButton = (team) => {
             />
           </ListItemText>
         </MenuItem>
-        <MenuItem onClick={() => handleOpenExplainer(true)} className={styles.menuItem}>
+        <MenuItem onClick={handleOpenExplainer} className={styles.menuItem}>
           <ListItemIcon className={styles.itemIcon}>
             <BookIcon />
           </ListItemIcon>

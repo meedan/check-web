@@ -61,6 +61,7 @@ const createFactCheckMutation = graphql`
           summary
           url
           language
+          tags
           updated_at
           user {
             name
@@ -81,6 +82,7 @@ const updateFactCheckMutation = graphql`
         summary
         url
         language
+        tags
         user {
           name
         }
@@ -147,6 +149,7 @@ const ClaimFactCheckForm = ({
           summary: factCheck.description,
           title: factCheck.title,
           url: factCheck.url,
+          tags: factCheck.tags,
         },
       },
       onCompleted: (err) => {
@@ -230,6 +233,7 @@ const ClaimFactCheckForm = ({
               summary: factCheck.description,
               title: factCheck.title,
               url: factCheck.url,
+              tags: factCheck.url,
             },
           },
           onCompleted: (response, err) => {
