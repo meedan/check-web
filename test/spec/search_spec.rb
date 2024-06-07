@@ -33,7 +33,6 @@ shared_examples 'search' do
     expect(@driver.find_elements(:css, '.cluster-card').size).to eq 1
   end
 
-
   it 'should search for reverse images', bin2: true do
     api_create_team_and_bot
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
