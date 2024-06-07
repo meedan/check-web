@@ -4,5 +4,5 @@
   flex-direction: column;
   gap: 16px;
   overflow: auto;
-  padding: 1px 16px 16px 16px;
+  padding: 1px 16px 16px;
 }
