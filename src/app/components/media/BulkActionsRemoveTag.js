@@ -47,7 +47,6 @@ const BulkActionsRemoveTag = ({
           updateProjectMedias(input: $input) {
             updated_objects {
               id
-              list_columns_values
             }
           }
         }

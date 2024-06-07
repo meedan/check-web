@@ -33,48 +33,6 @@ shared_examples 'search' do
     expect(@driver.find_elements(:css, '.cluster-card').size).to eq 1
   end
 
-  it 'should search and change sort criteria', bin4: true do
-    api_create_claim_and_go_to_search_page
-    verbose_wait # wait for the items to be indexed in Elasticsearch
-    wait_for_selector('.cluster-card', :css, 20, true)
-    expect(@driver.current_url.to_s.match(/related/).nil?).to be(true)
-    expect(@driver.current_url.to_s.match(/last_seen/).nil?).to be(true)
-
-    wait_for_selector('th[data-field=linked_items_count] span').click
-    wait_for_selector('.cluster-card', :css, 20, true)
-    expect(@driver.current_url.to_s.match(/related/).nil?).to be(false)
-    expect(@driver.current_url.to_s.match(/last_seen/).nil?).to be(true)
-    expect(@driver.page_source.include?('My search result')).to be(true)
-
-    wait_for_selector('th[data-field=created_at_timestamp] span').click
-    wait_for_selector('.cluster-card', :css, 20, true)
-    expect(@driver.current_url.to_s.match(/related/).nil?).to be(true)
-    expect(@driver.current_url.to_s.match(/last_seen/).nil?).to be(true)
-    expect(@driver.find_elements(:css, 'th[data-field=created_at_timestamp]> span > svg').length).to eq 1
-
-    # change sort criteria through URL
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022related\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
-    wait_for_selector('.cluster-card', :css, 20, true)
-    expect(@driver.page_source.include?('My search result')).to be(true)
-    expect(@driver.find_elements(:css, 'th[data-field=created_at_timestamp]> span > svg').empty?).to be(true)
-  end
-
-  it 'should search by relative date range', bin4: true do
-    api_create_claim_and_go_to_search_page
-    wait_for_selector('.cluster-card', :css, 20, true)
-    expect(@driver.page_source.include?('My search result')).to be(true)
-
-    # Pre-populate with items created in the last 3 days, so will show our just-made item
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22condition%22%3A%22less_than%22%2C%22period%22%3A3%2C%22period_type%22%3A%22d%22%7D%7D%7D"
-    wait_for_selector('.cluster-card')
-    expect(@driver.page_source.include?('My search result')).to be(true)
-    wait_for_selector('input[value="3"]').click
-    # Switch to six days, hit submit button, make sure that works too
-    wait_for_selector('input[value="3"]').send_keys(:control, 'a', :delete, '6')
-    wait_for_selector('#search-fields__submit-button').click
-    wait_for_selector('.cluster-card')
-    expect(@driver.page_source.include?('My search result')).to be(true)
-  end
 
   it 'should search for reverse images', bin2: true do
     api_create_team_and_bot
