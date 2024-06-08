@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
@@ -18,7 +18,6 @@ import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
-import ListSort from '../cds/inputs/ListSort';
 import SelectAllTh from './SearchResultsTable/SelectAllTh';
 import SearchResultsCards from './SearchResultsCards';
 import ClusterCard from './SearchResultsCards/ClusterCard';
@@ -27,29 +26,6 @@ import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
-
-const messages = defineMessages({
-  sortTitle: {
-    id: 'searchResults.sortTitle',
-    defaultMessage: 'Title',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
-  },
-  sortDateUpdated: {
-    id: 'searchResults.sortDateUpdated',
-    defaultMessage: 'Date updated',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
-  },
-  sortRating: {
-    id: 'searchResults.sortRating',
-    defaultMessage: 'Rating',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
-  },
-  sortRequestsCount: {
-    id: 'searchResults.sortRequestsCount',
-    defaultMessage: 'Requests (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-});
 
 /**
  * Delete `esoffset`, `timestamp` and `channels` -- whenever
@@ -90,7 +66,6 @@ function SearchResultsComponent({
   readOnlyFields,
   savedSearch,
   extra,
-  intl,
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
@@ -521,6 +496,7 @@ function SearchResultsComponent({
           defaultQuery={defaultQuery}
           setStateQuery={setStateQuery}
           onChange={handleChangeQuery}
+          onChangeSort={handleChangeSortParams}
           feedTeam={feedTeam}
           feed={feed}
           savedSearch={savedSearch}
@@ -554,20 +530,6 @@ function SearchResultsComponent({
             team={team}
             title={count ?
               <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
-                { resultType === 'factCheck' && feed ?
-                  <div className={styles['search-results-sorting']}>
-                    <ListSort
-                      sort={stateQuery.sort}
-                      sortType={stateQuery.sort_type}
-                      options={[
-                        { value: 'title', label: intl.formatMessage(messages.sortTitle) },
-                        { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
-                        { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
-                      ]}
-                      onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
-                    />
-                  </div> : null
-                }
                 <SelectAllTh
                   className={styles.noBottomBorder}
                   selectedIds={filteredSelectedProjectMediaIds}
@@ -711,7 +673,7 @@ SearchResultsComponent.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchResultsComponent as SearchResultsComponentTest };
 
-const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(SearchResultsComponent)), {
+const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },

@@ -1,7 +1,62 @@
 [
   {
+    "id": "searchResults.sortTitle",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "searchResults.sortFactChecksCount",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Fact-checks (count)"
+  },
+  {
+    "id": "searchResults.sortMediaCount",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Media (count)"
+  },
+  {
+    "id": "searchResults.sortRating",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Rating"
+  },
+  {
+    "id": "searchResults.sortRequestsCount",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Requests (count)"
+  },
+  {
+    "id": "searchResults.sortFactCheckPublishedOn",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Fact-check published (date)"
+  },
+  {
+    "id": "searchResults.sortLastSeen",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Last request (date)"
+  },
+  {
+    "id": "searchResults.sortReportStatus",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Report (status)"
+  },
+  {
+    "id": "searchResults.sortSubmitted",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Submitted (date)"
+  },
+  {
+    "id": "searchResults.sortSuggestionsCount",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Suggestions (count)"
+  },
+  {
+    "id": "searchResults.sortUpdated",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Updated (date)"
+  },
+  {
     "id": "listSort.sort",
-    "description": "Label for sort criteria drop-down field displayed on fact-checks page.",
+    "description": "Label for sort criteria drop-down field displayed on listing pages",
     "defaultMessage": "Sort"
   },
   {

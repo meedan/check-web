@@ -4,7 +4,6 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import Divider from '@material-ui/core/Divider';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -19,7 +18,9 @@ import SearchFieldChannel from './SearchFieldChannel';
 import SearchFieldUser from './SearchFieldUser';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import ListSort, { sortLabels } from '../../cds/inputs/ListSort';
 import CorporateFareIcon from '../../../icons/corporate_fare.svg';
 import DeleteIcon from '../../../icons/delete.svg';
 import DescriptionIcon from '../../../icons/description.svg';
@@ -151,6 +152,7 @@ const SearchFields = ({
   readOnlyFields,
   setStateQuery,
   onChange,
+  onChangeSort,
   page,
   handleSubmit,
   savedSearch,
@@ -686,8 +688,33 @@ const SearchFields = ({
   const canSave = JSON.stringify(appliedQueryWithoutTimestamp) !== JSON.stringify(defaultQueryWithoutTimestamp);
   const canReset = canApply || canSave;
 
+  const feedSortOptions = [
+    { value: 'title', label: intl.formatMessage(sortLabels.sortTitle) },
+    { value: 'recent_activity', label: intl.formatMessage(sortLabels.sortUpdated) },
+    { value: 'status_index', label: intl.formatMessage(sortLabels.sortRating) },
+  ];
+
+  const listSortOptions = [
+    { value: 'fact_check_published_on', label: intl.formatMessage(sortLabels.sortFactCheckPublishedOn) },
+    { value: 'last_seen', label: intl.formatMessage(sortLabels.sortLastSeen) },
+    { value: 'related', label: intl.formatMessage(sortLabels.sortMediaCount) },
+    { value: 'report_status', label: intl.formatMessage(sortLabels.sortReportStatus) },
+    { value: 'demand', label: intl.formatMessage(sortLabels.sortRequestsCount) },
+    { value: 'recent_added', label: intl.formatMessage(sortLabels.sortSubmitted) },
+    { value: 'suggestions_count', label: intl.formatMessage(sortLabels.sortSuggestionsCount) },
+    { value: 'title', label: intl.formatMessage(sortLabels.sortTitle) },
+    { value: 'recent_activity', label: intl.formatMessage(sortLabels.sortUpdated) },
+  ];
+
   return (
     <div className={styles['filters-wrapper']}>
+      <ListSort
+        sort={stateQuery.sort}
+        sortType={stateQuery.sort_type}
+        options={page === 'feed' ? feedSortOptions : listSortOptions}
+        onChange={({ sort, sortType }) => { onChangeSort({ key: sort, ascending: (sortType === 'ASC') }); }}
+      />
+      <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
       { fieldKeys.map((key, index) => {
         if (index > 0) {
           return (
