@@ -6,6 +6,8 @@ import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-i
 import cx from 'classnames/bind';
 import Divider from '@material-ui/core/Divider';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import ListSort, { sortLabels } from '../cds/inputs/ListSort';
+import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import AddFilterMenu from '../search/AddFilterMenu';
@@ -46,9 +48,13 @@ const messages = defineMessages({
 });
 
 const FeedFilters = ({
+  sort,
+  sortType,
+  onChangeSort,
   onSubmit,
   filterOptions,
   currentFilters,
+  feed,
   feedTeam,
   className,
   disableSave,
@@ -157,10 +163,26 @@ const FeedFilters = ({
     setFilters(newFilters);
   };
 
+  const sortOptions = [
+    { value: 'requests_count', label: intl.formatMessage(sortLabels.sortRequestsCount) },
+    { value: 'title', label: intl.formatMessage(sortLabels.sortTitle) },
+    { value: 'media_count', label: intl.formatMessage(sortLabels.sortMediaCount) },
+    { value: 'last_request_date', label: intl.formatMessage(sortLabels.sortUpdated) },
+  ];
+  if (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)) {
+    sortOptions.push({ value: 'fact_checks_count', label: intl.formatMessage(sortLabels.sortFactChecksCount) });
+  }
+
   return (
     <div className={cx(styles['search-results-top'], className)}>
       { extra ? <div className={searchStyles['filters-wrapper']}>{extra}</div> : null }
       <div className={searchStyles['filters-wrapper']}>
+        <ListSort
+          sort={sort}
+          sortType={sortType}
+          options={sortOptions}
+          onChange={onChangeSort}
+        />
         {Object.keys(filters).map((filter) => {
           const value = filters[filter];
 
