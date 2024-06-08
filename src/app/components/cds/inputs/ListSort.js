@@ -1,70 +1,12 @@
 // DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=1475-46077&mode=design&t=G3fBIdgR6AWtOlNu-4
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import ArrowDropUpIcon from '../../../icons/arrow_drop_up.svg';
 import ArrowDropDownIcon from '../../../icons/arrow_drop_down.svg';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import Select from './Select';
 import styles from './ListSort.module.css';
-
-const sortLabels = defineMessages({
-  sortTitle: {
-    id: 'searchResults.sortTitle',
-    defaultMessage: 'Title',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortFactChecksCount: {
-    id: 'searchResults.sortFactChecksCount',
-    defaultMessage: 'Fact-checks (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortMediaCount: {
-    id: 'searchResults.sortMediaCount',
-    defaultMessage: 'Media (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortRating: {
-    id: 'searchResults.sortRating',
-    defaultMessage: 'Rating',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortRequestsCount: {
-    id: 'searchResults.sortRequestsCount',
-    defaultMessage: 'Requests (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortFactCheckPublishedOn: {
-    id: 'searchResults.sortFactCheckPublishedOn',
-    defaultMessage: 'Fact-check published (date)',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortLastSeen: {
-    id: 'searchResults.sortLastSeen',
-    defaultMessage: 'Last request (date)',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortReportStatus: {
-    id: 'searchResults.sortReportStatus',
-    defaultMessage: 'Report (status)',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortSubmitted: {
-    id: 'searchResults.sortSubmitted',
-    defaultMessage: 'Submitted (date)',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortSuggestionsCount: {
-    id: 'searchResults.sortSuggestionsCount',
-    defaultMessage: 'Suggestions (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-  sortUpdated: {
-    id: 'searchResults.sortUpdated',
-    defaultMessage: 'Updated (date)',
-    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
-  },
-});
 
 const ListSort = ({
   options,
@@ -82,7 +24,7 @@ const ListSort = ({
 
   return (
     <div className={`${styles.listSort} list-sort`}>
-      <FormattedMessage id="listSort.sort" defaultMessage="Sort" description="Label for sort criteria drop-down field displayed on listing pages" />
+      <FormattedMessage id="listSort.sort" defaultMessage="Sort" description="Label for sort criteria drop-down field displayed on fact-checks page." />
       <Select onChange={handleChangeSortCriteria} value={sort}>
         {options.map(({ label, value }) => (
           <option value={value}>{label}</option>
@@ -119,7 +61,5 @@ ListSort.propTypes = {
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   onChange: PropTypes.func,
 };
-
-export { sortLabels };
 
 export default ListSort;

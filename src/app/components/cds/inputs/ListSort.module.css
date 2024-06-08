@@ -2,7 +2,6 @@
   align-items: center;
   display: flex;
   gap: 4px;
-  min-width: fit-content;
 }
 
 .listSortDirectionButton {

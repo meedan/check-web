@@ -51,7 +51,6 @@ const FeedRequestsTable = ({
     return `/check/feed/${feed.dbid}/request/${requestDbid}?${urlParams.toString()}`;
   };
 
-  // FIXME: This is duplicating code in MediaTypeDisplayName.js
   const mediaType = requestType => ({
     Claim: (
       <FormattedMessage
