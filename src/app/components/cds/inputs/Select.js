@@ -62,9 +62,10 @@ const Select = ({
           <select
             id="check-select__input"
             className={cx(
-              'typography-body1',
+              'cds-input-select',
               styles.input,
               {
+                [className]: true,
                 [styles.outlined]: variant === 'outlined',
                 [styles.error]: error,
                 [styles['input-icon-left']]: iconLeft,

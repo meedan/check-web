@@ -3,7 +3,7 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
-import Divider from '@material-ui/core/Divider';
+import cx from 'classnames/bind';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -709,12 +709,12 @@ const SearchFields = ({
   return (
     <div className={styles['filters-wrapper']}>
       <ListSort
+        className={styles['filters-sorting']}
         sort={stateQuery.sort}
         sortType={stateQuery.sort_type}
         options={page === 'feed' ? feedSortOptions : listSortOptions}
         onChange={({ sort, sortType }) => { onChangeSort({ key: sort, ascending: (sortType === 'ASC') }); }}
       />
-      <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
       { fieldKeys.map((key, index) => {
         if (index > 0) {
           return (
@@ -737,46 +737,54 @@ const SearchFields = ({
         addedFields={addedFields}
         onSelect={handleAddField}
       />
-      { canReset && <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} /> }
-      { canReset && (
-        <ButtonMain
-          className="int-search-fields__button--reset-filter"
-          variant="contained"
-          size="default"
-          theme="lightText"
-          onClick={handleClickClear}
-          label={
-            <FormattedMessage id="search.resetFilter" defaultMessage="Reset" description="Button label to reset search filters." />
-          }
-          buttonProps={{
-            id: 'search-fields__clear-button',
-          }}
-        />
-      )}
-      { canApply && (
-        <ButtonMain
-          className="int-search-fields__button--apply-filter"
-          variant="contained"
-          size="default"
-          theme="lightValidation"
-          onClick={handleSubmit}
-          label={
-            <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
-          }
-          buttonProps={{
-            id: 'search-fields__submit-button',
-          }}
-        />
-      )}
-      { canSave && (
-        <SaveList
-          team={team}
-          query={stateQuery}
-          savedSearch={savedSearch}
-          feedTeam={feedTeam}
-          page={page}
-        />
-      )}
+      <div
+        className={cx(
+          styles['filters-buttons-wrapper'],
+          {
+            [styles['filters-buttons-wrapper-visible']]: canReset,
+          })
+        }
+      >
+        { canReset && (
+          <ButtonMain
+            className="int-search-fields__button--reset-filter"
+            variant="contained"
+            size="default"
+            theme="lightText"
+            onClick={handleClickClear}
+            label={
+              <FormattedMessage id="search.resetFilter" defaultMessage="Reset" description="Button label to reset search filters." />
+            }
+            buttonProps={{
+              id: 'search-fields__clear-button',
+            }}
+          />
+        )}
+        { canApply && (
+          <ButtonMain
+            className="int-search-fields__button--apply-filter"
+            variant="contained"
+            size="default"
+            theme="lightValidation"
+            onClick={handleSubmit}
+            label={
+              <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
+            }
+            buttonProps={{
+              id: 'search-fields__submit-button',
+            }}
+          />
+        )}
+        { canSave && (
+          <SaveList
+            team={team}
+            query={stateQuery}
+            savedSearch={savedSearch}
+            feedTeam={feedTeam}
+            page={page}
+          />
+        )}
+      </div>
     </div>
   );
 };
