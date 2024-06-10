@@ -45,6 +45,21 @@
     white-space: nowrap;
     width: 100%;
 
+    .cardTitle {
+      -webkit-box-orient: vertical;
+      display: -webkit-box; /* stylelint-disable-line */
+      margin: 0;
+      white-space: normal;
+    }
+
+    .cardDescription {
+      -webkit-box-orient: vertical;
+      color: var(--color-gray-37);
+      display: -webkit-box; /* stylelint-disable-line */
+      font-size: var(--font-size-body-2);
+      white-space: pre-line;
+    }
+
     .cardSummaryContent {
       flex: 1 1 auto;
       overflow: hidden;
@@ -84,32 +99,19 @@
         color: var(--color-blue-54);
       }
     }
-  }
 
-  .cardTitle {
-    -webkit-box-orient: vertical;
-    display: -webkit-box; /* stylelint-disable-line */
-    margin: 0;
-    white-space: normal;
-  }
+    &.cardSummaryCollapsed {
+      .cardTitle {
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        white-space: normal;
+      }
 
-  .cardTitleCollapse {
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-    white-space: normal;
-  }
-
-  .cardDescription {
-    -webkit-box-orient: vertical;
-    color: var(--color-gray-37);
-    display: -webkit-box; /* stylelint-disable-line */
-    font-size: var(--font-size-body-2);
-    white-space: pre-line;
-  }
-
-  .cardDescriptionCollapse {
-    -webkit-line-clamp: 2;
-    overflow: hidden;
+      .cardDescription {
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+    }
   }
 
   .cardTag {

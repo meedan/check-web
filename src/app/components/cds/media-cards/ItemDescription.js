@@ -47,12 +47,20 @@ const ItemDescription = ({
   }, [description]);
 
   return (
-    <div className={cx(styles.cardSummary, className)}>
+    <div
+      className={cx(
+        [styles.cardSummary],
+        {
+          [className]: true,
+          [styles.cardSummaryCollapsed]: isCollapsed,
+        })
+      }
+    >
       <div className={styles.cardSummaryContent}>
-        <h6 className={`typography-button ${styles.cardTitle} ${isCollapsed ? styles.cardTitleCollapse : ''}`}>{title}</h6>
+        <h6 className={cx('typography-button', styles.cardTitle)}>{title}</h6>
         { description ?
           <>
-            <span className={`description-text ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} ref={descriptionRef}>
+            <span className={cx('description-text', styles.cardDescription)} ref={descriptionRef}>
               {description}
             </span>
             <ArticleUrl url={url} variant={variant} />

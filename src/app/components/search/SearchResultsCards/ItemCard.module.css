@@ -36,7 +36,6 @@
 
   .clusterCardRight {
     align-items: end;
-    background: var(--color-blue-90);
     display: flex;
     flex: 0 0 150px;
     flex-direction: column;
