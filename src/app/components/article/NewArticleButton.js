@@ -9,11 +9,25 @@ import AddIcon from '../../icons/add.svg';
 import styles from './NewArticleButton.module.css';
 import PublishedIcon from '../../icons/fact_check.svg';
 import BookIcon from '../../icons/book.svg';
+import ExplainerForm from './ExplainerForm';
+import ClaimFactCheckForm from './ClaimFactCheckForm';
 
-const NewArticleButton = () => {
+const NewArticleButton = (team) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openExplainer, setOpenExplainer] = React.useState(false);
+  const [openFactCheck, setOpenFactCheck] = React.useState(false);
 
-  const handleMenuItemClick = () => {};
+  const handleOpenExplainer = () => {
+    setOpenFactCheck(false);
+    setOpenExplainer(true);
+    setAnchorEl(null);
+  };
+
+  const handleOpenFactCheck = () => {
+    setOpenFactCheck(true);
+    setOpenExplainer(false);
+    setAnchorEl(null);
+  };
 
   return (
     <React.Fragment>
@@ -36,7 +50,7 @@ const NewArticleButton = () => {
         onClose={() => setAnchorEl(null)}
         className={styles.menuList}
       >
-        <MenuItem onClick={handleMenuItemClick} className={styles.menuItem}>
+        <MenuItem onClick={handleOpenFactCheck} className={styles.menuItem}>
           <ListItemIcon className={styles.itemIcon}>
             <PublishedIcon />
           </ListItemIcon>
@@ -48,7 +62,7 @@ const NewArticleButton = () => {
             />
           </ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleMenuItemClick} className={styles.menuItem}>
+        <MenuItem onClick={handleOpenExplainer} className={styles.menuItem}>
           <ListItemIcon className={styles.itemIcon}>
             <BookIcon />
           </ListItemIcon>
@@ -61,6 +75,8 @@ const NewArticleButton = () => {
           </ListItemText>
         </MenuItem>
       </Menu>
+      {openExplainer && <ExplainerForm team={team} onClose={setOpenExplainer} />}
+      {openFactCheck && <ClaimFactCheckForm team={team} onClose={setOpenFactCheck} />}
     </React.Fragment>
   );
 };

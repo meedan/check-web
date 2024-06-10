@@ -1,0 +1,23 @@
+.article-form-container {
+  font-weight: 400;
+  padding-bottom: 15px;
+  position: relative;
+}
+
+.article-form-no-claim-overlay {
+  background: rgba(255 255 255 / .8);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  z-index: 10;
+}
+
+.article-form-no-claim-container {
+  color: var(--color-blue-32);
+  margin: 0 20px;
+  position: absolute;
+  top: 30%;
+}

@@ -38,7 +38,7 @@ const ArticlesComponent = ({ team }) => {
         />
       </div>
       <div className={styles.listMainAction}>
-        <NewArticleButton />
+        <NewArticleButton team={team} />
       </div>
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper)}>
