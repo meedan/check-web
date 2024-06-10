@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
 import ItemDate from '../../cds/media-cards/ItemDate';
@@ -24,7 +25,7 @@ const ArticleCard = ({
   onChangeTags,
   variant,
 }) => (
-  <div className={`${styles.articleCard} article-card`}>
+  <div className={cx('article-card', styles.articleCard)}>
     <Card>
       <div className={styles.articleCardDescription}>
         <CardHoverContext.Consumer>
