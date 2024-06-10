@@ -1,0 +1,132 @@
+[
+  {
+    "id": "article-form-explainer-create-title",
+    "description": "Title for the slideout create explainer form",
+    "defaultMessage": "Create Explainer"
+  },
+  {
+    "id": "article-form-explainer-edit-title",
+    "description": "Title for the slideout edit explainer form",
+    "defaultMessage": "Edit Explainer"
+  },
+  {
+    "id": "article-form-fact-check-create-title",
+    "description": "Title for the slideout create fact check form",
+    "defaultMessage": "Create New Claim & Fact-Check"
+  },
+  {
+    "id": "article-form-fact-check-edit-title",
+    "description": "Title for the slideout edit fact check form",
+    "defaultMessage": "Edit Claim & Fact-Check"
+  },
+  {
+    "id": "articleForm.claim",
+    "description": "Title of the claim section.",
+    "defaultMessage": "Claim"
+  },
+  {
+    "id": "articleFormDescription.placeholder",
+    "description": "Placeholder for claim description field.",
+    "defaultMessage": "For example: The earth is flat"
+  },
+  {
+    "id": "articleForm.claimTitle",
+    "description": "Title for the text input for claim title",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "articleForm.contextPlaceholder",
+    "description": "Placeholder for claim context field.",
+    "defaultMessage": "Add claim context"
+  },
+  {
+    "id": "articleForm.contextTitle",
+    "description": "Title of claim additional context field.",
+    "defaultMessage": "Additional context"
+  },
+  {
+    "id": "articleForm.noClaimDescript",
+    "description": "Message overlay to tell the user they must complete additional fields to unlock this area",
+    "defaultMessage": "Start by adding Claim information for this Fact-Check"
+  },
+  {
+    "id": "mediaFactCheck.factCheck",
+    "description": "Title of the media fact-check section.",
+    "defaultMessage": "Fact-check"
+  },
+  {
+    "id": "articleForm.explainerTitleInputPlaceholder",
+    "description": "Placeholder instructions for article title field",
+    "defaultMessage": "A descriptive title for this explainer article"
+  },
+  {
+    "id": "articleForm.explainerTitle",
+    "description": "Label for explainer title field",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "articleForm.factCheckTitleInputPlaceholder",
+    "description": "Placeholder instructions for article title field",
+    "defaultMessage": "A descriptive title for this fact-check article"
+  },
+  {
+    "id": "articleForm.factCheckTitle",
+    "description": "Label for fact-check title field",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "articleForm.explainerSummaryPlaceholder",
+    "description": "Placeholder instructions for explainer summary field",
+    "defaultMessage": "Briefly contextualize the narrative of this explainer"
+  },
+  {
+    "id": "articleForm.explainerSummary",
+    "description": "Label for article summary field",
+    "defaultMessage": "Summary"
+  },
+  {
+    "id": "articleForm.factCheckSummaryPlaceholder",
+    "description": "Placeholder instructions for fact check summary field",
+    "defaultMessage": "Briefly contextualize the narrative of this fact-check"
+  },
+  {
+    "id": "articleForm.summary",
+    "description": "Label for article summary field",
+    "defaultMessage": "Summary"
+  },
+  {
+    "id": "articleForm.explainerUrlPlaceholder",
+    "description": "Placeholder instructions for URL field",
+    "defaultMessage": "Add a URL to this explainer article"
+  },
+  {
+    "id": "articleForm.explainerUrl",
+    "description": "Label for article URL field",
+    "defaultMessage": "Article URL"
+  },
+  {
+    "id": "articleForm.factCheckUrlPlaceholder",
+    "description": "Placeholder instructions for URL field",
+    "defaultMessage": "Add a URL to this fact check article"
+  },
+  {
+    "id": "articleForm.factCheckUrl",
+    "description": "Label for article URL field",
+    "defaultMessage": "Article URL"
+  },
+  {
+    "id": "articleForm.selectLanguageLabel",
+    "description": "Label for input to select language",
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "articleForm.formSaveButton",
+    "description": "the save button for the article forom",
+    "defaultMessage": "Create content"
+  },
+  {
+    "id": "articleForm.formDeleteButton",
+    "description": "delete the current article",
+    "defaultMessage": "Move to Trash"
+  }
+]

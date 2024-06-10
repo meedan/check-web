@@ -4,8 +4,13 @@
   max-width: 600px;
   min-width: 320px;
   position: fixed;
+  text-transform: none;
   top: 0;
   width: 25vw;
+
+  textarea {
+    font-weight: normal;
+  }
 }
 
 .slideoutContainer {
@@ -14,6 +19,7 @@
   flex-direction: column;
   height: 100%;
   position: relative;
+  z-index: 4;
 }
 
 .slideoutTitle {
