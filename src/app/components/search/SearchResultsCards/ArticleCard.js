@@ -47,17 +47,15 @@ const ArticleCard = ({
             </Tooltip>
           </div>
         ) : null }
-        <div>
-          <SharedItemCardFooter
-            languageCode={languageCode}
-            tags={tags}
-            onChangeTags={onChangeTags}
-          />
-        </div>
+        <SharedItemCardFooter
+          languageCode={languageCode}
+          tags={tags}
+          onChangeTags={onChangeTags}
+        />
       </div>
       { (statusLabel || date) ?
         <div className={styles.cardRight}>
-          { statusLabel ? <ItemRating rating={statusLabel} ratingColor={statusColor} /> : null }
+          { statusLabel ? <ItemRating rating={statusLabel} ratingColor={statusColor} size="small" /> : null }
           { date ?
             <ItemDate
               date={new Date(date * 1000)}

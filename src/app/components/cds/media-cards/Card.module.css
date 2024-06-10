@@ -1,44 +1,13 @@
-.toggleCollapse {
-  align-items: center;
-  background-color: var(--color-blue-98);
-  border: 0 solid var(--color-gray-88);
-  border-radius: 8px;
-  color: var(--color-gray-37);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  height: 28px;
-  justify-content: center;
-  margin-top: 8px;
-  padding: 2px;
-  width: 28px;
-
-  svg {
-    font-size: var(--iconSizeSmall);
-    margin: 0;
-    vertical-align: middle;
-  }
-
-  &:hover {
-    background-color: var(--color-blue-98);
-    color: var(--color-blue-54);
-  }
-}
-
 .articleLink {
   align-items: center;
   color: var(--color-blue-32);
   display: flex;
   font-size: var(--font-size-body-2);
   gap: 3px;
-
-  div {
-    display: grid;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  margin: 3px 0;
 
   svg {
+    flex: 0 0 var(--iconSizeTiny);
     font-size: var(--iconSizeTiny);
   }
 
@@ -64,20 +33,56 @@
   .cardContent {
     align-items: flex-start;
     display: flex;
-    flex-wrap: wrap;
     gap: 0 16px;
-    justify-content: space-between;
   }
 
   .cardSummary {
     display: flex;
+    flex-direction: row;
     gap: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
 
-    p {
-      margin: 0;
+    .cardSummaryContent {
+      flex: 1 1 auto;
+      overflow: hidden;
+    }
+
+    .toggleCollapse {
+      align-items: center;
+      background-color: var(--color-blue-98);
+      border: 0 solid var(--color-gray-88);
+      border-radius: 8px;
+      color: var(--color-gray-37);
+      cursor: pointer;
+      display: flex;
+      flex: 0 0 30px;
+      flex-direction: column;
+      height: 30px;
+      justify-content: center;
+      margin-top: 8px;
+      padding: 2px;
+      width: 30px;
+
+      :global(.check-icon) {
+        font-size: var(--iconSizeSmall);
+        margin: 0;
+        vertical-align: middle;
+      }
+
+      &.toggleCollapseVisible {
+        visibility: visible;
+      }
+
+      &.toggleCollapseHidden {
+        visibility: hidden;
+      }
+
+      &:hover {
+        color: var(--color-blue-54);
+      }
     }
   }
 
@@ -98,6 +103,7 @@
     -webkit-box-orient: vertical;
     color: var(--color-gray-37);
     display: -webkit-box; /* stylelint-disable-line */
+    font-size: var(--font-size-body-2);
     white-space: pre-line;
   }
 
@@ -109,13 +115,6 @@
   .cardTag {
     display: flex;
     justify-content: flex-end;
-  }
-
-  .cardTagLabel {
-    align-items: center;
-    display: flex;
-    font-weight: 400;
-    gap: 4px;
   }
 
   .cardTagIcon {

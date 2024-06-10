@@ -48,22 +48,30 @@ const ItemDescription = ({
 
   return (
     <div className={cx(styles.cardSummary, className)}>
-      <div>
+      <div className={styles.cardSummaryContent}>
         <h6 className={`typography-button ${styles.cardTitle} ${isCollapsed ? styles.cardTitleCollapse : ''}`}>{title}</h6>
         { description ?
-          <p className="typography-body2">
+          <>
             <span className={`description-text ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} ref={descriptionRef}>
               {description}
             </span>
             <ArticleUrl url={url} variant={variant} />
-          </p>
+          </>
           : null }
       </div>
-      <div style={{ visibility: shouldShowButton ? 'visible' : 'hidden' }}>
-        <button type="button" onClick={toggleCollapse} className={`${styles.toggleCollapse}`}>
-          { isCollapsed ? <UnfoldMoreIcon /> : <UnfoldLessIcon /> }
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={toggleCollapse}
+        className={cx(
+          [styles.toggleCollapse],
+          {
+            [[styles.toggleCollapseVisible]]: shouldShowButton,
+            [[styles.toggleCollapseHidden]]: !shouldShowButton,
+          })
+        }
+      >
+        { isCollapsed ? <UnfoldMoreIcon /> : <UnfoldLessIcon /> }
+      </button>
     </div>
   );
 };
