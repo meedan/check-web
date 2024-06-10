@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import ListSort from '../cds/inputs/ListSort';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import FeedHeader from './FeedHeader';
 import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import FeedTopBar from './FeedTopBar';
@@ -22,34 +20,6 @@ import styles from './FeedClusters.module.css';
 import MediasLoading from '../media/MediasLoading';
 
 const pageSize = 50;
-
-const messages = defineMessages({
-  sortTitle: {
-    id: 'searchResults.sortTitle',
-    defaultMessage: 'Title',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-  sortFactChecksCount: {
-    id: 'searchResults.sortFactChecksCount',
-    defaultMessage: 'Fact-checks (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-  sortRequestsCount: {
-    id: 'searchResults.sortRequestsCount',
-    defaultMessage: 'Requests (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-  sortMediaCount: {
-    id: 'searchResults.sortMediaCount',
-    defaultMessage: 'Media (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-  sortLastRequestDate: {
-    id: 'searchResults.sortLastRequestDate',
-    defaultMessage: 'Date updated',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-});
 
 const FeedClustersComponent = ({
   team,
@@ -61,7 +31,6 @@ const FeedClustersComponent = ({
   teamFilters,
   otherFilters,
   onChangeSearchParams,
-  intl,
 }) => {
   const clusters = feed.clusters.edges.map(edge => edge.node);
   const startingIndex = (page - 1) * pageSize;
@@ -105,16 +74,6 @@ const FeedClustersComponent = ({
     });
   };
 
-  const sortOptions = [
-    { value: 'requests_count', label: intl.formatMessage(messages.sortRequestsCount) },
-    { value: 'title', label: intl.formatMessage(messages.sortTitle) },
-    { value: 'media_count', label: intl.formatMessage(messages.sortMediaCount) },
-    { value: 'last_request_date', label: intl.formatMessage(messages.sortLastRequestDate) },
-  ];
-  if (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)) {
-    sortOptions.push({ value: 'fact_checks_count', label: intl.formatMessage(messages.sortFactChecksCount) });
-  }
-
   return (
     <React.Fragment>
       <div className={cx(searchResultsStyles['search-results-header'], styles.feedClustersHeader)}>
@@ -142,6 +101,10 @@ const FeedClustersComponent = ({
           setTeamFilters={handleChangeTeamFilters}
         />
         <FeedFilters
+          feed={feed}
+          sort={sort}
+          sortType={sortType}
+          onChangeSort={handleChangeSort}
           onSubmit={handleChangeFilters}
           filterOptions={['channels', 'range', 'linked_items_count', 'show', 'demand']}
           currentFilters={otherFilters}
@@ -153,12 +116,6 @@ const FeedClustersComponent = ({
       <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClusters)}>
         { clusters.length > 0 ?
           <div className={styles.feedClustersToolbar}>
-            <ListSort
-              sort={sort}
-              sortType={sortType}
-              options={sortOptions}
-              onChange={handleChangeSort}
-            />
             <div className={styles.feedClustersPagination}>
               <Tooltip title={<FormattedMessage id="feedClusters.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />}>
                 <ButtonMain
@@ -304,14 +261,11 @@ FeedClustersComponent.propTypes = {
       })).isRequired,
     }),
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 // Used in unit test
 // eslint-disable-next-line import/no-unused-modules
 export { FeedClustersComponent };
-
-const ConnectedFeedClustersComponent = injectIntl(FeedClustersComponent); // FIXME: Upgrade react-intl so we can use useIntl()
 
 const FeedClusters = ({ teamSlug, feedId }) => {
   const [searchParams, setSearchParams] = React.useState({
@@ -435,7 +389,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
       render={({ error, props }) => {
         if (!error && props) {
           return (
-            <ConnectedFeedClustersComponent
+            <FeedClustersComponent
               team={props.team}
               feed={props.team.feed}
               feedTeam={props.team.feed.current_feed_team}
