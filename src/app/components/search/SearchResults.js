@@ -662,7 +662,7 @@ SearchResultsComponent.propTypes = {
   listSubtitle: PropTypes.object,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
@@ -694,7 +694,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
           check_search_trash { id, number_of_results },
           check_search_spam { id, number_of_results },
           verification_statuses,
-          list_columns,
           medias_count,
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
             id
@@ -722,8 +721,8 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               is_confirmed
               report_status # Needed by BulkActionsStatus
               requests_count
-              list_columns_values
               feed_columns_values
+              list_columns_values
               last_seen
               source_id
               media {

@@ -812,7 +812,7 @@ SearchFields.propTypes = {
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
 };
 
 SearchFields.contextTypes = {

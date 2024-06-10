@@ -5,11 +5,6 @@
     "defaultMessage": "Annotations"
   },
   {
-    "id": "teamSettingsNavigation.columns",
-    "description": "Label for the Columns settings navigation menu item",
-    "defaultMessage": "Columns"
-  },
-  {
     "id": "teamSettingsNavigation.data",
     "description": "Label for the Data settings navigation menu item",
     "defaultMessage": "Data"

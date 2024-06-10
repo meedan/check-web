@@ -14,11 +14,6 @@ const messages = defineMessages({
     defaultMessage: 'Annotations',
     description: 'Label for the Annotations settings navigation menu item',
   },
-  columns: {
-    id: 'teamSettingsNavigation.columns',
-    defaultMessage: 'Columns',
-    description: 'Label for the Columns settings navigation menu item',
-  },
   data: {
     id: 'teamSettingsNavigation.data',
     defaultMessage: 'Data',
@@ -116,15 +111,6 @@ const SettingsComponent = ({
               <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'annotation' })}>
                 <div className={styles.listLabel}>
                   {intl.formatMessage(messages.annotations)}
-                </div>
-              </li>
-            </Link> : null
-          }
-          { isAdminOrEditor ?
-            <Link className={cx('team-settings__lists-tab', styles.linkList)} to={`/${team.slug}/settings/columns`} title={intl.formatMessage(messages.columns)}>
-              <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'columns' })}>
-                <div className={styles.listLabel}>
-                  {intl.formatMessage(messages.columns)}
                 </div>
               </li>
             </Link> : null
