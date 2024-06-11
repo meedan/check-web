@@ -47,16 +47,26 @@ const ClusterCard = ({
   }
 
   return (
-    <div className={cx(styles.itemCard, 'cluster-card', className)}>
+    <div
+      className={cx(
+        styles.itemCard,
+        'cluster-card',
+        {
+          [className]: true,
+          [styles.listItemSelected]: isChecked,
+        },
+      )}
+    >
       <Card
-        className={cx({ [styles.listItemUnread]: isUnread })}
+        className={cx(
+          {
+            [styles.listItemUnread]: isUnread,
+          },
+        )}
         cardUrl={cardUrl}
       >
         <div className={styles.clusterCardLeft}>
-          { onCheckboxChange && (
-            <div className={styles.checkbox}>
-              <Checkbox checked={isChecked} onChange={onCheckboxChange} />
-            </div>)}
+          { onCheckboxChange && (<Checkbox checked={isChecked} onChange={onCheckboxChange} className={[styles.checkbox]} />)}
           <ItemThumbnail
             picture={mediaThumbnail?.media?.picture}
             maskContent={mediaThumbnail?.show_warning_cover}
@@ -92,6 +102,10 @@ const ClusterCard = ({
           <div className={styles.clusterCardRating}>
             { (factCheckCount && feedContainsFactChecks) ? (
               <ButtonMain
+                disabled
+                buttonProps={{
+                  type: null,
+                }}
                 size="small"
                 theme="lightBrand"
                 iconLeft={<FactCheckIcon />}

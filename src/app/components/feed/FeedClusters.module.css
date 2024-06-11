@@ -41,7 +41,7 @@
 .feedClustersList {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   overflow: auto;
   padding: 1px 16px 16px 1px;
 }

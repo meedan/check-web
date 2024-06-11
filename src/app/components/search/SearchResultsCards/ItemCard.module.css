@@ -75,6 +75,28 @@
     flex: 0 0 42px;
     flex-direction: row;
     margin: 0 -8px 0 0;
+    opacity: .32;
     overflow: hidden;
+    transition: opacity 225ms cubic-bezier(0, 0, .2, 1) 0ms;
+  }
+
+  &.listItemSelected {
+    :global(.card) {
+      background-color: var(--color-blue-98);
+
+      &:not(:hover) {
+        border-color: var(--color-blue-90);
+      }
+    }
+
+    .checkbox {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    .checkbox {
+      opacity: 1;
+    }
   }
 }
