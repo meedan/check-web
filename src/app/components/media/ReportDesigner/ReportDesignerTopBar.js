@@ -15,6 +15,7 @@ import IconArrowBack from '../../../icons/arrow_back.svg';
 import IconPlay from '../../../icons/play_arrow.svg';
 import IconPause from '../../../icons/pause.svg';
 import HelpIcon from '../../../icons/help.svg';
+import CheckPropTypes from '../../../CheckPropTypes';
 import styles from './ReportDesigner.module.css';
 
 const useStyles = makeStyles(theme => ({
@@ -184,7 +185,7 @@ const ReportDesignerTopBar = (props) => {
         </div>
       </div>
       <div className={styles['report-actions']}>
-        { state === 'paused' ?
+        { (state === 'paused' || state === 'unpublished') ?
           <ReportDesignerConfirmableButton
             theme="validation"
             disabled={readOnly}
@@ -443,7 +444,7 @@ ReportDesignerTopBar.defaultProps = {
 };
 
 ReportDesignerTopBar.propTypes = {
-  state: PropTypes.oneOf(['paused', 'published']).isRequired,
+  state: CheckPropTypes.reportState.isRequired,
   media: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   defaultLanguage: PropTypes.string.isRequired,
