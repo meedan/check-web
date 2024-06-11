@@ -106,6 +106,7 @@
     background-color: var(--color-beige-93);
     border-radius: 12px;
     max-width: 100%;
+    min-height: 42px;
     padding: 3px 6px;
     transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
 
@@ -213,6 +214,23 @@
       + .filter-date-remove button {
         margin: 0 4px 0 0;
       }
+    }
+  }
+
+  .filters-sorting {
+    border-right: solid 1px var(--color-beige-86);
+    padding: 0 8px 0 0;
+  }
+
+  .filters-buttons-wrapper {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 0 0 8px;
+
+    &.filters-buttons-wrapper-visible {
+      border-left: solid 1px var(--color-beige-86);
     }
   }
 }
