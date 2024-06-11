@@ -4,6 +4,7 @@
   gap: 8px;
 
   .select-container {
+    padding: 0 34px 0 0;
     width: 100%;
 
     .input {
@@ -12,14 +13,16 @@
       border: 2px solid var(--color-gray-88);
       border-radius: 8px;
       color: var(--color-gray-15);
-      font: 400 14px var(--fontStackSans);
+      font: inherit;
       height: 100%;
       letter-spacing: .15px;
       line-height: 20px;
       min-height: 48px;
       padding: 12px 34px 12px 10px;
       text-overflow: ellipsis;
-      width: 100%;
+
+      /* the select width needs to include the container padding */
+      width: calc(100% + 34px);
 
       &:hover {
         border-color: var(--color-gray-75);

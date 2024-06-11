@@ -178,6 +178,7 @@ const FeedFilters = ({
       { extra ? <div className={searchStyles['filters-wrapper']}>{extra}</div> : null }
       <div className={searchStyles['filters-wrapper']}>
         <ListSort
+          className={searchStyles['filters-sorting']}
           sort={sort}
           sortType={sortType}
           options={sortOptions}
