@@ -446,7 +446,7 @@ const SandboxComponent = ({ admin }) => {
               languageCode="en"
               tags={['Novel', 'Moby Dick', '19th Century']}
               onChangeTags={() => {}}
-              url="https://example.com"
+              url="https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it"
               variant={articleCardVariant}
             />
           </div>
