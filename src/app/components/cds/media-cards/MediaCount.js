@@ -30,7 +30,7 @@ const MediaCount = ({
             disabled
             size="small"
             theme="lightBeige"
-            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} /> : <MediaIcon />}
+            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} fontSize="unset" color="unset" /> : <MediaIcon />}
             variant="contained"
             label={getCompactNumber(intl.locale, mediaCount)}
             buttonProps={{
