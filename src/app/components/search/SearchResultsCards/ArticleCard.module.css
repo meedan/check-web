@@ -18,12 +18,23 @@
     text-align: right;
     width: 150px;
 
-    > div {
-      width: 100%;
+    .cardRightTop {
+      display: flex;
+      gap: 3px;
+      justify-content: flex-end;
+      width: 150px;
 
-      button,
-      button span {
-        max-width: 100%;
+      .cardRightTopRating {
+        width: calc(100% - 33px);
+
+        button,
+        button span {
+          max-width: 100%;
+        }
+      }
+
+      .cardRightTopPublished {
+        flex: 0 0 30px;
       }
     }
   }
