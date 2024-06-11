@@ -1,5 +1,6 @@
 .articleCard {
   display: block;
+  min-width: 500px;
 
   .articleCardDescription {
     align-items: flex-start;
