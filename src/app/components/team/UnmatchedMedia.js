@@ -10,14 +10,14 @@ const defaultFilters = {
 };
 
 const UnmatchedMedia = ({ routeParams }) => {
-  const defaultQuery = {
-    ...defaultFilters,
+  const defaultSort = {
     sort: 'recent_activity',
     sort_type: 'DESC',
   };
   const query = {
+    ...defaultSort,
     ...safelyParseJSON(routeParams.query, {}),
-    ...defaultQuery,
+    ...defaultFilters,
   };
 
   return (
@@ -28,7 +28,7 @@ const UnmatchedMedia = ({ routeParams }) => {
       icon={<UnmatchedIcon />}
       teamSlug={routeParams.team}
       query={query}
-      defaultQuery={defaultQuery}
+      defaultQuery={{ ...defaultFilters, ...defaultSort }}
       hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
       readOnlyFields={['unmatched']}
       page="unmatched-media"
