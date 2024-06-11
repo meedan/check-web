@@ -53,6 +53,7 @@ const ItemDescription = ({
         {
           [className]: true,
           [styles.cardSummaryCollapsed]: isCollapsed,
+          [styles.hideCollapse]: !isTextOverflowing,
         })
       }
     >
