@@ -525,12 +525,14 @@ function SearchResultsComponent({
             team={team}
             title={count ?
               <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
-                <SelectAllTh
-                  className={styles.noBottomBorder}
-                  selectedIds={filteredSelectedProjectMediaIds}
-                  projectMedias={projectMedias}
-                  onChangeSelectedIds={handleChangeSelectedIds}
-                />
+                { resultType === 'default' && (
+                  <SelectAllTh
+                    className={styles.noBottomBorder}
+                    selectedIds={filteredSelectedProjectMediaIds}
+                    projectMedias={projectMedias}
+                    onChangeSelectedIds={handleChangeSelectedIds}
+                  />
+                )}
                 <span className={styles['search-pagination']}>
                   <Tooltip title={
                     <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />

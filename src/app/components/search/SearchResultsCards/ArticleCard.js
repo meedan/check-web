@@ -56,12 +56,14 @@ const ArticleCard = ({
           onChangeTags={onChangeTags}
         />
       </div>
-      { (statusLabel || date || variant === 'fact-check') ?
+      { statusLabel || date ?
         <div className={styles.cardRight}>
-          <div className={styles.cardRightTop}>
-            { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
-            { variant === 'fact-check' && <ItemReportStatus className={styles.cardRightTopPublished} publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
-          </div>
+          { variant === 'fact-check' && (
+            <div className={styles.cardRightTop}>
+              { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
+              { publishedAt && <ItemReportStatus className={styles.cardRightTopPublished} publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
+            </div>
+          )}
           { date &&
             <ItemDate
               date={new Date(date * 1000)}

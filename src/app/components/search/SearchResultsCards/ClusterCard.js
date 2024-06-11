@@ -14,6 +14,7 @@ import SharedItemCardFooter from './SharedItemCardFooter';
 import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import styles from './ItemCard.module.css';
+import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
 
 const ClusterCard = ({
   cardUrl,
@@ -109,7 +110,7 @@ const ClusterCard = ({
             ) : (
               <>
                 <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
-                { rating ? <div className={cx({ [styles.publishedLabel]: isPublished })}><ButtonMain variant="contained" size="small" iconCenter={<FactCheckIcon />} disabled /></div> : null }
+                {rating && <ItemReportStatus isPublished={isPublished} /> }
               </>
             ) }
           </div>
