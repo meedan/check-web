@@ -90,9 +90,14 @@ const SelectListQueryRenderer = ({
                   label={label}
                 >
                   <option value={null}>{selectLabel}</option>
-                  { props.team.saved_searches.edges.map(l => (
-                    <option value={l.node.dbid}>{l.node.title}</option>
-                  )) }
+                  {
+                    // Attempting to sort a read-only array directly would result in a TypeError, so we create a new array first to avoid the error.
+                    [...props.team.saved_searches.edges]
+                      .sort((a, b) => a.node.title.localeCompare(b.node.title))
+                      .map(l => (
+                        <option key={l.node.dbid} value={l.node.dbid}>{l.node.title}</option>
+                      ))
+                  }
                 </Select>
               )}
             </FormattedMessage>
