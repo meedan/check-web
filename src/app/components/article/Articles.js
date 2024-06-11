@@ -31,6 +31,7 @@ const ArticlesComponent = ({
   filters,
   onChangeSearchParams,
   statuses,
+  teamTags,
   articles,
   articlesCount,
   updateMutation,
@@ -160,6 +161,7 @@ const ArticlesComponent = ({
                 languageCode={article.language !== 'und' ? article.language : null}
                 date={article.updated_at}
                 tags={article.tags}
+                tagOptions={teamTags}
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
                 publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
@@ -183,6 +185,7 @@ ArticlesComponent.defaultProps = {
   filterOptions: [],
   filters: {},
   statuses: {},
+  teamTags: null,
   articles: [],
   articlesCount: 0,
 };
@@ -204,6 +207,7 @@ ArticlesComponent.propTypes = {
     label: PropTypes.string.isRequired, // Localizable string
   })),
   statuses: PropTypes.object,
+  teamTags: PropTypes.arrayOf(PropTypes.string),
   articlesCount: PropTypes.number,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -277,6 +281,13 @@ const Articles = ({
           ) {
             team(slug: $slug) {
               verification_statuses
+              tag_texts(last: 50) {
+                edges {
+                  node {
+                    text
+                  }
+                }
+              }
               articles_count(article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language)
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
@@ -342,6 +353,7 @@ const Articles = ({
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
                 statuses={props.team.verification_statuses}
+                teamTags={props.team.tag_texts.edges.length > 0 ? props.team.tag_texts.edges.map(tag => tag.node.text) : null}
                 onChangeSearchParams={handleChangeSearchParams}
                 updateMutation={updateMutation}
               />
