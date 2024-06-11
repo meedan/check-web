@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import ArticleCard from './ArticleCard';
 import styles from './SearchResultsCards.module.css';
 
 const SearchResultsCards = ({ projectMedias, team }) => (
-  <div className={`${styles.searchResultsCards} search-results-cards`}>
+  <div className={cx('search-results-cards', styles.searchResultsCards)}>
     { projectMedias.map((projectMedia) => {
       const values = projectMedia.feed_columns_values;
       const status = team.verification_statuses.statuses.find(s => s.id === values.status) || {};

@@ -1,5 +1,6 @@
 .itemCard {
   background-color: transparent;
+  min-width: 500px;
   position: relative;
 
   .listItemUnread {
@@ -20,18 +21,36 @@
   .clusterCardLeft {
     align-self: center;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0 16px;
-    grid-gap: 0 16px;
+    flex: 0 0 auto;
+    gap: 0 8px;
     justify-content: space-between;
   }
 
   .sharedItemCardMiddle {
     align-items: flex-start;
     display: flex;
-    flex: 1 0 0;
+    flex: 1 1 auto;
     flex-direction: column;
     gap: 6px;
+    overflow: hidden;
+  }
+
+  .clusterCardRight {
+    align-items: end;
+    display: flex;
+    flex: 0 0 150px;
+    flex-direction: column;
+    text-align: right;
+    width: 150px;
+
+    > div {
+      width: 100%;
+
+      button,
+      button span {
+        max-width: 100%;
+      }
+    }
   }
 
   .bulletSeparator > div {

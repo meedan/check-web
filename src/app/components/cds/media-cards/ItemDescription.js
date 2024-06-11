@@ -47,23 +47,40 @@ const ItemDescription = ({
   }, [description]);
 
   return (
-    <div className={cx(styles.cardSummary, className)}>
-      <div>
-        <h6 className={`typography-button ${styles.cardTitle} ${isCollapsed ? styles.cardTitleCollapse : ''}`}>{title}</h6>
+    <div
+      className={cx(
+        [styles.cardSummary],
+        {
+          [className]: true,
+          [styles.cardSummaryCollapsed]: isCollapsed,
+          [styles.hideCollapse]: !isTextOverflowing,
+        })
+      }
+    >
+      <div className={styles.cardSummaryContent}>
+        <h6 className={cx('typography-button', styles.cardTitle)}>{title}</h6>
         { description ?
-          <p className="typography-body2">
-            <span className={`description-text ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} ref={descriptionRef}>
+          <>
+            <span className={cx('description-text', styles.cardDescription)} ref={descriptionRef}>
               {description}
             </span>
             <ArticleUrl url={url} variant={variant} />
-          </p>
+          </>
           : null }
       </div>
-      <div style={{ visibility: shouldShowButton ? 'visible' : 'hidden' }}>
-        <button type="button" onClick={toggleCollapse} className={`${styles.toggleCollapse}`}>
-          { isCollapsed ? <UnfoldMoreIcon /> : <UnfoldLessIcon /> }
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={toggleCollapse}
+        className={cx(
+          [styles.toggleCollapse],
+          {
+            [[styles.toggleCollapseVisible]]: shouldShowButton,
+            [[styles.toggleCollapseHidden]]: !shouldShowButton,
+          })
+        }
+      >
+        { isCollapsed ? <UnfoldMoreIcon /> : <UnfoldLessIcon /> }
+      </button>
     </div>
   );
 };

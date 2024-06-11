@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import EmptyMediaIcon from '../../../icons/empty_media.svg';
 import styles from './ItemThumbnail.module.css';
@@ -12,8 +13,8 @@ const ItemThumbnail = ({
 }) => {
   if (!type && !picture) {
     return (
-      <div className={`${styles.thumbnail} ${styles.container} ${styles.emptyMedia}`}>
-        <div className={`${styles.iconContainer}`}>
+      <div className={cx(styles.thumbnail, styles.container, styles.emptyMedia)}>
+        <div className={styles.iconContainer}>
           <EmptyMediaIcon />
         </div>
       </div>
@@ -35,7 +36,7 @@ const ItemThumbnail = ({
             />
           }
         >
-          <div className={`${styles.thumbnail} ${styles.container}`}>
+          <div className={cx(styles.thumbnail, styles.container)}>
             <div className={styles.iconContainer}>
               <img
                 className={styles.thumbnail}
@@ -60,7 +61,7 @@ const ItemThumbnail = ({
           />
         }
       >
-        <div className={`${styles.thumbnail} ${styles.container}`}>
+        <div className={cx(styles.thumbnail, styles.container)}>
           <div className={styles.iconContainer}>
             <MediaTypeDisplayIcon mediaType={mediaType} className={styles.mediaIcon} fontSize="var(--iconSizeDefault)" />
           </div>
@@ -69,8 +70,8 @@ const ItemThumbnail = ({
     );
   }
   return (
-    <div className={`${styles.thumbnail} ${styles.container} ${styles.contentScreen}`}>
-      <div className={`${styles.iconContainer}`}>
+    <div className={cx(styles.thumbnail, styles.container, styles.contentScreen)}>
+      <div className={styles.iconContainer}>
         <VisibilityOffIcon className={styles.visibilityOffIcon} />
       </div>
     </div>

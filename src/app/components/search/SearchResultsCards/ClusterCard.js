@@ -51,11 +51,11 @@ const ClusterCard = ({
         className={cx({ [styles.listItemUnread]: isUnread })}
         cardUrl={cardUrl}
       >
-        { onCheckboxChange && (
-          <div className={styles.checkbox}>
-            <Checkbox checked={isChecked} onChange={onCheckboxChange} />
-          </div>)}
         <div className={styles.clusterCardLeft}>
+          { onCheckboxChange && (
+            <div className={styles.checkbox}>
+              <Checkbox checked={isChecked} onChange={onCheckboxChange} />
+            </div>)}
           <ItemThumbnail
             picture={mediaThumbnail?.media?.picture}
             maskContent={mediaThumbnail?.show_warning_cover}
