@@ -22,12 +22,14 @@
   background-color: var(--color-white-100);
   border: 1px solid var(--color-gray-88);
   border-radius: 8px;
+  outline: solid 1px transparent;
   padding: 8px;
+  transition: border-color 225ms cubic-bezier(0, 0, .2, 1) 0ms, outline-color 225ms cubic-bezier(0, 0, .2, 1) 0ms;
   width: 100%;
 
   &:hover {
     border-color: var(--color-blue-32);
-    outline: solid 1px var(--color-blue-32);
+    outline-color: var(--color-blue-32);
   }
 
   .cardContent {

@@ -29,7 +29,7 @@ const RequestsCount = ({
             size="small"
             theme="lightBeige"
             iconLeft={<RequestsIcon />}
-            variant="contained"
+            variant={requestsCount === 0 ? 'text' : 'contained'}
             label={getCompactNumber(intl.locale, requestsCount)}
             buttonProps={{
               type: null,

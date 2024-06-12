@@ -14,6 +14,7 @@ import SharedItemCardFooter from './SharedItemCardFooter';
 import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import styles from './ItemCard.module.css';
+import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
 
 const ClusterCard = ({
   cardUrl,
@@ -32,6 +33,7 @@ const ClusterCard = ({
   mediaThumbnail,
   mediaType,
   onCheckboxChange,
+  publishedAt,
   rating,
   ratingColor,
   requestsCount,
@@ -46,16 +48,26 @@ const ClusterCard = ({
   }
 
   return (
-    <div className={cx(styles.itemCard, 'cluster-card', className)}>
+    <div
+      className={cx(
+        styles.itemCard,
+        'cluster-card',
+        {
+          [className]: true,
+          [styles.listItemSelected]: isChecked,
+        },
+      )}
+    >
       <Card
-        className={cx({ [styles.listItemUnread]: isUnread })}
+        className={cx(
+          {
+            [styles.listItemUnread]: isUnread,
+          },
+        )}
         cardUrl={cardUrl}
       >
         <div className={styles.clusterCardLeft}>
-          { onCheckboxChange && (
-            <div className={styles.checkbox}>
-              <Checkbox checked={isChecked} onChange={onCheckboxChange} />
-            </div>)}
+          { onCheckboxChange && (<Checkbox checked={isChecked} onChange={onCheckboxChange} className={[styles.checkbox]} />)}
           <ItemThumbnail
             picture={mediaThumbnail?.media?.picture}
             maskContent={mediaThumbnail?.show_warning_cover}
@@ -91,6 +103,10 @@ const ClusterCard = ({
           <div className={styles.clusterCardRating}>
             { (factCheckCount && feedContainsFactChecks) ? (
               <ButtonMain
+                disabled
+                buttonProps={{
+                  type: null,
+                }}
                 size="small"
                 theme="lightBrand"
                 iconLeft={<FactCheckIcon />}
@@ -109,7 +125,7 @@ const ClusterCard = ({
             ) : (
               <>
                 <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
-                { rating ? <div className={cx({ [styles.publishedLabel]: isPublished })}><ButtonMain variant="contained" size="small" iconCenter={<FactCheckIcon />} disabled /></div> : null }
+                {rating && <ItemReportStatus isPublished={isPublished} publishedAt={publishedAt} /> }
               </>
             ) }
           </div>
@@ -136,6 +152,7 @@ ClusterCard.defaultProps = {
   mediaThumbnail: null,
   mediaType: null,
   onCheckboxChange: null,
+  publishedAt: null,
   rating: null,
   ratingColor: null,
   requestsCount: null,
@@ -170,6 +187,7 @@ ClusterCard.propTypes = {
   }),
   mediaType: PropTypes.string,
   onCheckboxChange: PropTypes.func,
+  publishedAt: PropTypes.instanceOf(Date), // Timestamp
   rating: PropTypes.string,
   ratingColor: PropTypes.string,
   requestsCount: PropTypes.number,

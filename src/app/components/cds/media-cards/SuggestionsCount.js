@@ -27,9 +27,9 @@ const SuggestionsCount = ({
           <ButtonMain
             disabled
             size="small"
-            theme="lightAlert"
+            theme={suggestionsCount === 0 ? 'lightBeige' : 'lightAlert'}
             iconLeft={<SuggestionsIcon />}
-            variant="contained"
+            variant={suggestionsCount === 0 ? 'text' : 'contained'}
             label={getCompactNumber(intl.locale, suggestionsCount)}
             buttonProps={{
               type: null,
