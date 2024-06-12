@@ -397,8 +397,9 @@ function SearchResultsComponent({
             onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
             isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
             isPublished={item.report_status === 'published'}
+            publishedAt={item.fact_check_published_on ? new Date(+item.fact_check_published_on * 1000) : null}
             isUnread={!item.is_read}
-            lastRequestDate={new Date(+item.last_seen * 1000)}
+            lastRequestDate={item.requests_count && new Date(+item.last_seen * 1000)}
             rating={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.label}
             ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.style.color}
             requestsCount={item.requests_count}
@@ -719,6 +720,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               is_confirmed
               status
               report_status # Needed by BulkActionsStatus
+              fact_check_published_on
               requests_count
               linked_items_count
               suggestions_count

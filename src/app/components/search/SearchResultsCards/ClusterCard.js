@@ -33,6 +33,7 @@ const ClusterCard = ({
   mediaThumbnail,
   mediaType,
   onCheckboxChange,
+  publishedAt,
   rating,
   ratingColor,
   requestsCount,
@@ -124,7 +125,7 @@ const ClusterCard = ({
             ) : (
               <>
                 <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
-                {rating && <ItemReportStatus isPublished={isPublished} /> }
+                {rating && <ItemReportStatus isPublished={isPublished} publishedAt={publishedAt} /> }
               </>
             ) }
           </div>
@@ -151,6 +152,7 @@ ClusterCard.defaultProps = {
   mediaThumbnail: null,
   mediaType: null,
   onCheckboxChange: null,
+  publishedAt: null,
   rating: null,
   ratingColor: null,
   requestsCount: null,
@@ -185,6 +187,7 @@ ClusterCard.propTypes = {
   }),
   mediaType: PropTypes.string,
   onCheckboxChange: PropTypes.func,
+  publishedAt: PropTypes.instanceOf(Date), // Timestamp
   rating: PropTypes.string,
   ratingColor: PropTypes.string,
   requestsCount: PropTypes.number,
