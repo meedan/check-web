@@ -49,7 +49,7 @@ const SharedItemCardFooter = ({
           requestsCount={requestsCount}
         />
       ),
-      lastRequestDate && (
+      lastRequestDate && requestsCount > 0 && (
         <LastRequestDate
           lastRequestDate={lastRequestDate}
         />
