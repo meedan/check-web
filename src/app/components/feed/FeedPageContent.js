@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import AddIcon from '../../icons/add.svg';
-import FeedIcon from '../../icons/dynamic_feed.svg';
+import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import styles from './FeedPage.module.css';
 import Can from '../Can';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -49,7 +49,7 @@ const FeedPageContent = ({ permissions, slug, name }) => {
           <div className={cx(styles['feed-page-title-wrapper'])}>
             <div className={cx(styles['feed-header-title'])}>
               <h6>
-                <FeedIcon />
+                <SharedFeedIcon />
                 <FormattedHTMLMessage
                   id="sharedFeeds"
                   defaultMessage="Shared Feeds <sup>BETA</sup>"
