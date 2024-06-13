@@ -8,7 +8,6 @@ import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import ListSort from '../cds/inputs/ListSort';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
