@@ -2,11 +2,13 @@
 .search-form {
   align-items: center;
   display: flex;
-  flex: 0 0 450px;
+  flex: 1 1 0;
   flex-direction: row;
   gap: 8px;
-  margin: 8px 0 0;
-  width: 450px;
+  margin: 12px 0 0;
+
+  /* Max width is with max with of form field + gap + with of settings buttons */
+  max-width: 542px;
 
   .search-form-config {
     align-items: center;
@@ -23,7 +25,8 @@
 .search-field-wrapper {
   align-items: center;
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 1 0;
+  min-width: 200px;
   position: relative;
 
   .search-clear-button,
@@ -44,7 +47,7 @@
   }
 
   .search-field {
-    flex: 1 0 auto;
+    flex: 1 1 0;
 
     &.search-field-active {
       input {

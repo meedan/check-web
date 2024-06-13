@@ -475,11 +475,7 @@ const SaveFeed = (props) => {
 
           <div>
             <div className={`typography-caption ${styles.sharedFeedTitle}`}>
-              <FormattedMessage
-                id="saveFeed.sharedFeedPageTitle"
-                defaultMessage="Shared feed"
-                description="Title of the shared feed creation page"
-              />
+              <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />
             </div>
             <div className="typography-h6">
               { pageTitle }
