@@ -20,9 +20,10 @@
   align-items: flex-start;
   color: var(--color-gray-37);
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 1 0;
   flex-direction: column;
-  margin: 0 32px 0 0;
+  margin: 0;
+  min-width: 250px;
 
   .searchHeaderSubtitle {
     @mixin typography-caption;
@@ -91,8 +92,11 @@
 
   :global(.search__list-header-filter-row) {
     align-items: flex-start;
+    column-gap: 32px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    row-gap: 0;
   }
 
   :global(.project__description) {

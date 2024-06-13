@@ -25,8 +25,8 @@
     "defaultMessage": "Date updated"
   },
   {
-    "id": "feedClusters.sharedFeed",
-    "description": "Displayed on top of the feed title on the feed page.",
+    "id": "global.sharedFeed",
+    "description": "Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place",
     "defaultMessage": "Shared Feed"
   },
   {

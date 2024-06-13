@@ -10,7 +10,7 @@ import SearchFields from './SearchFields';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
-import FeedIcon from '../../icons/dynamic_feed.svg';
+import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
@@ -448,7 +448,7 @@ function SearchResultsComponent({
                       arrow
                     >
                       <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
-                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<FeedIcon />} className={styles.searchHeaderActionButton} />
+                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SharedFeedIcon />} className={styles.searchHeaderActionButton} />
                       </span>
                     </Tooltip>
                     :
