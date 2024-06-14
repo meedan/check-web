@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Menu from '@material-ui/core/Menu';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,7 +13,7 @@ import BookIcon from '../../icons/book.svg';
 import ExplainerForm from './ExplainerForm';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 
-const NewArticleButton = (team) => {
+const NewArticleButton = ({ team, buttonMainProps }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openExplainer, setOpenExplainer] = React.useState(false);
   const [openFactCheck, setOpenFactCheck] = React.useState(false);
@@ -37,10 +38,17 @@ const NewArticleButton = (team) => {
         theme="lightBeige"
         iconLeft={<AddIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
-        label="New Article"
+        label={
+          <FormattedMessage
+            id="articlesComponent.newArticle"
+            defaultMessage="New Article"
+            description="Label of a button that opens a form to create a new article."
+          />
+        }
         buttonProps={{
           id: 'new-article-menu__open-button',
         }}
+        {...buttonMainProps}
       />
       <Menu
         anchorEl={anchorEl}
@@ -79,6 +87,15 @@ const NewArticleButton = (team) => {
       {openFactCheck && <ClaimFactCheckForm team={team} onClose={setOpenFactCheck} />}
     </React.Fragment>
   );
+};
+
+NewArticleButton.defaultProps = {
+  buttonMainProps: {},
+};
+
+NewArticleButton.propTypes = {
+  team: PropTypes.object.isRequired,
+  buttonMainProps: PropTypes.object,
 };
 
 export default NewArticleButton;

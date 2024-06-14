@@ -1,5 +1,10 @@
 [
   {
+    "id": "mediaComponent.articles",
+    "description": "Label for the Articles tab",
+    "defaultMessage": "Articles"
+  },
+  {
     "id": "mediaComponent.requests",
     "description": "Label for the Requests tab, as in requests from users",
     "defaultMessage": "Requests"

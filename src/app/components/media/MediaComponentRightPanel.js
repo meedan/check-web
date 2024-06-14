@@ -7,6 +7,7 @@ import MediaTasks from './MediaTasks';
 import MediaRequests from './MediaRequests';
 import MediaSource from './MediaSource';
 import MediaSuggestions from './Similarity/MediaSuggestions';
+import ArticlesSidebar from '../article/ArticlesSidebar';
 import ErrorBoundary from '../error/ErrorBoundary';
 
 const MediaComponentRightPanel = ({
@@ -19,6 +20,7 @@ const MediaComponentRightPanel = ({
   const enabledBots = teamBots.edges.map(b => b.node.login);
   const showRequests = (enabledBots.indexOf('smooch') > -1 || projectMedia.requests_count > 0);
   const showSuggestions = (!projectMedia.is_suggested && !projectMedia.is_confirmed_similar_to_another_item);
+  const showArticles = true; // FIXME: Set based on a feature flag?
 
   return (
     <ErrorBoundary component="MediaComponentRightPanel">
@@ -31,6 +33,19 @@ const MediaComponentRightPanel = ({
         value={showTab}
         className="media__annotations-tabs"
       >
+        { showArticles && (
+          <Tab
+            label={
+              <FormattedMessage
+                id="mediaComponent.articles"
+                defaultMessage="Articles"
+                description="Label for the Articles tab"
+              />
+            }
+            value="articles"
+            className="media-tab__articles"
+          />
+        )}
         { showRequests ?
           <Tab
             label={
@@ -89,6 +104,7 @@ const MediaComponentRightPanel = ({
       { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} superAdminMask={superAdminMask} /> : null }
       { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
       { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
+      { showTab === 'articles' ? <ArticlesSidebar teamSlug={projectMedia.team.slug} /> : null }
     </ErrorBoundary>
   );
 };

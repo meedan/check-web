@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Slideout from '../cds/slideout/Slideout';
@@ -35,7 +36,7 @@ const ArticleForm = ({
 
   const [claimDescription, setClaimDescription] = React.useState(articleType === 'fact check' && projectMedia?.suggested_main_item ? projectMedia.suggested_main_item.claim_description : '');
   const [claimContext, setClaimContext] = React.useState('');
-  const options = team.team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || [];
+  const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || [];
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
@@ -394,11 +395,22 @@ ArticleForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,
   handleDelete: PropTypes.func,
-  articleType: PropTypes.oneOf(['fact check', 'explainer']).isRequired,
+  articleType: PropTypes.oneOf(['fact-check', 'explainer']).isRequired,
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
   article: PropTypes.object,
   team: PropTypes.object.isRequired,
   projectMedia: PropTypes.object,
 };
 
-export default ArticleForm;
+export default createFragmentContainer(ArticleForm, graphql`
+  fragment ArticleForm_team on Team {
+    get_languages
+    tag_texts(last: 50) {
+      edges {
+        node {
+          text
+        }
+      }
+    }
+  }
+`);
