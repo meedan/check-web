@@ -1,0 +1,7 @@
+[
+  {
+    "id": "articlesSidebar.noArticlesAddedToItem",
+    "description": "Message displayed on articles sidebar when an item has no articles.",
+    "defaultMessage": "No articles are being delivered to Tipline users who send in request with that match this Media."
+  }
+]

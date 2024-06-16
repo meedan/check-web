@@ -50,3 +50,13 @@
   justify-content: flex-end;
   padding: 16px;
 }
+
+.articlesSidebarNoArticle {
+  border: 2px dashed var(--color-gray-88);
+  color: var(--color-gray-75);
+  font-style: italic;
+  margin: 16px;
+  margin-top: 0;
+  padding: 16px;
+  text-align: center;
+}

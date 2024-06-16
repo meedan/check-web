@@ -104,7 +104,7 @@ const MediaComponentRightPanel = ({
       { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} superAdminMask={superAdminMask} /> : null }
       { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
       { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
-      { showTab === 'articles' ? <ArticlesSidebar teamSlug={projectMedia.team.slug} /> : null }
+      { showTab === 'articles' ? <ArticlesSidebar teamSlug={projectMedia.team.slug} projectMediaDbid={projectMedia.dbid} /> : null }
     </ErrorBoundary>
   );
 };
