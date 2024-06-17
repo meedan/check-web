@@ -51,8 +51,8 @@ before_install:
 - cp ../test/google_credentials.json google_credentials.json
 - cd -
 # Configuration files
-- cp test/config.js.example config.js
-- cp test/config.js.example test/config.js
+- cp config.js.example config.js
+- cp config.js.example test/config.js
 - cp config-build.js.example config-build.js
 - cp config-server.js.example config-server.js
 - cp test/config.yml.example test/config.yml

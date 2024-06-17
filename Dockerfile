@@ -19,8 +19,13 @@ RUN true \
         build-essential \
         graphicsmagick \
         tini \
+        nginx \
     && gem install bundler:1.17.1 \
     && rm -rf /var/lib/apt/lists/*
+
+# configure nginx to allow tests running on localhost:3333 and localhost:3000
+COPY ./nginx.conf /etc/nginx/nginx.conf
+RUN rm /etc/nginx/sites-enabled/default
 
 # tx client
 RUN curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
