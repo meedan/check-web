@@ -70,6 +70,7 @@ jobs:
       script:
       - docker ps
       - docker-compose exec web service nginx start
+      - docker-compose exec web curl http://localhost:3000 # test web nginx
       - docker-compose exec chromedriver service nginx start
       - docker-compose exec
         -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
