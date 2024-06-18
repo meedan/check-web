@@ -6,7 +6,7 @@ const CheckChannels = {
   API: '3',
   ZAPIER: '4',
   TIPLINE: {
-    WHATSAPP: '5',
+    WHATSAPP: '0',
     MESSENGER: '6',
     TWITTER: '7',
     TELEGRAM: '8',

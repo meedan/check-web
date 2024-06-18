@@ -10,6 +10,7 @@ import LineIcon from '../../../icons/line.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
 import CheckChannels from '../../../CheckChannels';
+import CheckPropTypes from '../../../CheckPropTypes';
 import styles from './Card.module.css';
 
 const ItemChannels = ({
@@ -30,16 +31,22 @@ const ItemChannels = ({
   };
 
   function getTiplineNameFromChannelNumber(channel) {
-    return Object.entries(tiplines).find(item => item[1] === channel.toString())[0];
+    const matchedTipline = Object.entries(tiplines).find(item => item[1] === channel.toString());
+    // eslint-disable-next-line
+    console.log("matchedTipline ", matchedTipline)
+    return matchedTipline && matchedTipline[0] ? humanTiplineNames[matchedTipline[0]] : null;
   }
 
   function getHumanNameFromChannelNumber(channel) {
-    const tipline = Object.entries(tiplines).find(item => item[1] === channel.toString())[0];
-    return humanTiplineNames[tipline];
+    const tipline = Object.entries(tiplines).find(item => item[1] === channel.toString());
+    return tipline ? humanTiplineNames[tipline[0]] : null;
   }
 
   function ChannelIcon({ channel }) {
     const tipline = getTiplineNameFromChannelNumber(channel);
+
+    // eslint-disable-next-line
+    console.log('ChannelIcon', channel, tipline );
 
     function tiplineIcon(name) {
       switch (name) {
@@ -57,11 +64,11 @@ const ItemChannels = ({
     return (
       <Tooltip
         arrow
-        title={humanTiplineNames[tipline]}
+        title={humanTiplineNames[tipline?.toUpperCase()]}
         placement="top"
       >
         <span>
-          { tiplineIcon(tipline) }
+          { tiplineIcon(tipline?.toUpperCase()) }
         </span>
       </Tooltip>
     );
@@ -70,18 +77,20 @@ const ItemChannels = ({
   return (
     <div className={cx(styles.cardChannels, className)}>
       { /* return these blocks if we are sorting a main channel first with the remainder alphabetical */ }
-      { sortMainFirst && <ChannelIcon channel={channels.main} />}
+      { sortMainFirst && <ChannelIcon channel={channels?.main} className="channel-icon--main" />}
       {
-        sortMainFirst && channels.others
-          .sort((a, b) => getHumanNameFromChannelNumber(a).localeCompare(getHumanNameFromChannelNumber(b)))
-          .filter(channel => channel !== channels.main)
-          .map(channel => <ChannelIcon channel={channel} />)
+        sortMainFirst &&
+        channels?.others
+          ?.sort((a, b) => getHumanNameFromChannelNumber(a)?.localeCompare(getHumanNameFromChannelNumber(b)))
+          .filter(channel => channel !== channels?.main)
+          .map(channel => <ChannelIcon key={channel} channel={channel} className="channel-icon--other" />)
       }
       { /* return this block if we are just sorting alphabetical */ }
       {
-        !sortMainFirst && channels.others
-          .sort((a, b) => getHumanNameFromChannelNumber(a).localeCompare(getHumanNameFromChannelNumber(b)))
-          .map(channel => <ChannelIcon channel={channel} />)
+        !sortMainFirst &&
+        channels?.others
+          ?.sort((a, b) => getHumanNameFromChannelNumber(a)?.localeCompare(getHumanNameFromChannelNumber(b)))
+          .map(channel => <ChannelIcon key={channel} channel={channel} className="channel-icon--other" />)
       }
     </div>
   );
@@ -97,7 +106,7 @@ ItemChannels.propTypes = {
   sortMainFirst: PropTypes.bool,
   channels: PropTypes.exact({
     main: PropTypes.number,
-    others: PropTypes.arrayOf(PropTypes.number),
+    others: PropTypes.arrayOf(CheckPropTypes.channel.CheckChannels),
   }).isRequired,
 };
 
