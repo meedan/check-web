@@ -32,9 +32,7 @@ const ItemChannels = ({
 
   function getTiplineNameFromChannelNumber(channel) {
     const matchedTipline = Object.entries(tiplines).find(item => item[1] === channel.toString());
-    // eslint-disable-next-line
-    console.log("matchedTipline ", matchedTipline)
-    return matchedTipline && matchedTipline[0] ? humanTiplineNames[matchedTipline[0]] : null;
+    return matchedTipline ? matchedTipline[0] : null;
   }
 
   function getHumanNameFromChannelNumber(channel) {
@@ -44,9 +42,6 @@ const ItemChannels = ({
 
   function ChannelIcon({ channel }) {
     const tipline = getTiplineNameFromChannelNumber(channel);
-
-    // eslint-disable-next-line
-    console.log('ChannelIcon', channel, tipline );
 
     function tiplineIcon(name) {
       switch (name) {
@@ -64,11 +59,11 @@ const ItemChannels = ({
     return (
       <Tooltip
         arrow
-        title={humanTiplineNames[tipline?.toUpperCase()]}
+        title={humanTiplineNames[tipline]}
         placement="top"
       >
         <span>
-          { tiplineIcon(tipline?.toUpperCase()) }
+          { tiplineIcon(tipline) }
         </span>
       </Tooltip>
     );
@@ -99,15 +94,19 @@ const ItemChannels = ({
 ItemChannels.defaultProps = {
   className: null,
   sortMainFirst: false,
+  channels: {
+    main: 0,
+    others: [],
+  },
 };
 
 ItemChannels.propTypes = {
   className: PropTypes.string,
   sortMainFirst: PropTypes.bool,
-  channels: PropTypes.exact({
-    main: PropTypes.number,
-    others: PropTypes.arrayOf(CheckPropTypes.channel.CheckChannels),
-  }).isRequired,
+  channels: PropTypes.shape({
+    main: CheckPropTypes.channel.isRequired,
+    others: PropTypes.arrayOf(CheckPropTypes.channel),
+  }),
 };
 
 export default ItemChannels;

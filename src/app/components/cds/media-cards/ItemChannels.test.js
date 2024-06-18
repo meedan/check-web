@@ -10,6 +10,7 @@ describe('ItemChannels', () => {
 
     const wrapper = mount(<ItemChannels sortMainFirst channels={channels} />);
     expect(wrapper.find('.channel-icon--main')).toHaveLength(1);
+    expect(wrapper.find('.channel-icon--other')).toHaveLength(0);
   });
 
   it('should render other channels icons', () => {
@@ -19,8 +20,6 @@ describe('ItemChannels', () => {
     };
 
     const wrapper = mount(<ItemChannels sortMainFirst channels={channels} />);
-    // console.log(wrapper.debug());
-    // console.log(wrapper.html());
     expect(wrapper.find('.channel-icon--other')).toHaveLength(3);
     expect(wrapper.find('span').at(1).prop('title')).toEqual('Instagram');
     expect(wrapper.find('span').at(2).prop('title')).toEqual('Line');

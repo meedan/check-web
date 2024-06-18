@@ -388,8 +388,6 @@ function SearchResultsComponent({
     ) : (
       <div className={styles['search-results-scroller']}>
         { projectMedias.map(item =>
-          // eslint-disable-next-line
-          // console.log("searchResult", item.channel)
           (
             <ClusterCard
               key={item.id}

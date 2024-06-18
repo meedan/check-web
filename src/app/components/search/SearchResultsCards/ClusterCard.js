@@ -47,9 +47,6 @@ const ClusterCard = ({
     feedContainsFactChecks = dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS);
   }
 
-  // eslint-disable-next-line
-  console.log('ClusterCard', { channels})
-
   return (
     <div
       className={cx(
