@@ -5,7 +5,7 @@ import ItemChannels from './ItemChannels';
 describe('ItemChannels', () => {
   it('should render main channel icon', () => {
     const channels = {
-      main: "0",
+      main: '0',
     };
 
     const wrapper = mount(<ItemChannels sortMainFirst channels={channels} />);
@@ -15,8 +15,8 @@ describe('ItemChannels', () => {
 
   it('should render other channels icons', () => {
     const channels = {
-      main: "0",
-      others: ["10", "13", "8"],
+      main: '0',
+      others: ['10', '13', '8'],
     };
 
     const wrapper = mount(<ItemChannels sortMainFirst channels={channels} />);
