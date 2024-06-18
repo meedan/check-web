@@ -98,7 +98,7 @@ const ArticlesSidebar = ({ teamSlug, projectMediaDbid }) => (
             />
           );
         }
-        return <MediasLoading theme="white" variant="page" size="large" />;
+        return <MediasLoading theme="white" variant="inline" size="large" />;
       }}
     />
   </ErrorBoundary>

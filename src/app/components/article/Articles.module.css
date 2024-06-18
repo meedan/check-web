@@ -93,3 +93,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.articlesSidebarCardCaption {
+  align-items: center;
+  display: flex;
+
+  svg {
+    font-size: var(--font-size-base);
+  }
+}
