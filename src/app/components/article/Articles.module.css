@@ -45,18 +45,51 @@
   padding: 0;
 }
 
+.articlesSidebar {
+  padding: 16px;
+}
+
 .articlesSidebarTopBar {
   display: flex;
   justify-content: flex-end;
-  padding: 16px;
 }
 
 .articlesSidebarNoArticle {
   border: 2px dashed var(--color-gray-88);
   color: var(--color-gray-75);
   font-style: italic;
-  margin: 16px;
-  margin-top: 0;
+  margin: 16px 0 32px;
   padding: 16px;
   text-align: center;
+}
+
+.articlesSidebarList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.articlesSidebarCard {
+  border: 1px solid var(--color-gray-88);
+  border-radius: 5px;
+  display: flex;
+  gap: 3px;
+  padding: 6px;
+}
+
+.articlesSidebarCardIcon {
+  color: var(--color-gray-37);
+  font-size: var(--font-size-subtitle-1);
+}
+
+.articlesSidebarCardTitle {
+  -webkit-box-orient: vertical;
+  color: var(--color-gray-15);
+  display: -webkit-box; /* stylelint-disable-line */
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
