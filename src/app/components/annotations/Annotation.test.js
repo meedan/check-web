@@ -30,17 +30,37 @@ const annotation = {
   },
 };
 
+const annotationMultiSelect = {
+  ...annotation,
+  task: {
+    type: 'multiple_choice',
+    fieldset: 'metadata',
+  },
+  event_type: 'create_dynamicannotationfield',
+  object_after: '{"id":123456,"annotation_id":2923453,"field_name":"response_multiple_choice","annotation_type":"task_response_multiple_choice","field_type":"select","value":""}',
+};
+
 describe('<Annotation />', () => {
   it('Renders report edited event', () => {
     const wrapper = mountWithIntl((
       <Annotation
-        annotated={{}}
-        annotatedType="ProjectMedia"
         annotation={annotation}
         team={{}}
       />
     ));
     expect(wrapper.find('.annotation__default').hostNodes()).toHaveLength(1);
     expect(wrapper.find('.test-annotation__default-content').hostNodes().html()).toMatch('Fact-check report edited by');
+  });
+
+  it('Should not crash when rendering malformed multi select annotation response', () => {
+    const wrapper = mountWithIntl((
+      <Annotation
+        annotation={annotationMultiSelect}
+        team={{}}
+      />
+    ));
+
+    expect(wrapper.find('.annotation__metadata-filled').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.annotation__metadata-filled').hostNodes().html()).toMatch('edited by');
   });
 });
