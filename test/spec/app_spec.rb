@@ -55,9 +55,10 @@ shared_examples 'app' do |webdriver_url|
     @driver = nil
     begin
       @driver = new_driver
+      puts 'Driver created successfully' if @driver
       example.run
     ensure
-      @driver.quit if @driver
+      @driver&.quit
     end
   end
 

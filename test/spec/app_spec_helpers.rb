@@ -235,6 +235,8 @@ module AppSpecHelpers
     )
 
     Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url)
+  rescue => e
+    puts "Error creating driver: #{e.message}"
   end
 
   def generate_a_report_and_copy_report_code
