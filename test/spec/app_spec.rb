@@ -52,8 +52,8 @@ shared_examples 'app' do |webdriver_url|
 
   around(:each) do |example|
     @wait = Selenium::WebDriver::Wait.new(timeout: 60)
-    @driver = new_driver
     begin
+      @driver = new_driver
       example.run
     ensure
       @driver.quit
