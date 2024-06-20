@@ -399,6 +399,7 @@ function SearchResultsComponent({
             isPublished={item.report_status === 'published'}
             publishedAt={item.fact_check_published_on ? new Date(+item.fact_check_published_on * 1000) : null}
             isUnread={!item.is_read}
+            channels={item.requests_count && item.channel}
             lastRequestDate={item.requests_count && new Date(+item.last_seen * 1000)}
             rating={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.label}
             ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.style.color}
@@ -706,6 +707,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
             node {
               id
               dbid
+              channel
               picture
               show_warning_cover
               title
