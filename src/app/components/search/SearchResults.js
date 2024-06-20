@@ -414,8 +414,8 @@ function SearchResultsComponent({
             }}
             mediaType={item.media?.type}
             suggestionsCount={item.suggestions_count}
-          />),
-        )}
+          />
+        ))}
       </div>
     );
   }
