@@ -32,7 +32,7 @@ const ArticlesSidebarTeamArticles = ({ teamSlug }) => (
         query ArticlesSidebarTeamArticlesQuery($slug: String!) {
           team(slug: $slug) {
             ...ArticlesSidebarCard_team
-            factChecks: articles(first: 10, sort: "id", sort_type: "desc", article_type: "fact-check") {
+            factChecks: articles(first: 10, sort: "id", sort_type: "desc", article_type: "fact-check", standalone: true) {
               edges {
                 node {
                   ... on FactCheck {
