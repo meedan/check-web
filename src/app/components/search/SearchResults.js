@@ -387,8 +387,8 @@ function SearchResultsComponent({
       />
     ) : (
       <div className={styles['search-results-scroller']}>
-        { projectMedias.map(item =>
-          (<ClusterCard
+        { projectMedias.map(item =>(
+          <ClusterCard
             key={item.id}
             title={item.title}
             description={item.description}
