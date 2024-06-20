@@ -57,7 +57,7 @@ shared_examples 'app' do |webdriver_url|
       @driver = new_driver
       example.run
     ensure
-      @driver.quit
+      @driver.quit if @driver
     end
   end
 
