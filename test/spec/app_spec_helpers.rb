@@ -234,9 +234,10 @@ module AppSpecHelpers
       'goog:chromeOptions': chrome_options
     )
 
-    Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url)
-  rescue => e
-    puts "Error creating driver: #{e.message}"
+    client = Selenium::WebDriver::Remote::Http::Default.new
+    client.read_timeout = 120
+
+    Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url, http_client: client)
   end
 
   def generate_a_report_and_copy_report_code
