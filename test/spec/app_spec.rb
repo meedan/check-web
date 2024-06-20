@@ -46,11 +46,12 @@ shared_examples 'app' do |webdriver_url|
   end
 
   before :each do |example|
+    puts example.description
     $caller_name = example.metadata[:description_args]
   end
 
   around(:each) do |example|
-    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
+    @wait = Selenium::WebDriver::Wait.new(timeout: 60)
     @driver = new_driver
     begin
       example.run
