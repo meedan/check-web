@@ -105,40 +105,38 @@ const SmoochBotContentAndTranslation = ({
   return (
     <Box>
       { strings.map(string => (
-        <Box mb={4} key={string.key}>
-          <TiplineContentTranslation
-            key={string.key}
-            identifier={string.key}
-            title={string.title}
-            description={string.description}
-            defaultValue={string.default}
-            value={string.state ? value[`smooch_state_${string.state}`].smooch_menu_message : value[string.key]}
-            error={
-              string.key === 'newsletter_optin_optout' && value[string.key] && !/{subscription_status}/.test(value[string.key]) ?
-                <FormattedMessage id="smoochBotContentAndTranslation.error" defaultMessage="The placeholder {subscription_status} is missing from your custom content or translation" description="Error message displayed on the tipline settings page when the placeholder is not present" />
-                : null
+        <TiplineContentTranslation
+          key={string.key}
+          identifier={string.key}
+          title={string.title}
+          description={string.description}
+          defaultValue={string.default}
+          value={string.state ? value[`smooch_state_${string.state}`].smooch_menu_message : value[string.key]}
+          error={
+            string.key === 'newsletter_optin_optout' && value[string.key] && !/{subscription_status}/.test(value[string.key]) ?
+              <FormattedMessage id="smoochBotContentAndTranslation.error" defaultMessage="The placeholder {subscription_status} is missing from your custom content or translation" description="Error message displayed on the tipline settings page when the placeholder is not present" />
+              : null
+          }
+          onUpdate={(newValue) => {
+            if (string.state) {
+              onChangeStateMessage(string.state, newValue);
+            } else {
+              onChangeMessage(string.key, newValue);
             }
-            onUpdate={(newValue) => {
-              if (string.state) {
-                onChangeStateMessage(string.state, newValue);
-              } else {
-                onChangeMessage(string.key, newValue);
-              }
-            }}
-            extra={
-              string.key === 'smooch_message_smooch_bot_greetings' ?
-                <Box>
-                  <UploadFile
-                    type="image"
-                    value={greetingImage}
-                    onChange={onChangeImage}
-                    onError={() => {}}
-                  />
-                </Box>
-                : null
-            }
-          />
-        </Box>
+          }}
+          extra={
+            string.key === 'smooch_message_smooch_bot_greetings' ?
+              <Box>
+                <UploadFile
+                  type="image"
+                  value={greetingImage}
+                  onChange={onChangeImage}
+                  onError={() => {}}
+                />
+              </Box>
+              : null
+          }
+        />
       ))}
     </Box>
   );

@@ -106,6 +106,27 @@
       max-width: var(--columnWidthLarge);
       width: 100%;
 
+      .content-translation-wrapper {
+        border: 1px solid var(--color-gray-88);
+        border-radius: 5px;
+        margin-top: 8px;
+        padding: 8px 8px 0;
+
+        .setting-content-container-title {
+          justify-content: flex-start;
+
+          span.setting-content-container-title-expand {
+            flex: 0 0 30px;
+          }
+        }
+
+        &.content-translation-wrapper-collapsed {
+          .content-translation-details {
+            display: none;
+          }
+        }
+      }
+
       .setting-content-container {
         background-color: var(--color-white-100);
         border-radius: 8px;

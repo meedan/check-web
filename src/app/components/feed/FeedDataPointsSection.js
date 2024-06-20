@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChevronUpIcon from '../../icons/chevron_up.svg';
-import ChevronDownIcon from '../../icons/chevron_down.svg';
+import ChevronRightIcon from '../../icons/chevron_right.svg';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import styles from './SaveFeed.module.css';
 
@@ -24,7 +24,7 @@ const FeedDataPointsSection = ({
           size="small"
           theme="lightText"
           onClick={() => { setExpanded(!expanded); }}
-          iconCenter={expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
+          iconCenter={expanded ? <ChevronUpIcon /> : <ChevronRightIcon />}
         />
         <SwitchComponent
           label={title}

@@ -1,66 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { injectIntl, intlShape, defineMessages } from 'react-intl';
-import {
-  Box,
-  TextField,
-} from '@material-ui/core';
+import cx from 'classnames/bind';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
+import TextArea from '../inputs/TextArea';
+import Tooltip from '../alerts-and-prompts/Tooltip';
+import ChevronUpIcon from '../../../icons/chevron_up.svg';
+import ChevronRightIcon from '../../../icons/chevron_right.svg';
+import DoneIcon from '../../../icons/done.svg';
+import HelpIcon from '../../../icons/help.svg';
 import styles from '../../team/Settings.module.css';
 
-const StyledTextField = withStyles({
-  root: {
-    '& .MuiOutlinedInput-input::placeholder': {
-      color: 'var(--color-gray-37)',
-      opacity: 1,
-    },
-    '& .MuiFormHelperText-root.Mui-error': {
-      color: 'var(--color-pink-53)',
-      marginLeft: 0,
-      fontSize: 12,
-      fontWeight: 400,
-    },
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'var(--color-pink-53)',
-      },
-      '& fieldset': {
-        borderColor: 'var(--color-gray-88)',
-        borderWidth: 1,
-      },
-      '&:hover fieldset': {
-        borderColor: 'var(--color-gray-88)',
-        borderWidth: 1,
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: 'var(--color-gray-88)',
-        borderWidth: 1,
-      },
-    },
-  },
-})(TextField);
-
-const useStyles = makeStyles(theme => ({
-  defaultString: {
-    borderTopLeftRadius: theme.spacing(1),
-    borderTopRightRadius: theme.spacing(1),
-    border: '1px solid var(--color-gray-88)',
-    borderBottom: 0,
-    background: 'var(--color-beige-93)',
-    padding: '12px 10px',
-  },
-  customString: {
-    borderTop: 0,
-    outline: 0,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    fontSize: 14,
-    fontWeight: 400,
-    color: 'var(--color-gray-15)',
-  },
-}));
-
 const messages = defineMessages({
+  expandCollapse: {
+    id: 'smoochBotContentAndTranslation.expandCollapse',
+    defaultMessage: 'Expand/Collapase content details',
+    description: 'Tooltip for the button to show or hide a content details in the list',
+  },
+  customized: {
+    id: 'smoochBotContentAndTranslation.customized',
+    defaultMessage: 'Customized',
+    description: 'Label to indicate that a bot response has been customized and is different than the default message',
+  },
+  textFieldTitle: {
+    id: 'smoochBotContentAndTranslation.textFieldTitle',
+    defaultMessage: 'Custom text',
+    description: 'Title for the textfield where users can enter custom text for a bot response',
+  },
+  defaultText: {
+    id: 'smoochBotContentAndTranslation.defaultTextTitle',
+    defaultMessage: 'Default text',
+    description: 'Title for the area to show users what the default text value is for this bot response',
+  },
   placeholder: {
     id: 'smoochBotContentAndTranslation.placeholder',
     defaultMessage: 'Type custom content or translation here.',
@@ -79,45 +50,73 @@ const TiplineContentTranslation = ({
   error,
   extra,
 }) => {
-  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
   return (
-    <Box>
-
-      {/* Text and description about this field */}
+    <div className={cx(styles['content-translation-wrapper'], expanded ? styles['content-translation-wrapper-expanded'] : styles['content-translation-wrapper-collapsed'])}>
       <div className={styles['setting-content-container-title']}>
+        <Tooltip
+          arrow
+          title={intl.formatMessage(messages.expandCollapse)}
+        >
+          <span className={styles['setting-content-container-title-expand']}>
+            <ButtonMain
+              variant="contained"
+              size="small"
+              theme="lightText"
+              onClick={() => { setExpanded(!expanded); }}
+              iconCenter={expanded ? <ChevronUpIcon /> : <ChevronRightIcon />}
+            />
+          </span>
+        </Tooltip>
         {title}
+        { !value &&
+          <div>
+            <DoneIcon />
+            {intl.formatMessage(messages.customized)}
+          </div>
+        }
+        <div className={styles['setting-content-container-actions']}>
+          <Tooltip
+            arrow
+            title={description}
+          >
+            <span>
+              <ButtonMain
+                disabled
+                buttonProps={{
+                  type: null,
+                }}
+                variant="contained"
+                size="small"
+                theme="text"
+                iconCenter={<HelpIcon />}
+              />
+            </span>
+          </Tooltip>
+        </div>
       </div>
-      <p>
-        {description}
-      </p>
-
-      <Box mt={1}>
-
-        {/* Default value */}
-        <Box p={1} className={classes.defaultString}>
-          {defaultValue}
-        </Box>
-
-        {/* Text field for custom value */}
-        <StyledTextField
+      <div className={styles['content-translation-details']}>
+        { !value &&
+          <div>
+            <label>{intl.formatMessage(messages.defaultText)}</label>
+            {defaultValue}
+          </div>
+        }
+        <TextArea
           key={identifier}
-          InputProps={{ className: classes.customString }}
-          variant="outlined"
+          label={intl.formatMessage(messages.textFieldTitle)}
           placeholder={intl.formatMessage(messages.placeholder)}
           rowsMax={Infinity}
           rows={1}
           defaultValue={value}
           onBlur={(e) => { onUpdate(e.target.value); }}
           error={Boolean(error)}
-          helperText={error}
-          multiline
-          fullWidth
+          helpContent={error}
         />
-
         {extra}
-
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 
