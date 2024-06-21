@@ -44,7 +44,6 @@ deploy_qa:
     - sh scripts/clear-cf-cache.sh
   only:
     - develop
-    - bugfix/CV2-3322-fix-CSS-error-not-failing-Gitlab-build-job
 
 build_live:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
