@@ -46,7 +46,7 @@ shared_examples 'app' do |webdriver_url|
   end
 
   before :each do |example|
-    puts example.description
+    puts "\n#{example.description}"
     $caller_name = example.metadata[:description_args]
   end
 
@@ -58,7 +58,7 @@ shared_examples 'app' do |webdriver_url|
     rescue Exception => e
       puts "Error occurred: #{e.message}"
     ensure
-      @driver.quit if @driver
+      @driver&.quit
     end
   end
 
