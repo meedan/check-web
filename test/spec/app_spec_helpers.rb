@@ -186,22 +186,31 @@ module AppSpecHelpers
   end
 
   def save_screenshot(title, driver = nil)
-    path = "/tmp/ #{(0...8).map { rand(65..90).chr }.join}.png"
+    require 'net/http'
+    require 'uri'
+
+    path = "/tmp/#{(0...8).map { rand(65..90).chr }.join}.png"
     if driver
       driver.save_screenshot(path)
     else
       @driver.save_screenshot(path)
     end
+
+    uri = URI('https://api.imgur.com/3/image')
     auth_header = { 'Authorization' => "Client-ID #{get_config('IMGUR_CLIENT_ID')}" }
-    image = Base64.strict_encode64(File.open(path).read)
-    body = { image: image, type: 'file' }
-    count = 0
-    begin
-      count += 1
-      response = HTTParty.post('https://api.imgur.com/3/image', body: body, headers: auth_header)
-      sleep 10
-    end while (JSON.parse(response.body)['status'] != 200 && count < 3)
-    JSON.parse(response.body)['data']['link']
+    image = Base64.strict_encode64(File.open(path, 'rb').read)
+    body = { 'image' => image, 'type' => 'base64', 'title' => title }.to_json
+
+    req = Net::HTTP::Post.new(uri, auth_header.merge('Content-Type' => 'application/json'))
+    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
+      http.request(req, body)
+    end
+
+    if response.is_a?(Net::HTTPSuccess)
+      JSON.parse(response.body)['data']['link']
+    else
+      "Failed to upload to imgur error was: '#{response.body}'"
+    end
   rescue Exception => e
     "(couldn't take screenshot for '#{title}', error was: '#{e.message}')"
   end
