@@ -1,0 +1,7 @@
+[
+  {
+    "id": "articlesSidebarCard.tooltip",
+    "description": "Tooltip message displayed on explainer cards on item page.",
+    "defaultMessage": "Add explainer article to this media cluster"
+  }
+]

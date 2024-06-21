@@ -24,15 +24,17 @@ ArticlesSidebarTeamArticlesComponent.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.object),
 };
 
+const numberOfArticles = 30;
+
 const ArticlesSidebarTeamArticles = ({ teamSlug }) => (
   <ErrorBoundary component="ArticlesSidebarTeamArticles">
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query ArticlesSidebarTeamArticlesQuery($slug: String!) {
+        query ArticlesSidebarTeamArticlesQuery($slug: String!, $numberOfArticles: Int!) {
           team(slug: $slug) {
             ...ArticlesSidebarCard_team
-            factChecks: articles(first: 10, sort: "id", sort_type: "desc", article_type: "fact-check", standalone: true) {
+            factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", standalone: true) {
               edges {
                 node {
                   ... on FactCheck {
@@ -42,7 +44,7 @@ const ArticlesSidebarTeamArticles = ({ teamSlug }) => (
                 }
               }
             }
-            explainers: articles(first: 10, sort: "id", sort_type: "desc", article_type: "explainer") {
+            explainers: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "explainer") {
               edges {
                 node {
                   ... on Explainer {
@@ -57,6 +59,7 @@ const ArticlesSidebarTeamArticles = ({ teamSlug }) => (
       `}
       variables={{
         slug: teamSlug,
+        numberOfArticles,
       }}
       render={({ error, props }) => {
         if (!error && props) {
