@@ -19,6 +19,7 @@ build_qa:
     - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_API_BASE_URL
     - docker build --build-arg DEPLOY_BRANCH=develop --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
+  allow_failure: false
   only:
     - develop
     - bugfix/CV2-3322-fix-CSS-error-not-failing-Gitlab-build-job
