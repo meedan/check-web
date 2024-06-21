@@ -5,6 +5,9 @@ networks:
 services:
   chromedriver:
     build: chromedriver
+    environment:
+      SE_NODE_MAX_SESSIONS: 3
+      SE_NODE_SESSION_TIMEOUT: 120
     ports:
       - 5900:5900
       - 4444:4444

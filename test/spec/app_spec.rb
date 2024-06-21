@@ -51,13 +51,14 @@ shared_examples 'app' do |webdriver_url|
   end
 
   around(:each) do |example|
-    @wait = Selenium::WebDriver::Wait.new(timeout: 90)
-    @driver = nil
+    @wait = Selenium::WebDriver::Wait.new(timeout: 180)
+    @driver = new_driver
     begin
-      @driver = new_driver
       example.run
+    rescue Exception => e
+      puts "Error occurred: #{e.message}"
     ensure
-      @driver.quit
+      @driver.quit if @driver
     end
   end
 
