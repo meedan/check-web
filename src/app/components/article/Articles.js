@@ -109,6 +109,7 @@ const ArticlesComponent = ({
           teamSlug={teamSlug}
           filterOptions={filterOptions}
           currentFilters={{ ...filters, article_type: type }}
+          statuses={statuses.statuses}
           className={styles.articleFilterBar}
           onSubmit={handleChangeFilters}
         />
@@ -257,7 +258,6 @@ const Articles = ({
   const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType, filters } - a single state for a single query/render
     setSearchParams(Object.assign({}, searchParams, newSearchParams));
   };
-
   // Adjust some filters
   if (filters.range?.updated_at) {
     filters.updatedAt = JSON.stringify(filters.range.updated_at);
@@ -277,7 +277,8 @@ const Articles = ({
         query={graphql`
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
-            $users: [Int], $updatedAt: String, $tags: [String], $language: [String],
+            $users: [Int], $updatedAt: String, $tags: [String], $language: [String], $published_by: [Int],
+            $report_status: [String], $verification_status: [String],
           ) {
             team(slug: $slug) {
               verification_statuses
@@ -288,10 +289,14 @@ const Articles = ({
                   }
                 }
               }
-              articles_count(article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language)
+              articles_count(
+                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language,
+                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status,
+              )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
-                user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language,
+                user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language, publisher_ids: $published_by,
+                report_status: $report_status, rating: $verification_status,
               ) {
                 edges {
                   node {

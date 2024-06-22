@@ -11,7 +11,10 @@ import SearchFieldTag from '../search/SearchFields/SearchFieldTag';
 import DateRangeFilter from '../search/DateRangeFilter';
 import LanguageFilter from '../search/LanguageFilter';
 import PersonIcon from '../../icons/person.svg';
+import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
+import LabelIcon from '../../icons/label.svg';
+import ReportIcon from '../../icons/playlist_add_check.svg';
 import styles from '../search/SearchResults.module.css';
 import searchStyles from '../search/search.module.css';
 
@@ -34,6 +37,7 @@ const ArticleFilters = ({
   filterOptions,
   currentFilters,
   teamSlug,
+  statuses,
   className,
   extra,
   intl,
@@ -176,6 +180,73 @@ const ArticleFilters = ({
                   teamSlug={teamSlug}
                   optionsToHide={['request_language', 'language']}
                 />
+              </>
+            );
+          }
+
+          if (filter === 'published_by') {
+            return (
+              <>
+                {connector}
+                <FormattedMessage id="articleFilters.publishedBy" defaultMessage="Publisher is" description="Prefix label for field to filter by published by">
+                  { label => (
+                    <SearchFieldUser
+                      teamSlug={teamSlug}
+                      label={label}
+                      icon={<HowToRegIcon />}
+                      selected={value || []}
+                      value={value}
+                      onChange={(newValue) => { handleOptionChange('published_by', newValue.map(userId => parseInt(userId, 10))); }}
+                      onRemove={() => handleRemoveFilter('published_by')}
+                    />
+                  )}
+                </FormattedMessage>
+              </>
+            );
+          }
+
+          if (filter === 'report_status') {
+            const reportStatusOptions = [
+              { label: <FormattedMessage id="articleFilters.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
+              { label: <FormattedMessage id="articleFilters.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
+              { label: <FormattedMessage id="articleFilters.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
+            ];
+            return (
+              <>
+                {connector}
+                <FormattedMessage id="articleFilters.reportStatus" defaultMessage="Report (status) is" description="Prefix label for field to filter by report status">
+                  { label => (
+                    <MultiSelectFilter
+                      allowSearch={false}
+                      label={label}
+                      icon={<ReportIcon />}
+                      selected={value || []}
+                      options={reportStatusOptions}
+                      onChange={(newValue) => { handleOptionChange('report_status', newValue); }}
+                      onRemove={() => handleRemoveFilter('report_status')}
+                    />
+                  )}
+                </FormattedMessage>
+              </>
+            );
+          }
+
+          if (filter === 'verification_status') {
+            return (
+              <>
+                {connector}
+                <FormattedMessage id="search.statusHeading" defaultMessage="Rating is" description="Prefix label for field to filter by status">
+                  { label => (
+                    <MultiSelectFilter
+                      label={label}
+                      icon={<LabelIcon />}
+                      selected={value || []}
+                      options={statuses.map(s => ({ label: s.label, value: s.id }))}
+                      onChange={(newValue) => { handleOptionChange('verification_status', newValue); }}
+                      onRemove={() => handleRemoveFilter('verification_status')}
+                    />
+                  )}
+                </FormattedMessage>
               </>
             );
           }
