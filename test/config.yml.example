@@ -1,6 +1,10 @@
 app_name: check
-api_path: http://localhost:3000
-self_url: http://localhost:3333
+
+# Requires nginx to be running on the container:
+# docker compose exec web service nginx start
+api_path: http://localhost:3000 # http://api:3000 if nginx is not running
+self_url: http://localhost:3333 # http://web:3333 if nginx is not running
+
 chromedriver_url: http://chromedriver:4444/wd/hub
 
 # Twitter user information to test Twitter social login
