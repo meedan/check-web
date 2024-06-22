@@ -6,8 +6,8 @@ services:
   chromedriver:
     build: chromedriver
     environment:
-      SE_NODE_MAX_SESSIONS: 12
-      SE_NODE_SESSION_TIMEOUT: 120
+      SE_NODE_MAX_SESSIONS: 12 # increase from image default 1. Makes 3 per parallel test bin
+      SE_NODE_SESSION_TIMEOUT: 120 # reduce from image default 300 and make it less than client timeout
     ports:
       - 5900:5900
       - 4444:4444

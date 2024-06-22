@@ -239,9 +239,9 @@ module AppSpecHelpers
     )
 
     client = Selenium::WebDriver::Remote::Http::Default.new
+    # Make client timeout longer than the server timeout
     client.open_timeout = 180 # seconds
     client.read_timeout = 180 # seconds
-
     Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url, http_client: client)
   end
 
