@@ -120,7 +120,7 @@ const FeedRequestsTable = ({
         <div className="search__list-header-filter-row">
           <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
             <div className={styles.searchHeaderSubtitle}>
-              Shared Feed
+              <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />
             </div>
             <div className={cx('project__title-text', styles.searchHeaderTitle)}>
               <h6>

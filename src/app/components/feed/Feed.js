@@ -12,6 +12,7 @@ import FeedHeader from './FeedHeader';
 import FeedClusters from './FeedClusters';
 import FeedSwitcher from './FeedSwitcher';
 import Search from '../search/Search';
+import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import { safelyParseJSON } from '../../helpers';
 import PageTitle from '../PageTitle';
 
@@ -57,8 +58,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
           teamFilters={teamFilters}
           setTeamFilters={setTeamFilters}
         />),
-    listSubtitle: <FormattedMessage id="feedHeader.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />,
-    icon: null,
+    listSubtitle: <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />,
+    icon: <SharedFeedIcon />,
     teamSlug: routeParams.team,
     readOnlyFields: Object.keys(feed.filters),
     showExpand: true,

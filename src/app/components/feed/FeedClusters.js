@@ -8,6 +8,7 @@ import SharedItemCard from '../search/SearchResultsCards/SharedItemCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import ListSort from '../cds/inputs/ListSort';
 import Paginator from '../cds/inputs/Paginator';
+import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import NextIcon from '../../icons/chevron_right.svg';
 import CheckChannels from '../../CheckChannels';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
@@ -104,12 +105,13 @@ const FeedClustersComponent = ({
       <div className={cx(searchResultsStyles['search-results-header'], styles.feedClustersHeader)}>
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
-            <FormattedMessage id="feedClusters.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />
+            <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />
             <NextIcon />
             <FeedLastClusterizedAt feed={feed} />
           </div>
           <div className={searchResultsStyles.searchHeaderTitle}>
             <h6>
+              <SharedFeedIcon />
               {feed.name}
             </h6>
             <div className={searchResultsStyles.searchHeaderActions}>
