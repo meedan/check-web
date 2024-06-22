@@ -70,10 +70,7 @@ jobs:
       script:
       - docker ps
       - docker-compose exec web service nginx start
-      - docker-compose exec web curl http://localhost:3000 # test web nginx
       - docker-compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
-      - sleep 1
-      - docker-compose -f docker-compose.yml -f docker-test.yml exec chromedriver tail /var/log/nginx/error.log # see what's wrong with nginx
       - docker-compose exec
         -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
         -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME
