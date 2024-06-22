@@ -80,10 +80,13 @@ Then publish it to npm. Name the module `@meedan/name-of-my-module` (in its
 
 *Running*
 
-* Start the test environment in the [check](https://github.com/meedan/check) repository: `docker-compose -f docker-compose.yml -f docker-test.yml up`
 * Copy `test/config.yml.example` to `test/config.yml` and set the configurations
-* Copy `test/config.js.example` to `test/config.js` and set the configurations
-* Copy `test/config.js.example` to `config.js` and set the configurations
+* Copy `config.js.example` to `test/config.js` and set the configurations
+* Copy `config.js.example` to `config.js` and set the configurations
+* Start the test environment in the [check](https://github.com/meedan/check) repository: `docker-compose -f docker-compose.yml -f docker-test.yml up`
+* Start the nginx proxy for `web` and `chromedriver` containers
+* `docker-compose exec web service nginx start`
+* `docker-compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start`
 * Run `docker-compose exec web npm test:integration`
 
 For Alegre, Pender and Check API that are executed for the integration tests: for each of them, if there is a branch with the same name as the Check Web branch, it's going to be used. Otherwise, it will use `develop`.
