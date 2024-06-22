@@ -85,6 +85,8 @@ jobs:
       name: similarity-tests
       if: branch = develop OR branch = master OR commit_message =~ /\[full ci\]/ OR commit_message =~ /\[similarity tests\]/
       script:
+      - docker-compose exec web service nginx start
+      - docker-compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
       - docker-compose exec
         -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
         -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME
