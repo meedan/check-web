@@ -7,10 +7,10 @@ import MediasLoading from '../media/MediasLoading';
 import ArticlesSidebarCard from './ArticlesSidebarCard';
 import styles from './Articles.module.css';
 
-const ArticlesSidebarTeamArticlesComponent = ({ articles, team }) => (
+const ArticlesSidebarTeamArticlesComponent = ({ articles, team, onAdd }) => (
   <div id="articles-sidebar-team-articles" className={styles.articlesSidebarList}>
     {articles.map(article => (
-      <ArticlesSidebarCard article={article} team={team} />
+      <ArticlesSidebarCard article={article} team={team} onAdd={onAdd} />
     ))}
   </div>
 );
@@ -22,11 +22,12 @@ ArticlesSidebarTeamArticlesComponent.defaultProps = {
 ArticlesSidebarTeamArticlesComponent.propTypes = {
   team: PropTypes.object.isRequired,
   articles: PropTypes.arrayOf(PropTypes.object),
+  onAdd: PropTypes.func.isRequired,
 };
 
 const numberOfArticles = 30;
 
-const ArticlesSidebarTeamArticles = ({ teamSlug }) => (
+const ArticlesSidebarTeamArticles = ({ teamSlug, onAdd }) => (
   <ErrorBoundary component="ArticlesSidebarTeamArticles">
     <QueryRenderer
       environment={Relay.Store}
@@ -67,7 +68,7 @@ const ArticlesSidebarTeamArticles = ({ teamSlug }) => (
           const articles = props.team.factChecks.edges.concat(props.team.explainers.edges).map(edge => edge.node).sort((a, b) => (parseInt(a.created_at, 10) < parseInt(b.created_at, 10)) ? 1 : -1);
 
           return (
-            <ArticlesSidebarTeamArticlesComponent articles={articles} team={props.team} />
+            <ArticlesSidebarTeamArticlesComponent articles={articles} team={props.team} onAdd={onAdd} />
           );
         }
         return <MediasLoading theme="white" variant="inline" size="large" />;
@@ -78,6 +79,7 @@ const ArticlesSidebarTeamArticles = ({ teamSlug }) => (
 
 ArticlesSidebarTeamArticles.propTypes = {
   teamSlug: PropTypes.string.isRequired,
+  onAdd: PropTypes.func.isRequired,
 };
 
 export default ArticlesSidebarTeamArticles;

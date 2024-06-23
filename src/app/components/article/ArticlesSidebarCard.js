@@ -11,7 +11,7 @@ import EllipseIcon from '../../icons/ellipse.svg';
 import { getStatus, getStatusStyle } from '../../helpers';
 import styles from './Articles.module.css';
 
-const ArticlesSidebarCard = ({ article, team }) => {
+const ArticlesSidebarCard = ({ article, team, onAdd }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
   const handleMouseEnter = () => {
@@ -20,6 +20,19 @@ const ArticlesSidebarCard = ({ article, team }) => {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+  };
+
+  const handleClick = (e) => {
+    if (onAdd) {
+      let id = null;
+      if (article.nodeType === 'FactCheck') {
+        ({ id } = article.claim_description);
+      } else if (article.nodeType === 'Explainer') {
+        id = article.dbid;
+      }
+      onAdd(article.nodeType, id);
+    }
+    e.stopPropagation();
   };
 
   let ratingLabel = null;
@@ -43,7 +56,7 @@ const ArticlesSidebarCard = ({ article, team }) => {
       }
       arrow
     >
-      <div className={styles.articlesSidebarCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div className={styles.articlesSidebarCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick} onKeyDown={handleClick}>
         <div className={styles.articlesSidebarCardIcon}>
           { isHovered && <AddIcon /> }
           { article.nodeType === 'Explainer' && !isHovered && <BookIcon /> }
@@ -58,16 +71,25 @@ const ArticlesSidebarCard = ({ article, team }) => {
   );
 };
 
+ArticlesSidebarCard.defaultProps = {
+  onAdd: null,
+};
+
 ArticlesSidebarCard.propTypes = {
   team: PropTypes.shape({
     verification_statuses: PropTypes.object.isRequired,
   }).isRequired,
   article: PropTypes.shape({
     id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     rating: PropTypes.string,
+    claim_description: PropTypes.shape({
+      id: PropTypes.string,
+    }),
     nodeType: PropTypes.oneOf(['FactCheck', 'Explainer']).isRequired,
   }).isRequired,
+  onAdd: PropTypes.func,
 };
 
 // eslint-disable-next-line import/no-unused-modules
@@ -81,12 +103,17 @@ export default createFragmentContainer(ArticlesSidebarCard, graphql`
     nodeType: __typename
     ... on Explainer {
       id
+      dbid
       title
     }
     ... on FactCheck {
       id
+      dbid
       title
       rating
+      claim_description {
+        id
+      }
     }
   }
 `);
