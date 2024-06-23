@@ -29,7 +29,6 @@ build_qa:
         exit 1
       fi
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
-  allow_failure: false
   only:
     - develop
 
