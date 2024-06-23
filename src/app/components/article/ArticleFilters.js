@@ -308,6 +308,10 @@ ArticleFilters.propTypes = {
   currentFilters: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
   teamSlug: PropTypes.string.isRequired,
+  statuses: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
   className: PropTypes.string,
   extra: PropTypes.node,
   intl: intlShape.isRequired,
