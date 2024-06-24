@@ -50,7 +50,7 @@ const ArticlesSidebarCard = ({ article, team, onAdd }) => {
       title={
         <FormattedMessage
           id="articlesSidebarCard.tooltip"
-          defaultMessage="Add explainer article to this media cluster"
+          defaultMessage="Add article to this media cluster"
           description="Tooltip message displayed on explainer cards on item page."
         />
       }
