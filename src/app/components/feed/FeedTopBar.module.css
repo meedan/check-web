@@ -90,7 +90,7 @@
 
 .feedTopBarRight {
   display: inline-flex;
-  justify-content: flexcyioo;
+  justify-content: flex-end;
 }
 
 .quickFilterHeader {
