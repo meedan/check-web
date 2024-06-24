@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import Slideout from '../cds/slideout/Slideout';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TagList from '../cds/menus-lists-dialogs/TagList';
@@ -12,6 +12,7 @@ import DeleteIcon from '../../icons/delete.svg';
 import inputStyles from '../../styles/css/inputs.module.css';
 import { safelyParseJSON, truncateLength } from '../../helpers';
 import styles from './ArticleForm.module.css';
+import RatingSelector from '../cds/inputs/RatingSelector';
 
 const ArticleForm = ({
   handleSave,
@@ -22,20 +23,19 @@ const ArticleForm = ({
   mode,
   article,
   team,
-  projectMedia,
 }) => {
   const title = (
     <>
       {articleType === 'explainer' && mode === 'create' && <FormattedMessage id="article-form-explainer-create-title" defaultMessage="Create Explainer" description="Title for the slideout create explainer form" />}
       {articleType === 'explainer' && mode === 'edit' && <FormattedMessage id="article-form-explainer-edit-title" defaultMessage="Edit Explainer" description="Title for the slideout edit explainer form" />}
-      {articleType === 'fact check' && mode === 'create' && <FormattedMessage id="article-form-fact-check-create-title" defaultMessage="Create New Claim & Fact-Check" description="Title for the slideout create fact check form" />}
-      {articleType === 'fact check' && mode === 'edit' && <FormattedMessage id="article-form-fact-check-edit-title" defaultMessage="Edit Claim & Fact-Check" description="Title for the slideout edit fact check form" />}
+      {articleType === 'fact-check' && mode === 'create' && <FormattedMessage id="article-form-fact-check-create-title" defaultMessage="Create New Claim & Fact-Check" description="Title for the slideout create fact check form" />}
+      {articleType === 'fact-check' && mode === 'edit' && <FormattedMessage id="article-form-fact-check-edit-title" defaultMessage="Edit Claim & Fact-Check" description="Title for the slideout edit fact check form" />}
     </>
   );
 
-  const [claimDescription, setClaimDescription] = React.useState(articleType === 'fact check' && projectMedia?.suggested_main_item ? projectMedia.suggested_main_item.claim_description : '');
-  const [claimContext, setClaimContext] = React.useState('');
-  const options = team.team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || [];
+  const [claimDescription, setClaimDescription] = React.useState(article?.claim?.description || '');
+  const [claimContext, setClaimContext] = React.useState(article?.claim?.context || '');
+  const options = team.team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || team.teamTags.map(tag => ({ label: tag, value: tag }));
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
@@ -44,7 +44,10 @@ const ArticleForm = ({
   const [url, setUrl] = React.useState(article?.url || '');
   const [language, setLanguage] = React.useState(article?.language || null);
   const [tags, setTags] = React.useState(article?.tags || []);
+  const [status, setStatus] = React.useState(article?.rating || article?.claim?.project_media?.status || '');
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
+
+  console.log(article, status); //eslint-disable-line
 
   const [isValid, setIsValid] = React.useState(false);
 
@@ -55,7 +58,7 @@ const ArticleForm = ({
   useEffect(() => {
     if (!isValid && articleType === 'explainer' && articleTitle?.length && summary?.length && language?.length) {
       setIsValid(true);
-    } else if (!isValid && articleType === 'fact check' && articleTitle?.length && summary?.length) {
+    } else if (!isValid && articleType === 'fact-check' && articleTitle?.length && summary?.length) {
       setIsValid(true);
     }
   }, [articleTitle, summary, claimDescription, language]);
@@ -71,13 +74,50 @@ const ArticleForm = ({
     handleBlur('tags', newtags);
   };
 
+  const handleStatusChange = (clickedStatus) => {
+    console.log(clickedStatus) //eslint-disable-line
+    setStatus(clickedStatus);
+    handleBlur('rating', clickedStatus);
+  };
+
   return (
     <Slideout
       title={title}
       content={
         <>
           <div className={styles['article-form-container']}>
+            { mode === 'edit' &&
+              <div className={styles['article-form-info']}>
+                <div className={styles['article-form-info-labels']}>
+                  <div className={styles['article-form-info-label']}>
+                    <FormattedMessage
+                      id="articleForm.createdByLabel"
+                      defaultMessage="Created by:"
+                      description="Label to convey when the item was created"
+                    />
+                  </div>
+                  <div className={styles['article-form-info-label']}>
+                    <FormattedMessage
+                      id="articleForm.editedByLabel"
+                      defaultMessage="Edited by:"
+                      description="Label to convey when the item was last edited"
+                    />
+                  </div>
+                </div>
+                <div className={styles['article-form-info-labels']}>
+                  <div className="typography-body2">
+                    <FormattedDate value={new Date(article.createdDate * 1000)} year="numeric" month="long" day="numeric" />
+                  </div>
+                  <div className="typography-body2">
+                    <FormattedDate value={new Date(article.date * 1000)} year="numeric" month="long" day="numeric" />
+                  </div>
+                </div>
+              </div>
+            }
             <div className={inputStyles['form-inner-wrapper']}>
+              { articleType === 'fact-check' && article.statuses &&
+                <RatingSelector status={status} statuses={article.statuses} onStatusChange={handleStatusChange} />
+              }
               <div id="article_form_tags" className={inputStyles['form-fieldset']}>
                 <TagList
                   tags={tags}
@@ -87,7 +127,7 @@ const ArticleForm = ({
               </div>
             </div>
           </div>
-          { articleType === 'fact check' &&
+          { articleType === 'fact-check' &&
             <div className={styles['article-form-container']}>
               <div className={inputStyles['form-inner-wrapper']}>
                 <div id="article-form" className={inputStyles['form-fieldset']}>
@@ -107,7 +147,7 @@ const ArticleForm = ({
                           id="article-form__description"
                           className="article-form__description"
                           placeholder={placeholder}
-                          defaultValue={claimDescription ? claimDescription.description : ''}
+                          defaultValue={claimDescription || ''}
                           onBlur={(e) => {
                             const newValue = e.target.value;
                             setClaimDescription(newValue);
@@ -160,7 +200,7 @@ const ArticleForm = ({
             </div>
           }
           <div className={styles['article-form-container']}>
-            { claimDescriptionMissing && articleType === 'fact check' ?
+            { claimDescriptionMissing && articleType === 'fact-check' ?
               <div className={styles['article-form-no-claim-overlay']}>
                 <div className={styles['article-form-no-claim-container']}>
                   <div className="typography-subtitle2">
@@ -176,7 +216,7 @@ const ArticleForm = ({
             }
             <div className={inputStyles['form-inner-wrapper']}>
               <div id="article-form" className={inputStyles['form-fieldset']}>
-                { articleType === 'fact check' &&
+                { articleType === 'fact-check' &&
                   <div id="media__fact-check-title" className={inputStyles['form-fieldset-title']}>
                     <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
                   </div>
@@ -386,7 +426,6 @@ ArticleForm.defaultProps = {
   handleSave: null,
   handleDelete: null,
   article: null,
-  projectMedia: null,
 };
 
 ArticleForm.propTypes = {
@@ -394,11 +433,10 @@ ArticleForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,
   handleDelete: PropTypes.func,
-  articleType: PropTypes.oneOf(['fact check', 'explainer']).isRequired,
+  articleType: PropTypes.oneOf(['fact-check', 'explainer']).isRequired,
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
   article: PropTypes.object,
   team: PropTypes.object.isRequired,
-  projectMedia: PropTypes.object,
 };
 
 export default ArticleForm;

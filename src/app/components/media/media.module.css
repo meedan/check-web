@@ -52,6 +52,10 @@
     display: flex;
     gap: 4px;
 
+    button {
+      background-color: var(--color-white-100);
+    }
+
     button:disabled > span:first-of-type {
       color: var(--color-gray-37);
     }

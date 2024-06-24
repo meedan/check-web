@@ -60,12 +60,12 @@ const ExplainerForm = ({
   team,
   onClose,
 }) => {
-  const type = article?.dbid ? 'edit' : 'create';
+  const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [explainer, setExplainer] = React.useState({
     title: article?.title || null,
-    description: article?.descripton || null,
+    description: article?.summary || null,
     language: article?.language || null,
     tags: article?.tags || [],
     url: article?.url || null,

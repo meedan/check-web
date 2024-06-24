@@ -10,14 +10,19 @@ import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
 import SharedItemCardFooter from './SharedItemCardFooter';
 import styles from './ArticleCard.module.css';
+import ExplainerForm from '../../article/ExplainerForm';
+import ClaimFactCheckForm from '../../article/ClaimFactCheckForm';
 
 const ArticleCard = ({
   title,
   summary,
   url,
+  id,
   date,
+  createdDate,
   statusLabel,
   statusColor,
+  statuses,
   teamAvatar,
   teamName,
   languageCode,
@@ -26,56 +31,98 @@ const ArticleCard = ({
   publishedAt,
   onChangeTags,
   variant,
-}) => (
-  <div className={`${styles.articleCard} article-card`}>
-    <Card>
-      <div className={styles.articleCardDescription}>
-        <CardHoverContext.Consumer>
-          { isHovered => (
-            <ItemDescription
-              title={title}
-              description={summary}
-              url={url}
-              showCollapseButton={isHovered}
-              variant={variant}
-            />
-          )}
-        </CardHoverContext.Consumer>
-        { teamAvatar && teamName ? (
+  claimDescription,
+  claimId,
+  claim,
+}) => {
+  const [openEdit, setOpenEdit] = React.useState(false);
+
+  return (
+    <div className={`${styles.articleCard} article-card`} >
+      <Card>
+        <div className={styles.articleCardDescription} onClick={() => setOpenEdit(true)} onKeyDown={() => setOpenEdit(true)}>
+          <CardHoverContext.Consumer>
+            { isHovered => (
+              <ItemDescription
+                title={title}
+                description={summary}
+                url={url}
+                showCollapseButton={isHovered}
+                variant={variant}
+              />
+            )}
+          </CardHoverContext.Consumer>
+          { teamAvatar && teamName ? (
+            <div>
+              <Tooltip arrow title={teamName}>
+                <span>
+                  <TeamAvatar team={{ avatar: teamAvatar }} size="30px" />
+                </span>
+              </Tooltip>
+            </div>
+          ) : null }
           <div>
-            <Tooltip arrow title={teamName}>
-              <span>
-                <TeamAvatar team={{ avatar: teamAvatar }} size="30px" />
-              </span>
-            </Tooltip>
-          </div>
-        ) : null }
-        <div>
-          <SharedItemCardFooter
-            languageCode={languageCode}
-            tags={tags}
-            tagOptions={tagOptions}
-            onChangeTags={onChangeTags}
-          />
-        </div>
-      </div>
-      { (statusLabel || date || variant === 'fact-check') ?
-        <div className={styles.cardRight}>
-          <div className={styles.cardRightTop}>
-            { statusLabel && <ItemRating rating={statusLabel} ratingColor={statusColor} /> }
-            { variant === 'fact-check' && <ItemReportStatus publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
-          </div>
-          { date &&
-            <ItemDate
-              date={new Date(date * 1000)}
-              tooltipLabel={<FormattedMessage id="factCheckCard.dateLabel" defaultMessage="Published at" description="Date tooltip label for fact-check cards" />}
+            <SharedItemCardFooter
+              languageCode={languageCode}
+              tags={tags}
+              tagOptions={tagOptions}
+              onChangeTags={onChangeTags}
             />
-          }
-        </div> : null
-      }
-    </Card>
-  </div>
-);
+          </div>
+        </div>
+        { (statusLabel || date || variant === 'fact-check') ?
+          <div className={styles.cardRight}>
+            <div className={styles.cardRightTop}>
+              { statusLabel && <ItemRating rating={statusLabel} ratingColor={statusColor} /> }
+              { variant === 'fact-check' && <ItemReportStatus publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
+            </div>
+            { date &&
+              <ItemDate
+                date={new Date(date * 1000)}
+                tooltipLabel={<FormattedMessage id="factCheckCard.dateLabel" defaultMessage="Published at" description="Date tooltip label for fact-check cards" />}
+              />
+            }
+          </div> : null
+        }
+      </Card>
+      {openEdit && variant === 'explainer' && <ExplainerForm
+        onClose={setOpenEdit}
+        team={{ teamTags: tagOptions }}
+        article={{
+          title,
+          summary,
+          language: languageCode,
+          tags,
+          url,
+          date,
+          createdDate,
+          id,
+        }}
+      />}
+      {openEdit && variant === 'fact-check' && <ClaimFactCheckForm
+        onClose={setOpenEdit}
+        team={{ teamTags: tagOptions }}
+        article={{
+          title,
+          summary,
+          language: languageCode,
+          tags,
+          url,
+          date,
+          createdDate,
+          statusColor,
+          statusLabel,
+          statuses,
+          id,
+          claim,
+          claimDescription,
+          claimId,
+        }}
+      />}
+    </div>
+  );
+};
+
 
 ArticleCard.defaultProps = {
   summary: null,
@@ -96,6 +143,7 @@ ArticleCard.propTypes = {
   summary: PropTypes.string,
   url: PropTypes.string,
   date: PropTypes.number.isRequired, // Timestamp
+  createdDate: PropTypes.number.isRequired,
   statusLabel: PropTypes.string,
   statusColor: PropTypes.string,
   teamAvatar: PropTypes.string, // URL

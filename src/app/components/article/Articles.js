@@ -161,10 +161,15 @@ const ArticlesComponent = ({
                 url={article.url}
                 languageCode={article.language !== 'und' ? article.language : null}
                 date={article.updated_at}
+                createdDate={article.created_at}
                 tags={article.tags}
                 tagOptions={teamTags}
+                rating={article.rating}
+                id={article.id}
+                claim={article.claim_description}
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
+                statuses={statuses}
                 publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
                 onChangeTags={(tags) => {
                   handleUpdateTags(article.id, tags);
@@ -217,6 +222,8 @@ ArticlesComponent.propTypes = {
     url: PropTypes.string,
     language: PropTypes.string,
     updated_at: PropTypes.number,
+    created_at: PropTypes.number,
+    rating: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
     claim_description: PropTypes.shape({
       description: PropTypes.string,
@@ -307,6 +314,7 @@ const Articles = ({
                       url
                       language
                       updated_at
+                      created_at
                       tags
                     }
                     ... on FactCheck {
@@ -316,6 +324,8 @@ const Articles = ({
                       url
                       language
                       updated_at
+                      created_at
+                      rating
                       tags
                       claim_description { # There will be no N + 1 problem here because the backend uses eager loading
                         description
