@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../icons/add.svg';
 import styles from './NewArticleButton.module.css';
@@ -13,7 +14,36 @@ import BookIcon from '../../icons/book.svg';
 import ExplainerForm from './ExplainerForm';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 
-const NewArticleButton = ({ team, buttonMainProps }) => {
+const NewArticleButtonWrapper = ({ disabled, children }) => {
+  if (disabled) {
+    return (
+      <Tooltip
+        key="create-article-button"
+        placement="top"
+        title={
+          <FormattedMessage
+            id="newArticleButton.tooltip"
+            defaultMessage="You can't add an article here."
+            description="Tooltip message displayed on new article button when it is disabled."
+          />
+        }
+        arrow
+      >
+        <div className="new-article-button__tooltip-children">
+          {children}
+        </div>
+      </Tooltip>
+    );
+  }
+
+  return (
+    <React.Fragment>
+      {children}
+    </React.Fragment>
+  );
+};
+
+const NewArticleButton = ({ team, disabled, buttonMainProps }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openExplainer, setOpenExplainer] = React.useState(false);
   const [openFactCheck, setOpenFactCheck] = React.useState(false);
@@ -31,7 +61,7 @@ const NewArticleButton = ({ team, buttonMainProps }) => {
   };
 
   return (
-    <React.Fragment>
+    <NewArticleButtonWrapper disabled={disabled}>
       <ButtonMain
         variant="contained"
         size="default"
@@ -40,11 +70,12 @@ const NewArticleButton = ({ team, buttonMainProps }) => {
         onClick={e => setAnchorEl(e.currentTarget)}
         label={
           <FormattedMessage
-            id="articlesComponent.newArticle"
+            id="newArticleButton.newArticle"
             defaultMessage="New Article"
             description="Label of a button that opens a form to create a new article."
           />
         }
+        disabled={disabled}
         buttonProps={{
           id: 'new-article-menu__open-button',
         }}
@@ -85,16 +116,18 @@ const NewArticleButton = ({ team, buttonMainProps }) => {
       </Menu>
       {openExplainer && <ExplainerForm team={team} onClose={setOpenExplainer} />}
       {openFactCheck && <ClaimFactCheckForm team={team} onClose={setOpenFactCheck} />}
-    </React.Fragment>
+    </NewArticleButtonWrapper>
   );
 };
 
 NewArticleButton.defaultProps = {
+  disabled: false,
   buttonMainProps: {},
 };
 
 NewArticleButton.propTypes = {
   team: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
   buttonMainProps: PropTypes.object,
 };
 

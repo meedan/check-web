@@ -1,6 +1,11 @@
 [
   {
-    "id": "articlesComponent.newArticle",
+    "id": "newArticleButton.tooltip",
+    "description": "Tooltip message displayed on new article button when it is disabled.",
+    "defaultMessage": "You can't add an article here."
+  },
+  {
+    "id": "newArticleButton.newArticle",
     "description": "Label of a button that opens a form to create a new article.",
     "defaultMessage": "New Article"
   },

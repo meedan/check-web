@@ -20,7 +20,8 @@ const addExplainerMutation = graphql`
   mutation ArticlesSidebarCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
     createExplainerItem(input: $input) {
       project_media {
-        factCheck: fact_check {
+        id
+        fact_check {
           id
         }
         explainers(first: 100) {
@@ -39,7 +40,8 @@ const addFactCheckMutation = graphql`
   mutation ArticlesSidebarUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
     updateClaimDescription(input: $input) {
       project_media {
-        factCheck: fact_check {
+        id
+        fact_check {
           id
         }
         explainers(first: 100) {
@@ -56,14 +58,12 @@ const addFactCheckMutation = graphql`
 
 const ArticlesSidebarComponent = ({
   team,
-  projectMediaDbid,
-  factCheck,
-  explainers,
+  projectMedia,
   onUpdate,
 }) => {
   const [adding, setAdding] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
-  const hasArticle = (factCheck?.id || explainers[0]?.id);
+  const hasArticle = (projectMedia.fact_check?.id || projectMedia.explainers.edges[0]?.node?.id);
 
   const onCompleted = () => {
     setFlashMessage(
@@ -93,13 +93,13 @@ const ArticlesSidebarComponent = ({
         mutation = addExplainerMutation;
         input = {
           explainerId: id,
-          projectMediaId: projectMediaDbid,
+          projectMediaId: projectMedia.dbid,
         };
       } else if (nodeType === 'FactCheck') {
         mutation = addFactCheckMutation;
         input = {
           id,
-          project_media_id: projectMediaDbid,
+          project_media_id: projectMedia.dbid,
         };
       }
       commitMutation(Relay.Store, {
@@ -116,7 +116,8 @@ const ArticlesSidebarComponent = ({
   return (
     <div id="articles-sidebar" className={styles.articlesSidebar}>
       <div className={styles.articlesSidebarTopBar}>
-        <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} /> {/* FIXME: Make sure the form can receive the right reference for the current item */}
+        {/* FIXME: Make sure the form can receive the right reference for the current item */}
+        <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} />
       </div>
       { !hasArticle && (
         <>
@@ -144,18 +145,19 @@ const ArticlesSidebarComponent = ({
   );
 };
 
-ArticlesSidebarComponent.defaultProps = {
-  factCheck: null,
-  explainers: [],
-};
-
 ArticlesSidebarComponent.propTypes = {
   team: PropTypes.shape({
     slug: PropTypes.string.isRequired,
   }).isRequired,
-  projectMediaDbid: PropTypes.number.isRequired,
-  factCheck: PropTypes.object,
-  explainers: PropTypes.arrayOf(PropTypes.object),
+  projectMedia: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    fact_check: PropTypes.object,
+    explainers: PropTypes.exact({
+      edges: PropTypes.arrayOf(PropTypes.object),
+    }),
+  }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
 
@@ -177,7 +179,10 @@ const ArticlesSidebar = ({ teamSlug, projectMediaDbid }) => {
               ...ArticleForm_team
             }
             project_media(ids: $ids) {
-              factCheck: fact_check {
+              id
+              dbid
+              type
+              fact_check: fact_check {
                 id
               }
               explainers(first: 100) {
@@ -200,9 +205,7 @@ const ArticlesSidebar = ({ teamSlug, projectMediaDbid }) => {
             return (
               <ArticlesSidebarComponent
                 team={props.team}
-                projectMediaDbid={projectMediaDbid}
-                factCheck={props.project_media.factCheck}
-                explainers={props.project_media.explainers.edges.map(edge => edge.node)}
+                projectMedia={props.project_media}
                 onUpdate={handleUpdate}
               />
             );
