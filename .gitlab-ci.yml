@@ -14,14 +14,23 @@ build_qa:
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
-    - set -e
-    - set -o pipefail
     - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_API_BASE_URL
-    - docker build --build-arg DEPLOY_BRANCH=develop --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  .
+    - |
+      DOCKER_OUTPUT=$(docker build \
+        --build-arg DEPLOY_BRANCH=develop \
+        --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') \
+        -f production/Dockerfile \
+        -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA" \
+        . 2>&1)
+    - echo "$DOCKER_OUTPUT"
+    - |
+      if echo "$DOCKER_OUTPUT" | grep -i "ERROR"; then
+        echo "Docker build error detected!"
+        exit 1
+      fi
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
-
 deploy_qa:
   image: python:3-alpine
   stage: deploy
@@ -56,7 +65,19 @@ build_live:
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
     - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_API_BASE_URL
-    - docker build --build-arg DEPLOY_BRANCH=master --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"  .
+    - |
+      DOCKER_OUTPUT=$(docker build \
+        --build-arg DEPLOY_BRANCH=master \ 
+        --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') \ 
+        -f production/Dockerfile \
+        -t "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"  \
+        . 2>&1)
+    - echo "$DOCKER_OUTPUT"
+    - |
+      if echo "$DOCKER_OUTPUT" | grep -i "ERROR"; then
+        echo "Docker build error detected!"
+        exit 1
+      fi
     - docker push "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"
   only:
     - master
