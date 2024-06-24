@@ -15,12 +15,16 @@ build_qa:
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
     - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_API_BASE_URL
-    - |
-      DOCKER_OUTPUT=$(docker build --build-arg DEPLOY_BRANCH=develop --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t \
-       "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  . 2>&1)
+        - |
+      DOCKER_OUTPUT=$(docker build \
+        --build-arg DEPLOY_BRANCH=develop \
+        --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') \
+        -f production/Dockerfile \
+        -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA" \
+        . 2>&1)
     - echo "$DOCKER_OUTPUT"
     - |
-      if echo "$DOCKER_OUTPUT" | grep -i "error in"; then
+      if echo "$DOCKER_OUTPUT" | grep -i "ERROR"; then
         echo "Docker build error detected!"
         exit 1
       fi
