@@ -27,6 +27,7 @@ build_qa:
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
+    - bugfix/CV2-3322-fix-CSS-error-not-failing-Gitlab-build-job
 
 deploy_qa:
   image: python:3-alpine
