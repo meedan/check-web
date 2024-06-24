@@ -15,7 +15,7 @@ build_qa:
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
     - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_API_BASE_URL
-        - |
+    - |
       DOCKER_OUTPUT=$(docker build \
         --build-arg DEPLOY_BRANCH=develop \
         --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') \
