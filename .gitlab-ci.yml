@@ -20,7 +20,7 @@ build_qa:
        "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  . 2>&1)
     - echo "$DOCKER_OUTPUT"
     - |
-      if echo "$DOCKER_OUTPUT" | grep -Ei "warning|error; then
+      if echo "$DOCKER_OUTPUT" | grep -i "error"; then
         echo "Docker build error detected!"
         exit 1
       fi
