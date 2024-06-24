@@ -24,7 +24,7 @@ build_qa:
         . 2>&1)
     - echo "$DOCKER_OUTPUT"
     - |
-      if echo "$DOCKER_OUTPUT" | grep -i "ERROR in"; then
+      if echo "$DOCKER_OUTPUT" | grep -i "ERROR"; then
         echo "Docker build error detected!"
         exit 1
       fi
