@@ -31,9 +31,8 @@ const ArticleCard = ({
   publishedAt,
   onChangeTags,
   variant,
-  claimDescription,
-  claimId,
-  claim,
+  claim_description,
+  rating,
 }) => {
   const [openEdit, setOpenEdit] = React.useState(false);
 
@@ -109,14 +108,12 @@ const ArticleCard = ({
           tags,
           url,
           date,
+          rating,
           createdDate,
-          statusColor,
-          statusLabel,
           statuses,
           id,
-          claim,
-          claimDescription,
-          claimId,
+          claim_description,
+          publishedAt,
         }}
       />}
     </div>

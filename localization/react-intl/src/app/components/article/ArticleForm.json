@@ -30,6 +30,21 @@
     "defaultMessage": "Edited by:"
   },
   {
+    "id": "articleForm.publishedAtDate",
+    "description": "Label to convey when the item was last published",
+    "defaultMessage": "Last Published:"
+  },
+  {
+    "id": "articleForm.publishedReport",
+    "description": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state.",
+    "defaultMessage": "Published report"
+  },
+  {
+    "id": "articleForm.unpublishedReport",
+    "description": "A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state.",
+    "defaultMessage": "Unpublished report"
+  },
+  {
     "id": "articleForm.claim",
     "description": "Title of the claim section.",
     "defaultMessage": "Claim"

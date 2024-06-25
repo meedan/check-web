@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import Slideout from '../cds/slideout/Slideout';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import IconReport from '../../icons/fact_check.svg';
+import IconUnpublishedReport from '../../icons/unpublished_report.svg';
 import TagList from '../cds/menus-lists-dialogs/TagList';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
@@ -33,8 +35,8 @@ const ArticleForm = ({
     </>
   );
 
-  const [claimDescription, setClaimDescription] = React.useState(article?.claim?.description || '');
-  const [claimContext, setClaimContext] = React.useState(article?.claim?.context || '');
+  const [claimDescription, setClaimDescription] = React.useState(article?.claim_description?.description || '');
+  const [claimContext, setClaimContext] = React.useState(article?.claim_description?.context || '');
   const options = team.team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || team.teamTags.map(tag => ({ label: tag, value: tag }));
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
@@ -44,10 +46,9 @@ const ArticleForm = ({
   const [url, setUrl] = React.useState(article?.url || '');
   const [language, setLanguage] = React.useState(article?.language || null);
   const [tags, setTags] = React.useState(article?.tags || []);
-  const [status, setStatus] = React.useState(article?.rating || article?.claim?.project_media?.status || '');
+  const [status, setStatus] = React.useState(article?.claim_description?.project_media?.status || article?.rating || '');
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
-
-  console.log(article, status); //eslint-disable-line
+  const statuses = article?.statuses || team.team?.verification_statuses || null;
 
   const [isValid, setIsValid] = React.useState(false);
 
@@ -63,6 +64,10 @@ const ArticleForm = ({
     }
   }, [articleTitle, summary, claimDescription, language]);
 
+  const handleGoToReport = () => {
+    window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)\/?$/, '').replace(/\/$/, '')}/report`);
+  };
+
   const handleLanguageSubmit = (value) => {
     const { languageCode } = value;
     setLanguage(languageCode);
@@ -75,7 +80,6 @@ const ArticleForm = ({
   };
 
   const handleStatusChange = (clickedStatus) => {
-    console.log(clickedStatus) //eslint-disable-line
     setStatus(clickedStatus);
     handleBlur('rating', clickedStatus);
   };
@@ -89,35 +93,82 @@ const ArticleForm = ({
             { mode === 'edit' &&
               <div className={styles['article-form-info']}>
                 <div className={styles['article-form-info-labels']}>
-                  <div className={styles['article-form-info-label']}>
+                  <div className="typography-subtitle2">
                     <FormattedMessage
                       id="articleForm.createdByLabel"
                       defaultMessage="Created by:"
                       description="Label to convey when the item was created"
                     />
                   </div>
-                  <div className={styles['article-form-info-label']}>
-                    <FormattedMessage
-                      id="articleForm.editedByLabel"
-                      defaultMessage="Edited by:"
-                      description="Label to convey when the item was last edited"
-                    />
-                  </div>
+                  { article.date &&
+                    <div className="typography-subtitle2">
+                      <FormattedMessage
+                        id="articleForm.editedByLabel"
+                        defaultMessage="Edited by:"
+                        description="Label to convey when the item was last edited"
+                      />
+                    </div>
+                  }
+                  { article.publishedAt && articleType === 'fact-check' &&
+                    <div className="typography-subtitle2">
+                      <FormattedMessage
+                        id="articleForm.publishedAtDate"
+                        defaultMessage="Last Published:"
+                        description="Label to convey when the item was last published"
+                      />
+                    </div>
+                  }
                 </div>
-                <div className={styles['article-form-info-labels']}>
+                <div className={styles['article-form-info-content']}>
                   <div className="typography-body2">
                     <FormattedDate value={new Date(article.createdDate * 1000)} year="numeric" month="long" day="numeric" />
                   </div>
-                  <div className="typography-body2">
-                    <FormattedDate value={new Date(article.date * 1000)} year="numeric" month="long" day="numeric" />
-                  </div>
+                  { article.date &&
+                    <div className="typography-body2">
+                      <FormattedDate value={new Date(article.date * 1000)} year="numeric" month="long" day="numeric" />
+                    </div>
+                  }
+                  { article.publishedAt && articleType === 'fact-check' &&
+                    <div className="typography-body2">
+                      <FormattedDate value={new Date(article.publishedAt * 1000)} year="numeric" month="long" day="numeric" />
+                    </div>
+                  }
                 </div>
               </div>
             }
             <div className={inputStyles['form-inner-wrapper']}>
-              { articleType === 'fact-check' && article.statuses &&
-                <RatingSelector status={status} statuses={article.statuses} onStatusChange={handleStatusChange} />
-              }
+              <div className={styles['article-rating-wrapper']}>
+                { articleType === 'fact-check' && statuses &&
+                  <RatingSelector status={status} statuses={statuses} onStatusChange={handleStatusChange} />
+                }
+                { articleType === 'fact-check' &&
+                  <div className={inputStyles['form-fieldset-field']}>
+                    <ButtonMain
+                      onClick={handleGoToReport}
+                      className="media-fact-check__report-designer"
+                      variant="contained"
+                      theme={article?.publishedAt ? 'brand' : 'alert'}
+                      size="default"
+                      iconLeft={article?.publishedAt ? <IconReport /> : <IconUnpublishedReport />}
+                      disabled={claimDescriptionMissing}
+                      label={article?.publishedAt ?
+                        <FormattedMessage
+                          className="media-fact-check__published-report"
+                          id="articleForm.publishedReport"
+                          defaultMessage="Published report"
+                          description="A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
+                        /> :
+                        <FormattedMessage
+                          className="media-fact-check__unpublished-report"
+                          id="articleForm.unpublishedReport"
+                          defaultMessage="Unpublished report"
+                          description="A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
+                        />
+                      }
+                    />
+                  </div>
+                }
+              </div>
               <div id="article_form_tags" className={inputStyles['form-fieldset']}>
                 <TagList
                   tags={tags}
@@ -326,7 +377,7 @@ const ArticleForm = ({
                           onBlur={(e) => {
                             const newValue = e.target.value;
                             setSummary(newValue);
-                            handleBlur('description', newValue);
+                            handleBlur('summary', newValue);
                           }}
                         />
                       )}

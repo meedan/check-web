@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
-import cx from 'classnames/bind';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import { getStatus, bemClass } from '../../../helpers';
 import ChatBubbleIcon from '../../../icons/chat_bubble.svg';
 import ChatBubbleFilledIcon from '../../../icons/chat_bubble_filled.svg';
 import ChevronDownIcon from '../../../icons/chevron_down.svg';
 import EllipseIcon from '../../../icons/ellipse.svg';
-import styles from '../../media/media.module.css';
+import styles from './RatingSelector.module.css';
 
 const RatingSelector = ({
   status,
@@ -18,11 +17,6 @@ const RatingSelector = ({
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const currentStatus = getStatus(statuses, status);
-  console.log(status, currentStatus, statuses) //eslint-disable-line
-  const currentStatusToClass = () => {
-    if (status === '') return '';
-    return `media-status__current--${status.toLowerCase().replace(/[ _]/g, '-')}`;
-  };
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -30,16 +24,15 @@ const RatingSelector = ({
 
   const handleStatusClick = (clickedStatus) => {
     setAnchorEl(null);
-    console.log(clickedStatus) //eslint-disable-line
     if (clickedStatus !== status) {
       onStatusChange(clickedStatus);
     }
   };
 
   return (
-    <div className={cx('media-status', styles['media-status-wrapper'])}>
+    <div className={styles['rating-wrapper']}>
       <ButtonMain
-        className={`media-status__label media-status__current ${currentStatusToClass(currentStatus)}`}
+        className={styles['rating-button']}
         customStyle={{ borderColor: currentStatus?.style?.color }}
         variant="outlined"
         theme="text"

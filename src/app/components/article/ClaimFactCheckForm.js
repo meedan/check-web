@@ -55,6 +55,7 @@ const createFactCheckMutation = graphql`
         summary
         url
         language
+        rating
         tags
         updated_at
         user {
@@ -75,6 +76,7 @@ const updateFactCheckMutation = graphql`
         summary
         url
         language
+        rating
         tags
         user {
           name
@@ -102,16 +104,16 @@ const ClaimFactCheckForm = ({
   const [error, setError] = React.useState(false);
   const [factCheck, setFactCheck] = React.useState({
     title: article?.title || null,
-    description: article?.descripton || null,
+    summary: article?.summary || null,
     language: article?.language || null,
     tags: article?.tags || [],
     url: article?.url || null,
     rating: article?.rating || null,
   });
   const [claim, setClaim] = React.useState({
-    description: article?.claim?.description || null,
-    context: article?.claim?.context || null,
-    id: article?.claim?.id || null,
+    description: article?.claim_description?.description || null,
+    context: article?.claim_description?.context || null,
+    id: article?.claim_description?.id || null,
     project_media: {
       status: article?.claim?.project_media?.status || null,
       published: article?.claim?.project_media?.published || null,
@@ -120,7 +122,6 @@ const ClaimFactCheckForm = ({
   });
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
-  console.log(claim, factCheck, article) //eslint-disable-line
   const onSuccess = () => {
     setSaving(false);
     setError(false);
@@ -146,7 +147,8 @@ const ClaimFactCheckForm = ({
         input: {
           claim_description_id: response.createClaimDescription.claim_description.dbid,
           language: factCheck.language,
-          summary: factCheck.description,
+          rating: factCheck.rating,
+          summary: factCheck.summary,
           title: factCheck.title,
           url: factCheck.url,
           tags: factCheck.tags,
@@ -198,9 +200,9 @@ const ClaimFactCheckForm = ({
           mutation: updateClaimMutation,
           variables: {
             input: {
-              id: article.claim.id,
-              description: article.claim.description,
-              context: article.claim.context,
+              id: article.claim_description.id,
+              description: article.claim_description.description,
+              context: article.claim_description.context,
             },
           },
           onCompleted: (response, err) => {
@@ -227,7 +229,7 @@ const ClaimFactCheckForm = ({
             input: {
               id: article.id,
               language: factCheck.language,
-              summary: factCheck.description,
+              summary: factCheck.summary,
               title: factCheck.title,
               url: factCheck.url,
               tags: factCheck.tags,

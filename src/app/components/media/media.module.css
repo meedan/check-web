@@ -53,7 +53,7 @@
     gap: 4px;
 
     button {
-      background-color: var(--color-white-100);
+      background: var(--color-white-100);
     }
 
     button:disabled > span:first-of-type {
