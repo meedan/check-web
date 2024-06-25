@@ -186,7 +186,7 @@ module AppSpecHelpers
   end
 
   def save_screenshot(title, driver = nil)
-    path = "/tmp/ #{(0...8).map { rand(65..90).chr }.join}.png"
+    path = "/tmp/#{(0...8).map { rand(65..90).chr }.join}.png"
     if driver
       driver.save_screenshot(path)
     else
@@ -194,14 +194,18 @@ module AppSpecHelpers
     end
     auth_header = { 'Authorization' => "Client-ID #{get_config('IMGUR_CLIENT_ID')}" }
     image = Base64.strict_encode64(File.open(path).read)
-    body = { image: image, type: 'file' }
+    body = { image: image, type: 'base64' }
     count = 0
     begin
       count += 1
       response = HTTParty.post('https://api.imgur.com/3/image', body: body, headers: auth_header)
       sleep 10
     end while (JSON.parse(response.body)['status'] != 200 && count < 3)
-    JSON.parse(response.body)['data']['link']
+    if JSON.parse(response.body)['status'] == 200
+      JSON.parse(response.body)['data']['link']
+    else
+      "Failed to upload to imgur: '#{response.body}'"
+    end
   rescue Exception => e
     "(couldn't take screenshot for '#{title}', error was: '#{e.message}')"
   end
@@ -234,7 +238,11 @@ module AppSpecHelpers
       'goog:chromeOptions': chrome_options
     )
 
-    Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url)
+    client = Selenium::WebDriver::Remote::Http::Default.new
+    # Make client timeout longer than the server timeout
+    client.open_timeout = 180 # seconds
+    client.read_timeout = 180 # seconds
+    Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url, http_client: client)
   end
 
   def generate_a_report_and_copy_report_code

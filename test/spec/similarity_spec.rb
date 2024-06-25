@@ -107,7 +107,6 @@ shared_examples 'similarity' do
     verbose_wait 4
     wait_for_selector('.cluster-card').click
     wait_for_selector('.image-media-card')
-    verbose_wait 4
     expect(@driver.page_source.include?('Extracted text')).to be(true)
     expect(@driver.page_source.include?('Test')).to be(true)
   end
@@ -116,11 +115,11 @@ shared_examples 'similarity' do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/video.mp4')
-    sleep 60 # Wait for the item to be indexed by Alegre
+    verbose_wait 4
     wait_for_selector('.cluster-card')
     create_image('files/video2.mp4')
+    verbose_wait 4
     wait_for_selector('.cluster-card')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.cluster-card', 2)
     wait_for_selector('.cluster-card', index: 1).click
     wait_for_selector('.media__more-medias')
