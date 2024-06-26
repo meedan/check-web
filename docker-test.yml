@@ -5,6 +5,9 @@ networks:
 services:
   chromedriver:
     build: chromedriver
+    environment:
+      SE_NODE_MAX_SESSIONS: 12 # increase from image default 1. Makes 3 per parallel test bin
+      SE_NODE_SESSION_TIMEOUT: 420 # How long a single integration test can last. Allowing up to 7 minutes
     ports:
       - 5900:5900
       - 4444:4444

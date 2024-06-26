@@ -29,10 +29,13 @@ const MediaCount = ({
           <ButtonMain
             disabled
             size="small"
-            theme="brand"
-            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} /> : <MediaIcon />}
-            variant="contained"
+            theme="lightBeige"
+            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} fontSize="unset" color="unset" /> : <MediaIcon />}
+            variant={mediaCount === 0 ? 'text' : 'contained'}
             label={getCompactNumber(intl.locale, mediaCount)}
+            buttonProps={{
+              type: null,
+            }}
           />
         </span>
       </Tooltip>

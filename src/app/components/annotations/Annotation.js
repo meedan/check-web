@@ -4,22 +4,18 @@ import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, int
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
-import { withSetFlashMessage } from '../FlashMessage';
-import { FormattedGlobalMessage } from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import ProfileLink from '../layout/ProfileLink';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import { languageLabel } from '../../LanguageRegistry';
 import {
-  getErrorMessage,
   getStatus,
   getStatusStyle,
   emojify,
   parseStringUnixTimestamp,
   safelyParseJSON,
 } from '../../helpers';
-import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './Annotation.module.css';
 
@@ -44,22 +40,9 @@ const messages = defineMessages({
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Annotation extends Component {
-  fail = (transaction) => {
-    const message = getErrorMessage(
-      transaction,
-      (
-        <FormattedGlobalMessage
-          messageKey="unknownError"
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-        />
-      ),
-    );
-    this.props.setFlashMessage(message, 'error');
-  };
-
   static renderTaskResponse(type, object) {
     if (type === 'multiple_choice') {
-      const response = JSON.parse(object.value);
+      const response = safelyParseJSON(object.value, {});
       const selected = response.selected || [];
       if (response.other) {
         selected.push(response.other);
@@ -742,10 +725,11 @@ class Annotation extends Component {
 }
 
 Annotation.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  setFlashMessage: PropTypes.func.isRequired,
+  annotation: PropTypes.object.isRequired, // FIXME: specify shape
+  team: PropTypes.shape({
+    verification_statuses: PropTypes.object,
+  }).isRequired,
   intl: intlShape.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(Annotation));
+export default injectIntl(Annotation);
