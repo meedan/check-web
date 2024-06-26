@@ -29,12 +29,12 @@ const ArticleForm = ({
     <>
       {articleType === 'explainer' && mode === 'create' && <FormattedMessage id="article-form-explainer-create-title" defaultMessage="Create Explainer" description="Title for the slideout create explainer form" />}
       {articleType === 'explainer' && mode === 'edit' && <FormattedMessage id="article-form-explainer-edit-title" defaultMessage="Edit Explainer" description="Title for the slideout edit explainer form" />}
-      {articleType === 'fact check' && mode === 'create' && <FormattedMessage id="article-form-fact-check-create-title" defaultMessage="Create New Claim & Fact-Check" description="Title for the slideout create fact check form" />}
-      {articleType === 'fact check' && mode === 'edit' && <FormattedMessage id="article-form-fact-check-edit-title" defaultMessage="Edit Claim & Fact-Check" description="Title for the slideout edit fact check form" />}
+      {articleType === 'fact-check' && mode === 'create' && <FormattedMessage id="article-form-fact-check-create-title" defaultMessage="Create New Claim & Fact-Check" description="Title for the slideout create fact-check form" />}
+      {articleType === 'fact-check' && mode === 'edit' && <FormattedMessage id="article-form-fact-check-edit-title" defaultMessage="Edit Claim & Fact-Check" description="Title for the slideout edit fact-check form" />}
     </>
   );
 
-  const [claimDescription, setClaimDescription] = React.useState(articleType === 'fact check' && projectMedia?.suggested_main_item ? projectMedia.suggested_main_item.claim_description : '');
+  const [claimDescription, setClaimDescription] = React.useState(articleType === 'fact-check' && projectMedia?.suggested_main_item ? projectMedia.suggested_main_item.claim_description : '');
   const [claimContext, setClaimContext] = React.useState('');
   const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || [];
 
@@ -56,7 +56,7 @@ const ArticleForm = ({
   useEffect(() => {
     if (!isValid && articleType === 'explainer' && articleTitle?.length && summary?.length && language?.length) {
       setIsValid(true);
-    } else if (!isValid && articleType === 'fact check' && articleTitle?.length && summary?.length) {
+    } else if (!isValid && articleType === 'fact-check' && articleTitle?.length && summary?.length) {
       setIsValid(true);
     }
   }, [articleTitle, summary, claimDescription, language]);
@@ -88,7 +88,7 @@ const ArticleForm = ({
               </div>
             </div>
           </div>
-          { articleType === 'fact check' &&
+          { articleType === 'fact-check' &&
             <div className={styles['article-form-container']}>
               <div className={inputStyles['form-inner-wrapper']}>
                 <div id="article-form" className={inputStyles['form-fieldset']}>
@@ -161,7 +161,7 @@ const ArticleForm = ({
             </div>
           }
           <div className={styles['article-form-container']}>
-            { claimDescriptionMissing && articleType === 'fact check' ?
+            { claimDescriptionMissing && articleType === 'fact-check' ?
               <div className={styles['article-form-no-claim-overlay']}>
                 <div className={styles['article-form-no-claim-container']}>
                   <div className="typography-subtitle2">
@@ -177,7 +177,7 @@ const ArticleForm = ({
             }
             <div className={inputStyles['form-inner-wrapper']}>
               <div id="article-form" className={inputStyles['form-fieldset']}>
-                { articleType === 'fact check' &&
+                { articleType === 'fact-check' &&
                   <div id="media__fact-check-title" className={inputStyles['form-fieldset-title']}>
                     <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
                   </div>
@@ -267,7 +267,7 @@ const ArticleForm = ({
                     <FormattedMessage
                       id="articleForm.factCheckSummaryPlaceholder"
                       defaultMessage="Briefly contextualize the narrative of this fact-check"
-                      description="Placeholder instructions for fact check summary field"
+                      description="Placeholder instructions for fact-check summary field"
                     >
                       { placeholder => (
                         <LimitedTextArea
@@ -324,7 +324,7 @@ const ArticleForm = ({
                     </FormattedMessage> :
                     <FormattedMessage
                       id="articleForm.factCheckUrlPlaceholder"
-                      defaultMessage="Add a URL to this fact check article"
+                      defaultMessage="Add a URL to this fact-check article"
                       description="Placeholder instructions for URL field"
                     >
                       { placeholder => (

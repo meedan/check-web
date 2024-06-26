@@ -11,13 +11,13 @@ import DescriptionIcon from '../../icons/description.svg';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import ArticlesSidebarTeamArticles from './ArticlesSidebarTeamArticles';
+import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
 import styles from './Articles.module.css';
 // eslint-disable-next-line no-unused-vars
 import ArticleForm from './ArticleForm'; // For GraphQL fragment
 
 const addExplainerMutation = graphql`
-  mutation ArticlesSidebarCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
+  mutation MediaArticlesCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
     createExplainerItem(input: $input) {
       project_media {
         id
@@ -37,7 +37,7 @@ const addExplainerMutation = graphql`
 `;
 
 const addFactCheckMutation = graphql`
-  mutation ArticlesSidebarUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
+  mutation MediaArticlesUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
     updateClaimDescription(input: $input) {
       project_media {
         id
@@ -56,7 +56,7 @@ const addFactCheckMutation = graphql`
   }
 `;
 
-const ArticlesSidebarComponent = ({
+const MediaArticlesComponent = ({
   team,
   projectMedia,
   onUpdate,
@@ -122,11 +122,11 @@ const ArticlesSidebarComponent = ({
       { !hasArticle && (
         <>
           <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
-            <DescriptionIcon style={{ fontSize: '32px' }} />
+            <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
             <div>
               <FormattedMessage
                 id="articlesSidebar.noArticlesAddedToItem"
-                defaultMessage="No articles are being delivered to Tipline users who send in request with that match this Media."
+                defaultMessage="No articles are being delivered to Tipline users who send requests that match this Media."
                 description="Message displayed on articles sidebar when an item has no articles."
               />
             </div>
@@ -138,14 +138,14 @@ const ArticlesSidebarComponent = ({
               description="Message displayed on articles sidebar when an item has no articles."
             />
           </div>
-          <ArticlesSidebarTeamArticles teamSlug={team.slug} onAdd={handleAdd} />
+          <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleAdd} />
         </>
       )}
     </div>
   );
 };
 
-ArticlesSidebarComponent.propTypes = {
+MediaArticlesComponent.propTypes = {
   team: PropTypes.shape({
     slug: PropTypes.string.isRequired,
   }).isRequired,
@@ -161,19 +161,20 @@ ArticlesSidebarComponent.propTypes = {
   onUpdate: PropTypes.func.isRequired,
 };
 
-const ArticlesSidebar = ({ teamSlug, projectMediaDbid }) => {
+const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
   const [updateCount, setUpdateCount] = React.useState(0);
 
+  // FIXME: Shouldn't be needed if Relay works as expected
   const handleUpdate = () => {
     setUpdateCount(updateCount + 1);
   };
 
   return (
-    <ErrorBoundary component="ArticlesSidebar">
+    <ErrorBoundary component="MediaArticles">
       <QueryRenderer
         environment={Relay.Store}
         query={graphql`
-          query ArticlesSidebarQuery($slug: String!, $ids: String!) {
+          query MediaArticlesQuery($slug: String!, $ids: String!) {
             team(slug: $slug) {
               slug
               ...ArticleForm_team
@@ -203,7 +204,7 @@ const ArticlesSidebar = ({ teamSlug, projectMediaDbid }) => {
         render={({ error, props }) => {
           if (!error && props) {
             return (
-              <ArticlesSidebarComponent
+              <MediaArticlesComponent
                 team={props.team}
                 projectMedia={props.project_media}
                 onUpdate={handleUpdate}
@@ -217,9 +218,9 @@ const ArticlesSidebar = ({ teamSlug, projectMediaDbid }) => {
   );
 };
 
-ArticlesSidebar.propTypes = {
+MediaArticles.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   projectMediaDbid: PropTypes.number.isRequired,
 };
 
-export default ArticlesSidebar;
+export default MediaArticles;

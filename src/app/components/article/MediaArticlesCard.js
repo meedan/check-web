@@ -11,7 +11,7 @@ import EllipseIcon from '../../icons/ellipse.svg';
 import { getStatus, getStatusStyle } from '../../helpers';
 import styles from './Articles.module.css';
 
-const ArticlesSidebarCard = ({ article, team, onAdd }) => {
+const MediaArticlesCard = ({ article, team, onAdd }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
   const handleMouseEnter = () => {
@@ -71,11 +71,11 @@ const ArticlesSidebarCard = ({ article, team, onAdd }) => {
   );
 };
 
-ArticlesSidebarCard.defaultProps = {
+MediaArticlesCard.defaultProps = {
   onAdd: null,
 };
 
-ArticlesSidebarCard.propTypes = {
+MediaArticlesCard.propTypes = {
   team: PropTypes.shape({
     verification_statuses: PropTypes.object.isRequired,
   }).isRequired,
@@ -93,13 +93,13 @@ ArticlesSidebarCard.propTypes = {
 };
 
 // eslint-disable-next-line import/no-unused-modules
-export { ArticlesSidebarCard }; // For unit test
+export { MediaArticlesCard }; // For unit test
 
-export default createFragmentContainer(ArticlesSidebarCard, graphql`
-  fragment ArticlesSidebarCard_team on Team {
+export default createFragmentContainer(MediaArticlesCard, graphql`
+  fragment MediaArticlesCard_team on Team {
     verification_statuses
   }
-  fragment ArticlesSidebarCard_article on Node {
+  fragment MediaArticlesCard_article on Node {
     nodeType: __typename
     ... on Explainer {
       id

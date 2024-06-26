@@ -7,7 +7,7 @@ import MediaTasks from './MediaTasks';
 import MediaRequests from './MediaRequests';
 import MediaSource from './MediaSource';
 import MediaSuggestions from './Similarity/MediaSuggestions';
-import ArticlesSidebar from '../article/ArticlesSidebar';
+import MediaArticles from '../article/MediaArticles';
 import ErrorBoundary from '../error/ErrorBoundary';
 
 const MediaComponentRightPanel = ({
@@ -104,7 +104,7 @@ const MediaComponentRightPanel = ({
       { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} superAdminMask={superAdminMask} /> : null }
       { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
       { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
-      { showTab === 'articles' ? <ArticlesSidebar teamSlug={projectMedia.team.slug} projectMediaDbid={projectMedia.dbid} /> : null }
+      { showTab === 'articles' ? <MediaArticles teamSlug={projectMedia.team.slug} projectMediaDbid={projectMedia.dbid} /> : null }
     </ErrorBoundary>
   );
 };

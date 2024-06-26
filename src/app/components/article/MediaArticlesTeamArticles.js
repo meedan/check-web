@@ -4,22 +4,22 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
-import ArticlesSidebarCard from './ArticlesSidebarCard';
+import MediaArticlesCard from './MediaArticlesCard';
 import styles from './Articles.module.css';
 
-const ArticlesSidebarTeamArticlesComponent = ({ articles, team, onAdd }) => (
+const MediaArticlesTeamArticlesComponent = ({ articles, team, onAdd }) => (
   <div id="articles-sidebar-team-articles" className={styles.articlesSidebarList}>
     {articles.map(article => (
-      <ArticlesSidebarCard article={article} team={team} onAdd={onAdd} />
+      <MediaArticlesCard article={article} team={team} onAdd={onAdd} />
     ))}
   </div>
 );
 
-ArticlesSidebarTeamArticlesComponent.defaultProps = {
+MediaArticlesTeamArticlesComponent.defaultProps = {
   articles: [],
 };
 
-ArticlesSidebarTeamArticlesComponent.propTypes = {
+MediaArticlesTeamArticlesComponent.propTypes = {
   team: PropTypes.object.isRequired,
   articles: PropTypes.arrayOf(PropTypes.object),
   onAdd: PropTypes.func.isRequired,
@@ -27,20 +27,20 @@ ArticlesSidebarTeamArticlesComponent.propTypes = {
 
 const numberOfArticles = 30;
 
-const ArticlesSidebarTeamArticles = ({ teamSlug, onAdd }) => (
-  <ErrorBoundary component="ArticlesSidebarTeamArticles">
+const MediaArticlesTeamArticles = ({ teamSlug, onAdd }) => (
+  <ErrorBoundary component="MediaArticlesTeamArticles">
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query ArticlesSidebarTeamArticlesQuery($slug: String!, $numberOfArticles: Int!) {
+        query MediaArticlesTeamArticlesQuery($slug: String!, $numberOfArticles: Int!) {
           team(slug: $slug) {
-            ...ArticlesSidebarCard_team
+            ...MediaArticlesCard_team
             factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", standalone: true) {
               edges {
                 node {
                   ... on FactCheck {
                     created_at
-                    ...ArticlesSidebarCard_article
+                    ...MediaArticlesCard_article
                   }
                 }
               }
@@ -50,7 +50,7 @@ const ArticlesSidebarTeamArticles = ({ teamSlug, onAdd }) => (
                 node {
                   ... on Explainer {
                     created_at
-                    ...ArticlesSidebarCard_article
+                    ...MediaArticlesCard_article
                   }
                 }
               }
@@ -68,7 +68,7 @@ const ArticlesSidebarTeamArticles = ({ teamSlug, onAdd }) => (
           const articles = props.team.factChecks.edges.concat(props.team.explainers.edges).map(edge => edge.node).sort((a, b) => (parseInt(a.created_at, 10) < parseInt(b.created_at, 10)) ? 1 : -1);
 
           return (
-            <ArticlesSidebarTeamArticlesComponent articles={articles} team={props.team} onAdd={onAdd} />
+            <MediaArticlesTeamArticlesComponent articles={articles} team={props.team} onAdd={onAdd} />
           );
         }
         return <MediasLoading theme="white" variant="inline" size="large" />;
@@ -77,9 +77,9 @@ const ArticlesSidebarTeamArticles = ({ teamSlug, onAdd }) => (
   </ErrorBoundary>
 );
 
-ArticlesSidebarTeamArticles.propTypes = {
+MediaArticlesTeamArticles.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   onAdd: PropTypes.func.isRequired,
 };
 
-export default ArticlesSidebarTeamArticles;
+export default MediaArticlesTeamArticles;

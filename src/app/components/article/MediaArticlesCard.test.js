@@ -1,6 +1,6 @@
 import React from 'react';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
-import { ArticlesSidebarCard } from './ArticlesSidebarCard';
+import { MediaArticlesCard } from './MediaArticlesCard';
 
 const team = {
   verification_statuses: {
@@ -38,9 +38,9 @@ const factCheck = {
   rating: 'false',
 };
 
-describe('<ArticlesSidebarCard />', () => {
+describe('<MediaArticlesCard />', () => {
   it('should render explainer with icon and title', () => {
-    const card = mountWithIntl(<ArticlesSidebarCard article={explainer} team={team} />);
+    const card = mountWithIntl(<MediaArticlesCard article={explainer} team={team} />);
     expect(card.find('svg')).toHaveLength(1);
     expect(card.html()).toMatch('Explainer title');
     expect(card.html()).not.toMatch('Fact-check title');
@@ -48,7 +48,7 @@ describe('<ArticlesSidebarCard />', () => {
   });
 
   it('should render fact-check with icon, title and rating', () => {
-    const card = mountWithIntl(<ArticlesSidebarCard article={factCheck} team={team} />);
+    const card = mountWithIntl(<MediaArticlesCard article={factCheck} team={team} />);
     expect(card.find('svg')).toHaveLength(2); // Icon and rating circle
     expect(card.html()).not.toMatch('Explainer title');
     expect(card.html()).toMatch('Fact-check title');
