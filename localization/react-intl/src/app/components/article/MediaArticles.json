@@ -1,0 +1,17 @@
+[
+  {
+    "id": "articlesSidebar.success",
+    "description": "Banner displayed after an article is successfully added to an item.",
+    "defaultMessage": "Article added successfully!"
+  },
+  {
+    "id": "articlesSidebar.noArticlesAddedToItem",
+    "description": "Message displayed on articles sidebar when an item has no articles.",
+    "defaultMessage": "No articles are being delivered to Tipline users who send requests that match this Media."
+  },
+  {
+    "id": "articlesSidebar.chooseRecentArticle",
+    "description": "Message displayed on articles sidebar when an item has no articles.",
+    "defaultMessage": "Choose a recent article to add to this media:"
+  }
+]

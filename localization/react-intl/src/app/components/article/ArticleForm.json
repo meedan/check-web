@@ -11,12 +11,12 @@
   },
   {
     "id": "article-form-fact-check-create-title",
-    "description": "Title for the slideout create fact check form",
+    "description": "Title for the slideout create fact-check form",
     "defaultMessage": "Create New Claim & Fact-Check"
   },
   {
     "id": "article-form-fact-check-edit-title",
-    "description": "Title for the slideout edit fact check form",
+    "description": "Title for the slideout edit fact-check form",
     "defaultMessage": "Edit Claim & Fact-Check"
   },
   {
@@ -86,7 +86,7 @@
   },
   {
     "id": "articleForm.factCheckSummaryPlaceholder",
-    "description": "Placeholder instructions for fact check summary field",
+    "description": "Placeholder instructions for fact-check summary field",
     "defaultMessage": "Briefly contextualize the narrative of this fact-check"
   },
   {
@@ -107,7 +107,7 @@
   {
     "id": "articleForm.factCheckUrlPlaceholder",
     "description": "Placeholder instructions for URL field",
-    "defaultMessage": "Add a URL to this fact check article"
+    "defaultMessage": "Add a URL to this fact-check article"
   },
   {
     "id": "articleForm.factCheckUrl",
