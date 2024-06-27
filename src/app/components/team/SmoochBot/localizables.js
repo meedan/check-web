@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 
 const labels = {
   smooch_message_smooch_bot_greetings: <FormattedMessage id="smoochBot.labelGreeting" defaultMessage="Greeting" description="Label for the bot Greeting content area" />,
-  smooch_state_main: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main menu" description="Label for the bot Main menu content area" />,
+  smooch_state_main: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main Menu" description="Label for the bot Main menu content area" />,
   smooch_state_secondary: <FormattedMessage id="smoochBot.labelSecondaryMenu" defaultMessage="Secondary menu" description="Label for the bot Secondary menu content area" />,
   smooch_state_query: <FormattedMessage id="smoochBot.labelQueryPrompt" defaultMessage="Query prompt" description="Label for the bot Query prompt content area" />,
   smooch_message_smooch_bot_message_confirmed: <FormattedMessage id="smoochBot.labelQueryReceived" defaultMessage="Query received" description="Label for the bot Query received content area" />,
@@ -17,8 +17,9 @@ const labels = {
 };
 
 const labelsV2 = {
-  smooch_content: <FormattedMessage id="smoochBot.labelContent" defaultMessage="Content & translation" description="Button label in tipline settings page" />,
-  smooch_main_menu: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main menu" description="Label for the bot Main menu content area" />,
+  smooch_settings: <FormattedMessage id="smoochBot.labelSettings" defaultMessage="Settings" description="Label for the bot settings area" />,
+  smooch_main_menu: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main Menu" description="Label for the bot Main menu content area" />,
+  smooch_content: <FormattedMessage id="smoochBot.labelContent" defaultMessage="Content & Translation" description="Button label in tipline settings page" />,
 };
 
 const descriptions = {

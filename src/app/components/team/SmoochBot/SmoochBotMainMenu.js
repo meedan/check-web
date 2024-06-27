@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import HelpIcon from '../../../icons/help.svg';
 import { languageLabel } from '../../../LanguageRegistry';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
 import Alert from '../../cds/alerts-and-prompts/Alert';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from '../Settings.module.css';
 
 const messages = defineMessages({
   privacyStatement: {
@@ -72,27 +69,8 @@ const SmoochBotMainMenu = ({
 
   const whatsAppEnabled = (enabledIntegrations.whatsapp && enabledIntegrations.whatsapp.status === 'active');
 
-  const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot');
-  };
-
   return (
     <React.Fragment>
-      <div className={styles['setting-content-container-title']}>
-        <FormattedMessage id="smoochBotMainMenu.mainMenu" defaultMessage="Main menu" description="Title of the tipline bot main menu settings page." />
-        { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
-          <div className={styles['setting-content-container-actions']}>
-            <ButtonMain
-              variant="text"
-              size="small"
-              theme="text"
-              iconCenter={<HelpIcon />}
-              onClick={handleHelp}
-            />
-          </div>
-          : null
-        }
-      </div>
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
         <FormattedMessage
           tagName="p"

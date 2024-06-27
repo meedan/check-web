@@ -89,12 +89,6 @@
       li {
         margin: 0 0 8px;
 
-        &.smoochBotMenuSection {
-          color: var(--color-gray-37);
-          font-weight: bold;
-          margin: 8px 0;
-        }
-
         button {
           justify-content: start;
           width: 100%;
@@ -110,13 +104,31 @@
         border: 1px solid var(--color-gray-88);
         border-radius: 5px;
         margin-top: 8px;
-        padding: 8px 8px 0;
+        padding: 8px;
 
-        .setting-content-container-title {
+        .content-translation-title {
+          align-items: center;
+          display: flex;
+          gap: 8px;
           justify-content: flex-start;
+
+          strong {
+            flex: 1 1 auto;
+          }
 
           span.setting-content-container-title-expand {
             flex: 0 0 30px;
+          }
+        }
+
+        .content-translation-details {
+          background-color: var(--color-beige-93);
+          border-radius: 5px;
+          margin: 8px 0;
+          padding: 16px;
+
+          .content-translation-details-default {
+            margin: 0 0 16px;
           }
         }
 
@@ -330,16 +342,6 @@
       }
     }
   }
-}
-
-.tipline-settings-toggle {
-  background-color: var(--color-beige-93);
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  margin: 0 0 16px;
-  padding: 16px;
-  text-align: center;
 }
 
 .similarity-component-input {

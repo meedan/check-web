@@ -10,14 +10,19 @@
     "defaultMessage": "Customized"
   },
   {
-    "id": "smoochBotContentAndTranslation.textFieldTitle",
+    "id": "smoochBotContentAndTranslation.textFieldTitleCustomized",
+    "description": "Title for the textfield where users have enter custom text for a bot response",
+    "defaultMessage": "Custom Bot Response"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.textFieldTitleDefault",
     "description": "Title for the textfield where users can enter custom text for a bot response",
-    "defaultMessage": "Custom text"
+    "defaultMessage": "Customize Bot Response"
   },
   {
     "id": "smoochBotContentAndTranslation.defaultTextTitle",
     "description": "Title for the area to show users what the default text value is for this bot response",
-    "defaultMessage": "Default text"
+    "defaultMessage": "Default Bot Response:"
   },
   {
     "id": "smoochBotContentAndTranslation.placeholder",

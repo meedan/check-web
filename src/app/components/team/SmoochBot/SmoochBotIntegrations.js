@@ -7,12 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
 import TextField from '../../cds/inputs/TextField';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import GetAppIcon from '../../../icons/file_download.svg';
 import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
 import FacebookIcon from '../../../icons/facebook.svg';
 import LineIcon from '../../../icons/line.svg';
-import HelpIcon from '../../../icons/help.svg';
 import TelegramIcon from '../../../icons/telegram.svg';
 import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
@@ -40,24 +38,8 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
     link.click();
   };
 
-  const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot', '_blank');
-  };
-
   return (
     <React.Fragment>
-      <div className={styles['setting-content-container-title']}>
-        <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
-        <div className={styles['setting-content-container-actions']}>
-          <ButtonMain
-            variant="text"
-            size="small"
-            theme="text"
-            iconCenter={<HelpIcon />}
-            onClick={handleHelp}
-          />
-        </div>
-      </div>
       <Box display="flex" justifyContent="space-between" flexWrap="wrap">
         <SmoochBotIntegrationButton
           installationId={installationId}

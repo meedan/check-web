@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import { FormattedMessage } from 'react-intl';
 import TiplineContentTranslation from '../../cds/settings-pages/TiplineContentTranslation';
 import UploadFile from '../../UploadFile';
@@ -103,7 +102,7 @@ const SmoochBotContentAndTranslation = ({
   ];
 
   return (
-    <Box>
+    <>
       { strings.map(string => (
         <TiplineContentTranslation
           key={string.key}
@@ -126,19 +125,17 @@ const SmoochBotContentAndTranslation = ({
           }}
           extra={
             string.key === 'smooch_message_smooch_bot_greetings' ?
-              <Box>
-                <UploadFile
-                  type="image"
-                  value={greetingImage}
-                  onChange={onChangeImage}
-                  onError={() => {}}
-                />
-              </Box>
+              <UploadFile
+                type="image"
+                value={greetingImage}
+                onChange={onChangeImage}
+                onError={() => {}}
+              />
               : null
           }
         />
       ))}
-    </Box>
+    </>
   );
 };
 

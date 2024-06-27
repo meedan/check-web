@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages } from 'react-intl';
 import cx from 'classnames/bind';
+import Alert from '../alerts-and-prompts/Alert';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../inputs/TextArea';
 import Tooltip from '../alerts-and-prompts/Tooltip';
-import ChevronUpIcon from '../../../icons/chevron_up.svg';
+import ChevronDownIcon from '../../../icons/chevron_down.svg';
 import ChevronRightIcon from '../../../icons/chevron_right.svg';
 import DoneIcon from '../../../icons/done.svg';
 import HelpIcon from '../../../icons/help.svg';
@@ -22,14 +23,19 @@ const messages = defineMessages({
     defaultMessage: 'Customized',
     description: 'Label to indicate that a bot response has been customized and is different than the default message',
   },
-  textFieldTitle: {
-    id: 'smoochBotContentAndTranslation.textFieldTitle',
-    defaultMessage: 'Custom text',
+  textFieldTitleCustomized: {
+    id: 'smoochBotContentAndTranslation.textFieldTitleCustomized',
+    defaultMessage: 'Custom Bot Response',
+    description: 'Title for the textfield where users have enter custom text for a bot response',
+  },
+  textFieldTitleDefault: {
+    id: 'smoochBotContentAndTranslation.textFieldTitleDefault',
+    defaultMessage: 'Customize Bot Response',
     description: 'Title for the textfield where users can enter custom text for a bot response',
   },
   defaultText: {
     id: 'smoochBotContentAndTranslation.defaultTextTitle',
-    defaultMessage: 'Default text',
+    defaultMessage: 'Default Bot Response:',
     description: 'Title for the area to show users what the default text value is for this bot response',
   },
   placeholder: {
@@ -54,7 +60,7 @@ const TiplineContentTranslation = ({
 
   return (
     <div className={cx(styles['content-translation-wrapper'], expanded ? styles['content-translation-wrapper-expanded'] : styles['content-translation-wrapper-collapsed'])}>
-      <div className={styles['setting-content-container-title']}>
+      <div className={styles['content-translation-title']}>
         <Tooltip
           arrow
           title={intl.formatMessage(messages.expandCollapse)}
@@ -65,16 +71,20 @@ const TiplineContentTranslation = ({
               size="small"
               theme="lightText"
               onClick={() => { setExpanded(!expanded); }}
-              iconCenter={expanded ? <ChevronUpIcon /> : <ChevronRightIcon />}
+              iconCenter={expanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
             />
           </span>
         </Tooltip>
-        {title}
-        { !value &&
-          <div>
-            <DoneIcon />
-            {intl.formatMessage(messages.customized)}
-          </div>
+        <strong>{title}</strong>
+        { value &&
+          <ButtonMain
+            onClick={() => { setExpanded(!expanded); }}
+            variant="text"
+            size="small"
+            theme="validation"
+            iconLeft={<DoneIcon />}
+            label={intl.formatMessage(messages.customized)}
+          />
         }
         <div className={styles['setting-content-container-actions']}>
           <Tooltip
@@ -83,10 +93,7 @@ const TiplineContentTranslation = ({
           >
             <span>
               <ButtonMain
-                disabled
-                buttonProps={{
-                  type: null,
-                }}
+                onClick={() => { setExpanded(!expanded); }}
                 variant="contained"
                 size="small"
                 theme="text"
@@ -98,14 +105,18 @@ const TiplineContentTranslation = ({
       </div>
       <div className={styles['content-translation-details']}>
         { !value &&
-          <div>
-            <label>{intl.formatMessage(messages.defaultText)}</label>
-            {defaultValue}
-          </div>
+          <Alert
+            className={styles['content-translation-details-default']}
+            icon={false}
+            contained
+            title={intl.formatMessage(messages.defaultText)}
+            content={defaultValue}
+            variant="info"
+          />
         }
         <TextArea
           key={identifier}
-          label={intl.formatMessage(messages.textFieldTitle)}
+          label={value ? intl.formatMessage(messages.textFieldTitleCustomized) : intl.formatMessage(messages.textFieldTitleDefault)}
           placeholder={intl.formatMessage(messages.placeholder)}
           rowsMax={Infinity}
           rows={1}
