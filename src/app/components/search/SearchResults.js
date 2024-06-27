@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
@@ -18,37 +18,14 @@ import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
-import ListSort from '../cds/inputs/ListSort';
-import SearchResultsTable from './SearchResultsTable';
+import SelectAllTh from './SearchResultsTable/SelectAllTh';
 import SearchResultsCards from './SearchResultsCards';
+import ClusterCard from './SearchResultsCards/ClusterCard';
 import SearchRoute from '../../relay/SearchRoute';
 import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
-
-const messages = defineMessages({
-  sortTitle: {
-    id: 'searchResults.sortTitle',
-    defaultMessage: 'Title',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
-  },
-  sortDateUpdated: {
-    id: 'searchResults.sortDateUpdated',
-    defaultMessage: 'Date updated',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
-  },
-  sortRating: {
-    id: 'searchResults.sortRating',
-    defaultMessage: 'Rating',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
-  },
-  sortRequestsCount: {
-    id: 'searchResults.sortRequestsCount',
-    defaultMessage: 'Requests (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-});
 
 /**
  * Delete `esoffset`, `timestamp` and `channels` -- whenever
@@ -89,7 +66,6 @@ function SearchResultsComponent({
   readOnlyFields,
   savedSearch,
   extra,
-  intl,
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
@@ -327,13 +303,14 @@ function SearchResultsComponent({
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
-  const sortParams = stateQuery.sort ? {
-    key: stateQuery.sort,
-    ascending: stateQuery.sort_type !== 'DESC',
-  } : {
-    key: 'recent_added',
-    ascending: false,
-  };
+  // TODO in CV2-3924: Use ListSort component to sort the search results
+  // const sortParams = stateQuery.sort ? {
+  //   key: stateQuery.sort,
+  //   ascending: stateQuery.sort_type !== 'DESC',
+  // } : {
+  //   key: 'recent_added',
+  //   ascending: false,
+  // };
 
   const selectedProjectMedia = [];
 
@@ -342,6 +319,28 @@ function SearchResultsComponent({
       selectedProjectMedia.push(pm);
     }
   });
+
+  const handleCheckboxChange = (checked, projectMedia) => {
+    const { id } = projectMedia;
+    if (!id) return; // Can't select unsaved object. Swallow mouse click.
+
+    let newIds;
+    if (checked) {
+      // Add
+      if (filteredSelectedProjectMediaIds.includes(id)) {
+        return;
+      }
+      newIds = [...filteredSelectedProjectMediaIds, id];
+      newIds.sort((a, b) => a - b);
+    } else {
+      // Remove
+      if (!filteredSelectedProjectMediaIds.includes(id)) {
+        return;
+      }
+      newIds = filteredSelectedProjectMediaIds.filter(oldId => oldId !== id);
+    }
+    setSelectedProjectMediaIds(newIds);
+  };
 
   let content = null;
 
@@ -381,27 +380,44 @@ function SearchResultsComponent({
       );
     }
   } else {
-    content = (
-      <SearchResultsTable
-        projectMedias={projectMedias}
+    content = resultType === 'factCheck' ? (
+      <SearchResultsCards
         team={team}
-        selectedIds={filteredSelectedProjectMediaIds}
-        sortParams={sortParams}
-        onChangeSelectedIds={handleChangeSelectedIds}
-        onChangeSortParams={handleChangeSortParams}
-        buildProjectMediaUrl={buildProjectMediaUrl}
-        resultType={resultType}
-        count={count}
+        projectMedias={projectMedias}
       />
+    ) : (
+      <div className={styles['search-results-scroller']}>
+        { projectMedias.map(item => (
+          <ClusterCard
+            key={item.id}
+            title={item.title}
+            description={item.description}
+            date={new Date(+item.updated_at * 1000)}
+            cardUrl={buildProjectMediaUrl(item)}
+            onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
+            isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
+            isPublished={item.report_status === 'published'}
+            publishedAt={item.fact_check_published_on ? new Date(+item.fact_check_published_on * 1000) : null}
+            isUnread={!item.is_read}
+            channels={item.requests_count && item.channel}
+            lastRequestDate={item.requests_count && new Date(+item.last_seen * 1000)}
+            rating={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.label}
+            ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.style.color}
+            requestsCount={item.requests_count}
+            mediaCount={item.linked_items_count}
+            mediaThumbnail={{
+              media: {
+                picture: item.picture,
+                type: item.media?.type,
+                url: item.media?.url,
+              },
+            }}
+            mediaType={item.media?.type}
+            suggestionsCount={item.suggestions_count}
+          />
+        ))}
+      </div>
     );
-    if (resultType === 'factCheck') {
-      content = (
-        <SearchResultsCards
-          team={team}
-          projectMedias={projectMedias}
-        />
-      );
-    }
   }
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
@@ -439,8 +455,8 @@ function SearchResultsComponent({
                             description="Tooltip for shared feeds icon"
                           />
                           <ul className="bulleted-list item-limited-list">
-                            {feeds.map(feedObj => (
-                              <li key={feedObj.id}>{feedObj}</li>
+                            {feeds.map(feedName => (
+                              <li key={feedName}>{feedName}</li>
                             ))}
                           </ul>
                         </>
@@ -477,6 +493,7 @@ function SearchResultsComponent({
           defaultQuery={defaultQuery}
           setStateQuery={setStateQuery}
           onChange={handleChangeQuery}
+          onChangeSort={handleChangeSortParams}
           feedTeam={feedTeam}
           feed={feed}
           savedSearch={savedSearch}
@@ -510,20 +527,14 @@ function SearchResultsComponent({
             team={team}
             title={count ?
               <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
-                { resultType === 'factCheck' && feed ?
-                  <div className={styles['search-results-sorting']}>
-                    <ListSort
-                      sort={stateQuery.sort}
-                      sortType={stateQuery.sort_type}
-                      options={[
-                        { value: 'title', label: intl.formatMessage(messages.sortTitle) },
-                        { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
-                        { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
-                      ]}
-                      onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
-                    />
-                  </div> : null
-                }
+                { resultType === 'default' && (
+                  <SelectAllTh
+                    className={styles.noBottomBorder}
+                    selectedIds={filteredSelectedProjectMediaIds}
+                    projectMedias={projectMedias}
+                    onChangeSelectedIds={handleChangeSelectedIds}
+                  />
+                )}
                 <span className={styles['search-pagination']}>
                   <Tooltip title={
                     <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
@@ -625,8 +636,6 @@ SearchResultsComponent.defaultProps = {
 };
 
 SearchResultsComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
@@ -652,7 +661,7 @@ SearchResultsComponent.propTypes = {
   listSubtitle: PropTypes.object,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
@@ -663,7 +672,7 @@ SearchResultsComponent.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchResultsComponent as SearchResultsComponentTest };
 
-const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(SearchResultsComponent)), {
+const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },
@@ -684,7 +693,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
           check_search_trash { id, number_of_results },
           check_search_spam { id, number_of_results },
           verification_statuses,
-          list_columns,
           medias_count,
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
             id
@@ -699,10 +707,12 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
             node {
               id
               dbid
+              channel
               picture
               show_warning_cover
               title
               description
+              updated_at
               is_read
               is_main
               type
@@ -710,11 +720,14 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
               is_secondary
               is_suggested
               is_confirmed
+              status
               report_status # Needed by BulkActionsStatus
+              fact_check_published_on
               requests_count
-              list_columns_values
-              feed_columns_values
+              linked_items_count
+              suggestions_count
               last_seen
+              feed_columns_values
               source_id
               media {
                 type

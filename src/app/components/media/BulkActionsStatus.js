@@ -49,7 +49,6 @@ const BulkActionsStatus = ({
               id
               status
               last_status
-              list_columns_values
             }
           }
         }

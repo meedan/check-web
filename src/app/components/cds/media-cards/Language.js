@@ -9,10 +9,13 @@ const Language = ({ languageCode }) => (
     <ButtonMain
       disabled
       size="small"
-      theme="brand"
+      theme="lightBeige"
       iconLeft={<LanguageIcon />}
       variant="contained"
       label={languageLabel(languageCode)}
+      buttonProps={{
+        type: null,
+      }}
     />
   </span>
 );

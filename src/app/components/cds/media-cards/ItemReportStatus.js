@@ -5,9 +5,9 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 
-const ItemReportStatus = ({ publishedAt, className }) => {
+const ItemReportStatus = ({ isPublished, publishedAt, className }) => {
   const formatTooltip = () => {
-    const label = (publishedAt ? (
+    const label = (isPublished || publishedAt ? (
       <FormattedMessage
         id="itemReportStatus.tooltipPublished"
         description="Tooltip of a report status icon when the report is published"
@@ -42,12 +42,15 @@ const ItemReportStatus = ({ publishedAt, className }) => {
       <div className={className}>
         <ButtonMain
           disabled
+          buttonProps={{
+            type: null,
+          }}
           variant="contained"
-          size="default"
+          size="small"
           theme="text"
           iconCenter={<FactCheckIcon />}
           customStyle={{
-            color: (publishedAt ? 'var(--color-green-35)' : 'var(--color-gray-59)'),
+            color: (isPublished || publishedAt ? 'var(--color-green-35)' : 'var(--color-gray-59)'),
           }}
         />
       </div>
@@ -57,11 +60,13 @@ const ItemReportStatus = ({ publishedAt, className }) => {
 
 ItemReportStatus.defaultProps = {
   className: null,
+  isPublished: false,
   publishedAt: null,
 };
 
 ItemReportStatus.propTypes = {
   className: PropTypes.string,
+  isPublished: PropTypes.bool,
   publishedAt: PropTypes.instanceOf(Date), // Timestamp
 };
 

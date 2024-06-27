@@ -47,7 +47,7 @@ const ButtonMain = ({
         {iconLeft}
       </div>
     )}
-    <span className={`test-label__button ${styles.buttonMainLabel}`}>
+    <span className={cx('test-label__button', styles.buttonMainLabel)}>
       {label}
     </span>
     { iconCenter && (

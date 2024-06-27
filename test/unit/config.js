@@ -1,3 +1,4 @@
+// FIXME: is this file actually used? Why would we need a different config.js for unit tests?
 module.exports = {
   appName: 'check', // 'bridge' or 'check'
   selfHost: 'web:3333',

@@ -96,13 +96,17 @@
   &.theme-beige,
   &.theme-lightBeige, {
     &:disabled {
+      cursor: default;
+    }
+
+    &[type='button']:disabled {
       color: var(--color-gray-59);
       cursor: not-allowed;
       pointer-events: none;
     }
 
     &.contained {
-      &:disabled {
+      &[type='button']:disabled {
         background-color: var(--color-gray-88);
         border: solid 2px var(--color-gray-88);
       }
@@ -111,7 +115,7 @@
     &.outlined {
       background-color: transparent;
 
-      &:disabled {
+      &[type='button']:disabled {
         border: solid 2px var(--color-gray-88);
       }
     }
@@ -126,7 +130,7 @@
     }
   }
 
-  &.theme-brand:not(:disabled) {
+  &.theme-brand:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-blue-54), var(--color-blue-38), var(--color-white-100), var(--color-white-100);
 
@@ -166,7 +170,7 @@
     }
   }
 
-  &.theme-lightBrand:not(:disabled) {
+  &.theme-lightBrand:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-blue-98), var(--color-blue-54), var(--color-blue-38), var(--color-white-100);
     }
@@ -180,7 +184,7 @@
     }
   }
 
-  &.theme-text:not(:disabled) {
+  &.theme-text:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-gray-96), var(--color-gray-88), var(--color-gray-15), var(--color-gray-37);
     }
@@ -194,7 +198,7 @@
     }
   }
 
-  &.theme-lightText:not(:disabled) {
+  &.theme-lightText:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-gray-96), var(--color-gray-88), var(--color-gray-37), var(--color-gray-37);
     }
@@ -208,7 +212,7 @@
     }
   }
 
-  &.theme-error:not(:disabled) {
+  &.theme-error:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-pink-53), var(--color-pink-40), var(--color-white-100), var(--color-white-100);
     }
@@ -222,7 +226,7 @@
     }
   }
 
-  &.theme-lightError:not(:disabled) {
+  &.theme-lightError:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-pink-96), var(--color-pink-53), var(--color-pink-40), var(--color-white-100);
     }
@@ -236,7 +240,7 @@
     }
   }
 
-  &.theme-validation:not(:disabled) {
+  &.theme-validation:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-green-35), var(--color-green-23), var(--color-white-100), var(--color-white-100);
     }
@@ -250,7 +254,7 @@
     }
   }
 
-  &.theme-lightValidation:not(:disabled) {
+  &.theme-lightValidation:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-green-97), var(--color-green-35), var(--color-green-23), var(--color-white-100);
     }
@@ -264,7 +268,7 @@
     }
   }
 
-  &.theme-alert:not(:disabled) {
+  &.theme-alert:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-orange-54), var(--color-orange-31), var(--color-white-100), var(--color-white-100);
     }
@@ -278,7 +282,7 @@
     }
   }
 
-  &.theme-lightAlert:not(:disabled) {
+  &.theme-lightAlert:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-orange-95), var(--color-orange-54), var(--color-orange-31), var(--color-white-100);
     }
@@ -292,7 +296,7 @@
     }
   }
 
-  &.theme-black:not(:disabled) {
+  &.theme-black:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-gray-15), var(--color-gray-59), var(--color-white-100), var(--color-white-100);
     }
@@ -306,7 +310,7 @@
     }
   }
 
-  &.theme-white:not(:disabled) {
+  &.theme-white:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-white-100), var(--color-gray-88), var(--color-gray-15), var(--color-gray-37);
     }
@@ -320,7 +324,7 @@
     }
   }
 
-  &.theme-beige:not(:disabled) {
+  &.theme-beige:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-beige-60), var(--color-beige-40), var(--color-white-100), var(--color-white-100);
     }
@@ -334,7 +338,7 @@
     }
   }
 
-  &.theme-lightBeige:not(:disabled) {
+  &.theme-lightBeige:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-beige-86), var(--color-beige-40), var(--color-beige-40), var(--color-beige-93);
     }

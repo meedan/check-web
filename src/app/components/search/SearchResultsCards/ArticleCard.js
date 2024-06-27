@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
 import ItemDate from '../../cds/media-cards/ItemDate';
@@ -27,7 +28,7 @@ const ArticleCard = ({
   onChangeTags,
   variant,
 }) => (
-  <div className={`${styles.articleCard} article-card`}>
+  <div className={cx('article-card', styles.articleCard)}>
     <Card>
       <div className={styles.articleCardDescription}>
         <CardHoverContext.Consumer>
@@ -50,21 +51,21 @@ const ArticleCard = ({
             </Tooltip>
           </div>
         ) : null }
-        <div>
-          <SharedItemCardFooter
-            languageCode={languageCode}
-            tags={tags}
-            tagOptions={tagOptions}
-            onChangeTags={onChangeTags}
-          />
-        </div>
+        <SharedItemCardFooter
+          languageCode={languageCode}
+          tags={tags}
+          tagOptions={tagOptions}
+          onChangeTags={onChangeTags}
+        />
       </div>
-      { (statusLabel || date || variant === 'fact-check') ?
+      { statusLabel || date ?
         <div className={styles.cardRight}>
-          <div className={styles.cardRightTop}>
-            { statusLabel && <ItemRating rating={statusLabel} ratingColor={statusColor} /> }
-            { variant === 'fact-check' && <ItemReportStatus publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
-          </div>
+          { variant === 'fact-check' && (
+            <div className={styles.cardRightTop}>
+              { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
+              { publishedAt && <ItemReportStatus className={styles.cardRightTopPublished} publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
+            </div>
+          )}
           { date &&
             <ItemDate
               date={new Date(date * 1000)}
