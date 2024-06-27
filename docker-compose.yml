@@ -157,9 +157,8 @@ services:
     networks:
       - dev
     depends_on:
-      redis:
-      elasticmq:
-        condition: service_healthy
+      - redis
+      - elasticmq
   presto-image:
     build: presto
     platform: linux/amd64
@@ -173,9 +172,8 @@ services:
     networks:
       - dev
     depends_on:
-      redis:
-      elasticmq:
-        condition: service_healthy
+      - redis
+      - elasticmq
   presto-audio:
     build: presto
     platform: linux/amd64
@@ -189,9 +187,8 @@ services:
     networks:
       - dev
     depends_on:
-      redis:
-      elasticmq:
-        condition: service_healthy
+      - redis
+      - elasticmq
   presto-video:
     build: presto
     platform: linux/amd64
@@ -205,9 +202,8 @@ services:
     networks:
       - dev
     depends_on:
-      redis:
-      elasticmq:
-        condition: service_healthy
+      - redis
+      - elasticmq
   alegre:
     build: alegre
     ports:
