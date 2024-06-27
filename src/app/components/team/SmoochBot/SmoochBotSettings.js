@@ -10,6 +10,10 @@ const SmoochBotSettings = (props) => {
 
   return (
     <React.Fragment>
+      <div className={styles['setting-content-container-title']}>
+        <FormattedMessage id="smoochBotSettings.messagingPlatform" defaultMessage="Messaging Platforms" description="Title of available messaging platforms that can be connected in the tipline settings page" />
+      </div>
+
       <SmoochBotIntegrations
         settings={props.settings}
         schema={props.schema}

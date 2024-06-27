@@ -1,5 +1,25 @@
 [
   {
+    "id": "smoochBotResourceEditor.newResource",
+    "description": "Page title for creating a new resource for the tipline bot to deliver",
+    "defaultMessage": "Create New Resource"
+  },
+  {
+    "id": "smoochBotResourceEditor.editResource",
+    "description": "Page title for editing an existing resource for the tipline bot to deliver",
+    "defaultMessage": "Edit Resource"
+  },
+  {
+    "id": "smoochBotResourceEditor.save",
+    "description": "Label for action button to save a tipline resource.",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "smoochBotResourceEditor.create",
+    "description": "Label for action button to create a new tipline resource.",
+    "defaultMessage": "Create Resource"
+  },
+  {
     "id": "smoochBotResourceEditor.errorRssFeedUrl",
     "description": "Error message displayed when a user submits a form with a URL that the server does not recognize.",
     "defaultMessage": "RSS feed URL is invalid."
@@ -58,11 +78,6 @@
     "id": "smoochBotResourceEditor.rssFeed",
     "description": "Message on tipline resource settings page that explains how RSS feeds work there.",
     "defaultMessage": "Use an RSS feed to automatically load new content for your resource."
-  },
-  {
-    "id": "smoochBotResourceEditor.save",
-    "description": "Label for action button to save a tipline resource.",
-    "defaultMessage": "Save"
   },
   {
     "id": "smoochBotResourceEditor.delete",

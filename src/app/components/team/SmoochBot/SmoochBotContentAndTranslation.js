@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import TiplineContentTranslation from '../../cds/settings-pages/TiplineContentTranslation';
 import UploadFile from '../../UploadFile';
+import settingsStyles from '../Settings.module.css';
 
 const SmoochBotContentAndTranslation = ({
   value,
@@ -103,6 +104,9 @@ const SmoochBotContentAndTranslation = ({
 
   return (
     <>
+      <div className={settingsStyles['setting-content-container-title']}>
+        <FormattedMessage id="smoochBotContentAndTranslation.pageTitle" defaultMessage="Bot Content & Translations" description="Page title where users can customize the content that the tipline bot will respond with" />
+      </div>
       { strings.map(string => (
         <TiplineContentTranslation
           key={string.key}

@@ -17,7 +17,7 @@ import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
-import styles from '../Settings.module.css';
+import smoochBotStyles from './SmoochBot.module.css';
 
 const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }) => {
   const [copied, setCopied] = React.useState(null);
@@ -83,7 +83,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   </Box>
                   <Box display="flex" alignItems="center">
                     <TextField
-                      className={styles['smoochbot-component-input']}
+                      className={smoochBotStyles['smoochbot-component-input']}
                       variant="outlined"
                       defaultValue={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`}
                       InputProps={{
@@ -138,7 +138,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   <Box>
                     <Box display="flex" alignItems="flex-start">
                       <TextField
-                        className={styles['smoochbot-component-input']}
+                        className={smoochBotStyles['smoochbot-component-input']}
                         variant="outlined"
                         defaultValue={`<img src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}" />`}
                         disabled

@@ -17,7 +17,7 @@ const labels = {
 };
 
 const labelsV2 = {
-  smooch_settings: <FormattedMessage id="smoochBot.labelSettings" defaultMessage="Settings" description="Label for the bot settings area" />,
+  smooch_settings: <FormattedMessage id="smoochBot.labelSettings" defaultMessage="Platforms" description="Label for the bot platform settings area" />,
   smooch_main_menu: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main Menu" description="Label for the bot Main menu content area" />,
   smooch_content: <FormattedMessage id="smoochBot.labelContent" defaultMessage="Content & Translation" description="Button label in tipline settings page" />,
 };

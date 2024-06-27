@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { labelsV2 } from './localizables';
-import styles from '../Settings.module.css';
+import smoochBotStyles from './SmoochBot.module.css';
 
 const SmoochBotSidebar = ({
   userRole,
@@ -25,16 +25,17 @@ const SmoochBotSidebar = ({
           key={id}
           size="default"
           variant={currentOption === id ? 'contained' : 'text'}
-          theme={currentOption === id ? 'lightBrand' : 'lightText'}
+          theme="black"
           onClick={() => { handleClick(id); }}
           label={label}
+          className={smoochBotStyles.smoochBotMenuButton}
         />
       </li>
     );
   };
 
   return (
-    <ul className={styles.smoochBotMenu}>
+    <ul className={smoochBotStyles.smoochBotMenu}>
       {/* Menu options */}
       { Object.keys(labelsV2).map((key) => {
         const label = labelsV2[key];

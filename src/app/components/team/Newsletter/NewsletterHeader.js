@@ -5,6 +5,7 @@ import styles from './NewsletterComponent.module.css';
 import Select from '../../cds/inputs/Select';
 import LimitedTextField from '../../layout/inputs/LimitedTextField';
 import Upload from '../../cds/inputs/Upload';
+import inputStyles from '../../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
   headerTypeNone: {
@@ -57,7 +58,7 @@ const NewsletterHeader = ({
   onUpdateField,
   intl,
 }) => (
-  <div>
+  <div className={inputStyles['form-fieldset-field']}>
     <Select
       label={<FormattedMessage id="newsletterHeader.header" defaultMessage="Header" description="Label for the newsletter header type field" />}
       className={styles.select}

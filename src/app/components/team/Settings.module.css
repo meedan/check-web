@@ -85,17 +85,6 @@
     overflow: auto;
     padding: 16px 32px 32px;
 
-    .smoochBotMenu {
-      li {
-        margin: 0 0 8px;
-
-        button {
-          justify-content: start;
-          width: 100%;
-        }
-      }
-    }
-
     .setting-details-wrapper {
       max-width: var(--columnWidthLarge);
       width: 100%;
@@ -184,7 +173,12 @@
         .setting-content-container-inner {
           background-color: var(--color-beige-93);
           border-radius: 5px;
+          margin: 0 0 16px;
           padding: 16px;
+
+          &:last-of-type {
+            margin: 0;
+          }
         }
 
         .setting-content-container-inner-accent {
@@ -331,14 +325,6 @@
 
       .tipline-admin-settings {
         margin: 32px 0 0;
-
-        .setting-content-container-inner {
-          margin: 0 0 16px;
-
-          &:last-of-type {
-            margin: 0;
-          }
-        }
       }
     }
   }
@@ -348,10 +334,6 @@
   display: inline-block;
   max-width: 100px;
   padding: 10px;
-}
-
-.smoochbot-component-input {
-  min-width: 500px;
 }
 
 .bot-designer {

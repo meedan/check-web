@@ -162,4 +162,8 @@
       margin: 0;
     }
   }
+
+  + .form-fieldset {
+    margin: 16px 0 0;
+  }
 }

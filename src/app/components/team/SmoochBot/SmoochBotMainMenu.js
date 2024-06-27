@@ -4,6 +4,7 @@ import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-i
 import { languageLabel } from '../../../LanguageRegistry';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
 import Alert from '../../cds/alerts-and-prompts/Alert';
+import settingsStyles from '../Settings.module.css';
 
 const messages = defineMessages({
   privacyStatement: {
@@ -80,7 +81,7 @@ const SmoochBotMainMenu = ({
         />
         : null
       }
-      <div className="typography-subtitle2">
+      <div className={settingsStyles['setting-content-container-title']}>
         <FormattedMessage
           id="smoochBotMainMenu.optionsCounter"
           defaultMessage="{available}/{total} main menu options available"
@@ -91,7 +92,6 @@ const SmoochBotMainMenu = ({
           }}
         />
       </div>
-      <br />
       { collapseLanguages ?
         <Alert
           variant="warning"

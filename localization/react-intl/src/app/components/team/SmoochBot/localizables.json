@@ -56,8 +56,8 @@
   },
   {
     "id": "smoochBot.labelSettings",
-    "description": "Label for the bot settings area",
-    "defaultMessage": "Settings"
+    "description": "Label for the bot platform settings area",
+    "defaultMessage": "Platforms"
   },
   {
     "id": "smoochBot.labelContent",
