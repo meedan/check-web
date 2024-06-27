@@ -8,7 +8,6 @@
     flex: 1 1 auto;
     flex-direction: column;
     gap: 6px;
-    width: calc(100% - 175px);
     overflow: hidden;
   }
 
