@@ -49,40 +49,42 @@ const UserSettingsComponent = ({
       <div className={styles.listTitle}>
         {intl.formatMessage(messages.userSettings)}
       </div>
-      <ul className={styles.listWrapper}>
-        { isUserSelf ?
-          <>
-            <Link className={cx('user-settings__profile-tab', styles.linkList)} to="/check/me/profile" title={intl.formatMessage(messages.profile)}>
-              <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'profile' })}>
-                <div className={styles.listLabel}>
-                  {intl.formatMessage(messages.profile)}
-                </div>
-              </li>
-            </Link>
-            <Link className={cx('user-settings__privacy-tab', styles.linkList)} to="/check/me/privacy" title={intl.formatMessage(messages.privacy)}>
-              <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'privacy' })}>
-                <div className={styles.listLabel}>
-                  {intl.formatMessage(messages.privacy)}
-                </div>
-              </li>
-            </Link>
-            <Link className={cx('user-settings__security-tab', styles.linkList)} to="/check/me/security" title={intl.formatMessage(messages.security)}>
-              <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'security' })}>
-                <div className={styles.listLabel}>
-                  {intl.formatMessage(messages.security)}
-                </div>
-              </li>
-            </Link>
-          </> : null
-        }
-        <Link className={cx('user-settings__workspaces-tab', styles.linkList)} to="/check/me/workspaces" title={intl.formatMessage(messages.workspaces)}>
-          <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'workspaces' })}>
-            <div className={styles.listLabel}>
-              {intl.formatMessage(messages.workspaces)}
-            </div>
-          </li>
-        </Link>
-      </ul>
+      <div className={styles.listWrapperScrollWrapper}>
+        <ul className={styles.listWrapper}>
+          { isUserSelf ?
+            <>
+              <Link className={cx('user-settings__profile-tab', styles.linkList)} to="/check/me/profile" title={intl.formatMessage(messages.profile)}>
+                <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'profile' })}>
+                  <div className={styles.listLabel}>
+                    {intl.formatMessage(messages.profile)}
+                  </div>
+                </li>
+              </Link>
+              <Link className={cx('user-settings__privacy-tab', styles.linkList)} to="/check/me/privacy" title={intl.formatMessage(messages.privacy)}>
+                <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'privacy' })}>
+                  <div className={styles.listLabel}>
+                    {intl.formatMessage(messages.privacy)}
+                  </div>
+                </li>
+              </Link>
+              <Link className={cx('user-settings__security-tab', styles.linkList)} to="/check/me/security" title={intl.formatMessage(messages.security)}>
+                <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'security' })}>
+                  <div className={styles.listLabel}>
+                    {intl.formatMessage(messages.security)}
+                  </div>
+                </li>
+              </Link>
+            </> : null
+          }
+          <Link className={cx('user-settings__workspaces-tab', styles.linkList)} to="/check/me/workspaces" title={intl.formatMessage(messages.workspaces)}>
+            <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'workspaces' })}>
+              <div className={styles.listLabel}>
+                {intl.formatMessage(messages.workspaces)}
+              </div>
+            </li>
+          </Link>
+        </ul>
+      </div>
       <ul className={cx(styles.listWrapper, styles.listFooter)}>
         <li>
           <button

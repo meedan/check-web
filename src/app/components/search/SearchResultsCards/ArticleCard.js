@@ -23,6 +23,7 @@ const ArticleCard = ({
   teamName,
   languageCode,
   tags,
+  tagOptions,
   publishedAt,
   onChangeTags,
   variant,
@@ -53,6 +54,7 @@ const ArticleCard = ({
         <SharedItemCardFooter
           languageCode={languageCode}
           tags={tags}
+          tagOptions={tagOptions}
           onChangeTags={onChangeTags}
         />
       </div>
@@ -84,6 +86,7 @@ ArticleCard.defaultProps = {
   teamName: null,
   languageCode: null,
   tags: [],
+  tagOptions: null,
   variant: 'explainer',
   statusLabel: null,
   publishedAt: null,
@@ -100,6 +103,7 @@ ArticleCard.propTypes = {
   teamName: PropTypes.string,
   languageCode: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
+  tagOptions: PropTypes.arrayOf(PropTypes.string),
   publishedAt: PropTypes.number, // Timestamp
   onChangeTags: PropTypes.func.isRequired,
   variant: PropTypes.oneOf(['explainer', 'fact-check']),

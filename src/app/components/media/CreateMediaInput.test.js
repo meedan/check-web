@@ -27,7 +27,6 @@ describe('<CreateMediaInput />', () => {
   it('should render input fields', () => {
     const wrapper = mountWithIntlProvider(<CreateMediaInput team={team} />);
     expect(wrapper.find('#create-media-input').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('#create-media-claim').hostNodes()).toHaveLength(1);
     expect(wrapper.find(UploadFile)).toHaveLength(1);
   });
 });

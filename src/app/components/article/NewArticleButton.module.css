@@ -1,0 +1,21 @@
+.menuList {
+  align-items: center;
+  display: flex;
+  margin-top: 10px;
+
+  .menuItem {
+    &:hover {
+      background-color: var(--color-blue-98);
+      color: var(--color-blue-32);
+    }
+  }
+
+  .itemIcon {
+    margin-right: 8px;
+    min-width: fit-content !important;
+  }
+
+  .menuItem:hover .itemIcon {
+    color: var(--color-blue-32);
+  }
+}
