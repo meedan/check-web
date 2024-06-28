@@ -13,7 +13,6 @@ import PrevIcon from '../../icons/chevron_left.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import searchResultsStyles from './SearchResults.module.css';
-import Toolbar from './Toolbar';
 import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
@@ -524,104 +523,101 @@ function SearchResultsComponent({
           /> : null
         }
         { count > 0 ?
-          <Toolbar
-            resultType={resultType}
-            title={count ?
-              <span className={cx('search__results-heading', 'results', searchResultsStyles['search-results-heading'])}>
-                <div className={searchResultsStyles['search-results-bulk-actions']}>
-                  { resultType === 'default' && (
-                    <SelectAllTh
-                      className={searchResultsStyles.noBottomBorder}
-                      selectedIds={filteredSelectedProjectMediaIds}
-                      projectMedias={projectMedias}
-                      onChangeSelectedIds={handleChangeSelectedIds}
-                    />
+          <div className={cx(searchResultsStyles['search-results-toolbar'], 'toolbar', `toolbar__${resultType}`)}>
+            <span className={cx('search__results-heading', 'results', searchResultsStyles['search-results-heading'])}>
+              <div className={searchResultsStyles['search-results-bulk-actions']}>
+                { resultType === 'default' && (
+                  <SelectAllTh
+                    className={searchResultsStyles.noBottomBorder}
+                    selectedIds={filteredSelectedProjectMediaIds}
+                    projectMedias={projectMedias}
+                    onChangeSelectedIds={handleChangeSelectedIds}
+                  />
+                )}
+                { projectMedias.length && selectedProjectMedia.length ?
+                  <BulkActionsMenu
+                  /*
+                  FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
+                  below to contain the PM objects as the tagging mutation currently requires dbids and
+                  also for other requirements such as warning about published reports before bulk changing statuses
+                  additional data is needed.
+                  I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
+                  */
+                    team={team}
+                    page={page}
+                    selectedProjectMedia={selectedProjectMedia}
+                    selectedMedia={filteredSelectedProjectMediaIds}
+                    onUnselectAll={onUnselectAll}
+                  /> : null
+                }
+              </div>
+              { page === 'all-items' ? (
+                <Can {...perms}>
+                  <div className={searchResultsStyles['search-results-add-item']}>
+                    <CreateMedia search={search} team={team} />
+                  </div>
+                </Can>
+              ) : null}
+              <span className={searchResultsStyles['search-pagination']}>
+                <Tooltip title={
+                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+                }
+                >
+                  {getPreviousPageLocation() ? (
+                    <Link
+                      className={cx('search__previous-page', searchResultsStyles['search-nav'])}
+                      to={getPreviousPageLocation()}
+                    >
+                      <PrevIcon />
+                    </Link>
+                  ) : (
+                    <span className={cx('search__previous-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
+                      <PrevIcon />
+                    </span>
                   )}
-                  { projectMedias.length && selectedProjectMedia.length ?
-                    <BulkActionsMenu
-                    /*
-                    FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
-                    below to contain the PM objects as the tagging mutation currently requires dbids and
-                    also for other requirements such as warning about published reports before bulk changing statuses
-                    additional data is needed.
-                    I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
-                    */
-                      team={team}
-                      page={page}
-                      selectedProjectMedia={selectedProjectMedia}
-                      selectedMedia={filteredSelectedProjectMediaIds}
-                      onUnselectAll={onUnselectAll}
-                    /> : null
-                  }
-                </div>
-                { page === 'all-items' ? (
-                  <Can {...perms}>
-                    <div className={searchResultsStyles['search-results-add-item']}>
-                      <CreateMedia search={search} team={team} />
-                    </div>
-                  </Can>
-                ) : null}
-                <span className={searchResultsStyles['search-pagination']}>
-                  <Tooltip title={
-                    <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
-                  }
-                  >
-                    {getPreviousPageLocation() ? (
-                      <Link
-                        className={cx('search__previous-page', searchResultsStyles['search-nav'])}
-                        to={getPreviousPageLocation()}
-                      >
-                        <PrevIcon />
-                      </Link>
-                    ) : (
-                      <span className={cx('search__previous-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
-                        <PrevIcon />
-                      </span>
-                    )}
-                  </Tooltip>
-                  <span className="typography-button">
+                </Tooltip>
+                <span className="typography-button">
+                  <FormattedMessage
+                    id="searchResults.itemsCount"
+                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                    description="Pagination count of items returned"
+                    values={{
+                      from: getBeginIndex() + 1,
+                      to: getEndIndex(),
+                      count,
+                    }}
+                  />
+                  {filteredSelectedProjectMediaIds.length ?
                     <FormattedMessage
-                      id="searchResults.itemsCount"
-                      defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                      description="Pagination count of items returned"
+                      id="searchResults.withSelection"
+                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                      description="Label for number of selected items"
                       values={{
-                        from: getBeginIndex() + 1,
-                        to: getEndIndex(),
-                        count,
+                        selectedCount: filteredSelectedProjectMediaIds.length,
                       }}
-                    />
-                    {filteredSelectedProjectMediaIds.length ?
-                      <FormattedMessage
-                        id="searchResults.withSelection"
-                        defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                        description="Label for number of selected items"
-                        values={{
-                          selectedCount: filteredSelectedProjectMediaIds.length,
-                        }}
-                      >
-                        {txt => <span className={searchResultsStyles['search-selected']}>{txt}</span>}
-                      </FormattedMessage>
-                      : null
-                    }
-                  </span>
-                  <Tooltip title={
-                    <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+                    >
+                      {txt => <span className={searchResultsStyles['search-selected']}>{txt}</span>}
+                    </FormattedMessage>
+                    : null
                   }
-                  >
-                    {getNextPageLocation() ? (
-                      <span className={cx('search__next-page', searchResultsStyles['search-nav'])} onClick={() => handleNextPageClick()}>
-                        <NextIcon />
-                      </span>
-                    ) : (
-                      <span className={cx('search__next-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
-                        <NextIcon />
-                      </span>
-                    )}
-                  </Tooltip>
                 </span>
-              </span> : null
-            }
-          /> : null
+                <Tooltip title={
+                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+                }
+                >
+                  {getNextPageLocation() ? (
+                    <span className={cx('search__next-page', searchResultsStyles['search-nav'])} onClick={() => handleNextPageClick()}>
+                      <NextIcon />
+                    </span>
+                  ) : (
+                    <span className={cx('search__next-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
+                      <NextIcon />
+                    </span>
+                  )}
+                </Tooltip>
+              </span>
+            </span>
+          </div> : null
         }
         {content}
       </div>
