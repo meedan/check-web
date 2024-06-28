@@ -95,6 +95,9 @@ const ArticlesComponent = ({
     <React.Fragment>
       <div className={cx(searchResultsStyles['search-results-header'], styles.articlesHeader)}>
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
+          <div className={styles.searchHeaderSubtitle}>
+            &nbsp;
+          </div>
           <div className={searchResultsStyles.searchHeaderTitle}>
             <h6>
               {icon}
@@ -103,7 +106,7 @@ const ArticlesComponent = ({
           </div>
         </div>
       </div>
-      <div className={cx(searchResultsStyles['search-results-wrapper'], styles.articlesFilters)}>
+      <div className={cx(searchResultsStyles['search-results-top'], styles.articlesFilters)}>
         <ArticleFilters
           type={type}
           teamSlug={teamSlug}
@@ -116,7 +119,7 @@ const ArticlesComponent = ({
       </div>
       <div className={cx(searchResultsStyles['search-results-wrapper'], styles.articles)}>
         { articles.length > 0 ?
-          <div className={styles.articlesToolbar}>
+          <div className={searchResultsStyles['search-results-toolbar']}>
             <ListSort
               sort={sort}
               sortType={sortType}

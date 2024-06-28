@@ -21,16 +21,6 @@
   padding: 16px;
 }
 
-.articlesToolbar {
-  background: var(--color-white-100);
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 0;
-  position: sticky;
-  top: 0;
-  z-index: 0;
-}
-
 .articlesList {
   display: flex;
   flex-direction: column;

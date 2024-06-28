@@ -12,7 +12,7 @@ import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import styles from './SearchResults.module.css';
+import searchResultsStyles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
 import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
@@ -364,7 +364,7 @@ function SearchResultsComponent({
         />
         { page === 'all-items' ?
           <Can permissions={team.permissions} permission="create ProjectMedia">
-            <div className={styles['no-search-results-add']}>
+            <div className={searchResultsStyles['no-search-results-add']}>
               <CreateMedia search={search} team={team} />
             </div>
           </Can> : null }
@@ -386,7 +386,7 @@ function SearchResultsComponent({
         projectMedias={projectMedias}
       />
     ) : (
-      <div className={styles['search-results-scroller']}>
+      <div className={searchResultsStyles['search-results-scroller']}>
         { projectMedias.map(item => (
           <ClusterCard
             key={item.id}
@@ -422,12 +422,14 @@ function SearchResultsComponent({
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
 
+  const perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
+
   return (
     <React.Fragment>
-      <div className={styles['search-results-header']}>
+      <div className={searchResultsStyles['search-results-header']}>
         <div className="search__list-header-filter-row">
-          <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
-            <div className={styles.searchHeaderSubtitle}>
+          <div className={cx('project__title', searchResultsStyles.searchResultsTitleWrapper)}>
+            <div className={searchResultsStyles.searchHeaderSubtitle}>
               { listSubtitle ?
                 <>
                   {listSubtitle}
@@ -438,13 +440,13 @@ function SearchResultsComponent({
                 </>
               }
             </div>
-            <div className={cx('project__title-text', styles.searchHeaderTitle)}>
+            <div className={cx('project__title-text', searchResultsStyles.searchHeaderTitle)}>
               <h6>
                 {icon}
                 {title}
               </h6>
               { (savedSearch?.is_part_of_feeds || listActions) &&
-                <div className={styles.searchHeaderActions}>
+                <div className={searchResultsStyles.searchHeaderActions}>
                   { savedSearch?.is_part_of_feeds ?
                     <Tooltip
                       title={
@@ -464,7 +466,7 @@ function SearchResultsComponent({
                       arrow
                     >
                       <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
-                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SharedFeedIcon />} className={styles.searchHeaderActionButton} />
+                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SharedFeedIcon />} className={searchResultsStyles.searchHeaderActionButton} />
                       </span>
                     </Tooltip>
                     :
@@ -485,8 +487,8 @@ function SearchResultsComponent({
           />
         </div>
       </div>
-      <div className={cx('search__results-top', styles['search-results-top'])}>
-        { extra ? <div className={styles['search-results-top-extra']}>{extra(stateQuery)}</div> : null }
+      <div className={cx('search__results-top', searchResultsStyles['search-results-top'])}>
+        { extra ? <div className={searchResultsStyles['search-results-top-extra']}>{extra(stateQuery)}</div> : null }
         <SearchFields
           stateQuery={stateQuery}
           appliedQuery={appliedQuery}
@@ -505,7 +507,7 @@ function SearchResultsComponent({
           handleSubmit={handleSubmit}
         />
       </div>
-      <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
+      <div className={cx('search__results', 'results', searchResultsStyles['search-results-wrapper'])}>
         { tooManyResults ?
           <Alert
             contained
@@ -524,31 +526,55 @@ function SearchResultsComponent({
         { count > 0 ?
           <Toolbar
             resultType={resultType}
-            team={team}
             title={count ?
-              <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
-                { resultType === 'default' && (
-                  <SelectAllTh
-                    className={styles.noBottomBorder}
-                    selectedIds={filteredSelectedProjectMediaIds}
-                    projectMedias={projectMedias}
-                    onChangeSelectedIds={handleChangeSelectedIds}
-                  />
-                )}
-                <span className={styles['search-pagination']}>
+              <span className={cx('search__results-heading', 'results', searchResultsStyles['search-results-heading'])}>
+                <div className={searchResultsStyles['search-results-bulk-actions']}>
+                  { resultType === 'default' && (
+                    <SelectAllTh
+                      className={searchResultsStyles.noBottomBorder}
+                      selectedIds={filteredSelectedProjectMediaIds}
+                      projectMedias={projectMedias}
+                      onChangeSelectedIds={handleChangeSelectedIds}
+                    />
+                  )}
+                  { projectMedias.length && selectedProjectMedia.length ?
+                    <BulkActionsMenu
+                    /*
+                    FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
+                    below to contain the PM objects as the tagging mutation currently requires dbids and
+                    also for other requirements such as warning about published reports before bulk changing statuses
+                    additional data is needed.
+                    I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
+                    */
+                      team={team}
+                      page={page}
+                      selectedProjectMedia={selectedProjectMedia}
+                      selectedMedia={filteredSelectedProjectMediaIds}
+                      onUnselectAll={onUnselectAll}
+                    /> : null
+                  }
+                </div>
+                { page === 'all-items' ? (
+                  <Can {...perms}>
+                    <div className={searchResultsStyles['search-results-add-item']}>
+                      <CreateMedia search={search} team={team} />
+                    </div>
+                  </Can>
+                ) : null}
+                <span className={searchResultsStyles['search-pagination']}>
                   <Tooltip title={
                     <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
                   }
                   >
                     {getPreviousPageLocation() ? (
                       <Link
-                        className={cx('search__previous-page', styles['search-nav'])}
+                        className={cx('search__previous-page', searchResultsStyles['search-nav'])}
                         to={getPreviousPageLocation()}
                       >
                         <PrevIcon />
                       </Link>
                     ) : (
-                      <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
+                      <span className={cx('search__previous-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
                         <PrevIcon />
                       </span>
                     )}
@@ -573,7 +599,7 @@ function SearchResultsComponent({
                           selectedCount: filteredSelectedProjectMediaIds.length,
                         }}
                       >
-                        {txt => <span className={styles['search-selected']}>{txt}</span>}
+                        {txt => <span className={searchResultsStyles['search-selected']}>{txt}</span>}
                       </FormattedMessage>
                       : null
                     }
@@ -583,36 +609,18 @@ function SearchResultsComponent({
                   }
                   >
                     {getNextPageLocation() ? (
-                      <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
+                      <span className={cx('search__next-page', searchResultsStyles['search-nav'])} onClick={() => handleNextPageClick()}>
                         <NextIcon />
                       </span>
                     ) : (
-                      <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
+                      <span className={cx('search__next-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
                         <NextIcon />
                       </span>
                     )}
                   </Tooltip>
                 </span>
-                { projectMedias.length && selectedProjectMedia.length ?
-                  <BulkActionsMenu
-                  /*
-                  FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
-                  below to contain the PM objects as the tagging mutation currently requires dbids and
-                  also for other requirements such as warning about published reports before bulk changing statuses
-                  additional data is needed.
-                  I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
-                  */
-                    team={team}
-                    page={page}
-                    selectedProjectMedia={selectedProjectMedia}
-                    selectedMedia={filteredSelectedProjectMediaIds}
-                    onUnselectAll={onUnselectAll}
-                  /> : null
-                }
               </span> : null
             }
-            page={page}
-            search={search}
           /> : null
         }
         {content}
