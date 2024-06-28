@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
-import cx from 'classnames/bind';
 import Divider from '@material-ui/core/Divider';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddFilterMenu from '../search/AddFilterMenu';
@@ -15,7 +14,6 @@ import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import LabelIcon from '../../icons/label.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
-import styles from '../search/SearchResults.module.css';
 import searchStyles from '../search/search.module.css';
 
 const messages = defineMessages({
@@ -38,7 +36,6 @@ const ArticleFilters = ({
   currentFilters,
   teamSlug,
   statuses,
-  className,
   extra,
   intl,
 }) => {
@@ -92,7 +89,7 @@ const ArticleFilters = ({
   );
 
   return (
-    <div className={cx(styles['search-results-top'], className)}>
+    <>
       { extra ? <div className={searchStyles['filters-wrapper']}>{extra}</div> : null }
       <div className={searchStyles['filters-wrapper']}>
         {Object.keys(filters).map((filter, i) => {
@@ -291,14 +288,13 @@ const ArticleFilters = ({
           </>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
 ArticleFilters.defaultProps = {
   filterOptions: [],
   currentFilters: {},
-  className: '',
   extra: null,
 };
 
@@ -312,7 +308,6 @@ ArticleFilters.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  className: PropTypes.string,
   extra: PropTypes.node,
   intl: intlShape.isRequired,
 };
