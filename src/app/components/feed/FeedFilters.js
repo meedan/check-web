@@ -4,7 +4,6 @@ import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import cx from 'classnames/bind';
-import Divider from '@material-ui/core/Divider';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ListSort, { sortLabels } from '../cds/inputs/ListSort';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
@@ -16,7 +15,6 @@ import DateRangeFilter from '../search/DateRangeFilter';
 import MultiSelectFilter from '../search/MultiSelectFilter';
 import SearchFieldChannel from '../search/SearchFields/SearchFieldChannel';
 import { withSetFlashMessage } from '../FlashMessage';
-import styles from '../search/SearchResults.module.css';
 import searchStyles from '../search/search.module.css';
 
 const messages = defineMessages({
@@ -56,7 +54,6 @@ const FeedFilters = ({
   currentFilters,
   feed,
   feedTeam,
-  className,
   disableSave,
   extra,
   intl,
@@ -174,7 +171,7 @@ const FeedFilters = ({
   }
 
   return (
-    <div className={cx(styles['search-results-top'], className)}>
+    <>
       { extra ? <div className={searchStyles['filters-wrapper']}>{extra}</div> : null }
       <div className={searchStyles['filters-wrapper']}>
         <ListSort
@@ -283,35 +280,37 @@ const FeedFilters = ({
           addedFields={Object.keys(filters)}
           onSelect={handleAddFilter}
         />
-        <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
         { Object.keys(filters).length > 0 ?
-          <ButtonMain
-            className="int-search-fields__button--apply-feedfilter"
-            variant="contained"
-            size="default"
-            theme="lightValidation"
-            onClick={handleSubmit}
-            label={
-              <FormattedMessage id="feedFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
-            }
-            buttonProps={{
-              id: 'search-fields__submit-button',
-            }}
-          /> : null }
-        <ButtonMain
-          className="int-search-fields__button--reset-feedfilter"
-          variant="contained"
-          size="default"
-          theme="lightText"
-          onClick={handleClear}
-          label={
-            <FormattedMessage id="feedFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
-          }
-          buttonProps={{
-            id: 'search-fields__clear-button',
-          }}
-        />
-        { !disableSave ?
+          <div className={cx(searchStyles['filters-buttons-wrapper'], searchStyles['filters-buttons-wrapper-visible'])}>
+            <ButtonMain
+              className="int-search-fields__button--apply-feedfilter"
+              variant="contained"
+              size="default"
+              theme="lightValidation"
+              onClick={handleSubmit}
+              label={
+                <FormattedMessage id="feedFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
+              }
+              buttonProps={{
+                id: 'search-fields__submit-button',
+              }}
+            />
+            <ButtonMain
+              className="int-search-fields__button--reset-feedfilter"
+              variant="contained"
+              size="default"
+              theme="lightText"
+              onClick={handleClear}
+              label={
+                <FormattedMessage id="feedFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
+              }
+              buttonProps={{
+                id: 'search-fields__clear-button',
+              }}
+            />
+          </div>
+          : null }
+        { disableSave ?
           <ButtonMain
             variant="contained"
             size="default"
@@ -330,14 +329,13 @@ const FeedFilters = ({
           />
           : null }
       </div>
-    </div>
+    </>
   );
 };
 
 FeedFilters.defaultProps = {
   filterOptions: [],
   currentFilters: {},
-  className: '',
   disableSave: false,
   extra: null,
 };
@@ -350,7 +348,6 @@ FeedFilters.propTypes = {
     requests_filters: PropTypes.object,
   }).isRequired,
   onSubmit: PropTypes.func.isRequired,
-  className: PropTypes.string,
   disableSave: PropTypes.bool,
   extra: PropTypes.node,
   intl: intlShape.isRequired,

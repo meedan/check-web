@@ -116,13 +116,14 @@
   .search-results-toolbar {
     align-items: center;
     display: flex;
+    justify-content: space-between;
     margin: 16px;
     min-height: 38px;
 
     .search-results-add-item {
       display: flex;
       flex: 1 1 100%;
-      justify-content: flex-end;
+      justify-content: center;
     }
   }
 
@@ -132,7 +133,14 @@
     display: flex;
     flex: 1 1 auto;
     gap: 16px;
+    justify-content: space-between;
     text-align: center;
+
+    .search-results-bulk-actions {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+    }
 
     .search-selected {
       color: var(--color-blue-54);

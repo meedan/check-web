@@ -2,95 +2,95 @@
   align-items: center;
   display: grid;
   grid-template-columns: auto 1fr;
-}
 
-.feedTopBar {
-  align-items: center;
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 6px;
-
-  .feedTopBarItem {
+  .feedTopBarLeft {
     align-items: center;
-    border: 2px solid var(--color-blue-54);
-    border-radius: 6px;
     display: inline-flex;
+    flex-wrap: wrap;
     gap: 12px;
     padding: 6px;
-  }
 
-  .feedTopBarButton {
-    background-color: transparent;
-    cursor: pointer;
-
-    &:hover:not(:has(*:hover.feedListIcon)) {
-      background-color: var(--color-blue-98);
-    }
-  }
-
-  .feedTopBarButtonDisabled {
-    background-color: transparent;
-    border: 2px solid var(--color-gray-88);
-    cursor: pointer;
-
-    &:hover:not(:has(*:hover.feedListIcon)) {
-      background-color: var(--color-gray-88);
-      border: 2px solid var(--color-gray-75);
+    .feedTopBarItem {
+      align-items: center;
+      border: 2px solid var(--color-blue-54);
+      border-radius: 6px;
+      display: inline-flex;
+      gap: 12px;
+      padding: 6px;
     }
 
-    .feedListTitle {
-      opacity: .2;
-    }
+    .feedTopBarButton {
+      background-color: transparent;
+      cursor: pointer;
 
-    .feedListAvatar {
-      opacity: .2;
-    }
-  }
-
-  .feedTopBarButtonHasList {
-    padding: 6px 42px 6px 6px;
-  }
-
-  .feedTopBarCustomListButton {
-    position: absolute;
-    right: 6px;
-    top: 6px;
-  }
-
-  .feedTopBarList {
-    align-items: center;
-    display: flex;
-
-    .feedListTitle {
-      @mixin text-truncate inline-block;
-      color: var(--color-gray-15);
-      max-width: 250px;
-    }
-
-    .feedListIcon {
-      background-color: var(--color-gray-96);
-      border-radius: 8px;
-      color: var(--color-gray-37);
-      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-      font-size: 16px;
-      margin-left: 8px;
-
-      &:hover {
-        background-color: var(--color-gray-88);
+      &:hover:not(:has(*:hover.feedListIcon)) {
+        background-color: var(--color-blue-98);
       }
     }
+
+    .feedTopBarButtonDisabled {
+      background-color: transparent;
+      border: 2px solid var(--color-gray-88);
+      cursor: pointer;
+
+      &:hover:not(:has(*:hover.feedListIcon)) {
+        background-color: var(--color-gray-88);
+        border: 2px solid var(--color-gray-75);
+      }
+
+      .feedListTitle {
+        opacity: .2;
+      }
+
+      .feedListAvatar {
+        opacity: .2;
+      }
+    }
+
+    .feedTopBarButtonHasList {
+      padding: 6px 42px 6px 6px;
+    }
+
+    .feedTopBarCustomListButton {
+      position: absolute;
+      right: 6px;
+      top: 6px;
+    }
+
+    .feedTopBarList {
+      align-items: center;
+      display: flex;
+
+      .feedListTitle {
+        @mixin text-truncate inline-block;
+        color: var(--color-gray-15);
+        max-width: 250px;
+      }
+
+      .feedListIcon {
+        background-color: var(--color-gray-96);
+        border-radius: 8px;
+        color: var(--color-gray-37);
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        font-size: 16px;
+        margin-left: 8px;
+
+        &:hover {
+          background-color: var(--color-gray-88);
+        }
+      }
+    }
+
+    .feedNoListTitle {
+      color: var(--color-gray-75);
+      font-style: italic;
+    }
   }
 
-  .feedNoListTitle {
-    color: var(--color-gray-75);
-    font-style: italic;
+  .feedTopBarRight {
+    display: inline-flex;
+    justify-content: flex-end;
   }
-}
-
-.feedTopBarRight {
-  display: inline-flex;
-  justify-content: flex-end;
 }
 
 .quickFilterHeader {

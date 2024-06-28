@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import cx from 'classnames/bind';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import BlankState from '../layout/BlankState';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
-import searchResultsStyles from '../search/SearchResults.module.css';
 import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
 import MediasLoading from '../media/MediasLoading';
 import ArticleFilters from './ArticleFilters';
-import styles from './Articles.module.css';
+import searchResultsStyles from '../search/SearchResults.module.css';
 
 const pageSize = 50;
 
@@ -93,8 +91,11 @@ const ArticlesComponent = ({
 
   return (
     <React.Fragment>
-      <div className={cx(searchResultsStyles['search-results-header'], styles.articlesHeader)}>
+      <div className={searchResultsStyles['search-results-header']}>
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
+          <div className={searchResultsStyles.searchHeaderSubtitle}>
+            &nbsp;
+          </div>
           <div className={searchResultsStyles.searchHeaderTitle}>
             <h6>
               {icon}
@@ -103,20 +104,19 @@ const ArticlesComponent = ({
           </div>
         </div>
       </div>
-      <div className={cx(searchResultsStyles['search-results-wrapper'], styles.articlesFilters)}>
+      <div className={searchResultsStyles['search-results-top']}>
         <ArticleFilters
           type={type}
           teamSlug={teamSlug}
           filterOptions={filterOptions}
           currentFilters={{ ...filters, article_type: type }}
           statuses={statuses.statuses}
-          className={styles.articleFilterBar}
           onSubmit={handleChangeFilters}
         />
       </div>
-      <div className={cx(searchResultsStyles['search-results-wrapper'], styles.articles)}>
+      <div className={searchResultsStyles['search-results-wrapper']}>
         { articles.length > 0 ?
-          <div className={styles.articlesToolbar}>
+          <div className={searchResultsStyles['search-results-toolbar']}>
             <ListSort
               sort={sort}
               sortType={sortType}
@@ -145,7 +145,7 @@ const ArticlesComponent = ({
           : null
         }
 
-        <div className={styles.articlesList}>
+        <div className={searchResultsStyles['search-results-scroller']}>
           {articles.map((article) => {
             let currentStatus = null;
             if (article.claim_description?.project_media?.status) {

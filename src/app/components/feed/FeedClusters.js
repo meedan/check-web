@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
-import cx from 'classnames/bind';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import Paginator from '../cds/inputs/Paginator';
@@ -15,7 +14,7 @@ import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
-import styles from './FeedClusters.module.css';
+import searchStyles from '../search/search.module.css';
 import MediasLoading from '../media/MediasLoading';
 
 const pageSize = 50;
@@ -61,7 +60,7 @@ const FeedClustersComponent = ({
 
   return (
     <React.Fragment>
-      <div className={cx(searchResultsStyles['search-results-header'], styles.feedClustersHeader)}>
+      <div className={searchResultsStyles['search-results-header']}>
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
             <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />
@@ -79,7 +78,7 @@ const FeedClustersComponent = ({
           </div>
         </div>
       </div>
-      <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClustersFilters)}>
+      <div className={searchResultsStyles['search-results-top']}>
         <FeedTopBar
           team={team}
           feed={feed}
@@ -95,13 +94,13 @@ const FeedClustersComponent = ({
           filterOptions={['channels', 'range', 'linked_items_count', 'show', 'demand']}
           currentFilters={otherFilters}
           feedTeam={{ id: feedTeam.id }}
-          className={styles.feedClustersFilterBar}
+          className={searchStyles['filters-wrapper']}
           disableSave
         />
       </div>
-      <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClusters)}>
+      <div className={searchResultsStyles['search-results-wrapper']}>
         { clusters.length > 0 ?
-          <div className={styles.feedClustersToolbar}>
+          <div className={searchResultsStyles['search-results-toolbar']}>
             <Paginator
               page={page}
               pageSize={pageSize}
@@ -122,7 +121,7 @@ const FeedClustersComponent = ({
           : null
         }
 
-        <div className={styles.feedClustersList}>
+        <div className={searchResultsStyles['search-results-scroller']}>
           {clusters.map((cluster) => {
             const { media } = cluster.center;
             const channels = cluster.channels.filter(channel => Object.values(CheckChannels.TIPLINE).includes(channel.toString()));

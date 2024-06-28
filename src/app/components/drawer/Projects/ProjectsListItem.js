@@ -88,7 +88,7 @@ ProjectsListItem.propTypes = {
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
   className: PropTypes.string,
-  tooltip: PropTypes.element,
+  tooltip: PropTypes.node,
 };
 
 export default ProjectsListItem;
