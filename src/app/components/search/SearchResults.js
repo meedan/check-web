@@ -421,7 +421,7 @@ function SearchResultsComponent({
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
 
-  const perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
+  const perms = { permissions: team?.permissions, permission: 'create ProjectMedia' };
 
   return (
     <React.Fragment>
