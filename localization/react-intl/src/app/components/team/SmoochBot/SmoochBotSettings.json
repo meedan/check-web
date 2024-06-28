@@ -1,5 +1,10 @@
 [
   {
+    "id": "smoochBotSettings.messagingPlatform",
+    "description": "Title of available messaging platforms that can be connected in the tipline settings page",
+    "defaultMessage": "Messaging Platforms"
+  },
+  {
     "id": "smoochBotSettings.internalSettings",
     "description": "Title of Internal Settings section in the tipline settings page",
     "defaultMessage": "Internal settings"
