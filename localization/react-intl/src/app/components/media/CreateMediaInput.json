@@ -1,10 +1,5 @@
 [
   {
-    "id": "createMedia.media.media",
-    "description": "Header for the claim media area",
-    "defaultMessage": "Media"
-  },
-  {
     "id": "createMedia.mediaInput",
     "description": "Placeholder text for the media URL input",
     "defaultMessage": "Add a URL to a social media post or webpage, or a block of text."
