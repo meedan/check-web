@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
-import Divider from '@material-ui/core/Divider';
+import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddFilterMenu from '../search/AddFilterMenu';
 import MultiSelectFilter from '../search/MultiSelectFilter';
@@ -257,8 +257,7 @@ const ArticleFilters = ({
           onSelect={handleAddFilter}
         />
         { Object.keys(filters).length > 1 && ( // Filter by article type is fixed
-          <>
-            <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
+          <div className={cx(searchStyles['filters-buttons-wrapper'], searchStyles['filters-buttons-wrapper-visible'])}>
             <ButtonMain
               className="int-search-fields__button--apply-articlefilter"
               variant="contained"
@@ -285,7 +284,7 @@ const ArticleFilters = ({
                 id: 'search-fields__clear-button',
               }}
             />
-          </>
+          </div>
         )}
       </div>
     </>
