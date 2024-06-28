@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import cx from 'classnames/bind';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import BlankState from '../layout/BlankState';
@@ -105,7 +104,7 @@ const ArticlesComponent = ({
           </div>
         </div>
       </div>
-      <div className={cx(searchResultsStyles['search-results-top'])}>
+      <div className={searchResultsStyles['search-results-top']}>
         <ArticleFilters
           type={type}
           teamSlug={teamSlug}
