@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
-import cx from 'classnames/bind';
 import Divider from '@material-ui/core/Divider';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ListSort, { sortLabels } from '../cds/inputs/ListSort';
@@ -16,7 +15,6 @@ import DateRangeFilter from '../search/DateRangeFilter';
 import MultiSelectFilter from '../search/MultiSelectFilter';
 import SearchFieldChannel from '../search/SearchFields/SearchFieldChannel';
 import { withSetFlashMessage } from '../FlashMessage';
-import styles from '../search/SearchResults.module.css';
 import searchStyles from '../search/search.module.css';
 
 const messages = defineMessages({
@@ -56,7 +54,6 @@ const FeedFilters = ({
   currentFilters,
   feed,
   feedTeam,
-  className,
   disableSave,
   extra,
   intl,
@@ -174,7 +171,7 @@ const FeedFilters = ({
   }
 
   return (
-    <div className={cx(styles['search-results-top'], className)}>
+    <>
       { extra ? <div className={searchStyles['filters-wrapper']}>{extra}</div> : null }
       <div className={searchStyles['filters-wrapper']}>
         <ListSort
@@ -330,14 +327,13 @@ const FeedFilters = ({
           />
           : null }
       </div>
-    </div>
+    </>
   );
 };
 
 FeedFilters.defaultProps = {
   filterOptions: [],
   currentFilters: {},
-  className: '',
   disableSave: false,
   extra: null,
 };
@@ -350,7 +346,6 @@ FeedFilters.propTypes = {
     requests_filters: PropTypes.object,
   }).isRequired,
   onSubmit: PropTypes.func.isRequired,
-  className: PropTypes.string,
   disableSave: PropTypes.bool,
   extra: PropTypes.node,
   intl: intlShape.isRequired,
