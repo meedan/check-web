@@ -40,6 +40,7 @@ const ChooseExistingArticleButton = ({ teamSlug, onAdd }) => {
   return (
     <>
       <ButtonMain
+        className="choose-existing-article-button__open-slideout"
         variant="contained"
         size="small"
         theme="text"
