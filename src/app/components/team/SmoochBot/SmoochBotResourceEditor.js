@@ -28,6 +28,11 @@ const messages = defineMessages({
     defaultMessage: 'Edit Resource',
     description: 'Page title for editing an existing resource for the tipline bot to deliver',
   },
+  newResourceDescription: {
+    id: 'smoochBotResourceEditor.newResourceDescription',
+    defaultMessage: 'Add multimedia content as a response to a Tipline Menu option by adding a new resource.',
+    description: 'Page description for adding a new tipline resource',
+  },
   saveResource: {
     id: 'smoochBotResourceEditor.save',
     defaultMessage: 'Save',
@@ -337,6 +342,7 @@ const SmoochBotResourceEditorComponent = (props) => {
       <div className={settingsStyles['setting-content-container-title']}>
         <span>{resource.id ? intl.formatMessage(messages.editResource) : intl.formatMessage(messages.newResource)}</span>
       </div>
+      <p>{resource.id ? null : intl.formatMessage(messages.newResourceDescription)}</p>
       <div className={settingsStyles['setting-content-container-inner']}>
         <div className={inputStyles['form-fieldset']}>
           <TextField

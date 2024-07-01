@@ -10,6 +10,11 @@
     "defaultMessage": "Edit Resource"
   },
   {
+    "id": "smoochBotResourceEditor.newResourceDescription",
+    "description": "Page description for adding a new tipline resource",
+    "defaultMessage": "Add multimedia content as a response to a Tipline Menu option by adding a new resource."
+  },
+  {
     "id": "smoochBotResourceEditor.save",
     "description": "Label for action button to save a tipline resource.",
     "defaultMessage": "Save"
