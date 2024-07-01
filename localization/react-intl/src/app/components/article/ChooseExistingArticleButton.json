@@ -1,0 +1,17 @@
+[
+  {
+    "id": "chooseExistingArticleButton.title",
+    "description": "Label for the button to find an article.",
+    "defaultMessage": "Choose an existing article"
+  },
+  {
+    "id": "chooseExistingArticleButton.search",
+    "description": "Label for the search field to find an article.",
+    "defaultMessage": "Search by article title or summary"
+  },
+  {
+    "id": "chooseExistingArticleButton.recentArticles",
+    "description": "Label for the list of articles.",
+    "defaultMessage": "Recent Articles"
+  }
+]

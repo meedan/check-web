@@ -4,14 +4,15 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import ChooseExistingArticleButton from './ChooseExistingArticleButton';
+import NewArticleButton from './NewArticleButton';
+import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
-import NewArticleButton from './NewArticleButton';
 import DescriptionIcon from '../../icons/description.svg';
-import { FlashMessageSetterContext } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
-import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
 import styles from './Articles.module.css';
 // eslint-disable-next-line no-unused-vars
 import ArticleForm from './ArticleForm'; // For GraphQL fragment
@@ -116,6 +117,7 @@ const MediaArticlesComponent = ({
   return (
     <div id="articles-sidebar" className={styles.articlesSidebar}>
       <div className={styles.articlesSidebarTopBar}>
+        <ChooseExistingArticleButton teamSlug={team.slug} onAdd={handleAdd} />
         {/* FIXME: Make sure the form can receive the right reference for the current item */}
         <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} />
       </div>

@@ -27,15 +27,15 @@ MediaArticlesTeamArticlesComponent.propTypes = {
 
 const numberOfArticles = 30;
 
-const MediaArticlesTeamArticles = ({ teamSlug, onAdd }) => (
+const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
   <ErrorBoundary component="MediaArticlesTeamArticles">
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query MediaArticlesTeamArticlesQuery($slug: String!, $numberOfArticles: Int!) {
+        query MediaArticlesTeamArticlesQuery($slug: String!, $textSearch: String!, $numberOfArticles: Int!) {
           team(slug: $slug) {
             ...MediaArticlesCard_team
-            factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", standalone: true) {
+            factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", text: $textSearch, standalone: true) {
               edges {
                 node {
                   ... on FactCheck {
@@ -45,7 +45,7 @@ const MediaArticlesTeamArticles = ({ teamSlug, onAdd }) => (
                 }
               }
             }
-            explainers: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "explainer") {
+            explainers: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "explainer", text: $textSearch) {
               edges {
                 node {
                   ... on Explainer {
@@ -59,6 +59,7 @@ const MediaArticlesTeamArticles = ({ teamSlug, onAdd }) => (
         }
       `}
       variables={{
+        textSearch,
         slug: teamSlug,
         numberOfArticles,
       }}
@@ -77,8 +78,13 @@ const MediaArticlesTeamArticles = ({ teamSlug, onAdd }) => (
   </ErrorBoundary>
 );
 
+MediaArticlesTeamArticles.defaultProps = {
+  textSearch: '',
+};
+
 MediaArticlesTeamArticles.propTypes = {
   teamSlug: PropTypes.string.isRequired,
+  textSearch: PropTypes.string,
   onAdd: PropTypes.func.isRequired,
 };
 
