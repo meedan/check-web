@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
@@ -10,10 +11,7 @@ import styles from './ChooseExistingArticleButton.module.css';
 
 let lastTypedValue = '';
 
-const ChooseExistingArticleButton = ({
-  teamSlug,
-  onAdd,
-}) => {
+const ChooseExistingArticleButton = ({ teamSlug, onAdd }) => {
   const [openSlideout, setOpenSlideout] = React.useState(false);
   const [search, setSearch] = React.useState('');
 
@@ -87,6 +85,11 @@ const ChooseExistingArticleButton = ({
       )}
     </>
   );
+};
+
+ChooseExistingArticleButton.propTypes = {
+  teamSlug: PropTypes.string.isRequired,
+  onAdd: PropTypes.func.isRequired,
 };
 
 export default ChooseExistingArticleButton;
