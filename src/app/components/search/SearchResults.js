@@ -12,8 +12,6 @@ import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import styles from './SearchResults.module.css';
-import Toolbar from './Toolbar';
 import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
@@ -26,6 +24,7 @@ import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
+import searchResultsStyles from './SearchResults.module.css';
 
 /**
  * Delete `esoffset`, `timestamp` and `channels` -- whenever
@@ -364,7 +363,7 @@ function SearchResultsComponent({
         />
         { page === 'all-items' ?
           <Can permissions={team.permissions} permission="create ProjectMedia">
-            <div className={styles['no-search-results-add']}>
+            <div className={searchResultsStyles['no-search-results-add']}>
               <CreateMedia search={search} team={team} />
             </div>
           </Can> : null }
@@ -386,7 +385,7 @@ function SearchResultsComponent({
         projectMedias={projectMedias}
       />
     ) : (
-      <div className={styles['search-results-scroller']}>
+      <div className={searchResultsStyles['search-results-scroller']}>
         { projectMedias.map(item => (
           <ClusterCard
             key={item.id}
@@ -422,12 +421,14 @@ function SearchResultsComponent({
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
 
+  const perms = { permissions: team?.permissions, permission: 'create ProjectMedia' };
+
   return (
     <React.Fragment>
-      <div className={styles['search-results-header']}>
+      <div className={searchResultsStyles['search-results-header']}>
         <div className="search__list-header-filter-row">
-          <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
-            <div className={styles.searchHeaderSubtitle}>
+          <div className={cx('project__title', searchResultsStyles.searchResultsTitleWrapper)}>
+            <div className={searchResultsStyles.searchHeaderSubtitle}>
               { listSubtitle ?
                 <>
                   {listSubtitle}
@@ -438,13 +439,13 @@ function SearchResultsComponent({
                 </>
               }
             </div>
-            <div className={cx('project__title-text', styles.searchHeaderTitle)}>
+            <div className={cx('project__title-text', searchResultsStyles.searchHeaderTitle)}>
               <h6>
                 {icon}
                 {title}
               </h6>
               { (savedSearch?.is_part_of_feeds || listActions) &&
-                <div className={styles.searchHeaderActions}>
+                <div className={searchResultsStyles.searchHeaderActions}>
                   { savedSearch?.is_part_of_feeds ?
                     <Tooltip
                       title={
@@ -464,7 +465,7 @@ function SearchResultsComponent({
                       arrow
                     >
                       <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
-                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SharedFeedIcon />} className={styles.searchHeaderActionButton} />
+                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SharedFeedIcon />} className={searchResultsStyles.searchHeaderActionButton} />
                       </span>
                     </Tooltip>
                     :
@@ -485,8 +486,8 @@ function SearchResultsComponent({
           />
         </div>
       </div>
-      <div className={cx('search__results-top', styles['search-results-top'])}>
-        { extra ? <div className={styles['search-results-top-extra']}>{extra(stateQuery)}</div> : null }
+      <div className={cx('search__results-top', searchResultsStyles['search-results-top'])}>
+        { extra ? <div className={searchResultsStyles['search-results-top-extra']}>{extra(stateQuery)}</div> : null }
         <SearchFields
           stateQuery={stateQuery}
           appliedQuery={appliedQuery}
@@ -505,7 +506,7 @@ function SearchResultsComponent({
           handleSubmit={handleSubmit}
         />
       </div>
-      <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
+      <div className={cx('search__results', 'results', searchResultsStyles['search-results-wrapper'])}>
         { tooManyResults ?
           <Alert
             contained
@@ -522,77 +523,17 @@ function SearchResultsComponent({
           /> : null
         }
         { count > 0 ?
-          <Toolbar
-            resultType={resultType}
-            team={team}
-            title={count ?
-              <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
+          <div className={cx(searchResultsStyles['search-results-toolbar'], 'toolbar', `toolbar__${resultType}`)}>
+            <span className={cx('search__results-heading', 'results', searchResultsStyles['search-results-heading'])}>
+              <div className={searchResultsStyles['search-results-bulk-actions']}>
                 { resultType === 'default' && (
                   <SelectAllTh
-                    className={styles.noBottomBorder}
+                    className={searchResultsStyles.noBottomBorder}
                     selectedIds={filteredSelectedProjectMediaIds}
                     projectMedias={projectMedias}
                     onChangeSelectedIds={handleChangeSelectedIds}
                   />
                 )}
-                <span className={styles['search-pagination']}>
-                  <Tooltip title={
-                    <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
-                  }
-                  >
-                    {getPreviousPageLocation() ? (
-                      <Link
-                        className={cx('search__previous-page', styles['search-nav'])}
-                        to={getPreviousPageLocation()}
-                      >
-                        <PrevIcon />
-                      </Link>
-                    ) : (
-                      <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
-                        <PrevIcon />
-                      </span>
-                    )}
-                  </Tooltip>
-                  <span className="typography-button">
-                    <FormattedMessage
-                      id="searchResults.itemsCount"
-                      defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                      description="Pagination count of items returned"
-                      values={{
-                        from: getBeginIndex() + 1,
-                        to: getEndIndex(),
-                        count,
-                      }}
-                    />
-                    {filteredSelectedProjectMediaIds.length ?
-                      <FormattedMessage
-                        id="searchResults.withSelection"
-                        defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                        description="Label for number of selected items"
-                        values={{
-                          selectedCount: filteredSelectedProjectMediaIds.length,
-                        }}
-                      >
-                        {txt => <span className={styles['search-selected']}>{txt}</span>}
-                      </FormattedMessage>
-                      : null
-                    }
-                  </span>
-                  <Tooltip title={
-                    <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
-                  }
-                  >
-                    {getNextPageLocation() ? (
-                      <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
-                        <NextIcon />
-                      </span>
-                    ) : (
-                      <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
-                        <NextIcon />
-                      </span>
-                    )}
-                  </Tooltip>
-                </span>
                 { projectMedias.length && selectedProjectMedia.length ?
                   <BulkActionsMenu
                   /*
@@ -609,11 +550,74 @@ function SearchResultsComponent({
                     onUnselectAll={onUnselectAll}
                   /> : null
                 }
-              </span> : null
-            }
-            page={page}
-            search={search}
-          /> : null
+              </div>
+              { page === 'all-items' ? (
+                <Can {...perms}>
+                  <div className={searchResultsStyles['search-results-add-item']}>
+                    <CreateMedia search={search} team={team} />
+                  </div>
+                </Can>
+              ) : null}
+              <span className={searchResultsStyles['search-pagination']}>
+                <Tooltip title={
+                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+                }
+                >
+                  {getPreviousPageLocation() ? (
+                    <Link
+                      className={cx('search__previous-page', searchResultsStyles['search-nav'])}
+                      to={getPreviousPageLocation()}
+                    >
+                      <PrevIcon />
+                    </Link>
+                  ) : (
+                    <span className={cx('search__previous-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
+                      <PrevIcon />
+                    </span>
+                  )}
+                </Tooltip>
+                <span className="typography-button">
+                  <FormattedMessage
+                    id="searchResults.itemsCount"
+                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                    description="Pagination count of items returned"
+                    values={{
+                      from: getBeginIndex() + 1,
+                      to: getEndIndex(),
+                      count,
+                    }}
+                  />
+                  {filteredSelectedProjectMediaIds.length ?
+                    <FormattedMessage
+                      id="searchResults.withSelection"
+                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                      description="Label for number of selected items"
+                      values={{
+                        selectedCount: filteredSelectedProjectMediaIds.length,
+                      }}
+                    >
+                      {txt => <span className={searchResultsStyles['search-selected']}>{txt}</span>}
+                    </FormattedMessage>
+                    : null
+                  }
+                </span>
+                <Tooltip title={
+                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+                }
+                >
+                  {getNextPageLocation() ? (
+                    <span className={cx('search__next-page', searchResultsStyles['search-nav'])} onClick={() => handleNextPageClick()}>
+                      <NextIcon />
+                    </span>
+                  ) : (
+                    <span className={cx('search__next-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
+                      <NextIcon />
+                    </span>
+                  )}
+                </Tooltip>
+              </span>
+            </span>
+          </div> : null
         }
         {content}
       </div>

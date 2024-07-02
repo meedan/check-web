@@ -153,10 +153,6 @@ class CreateMediaInput extends React.Component {
   renderFormInput() {
     return (
       <>
-        <div className={inputStyles['form-fieldset-title']}>
-          <FormattedMessage id="createMedia.media.media" defaultMessage="Media" description="Header for the claim media area" />
-        </div>
-
         {
           this.state.mediaFile === null ? (
             <div className={inputStyles['form-fieldset-field']}>
