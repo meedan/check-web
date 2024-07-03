@@ -20,11 +20,6 @@
     "defaultMessage": "Edit Claim & Fact-Check"
   },
   {
-    "id": "articleForm.createdByLabel",
-    "description": "Label to convey when the item was created",
-    "defaultMessage": "Created by:"
-  },
-  {
     "id": "articleForm.editedByLabel",
     "description": "Label to convey when the item was last edited",
     "defaultMessage": "Edited by:"
@@ -148,10 +143,5 @@
     "id": "articleForm.formSaveButton",
     "description": "the save button for the article forom",
     "defaultMessage": "Create content"
-  },
-  {
-    "id": "articleForm.formDeleteButton",
-    "description": "delete the current article",
-    "defaultMessage": "Move to Trash"
   }
 ]

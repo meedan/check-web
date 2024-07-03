@@ -12,7 +12,7 @@ import BookIcon from '../../icons/book.svg';
 import ExplainerForm from './ExplainerForm';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 
-const NewArticleButton = (team) => {
+const NewArticleButton = ({ team }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openExplainer, setOpenExplainer] = React.useState(false);
   const [openFactCheck, setOpenFactCheck] = React.useState(false);

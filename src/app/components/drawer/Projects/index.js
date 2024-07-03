@@ -96,6 +96,7 @@ const Projects = ({ drawerType }) => {
             medias_count
             permissions
             verification_statuses
+            get_languages
             smooch_bot: team_bot_installation(bot_identifier: "smooch") {
               id
             }

@@ -195,14 +195,15 @@ const ClaimFactCheckForm = ({
     if (field.indexOf('claim') >= 0) {
       setClaim({ ...claim, [field.replace('claim ', '').toLowerCase()]: value });
       if (type === 'edit') {
+        const saveClaim = { ...claim, [field.replace('claim ', '').toLowerCase()]: value };
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: updateClaimMutation,
           variables: {
             input: {
-              id: article.claim_description.id,
-              description: article.claim_description.description,
-              context: article.claim_description.context,
+              id: saveClaim.id,
+              description: saveClaim.description,
+              context: saveClaim.context,
             },
           },
           onCompleted: (response, err) => {
@@ -222,18 +223,19 @@ const ClaimFactCheckForm = ({
     } else {
       setFactCheck({ ...factCheck, [field]: value });
       if (type === 'edit') {
+        const saveFactCheck = { ...factCheck, [field]: value };
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: updateFactCheckMutation,
           variables: {
             input: {
               id: article.id,
-              language: factCheck.language,
-              summary: factCheck.summary,
-              title: factCheck.title,
-              url: factCheck.url,
-              tags: factCheck.tags,
-              rating: factCheck.rating,
+              language: saveFactCheck.language,
+              summary: saveFactCheck.summary,
+              title: saveFactCheck.title,
+              url: saveFactCheck.url,
+              tags: saveFactCheck.tags,
+              rating: saveFactCheck.rating,
             },
           },
           onCompleted: (response, err) => {
@@ -251,7 +253,6 @@ const ClaimFactCheckForm = ({
         });
       }
     }
-    setFactCheck({ ...factCheck, [field]: value });
   };
 
   return (

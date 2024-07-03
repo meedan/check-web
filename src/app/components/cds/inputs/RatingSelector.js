@@ -16,7 +16,7 @@ const RatingSelector = ({
   onStatusChange,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const currentStatus = getStatus(statuses, status);
+  const currentStatus = getStatus(statuses, status || statuses.default);
 
   const handleCloseMenu = () => {
     setAnchorEl(null);

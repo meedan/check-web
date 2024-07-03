@@ -65,7 +65,7 @@ const ExplainerForm = ({
   const [error, setError] = React.useState(false);
   const [explainer, setExplainer] = React.useState({
     title: article?.title || null,
-    description: article?.summary || null,
+    description: article?.description || null,
     language: article?.language || null,
     tags: article?.tags || [],
     url: article?.url || null,
@@ -115,6 +115,7 @@ const ExplainerForm = ({
 
   const handleBlur = (field, value) => {
     setExplainer({ ...explainer, [field]: value });
+    const saveExplainer = { ...explainer, [field]: value };
     if (type === 'edit') {
       setSaving(true);
       commitMutation(Relay.Store, {
@@ -122,7 +123,7 @@ const ExplainerForm = ({
         variables: {
           input: {
             id: article.id,
-            ...explainer,
+            ...saveExplainer,
           },
         },
         onCompleted: (response, err) => {

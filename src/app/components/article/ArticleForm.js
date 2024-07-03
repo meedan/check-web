@@ -10,7 +10,7 @@ import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
-import DeleteIcon from '../../icons/delete.svg';
+// import DeleteIcon from '../../icons/delete.svg';
 import inputStyles from '../../styles/css/inputs.module.css';
 import { safelyParseJSON, truncateLength } from '../../helpers';
 import styles from './ArticleForm.module.css';
@@ -20,7 +20,6 @@ const ArticleForm = ({
   handleSave,
   onClose,
   handleBlur,
-  handleDelete,
   articleType,
   mode,
   article,
@@ -37,18 +36,23 @@ const ArticleForm = ({
 
   const [claimDescription, setClaimDescription] = React.useState(article?.claim_description?.description || '');
   const [claimContext, setClaimContext] = React.useState(article?.claim_description?.context || '');
-  const options = team.team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || team.teamTags.map(tag => ({ label: tag, value: tag }));
+  const options = team.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || team.teamTags.map(tag => ({ label: tag, value: tag }));
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
   const [articleTitle, setArticleTitle] = React.useState(article?.title || '');
-  const [summary, setSummary] = React.useState(article?.summary || '');
+  const [summary, setSummary] = React.useState(article?.summary || article?.description || '');
   const [url, setUrl] = React.useState(article?.url || '');
   const [language, setLanguage] = React.useState(article?.language || null);
   const [tags, setTags] = React.useState(article?.tags || []);
   const [status, setStatus] = React.useState(article?.claim_description?.project_media?.status || article?.rating || '');
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
-  const statuses = article?.statuses || team.team?.verification_statuses || null;
+  const statuses = article?.statuses || team.verification_statuses || null;
+
+  const [summaryError, setSummaryError] = React.useState(false);
+  const [titleError, setTitleError] = React.useState(false);
+  const [claimDescriptionError, setClaimDescriptionError] = React.useState(false);
+
 
   const [isValid, setIsValid] = React.useState(false);
 
@@ -64,8 +68,13 @@ const ArticleForm = ({
     }
   }, [articleTitle, summary, claimDescription, language]);
 
-  const handleGoToReport = () => {
-    window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)\/?$/, '').replace(/\/$/, '')}/report`);
+  const handleGoToReport = (id) => {
+    if (window.location.pathname.indexOf('/media/') > 0) {
+      window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)\/?$/, '').replace(/\/$/, '')}/report`);
+    } else {
+      const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+      window.location.assign(`../../${teamSlug}/media/${id}/report`);
+    }
   };
 
   const handleLanguageSubmit = (value) => {
@@ -93,14 +102,7 @@ const ArticleForm = ({
             { mode === 'edit' &&
               <div className={styles['article-form-info']}>
                 <div className={styles['article-form-info-labels']}>
-                  <div className="typography-subtitle2">
-                    <FormattedMessage
-                      id="articleForm.createdByLabel"
-                      defaultMessage="Created by:"
-                      description="Label to convey when the item was created"
-                    />
-                  </div>
-                  { article.date &&
+                  { article.updated_at &&
                     <div className="typography-subtitle2">
                       <FormattedMessage
                         id="articleForm.editedByLabel"
@@ -120,12 +122,9 @@ const ArticleForm = ({
                   }
                 </div>
                 <div className={styles['article-form-info-content']}>
-                  <div className="typography-body2">
-                    <FormattedDate value={new Date(article.createdDate * 1000)} year="numeric" month="long" day="numeric" />
-                  </div>
-                  { article.date &&
+                  { article.updated_at &&
                     <div className="typography-body2">
-                      <FormattedDate value={new Date(article.date * 1000)} year="numeric" month="long" day="numeric" />
+                      {article.user.name}, <FormattedDate value={new Date(article.updated_at * 1000)} year="numeric" month="long" day="numeric" />
                     </div>
                   }
                   { article.publishedAt && articleType === 'fact-check' &&
@@ -141,10 +140,10 @@ const ArticleForm = ({
                 { articleType === 'fact-check' && statuses &&
                   <RatingSelector status={status} statuses={statuses} onStatusChange={handleStatusChange} />
                 }
-                { articleType === 'fact-check' &&
+                { articleType === 'fact-check' && article?.claim_description?.project_media?.id &&
                   <div className={inputStyles['form-fieldset-field']}>
                     <ButtonMain
-                      onClick={handleGoToReport}
+                      onClick={() => handleGoToReport(article.claim_description.project_media.id)}
                       className="media-fact-check__report-designer"
                       variant="contained"
                       theme={article?.publishedAt ? 'brand' : 'alert'}
@@ -199,10 +198,16 @@ const ArticleForm = ({
                           className="article-form__description"
                           placeholder={placeholder}
                           defaultValue={claimDescription || ''}
+                          error={claimDescriptionError}
                           onBlur={(e) => {
                             const newValue = e.target.value;
-                            setClaimDescription(newValue);
-                            handleBlur('claim description', newValue);
+                            if (newValue.length) {
+                              setClaimDescriptionError(false);
+                              setClaimDescription(newValue);
+                              handleBlur('claim description', newValue);
+                            } else {
+                              setClaimDescriptionError(true);
+                            }
                           }}
                           label={
                             <FormattedMessage
@@ -290,12 +295,18 @@ const ArticleForm = ({
                         rows="1"
                         autoGrow
                         maxHeight="266px"
+                        error={titleError}
                         placeholder={placeholder}
                         label={<FormattedMessage id="articleForm.explainerTitle" defaultMessage="Title" description="Label for explainer title field" />}
                         onBlur={(e) => {
                           const newValue = e.target.value;
-                          setArticleTitle(newValue);
-                          handleBlur('title', newValue);
+                          if (newValue.length) {
+                            setTitleError(false);
+                            setArticleTitle(newValue);
+                            handleBlur('title', newValue);
+                          } else {
+                            setTitleError(true);
+                          }
                         }}
                       />)}
                     </FormattedMessage> :
@@ -315,12 +326,18 @@ const ArticleForm = ({
                         rows="1"
                         autoGrow
                         maxHeight="266px"
+                        error={titleError}
                         placeholder={placeholder}
                         label={<FormattedMessage id="articleForm.factCheckTitle" defaultMessage="Title" description="Label for fact-check title field" />}
                         onBlur={(e) => {
                           const newValue = e.target.value;
-                          setArticleTitle(newValue);
-                          handleBlur('title', newValue);
+                          if (newValue.length) {
+                            setTitleError(false);
+                            setArticleTitle(newValue);
+                            handleBlur('title', newValue);
+                          } else {
+                            setTitleError(true);
+                          }
                         }}
                       />)}
                     </FormattedMessage>}
@@ -344,12 +361,18 @@ const ArticleForm = ({
                           maxChars={900 - articleTitle.length - url.length}
                           rows="1"
                           label={<FormattedMessage id="articleForm.explainerSummary" defaultMessage="Summary" description="Label for article summary field" />}
+                          error={summaryError}
                           autoGrow
                           placeholder={placeholder}
                           onBlur={(e) => {
                             const newValue = e.target.value;
-                            setSummary(newValue);
-                            handleBlur('description', newValue);
+                            if (newValue.length) {
+                              setSummaryError(false);
+                              setSummary(newValue);
+                              handleBlur('description', newValue);
+                            } else {
+                              setSummaryError(true);
+                            }
                           }}
                         />
                       )}
@@ -373,11 +396,17 @@ const ArticleForm = ({
                           rows="1"
                           label={<FormattedMessage id="articleForm.summary" defaultMessage="Summary" description="Label for article summary field" />}
                           autoGrow
+                          error={summaryError}
                           placeholder={placeholder}
                           onBlur={(e) => {
                             const newValue = e.target.value;
-                            setSummary(newValue);
-                            handleBlur('summary', newValue);
+                            if (newValue.length) {
+                              setSummaryError(false);
+                              setSummary(newValue);
+                              handleBlur('summary', newValue);
+                            } else {
+                              setSummaryError(true);
+                            }
                           }}
                         />
                       )}
@@ -458,24 +487,19 @@ const ArticleForm = ({
         </>
       }
       onClose={onClose}
+      footer={mode === 'create'} // just here until trash is added
       showCancel={mode === 'create'}
       mainActionButton={mode === 'create' ? <ButtonMain
         onClick={handleSave}
         disabled={!isValid}
         label={<FormattedMessage id="articleForm.formSaveButton" defaultMessage="Create content" description="the save button for the article forom" />}
-      /> : <ButtonMain
-        onClick={handleDelete}
-        iconLeft={<DeleteIcon />}
-        theme="error"
-        label={<FormattedMessage id="articleForm.formDeleteButton" defaultMessage="Move to Trash" description="delete the current article" />}
-      />}
+      /> : null}
     />
   );
 };
 
 ArticleForm.defaultProps = {
   handleSave: null,
-  handleDelete: null,
   article: null,
 };
 
@@ -483,7 +507,6 @@ ArticleForm.propTypes = {
   handleSave: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func,
   articleType: PropTypes.oneOf(['fact-check', 'explainer']).isRequired,
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
   article: PropTypes.object,

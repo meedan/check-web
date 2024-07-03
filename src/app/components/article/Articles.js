@@ -14,6 +14,8 @@ import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
 import MediasLoading from '../media/MediasLoading';
 import ArticleFilters from './ArticleFilters';
+import ClaimFactCheckForm from './ClaimFactCheckForm';
+import ExplainerForm from './ExplainerForm';
 import styles from './Articles.module.css';
 
 const pageSize = 50;
@@ -32,10 +34,13 @@ const ArticlesComponent = ({
   onChangeSearchParams,
   statuses,
   teamTags,
+  teamLanguages,
   articles,
   articlesCount,
   updateMutation,
 }) => {
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const [selectedArticle, setSelectedArticle] = React.useState(null);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
@@ -89,6 +94,14 @@ const ArticlesComponent = ({
       onCompleted,
       onError,
     });
+  };
+
+  const handleClick = (article) => {
+    console.log('Click!'); //eslint-disable-line
+    if (!openEdit) {
+      setSelectedArticle(article);
+      setOpenEdit(true);
+    }
   };
 
   return (
@@ -153,31 +166,66 @@ const ArticlesComponent = ({
             }
 
             return (
-              <ArticleCard
-                key={article.id}
-                variant={type}
-                title={article.title || article.claim_description?.description}
-                summary={article.description}
-                url={article.url}
-                languageCode={article.language !== 'und' ? article.language : null}
-                date={article.updated_at}
-                createdDate={article.created_at}
-                tags={article.tags}
-                tagOptions={teamTags}
-                rating={article.rating}
-                id={article.id}
-                claim_description={article.claim_description}
-                statusColor={currentStatus ? currentStatus.style?.color : null}
-                statusLabel={currentStatus ? currentStatus.label : null}
-                statuses={statuses}
-                publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
-                onChangeTags={(tags) => {
-                  handleUpdateTags(article.id, tags);
-                }}
-              />
+              <>
+                <ArticleCard
+                  key={article.id}
+                  variant={type}
+                  title={article.title || article.claim_description?.description}
+                  summary={article.description}
+                  url={article.url}
+                  languageCode={article.language !== 'und' ? article.language : null}
+                  date={article.updated_at}
+                  tags={article.tags}
+                  tagOptions={teamTags}
+                  rating={article.rating}
+                  statusColor={currentStatus ? currentStatus.style?.color : null}
+                  statusLabel={currentStatus ? currentStatus.label : null}
+                  lastUserName={article.user?.name || null}
+                  publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
+                  onChangeTags={(tags) => {
+                    handleUpdateTags(article.id, tags);
+                  }}
+                  handleClick={() => handleClick(article)}
+                />
+              </>
             );
           })}
         </div>
+
+        <>
+          {openEdit && selectedArticle && type === 'fact-check' && <ClaimFactCheckForm
+            onClose={setOpenEdit}
+            team={{ teamTags, get_languages: teamLanguages }}
+            article={{
+              ...selectedArticle,
+              summary: selectedArticle.description,
+              created_at: selectedArticle.created_at,
+              statuses,
+              language: selectedArticle.language !== 'und' ? selectedArticle.language : null,
+              claim_description: {
+                description: selectedArticle.claim_description.description,
+                context: selectedArticle.claim_description.context,
+                id: selectedArticle.claim_description.id,
+                project_media: {
+                  id: selectedArticle.claim_description.project_media?.dbid,
+                  status: selectedArticle.claim_description.project_media?.status,
+                  published: selectedArticle.claim_description.project_media?.published,
+                  report_status: selectedArticle.claim_description.project_media?.report_status,
+                },
+              },
+
+            }}
+          />}
+          {openEdit && selectedArticle && type === 'explainer' && <ExplainerForm
+            onClose={setOpenEdit}
+            team={{ teamTags, get_languages: teamLanguages }}
+            article={{
+              ...selectedArticle,
+              created_at: selectedArticle.created_at,
+              language: selectedArticle.language !== 'und' ? selectedArticle.language : null,
+            }}
+          />}
+        </>
       </div>
     </React.Fragment>
   );
@@ -192,6 +240,7 @@ ArticlesComponent.defaultProps = {
   filters: {},
   statuses: {},
   teamTags: null,
+  teamLanguages: null,
   articles: [],
   articlesCount: 0,
 };
@@ -214,6 +263,7 @@ ArticlesComponent.propTypes = {
   })),
   statuses: PropTypes.object,
   teamTags: PropTypes.arrayOf(PropTypes.string),
+  teamLanguages: PropTypes.string,
   articlesCount: PropTypes.number,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -228,6 +278,7 @@ ArticlesComponent.propTypes = {
     claim_description: PropTypes.shape({
       description: PropTypes.string,
       project_media: PropTypes.shape({
+        dbid: PropTypes.string,
         status: PropTypes.string,
         published: PropTypes.string, // Timestamp
         report_status: PropTypes.string,
@@ -288,6 +339,7 @@ const Articles = ({
             $report_status: [String], $verification_status: [String],
           ) {
             team(slug: $slug) {
+              get_languages
               verification_statuses
               tag_texts(last: 50) {
                 edges {
@@ -316,6 +368,9 @@ const Articles = ({
                       updated_at
                       created_at
                       tags
+                      user {
+                        name
+                      }
                     }
                     ... on FactCheck {
                       id
@@ -327,9 +382,15 @@ const Articles = ({
                       created_at
                       rating
                       tags
+                      user {
+                        name
+                      }
                       claim_description { # There will be no N + 1 problem here because the backend uses eager loading
                         description
+                        context
+                        id
                         project_media {
+                          dbid
                           status
                           published
                           report_status
@@ -368,6 +429,7 @@ const Articles = ({
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
                 statuses={props.team.verification_statuses}
+                teamLanguages={props.team.get_languages}
                 teamTags={props.team.tag_texts.edges.length > 0 ? props.team.tag_texts.edges.map(tag => tag.node.text) : null}
                 onChangeSearchParams={handleChangeSearchParams}
                 updateMutation={updateMutation}
