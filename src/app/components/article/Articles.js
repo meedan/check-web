@@ -95,7 +95,6 @@ const ArticlesComponent = ({
   };
 
   const handleClick = (article) => {
-    console.log('Click!'); //eslint-disable-line
     if (!openEdit) {
       setSelectedArticle(article);
       setOpenEdit(true);
