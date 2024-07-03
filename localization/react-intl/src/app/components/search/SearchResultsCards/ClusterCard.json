@@ -1,0 +1,12 @@
+[
+  {
+    "id": "sharedItemCard.factCheckCount",
+    "description": "A label showing the number of fact-checks represented in an item.",
+    "defaultMessage": "{count, plural, one {# Fact-check} other {# Fact-checks}}"
+  },
+  {
+    "id": "sharedItemCard.lastUpdated",
+    "description": "This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'.",
+    "defaultMessage": "Last Updated"
+  }
+]

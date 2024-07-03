@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
@@ -12,43 +12,19 @@ import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import styles from './SearchResults.module.css';
-import Toolbar from './Toolbar';
 import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
-import ListSort from '../cds/inputs/ListSort';
-import SearchResultsTable from './SearchResultsTable';
+import SelectAllTh from './SearchResultsTable/SelectAllTh';
 import SearchResultsCards from './SearchResultsCards';
+import ClusterCard from './SearchResultsCards/ClusterCard';
 import SearchRoute from '../../relay/SearchRoute';
 import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
-
-const messages = defineMessages({
-  sortTitle: {
-    id: 'searchResults.sortTitle',
-    defaultMessage: 'Title',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
-  },
-  sortDateUpdated: {
-    id: 'searchResults.sortDateUpdated',
-    defaultMessage: 'Date updated',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
-  },
-  sortRating: {
-    id: 'searchResults.sortRating',
-    defaultMessage: 'Rating',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
-  },
-  sortRequestsCount: {
-    id: 'searchResults.sortRequestsCount',
-    defaultMessage: 'Requests (count)',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-});
+import searchResultsStyles from './SearchResults.module.css';
 
 /**
  * Delete `esoffset`, `timestamp` and `channels` -- whenever
@@ -89,7 +65,6 @@ function SearchResultsComponent({
   readOnlyFields,
   savedSearch,
   extra,
-  intl,
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
@@ -327,13 +302,14 @@ function SearchResultsComponent({
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
-  const sortParams = stateQuery.sort ? {
-    key: stateQuery.sort,
-    ascending: stateQuery.sort_type !== 'DESC',
-  } : {
-    key: 'recent_added',
-    ascending: false,
-  };
+  // TODO in CV2-3924: Use ListSort component to sort the search results
+  // const sortParams = stateQuery.sort ? {
+  //   key: stateQuery.sort,
+  //   ascending: stateQuery.sort_type !== 'DESC',
+  // } : {
+  //   key: 'recent_added',
+  //   ascending: false,
+  // };
 
   const selectedProjectMedia = [];
 
@@ -342,6 +318,28 @@ function SearchResultsComponent({
       selectedProjectMedia.push(pm);
     }
   });
+
+  const handleCheckboxChange = (checked, projectMedia) => {
+    const { id } = projectMedia;
+    if (!id) return; // Can't select unsaved object. Swallow mouse click.
+
+    let newIds;
+    if (checked) {
+      // Add
+      if (filteredSelectedProjectMediaIds.includes(id)) {
+        return;
+      }
+      newIds = [...filteredSelectedProjectMediaIds, id];
+      newIds.sort((a, b) => a - b);
+    } else {
+      // Remove
+      if (!filteredSelectedProjectMediaIds.includes(id)) {
+        return;
+      }
+      newIds = filteredSelectedProjectMediaIds.filter(oldId => oldId !== id);
+    }
+    setSelectedProjectMediaIds(newIds);
+  };
 
   let content = null;
 
@@ -365,7 +363,7 @@ function SearchResultsComponent({
         />
         { page === 'all-items' ?
           <Can permissions={team.permissions} permission="create ProjectMedia">
-            <div className={styles['no-search-results-add']}>
+            <div className={searchResultsStyles['no-search-results-add']}>
               <CreateMedia search={search} team={team} />
             </div>
           </Can> : null }
@@ -381,37 +379,56 @@ function SearchResultsComponent({
       );
     }
   } else {
-    content = (
-      <SearchResultsTable
-        projectMedias={projectMedias}
+    content = resultType === 'factCheck' ? (
+      <SearchResultsCards
         team={team}
-        selectedIds={filteredSelectedProjectMediaIds}
-        sortParams={sortParams}
-        onChangeSelectedIds={handleChangeSelectedIds}
-        onChangeSortParams={handleChangeSortParams}
-        buildProjectMediaUrl={buildProjectMediaUrl}
-        resultType={resultType}
-        count={count}
+        projectMedias={projectMedias}
       />
+    ) : (
+      <div className={searchResultsStyles['search-results-scroller']}>
+        { projectMedias.map(item => (
+          <ClusterCard
+            key={item.id}
+            title={item.title}
+            description={item.description}
+            date={new Date(+item.updated_at * 1000)}
+            cardUrl={buildProjectMediaUrl(item)}
+            onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
+            isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
+            isPublished={item.report_status === 'published'}
+            publishedAt={item.fact_check_published_on ? new Date(+item.fact_check_published_on * 1000) : null}
+            isUnread={!item.is_read}
+            channels={item.requests_count && item.channel}
+            lastRequestDate={item.requests_count && new Date(+item.last_seen * 1000)}
+            rating={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.label}
+            ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.style.color}
+            requestsCount={item.requests_count}
+            mediaCount={item.linked_items_count}
+            mediaThumbnail={{
+              media: {
+                picture: item.picture,
+                type: item.media?.type,
+                url: item.media?.url,
+              },
+            }}
+            mediaType={item.media?.type}
+            suggestionsCount={item.suggestions_count}
+          />
+        ))}
+      </div>
     );
-    if (resultType === 'factCheck') {
-      content = (
-        <SearchResultsCards
-          team={team}
-          projectMedias={projectMedias}
-        />
-      );
-    }
   }
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
 
+  const perms = { permissions: team?.permissions, permission: 'create ProjectMedia' };
+
   return (
     <React.Fragment>
-      <div className={styles['search-results-header']}>
+      <div className={searchResultsStyles['search-results-header']}>
         <div className="search__list-header-filter-row">
-          <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
-            <div className={styles.searchHeaderSubtitle}>
+          <div className={cx('project__title', searchResultsStyles.searchResultsTitleWrapper)}>
+            <div className={searchResultsStyles.searchHeaderSubtitle}>
               { listSubtitle ?
                 <>
                   {listSubtitle}
@@ -422,13 +439,13 @@ function SearchResultsComponent({
                 </>
               }
             </div>
-            <div className={cx('project__title-text', styles.searchHeaderTitle)}>
+            <div className={cx('project__title-text', searchResultsStyles.searchHeaderTitle)}>
               <h6>
                 {icon}
                 {title}
               </h6>
               { (savedSearch?.is_part_of_feeds || listActions) &&
-                <div className={styles.searchHeaderActions}>
+                <div className={searchResultsStyles.searchHeaderActions}>
                   { savedSearch?.is_part_of_feeds ?
                     <Tooltip
                       title={
@@ -439,8 +456,8 @@ function SearchResultsComponent({
                             description="Tooltip for shared feeds icon"
                           />
                           <ul className="bulleted-list item-limited-list">
-                            {feeds.map(feedObj => (
-                              <li key={feedObj.id}>{feedObj}</li>
+                            {feeds.map(feedName => (
+                              <li key={feedName}>{feedName}</li>
                             ))}
                           </ul>
                         </>
@@ -448,7 +465,7 @@ function SearchResultsComponent({
                       arrow
                     >
                       <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
-                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SharedFeedIcon />} className={styles.searchHeaderActionButton} />
+                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SharedFeedIcon />} className={searchResultsStyles.searchHeaderActionButton} />
                       </span>
                     </Tooltip>
                     :
@@ -469,14 +486,15 @@ function SearchResultsComponent({
           />
         </div>
       </div>
-      <div className={cx('search__results-top', styles['search-results-top'])}>
-        { extra ? <div className={styles['search-results-top-extra']}>{extra(stateQuery)}</div> : null }
+      <div className={cx('search__results-top', searchResultsStyles['search-results-top'])}>
+        { extra ? <div className={searchResultsStyles['search-results-top-extra']}>{extra(stateQuery)}</div> : null }
         <SearchFields
           stateQuery={stateQuery}
           appliedQuery={appliedQuery}
           defaultQuery={defaultQuery}
           setStateQuery={setStateQuery}
           onChange={handleChangeQuery}
+          onChangeSort={handleChangeSortParams}
           feedTeam={feedTeam}
           feed={feed}
           savedSearch={savedSearch}
@@ -488,7 +506,7 @@ function SearchResultsComponent({
           handleSubmit={handleSubmit}
         />
       </div>
-      <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
+      <div className={cx('search__results', 'results', searchResultsStyles['search-results-wrapper'])}>
         { tooManyResults ?
           <Alert
             contained
@@ -505,83 +523,17 @@ function SearchResultsComponent({
           /> : null
         }
         { count > 0 ?
-          <Toolbar
-            resultType={resultType}
-            team={team}
-            title={count ?
-              <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
-                { resultType === 'factCheck' && feed ?
-                  <div className={styles['search-results-sorting']}>
-                    <ListSort
-                      sort={stateQuery.sort}
-                      sortType={stateQuery.sort_type}
-                      options={[
-                        { value: 'title', label: intl.formatMessage(messages.sortTitle) },
-                        { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
-                        { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
-                      ]}
-                      onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
-                    />
-                  </div> : null
-                }
-                <span className={styles['search-pagination']}>
-                  <Tooltip title={
-                    <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
-                  }
-                  >
-                    {getPreviousPageLocation() ? (
-                      <Link
-                        className={cx('search__previous-page', styles['search-nav'])}
-                        to={getPreviousPageLocation()}
-                      >
-                        <PrevIcon />
-                      </Link>
-                    ) : (
-                      <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
-                        <PrevIcon />
-                      </span>
-                    )}
-                  </Tooltip>
-                  <span className="typography-button">
-                    <FormattedMessage
-                      id="searchResults.itemsCount"
-                      defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                      description="Pagination count of items returned"
-                      values={{
-                        from: getBeginIndex() + 1,
-                        to: getEndIndex(),
-                        count,
-                      }}
-                    />
-                    {filteredSelectedProjectMediaIds.length ?
-                      <FormattedMessage
-                        id="searchResults.withSelection"
-                        defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                        description="Label for number of selected items"
-                        values={{
-                          selectedCount: filteredSelectedProjectMediaIds.length,
-                        }}
-                      >
-                        {txt => <span className={styles['search-selected']}>{txt}</span>}
-                      </FormattedMessage>
-                      : null
-                    }
-                  </span>
-                  <Tooltip title={
-                    <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
-                  }
-                  >
-                    {getNextPageLocation() ? (
-                      <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
-                        <NextIcon />
-                      </span>
-                    ) : (
-                      <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
-                        <NextIcon />
-                      </span>
-                    )}
-                  </Tooltip>
-                </span>
+          <div className={cx(searchResultsStyles['search-results-toolbar'], 'toolbar', `toolbar__${resultType}`)}>
+            <span className={cx('search__results-heading', 'results', searchResultsStyles['search-results-heading'])}>
+              <div className={searchResultsStyles['search-results-bulk-actions']}>
+                { resultType === 'default' && (
+                  <SelectAllTh
+                    className={searchResultsStyles.noBottomBorder}
+                    selectedIds={filteredSelectedProjectMediaIds}
+                    projectMedias={projectMedias}
+                    onChangeSelectedIds={handleChangeSelectedIds}
+                  />
+                )}
                 { projectMedias.length && selectedProjectMedia.length ?
                   <BulkActionsMenu
                   /*
@@ -598,11 +550,74 @@ function SearchResultsComponent({
                     onUnselectAll={onUnselectAll}
                   /> : null
                 }
-              </span> : null
-            }
-            page={page}
-            search={search}
-          /> : null
+              </div>
+              { page === 'all-items' ? (
+                <Can {...perms}>
+                  <div className={searchResultsStyles['search-results-add-item']}>
+                    <CreateMedia search={search} team={team} />
+                  </div>
+                </Can>
+              ) : null}
+              <span className={searchResultsStyles['search-pagination']}>
+                <Tooltip title={
+                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+                }
+                >
+                  {getPreviousPageLocation() ? (
+                    <Link
+                      className={cx('search__previous-page', searchResultsStyles['search-nav'])}
+                      to={getPreviousPageLocation()}
+                    >
+                      <PrevIcon />
+                    </Link>
+                  ) : (
+                    <span className={cx('search__previous-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
+                      <PrevIcon />
+                    </span>
+                  )}
+                </Tooltip>
+                <span className="typography-button">
+                  <FormattedMessage
+                    id="searchResults.itemsCount"
+                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                    description="Pagination count of items returned"
+                    values={{
+                      from: getBeginIndex() + 1,
+                      to: getEndIndex(),
+                      count,
+                    }}
+                  />
+                  {filteredSelectedProjectMediaIds.length ?
+                    <FormattedMessage
+                      id="searchResults.withSelection"
+                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                      description="Label for number of selected items"
+                      values={{
+                        selectedCount: filteredSelectedProjectMediaIds.length,
+                      }}
+                    >
+                      {txt => <span className={searchResultsStyles['search-selected']}>{txt}</span>}
+                    </FormattedMessage>
+                    : null
+                  }
+                </span>
+                <Tooltip title={
+                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+                }
+                >
+                  {getNextPageLocation() ? (
+                    <span className={cx('search__next-page', searchResultsStyles['search-nav'])} onClick={() => handleNextPageClick()}>
+                      <NextIcon />
+                    </span>
+                  ) : (
+                    <span className={cx('search__next-page', searchResultsStyles['search-button-disabled'], searchResultsStyles['search-nav'])}>
+                      <NextIcon />
+                    </span>
+                  )}
+                </Tooltip>
+              </span>
+            </span>
+          </div> : null
         }
         {content}
       </div>
@@ -625,8 +640,6 @@ SearchResultsComponent.defaultProps = {
 };
 
 SearchResultsComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
@@ -652,7 +665,7 @@ SearchResultsComponent.propTypes = {
   listSubtitle: PropTypes.object,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
@@ -663,7 +676,7 @@ SearchResultsComponent.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchResultsComponent as SearchResultsComponentTest };
 
-const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(SearchResultsComponent)), {
+const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },
@@ -684,7 +697,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
           check_search_trash { id, number_of_results },
           check_search_spam { id, number_of_results },
           verification_statuses,
-          list_columns,
           medias_count,
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
             id
@@ -699,10 +711,12 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
             node {
               id
               dbid
+              channel
               picture
               show_warning_cover
               title
               description
+              updated_at
               is_read
               is_main
               type
@@ -710,11 +724,14 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
               is_secondary
               is_suggested
               is_confirmed
+              status
               report_status # Needed by BulkActionsStatus
+              fact_check_published_on
               requests_count
-              list_columns_values
-              feed_columns_values
+              linked_items_count
+              suggestions_count
               last_seen
+              feed_columns_values
               source_id
               media {
                 type

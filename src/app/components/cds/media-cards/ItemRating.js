@@ -18,7 +18,8 @@ const ItemRating = ({
       variant="outlined"
       size={size}
       theme="text"
-      label={<span className={styles.cardTagLabel}><EllipseIcon className={styles.cardTagIcon} style={{ color: ratingColor }} />{rating}</span>}
+      iconLeft={<EllipseIcon style={{ color: ratingColor }} />}
+      label={rating}
       customStyle={{
         borderColor: ratingColor,
         color: 'var(--color-gray-15)',

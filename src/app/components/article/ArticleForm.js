@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import Slideout from '../cds/slideout/Slideout';
@@ -36,7 +37,8 @@ const ArticleForm = ({
 
   const [claimDescription, setClaimDescription] = React.useState(article?.claim_description?.description || '');
   const [claimContext, setClaimContext] = React.useState(article?.claim_description?.context || '');
-  const options = team.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || team.teamTags.map(tag => ({ label: tag, value: tag }));
+  const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || team.teamTags.map(tag => ({ label: tag, value: tag }));
+
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
@@ -380,7 +382,7 @@ const ArticleForm = ({
                     <FormattedMessage
                       id="articleForm.factCheckSummaryPlaceholder"
                       defaultMessage="Briefly contextualize the narrative of this fact-check"
-                      description="Placeholder instructions for fact check summary field"
+                      description="Placeholder instructions for fact-check summary field"
                     >
                       { placeholder => (
                         <LimitedTextArea
@@ -443,7 +445,7 @@ const ArticleForm = ({
                     </FormattedMessage> :
                     <FormattedMessage
                       id="articleForm.factCheckUrlPlaceholder"
-                      defaultMessage="Add a URL to this fact check article"
+                      defaultMessage="Add a URL to this fact-check article"
                       description="Placeholder instructions for URL field"
                     >
                       { placeholder => (
@@ -513,4 +515,15 @@ ArticleForm.propTypes = {
   team: PropTypes.object.isRequired,
 };
 
-export default ArticleForm;
+export default createFragmentContainer(ArticleForm, graphql`
+  fragment ArticleForm_team on Team {
+    get_languages
+    tag_texts(last: 50) {
+      edges {
+        node {
+          text
+        }
+      }
+    }
+  }
+`);

@@ -50,7 +50,7 @@ shared_examples 'media actions' do
     wait_for_selector('.media-card-large')
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('.search__results')
-    wait_for_selector('.medias__item')
+    wait_for_selector('.cluster-card')
     wait_for_selector('#create-media__add-item').click
     fill_field('#create-media-input', @media_url)
     wait_for_selector('#create-media-dialog__submit-button').click

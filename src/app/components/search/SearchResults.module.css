@@ -4,18 +4,6 @@
   margin: 64px 0;
 }
 
-.search-results-status-cell {
-  max-width: 224px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  :global(.check-icon) {
-    margin: 1px 0 0;
-    vertical-align: text-top;
-  }
-}
-
 .searchResultsTitleWrapper {
   align-items: flex-start;
   color: var(--color-gray-37);
@@ -128,13 +116,14 @@
   .search-results-toolbar {
     align-items: center;
     display: flex;
+    justify-content: space-between;
     margin: 16px;
     min-height: 38px;
 
     .search-results-add-item {
       display: flex;
       flex: 1 1 100%;
-      justify-content: flex-end;
+      justify-content: center;
     }
   }
 
@@ -144,10 +133,13 @@
     display: flex;
     flex: 1 1 auto;
     gap: 16px;
+    justify-content: space-between;
     text-align: center;
 
-    .search-results-sorting {
-      width: 100%;
+    .search-results-bulk-actions {
+      align-items: center;
+      display: flex;
+      gap: 8px;
     }
 
     .search-selected {
@@ -173,6 +165,14 @@
       display: flex;
       white-space: nowrap;
     }
+  }
+
+  .search-results-scroller {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: auto;
+    padding: 1px 16px 16px;
   }
 }
 
