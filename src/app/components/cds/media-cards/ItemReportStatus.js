@@ -7,7 +7,7 @@ import FactCheckIcon from '../../../icons/fact_check.svg';
 
 const ItemReportStatus = ({ isPublished, publishedAt, className }) => {
   const formatTooltip = () => {
-    const label = (isPublished || publishedAt ? (
+    const label = isPublished ? (
       <FormattedMessage
         id="itemReportStatus.tooltipPublished"
         description="Tooltip of a report status icon when the report is published"
@@ -19,12 +19,12 @@ const ItemReportStatus = ({ isPublished, publishedAt, className }) => {
         description="Tooltip of a report status icon when the report is not published"
         defaultMessage="Unpublished Fact-Check"
       />
-    ));
+    );
 
     return (
       <>
         <span>{label}</span>
-        { publishedAt && (
+        { isPublished && publishedAt && (
           <ul>
             <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(publishedAt)}</li>
           </ul>
@@ -50,7 +50,7 @@ const ItemReportStatus = ({ isPublished, publishedAt, className }) => {
           theme="text"
           iconCenter={<FactCheckIcon />}
           customStyle={{
-            color: (isPublished || publishedAt ? 'var(--color-green-35)' : 'var(--color-gray-59)'),
+            color: isPublished ? 'var(--color-green-35)' : 'var(--color-gray-59)',
           }}
         />
       </div>
