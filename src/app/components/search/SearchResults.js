@@ -385,36 +385,40 @@ function SearchResultsComponent({
         projectMedias={projectMedias}
       />
     ) : (
-      <div className={searchResultsStyles['search-results-scroller']}>
-        { projectMedias.map(item => (
-          <ClusterCard
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            date={new Date(+item.updated_at * 1000)}
-            cardUrl={buildProjectMediaUrl(item)}
-            onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
-            isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
-            isPublished={item.report_status === 'published'}
-            publishedAt={item.fact_check_published_on ? new Date(+item.fact_check_published_on * 1000) : null}
-            isUnread={!item.is_read}
-            channels={item.requests_count && item.channel}
-            lastRequestDate={item.requests_count && new Date(+item.last_seen * 1000)}
-            rating={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.label}
-            ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.style.color}
-            requestsCount={item.requests_count}
-            mediaCount={item.linked_items_count}
-            mediaThumbnail={{
-              media: {
-                picture: item.picture,
-                type: item.media?.type,
-                url: item.media?.url,
-              },
-            }}
-            mediaType={item.media?.type}
-            suggestionsCount={item.suggestions_count}
-          />
-        ))}
+      <div className={styles['search-results-scroller']}>
+        { projectMedias.map((item) => {
+          const numberOfRequests = item.is_confirmed_similar_to_another_item ? item.requests_count : item.demand;
+
+          return (
+            <ClusterCard
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              date={new Date(+item.updated_at * 1000)}
+              cardUrl={buildProjectMediaUrl(item)}
+              onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
+              isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
+              isPublished={item.report_status === 'published'}
+              publishedAt={item.fact_check_published_on ? new Date(+item.fact_check_published_on * 1000) : null}
+              isUnread={!item.is_read}
+              channels={numberOfRequests && item.channel}
+              lastRequestDate={numberOfRequests && new Date(+item.last_seen * 1000)}
+              rating={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.label}
+              ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.style.color}
+              requestsCount={numberOfRequests}
+              mediaCount={item.linked_items_count}
+              mediaThumbnail={{
+                media: {
+                  picture: item.picture,
+                  type: item.media?.type,
+                  url: item.media?.url,
+                },
+              }}
+              mediaType={item.media?.type}
+              suggestionsCount={item.suggestions_count}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -724,9 +728,11 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               is_secondary
               is_suggested
               is_confirmed
+              is_confirmed_similar_to_another_item
               status
               report_status # Needed by BulkActionsStatus
               fact_check_published_on
+              demand
               requests_count
               linked_items_count
               suggestions_count
