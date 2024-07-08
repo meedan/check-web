@@ -30,14 +30,14 @@ const ArticleForm = ({
     <>
       {articleType === 'explainer' && mode === 'create' && <FormattedMessage id="article-form-explainer-create-title" defaultMessage="Create Explainer" description="Title for the slideout create explainer form" />}
       {articleType === 'explainer' && mode === 'edit' && <FormattedMessage id="article-form-explainer-edit-title" defaultMessage="Edit Explainer" description="Title for the slideout edit explainer form" />}
-      {articleType === 'fact-check' && mode === 'create' && <FormattedMessage id="article-form-fact-check-create-title" defaultMessage="Create New Claim & Fact-Check" description="Title for the slideout create fact check form" />}
-      {articleType === 'fact-check' && mode === 'edit' && <FormattedMessage id="article-form-fact-check-edit-title" defaultMessage="Edit Claim & Fact-Check" description="Title for the slideout edit fact check form" />}
+      {articleType === 'fact-check' && mode === 'create' && <FormattedMessage id="article-form-fact-check-create-title" defaultMessage="Create New Claim & Fact-Check" description="Title for the slideout create fact-check form" />}
+      {articleType === 'fact-check' && mode === 'edit' && <FormattedMessage id="article-form-fact-check-edit-title" defaultMessage="Edit Claim & Fact-Check" description="Title for the slideout edit fact-check form" />}
     </>
   );
 
   const [claimDescription, setClaimDescription] = React.useState(article?.claim_description?.description || '');
   const [claimContext, setClaimContext] = React.useState(article?.claim_description?.context || '');
-  const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || team.teamTags.map(tag => ({ label: tag, value: tag }));
+  const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || team?.teamTags?.map(tag => ({ label: tag, value: tag }));
 
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];

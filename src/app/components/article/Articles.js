@@ -94,8 +94,8 @@ const ArticlesComponent = ({
     });
   };
 
-  const handleClick = (article) => {
-    if (!openEdit) {
+  const handleClick = (article, e) => {
+    if (!openEdit && e.target.className.indexOf('Card') >= 0) {
       setSelectedArticle(article);
       setOpenEdit(true);
     }
@@ -184,7 +184,7 @@ const ArticlesComponent = ({
                   onChangeTags={(tags) => {
                     handleUpdateTags(article.id, tags);
                   }}
-                  handleClick={() => handleClick(article)}
+                  handleClick={e => handleClick(article, e)}
                 />
               </>
             );
