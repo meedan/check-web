@@ -456,7 +456,7 @@ const SmoochBotResourceEditorComponent = (props) => {
 
           { resource.id ?
             <ButtonMain
-              className="resource-delete"
+              className="int-resource__delete-button"
               variant="outlined"
               theme="text"
               size="default"
