@@ -19,8 +19,7 @@ build_qa:
         --build-arg DEPLOY_BRANCH=develop \
         --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') \
         -f production/Dockerfile \
-        -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA" \
-        . 2>&1)
+        -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA" . )
     - echo "$DOCKER_OUTPUT"
     - if echo "$DOCKER_OUTPUT" | grep -i "ERROR in"; then \
         echo "Docker build error detected!"; \
