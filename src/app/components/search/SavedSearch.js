@@ -7,6 +7,7 @@ import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
 import Alert from '../cds/alerts-and-prompts/Alert';
+import ListIcon from '../../icons/list.svg';
 import { safelyParseJSON } from '../../helpers';
 import ProjectActions from '../drawer/Projects/ProjectActions';
 
@@ -124,6 +125,7 @@ const SavedSearch = ({ routeParams }) => (
                   />
                 }
                 title={props.saved_search?.title}
+                icon={<ListIcon />}
                 listSubtitle={<FormattedMessage id="savedSearch.subtitle" defaultMessage="Custom List" description="Displayed on top of the custom list title on the search results page." />}
                 teamSlug={routeParams.team}
                 query={query}

@@ -12,7 +12,7 @@ import AddCircleIcon from '../../../icons/add_circle.svg';
 import CategoryIcon from '../../../icons/category.svg';
 import ExpandLessIcon from '../../../icons/expand_less.svg';
 import ExpandMoreIcon from '../../../icons/expand_more.svg';
-import FeedIcon from '../../../icons/dynamic_feed.svg';
+import SharedFeedIcon from '../../../icons/dynamic_feed.svg';
 import FileDownloadIcon from '../../../icons/file_download.svg';
 import InboxIcon from '../../../icons/inbox.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
@@ -303,7 +303,7 @@ const ProjectsComponent = ({
                       routePrefix="list"
                       project={search}
                       teamSlug={team.slug}
-                      icon={search.is_part_of_feeds && <FeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} />}
+                      icon={search.is_part_of_feeds && <SharedFeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} />}
                       isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
                     />
                   ))}

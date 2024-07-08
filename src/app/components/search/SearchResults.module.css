@@ -4,25 +4,14 @@
   margin: 64px 0;
 }
 
-.search-results-status-cell {
-  max-width: 224px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  :global(.check-icon) {
-    margin: 1px 0 0;
-    vertical-align: text-top;
-  }
-}
-
 .searchResultsTitleWrapper {
   align-items: flex-start;
   color: var(--color-gray-37);
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 1 0;
   flex-direction: column;
-  margin: 0 32px 0 0;
+  margin: 0;
+  min-width: 250px;
 
   .searchHeaderSubtitle {
     @mixin typography-caption;
@@ -91,8 +80,11 @@
 
   :global(.search__list-header-filter-row) {
     align-items: flex-start;
+    column-gap: 32px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    row-gap: 0;
   }
 
   :global(.project__description) {
@@ -142,10 +134,6 @@
     gap: 16px;
     text-align: center;
 
-    .search-results-sorting {
-      width: 100%;
-    }
-
     .search-selected {
       color: var(--color-blue-54);
       margin: 0 0 0 8px;
@@ -169,6 +157,14 @@
       display: flex;
       white-space: nowrap;
     }
+  }
+
+  .search-results-scroller {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: auto;
+    padding: 1px 16px 16px;
   }
 }
 

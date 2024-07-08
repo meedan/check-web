@@ -38,7 +38,7 @@ const FeedItemHeader = ({ team, feed, cluster }) => {
           <div>
             <div className={searchResultsStyles.searchHeaderSubtitle}>
               <div className={styles.feedItemHeaderMetadataRow}>
-                <FormattedMessage id="feedItemHeader.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed item page." component="div" />
+                <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" component="div" />
                 <ChevronRightIcon />
                 <span className={styles.feedItemHeaderLabel}>{feed.name}</span>
                 <ChevronRightIcon />

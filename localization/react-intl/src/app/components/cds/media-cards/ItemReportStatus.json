@@ -1,0 +1,12 @@
+[
+  {
+    "id": "itemReportStatus.tooltipPublished",
+    "description": "Tooltip of a report status icon when the report is published",
+    "defaultMessage": "Published Fact-Check"
+  },
+  {
+    "id": "itemReportStatus.tooltipUnpublished",
+    "description": "Tooltip of a report status icon when the report is not published",
+    "defaultMessage": "Unpublished Fact-Check"
+  }
+]

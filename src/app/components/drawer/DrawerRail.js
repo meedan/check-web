@@ -9,7 +9,7 @@ import InfoIcon from '../../icons/info.svg';
 import QuestionAnswerIcon from '../../icons/question_answer.svg';
 import SettingsIcon from '../../icons/settings.svg';
 import PersonIcon from '../../icons/person.svg';
-import FeedIcon from '../../icons/dynamic_feed.svg';
+import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
 import ChevronLeftIcon from '../../icons/chevron_left.svg';
 import styles from './DrawerRail.module.css';
@@ -166,7 +166,7 @@ const DrawerRail = (props) => {
                 onClick={() => setDrawerTypeChange('feed')}
                 to={`/${props.team.slug}/feeds`}
               >
-                <FeedIcon />
+                <SharedFeedIcon />
               </Link>
             </Tooltip>
             <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.settingsDescription)}>

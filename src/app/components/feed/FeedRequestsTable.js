@@ -51,6 +51,7 @@ const FeedRequestsTable = ({
     return `/check/feed/${feed.dbid}/request/${requestDbid}?${urlParams.toString()}`;
   };
 
+  // FIXME: This is duplicating code in MediaTypeDisplayName.js
   const mediaType = requestType => ({
     Claim: (
       <FormattedMessage
@@ -120,7 +121,7 @@ const FeedRequestsTable = ({
         <div className="search__list-header-filter-row">
           <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
             <div className={styles.searchHeaderSubtitle}>
-              Shared Feed
+              <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />
             </div>
             <div className={cx('project__title-text', styles.searchHeaderTitle)}>
               <h6>

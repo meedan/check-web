@@ -59,7 +59,7 @@ shared_examples 'tag' do
     # create a media
     create_media('new media')
     sleep 30 # wait for the items to be indexed in the Elasticsearch
-    wait_for_selector('.media__heading').click
+    wait_for_selector('.cluster-card').click
     wait_for_selector('.media-card-large')
     @wait.until { @driver.page_source.include?('tag added automatically') }
   end
@@ -67,7 +67,7 @@ shared_examples 'tag' do
   it 'should add a tag, reject duplicated tag', bin3: true, quick: true do
     api_create_team_claim_and_media_tag
     wait_for_selector('#search-input')
-    wait_for_selector('.media__heading').click
+    wait_for_selector('.cluster-card').click
     wait_for_selector('.media-card-large')
     # Try to add duplicate
     wait_for_selector('.int-tag-list__button--add').click

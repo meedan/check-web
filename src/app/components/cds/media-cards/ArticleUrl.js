@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import BookIcon from '../../../icons/book.svg';
 import styles from './Card.module.css';
@@ -16,11 +17,9 @@ const ArticleUrl = ({
   if (!url) return null;
 
   return (
-    <span className={`article-url ${styles.articleLink}`}>
+    <span className={cx('article-url', styles.articleLink)}>
       { icons[variant] }
-      <span>
-        <a href={url} target="_blank" rel="noreferrer noopener">{url}</a>
-      </span>
+      <a href={url} target="_blank" rel="noreferrer noopener" title={url}>{url}</a>
     </span>
   );
 };
