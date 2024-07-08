@@ -11,6 +11,6 @@ describe('<TiplineContentTranslation />', () => {
       defaultValue="Test"
       onUpdate={() => {}}
     />);
-    expect(wrapper.find('textarea').hostNodes()).toHaveLength(2);
+    expect(wrapper.find('textarea').hostNodes()).toHaveLength(1);
   });
 });
