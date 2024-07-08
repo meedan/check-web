@@ -59,7 +59,6 @@ build_live:
   script:
     - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_API_BASE_URL
     - docker build --build-arg DEPLOY_BRANCH=master --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA" . 2>&1 | tee .docker_build_out
-    - echo "$DOCKER_OUTPUT"
     - if grep "ERROR in" .docker_build_out; then 
         echo "Docker build error detected!"; 
         exit 1;
