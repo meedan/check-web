@@ -94,6 +94,7 @@ const SandboxComponent = ({ admin }) => {
   const [articleCardVariant, setArticleCardVariant] = React.useState('fact-check');
   const [articleCardLink, setArticleCardLink] = React.useState(Boolean(true));
   const [articleCardTags, setArticleCardTags] = React.useState(Boolean(true));
+  const [articleCardPublished, setArticleCardPublished] = React.useState(true);
 
   const [listItemShared, setListItemShared] = React.useState(Boolean(false));
   const [listItemMediaPreview, setListItemMediaPreview] = React.useState(Boolean(true));
@@ -377,6 +378,15 @@ const SandboxComponent = ({ admin }) => {
           <div className={styles.componentControls}>
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               ArticleCard
+              <a
+                href="https://www.figma.com/design/i1LSbpQXKyA7dLc8AkgtKA/Articles?node-id=61-40003&t=nQx8FOqn9bhFtiZZ-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
             </div>
             <ul>
               <li>
@@ -385,6 +395,14 @@ const SandboxComponent = ({ admin }) => {
                   labelPlacement="top"
                   checked={articleCardShared}
                   onChange={() => setArticleCardShared(!articleCardShared)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Published"
+                  labelPlacement="top"
+                  checked={articleCardPublished}
+                  onChange={() => setArticleCardPublished(!articleCardPublished)}
                 />
               </li>
               <li>
@@ -420,7 +438,7 @@ const SandboxComponent = ({ admin }) => {
               title="Moby-Dick; or, The Whale."
               summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
               date={1702677106.846}
-              publishedAt={articleCardShared ? null : 1702677106.846}
+              publishedAt={articleCardShared || !articleCardPublished ? null : 1702677106.846}
               statusLabel={articleCardVariant === 'fact-check' ? 'The Status is very very long' : null}
               statusColor={articleCardVariant === 'fact-check' ? '#ff0000' : null}
               teamName={articleCardShared ? 'Kitty Team' : null}

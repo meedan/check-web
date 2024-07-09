@@ -55,17 +55,11 @@ const ClusterCard = ({
         {
           [className]: true,
           [styles.listItemSelected]: isChecked,
+          [styles.listItemUnread]: isUnread,
         },
       )}
     >
-      <Card
-        className={cx(
-          {
-            [styles.listItemUnread]: isUnread,
-          },
-        )}
-        cardUrl={cardUrl}
-      >
+      <Card className={styles.clusterCard} cardUrl={cardUrl}>
         <div className={styles.clusterCardLeft}>
           { onCheckboxChange && (<Checkbox checked={isChecked} onChange={onCheckboxChange} className={[styles.checkbox]} />)}
           <ItemThumbnail
