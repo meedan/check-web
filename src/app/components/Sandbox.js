@@ -401,6 +401,7 @@ const SandboxComponent = ({ admin }) => {
                 <SwitchComponent
                   label="Published"
                   labelPlacement="top"
+                  disabled={articleCardShared}
                   checked={articleCardPublished}
                   onChange={() => setArticleCardPublished(!articleCardPublished)}
                 />
@@ -443,7 +444,7 @@ const SandboxComponent = ({ admin }) => {
               statusColor={articleCardVariant === 'fact-check' ? '#ff0000' : null}
               teamName={articleCardShared ? 'Kitty Team' : null}
               teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}
-              languageCode="en"
+              languageCode={articleCardShared ? null : 'en'}
               tags={articleCardTags ? ['Novel', 'Moby Dick', '19th Century'] : []}
               onChangeTags={() => {}}
               url={articleCardLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
