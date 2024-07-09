@@ -92,6 +92,8 @@ const SandboxComponent = ({ admin }) => {
 
   const [articleCardShared, setArticleCardShared] = React.useState(false);
   const [articleCardVariant, setArticleCardVariant] = React.useState('fact-check');
+  const [articleCardLink, setArticleCardLink] = React.useState(Boolean(true));
+  const [articleCardTags, setArticleCardTags] = React.useState(Boolean(true));
 
   const [listItemShared, setListItemShared] = React.useState(Boolean(false));
   const [listItemMediaPreview, setListItemMediaPreview] = React.useState(Boolean(true));
@@ -379,10 +381,26 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
-                  label="In Shared Feed"
+                  label="Shared Feed"
                   labelPlacement="top"
                   checked={articleCardShared}
                   onChange={() => setArticleCardShared(!articleCardShared)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Link"
+                  labelPlacement="top"
+                  checked={articleCardLink}
+                  onChange={() => setArticleCardLink(!articleCardLink)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Tags"
+                  labelPlacement="top"
+                  checked={articleCardTags}
+                  onChange={() => setArticleCardTags(!articleCardTags)}
                 />
               </li>
               <li>
@@ -408,9 +426,9 @@ const SandboxComponent = ({ admin }) => {
               teamName={articleCardShared ? 'Kitty Team' : null}
               teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}
               languageCode="en"
-              tags={['Novel', 'Moby Dick', '19th Century']}
+              tags={articleCardTags ? ['Novel', 'Moby Dick', '19th Century'] : []}
               onChangeTags={() => {}}
-              url="https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it"
+              url={articleCardLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               variant={articleCardVariant}
             />
           </div>
