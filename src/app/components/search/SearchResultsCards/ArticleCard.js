@@ -24,6 +24,7 @@ const ArticleCard = ({
   languageCode,
   tags,
   tagOptions,
+  isPublished,
   publishedAt,
   onChangeTags,
   variant,
@@ -63,13 +64,13 @@ const ArticleCard = ({
           { variant === 'fact-check' && (
             <div className={styles.cardRightTop}>
               { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
-              { publishedAt && <ItemReportStatus className={styles.cardRightTopPublished} publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
+              { publishedAt && <ItemReportStatus className={styles.cardRightTopPublished} isPublished={isPublished} publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
             </div>
           )}
           { date &&
             <ItemDate
               date={new Date(date * 1000)}
-              tooltipLabel={<FormattedMessage id="factCheckCard.dateLabel" defaultMessage="Published at" description="Date tooltip label for fact-check cards" />}
+              tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />}
             />
           }
         </div> : null

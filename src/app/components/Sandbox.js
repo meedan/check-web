@@ -439,13 +439,14 @@ const SandboxComponent = ({ admin }) => {
               title="Moby-Dick; or, The Whale."
               summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
               date={1702677106.846}
-              publishedAt={articleCardShared || !articleCardPublished ? null : 1702677106.846}
+              isPublished={articleCardPublished}
+              publishedAt={1702677106.846}
               statusLabel={articleCardVariant === 'fact-check' ? 'The Status is very very long' : null}
               statusColor={articleCardVariant === 'fact-check' ? '#ff0000' : null}
               teamName={articleCardShared ? 'Kitty Team' : null}
               teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}
               languageCode={articleCardShared ? null : 'en'}
-              tags={articleCardTags ? ['Novel', 'Moby Dick', '19th Century'] : []}
+              tags={articleCardTags ? ['Novel', 'Moby Dick', '19th Century'] : null}
               onChangeTags={() => {}}
               url={articleCardLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               variant={articleCardVariant}
@@ -570,13 +571,14 @@ const SandboxComponent = ({ admin }) => {
               mediaType="UploadedImage"
               isUnread={listItemUnread}
               isPublished={listItemPublished}
+              publishedAt={1702677106846}
               suggestionsCount={listItemSuggestions ? 567890 : null}
               dataPoints={listItemDataPoints}
               mediaCount={12345}
               requestsCount={listItemRequests ? 7890 : null}
               lastRequestDate={new Date('2024-01-15T12:00:22Z')}
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
-              factCheckCount={listItemFactCheckCount}
+              factCheckCount={listItemFactCheck && listItemFactCheckCount}
               channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
               rating={listItemFactCheck ? 'False' : null}
               ratingColor={listItemFactCheck ? '#f00' : null}

@@ -165,7 +165,8 @@ const ArticlesComponent = ({
                 tagOptions={teamTags}
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
-                publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
+                isPublished={article.claim_description?.project_media?.report_status === 'published'}
+                publishedAt={article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
                 onChangeTags={(tags) => {
                   handleUpdateTags(article.id, tags);
                 }}
