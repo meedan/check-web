@@ -19,6 +19,17 @@ import settingsStyles from '../Settings.module.css';
 
 const timezones = getTimeZoneOptions();
 
+const getWeekDays = (locale) => {
+  const weekDays = {};
+  const { format } = new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' });
+  weekDays.labels = [...Array(7).keys()].map(day => format(new Date(`2021-08-0${day + 1}T00:00:00Z`)));
+  weekDays.values = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  return weekDays;
+};
+
+// eslint-disable-next-line import/no-unused-modules
+export { getWeekDays }; // For unit test
+
 const NewsletterScheduler = ({
   type,
   timezone,
@@ -36,9 +47,9 @@ const NewsletterScheduler = ({
   disabled,
   intl,
 }) => {
-  const { format } = new Intl.DateTimeFormat(intl.locale, { weekday: 'short' });
-  const weekDaysLabels = [...Array(7).keys()].map(day => format(new Date(Date.UTC(2021, 5, day))));
-  const weekDaysValues = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const weekDays = getWeekDays(intl.locale);
+  const weekDaysLabels = weekDays.labels;
+  const weekDaysValues = weekDays.values;
 
   return (
     <div className={`${styles['newsletter-scheduler']} ${scheduled ? styles['newsletter-scheduled'] : styles['newsletter-paused']}`}>
