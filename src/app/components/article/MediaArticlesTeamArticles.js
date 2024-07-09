@@ -1,18 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
+import cx from 'classnames/bind';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import MediaArticlesCard from './MediaArticlesCard';
 import styles from './Articles.module.css';
+import DescriptionIcon from '../../icons/description.svg';
 
-const MediaArticlesTeamArticlesComponent = ({ articles, team, onAdd }) => (
-  <div id="articles-sidebar-team-articles" className={styles.articlesSidebarList}>
-    {articles.map(article => (
-      <MediaArticlesCard article={article} team={team} onAdd={onAdd} />
-    ))}
-  </div>
+const MediaArticlesTeamArticlesComponent = ({
+  articles,
+  team,
+  textSearch,
+  onAdd,
+}) => (
+  <>
+    { textSearch && !articles.length ? (
+      <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
+        <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
+        <div>
+          <FormattedMessage
+            id="articlesSidebar.noResults"
+            defaultMessage="No results matched your search."
+            description="Message displayed on articles sidebar when search returns no articles."
+          />
+        </div>
+      </div>
+    ) : null }
+    <div id="articles-sidebar-team-articles" className={styles.articlesSidebarList}>
+      {articles.map(article => (
+        <MediaArticlesCard article={article} team={team} onAdd={onAdd} />
+      ))}
+    </div>
+  </>
 );
 
 MediaArticlesTeamArticlesComponent.defaultProps = {
@@ -69,7 +91,7 @@ const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
           const articles = props.team.factChecks.edges.concat(props.team.explainers.edges).map(edge => edge.node).sort((a, b) => (parseInt(a.created_at, 10) < parseInt(b.created_at, 10)) ? 1 : -1);
 
           return (
-            <MediaArticlesTeamArticlesComponent articles={articles} team={props.team} onAdd={onAdd} />
+            <MediaArticlesTeamArticlesComponent textSearch={textSearch} articles={articles} team={props.team} onAdd={onAdd} />
           );
         }
         return <MediasLoading theme="white" variant="inline" size="large" />;
