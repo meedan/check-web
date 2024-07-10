@@ -13,6 +13,7 @@ import { getStatus } from '../../helpers';
 import MediasLoading from '../media/MediasLoading';
 import PageTitle from '../PageTitle';
 import ArticleFilters from './ArticleFilters';
+import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
 const pageSize = 50;
@@ -106,24 +107,28 @@ const ArticlesComponent = ({
         </div>
       </div>
       <div className={searchResultsStyles['search-results-top']}>
-        <ArticleFilters
-          type={type}
-          teamSlug={team.slug}
-          filterOptions={filterOptions}
-          currentFilters={{ ...filters, article_type: type }}
-          statuses={statuses.statuses}
-          onSubmit={handleChangeFilters}
-        />
+        <div className={searchStyles['filters-wrapper']}>
+          <ListSort
+            sort={sort}
+            sortType={sortType}
+            options={sortOptions}
+            onChange={handleChangeSort}
+            className={searchStyles['filters-sorting']}
+          />
+          <ArticleFilters
+            type={type}
+            teamSlug={team.slug}
+            filterOptions={filterOptions}
+            currentFilters={{ ...filters, article_type: type }}
+            statuses={statuses.statuses}
+            onSubmit={handleChangeFilters}
+          />
+        </div>
       </div>
       <div className={searchResultsStyles['search-results-wrapper']}>
         { articles.length > 0 ?
           <div className={searchResultsStyles['search-results-toolbar']}>
-            <ListSort
-              sort={sort}
-              sortType={sortType}
-              options={sortOptions}
-              onChange={handleChangeSort}
-            />
+            <div />
             <Paginator
               page={page}
               pageSize={pageSize}
