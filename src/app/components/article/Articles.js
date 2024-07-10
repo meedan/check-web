@@ -11,13 +11,15 @@ import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
 import MediasLoading from '../media/MediasLoading';
+import PageTitle from '../PageTitle';
 import ArticleFilters from './ArticleFilters';
+import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
 const pageSize = 50;
 
 const ArticlesComponent = ({
-  teamSlug,
+  team,
   type,
   title,
   icon,
@@ -90,7 +92,7 @@ const ArticlesComponent = ({
   };
 
   return (
-    <React.Fragment>
+    <PageTitle prefix={title} team={team}>
       <div className={searchResultsStyles['search-results-header']}>
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
@@ -105,24 +107,28 @@ const ArticlesComponent = ({
         </div>
       </div>
       <div className={searchResultsStyles['search-results-top']}>
-        <ArticleFilters
-          type={type}
-          teamSlug={teamSlug}
-          filterOptions={filterOptions}
-          currentFilters={{ ...filters, article_type: type }}
-          statuses={statuses.statuses}
-          onSubmit={handleChangeFilters}
-        />
+        <div className={searchStyles['filters-wrapper']}>
+          <ListSort
+            sort={sort}
+            sortType={sortType}
+            options={sortOptions}
+            onChange={handleChangeSort}
+            className={searchStyles['filters-sorting']}
+          />
+          <ArticleFilters
+            type={type}
+            teamSlug={team.slug}
+            filterOptions={filterOptions}
+            currentFilters={{ ...filters, article_type: type }}
+            statuses={statuses.statuses}
+            onSubmit={handleChangeFilters}
+          />
+        </div>
       </div>
       <div className={searchResultsStyles['search-results-wrapper']}>
         { articles.length > 0 ?
           <div className={searchResultsStyles['search-results-toolbar']}>
-            <ListSort
-              sort={sort}
-              sortType={sortType}
-              options={sortOptions}
-              onChange={handleChangeSort}
-            />
+            <div />
             <Paginator
               page={page}
               pageSize={pageSize}
@@ -175,7 +181,7 @@ const ArticlesComponent = ({
           })}
         </div>
       </div>
-    </React.Fragment>
+    </PageTitle>
   );
 };
 
@@ -200,7 +206,10 @@ ArticlesComponent.propTypes = {
   sort: PropTypes.oneOf(['title', 'language', 'updated_at']),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   filters: PropTypes.object,
-  teamSlug: PropTypes.string.isRequired,
+  team: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
   onChangeSearchParams: PropTypes.func.isRequired,
   updateMutation: PropTypes.object.isRequired,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
@@ -282,6 +291,8 @@ const Articles = ({
             $report_status: [String], $verification_status: [String],
           ) {
             team(slug: $slug) {
+              slug
+              name
               verification_statuses
               tag_texts(last: 50) {
                 edges {
@@ -354,7 +365,7 @@ const Articles = ({
                 sortType={sortType}
                 sortOptions={sortOptions}
                 filterOptions={filterOptions}
-                teamSlug={teamSlug}
+                team={{ name: props.team.name, slug: props.team.slug }}
                 filters={filters}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}

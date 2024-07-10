@@ -15,7 +15,7 @@ describe('<Articles />', () => {
   const articlesProps = {
     title: <span>Title</span>,
     icon: <div />,
-    teamSlug: 'test',
+    team: { slug: 'test', name: 'Test' },
     updateMutation: {},
     onChangeSearchParams: () => {},
   };

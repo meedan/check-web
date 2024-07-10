@@ -1,0 +1,10 @@
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.heading {
+  color: var(--color-gray-37);
+  padding-left: 10px;
+}
