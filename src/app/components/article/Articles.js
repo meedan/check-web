@@ -99,6 +99,13 @@ const ArticlesComponent = ({
       setSelectedArticle(article);
       setOpenEdit(true);
     }
+    if (openEdit && e.target.className.indexOf('Card') >= 0 && article !== selectedArticle) {
+      setOpenEdit(false);
+      setSelectedArticle(article);
+      setTimeout(() => {
+        setOpenEdit(true);
+      }, 10);
+    }
   };
 
   return (
