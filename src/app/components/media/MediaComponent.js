@@ -266,6 +266,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     project_id
     last_seen
     demand
+    articles_count
     requests_count
     picture
     show_warning_cover
