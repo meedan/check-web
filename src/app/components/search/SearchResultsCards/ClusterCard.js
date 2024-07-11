@@ -3,20 +3,17 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Checkbox from '../../cds/buttons-checkboxes-chips/Checkbox';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
+import ItemArticlesOrFactCheck from '../../cds/media-cards/ItemArticlesOrFactCheck';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemDate from '../../cds/media-cards/ItemDate';
-import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemWorkspaces from '../../cds/media-cards/ItemWorkspaces';
 import SharedItemCardFooter from './SharedItemCardFooter';
-import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
-import FactCheckIcon from '../../../icons/fact_check.svg';
 import styles from './ItemCard.module.css';
-import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
 
 const ClusterCard = ({
+  articlesCount,
   cardUrl,
   channels,
   className,
@@ -40,95 +37,69 @@ const ClusterCard = ({
   suggestionsCount,
   title,
   workspaces,
-}) => {
-  let feedContainsFactChecks = null;
-
-  if (dataPoints) {
-    feedContainsFactChecks = dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS);
-  }
-
-  return (
-    <div
-      className={cx(
-        styles.itemCard,
-        'cluster-card',
-        {
-          [className]: true,
-          [styles.listItemSelected]: isChecked,
-          [styles.listItemUnread]: isUnread,
-        },
-      )}
-    >
-      <Card className={styles.clusterCard} cardUrl={cardUrl}>
-        <div className={styles.clusterCardLeft}>
-          { onCheckboxChange && (<Checkbox checked={isChecked} onChange={onCheckboxChange} className={[styles.checkbox]} />)}
-          <ItemThumbnail
-            picture={mediaThumbnail?.media?.picture}
-            maskContent={mediaThumbnail?.show_warning_cover}
-            type={mediaThumbnail?.media?.type}
-            url={mediaThumbnail?.media?.url}
+}) => (
+  <div
+    className={cx(
+      styles.itemCard,
+      'cluster-card',
+      {
+        [className]: true,
+        [styles.listItemSelected]: isChecked,
+        [styles.listItemUnread]: isUnread,
+      },
+    )}
+  >
+    <Card className={styles.clusterCard} cardUrl={cardUrl}>
+      <div className={styles.clusterCardLeft}>
+        { onCheckboxChange && (<Checkbox checked={isChecked} onChange={onCheckboxChange} className={[styles.checkbox]} />)}
+        <ItemThumbnail
+          picture={mediaThumbnail?.media?.picture}
+          maskContent={mediaThumbnail?.show_warning_cover}
+          type={mediaThumbnail?.media?.type}
+          url={mediaThumbnail?.media?.url}
+        />
+      </div>
+      <div className={styles.sharedItemCardMiddle}>
+        <CardHoverContext.Consumer>
+          { isHovered => (
+            <ItemDescription
+              title={title}
+              description={description}
+              url={factCheckUrl}
+              showCollapseButton={isHovered}
+              variant="fact-check"
+            />
+          )}
+        </CardHoverContext.Consumer>
+        <ItemWorkspaces workspaces={workspaces} />
+        <div>
+          <SharedItemCardFooter
+            mediaCount={mediaCount}
+            mediaType={mediaType || mediaThumbnail?.media?.type}
+            requestsCount={requestsCount}
+            suggestionsCount={suggestionsCount}
+            lastRequestDate={lastRequestDate}
+            channels={channels}
           />
         </div>
-        <div className={styles.sharedItemCardMiddle}>
-          <CardHoverContext.Consumer>
-            { isHovered => (
-              <ItemDescription
-                title={title}
-                description={description}
-                url={factCheckUrl}
-                showCollapseButton={isHovered}
-                variant="fact-check"
-              />
-            )}
-          </CardHoverContext.Consumer>
-          <ItemWorkspaces workspaces={workspaces} />
-          <div>
-            <SharedItemCardFooter
-              mediaCount={mediaCount}
-              mediaType={mediaType || mediaThumbnail?.media?.type}
-              requestsCount={requestsCount}
-              suggestionsCount={suggestionsCount}
-              lastRequestDate={lastRequestDate}
-              channels={channels}
-            />
-          </div>
+      </div>
+      <div className={styles.clusterCardRight}>
+        <div className={styles.clusterCardRating}>
+          <ItemArticlesOrFactCheck
+            dataPoints={dataPoints}
+            articlesCount={articlesCount}
+            factCheckCount={factCheckCount}
+            rating={rating}
+            ratingColor={ratingColor}
+            isPublished={isPublished}
+            publishedAt={publishedAt}
+          />
         </div>
-        <div className={styles.clusterCardRight}>
-          <div className={styles.clusterCardRating}>
-            { (factCheckCount && feedContainsFactChecks) ? (
-              <ButtonMain
-                disabled
-                buttonProps={{
-                  type: null,
-                }}
-                size="small"
-                theme="lightBrand"
-                iconLeft={<FactCheckIcon />}
-                variant="contained"
-                label={
-                  <FormattedMessage
-                    id="sharedItemCard.factCheckCount"
-                    defaultMessage="{count, plural, one {# Fact-check} other {# Fact-checks}}"
-                    description="A label showing the number of fact-checks represented in an item."
-                    values={{
-                      count: factCheckCount,
-                    }}
-                  />
-                }
-              />
-            ) : (
-              <>
-                <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
-                {rating && <ItemReportStatus isPublished={isPublished} publishedAt={publishedAt} /> }
-              </>
-            ) }
-          </div>
-          { date ? <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} /> : null }
-        </div>
-      </Card>
-    </div>
-  );
-};
+        <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} />
+      </div>
+    </Card>
+  </div>
+);
 
 ClusterCard.defaultProps = {
   cardUrl: null,
