@@ -35,7 +35,6 @@ const ArticlesComponent = ({
   filters,
   onChangeSearchParams,
   statuses,
-  team,
   teamTags,
   articles,
   articlesCount,
@@ -360,7 +359,7 @@ const Articles = ({
               slug
               name
               verification_statuses
-              tag_texts(last: 50) {
+              tag_texts(first: 100) {
                 edges {
                   node {
                     text
@@ -443,7 +442,6 @@ const Articles = ({
                 sortType={sortType}
                 sortOptions={sortOptions}
                 filterOptions={filterOptions}
-                team={{ name: props.team.name, slug: props.team.slug }}
                 filters={filters}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}

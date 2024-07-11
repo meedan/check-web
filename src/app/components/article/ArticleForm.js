@@ -519,7 +519,7 @@ export default createFragmentContainer(ArticleForm, graphql`
   fragment ArticleForm_team on Team {
     verification_statuses
     get_languages
-    tag_texts(last: 50) {
+    tag_texts(first: 100) {
       edges {
         node {
           text
