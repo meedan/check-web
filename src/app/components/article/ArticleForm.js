@@ -37,7 +37,7 @@ const ArticleForm = ({
 
   const [claimDescription, setClaimDescription] = React.useState(article?.claim_description?.description || '');
   const [claimContext, setClaimContext] = React.useState(article?.claim_description?.context || '');
-  const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text })) || team?.teamTags?.map(tag => ({ label: tag, value: tag }));
+  const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text }));
 
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
@@ -49,7 +49,7 @@ const ArticleForm = ({
   const [tags, setTags] = React.useState(article?.tags || []);
   const [status, setStatus] = React.useState(article?.claim_description?.project_media?.status || article?.rating || '');
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
-  const statuses = article?.statuses || team.verification_statuses || null;
+  const statuses = team.verification_statuses || null;
 
   const [summaryError, setSummaryError] = React.useState(false);
   const [titleError, setTitleError] = React.useState(false);
@@ -517,6 +517,7 @@ ArticleForm.propTypes = {
 
 export default createFragmentContainer(ArticleForm, graphql`
   fragment ArticleForm_team on Team {
+    verification_statuses
     get_languages
     tag_texts(last: 50) {
       edges {

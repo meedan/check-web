@@ -4,6 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import ProjectsComponent from './ProjectsComponent';
 import FeedsComponent from './FeedsComponent';
+import ArticleForm from '../../article/ArticleForm'; // eslint-disable-line no-unused-vars
 import ArticlesComponent from '../../article/ArticlesComponent';
 import SettingsComponent from './SettingsComponent';
 import UserSettingsComponent from './UserSettingsComponent';
@@ -96,7 +97,7 @@ const Projects = ({ drawerType }) => {
             medias_count
             permissions
             verification_statuses
-            get_languages
+            ...ArticleForm_team
             smooch_bot: team_bot_installation(bot_identifier: "smooch") {
               id
             }

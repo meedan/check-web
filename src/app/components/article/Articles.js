@@ -11,6 +11,8 @@ import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
 import MediasLoading from '../media/MediasLoading';
+// eslint-disable-next-line no-unused-vars
+import ArticleForm from './ArticleForm'; // For GraphQL fragment
 import ArticleFilters from './ArticleFilters';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
@@ -31,8 +33,8 @@ const ArticlesComponent = ({
   filters,
   onChangeSearchParams,
   statuses,
+  team,
   teamTags,
-  teamLanguages,
   articles,
   articlesCount,
   updateMutation,
@@ -199,9 +201,12 @@ const ArticlesComponent = ({
         </div>
 
         <>
+          {/* NOTE: If we happen to edit articles from multiple places we're probably better off
+              having each form type be it's own QueryRenderer instead of doing lots of prop passing repeatedly
+          */}
           {openEdit && selectedArticle && type === 'fact-check' && <ClaimFactCheckForm
             onClose={setOpenEdit}
-            team={{ teamTags, get_languages: teamLanguages }}
+            team={team}
             article={{
               ...selectedArticle,
               summary: selectedArticle.description,
@@ -219,12 +224,11 @@ const ArticlesComponent = ({
                   report_status: selectedArticle.claim_description.project_media?.report_status,
                 },
               },
-
             }}
           />}
           {openEdit && selectedArticle && type === 'explainer' && <ExplainerForm
             onClose={setOpenEdit}
-            team={{ teamTags, get_languages: teamLanguages }}
+            team={team}
             article={{
               ...selectedArticle,
               created_at: selectedArticle.created_at,
@@ -246,7 +250,6 @@ ArticlesComponent.defaultProps = {
   filters: {},
   statuses: {},
   teamTags: null,
-  teamLanguages: null,
   articles: [],
   articlesCount: 0,
 };
@@ -269,7 +272,6 @@ ArticlesComponent.propTypes = {
   })),
   statuses: PropTypes.object,
   teamTags: PropTypes.arrayOf(PropTypes.string),
-  teamLanguages: PropTypes.string,
   articlesCount: PropTypes.number,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -345,7 +347,7 @@ const Articles = ({
             $report_status: [String], $verification_status: [String],
           ) {
             team(slug: $slug) {
-              get_languages
+              ...ArticleForm_team
               verification_statuses
               tag_texts(last: 50) {
                 edges {
@@ -435,7 +437,7 @@ const Articles = ({
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
                 statuses={props.team.verification_statuses}
-                teamLanguages={props.team.get_languages}
+                team={props.team}
                 teamTags={props.team.tag_texts.edges.length > 0 ? props.team.tag_texts.edges.map(tag => tag.node.text) : null}
                 onChangeSearchParams={handleChangeSearchParams}
                 updateMutation={updateMutation}
