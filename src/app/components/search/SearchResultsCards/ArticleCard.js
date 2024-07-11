@@ -27,10 +27,11 @@ const ArticleCard = ({
   publishedAt,
   onChangeTags,
   variant,
+  handleClick,
 }) => (
   <div className={cx('article-card', styles.articleCard)}>
     <Card>
-      <div className={styles.articleCardDescription}>
+      <div className={styles.articleCardDescription} onClick={handleClick} onKeyDown={handleClick}>
         <CardHoverContext.Consumer>
           { isHovered => (
             <ItemDescription
@@ -107,6 +108,7 @@ ArticleCard.propTypes = {
   publishedAt: PropTypes.number, // Timestamp
   onChangeTags: PropTypes.func.isRequired,
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default ArticleCard;
