@@ -36,11 +36,14 @@ const MediaComponentRightPanel = ({
         { showArticles && (
           <Tab
             label={
-              <FormattedMessage
-                id="mediaComponent.articles"
-                defaultMessage="Articles"
-                description="Label for the Articles tab"
-              />
+              <span>
+                <FormattedMessage
+                  id="mediaComponent.articles"
+                  defaultMessage="Articles"
+                  description="Label for the Articles tab"
+                />
+                {projectMedia.articles_count > 0 && ` [${projectMedia.articles_count}]`}
+              </span>
             }
             value="articles"
             className="media-tab__articles"
