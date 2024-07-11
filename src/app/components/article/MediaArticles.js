@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -9,10 +10,11 @@ import MediasLoading from '../media/MediasLoading';
 import NewArticleButton from './NewArticleButton';
 import DescriptionIcon from '../../icons/description.svg';
 import { FlashMessageSetterContext } from '../FlashMessage';
-import { getErrorMessage } from '../../helpers';
+import { getErrorMessage, getStatus } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
 import styles from './Articles.module.css';
+import MediaArticlesDisplay from './MediaArticlesDisplay';
 // eslint-disable-next-line no-unused-vars
 import ArticleForm from './ArticleForm'; // For GraphQL fragment
 
@@ -113,13 +115,29 @@ const MediaArticlesComponent = ({
     }
   };
 
+  const factCheck = projectMedia.fact_check;
+  const explainers = projectMedia.explainers?.edges?.map(edge => edge.node);
+
+  // eslint-disable-next-line
+  console.log('explainers', explainers);
+
+  let currentStatus = null;
+  if (factCheck?.claim_description?.project_media?.status) {
+    currentStatus = getStatus(team.verification_statuses, factCheck.claim_description?.project_media.status);
+  }
+
   return (
     <div id="articles-sidebar" className={styles.articlesSidebar}>
       <div className={styles.articlesSidebarTopBar}>
         {/* FIXME: Make sure the form can receive the right reference for the current item */}
         <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} />
       </div>
-      { !hasArticle && (
+      { hasArticle ? (
+        <>
+          <MediaArticlesDisplay factCheck={factCheck} explainers={explainers} currentStatus={currentStatus} />
+          {/* <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleAdd} /> */}
+        </>
+      ) : (
         <>
           <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
             <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
@@ -178,6 +196,7 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
             team(slug: $slug) {
               slug
               ...ArticleForm_team
+              verification_statuses
             }
             project_media(ids: $ids) {
               id
@@ -185,11 +204,13 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
               type
               fact_check: fact_check {
                 id
+                ...MediaArticlesDisplay_factCheck
               }
               explainers(first: 100) {
                 edges {
                   node {
                     id
+                    ...MediaArticlesDisplay_explainer
                   }
                 }
               }

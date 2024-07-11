@@ -13,13 +13,15 @@ const icons = {
 const ArticleUrl = ({
   url,
   variant,
+  title,
+  showIcon,
 }) => {
   if (!url) return null;
 
   return (
     <span className={cx('article-url', styles.articleLink)}>
-      { icons[variant] }
-      <a href={url} target="_blank" rel="noreferrer noopener" title={url}>{url}</a>
+      { showIcon ? icons[variant] : null}
+      <a href={url} target="_blank" rel="noreferrer noopener" title={title || url}>{url}</a>
     </span>
   );
 };
@@ -27,11 +29,15 @@ const ArticleUrl = ({
 ArticleUrl.defaultProps = {
   url: null,
   variant: 'explainer',
+  title: null,
+  showIcon: true,
 };
 
 ArticleUrl.propTypes = {
   url: PropTypes.string,
   variant: PropTypes.oneOf(['fact-check', 'explainer']),
+  title: PropTypes.string,
+  showIcon: PropTypes.bool,
 };
 
 export default ArticleUrl;

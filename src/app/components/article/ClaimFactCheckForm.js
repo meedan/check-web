@@ -32,17 +32,14 @@ const updateClaimMutation = graphql`
 const createClaimMutation = graphql`
   mutation ClaimFactCheckFormCreateClaimDescriptionMutation($input: CreateClaimDescriptionInput!) {
     createClaimDescription(input: $input) {
-      project_media {
-        permissions
-        claim_description {
-          id
-          dbid
-          updated_at
-          description
-          context
-          user {
-            name
-          }
+      claim_description {
+        id
+        dbid
+        updated_at
+        description
+        context
+        user {
+          name
         }
       }
     }
@@ -260,7 +257,7 @@ const ClaimFactCheckForm = ({
         handleSave={handleSave}
         onClose={onClose}
         handleBlur={handleBlur}
-        articleType="fact check"
+        articleType="fact-check"
         mode={type}
         article={article}
         team={team}

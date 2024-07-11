@@ -5,7 +5,9 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 
-const ItemReportStatus = ({ isPublished, publishedAt, className }) => {
+const ItemReportStatus = ({
+  isPublished, publishedAt, className, theme, variant, tooltip,
+}) => {
   const formatTooltip = () => {
     const label = (isPublished || publishedAt ? (
       <FormattedMessage
@@ -21,6 +23,9 @@ const ItemReportStatus = ({ isPublished, publishedAt, className }) => {
       />
     ));
 
+    // eslint-disable-next-line
+    console.log("publishedA ",publishedAt, isPublished, label)
+
     return (
       <>
         <span>{label}</span>
@@ -33,41 +38,51 @@ const ItemReportStatus = ({ isPublished, publishedAt, className }) => {
     );
   };
 
-  return (
+  const button = (
+    <div className={className}>
+      <ButtonMain
+        disabled
+        buttonProps={{
+          type: null,
+        }}
+        variant={variant}
+        size="small"
+        theme={theme}
+        iconCenter={<FactCheckIcon />}
+        customStyle={{
+          color: (isPublished || publishedAt ? 'var(--color-green-35)' : 'var(--color-gray-59)'),
+        }}
+      />
+    </div>
+  );
+
+  return tooltip ? (
     <Tooltip
       arrow
       title={formatTooltip()}
       placement="top"
     >
-      <div className={className}>
-        <ButtonMain
-          disabled
-          buttonProps={{
-            type: null,
-          }}
-          variant="contained"
-          size="small"
-          theme="text"
-          iconCenter={<FactCheckIcon />}
-          customStyle={{
-            color: (isPublished || publishedAt ? 'var(--color-green-35)' : 'var(--color-gray-59)'),
-          }}
-        />
-      </div>
+      {button}
     </Tooltip>
-  );
+  ) : button;
 };
 
 ItemReportStatus.defaultProps = {
   className: null,
   isPublished: false,
   publishedAt: null,
+  variant: 'contained',
+  theme: 'text',
+  tooltip: true,
 };
 
 ItemReportStatus.propTypes = {
   className: PropTypes.string,
   isPublished: PropTypes.bool,
   publishedAt: PropTypes.instanceOf(Date), // Timestamp
+  theme: PropTypes.string,
+  variant: PropTypes.string,
+  tooltip: PropTypes.bool,
 };
 
 export default ItemReportStatus;

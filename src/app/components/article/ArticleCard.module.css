@@ -1,0 +1,46 @@
+.articleCard {
+  display: block;
+  min-width: 500px;
+}
+
+.articleCard .articleCardDescription {
+  align-items: flex-start;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.articleCard .cardRight {
+  align-items: flex-end;
+  display: flex;
+  flex: 0 0 150px;
+  flex-direction: column;
+  text-align: right;
+  width: 150px;
+}
+
+.articleCard .cardRight .cardRightTop {
+  display: flex;
+  gap: 3px;
+  justify-content: flex-end;
+  width: 150px;
+}
+
+.articleCard .cardRight .cardRightTop .cardRightTopRating {
+  width: calc(100% - 33px);
+}
+
+.articleCard .cardRight .cardRightTop .cardRightTopRating button,
+.articleCard .cardRight .cardRightTop .cardRightTopRating button span {
+  max-width: 100%;
+}
+
+.articleCard .cardRight .cardRightTop .cardRightTopPublished {
+  flex: 0 0 30px;
+}
+
+.bulletSeparator > div {
+  color: var(--color-gray-75);
+}
