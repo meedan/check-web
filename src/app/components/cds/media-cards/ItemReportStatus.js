@@ -9,7 +9,7 @@ const ItemReportStatus = ({
   isPublished, publishedAt, className, theme, variant, tooltip,
 }) => {
   const formatTooltip = () => {
-    const label = (isPublished || publishedAt ? (
+    const label = isPublished ? (
       <FormattedMessage
         id="itemReportStatus.tooltipPublished"
         description="Tooltip of a report status icon when the report is published"
@@ -21,7 +21,7 @@ const ItemReportStatus = ({
         description="Tooltip of a report status icon when the report is not published"
         defaultMessage="Unpublished Fact-Check"
       />
-    ));
+    );
 
     // eslint-disable-next-line
     console.log("publishedA ",publishedAt, isPublished, label)
@@ -29,7 +29,7 @@ const ItemReportStatus = ({
     return (
       <>
         <span>{label}</span>
-        { publishedAt && (
+        { isPublished && publishedAt && (
           <ul>
             <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(publishedAt)}</li>
           </ul>

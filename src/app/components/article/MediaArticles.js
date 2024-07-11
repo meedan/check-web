@@ -5,14 +5,15 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import ChooseExistingArticleButton from './ChooseExistingArticleButton';
+import NewArticleButton from './NewArticleButton';
+import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
-import NewArticleButton from './NewArticleButton';
 import DescriptionIcon from '../../icons/description.svg';
-import { FlashMessageSetterContext } from '../FlashMessage';
 import { getErrorMessage, getStatus } from '../../helpers';
-import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
 import styles from './Articles.module.css';
 import MediaArticlesDisplay from './MediaArticlesDisplay';
 // eslint-disable-next-line no-unused-vars
@@ -119,7 +120,7 @@ const MediaArticlesComponent = ({
   const explainers = projectMedia.explainers?.edges?.map(edge => edge.node);
 
   // eslint-disable-next-line
-  console.log('explainers', explainers);
+  console.log('explainers', explainers, factCheck);
 
   let currentStatus = null;
   if (factCheck?.claim_description?.project_media?.status) {
@@ -129,6 +130,7 @@ const MediaArticlesComponent = ({
   return (
     <div id="articles-sidebar" className={styles.articlesSidebar}>
       <div className={styles.articlesSidebarTopBar}>
+        <ChooseExistingArticleButton teamSlug={team.slug} onAdd={handleAdd} />
         {/* FIXME: Make sure the form can receive the right reference for the current item */}
         <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} />
       </div>
