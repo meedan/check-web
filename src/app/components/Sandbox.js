@@ -99,6 +99,7 @@ const SandboxComponent = ({ admin }) => {
   const [listItemShared, setListItemShared] = React.useState(Boolean(false));
   const [listItemMediaPreview, setListItemMediaPreview] = React.useState(Boolean(true));
   const [listItemRequests, setListItemRequests] = React.useState(Boolean(true));
+  const [listItemArticles, setListItemArticles] = React.useState(Boolean(true));
   const [listItemFactCheck, setListItemFactCheck] = React.useState(Boolean(true));
   const [listItemFactCheckLink, setListItemFactCheckLink] = React.useState(Boolean(true));
   const [listItemDescription, setListItemDescription] = React.useState(Boolean(true));
@@ -122,6 +123,7 @@ const SandboxComponent = ({ admin }) => {
     setListItemDataPointsFactCheck(shared);
     setListItemSuggestions(false);
     setListItemUnread(false);
+    setListItemArticles(true);
     setListItemFactCheck(true);
     setListItemPublished(true);
     setListItemRequests(true);
@@ -130,6 +132,12 @@ const SandboxComponent = ({ admin }) => {
 
   const onSetListItemRequests = (requests) => {
     setListItemRequests(requests);
+  };
+
+  const onSetListItemArticles = (articles) => {
+    setListItemArticles(articles);
+    setListItemFactCheck(false);
+    setListItemFactCheckLink(false);
   };
 
   const onSetListItemFactCheck = (factcheck) => {
@@ -500,8 +508,18 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  label="Articles"
+                  labelPlacement="top"
+                  disabled={listItemShared}
+                  checked={listItemArticles}
+                  onChange={() => onSetListItemArticles(!listItemArticles)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
                   label="Fact-Check"
                   labelPlacement="top"
+                  disabled={!listItemArticles}
                   checked={listItemFactCheck}
                   onChange={() => onSetListItemFactCheck(!listItemFactCheck)}
                 />
@@ -513,6 +531,21 @@ const SandboxComponent = ({ admin }) => {
                   checked={listItemFactCheckLink}
                   disabled={!listItemFactCheck}
                   onChange={() => setListItemFactCheckLink(!listItemFactCheckLink)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact Checks > 1"
+                  labelPlacement="top"
+                  checked={listItemFactCheckCount > 1 && listItemFactCheck}
+                  disabled={!listItemShared || !listItemFactCheck}
+                  onChange={() => {
+                    if (listItemFactCheckCount === 1) {
+                      setListItemFactCheckCount(12345);
+                    } else {
+                      setListItemFactCheckCount(1);
+                    }
+                  }}
                 />
               </li>
               <li>
@@ -542,21 +575,6 @@ const SandboxComponent = ({ admin }) => {
                   onChange={() => setListItemPublished(!listItemPublished)}
                 />
               </li>
-              <li>
-                <SwitchComponent
-                  label="Fact Checks > 1"
-                  labelPlacement="top"
-                  checked={listItemFactCheckCount > 1 && listItemFactCheck}
-                  disabled={!listItemShared || !listItemFactCheck}
-                  onChange={() => {
-                    if (listItemFactCheckCount === 1) {
-                      setListItemFactCheckCount(12345);
-                    } else {
-                      setListItemFactCheckCount(1);
-                    }
-                  }}
-                />
-              </li>
             </ul>
           </div>
           <div className={styles.componentBlockVariants}>
@@ -577,6 +595,7 @@ const SandboxComponent = ({ admin }) => {
               lastRequestDate={new Date('2024-01-15T12:00:22Z')}
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               factCheckCount={listItemFactCheck && listItemFactCheckCount}
+              articlesCount={listItemArticles ? 1234 : null}
               channels={(listItemRequests || listItemShared) && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
               rating={listItemFactCheck ? 'False' : null}
               ratingColor={listItemFactCheck ? '#f00' : null}
