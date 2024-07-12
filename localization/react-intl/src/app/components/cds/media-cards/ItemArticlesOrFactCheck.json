@@ -1,0 +1,22 @@
+[
+  {
+    "id": "itemArticlesOrFactCheck.factCheckCount",
+    "description": "A label showing the number of fact-checks represented in an item.",
+    "defaultMessage": "{count, plural, one {# Fact-check} other {# Fact-checks}}"
+  },
+  {
+    "id": "itemArticlesOrFactCheck.articleCount",
+    "description": "A label showing the number of articles represented in an item.",
+    "defaultMessage": "{count, plural, one {# Article} other {# Articles}}"
+  },
+  {
+    "id": "itemArticlesOrFactCheck.noFactCheck",
+    "description": "A label that appears when no fact-check is present to display.",
+    "defaultMessage": "no fact-check"
+  },
+  {
+    "id": "itemArticlesOrFactCheck.noArticles",
+    "description": "A label that appears when no articles are present to display.",
+    "defaultMessage": "no articles"
+  }
+]

@@ -1,3 +1,5 @@
+// TODO: write ClaimFactCheckForm_factCheck and ExplainerForm_explainer fragments and remove the eslint-disable directive below
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -179,28 +181,23 @@ const ArticlesComponent = ({
             }
 
             return (
-              <>
-                <ArticleCard
-                  key={article.id}
-                  variant={type}
-                  title={article.title || article.claim_description?.description}
-                  summary={article.description}
-                  url={article.url}
-                  languageCode={article.language !== 'und' ? article.language : null}
-                  date={article.updated_at}
-                  tags={article.tags}
-                  tagOptions={teamTags}
-                  rating={article.rating}
-                  statusColor={currentStatus ? currentStatus.style?.color : null}
-                  statusLabel={currentStatus ? currentStatus.label : null}
-                  lastUserName={article.user?.name || null}
-                  publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
-                  onChangeTags={(tags) => {
-                    handleUpdateTags(article.id, tags);
-                  }}
-                  handleClick={e => handleClick(article, e)}
-                />
-              </>
+              <ArticleCard
+                key={article.id}
+                variant={type}
+                title={article.title || article.claim_description?.description}
+                summary={article.description}
+                url={article.url}
+                languageCode={article.language !== 'und' ? article.language : null}
+                date={article.updated_at}
+                tags={article.tags}
+                tagOptions={teamTags}
+                statusColor={currentStatus ? currentStatus.style?.color : null}
+                statusLabel={currentStatus ? currentStatus.label : null}
+                isPublished={article.claim_description?.project_media?.report_status === 'published'}
+                publishedAt={article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
+                onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
+                handleClick={e => handleClick(article, e)}
+              />
             );
           })}
         </div>
@@ -212,6 +209,8 @@ const ArticlesComponent = ({
           {openEdit && selectedArticle && type === 'fact-check' && <ClaimFactCheckForm
             onClose={setOpenEdit}
             team={team}
+            // TODO: Write a ClaimFactCheckForm_factCheck fragment and pass the whole article object, instead of this
+            // crafted object, and do this custom manipulation/formatting inside the ClaimFactCheckForm component.
             article={{
               ...selectedArticle,
               summary: selectedArticle.description,
@@ -234,6 +233,8 @@ const ArticlesComponent = ({
           {openEdit && selectedArticle && type === 'explainer' && <ExplainerForm
             onClose={setOpenEdit}
             team={team}
+            // TODO: Write a ExplainerForm_explainer fragment and pass the whole article object, instead of this
+            // crafted object, and do this custom manipulation/formatting inside the ExplainerForm component.
             article={{
               ...selectedArticle,
               created_at: selectedArticle.created_at,
