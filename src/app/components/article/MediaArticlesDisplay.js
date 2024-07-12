@@ -3,10 +3,19 @@ import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import MediaArticleCard from './MediaArticleCard';
+import { getStatus } from '../../helpers';
 
-const MediaArticlesDisplay = ({ factCheck, explainers, currentStatus }) => {
+const MediaArticlesDisplay = ({ projectMedia }) => {
+  const explainers = projectMedia?.explainer_items?.edges?.map(edge => edge.node.explainer);
+  const factCheck = projectMedia?.fact_check;
+
   // eslint-disable-next-line
-  console.log('Explainers:', explainers); 
+  console.log('Explainers:', explainers);
+
+  let currentStatus = null;
+  if (projectMedia?.status) {
+    currentStatus = getStatus(projectMedia.team.verification_statuses, projectMedia.status);
+  }
 
   return (
     <>
@@ -64,24 +73,36 @@ const MediaArticlesDisplay = ({ factCheck, explainers, currentStatus }) => {
   );
 };
 export default createFragmentContainer(MediaArticlesDisplay, graphql`
-  fragment MediaArticlesDisplay_factCheck on FactCheck {
-    title
-    language
-    updated_at
-    url
-    claim_description {
-      description
-      project_media {
-        published
-        report_status
+  fragment MediaArticlesDisplay_projectMedia on ProjectMedia {
+    status
+    team {
+      verification_statuses
+    }
+    fact_check {
+      title
+      language
+      updated_at
+      url
+      claim_description {
+        description
+        project_media {
+          published
+          report_status
+        }
+      }
+    }
+    explainer_items(first: 100) {
+      edges {
+        node {
+          id
+          explainer {
+            language
+            title
+            url
+            updated_at
+          }
+        }
       }
     }
   }
-
-  # fragment MediaArticlesDisplay_explainer on Explainer {
-  #   language
-  #   title
-  #   url
-  #   updated_at
-  # }
 `);

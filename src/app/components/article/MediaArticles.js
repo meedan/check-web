@@ -13,7 +13,7 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import DescriptionIcon from '../../icons/description.svg';
-import { getErrorMessage, getStatus } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import styles from './Articles.module.css';
 import MediaArticlesDisplay from './MediaArticlesDisplay';
 // eslint-disable-next-line no-unused-vars
@@ -24,16 +24,7 @@ const addExplainerMutation = graphql`
     createExplainerItem(input: $input) {
       project_media {
         id
-        fact_check {
-          id
-        }
-        explainers(first: 100) {
-          edges {
-            node {
-              id
-            }
-          }
-        }
+        ...MediaArticlesDisplay_projectMedia
       }
     }
   }
@@ -44,16 +35,7 @@ const addFactCheckMutation = graphql`
     updateClaimDescription(input: $input) {
       project_media {
         id
-        fact_check {
-          id
-        }
-        explainers(first: 100) {
-          edges {
-            node {
-              id
-            }
-          }
-        }
+        ...MediaArticlesDisplay_projectMedia
       }
     }
   }
@@ -66,7 +48,7 @@ const MediaArticlesComponent = ({
 }) => {
   const [adding, setAdding] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
-  const hasArticle = (projectMedia.fact_check?.id || projectMedia.explainers?.edges[0]?.node?.id);
+  const hasArticle = projectMedia.articles_count > 0;
 
   const onCompleted = () => {
     setFlashMessage(
@@ -116,20 +98,6 @@ const MediaArticlesComponent = ({
     }
   };
 
-  const factCheck = projectMedia.fact_check;
-  const explainers = projectMedia.explainer_items?.edges?.map(edge => ({
-    id: edge.node.id,
-    ...edge.node.explainer,
-  }));
-
-  // eslint-disable-next-line
-  console.log('Media Articles explainers', explainers);
-
-  let currentStatus = null;
-  if (factCheck?.claim_description?.project_media?.status) {
-    currentStatus = getStatus(team.verification_statuses, factCheck.claim_description?.project_media.status);
-  }
-
   return (
     <div id="articles-sidebar" className={styles.articlesSidebar}>
       <div className={styles.articlesSidebarTopBar}>
@@ -139,7 +107,7 @@ const MediaArticlesComponent = ({
       </div>
       { hasArticle ? (
         <>
-          <MediaArticlesDisplay factCheck={factCheck} explainers={explainers} currentStatus={currentStatus} />
+          <MediaArticlesDisplay projectMedia={projectMedia} />
         </>
       ) : (
         <>
@@ -175,10 +143,10 @@ MediaArticlesComponent.propTypes = {
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
-    fact_check: PropTypes.object,
-    explainers: PropTypes.exact({
-      edges: PropTypes.arrayOf(PropTypes.object),
-    }),
+    // fact_check: PropTypes.object,
+    // explainers: PropTypes.exact({
+    //   edges: PropTypes.arrayOf(PropTypes.object),
+    // }),
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
@@ -206,24 +174,8 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
               id
               dbid
               type
-              fact_check: fact_check {
-                id
-                ...MediaArticlesDisplay_factCheck
-              }
-              explainer_items(first: 100) {
-                edges {
-                  node {
-                    id
-                    explainer {
-                      language
-                      title
-                      url
-                      updated_at
-                      # ...MediaArticlesDisplay_explainer
-                    }
-                  }
-                }
-              }
+              articles_count
+              ...MediaArticlesDisplay_projectMedia
             }
           }
         `}
