@@ -124,6 +124,7 @@ const SandboxComponent = ({ admin }) => {
     setListItemUnread(false);
     setListItemFactCheck(true);
     setListItemPublished(true);
+    setListItemRequests(true);
     setListItemShared(shared);
   };
 
@@ -485,6 +486,7 @@ const SandboxComponent = ({ admin }) => {
                   label="Requests"
                   labelPlacement="top"
                   checked={listItemRequests}
+                  disabled={listItemShared}
                   onChange={() => onSetListItemRequests(!listItemRequests)}
                 />
               </li>
@@ -571,11 +573,11 @@ const SandboxComponent = ({ admin }) => {
               suggestionsCount={listItemSuggestions ? 567890 : null}
               dataPoints={listItemDataPoints}
               mediaCount={12345}
-              requestsCount={listItemRequests ? 7890 : null}
+              requestsCount={listItemRequests || listItemShared ? 7890 : 0}
               lastRequestDate={new Date('2024-01-15T12:00:22Z')}
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               factCheckCount={listItemFactCheck && listItemFactCheckCount}
-              channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
+              channels={(listItemRequests || listItemShared) && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
               rating={listItemFactCheck ? 'False' : null}
               ratingColor={listItemFactCheck ? '#f00' : null}
               onCheckboxChange={!listItemShared ? () => {} : null}
