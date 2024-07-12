@@ -66,7 +66,7 @@ const MediaArticlesComponent = ({
 }) => {
   const [adding, setAdding] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
-  const hasArticle = (projectMedia.fact_check?.id || projectMedia.explainers.edges[0]?.node?.id);
+  const hasArticle = (projectMedia.fact_check?.id || projectMedia.explainers?.edges[0]?.node?.id);
 
   const onCompleted = () => {
     setFlashMessage(
@@ -117,10 +117,13 @@ const MediaArticlesComponent = ({
   };
 
   const factCheck = projectMedia.fact_check;
-  const explainers = projectMedia.explainers?.edges?.map(edge => edge.node);
+  const explainers = projectMedia.explainer_items?.edges?.map(edge => ({
+    id: edge.node.id,
+    ...edge.node.explainer,
+  }));
 
   // eslint-disable-next-line
-  console.log('explainers', explainers, factCheck);
+  console.log('Media Articles explainers', explainers);
 
   let currentStatus = null;
   if (factCheck?.claim_description?.project_media?.status) {
@@ -137,7 +140,6 @@ const MediaArticlesComponent = ({
       { hasArticle ? (
         <>
           <MediaArticlesDisplay factCheck={factCheck} explainers={explainers} currentStatus={currentStatus} />
-          {/* <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleAdd} /> */}
         </>
       ) : (
         <>
@@ -208,11 +210,17 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
                 id
                 ...MediaArticlesDisplay_factCheck
               }
-              explainers(first: 100) {
+              explainer_items(first: 100) {
                 edges {
                   node {
                     id
-                    ...MediaArticlesDisplay_explainer
+                    explainer {
+                      language
+                      title
+                      url
+                      updated_at
+                      # ...MediaArticlesDisplay_explainer
+                    }
                   }
                 }
               }

@@ -24,7 +24,7 @@ const MediaArticlesDisplay = ({ factCheck, explainers, currentStatus }) => {
         />
         : null}
       <br />
-      {factCheck && explainers.length > 0 ?
+      {factCheck && explainers?.length > 0 ?
         <>
           <Alert
             variant="info"
@@ -47,7 +47,7 @@ const MediaArticlesDisplay = ({ factCheck, explainers, currentStatus }) => {
           <br />
         </>
         : null}
-      {explainers.filter(explainer => explainer !== null).map(explainer => (
+      {explainers?.filter(explainer => explainer !== null).map(explainer => (
         <>
           <MediaArticleCard
             key={explainer?.id}
@@ -77,11 +77,11 @@ export default createFragmentContainer(MediaArticlesDisplay, graphql`
       }
     }
   }
-  fragment MediaArticlesDisplay_explainer on Node{
-    ... on Explainer {
-      id
-      title
-    }
-  }
 
+  # fragment MediaArticlesDisplay_explainer on Explainer {
+  #   language
+  #   title
+  #   url
+  #   updated_at
+  # }
 `);
