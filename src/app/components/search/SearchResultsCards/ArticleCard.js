@@ -88,6 +88,7 @@ ArticleCard.defaultProps = {
   languageCode: null,
   tags: [],
   tagOptions: null,
+  onChangeTags: null,
   variant: 'explainer',
   statusLabel: null,
   publishedAt: null,
@@ -106,7 +107,7 @@ ArticleCard.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
   tagOptions: PropTypes.arrayOf(PropTypes.string),
   publishedAt: PropTypes.number, // Timestamp
-  onChangeTags: PropTypes.func.isRequired,
+  onChangeTags: PropTypes.func,
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
 };
 

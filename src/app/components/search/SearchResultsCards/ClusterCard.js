@@ -51,7 +51,7 @@ const ClusterCard = ({
   >
     <Card className={styles.clusterCard} cardUrl={cardUrl}>
       <div className={styles.clusterCardLeft}>
-        { onCheckboxChange && (<Checkbox checked={isChecked} onChange={onCheckboxChange} className={[styles.checkbox]} />)}
+        { onCheckboxChange && (<Checkbox checked={isChecked} onChange={onCheckboxChange} className={styles.checkbox} />)}
         <ItemThumbnail
           picture={mediaThumbnail?.media?.picture}
           maskContent={mediaThumbnail?.show_warning_cover}

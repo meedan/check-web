@@ -114,10 +114,6 @@ const SandboxComponent = ({ admin }) => {
     if (listItemDataPointsFactCheck) {
       setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
     } else if (!listItemDataPointsFactCheck) {
-      setListItemDataPoints([CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
-    } else if (listItemDataPointsFactCheck) {
-      setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS]);
-    } else if (!listItemDataPointsFactCheck) {
       setListItemDataPoints([]);
     }
   }, [listItemDataPointsFactCheck]);
@@ -540,7 +536,7 @@ const SandboxComponent = ({ admin }) => {
                   label="Published"
                   labelPlacement="top"
                   checked={listItemPublished}
-                  disabled={listItemShared}
+                  disabled={listItemShared || !listItemFactCheck}
                   onChange={() => setListItemPublished(!listItemPublished)}
                 />
               </li>

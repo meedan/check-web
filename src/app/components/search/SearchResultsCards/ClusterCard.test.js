@@ -52,6 +52,7 @@ describe('<ClusterCard />', () => {
       <ClusterCard
         title="Title"
         date={new Date()}
+        factCheckCount={1}
         rating="Verdadeiro"
         isPublished
       />,
