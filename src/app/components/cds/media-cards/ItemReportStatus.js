@@ -23,9 +23,6 @@ const ItemReportStatus = ({
       />
     );
 
-    // eslint-disable-next-line
-    console.log("publishedA ",publishedAt, isPublished, label)
-
     return (
       <>
         <span>{label}</span>

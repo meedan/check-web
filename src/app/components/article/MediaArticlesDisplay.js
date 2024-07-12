@@ -4,13 +4,12 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import MediaArticleCard from './MediaArticleCard';
 import { getStatus } from '../../helpers';
+import styles from './MediaArticlesDisplay.module.css';
+
 
 const MediaArticlesDisplay = ({ projectMedia }) => {
   const explainers = projectMedia?.explainer_items?.edges?.map(edge => edge.node.explainer);
   const factCheck = projectMedia?.fact_check;
-
-  // eslint-disable-next-line
-  console.log('Explainers:', explainers);
 
   let currentStatus = null;
   if (projectMedia?.status) {
@@ -18,7 +17,7 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
   }
 
   return (
-    <>
+    <div className={styles.articles}>
       {factCheck ?
         <MediaArticleCard
           key={factCheck.id}
@@ -69,7 +68,7 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
           <br />
         </>
       ))}
-    </>
+    </div>
   );
 };
 export default createFragmentContainer(MediaArticlesDisplay, graphql`
@@ -78,6 +77,7 @@ export default createFragmentContainer(MediaArticlesDisplay, graphql`
     team {
       verification_statuses
     }
+    id
     fact_check {
       title
       language

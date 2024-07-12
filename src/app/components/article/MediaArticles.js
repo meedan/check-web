@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -168,10 +167,8 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
             team(slug: $slug) {
               slug
               ...ArticleForm_team
-              verification_statuses
             }
             project_media(ids: $ids) {
-              id
               dbid
               type
               articles_count

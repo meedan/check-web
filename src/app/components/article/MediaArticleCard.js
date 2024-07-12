@@ -23,84 +23,73 @@ const MediaArticleCard = ({
   languageCode,
   publishedAt,
   variant,
-}) => {
-  // eslint-disable-next-line
-  console.log("publishedAT MediaArcitle ",publishedAt, url, date)
-  return (
-    <div className={cx('article-card', styles.articleCard)}>
-      <Card>
-        <div className={styles.articleCardDescription}>
-          <div
-            className={cx(
-              [styles.cardSummary],
-            )
+}) => (
+  <div className={cx('article-card', styles.articleCard)}>
+    <Card>
+      <div>
+        <div className={cx('typography-body2')}>
+          <span className={styles.articleIcon}>
+            {variant === 'fact-check' ?
+              <FactCheckIcon /> : <BookIcon />
             }
-          >
-            <div className={styles.cardSummaryContent}>
-              <div className={cx('typography-subtitle2')} style={{ display: 'flex', alignItems: 'center' }}>
-                {variant === 'fact-check' ? <FactCheckIcon /> : <BookIcon style={{ color: statusColor }} />}
-                {variant === 'fact-check' ? 'Fact-Check' : 'Explainer'}
-                {statusLabel && (
-                  <>
-                    :
-                    <EllipseIcon style={{ color: statusColor }} />
-                    {statusLabel}
-                  </>
-                )}
-              </div>
-              <>
-                {url ?
-                  <span className={cx('description-text', styles.cardDescription)}>
-                    <ArticleUrl url={url} title={title} variant={variant} showIcon={false} />
-                  </span>
-                  : title }
-              </>
-            </div>
-            <div />
-          </div>
-          <BulletSeparator
-            details={[
-              variant === 'fact-check ' && (<ItemReportStatus
-                publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
+          </span>
+          {variant === 'fact-check' ? 'Fact-Check' : 'Explainer'}
+          {statusLabel && (
+            <>
+              :<EllipseIcon style={{ color: statusColor }} /> {statusLabel}
+            </>
+          )}
+        </div>
+        <span>
+          {url ? (
+            <ArticleUrl url={url} title={title} variant={variant} showIcon={false} />
+          ) : (
+            title
+          )}
+        </span>
+        <div />
+        <BulletSeparator
+          details={[
+            variant === 'fact-check ' && (<ItemReportStatus
+              publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
+              variant="text"
+              theme="lightText"
+              tooltip={false}
+            />),
+            languageCode && (
+              <Language
+                languageCode={languageCode}
                 variant="text"
                 theme="lightText"
+              />
+            ),
+            date && (
+              <LastRequestDate
                 tooltip={false}
-              />),
-              languageCode && (
-                <Language
-                  languageCode={languageCode}
-                  variant="text"
-                  theme="lightText"
-                />
-              ),
-              date && (
-                <LastRequestDate
-                  tooltip={false}
-                  variant="text"
-                  theme="lightText"
-                  lastRequestDate={new Date(date * 1000)}
-                />
-              ),
-              (
-                <ButtonMain
-                  disabled
-                  buttonProps={{
-                    type: null,
-                  }}
-                  label={<FormattedMessage id="mediaArticleCard.editButton" defaultMessage="Edit Article" description="Label for edit button" />}
-                  variant="contained"
-                  size="small"
-                  theme="text"
-                  onClick={() => {}}
-                />
-              ),
-            ]}
-          />
-        </div>
-      </Card>
-    </div>
-  );
-};
+                variant="text"
+                theme="lightText"
+                lastRequestDate={new Date(date * 1000)}
+              />
+            ),
+            (
+              <ButtonMain
+                disabled
+                buttonProps={{
+                  type: null,
+                }}
+                label={<FormattedMessage id="mediaArticleCard.editButton" defaultMessage="Edit Article" description="Label for edit button" />}
+                variant="contained"
+                size="small"
+                theme="text"
+                onClick={() => {}}
+              />
+            ),
+          ]}
+        />
+      </div>
+    </Card>
+  </div>
+);
 
 MediaArticleCard.defaultProps = {
   url: null,
