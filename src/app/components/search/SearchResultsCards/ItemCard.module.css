@@ -3,18 +3,24 @@
   min-width: 500px;
   position: relative;
 
-  .listItemUnread {
-    &::before {
-      background-color: var(--color-gray-75);
-      border-radius: 3px;
-      bottom: 6px;
-      content: '';
-      left: 6px;
-      overflow: hidden;
-      position: absolute;
-      right: auto;
-      top: 6px;
-      width: 5px;
+  &.listItemUnread {
+    :global(.card) {
+      background-color: var(--color-blue-98);
+    }
+
+    .clusterCard {
+      &::before {
+        background-color: var(--color-blue-81);
+        border-radius: 3px;
+        bottom: 6px;
+        content: '';
+        left: 6px;
+        overflow: hidden;
+        position: absolute;
+        right: auto;
+        top: 6px;
+        width: 5px;
+      }
     }
   }
 
