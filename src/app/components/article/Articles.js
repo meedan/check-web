@@ -11,8 +11,12 @@ import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
 import MediasLoading from '../media/MediasLoading';
-import PageTitle from '../PageTitle';
+// eslint-disable-next-line no-unused-vars
+import ArticleForm from './ArticleForm'; // For GraphQL fragment
 import ArticleFilters from './ArticleFilters';
+import ClaimFactCheckForm from './ClaimFactCheckForm';
+import ExplainerForm from './ExplainerForm';
+import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
@@ -36,6 +40,8 @@ const ArticlesComponent = ({
   articlesCount,
   updateMutation,
 }) => {
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const [selectedArticle, setSelectedArticle] = React.useState(null);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
@@ -89,6 +95,20 @@ const ArticlesComponent = ({
       onCompleted,
       onError,
     });
+  };
+
+  const handleClick = (article, e) => {
+    if (!openEdit && e.target.className.indexOf('Card') >= 0) {
+      setSelectedArticle(article);
+      setOpenEdit(true);
+    }
+    if (openEdit && e.target.className.indexOf('Card') >= 0 && article !== selectedArticle) {
+      setOpenEdit(false);
+      setSelectedArticle(article);
+      setTimeout(() => {
+        setOpenEdit(true);
+      }, 10);
+    }
   };
 
   return (
@@ -159,26 +179,68 @@ const ArticlesComponent = ({
             }
 
             return (
-              <ArticleCard
-                key={article.id}
-                variant={type}
-                title={article.title || article.claim_description?.description}
-                summary={article.description}
-                url={article.url}
-                languageCode={article.language !== 'und' ? article.language : null}
-                date={article.updated_at}
-                tags={article.tags}
-                tagOptions={teamTags}
-                statusColor={currentStatus ? currentStatus.style?.color : null}
-                statusLabel={currentStatus ? currentStatus.label : null}
-                publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
-                onChangeTags={(tags) => {
-                  handleUpdateTags(article.id, tags);
-                }}
-              />
+              <>
+                <ArticleCard
+                  key={article.id}
+                  variant={type}
+                  title={article.title || article.claim_description?.description}
+                  summary={article.description}
+                  url={article.url}
+                  languageCode={article.language !== 'und' ? article.language : null}
+                  date={article.updated_at}
+                  tags={article.tags}
+                  tagOptions={teamTags}
+                  rating={article.rating}
+                  statusColor={currentStatus ? currentStatus.style?.color : null}
+                  statusLabel={currentStatus ? currentStatus.label : null}
+                  lastUserName={article.user?.name || null}
+                  publishedAt={article.claim_description?.project_media?.report_status === 'published' && article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
+                  onChangeTags={(tags) => {
+                    handleUpdateTags(article.id, tags);
+                  }}
+                  handleClick={e => handleClick(article, e)}
+                />
+              </>
             );
           })}
         </div>
+
+        <>
+          {/* NOTE: If we happen to edit articles from multiple places we're probably better off
+              having each form type be it's own QueryRenderer instead of doing lots of prop passing repeatedly
+          */}
+          {openEdit && selectedArticle && type === 'fact-check' && <ClaimFactCheckForm
+            onClose={setOpenEdit}
+            team={team}
+            article={{
+              ...selectedArticle,
+              summary: selectedArticle.description,
+              created_at: selectedArticle.created_at,
+              statuses,
+              language: selectedArticle.language !== 'und' ? selectedArticle.language : null,
+              claim_description: {
+                description: selectedArticle.claim_description.description,
+                context: selectedArticle.claim_description.context,
+                id: selectedArticle.claim_description.id,
+                project_media: {
+                  id: selectedArticle.claim_description.project_media?.dbid,
+                  status: selectedArticle.claim_description.project_media?.status,
+                  published: selectedArticle.claim_description.project_media?.published,
+                  report_status: selectedArticle.claim_description.project_media?.report_status,
+                },
+              },
+            }}
+          />}
+          {openEdit && selectedArticle && type === 'explainer' && <ExplainerForm
+            onClose={setOpenEdit}
+            team={team}
+            article={{
+              ...selectedArticle,
+              created_at: selectedArticle.created_at,
+              language: selectedArticle.language !== 'und' ? selectedArticle.language : null,
+            }}
+          />}
+        </>
       </div>
     </PageTitle>
   );
@@ -226,10 +288,13 @@ ArticlesComponent.propTypes = {
     url: PropTypes.string,
     language: PropTypes.string,
     updated_at: PropTypes.number,
+    created_at: PropTypes.number,
+    rating: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
     claim_description: PropTypes.shape({
       description: PropTypes.string,
       project_media: PropTypes.shape({
+        dbid: PropTypes.string,
         status: PropTypes.string,
         published: PropTypes.string, // Timestamp
         report_status: PropTypes.string,
@@ -290,10 +355,11 @@ const Articles = ({
             $report_status: [String], $verification_status: [String],
           ) {
             team(slug: $slug) {
+              ...ArticleForm_team
               slug
               name
               verification_statuses
-              tag_texts(last: 50) {
+              tag_texts(first: 100) {
                 edges {
                   node {
                     text
@@ -318,7 +384,11 @@ const Articles = ({
                       url
                       language
                       updated_at
+                      created_at
                       tags
+                      user {
+                        name
+                      }
                     }
                     ... on FactCheck {
                       id
@@ -327,10 +397,18 @@ const Articles = ({
                       url
                       language
                       updated_at
+                      created_at
+                      rating
                       tags
+                      user {
+                        name
+                      }
                       claim_description { # There will be no N + 1 problem here because the backend uses eager loading
                         description
+                        context
+                        id
                         project_media {
+                          dbid
                           status
                           published
                           report_status
@@ -364,11 +442,11 @@ const Articles = ({
                 sortType={sortType}
                 sortOptions={sortOptions}
                 filterOptions={filterOptions}
-                team={{ name: props.team.name, slug: props.team.slug }}
                 filters={filters}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
                 statuses={props.team.verification_statuses}
+                team={props.team}
                 teamTags={props.team.tag_texts.edges.length > 0 ? props.team.tag_texts.edges.map(tag => tag.node.text) : null}
                 onChangeSearchParams={handleChangeSearchParams}
                 updateMutation={updateMutation}

@@ -49,20 +49,17 @@ const createClaimMutation = graphql`
 const createFactCheckMutation = graphql`
   mutation ClaimFactCheckFormCreateFactCheckMutation($input: CreateFactCheckInput!) {
     createFactCheck(input: $input) {
-      claim_description {
+      fact_check {
         id
-        dbid
-        fact_check {
-          id
-          title
-          summary
-          url
-          language
-          tags
-          updated_at
-          user {
-            name
-          }
+        title
+        summary
+        url
+        language
+        rating
+        tags
+        updated_at
+        user {
+          name
         }
       }
     }
@@ -79,6 +76,7 @@ const updateFactCheckMutation = graphql`
         summary
         url
         language
+        rating
         tags
         user {
           name
@@ -101,20 +99,26 @@ const ClaimFactCheckForm = ({
   onClose,
   projectMedia,
 }) => {
-  const type = article?.dbid ? 'edit' : 'create';
+  const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [factCheck, setFactCheck] = React.useState({
-    title: article?.factCheck?.title || null,
-    description: article?.factCheck?.descripton || null,
-    language: article?.factCheck?.language || null,
-    tags: article?.factCheck?.tags || [],
-    url: article?.factCheck?.url || null,
-    status: article?.factCheck?.status || null,
+    title: article?.title || null,
+    summary: article?.summary || null,
+    language: article?.language || null,
+    tags: article?.tags || [],
+    url: article?.url || null,
+    rating: article?.rating || null,
   });
   const [claim, setClaim] = React.useState({
-    description: article?.description || null,
-    context: article?.context || null,
+    description: article?.claim_description?.description || null,
+    context: article?.claim_description?.context || null,
+    id: article?.claim_description?.id || null,
+    project_media: {
+      status: article?.claim?.project_media?.status || null,
+      published: article?.claim?.project_media?.published || null,
+      report_status: article?.claim?.project_media?.report_status || null,
+    },
   });
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -141,21 +145,18 @@ const ClaimFactCheckForm = ({
       mutation: createFactCheckMutation,
       variables: {
         input: {
-          claim_description_id: response.createClaimDescription.project_media.claim_description.dbid,
+          claim_description_id: response.createClaimDescription.claim_description.dbid,
           language: factCheck.language,
-          summary: factCheck.description,
+          rating: factCheck.rating,
+          summary: factCheck.summary,
           title: factCheck.title,
           url: factCheck.url,
           tags: factCheck.tags,
         },
       },
-      onCompleted: (err) => {
+      onCompleted: () => {
         setSaving(false);
-        if (err) {
-          onFailure(err);
-        } else {
-          onSuccess();
-        }
+        onSuccess();
       },
       onError: (err) => {
         onFailure(err);
@@ -194,13 +195,15 @@ const ClaimFactCheckForm = ({
     if (field.indexOf('claim') >= 0) {
       setClaim({ ...claim, [field.replace('claim ', '').toLowerCase()]: value });
       if (type === 'edit') {
+        const saveClaim = { ...claim, [field.replace('claim ', '').toLowerCase()]: value };
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: updateClaimMutation,
           variables: {
             input: {
-              id: article.id,
-              ...claim,
+              id: saveClaim.id,
+              description: saveClaim.description,
+              context: saveClaim.context,
             },
           },
           onCompleted: (response, err) => {
@@ -220,17 +223,19 @@ const ClaimFactCheckForm = ({
     } else {
       setFactCheck({ ...factCheck, [field]: value });
       if (type === 'edit') {
+        const saveFactCheck = { ...factCheck, [field]: value };
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: updateFactCheckMutation,
           variables: {
             input: {
-              id: article.factCheck.id,
-              language: factCheck.language,
-              summary: factCheck.description,
-              title: factCheck.title,
-              url: factCheck.url,
-              tags: factCheck.tags,
+              id: article.id,
+              language: saveFactCheck.language,
+              summary: saveFactCheck.summary,
+              title: saveFactCheck.title,
+              url: saveFactCheck.url,
+              tags: saveFactCheck.tags,
+              rating: saveFactCheck.rating,
             },
           },
           onCompleted: (response, err) => {
@@ -248,7 +253,6 @@ const ClaimFactCheckForm = ({
         });
       }
     }
-    setFactCheck({ ...factCheck, [field]: value });
   };
 
   return (
