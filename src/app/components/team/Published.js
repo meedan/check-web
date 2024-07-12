@@ -33,6 +33,7 @@ const Published = ({ routeParams }) => {
       hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
       readOnlyFields={['report_status']}
       page="published"
+      resultType="factCheck"
     />
   );
 };
