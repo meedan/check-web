@@ -1,5 +1,10 @@
-.articles {
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
+.mediaArticlesDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.explainerCard:hover {
+  opacity: 1 !important;
 }

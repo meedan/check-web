@@ -1,11 +1,11 @@
 [
   {
-    "id": "article.readOnlyAlertTitle",
+    "id": "mediaArticlesDisplay.readOnlyAlertTitle",
     "description": "Title of the alert message displayed on data points section of the edit feed page.",
     "defaultMessage": "Fact-Check Added"
   },
   {
-    "id": "article.readOnlyAlertContent",
+    "id": "mediaArticlesDisplay.readOnlyAlertContent",
     "description": "Description of the alert message displayed on data points section of the edit feed page.",
     "defaultMessage": "When a fact-check article is added it will be prioritized to be sent to all media and requests that match this item."
   }

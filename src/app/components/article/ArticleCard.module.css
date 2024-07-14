@@ -14,6 +14,23 @@
 }
 
 .articleIcon {
-  font-size: var(--font-size-body-2);
-  margin-right: 0.5px;
+  font-size: var(--font-size-subtitle-1);
+  margin-right: .5px;
+}
+
+.articleType {
+  color: var(--color-gray-37);
+}
+
+.articleCardHeader {
+  align-items: flex-start;
+  display: flex;
+
+  & > div {
+    display: flex;
+  }
+
+  & > div + div {
+    align-items: center;
+  }
 }

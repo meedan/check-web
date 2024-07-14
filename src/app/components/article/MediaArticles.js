@@ -105,9 +105,7 @@ const MediaArticlesComponent = ({
         <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} />
       </div>
       { hasArticle ? (
-        <>
-          <MediaArticlesDisplay projectMedia={projectMedia} />
-        </>
+        <MediaArticlesDisplay projectMedia={projectMedia} />
       ) : (
         <>
           <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
@@ -127,7 +125,9 @@ const MediaArticlesComponent = ({
               description="Message displayed on articles sidebar when an item has no articles."
             />
           </div>
-          <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleAdd} />
+          <div className={styles.articlesSidebarListComponent}>
+            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleAdd} />
+          </div>
         </>
       )}
     </div>
@@ -139,13 +139,9 @@ MediaArticlesComponent.propTypes = {
     slug: PropTypes.string.isRequired,
   }).isRequired,
   projectMedia: PropTypes.shape({
-    id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
-    // fact_check: PropTypes.object,
-    // explainers: PropTypes.exact({
-    //   edges: PropTypes.arrayOf(PropTypes.object),
-    // }),
+    articles_count: PropTypes.number.isRequired,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

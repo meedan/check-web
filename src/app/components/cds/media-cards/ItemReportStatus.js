@@ -6,7 +6,7 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 
 const ItemReportStatus = ({
-  isPublished, publishedAt, className, theme, variant, tooltip,
+  isPublished, publishedAt, className, theme, variant, useTooltip,
 }) => {
   const formatTooltip = () => {
     const label = isPublished ? (
@@ -53,7 +53,7 @@ const ItemReportStatus = ({
     </div>
   );
 
-  return tooltip ? (
+  return useTooltip ? (
     <Tooltip
       arrow
       title={formatTooltip()}
@@ -70,7 +70,7 @@ ItemReportStatus.defaultProps = {
   publishedAt: null,
   variant: 'contained',
   theme: 'text',
-  tooltip: true,
+  useTooltip: true,
 };
 
 ItemReportStatus.propTypes = {
@@ -79,7 +79,7 @@ ItemReportStatus.propTypes = {
   publishedAt: PropTypes.instanceOf(Date), // Timestamp
   theme: PropTypes.string,
   variant: PropTypes.string,
-  tooltip: PropTypes.bool,
+  useTooltip: PropTypes.bool,
 };
 
 export default ItemReportStatus;

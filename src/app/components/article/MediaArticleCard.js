@@ -27,31 +27,32 @@ const MediaArticleCard = ({
   <div className={cx('article-card', styles.articleCard)}>
     <Card>
       <div>
-        <div className={cx('typography-body2')}>
-          <span className={styles.articleIcon}>
-            {variant === 'fact-check' ?
-              <FactCheckIcon /> : <BookIcon />
-            }
-          </span>
-          {variant === 'fact-check' ? 'Fact-Check' : 'Explainer'}
-          {statusLabel && (
-            <>
-              :<EllipseIcon style={{ color: statusColor }} /> {statusLabel}
-            </>
-          )}
+        <div className={cx('typography-body2-bold', styles.articleCardHeader)}>
+          <div className={styles.articleType}>
+            <div className={styles.articleIcon}>
+              { variant === 'fact-check' && <FactCheckIcon /> }
+              { variant === 'explainer' && <BookIcon /> }
+            </div>
+            { variant === 'fact-check' && <FormattedMessage id="mediaArticleCard.factCheck" defaultMessage="Fact-Check" description="Title in an article card on item page." /> }
+            { variant === 'explainer' && <FormattedMessage id="mediaArticleCard.explainer" defaultMessage="Explainer" description="Title in an article card on item page." /> }
+            { statusLabel && ': ' }
+          </div>
+          { statusLabel && <div><EllipseIcon style={{ color: statusColor }} /> {statusLabel}</div> }
         </div>
         <span>
-          {url ? (
-            <ArticleUrl url={url} title={title} variant={variant} showIcon={false} />
-          ) : (
-            title
-          )}
+          { url ?
+            <ArticleUrl url={url} title={title} variant={variant} showIcon={false} linkText={title} /> :
+            <div className="typography-body2">
+              {title}
+            </div>
+          }
         </span>
         <div />
         <BulletSeparator
           details={[
-            variant === 'fact-check ' && (<ItemReportStatus
+            variant === 'fact-check' && (<ItemReportStatus
               publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
+              isPublished={Boolean(publishedAt)}
               variant="text"
               theme="lightText"
               tooltip={false}
