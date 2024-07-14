@@ -172,7 +172,7 @@ const ClaimFactCheckForm = ({
       variables: {
         input: {
           description: claim.description,
-          context: claim.title,
+          context: claim.context,
           project_media_id: projectMedia?.dbid || null,
         },
       },

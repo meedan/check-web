@@ -176,8 +176,8 @@ const ArticlesComponent = ({
         <div className={searchResultsStyles['search-results-scroller']}>
           {articles.map((article) => {
             let currentStatus = null;
-            if (article.claim_description?.project_media?.status) {
-              currentStatus = getStatus(statuses, article.claim_description.project_media.status);
+            if (article.rating) {
+              currentStatus = getStatus(statuses, article.rating);
             }
 
             return (
@@ -193,8 +193,8 @@ const ArticlesComponent = ({
                 tagOptions={teamTags}
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
-                isPublished={article.claim_description?.project_media?.report_status === 'published'}
-                publishedAt={article.claim_description?.project_media?.published ? parseInt(article.claim_description?.project_media?.published, 10) : null}
+                isPublished={article.report_status === 'published'}
+                publishedAt={article.claim_description?.project_media?.fact_check_published_on ? parseInt(article.claim_description?.project_media?.fact_check_published_on, 10) : null}
                 onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
                 handleClick={e => handleClick(article, e)}
               />
@@ -217,16 +217,11 @@ const ArticlesComponent = ({
               created_at: selectedArticle.created_at,
               statuses,
               language: selectedArticle.language !== 'und' ? selectedArticle.language : null,
+              publishedAt: selectedArticle.claim_description.project_media?.fact_check_published_on,
               claim_description: {
+                id: selectedArticle.claim_description.id,
                 description: selectedArticle.claim_description.description,
                 context: selectedArticle.claim_description.context,
-                id: selectedArticle.claim_description.id,
-                project_media: {
-                  id: selectedArticle.claim_description.project_media?.dbid,
-                  status: selectedArticle.claim_description.project_media?.status,
-                  published: selectedArticle.claim_description.project_media?.published,
-                  report_status: selectedArticle.claim_description.project_media?.report_status,
-                },
               },
             }}
           />}
@@ -291,14 +286,13 @@ ArticlesComponent.propTypes = {
     updated_at: PropTypes.number,
     created_at: PropTypes.number,
     rating: PropTypes.string,
+    report_status: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
     claim_description: PropTypes.shape({
       description: PropTypes.string,
+      context: PropTypes.string,
       project_media: PropTypes.shape({
-        dbid: PropTypes.string,
-        status: PropTypes.string,
-        published: PropTypes.string, // Timestamp
-        report_status: PropTypes.string,
+        fact_check_published_on: PropTypes.number, // Timestamp
       }),
     }),
   })),
@@ -400,19 +394,17 @@ const Articles = ({
                       updated_at
                       created_at
                       rating
+                      report_status
                       tags
                       user {
                         name
                       }
                       claim_description { # There will be no N + 1 problem here because the backend uses eager loading
+                        id
                         description
                         context
-                        id
                         project_media {
-                          dbid
-                          status
-                          published
-                          report_status
+                          fact_check_published_on
                         }
                       }
                     }

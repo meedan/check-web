@@ -42,6 +42,7 @@ const updateMutation = graphql`
         description
         url
         language
+        tags
         user {
           dbid
           name
