@@ -14,6 +14,7 @@ import MediasLoading from '../media/MediasLoading';
 import DescriptionIcon from '../../icons/description.svg';
 import { getErrorMessage } from '../../helpers';
 import styles from './Articles.module.css';
+import MediaArticlesDisplay from './MediaArticlesDisplay';
 // eslint-disable-next-line no-unused-vars
 import ArticleForm from './ArticleForm'; // For GraphQL fragment
 
@@ -22,16 +23,7 @@ const addExplainerMutation = graphql`
     createExplainerItem(input: $input) {
       project_media {
         id
-        fact_check {
-          id
-        }
-        explainers(first: 100) {
-          edges {
-            node {
-              id
-            }
-          }
-        }
+        ...MediaArticlesDisplay_projectMedia
       }
     }
   }
@@ -42,16 +34,7 @@ const addFactCheckMutation = graphql`
     updateClaimDescription(input: $input) {
       project_media {
         id
-        fact_check {
-          id
-        }
-        explainers(first: 100) {
-          edges {
-            node {
-              id
-            }
-          }
-        }
+        ...MediaArticlesDisplay_projectMedia
       }
     }
   }
@@ -64,7 +47,7 @@ const MediaArticlesComponent = ({
 }) => {
   const [adding, setAdding] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
-  const hasArticle = (projectMedia.fact_check?.id || projectMedia.explainers.edges[0]?.node?.id);
+  const hasArticle = projectMedia.articles_count > 0;
 
   const onCompleted = () => {
     setFlashMessage(
@@ -121,7 +104,9 @@ const MediaArticlesComponent = ({
         {/* FIXME: Make sure the form can receive the right reference for the current item */}
         <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} />
       </div>
-      { !hasArticle && (
+      { hasArticle ? (
+        <MediaArticlesDisplay projectMedia={projectMedia} />
+      ) : (
         <>
           <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
             <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
@@ -140,7 +125,9 @@ const MediaArticlesComponent = ({
               description="Message displayed on articles sidebar when an item has no articles."
             />
           </div>
-          <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleAdd} />
+          <div className={styles.articlesSidebarListComponent}>
+            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleAdd} />
+          </div>
         </>
       )}
     </div>
@@ -152,13 +139,9 @@ MediaArticlesComponent.propTypes = {
     slug: PropTypes.string.isRequired,
   }).isRequired,
   projectMedia: PropTypes.shape({
-    id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
-    fact_check: PropTypes.object,
-    explainers: PropTypes.exact({
-      edges: PropTypes.arrayOf(PropTypes.object),
-    }),
+    articles_count: PropTypes.number.isRequired,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
@@ -182,19 +165,10 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
               ...ArticleForm_team
             }
             project_media(ids: $ids) {
-              id
               dbid
               type
-              fact_check: fact_check {
-                id
-              }
-              explainers(first: 100) {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
+              articles_count
+              ...MediaArticlesDisplay_projectMedia
             }
           }
         `}

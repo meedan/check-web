@@ -5,7 +5,9 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 
-const ItemReportStatus = ({ isPublished, publishedAt, className }) => {
+const ItemReportStatus = ({
+  isPublished, publishedAt, className, theme, variant, useTooltip,
+}) => {
   const formatTooltip = () => {
     const label = isPublished ? (
       <FormattedMessage
@@ -33,41 +35,51 @@ const ItemReportStatus = ({ isPublished, publishedAt, className }) => {
     );
   };
 
-  return (
+  const button = (
+    <div className={className}>
+      <ButtonMain
+        disabled
+        buttonProps={{
+          type: null,
+        }}
+        variant={variant}
+        size="small"
+        theme={theme}
+        iconCenter={<FactCheckIcon />}
+        customStyle={{
+          color: (isPublished || publishedAt ? 'var(--color-green-35)' : 'var(--color-gray-59)'),
+        }}
+      />
+    </div>
+  );
+
+  return useTooltip ? (
     <Tooltip
       arrow
       title={formatTooltip()}
       placement="top"
     >
-      <div className={className}>
-        <ButtonMain
-          disabled
-          buttonProps={{
-            type: null,
-          }}
-          variant="contained"
-          size="small"
-          theme="text"
-          iconCenter={<FactCheckIcon />}
-          customStyle={{
-            color: isPublished ? 'var(--color-green-35)' : 'var(--color-gray-59)',
-          }}
-        />
-      </div>
+      {button}
     </Tooltip>
-  );
+  ) : button;
 };
 
 ItemReportStatus.defaultProps = {
   className: null,
   isPublished: false,
   publishedAt: null,
+  variant: 'contained',
+  theme: 'text',
+  useTooltip: true,
 };
 
 ItemReportStatus.propTypes = {
   className: PropTypes.string,
   isPublished: PropTypes.bool,
   publishedAt: PropTypes.instanceOf(Date), // Timestamp
+  theme: PropTypes.string,
+  variant: PropTypes.string,
+  useTooltip: PropTypes.bool,
 };
 
 export default ItemReportStatus;

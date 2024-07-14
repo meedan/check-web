@@ -1,0 +1,17 @@
+[
+  {
+    "id": "mediaArticleCard.factCheck",
+    "description": "Title in an article card on item page.",
+    "defaultMessage": "Fact-Check"
+  },
+  {
+    "id": "mediaArticleCard.explainer",
+    "description": "Title in an article card on item page.",
+    "defaultMessage": "Explainer"
+  },
+  {
+    "id": "mediaArticleCard.editButton",
+    "description": "Label for edit button",
+    "defaultMessage": "Edit Article"
+  }
+]
