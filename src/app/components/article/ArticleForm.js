@@ -56,7 +56,10 @@ const ArticleForm = ({
 
   const [isValid, setIsValid] = React.useState(false);
 
-  const publishedAt = article?.claim_description?.project_media?.fact_check_published_on;
+  let publishedAt = null;
+  if (article?.claim_description?.project_media?.report_status === 'published') {
+    publishedAt = article?.claim_description?.project_media?.fact_check_published_on;
+  }
 
   React.useEffect(() => {
     setLanguage(language || defaultArticleLanguage);
@@ -541,6 +544,7 @@ export default createFragmentContainer(ArticleForm, graphql`
         project_media {
           dbid
           fact_check_published_on
+          report_status
         }
       }
     }

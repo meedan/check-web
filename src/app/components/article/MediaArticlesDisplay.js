@@ -15,11 +15,11 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
   const explainerItems = projectMedia.explainer_items.edges.map(edge => edge.node);
   const hasExplainer = (explainerItems.length > 0);
   const factCheck = projectMedia.fact_check;
+  const hasFactCheck = Boolean(factCheck);
   let publishedAt = null; // FIXME: It would be better if it came from the backend
-  if (factCheck.report_status === 'published') {
+  if (hasFactCheck && factCheck.report_status === 'published') {
     publishedAt = projectMedia.fact_check_published_on;
   }
-  const hasFactCheck = Boolean(factCheck);
 
   let currentStatus = null;
   if (hasFactCheck) {

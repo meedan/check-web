@@ -61,7 +61,7 @@ const ExplainerForm = ({
   team,
   onClose,
 }) => {
-  const type = article.id ? 'edit' : 'create';
+  const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [explainer, setExplainer] = React.useState({});
