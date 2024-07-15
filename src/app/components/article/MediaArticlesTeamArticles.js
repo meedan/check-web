@@ -39,11 +39,13 @@ const MediaArticlesTeamArticlesComponent = ({
 
 MediaArticlesTeamArticlesComponent.defaultProps = {
   articles: [],
+  textSearch: null,
 };
 
 MediaArticlesTeamArticlesComponent.propTypes = {
   team: PropTypes.object.isRequired,
   articles: PropTypes.arrayOf(PropTypes.object),
+  textSearch: PropTypes.string,
   onAdd: PropTypes.func.isRequired,
 };
 

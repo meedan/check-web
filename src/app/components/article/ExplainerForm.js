@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { graphql, commitMutation } from 'react-relay/compat';
 import PropTypes from 'prop-types';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import ArticleForm from './ArticleForm';
 import { FlashMessageSetterContext } from '../FlashMessage';
@@ -42,6 +42,7 @@ const updateMutation = graphql`
         description
         url
         language
+        tags
         user {
           dbid
           name
@@ -63,13 +64,7 @@ const ExplainerForm = ({
   const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [explainer, setExplainer] = React.useState({
-    title: article?.title || null,
-    description: article?.description || null,
-    language: article?.language || null,
-    tags: article?.tags || [],
-    url: article?.url || null,
-  });
+  const [explainer, setExplainer] = React.useState({});
 
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -143,24 +138,22 @@ const ExplainerForm = ({
   };
 
   return (
-    <>
-      <ArticleForm
-        handleSave={handleSave}
-        onClose={onClose}
-        handleBlur={handleBlur}
-        articleType="explainer"
-        mode={type}
-        article={article}
-        team={team}
-        saving={saving}
-        error={error}
-      />
-    </>
+    <ArticleForm
+      handleSave={handleSave}
+      onClose={onClose}
+      handleBlur={handleBlur}
+      articleType="explainer"
+      mode={type}
+      article={article}
+      team={team}
+      saving={saving}
+      error={error}
+    />
   );
 };
 
 ExplainerForm.defaultProps = {
-  article: null,
+  article: {},
 };
 
 ExplainerForm.propTypes = {
@@ -169,4 +162,12 @@ ExplainerForm.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default ExplainerForm;
+export default createFragmentContainer(ExplainerForm, graphql`
+  fragment ExplainerForm_team on Team {
+    ...ArticleForm_team
+  }
+  fragment ExplainerForm_article on Explainer {
+    id
+    ...ArticleForm_article
+  }
+`);

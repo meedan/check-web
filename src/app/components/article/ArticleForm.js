@@ -39,7 +39,6 @@ const ArticleForm = ({
   const [claimContext, setClaimContext] = React.useState(article?.claim_description?.context || '');
   const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text }));
 
-
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
   const [articleTitle, setArticleTitle] = React.useState(article?.title || '');
@@ -55,8 +54,12 @@ const ArticleForm = ({
   const [titleError, setTitleError] = React.useState(false);
   const [claimDescriptionError, setClaimDescriptionError] = React.useState(false);
 
-
   const [isValid, setIsValid] = React.useState(false);
+
+  let publishedAt = null;
+  if (article?.claim_description?.project_media?.report_status === 'published') {
+    publishedAt = article?.claim_description?.project_media?.fact_check_published_on;
+  }
 
   React.useEffect(() => {
     setLanguage(language || defaultArticleLanguage);
@@ -70,13 +73,9 @@ const ArticleForm = ({
     }
   }, [articleTitle, summary, claimDescription, language]);
 
-  const handleGoToReport = (id) => {
-    if (window.location.pathname.indexOf('/media/') > 0) {
-      window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)\/?$/, '').replace(/\/$/, '')}/report`);
-    } else {
-      const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-      window.location.assign(`../../${teamSlug}/media/${id}/report`);
-    }
+  const handleGoToReport = (projectMediaDbid) => {
+    const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+    window.location.assign(`/${teamSlug}/media/${projectMediaDbid}/report`);
   };
 
   const handleLanguageSubmit = (value) => {
@@ -85,9 +84,9 @@ const ArticleForm = ({
     handleBlur('language', languageCode);
   };
 
-  const handleTagChange = (newtags) => {
-    setTags(newtags);
-    handleBlur('tags', newtags);
+  const handleTagChange = (newTags) => {
+    setTags(newTags);
+    handleBlur('tags', newTags);
   };
 
   const handleStatusChange = (clickedStatus) => {
@@ -113,7 +112,7 @@ const ArticleForm = ({
                       />
                     </div>
                   }
-                  { article.publishedAt && articleType === 'fact-check' &&
+                  { publishedAt && articleType === 'fact-check' &&
                     <div className="typography-subtitle2">
                       <FormattedMessage
                         id="articleForm.publishedAtDate"
@@ -129,9 +128,9 @@ const ArticleForm = ({
                       {article.user.name}, <FormattedDate value={new Date(article.updated_at * 1000)} year="numeric" month="long" day="numeric" />
                     </div>
                   }
-                  { article.publishedAt && articleType === 'fact-check' &&
+                  { publishedAt && articleType === 'fact-check' &&
                     <div className="typography-body2">
-                      <FormattedDate value={new Date(article.publishedAt * 1000)} year="numeric" month="long" day="numeric" />
+                      <FormattedDate value={new Date(publishedAt * 1000)} year="numeric" month="long" day="numeric" />
                     </div>
                   }
                 </div>
@@ -142,17 +141,17 @@ const ArticleForm = ({
                 { articleType === 'fact-check' && statuses &&
                   <RatingSelector status={status} statuses={statuses} onStatusChange={handleStatusChange} />
                 }
-                { articleType === 'fact-check' && article?.claim_description?.project_media?.id &&
+                { articleType === 'fact-check' && article?.claim_description?.project_media?.dbid &&
                   <div className={inputStyles['form-fieldset-field']}>
                     <ButtonMain
-                      onClick={() => handleGoToReport(article.claim_description.project_media.id)}
+                      onClick={() => handleGoToReport(article.claim_description.project_media.dbid)}
                       className="media-fact-check__report-designer"
                       variant="contained"
-                      theme={article?.publishedAt ? 'brand' : 'alert'}
+                      theme={publishedAt ? 'brand' : 'alert'}
                       size="default"
-                      iconLeft={article?.publishedAt ? <IconReport /> : <IconUnpublishedReport />}
+                      iconLeft={publishedAt ? <IconReport /> : <IconUnpublishedReport />}
                       disabled={claimDescriptionMissing}
-                      label={article?.publishedAt ?
+                      label={publishedAt ?
                         <FormattedMessage
                           className="media-fact-check__published-report"
                           id="articleForm.publishedReport"
@@ -511,7 +510,7 @@ ArticleForm.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   articleType: PropTypes.oneOf(['fact-check', 'explainer']).isRequired,
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
-  article: PropTypes.object,
+  article: PropTypes.object, // FIXME: Describe the structure
   team: PropTypes.object.isRequired,
 };
 
@@ -524,6 +523,40 @@ export default createFragmentContainer(ArticleForm, graphql`
         node {
           text
         }
+      }
+    }
+  }
+  fragment ArticleForm_article on Node {
+    ... on FactCheck {
+      title
+      summary
+      url
+      language
+      tags
+      rating
+      updated_at
+      user {
+        name
+      }
+      claim_description {
+        description
+        context
+        project_media {
+          dbid
+          fact_check_published_on
+          report_status
+        }
+      }
+    }
+    ... on Explainer {
+      title
+      description
+      url
+      language
+      tags
+      updated_at
+      user {
+        name
       }
     }
   }

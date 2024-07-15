@@ -92,91 +92,63 @@ const SandboxComponent = ({ admin }) => {
 
   const [articleCardShared, setArticleCardShared] = React.useState(false);
   const [articleCardVariant, setArticleCardVariant] = React.useState('fact-check');
+  const [articleCardLink, setArticleCardLink] = React.useState(Boolean(true));
+  const [articleCardTags, setArticleCardTags] = React.useState(Boolean(true));
+  const [articleCardPublished, setArticleCardPublished] = React.useState(true);
 
   const [listItemShared, setListItemShared] = React.useState(Boolean(false));
-  const [listItemCluster, setListItemCluster] = React.useState(Boolean(false));
-  const [listItemMedia, setListItemMedia] = React.useState(Boolean(true));
+  const [listItemMediaPreview, setListItemMediaPreview] = React.useState(Boolean(true));
   const [listItemRequests, setListItemRequests] = React.useState(Boolean(true));
+  const [listItemArticles, setListItemArticles] = React.useState(Boolean(true));
   const [listItemFactCheck, setListItemFactCheck] = React.useState(Boolean(true));
   const [listItemFactCheckLink, setListItemFactCheckLink] = React.useState(Boolean(true));
-  const [listItemDescriptionLink, setListItemDescriptionLink] = React.useState(Boolean(true));
   const [listItemDescription, setListItemDescription] = React.useState(Boolean(true));
-  const [listItemFactCheckPublished, setListItemFactCheckPublished] = React.useState(Boolean(true));
   const [listItemSuggestions, setListItemSuggestions] = React.useState(Boolean(true));
   const [listItemUnread, setListItemUnread] = React.useState(Boolean(true));
   const [listItemPublished, setListItemPublished] = React.useState(Boolean(true));
   const [listItemDataPointsFactCheck, setListItemDataPointsFactCheck] = React.useState(Boolean(false));
-  const [listItemDataPointsMediaRequests, setListItemDataPointsMediaRequests] = React.useState(Boolean(false));
   const [listItemDataPoints, setListItemDataPoints] = React.useState([]);
   const [listItemFactCheckCount, setListItemFactCheckCount] = React.useState(1);
 
   // This triggers when the list item data points are changed
   React.useEffect(() => {
-    if (listItemDataPointsFactCheck && listItemDataPointsMediaRequests) {
+    if (listItemDataPointsFactCheck) {
       setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
-    } else if (!listItemDataPointsFactCheck && listItemDataPointsMediaRequests) {
-      setListItemDataPoints([CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
-    } else if (listItemDataPointsFactCheck && !listItemDataPointsMediaRequests) {
-      setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS]);
-    } else if (!listItemDataPointsFactCheck && !listItemDataPointsMediaRequests) {
+    } else if (!listItemDataPointsFactCheck) {
       setListItemDataPoints([]);
     }
-  }, [listItemDataPointsFactCheck, listItemDataPointsMediaRequests]);
+  }, [listItemDataPointsFactCheck]);
 
   const onSetListItemShared = (shared) => {
-    if (!listItemCluster) {
-      setListItemDescriptionLink(false);
-      setListItemRequests(false);
-      setListItemMedia(false);
-    }
+    setListItemDataPointsFactCheck(shared);
     setListItemSuggestions(false);
     setListItemUnread(false);
+    setListItemArticles(true);
     setListItemFactCheck(true);
-    setListItemFactCheckPublished(true);
+    setListItemPublished(true);
+    setListItemRequests(true);
     setListItemShared(shared);
   };
 
-  const onSetListItemCluster = (cluster) => {
-    if (cluster) {
-      setListItemRequests(true);
-      setListItemMedia(true);
-    } else {
-      setListItemDescriptionLink(false);
-      setListItemFactCheck(true);
-      setListItemFactCheckPublished(true);
-      setListItemRequests(false);
-      setListItemMedia(false);
-    }
-    setListItemCluster(cluster);
-  };
-
-  const onSetListItemMedia = (media) => {
-    if (media && listItemShared && listItemCluster) {
-      setListItemRequests(true);
-    } else if (!media && listItemShared && listItemCluster) {
-      setListItemRequests(false);
-    }
-    setListItemMedia(media);
-  };
-
   const onSetListItemRequests = (requests) => {
-    if (requests && listItemShared && listItemCluster) {
-      setListItemMedia(true);
-    } else if (!requests && listItemShared && listItemCluster) {
-      setListItemMedia(false);
-    }
     setListItemRequests(requests);
+  };
+
+  const onSetListItemArticles = (articles) => {
+    setListItemArticles(articles);
+    setListItemFactCheck(false);
+    setListItemFactCheckLink(false);
   };
 
   const onSetListItemFactCheck = (factcheck) => {
     if (!factcheck && listItemShared) {
       setListItemFactCheckLink(false);
-      setListItemFactCheckPublished(false);
+      setListItemPublished(false);
     } else if (factcheck && listItemShared) {
-      setListItemFactCheckPublished(true);
+      setListItemPublished(true);
     } else if (!factcheck) {
       setListItemFactCheckLink(false);
-      setListItemFactCheckPublished(false);
+      setListItemPublished(false);
     }
     setListItemFactCheck(factcheck);
   };
@@ -411,14 +383,48 @@ const SandboxComponent = ({ admin }) => {
           <div className={styles.componentControls}>
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               ArticleCard
+              <a
+                href="https://www.figma.com/design/i1LSbpQXKyA7dLc8AkgtKA/Articles?node-id=61-40003&t=nQx8FOqn9bhFtiZZ-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
             </div>
             <ul>
               <li>
                 <SwitchComponent
-                  label="In Shared Feed"
+                  label="Shared Feed"
                   labelPlacement="top"
                   checked={articleCardShared}
                   onChange={() => setArticleCardShared(!articleCardShared)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Published"
+                  labelPlacement="top"
+                  disabled={articleCardShared}
+                  checked={articleCardPublished}
+                  onChange={() => setArticleCardPublished(!articleCardPublished)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Link"
+                  labelPlacement="top"
+                  checked={articleCardLink}
+                  onChange={() => setArticleCardLink(!articleCardLink)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Tags"
+                  labelPlacement="top"
+                  checked={articleCardTags}
+                  onChange={() => setArticleCardTags(!articleCardTags)}
                 />
               </li>
               <li>
@@ -438,15 +444,16 @@ const SandboxComponent = ({ admin }) => {
               title="Moby-Dick; or, The Whale."
               summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
               date={1702677106.846}
-              publishedAt={articleCardShared ? null : 1702677106.846}
+              isPublished={articleCardPublished}
+              publishedAt={1702677106.846}
               statusLabel={articleCardVariant === 'fact-check' ? 'The Status is very very long' : null}
               statusColor={articleCardVariant === 'fact-check' ? '#ff0000' : null}
               teamName={articleCardShared ? 'Kitty Team' : null}
               teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}
-              languageCode="en"
-              tags={['Novel', 'Moby Dick', '19th Century']}
+              languageCode={articleCardShared ? null : 'en'}
+              tags={articleCardTags ? ['Novel', 'Moby Dick', '19th Century'] : null}
               onChangeTags={() => {}}
-              url="https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it"
+              url={articleCardLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               variant={articleCardVariant}
             />
           </div>
@@ -476,20 +483,10 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
-                  label="Cluster of Media"
+                  label="Media Preview"
                   labelPlacement="top"
-                  checked={listItemCluster}
-                  disabled={!listItemShared}
-                  onChange={() => onSetListItemCluster(!listItemCluster)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Media"
-                  labelPlacement="top"
-                  checked={listItemMedia}
-                  disabled={listItemShared && !listItemCluster}
-                  onChange={() => onSetListItemMedia(!listItemMedia)}
+                  checked={listItemMediaPreview}
+                  onChange={() => setListItemMediaPreview(!listItemMediaPreview)}
                 />
               </li>
               <li>
@@ -497,7 +494,7 @@ const SandboxComponent = ({ admin }) => {
                   label="Requests"
                   labelPlacement="top"
                   checked={listItemRequests}
-                  disabled={listItemShared && !listItemCluster}
+                  disabled={listItemShared}
                   onChange={() => onSetListItemRequests(!listItemRequests)}
                 />
               </li>
@@ -511,20 +508,20 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
-                  label="Fact-Check"
+                  label="Articles"
                   labelPlacement="top"
-                  checked={listItemFactCheck}
-                  disabled={listItemShared && !listItemCluster}
-                  onChange={() => onSetListItemFactCheck(!listItemFactCheck)}
+                  disabled={listItemShared}
+                  checked={listItemArticles}
+                  onChange={() => onSetListItemArticles(!listItemArticles)}
                 />
               </li>
               <li>
                 <SwitchComponent
-                  label="Fact-Check Published"
+                  label="Fact-Check"
                   labelPlacement="top"
-                  checked={listItemFactCheckPublished}
-                  disabled={!listItemFactCheck || listItemShared}
-                  onChange={() => setListItemFactCheckPublished(!listItemFactCheckPublished)}
+                  disabled={!listItemArticles}
+                  checked={listItemFactCheck}
+                  onChange={() => onSetListItemFactCheck(!listItemFactCheck)}
                 />
               </li>
               <li>
@@ -538,11 +535,17 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
-                  label="Description Link"
+                  label="Fact Checks > 1"
                   labelPlacement="top"
-                  checked={listItemDescriptionLink}
-                  disabled={listItemShared && !listItemCluster}
-                  onChange={() => setListItemDescriptionLink(!listItemDescriptionLink)}
+                  checked={listItemFactCheckCount > 1 && listItemFactCheck}
+                  disabled={!listItemShared || !listItemFactCheck}
+                  onChange={() => {
+                    if (listItemFactCheckCount === 1) {
+                      setListItemFactCheckCount(12345);
+                    } else {
+                      setListItemFactCheckCount(1);
+                    }
+                  }}
                 />
               </li>
               <li>
@@ -568,78 +571,34 @@ const SandboxComponent = ({ admin }) => {
                   label="Published"
                   labelPlacement="top"
                   checked={listItemPublished}
+                  disabled={listItemShared || !listItemFactCheck}
                   onChange={() => setListItemPublished(!listItemPublished)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Shared Feed Data Points - Fact Checks"
-                  labelPlacement="top"
-                  checked={listItemDataPointsFactCheck}
-                  disabled={!listItemShared}
-                  onChange={() => setListItemDataPointsFactCheck(!listItemDataPointsFactCheck)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Shared Feed Data Points - Media & Requests"
-                  labelPlacement="top"
-                  checked={listItemDataPointsMediaRequests}
-                  disabled={!listItemShared}
-                  onChange={() => setListItemDataPointsMediaRequests(!listItemDataPointsMediaRequests)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Fact Check Count - More than 1"
-                  labelPlacement="top"
-                  checked={listItemFactCheckCount > 1}
-                  onChange={() => {
-                    if (listItemFactCheckCount === 1) {
-                      setListItemFactCheckCount(12345);
-                    } else {
-                      setListItemFactCheckCount(1);
-                    }
-                  }}
                 />
               </li>
             </ul>
           </div>
           <div className={styles.componentBlockVariants}>
             <ClusterCard
-              title="Title of a Shared Item Card Item"
+              title={listItemShared ? 'Card in Shared Feed' : 'Card in Tipline Workspace'}
               date={new Date('2023-12-15T17:19:40Z')}
               description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
-              mediaThumbnail={listItemCluster && mediaThumbnail}
+              mediaThumbnail={listItemMediaPreview ? mediaThumbnail : null}
               workspaces={listItemShared && workspaces}
-              dataPoints={listItemDataPoints}
-              mediaCount={12345}
-              requestsCount={listItemRequests ? 7890 : null}
-              lastRequestDate={new Date('2024-01-15T12:00:22Z')}
-              factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
-              factCheckCount={listItemFactCheckCount}
-              channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
-              rating={listItemFactCheck ? 'False' : null}
-              ratingColor={listItemFactCheck ? '#f00' : null}
-              onCheckboxChange={!listItemShared ? () => {} : null}
-            />
-            <br />
-            <ClusterCard
-              title="Title of a Workspace Item Card Item"
-              date={new Date('2023-12-15T17:19:40Z')}
-              description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
-              lastRequestDate={new Date('2024-01-15T12:00:22Z')}
-              mediaCount={123456}
               mediaType="UploadedImage"
-              mediaThumbnail={listItemMedia && mediaThumbnail}
-              channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
-              requestsCount={listItemRequests ? 7890 : null}
               isUnread={listItemUnread}
               isPublished={listItemPublished}
-              factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
-              rating="False"
-              ratingColor="#f00"
+              publishedAt={1702677106846}
               suggestionsCount={listItemSuggestions ? 567890 : null}
+              dataPoints={listItemDataPoints}
+              mediaCount={12345}
+              requestsCount={listItemRequests || listItemShared ? 7890 : 0}
+              lastRequestDate={new Date('2024-01-15T12:00:22Z')}
+              factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
+              factCheckCount={listItemFactCheck && listItemFactCheckCount}
+              articlesCount={listItemArticles ? 1234 : null}
+              channels={(listItemRequests || listItemShared) && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
+              rating={listItemFactCheck ? 'False' : null}
+              ratingColor={listItemFactCheck ? '#f00' : null}
               onCheckboxChange={!listItemShared ? () => {} : null}
             />
           </div>

@@ -16,13 +16,16 @@
     text-align: center;
   }
 
+  .articlesSidebarListComponent {
+    max-height: 400px;
+    overflow: auto;
+  }
+
   .articlesSidebarList {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 8px;
-    max-height: 400px;
-    overflow: auto;
   }
 
   .articlesSidebarCard {

@@ -380,6 +380,8 @@ function SearchResultsComponent({
         { projectMedias.map((item) => {
           const numberOfRequests = item.is_confirmed_similar_to_another_item ? item.requests_count : item.demand;
 
+          const factCheckCount = item.fact_check_id ? 1 : 0;
+
           return (
             <ClusterCard
               key={item.id}
@@ -396,6 +398,8 @@ function SearchResultsComponent({
               lastRequestDate={numberOfRequests && new Date(+item.last_seen * 1000)}
               rating={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.label}
               ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.style.color}
+              articlesCount={item.articles_count}
+              factCheckCount={factCheckCount}
               requestsCount={numberOfRequests}
               mediaCount={item.linked_items_count}
               mediaThumbnail={{
@@ -722,9 +726,11 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               is_confirmed_similar_to_another_item
               status
               report_status # Needed by BulkActionsStatus
+              fact_check_id
               fact_check_published_on
-              demand
+              articles_count
               requests_count
+              demand
               linked_items_count
               suggestions_count
               last_seen
