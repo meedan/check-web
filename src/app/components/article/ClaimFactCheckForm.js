@@ -186,12 +186,14 @@ const ClaimFactCheckForm = ({
           onCompleted: (response, err) => {
             setSaving(false);
             if (err) {
+              onFailure(err);
               setError(true);
             } else {
               setError(false);
             }
           },
-          onError: () => {
+          onError: (err) => {
+            onFailure(err);
             setSaving(false);
             setError(true);
           },
@@ -218,7 +220,8 @@ const ClaimFactCheckForm = ({
               setError(false);
             }
           },
-          onError: () => {
+          onError: (err) => {
+            onFailure(err);
             setSaving(false);
             setError(true);
           },
