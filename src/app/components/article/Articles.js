@@ -1,5 +1,3 @@
-// TODO: write ClaimFactCheckForm_factCheck and ExplainerForm_explainer fragments and remove the eslint-disable directive below
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -185,7 +183,7 @@ const ArticlesComponent = ({
                 key={article.id}
                 variant={type}
                 title={article.title || article.claim_description?.description}
-                summary={article.description}
+                summary={article.description || article.summary}
                 url={article.url}
                 languageCode={article.language !== 'und' ? article.language : null}
                 date={article.updated_at}
@@ -209,32 +207,12 @@ const ArticlesComponent = ({
           {openEdit && selectedArticle && type === 'fact-check' && <ClaimFactCheckForm
             onClose={setOpenEdit}
             team={team}
-            // TODO: Write a ClaimFactCheckForm_factCheck fragment and pass the whole article object, instead of this
-            // crafted object, and do this custom manipulation/formatting inside the ClaimFactCheckForm component.
-            article={{
-              ...selectedArticle,
-              summary: selectedArticle.description,
-              created_at: selectedArticle.created_at,
-              statuses,
-              language: selectedArticle.language !== 'und' ? selectedArticle.language : null,
-              publishedAt: selectedArticle.claim_description.project_media?.fact_check_published_on,
-              claim_description: {
-                id: selectedArticle.claim_description.id,
-                description: selectedArticle.claim_description.description,
-                context: selectedArticle.claim_description.context,
-              },
-            }}
+            article={selectedArticle}
           />}
           {openEdit && selectedArticle && type === 'explainer' && <ExplainerForm
             onClose={setOpenEdit}
             team={team}
-            // TODO: Write a ExplainerForm_explainer fragment and pass the whole article object, instead of this
-            // crafted object, and do this custom manipulation/formatting inside the ExplainerForm component.
-            article={{
-              ...selectedArticle,
-              created_at: selectedArticle.created_at,
-              language: selectedArticle.language !== 'und' ? selectedArticle.language : null,
-            }}
+            article={selectedArticle}
           />}
         </>
       </div>
@@ -284,13 +262,11 @@ ArticlesComponent.propTypes = {
     url: PropTypes.string,
     language: PropTypes.string,
     updated_at: PropTypes.number,
-    created_at: PropTypes.number,
     rating: PropTypes.string,
     report_status: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
     claim_description: PropTypes.shape({
       description: PropTypes.string,
-      context: PropTypes.string,
       project_media: PropTypes.shape({
         fact_check_published_on: PropTypes.number, // Timestamp
       }),
@@ -352,7 +328,6 @@ const Articles = ({
             team(slug: $slug) {
               ...ArticleForm_team
               slug
-              name
               verification_statuses
               tag_texts(first: 100) {
                 edges {
@@ -379,11 +354,8 @@ const Articles = ({
                       url
                       language
                       updated_at
-                      created_at
                       tags
-                      user {
-                        name
-                      }
+                      ...ExplainerForm_article
                     }
                     ... on FactCheck {
                       id
@@ -392,21 +364,17 @@ const Articles = ({
                       url
                       language
                       updated_at
-                      created_at
                       rating
                       report_status
                       tags
-                      user {
-                        name
-                      }
                       claim_description { # There will be no N + 1 problem here because the backend uses eager loading
                         id
                         description
-                        context
                         project_media {
                           fact_check_published_on
                         }
                       }
+                      ...ClaimFactCheckForm_article
                     }
                   }
                 }

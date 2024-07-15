@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ArticleForm from './ArticleForm';
@@ -102,24 +102,8 @@ const ClaimFactCheckForm = ({
   const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [factCheck, setFactCheck] = React.useState({
-    title: article?.title || null,
-    summary: article?.summary || null,
-    language: article?.language || null,
-    tags: article?.tags || [],
-    url: article?.url || null,
-    rating: article?.rating || null,
-  });
-  const [claim, setClaim] = React.useState({
-    description: article?.claim_description?.description || null,
-    context: article?.claim_description?.context || null,
-    id: article?.claim_description?.id || null,
-    project_media: {
-      status: article?.claim?.project_media?.status || null,
-      published: article?.claim?.project_media?.published || null,
-      report_status: article?.claim?.project_media?.report_status || null,
-    },
-  });
+  const [factCheck, setFactCheck] = React.useState({});
+  const [claim, setClaim] = React.useState({});
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const onSuccess = () => {
@@ -146,12 +130,7 @@ const ClaimFactCheckForm = ({
       variables: {
         input: {
           claim_description_id: response.createClaimDescription.claim_description.dbid,
-          language: factCheck.language,
-          rating: factCheck.rating,
-          summary: factCheck.summary,
-          title: factCheck.title,
-          url: factCheck.url,
-          tags: factCheck.tags,
+          ...factCheck,
         },
       },
       onCompleted: () => {
@@ -171,9 +150,8 @@ const ClaimFactCheckForm = ({
       mutation: createClaimMutation,
       variables: {
         input: {
-          description: claim.description,
-          context: claim.context,
           project_media_id: projectMedia?.dbid || null,
+          ...claim,
         },
       },
       onCompleted: (response, err) => {
@@ -201,9 +179,8 @@ const ClaimFactCheckForm = ({
           mutation: updateClaimMutation,
           variables: {
             input: {
-              id: saveClaim.id,
-              description: saveClaim.description,
-              context: saveClaim.context,
+              id: article.claim_description.id,
+              ...saveClaim,
             },
           },
           onCompleted: (response, err) => {
@@ -230,12 +207,7 @@ const ClaimFactCheckForm = ({
           variables: {
             input: {
               id: article.id,
-              language: saveFactCheck.language,
-              summary: saveFactCheck.summary,
-              title: saveFactCheck.title,
-              url: saveFactCheck.url,
-              tags: saveFactCheck.tags,
-              rating: saveFactCheck.rating,
+              ...saveFactCheck,
             },
           },
           onCompleted: (response, err) => {
@@ -256,19 +228,17 @@ const ClaimFactCheckForm = ({
   };
 
   return (
-    <>
-      <ArticleForm
-        handleSave={handleSave}
-        onClose={onClose}
-        handleBlur={handleBlur}
-        articleType="fact-check"
-        mode={type}
-        article={article}
-        team={team}
-        saving={saving}
-        error={error}
-      />
-    </>
+    <ArticleForm
+      handleSave={handleSave}
+      onClose={onClose}
+      handleBlur={handleBlur}
+      articleType="fact-check"
+      mode={type}
+      article={article}
+      team={team}
+      saving={saving}
+      error={error}
+    />
   );
 };
 
@@ -281,4 +251,15 @@ ClaimFactCheckForm.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default ClaimFactCheckForm;
+export default createFragmentContainer(ClaimFactCheckForm, graphql`
+  fragment ClaimFactCheckForm_team on Team {
+    ...ArticleForm_team
+  }
+  fragment ClaimFactCheckForm_article on FactCheck {
+    id
+    claim_description {
+      id
+    }
+    ...ArticleForm_article
+  }
+`);

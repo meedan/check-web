@@ -23,6 +23,7 @@ const MediaArticleCard = ({
   languageCode,
   publishedAt,
   variant,
+  onClick,
 }) => (
   <div className={cx('article-card', styles.articleCard)}>
     <Card>
@@ -74,7 +75,6 @@ const MediaArticleCard = ({
             ),
             (
               <ButtonMain
-                disabled
                 buttonProps={{
                   type: null,
                 }}
@@ -82,7 +82,7 @@ const MediaArticleCard = ({
                 variant="contained"
                 size="small"
                 theme="text"
-                onClick={() => {}}
+                onClick={onClick}
               />
             ),
           ]}
@@ -98,6 +98,7 @@ MediaArticleCard.defaultProps = {
   variant: 'explainer',
   statusLabel: null,
   publishedAt: null,
+  onClick: () => {},
 };
 
 MediaArticleCard.propTypes = {
@@ -109,6 +110,7 @@ MediaArticleCard.propTypes = {
   languageCode: PropTypes.string,
   publishedAt: PropTypes.number, // Timestamp
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
+  onClick: PropTypes.func,
 };
 
 export default MediaArticleCard;
