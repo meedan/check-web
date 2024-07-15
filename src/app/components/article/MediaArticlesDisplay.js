@@ -65,8 +65,6 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
         : null
       }
       { explainerItems.filter(explainerItem => explainerItem !== null).map((explainerItem) => {
-        // FIXME: Use explainerItem.id for removal
-
         const { explainer } = explainerItem;
 
         return (
@@ -79,6 +77,7 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
               variant="explainer"
               title={explainer.title}
               url={explainer.url}
+              id={explainerItem.id}
               languageCode={explainer.language !== 'und' ? explainer.language : null}
               date={explainer.updated_at}
               onClick={() => { setArticleToEdit(explainer); }}

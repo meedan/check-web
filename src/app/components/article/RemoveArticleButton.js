@@ -1,39 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import Relay from 'react-relay/classic';
+import { graphql, commitMutation } from 'react-relay/compat';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import CancelFillIcon from '../../../icons/cancel_fill.svg';
+import IconClose from '../../icons/clear.svg';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { getErrorMessage } from '../../helpers';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
-const removeExplainerMutation = graphql`
-  mutation RemoveArticleButtonDestroyExplainerItemMutation($input: DestroyExplainerItemInput!) {
-    updateExplainer(input: $input) {
+
+const removeExplainerItemMutation = graphql`
+  mutation RemoveArticleButtonDeleteExplainerItemMutation($input: DestroyExplainerItemInput!) {
+    destroyExplainerItem(input: $input) {
       project_media {
         id
-        fact_check {
-          id
-        }
-        explainers(first: 100) {
+        explainer_items(first: 100) {
           edges {
             node {
               id
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-const removeFactCheckMutation = graphql`
-  mutation RemoveArticleButtonUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
-    updateClaimDescription(input: $input) {
-      project_media {
-        id
-        explainers(first: 100) {
-          edges {
-            node {
-              id
+              explainer {
+                language
+                title
+                url
+                updated_at
+              }
             }
           }
         }
@@ -71,30 +64,50 @@ const RemoveArticleWrapperButton = ({ disabled, children }) => {
   );
 };
 
-const RemoveArticleButton = ({ team, disabled, buttonMainProps }) => {
+const RemoveArticleButton = ({
+  id,
+  variant,
+  onUpdate,
+  disabled,
+}) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [removing, setRemoving] = React.useState(false);
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const onCancel = () => {
     setOpenDialog(false);
-  }
+  };
+
+  const onCompleted = () => {
+    setFlashMessage(
+      <FormattedMessage
+        id="removeArticleWrapperButton.success"
+        defaultMessage="Article successfully removed from item."
+        description="Banner displayed after an article is successfully removed from an item."
+      />,
+      'success');
+    setRemoving(false);
+    setOpenDialog(false);
+    onUpdate();
+  };
+
+  const onError = (error) => {
+    const errorMessage = getErrorMessage(error);
+    const errorComponent = errorMessage || <GenericUnknownErrorMessage />;
+    setFlashMessage(errorComponent);
+    setRemoving(false);
+    setOpenDialog(false);
+  };
 
   const onProceed = () => {
     if (!removing) {
       setRemoving(true);
       let input = null;
       let mutation = null;
-      if (nodeType === 'Explainer') {
-        mutation = removeExplainerMutation;
-        input = {
-          explainerId: id,
-          projectMediaId: projectMedia.dbid,
-        };
-      } else if (nodeType === 'FactCheck') {
-        mutation = removeFactCheckMutation;
+      if (variant === 'explainer') {
+        mutation = removeExplainerItemMutation;
         input = {
           id,
-          project_media_id: projectMedia.dbid,
         };
       }
       commitMutation(Relay.Store, {
@@ -106,14 +119,19 @@ const RemoveArticleButton = ({ team, disabled, buttonMainProps }) => {
         onError,
       });
     }
-  }
+  };
 
   return (
     <>
-      <RemoveArticleWrapperButton>
-        <CancelFillIcon />
+      <RemoveArticleWrapperButton disabled={disabled}>
+        <ButtonMain
+          size="small"
+          theme="text"
+          iconCenter={<IconClose />}
+          onClick={() => setOpenDialog(true)}
+        />
       </RemoveArticleWrapperButton>
-      <ConfirmProceedDialog 
+      <ConfirmProceedDialog
         open={openDialog}
         title={
           <FormattedMessage
@@ -149,10 +167,10 @@ RemoveArticleButton.defaultProps = {
 };
 
 RemoveArticleButton.propTypes = {
-  team: PropTypes.object.isRequired,
-  disabled: PropTypes.bool,
-  project_media_id: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
   id: PropTypes.string.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export default RemoveArticleButton;

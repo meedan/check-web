@@ -34,3 +34,12 @@
     align-items: center;
   }
 }
+
+.articleCardRight {
+  align-items: flex-end;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  text-align: right;
+  width: 150px;
+}

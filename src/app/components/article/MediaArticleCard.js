@@ -13,6 +13,7 @@ import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import ArticleUrl from '../cds/media-cards/ArticleUrl';
 import ItemReportStatus from '../cds/media-cards/ItemReportStatus';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import RemoveArticleButton from './RemoveArticleButton';
 
 const MediaArticleCard = ({
   title,
@@ -24,6 +25,7 @@ const MediaArticleCard = ({
   publishedAt,
   variant,
   onClick,
+  id,
 }) => (
   <div className={cx('article-card', styles.articleCard)}>
     <Card>
@@ -48,7 +50,6 @@ const MediaArticleCard = ({
             </div>
           }
         </span>
-        <div />
         <BulletSeparator
           details={[
             variant === 'fact-check' && (<ItemReportStatus
@@ -88,6 +89,9 @@ const MediaArticleCard = ({
           ]}
         />
       </div>
+      <div className={styles.articleCardRight}>
+        <RemoveArticleButton id={id} variant={variant} />
+      </div>
     </Card>
   </div>
 );
@@ -111,6 +115,7 @@ MediaArticleCard.propTypes = {
   publishedAt: PropTypes.number, // Timestamp
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
   onClick: PropTypes.func,
+  id: PropTypes.number.isRequired,
 };
 
 export default MediaArticleCard;
