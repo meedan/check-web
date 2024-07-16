@@ -39,6 +39,7 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
           publishedAt={publishedAt}
+          id={factCheck.claim_description.id}
           onClick={() => { setArticleToEdit(factCheck); }}
         />
         : null
@@ -120,6 +121,7 @@ MediaArticlesDisplay.propTypes = {
       rating: PropTypes.string,
       nodeType: PropTypes.oneOf(['Explainer', 'FactCheck']),
       claim_description: PropTypes.shape({
+        id: PropTypes.number,
         description: PropTypes.string,
       }).isRequired,
     }).isRequired,
@@ -157,6 +159,7 @@ export default createFragmentContainer(MediaArticlesDisplay, graphql`
       report_status
       rating
       claim_description {
+        id
         description
       }
       nodeType: __typename

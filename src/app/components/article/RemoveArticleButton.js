@@ -35,6 +35,29 @@ const removeExplainerItemMutation = graphql`
   }
 `;
 
+const removeClaimDescriptionMutation = graphql`
+  mutation RemoveArticleButtonUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
+    updateClaimDescription(input: $input) {
+      project_media {
+        id
+        fact_check {
+          id
+          title
+          language
+          updated_at
+          url
+          report_status
+          rating
+          claim_description {
+            id
+            description
+          }
+        }
+      }
+    }
+  }
+`;
+
 const RemoveArticleWrapperButton = ({ disabled, children }) => {
   if (disabled) {
     return (
@@ -108,6 +131,12 @@ const RemoveArticleButton = ({
         mutation = removeExplainerItemMutation;
         input = {
           id,
+        };
+      } else if (variant === 'fact-check') {
+        mutation = removeClaimDescriptionMutation;
+        input = {
+          id,
+          project_media_id: null,
         };
       }
       commitMutation(Relay.Store, {
