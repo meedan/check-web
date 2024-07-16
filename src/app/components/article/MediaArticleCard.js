@@ -84,6 +84,7 @@ const MediaArticleCard = ({
             <ButtonMain
               buttonProps={{
                 type: null,
+                id: 'media-article-card__edit-button',
               }}
               label={<FormattedMessage id="mediaArticleCard.editButton" defaultMessage="Edit Article" description="Label for edit button" />}
               variant="contained"
