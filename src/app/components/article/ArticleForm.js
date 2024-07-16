@@ -475,10 +475,10 @@ const ArticleForm = ({
                   <div className={inputStyles['form-fieldset-field']}>
                     <LanguagePickerSelect
                       label={<FormattedMessage id="articleForm.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language" />}
-                      required={articleType === 'explainer'}
                       selectedLanguage={language}
                       onSubmit={handleLanguageSubmit}
                       languages={languages}
+                      required
                     />
                   </div> : null
                 }
