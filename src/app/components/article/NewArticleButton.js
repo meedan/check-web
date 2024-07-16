@@ -95,7 +95,7 @@ const NewArticleButton = ({
         onClose={() => setAnchorEl(null)}
         className={styles.menuList}
       >
-        <MenuItem onClick={handleOpenFactCheck} className={styles.menuItem}>
+        <MenuItem onClick={handleOpenFactCheck} className={styles.menuItem} disabled={Boolean(projectMedia.claim_description?.id)}>
           <ListItemIcon className={styles.itemIcon}>
             <PublishedIcon />
           </ListItemIcon>
@@ -141,6 +141,9 @@ NewArticleButton.propTypes = {
 
 export default createFragmentContainer(NewArticleButton, graphql`
   fragment NewArticleButton_projectMedia on ProjectMedia {
+    claim_description {
+      id
+    }
     ...ClaimFactCheckForm_projectMedia
     ...ExplainerForm_projectMedia
   }
