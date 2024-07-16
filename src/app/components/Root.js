@@ -41,6 +41,7 @@ import SandboxCrash from './SandboxCrash';
 import FeedPage from './feed/FeedPage';
 import Explainers from './article/Explainers';
 import FactChecks from './article/FactChecks';
+import ImportedArticles from './article/ImportedArticles';
 
 class Root extends Component {
   static logPageView() {
@@ -122,6 +123,9 @@ class Root extends Component {
                   <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
+                  <Route path=":team/articles/explainers" component={Explainers} />
+                  <Route path=":team/articles/fact-checks" component={FactChecks} />
+                  <Route path=":team/articles/imported-articles" component={ImportedArticles} />
                   <Route path=":team/articles/explainers" component={Explainers} />
                   <Route path=":team/articles/fact-checks" component={FactChecks} />
                   <Route path="*" component={NotFound} public />

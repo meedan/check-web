@@ -285,13 +285,14 @@ const Articles = ({
   teamSlug,
   sortOptions,
   filterOptions,
+  defaultFilters,
   updateMutation,
 }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
     sort: 'title',
     sortType: 'ASC',
-    filters: {},
+    filters: { ...defaultFilters },
   });
   const {
     page,
@@ -323,7 +324,7 @@ const Articles = ({
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
             $users: [Int], $updatedAt: String, $tags: [String], $language: [String], $published_by: [Int],
-            $report_status: [String], $verification_status: [String],
+            $report_status: [String], $verification_status: [String], $imported: Boolean,
           ) {
             team(slug: $slug) {
               ...ArticleForm_team
@@ -343,7 +344,7 @@ const Articles = ({
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
                 user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language, publisher_ids: $published_by,
-                report_status: $report_status, rating: $verification_status,
+                report_status: $report_status, rating: $verification_status, imported: $imported,
               ) {
                 edges {
                   node {
@@ -414,6 +415,7 @@ const Articles = ({
               />
             );
           }
+          // TODO render error state
           return <MediasLoading theme="white" variant="page" size="large" />;
         }}
       />
