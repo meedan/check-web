@@ -57,7 +57,7 @@ const MediaArticlesCard = ({ article, team, onAdd }) => {
       arrow
     >
       <div className={styles.articlesSidebarCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick} onKeyDown={handleClick}>
-        <div className={styles.articlesSidebarCardIcon}>
+        <div className={cx(styles.articlesSidebarCardIcon, 'media-articles-card__card')}>
           { isHovered && <AddIcon /> }
           { article.nodeType === 'Explainer' && !isHovered && <BookIcon /> }
           { article.nodeType === 'FactCheck' && !isHovered && <FactCheckIcon /> }

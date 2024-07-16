@@ -6,6 +6,7 @@ module AppSpecHelpers
   end
 
   def fill_field(selector, value, type = :css)
+    wait_for_selector(selector, type).click
     wait_for_selector(selector, type).send_keys(value)
   end
 
