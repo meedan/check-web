@@ -39,6 +39,7 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
           publishedAt={publishedAt}
+          id={factCheck.claim_description.id}
           onClick={() => { setArticleToEdit(factCheck); }}
         />
         : null
@@ -65,8 +66,6 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
         : null
       }
       { explainerItems.filter(explainerItem => explainerItem !== null).map((explainerItem) => {
-        // FIXME: Use explainerItem.id for removal
-
         const { explainer } = explainerItem;
 
         return (
@@ -79,6 +78,7 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
               variant="explainer"
               title={explainer.title}
               url={explainer.url}
+              id={explainerItem.id}
               languageCode={explainer.language !== 'und' ? explainer.language : null}
               date={explainer.updated_at}
               onClick={() => { setArticleToEdit(explainer); }}
@@ -121,6 +121,7 @@ MediaArticlesDisplay.propTypes = {
       rating: PropTypes.string,
       nodeType: PropTypes.oneOf(['Explainer', 'FactCheck']),
       claim_description: PropTypes.shape({
+        id: PropTypes.number,
         description: PropTypes.string,
       }).isRequired,
     }).isRequired,
@@ -158,6 +159,7 @@ export default createFragmentContainer(MediaArticlesDisplay, graphql`
       report_status
       rating
       claim_description {
+        id
         description
       }
       nodeType: __typename

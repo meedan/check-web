@@ -10,7 +10,6 @@
     }
 
     .mediaArticleCard {
-      flex-direction: column;
       gap: 3px;
 
       .articleCardHeader {
@@ -35,6 +34,14 @@
         }
       }
 
+      .mediaArticleCardDescription {
+        align-items: flex-start;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
       :global(.article-url) a {
         -webkit-box-orient: vertical;
         display: -webkit-box; /* stylelint-disable-line */
@@ -44,4 +51,13 @@
       }
     }
   }
+}
+
+.articleCardRight {
+  align-items: flex-end;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  text-align: right;
+  width: 150px;
 }
