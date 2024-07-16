@@ -2,22 +2,22 @@
   {
     "id": "article-form-explainer-create-title",
     "description": "Title for the slideout create explainer form",
-    "defaultMessage": "Create Explainer"
+    "defaultMessage": "Create Explainer Article"
   },
   {
     "id": "article-form-explainer-edit-title",
     "description": "Title for the slideout edit explainer form",
-    "defaultMessage": "Edit Explainer"
+    "defaultMessage": "Edit Explainer Article"
   },
   {
     "id": "article-form-fact-check-create-title",
     "description": "Title for the slideout create fact-check form",
-    "defaultMessage": "Create New Claim & Fact-Check"
+    "defaultMessage": "Create New Claim & Fact-Check Article"
   },
   {
     "id": "article-form-fact-check-edit-title",
     "description": "Title for the slideout edit fact-check form",
-    "defaultMessage": "Edit Claim & Fact-Check"
+    "defaultMessage": "Edit Claim & Fact-Check Article"
   },
   {
     "id": "articleForm.editedByLabel",

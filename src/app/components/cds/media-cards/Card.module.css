@@ -29,6 +29,7 @@
 
   &:hover {
     border-color: var(--color-blue-32);
+    cursor: pointer;
     outline-color: var(--color-blue-32);
   }
 

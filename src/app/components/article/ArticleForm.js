@@ -28,10 +28,10 @@ const ArticleForm = ({
 }) => {
   const title = (
     <>
-      {articleType === 'explainer' && mode === 'create' && <FormattedMessage id="article-form-explainer-create-title" defaultMessage="Create Explainer" description="Title for the slideout create explainer form" />}
-      {articleType === 'explainer' && mode === 'edit' && <FormattedMessage id="article-form-explainer-edit-title" defaultMessage="Edit Explainer" description="Title for the slideout edit explainer form" />}
-      {articleType === 'fact-check' && mode === 'create' && <FormattedMessage id="article-form-fact-check-create-title" defaultMessage="Create New Claim & Fact-Check" description="Title for the slideout create fact-check form" />}
-      {articleType === 'fact-check' && mode === 'edit' && <FormattedMessage id="article-form-fact-check-edit-title" defaultMessage="Edit Claim & Fact-Check" description="Title for the slideout edit fact-check form" />}
+      {articleType === 'explainer' && mode === 'create' && <FormattedMessage id="article-form-explainer-create-title" defaultMessage="Create Explainer Article" description="Title for the slideout create explainer form" />}
+      {articleType === 'explainer' && mode === 'edit' && <FormattedMessage id="article-form-explainer-edit-title" defaultMessage="Edit Explainer Article" description="Title for the slideout edit explainer form" />}
+      {articleType === 'fact-check' && mode === 'create' && <FormattedMessage id="article-form-fact-check-create-title" defaultMessage="Create New Claim & Fact-Check Article" description="Title for the slideout create fact-check form" />}
+      {articleType === 'fact-check' && mode === 'edit' && <FormattedMessage id="article-form-fact-check-edit-title" defaultMessage="Edit Claim & Fact-Check Article" description="Title for the slideout edit fact-check form" />}
     </>
   );
 
@@ -475,10 +475,10 @@ const ArticleForm = ({
                   <div className={inputStyles['form-fieldset-field']}>
                     <LanguagePickerSelect
                       label={<FormattedMessage id="articleForm.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language" />}
-                      required={articleType === 'explainer'}
                       selectedLanguage={language}
                       onSubmit={handleLanguageSubmit}
                       languages={languages}
+                      required
                     />
                   </div> : null
                 }

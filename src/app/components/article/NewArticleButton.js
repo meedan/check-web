@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { graphql, createFragmentContainer } from 'react-relay/compat';
 import Menu from '@material-ui/core/Menu';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -43,7 +44,12 @@ const NewArticleButtonWrapper = ({ disabled, children }) => {
   );
 };
 
-const NewArticleButton = ({ team, disabled, buttonMainProps }) => {
+const NewArticleButton = ({
+  team,
+  projectMedia,
+  disabled,
+  buttonMainProps,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openExplainer, setOpenExplainer] = React.useState(false);
   const [openFactCheck, setOpenFactCheck] = React.useState(false);
@@ -89,7 +95,7 @@ const NewArticleButton = ({ team, disabled, buttonMainProps }) => {
         onClose={() => setAnchorEl(null)}
         className={styles.menuList}
       >
-        <MenuItem onClick={handleOpenFactCheck} className={styles.menuItem}>
+        <MenuItem onClick={handleOpenFactCheck} className={styles.menuItem} disabled={Boolean(projectMedia?.claim_description?.id)}>
           <ListItemIcon className={styles.itemIcon}>
             <PublishedIcon />
           </ListItemIcon>
@@ -114,8 +120,8 @@ const NewArticleButton = ({ team, disabled, buttonMainProps }) => {
           </ListItemText>
         </MenuItem>
       </Menu>
-      {openExplainer && <ExplainerForm team={team} onClose={setOpenExplainer} />}
-      {openFactCheck && <ClaimFactCheckForm team={team} onClose={setOpenFactCheck} />}
+      {openExplainer && <ExplainerForm team={team} projectMedia={projectMedia} onClose={setOpenExplainer} />}
+      {openFactCheck && <ClaimFactCheckForm team={team} projectMedia={projectMedia} onClose={setOpenFactCheck} />}
     </NewArticleButtonWrapper>
   );
 };
@@ -123,12 +129,22 @@ const NewArticleButton = ({ team, disabled, buttonMainProps }) => {
 NewArticleButton.defaultProps = {
   disabled: false,
   buttonMainProps: {},
+  projectMedia: null,
 };
 
 NewArticleButton.propTypes = {
   team: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
   buttonMainProps: PropTypes.object,
+  projectMedia: PropTypes.object,
 };
 
-export default NewArticleButton;
+export default createFragmentContainer(NewArticleButton, graphql`
+  fragment NewArticleButton_projectMedia on ProjectMedia {
+    claim_description {
+      id
+    }
+    ...ClaimFactCheckForm_projectMedia
+    ...ExplainerForm_projectMedia
+  }
+`);

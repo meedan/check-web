@@ -13,6 +13,7 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import DescriptionIcon from '../../icons/description.svg';
 import { getErrorMessage } from '../../helpers';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import styles from './Articles.module.css';
 import MediaArticlesDisplay from './MediaArticlesDisplay';
 // eslint-disable-next-line no-unused-vars
@@ -46,13 +47,14 @@ const MediaArticlesComponent = ({
   onUpdate,
 }) => {
   const [adding, setAdding] = React.useState(false);
+  const [confirmReplaceFactCheck, setConfirmReplaceFactCheck] = React.useState(null);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const hasArticle = projectMedia.articles_count > 0;
 
   const onCompleted = () => {
     setFlashMessage(
       <FormattedMessage
-        id="articlesSidebar.success"
+        id="mediaArticles.success"
         defaultMessage="Article added successfully!"
         description="Banner displayed after an article is successfully added to an item."
       />,
@@ -97,12 +99,36 @@ const MediaArticlesComponent = ({
     }
   };
 
+  const handleReplace = () => {
+    commitMutation(Relay.Store, {
+      mutation: addFactCheckMutation,
+      variables: {
+        input: {
+          id: projectMedia.claim_description.id,
+          project_media_id: null,
+        },
+      },
+      onCompleted: () => {
+        handleAdd(confirmReplaceFactCheck.nodeType, confirmReplaceFactCheck.id);
+        setConfirmReplaceFactCheck(null);
+      },
+      onError,
+    });
+  };
+
+  const handleConfirmAdd = (nodeType, id) => {
+    if (nodeType === 'FactCheck' && projectMedia.claim_description) {
+      setConfirmReplaceFactCheck({ nodeType, id });
+    } else {
+      handleAdd(nodeType, id);
+    }
+  };
+
   return (
     <div id="articles-sidebar" className={styles.articlesSidebar}>
       <div className={styles.articlesSidebarTopBar}>
-        <ChooseExistingArticleButton teamSlug={team.slug} onAdd={handleAdd} />
-        {/* FIXME: Make sure the form can receive the right reference for the current item */}
-        <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} />
+        <ChooseExistingArticleButton teamSlug={team.slug} onAdd={handleConfirmAdd} />
+        <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} projectMedia={projectMedia} />
       </div>
       { hasArticle ? (
         <MediaArticlesDisplay projectMedia={projectMedia} />
@@ -112,7 +138,7 @@ const MediaArticlesComponent = ({
             <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
             <div>
               <FormattedMessage
-                id="articlesSidebar.noArticlesAddedToItem"
+                id="mediaArticles.noArticlesAddedToItem"
                 defaultMessage="No articles are being delivered to Tipline users who send requests that match this Media."
                 description="Message displayed on articles sidebar when an item has no articles."
               />
@@ -120,16 +146,51 @@ const MediaArticlesComponent = ({
           </div>
           <div className="typography-subtitle2">
             <FormattedMessage
-              id="articlesSidebar.chooseRecentArticle"
+              id="mediaArticles.chooseRecentArticle"
               defaultMessage="Choose a recent article to add to this media:"
               description="Message displayed on articles sidebar when an item has no articles."
             />
           </div>
           <div className={styles.articlesSidebarListComponent}>
-            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleAdd} />
+            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
           </div>
         </>
       )}
+
+      {/* Confirm dialog for replacing fact-check */}
+      <ConfirmProceedDialog
+        open={Boolean(confirmReplaceFactCheck)}
+        title={
+          <FormattedMessage
+            id="mediaArticles.confirmReplaceFactCheckTitle"
+            defaultMessage="Replace claim and fact-check?"
+            description="'Leave' here is an infinitive verb."
+          />
+        }
+        body={
+          <FormattedMessage
+            id="mediaArticles.confirmReplaceFactCheckBody"
+            defaultMessage="Are you sure you would like to replace the current claim and fact-check?"
+            description="Confirmation dialog message when replacing a fact-check."
+          />
+        }
+        proceedLabel={
+          <FormattedMessage
+            id="mediaArticles.confirmReplaceFactCheckButton"
+            defaultMessage="Replace claim and fact-check"
+            description="'Replace' here is an infinitive verb"
+          />
+        }
+        onProceed={handleReplace}
+        cancelLabel={
+          <FormattedMessage
+            id="global.cancel"
+            defaultMessage="Cancel"
+            description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+          />
+        }
+        onCancel={() => { setConfirmReplaceFactCheck(null); }}
+      />
     </div>
   );
 };
@@ -142,6 +203,9 @@ MediaArticlesComponent.propTypes = {
     dbid: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     articles_count: PropTypes.number.isRequired,
+    claim_description: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
@@ -168,7 +232,11 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
               dbid
               type
               articles_count
+              claim_description {
+                id
+              }
               ...MediaArticlesDisplay_projectMedia
+              ...NewArticleButton_projectMedia
             }
           }
         `}

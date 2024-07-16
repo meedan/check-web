@@ -8,6 +8,16 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 
+const addMutation = graphql`
+  mutation ExplainerFormCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
+    createExplainerItem(input: $input) {
+      project_media {
+        id
+      }
+    }
+  }
+`;
+
 const createMutation = graphql`
   mutation ExplainerFormCreateExplainerMutation($input: CreateExplainerInput!) {
     createExplainer(input: $input) {
@@ -57,8 +67,9 @@ const updateMutation = graphql`
 `;
 
 const ExplainerForm = ({
-  article,
   team,
+  article,
+  projectMedia,
   onClose,
 }) => {
   const type = article?.id ? 'edit' : 'create';
@@ -85,6 +96,30 @@ const ExplainerForm = ({
     setFlashMessage(errorMessage, 'error');
   };
 
+  const handleAdd = (response) => {
+    setSaving(true);
+    commitMutation(Relay.Store, {
+      mutation: addMutation,
+      variables: {
+        input: {
+          explainerId: response.createExplainer.explainer.dbid,
+          projectMediaId: projectMedia.dbid,
+        },
+      },
+      onCompleted: (response2, err) => {
+        setSaving(false);
+        if (err) {
+          onFailure(err);
+        } else {
+          onSuccess();
+        }
+      },
+      onError: (err) => {
+        onFailure(err);
+      },
+    });
+  };
+
   const handleSave = () => {
     setSaving(true);
     commitMutation(Relay.Store, {
@@ -98,8 +133,10 @@ const ExplainerForm = ({
         setSaving(false);
         if (err) {
           onFailure(err);
+        } else if (projectMedia) {
+          handleAdd(response);
         } else {
-          onSuccess(response);
+          onSuccess();
         }
       },
       onError: (err) => {
@@ -124,12 +161,14 @@ const ExplainerForm = ({
         onCompleted: (response, err) => {
           setSaving(false);
           if (err) {
+            onFailure(err);
             setError(true);
           } else {
             setError(false);
           }
         },
-        onError: () => {
+        onError: (err) => {
+          onFailure(err);
           setSaving(false);
           setError(true);
         },
@@ -154,11 +193,13 @@ const ExplainerForm = ({
 
 ExplainerForm.defaultProps = {
   article: {},
+  projectMedia: null,
 };
 
 ExplainerForm.propTypes = {
-  article: PropTypes.object,
   team: PropTypes.object.isRequired,
+  article: PropTypes.object,
+  projectMedia: PropTypes.object,
   onClose: PropTypes.func.isRequired,
 };
 
@@ -169,5 +210,8 @@ export default createFragmentContainer(ExplainerForm, graphql`
   fragment ExplainerForm_article on Explainer {
     id
     ...ArticleForm_article
+  }
+  fragment ExplainerForm_projectMedia on ProjectMedia {
+    dbid
   }
 `);
