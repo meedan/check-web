@@ -124,7 +124,7 @@ MediaArticleCard.propTypes = {
   publishedAt: PropTypes.number, // Timestamp
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
   onClick: PropTypes.func,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default MediaArticleCard;
