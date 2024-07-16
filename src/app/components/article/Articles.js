@@ -205,14 +205,14 @@ const ArticlesComponent = ({
               having each form type be it's own QueryRenderer instead of doing lots of prop passing repeatedly
           */}
           {openEdit && selectedArticle && type === 'fact-check' && <ClaimFactCheckForm
-            onClose={setOpenEdit}
             team={team}
             article={selectedArticle}
+            onClose={setOpenEdit}
           />}
           {openEdit && selectedArticle && type === 'explainer' && <ExplainerForm
-            onClose={setOpenEdit}
             team={team}
             article={selectedArticle}
+            onClose={setOpenEdit}
           />}
         </>
       </div>
