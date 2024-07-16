@@ -142,5 +142,6 @@ NewArticleButton.propTypes = {
 export default createFragmentContainer(NewArticleButton, graphql`
   fragment NewArticleButton_projectMedia on ProjectMedia {
     ...ClaimFactCheckForm_projectMedia
+    ...ExplainerForm_projectMedia
   }
 `);
