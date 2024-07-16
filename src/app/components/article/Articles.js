@@ -42,6 +42,7 @@ const ArticlesComponent = ({
 }) => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [selectedArticle, setSelectedArticle] = React.useState(null);
+
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
