@@ -5,6 +5,7 @@
   &.mediaArticleCardWrapper {
     :global(.card):hover {
       border-color: var(--color-gray-88);
+      cursor: auto;
       outline-color: transparent;
     }
 
