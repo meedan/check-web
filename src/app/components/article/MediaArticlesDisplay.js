@@ -89,17 +89,17 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
 
       { articleToEdit && articleToEdit.nodeType === 'FactCheck' && (
         <ClaimFactCheckForm
-          onClose={() => { setArticleToEdit(false); }}
           team={projectMedia.team}
           article={articleToEdit}
+          onClose={() => { setArticleToEdit(false); }}
         />
       )}
 
       { articleToEdit && articleToEdit.nodeType === 'Explainer' && (
         <ExplainerForm
-          onClose={() => { setArticleToEdit(false); }}
           team={projectMedia.team}
           article={articleToEdit}
+          onClose={() => { setArticleToEdit(false); }}
         />
       )}
     </div>
