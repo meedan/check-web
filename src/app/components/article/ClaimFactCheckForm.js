@@ -42,6 +42,22 @@ const createClaimMutation = graphql`
           name
         }
       }
+      project_media {
+        articles_count
+        fact_check {
+          id
+          title
+          summary
+          url
+          language
+          rating
+          tags
+          updated_at
+          user {
+            name
+          }
+        }
+      }
     }
   }
 `;
@@ -146,13 +162,14 @@ const ClaimFactCheckForm = ({
 
   const handleSave = () => {
     setSaving(true);
+    const input = { ...claim };
+    if (projectMedia) {
+      input.project_media_id = projectMedia.dbid;
+    }
     commitMutation(Relay.Store, {
       mutation: createClaimMutation,
       variables: {
-        input: {
-          project_media_id: projectMedia?.dbid || null,
-          ...claim,
-        },
+        input,
       },
       onCompleted: (response, err) => {
         if (err) {
@@ -246,11 +263,15 @@ const ClaimFactCheckForm = ({
 };
 
 ClaimFactCheckForm.defaultProps = {
+  team: null,
   article: {},
+  projectMedia: null,
 };
 
 ClaimFactCheckForm.propTypes = {
+  team: PropTypes.object,
   article: PropTypes.object,
+  projectMedia: PropTypes.object,
   onClose: PropTypes.func.isRequired,
 };
 
@@ -264,5 +285,8 @@ export default createFragmentContainer(ClaimFactCheckForm, graphql`
       id
     }
     ...ArticleForm_article
+  }
+  fragment ClaimFactCheckForm_projectMedia on ProjectMedia {
+    dbid
   }
 `);
