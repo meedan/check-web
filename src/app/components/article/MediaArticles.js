@@ -101,8 +101,7 @@ const MediaArticlesComponent = ({
     <div id="articles-sidebar" className={styles.articlesSidebar}>
       <div className={styles.articlesSidebarTopBar}>
         <ChooseExistingArticleButton teamSlug={team.slug} onAdd={handleAdd} />
-        {/* FIXME: Make sure the form can receive the right reference for the current item */}
-        <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} />
+        <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} projectMedia={projectMedia} />
       </div>
       { hasArticle ? (
         <MediaArticlesDisplay projectMedia={projectMedia} />
@@ -169,6 +168,7 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
               type
               articles_count
               ...MediaArticlesDisplay_projectMedia
+              ...NewArticleButton_projectMedia
             }
           }
         `}
