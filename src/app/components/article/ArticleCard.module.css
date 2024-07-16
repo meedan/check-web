@@ -10,7 +10,6 @@
     }
 
     .mediaArticleCard {
-      flex-direction: column;
       gap: 3px;
 
       .articleCardHeader {
@@ -33,6 +32,14 @@
         & > div + div {
           align-items: center;
         }
+      }
+
+      .mediaArticleCardDescription {
+        align-items: flex-start;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        overflow: hidden;
       }
 
       :global(.article-url) a {

@@ -30,72 +30,74 @@ const MediaArticleCard = ({
 }) => (
   <div className={cx('article-card', styles.articleCard, styles.mediaArticleCardWrapper)}>
     <Card className={styles.mediaArticleCard}>
-      <div className={cx('typography-body2-bold', styles.articleCardHeader)}>
-        <div className={styles.articleType}>
-          <div className={styles.articleIcon}>
-            { variant === 'fact-check' && <FactCheckIcon /> }
-            { variant === 'explainer' && <BookIcon /> }
+      <div className={styles.mediaArticleCardDescription}>
+        <div className={cx('typography-body2-bold', styles.articleCardHeader)}>
+          <div className={styles.articleType}>
+            <div className={styles.articleIcon}>
+              { variant === 'fact-check' && <FactCheckIcon /> }
+              { variant === 'explainer' && <BookIcon /> }
+            </div>
+            { variant === 'fact-check' && <FormattedMessage id="mediaArticleCard.factCheck" defaultMessage="Fact-Check" description="Title in an article card on item page." /> }
+            { variant === 'explainer' && <FormattedMessage id="mediaArticleCard.explainer" defaultMessage="Explainer" description="Title in an article card on item page." /> }
+            { statusLabel && ': ' }
           </div>
-          { variant === 'fact-check' && <FormattedMessage id="mediaArticleCard.factCheck" defaultMessage="Fact-Check" description="Title in an article card on item page." /> }
-          { variant === 'explainer' && <FormattedMessage id="mediaArticleCard.explainer" defaultMessage="Explainer" description="Title in an article card on item page." /> }
-          { statusLabel && ': ' }
+          { statusLabel && <div><EllipseIcon style={{ color: statusColor }} /> {statusLabel}</div> }
         </div>
-        { statusLabel && <div><EllipseIcon style={{ color: statusColor }} /> {statusLabel}</div> }
-      </div>
-      <div
-        className={cx(
-          cardStyles.cardSummary,
-          cardStyles.cardSummaryCollapsed,
-        )}
-      >
-        <div className={cardStyles.cardSummaryContent}>
-          { url ?
-            <ArticleUrl url={url} title={title} variant={variant} showIcon={false} linkText={title} />
-            :
-            <span className={cx(cardStyles.cardDescription)}>
-              {title}
-            </span>
-          }
+        <div
+          className={cx(
+            cardStyles.cardSummary,
+            cardStyles.cardSummaryCollapsed,
+          )}
+        >
+          <div className={cardStyles.cardSummaryContent}>
+            { url ?
+              <ArticleUrl url={url} title={title} variant={variant} showIcon={false} linkText={title} />
+              :
+              <span className={cx(cardStyles.cardDescription)}>
+                {title}
+              </span>
+            }
+          </div>
         </div>
-      </div>
-      <BulletSeparator
-        details={[
-          variant === 'fact-check' && (<ItemReportStatus
-            publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
-            isPublished={Boolean(publishedAt)}
-            variant="text"
-            theme="lightText"
-            tooltip={false}
-          />),
-          languageCode && (
-            <Language
-              languageCode={languageCode}
+        <BulletSeparator
+          details={[
+            variant === 'fact-check' && (<ItemReportStatus
+              publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
+              isPublished={Boolean(publishedAt)}
               variant="text"
               theme="lightText"
-            />
-          ),
-          date && (
-            <LastRequestDate
               tooltip={false}
-              variant="text"
-              theme="lightText"
-              lastRequestDate={new Date(date * 1000)}
-            />
-          ),
-          (
-            <ButtonMain
-              buttonProps={{
-                type: null,
-              }}
-              label={<FormattedMessage id="mediaArticleCard.editButton" defaultMessage="Edit Article" description="Label for edit button" />}
-              variant="contained"
-              size="small"
-              theme="text"
-              onClick={onClick}
-            />
-          ),
-        ]}
-      />
+            />),
+            languageCode && (
+              <Language
+                languageCode={languageCode}
+                variant="text"
+                theme="lightText"
+              />
+            ),
+            date && (
+              <LastRequestDate
+                tooltip={false}
+                variant="text"
+                theme="lightText"
+                lastRequestDate={new Date(date * 1000)}
+              />
+            ),
+            (
+              <ButtonMain
+                buttonProps={{
+                  type: null,
+                }}
+                label={<FormattedMessage id="mediaArticleCard.editButton" defaultMessage="Edit Article" description="Label for edit button" />}
+                variant="contained"
+                size="small"
+                theme="text"
+                onClick={onClick}
+              />
+            ),
+          ]}
+        />
+      </div>
       <div className={styles.articleCardRight}>
         <RemoveArticleButton id={id} variant={variant} />
       </div>
