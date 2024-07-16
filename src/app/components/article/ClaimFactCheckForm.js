@@ -263,13 +263,12 @@ const ClaimFactCheckForm = ({
 };
 
 ClaimFactCheckForm.defaultProps = {
-  team: null,
   article: {},
   projectMedia: null,
 };
 
 ClaimFactCheckForm.propTypes = {
-  team: PropTypes.object,
+  team: PropTypes.object.isRequired,
   article: PropTypes.object,
   projectMedia: PropTypes.object,
   onClose: PropTypes.func.isRequired,
