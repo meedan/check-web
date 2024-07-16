@@ -1,5 +1,10 @@
 [
   {
+    "id": "global.closeSlideout",
+    "description": "Button label for closing an open slideout",
+    "defaultMessage": "Close Slideout"
+  },
+  {
     "id": "global.cancel",
     "description": "Regular Cancel action label",
     "defaultMessage": "Cancel"

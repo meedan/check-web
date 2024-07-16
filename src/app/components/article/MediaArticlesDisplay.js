@@ -50,14 +50,14 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
           title={
             <FormattedMessage
               id="mediaArticlesDisplay.readOnlyAlertTitle"
-              defaultMessage="Fact-Check Added"
+              defaultMessage="Claim & Fact-Check Added"
               description="Title of the alert message displayed on data points section of the edit feed page."
             />
           }
           content={
             <FormattedMessage
               id="mediaArticlesDisplay.readOnlyAlertContent"
-              defaultMessage="When a fact-check article is added it will be prioritized to be sent to all media and requests that match this item."
+              defaultMessage="When a claim & fact-check article is added, it will be prioritized as the only article to be delivered as a response to requests that match this item."
               description="Description of the alert message displayed on data points section of the edit feed page."
             />
           }
