@@ -29,7 +29,7 @@ const Tasks = ({
     return (
       <React.Fragment>
         <BlankState>
-          <FormattedMessage id="tasks.blankAnnotation" defaultMessage="No annotation fields" description="A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings." />
+          <FormattedMessage id="tasks.blankAnnotation" defaultMessage="No Workspace Annotations" description="A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings." />
         </BlankState>
         { !isBrowserExtension ?
           <div>
