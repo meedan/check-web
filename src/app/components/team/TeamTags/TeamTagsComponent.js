@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import BlankState from '../../layout/BlankState';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import NextIcon from '../../../icons/chevron_right.svg';
@@ -21,15 +21,6 @@ import MediasLoading from '../../media/MediasLoading';
 import styles from './TeamTagsComponent.module.css';
 import Can from '../../Can';
 import settingsStyles from '../Settings.module.css';
-
-const useStyles = makeStyles({
-  teamTagsTableCell: {
-    borderBottom: 0,
-  },
-  teamTagsNewTagButton: {
-    whiteSpace: 'nowrap',
-  },
-});
 
 const TeamTagsComponent = ({
   teamId,
@@ -46,7 +37,6 @@ const TeamTagsComponent = ({
   setSearchTerm,
 }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-  const classes = useStyles();
   const [showCreateTag, setShowCreateTag] = React.useState(false);
   const [cursor, setCursor] = React.useState(0);
   const [isPaginationLoading, setIsPaginationLoading] = React.useState(false);
@@ -81,7 +71,6 @@ const TeamTagsComponent = ({
               theme="brand"
               size="default"
               onClick={() => { setShowCreateTag(true); }}
-              className={classes.teamTagsNewTagButton}
               label={
                 <FormattedMessage
                   id="teamTagsComponent.newTag"
@@ -169,67 +158,77 @@ const TeamTagsComponent = ({
         </div>
       }
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <div className={settingsStyles['setting-content-container']}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell className={styles['table-col-head-name']}>
-                  <FormattedMessage
-                    id="teamTagsComponent.tableHeaderName"
-                    defaultMessage="Name"
-                    description="Column header in tags table."
-                  />
-                </TableCell>
-                <TableCell className={styles['table-col-head-updated']}>
-                  <FormattedMessage
-                    id="teamTagsComponent.tableHeaderUpdatedAt"
-                    defaultMessage="Updated"
-                    description="Column header in tags table."
-                  />
-                </TableCell>
-                <TableCell className={styles['table-col-head-items']}>
-                  <FormattedMessage
-                    id="teamTagsComponent.tableHeaderTagsCount"
-                    defaultMessage="Items"
-                    description="Column header in tags table."
-                  />
-                </TableCell>
-                <TableCell padding="checkbox" className={styles['table-col-head-action']} />
-              </TableRow>
-            </TableHead>
-            { isPaginationLoading && <MediasLoading size="medium" theme="grey" variant="inline" /> }
-            <TableBody className={isPaginationLoading && styles['tags-hide']}>
-              { tags.slice(cursor, cursor + pageSize).map(tag => (
-                <TableRow key={tag.id} className="team-tags__row">
-                  <TableCell className={classes.teamTagsTableCell}>
-                    {tag.text}
+        {totalTags === 0 ?
+          <BlankState>
+            <FormattedMessage
+              id="teamTagsComponent.blank"
+              defaultMessage="No Workspace Tags"
+              description="Message displayed when there are no tags in the workspace"
+            />
+          </BlankState>
+          :
+          <div className={settingsStyles['setting-content-container']}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell className={styles['table-col-head-name']}>
+                    <FormattedMessage
+                      id="teamTagsComponent.tableHeaderName"
+                      defaultMessage="Name"
+                      description="Column header in tags table."
+                    />
                   </TableCell>
-                  <TableCell className={classes.teamTagsTableCell}>
-                    <TimeBefore date={tag.updated_at} />
+                  <TableCell className={styles['table-col-head-updated']}>
+                    <FormattedMessage
+                      id="teamTagsComponent.tableHeaderUpdatedAt"
+                      defaultMessage="Updated"
+                      description="Column header in tags table."
+                    />
                   </TableCell>
-                  <TableCell className={classes.teamTagsTableCell}>
-                    <a href={`/${teamSlug}/all-items/%7B"tags"%3A%5B"${tag.text}"%5D%7D`} target="_blank" rel="noopener noreferrer">
-                      {tag.tags_count}
-                    </a>
+                  <TableCell className={styles['table-col-head-items']}>
+                    <FormattedMessage
+                      id="teamTagsComponent.tableHeaderTagsCount"
+                      defaultMessage="Items"
+                      description="Column header in tags table."
+                    />
                   </TableCell>
-                  <TableCell className={classes.teamTagsTableCell}>
-                    <Can permissions={permissions} permission="create TagText">
-                      <TeamTagsActions
-                        tag={tag}
-                        teamId={teamId}
-                        teamDbid={teamDbid}
-                        rules={rules}
-                        rulesSchema={rulesSchema}
-                        relay={relay}
-                        pageSize={pageSize}
-                      />
-                    </Can>
-                  </TableCell>
+                  <TableCell padding="checkbox" className={styles['table-col-head-action']} />
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+              </TableHead>
+              { isPaginationLoading && <MediasLoading size="medium" theme="grey" variant="inline" /> }
+              <TableBody className={isPaginationLoading && styles['tags-hide']}>
+                { tags.slice(cursor, cursor + pageSize).map(tag => (
+                  <TableRow key={tag.id} className="team-tags__row">
+                    <TableCell>
+                      {tag.text}
+                    </TableCell>
+                    <TableCell>
+                      <TimeBefore date={tag.updated_at} />
+                    </TableCell>
+                    <TableCell>
+                      <a href={`/${teamSlug}/all-items/%7B"tags"%3A%5B"${tag.text}"%5D%7D`} target="_blank" rel="noopener noreferrer">
+                        {tag.tags_count}
+                      </a>
+                    </TableCell>
+                    <TableCell>
+                      <Can permissions={permissions} permission="create TagText">
+                        <TeamTagsActions
+                          tag={tag}
+                          teamId={teamId}
+                          teamDbid={teamDbid}
+                          rules={rules}
+                          rulesSchema={rulesSchema}
+                          relay={relay}
+                          pageSize={pageSize}
+                        />
+                      </Can>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        }
       </div>
       { showCreateTag ?
         <SaveTag
