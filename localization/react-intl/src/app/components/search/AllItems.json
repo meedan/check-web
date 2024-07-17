@@ -1,7 +1,7 @@
 [
   {
     "id": "search.allClaimsTitle",
-    "description": "Page title for listing all items in check",
-    "defaultMessage": "All items"
+    "description": "Page title for listing all media items in check",
+    "defaultMessage": "All Media"
   }
 ]

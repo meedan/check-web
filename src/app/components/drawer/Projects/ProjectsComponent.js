@@ -105,7 +105,7 @@ const ProjectsComponent = ({
             >
               <CategoryIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
+                <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All Media" description="Label for the 'All media' list displayed on the left sidebar" />
               </div>
               <div title={team.medias_count} className={styles.listItemCount}>
                 <small>
