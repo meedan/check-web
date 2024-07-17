@@ -300,6 +300,7 @@ const SaveList = ({
             placeholder={intl.formatMessage(messages.saveList)}
             onChange={(e) => { setTitle(e.target.value); }}
             className="new-list__title"
+            id="new-list__title"
           />
         }
         proceedDisabled={!title}

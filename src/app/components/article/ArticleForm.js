@@ -221,7 +221,7 @@ const ArticleForm = ({
                       )}
                     </FormattedMessage>
                   </div>
-                  <div id="article-form__context" className={inputStyles['form-fieldset-field']}>
+                  <div className={inputStyles['form-fieldset-field']}>
                     <FormattedMessage
                       id="articleForm.contextPlaceholder"
                       defaultMessage="Add claim context"
@@ -492,6 +492,9 @@ const ArticleForm = ({
       showCancel={mode === 'create'}
       mainActionButton={mode === 'create' ? <ButtonMain
         onClick={handleSave}
+        buttonProps={{
+          id: 'article-form__save-button',
+        }}
         disabled={!isValid}
         label={<FormattedMessage id="articleForm.formSaveButton" defaultMessage="Create content" description="the save button for the article forom" />}
       /> : null}
