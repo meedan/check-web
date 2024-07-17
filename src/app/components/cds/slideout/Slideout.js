@@ -111,7 +111,7 @@ const Slideout = ({
 
 Slideout.defaultProps = {
   content: null,
-  footer: true,
+  footer: false,
   showCancel: false,
   cancelProps: {},
   mainActionButton: null,

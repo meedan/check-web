@@ -151,9 +151,7 @@ const MediaArticlesComponent = ({
               description="Message displayed on articles sidebar when an item has no articles."
             />
           </div>
-          <div className={styles.articlesSidebarListComponent}>
-            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
-          </div>
+          <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
         </>
       )}
 
