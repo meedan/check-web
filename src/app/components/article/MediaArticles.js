@@ -133,7 +133,7 @@ const MediaArticlesComponent = ({
       { hasArticle ? (
         <MediaArticlesDisplay projectMedia={projectMedia} />
       ) : (
-        <>
+        <div className={cx('typography-body1', styles.articlesSidebarNoArticleWrapper)}>
           <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
             <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
             <div>
@@ -152,7 +152,7 @@ const MediaArticlesComponent = ({
             />
           </div>
           <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
-        </>
+        </div>
       )}
 
       {/* Confirm dialog for replacing fact-check */}
