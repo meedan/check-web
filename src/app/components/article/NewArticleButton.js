@@ -95,7 +95,7 @@ const NewArticleButton = ({
         onClose={() => setAnchorEl(null)}
         className={styles.menuList}
       >
-        <MenuItem onClick={handleOpenFactCheck} className={styles.menuItem} disabled={Boolean(projectMedia?.claim_description?.id)}>
+        <MenuItem onClick={handleOpenFactCheck} className={styles.menuItem} disabled={Boolean(projectMedia?.claim_description?.id)} id="new-article-button__add-claim-and-fact-check">
           <ListItemIcon className={styles.itemIcon}>
             <PublishedIcon />
           </ListItemIcon>
@@ -107,7 +107,7 @@ const NewArticleButton = ({
             />
           </ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleOpenExplainer} className={styles.menuItem}>
+        <MenuItem onClick={handleOpenExplainer} className={styles.menuItem} id="new-article-button__add-explainer">
           <ListItemIcon className={styles.itemIcon}>
             <BookIcon />
           </ListItemIcon>
