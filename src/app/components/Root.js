@@ -17,10 +17,8 @@ import Me from './user/Me';
 import Team from './team/Team';
 import AssignedToMe from './team/AssignedToMe';
 import TiplineInbox from './team/TiplineInbox';
-import ImportedReports from './team/ImportedReports';
 import SuggestedMatches from './team/SuggestedMatches';
 import UnmatchedMedia from './team/UnmatchedMedia';
-import Published from './team/Published';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
 import CreateFeed from './feed/CreateFeed';
@@ -42,6 +40,7 @@ import FeedPage from './feed/FeedPage';
 import Explainers from './article/Explainers';
 import FactChecks from './article/FactChecks';
 import ImportedArticles from './article/ImportedArticles';
+import PublishedArticles from './article/PublishedArticles';
 
 class Root extends Component {
   static logPageView() {
@@ -111,10 +110,8 @@ class Root extends Component {
                   <Route path=":team/all-items(/:query)" component={AllItems} />
                   <Route path=":team/assigned-to-me(/:query)" component={AssignedToMe} />
                   <Route path=":team/tipline-inbox(/:query)" component={TiplineInbox} />
-                  <Route path=":team/articles/imported-fact-checks(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
-                  <Route path=":team/articles/published(/:query)" component={Published} />
                   <Route path=":team/feed/create" component={CreateFeed} />
                   <Route path=":team/feeds" component={FeedPage} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
@@ -125,9 +122,8 @@ class Root extends Component {
                   <Route path=":team/trash(/:query)" component={Trash} />
                   <Route path=":team/articles/explainers" component={Explainers} />
                   <Route path=":team/articles/fact-checks" component={FactChecks} />
-                  <Route path=":team/articles/imported-articles" component={ImportedArticles} />
-                  <Route path=":team/articles/explainers" component={Explainers} />
-                  <Route path=":team/articles/fact-checks" component={FactChecks} />
+                  <Route path=":team/articles/imported-fact-checks" component={ImportedArticles} />
+                  <Route path=":team/articles/published" component={PublishedArticles} />
                   <Route path="*" component={NotFound} public />
                 </Route>
               </Router>

@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import FileDownloadIcon from '../../icons/file_download.svg';
+import PublishedIcon from '../../icons/playlist_add_check.svg';
 import Articles from './Articles';
 
 const messages = defineMessages({
@@ -23,7 +23,7 @@ const messages = defineMessages({
   },
 });
 
-const ImportedArticles = ({ routeParams, intl }) => {
+const PublishedArticles = ({ routeParams, intl }) => {
   const sortOptions = [
     { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'language', label: intl.formatMessage(messages.sortLanguage) },
@@ -31,7 +31,7 @@ const ImportedArticles = ({ routeParams, intl }) => {
   ];
 
   const updateMutation = graphql`
-    mutation ImportedArticlesUpdateExplainerMutation($input: UpdateExplainerInput!) {
+    mutation PublishedArticlesUpdateExplainerMutation($input: UpdateExplainerInput!) {
       updateExplainer(input: $input) {
         explainer {
           id
@@ -44,24 +44,24 @@ const ImportedArticles = ({ routeParams, intl }) => {
   return (
     <Articles
       type="fact-check"
-      title={<FormattedMessage id="importedArticles.title" defaultMessage="Imported fact-checks" description="Title of the imported fact-checks page." />}
-      icon={<FileDownloadIcon />}
+      title={<FormattedMessage id="publishedArticles.title" defaultMessage="Published" description="Title of the published articles page." />}
+      icon={<PublishedIcon />}
       teamSlug={routeParams.team}
       sortOptions={sortOptions}
-      defaultFilters={{ imported: true }}
+      defaultFilters={{ report_status: 'published' }}
       filterOptions={['users', 'tags', 'range']}
       updateMutation={updateMutation}
     />
   );
 };
 
-ImportedArticles.defaultProps = {};
+PublishedArticles.defaultProps = {};
 
-ImportedArticles.propTypes = {
+PublishedArticles.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired, // slug
   }).isRequired,
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(ImportedArticles);
+export default injectIntl(PublishedArticles);
