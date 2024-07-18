@@ -302,15 +302,6 @@ function SearchResultsComponent({
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
-  // TODO in CV2-3924: Use ListSort component to sort the search results
-  // const sortParams = stateQuery.sort ? {
-  //   key: stateQuery.sort,
-  //   ascending: stateQuery.sort_type !== 'DESC',
-  // } : {
-  //   key: 'recent_added',
-  //   ascending: false,
-  // };
-
   const selectedProjectMedia = [];
 
   projectMedias.forEach((pm) => {
@@ -344,7 +335,7 @@ function SearchResultsComponent({
   let content = null;
 
   // Return nothing if feed doesn't have a list
-  if (resultType === 'factCheck' && !feed.saved_search_id) {
+  if (feed && !feed.saved_search_id && resultType === 'factCheck') {
     count = 0;
   }
 
@@ -369,7 +360,7 @@ function SearchResultsComponent({
           </Can> : null }
       </BlankState>
     );
-    if (resultType === 'factCheck' || resultType === 'emptyFeed') {
+    if (feed && (resultType === 'factCheck' || resultType === 'emptyFeed')) {
       content = (
         <FeedBlankState
           teamSlug={team.slug}
@@ -595,19 +586,6 @@ function SearchResultsComponent({
                       count,
                     }}
                   />
-                  {filteredSelectedProjectMediaIds.length ?
-                    <FormattedMessage
-                      id="searchResults.withSelection"
-                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                      description="Label for number of selected items"
-                      values={{
-                        selectedCount: filteredSelectedProjectMediaIds.length,
-                      }}
-                    >
-                      {txt => <span className={styles['search-selected']}>{txt}</span>}
-                    </FormattedMessage>
-                    : null
-                  }
                 </span>
                 <Tooltip title={
                   <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />

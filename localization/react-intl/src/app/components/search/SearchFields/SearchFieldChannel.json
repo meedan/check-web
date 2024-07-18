@@ -20,6 +20,11 @@
     "defaultMessage": "Any tipline"
   },
   {
+    "id": "searchFieldChannel.imported",
+    "description": "Filter option that refers to items imported from external systems",
+    "defaultMessage": "Imported"
+  },
+  {
     "id": "searchFieldChannel.webForm",
     "description": "Filter option that refers to items created via a web form",
     "defaultMessage": "Web Form"

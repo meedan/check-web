@@ -133,7 +133,7 @@ const MediaArticlesComponent = ({
       { hasArticle ? (
         <MediaArticlesDisplay projectMedia={projectMedia} />
       ) : (
-        <>
+        <div className={cx('typography-body1', styles.articlesSidebarNoArticleWrapper)}>
           <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
             <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
             <div>
@@ -151,10 +151,8 @@ const MediaArticlesComponent = ({
               description="Message displayed on articles sidebar when an item has no articles."
             />
           </div>
-          <div className={styles.articlesSidebarListComponent}>
-            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
-          </div>
-        </>
+          <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
+        </div>
       )}
 
       {/* Confirm dialog for replacing fact-check */}
@@ -163,21 +161,21 @@ const MediaArticlesComponent = ({
         title={
           <FormattedMessage
             id="mediaArticles.confirmReplaceFactCheckTitle"
-            defaultMessage="Replace claim and fact-check?"
+            defaultMessage="Replace claim & fact-check?"
             description="'Leave' here is an infinitive verb."
           />
         }
         body={
           <FormattedMessage
             id="mediaArticles.confirmReplaceFactCheckBody"
-            defaultMessage="Are you sure you would like to replace the current claim and fact-check?"
+            defaultMessage="Are you sure you would like to replace the current claim & fact-check?"
             description="Confirmation dialog message when replacing a fact-check."
           />
         }
         proceedLabel={
           <FormattedMessage
             id="mediaArticles.confirmReplaceFactCheckButton"
-            defaultMessage="Replace claim and fact-check"
+            defaultMessage="Replace claim & fact-check"
             description="'Replace' here is an infinitive verb"
           />
         }

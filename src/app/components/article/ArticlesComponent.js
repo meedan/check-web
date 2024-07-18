@@ -6,11 +6,8 @@ import PublishedIcon from '../../icons/fact_check.svg';
 import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
 import styles from './../drawer/Projects/Projects.module.css';
-import { publishedDefaultQuery } from '../team/Published';
-import ProjectsCoreListCounter from '../drawer/Projects/ProjectsCoreListCounter';
 import ArticleCoreListCounter from './ArticleCoreListCounter';
 import NewArticleButton from './NewArticleButton';
-import { importedReportsDefaultQuery } from '../team/ImportedReports';
 
 const ArticlesComponent = ({ team }) => {
   // Get/set which list item should be highlighted
@@ -59,7 +56,7 @@ const ArticlesComponent = ({ team }) => {
             >
               <PublishedIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.claimAndFactChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim and fact-checks" />
+                <FormattedMessage tagName="span" id="articlesComponent.claimAndFactChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim & fact-checks" />
               </div>
               <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" />
             </li>
@@ -105,7 +102,7 @@ const ArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
               </div>
-              <ProjectsCoreListCounter query={importedReportsDefaultQuery} />
+              <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" defaultFilters={{ imported: true }} />
             </li>
           </Link>
           <Link
@@ -127,7 +124,7 @@ const ArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
               </div>
-              <ProjectsCoreListCounter query={publishedDefaultQuery} />
+              <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" defaultFilters={{ report_status: 'published' }} />
             </li>
           </Link>
         </ul>

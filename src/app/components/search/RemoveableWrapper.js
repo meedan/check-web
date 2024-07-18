@@ -19,7 +19,7 @@ const RemoveableWrapper = ({
 
   const handleClick = (e) => {
     e.stopPropagation();
-    if (onRemove) onRemove();
+    if (onRemove && !readOnly) onRemove();
   };
 
   return (

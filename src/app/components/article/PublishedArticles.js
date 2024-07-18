@@ -2,28 +2,28 @@ import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import FactCheckIcon from '../../icons/fact_check.svg';
+import PublishedIcon from '../../icons/playlist_add_check.svg';
 import Articles from './Articles';
 
 const messages = defineMessages({
   sortTitle: {
-    id: 'factChecks.sortTitle',
+    id: 'explainers.sortTitle',
     defaultMessage: 'Title',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+    description: 'Label for sort criteria option displayed in a drop-down in the explainers page.',
   },
   sortLanguage: {
-    id: 'factChecks.sortLanguage',
+    id: 'explainers.sortLanguage',
     defaultMessage: 'Language',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+    description: 'Label for sort criteria option displayed in a drop-down in the explainers page.',
   },
   sortDate: {
-    id: 'factChecks.sortDate',
+    id: 'explainers.sortDate',
     defaultMessage: 'Updated (date)',
-    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+    description: 'Label for sort criteria option displayed in a drop-down in the explainers page.',
   },
 });
 
-const FactChecks = ({ routeParams, intl }) => {
+const PublishedArticles = ({ routeParams, intl }) => {
   const sortOptions = [
     { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'language', label: intl.formatMessage(messages.sortLanguage) },
@@ -31,9 +31,9 @@ const FactChecks = ({ routeParams, intl }) => {
   ];
 
   const updateMutation = graphql`
-    mutation FactChecksUpdateFactCheckMutation($input: UpdateFactCheckInput!) {
-      updateFactCheck(input: $input) {
-        fact_check {
+    mutation PublishedArticlesUpdateExplainerMutation($input: UpdateExplainerInput!) {
+      updateExplainer(input: $input) {
+        explainer {
           id
           tags
         }
@@ -44,23 +44,24 @@ const FactChecks = ({ routeParams, intl }) => {
   return (
     <Articles
       type="fact-check"
-      title={<FormattedMessage id="factChecks.title" defaultMessage="Claim & Fact-Checks" description="Title of the fact-checks page." />}
-      icon={<FactCheckIcon />}
+      title={<FormattedMessage id="publishedArticles.title" defaultMessage="Published" description="Title of the published articles page." />}
+      icon={<PublishedIcon />}
       teamSlug={routeParams.team}
       sortOptions={sortOptions}
-      filterOptions={['users', 'tags', 'range', 'language_filter', 'published_by', 'report_status', 'verification_status']}
+      defaultFilters={{ report_status: 'published' }}
+      filterOptions={['users', 'tags', 'range']}
       updateMutation={updateMutation}
     />
   );
 };
 
-FactChecks.defaultProps = {};
+PublishedArticles.defaultProps = {};
 
-FactChecks.propTypes = {
+PublishedArticles.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired, // slug
   }).isRequired,
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(FactChecks);
+export default injectIntl(PublishedArticles);

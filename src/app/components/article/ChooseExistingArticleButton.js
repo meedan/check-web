@@ -51,6 +51,8 @@ const ChooseExistingArticleButton = ({ teamSlug, onAdd }) => {
       { openSlideout && (
         <Slideout
           title={title}
+          showCancel
+          footer
           content={
             <div className={styles.contentWrapper}>
               <FormattedMessage
