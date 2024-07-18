@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedDate } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
 import Slideout from '../cds/slideout/Slideout';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconReport from '../../icons/fact_check.svg';
@@ -258,16 +258,12 @@ const ArticleForm = ({
           }
           <div className={styles['article-form-container']}>
             { claimDescriptionMissing && articleType === 'fact-check' ?
-              <div className={styles['article-form-no-claim-overlay']}>
-                <div className={styles['article-form-no-claim-container']}>
-                  <div className="typography-subtitle2">
-                    <FormattedMessage
-                      id="articleForm.noClaimDescript"
-                      defaultMessage="Start by adding Claim information for this Fact-Check"
-                      description="Message overlay to tell the user they must complete additional fields to unlock this area"
-                    />
-                  </div>
-                </div>
+              <div className={styles['article-form-no-claim-container']}>
+                <FormattedHTMLMessage
+                  id="articleForm.noClaimDescript"
+                  defaultMessage="Start by adding Claim information<br />for this Fact-Check"
+                  description="Message overlay to tell the user they must complete additional fields to unlock this area"
+                />
               </div>
               : null
             }

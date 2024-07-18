@@ -61,7 +61,6 @@ const messages = defineMessages({
 const DrawerRail = (props) => {
   const testPath = window.location.pathname;
   const isSettingsPage = /[^/]+\/settings?/.test(testPath);
-  const isMediaPage = /\/media\/[0-9]+/.test(testPath);
   const isArticlePage = /[^/]+\/articles?/.test(testPath);
   const isFeedPage = /^\/[^/]+\/feed(s)?($|\/)/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
@@ -95,7 +94,7 @@ const DrawerRail = (props) => {
 
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
-      if (isMediaPage || !teamSlug) {
+      if (!teamSlug) {
         onDrawerOpenChange(false);
         window.storage.set('drawer.isOpen', false);
       } else if (window.storage.getValue('drawer.isOpen')) {

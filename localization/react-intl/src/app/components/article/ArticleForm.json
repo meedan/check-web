@@ -67,7 +67,7 @@
   {
     "id": "articleForm.noClaimDescript",
     "description": "Message overlay to tell the user they must complete additional fields to unlock this area",
-    "defaultMessage": "Start by adding Claim information for this Fact-Check"
+    "defaultMessage": "Start by adding Claim information<br />for this Fact-Check"
   },
   {
     "id": "mediaFactCheck.factCheck",

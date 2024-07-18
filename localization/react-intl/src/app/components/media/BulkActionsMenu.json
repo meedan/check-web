@@ -82,6 +82,6 @@
   {
     "id": "bulkActionsMenu.action",
     "description": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items.",
-    "defaultMessage": "Action"
+    "defaultMessage": "Bulk Change [{count}]"
   }
 ]

@@ -7,6 +7,7 @@ describe('<Slideout />', () => {
     const wrapper = mountWithIntl(<Slideout
       title="Slideout Title"
       content="Slideout content"
+      footer
       showCancel
       onClose={() => {}}
     />);
