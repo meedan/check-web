@@ -44,7 +44,7 @@ const ImportedArticles = ({ routeParams, intl }) => {
   return (
     <Articles
       type="fact-check"
-      title={<FormattedMessage id="importedArticles.title" defaultMessage="Imported fact-checks" description="Title of the imported fact-checks page." />}
+      title={<FormattedMessage id="importedArticles.title" defaultMessage="Imported" description="Title of the imported articles page." />}
       icon={<FileDownloadIcon />}
       teamSlug={routeParams.team}
       sortOptions={sortOptions}

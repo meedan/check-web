@@ -56,7 +56,7 @@ const ArticlesComponent = ({ team }) => {
             >
               <PublishedIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.claimAndFactChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim and fact-checks" />
+                <FormattedMessage tagName="span" id="articlesComponent.claimAndFactChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim & fact-checks" />
               </div>
               <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" />
             </li>

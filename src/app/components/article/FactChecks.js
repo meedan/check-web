@@ -44,7 +44,7 @@ const FactChecks = ({ routeParams, intl }) => {
   return (
     <Articles
       type="fact-check"
-      title={<FormattedMessage id="factChecks.title" defaultMessage="Claim & Fact-checks" description="Title of the fact-checks page." />}
+      title={<FormattedMessage id="factChecks.title" defaultMessage="Claim & Fact-Checks" description="Title of the fact-checks page." />}
       icon={<FactCheckIcon />}
       teamSlug={routeParams.team}
       sortOptions={sortOptions}
