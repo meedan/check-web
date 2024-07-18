@@ -586,19 +586,6 @@ function SearchResultsComponent({
                       count,
                     }}
                   />
-                  {filteredSelectedProjectMediaIds.length ?
-                    <FormattedMessage
-                      id="searchResults.withSelection"
-                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                      description="Label for number of selected items"
-                      values={{
-                        selectedCount: filteredSelectedProjectMediaIds.length,
-                      }}
-                    >
-                      {txt => <span className={styles['search-selected']}>{txt}</span>}
-                    </FormattedMessage>
-                    : null
-                  }
                 </span>
                 <Tooltip title={
                   <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />

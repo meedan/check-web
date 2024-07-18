@@ -25,11 +25,6 @@
     "defaultMessage": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
   },
   {
-    "id": "searchResults.withSelection",
-    "description": "Label for number of selected items",
-    "defaultMessage": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-  },
-  {
     "id": "search.nextPage",
     "description": "Pagination button to go to next page",
     "defaultMessage": "Next page"

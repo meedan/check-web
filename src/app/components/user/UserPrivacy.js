@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, commitMutation } from 'react-relay/compat';
 import PropTypes from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsHeader from '../team/SettingsHeader';
@@ -33,11 +33,6 @@ const messages = defineMessages({
 const UserPrivacy = (props, context) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [message, setMessage] = React.useState(false);
-
-  const handleSubmit = (subject) => {
-    const email = 'privacy@meedan.com';
-    window.location.href = `mailto:${email}?subject=${subject}`;
-  };
 
   const handleOpenDialog = () => {
     setDialogOpen(true);
@@ -140,46 +135,30 @@ const UserPrivacy = (props, context) => {
             }}
           />
           <div className={styles['user-setting-content-container-inner']}>
-            <FormattedMessage
-              tagName="p"
-              id="userPrivacy.seeInformationText"
-              defaultMessage="We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
-              description="Description of what the app will do when the user requests their information"
-              values={{ appName }}
-            />
-            <ButtonMain
-              buttonProps={{
-                id: 'user-privacy__see-info',
-              }}
-              size="default"
-              variant="contained"
-              theme="brand"
-              onClick={handleSubmit.bind(this, 'Send information')}
-              label={
-                <FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" description="Button text for the user to see their privacy information" />
-              }
-            />
-          </div>
-          <div className={styles['user-setting-content-container-inner']}>
-            <FormattedMessage
-              tagName="p"
-              id="userPrivacy.stopProcessingText"
-              defaultMessage="You can request {appName} to stop processing your information under certain conditions."
-              description="Help text to tell the user how they can request a change to their privacy settings"
-              values={{ appName }}
-            />
-            <ButtonMain
-              buttonProps={{
-                id: 'user-privacy__stop-processing',
-              }}
-              size="default"
-              variant="contained"
-              theme="brand"
-              onClick={handleSubmit.bind(this, 'Stop processing')}
-              label={
-                <FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" description="Button text for the user to request a change to their privacy settings" />
-              }
-            />
+            <FormattedMessage id="userPrivacy.userRequests" tagName="strong" defaultMessage="User Information Requests" description="Title for area instructing how to request data from Check" />
+            <br />
+            <ul className="bulleted-list">
+              <FormattedHTMLMessage
+                tagName="li"
+                id="userPrivacy.seeInformationText"
+                defaultMessage='Request a file with the content and data you created and generated on {appName} by contacting <a href="mailto:{privacyEmail}?subject=Send information">{privacyEmail}</a>.'
+                description="Description of what the app will do when the user requests their information"
+                values={{
+                  appName,
+                  privacyEmail: stringHelper('PRIVACY_EMAIL'),
+                }}
+              />
+              <FormattedHTMLMessage
+                tagName="li"
+                id="userPrivacy.stopProcessingText"
+                defaultMessage='Request {appName} to stop processing your information under certain conditions by contacting <a href="mailto:{privacyEmail}?subject=Stop processing">{privacyEmail}</a>.'
+                description="Help text to tell the user how they can request a change to their privacy settings"
+                values={{
+                  appName,
+                  privacyEmail: stringHelper('PRIVACY_EMAIL'),
+                }}
+              />
+            </ul>
           </div>
         </div>
         <div className={styles['user-setting-content-container']}>

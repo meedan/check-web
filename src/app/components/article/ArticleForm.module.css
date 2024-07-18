@@ -4,17 +4,6 @@
   position: relative;
 }
 
-.article-form-no-claim-overlay {
-  background: rgba(255 255 255 / .8);
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  top: 0;
-  z-index: 10;
-}
-
 .article-rating-wrapper {
   display: flex;
   gap: 4px;
@@ -22,10 +11,33 @@
 }
 
 .article-form-no-claim-container {
+  bottom: 0;
   color: var(--color-blue-32);
-  margin: 0 20px;
+  left: 0;
   position: absolute;
-  top: 30%;
+  right: 0;
+  text-align: center;
+  top: 0;
+
+  span {
+    @mixin typography-subtitle2;
+    display: block;
+    margin: 80px 0 0;
+    position: relative;
+    z-index: 11;
+  }
+
+  &::after {
+    background-color: rgba(255 255 255 / .85);
+    bottom: 0;
+    content: '';
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    z-index: 10;
+  }
 }
 
 .article-form-info {

@@ -63,7 +63,6 @@ const RemoveArticleWrapperButton = ({ disabled, children }) => {
     return (
       <Tooltip
         key="remove-article-button"
-        placement="top"
         title={
           <FormattedMessage
             id="removedArticleButton.tooltip"
@@ -153,12 +152,27 @@ const RemoveArticleButton = ({
   return (
     <>
       <RemoveArticleWrapperButton disabled={disabled}>
-        <ButtonMain
-          size="small"
-          theme="text"
-          iconCenter={<IconClose />}
-          onClick={() => setOpenDialog(true)}
-        />
+        <Tooltip
+          disableHoverListener={disabled}
+          key="remove-article-button"
+          title={
+            <FormattedMessage
+              id="removeArticleButton.tooltip"
+              defaultMessage="Remove article from media cluster"
+              description="Tooltip message displayed on remove article button."
+            />
+          }
+          arrow
+        >
+          <span>
+            <ButtonMain
+              size="small"
+              theme="text"
+              iconCenter={<IconClose />}
+              onClick={() => setOpenDialog(true)}
+            />
+          </span>
+        </Tooltip>
       </RemoveArticleWrapperButton>
       <ConfirmProceedDialog
         open={openDialog}
