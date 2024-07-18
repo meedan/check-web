@@ -33,6 +33,7 @@ const ArticlesComponent = ({
   sortOptions,
   filterOptions,
   filters,
+  defaultFilters,
   onChangeSearchParams,
   statuses,
   teamTags,
@@ -49,6 +50,7 @@ const ArticlesComponent = ({
       page: 1,
       sort: newSort,
       sortType: newSortType,
+      filters: { ...defaultFilters },
     });
   };
 
@@ -140,6 +142,7 @@ const ArticlesComponent = ({
             teamSlug={team.slug}
             filterOptions={filterOptions}
             currentFilters={{ ...filters, article_type: type }}
+            defaultFilters={defaultFilters}
             statuses={statuses.statuses}
             onSubmit={handleChangeFilters}
           />
@@ -202,7 +205,7 @@ const ArticlesComponent = ({
 
         <>
           {/* NOTE: If we happen to edit articles from multiple places we're probably better off
-              having each form type be it's own QueryRenderer instead of doing lots of prop passing repeatedly
+              having each form type be its own QueryRenderer instead of doing lots of prop passing repeatedly
           */}
           {openEdit && selectedArticle && type === 'fact-check' && <ClaimFactCheckForm
             team={team}
@@ -227,6 +230,7 @@ ArticlesComponent.defaultProps = {
   sortOptions: [],
   filterOptions: [],
   filters: {},
+  defaultFilters: {},
   statuses: {},
   teamTags: null,
   articles: [],
@@ -241,6 +245,7 @@ ArticlesComponent.propTypes = {
   sort: PropTypes.oneOf(['title', 'language', 'updated_at']),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   filters: PropTypes.object,
+  defaultFilters: PropTypes.object,
   team: PropTypes.shape({
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
@@ -285,13 +290,14 @@ const Articles = ({
   teamSlug,
   sortOptions,
   filterOptions,
+  defaultFilters,
   updateMutation,
 }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
     sort: 'title',
     sortType: 'ASC',
-    filters: {},
+    filters: { ...defaultFilters },
   });
   const {
     page,
@@ -323,7 +329,7 @@ const Articles = ({
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
             $users: [Int], $updatedAt: String, $tags: [String], $language: [String], $published_by: [Int],
-            $report_status: [String], $verification_status: [String],
+            $report_status: [String], $verification_status: [String], $imported: Boolean,
           ) {
             team(slug: $slug) {
               ...ArticleForm_team
@@ -338,12 +344,12 @@ const Articles = ({
               }
               articles_count(
                 article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language,
-                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status,
+                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported
               )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
                 user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language, publisher_ids: $published_by,
-                report_status: $report_status, rating: $verification_status,
+                report_status: $report_status, rating: $verification_status, imported: $imported,
               ) {
                 edges {
                   node {
@@ -404,6 +410,7 @@ const Articles = ({
                 sortOptions={sortOptions}
                 filterOptions={filterOptions}
                 filters={filters}
+                defaultFilters={defaultFilters}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
                 statuses={props.team.verification_statuses}
@@ -414,6 +421,7 @@ const Articles = ({
               />
             );
           }
+          // TODO render error state
           return <MediasLoading theme="white" variant="page" size="large" />;
         }}
       />
@@ -424,6 +432,7 @@ const Articles = ({
 Articles.defaultProps = {
   sortOptions: [],
   filterOptions: [],
+  defaultFilters: {},
 };
 
 Articles.propTypes = {
@@ -432,6 +441,7 @@ Articles.propTypes = {
   icon: PropTypes.node.isRequired,
   teamSlug: PropTypes.string.isRequired,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
+  defaultFilters: PropTypes.object,
   updateMutation: PropTypes.object.isRequired,
   sortOptions: PropTypes.arrayOf(PropTypes.exact({
     value: PropTypes.string.isRequired,

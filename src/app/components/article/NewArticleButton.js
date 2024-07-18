@@ -102,7 +102,7 @@ const NewArticleButton = ({
           <ListItemText>
             <FormattedMessage
               id="articlesComponent.claimAndFactCheck"
-              defaultMessage="Claim & Fact Check"
+              defaultMessage="Claim & Fact-Check"
               description="The navigation name of the articles section"
             />
           </ListItemText>

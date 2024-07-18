@@ -46,9 +46,7 @@ const ItemReportStatus = ({
         size="small"
         theme={theme}
         iconCenter={<FactCheckIcon />}
-        customStyle={{
-          color: (isPublished || publishedAt ? 'var(--color-green-35)' : 'var(--color-gray-59)'),
-        }}
+        customStyle={{ color: isPublished ? 'var(--color-green-35)' : 'var(--color-gray-59)' }}
       />
     </div>
   );

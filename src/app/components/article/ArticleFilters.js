@@ -15,6 +15,8 @@ import DescriptionIcon from '../../icons/description.svg';
 import LabelIcon from '../../icons/label.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
 import searchStyles from '../search/search.module.css';
+import SearchFieldChannel from '../search/SearchFields/SearchFieldChannel';
+import CheckChannels from '../../CheckChannels';
 
 const messages = defineMessages({
   explainer: {
@@ -34,6 +36,7 @@ const ArticleFilters = ({
   onSubmit,
   filterOptions,
   currentFilters,
+  defaultFilters,
   teamSlug,
   statuses,
   extra,
@@ -61,8 +64,8 @@ const ArticleFilters = ({
     onSubmit(filters);
   };
 
-  const handleClear = () => {
-    onSubmit({});
+  const handleReset = () => {
+    onSubmit({ ...defaultFilters });
   };
 
   const handleDateRange = (value) => {
@@ -88,6 +91,8 @@ const ArticleFilters = ({
     />
   );
 
+  const filterIsDirty = Object.keys(filters).length - Object.keys(defaultFilters).length > 1; // Filter by article type is fixed
+
   return (
     <>
       { extra ? <div className={searchStyles['filters-wrapper']}>{extra}</div> : null }
@@ -95,6 +100,22 @@ const ArticleFilters = ({
         {Object.keys(filters).map((filter, i) => {
           const value = filters[filter];
           const connector = ((i === 0) ? null : filterConnector);
+
+          if (filter === 'imported') {
+            return (
+              <>
+                {connector}
+                <SearchFieldChannel
+                  key={filter}
+                  // Little hack here to hardcode the channel for imported articles
+                  query={{ channels: value && CheckChannels.FETCH }}
+                  onChange={newValue => handleOptionChange('channels', newValue)}
+                  onRemove={() => handleRemoveFilter('channels')}
+                  readOnly
+                />
+              </>
+            );
+          }
 
           if (filter === 'users') {
             return (
@@ -221,6 +242,7 @@ const ArticleFilters = ({
                       options={reportStatusOptions}
                       onChange={(newValue) => { handleOptionChange('report_status', newValue); }}
                       onRemove={() => handleRemoveFilter('report_status')}
+                      readOnly={!!defaultFilters.report_status}
                     />
                   )}
                 </FormattedMessage>
@@ -256,7 +278,7 @@ const ArticleFilters = ({
           addedFields={Object.keys(filters)}
           onSelect={handleAddFilter}
         />
-        { Object.keys(filters).length > 1 && ( // Filter by article type is fixed
+        { filterIsDirty && (
           <div className={cx(searchStyles['filters-buttons-wrapper'], searchStyles['filters-buttons-wrapper-visible'])}>
             <ButtonMain
               className="int-search-fields__button--apply-articlefilter"
@@ -276,7 +298,7 @@ const ArticleFilters = ({
               variant="contained"
               size="default"
               theme="lightText"
-              onClick={handleClear}
+              onClick={handleReset}
               label={
                 <FormattedMessage id="articleFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
               }
@@ -294,6 +316,7 @@ const ArticleFilters = ({
 ArticleFilters.defaultProps = {
   filterOptions: [],
   currentFilters: {},
+  defaultFilters: {},
   extra: null,
 };
 
@@ -301,6 +324,7 @@ ArticleFilters.propTypes = {
   type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
   filterOptions: PropTypes.arrayOf(PropTypes.string.isRequired),
   currentFilters: PropTypes.object,
+  defaultFilters: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
   teamSlug: PropTypes.string.isRequired,
   statuses: PropTypes.arrayOf(PropTypes.shape({

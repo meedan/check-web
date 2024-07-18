@@ -25,8 +25,8 @@ const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
         <FormattedMessage
           tagName="h6"
           id="feedTeamFactCheckDialog.title"
-          defaultMessage="Claim and Fact-check"
-          description="Title for claim and fact-check dialog on the feed item page."
+          defaultMessage="Claim & Fact-check"
+          description="Title for claim & fact-check dialog on the feed item page."
         />
         <ButtonMain
           className={dialogStyles['dialog-close-button']}
@@ -43,7 +43,7 @@ const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
             <FormattedMessage
               id="feedTeamFactCheckDialog.claim"
               defaultMessage="Claim"
-              description="Title for the claim section on the claim and fact-check dialog on the feed item page."
+              description="Title for the claim section on the claim & fact-check dialog on the feed item page."
             />
           </div>
           { claimDescription?.description ?
@@ -66,7 +66,7 @@ const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
                 <FormattedMessage
                   id="feedTeamFactCheckDialog.noFactCheck"
                   defaultMessage="No Fact-Check Available"
-                  description="Title for the fact-check section on the claim and fact-check dialog on the feed item page when there is no fact-check available."
+                  description="Title for the fact-check section on the claim & fact-check dialog on the feed item page when there is no fact-check available."
                 />
               </h5> :
               null
@@ -77,7 +77,7 @@ const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
                   <FormattedMessage
                     id="feedTeamFactCheckDialog.factCheck"
                     defaultMessage="Fact-Check"
-                    description="Title for the fact-check section on the claim and fact-check dialog on the feed item page."
+                    description="Title for the fact-check section on the claim & fact-check dialog on the feed item page."
                   />
                   <div className={styles.feedItemDialogSubtitleFactCheckRating}>
                     {rating}
@@ -129,7 +129,7 @@ const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
             <FormattedMessage
               id="feedTeamFactCheckDialog.close"
               defaultMessage="Close"
-              description="Label of a button to close the claim and fact-check dialog window on the feed item page."
+              description="Label of a button to close the claim & fact-check dialog window on the feed item page."
             />
           }
         />

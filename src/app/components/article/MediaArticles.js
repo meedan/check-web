@@ -161,21 +161,21 @@ const MediaArticlesComponent = ({
         title={
           <FormattedMessage
             id="mediaArticles.confirmReplaceFactCheckTitle"
-            defaultMessage="Replace claim and fact-check?"
+            defaultMessage="Replace claim & fact-check?"
             description="'Leave' here is an infinitive verb."
           />
         }
         body={
           <FormattedMessage
             id="mediaArticles.confirmReplaceFactCheckBody"
-            defaultMessage="Are you sure you would like to replace the current claim and fact-check?"
+            defaultMessage="Are you sure you would like to replace the current claim & fact-check?"
             description="Confirmation dialog message when replacing a fact-check."
           />
         }
         proceedLabel={
           <FormattedMessage
             id="mediaArticles.confirmReplaceFactCheckButton"
-            defaultMessage="Replace claim and fact-check"
+            defaultMessage="Replace claim & fact-check"
             description="'Replace' here is an infinitive verb"
           />
         }
