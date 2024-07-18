@@ -5,7 +5,6 @@ shared_examples 'similarity' do
     wait_for_selector('.search__results-heading')
     all_items_url = @driver.current_url.to_s
     wait_for_selector('.cluster-card').click
-    wait_for_selector('#media__claim')
     wait_for_selector('#media-similarity__add-button').click
     # import similarity item
     wait_for_selector('#import-fact-check__button').click
@@ -16,7 +15,6 @@ shared_examples 'similarity' do
     @driver.navigate.to all_items_url
     wait_for_selector('.search__results-heading')
     wait_for_selector_list('.cluster-card').last.click
-    wait_for_selector('#media__claim')
     # export similarity item
     wait_for_selector('#media-similarity__add-button').click
     wait_for_selector('#export-fact-check__button').click

@@ -27,30 +27,29 @@ const FeedTeamFactCheckCard = ({ clusterTeamFactCheck }) => {
 
       {/* There is a fact-check */}
       { hasFactCheck ?
-        <div>
-          <h6 className="typography-button">
+        <>
+          <h6 className="typography-body2-bold">
             <FormattedMessage id="feedTeamFactCheckCard.factCheck" defaultMessage="Fact-check:" description="Label for fact-check card on feed item page" />
+            &nbsp;
             {clusterTeamFactCheck.rating}
           </h6>
           <div className={cx('typography-body2', styles.feedItemOneLineText)}>{clusterTeamFactCheck.fact_check_title || clusterTeamFactCheck.fact_check_summary}</div>
-        </div>
+        </>
         : null
       }
 
       {/* There is a claim, but no fact-check */}
       { !hasFactCheck && clusterTeamFactCheck.claim ?
-        <div>
-          <h6 className="typography-button"><FormattedMessage id="feedTeamFactCheckCard.claim" defaultMessage="Claim:" description="Label for claim card on feed item page" /></h6>
+        <>
+          <h6 className="typography-body2-bold"><FormattedMessage id="feedTeamFactCheckCard.claim" defaultMessage="Claim:" description="Label for claim card on feed item page" /></h6>
           <div className="typography-body2">{clusterTeamFactCheck.claim}</div>
-        </div>
+        </>
         : null
       }
 
       {/* No claim and no fact-check - "uncategorized media" */}
       { !hasFactCheck && !clusterTeamFactCheck.claim ?
-        <div>
-          <h6 className="typography-button"><FormattedMessage id="feedTeamFactCheckCard.uncategorizedMedia" defaultMessage="Uncategorized Media" description="Label for uncategorized media card on feed item page" /></h6>
-        </div>
+        <h6 className="typography-body2-bold"><FormattedMessage id="feedTeamFactCheckCard.uncategorizedMedia" defaultMessage="Uncategorized Media" description="Label for uncategorized media card on feed item page" /></h6>
         : null
       }
 

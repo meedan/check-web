@@ -5,6 +5,7 @@ import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 import styles from './Slideout.module.css';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
+import Tooltip from '../alerts-and-prompts/Tooltip';
 import IconClose from '../../../icons/clear.svg';
 
 const Slideout = ({
@@ -43,13 +44,22 @@ const Slideout = ({
             <h6>
               {title}
             </h6>
-            <ButtonMain
-              theme="text"
-              variant="contained"
-              size="small"
-              iconCenter={<IconClose />}
-              onClick={() => handleClose()}
-            />
+            <Tooltip
+              arrow
+              title={
+                <FormattedMessage id="global.closeSlideout" description="Button label for closing an open slideout" defaultMessage="Close Slideout" />
+              }
+            >
+              <span>
+                <ButtonMain
+                  theme="beige"
+                  variant="contained"
+                  size="small"
+                  iconCenter={<IconClose />}
+                  onClick={() => handleClose()}
+                />
+              </span>
+            </Tooltip>
           </div>
         </div>
         <div className={styles.slideoutBody}>

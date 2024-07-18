@@ -8,11 +8,13 @@ import FactCheckIcon from '../../icons/fact_check.svg';
 import BookIcon from '../../icons/book.svg';
 import BulletSeparator from '../layout/BulletSeparator';
 import styles from './ArticleCard.module.css';
+import cardStyles from '../cds/media-cards/Card.module.css';
 import Language from '../cds/media-cards/Language';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import ArticleUrl from '../cds/media-cards/ArticleUrl';
 import ItemReportStatus from '../cds/media-cards/ItemReportStatus';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import RemoveArticleButton from './RemoveArticleButton';
 
 const MediaArticleCard = ({
   title,
@@ -24,10 +26,11 @@ const MediaArticleCard = ({
   publishedAt,
   variant,
   onClick,
+  id,
 }) => (
-  <div className={cx('article-card', styles.articleCard)}>
-    <Card>
-      <div>
+  <div className={cx('article-card', styles.articleCard, styles.mediaArticleCardWrapper)}>
+    <Card className={styles.mediaArticleCard}>
+      <div className={styles.mediaArticleCardDescription}>
         <div className={cx('typography-body2-bold', styles.articleCardHeader)}>
           <div className={styles.articleType}>
             <div className={styles.articleIcon}>
@@ -40,15 +43,22 @@ const MediaArticleCard = ({
           </div>
           { statusLabel && <div><EllipseIcon style={{ color: statusColor }} /> {statusLabel}</div> }
         </div>
-        <span>
-          { url ?
-            <ArticleUrl url={url} title={title} variant={variant} showIcon={false} linkText={title} /> :
-            <div className="typography-body2">
-              {title}
-            </div>
-          }
-        </span>
-        <div />
+        <div
+          className={cx(
+            cardStyles.cardSummary,
+            cardStyles.cardSummaryCollapsed,
+          )}
+        >
+          <div className={cardStyles.cardSummaryContent}>
+            { url ?
+              <ArticleUrl url={url} title={title} variant={variant} showIcon={false} linkText={title} />
+              :
+              <span className={cx(cardStyles.cardDescription)}>
+                {title}
+              </span>
+            }
+          </div>
+        </div>
         <BulletSeparator
           details={[
             variant === 'fact-check' && (<ItemReportStatus
@@ -77,6 +87,7 @@ const MediaArticleCard = ({
               <ButtonMain
                 buttonProps={{
                   type: null,
+                  id: 'media-article-card__edit-button',
                 }}
                 label={<FormattedMessage id="mediaArticleCard.editButton" defaultMessage="Edit Article" description="Label for edit button" />}
                 variant="contained"
@@ -87,6 +98,9 @@ const MediaArticleCard = ({
             ),
           ]}
         />
+      </div>
+      <div className={styles.articleCardRight}>
+        <RemoveArticleButton id={id} variant={variant} />
       </div>
     </Card>
   </div>
@@ -111,6 +125,7 @@ MediaArticleCard.propTypes = {
   publishedAt: PropTypes.number, // Timestamp
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
   onClick: PropTypes.func,
+  id: PropTypes.string.isRequired,
 };
 
 export default MediaArticleCard;

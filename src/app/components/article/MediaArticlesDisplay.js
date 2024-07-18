@@ -39,6 +39,7 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
           publishedAt={publishedAt}
+          id={factCheck.claim_description.id}
           onClick={() => { setArticleToEdit(factCheck); }}
         />
         : null
@@ -50,14 +51,14 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
           title={
             <FormattedMessage
               id="mediaArticlesDisplay.readOnlyAlertTitle"
-              defaultMessage="Fact-Check Added"
+              defaultMessage="Claim & Fact-Check Added"
               description="Title of the alert message displayed on data points section of the edit feed page."
             />
           }
           content={
             <FormattedMessage
               id="mediaArticlesDisplay.readOnlyAlertContent"
-              defaultMessage="When a fact-check article is added it will be prioritized to be sent to all media and requests that match this item."
+              defaultMessage="When a claim & fact-check article is added, it will be prioritized as the only article to be delivered as a response to requests that match this item."
               description="Description of the alert message displayed on data points section of the edit feed page."
             />
           }
@@ -65,8 +66,6 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
         : null
       }
       { explainerItems.filter(explainerItem => explainerItem !== null).map((explainerItem) => {
-        // FIXME: Use explainerItem.id for removal
-
         const { explainer } = explainerItem;
 
         return (
@@ -79,6 +78,7 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
               variant="explainer"
               title={explainer.title}
               url={explainer.url}
+              id={explainerItem.id}
               languageCode={explainer.language !== 'und' ? explainer.language : null}
               date={explainer.updated_at}
               onClick={() => { setArticleToEdit(explainer); }}
@@ -121,6 +121,7 @@ MediaArticlesDisplay.propTypes = {
       rating: PropTypes.string,
       nodeType: PropTypes.oneOf(['Explainer', 'FactCheck']),
       claim_description: PropTypes.shape({
+        id: PropTypes.number,
         description: PropTypes.string,
       }).isRequired,
     }).isRequired,
@@ -158,6 +159,7 @@ export default createFragmentContainer(MediaArticlesDisplay, graphql`
       report_status
       rating
       claim_description {
+        id
         description
       }
       nodeType: __typename
