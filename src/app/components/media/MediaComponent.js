@@ -53,7 +53,7 @@ class MediaComponent extends Component {
 
   componentDidMount() {
     this.subscribe();
-    if (!this.props.projectMedia.is_read) {
+    if (!this.props.projectMedia.is_read && !this.getContext().currentUser.is_admin) {
       commitMutation(Store, {
         mutation: graphql`
           mutation MediaComponentMarkAsReadMutation($input: BulkProjectMediaMarkReadInput!) {
