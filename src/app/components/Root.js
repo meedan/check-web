@@ -26,7 +26,6 @@ import Trash from './team/Trash';
 import CreateFeed from './feed/CreateFeed';
 import EditFeedTeam from './feed/EditFeedTeam';
 import Feed from './feed/Feed';
-import FeedClusterPage from './feed/FeedClusterPage';
 import FeedInvitation from './feed/FeedInvitation';
 import FeedInvitationRespond from './feed/FeedInvitationRespond';
 import FeedItem from './feed/FeedItem';
@@ -85,7 +84,6 @@ class Root extends Component {
                   <Route path="check/me/ui-sandbox/crash" component={SandboxCrash} />
                   <Route path="check/me(/:tab)" component={Me} />
                   <Route path="check/feed/:feedId/invitation" component={FeedInvitation} splash />
-                  <Route path="check/feed/:feedId/request/:requestId" component={FeedClusterPage} />
                   <Route path=":team" component={Team} />
                   <Route path=":team/settings(/:tab)" component={Team} />
                   <Route path=":team/media/:mediaId" component={MediaPage} />
