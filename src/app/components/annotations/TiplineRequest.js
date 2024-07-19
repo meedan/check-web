@@ -87,7 +87,7 @@ const TiplineRequest = ({
     objectValue.text.trim()
       .split('\n')
       .map(w => w.replace('\u2063', ''))
-      .filter(w => !/^[0-9]+$/.test(w))
+      .filter(w => !/^[0-9]{1,2}$/.test(w))
       .join('\n')
     : null;
   const updatedAt = parseStringUnixTimestamp(activity.created_at);
