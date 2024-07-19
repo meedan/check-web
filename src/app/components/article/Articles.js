@@ -226,8 +226,8 @@ const ArticlesComponent = ({
 
 ArticlesComponent.defaultProps = {
   page: 1,
-  sort: 'title',
-  sortType: 'ASC',
+  sort: 'updated_at',
+  sortType: 'DESC',
   sortOptions: [],
   filterOptions: [],
   filters: {},
@@ -296,8 +296,8 @@ const Articles = ({
 }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
-    sort: 'title',
-    sortType: 'ASC',
+    sort: 'updated_at',
+    sortType: 'DESC',
     filters: { ...defaultFilters },
   });
   const {
