@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// todo switch from classic
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
@@ -13,16 +14,19 @@ import BlankState from '../layout/BlankState';
 import SettingsHeader from '../team/SettingsHeader';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateTeamDialog from '../team/CreateTeamDialog';
+// todo: deprecate these? rely on relay/classic
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
 import { can } from '../Can';
+// todo: use updated error handling
 import { getErrorMessage } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import KeyboardArrowRight from '../../icons/chevron_right.svg';
 import styles from './user.module.css';
 
+// todo apply hooks
 class UserWorkspaces extends Component {
   constructor(props) {
     super(props);
@@ -32,10 +36,12 @@ class UserWorkspaces extends Component {
     };
   }
 
+  // todo remove
   getContext() {
     return new CheckContext(this);
   }
 
+  // todo update
   setCurrentTeam(team, user) {
     const context = this.getContext();
     const { currentUser } = context.getContextStore();
@@ -69,7 +75,7 @@ class UserWorkspaces extends Component {
       { onSuccess, onFailure },
     );
   }
-
+  // todo: modernize to concat
   cancelRequest(team, e) {
     Relay.Store.commitUpdate(new DeleteTeamUserMutation({
       id: team.teamUser_id,
@@ -234,5 +240,5 @@ UserWorkspaces.propTypes = {
 UserWorkspaces.contextTypes = {
   store: PropTypes.object,
 };
-
+// updated error handling
 export default withSetFlashMessage(UserWorkspaces);
