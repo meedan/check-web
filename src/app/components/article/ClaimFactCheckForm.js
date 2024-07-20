@@ -65,18 +65,8 @@ const createClaimMutation = graphql`
 const createFactCheckMutation = graphql`
   mutation ClaimFactCheckFormCreateFactCheckMutation($input: CreateFactCheckInput!) {
     createFactCheck(input: $input) {
-      fact_check {
-        id
-        title
-        summary
-        url
-        language
-        rating
-        tags
-        updated_at
-        user {
-          name
-        }
+      team {
+        factChecksCount: articles_count(article_type: "fact-check")
       }
     }
   }
@@ -112,8 +102,9 @@ const updateFactCheckMutation = graphql`
 const ClaimFactCheckForm = ({
   article,
   team,
-  onClose,
   projectMedia,
+  onClose,
+  onCreate,
 }) => {
   const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
@@ -152,6 +143,7 @@ const ClaimFactCheckForm = ({
       onCompleted: () => {
         setSaving(false);
         onSuccess();
+        onCreate();
       },
       onError: (err) => {
         onFailure(err);
@@ -265,6 +257,7 @@ const ClaimFactCheckForm = ({
 ClaimFactCheckForm.defaultProps = {
   article: {},
   projectMedia: null,
+  onCreate: () => {},
 };
 
 ClaimFactCheckForm.propTypes = {
@@ -272,6 +265,7 @@ ClaimFactCheckForm.propTypes = {
   article: PropTypes.object,
   projectMedia: PropTypes.object,
   onClose: PropTypes.func.isRequired,
+  onCreate: PropTypes.func,
 };
 
 export default createFragmentContainer(ClaimFactCheckForm, graphql`

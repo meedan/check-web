@@ -128,10 +128,10 @@ const MediaArticlesComponent = ({
     <div id="articles-sidebar" className={styles.articlesSidebar}>
       <div className={styles.articlesSidebarTopBar}>
         <ChooseExistingArticleButton teamSlug={team.slug} onAdd={handleConfirmAdd} />
-        <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} projectMedia={projectMedia} />
+        <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} projectMedia={projectMedia} onCreate={onUpdate} />
       </div>
       { hasArticle ? (
-        <MediaArticlesDisplay projectMedia={projectMedia} />
+        <MediaArticlesDisplay projectMedia={projectMedia} onUpdate={onUpdate} />
       ) : (
         <div className={cx('typography-body1', styles.articlesSidebarNoArticleWrapper)}>
           <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>

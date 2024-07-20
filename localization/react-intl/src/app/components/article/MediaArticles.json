@@ -17,17 +17,17 @@
   {
     "id": "mediaArticles.confirmReplaceFactCheckTitle",
     "description": "'Leave' here is an infinitive verb.",
-    "defaultMessage": "Replace claim and fact-check?"
+    "defaultMessage": "Replace claim & fact-check?"
   },
   {
     "id": "mediaArticles.confirmReplaceFactCheckBody",
     "description": "Confirmation dialog message when replacing a fact-check.",
-    "defaultMessage": "Are you sure you would like to replace the current claim and fact-check?"
+    "defaultMessage": "Are you sure you would like to replace the current claim & fact-check?"
   },
   {
     "id": "mediaArticles.confirmReplaceFactCheckButton",
     "description": "'Replace' here is an infinitive verb",
-    "defaultMessage": "Replace claim and fact-check"
+    "defaultMessage": "Replace claim & fact-check"
   },
   {
     "id": "global.cancel",

@@ -49,6 +49,7 @@ const NewArticleButton = ({
   projectMedia,
   disabled,
   buttonMainProps,
+  onCreate,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openExplainer, setOpenExplainer] = React.useState(false);
@@ -120,8 +121,8 @@ const NewArticleButton = ({
           </ListItemText>
         </MenuItem>
       </Menu>
-      {openExplainer && <ExplainerForm team={team} projectMedia={projectMedia} onClose={setOpenExplainer} />}
-      {openFactCheck && <ClaimFactCheckForm team={team} projectMedia={projectMedia} onClose={setOpenFactCheck} />}
+      {openExplainer && <ExplainerForm team={team} projectMedia={projectMedia} onClose={setOpenExplainer} onCreate={onCreate} />}
+      {openFactCheck && <ClaimFactCheckForm team={team} projectMedia={projectMedia} onClose={setOpenFactCheck} onCreate={onCreate} />}
     </NewArticleButtonWrapper>
   );
 };
@@ -130,6 +131,7 @@ NewArticleButton.defaultProps = {
   disabled: false,
   buttonMainProps: {},
   projectMedia: null,
+  onCreate: () => {},
 };
 
 NewArticleButton.propTypes = {
@@ -137,6 +139,7 @@ NewArticleButton.propTypes = {
   disabled: PropTypes.bool,
   buttonMainProps: PropTypes.object,
   projectMedia: PropTypes.object,
+  onCreate: PropTypes.func,
 };
 
 export default createFragmentContainer(NewArticleButton, graphql`
