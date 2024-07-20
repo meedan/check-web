@@ -32,13 +32,15 @@ const Paginator = ({
   return (
     <div className={styles.paginator}>
       <Tooltip title={<FormattedMessage id="paginator.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page." />}>
-        <ButtonMain
-          onClick={handleGoToPreviousPage}
-          iconCenter={<PrevIcon />}
-          disabled={page === 1}
-          theme="text"
-          variant="text"
-        />
+        <span>
+          <ButtonMain
+            onClick={handleGoToPreviousPage}
+            iconCenter={<PrevIcon />}
+            disabled={page === 1}
+            theme="text"
+            variant="text"
+          />
+        </span>
       </Tooltip>
       <span className="typography-button">
         <FormattedMessage
@@ -53,13 +55,15 @@ const Paginator = ({
         />
       </span>
       <Tooltip title={<FormattedMessage id="paginator.nextPage" defaultMessage="Next page" description="Pagination button to go to next page." />}>
-        <ButtonMain
-          onClick={handleGoToNextPage}
-          iconCenter={<NextIcon />}
-          disabled={endingIndex + 1 === numberOfTotalResults}
-          theme="text"
-          variant="text"
-        />
+        <span>
+          <ButtonMain
+            onClick={handleGoToNextPage}
+            iconCenter={<NextIcon />}
+            disabled={endingIndex + 1 === numberOfTotalResults}
+            theme="text"
+            variant="text"
+          />
+        </span>
       </Tooltip>
     </div>
   );

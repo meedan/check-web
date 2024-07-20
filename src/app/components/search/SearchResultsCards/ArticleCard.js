@@ -65,7 +65,7 @@ const ArticleCard = ({
           { variant === 'fact-check' && (
             <div className={styles.cardRightTop}>
               { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
-              { publishedAt && <ItemReportStatus className={styles.cardRightTopPublished} isPublished={isPublished} publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
+              <ItemReportStatus className={styles.cardRightTopPublished} isPublished={isPublished} publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} />
             </div>
           )}
           { date &&
@@ -99,7 +99,11 @@ ArticleCard.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string,
   url: PropTypes.string,
-  date: PropTypes.number.isRequired, // Timestamp
+  //
+  date: PropTypes.oneOfType([
+    PropTypes.string, // article.updated_at (Articles.js)
+    PropTypes.number, // projectMedia.feed_columns_values.updated_at_timestamp (SearchResultsCards/index.js)
+  ]).isRequired, // Timestamp
   statusLabel: PropTypes.string,
   statusColor: PropTypes.string,
   teamAvatar: PropTypes.string, // URL

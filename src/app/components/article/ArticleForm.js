@@ -11,7 +11,6 @@ import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
-// import DeleteIcon from '../../icons/delete.svg';
 import inputStyles from '../../styles/css/inputs.module.css';
 import { safelyParseJSON, truncateLength } from '../../helpers';
 import styles from './ArticleForm.module.css';
@@ -35,18 +34,18 @@ const ArticleForm = ({
     </>
   );
 
-  const [claimDescription, setClaimDescription] = React.useState(article?.claim_description?.description || '');
-  const [claimContext, setClaimContext] = React.useState(article?.claim_description?.context || '');
+  const [claimDescription, setClaimDescription] = React.useState(article.claim_description?.description || '');
+  const [claimContext, setClaimContext] = React.useState(article.claim_description?.context || '');
   const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text }));
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
-  const [articleTitle, setArticleTitle] = React.useState(article?.title || '');
-  const [summary, setSummary] = React.useState(article?.summary || article?.description || '');
-  const [url, setUrl] = React.useState(article?.url || '');
-  const [language, setLanguage] = React.useState(article?.language || null);
-  const [tags, setTags] = React.useState(article?.tags || []);
-  const [status, setStatus] = React.useState(article?.claim_description?.project_media?.status || article?.rating || '');
+  const [articleTitle, setArticleTitle] = React.useState(article.title || '');
+  const [summary, setSummary] = React.useState(article.summary || article.description || '');
+  const [url, setUrl] = React.useState(article.url || '');
+  const [language, setLanguage] = React.useState(article.language || null);
+  const [tags, setTags] = React.useState(article.tags || []);
+  const [status, setStatus] = React.useState(article.claim_description?.project_media?.status || article.rating || '');
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
   const statuses = team.verification_statuses || null;
 
@@ -56,10 +55,8 @@ const ArticleForm = ({
 
   const [isValid, setIsValid] = React.useState(false);
 
-  let publishedAt = null;
-  if (article?.claim_description?.project_media?.report_status === 'published') {
-    publishedAt = article?.claim_description?.project_media?.fact_check_published_on;
-  }
+  const isPublished = article.report_status === 'published';
+  const publishedAt = isPublished ? article.updated_at : null;
 
   React.useEffect(() => {
     setLanguage(language || defaultArticleLanguage);
@@ -141,17 +138,17 @@ const ArticleForm = ({
                 { articleType === 'fact-check' && statuses &&
                   <RatingSelector status={status} statuses={statuses} onStatusChange={handleStatusChange} />
                 }
-                { articleType === 'fact-check' && article?.claim_description?.project_media?.dbid &&
+                { articleType === 'fact-check' && article.claim_description?.project_media?.dbid &&
                   <div className={inputStyles['form-fieldset-field']}>
                     <ButtonMain
                       onClick={() => handleGoToReport(article.claim_description.project_media.dbid)}
                       className="media-fact-check__report-designer"
                       variant="contained"
-                      theme={publishedAt ? 'brand' : 'alert'}
+                      theme={isPublished ? 'brand' : 'alert'}
                       size="default"
-                      iconLeft={publishedAt ? <IconReport /> : <IconUnpublishedReport />}
+                      iconLeft={isPublished ? <IconReport /> : <IconUnpublishedReport />}
                       disabled={claimDescriptionMissing}
-                      label={publishedAt ?
+                      label={isPublished ?
                         <FormattedMessage
                           className="media-fact-check__published-report"
                           id="articleForm.publishedReport"
@@ -500,7 +497,7 @@ const ArticleForm = ({
 
 ArticleForm.defaultProps = {
   handleSave: null,
-  article: null,
+  article: {},
 };
 
 ArticleForm.propTypes = {
@@ -533,6 +530,7 @@ export default createFragmentContainer(ArticleForm, graphql`
       language
       tags
       rating
+      report_status
       updated_at
       user {
         name
@@ -542,8 +540,6 @@ export default createFragmentContainer(ArticleForm, graphql`
         context
         project_media {
           dbid
-          fact_check_published_on
-          report_status
         }
       }
     }

@@ -114,7 +114,7 @@ const ArticlesComponent = ({
   };
 
   return (
-    <PageTitle prefix={title} team={team}>
+    <PageTitle prefix={title} teamName={team.name}>
       <div className={searchResultsStyles['search-results-header']}>
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
@@ -266,7 +266,7 @@ ArticlesComponent.propTypes = {
     description: PropTypes.string,
     url: PropTypes.string,
     language: PropTypes.string,
-    updated_at: PropTypes.number,
+    updated_at: PropTypes.string,
     rating: PropTypes.string,
     report_status: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
@@ -333,6 +333,7 @@ const Articles = ({
           ) {
             team(slug: $slug) {
               ...ArticleForm_team
+              name
               slug
               verification_statuses
               tag_texts(first: 100) {
