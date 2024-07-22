@@ -6,11 +6,9 @@ import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import ErrorBoundary from '../error/ErrorBoundary';
-import FeedRequestsTable from './FeedRequestsTable';
 import FeedTopBar from './FeedTopBar';
 import FeedHeader from './FeedHeader';
 import FeedClusters from './FeedClusters';
-import FeedSwitcher from './FeedSwitcher';
 import Search from '../search/Search';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import { safelyParseJSON } from '../../helpers';
@@ -25,7 +23,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     return null;
   }
 
-  const tab = routeParams.tab || 'feed';
   const feedTeam = feed.current_feed_team;
   const isFeedOwner = feedTeam.team_id === feed.team_id;
 
@@ -38,26 +35,16 @@ export const FeedComponent = ({ routeParams, ...props }) => {
   }
 
   const commonSearchProps = {
-    searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
+    searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}`,
     title: feed.name,
-    extra: tab === 'feed' && feed.published && !feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) && feed.requests_count > 0 ?
-      () => (
-        <>
-          <FeedSwitcher teamSlug={routeParams.team} feedDbid={routeParams.feedId} value="feed" />
-          <FeedTopBar
-            team={team}
-            feed={feed}
-            teamFilters={teamFilters}
-            setTeamFilters={setTeamFilters}
-          />
-        </>
-      ) : () =>
-        (<FeedTopBar
-          team={team}
-          feed={feed}
-          teamFilters={teamFilters}
-          setTeamFilters={setTeamFilters}
-        />),
+    extra: () => (
+      <FeedTopBar
+        team={team}
+        feed={feed}
+        teamFilters={teamFilters}
+        setTeamFilters={setTeamFilters}
+      />
+    ),
     listSubtitle: <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />,
     icon: <SharedFeedIcon />,
     teamSlug: routeParams.team,
@@ -78,34 +65,9 @@ export const FeedComponent = ({ routeParams, ...props }) => {
   return (
     <React.Fragment>
       <PageTitle prefix={feed.name} team={{ name: team.name }} >
-        {/* The "Shared" tab just shows content from that workspace */}
-        { tab === 'shared' ?
-          <div id="feed__from-workspace" className="search-results-wrapper">
-            <Search
-              mediaUrlPrefix="media"
-              result
-              query={{
-                ...feed.filters,
-                ...routeQuery,
-              }}
-              defaultQuery={feed.filters}
-              feedTeam={{
-                id: feedTeam.id,
-                filters: feedTeam.filters,
-                feedFilters: feed.filters,
-                shared: feedTeam.shared,
-              }}
-              hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
-              {...commonSearchProps}
-            />
-          </div>
-          : null
-        }
-
-        {/* The "Feed" tab displays content from the feed itself */}
 
         {/* Feed is sharing only fact-checks */}
-        { tab === 'feed' && feed.published && !feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
+        {feed.published && !feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
           <div id="feed__fact-checks" className="feed__fact-checks search-results-wrapper">
             <Search
               mediaUrlPrefix="media"
@@ -155,7 +117,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
         }
 
         {/* Feed is sharing media */}
-        { tab === 'feed' && feed.published && feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
+        {feed.published && feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
           <div id="feed__clusters" className="search-results-wrapper">
             <FeedClusters
               teamSlug={routeParams.team}
@@ -165,24 +127,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
           : null
         }
 
-        { tab === 'requests' && feed.published ?
-          <FeedRequestsTable
-            tabs={null}
-            teamSlug={routeParams.team}
-            feedId={parseInt(routeParams.feedId, 10)}
-            feedTeam={{
-              id: feedTeam.id,
-              requests_filters: feedTeam.requests_filters || {},
-            }}
-            searchUrlPrefix={commonSearchProps.searchUrlPrefix}
-            filters={
-              routeParams.query ?
-                { ...safelyParseJSON(routeParams.query, {}) } :
-                (feedTeam.requests_filters || {})
-            }
-          />
-          : null
-        }
       </PageTitle>
     </React.Fragment>
   );
@@ -192,7 +136,6 @@ FeedComponent.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
     feedId: PropTypes.string.isRequired,
-    tab: PropTypes.oneOf(['shared', 'feed', 'requests']),
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
   team: PropTypes.shape({
@@ -228,24 +171,19 @@ const Feed = ({ routeParams }) => (
               published
               filters
               saved_search_id
-              requests_count
               data_points
               teams(first: 1000) {
                 edges {
                   node {
-                    id
                     dbid
                     name
                   }
                 }
               }
               current_feed_team {
-                id
                 team_id
                 saved_search_id
                 filters
-                shared
-                requests_filters
                 ...FeedHeader_feedTeam
               }
               ...FeedTopBar_feed
@@ -277,7 +215,6 @@ Feed.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
     feedId: PropTypes.string.isRequired,
-    tab: PropTypes.oneOf(['shared', 'feed', 'requests']),
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
   team: PropTypes.shape({
