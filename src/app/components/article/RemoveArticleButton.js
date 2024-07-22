@@ -15,21 +15,10 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 const removeExplainerItemMutation = graphql`
   mutation RemoveArticleButtonDeleteExplainerItemMutation($input: DestroyExplainerItemInput!) {
     destroyExplainerItem(input: $input) {
+      deletedId
       project_media {
         id
-        explainer_items(first: 100) {
-          edges {
-            node {
-              id
-              explainer {
-                language
-                title
-                url
-                updated_at
-              }
-            }
-          }
-        }
+        articles_count
       }
     }
   }
@@ -38,19 +27,11 @@ const removeExplainerItemMutation = graphql`
 const removeClaimDescriptionMutation = graphql`
   mutation RemoveArticleButtonUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
     updateClaimDescription(input: $input) {
-      project_media {
-        id
-        fact_check {
-          id
-          title
-          language
-          updated_at
-          url
-          report_status
-          rating
-          claim_description {
+      claim_description {
+        project_media {
+          articles_count
+          fact_check {
             id
-            description
           }
         }
       }
@@ -89,8 +70,8 @@ const RemoveArticleWrapperButton = ({ disabled, children }) => {
 const RemoveArticleButton = ({
   id,
   variant,
-  onUpdate,
   disabled,
+  onRemove,
 }) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [removing, setRemoving] = React.useState(false);
@@ -110,7 +91,7 @@ const RemoveArticleButton = ({
       'success');
     setRemoving(false);
     setOpenDialog(false);
-    onUpdate();
+    onRemove();
   };
 
   const onError = (error) => {
@@ -126,11 +107,18 @@ const RemoveArticleButton = ({
       setRemoving(true);
       let input = null;
       let mutation = null;
+      let configs = null;
       if (variant === 'explainer') {
         mutation = removeExplainerItemMutation;
         input = {
           id,
         };
+        configs = [
+          {
+            type: 'NODE_DELETE',
+            deletedIDFieldName: 'deletedId',
+          },
+        ];
       } else if (variant === 'fact-check') {
         mutation = removeClaimDescriptionMutation;
         input = {
@@ -143,6 +131,7 @@ const RemoveArticleButton = ({
         variables: {
           input,
         },
+        configs,
         onCompleted,
         onError,
       });
@@ -207,13 +196,14 @@ const RemoveArticleButton = ({
 
 RemoveArticleButton.defaultProps = {
   disabled: false,
+  onRemove: () => {},
 };
 
 RemoveArticleButton.propTypes = {
   variant: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
   id: PropTypes.string.isRequired,
-  onUpdate: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  onRemove: PropTypes.func,
 };
 
 export default RemoveArticleButton;

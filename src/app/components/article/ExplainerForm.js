@@ -21,22 +21,12 @@ const addMutation = graphql`
 const createMutation = graphql`
   mutation ExplainerFormCreateExplainerMutation($input: CreateExplainerInput!) {
     createExplainer(input: $input) {
+      team {
+        explainersCount: articles_count(article_type: "explainer")
+        totalArticlesCount: articles_count
+      }
       explainer {
-        id
         dbid
-        title
-        description
-        url
-        language
-        tags
-        user {
-          dbid
-          name
-        }
-        team {
-          dbid
-          slug
-        }
       }
     }
   }
@@ -71,6 +61,7 @@ const ExplainerForm = ({
   article,
   projectMedia,
   onClose,
+  onCreate,
 }) => {
   const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
@@ -112,6 +103,7 @@ const ExplainerForm = ({
           onFailure(err);
         } else {
           onSuccess();
+          onCreate();
         }
       },
       onError: (err) => {
@@ -194,6 +186,7 @@ const ExplainerForm = ({
 ExplainerForm.defaultProps = {
   article: {},
   projectMedia: null,
+  onCreate: () => {},
 };
 
 ExplainerForm.propTypes = {
@@ -201,6 +194,7 @@ ExplainerForm.propTypes = {
   article: PropTypes.object,
   projectMedia: PropTypes.object,
   onClose: PropTypes.func.isRequired,
+  onCreate: PropTypes.func,
 };
 
 export default createFragmentContainer(ExplainerForm, graphql`

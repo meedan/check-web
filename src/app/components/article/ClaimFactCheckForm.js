@@ -65,17 +65,25 @@ const createClaimMutation = graphql`
 const createFactCheckMutation = graphql`
   mutation ClaimFactCheckFormCreateFactCheckMutation($input: CreateFactCheckInput!) {
     createFactCheck(input: $input) {
-      fact_check {
-        id
-        title
-        summary
-        url
-        language
-        rating
-        tags
-        updated_at
-        user {
-          name
+      team {
+        factChecksCount: articles_count(article_type: "fact-check")
+        totalArticlesCount: articles_count
+      }
+      fact_checkEdge {
+        __typename
+        cursor
+        node {
+          id
+          title
+          summary
+          url
+          language
+          rating
+          tags
+          updated_at
+          user {
+            name
+          }
         }
       }
     }
@@ -112,8 +120,9 @@ const updateFactCheckMutation = graphql`
 const ClaimFactCheckForm = ({
   article,
   team,
-  onClose,
   projectMedia,
+  onClose,
+  onCreate,
 }) => {
   const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
@@ -149,9 +158,25 @@ const ClaimFactCheckForm = ({
           ...factCheck,
         },
       },
+      /* This works - but since it's too complex to handle all different filters, let's keep this commented for now and rely on reloading the data
+      configs: [{
+        type: 'RANGE_ADD',
+        parentName: 'team',
+        parentID: team['__dataID__'], // eslint-disable-line
+        edgeName: 'fact_checkEdge',
+        connectionName: 'articles',
+        rangeBehaviors: (args) => {
+          if (args.article_type === 'fact-check') {
+            return 'prepend';
+          }
+          return 'ignore';
+        },
+      }],
+      */
       onCompleted: () => {
         setSaving(false);
         onSuccess();
+        onCreate();
       },
       onError: (err) => {
         onFailure(err);
@@ -265,6 +290,7 @@ const ClaimFactCheckForm = ({
 ClaimFactCheckForm.defaultProps = {
   article: {},
   projectMedia: null,
+  onCreate: () => {},
 };
 
 ClaimFactCheckForm.propTypes = {
@@ -272,10 +298,12 @@ ClaimFactCheckForm.propTypes = {
   article: PropTypes.object,
   projectMedia: PropTypes.object,
   onClose: PropTypes.func.isRequired,
+  onCreate: PropTypes.func,
 };
 
 export default createFragmentContainer(ClaimFactCheckForm, graphql`
   fragment ClaimFactCheckForm_team on Team {
+    id
     ...ArticleForm_team
   }
   fragment ClaimFactCheckForm_article on FactCheck {
