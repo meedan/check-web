@@ -23,6 +23,7 @@ const createMutation = graphql`
     createExplainer(input: $input) {
       team {
         explainersCount: articles_count(article_type: "explainer")
+        totalArticlesCount: articles_count
       }
       explainer {
         dbid

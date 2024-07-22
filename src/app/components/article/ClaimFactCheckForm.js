@@ -67,6 +67,24 @@ const createFactCheckMutation = graphql`
     createFactCheck(input: $input) {
       team {
         factChecksCount: articles_count(article_type: "fact-check")
+        totalArticlesCount: articles_count
+      }
+      fact_checkEdge {
+        __typename
+        cursor
+        node {
+          id
+          title
+          summary
+          url
+          language
+          rating
+          tags
+          updated_at
+          user {
+            name
+          }
+        }
       }
     }
   }
@@ -140,6 +158,21 @@ const ClaimFactCheckForm = ({
           ...factCheck,
         },
       },
+      /* This works - but since it's too complex to handle all different filters, let's keep this commented for now and rely on reloading the data
+      configs: [{
+        type: 'RANGE_ADD',
+        parentName: 'team',
+        parentID: team['__dataID__'], // eslint-disable-line
+        edgeName: 'fact_checkEdge',
+        connectionName: 'articles',
+        rangeBehaviors: (args) => {
+          if (args.article_type === 'fact-check') {
+            return 'prepend';
+          }
+          return 'ignore';
+        },
+      }],
+      */
       onCompleted: () => {
         setSaving(false);
         onSuccess();
@@ -270,6 +303,7 @@ ClaimFactCheckForm.propTypes = {
 
 export default createFragmentContainer(ClaimFactCheckForm, graphql`
   fragment ClaimFactCheckForm_team on Team {
+    id
     ...ArticleForm_team
   }
   fragment ClaimFactCheckForm_article on FactCheck {
