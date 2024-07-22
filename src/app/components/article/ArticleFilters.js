@@ -103,23 +103,22 @@ const ArticleFilters = ({
 
           if (filter === 'imported') {
             return (
-              <>
+              <React.Fragment key={filter}>
                 {connector}
                 <SearchFieldChannel
-                  key={filter}
                   // Little hack here to hardcode the channel for imported articles
                   query={{ channels: value && CheckChannels.FETCH }}
                   onChange={newValue => handleOptionChange('channels', newValue)}
                   onRemove={() => handleRemoveFilter('channels')}
                   readOnly
                 />
-              </>
+              </React.Fragment>
             );
           }
 
           if (filter === 'users') {
             return (
-              <>
+              <React.Fragment key={filter}>
                 {connector}
                 <FormattedMessage id="articleFilters.createdBy" defaultMessage="Created by" description="Prefix label for field to filter by item creator.">
                   { label => (
@@ -134,13 +133,13 @@ const ArticleFilters = ({
                     />
                   )}
                 </FormattedMessage>
-              </>
+              </React.Fragment>
             );
           }
 
           if (filter === 'tags') {
             return (
-              <>
+              <React.Fragment key={filter}>
                 {connector}
                 <SearchFieldTag
                   teamSlug={teamSlug}
@@ -148,29 +147,28 @@ const ArticleFilters = ({
                   onChange={(newValue) => { handleOptionChange('tags', newValue); }}
                   onRemove={() => handleRemoveFilter('tags')}
                 />
-              </>
+              </React.Fragment>
             );
           }
 
           if (filter === 'range') {
             return (
-              <>
+              <React.Fragment key={filter}>
                 {connector}
                 <DateRangeFilter
-                  key={filter}
                   filterKey="range"
                   onChange={handleDateRange}
                   value={value || { updated_at: {} }}
                   optionsToHide={['created_at', 'media_published_at', 'report_published_at', 'request_created_at']}
                   onRemove={() => handleRemoveFilter('range')}
                 />
-              </>
+              </React.Fragment>
             );
           }
 
           if (filter === 'article_type') {
             return (
-              <>
+              <React.Fragment key={filter}>
                 {connector}
                 <MultiSelectFilter
                   allowSearch={false}
@@ -183,13 +181,13 @@ const ArticleFilters = ({
                   ]}
                   readOnly
                 />
-              </>
+              </React.Fragment>
             );
           }
 
           if (filter === 'language_filter') {
             return (
-              <>
+              <React.Fragment key={filter}>
                 {connector}
                 <LanguageFilter
                   onChange={(newValue) => { handleOptionChange('language_filter', newValue); }}
@@ -198,13 +196,13 @@ const ArticleFilters = ({
                   teamSlug={teamSlug}
                   optionsToHide={['request_language', 'language']}
                 />
-              </>
+              </React.Fragment>
             );
           }
 
           if (filter === 'published_by') {
             return (
-              <>
+              <React.Fragment key={filter}>
                 {connector}
                 <FormattedMessage id="articleFilters.publishedBy" defaultMessage="Publisher is" description="Prefix label for field to filter by published by">
                   { label => (
@@ -219,7 +217,7 @@ const ArticleFilters = ({
                     />
                   )}
                 </FormattedMessage>
-              </>
+              </React.Fragment>
             );
           }
 
@@ -230,7 +228,7 @@ const ArticleFilters = ({
               { label: <FormattedMessage id="articleFilters.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
             ];
             return (
-              <>
+              <React.Fragment key={filter}>
                 {connector}
                 <FormattedMessage id="articleFilters.reportStatus" defaultMessage="Report (status) is" description="Prefix label for field to filter by report status">
                   { label => (
@@ -246,13 +244,13 @@ const ArticleFilters = ({
                     />
                   )}
                 </FormattedMessage>
-              </>
+              </React.Fragment>
             );
           }
 
           if (filter === 'verification_status') {
             return (
-              <>
+              <React.Fragment key={filter}>
                 {connector}
                 <FormattedMessage id="search.statusHeading" defaultMessage="Rating is" description="Prefix label for field to filter by status">
                   { label => (
@@ -266,7 +264,7 @@ const ArticleFilters = ({
                     />
                   )}
                 </FormattedMessage>
-              </>
+              </React.Fragment>
             );
           }
 

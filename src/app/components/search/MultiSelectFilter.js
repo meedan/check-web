@@ -291,6 +291,7 @@ MultiSelectFilter.defaultProps = {
   onScrollBottom: null,
   onToggleOperator: null,
   readOnly: false,
+  onChange: () => {},
   onRemove: null,
   onType: null,
   inputPlaceholder: null,
@@ -311,7 +312,7 @@ MultiSelectFilter.propTypes = {
   label: PropTypes.node.isRequired,
   icon: PropTypes.element.isRequired,
   loading: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   onRemove: PropTypes.func,
   selected: PropTypes.oneOfType([
     PropTypes.array,
