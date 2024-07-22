@@ -2,7 +2,7 @@
   {
     "id": "feedTeamFactCheckDialog.title",
     "description": "Title for claim & fact-check dialog on the feed item page.",
-    "defaultMessage": "Claim and Fact-check"
+    "defaultMessage": "Claim & Fact-check"
   },
   {
     "id": "feedTeamFactCheckDialog.claim",

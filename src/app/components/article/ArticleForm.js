@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Slideout from '../cds/slideout/Slideout';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconReport from '../../icons/fact_check.svg';
@@ -140,29 +141,40 @@ const ArticleForm = ({
                 }
                 { articleType === 'fact-check' &&
                   <div className={inputStyles['form-fieldset-field']}>
-                    <ButtonMain
-                      onClick={() => handleGoToReport(article.claim_description.project_media.dbid)}
-                      className="media-fact-check__report-designer"
-                      variant="contained"
-                      theme={isPublished ? 'brand' : 'alert'}
-                      size="default"
-                      iconLeft={isPublished ? <IconReport /> : <IconUnpublishedReport />}
-                      disabled={claimDescriptionMissing || !article.claim_description?.project_media?.dbid}
-                      label={isPublished ?
-                        <FormattedMessage
-                          className="media-fact-check__published-report"
-                          id="articleForm.publishedReport"
-                          defaultMessage="Published report"
-                          description="A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
-                        /> :
-                        <FormattedMessage
-                          className="media-fact-check__unpublished-report"
-                          id="articleForm.unpublishedReport"
-                          defaultMessage="Unpublished report"
-                          description="A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
-                        />
+                    <Tooltip
+                      arrow
+                      title={
+                        article.claim_description?.project_media?.dbid ?
+                          null :
+                          <FormattedMessage id="articleForm.reportDesignerTooltip" defaultMessage="Assign this Fact Check to a media item to be able to edit and publish a report" description="Tooltip for the report designer button" />
                       }
-                    />
+                    >
+                      <span>
+                        <ButtonMain
+                          onClick={() => handleGoToReport(article.claim_description.project_media.dbid)}
+                          className="media-fact-check__report-designer"
+                          variant="contained"
+                          theme={isPublished ? 'brand' : 'alert'}
+                          size="default"
+                          iconLeft={isPublished ? <IconReport /> : <IconUnpublishedReport />}
+                          disabled={claimDescriptionMissing || !article.claim_description?.project_media?.dbid}
+                          label={isPublished ?
+                            <FormattedMessage
+                              className="media-fact-check__published-report"
+                              id="articleForm.publishedReport"
+                              defaultMessage="Published report"
+                              description="A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
+                            /> :
+                            <FormattedMessage
+                              className="media-fact-check__unpublished-report"
+                              id="articleForm.unpublishedReport"
+                              defaultMessage="Unpublished report"
+                              description="A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
+                            />
+                          }
+                        />
+                      </span>
+                    </Tooltip>
                   </div>
                 }
               </div>

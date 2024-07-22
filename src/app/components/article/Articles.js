@@ -195,6 +195,7 @@ const ArticlesComponent = ({
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
                 isPublished={article.report_status === 'published'}
+                projectMediaDbid={article.claim_description?.project_media?.dbid}
                 publishedAt={article.claim_description?.project_media?.fact_check_published_on ? parseInt(article.claim_description?.project_media?.fact_check_published_on, 10) : null}
                 onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
                 handleClick={e => handleClick(article, e)}
@@ -273,6 +274,7 @@ ArticlesComponent.propTypes = {
     claim_description: PropTypes.shape({
       description: PropTypes.string,
       project_media: PropTypes.shape({
+        dbid: PropTypes.number.isRequired,
         fact_check_published_on: PropTypes.number, // Timestamp
       }),
     }),
@@ -378,6 +380,7 @@ const Articles = ({
                         id
                         description
                         project_media {
+                          dbid
                           fact_check_published_on
                         }
                       }
