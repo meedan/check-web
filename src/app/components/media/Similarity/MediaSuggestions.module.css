@@ -31,6 +31,7 @@
 .suggestions-item {
   align-items: center;
   display: flex;
+  margin: 16px 0 0;
   position: relative;
 
   .suggestions-item-actions {
@@ -42,7 +43,7 @@
     padding: 3px;
     position: absolute;
     right: 3px;
-    top: 11px;
+    top: 3px;
   }
 
   .suggestions-item-content {
