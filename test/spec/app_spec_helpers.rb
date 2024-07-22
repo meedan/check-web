@@ -6,6 +6,7 @@ module AppSpecHelpers
   end
 
   def fill_field(selector, value, type = :css)
+    wait_for_selector(selector, type).click
     wait_for_selector(selector, type).send_keys(value)
   end
 
@@ -279,5 +280,12 @@ module AppSpecHelpers
     wait_for_selector('.autocomplete-media-item__select').click
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector_none('#create-media-dialog__dismiss-button')
+  end
+
+  def add_article_to_item
+    wait_for_selector('.media-card-large')
+    wait_for_selector('#articles-sidebar-team-articles')
+    wait_for_selector('.media-articles-card__card').click
+    wait_for_selector('.article-card')
   end
 end

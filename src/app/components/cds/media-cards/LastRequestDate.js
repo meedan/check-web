@@ -8,43 +8,64 @@ import CalendarMonthIcon from '../../../icons/calendar_month.svg';
 const LastRequestDate = ({
   intl,
   lastRequestDate,
-}) => (
-  <FormattedMessage id="sharedItemCard.lastRequested" defaultMessage="Last Requested" description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'.">
-    { lastRequestDateLabel => (
-      <Tooltip
-        arrow
-        title={(
-          <>
-            <span>{lastRequestDateLabel}:</span>
-            <ul>
-              <li>{Intl.DateTimeFormat(intl.locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(lastRequestDate)}</li>
-              <li>{Intl.DateTimeFormat(intl.locale, { hour: 'numeric', minute: 'numeric' }).format(lastRequestDate)}</li>
-            </ul>
-          </>
-        )}
-        placement="top"
-      >
-        <span>
-          <ButtonMain
-            disabled
-            size="small"
-            theme="lightBeige"
-            iconLeft={<CalendarMonthIcon />}
-            variant="contained"
-            label={<FormattedDate value={lastRequestDate} year="numeric" month="long" day="numeric" />}
-            buttonProps={{
-              type: null,
-            }}
-          />
-        </span>
-      </Tooltip>
-    )}
-  </FormattedMessage>
-);
+  variant,
+  theme,
+  tooltip,
+}) => {
+  const buttonContent = (
+    <span>
+      <ButtonMain
+        disabled
+        size="small"
+        theme={theme}
+        iconLeft={<CalendarMonthIcon />}
+        variant={variant}
+        label={<FormattedDate value={lastRequestDate} year="numeric" month="long" day="numeric" />}
+        buttonProps={{
+          type: null,
+        }}
+      />
+    </span>
+  );
+
+  return (
+    <FormattedMessage id="sharedItemCard.lastRequested" defaultMessage="Last Requested" description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'.">
+      { lastRequestDateLabel => (
+        tooltip ? (
+          <Tooltip
+            arrow
+            title={(
+              <>
+                <span>{lastRequestDateLabel}:</span>
+                <ul>
+                  <li>{Intl.DateTimeFormat(intl.locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(lastRequestDate)}</li>
+                  <li>{Intl.DateTimeFormat(intl.locale, { hour: 'numeric', minute: 'numeric' }).format(lastRequestDate)}</li>
+                </ul>
+              </>
+            )}
+            placement="top"
+          >
+            {buttonContent}
+          </Tooltip>
+        )
+          : buttonContent
+      )}
+    </FormattedMessage>
+  );
+};
 
 LastRequestDate.propTypes = {
   intl: intlShape.isRequired,
   lastRequestDate: PropTypes.instanceOf(Date).isRequired,
+  variant: PropTypes.string,
+  theme: PropTypes.string,
+  tooltip: PropTypes.bool,
+};
+
+LastRequestDate.defaultProps = {
+  variant: 'contained',
+  theme: 'lightBeige',
+  tooltip: true,
 };
 
 export default injectIntl(LastRequestDate);

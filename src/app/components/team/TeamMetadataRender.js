@@ -78,7 +78,7 @@ function TeamMetadataRender({ team, about }) {
           <BlankState>
             <FormattedMessage
               id="teamMetadataRender.blankAnnotations"
-              defaultMessage="No annotation fields"
+              defaultMessage="No Workspace Annotations"
               description="Text for empty annotations"
             />
           </BlankState>

@@ -7,10 +7,10 @@ shared_examples 'annotation' do
     wait_for_selector("//span[contains(text(), 'annotation')]", :xpath)
 
     # Create annotation
-    expect(@driver.page_source.include?('No annotation fields')).to be(true)
+    expect(@driver.page_source.include?('No Workspace Annotations')).to be(true)
     expect(@driver.page_source.include?('my metadata')).to be(false)
     create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my metadata')
-    expect(@driver.page_source.include?('No annotation fields')).to be(false)
+    expect(@driver.page_source.include?('No Workspace Annotations')).to be(false)
     expect(@driver.page_source.include?('my metadata')).to be(true)
 
     # Edit annotation
