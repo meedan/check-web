@@ -9,7 +9,7 @@ import ExplainerForm from './ExplainerForm';
 import { getStatus } from '../../helpers';
 import styles from './MediaArticlesDisplay.module.css';
 
-const MediaArticlesDisplay = ({ projectMedia }) => {
+const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
   const [articleToEdit, setArticleToEdit] = React.useState(null);
 
   const explainerItems = projectMedia.explainer_items.edges.map(edge => edge.node);
@@ -41,6 +41,7 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
           publishedAt={publishedAt}
           id={factCheck.claim_description.id}
           onClick={() => { setArticleToEdit(factCheck); }}
+          onRemove={onUpdate}
         />
         : null
       }
@@ -106,6 +107,10 @@ const MediaArticlesDisplay = ({ projectMedia }) => {
   );
 };
 
+MediaArticlesDisplay.defaultProps = {
+  onUpdate: () => {},
+};
+
 MediaArticlesDisplay.propTypes = {
   projectMedia: PropTypes.shape({
     fact_check_published_on: PropTypes.number,
@@ -140,6 +145,7 @@ MediaArticlesDisplay.propTypes = {
       })),
     }).isRequired,
   }).isRequired,
+  onUpdate: PropTypes.func,
 };
 
 export default createFragmentContainer(MediaArticlesDisplay, graphql`

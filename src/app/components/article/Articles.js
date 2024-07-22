@@ -40,9 +40,20 @@ const ArticlesComponent = ({
   articles,
   articlesCount,
   updateMutation,
+  reloadData,
 }) => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [selectedArticle, setSelectedArticle] = React.useState(null);
+
+  // Track when number of articles increases: When it happens, it's because a new article was created, so refresh the list
+  const [totalArticlesCount, setTotalArticlesCount] = React.useState(team.totalArticlesCount);
+  React.useEffect(() => {
+    if (team.totalArticlesCount > totalArticlesCount) {
+      setTotalArticlesCount(team.totalArticlesCount);
+      reloadData();
+    }
+  }, [team.totalArticlesCount]);
+
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
@@ -225,8 +236,8 @@ const ArticlesComponent = ({
 
 ArticlesComponent.defaultProps = {
   page: 1,
-  sort: 'title',
-  sortType: 'ASC',
+  sort: 'updated_at',
+  sortType: 'DESC',
   sortOptions: [],
   filterOptions: [],
   filters: {},
@@ -295,8 +306,8 @@ const Articles = ({
 }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
-    sort: 'title',
-    sortType: 'ASC',
+    sort: 'updated_at',
+    sortType: 'DESC',
     filters: { ...defaultFilters },
   });
   const {
@@ -325,6 +336,8 @@ const Articles = ({
     <ErrorBoundary component="Articles">
       <QueryRenderer
         environment={Relay.Store}
+        key={new Date().getTime()}
+        cacheConfig={{ force: true }}
         query={graphql`
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
@@ -333,6 +346,7 @@ const Articles = ({
           ) {
             team(slug: $slug) {
               ...ArticleForm_team
+              totalArticlesCount: articles_count
               slug
               verification_statuses
               tag_texts(first: 100) {
@@ -395,9 +409,10 @@ const Articles = ({
           sort,
           sortType,
           offset: pageSize * (page - 1),
+          timestamp: new Date().getTime(),
           ...filters,
         }}
-        render={({ error, props }) => {
+        render={({ error, props, retry }) => {
           if (!error && props) {
             return (
               <ArticlesComponent
@@ -418,6 +433,7 @@ const Articles = ({
                 teamTags={props.team.tag_texts.edges.length > 0 ? props.team.tag_texts.edges.map(tag => tag.node.text) : null}
                 onChangeSearchParams={handleChangeSearchParams}
                 updateMutation={updateMutation}
+                reloadData={retry}
               />
             );
           }

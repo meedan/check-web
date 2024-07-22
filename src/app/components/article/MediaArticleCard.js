@@ -17,6 +17,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import RemoveArticleButton from './RemoveArticleButton';
 
 const MediaArticleCard = ({
+  id,
   title,
   url,
   date,
@@ -26,7 +27,7 @@ const MediaArticleCard = ({
   publishedAt,
   variant,
   onClick,
-  id,
+  onRemove,
 }) => (
   <div className={cx('article-card', styles.articleCard, styles.mediaArticleCardWrapper)}>
     <Card className={styles.mediaArticleCard}>
@@ -100,7 +101,7 @@ const MediaArticleCard = ({
         />
       </div>
       <div className={styles.articleCardRight}>
-        <RemoveArticleButton id={id} variant={variant} />
+        <RemoveArticleButton id={id} variant={variant} onRemove={onRemove} />
       </div>
     </Card>
   </div>
@@ -113,9 +114,11 @@ MediaArticleCard.defaultProps = {
   statusLabel: null,
   publishedAt: null,
   onClick: () => {},
+  onRemove: () => {},
 };
 
 MediaArticleCard.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string,
   date: PropTypes.number.isRequired, // Timestamp
@@ -125,7 +128,7 @@ MediaArticleCard.propTypes = {
   publishedAt: PropTypes.number, // Timestamp
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
   onClick: PropTypes.func,
-  id: PropTypes.string.isRequired,
+  onRemove: PropTypes.func,
 };
 
 export default MediaArticleCard;

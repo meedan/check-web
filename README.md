@@ -138,3 +138,4 @@ it("should do whatever my unit expects");
 ## Notes and tips
 
 * Remove your `node_modules` directory if you face errors related to `npm install`
+* Change the mode to "production" in `gulpfile.js`, under task `webpack:build:web:dev` if you face Relay Store update issues after mutations, related to this issue: https://github.com/facebook/relay/issues/2049
