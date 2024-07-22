@@ -138,7 +138,7 @@ const ArticleForm = ({
                 { articleType === 'fact-check' && statuses &&
                   <RatingSelector status={status} statuses={statuses} onStatusChange={handleStatusChange} />
                 }
-                { articleType === 'fact-check' && article.claim_description?.project_media?.dbid &&
+                { articleType === 'fact-check' &&
                   <div className={inputStyles['form-fieldset-field']}>
                     <ButtonMain
                       onClick={() => handleGoToReport(article.claim_description.project_media.dbid)}
@@ -147,7 +147,7 @@ const ArticleForm = ({
                       theme={isPublished ? 'brand' : 'alert'}
                       size="default"
                       iconLeft={isPublished ? <IconReport /> : <IconUnpublishedReport />}
-                      disabled={claimDescriptionMissing}
+                      disabled={claimDescriptionMissing || !article.claim_description?.project_media?.dbid}
                       label={isPublished ?
                         <FormattedMessage
                           className="media-fact-check__published-report"
