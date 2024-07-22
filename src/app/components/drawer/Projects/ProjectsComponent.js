@@ -8,16 +8,15 @@ import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
-import AddCircleIcon from '../../../icons/add_circle.svg';
+import AddIcon from '../../../icons/add_filled.svg';
 import CategoryIcon from '../../../icons/category.svg';
-import ExpandLessIcon from '../../../icons/expand_less.svg';
-import ExpandMoreIcon from '../../../icons/expand_more.svg';
+import ExpandLessIcon from '../../../icons/chevron_down.svg';
+import ExpandMoreIcon from '../../../icons/chevron_right.svg';
 import SharedFeedIcon from '../../../icons/dynamic_feed.svg';
-import FileDownloadIcon from '../../../icons/file_download.svg';
 import InboxIcon from '../../../icons/inbox.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
+import ListIcon from '../../../icons/list.svg';
 import PersonIcon from '../../../icons/person.svg';
-import PublishedIcon from '../../../icons/fact_check.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
 import DeleteIcon from '../../../icons/delete.svg';
@@ -25,9 +24,7 @@ import ReportIcon from '../../../icons/report.svg';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { assignedToMeDefaultQuery } from '../../team/AssignedToMe';
 import { suggestedMatchesDefaultQuery } from '../../team/SuggestedMatches';
-import { importedReportsDefaultQuery } from '../../team/ImportedReports';
 import { unmatchedMediaDefaultQuery } from '../../team/UnmatchedMedia';
-import { publishedDefaultQuery } from '../../team/Published';
 import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
 import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import styles from './Projects.module.css';
@@ -164,29 +161,6 @@ const ProjectsComponent = ({
               </li>
             </Link>
           }
-          <Link
-            onClick={() => { handleSpecialLists('imported-fact-checks'); }}
-            to={`/${team.slug}/imported-fact-checks`}
-            className={styles.linkList}
-          >
-            <li
-              className={cx(
-                'projects-list__imported-fact-checks',
-                styles.listItem,
-                styles.listItem_containsCount,
-                {
-                  [styles.listItem_active]: activeItem.type === 'imported-fact-checks',
-                })
-              }
-            >
-              <FileDownloadIcon className={styles.listIcon} />
-              <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
-              </div>
-              <ProjectsCoreListCounter query={importedReportsDefaultQuery} />
-            </li>
-          </Link>
-
           { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
             <Link
               onClick={() => { handleSpecialLists('suggested-matches'); }}
@@ -236,52 +210,30 @@ const ProjectsComponent = ({
               </li>
             </Link>
           }
-          <Link
-            onClick={() => { handleSpecialLists('published'); }}
-            to={`/${team.slug}/published`}
-            className={styles.linkList}
-          >
-            <li
-              className={cx(
-                'projects-list__published',
-                styles.listItem,
-                styles.listItem_containsCount,
-                {
-                  [styles.listItem_active]: activeItem.type === 'published',
-                })
-              }
-            >
-              <PublishedIcon className={styles.listIcon} />
-              <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
-              </div>
-              <ProjectsCoreListCounter query={publishedDefaultQuery} />
-            </li>
-          </Link>
 
           {/* Lists Header */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-          <li onClick={handleToggleListsExpand} className={cx(styles.listHeader, 'project-list__header')}>
-            { listsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-            <div className={styles.listHeaderLabel}>
+          <li onClick={handleToggleListsExpand} className={cx(styles.listItem, styles.listHeader, styles.listItem_containsCount, 'project-list__header')}>
+            { listsExpanded ? <ExpandLessIcon className={styles.listIcon} /> : <ExpandMoreIcon className={styles.listIcon} /> }
+            <div className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
-              <Can permissions={team.permissions} permission="create Project">
-                <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
-                  <span className={styles.listHeaderLabelButton}>
-                    <ButtonMain
-                      iconCenter={<AddCircleIcon />}
-                      variant="contained"
-                      size="small"
-                      theme="text"
-                      onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
-                      buttonProps={{
-                        id: 'projects-list__add-filtered-list',
-                      }}
-                    />
-                  </span>
-                </Tooltip>
-              </Can>
             </div>
+            <Can permissions={team.permissions} permission="create Project">
+              <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
+                <div className={cx(styles.listItemCount, styles.listAddListButton)}>
+                  <ButtonMain
+                    iconCenter={<AddIcon />}
+                    variant="text"
+                    size="default"
+                    theme="text"
+                    onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
+                    buttonProps={{
+                      id: 'projects-list__add-filtered-list',
+                    }}
+                  />
+                </div>
+              </Tooltip>
+            </Can>
           </li>
 
           {/* Lists */}
@@ -303,7 +255,7 @@ const ProjectsComponent = ({
                       routePrefix="list"
                       project={search}
                       teamSlug={team.slug}
-                      icon={search.is_part_of_feeds && <SharedFeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} />}
+                      icon={search.is_part_of_feeds ? <SharedFeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} /> : <ListIcon className={styles.listIcon} />}
                       isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
                     />
                   ))}

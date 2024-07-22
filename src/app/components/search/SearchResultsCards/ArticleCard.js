@@ -56,6 +56,7 @@ const ArticleCard = ({
         <SharedItemCardFooter
           languageCode={languageCode}
           tags={tags}
+          tagOptions={tagOptions}
           onChangeTags={onChangeTags}
         />
       </div>

@@ -3,24 +3,21 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
+import cx from 'classnames/bind';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
-<<<<<<< HEAD
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
-=======
-import ListSort from '../cds/inputs/ListSort';
-import Paginator from '../cds/inputs/Paginator';
->>>>>>> daf0d1ed8 (Explainers list (#1953))
 import NextIcon from '../../icons/chevron_right.svg';
+import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
 import FeedHeader from './FeedHeader';
 import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
-import searchStyles from '../search/search.module.css';
+import styles from './FeedClusters.module.css';
 import MediasLoading from '../media/MediasLoading';
 
 const pageSize = 50;
@@ -37,6 +34,8 @@ const FeedClustersComponent = ({
   onChangeSearchParams,
 }) => {
   const clusters = feed.clusters.edges.map(edge => edge.node);
+  const startingIndex = (page - 1) * pageSize;
+  const endingIndex = startingIndex + (clusters.length - 1);
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
     onChangeSearchParams({
@@ -46,8 +45,20 @@ const FeedClustersComponent = ({
     });
   };
 
-  const handleChangePage = (newPage) => {
-    onChangeSearchParams({ page: newPage });
+  const handleGoToPreviousPage = () => {
+    if (page > 1) {
+      onChangeSearchParams({
+        page: (page - 1),
+      });
+    }
+  };
+
+  const handleGoToNextPage = () => {
+    if (endingIndex + 1 < feed.clusters_count) {
+      onChangeSearchParams({
+        page: (page + 1),
+      });
+    }
   };
 
   const handleChangeTeamFilters = (newTeamFilters) => {
@@ -66,7 +77,7 @@ const FeedClustersComponent = ({
 
   return (
     <React.Fragment>
-      <div className={searchResultsStyles['search-results-header']}>
+      <div className={cx(searchResultsStyles['search-results-header'], styles.feedClustersHeader)}>
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
             <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />
@@ -84,7 +95,7 @@ const FeedClustersComponent = ({
           </div>
         </div>
       </div>
-      <div className={searchResultsStyles['search-results-top']}>
+      <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClustersFilters)}>
         <FeedTopBar
           team={team}
           feed={feed}
@@ -100,11 +111,11 @@ const FeedClustersComponent = ({
           filterOptions={['channels', 'range', 'linked_items_count', 'show', 'demand']}
           currentFilters={otherFilters}
           feedTeam={{ id: feedTeam.id }}
-          className={searchStyles['filters-wrapper']}
+          className={styles.feedClustersFilterBar}
           disableSave
         />
       </div>
-      <div className={searchResultsStyles['search-results-wrapper']}>
+      <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClusters)}>
         { clusters.length > 0 ?
           <div className={styles.feedClustersToolbar}>
             <div className={styles.feedClustersPagination}>
@@ -152,7 +163,7 @@ const FeedClustersComponent = ({
           : null
         }
 
-        <div className={searchResultsStyles['search-results-scroller']}>
+        <div className={styles.feedClustersList}>
           {clusters.map((cluster) => {
             const { media } = cluster.center;
             const channels = cluster.channels.filter(channel => Object.values(CheckChannels.TIPLINE).includes(channel.toString()));
