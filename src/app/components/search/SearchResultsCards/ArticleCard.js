@@ -106,7 +106,6 @@ ArticleCard.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string,
   url: PropTypes.string,
-  //
   date: PropTypes.oneOfType([
     PropTypes.string, // article.updated_at (Articles.js)
     PropTypes.number, // projectMedia.feed_columns_values.updated_at_timestamp (SearchResultsCards/index.js)

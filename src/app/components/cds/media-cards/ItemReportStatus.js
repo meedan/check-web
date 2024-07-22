@@ -43,7 +43,6 @@ const ItemReportStatus = ({
 
   const handleGoToReport = () => {
     if (projectMediaDbid) {
-      console.log('projectMediaDbid:', projectMediaDbid); // eslint-disable-line no-console
       const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
       window.location.assign(`/${teamSlug}/media/${projectMediaDbid}/report`);
     }
