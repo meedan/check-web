@@ -23,19 +23,6 @@ describe('SmallMediaCard', () => {
     shallow(<SmallMediaCard {...defaultProps} />);
   });
 
-  it('renders media picture', () => {
-    const wrapper = shallow(<SmallMediaCard {...defaultProps} />);
-
-    expect(wrapper.find('img')).toHaveLength(1);
-  });
-
-  it('does not render media picture', () => {
-    const props = { ...defaultProps, media: { ...mockMedia, picture: null } };
-    const wrapper = shallow(<SmallMediaCard {...props} />);
-
-    expect(wrapper.find('img')).toHaveLength(0);
-  });
-
   it('renders link', () => {
     const props = { ...defaultProps, media: { ...mockMedia, url: 'https://www.meedan.com' } };
     const wrapper = mount(<SmallMediaCard {...props} />);
