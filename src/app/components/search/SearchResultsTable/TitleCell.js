@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import ContentCopyIcon from '../../../icons/content_copy.svg';
-import ItemThumbnail from './ItemThumbnail';
+import ItemThumbnail from '../../cds/media-cards/ItemThumbnail';
 
 const isFeedPage = () => (/\/feed/.test(window.location.pathname));
 

@@ -7,10 +7,10 @@ import {
   Box,
 } from '@material-ui/core';
 import Alert from '../alerts-and-prompts/Alert';
-import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
+import ItemThumbnail from './ItemThumbnail';
 import { getMediaType } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
@@ -129,24 +129,7 @@ const SmallMediaCard = ({
         display="flex"
         onClick={onClick}
       >
-        {
-          media.picture && !(maskContent || superAdminMask) ?
-            <img
-              alt=""
-              className={classes.image}
-              onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }}
-              src={media.picture}
-            /> : null
-        }
-        {
-          media.type === 'UploadedAudio' && !(maskContent || superAdminMask) ?
-            <img
-              alt=""
-              className={classes.image}
-              src="/images/audio_placeholder.svg#svgView(viewBox(398,170,160,160))"
-            /> : null
-        }
-        { (media.picture || media.type === 'UploadedAudio') && (maskContent || superAdminMask) ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null }
+        <ItemThumbnail picture={media?.picture} maskContent={maskContent || superAdminMask} type={media?.type} url={media?.url} />
         <div className={classes.text}>
           <Box className={classes.titleAndUrl}>
             <div className="typography-subtitle2">
