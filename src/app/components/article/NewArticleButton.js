@@ -121,8 +121,8 @@ const NewArticleButton = ({
           </ListItemText>
         </MenuItem>
       </Menu>
-      {openExplainer && <ExplainerForm team={team} projectMedia={projectMedia} onClose={setOpenExplainer} onCreate={onCreate} />}
-      {openFactCheck && <ClaimFactCheckForm team={team} projectMedia={projectMedia} onClose={setOpenFactCheck} onCreate={onCreate} />}
+      {openExplainer && <ExplainerForm article={{}} team={team} projectMedia={projectMedia} onClose={setOpenExplainer} onCreate={onCreate} />}
+      {openFactCheck && <ClaimFactCheckForm article={{}} team={team} projectMedia={projectMedia} onClose={setOpenFactCheck} onCreate={onCreate} />}
     </NewArticleButtonWrapper>
   );
 };
@@ -143,6 +143,10 @@ NewArticleButton.propTypes = {
 };
 
 export default createFragmentContainer(NewArticleButton, graphql`
+  fragment NewArticleButton_team on Team {
+    ...ClaimFactCheckForm_team
+    ...ExplainerForm_team
+  }
   fragment NewArticleButton_projectMedia on ProjectMedia {
     claim_description {
       id
