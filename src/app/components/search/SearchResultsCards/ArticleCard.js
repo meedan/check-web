@@ -25,6 +25,7 @@ const ArticleCard = ({
   tags,
   tagOptions,
   isPublished,
+  projectMediaDbid,
   publishedAt,
   onChangeTags,
   variant,
@@ -65,7 +66,12 @@ const ArticleCard = ({
           { variant === 'fact-check' && (
             <div className={styles.cardRightTop}>
               { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
-              { publishedAt && <ItemReportStatus className={styles.cardRightTopPublished} isPublished={isPublished} publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
+              <ItemReportStatus
+                projectMediaDbid={projectMediaDbid}
+                className={styles.cardRightTopPublished}
+                isPublished={isPublished}
+                publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
+              />
             </div>
           )}
           { date &&
@@ -92,6 +98,7 @@ ArticleCard.defaultProps = {
   onChangeTags: null,
   variant: 'explainer',
   statusLabel: null,
+  projectMediaDbid: null,
   publishedAt: null,
 };
 
@@ -99,7 +106,10 @@ ArticleCard.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string,
   url: PropTypes.string,
-  date: PropTypes.number.isRequired, // Timestamp
+  date: PropTypes.oneOfType([
+    PropTypes.string, // article.updated_at (Articles.js)
+    PropTypes.number, // projectMedia.feed_columns_values.updated_at_timestamp (SearchResultsCards/index.js)
+  ]).isRequired, // Timestamp
   statusLabel: PropTypes.string,
   statusColor: PropTypes.string,
   teamAvatar: PropTypes.string, // URL
@@ -107,6 +117,7 @@ ArticleCard.propTypes = {
   languageCode: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   tagOptions: PropTypes.arrayOf(PropTypes.string),
+  projectMediaDbid: PropTypes.number,
   publishedAt: PropTypes.number, // Timestamp
   onChangeTags: PropTypes.func,
   variant: PropTypes.oneOf(['explainer', 'fact-check']),

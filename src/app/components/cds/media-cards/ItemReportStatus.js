@@ -6,7 +6,13 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 
 const ItemReportStatus = ({
-  isPublished, publishedAt, className, theme, variant, useTooltip,
+  className,
+  isPublished,
+  publishedAt,
+  projectMediaDbid,
+  theme,
+  useTooltip,
+  variant,
 }) => {
   const formatTooltip = () => {
     const label = isPublished ? (
@@ -35,10 +41,17 @@ const ItemReportStatus = ({
     );
   };
 
+  const handleGoToReport = () => {
+    if (projectMediaDbid) {
+      const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+      window.location.assign(`/${teamSlug}/media/${projectMediaDbid}/report`);
+    }
+  };
+
   const button = (
     <div className={className}>
       <ButtonMain
-        disabled
+        disabled={!projectMediaDbid}
         buttonProps={{
           type: null,
         }}
@@ -47,6 +60,7 @@ const ItemReportStatus = ({
         theme={theme}
         iconCenter={<FactCheckIcon />}
         customStyle={{ color: isPublished ? 'var(--color-green-35)' : 'var(--color-gray-59)' }}
+        onClick={handleGoToReport}
       />
     </div>
   );
