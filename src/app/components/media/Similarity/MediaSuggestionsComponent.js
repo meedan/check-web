@@ -628,10 +628,6 @@ const MediaSuggestionsComponent = ({
         { relationships.length > 0 &&
           <>
             <div className={cx(suggestionsStyles['suggestions-bulk-actions-wrapper'], inputStyles['form-inner-wrapper'])}>
-              <div className={suggestionsStyles['suggestions-sorting']}>
-                {/* Placeholder for coming sorting control, but allow html to layout correctly */}
-                {/* https://meedan.atlassian.net/browse/CV2-2947 */}
-              </div>
               <div className={suggestionsStyles['suggestions-bulk-actions']}>
                 <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkAccept" defaultMessage="Match all media on this page" description="Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media." />}>
                   <span>

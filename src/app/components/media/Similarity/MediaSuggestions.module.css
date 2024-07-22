@@ -3,12 +3,11 @@
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 8px;
   position: relative;
 
   .suggestions-bulk-actions,
-  .suggestions-pagination,
-  .suggestions-sorting {
+  .suggestions-pagination {
     align-items: center;
     display: flex;
     flex: 1 1 33.33%;
