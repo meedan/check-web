@@ -294,8 +294,11 @@ const BulkActionsMenu = ({
           label={
             <FormattedMessage
               id="bulkActionsMenu.action"
-              defaultMessage="Action"
+              defaultMessage="Bulk Change [{count}]"
               description="Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
+              values={{
+                count: selectedMedia?.length,
+              }}
             />
           }
         />

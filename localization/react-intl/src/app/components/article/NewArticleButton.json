@@ -1,0 +1,22 @@
+[
+  {
+    "id": "newArticleButton.tooltip",
+    "description": "Tooltip message displayed on new article button when it is disabled.",
+    "defaultMessage": "You can't add an article here."
+  },
+  {
+    "id": "newArticleButton.newArticle",
+    "description": "Label of a button that opens a form to create a new article.",
+    "defaultMessage": "New Article"
+  },
+  {
+    "id": "articlesComponent.claimAndFactCheck",
+    "description": "The navigation name of the articles section",
+    "defaultMessage": "Claim & Fact-Check"
+  },
+  {
+    "id": "articlesComponent.exaplainer",
+    "description": "The navigation name of the articles section",
+    "defaultMessage": "Explainer"
+  }
+]

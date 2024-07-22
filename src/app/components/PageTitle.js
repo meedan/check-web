@@ -112,14 +112,14 @@ TitleFromProps.propTypes = {
 };
 
 function PageTitle({
-  children, title, prefix, team,
+  children, title, prefix, team, teamName,
 }) {
   return (
     <React.Fragment>
       <TitleFromProps
         title={title}
         prefix={prefix}
-        teamName={(team && team.name) ? team.name : null}
+        teamName={teamName || team?.name}
       >
         {localizedTitle => (
           <Helmet><title>{emojify(localizedTitle)}</title></Helmet>
@@ -132,14 +132,16 @@ function PageTitle({
 PageTitle.defaultProps = {
   prefix: null,
   title: null,
-  team: null,
+  team: null, // FIXME: do not require team object, use teamName instead
+  teamName: null,
 };
 PageTitle.propTypes = {
   // overrides prefix|team
   title: StringOrFormattedMessage, // or null
   prefix: StringOrFormattedMessage, // or null
   // If team is set, write "My Team Check" instead of just "Check"
-  team: PropTypes.shape({ name: PropTypes.string.isRequired }),
+  team: PropTypes.shape({ name: PropTypes.string.isRequired }), // FIXME: Do not require team object, use teamName instead
+  teamName: PropTypes.string, // or null
 };
 
 export default PageTitle;

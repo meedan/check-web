@@ -8,7 +8,6 @@ import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaCardLarge from './MediaCardLarge';
-import MediaSidebar from './MediaSidebar';
 import MediaSlug from './MediaSlug';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
@@ -35,7 +34,7 @@ class MediaComponent extends Component {
 
     let initialTab = 'metadata';
     if (showRequests && this.props.view !== 'similarMedia') {
-      initialTab = 'requests';
+      initialTab = 'articles';
       if (this.props.projectMedia.suggested_similar_items_count > 0 && !this.props.projectMedia.is_suggested) {
         initialTab = 'suggestedMedia';
       }
@@ -160,7 +159,6 @@ class MediaComponent extends Component {
     return (
       <>
         <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
-        <MediaSidebar projectMedia={projectMedia} />
         { view === 'default' || view === 'similarMedia' ?
           <React.Fragment>
             <div className={cx('media__column', styles['media-item-medias'])}>
@@ -268,6 +266,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     project_id
     last_seen
     demand
+    articles_count
     requests_count
     picture
     show_warning_cover

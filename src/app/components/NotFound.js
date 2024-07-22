@@ -35,7 +35,7 @@ const NotFound = ({ title, description }) => (
           title ||
           <FormattedMessage
             id="notFound.title"
-            defaultMessage="Oh no! This page does not exist or you do not have authorized access."
+            defaultMessage="This page does not exist or you do not have authorized access."
             description="Not found page title"
           />
         }

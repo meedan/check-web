@@ -30,6 +30,11 @@
     "defaultMessage": "Next page"
   },
   {
+    "id": "teamTagsComponent.blank",
+    "description": "Message displayed when there are no tags in the workspace",
+    "defaultMessage": "No Workspace Tags"
+  },
+  {
     "id": "teamTagsComponent.tableHeaderName",
     "description": "Column header in tags table.",
     "defaultMessage": "Name"

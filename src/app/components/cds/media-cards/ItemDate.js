@@ -10,6 +10,8 @@ const ItemDate = ({
   className,
   tooltipLabel,
 }) => {
+  if (!date) return null;
+
   const formatTooltip = () => (
     <>
       <span>{tooltipLabel}:</span>

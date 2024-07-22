@@ -35,24 +35,19 @@
     "defaultMessage": "Please review our {ppLink} to learn how {appName} uses and stores your information."
   },
   {
-    "id": "userPrivacy.seeInformationText",
-    "description": "Description of what the app will do when the user requests their information",
-    "defaultMessage": "We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
+    "id": "userPrivacy.userRequests",
+    "description": "Title for area instructing how to request data from Check",
+    "defaultMessage": "User Information Requests"
   },
   {
-    "id": "userPrivacy.seeInformationButton",
-    "description": "Button text for the user to see their privacy information",
-    "defaultMessage": "See my information"
+    "id": "userPrivacy.seeInformationText",
+    "description": "Description of what the app will do when the user requests their information",
+    "defaultMessage": "Request a file with the content and data you created and generated on {appName} by contacting <a href=\"mailto:{privacyEmail}?subject=Send information\">{privacyEmail}</a>."
   },
   {
     "id": "userPrivacy.stopProcessingText",
     "description": "Help text to tell the user how they can request a change to their privacy settings",
-    "defaultMessage": "You can request {appName} to stop processing your information under certain conditions."
-  },
-  {
-    "id": "userPrivacy.stopProcessingButton",
-    "description": "Button text for the user to request a change to their privacy settings",
-    "defaultMessage": "Request to stop processing"
+    "defaultMessage": "Request {appName} to stop processing your information under certain conditions by contacting <a href=\"mailto:{privacyEmail}?subject=Stop processing\">{privacyEmail}</a>."
   },
   {
     "id": "userPrivacy.connectedAccounts",

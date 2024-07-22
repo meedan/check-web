@@ -1,0 +1,13 @@
+.rating-wrapper {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+
+  .rating-button {
+    background: var(--color-white-100) !important;
+  }
+
+  button:disabled > span:first-of-type {
+    color: var(--color-gray-37);
+  }
+}

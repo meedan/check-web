@@ -1,0 +1,22 @@
+[
+  {
+    "id": "factChecks.sortTitle",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "factChecks.sortLanguage",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "factChecks.sortDate",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Updated (date)"
+  },
+  {
+    "id": "factChecks.title",
+    "description": "Title of the fact-checks page.",
+    "defaultMessage": "Claim & Fact-Checks"
+  }
+]

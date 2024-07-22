@@ -4,14 +4,14 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import LanguageIcon from '../../../icons/language.svg';
 import { languageLabel } from '../../../LanguageRegistry';
 
-const Language = ({ languageCode }) => (
+const Language = ({ languageCode, variant, theme }) => (
   <span>
     <ButtonMain
       disabled
       size="small"
-      theme="lightBeige"
+      theme={theme}
       iconLeft={<LanguageIcon />}
-      variant="contained"
+      variant={variant}
       label={languageLabel(languageCode)}
       buttonProps={{
         type: null,
@@ -20,8 +20,15 @@ const Language = ({ languageCode }) => (
   </span>
 );
 
+Language.defaultProps = {
+  variant: 'contained',
+  theme: 'lightBeige',
+};
+
 Language.propTypes = {
   languageCode: PropTypes.string.isRequired,
+  variant: PropTypes.string,
+  theme: PropTypes.string,
 };
 
 export default Language;
