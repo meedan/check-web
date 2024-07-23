@@ -660,7 +660,7 @@ const MediaSuggestionsComponent = ({
                       onClick={() => openBulkSpamDialog()}
                       variant="text"
                       size="default"
-                      theme="lightText"
+                      theme="lightAlert"
                       disabled={disableAcceptRejectButtons}
                     />
                   </span>
@@ -672,7 +672,7 @@ const MediaSuggestionsComponent = ({
                       onClick={() => openBulkTrashDialog()}
                       variant="text"
                       size="default"
-                      theme="lightText"
+                      theme="lightBeige"
                       disabled={disableAcceptRejectButtons}
                     />
                   </span>
