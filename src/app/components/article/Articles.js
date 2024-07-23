@@ -110,12 +110,12 @@ const ArticlesComponent = ({
     });
   };
 
-  const handleClick = (article, e) => {
-    if (!openEdit && e.target.className.indexOf('Card') >= 0) {
+  const handleClick = (article) => {
+    if (!openEdit) {
       setSelectedArticle(article);
       setOpenEdit(true);
     }
-    if (openEdit && e.target.className.indexOf('Card') >= 0 && article !== selectedArticle) {
+    if (openEdit && article !== selectedArticle) {
       setOpenEdit(false);
       setSelectedArticle(article);
       setTimeout(() => {
@@ -209,7 +209,7 @@ const ArticlesComponent = ({
                 projectMediaDbid={article.claim_description?.project_media?.dbid}
                 publishedAt={article.claim_description?.project_media?.fact_check_published_on ? parseInt(article.claim_description?.project_media?.fact_check_published_on, 10) : null}
                 onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
-                handleClick={e => handleClick(article, e)}
+                handleClick={() => handleClick(article)}
               />
             );
           })}

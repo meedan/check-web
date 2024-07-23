@@ -81,8 +81,12 @@ const TagList = ({
     />
   );
 
+  const swallowClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className={styles['grid-wrapper']}>
+    <div className={styles['grid-wrapper']} onClick={swallowClick} onKeyDown={swallowClick}>
       <Tooltip
         disableHoverListener={readOnly}
         placement="top"
