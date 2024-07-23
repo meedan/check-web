@@ -33,6 +33,11 @@ const addFactCheckMutation = graphql`
     updateClaimDescription(input: $input) {
       project_media {
         id
+        status
+        last_status
+        last_status_obj {
+          id
+        }
         ...MediaArticlesDisplay_projectMedia
       }
     }
@@ -48,6 +53,10 @@ const MediaArticlesComponent = ({
   const [confirmReplaceFactCheck, setConfirmReplaceFactCheck] = React.useState(null);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const hasArticle = projectMedia.articles_count > 0;
+
+  if (adding) {
+    return <MediasLoading theme="white" variant="inline" size="large" />;
+  }
 
   const onCompleted = () => {
     setFlashMessage(

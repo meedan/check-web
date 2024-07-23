@@ -23,6 +23,11 @@ const updateClaimMutation = graphql`
           title
           title_field
           custom_title
+          status
+          last_status
+          last_status_obj {
+            id
+          }
         }
       }
     }
@@ -69,6 +74,18 @@ const createFactCheckMutation = graphql`
         factChecksCount: articles_count(article_type: "fact-check")
         totalArticlesCount: articles_count
       }
+      claim_description {
+        project_media {
+          title
+          title_field
+          custom_title
+          status
+          last_status
+          last_status_obj {
+            id
+          }
+        }
+      }
       fact_checkEdge {
         __typename
         cursor
@@ -110,6 +127,11 @@ const updateFactCheckMutation = graphql`
             title
             title_field
             custom_title
+            status
+            last_status
+            last_status_obj {
+              id
+            }
           }
         }
       }

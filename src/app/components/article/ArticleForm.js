@@ -18,6 +18,7 @@ import styles from './ArticleForm.module.css';
 import RatingSelector from '../cds/inputs/RatingSelector';
 
 const ArticleForm = ({
+  saving,
   handleSave,
   onClose,
   handleBlur,
@@ -500,7 +501,7 @@ const ArticleForm = ({
         buttonProps={{
           id: 'article-form__save-button',
         }}
-        disabled={!isValid}
+        disabled={!isValid || saving}
         label={<FormattedMessage id="articleForm.formSaveButton" defaultMessage="Create content" description="the save button for the article forom" />}
       /> : null}
     />
@@ -508,11 +509,13 @@ const ArticleForm = ({
 };
 
 ArticleForm.defaultProps = {
+  saving: false,
   handleSave: null,
   article: {},
 };
 
 ArticleForm.propTypes = {
+  saving: PropTypes.bool,
   handleSave: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,
