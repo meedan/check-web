@@ -7,65 +7,66 @@
   text-transform: none;
   top: 0;
   width: 40vw;
+  z-index: 2;
 
   textarea {
     font-weight: normal;
   }
-}
 
-.slideoutContainer {
-  background-color: var(--color-white-100);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-  z-index: 4;
-}
-
-.slideoutTitle {
-  background-color: var(--color-beige-86);
-
-  .slideoutTitleContent {
-    align-items: center;
+  .slideoutContainer {
+    background-color: var(--color-white-100);
     display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
-    justify-content: space-between;
-    min-height: 80px;
-    padding: 10px;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    z-index: 4;
+  }
 
-    h6 {
-      margin: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+  .slideoutTitle {
+    background-color: var(--color-beige-86);
+
+    .slideoutTitleContent {
+      align-items: center;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      justify-content: space-between;
+      min-height: 80px;
+      padding: 10px;
+
+      h6 {
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
   }
-}
 
-.slideoutBody {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.slideoutFooter {
-  background-color: var(--color-beige-93);
-  width: 100%;
-
-  .slideoutFooterMain {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    height: 100%;
-    justify-content: space-between;
-    min-height: 90px;
-    padding: 8px;
+  .slideoutBody {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 10px;
   }
 
-  .slideoutFooterContent {
-    display: flex;
-    gap: 8px;
+  .slideoutFooter {
+    background-color: var(--color-beige-93);
+    width: 100%;
+
+    .slideoutFooterMain {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+      justify-content: space-between;
+      min-height: 90px;
+      padding: 8px;
+    }
+
+    .slideoutFooterContent {
+      display: flex;
+      gap: 8px;
+    }
   }
 }
 

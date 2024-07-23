@@ -4,8 +4,6 @@ import { commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -188,7 +186,6 @@ const ProjectActions = ({
             }
           />
         </MenuItem>
-        <Divider />
       </Menu>
 
       {/* "Edit" dialog */}
@@ -202,22 +199,20 @@ const ProjectActions = ({
           />
         }
         body={
-          <Box>
-            <TextField
-              id="project-actions__edit-title-input"
-              label={
-                <FormattedMessage
-                  id="projectsComponent.title"
-                  defaultMessage="Title"
-                  description="Label for the title input when renaming a list"
-                />
-              }
-              defaultValue={object.title}
-              onChange={(e) => { setNewTitle(e.target.value); }}
-              variant="outlined"
-              className="project-actions__edit-title"
-            />
-          </Box>
+          <TextField
+            id="project-actions__edit-title-input"
+            label={
+              <FormattedMessage
+                id="projectsComponent.title"
+                defaultMessage="Title"
+                description="Label for the title input when renaming a list"
+              />
+            }
+            defaultValue={object.title}
+            onChange={(e) => { setNewTitle(e.target.value); }}
+            variant="outlined"
+            className="project-actions__edit-title"
+          />
         }
         proceedDisabled={!newTitle && !object.title}
         proceedLabel={

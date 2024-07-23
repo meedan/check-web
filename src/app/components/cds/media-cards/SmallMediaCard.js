@@ -2,85 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Box,
-} from '@material-ui/core';
+import cx from 'classnames/bind';
 import Alert from '../alerts-and-prompts/Alert';
-import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
+import ItemThumbnail from './ItemThumbnail';
 import { getMediaType } from '../../../helpers';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    border: '1px solid var(--color-gray-88)',
-    borderRadius: 8,
-    color: 'var(--color-gray-15)',
-    backgroundColor: 'var(--color-white-100)',
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(1),
-    padding: theme.spacing(1),
-    justifyContent: 'space-between',
-    overflow: 'hidden',
-    height: theme.spacing(14),
-    cursor: 'pointer',
-  },
-  inner: {
-    width: 'calc(100% - 48px)',
-  },
-  image: {
-    height: 96,
-    width: 96,
-    objectFit: 'cover',
-    marginRight: theme.spacing(1),
-    alignSelf: 'center',
-  },
-  row: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  text: {
-    alignSelf: 'center',
-    minWidth: 0,
-  },
-  titleAndUrl: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '2px',
-  },
-  oneLineDescription: {
-    maxHeight: '20px',
-  },
-  twoLinesDescription: { // Just works on Webkit
-    display: '-webkit-box',
-    '-webkit-line-clamp': 2,
-    '-webkit-box-orient': 'vertical',
-    whiteSpace: 'pre-line',
-  },
-  menuBox: {
-    marginTop: theme.spacing(-1),
-  },
-  contentScreen: {
-    height: 96,
-    width: 96,
-    marginRight: theme.spacing(1),
-    backgroundColor: 'var(--color-gray-15)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  icon: {
-    fontSize: '40px',
-    color: 'var(--color-white-100)',
-  },
-  alert: {
-    marginTop: '16px',
-  },
-}));
+import styles from './Card.module.css';
 
 const SmallMediaCard = ({
   media, // { type, url, domain, quote, picture, metadata }
@@ -90,15 +19,12 @@ const SmallMediaCard = ({
   maskContent,
   superAdminMask,
   onClick,
-  menu,
   className,
 }) => {
-  const classes = useStyles();
-
   if (!media) {
     return (
       <Alert
-        className={classes.alert}
+        className={styles.alert}
         title={
           <FormattedMessage
             id="smallMediaCard.noMediaTitle"
@@ -119,70 +45,36 @@ const SmallMediaCard = ({
   }
 
   return (
-    <Box
-      className={[classes.root, className].join(' ')}
-      display="flex"
-      alignItems="center"
+    <div
+      className={cx(
+        [styles.card],
+        [styles.smallMediaCardWrapper],
+        {
+          [className]: true,
+        })
+      }
     >
-      <Box
-        className={classes.inner}
-        display="flex"
-        onClick={onClick}
-      >
-        {
-          media.picture && !(maskContent || superAdminMask) ?
-            <img
-              alt=""
-              className={classes.image}
-              onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }}
-              src={media.picture}
-            /> : null
-        }
-        {
-          media.type === 'UploadedAudio' && !(maskContent || superAdminMask) ?
-            <img
-              alt=""
-              className={classes.image}
-              src="/images/audio_placeholder.svg#svgView(viewBox(398,170,160,160))"
-            /> : null
-        }
-        { (media.picture || media.type === 'UploadedAudio') && (maskContent || superAdminMask) ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null }
-        <div className={classes.text}>
-          <Box className={classes.titleAndUrl}>
-            <div className="typography-subtitle2">
-              <div className={[classes.row, (media.url ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
-                <ParsedText text={media.metadata?.title || media.quote || description} />
-              </div>
+      <div className={styles.smallMediaCard} onClick={onClick} onKeyDown={onClick}>
+        <ItemThumbnail picture={media?.picture} maskContent={maskContent || superAdminMask} type={media?.type} url={media?.url} />
+        <div className={styles.smallMediaCardContent}>
+          <div className={styles.titleAndUrl}>
+            <div className={cx('typography-subtitle2', styles.row, (media.url ? styles.oneLineDescription : styles.twoLinesDescription))}>
+              <ParsedText text={media.metadata?.title || media.quote || description} />
             </div>
             { media.url ?
-              <div className="typography-body1">
-                <div className={classes.row}>
-                  <ExternalLink url={media.url} maxUrlLength={60} readable />
-                </div>
+              <div className={cx(styles.row, 'typography-body2')}>
+                <ExternalLink url={media.url} maxUrlLength={60} readable />
               </div> : null
             }
-          </Box>
-          <Box mt={1}>
-            <MediaSlug
-              mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
-              slug={
-                <span className="typography-body1">
-                  {customTitle || media.metadata?.title}
-                </span>
-              }
-              details={details}
-            />
-          </Box>
+          </div>
+          <MediaSlug
+            mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
+            slug={customTitle || media.metadata?.title}
+            details={details}
+          />
         </div>
-      </Box>
-      <Box
-        display="flex"
-        alignSelf="flex-start"
-        className={classes.menuBox}
-      >
-        { menu }
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 
@@ -201,7 +93,6 @@ SmallMediaCard.propTypes = {
   maskContent: PropTypes.bool,
   superAdminMask: PropTypes.bool,
   onClick: PropTypes.func,
-  menu: PropTypes.element,
   className: PropTypes.string,
 };
 
@@ -212,7 +103,6 @@ SmallMediaCard.defaultProps = {
   maskContent: false,
   superAdminMask: false,
   onClick: () => {},
-  menu: null,
   className: '',
 };
 

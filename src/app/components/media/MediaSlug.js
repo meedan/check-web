@@ -14,7 +14,7 @@ const MediaSlug = ({
       <MediaTypeDisplayIcon mediaType={mediaType} />
       <h6>{slug}</h6>
     </div>
-    <BulletSeparator compact details={details} />
+    <BulletSeparator className={styles['media-slug-bullets']} compact details={details} />
   </div>
 );
 

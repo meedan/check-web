@@ -158,7 +158,7 @@ const AspectRatio = ({
         <FormattedMessage
           tagName="p"
           id="contentScreen.superAdminMaskMessage"
-          defaultMessage="Super admin screen is on"
+          defaultMessage="Sensitive Content Masking Applied"
           description="Text to show that admin screen is on"
         />
       ) : null }
