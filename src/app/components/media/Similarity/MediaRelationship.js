@@ -22,6 +22,7 @@ import { getErrorMessage } from '../../../helpers';
 
 const useStyles = makeStyles(() => ({
   outer: {
+    margin: '16px 0 0',
     position: 'relative',
     cursor: 'pointer',
   },

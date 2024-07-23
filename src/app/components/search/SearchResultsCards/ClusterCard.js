@@ -4,7 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import Checkbox from '../../cds/buttons-checkboxes-chips/Checkbox';
-import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
+import ItemThumbnail from '../../cds/media-cards/ItemThumbnail';
 import ItemArticlesOrFactCheck from '../../cds/media-cards/ItemArticlesOrFactCheck';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemDate from '../../cds/media-cards/ItemDate';
