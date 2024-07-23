@@ -1,0 +1,63 @@
+.articleCard {
+  display: block;
+  min-width: 500px;
+
+  &.mediaArticleCardWrapper {
+    :global(.card):hover {
+      border-color: var(--color-gray-88);
+      cursor: auto;
+      outline-color: transparent;
+    }
+
+    .mediaArticleCard {
+      gap: 3px;
+
+      .articleCardHeader {
+        align-items: flex-start;
+        display: flex;
+
+        .articleIcon {
+          font-size: var(--font-size-subtitle-1);
+        }
+
+        .articleType {
+          color: var(--color-gray-37);
+        }
+
+        & > div {
+          display: flex;
+          gap: 3px;
+        }
+
+        & > div + div {
+          align-items: center;
+        }
+      }
+
+      .mediaArticleCardDescription {
+        align-items: flex-start;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      :global(.article-url) a {
+        -webkit-box-orient: vertical;
+        display: -webkit-box; /* stylelint-disable-line */
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        white-space: pre-line;
+      }
+    }
+  }
+}
+
+.articleCardRight {
+  align-items: flex-end;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  text-align: right;
+  width: 150px;
+}

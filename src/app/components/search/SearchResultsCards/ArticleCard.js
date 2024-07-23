@@ -23,11 +23,19 @@ const ArticleCard = ({
   teamName,
   languageCode,
   tags,
+  tagOptions,
+  isPublished,
+  projectMediaDbid,
   publishedAt,
   onChangeTags,
   variant,
+  handleClick,
 }) => (
-  <div className={cx('article-card', styles.articleCard)}>
+  <div
+    className={cx('article-card', styles.articleCard)}
+    onClick={handleClick}
+    onKeyDown={handleClick}
+  >
     <Card>
       <div className={styles.articleCardDescription}>
         <CardHoverContext.Consumer>
@@ -53,6 +61,7 @@ const ArticleCard = ({
         <SharedItemCardFooter
           languageCode={languageCode}
           tags={tags}
+          tagOptions={tagOptions}
           onChangeTags={onChangeTags}
         />
       </div>
@@ -61,13 +70,18 @@ const ArticleCard = ({
           { variant === 'fact-check' && (
             <div className={styles.cardRightTop}>
               { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
-              { publishedAt && <ItemReportStatus className={styles.cardRightTopPublished} publishedAt={publishedAt ? new Date(publishedAt * 1000) : null} /> }
+              <ItemReportStatus
+                projectMediaDbid={projectMediaDbid}
+                className={styles.cardRightTopPublished}
+                isPublished={isPublished}
+                publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
+              />
             </div>
           )}
           { date &&
             <ItemDate
               date={new Date(date * 1000)}
-              tooltipLabel={<FormattedMessage id="factCheckCard.dateLabel" defaultMessage="Published at" description="Date tooltip label for fact-check cards" />}
+              tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />}
             />
           }
         </div> : null
@@ -84,8 +98,11 @@ ArticleCard.defaultProps = {
   teamName: null,
   languageCode: null,
   tags: [],
+  tagOptions: null,
+  onChangeTags: null,
   variant: 'explainer',
   statusLabel: null,
+  projectMediaDbid: null,
   publishedAt: null,
 };
 
@@ -93,16 +110,22 @@ ArticleCard.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string,
   url: PropTypes.string,
-  date: PropTypes.number.isRequired, // Timestamp
+  date: PropTypes.oneOfType([
+    PropTypes.string, // article.updated_at (Articles.js)
+    PropTypes.number, // projectMedia.feed_columns_values.updated_at_timestamp (SearchResultsCards/index.js)
+  ]).isRequired, // Timestamp
   statusLabel: PropTypes.string,
   statusColor: PropTypes.string,
   teamAvatar: PropTypes.string, // URL
   teamName: PropTypes.string,
   languageCode: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
+  tagOptions: PropTypes.arrayOf(PropTypes.string),
+  projectMediaDbid: PropTypes.number,
   publishedAt: PropTypes.number, // Timestamp
-  onChangeTags: PropTypes.func.isRequired,
+  onChangeTags: PropTypes.func,
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default ArticleCard;

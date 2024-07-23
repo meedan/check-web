@@ -1,11 +1,16 @@
 .slideoutMain {
   box-shadow: -5px 0 5px 2px rgb(0 0 0 / .3);
   height: 100%;
-  max-width: 600px;
+  max-width: 620px;
   min-width: 320px;
   position: fixed;
+  text-transform: none;
   top: 0;
-  width: 25vw;
+  width: 40vw;
+
+  textarea {
+    font-weight: normal;
+  }
 }
 
 .slideoutContainer {
@@ -14,6 +19,7 @@
   flex-direction: column;
   height: 100%;
   position: relative;
+  z-index: 4;
 }
 
 .slideoutTitle {

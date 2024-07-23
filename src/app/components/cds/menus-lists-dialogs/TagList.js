@@ -52,7 +52,7 @@ const TagList = ({
 
   // MultiSelector requires an options array of objects with label and tag
   const options = teamTags || tags.map(tag => ({ label: tag, value: tag }));
-  const selected = tags;
+  const selected = [...tags];
 
   const handleAddNew = (value) => {
     if (value.trim() === '') {
@@ -81,8 +81,12 @@ const TagList = ({
     />
   );
 
+  const swallowClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className={styles['grid-wrapper']}>
+    <div className={styles['grid-wrapper']} onClick={swallowClick} onKeyDown={swallowClick}>
       <Tooltip
         disableHoverListener={readOnly}
         placement="top"

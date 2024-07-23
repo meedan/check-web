@@ -115,14 +115,14 @@ class CreateProjectMedia extends React.Component {
           size="default"
           variant="contained"
           label={
-            <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" description="Button label for adding an item" />
+            <FormattedMessage id="createMedia.addItem" defaultMessage="Add Media" description="Button label for adding an item" />
           }
           buttonProps={{
             id: 'create-media__add-item',
           }}
         />
         <CreateMediaDialog
-          title={<FormattedMessage tagName="h6" id="createMedia.addNewItem" defaultMessage="Add item" description="Dialog title for adding a new item" />}
+          title={<FormattedMessage tagName="h6" id="createMedia.addNewItem" defaultMessage="Add Media" description="Dialog title for adding a new item" />}
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
           onSubmit={this.handleSubmit}

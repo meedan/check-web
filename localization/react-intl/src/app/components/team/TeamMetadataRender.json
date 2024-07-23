@@ -27,6 +27,6 @@
   {
     "id": "teamMetadataRender.blankAnnotations",
     "description": "Text for empty annotations",
-    "defaultMessage": "No annotation fields"
+    "defaultMessage": "No Workspace Annotations"
   }
 ]

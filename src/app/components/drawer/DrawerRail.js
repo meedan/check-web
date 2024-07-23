@@ -12,6 +12,7 @@ import PersonIcon from '../../icons/person.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
 import ChevronLeftIcon from '../../icons/chevron_left.svg';
+import DescriptionIcon from '../../icons/description.svg';
 import styles from './DrawerRail.module.css';
 
 const messages = defineMessages({
@@ -50,17 +51,22 @@ const messages = defineMessages({
     defaultMessage: 'Shared Feeds',
     description: 'Tooltip for drawer navigation to shared feeds',
   },
+  articlesDescription: {
+    id: 'drawerRail.articlesDescription',
+    defaultMessage: 'Articles',
+    description: 'Tooltip for the Articles rail navigation',
+  },
 });
 
 const DrawerRail = (props) => {
   const testPath = window.location.pathname;
   const isSettingsPage = /[^/]+\/settings?/.test(testPath);
-  const isMediaPage = /\/media\/[0-9]+/.test(testPath);
+  const isArticlePage = /[^/]+\/articles?/.test(testPath);
   const isFeedPage = /^\/[^/]+\/feed(s)?($|\/)/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
   const isUserSettingsPage = teamSlug === 'check';
-  const isTipline = !isUserSettingsPage && !isSettingsPage && !isFeedPage;
+  const isTipline = !isUserSettingsPage && !isSettingsPage && !isFeedPage && !isArticlePage;
   const pathParts = testPath.split('/');
   const [activeItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
 
@@ -88,7 +94,7 @@ const DrawerRail = (props) => {
 
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
-      if (isMediaPage || !teamSlug) {
+      if (!teamSlug) {
         onDrawerOpenChange(false);
         window.storage.set('drawer.isOpen', false);
       } else if (window.storage.getValue('drawer.isOpen')) {
@@ -102,6 +108,8 @@ const DrawerRail = (props) => {
         onDrawerTypeChange('feed');
       } else if (isUserSettingsPage) {
         onDrawerTypeChange('user');
+      } else if (isArticlePage) {
+        onDrawerTypeChange('articles');
       } else {
         onDrawerTypeChange('tipline');
       }
@@ -139,6 +147,21 @@ const DrawerRail = (props) => {
             </Tooltip>
           </div>
           <div className={styles.drawerRailMiddle}>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.articlesDescription)}>
+              <Link
+                className={cx(
+                  [styles.railIconLink],
+                  {
+                    [styles.railIconLinkActive]: isArticlePage,
+                  })
+                }
+                id="side-navigation__article-toggle"
+                onClick={() => setDrawerTypeChange('articles')}
+                to={`/${props.team.slug}/articles/fact-checks`}
+              >
+                <DescriptionIcon />
+              </Link>
+            </Tooltip>
             <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.tiplineDescription)}>
               <Link
                 className={cx(

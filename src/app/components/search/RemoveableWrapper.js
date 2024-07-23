@@ -19,7 +19,7 @@ const RemoveableWrapper = ({
 
   const handleClick = (e) => {
     e.stopPropagation();
-    if (onRemove) onRemove();
+    if (onRemove && !readOnly) onRemove();
   };
 
   return (
@@ -30,8 +30,8 @@ const RemoveableWrapper = ({
           [styles['filter-removable-wrapper-icon']]: !children,
         })
       }
-      onMouseEnter={() => setShowDeleteIcon(true)}
-      onMouseLeave={() => setShowDeleteIcon(false)}
+      onMouseEnter={() => { if (!readOnly) setShowDeleteIcon(true); }}
+      onMouseLeave={() => { if (!readOnly) setShowDeleteIcon(false); }}
     >
       {icon &&
         <Tooltip
