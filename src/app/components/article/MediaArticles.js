@@ -16,8 +16,6 @@ import { getErrorMessage } from '../../helpers';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import styles from './Articles.module.css';
 import MediaArticlesDisplay from './MediaArticlesDisplay';
-// eslint-disable-next-line no-unused-vars
-import ArticleForm from './ArticleForm'; // For GraphQL fragment
 
 const addExplainerMutation = graphql`
   mutation MediaArticlesCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
@@ -224,7 +222,7 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
           query MediaArticlesQuery($slug: String!, $ids: String!) {
             team(slug: $slug) {
               slug
-              ...ArticleForm_team
+              ...NewArticleButton_team
             }
             project_media(ids: $ids) {
               dbid

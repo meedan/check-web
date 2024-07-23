@@ -31,9 +31,13 @@ const ArticleCard = ({
   variant,
   handleClick,
 }) => (
-  <div className={cx('article-card', styles.articleCard)}>
+  <div
+    className={cx('article-card', styles.articleCard)}
+    onClick={handleClick}
+    onKeyDown={handleClick}
+  >
     <Card>
-      <div className={styles.articleCardDescription} onClick={handleClick} onKeyDown={handleClick}>
+      <div className={styles.articleCardDescription}>
         <CardHoverContext.Consumer>
           { isHovered => (
             <ItemDescription
