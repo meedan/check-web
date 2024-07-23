@@ -306,7 +306,7 @@ MultiSelector.defaultProps = {
   loadingIcon: null,
   notFoundLabel: '',
   onDismiss: null,
-  onScrollBottom: null,
+  onScrollBottom: () => {},
   onSearchChange: null,
   onSelectChange: null,
   toggleAllLabel: null,

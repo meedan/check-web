@@ -44,6 +44,7 @@ const ItemReportStatus = ({
   const handleGoToReport = () => {
     if (projectMediaDbid) {
       const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+      // FIXME: use browserHistory.push instead of window.location.assign
       window.location.assign(`/${teamSlug}/media/${projectMediaDbid}/report`);
     }
   };
