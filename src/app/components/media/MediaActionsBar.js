@@ -23,7 +23,7 @@ import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './media.module.css';
-import ItemThumbnail from '../search/SearchResultsTable/ItemThumbnail';
+import ItemThumbnail from '../cds/media-cards/ItemThumbnail';
 import ItemTitle from './ItemTitle';
 import dialogStyles from '../../styles/css/dialog.module.css';
 
