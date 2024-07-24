@@ -9,6 +9,7 @@ import MediaSlug from '../media/MediaSlug';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import NotFound from '../NotFound';
+import styles from '../media/media.module.css';
 
 const FeedItemMediaListComponent = ({ items, feedDbid, intl }) => {
   const [selectedItemId, setSelectedItemId] = React.useState(null);
@@ -18,7 +19,7 @@ const FeedItemMediaListComponent = ({ items, feedDbid, intl }) => {
   };
 
   return (
-    <div id="feed-item-page-media-list">
+    <>
       {items.map((item) => {
         const details = [
           (
@@ -57,6 +58,7 @@ const FeedItemMediaListComponent = ({ items, feedDbid, intl }) => {
               <MediaAndRequestsDialogComponent
                 mediaSlug={
                   <MediaSlug
+                    className={styles['media-slug-title']}
                     mediaType={item.type}
                     slug={item.title}
                     details={details}
@@ -72,7 +74,7 @@ const FeedItemMediaListComponent = ({ items, feedDbid, intl }) => {
           </>
         );
       })}
-    </div>
+    </>
   );
 };
 

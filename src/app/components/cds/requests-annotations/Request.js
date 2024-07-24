@@ -24,16 +24,20 @@ const Request = ({
 
   return (
     <div className={cx('request-card', styles['request-card'])}>
-      <BulletSeparator compact icon={icon} details={details} />
-      <div className={cx(styles['request-time'])}>{time}</div>
+      <div className={styles['request-card-header']}>
+        <BulletSeparator compact icon={icon} details={details} />
+        {time}
+      </div>
       <div className={styles['request-content']}>
         <ParsedText text={preParsedText} fileUrlName={mediaTitle} mediaChips />
       </div>
-      <div className={styles.buttons}>
-        {historyButton}
-        {sendMessageButton}
+      <div className={styles['request-card-footer']}>
+        <div className={styles['request-card-actions']}>
+          {historyButton}
+          {sendMessageButton}
+        </div>
+        {receipt}
       </div>
-      {receipt}
     </div>
   );
 };
