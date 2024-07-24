@@ -550,6 +550,7 @@ const MediaSuggestionsComponent = ({
           <MediaAndRequestsDialogComponent
             mediaSlug={
               <MediaSlug
+                className={styles['media-slug-title']}
                 mediaType={relationshipItem?.target?.type}
                 slug={relationshipItem?.target?.title}
                 details={details}

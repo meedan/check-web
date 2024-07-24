@@ -60,7 +60,7 @@ class MediaRequestsComponent extends Component {
     return (
       <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>
         { (!this.props.all && media.requests_count > 0) && (
-          <span className="typography-subtitle2">
+          <p className="typography-subtitle2">
             <FormattedMessage
               id="mediaRequests.thisRequests"
               defaultMessage="{count, plural, one {# request} other {# requests}}"
@@ -69,7 +69,7 @@ class MediaRequestsComponent extends Component {
                 count: media.requests_count,
               }}
             />
-          </span>
+          </p>
         )}
         <Annotations
           noLink
