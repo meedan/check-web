@@ -23,10 +23,12 @@ const updateClaimMutation = graphql`
           title
           title_field
           custom_title
+          report_status
           status
           last_status
           last_status_obj {
             id
+            locked
           }
         }
       }
@@ -83,6 +85,7 @@ const createFactCheckMutation = graphql`
           last_status
           last_status_obj {
             id
+            locked
           }
         }
       }
@@ -131,6 +134,7 @@ const updateFactCheckMutation = graphql`
             last_status
             last_status_obj {
               id
+              locked
             }
           }
         }

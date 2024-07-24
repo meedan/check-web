@@ -33,10 +33,12 @@ const addFactCheckMutation = graphql`
     updateClaimDescription(input: $input) {
       project_media {
         id
+        report_status
         status
         last_status
         last_status_obj {
           id
+          locked
         }
         ...MediaArticlesDisplay_projectMedia
       }
