@@ -136,8 +136,18 @@ const MediaArticlesComponent = ({
   return (
     <div id="articles-sidebar" className={styles.articlesSidebar}>
       <div className={styles.articlesSidebarTopBar}>
-        <ChooseExistingArticleButton teamSlug={team.slug} onAdd={handleConfirmAdd} />
-        <NewArticleButton team={team} buttonMainProps={{ size: 'small', theme: 'text' }} disabled={projectMedia.type === 'Blank'} projectMedia={projectMedia} onCreate={onUpdate} />
+        <ChooseExistingArticleButton
+          disabled={projectMedia.type === 'Blank'}
+          teamSlug={team.slug}
+          onAdd={handleConfirmAdd}
+        />
+        <NewArticleButton
+          team={team}
+          buttonMainProps={{ size: 'small', theme: 'text' }}
+          disabled={projectMedia.type === 'Blank'}
+          projectMedia={projectMedia}
+          onCreate={onUpdate}
+        />
       </div>
       { hasArticle ? (
         <MediaArticlesDisplay projectMedia={projectMedia} onUpdate={onUpdate} />
