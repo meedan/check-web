@@ -5,6 +5,11 @@
     "defaultMessage": "Choose an existing article"
   },
   {
+    "id": "newArticleButton.tooltip",
+    "description": "Tooltip message displayed on new article button when it is disabled.",
+    "defaultMessage": "You can't add an article here."
+  },
+  {
     "id": "chooseExistingArticleButton.search",
     "description": "Label for the search field to find an article.",
     "defaultMessage": "Search by article title or summary"
