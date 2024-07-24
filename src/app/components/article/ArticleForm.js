@@ -67,15 +67,18 @@ const ArticleForm = ({
   }, [language]);
 
   useEffect(() => {
-    if (!isValid && articleType === 'explainer' && articleTitle?.length && summary?.length && language?.length) {
+    if (articleType === 'explainer' && articleTitle?.length && summary?.length && language?.length) {
       setIsValid(true);
-    } else if (!isValid && articleType === 'fact-check' && articleTitle?.length && summary?.length) {
+    } else if (articleType === 'fact-check' && articleTitle?.length && summary?.length && language?.length) {
       setIsValid(true);
+    } else {
+      setIsValid(false);
     }
   }, [articleTitle, summary, claimDescription, language]);
 
   const handleGoToReport = (projectMediaDbid) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+    // FIXME: use browserHistory.push instead of window.location.assign
     window.location.assign(`/${teamSlug}/media/${projectMediaDbid}/report`);
   };
 
