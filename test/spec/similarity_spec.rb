@@ -19,7 +19,6 @@ shared_examples 'similarity' do
     wait_for_selector('#media-similarity__add-button').click
     wait_for_selector('#export-fact-check__button').click
     add_related_item('Claim 2')
-    @driver.navigate.refresh
     wait_for_selector('.media-similarity__menu-icon')
     expect(@driver.page_source.include?('Media')).to be(true)
     # list similar items
@@ -37,7 +36,9 @@ shared_examples 'similarity' do
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}"
     wait_for_selector('#media-similarity__add-button')
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
+    @driver.action.move_to(wait_for_selector('.suggested-media__item')).perform #hover element
     wait_for_selector('.similarity-media-item__accept-relationship').click
+    @driver.navigate.refresh
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     # pin similar item
@@ -52,6 +53,8 @@ shared_examples 'similarity' do
     wait_for_selector('.similarity-media-item__pin-relationship')
     wait_for_selector('.similarity-media-item__delete-relationship').click
     wait_for_selector('.message')
+    @driver.navigate.refresh
+    wait_for_selector('.test__media')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 0
   end
 
@@ -66,10 +69,12 @@ shared_examples 'similarity' do
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 0
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
+    @driver.action.move_to(wait_for_selector('.suggested-media__item')).perform #hover element
     wait_for_selector('.similarity-media-item__accept-relationship').click
-    wait_for_selector('.media__relationship')
-    wait_for_selector('.similarity-media-item__reject-relationship').click
-    wait_for_selector('.media__relationship')
+    @driver.action.move_to(wait_for_selector_list('.suggested-media__item')[1]).perform #hover element
+    wait_for_selector_list('.similarity-media-item__reject-relationship')[1].click
+    @driver.navigate.refresh
+    wait_for_selector('#media-similarity__add-button')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
