@@ -408,6 +408,7 @@ function SearchResultsComponent({
                   type: item.media?.type,
                   url: item.media?.url,
                 },
+                show_warning_cover: item.show_warning_cover,
               }}
               mediaType={item.media?.type}
               suggestionsCount={item.suggestions_count}
