@@ -91,7 +91,11 @@ const ArticleFilters = ({
     />
   );
 
-  const filterIsDirty = Object.keys(filters).length - Object.keys(defaultFilters).length > 1; // Filter by article type is fixed
+  // We can apply if the state query is dirty (differs from what is applied)
+  const canApply = JSON.stringify(filters) !== JSON.stringify(currentFilters);
+
+  // We can reset if have applied filters or the state query is dirty
+  const canReset = JSON.stringify(currentFilters) !== JSON.stringify(defaultFilters) || canApply;
 
   return (
     <>
@@ -276,34 +280,38 @@ const ArticleFilters = ({
           addedFields={Object.keys(filters)}
           onSelect={handleAddFilter}
         />
-        { filterIsDirty && (
+        { canReset && (
           <div className={cx(searchStyles['filters-buttons-wrapper'], searchStyles['filters-buttons-wrapper-visible'])}>
-            <ButtonMain
-              className="int-search-fields__button--apply-articlefilter"
-              variant="contained"
-              size="default"
-              theme="lightValidation"
-              onClick={handleSubmit}
-              label={
-                <FormattedMessage id="articleFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
-              }
-              buttonProps={{
-                id: 'search-fields__submit-button',
-              }}
-            />
-            <ButtonMain
-              className="int-search-fields__button--reset-articlefilter"
-              variant="contained"
-              size="default"
-              theme="lightText"
-              onClick={handleReset}
-              label={
-                <FormattedMessage id="articleFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
-              }
-              buttonProps={{
-                id: 'search-fields__clear-button',
-              }}
-            />
+            { canApply && (
+              <ButtonMain
+                className="int-search-fields__button--apply-articlefilter"
+                variant="contained"
+                size="default"
+                theme="lightValidation"
+                onClick={handleSubmit}
+                label={
+                  <FormattedMessage id="articleFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
+                }
+                buttonProps={{
+                  id: 'search-fields__submit-button',
+                }}
+              />
+            )}
+            { canReset && (
+              <ButtonMain
+                className="int-search-fields__button--reset-articlefilter"
+                variant="contained"
+                size="default"
+                theme="lightText"
+                onClick={handleReset}
+                label={
+                  <FormattedMessage id="articleFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
+                }
+                buttonProps={{
+                  id: 'search-fields__clear-button',
+                }}
+              />
+            )}
           </div>
         )}
       </div>
