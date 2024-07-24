@@ -30,6 +30,7 @@ const removeClaimDescriptionMutation = graphql`
       claim_description {
         project_media {
           articles_count
+          report_status
           fact_check {
             id
           }

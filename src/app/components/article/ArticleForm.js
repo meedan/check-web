@@ -16,8 +16,10 @@ import inputStyles from '../../styles/css/inputs.module.css';
 import { safelyParseJSON, truncateLength } from '../../helpers';
 import styles from './ArticleForm.module.css';
 import RatingSelector from '../cds/inputs/RatingSelector';
+import Alert from '../cds/alerts-and-prompts/Alert.js';
 
 const ArticleForm = ({
+  saving,
   handleSave,
   onClose,
   handleBlur,
@@ -57,6 +59,7 @@ const ArticleForm = ({
   const [isValid, setIsValid] = React.useState(false);
 
   const isPublished = article.report_status === 'published';
+  const readOnly = isPublished;
   const publishedAt = isPublished ? article.updated_at : null;
 
   React.useEffect(() => {
@@ -283,6 +286,18 @@ const ArticleForm = ({
                     <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
                   </div>
                 }
+                { articleType === 'fact-check' && isPublished && (
+                  <Alert
+                    icon
+                    contained
+                    variant="success"
+                    title={<FormattedMessage id="articleForm.reportPublishedTitle" defaultMessage="Report is published" description="Title of alert box in article form." />}
+                    content={<FormattedMessage id="articleForm.reportPublishedBody" defaultMessage="To make edits, pause this report. This will stop the report from being sent out to users until it is published again" description="Text of alert box in article form." />}
+                    buttonLabel={<FormattedMessage id="articleForm.reportPublishedLabel" defaultMessage="Update Report" description="Label of alert button in article form." />}
+                    onButtonClick={() => handleGoToReport(article.claim_description?.project_media?.dbid)}
+                    className={styles['article-form-alert']}
+                  />
+                )}
                 <div className={inputStyles['form-fieldset-field']}>
                   { articleType === 'explainer' ?
                     <FormattedMessage
@@ -335,6 +350,7 @@ const ArticleForm = ({
                         error={titleError}
                         placeholder={placeholder}
                         label={<FormattedMessage id="articleForm.factCheckTitle" defaultMessage="Title" description="Label for fact-check title field" />}
+                        disabled={readOnly}
                         onBlur={(e) => {
                           const newValue = e.target.value;
                           if (newValue.length) {
@@ -404,6 +420,7 @@ const ArticleForm = ({
                           autoGrow
                           error={summaryError}
                           placeholder={placeholder}
+                          disabled={readOnly}
                           onBlur={(e) => {
                             const newValue = e.target.value;
                             if (newValue.length) {
@@ -462,6 +479,7 @@ const ArticleForm = ({
                           }}
                           className="article-form__url"
                           key={`article-form__url-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
+                          disabled={readOnly}
                           onBlur={(e) => {
                             const newValue = e.target.value;
                             let newUrl = newValue;
@@ -483,6 +501,7 @@ const ArticleForm = ({
                       selectedLanguage={language}
                       onSubmit={handleLanguageSubmit}
                       languages={languages}
+                      isDisabled={readOnly}
                       required
                     />
                   </div> : null
@@ -500,7 +519,7 @@ const ArticleForm = ({
         buttonProps={{
           id: 'article-form__save-button',
         }}
-        disabled={!isValid}
+        disabled={!isValid || saving}
         label={<FormattedMessage id="articleForm.formSaveButton" defaultMessage="Create content" description="the save button for the article forom" />}
       /> : null}
     />
@@ -508,11 +527,13 @@ const ArticleForm = ({
 };
 
 ArticleForm.defaultProps = {
+  saving: false,
   handleSave: null,
   article: {},
 };
 
 ArticleForm.propTypes = {
+  saving: PropTypes.bool,
   handleSave: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,

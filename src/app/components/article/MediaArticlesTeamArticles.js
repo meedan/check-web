@@ -55,6 +55,8 @@ const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
   <ErrorBoundary component="MediaArticlesTeamArticles">
     <QueryRenderer
       environment={Relay.Store}
+      key={new Date().getTime()}
+      cacheConfig={{ force: true }}
       query={graphql`
         query MediaArticlesTeamArticlesQuery($slug: String!, $textSearch: String!, $numberOfArticles: Int!) {
           team(slug: $slug) {
@@ -86,6 +88,7 @@ const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
         textSearch,
         slug: teamSlug,
         numberOfArticles,
+        timestamp: new Date().getTime(), // No cache
       }}
       render={({ error, props }) => {
         if (!error && props) {
