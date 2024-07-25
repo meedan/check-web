@@ -14,7 +14,7 @@ const FeedMediaRequests = ({ projectMedia }) => {
   return (
     <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>
       { projectMedia.requests_count > 0 && (
-        <span className="typography-subtitle2">
+        <p className="typography-subtitle2">
           <FormattedMessage
             id="feedMediaRequests.counter"
             defaultMessage="{count, plural, one {# request} other {# requests}}"
@@ -23,7 +23,7 @@ const FeedMediaRequests = ({ projectMedia }) => {
               count: projectMedia.requests_count,
             }}
           />
-        </span>
+        </p>
       )}
       <Annotations
         noLink

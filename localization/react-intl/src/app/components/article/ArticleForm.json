@@ -80,6 +80,21 @@
     "defaultMessage": "Fact-check"
   },
   {
+    "id": "articleForm.reportPublishedTitle",
+    "description": "Title of alert box in article form.",
+    "defaultMessage": "Report is published"
+  },
+  {
+    "id": "articleForm.reportPublishedBody",
+    "description": "Text of alert box in article form.",
+    "defaultMessage": "To make edits, pause this report. This will stop the report from being sent out to users until it is published again"
+  },
+  {
+    "id": "articleForm.reportPublishedLabel",
+    "description": "Label of alert button in article form.",
+    "defaultMessage": "Update Report"
+  },
+  {
     "id": "articleForm.explainerTitleInputPlaceholder",
     "description": "Placeholder instructions for article title field",
     "defaultMessage": "A descriptive title for this explainer article"

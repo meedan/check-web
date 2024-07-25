@@ -19,6 +19,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../../helpers';
+import styles from '../media.module.css';
 
 const useStyles = makeStyles(() => ({
   outer: {
@@ -309,6 +310,7 @@ const MediaRelationship = ({
           feedId={relationship?.target?.imported_from_feed_id}
           mediaSlug={
             <MediaSlug
+              className={styles['media-slug-title']}
               mediaType={relationship?.target?.type}
               slug={relationship.target?.title}
               details={details}
