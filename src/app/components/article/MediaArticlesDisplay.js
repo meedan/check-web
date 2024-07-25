@@ -42,6 +42,7 @@ const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
           id={factCheck.claim_description.id}
           onClick={() => { setArticleToEdit(factCheck); }}
           onRemove={onUpdate}
+          removeDisabled={projectMedia.type === 'Blank'}
         />
         : null
       }
@@ -83,6 +84,7 @@ const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
               languageCode={explainer.language !== 'und' ? explainer.language : null}
               date={explainer.updated_at}
               onClick={() => { setArticleToEdit(explainer); }}
+              removeDisabled={projectMedia.type === 'Blank'}
             />
           </div>
         );
@@ -113,6 +115,7 @@ MediaArticlesDisplay.defaultProps = {
 
 MediaArticlesDisplay.propTypes = {
   projectMedia: PropTypes.shape({
+    type: PropTypes.string.isRequired,
     fact_check_published_on: PropTypes.number,
     team: PropTypes.shape({
       verification_statuses: PropTypes.object.isRequired,
@@ -150,6 +153,7 @@ MediaArticlesDisplay.propTypes = {
 
 export default createFragmentContainer(MediaArticlesDisplay, graphql`
   fragment MediaArticlesDisplay_projectMedia on ProjectMedia {
+    type
     fact_check_published_on
     team {
       verification_statuses
