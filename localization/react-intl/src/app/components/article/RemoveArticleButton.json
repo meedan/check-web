@@ -1,13 +1,13 @@
 [
   {
-    "id": "removedArticleButton.tooltip",
-    "description": "Tooltip message displayed on remove article button when it is disabled.",
-    "defaultMessage": "You can't remove this article."
-  },
-  {
     "id": "removeArticleWrapperButton.success",
     "description": "Banner displayed after an article is successfully removed from an item.",
     "defaultMessage": "Article successfully removed from item."
+  },
+  {
+    "id": "removeArticleButton.tooltipDisabled",
+    "description": "Tooltip message displayed on remove article button when it is disabled.",
+    "defaultMessage": "You can't remove this article."
   },
   {
     "id": "removeArticleButton.tooltip",

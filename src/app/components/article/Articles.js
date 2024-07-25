@@ -153,7 +153,7 @@ const ArticlesComponent = ({
             teamSlug={team.slug}
             filterOptions={filterOptions}
             currentFilters={{ ...filters, article_type: type }}
-            defaultFilters={defaultFilters}
+            defaultFilters={{ ...defaultFilters, article_type: type }}
             statuses={statuses.statuses}
             onSubmit={handleChangeFilters}
           />
