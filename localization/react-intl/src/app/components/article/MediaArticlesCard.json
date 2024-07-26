@@ -1,7 +1,22 @@
 [
   {
-    "id": "articlesSidebarCard.tooltip",
-    "description": "Tooltip message displayed on explainer cards on item page.",
-    "defaultMessage": "Add article to this media cluster"
+    "id": "articlesSidebarCard.factcheckTooltip",
+    "description": "Tooltip message displayed on explainer cards on item page for fact-check type articles.",
+    "defaultMessage": "Add Claim & Fact-Check article to this media cluster"
+  },
+  {
+    "id": "articlesSidebarCard.explainerTooltip",
+    "description": "Tooltip message displayed on explainer cards on item page for explainer type articles.",
+    "defaultMessage": "Add Explainer article to this media cluster"
+  },
+  {
+    "id": "articlesSidebarCard.factCheck",
+    "description": "Type description of a fact-check article card.",
+    "defaultMessage": "Claim & Fact-Check"
+  },
+  {
+    "id": "articlesSidebarCard.explainer",
+    "description": "Type description of an explainer article card.",
+    "defaultMessage": "Explainer"
   }
 ]
