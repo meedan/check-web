@@ -22,7 +22,7 @@ const MediaArticlesTeamArticlesComponent = ({
         <DescriptionIcon />
         <FormattedMessage
           tagName="div"
-          id="articlesSidebar.noResults"
+          id="mediaArticlesTeamArticles.noResults"
           defaultMessage="No results matched your search."
           description="Message displayed on articles sidebar when search returns no articles."
         />

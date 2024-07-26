@@ -49,8 +49,8 @@ const MediaArticlesCard = ({ article, team, onAdd }) => {
       placement="top"
       title={
         <>
-          { article.nodeType === 'FactCheck' && <FormattedMessage id="articlesSidebarCard.factcheckTooltip" defaultMessage="Add Claim & Fact-Check article to this media cluster" description="Tooltip message displayed on explainer cards on item page for fact-check type articles." /> }
-          { article.nodeType === 'Explainer' && <FormattedMessage id="articlesSidebarCard.explainerTooltip" defaultMessage="Add Explainer article to this media cluster" description="Tooltip message displayed on explainer cards on item page for explainer type articles." /> }
+          { article.nodeType === 'FactCheck' && <FormattedMessage id="mediaArticlesCard.factcheckTooltip" defaultMessage="Add Claim & Fact-Check article to this media cluster" description="Tooltip message displayed on article cards on item page for fact-check type articles." /> }
+          { article.nodeType === 'Explainer' && <FormattedMessage id="mediaArticlesCard.explainerTooltip" defaultMessage="Add Explainer article to this media cluster" description="Tooltip message displayed on article cards on item page for explainer type articles." /> }
         </>
       }
       arrow
@@ -60,8 +60,8 @@ const MediaArticlesCard = ({ article, team, onAdd }) => {
           { isHovered && <AddIcon /> }
           { article.nodeType === 'Explainer' && !isHovered && <BookIcon /> }
           { article.nodeType === 'FactCheck' && !isHovered && <FactCheckIcon /> }
-          { article.nodeType === 'FactCheck' && <FormattedMessage id="articlesSidebarCard.factCheck" tagName="small" defaultMessage="Claim & Fact-Check" description="Type description of a fact-check article card." /> }
-          { article.nodeType === 'Explainer' && <FormattedMessage id="articlesSidebarCard.explainer" tagName="small" defaultMessage="Explainer" description="Type description of an explainer article card." /> }
+          { article.nodeType === 'FactCheck' && <FormattedMessage id="mediaArticlesCard.factCheck" tagName="small" defaultMessage="Claim & Fact-Check" description="Type description of a fact-check article card." /> }
+          { article.nodeType === 'Explainer' && <FormattedMessage id="mediaArticlesCard.explainer" tagName="small" defaultMessage="Explainer" description="Type description of an explainer article card." /> }
         </div>
         <div className={cx('typography-body1', styles.articlesSidebarCardTitle)}>
           {article.title}
