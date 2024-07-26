@@ -82,7 +82,7 @@ const MediaArticleCard = ({
                 tooltip={false}
                 variant="text"
                 theme="lightText"
-                lastRequestDate={new Date(date * 1000)}
+                lastRequestDate={date}
               />
             ),
             (
@@ -112,6 +112,7 @@ MediaArticleCard.defaultProps = {
   languageCode: null,
   variant: 'explainer',
   statusLabel: null,
+  statusColor: null,
   publishedAt: null,
   onClick: () => {},
   onRemove: () => {},
@@ -122,9 +123,9 @@ MediaArticleCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string,
-  date: PropTypes.number.isRequired, // Timestamp
+  date: PropTypes.instanceOf(Date).isRequired,
   statusLabel: PropTypes.string,
-  statusColor: PropTypes.string.isRequired,
+  statusColor: PropTypes.string,
   languageCode: PropTypes.string,
   publishedAt: PropTypes.number, // Timestamp
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
