@@ -7,14 +7,14 @@ import PaginatedUserWorkspaces from './PaginatedUserWorkspaces';
 
 // updated error handling
 const userWorkspacesQuery = graphql`
-  query UserWorkspaces {
+  query UserWorkspacesQuery {
     me {
       id
       current_team {
         id
       }
       number_of_teams
-      ...PaginatedUserWorkspaces_root
+      ...PaginatedUserWorkspaces_me
     }
   }
 `;
