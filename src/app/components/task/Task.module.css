@@ -77,3 +77,7 @@
     max-width: 90px;
   }
 }
+
+.edit-task-alert {
+  margin: 16px 0 0;
+}

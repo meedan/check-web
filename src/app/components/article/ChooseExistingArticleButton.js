@@ -8,10 +8,11 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Slideout from '../cds/slideout/Slideout';
 import TextField from '../cds/inputs/TextField';
 import styles from './ChooseExistingArticleButton.module.css';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 
 let lastTypedValue = '';
 
-const ChooseExistingArticleButton = ({ teamSlug, onAdd }) => {
+const ChooseExistingArticleButton = ({ disabled, teamSlug, onAdd }) => {
   const [openSlideout, setOpenSlideout] = React.useState(false);
   const [search, setSearch] = React.useState('');
 
@@ -39,15 +40,30 @@ const ChooseExistingArticleButton = ({ teamSlug, onAdd }) => {
 
   return (
     <>
-      <ButtonMain
-        className="choose-existing-article-button__open-slideout"
-        variant="contained"
-        size="small"
-        theme="text"
-        iconLeft={<SearchIcon />}
-        onClick={() => setOpenSlideout(true)}
-        label={title}
-      />
+      <Tooltip
+        placement="top"
+        title={disabled ? (
+          <FormattedMessage
+            id="newArticleButton.tooltip"
+            defaultMessage="You can't add an article here."
+            description="Tooltip message displayed on new article button when it is disabled."
+          />
+        ) : null}
+        arrow
+      >
+        <span>
+          <ButtonMain
+            className="choose-existing-article-button__open-slideout"
+            disabled={disabled}
+            variant="contained"
+            size="small"
+            theme="text"
+            iconLeft={<SearchIcon />}
+            onClick={() => setOpenSlideout(true)}
+            label={title}
+          />
+        </span>
+      </Tooltip>
       { openSlideout && (
         <Slideout
           title={title}
@@ -90,7 +106,12 @@ const ChooseExistingArticleButton = ({ teamSlug, onAdd }) => {
   );
 };
 
+ChooseExistingArticleButton.defaultProps = {
+  disabled: false,
+};
+
 ChooseExistingArticleButton.propTypes = {
+  disabled: PropTypes.bool,
   teamSlug: PropTypes.string.isRequired,
   onAdd: PropTypes.func.isRequired,
 };

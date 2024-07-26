@@ -27,7 +27,7 @@
   {
     "id": "contentScreen.superAdminMaskMessage",
     "description": "Text to show that admin screen is on",
-    "defaultMessage": "Super admin screen is on"
+    "defaultMessage": "Sensitive Content Masking Applied"
   },
   {
     "id": "contentScreen.warning",

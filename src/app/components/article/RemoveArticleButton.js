@@ -30,6 +30,7 @@ const removeClaimDescriptionMutation = graphql`
       claim_description {
         project_media {
           articles_count
+          report_status
           fact_check {
             id
           }
@@ -38,34 +39,6 @@ const removeClaimDescriptionMutation = graphql`
     }
   }
 `;
-
-const RemoveArticleWrapperButton = ({ disabled, children }) => {
-  if (disabled) {
-    return (
-      <Tooltip
-        key="remove-article-button"
-        title={
-          <FormattedMessage
-            id="removedArticleButton.tooltip"
-            defaultMessage="You can't remove this article."
-            description="Tooltip message displayed on remove article button when it is disabled."
-          />
-        }
-        arrow
-      >
-        <div className="remove-article-button__tooltip-children">
-          {children}
-        </div>
-      </Tooltip>
-    );
-  }
-
-  return (
-    <React.Fragment>
-      {children}
-    </React.Fragment>
-  );
-};
 
 const RemoveArticleButton = ({
   id,
@@ -140,29 +113,33 @@ const RemoveArticleButton = ({
 
   return (
     <>
-      <RemoveArticleWrapperButton disabled={disabled}>
-        <Tooltip
-          disableHoverListener={disabled}
-          key="remove-article-button"
-          title={
-            <FormattedMessage
-              id="removeArticleButton.tooltip"
-              defaultMessage="Remove article from media cluster"
-              description="Tooltip message displayed on remove article button."
-            />
-          }
-          arrow
-        >
-          <span>
-            <ButtonMain
-              size="small"
-              theme="text"
-              iconCenter={<IconClose />}
-              onClick={() => setOpenDialog(true)}
-            />
-          </span>
-        </Tooltip>
-      </RemoveArticleWrapperButton>
+      <Tooltip
+        key="remove-article-button"
+        title={disabled ? (
+          <FormattedMessage
+            id="removeArticleButton.tooltipDisabled"
+            defaultMessage="You can't remove this article."
+            description="Tooltip message displayed on remove article button when it is disabled."
+          />
+        ) : (
+          <FormattedMessage
+            id="removeArticleButton.tooltip"
+            defaultMessage="Remove article from media cluster"
+            description="Tooltip message displayed on remove article button."
+          />
+        )}
+        arrow
+      >
+        <span>
+          <ButtonMain
+            disabled={disabled}
+            size="small"
+            theme="text"
+            iconCenter={<IconClose />}
+            onClick={() => setOpenDialog(true)}
+          />
+        </span>
+      </Tooltip>
       <ConfirmProceedDialog
         open={openDialog}
         title={

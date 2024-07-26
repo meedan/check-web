@@ -171,6 +171,7 @@ class MediaComponent extends Component {
                     feedId={projectMedia.imported_from_feed_id}
                     mediaSlug={
                       <MediaSlug
+                        className={styles['media-slug-title']}
                         mediaType={projectMedia.type}
                         slug={projectMedia.title}
                         details={[(

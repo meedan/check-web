@@ -45,7 +45,7 @@ const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
   // for example, use a proper Markdown library (WhatsApp doesn't follow Markdown properly)
 
   parsedText = reactStringReplace(parsedText, /\*([^ ][^*]*[^ ])\*/gm, (match, i) => (
-    <b key={i}>{match}</b>
+    <strong key={i}>{match}</strong>
   ));
 
   parsedText = reactStringReplace(parsedText, /_([^_]*)_/gm, (match, i) => (

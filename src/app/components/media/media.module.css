@@ -143,12 +143,6 @@
       padding: 16px;
       text-align: center;
     }
-
-    .media-list-actions {
-      display: flex;
-      justify-content: center;
-      padding: 16px;
-    }
   }
 
   .media-sources {
@@ -239,16 +233,14 @@
 
 .media-list {
   .media-list-item {
-    border-bottom: solid 1px var(--color-gray-88);
-    padding: 16px 0;
+    padding: 8px 0;
 
     &:first-of-type {
-      padding: 0 0 16px;
+      padding: 0 0 8px;
     }
 
     &:last-of-type {
-      border-bottom: 0;
-      padding: 16px 0 0;
+      padding: 8px 0 0;
     }
 
     &:only-child {
@@ -273,6 +265,12 @@
       }
     }
   }
+}
+
+.media-list-actions {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
 }
 
 .media-item-autocomplete-wrapper {
@@ -338,11 +336,21 @@
     margin: 4px 0;
 
     h6 {
-      @mixin typography-subtitle2;
+      @mixin typography-body2;
       min-width: 0; /* https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child */
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+  }
+
+  .media-slug-bullets {
+    @mixin typography-body2;
+  }
+
+  &.media-slug-title {
+    h6 {
+      @mixin typography-body1-bold;
     }
   }
 }

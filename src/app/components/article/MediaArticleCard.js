@@ -28,6 +28,7 @@ const MediaArticleCard = ({
   variant,
   onClick,
   onRemove,
+  removeDisabled,
 }) => (
   <div className={cx('article-card', styles.articleCard, styles.mediaArticleCardWrapper)}>
     <Card className={styles.mediaArticleCard}>
@@ -87,7 +88,6 @@ const MediaArticleCard = ({
             (
               <ButtonMain
                 buttonProps={{
-                  type: null,
                   id: 'media-article-card__edit-button',
                 }}
                 label={<FormattedMessage id="mediaArticleCard.editButton" defaultMessage="Edit Article" description="Label for edit button" />}
@@ -101,7 +101,7 @@ const MediaArticleCard = ({
         />
       </div>
       <div className={styles.articleCardRight}>
-        <RemoveArticleButton id={id} variant={variant} onRemove={onRemove} />
+        <RemoveArticleButton id={id} variant={variant} onRemove={onRemove} disabled={removeDisabled} />
       </div>
     </Card>
   </div>
@@ -115,6 +115,7 @@ MediaArticleCard.defaultProps = {
   publishedAt: null,
   onClick: () => {},
   onRemove: () => {},
+  removeDisabled: false,
 };
 
 MediaArticleCard.propTypes = {
@@ -129,6 +130,7 @@ MediaArticleCard.propTypes = {
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
   onClick: PropTypes.func,
   onRemove: PropTypes.func,
+  removeDisabled: PropTypes.bool,
 };
 
 export default MediaArticleCard;

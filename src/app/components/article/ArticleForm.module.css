@@ -61,3 +61,7 @@
     justify-content: space-around;
   }
 }
+
+.article-form-alert {
+  margin: 8px 0 16px;
+}

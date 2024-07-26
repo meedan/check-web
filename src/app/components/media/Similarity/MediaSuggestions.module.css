@@ -3,41 +3,56 @@
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
+  padding: 8px;
   position: relative;
 
   .suggestions-bulk-actions,
-  .suggestions-pagination,
-  .suggestions-sorting {
+  .suggestions-pagination {
     align-items: center;
     display: flex;
     flex: 1 1 33.33%;
   }
 
   .suggestions-pagination {
+    justify-content: flex-end;
     white-space: nowrap;
   }
 
   .suggestions-bulk-actions {
-    flex: 0 0 200px;
-  }
-
-  .suggestions-sorting {
-    justify-content: flex-end;
+    background-color: var(--color-beige-86);
+    border-radius: 5px;
+    flex: 0 0 auto;
+    justify-content: center;
+    padding: 3px;
   }
 }
 
 .suggestions-item {
   align-items: center;
   display: flex;
+  margin: 16px 0 0;
+  position: relative;
 
   .suggestions-item-actions {
-    display: flex;
+    background: var(--color-beige-93);
+    border-radius: 5px;
+    display: none;
     flex: 0 0 48px;
-    flex-direction: column;
+    flex-direction: row;
+    padding: 3px;
+    position: absolute;
+    right: 3px;
+    top: 3px;
   }
 
   .suggestions-item-content {
     flex: 1 1 auto;
     min-width: 0;
+  }
+
+  &:hover {
+    .suggestions-item-actions {
+      display: flex;
+    }
   }
 }

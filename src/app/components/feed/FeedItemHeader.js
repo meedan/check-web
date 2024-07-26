@@ -8,7 +8,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
 import PermMediaIcon from '../../icons/perm_media.svg';
-import ItemThumbnail from '../search/SearchResultsTable/ItemThumbnail';
+import ItemThumbnail from '../cds/media-cards/ItemThumbnail';
 import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import FeedImportDialog from './FeedImportDialog';
 import searchResultsStyles from '../search/SearchResults.module.css';
