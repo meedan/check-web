@@ -19,14 +19,13 @@ const MediaArticlesTeamArticlesComponent = ({
   <>
     { textSearch && !articles.length ? (
       <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
-        <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
-        <div>
-          <FormattedMessage
-            id="articlesSidebar.noResults"
-            defaultMessage="No results matched your search."
-            description="Message displayed on articles sidebar when search returns no articles."
-          />
-        </div>
+        <DescriptionIcon />
+        <FormattedMessage
+          tagName="div"
+          id="mediaArticlesTeamArticles.noResults"
+          defaultMessage="No results matched your search."
+          description="Message displayed on articles sidebar when search returns no articles."
+        />
       </div>
     ) : null }
     <div id="articles-sidebar-team-articles" className={styles.articlesSidebarList}>
