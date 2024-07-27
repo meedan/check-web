@@ -1,0 +1,8 @@
+.workspaces-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  user-select: none;
+  width: 100%;
+}

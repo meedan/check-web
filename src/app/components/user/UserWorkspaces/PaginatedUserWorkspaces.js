@@ -6,14 +6,12 @@ import UserWorkspacesComponent from './UserWorkspacesComponent';
 // Query that is called for subsequent "load more" pagination calls
 // see https://meedan.atlassian.net/wiki/spaces/ENG/pages/1185316865/How+to+paginate+in+Relay+1.7#Modifying-MediaSuggestions
 const userWorkspacesQuery = graphql`
-  query UserWorkspaces {
+  query PaginatedUserWorkspacesQuery($pageSize: Int!, $after: String) {
     me {
       id
-      current_team {
-        id
-      }
+      current_team_id
       number_of_teams
-      ...PaginatedUserWorkspaces_me
+      ...PaginatedUserWorkspaces_root
     }
   }
 `;
@@ -21,15 +19,19 @@ const userWorkspacesQuery = graphql`
 const PaginatedUserWorkspaces = createPaginationContainer(
   props => (
     <UserWorkspacesComponent
-      teams={props.root.team_users ? props.root.team_users?.edges.map(r => r.node) : []}
+      teams={props.root.team_users ? props.root.team_users?.edges.map(r => r.node.team) : []}
       pageSize={props.pageSize}
+      justEverything={props}
+      justroot={props.root}
       totalCount={props.root.team_users?.totalCount}
       relay={props.relay}
+      numberOfTeams={props.root.number_of_teams}
     />
   ),
   {
     root: graphql`
-      fragment PaginatedUserWorkspaces_me on Me {
+      fragment PaginatedUserWorkspaces_root on Me {
+        number_of_teams
         team_users(first: $pageSize, after: $after, status: "member") @connection(key: "PaginatedUserWorkspaces_team_users"){
           edges {
             node {
@@ -39,9 +41,7 @@ const PaginatedUserWorkspaces = createPaginationContainer(
                 name,
                 avatar,
                 slug,
-                private,
                 members_count,
-                permissions,
               }
               id,
               status,
@@ -67,7 +67,6 @@ const PaginatedUserWorkspaces = createPaginationContainer(
     }),
     getVariables: (props, paginationInfo, fragmentVariables) => ({
       pageSize: fragmentVariables.pageSize,
-      ids: fragmentVariables.ids,
       after: paginationInfo.cursor,
     }),
   },

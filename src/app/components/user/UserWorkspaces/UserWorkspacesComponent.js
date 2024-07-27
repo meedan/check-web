@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -8,35 +9,42 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import cx from 'classnames/bind';
-import BlankState from '../layout/BlankState';
-import SettingsHeader from '../team/SettingsHeader';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import CreateTeamDialog from '../team/CreateTeamDialog';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
+import NextIcon from '../../../icons/chevron_right.svg';
+import PrevIcon from '../../../icons/chevron_left.svg';
+import BlankState from '../../layout/BlankState';
+import SettingsHeader from '../../team/SettingsHeader';
+import TeamAvatar from '../../team/TeamAvatar';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import CreateTeamDialog from '../../team/CreateTeamDialog';
 // todo: use updated error handling
-import { FlashMessageSetterContext } from '../FlashMessage';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import { stringHelper } from '../../customHelpers';
-import KeyboardArrowRight from '../../icons/chevron_right.svg';
-import styles from './user.module.css';
-import TeamAvatar from '../team/TeamAvatar';
+import { FlashMessageSetterContext } from '../../FlashMessage';
+import { getErrorMessageForRelayModernProblem } from '../../../helpers';
+import { stringHelper } from '../../../customHelpers';
+import styles from '../user.module.css';
+import workspaceStyles from './UserWorkspacesComponent.module.css';
+import MediasLoading from '../../media/MediasLoading';
 
 const updateUserMutation = graphql`
   mutation UserWorkspacesComponentUpdateUserMutation($input: UpdateUserInput!) {
     updateUser(input: $input) {
       me {
-        current_team {
-          id
-        }
+        current_team_id
       }
     }
   }
 `;
 
-const UserWorkspacesComponent = (
+const UserWorkspacesComponent = ({
   teams,
   numberOfTeams,
-) => {
+  pageSize,
+  totalCount,
+  relay,
+}) => {
   const [showCreateTeamDialog, setShowCreateTeamDialog] = React.useState(false);
+  const [cursor, setCursor] = React.useState(0);
+  const [isPaginationLoading, setIsPaginationLoading] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const onFailure = (errors) => {
@@ -59,7 +67,7 @@ const UserWorkspacesComponent = (
       mutation: updateUserMutation,
       variables: {
         input: {
-          current_team: team,
+          current_team_id: team.dbid,
         },
       },
       onCompleted: ({ error }) => {
@@ -100,11 +108,75 @@ const UserWorkspacesComponent = (
           />
         }
       />
+      { totalCount > pageSize && // only display paginator if there are more than pageSize worth of workspaces overall in the database
+        <div className={workspaceStyles['workspaces-wrapper']}>
+          <Tooltip
+            arrow
+            title={
+              <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+            }
+          >
+            <span>
+              <ButtonMain
+                disabled={isPaginationLoading || cursor - pageSize < 0}
+                variant="text"
+                theme="brand"
+                size="default"
+                onClick={() => {
+                  if (cursor - pageSize >= 0) {
+                    setCursor(cursor - pageSize);
+                  }
+                }}
+                iconCenter={<PrevIcon />}
+              />
+            </span>
+          </Tooltip>
+          <span className={cx('typography-button', styles['workspace-header-count'])}>
+            <FormattedMessage
+              id="searchResults.itemsCount"
+              defaultMessage="{totalCount, plural, one {1 / 1} other {{from} - {to} / #}}"
+              description="Pagination count of items returned"
+              values={{
+                from: cursor + 1,
+                to: Math.min(cursor + pageSize, totalCount),
+                totalCount,
+              }}
+            />
+          </span>
+          <Tooltip
+            title={
+              <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+            }
+          >
+            <span>
+              <ButtonMain
+                disabled={isPaginationLoading || cursor + pageSize >= totalCount}
+                variant="text"
+                theme="brand"
+                size="default"
+                onClick={() => {
+                  if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= teams.length)) {
+                    setIsPaginationLoading(true);
+                    relay.loadMore(pageSize, () => {
+                      setCursor(cursor + pageSize);
+                      setIsPaginationLoading(false);
+                    });
+                  } else if (cursor + pageSize < teams.length) {
+                    setCursor(cursor + pageSize);
+                  }
+                }}
+                iconCenter={<NextIcon />}
+              />
+            </span>
+          </Tooltip>
+        </div>
+      }
       <div className={styles['user-setting-details-wrapper']}>
         { teams.length ?
           <div className={styles['user-setting-content-container']}>
+            { isPaginationLoading && <MediasLoading size="medium" theme="grey" variant="inline" /> }
             <ul className={cx('teams', styles['user-setting-content-list'])}>
-              {teams.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })).map(team => (
+              {teams.slice(cursor, cursor + pageSize).sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })).map(team => (
                 <ListItem
                   key={team.slug}
                   className="switch-teams__joined-team"
@@ -113,7 +185,7 @@ const UserWorkspacesComponent = (
                   id={`switch-teams__link-to-${team.slug}`}
                 >
                   <ListItemAvatar>
-                    <TeamAvatar src={team.avatar} size="32px" />
+                    <TeamAvatar team={{ avatar: team.avatar }} size="32px" />
                   </ListItemAvatar>
                   <ListItemText
                     primary={team.name}
@@ -129,7 +201,7 @@ const UserWorkspacesComponent = (
                   />
                   <ListItemSecondaryAction>
                     <ButtonMain
-                      iconCenter={<KeyboardArrowRight />}
+                      iconCenter={<NextIcon />}
                       theme="text"
                       variant="text"
                       size="default"
@@ -152,6 +224,20 @@ const UserWorkspacesComponent = (
       </div>
     </>
   );
+};
+
+UserWorkspacesComponent.propTypes = {
+  numberOfTeams: PropTypes.number.isRequired,
+  teams: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    members_count: PropTypes.number.isRequired,
+  }).isRequired).isRequired,
+  pageSize: PropTypes.number.isRequired,
+  totalCount: PropTypes.number.isRequired,
 };
 
 export default UserWorkspacesComponent;

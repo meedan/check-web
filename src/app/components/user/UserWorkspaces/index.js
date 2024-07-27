@@ -1,20 +1,17 @@
 /* eslint-disable relay/unused-fields */
 import React from 'react';
-// todo switch from classic
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import PaginatedUserWorkspaces from './PaginatedUserWorkspaces';
 
 // updated error handling
 const userWorkspacesQuery = graphql`
-  query UserWorkspacesQuery {
+  query UserWorkspacesQuery($pageSize: Int!, $after: String) {
     me {
       id
-      current_team {
-        id
-      }
+      current_team_id
       number_of_teams
-      ...PaginatedUserWorkspaces_me
+      ...PaginatedUserWorkspaces_root
     }
   }
 `;
@@ -29,10 +26,11 @@ const UserWorkspaces = () => {
       variables={{
         pageSize,
       }}
-      render={({ props }) => {
-        if (props) {
+      render={({ error, props: innerProps }) => {
+        if (!error && innerProps) {
+          const { me } = innerProps;
           return (
-            <PaginatedUserWorkspaces root={props.me} parentProps={props} pageSize={pageSize} />
+            <PaginatedUserWorkspaces root={me} parentProps={innerProps} pageSize={pageSize} />
           );
         }
         return null;
