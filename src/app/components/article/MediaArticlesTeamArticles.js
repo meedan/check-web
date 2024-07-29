@@ -30,7 +30,7 @@ const MediaArticlesTeamArticlesComponent = ({
     ) : null }
     <div id="articles-sidebar-team-articles" className={styles.articlesSidebarList}>
       {articles.map(article => (
-        <MediaArticlesCard article={article} team={team} onAdd={onAdd} />
+        <MediaArticlesCard key={article.id} article={article} team={team} onAdd={onAdd} />
       ))}
     </div>
   </>
@@ -64,6 +64,7 @@ const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
               edges {
                 node {
                   ... on FactCheck {
+                    id
                     created_at
                     ...MediaArticlesCard_article
                   }
@@ -74,6 +75,7 @@ const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
               edges {
                 node {
                   ... on Explainer {
+                    id
                     created_at
                     ...MediaArticlesCard_article
                   }

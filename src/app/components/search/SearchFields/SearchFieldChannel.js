@@ -114,8 +114,8 @@ const SearchFieldChannelComponent = ({
           icon={<ForwardIcon />}
           selected={query.channels || selectedChannels}
           options={options}
-          onChange={handleChange}
-          onRemove={(page !== 'tipline-inbox') ? onRemove : null}
+          onChange={!readOnly ? handleChange : null}
+          onRemove={!readOnly && (page !== 'tipline-inbox') ? onRemove : null}
           readOnly={readOnly}
         />
       )}
@@ -146,13 +146,14 @@ const SearchFieldChannel = parentProps => (
 
 SearchFieldChannel.defaultProps = {
   readOnly: false,
+  page: '',
 };
 
 SearchFieldChannel.propTypes = {
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
   readOnly: PropTypes.bool,
 };
 

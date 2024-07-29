@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import Checkbox from '@material-ui/core/Checkbox';
-import TableCell from '@material-ui/core/TableCell';
-import styles from '../SearchResults.module.css';
+import styles from './SearchResults.module.css';
 
-export default function SelectAllTh({
+export default function SelectAllCheckbox({
   selectedIds,
   projectMedias,
   onChangeSelectedIds,
@@ -20,21 +19,21 @@ export default function SelectAllTh({
   const nTotal = projectMedias.length;
 
   return (
-    <TableCell padding="checkbox" className={cx(className, styles['unread-status'])}>
+    <div className={cx(className, styles['unread-status'])}>
       <Checkbox
         indeterminate={nSelected ? nSelected < nTotal : false}
         checked={nSelected ? nSelected === nTotal : false}
         onChange={handleChange}
       />
-    </TableCell>
+    </div>
   );
 }
 
-SelectAllTh.defaultProps = {
+SelectAllCheckbox.defaultProps = {
   className: null,
 };
 
-SelectAllTh.propTypes = {
+SelectAllCheckbox.propTypes = {
   className: PropTypes.string,
   selectedIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.shape({

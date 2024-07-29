@@ -4,7 +4,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import cx from 'classnames/bind';
 import BrowserSupport from '../BrowserSupport';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import FooterRelay from '../../relay/containers/FooterRelay';
+import Footer from '../Footer';
 import Login from './Login';
 import PageTitle from '../PageTitle';
 import styles from './login.module.css';
@@ -22,7 +22,7 @@ const LoginContainer = props => (
           />
         }
         <Login loginCallback={props.loginCallback} />
-        <FooterRelay {...props} />
+        <Footer />
       </div>
     </div>
   </PageTitle>
