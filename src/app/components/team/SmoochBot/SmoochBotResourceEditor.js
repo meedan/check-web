@@ -5,6 +5,7 @@ import { graphql, createFragmentContainer, commitMutation as commitMutationCompa
 import { commitMutation } from 'react-relay';
 import { Store } from 'react-relay/classic';
 import cx from 'classnames/bind';
+import DeleteIcon from '../../../icons/delete.svg';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
@@ -445,6 +446,25 @@ const SmoochBotResourceEditorComponent = (props) => {
         </div>
         <br />
         <div className={inputStyles['form-footer-actions']}>
+          { resource.id ?
+            <div className={inputStyles['form-footer-actions-secondary']}>
+              <ButtonMain
+                className="int-resource__delete-button"
+                variant="contained"
+                theme="lightError"
+                size="default"
+                iconLeft={<DeleteIcon />}
+                onClick={handleConfirmDelete}
+                label={
+                  <FormattedMessage
+                    id="smoochBotResourceEditor.delete"
+                    defaultMessage="Delete"
+                    description="Label for action button to delete a tipline resource."
+                  />
+                }
+              />
+            </div>
+            : null }
           <ButtonMain
             variant="contained"
             theme="brand"
@@ -453,22 +473,6 @@ const SmoochBotResourceEditorComponent = (props) => {
             disabled={disableSaveNoFile || disableSaveTextTooLong || saving}
             label={resource.id ? intl.formatMessage(messages.saveResource) : intl.formatMessage(messages.createResource)}
           />
-
-          { resource.id ?
-            <ButtonMain
-              className="int-resource__delete-button"
-              variant="outlined"
-              theme="text"
-              size="default"
-              onClick={handleConfirmDelete}
-              label={
-                <FormattedMessage
-                  id="smoochBotResourceEditor.delete"
-                  defaultMessage="Delete"
-                  description="Label for action button to delete a tipline resource."
-                />
-              }
-            /> : null }
         </div>
       </div>
 
