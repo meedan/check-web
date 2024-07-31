@@ -6,6 +6,40 @@
   padding: 16px;
   width: 100%;
 
+  .iconWrapper {
+    flex: 0 0 24px;
+    font-size: var(--iconSizeDefault);
+    height: 24px;
+  }
+
+  .contentWrapper {
+    flex: 1 1 auto;
+    padding: 2px 0 0;
+
+    .title {
+      @mixin typography-subtitle2;
+    }
+
+    .content {
+      @mixin typography-body1;
+    }
+
+    .title + .content {
+      margin: 6px 0 0;
+    }
+
+    .actionsWrapper {
+      margin: 12px 0 0;
+    }
+  }
+
+  a,
+  a:hover,
+  a:visited,
+  a:active {
+    color: inherit;
+  }
+
   &.floating {
     border: solid 2px var(--color-blue-38);
     box-shadow: 0 4px 16px 0 rgba(0 0 0 / .1);
@@ -17,8 +51,25 @@
   }
 
   &.contained {
-    border: solid 1px var(--color-blue-38);
+    border: solid 2px var(--color-blue-38);
     border-radius: 5px;
+    padding: 12px;
+
+    .iconWrapper {
+      font-size: var(--iconSizeSmall);
+      flex: 0 0 20px;
+      height: 20px;
+    }
+
+    .contentWrapper {
+      .title {
+        @mixin typography-body1-bold;
+      }
+
+      .content {
+        @mixin typography-body2;
+      }
+    }
   }
 
   &.success {
@@ -43,30 +94,5 @@
     background-color: var(--color-pink-96);
     border-color: var(--color-pink-40);
     color: var(--color-pink-40);
-  }
-
-  .iconWrapper {
-    flex: 0 0 24px;
-    font-size: var(--iconSizeDefault);
-  }
-
-  .contentWrapper {
-    flex: 1 1 auto;
-    padding: 2px 0 0;
-
-    .title + .content {
-      margin: 6px 0 0;
-    }
-
-    .actionsWrapper {
-      margin: 12px 0 0;
-    }
-  }
-
-  a,
-  a:hover,
-  a:visited,
-  a:active {
-    color: inherit;
   }
 }

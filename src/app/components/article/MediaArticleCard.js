@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import Card from '../cds/media-cards/Card';
 import EllipseIcon from '../../icons/ellipse.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
@@ -106,6 +107,21 @@ const MediaArticleCard = ({
           ),
         ]}
       />
+      { variant === 'fact-check' && !publishedAt ?
+        <Alert
+          className={styles.mediaArticleCardAlert}
+          variant="warning"
+          contained
+          content={
+            <FormattedMessage
+              id="mediaArticleCard.unpublishedAlertContent"
+              defaultMessage="This Fact-Check will not be returned to Tipline users until it is published"
+              description="Description of the alert message displayed on articles list when an unpublished claim & fact-check is added"
+            />
+          }
+        />
+        : null
+      }
     </Card>
   </div>
 );

@@ -2,6 +2,11 @@
   display: block;
   min-width: 500px;
 
+  .mediaArticleCardAlert {
+    border-width: 0;
+    margin: 0 0 8px;
+  }
+
   &.mediaArticleCardWrapper {
     min-width: unset;
 
@@ -52,7 +57,12 @@
         }
 
         .articleCardRight {
+          align-items: flex-end;
+          display: flex;
           flex: 0 0;
+          flex-direction: column;
+          text-align: right;
+          width: 150px;
         }
       }
 
@@ -69,13 +79,4 @@
       }
     }
   }
-}
-
-.articleCardRight {
-  align-items: flex-end;
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  text-align: right;
-  width: 150px;
 }
