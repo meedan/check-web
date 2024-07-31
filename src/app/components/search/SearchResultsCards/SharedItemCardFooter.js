@@ -33,7 +33,14 @@ const SharedItemCardFooter = ({
       languageCode && (
         <Language languageCode={languageCode} />
       ),
-      tags && onChangeTags && <TagList tags={tags} setTags={onChangeTags} options={tagOptions ? tagOptions.map(tag => ({ label: tag, value: tag })) : null} />,
+      tags && onChangeTags && (
+        <TagList
+          tags={tags}
+          setTags={onChangeTags}
+          maxTags={5}
+          options={tagOptions ? tagOptions.map(tag => ({ label: tag, value: tag })) : null}
+        />
+      ),
       mediaCount !== null && (
         <MediaCount
           mediaCount={mediaCount}

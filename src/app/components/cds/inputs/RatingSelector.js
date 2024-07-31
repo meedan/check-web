@@ -11,6 +11,7 @@ import EllipseIcon from '../../../icons/ellipse.svg';
 import styles from './RatingSelector.module.css';
 
 const RatingSelector = ({
+  disabled,
   status,
   statuses,
   onStatusChange,
@@ -34,6 +35,7 @@ const RatingSelector = ({
       <ButtonMain
         className={styles['rating-button']}
         customStyle={{ borderColor: currentStatus?.style?.color }}
+        disabled={disabled}
         variant="outlined"
         theme="text"
         size="default"
@@ -71,12 +73,14 @@ const RatingSelector = ({
 };
 
 RatingSelector.propTypes = {
+  disabled: PropTypes.bool,
   onStatusChange: PropTypes.func.isRequired,
   status: PropTypes.string,
   statuses: PropTypes.object.isRequired,
 };
 
 RatingSelector.defaultProps = {
+  disabled: false,
   status: 'undetermined',
 };
 

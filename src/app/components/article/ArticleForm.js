@@ -143,7 +143,12 @@ const ArticleForm = ({
             <div className={inputStyles['form-inner-wrapper']}>
               <div className={styles['article-rating-wrapper']}>
                 { articleType === 'fact-check' && statuses &&
-                  <RatingSelector status={status} statuses={statuses} onStatusChange={handleStatusChange} />
+                  <RatingSelector
+                    disabled={isPublished}
+                    status={status}
+                    statuses={statuses}
+                    onStatusChange={handleStatusChange}
+                  />
                 }
                 { articleType === 'fact-check' &&
                   <div className={inputStyles['form-fieldset-field']}>

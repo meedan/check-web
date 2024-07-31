@@ -56,8 +56,8 @@
     padding: 12px;
 
     .iconWrapper {
-      font-size: var(--iconSizeSmall);
       flex: 0 0 20px;
+      font-size: var(--iconSizeSmall);
       height: 20px;
     }
 
