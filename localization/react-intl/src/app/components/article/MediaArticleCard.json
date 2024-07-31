@@ -13,5 +13,10 @@
     "id": "mediaArticleCard.editButton",
     "description": "Label for edit button",
     "defaultMessage": "Edit Article"
+  },
+  {
+    "id": "mediaArticleCard.unpublishedAlertContent",
+    "description": "Description of the alert message displayed on articles list when an unpublished claim & fact-check is added",
+    "defaultMessage": "This Fact-Check will not be returned to Tipline users until it is published"
   }
 ]

@@ -59,12 +59,12 @@ const Alert = ({
     }
     <div className={styles.contentWrapper}>
       { title &&
-        <span className={cx('typography-subtitle2', styles.title)}>
+        <span className={styles.title}>
           {title}
         </span>
       }
       { content &&
-        <div className={cx('test__alert-content', 'typography-body1', styles.content)}>
+        <div className={cx('test__alert-content', styles.content)}>
           {content}
         </div>
       }
