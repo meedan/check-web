@@ -29,23 +29,21 @@ const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
   return (
     <div className={styles.mediaArticlesDisplay}>
       { hasFactCheck ?
-        <>
-          <MediaArticleCard
-            key={factCheck.id}
-            variant="fact-check"
-            title={factCheck.title || factCheck.claim_description.description}
-            url={factCheck.url}
-            languageCode={factCheck.language !== 'und' ? factCheck.language : null}
-            date={new Date(factCheck.updated_at * 1000)}
-            statusColor={currentStatus ? currentStatus.style?.color : null}
-            statusLabel={currentStatus ? currentStatus.label : null}
-            publishedAt={publishedAt}
-            id={factCheck.claim_description.id}
-            onClick={() => { setArticleToEdit(factCheck); }}
-            onRemove={onUpdate}
-            removeDisabled={projectMedia.type === 'Blank'}
-          />
-        </>
+        <MediaArticleCard
+          key={factCheck.id}
+          variant="fact-check"
+          title={factCheck.title || factCheck.claim_description.description}
+          url={factCheck.url}
+          languageCode={factCheck.language !== 'und' ? factCheck.language : null}
+          date={new Date(factCheck.updated_at * 1000)}
+          statusColor={currentStatus ? currentStatus.style?.color : null}
+          statusLabel={currentStatus ? currentStatus.label : null}
+          publishedAt={publishedAt}
+          id={factCheck.claim_description.id}
+          onClick={() => { setArticleToEdit(factCheck); }}
+          onRemove={onUpdate}
+          removeDisabled={projectMedia.type === 'Blank'}
+        />
         : null
       }
       { (hasFactCheck && hasExplainer) ?
