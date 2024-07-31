@@ -79,7 +79,13 @@ const MediaArticleCard = ({
             ),
             date && (
               <LastRequestDate
-                tooltip={false}
+                tooltipLabel={(
+                  <FormattedMessage
+                    id="sharedItemCard.lastRequested"
+                    defaultMessage="Last Updated"
+                    description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'."
+                  />
+                )}
                 variant="text"
                 theme="lightText"
                 lastRequestDate={date}

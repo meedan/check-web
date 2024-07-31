@@ -5,12 +5,14 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import CalendarMonthIcon from '../../../icons/calendar_month.svg';
 
+// TODO: Refactor to make it an any date component. Rename to ItemDateButton maybe?.
 const LastRequestDate = ({
   intl,
   lastRequestDate,
   variant,
   theme,
   tooltip,
+  tooltipLabel,
 }) => {
   const buttonContent = (
     <span>
@@ -36,7 +38,7 @@ const LastRequestDate = ({
             arrow
             title={(
               <>
-                <span>{lastRequestDateLabel}:</span>
+                <span>{tooltipLabel || lastRequestDateLabel}:</span>
                 <ul>
                   <li>{Intl.DateTimeFormat(intl.locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(lastRequestDate)}</li>
                   <li>{Intl.DateTimeFormat(intl.locale, { hour: 'numeric', minute: 'numeric' }).format(lastRequestDate)}</li>
@@ -60,12 +62,14 @@ LastRequestDate.propTypes = {
   variant: PropTypes.string,
   theme: PropTypes.string,
   tooltip: PropTypes.bool,
+  tooltipLabel: PropTypes.node,
 };
 
 LastRequestDate.defaultProps = {
   variant: 'contained',
   theme: 'lightBeige',
   tooltip: true,
+  tooltipLabel: '',
 };
 
 export default injectIntl(LastRequestDate);
