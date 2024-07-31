@@ -3,6 +3,8 @@
   min-width: 500px;
 
   &.mediaArticleCardWrapper {
+    min-width: unset;
+
     :global(.card):hover {
       border-color: var(--color-gray-88);
       cursor: auto;
@@ -10,6 +12,7 @@
     }
 
     .mediaArticleCard {
+      flex-direction: column;
       gap: 3px;
 
       .articleCardHeader {
@@ -34,12 +37,22 @@
         }
       }
 
-      .mediaArticleCardDescription {
-        align-items: flex-start;
+      .mediaArticleCardContent {
         display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        overflow: hidden;
+        flex: 1 1 100%;
+        width: 100%;
+
+        .mediaArticleCardDescription {
+          align-items: flex-start;
+          display: flex;
+          flex: 1 1 auto;
+          flex-direction: column;
+          overflow: hidden;
+        }
+      }
+
+      .mediaArticleCardFooter {
+        width: 100%;
       }
 
       :global(.article-url) a {
