@@ -33,6 +33,21 @@ const MediaArticleCard = ({
 }) => (
   <div className={cx('article-card', styles.articleCard, styles.mediaArticleCardWrapper)}>
     <Card className={styles.mediaArticleCard}>
+      { variant === 'fact-check' && !publishedAt ?
+        <Alert
+          className={styles.mediaArticleCardAlert}
+          variant="warning"
+          contained
+          content={
+            <FormattedMessage
+              id="mediaArticleCard.unpublishedAlertContent"
+              defaultMessage="This Fact-Check will not be returned to Tipline users until it is published"
+              description="Description of the alert message displayed on articles list when an unpublished claim & fact-check is added"
+            />
+          }
+        />
+        : null
+      }
       <div className={styles.mediaArticleCardContent}>
         <div className={styles.mediaArticleCardDescription}>
           <div className={cx('typography-body2-bold', styles.articleCardHeader)}>
@@ -113,21 +128,6 @@ const MediaArticleCard = ({
           ),
         ]}
       />
-      { variant === 'fact-check' && !publishedAt ?
-        <Alert
-          className={styles.mediaArticleCardAlert}
-          variant="warning"
-          contained
-          content={
-            <FormattedMessage
-              id="mediaArticleCard.unpublishedAlertContent"
-              defaultMessage="This Fact-Check will not be returned to Tipline users until it is published"
-              description="Description of the alert message displayed on articles list when an unpublished claim & fact-check is added"
-            />
-          }
-        />
-        : null
-      }
     </Card>
   </div>
 );
