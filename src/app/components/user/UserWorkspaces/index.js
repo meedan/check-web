@@ -1,12 +1,14 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
-import PaginatedUserWorkspaces from './PaginatedUserWorkspaces';
+// Importing UserWorkspacesComponent for the fragment only
+// eslint-disable-next-line no-unused-vars
+import UserWorkspacesComponent, { PaginatedUserWorkspaces } from './UserWorkspacesComponent';
 
 const userWorkspacesQuery = graphql`
   query UserWorkspacesQuery($pageSize: Int!, $after: String) {
     me {
-      ...PaginatedUserWorkspaces_root
+      ...UserWorkspacesComponent_root
     }
   }
 `;
@@ -25,7 +27,11 @@ const UserWorkspaces = () => {
         if (!error && innerProps) {
           const { me } = innerProps;
           return (
-            <PaginatedUserWorkspaces root={me} pageSize={pageSize} />
+            <PaginatedUserWorkspaces
+              query={userWorkspacesQuery}
+              pageSize={pageSize}
+              root={me}
+            />
           );
         }
         return null;
