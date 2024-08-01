@@ -50,17 +50,22 @@ MediaArticlesTeamArticlesComponent.propTypes = {
 
 const numberOfArticles = 30;
 
-const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
+const MediaArticlesTeamArticles = ({
+  teamSlug,
+  textSearch,
+  targetId,
+  onAdd,
+}) => (
   <ErrorBoundary component="MediaArticlesTeamArticles">
     <QueryRenderer
       environment={Relay.Store}
       key={new Date().getTime()}
       cacheConfig={{ force: true }}
       query={graphql`
-        query MediaArticlesTeamArticlesQuery($slug: String!, $textSearch: String!, $numberOfArticles: Int!) {
+        query MediaArticlesTeamArticlesQuery($slug: String!, $textSearch: String!, $numberOfArticles: Int!, $targetId: Int) {
           team(slug: $slug) {
             ...MediaArticlesCard_team
-            factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", text: $textSearch, standalone: true) {
+            factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", text: $textSearch, target_id: $targetId, standalone: true) {
               edges {
                 node {
                   ... on FactCheck {
@@ -71,7 +76,7 @@ const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
                 }
               }
             }
-            explainers: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "explainer", text: $textSearch) {
+            explainers: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "explainer", text: $textSearch, target_id: $targetId) {
               edges {
                 node {
                   ... on Explainer {
@@ -89,6 +94,7 @@ const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
         textSearch,
         slug: teamSlug,
         numberOfArticles,
+        targetId,
         timestamp: new Date().getTime(), // No cache
       }}
       render={({ error, props }) => {
@@ -108,11 +114,13 @@ const MediaArticlesTeamArticles = ({ teamSlug, textSearch, onAdd }) => (
 
 MediaArticlesTeamArticles.defaultProps = {
   textSearch: '',
+  targetId: null,
 };
 
 MediaArticlesTeamArticles.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   textSearch: PropTypes.string,
+  targetId: PropTypes.number, // ProjectMedia ID (in order to exclude articles already applied to this item)
   onAdd: PropTypes.func.isRequired,
 };
 
