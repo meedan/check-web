@@ -163,7 +163,7 @@ class MediaComponent extends Component {
           <React.Fragment>
             <div className={cx('media__column', styles['media-item-medias'])}>
               <div className={styles['media-item-content']}>
-                { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
+                { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} /> : null }
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
                     projectMediaId={projectMedia.dbid}

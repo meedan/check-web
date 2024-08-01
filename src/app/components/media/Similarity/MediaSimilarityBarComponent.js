@@ -21,8 +21,6 @@ const MediaSimilarityBarComponent = ({
   hasMain,
   confirmedMainItemId,
   canAdd,
-  isBlank,
-  isPublished,
 }) => {
   const classes = useStyles();
 
@@ -41,9 +39,7 @@ const MediaSimilarityBarComponent = ({
           <MediaSimilarityBarAdd
             projectMediaId={confirmedMainItemId}
             projectMediaDbid={projectMediaDbid}
-            canBeAddedToSimilar={!hasMain && !isPublished}
-            similarCanBeAddedToIt={!hasMain}
-            canBeAddedToImported={!isBlank}
+            canMerge={!hasMain}
           /> : null }
       </Box>
     </Box>
@@ -54,8 +50,6 @@ MediaSimilarityBarComponent.defaultProps = {
   confirmedMainItemId: null,
   hasMain: false,
   canAdd: false,
-  isBlank: false,
-  isPublished: false,
 };
 
 MediaSimilarityBarComponent.propTypes = {
@@ -64,8 +58,6 @@ MediaSimilarityBarComponent.propTypes = {
   hasMain: PropTypes.bool,
   confirmedMainItemId: PropTypes.string, // GraphQL base64 ID
   canAdd: PropTypes.bool,
-  isBlank: PropTypes.bool,
-  isPublished: PropTypes.bool,
 };
 
 export default MediaSimilarityBarComponent;
