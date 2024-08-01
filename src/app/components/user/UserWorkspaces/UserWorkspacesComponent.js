@@ -17,7 +17,6 @@ import SettingsHeader from '../../team/SettingsHeader';
 import TeamAvatar from '../../team/TeamAvatar';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateTeamDialog from '../../team/CreateTeamDialog';
-// todo: use updated error handling
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
@@ -109,7 +108,7 @@ const UserWorkspacesComponent = ({
         }
       />
       { totalCount > pageSize && // only display paginator if there are more than pageSize worth of workspaces overall in the database
-        <div className={workspaceStyles['workspaces-wrapper']}>
+        <div className={cx('paginator', workspaceStyles['workspaces-wrapper'])}>
           <Tooltip
             arrow
             title={
@@ -212,7 +211,7 @@ const UserWorkspacesComponent = ({
               ))}
             </ul>
           </div> :
-          <div className={styles['user-setting-content-container']}>
+          <div className={cx('no-workspaces', styles['user-setting-content-container'])}>
             <BlankState>
               <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." description="Empty message when the user is not a member of a workspace" />
             </BlankState>
@@ -229,7 +228,6 @@ const UserWorkspacesComponent = ({
 UserWorkspacesComponent.propTypes = {
   numberOfTeams: PropTypes.number.isRequired,
   teams: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,

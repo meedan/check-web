@@ -1,4 +1,5 @@
 /* eslint-disable relay/unused-fields */
+// needed for the pagination items
 import React from 'react';
 import { createPaginationContainer, graphql } from 'react-relay/compat';
 import UserWorkspacesComponent from './UserWorkspacesComponent';
@@ -19,12 +20,12 @@ const userWorkspacesQuery = graphql`
 const PaginatedUserWorkspaces = createPaginationContainer(
   props => (
     <UserWorkspacesComponent
-      teams={props.root.team_users ? props.root.team_users?.edges.map(r => r.node.team) : []}
+      teams={props.root.team_users.edges.map(n => n.node.team) || []}
       pageSize={props.pageSize}
-      justEverything={props}
-      justroot={props.root}
       totalCount={props.root.team_users?.totalCount}
       relay={props.relay}
+      user={props.root.id}
+      currentTeam={props.root.current_team_id}
       numberOfTeams={props.root.number_of_teams}
     />
   ),
@@ -36,16 +37,12 @@ const PaginatedUserWorkspaces = createPaginationContainer(
           edges {
             node {
               team {
-                id,
-                dbid,
-                name,
-                avatar,
-                slug,
-                members_count,
+                dbid
+                name
+                avatar
+                slug
+                members_count
               }
-              id,
-              status,
-              role
             }
           }
           pageInfo {
