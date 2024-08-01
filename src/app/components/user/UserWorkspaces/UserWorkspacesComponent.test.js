@@ -4,28 +4,28 @@ import UserWorkspacesComponent from './UserWorkspacesComponent';
 
 const workspaces = [
   {
-    "dbid": 8,
-    "name": "Sixth workspace",
-    "avatar": "http://localhost:3000/images/team.png",
-    "slug": "sixth-workspace",
-    "members_count": 2,
-    "id": "VGVhbS84\n"
+    dbid: 8,
+    name: 'Sixth workspace',
+    avatar: 'http://localhost:3000/images/team.png',
+    slug: 'sixth-workspace',
+    members_count: 2,
+    id: 'VGVhbS84\n',
   },
   {
-    "dbid": 12,
-    "name": "tenth workspace",
-    "avatar": "http://localhost:3000/images/team.png",
-    "slug": "tenth-workspace",
-    "members_count": 2,
-    "id": "VGVhbS8xMg==\n"
+    dbid: 12,
+    name: 'tenth workspace',
+    avatar: 'http://localhost:3000/images/team.png',
+    slug: 'tenth-workspace',
+    members_count: 2,
+    id: 'VGVhbS8xMg==\n',
   },
   {
-    "dbid": 13,
-    "name": "eleventh! workspace",
-    "avatar": "http://localhost:3000/images/team.png",
-    "slug": "eleventh-workspace",
-    "members_count": 2,
-    "id": "VGVhbS8xMw==\n"
+    dbid: 13,
+    name: 'eleventh! workspace',
+    avatar: 'http://localhost:3000/images/team.png',
+    slug: 'eleventh-workspace',
+    members_count: 2,
+    id: 'VGVhbS8xMw==\n',
   },
 ];
 
