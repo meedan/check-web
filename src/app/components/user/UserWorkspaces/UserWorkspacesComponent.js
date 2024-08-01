@@ -36,6 +36,7 @@ const updateUserMutation = graphql`
 
 const UserWorkspacesComponent = ({
   teams,
+  currentTeam,
   numberOfTeams,
   pageSize,
   totalCount,
@@ -178,7 +179,7 @@ const UserWorkspacesComponent = ({
               {teams.slice(cursor, cursor + pageSize).sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })).map(team => (
                 <ListItem
                   key={team.slug}
-                  className="switch-teams__joined-team"
+                  className={cx(workspaceStyles['list-item'], currentTeam === team.dbid && teams.length > 1 && workspaceStyles['current-active-item'])}
                   onClick={() => setCurrentTeam(team)}
                   to={`/${team.slug}/all-items`}
                   id={`switch-teams__link-to-${team.slug}`}
@@ -236,6 +237,7 @@ UserWorkspacesComponent.propTypes = {
   }).isRequired).isRequired,
   pageSize: PropTypes.number.isRequired,
   totalCount: PropTypes.number.isRequired,
+  currentTeam: PropTypes.number.isRequired,
 };
 
 export default UserWorkspacesComponent;

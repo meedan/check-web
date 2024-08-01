@@ -10,8 +10,6 @@ const userWorkspacesQuery = graphql`
   query PaginatedUserWorkspacesQuery($pageSize: Int!, $after: String) {
     me {
       id
-      current_team_id
-      number_of_teams
       ...PaginatedUserWorkspaces_root
     }
   }
@@ -33,6 +31,7 @@ const PaginatedUserWorkspaces = createPaginationContainer(
     root: graphql`
       fragment PaginatedUserWorkspaces_root on Me {
         number_of_teams
+        current_team_id
         team_users(first: $pageSize, after: $after, status: "member") @connection(key: "PaginatedUserWorkspaces_team_users"){
           edges {
             node {
