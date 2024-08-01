@@ -9,6 +9,7 @@ import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
 import ErrorBoundary from './error/ErrorBoundary';
 import { stringHelper } from '../customHelpers';
+import { getQueryStringValue } from '../urlHelpers';
 import styles from './login/login.module.css';
 
 function UserPasswordChange() {
@@ -16,11 +17,6 @@ function UserPasswordChange() {
 
   const handleSignIn = () => {
     browserHistory.push('/');
-  };
-
-  const getQueryStringValue = (key) => {
-    const value = window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[.+*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1');
-    return decodeURIComponent(value);
   };
 
   const showConfirm = () => {

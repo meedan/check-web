@@ -9,6 +9,11 @@ function getPathnameAndSearch(url) {
   return { pathname, search };
 }
 
+function getQueryStringValue(key) {
+  const value = window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[.+*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1');
+  return decodeURIComponent(value);
+}
+
 /**
  * Return { listUrl, listQuery, listIndex, buildSiblingUrl } that are valid.
  *
@@ -119,4 +124,9 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   };
 }
 
-export { getListUrlQueryAndIndex, getPathnameAndSearch, pageSize }; // eslint-disable-line import/prefer-default-export
+export {
+  getListUrlQueryAndIndex,
+  getPathnameAndSearch,
+  getQueryStringValue,
+  pageSize,
+}; // eslint-disable-line import/prefer-default-export

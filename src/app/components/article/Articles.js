@@ -10,15 +10,14 @@ import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
+import { getQueryStringValue, pageSize } from '../../urlHelpers';
 import MediasLoading from '../media/MediasLoading';
 import ArticleFilters from './ArticleFilters';
-import ClaimFactCheckForm from './ClaimFactCheckForm';
+import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
 import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
-
-const pageSize = 50;
 
 const ArticlesComponent = ({
   team,
@@ -40,8 +39,13 @@ const ArticlesComponent = ({
   updateMutation,
   reloadData,
 }) => {
+  let selectedArticleId = null;
+
+  if (type === 'fact-check') selectedArticleId = getQueryStringValue('factCheckId');
+  if (type === 'explainer') selectedArticleId = getQueryStringValue('explainerId');
+
   const [openEdit, setOpenEdit] = React.useState(false);
-  const [selectedArticle, setSelectedArticle] = React.useState(null);
+  const [selectedArticle, setSelectedArticle] = React.useState(selectedArticleId);
 
   // Track when number of articles increases: When it happens, it's because a new article was created, so refresh the list
   const [totalArticlesCount, setTotalArticlesCount] = React.useState(team.totalArticlesCount);
@@ -217,11 +221,12 @@ const ArticlesComponent = ({
           {/* NOTE: If we happen to edit articles from multiple places we're probably better off
               having each form type be its own QueryRenderer instead of doing lots of prop passing repeatedly
           */}
-          {openEdit && selectedArticle && type === 'fact-check' && <ClaimFactCheckForm
-            team={team}
-            article={selectedArticle}
-            onClose={setOpenEdit}
-          />}
+          {selectedArticle && type === 'fact-check' && (
+            <ClaimFactCheckFormQueryRenderer
+              factCheckId={selectedArticle}
+              onClose={() => setSelectedArticle(null)}
+            />
+          )}
           {openEdit && selectedArticle && type === 'explainer' && <ExplainerForm
             team={team}
             article={selectedArticle}
@@ -346,7 +351,6 @@ const Articles = ({
             $report_status: [String], $verification_status: [String], $imported: Boolean,
           ) {
             team(slug: $slug) {
-              ...ClaimFactCheckForm_team
               ...ExplainerForm_team
               name
               totalArticlesCount: articles_count
@@ -398,7 +402,6 @@ const Articles = ({
                           fact_check_published_on
                         }
                       }
-                      ...ClaimFactCheckForm_article
                     }
                   }
                 }
