@@ -9,7 +9,6 @@ import UserWorkspacesComponent from './UserWorkspacesComponent';
 const userWorkspacesQuery = graphql`
   query PaginatedUserWorkspacesQuery($pageSize: Int!, $after: String) {
     me {
-      id
       ...PaginatedUserWorkspaces_root
     }
   }
@@ -18,13 +17,12 @@ const userWorkspacesQuery = graphql`
 const PaginatedUserWorkspaces = createPaginationContainer(
   props => (
     <UserWorkspacesComponent
-      teams={props.root.team_users.edges.map(n => n.node.team) || []}
-      pageSize={props.pageSize}
-      totalCount={props.root.team_users?.totalCount}
-      relay={props.relay}
-      user={props.root.id}
       currentTeam={props.root.current_team_id}
       numberOfTeams={props.root.number_of_teams}
+      pageSize={props.pageSize}
+      relay={props.relay}
+      teams={props.root.team_users.edges.map(n => n.node.team) || []}
+      totalCount={props.root.team_users?.totalCount}
     />
   ),
   {

@@ -35,12 +35,12 @@ const updateUserMutation = graphql`
 `;
 
 const UserWorkspacesComponent = ({
-  teams,
   currentTeam,
   numberOfTeams,
   pageSize,
-  totalCount,
   relay,
+  teams,
+  totalCount,
 }) => {
   const [showCreateTeamDialog, setShowCreateTeamDialog] = React.useState(false);
   const [cursor, setCursor] = React.useState(0);
@@ -227,7 +227,9 @@ const UserWorkspacesComponent = ({
 };
 
 UserWorkspacesComponent.propTypes = {
+  currentTeam: PropTypes.number.isRequired,
   numberOfTeams: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
   teams: PropTypes.arrayOf(PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -235,9 +237,7 @@ UserWorkspacesComponent.propTypes = {
     slug: PropTypes.string.isRequired,
     members_count: PropTypes.number.isRequired,
   }).isRequired).isRequired,
-  pageSize: PropTypes.number.isRequired,
   totalCount: PropTypes.number.isRequired,
-  currentTeam: PropTypes.number.isRequired,
 };
 
 export default UserWorkspacesComponent;
