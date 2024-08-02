@@ -28,6 +28,15 @@ const removeClaimDescriptionMutation = graphql`
   mutation RemoveArticleButtonUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
     updateClaimDescription(input: $input) {
       claim_description {
+        project_media_was {
+          title
+          claim_description {
+            description
+            fact_check {
+              title
+            }
+          }
+        }
         project_media {
           articles_count
           report_status
