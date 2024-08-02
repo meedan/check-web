@@ -3,7 +3,6 @@ shared_examples 'similarity' do
     api_create_team_claims_sources_and_redirect_to_all_items({ count: 3 })
     verbose_wait 2 # Wait for the items to be indexed in ElasticSearch
     wait_for_selector('.search__results-heading')
-    all_items_url = @driver.current_url.to_s
     wait_for_selector('.cluster-card').click
     wait_for_selector('#media-similarity__add-button').click
 
