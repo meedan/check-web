@@ -61,6 +61,7 @@ const ArticleForm = ({
   const isPublished = article.report_status === 'published';
   const readOnly = isPublished;
   const publishedAt = isPublished ? article.updated_at : null;
+  const isStatusLocked = article.claim_description?.project_media?.last_status_obj?.locked || false;
 
   React.useEffect(() => {
     setLanguage(language || defaultArticleLanguage);
@@ -144,7 +145,7 @@ const ArticleForm = ({
               <div className={styles['article-rating-wrapper']}>
                 { articleType === 'fact-check' && statuses &&
                   <RatingSelector
-                    disabled={isPublished}
+                    disabled={isPublished || isStatusLocked}
                     status={status}
                     statuses={statuses}
                     onStatusChange={handleStatusChange}
@@ -581,6 +582,9 @@ export default createFragmentContainer(ArticleForm, graphql`
         context
         project_media {
           dbid
+          last_status_obj {
+            locked
+          }
         }
       }
     }
