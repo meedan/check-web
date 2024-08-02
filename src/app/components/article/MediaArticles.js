@@ -139,6 +139,7 @@ const MediaArticlesComponent = ({
         <ChooseExistingArticleButton
           disabled={projectMedia.type === 'Blank'}
           teamSlug={team.slug}
+          projectMediaDbid={projectMedia.dbid}
           onAdd={handleConfirmAdd}
         />
         <NewArticleButton

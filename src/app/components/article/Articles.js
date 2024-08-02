@@ -11,8 +11,6 @@ import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
 import MediasLoading from '../media/MediasLoading';
-// eslint-disable-next-line no-unused-vars
-import ArticleForm from './ArticleForm'; // For GraphQL fragment
 import ArticleFilters from './ArticleFilters';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
@@ -276,6 +274,7 @@ ArticlesComponent.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
+    summary: PropTypes.string,
     url: PropTypes.string,
     language: PropTypes.string,
     updated_at: PropTypes.string,
@@ -347,7 +346,8 @@ const Articles = ({
             $report_status: [String], $verification_status: [String], $imported: Boolean,
           ) {
             team(slug: $slug) {
-              ...ArticleForm_team
+              ...ClaimFactCheckForm_team
+              ...ExplainerForm_team
               name
               totalArticlesCount: articles_count
               slug
@@ -383,7 +383,7 @@ const Articles = ({
                     ... on FactCheck {
                       id
                       title
-                      description: summary
+                      summary
                       url
                       language
                       updated_at

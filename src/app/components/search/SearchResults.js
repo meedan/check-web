@@ -16,7 +16,7 @@ import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
-import SelectAllTh from './SearchResultsTable/SelectAllTh';
+import SelectAllCheckbox from './SelectAllCheckbox';
 import SearchResultsCards from './SearchResultsCards';
 import ClusterCard from './SearchResultsCards/ClusterCard';
 import SearchRoute from '../../relay/SearchRoute';
@@ -527,7 +527,7 @@ function SearchResultsComponent({
             <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
               <div className={styles['search-results-bulk-actions']}>
                 { resultType === 'default' && (
-                  <SelectAllTh
+                  <SelectAllCheckbox
                     className={styles.noBottomBorder}
                     selectedIds={filteredSelectedProjectMediaIds}
                     projectMedias={projectMedias}
