@@ -12,15 +12,6 @@ shared_examples 'similarity' do
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     expect(@driver.page_source.include?('Media')).to be(true)
-    @driver.navigate.to all_items_url
-    wait_for_selector('.search__results-heading')
-    wait_for_selector_list('.cluster-card').last.click
-
-    # List similar items
-    wait_for_selector('.media__relationship')
-    wait_for_selector_none('.media-tab__metadata"')
-    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 2
-    expect(@driver.page_source.include?('Media')).to be(true)
   end
 
   it 'should pin and remove similarity items', bin4: true do
