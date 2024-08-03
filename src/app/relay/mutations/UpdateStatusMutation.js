@@ -27,6 +27,9 @@ class UpdateStatusMutation extends Relay.Mutation {
           last_status
           last_status_obj
           dynamic_annotation_report_design
+          fact_check {
+            rating
+          }
         }
       }`;
     default:
@@ -45,6 +48,9 @@ class UpdateStatusMutation extends Relay.Mutation {
           last_status_obj: {
             id: this.props.annotation.status_id,
             content: JSON.stringify(optimisticContent),
+          },
+          fact_check: {
+            rating: this.props.annotation.status,
           },
         },
       };
