@@ -17,10 +17,13 @@ const MediaComponentRightPanel = ({
   superAdminMask,
 }) => {
   const { team_bots: teamBots } = projectMedia.team;
+  const isSecondary = Boolean(projectMedia.is_suggested || projectMedia.is_confirmed_similar_to_another_item);
   const enabledBots = teamBots.edges.map(b => b.node.login);
   const showRequests = (enabledBots.indexOf('smooch') > -1 || projectMedia.requests_count > 0);
-  const showSuggestions = (!projectMedia.is_suggested && !projectMedia.is_confirmed_similar_to_another_item);
-  const showArticles = true; // FIXME: Set based on a feature flag?
+  const showSuggestions = !isSecondary;
+  const showArticles = !isSecondary;
+  const showSources = !isSecondary;
+  const showAnnotations = !isSecondary;
 
   return (
     <ErrorBoundary component="MediaComponentRightPanel">
@@ -49,7 +52,7 @@ const MediaComponentRightPanel = ({
             className="media-tab__articles"
           />
         )}
-        { showRequests ?
+        { showRequests && (
           <Tab
             label={
               <span>
@@ -64,8 +67,8 @@ const MediaComponentRightPanel = ({
             value="requests"
             className="media-tab__requests"
           />
-          : null }
-        { showSuggestions ?
+        )}
+        { showSuggestions && (
           <Tab
             label={
               <span>
@@ -79,29 +82,34 @@ const MediaComponentRightPanel = ({
             }
             value="suggestedMedia"
             className="media-tab__sugestedMedia"
-          /> : null }
-        <Tab
-          label={
-            <FormattedMessage
-              id="mediaComponent.annotation"
-              defaultMessage="Annotations"
-              description="Label for the Annotation tab"
-            />
-          }
-          value="metadata"
-          className="media-tab__metadata"
-        />
-        <Tab
-          label={
-            <FormattedMessage
-              id="mediaComponent.source"
-              defaultMessage="Source"
-              description="Label for the Source tab, as in source of the information"
-            />
-          }
-          value="source"
-          className="media-tab__source"
-        />
+          />
+        )}
+        { showAnnotations && (
+          <Tab
+            label={
+              <FormattedMessage
+                id="mediaComponent.annotation"
+                defaultMessage="Annotations"
+                description="Label for the Annotation tab"
+              />
+            }
+            value="metadata"
+            className="media-tab__metadata"
+          />
+        )}
+        { showSources && (
+          <Tab
+            label={
+              <FormattedMessage
+                id="mediaComponent.source"
+                defaultMessage="Source"
+                description="Label for the Source tab, as in source of the information"
+              />
+            }
+            value="source"
+            className="media-tab__source"
+          />
+        )}
       </Tabs>
       { showTab === 'requests' ? <MediaRequests media={projectMedia} all={!projectMedia.is_confirmed_similar_to_another_item} /> : null }
       { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} superAdminMask={superAdminMask} /> : null }

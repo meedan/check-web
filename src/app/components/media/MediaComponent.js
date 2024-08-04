@@ -41,6 +41,9 @@ class MediaComponent extends Component {
     } else if (this.props.view === 'similarMedia') {
       initialTab = 'suggestedMedia';
     }
+    if (this.props.projectMedia.is_suggested || this.props.projectMedia.is_confirmed_similar_to_another_item) {
+      initialTab = 'requests';
+    }
 
     this.state = {
       showTab: initialTab,
