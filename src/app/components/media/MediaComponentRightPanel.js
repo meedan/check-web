@@ -8,6 +8,7 @@ import MediaRequests from './MediaRequests';
 import MediaSource from './MediaSource';
 import MediaSuggestions from './Similarity/MediaSuggestions';
 import MediaArticles from '../article/MediaArticles';
+import MediaSecondaryBanner from './MediaSecondaryBanner';
 import ErrorBoundary from '../error/ErrorBoundary';
 
 const MediaComponentRightPanel = ({
@@ -27,6 +28,7 @@ const MediaComponentRightPanel = ({
 
   return (
     <ErrorBoundary component="MediaComponentRightPanel">
+      <MediaSecondaryBanner projectMedia={projectMedia} />
       <Tabs
         indicatorColor="primary"
         onChange={(e, value) => setShowTab(value)}
