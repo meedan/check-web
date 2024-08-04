@@ -3,5 +3,15 @@
     "id": "mediaSuggestionBanner.alertTitle",
     "description": "Title of the alert message displayed on item page for suggestions.",
     "defaultMessage": "Requests and Media appear to be similar as an existing item in your workspace. Are they a good match?"
+  },
+  {
+    "id": "mediaSuggestionBanner.approve",
+    "description": "Button label to accept similarity suggestion.",
+    "defaultMessage": "Yes, they are the same"
+  },
+  {
+    "id": "mediaSuggestionBanner.reject",
+    "description": "Button label to reject similarity suggestion.",
+    "defaultMessage": "No, keep them separate"
   }
 ]

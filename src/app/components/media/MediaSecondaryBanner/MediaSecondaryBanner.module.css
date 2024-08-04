@@ -2,11 +2,26 @@
   margin: 16px;
 }
 
+.mediaSuggestionsBanner {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.mediaSuggestionsBannerButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
 .mediaMainItemPreview {
   align-items: center;
   background: var(--color-beige-93);
   border-radius: 5px;
   display: flex;
+  flex: 1;
   gap: 8px;
   margin-top: 32px;
   padding: 8px;
