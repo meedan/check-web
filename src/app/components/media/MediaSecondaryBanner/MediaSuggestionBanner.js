@@ -36,7 +36,7 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
                   variant="contained"
                   theme="validation"
                   iconLeft={<ApproveIcon />}
-                  label={<FormattedMessage id="mediaSuggestionBanner.approve" defaultMessage="Yes, they are the same" description="Button label to accept similarity suggestion." />}
+                  label={<FormattedMessage id="mediaSuggestionBanner.approve" defaultMessage="Yes, they are similar" description="Button label to accept similarity suggestion." />}
                   onClick={handleApprove}
                 />
                 <ButtonMain

@@ -7,7 +7,7 @@
   {
     "id": "mediaSuggestionBanner.approve",
     "description": "Button label to accept similarity suggestion.",
-    "defaultMessage": "Yes, they are the same"
+    "defaultMessage": "Yes, they are similar"
   },
   {
     "id": "mediaSuggestionBanner.reject",
