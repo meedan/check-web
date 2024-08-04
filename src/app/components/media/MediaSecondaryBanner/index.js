@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import MediaSuggestionBanner from './MediaSuggestionBanner';
 import MediaConfirmationBanner from './MediaConfirmationBanner';
+import styles from './MediaSecondaryBanner.module.css';
 
 const MediaSecondaryBanner = ({ projectMedia }) => (
-  <>
+  <div className={styles.mediaSecondaryBanner}>
     { projectMedia.is_suggested && <MediaSuggestionBanner projectMedia={projectMedia} /> }
     { projectMedia.is_confirmed && <MediaConfirmationBanner projectMedia={projectMedia} /> }
-  </>
+  </div>
 );
 
 MediaSecondaryBanner.propTypes = {

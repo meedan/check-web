@@ -7,7 +7,6 @@ import MediaMainItemPreview from './MediaMainItemPreview';
 
 const MediaSuggestionBanner = ({ projectMedia }) => (
   <Alert
-    banner
     icon
     variant="warning"
     title={

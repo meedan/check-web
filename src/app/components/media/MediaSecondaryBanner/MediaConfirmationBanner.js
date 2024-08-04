@@ -7,7 +7,6 @@ import MediaMainItemPreview from './MediaMainItemPreview';
 
 const MediaConfirmationBanner = ({ projectMedia }) => (
   <Alert
-    banner
     icon
     variant="success"
     title={
@@ -25,7 +24,7 @@ const MediaConfirmationBanner = ({ projectMedia }) => (
           description="Content of the alert message displayed on item page for confirmed matches."
           component="div"
         />
-        <MediaMainItemPreview projectMedia={projectMedia} />
+        { projectMedia.confirmed_main_item && <MediaMainItemPreview projectMedia={projectMedia.confirmed_main_item} /> }
       </>
     }
   />
@@ -37,6 +36,8 @@ MediaConfirmationBanner.propTypes = {
 
 export default createFragmentContainer(MediaConfirmationBanner, graphql`
   fragment MediaConfirmationBanner_projectMedia on ProjectMedia {
-    ...MediaMainItemPreview_projectMedia
+    confirmed_main_item {
+      ...MediaMainItemPreview_projectMedia
+    }
   }
 `);
