@@ -22,6 +22,9 @@ MediaSecondaryBanner.propTypes = {
   projectMedia: PropTypes.object.isRequired, // See fragment for details
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { MediaSecondaryBanner }; // For unit test
+
 export default createFragmentContainer(MediaSecondaryBanner, graphql`
   fragment MediaSecondaryBanner_projectMedia on ProjectMedia {
     is_suggested

@@ -37,6 +37,9 @@ MediaMainItemPreview.propTypes = {
   projectMedia: PropTypes.object.isRequired, // See fragment for details
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { MediaMainItemPreview }; // For unit test
+
 export default createFragmentContainer(MediaMainItemPreview, graphql`
   fragment MediaMainItemPreview_projectMedia on ProjectMedia {
     title

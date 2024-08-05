@@ -147,6 +147,9 @@ MediaSuggestionBanner.propTypes = {
   projectMedia: PropTypes.object.isRequired, // See fragment for details
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { MediaSuggestionBanner }; // For unit test
+
 export default createFragmentContainer(MediaSuggestionBanner, graphql`
   fragment MediaSuggestionBanner_projectMedia on ProjectMedia {
     is_suggested
