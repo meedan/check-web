@@ -14,7 +14,7 @@ import { getQueryStringValue, pageSize } from '../../urlHelpers';
 import MediasLoading from '../media/MediasLoading';
 import ArticleFilters from './ArticleFilters';
 import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
-import ExplainerForm from './ExplainerForm';
+import { ExplainerFormQueryRenderer } from './ExplainerForm';
 import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
@@ -223,15 +223,18 @@ const ArticlesComponent = ({
           */}
           {selectedArticle && type === 'fact-check' && (
             <ClaimFactCheckFormQueryRenderer
+              teamSlug={team.slug}
               factCheckId={selectedArticle}
               onClose={() => setSelectedArticle(null)}
             />
           )}
-          {openEdit && selectedArticle && type === 'explainer' && <ExplainerForm
-            team={team}
-            article={selectedArticle}
-            onClose={setOpenEdit}
-          />}
+          {selectedArticle && type === 'explainer' && (
+            <ExplainerFormQueryRenderer
+              teamSlug={team.slug}
+              explainerId={selectedArticle}
+              onClose={() => setSelectedArticle(null)}
+            />
+          )}
         </>
       </div>
     </PageTitle>
@@ -351,10 +354,9 @@ const Articles = ({
             $report_status: [String], $verification_status: [String], $imported: Boolean,
           ) {
             team(slug: $slug) {
-              ...ExplainerForm_team
               name
-              totalArticlesCount: articles_count
               slug
+              totalArticlesCount: articles_count
               verification_statuses
               tag_texts(first: 100) {
                 edges {
@@ -382,7 +384,6 @@ const Articles = ({
                       language
                       updated_at
                       tags
-                      ...ExplainerForm_article
                     }
                     ... on FactCheck {
                       id

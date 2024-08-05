@@ -345,6 +345,7 @@ const ClaimFactCheckFormContainer = createFragmentContainer(ClaimFactCheckForm, 
 `);
 
 const ClaimFactCheckFormQueryRenderer = ({
+  teamSlug,
   factCheckId,
   onClose,
 }) => (
@@ -361,7 +362,7 @@ const ClaimFactCheckFormQueryRenderer = ({
       }
     `}
     variables={{
-      teamSlug: 'ankunding-goyette', // FIXME
+      teamSlug,
       factCheckId,
     }}
     render={({ error, props }) => {
