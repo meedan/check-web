@@ -1,5 +1,15 @@
 [
   {
+    "id": "mediaSuggestionBanner.updateSuggestionSuccess",
+    "description": "Message display once suggestion is approved or rejected successfully.",
+    "defaultMessage": "Updated successfully, refreshing..."
+  },
+  {
+    "id": "mediaSuggestionBanner.updateSuggestionError",
+    "description": "Message display when it fails to approve or reject suggestion.",
+    "defaultMessage": "Error when trying to update suggestion. Please try again or contact the support if the error persists."
+  },
+  {
     "id": "mediaSuggestionBanner.alertTitle",
     "description": "Title of the alert message displayed on item page for suggestions.",
     "defaultMessage": "Requests and Media appear to be similar as an existing item in your workspace. Are they a good match?"

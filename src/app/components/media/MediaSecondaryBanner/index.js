@@ -5,12 +5,18 @@ import MediaSuggestionBanner from './MediaSuggestionBanner';
 import MediaConfirmationBanner from './MediaConfirmationBanner';
 import styles from './MediaSecondaryBanner.module.css';
 
-const MediaSecondaryBanner = ({ projectMedia }) => (
-  <div className={styles.mediaSecondaryBanner}>
-    { projectMedia.is_suggested && <MediaSuggestionBanner projectMedia={projectMedia} /> }
-    { projectMedia.is_confirmed && <MediaConfirmationBanner projectMedia={projectMedia} /> }
-  </div>
-);
+const MediaSecondaryBanner = ({ projectMedia }) => {
+  if (!projectMedia.is_suggested && !projectMedia.is_confirmed) {
+    return null;
+  }
+
+  return (
+    <div className={styles.mediaSecondaryBanner}>
+      { projectMedia.is_suggested && <MediaSuggestionBanner projectMedia={projectMedia} /> }
+      { projectMedia.is_confirmed && <MediaConfirmationBanner projectMedia={projectMedia} /> }
+    </div>
+  );
+};
 
 MediaSecondaryBanner.propTypes = {
   projectMedia: PropTypes.object.isRequired, // See fragment for details
