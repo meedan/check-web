@@ -1,0 +1,12 @@
+[
+  {
+    "id": "mediaConfirmationBanner.alertTitle",
+    "description": "Title of the alert message displayed on item page for confirmed matches.",
+    "defaultMessage": "Requests and Media have been matched to another item in this workspace."
+  },
+  {
+    "id": "mediaConfirmationBanner.alertContent",
+    "description": "Content of the alert message displayed on item page for confirmed matches.",
+    "defaultMessage": "All requests for this item will be responded to by the matched item below."
+  }
+]
