@@ -21,7 +21,7 @@ const ItemDescription = ({
   const shouldShowButton = showCollapseButton && (!isCollapsed || (isCollapsed && isTextOverflowing));
 
   const toggleCollapse = (e) => {
-    e.preventDefault();
+    e.stopPropagation();
     setIsCollapsed(!isCollapsed);
   };
 

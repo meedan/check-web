@@ -14,6 +14,8 @@ import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
 import MediaFeedInformation from './MediaFeedInformation';
+/* eslint-disable-next-line no-unused-vars */
+import MediaSecondaryBanner from './MediaSecondaryBanner'; // For fragment
 import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
@@ -40,6 +42,9 @@ class MediaComponent extends Component {
       }
     } else if (this.props.view === 'similarMedia') {
       initialTab = 'suggestedMedia';
+    }
+    if (this.props.projectMedia.is_suggested || this.props.projectMedia.is_confirmed_similar_to_another_item) {
+      initialTab = 'requests';
     }
 
     this.state = {
@@ -163,7 +168,7 @@ class MediaComponent extends Component {
           <React.Fragment>
             <div className={cx('media__column', styles['media-item-medias'])}>
               <div className={styles['media-item-content']}>
-                { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
+                { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} /> : null }
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
                     projectMediaId={projectMedia.dbid}
@@ -257,6 +262,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     ...MediaSimilaritiesComponent_projectMedia
     ...MediaCardLarge_projectMedia
     ...MediaFeedInformation_projectMedia
+    ...MediaSecondaryBanner_projectMedia
     id
     dbid
     title

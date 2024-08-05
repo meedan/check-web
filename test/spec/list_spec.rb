@@ -12,9 +12,9 @@ shared_examples 'list' do
     wait_for_selector('.cluster-card')
     expect(@driver.find_elements(:css, '.cluster-card').size == 1).to be(true)
     @driver.navigate.refresh
-    wait_for_selector('.project-list__link')
-    expect(@driver.find_elements(:css, '.list-sort-desc').empty?).to be(false)
+    wait_for_selector('.list-sort-desc')
     expect(@driver.find_elements(:css, '.cluster-card').size == 1).to be(true)
+    expect(@driver.find_elements(:css, '.list-sort-desc').empty?).to be(false)
   end
 
   it 'should paginate all-items page', bin4: true do

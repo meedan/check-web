@@ -280,6 +280,7 @@ module AppSpecHelpers
     wait_for_selector('.autocomplete-media-item__select').click
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector_none('#create-media-dialog__dismiss-button')
+    @driver.navigate.refresh
   end
 
   def add_article_to_item

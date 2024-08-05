@@ -55,6 +55,9 @@ shared_examples 'source' do
     wait_for_selector('#media-source__create-button')
     wait_for_selector('input[name=source-name]').send_keys('CNN')
     @driver.action.send_keys(:enter).perform
+    @driver.navigate.refresh
+    wait_for_selector('.test__media')
+    wait_for_selector('.media-tab__source').click
     wait_for_selector('#main_source__link')
     wait_for_selector('.source__name')
     expect(@driver.page_source.downcase.include?('brasil')).to be(true)
