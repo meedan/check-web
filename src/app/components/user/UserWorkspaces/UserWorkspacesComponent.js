@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import { commitMutation, graphql } from 'react-relay/compat';
+import { commitMutation, createPaginationContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -240,4 +240,58 @@ UserWorkspacesComponent.propTypes = {
   totalCount: PropTypes.number.isRequired,
 };
 
+
+const PaginatedUserWorkspaces = createPaginationContainer(
+  props => (
+    <UserWorkspacesComponent
+      currentTeam={props.root.current_team_id}
+      numberOfTeams={props.root.number_of_teams}
+      pageSize={props.pageSize}
+      relay={props.relay}
+      teams={props.root.team_users.edges.map(n => n.node.team) || []}
+      totalCount={props.root.team_users?.totalCount}
+    />
+  ),
+  {
+    root: graphql`
+      fragment UserWorkspacesComponent_root on Me {
+        number_of_teams
+        current_team_id
+        team_users(first: $pageSize, after: $after, status: "member") @connection(key: "PaginatedUserWorkspaces_team_users"){
+          edges {
+            node {
+              team {
+                dbid
+                name
+                avatar
+                slug
+                members_count
+              }
+            }
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          totalCount
+        }
+      }
+    `,
+  },
+  {
+    direction: 'forward',
+    query: props => props.query,
+    getConnectionFromProps: props => props.root.team_users,
+    getFragmentVariables: (previousVars, pageSize) => ({
+      ...previousVars,
+      pageSize,
+    }),
+    getVariables: (props, paginationInfo, fragmentVariables) => ({
+      pageSize: fragmentVariables.pageSize,
+      after: paginationInfo.cursor,
+    }),
+  },
+);
+
+export { PaginatedUserWorkspaces };
 export default UserWorkspacesComponent;
