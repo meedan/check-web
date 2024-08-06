@@ -10,8 +10,8 @@ function getPathnameAndSearch(url) {
 }
 
 function getQueryStringValue(key) {
-  const value = window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[.+*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1');
-  return decodeURIComponent(value);
+  const params = new URLSearchParams(document.location.search);
+  return params.get(key);
 }
 
 /**
