@@ -6,7 +6,6 @@ import { Link } from 'react-router';
 import cx from 'classnames/bind';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
-import ProfileLink from '../layout/ProfileLink';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import { languageLabel } from '../../LanguageRegistry';
 import {
@@ -77,7 +76,7 @@ class Annotation extends Component {
       ? <span className={cx('test-annotation__timestamp', styles['annotation-timestamp'])}><TimeBefore date={updatedAt} /></span>
       : null;
     const authorName = activity.user
-      ? <ProfileLink className="annotation__author-name" user={activity.user} /> : null;
+      ? <span className="annotation__author-name" > {activity.user.name} </span> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;
