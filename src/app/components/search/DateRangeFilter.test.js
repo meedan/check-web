@@ -51,7 +51,7 @@ describe('<DateRangeFilter />', () => {
         <DateRangeFilter
           classes={{}}
           value={{
-            media_published_at: {
+            report_published_at: {
               start_time: '',
               end_time: '',
             },
@@ -62,7 +62,7 @@ describe('<DateRangeFilter />', () => {
       </MuiPickersUtilsProvider>,
     );
 
-    expect(wrapper.find('select').first().props().value).toBe('media_published_at');
+    expect(wrapper.find('select').first().props().value).toBe('report_published_at');
   });
 
   it('should calculate UTC offset for start', () => {
