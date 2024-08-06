@@ -44,7 +44,6 @@ const ArticlesComponent = ({
   if (type === 'fact-check') selectedArticleId = getQueryStringValue('factCheckId');
   if (type === 'explainer') selectedArticleId = getQueryStringValue('explainerId');
 
-  const [openEdit, setOpenEdit] = React.useState(false);
   const [selectedArticle, setSelectedArticle] = React.useState(selectedArticleId);
 
   // Track when number of articles increases: When it happens, it's because a new article was created, so refresh the list
@@ -113,15 +112,13 @@ const ArticlesComponent = ({
   };
 
   const handleClick = (article) => {
-    if (!openEdit) {
-      setSelectedArticle(article);
-      setOpenEdit(true);
-    }
-    if (openEdit && article !== selectedArticle) {
-      setOpenEdit(false);
-      setSelectedArticle(article);
+    if (article.dbid !== selectedArticle) {
+      setSelectedArticle(null);
       setTimeout(() => {
-        setOpenEdit(true);
+        setSelectedArticle(article.dbid);
+        const url = new URL(window.location);
+        url.searchParams.set(type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
+        window.history.pushState({}, '', url);
       }, 10);
     }
   };
@@ -378,6 +375,7 @@ const Articles = ({
                   node {
                     ... on Explainer {
                       id
+                      dbid
                       title
                       description
                       url
@@ -387,6 +385,7 @@ const Articles = ({
                     }
                     ... on FactCheck {
                       id
+                      dbid
                       title
                       summary
                       url
