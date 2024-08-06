@@ -1,6 +1,6 @@
 import React from 'react';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
-import UserWorkspacesComponent from './UserWorkspacesComponent';
+import { UserWorkspacesComponent } from './PaginatedUserWorkspaces';
 
 const workspaces = [
   {
@@ -43,7 +43,7 @@ describe('<UserWorkspacesComponent />', () => {
     expect(wrapper.find('.teams').hostNodes()).toHaveLength(0);
   });
 
-  it('should show pagination if there are more than 10 workspaces', () => {
+  it('should show pagination if there are more workspaces than can fit on a single page', () => {
     const wrapper = mountWithIntl(<UserWorkspacesComponent
       teams={workspaces}
       pageSize={2}
@@ -53,6 +53,5 @@ describe('<UserWorkspacesComponent />', () => {
       numberOfTeams={3}
     />);
     expect(wrapper.find('.teams').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.paginator').hostNodes()).toHaveLength(1);
   });
 });

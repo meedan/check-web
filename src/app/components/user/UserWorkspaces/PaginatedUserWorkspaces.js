@@ -9,9 +9,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import cx from 'classnames/bind';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import NextIcon from '../../../icons/chevron_right.svg';
-import PrevIcon from '../../../icons/chevron_left.svg';
 import BlankState from '../../layout/BlankState';
 import SettingsHeader from '../../team/SettingsHeader';
 import TeamAvatar from '../../team/TeamAvatar';
@@ -23,13 +21,22 @@ import { stringHelper } from '../../../customHelpers';
 import styles from '../user.module.css';
 import workspaceStyles from './UserWorkspacesComponent.module.css';
 import MediasLoading from '../../media/MediasLoading';
+import Paginator from '../../cds/inputs/Paginator';
 
 const updateUserMutation = graphql`
-  mutation UserWorkspacesComponentUpdateUserMutation($input: UpdateUserInput!) {
+  mutation PaginatedUserWorkspacesUpdateUserMutation($input: UpdateUserInput!) {
     updateUser(input: $input) {
       me {
         current_team_id
       }
+    }
+  }
+`;
+
+const userWorkspacesQuery = graphql`
+  query PaginatedUserWorkspacesQuery($pageSize: Int!, $after: String) {
+    me {
+      ...PaginatedUserWorkspaces_root
     }
   }
 `;
@@ -44,6 +51,7 @@ const UserWorkspacesComponent = ({
 }) => {
   const [showCreateTeamDialog, setShowCreateTeamDialog] = React.useState(false);
   const [cursor, setCursor] = React.useState(0);
+  const [page, setPage] = React.useState(1);
   const [isPaginationLoading, setIsPaginationLoading] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -85,6 +93,23 @@ const UserWorkspacesComponent = ({
     setShowCreateTeamDialog(false);
   };
 
+  const handlePageChange = (newPage) => {
+    if (newPage > page) {
+      if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= teams.length)) {
+        setIsPaginationLoading(true);
+        relay.loadMore(pageSize, () => {
+          setCursor(cursor + pageSize);
+          setIsPaginationLoading(false);
+        });
+      } else if (cursor + pageSize < teams.length) {
+        setCursor(cursor + pageSize);
+      }
+    } else if (cursor - pageSize >= 0) {
+      setCursor(cursor - pageSize);
+    }
+    setPage(newPage);
+  };
+
   return (
     <>
       <SettingsHeader
@@ -109,67 +134,13 @@ const UserWorkspacesComponent = ({
         }
       />
       { totalCount > pageSize && // only display paginator if there are more than pageSize worth of workspaces overall in the database
-        <div className={cx('paginator', workspaceStyles['workspaces-wrapper'])}>
-          <Tooltip
-            arrow
-            title={
-              <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
-            }
-          >
-            <span>
-              <ButtonMain
-                disabled={isPaginationLoading || cursor - pageSize < 0}
-                variant="text"
-                theme="brand"
-                size="default"
-                onClick={() => {
-                  if (cursor - pageSize >= 0) {
-                    setCursor(cursor - pageSize);
-                  }
-                }}
-                iconCenter={<PrevIcon />}
-              />
-            </span>
-          </Tooltip>
-          <span className={cx('typography-button', styles['workspace-header-count'])}>
-            <FormattedMessage
-              id="searchResults.itemsCount"
-              defaultMessage="{totalCount, plural, one {1 / 1} other {{from} - {to} / #}}"
-              description="Pagination count of items returned"
-              values={{
-                from: cursor + 1,
-                to: Math.min(cursor + pageSize, totalCount),
-                totalCount,
-              }}
-            />
-          </span>
-          <Tooltip
-            title={
-              <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
-            }
-          >
-            <span>
-              <ButtonMain
-                disabled={isPaginationLoading || cursor + pageSize >= totalCount}
-                variant="text"
-                theme="brand"
-                size="default"
-                onClick={() => {
-                  if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= teams.length)) {
-                    setIsPaginationLoading(true);
-                    relay.loadMore(pageSize, () => {
-                      setCursor(cursor + pageSize);
-                      setIsPaginationLoading(false);
-                    });
-                  } else if (cursor + pageSize < teams.length) {
-                    setCursor(cursor + pageSize);
-                  }
-                }}
-                iconCenter={<NextIcon />}
-              />
-            </span>
-          </Tooltip>
-        </div>
+        <Paginator
+          page={page}
+          pageSize={pageSize}
+          numberOfPageResults={cursor + pageSize >= totalCount ? totalCount % pageSize : pageSize}
+          numberOfTotalResults={totalCount}
+          onChangePage={handlePageChange}
+        />
       }
       <div className={styles['user-setting-details-wrapper']}>
         { teams.length ?
@@ -254,7 +225,7 @@ const PaginatedUserWorkspaces = createPaginationContainer(
   ),
   {
     root: graphql`
-      fragment UserWorkspacesComponent_root on Me {
+      fragment PaginatedUserWorkspaces_root on Me {
         number_of_teams
         current_team_id
         team_users(first: $pageSize, after: $after, status: "member") @connection(key: "PaginatedUserWorkspaces_team_users"){
@@ -280,7 +251,7 @@ const PaginatedUserWorkspaces = createPaginationContainer(
   },
   {
     direction: 'forward',
-    query: props => props.query,
+    query: userWorkspacesQuery,
     getConnectionFromProps: props => props.root.team_users,
     getFragmentVariables: (previousVars, pageSize) => ({
       ...previousVars,
@@ -292,6 +263,7 @@ const PaginatedUserWorkspaces = createPaginationContainer(
     }),
   },
 );
-
-export { PaginatedUserWorkspaces };
-export default UserWorkspacesComponent;
+// for unit tests
+// eslint-disable-next-line import/no-unused-modules
+export { UserWorkspacesComponent };
+export default PaginatedUserWorkspaces;
