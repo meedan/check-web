@@ -20,16 +20,6 @@
     "defaultMessage": "{membersCount, plural, one {# member} other {# members}}"
   },
   {
-    "id": "switchTeams.joinRequestMessage",
-    "description": "Status message of a request to join a workspace",
-    "defaultMessage": "You requested to join"
-  },
-  {
-    "id": "switchTeams.cancelJoinRequest",
-    "description": "Button label to cancel a request to join a workspace",
-    "defaultMessage": "Cancel"
-  },
-  {
     "id": "switchTeams.noTeams",
     "description": "Empty message when the user is not a member of a workspace",
     "defaultMessage": "Not a member of any workspace."
