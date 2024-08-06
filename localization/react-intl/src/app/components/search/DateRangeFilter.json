@@ -5,11 +5,6 @@
     "defaultMessage": "Request submitted"
   },
   {
-    "id": "search.dateLastSubmittedHeading",
-    "description": "This is a heading in a drop down selector, to filter a search by the last submitted date",
-    "defaultMessage": "Media published"
-  },
-  {
     "id": "search.dateUpdatedHeading",
     "description": "This is a heading in a drop down selector, to filter a search by date updated",
     "defaultMessage": "Item updated"
