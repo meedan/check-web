@@ -39,12 +39,12 @@ const ArticlesComponent = ({
   updateMutation,
   reloadData,
 }) => {
-  let selectedArticleId = null;
+  let articleDbidFromUrl = null;
 
-  if (type === 'fact-check') selectedArticleId = getQueryStringValue('factCheckId');
-  if (type === 'explainer') selectedArticleId = getQueryStringValue('explainerId');
+  if (type === 'fact-check') articleDbidFromUrl = getQueryStringValue('factCheckId');
+  if (type === 'explainer') articleDbidFromUrl = getQueryStringValue('explainerId');
 
-  const [selectedArticle, setSelectedArticle] = React.useState(selectedArticleId);
+  const [selectedArticleDbid, setSelectedArticleDbid] = React.useState(articleDbidFromUrl);
 
   // Track when number of articles increases: When it happens, it's because a new article was created, so refresh the list
   const [totalArticlesCount, setTotalArticlesCount] = React.useState(team.totalArticlesCount);
@@ -112,10 +112,10 @@ const ArticlesComponent = ({
   };
 
   const handleClick = (article) => {
-    if (article.dbid !== selectedArticle) {
-      setSelectedArticle(null);
+    if (article.dbid !== selectedArticleDbid) {
+      setSelectedArticleDbid(null);
       setTimeout(() => {
-        setSelectedArticle(article.dbid);
+        setSelectedArticleDbid(article.dbid);
         const url = new URL(window.location);
         url.searchParams.set(type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
         window.history.pushState({}, '', url);
@@ -218,18 +218,18 @@ const ArticlesComponent = ({
           {/* NOTE: If we happen to edit articles from multiple places we're probably better off
               having each form type be its own QueryRenderer instead of doing lots of prop passing repeatedly
           */}
-          {selectedArticle && type === 'fact-check' && (
+          {selectedArticleDbid && type === 'fact-check' && (
             <ClaimFactCheckFormQueryRenderer
               teamSlug={team.slug}
-              factCheckId={selectedArticle}
-              onClose={() => setSelectedArticle(null)}
+              factCheckId={selectedArticleDbid}
+              onClose={() => setSelectedArticleDbid(null)}
             />
           )}
-          {selectedArticle && type === 'explainer' && (
+          {selectedArticleDbid && type === 'explainer' && (
             <ExplainerFormQueryRenderer
               teamSlug={team.slug}
-              explainerId={selectedArticle}
-              onClose={() => setSelectedArticle(null)}
+              explainerId={selectedArticleDbid}
+              onClose={() => setSelectedArticleDbid(null)}
             />
           )}
         </>
