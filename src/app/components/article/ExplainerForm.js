@@ -7,7 +7,6 @@ import ArticleForm from './ArticleForm';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import MediasLoading from '../media/MediasLoading';
 
 const addMutation = graphql`
   mutation ExplainerFormCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
@@ -233,9 +232,6 @@ const ExplainerFormQueryRenderer = ({
       explainerId,
     }}
     render={({ error, props }) => {
-      if (!props && !error) {
-        return <MediasLoading />;
-      }
       if (props && !error) {
         return <ExplainerFormContainer article={props.explainer} team={props.team} onClose={onClose} />;
       }

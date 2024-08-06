@@ -7,7 +7,6 @@ import ArticleForm from './ArticleForm';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import MediasLoading from '../media/MediasLoading';
 
 const updateClaimMutation = graphql`
   mutation ClaimFactCheckFormUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
@@ -366,9 +365,6 @@ const ClaimFactCheckFormQueryRenderer = ({
       factCheckId,
     }}
     render={({ error, props }) => {
-      if (!props && !error) {
-        return <MediasLoading />;
-      }
       if (props && !error) {
         return <ClaimFactCheckFormContainer article={props.fact_check} team={props.team} onClose={onClose} />;
       }
