@@ -76,7 +76,7 @@ class Annotation extends Component {
       ? <span className={cx('test-annotation__timestamp', styles['annotation-timestamp'])}><TimeBefore date={updatedAt} /></span>
       : null;
     const authorName = activity.user
-      ? <span className="annotation__author-name" user={activity.user}> {activity.user.name} </span> : null;
+      ? <span className="annotation__author-name" > {activity.user.name} </span> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;
