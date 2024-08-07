@@ -108,7 +108,7 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
           title={
             <FormattedMessage
               id="mediaSuggestionBanner.alertTitle"
-              defaultMessage="Media and Requests appear to be similar to an existing item in your workspace? Are they a good match?"
+              defaultMessage="Media and Requests appear to be similar to an existing item in your workspace. Are they a good match?"
               description="Title of the alert message displayed on item page for suggestions."
             />
           }
