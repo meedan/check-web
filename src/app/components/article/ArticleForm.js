@@ -223,7 +223,7 @@ const ArticleForm = ({
                           error={claimDescriptionError}
                           onBlur={(e) => {
                             const newValue = e.target.value;
-                            if (newValue.length) {
+                            if (newValue.trim().length) {
                               setClaimDescriptionError(false);
                               setClaimDescription(newValue);
                               handleBlur('claim description', newValue);
@@ -330,7 +330,7 @@ const ArticleForm = ({
                         label={<FormattedMessage id="articleForm.explainerTitle" defaultMessage="Title" description="Label for explainer title field" />}
                         onBlur={(e) => {
                           const newValue = e.target.value;
-                          if (newValue.length) {
+                          if (newValue.trim().length) {
                             setTitleError(false);
                             setArticleTitle(newValue);
                             handleBlur('title', newValue);
@@ -362,7 +362,7 @@ const ArticleForm = ({
                         disabled={readOnly}
                         onBlur={(e) => {
                           const newValue = e.target.value;
-                          if (newValue.length) {
+                          if (newValue.trim().length) {
                             setTitleError(false);
                             setArticleTitle(newValue);
                             handleBlur('title', newValue);
@@ -397,7 +397,7 @@ const ArticleForm = ({
                           placeholder={placeholder}
                           onBlur={(e) => {
                             const newValue = e.target.value;
-                            if (newValue.length) {
+                            if (newValue.trim().length) {
                               setSummaryError(false);
                               setSummary(newValue);
                               handleBlur('description', newValue);
@@ -432,7 +432,7 @@ const ArticleForm = ({
                           disabled={readOnly}
                           onBlur={(e) => {
                             const newValue = e.target.value;
-                            if (newValue.length) {
+                            if (newValue.trim().length) {
                               setSummaryError(false);
                               setSummary(newValue);
                               handleBlur('summary', newValue);

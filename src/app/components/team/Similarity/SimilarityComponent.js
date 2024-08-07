@@ -272,7 +272,7 @@ const SimilarityComponent = ({
                 <FormattedMessage
                   id="similarityComponent.singleLanguageFactChecksEnabled"
                   description="Label displayed when similarity setting for single language fact-checks is enabled"
-                  defaultMessage="Only send fact-checks in the same language as the conversation language"
+                  defaultMessage="Only send articles in the same language as the conversation language"
                 />
               }
               helperContent={
