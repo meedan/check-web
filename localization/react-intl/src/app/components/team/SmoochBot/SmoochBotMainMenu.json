@@ -15,11 +15,6 @@
     "defaultMessage": "{numberOfLanguages} languages"
   },
   {
-    "id": "smoochBotMainMenu.mainMenu",
-    "description": "Title of the tipline bot main menu settings page.",
-    "defaultMessage": "Main menu"
-  },
-  {
     "id": "smoochBotMainMenu.subtitle2",
     "description": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform.",
     "defaultMessage": "Please note that some messaging services have different menu display options than others."

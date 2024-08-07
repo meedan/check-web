@@ -195,6 +195,11 @@
     "defaultMessage": "Our bot is currently inactive. Please visit *insert URL* to read the latest fact-checks."
   },
   {
+    "id": "smoochBotContentAndTranslation.pageTitle",
+    "description": "Page title where users can customize the content that the tipline bot will respond with",
+    "defaultMessage": "Bot Content & Translations"
+  },
+  {
     "id": "smoochBotContentAndTranslation.error",
     "description": "Error message displayed on the tipline settings page when the placeholder is not present",
     "defaultMessage": "The placeholder {subscription_status} is missing from your custom content or translation"
