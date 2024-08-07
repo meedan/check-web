@@ -14,7 +14,7 @@ const MediaConfirmationBanner = ({ projectMedia }) => (
         title={
           <FormattedMessage
             id="mediaConfirmationBanner.alertTitle"
-            defaultMessage="Requests and Media have been matched to another item in this workspace."
+            defaultMessage="Media and Requests have been matched to another item in this workspace."
             description="Title of the alert message displayed on item page for confirmed matches."
           />
         }
