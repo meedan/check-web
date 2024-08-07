@@ -15,7 +15,7 @@ class WebPageMediaCard extends Component {
     const { projectMedia: { team }, projectMedia: { media: { metadata } } } = this.props;
     const embed = metadata;
     if (!embed.html) return false;
-    if (!team.get_embed_whitelist) return false;
+    if (!team?.get_embed_whitelist) return false;
     return team.get_embed_whitelist.split(',').some((domain) => {
       const url = new URL(embed.url);
       return url.hostname.indexOf(domain.trim()) > -1;
