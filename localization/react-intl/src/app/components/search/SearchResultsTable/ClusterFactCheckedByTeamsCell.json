@@ -1,7 +1,0 @@
-[
-  {
-    "id": "checkedByTeamsCell.noFactCheck",
-    "description": "Table cell displayed on feed page when claim is not fact-checked yet",
-    "defaultMessage": "No fact-check"
-  }
-]
