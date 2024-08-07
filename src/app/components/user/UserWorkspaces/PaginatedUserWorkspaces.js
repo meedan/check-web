@@ -216,7 +216,7 @@ const PaginatedUserWorkspaces = createPaginationContainer(
   props => (
     <UserWorkspacesComponent
       currentTeam={props.root.current_team_id}
-      numberOfTeams={props.root.number_of_teams}
+      numberOfTeams={props.root.team_users_count}
       pageSize={props.pageSize}
       relay={props.relay}
       teams={props.root.team_users.edges.map(n => n.node.team) || []}
@@ -226,8 +226,8 @@ const PaginatedUserWorkspaces = createPaginationContainer(
   {
     root: graphql`
       fragment PaginatedUserWorkspaces_root on Me {
-        number_of_teams
         current_team_id
+        team_users_count(status: "member")
         team_users(first: $pageSize, after: $after, status: "member") @connection(key: "PaginatedUserWorkspaces_team_users"){
           edges {
             node {
