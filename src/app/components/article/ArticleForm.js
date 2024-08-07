@@ -222,14 +222,14 @@ const ArticleForm = ({
                           defaultValue={claimDescription || ''}
                           error={claimDescriptionError}
                           onBlur={(e) => {
-                            const newValue = e.target.value;
-                            if (newValue.trim().length) {
+                            const newValue = e.target.value.trim();
+                            if (newValue.length) {
                               setClaimDescriptionError(false);
-                              setClaimDescription(newValue);
                               handleBlur('claim description', newValue);
                             } else {
                               setClaimDescriptionError(true);
                             }
+                            setClaimDescription(newValue);
                           }}
                           label={
                             <FormattedMessage
@@ -329,14 +329,14 @@ const ArticleForm = ({
                         placeholder={placeholder}
                         label={<FormattedMessage id="articleForm.explainerTitle" defaultMessage="Title" description="Label for explainer title field" />}
                         onBlur={(e) => {
-                          const newValue = e.target.value;
-                          if (newValue.trim().length) {
+                          const newValue = e.target.value.trim();
+                          if (newValue.length) {
                             setTitleError(false);
-                            setArticleTitle(newValue);
                             handleBlur('title', newValue);
                           } else {
                             setTitleError(true);
                           }
+                          setArticleTitle(newValue);
                         }}
                       />)}
                     </FormattedMessage> :
@@ -361,14 +361,14 @@ const ArticleForm = ({
                         label={<FormattedMessage id="articleForm.factCheckTitle" defaultMessage="Title" description="Label for fact-check title field" />}
                         disabled={readOnly}
                         onBlur={(e) => {
-                          const newValue = e.target.value;
-                          if (newValue.trim().length) {
+                          const newValue = e.target.value.trim();
+                          if (newValue.length) {
                             setTitleError(false);
-                            setArticleTitle(newValue);
                             handleBlur('title', newValue);
                           } else {
                             setTitleError(true);
                           }
+                          setArticleTitle(newValue);
                         }}
                       />)}
                     </FormattedMessage>}
@@ -396,14 +396,14 @@ const ArticleForm = ({
                           autoGrow
                           placeholder={placeholder}
                           onBlur={(e) => {
-                            const newValue = e.target.value;
-                            if (newValue.trim().length) {
+                            const newValue = e.target.value.trim();
+                            if (newValue.length) {
                               setSummaryError(false);
-                              setSummary(newValue);
                               handleBlur('description', newValue);
                             } else {
                               setSummaryError(true);
                             }
+                            setSummary(newValue);
                           }}
                         />
                       )}
@@ -431,14 +431,14 @@ const ArticleForm = ({
                           placeholder={placeholder}
                           disabled={readOnly}
                           onBlur={(e) => {
-                            const newValue = e.target.value;
-                            if (newValue.trim().length) {
+                            const newValue = e.target.value.trim();
+                            if (newValue.length) {
                               setSummaryError(false);
-                              setSummary(newValue);
                               handleBlur('summary', newValue);
                             } else {
                               setSummaryError(true);
                             }
+                            setSummary(newValue);
                           }}
                         />
                       )}
