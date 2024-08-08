@@ -147,7 +147,7 @@ const UserWorkspacesComponent = ({
           <div className={styles['user-setting-content-container']}>
             { isPaginationLoading && <MediasLoading size="medium" theme="grey" variant="inline" /> }
             <ul className={cx('teams', styles['user-setting-content-list'])}>
-              {teams.slice(cursor, cursor + pageSize).sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })).map(team => (
+              {teams.slice(cursor, cursor + pageSize).map(team => (
                 <ListItem
                   key={team.slug}
                   className={cx(workspaceStyles['list-item'], currentTeam === team.dbid && teams.length > 1 && workspaceStyles['current-active-item'])}
