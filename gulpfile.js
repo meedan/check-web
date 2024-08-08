@@ -115,7 +115,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
   const devConfig = {
     ...webpackConfig,
     bail: (process.env.MODE === 'test'), // Exit on error if on test mode
-    mode: 'development', // FIXME: Need to change to "production" to work around Relay update issues related to https://github.com/facebook/relay/issues/2049
+    mode: 'production', // FIXME: Need to change to "production" to work around Relay update issues related to https://github.com/facebook/relay/issues/2049
     watch: true,
   };
 

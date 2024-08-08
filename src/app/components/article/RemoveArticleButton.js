@@ -30,6 +30,12 @@ const removeClaimDescriptionMutation = graphql`
       claim_description {
         project_media_was {
           title
+          last_status_obj {
+            locked
+          }
+          dynamic_annotation_report_design {
+            data
+          }
           claim_description {
             description
             fact_check {
