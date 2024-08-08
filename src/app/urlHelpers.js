@@ -14,6 +14,18 @@ function getQueryStringValue(key) {
   return params.get(key);
 }
 
+function pushQueryStringValue(key, value) {
+  const url = new URL(window.location);
+  url.searchParams.set(key, value);
+  window.history.pushState({}, '', url);
+}
+
+function deleteQueryStringValue(key) {
+  const url = new URL(window.location);
+  url.searchParams.delete(key);
+  window.history.pushState({}, '', url);
+}
+
 /**
  * Return { listUrl, listQuery, listIndex, buildSiblingUrl } that are valid.
  *
@@ -128,5 +140,7 @@ export {
   getListUrlQueryAndIndex,
   getPathnameAndSearch,
   getQueryStringValue,
+  pushQueryStringValue,
+  deleteQueryStringValue,
   pageSize,
 }; // eslint-disable-line import/prefer-default-export
