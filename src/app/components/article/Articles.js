@@ -10,7 +10,12 @@ import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
-import { getQueryStringValue, pageSize } from '../../urlHelpers';
+import {
+  getQueryStringValue,
+  pushQueryStringValue,
+  deleteQueryStringValue,
+  pageSize,
+} from '../../urlHelpers';
 import MediasLoading from '../media/MediasLoading';
 import ArticleFilters from './ArticleFilters';
 import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
@@ -77,6 +82,11 @@ const ArticlesComponent = ({
     });
   };
 
+  const handleCloseSlideout = () => {
+    setSelectedArticleDbid(null);
+    deleteQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId');
+  };
+
   const onCompleted = () => {
     setFlashMessage(
       <FormattedMessage
@@ -116,9 +126,7 @@ const ArticlesComponent = ({
       setSelectedArticleDbid(null);
       setTimeout(() => {
         setSelectedArticleDbid(article.dbid);
-        const url = new URL(window.location);
-        url.searchParams.set(type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
-        window.history.pushState({}, '', url);
+        pushQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
       }, 10);
     }
   };
@@ -222,14 +230,14 @@ const ArticlesComponent = ({
             <ClaimFactCheckFormQueryRenderer
               teamSlug={team.slug}
               factCheckId={selectedArticleDbid}
-              onClose={() => setSelectedArticleDbid(null)}
+              onClose={handleCloseSlideout}
             />
           )}
           {selectedArticleDbid && type === 'explainer' && (
             <ExplainerFormQueryRenderer
               teamSlug={team.slug}
               explainerId={selectedArticleDbid}
-              onClose={() => setSelectedArticleDbid(null)}
+              onClose={handleCloseSlideout}
             />
           )}
         </>
