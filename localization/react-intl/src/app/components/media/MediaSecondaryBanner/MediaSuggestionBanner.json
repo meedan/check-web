@@ -2,12 +2,12 @@
   {
     "id": "mediaSuggestionBanner.updateSuggestionSuccess",
     "description": "Message display once suggestion is approved or rejected successfully.",
-    "defaultMessage": "Updated successfully, refreshing..."
+    "defaultMessage": "Updated successfully, refreshing…"
   },
   {
     "id": "mediaSuggestionBanner.updateSuggestionError",
     "description": "Message display when it fails to approve or reject suggestion.",
-    "defaultMessage": "Error when trying to update suggestion. Please try again or contact the support if the error persists."
+    "defaultMessage": "Error when trying to update suggestion. Please try again or contact support if the error persists."
   },
   {
     "id": "mediaSuggestionBanner.alertTitle",

@@ -101,7 +101,7 @@ const ArticlesComponent = ({
     setFlashMessage(
       <FormattedMessage
         id="articles.updateTagsError"
-        defaultMessage="Could not update tags, please try again later or connect the support if the error persists."
+        defaultMessage="Could not update tags, please try again later or contact support if the error persists."
         description="Banner displayed when article tags can't be updated."
       />,
       'error');
