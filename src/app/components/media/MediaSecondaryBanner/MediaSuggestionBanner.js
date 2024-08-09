@@ -38,7 +38,7 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
     setFlashMessage(
       <FormattedMessage
         id="mediaSuggestionBanner.updateSuggestionSuccess"
-        defaultMessage="Updated successfully, refreshing..."
+        defaultMessage="Updated successfully, refreshing…"
         description="Message display once suggestion is approved or rejected successfully."
       />,
       'success');
@@ -50,7 +50,7 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
     setFlashMessage(
       <FormattedMessage
         id="mediaSuggestionBanner.updateSuggestionError"
-        defaultMessage="Error when trying to update suggestion. Please try again or contact the support if the error persists."
+        defaultMessage="Error when trying to update suggestion. Please try again or contact support if the error persists."
         description="Message display when it fails to approve or reject suggestion."
       />,
       'error');

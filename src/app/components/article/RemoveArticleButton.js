@@ -168,7 +168,7 @@ const RemoveArticleButton = ({
           <FormattedMessage
             tagName="p"
             id="removeArticleButton.confirmationDialogBody"
-            defaultMessage="This article will no longer be associated with this media item but remain in your workspace."
+            defaultMessage="This article will no longer be associated with this media item but will remain in your workspace."
             description="Confirmation message displayed on a modal when a user tries to remove an article."
           />
         }
