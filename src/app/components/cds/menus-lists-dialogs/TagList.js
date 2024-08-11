@@ -84,7 +84,7 @@ const TagList = ({
   const swallowClick = (e) => {
     e.stopPropagation();
   };
-
+  // Should load 100 tags and allow search by keyword.
   return (
     <div className={styles['grid-wrapper']} onClick={swallowClick} onKeyDown={swallowClick}>
       <Tooltip
