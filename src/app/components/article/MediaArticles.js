@@ -182,7 +182,7 @@ const MediaArticlesComponent = ({
           <FormattedMessage
             id="mediaArticles.confirmReplaceFactCheckTitle"
             defaultMessage="Replace claim & fact-check?"
-            description="'Leave' here is an infinitive verb."
+            description="'Replace' here is an infinitive verb."
           />
         }
         body={

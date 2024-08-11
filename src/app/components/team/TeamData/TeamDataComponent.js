@@ -71,7 +71,7 @@ const messages = defineMessages({
   },
   newslettersDelivered: {
     id: 'teamDataComponent.newslettersDelivered',
-    defaultMessage: 'Number of newsletters successfully delivered to subscribers, accounting for user errors.',
+    defaultMessage: 'The total number of newsletters successfully delivered to subscribers, within 24 hours of being sent as well as accounting for user errors.',
     description: messagesDescription,
   },
   whatsappConversations: {
