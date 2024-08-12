@@ -100,14 +100,16 @@ const UserWorkspacesComponent = ({
         relay.loadMore(pageSize, () => {
           setCursor(cursor + pageSize);
           setIsPaginationLoading(false);
+          setPage(newPage);
         });
       } else if (cursor + pageSize < teams.length) {
         setCursor(cursor + pageSize);
+        setPage(newPage);
       }
     } else if (cursor - pageSize >= 0) {
       setCursor(cursor - pageSize);
+      setPage(newPage);
     }
-    setPage(newPage);
   };
 
   return (
