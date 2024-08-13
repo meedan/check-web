@@ -325,8 +325,8 @@ class Annotation extends Component {
         contentTemplate = (
           <FormattedMessage
             id="annotation.reportDesignState"
-            defaultMessage="Fact-check report {state} {author}"
-            description="Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
+            defaultMessage="Fact-check {state} {author}"
+            description="Log entry indicating a report state has changed. Example: Fact-check [edited by|paused by|published by] author"
             values={{
               state: reportState,
               author: authorName,
@@ -674,7 +674,7 @@ class Annotation extends Component {
         <span className="annotation__claim-factcheck">
           <FormattedMessage
             id="annotation.createFactCheck"
-            defaultMessage="Fact-check title added by {author}: {value}"
+            defaultMessage="Fact-check added by {author}: {value}"
             description="Log entry indicating fact-check title has been added"
             values={{
               author: authorName,
@@ -684,6 +684,34 @@ class Annotation extends Component {
         </span>
       );
       break;
+    case 'create_explaineritem':
+    case 'destroy_explaineritem': {
+      const meta = safelyParseJSON(activity.meta);
+      contentTemplate = (
+        <span className="annotation__add-remove-explainer">
+          { /create_explaineritem/.test(activityType) ?
+            <FormattedMessage
+              id="annotation.create_explaineritem"
+              defaultMessage="Explainer added by {author}: {value}"
+              description="Log entry indicating Explainer has been added"
+              values={{
+                author: authorName,
+                value: meta?.explainer_title,
+              }}
+            /> :
+            <FormattedMessage
+              id="annotation.remove_explaineritem"
+              defaultMessage="Explainer removed by {author}: {value}"
+              description="Log entry indicating Explainer has been removed"
+              values={{
+                author: authorName,
+                value: meta?.explainer_title,
+              }}
+            /> }
+        </span>
+      );
+      break;
+    }
     default:
       contentTemplate = null;
       break;

@@ -86,8 +86,8 @@
   },
   {
     "id": "annotation.reportDesignState",
-    "description": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author",
-    "defaultMessage": "Fact-check report {state} {author}"
+    "description": "Log entry indicating a report state has changed. Example: Fact-check [edited by|paused by|published by] author",
+    "defaultMessage": "Fact-check {state} {author}"
   },
   {
     "id": "annotation.statusSetHeader",
@@ -176,6 +176,16 @@
   {
     "id": "annotation.createFactCheck",
     "description": "Log entry indicating fact-check title has been added",
-    "defaultMessage": "Fact-check title added by {author}: {value}"
+    "defaultMessage": "Fact-check added by {author}: {value}"
+  },
+  {
+    "id": "annotation.create_explaineritem",
+    "description": "Log entry indicating Explainer has been added",
+    "defaultMessage": "Explainer added by {author}: {value}"
+  },
+  {
+    "id": "annotation.remove_explaineritem",
+    "description": "Log entry indicating Explainer has been removed",
+    "defaultMessage": "Explainer removed by {author}: {value}"
   }
 ]
