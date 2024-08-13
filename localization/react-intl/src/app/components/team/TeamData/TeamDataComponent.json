@@ -37,7 +37,7 @@
   {
     "id": "teamDataComponent.newsletterSubscriptions",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "increase in newsletter subscriptions month on month."
+    "defaultMessage": "Increase in newsletter subscriptions month on month."
   },
   {
     "id": "teamDataComponent.newsletterCancellations",
