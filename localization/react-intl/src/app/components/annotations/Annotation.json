@@ -1,10 +1,5 @@
 [
   {
-    "id": "annotation.editedBy",
-    "description": "Fact-check in edited state",
-    "defaultMessage": "edited by"
-  },
-  {
     "id": "annotation.pausedBy",
     "description": "Fact-check in paused state",
     "defaultMessage": "paused by"
@@ -86,7 +81,7 @@
   },
   {
     "id": "annotation.reportDesignState",
-    "description": "Log entry indicating a report state has changed. Example: Fact-check [edited by|paused by|published by] author",
+    "description": "Log entry indicating a report state has changed. Example: Fact-check [paused by|published by] author",
     "defaultMessage": "Fact-check {state} {author}"
   },
   {
@@ -154,14 +149,24 @@
     "defaultMessage": "Restored from Trash by {author}"
   },
   {
-    "id": "annotation.updateClaimDescription",
-    "description": "Log entry indicating a claim has been edited",
-    "defaultMessage": "Claim edited by {author}: {value}"
-  },
-  {
     "id": "annotation.createClaimDescription",
     "description": "Log entry indicating a claim has been added",
     "defaultMessage": "Claim added by {author}: {value}"
+  },
+  {
+    "id": "annotation.removeItem",
+    "description": "Log entry indicating a claim has been removed",
+    "defaultMessage": "Fact-check removed by {author}"
+  },
+  {
+    "id": "annotation.addItem",
+    "description": "Log entry indicating a claim has been added",
+    "defaultMessage": "Fact-check added by {author}"
+  },
+  {
+    "id": "annotation.updateClaimDescription",
+    "description": "Log entry indicating a claim has been edited",
+    "defaultMessage": "Claim edited by {author}: {value}"
   },
   {
     "id": "annotation.updateClaimContext",
@@ -177,6 +182,11 @@
     "id": "annotation.createFactCheck",
     "description": "Log entry indicating fact-check title has been added",
     "defaultMessage": "Fact-check added by {author}: {value}"
+  },
+  {
+    "id": "annotation.updateFactCheck",
+    "description": "Log entry indicating fact-check has been updated",
+    "defaultMessage": "Fact-check edited by {author}"
   },
   {
     "id": "annotation.create_explaineritem",

@@ -19,11 +19,6 @@ import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './Annotation.module.css';
 
 const messages = defineMessages({
-  editedBy: {
-    id: 'annotation.editedBy',
-    defaultMessage: 'edited by',
-    description: 'Fact-check in edited state',
-  },
   pausedBy: {
     id: 'annotation.pausedBy',
     defaultMessage: 'paused by',
@@ -311,28 +306,29 @@ class Annotation extends Component {
         }
       } else if (object.annotation_type === 'report_design') {
         const reportDesignChange = safelyParseJSON(activity.object_changes_json).data;
-        let reportState = this.props.intl.formatMessage(messages.editedBy);
         if (reportDesignChange && reportDesignChange[0]) {
-          reportState = reportDesignChange[1].state;
+          let reportState = '';
           if (reportDesignChange[0].state === reportDesignChange[1].state) {
-            reportState = this.props.intl.formatMessage(messages.editedBy);
+            reportState = '';
           } else if (reportDesignChange[1].state === 'published') {
             reportState = this.props.intl.formatMessage(messages.publishedBy);
-          } else {
+          } else if (reportDesignChange[1].state === 'paused') {
             reportState = this.props.intl.formatMessage(messages.pausedBy);
           }
+          if (reportState) {
+            contentTemplate = (
+              <FormattedMessage
+                id="annotation.reportDesignState"
+                defaultMessage="Fact-check {state} {author}"
+                description="Log entry indicating a report state has changed. Example: Fact-check [paused by|published by] author"
+                values={{
+                  state: reportState,
+                  author: authorName,
+                }}
+              />
+            );
+          }
         }
-        contentTemplate = (
-          <FormattedMessage
-            id="annotation.reportDesignState"
-            defaultMessage="Fact-check {state} {author}"
-            description="Log entry indicating a report state has changed. Example: Fact-check [edited by|paused by|published by] author"
-            values={{
-              state: reportState,
-              author: authorName,
-            }}
-          />
-        );
       }
       break;
     case 'create_dynamicannotationfield':
@@ -604,9 +600,51 @@ class Annotation extends Component {
       break;
     }
     case 'create_claimdescription':
+      contentTemplate = (
+        <span className="annotation__claim-description">
+          <FormattedMessage
+            id="annotation.createClaimDescription"
+            defaultMessage="Claim added by {author}: {value}"
+            description="Log entry indicating a claim has been added"
+            values={{
+              author: authorName,
+              value: object.description,
+            }}
+          />
+        </span>
+      );
+      break;
     case 'update_claimdescription': {
       const claimDescriptionChanges = safelyParseJSON(activity.object_changes_json);
-      if (claimDescriptionChanges.description) {
+      if (claimDescriptionChanges.project_media_id) {
+        if (claimDescriptionChanges.project_media_id[0]) {
+          contentTemplate = (
+            <span className="annotation__claim-remove-item">
+              <FormattedMessage
+                id="annotation.removeItem"
+                defaultMessage="Fact-check removed by {author}"
+                description="Log entry indicating a claim has been removed"
+                values={{
+                  author: authorName,
+                }}
+              />
+            </span>
+          );
+        } else {
+          contentTemplate = (
+            <span className="annotation__claim-add-item">
+              <FormattedMessage
+                id="annotation.addItem"
+                defaultMessage="Fact-check added by {author}"
+                description="Log entry indicating a claim has been added"
+                values={{
+                  author: authorName,
+                }}
+              />
+            </span>
+          );
+        }
+      } else if (claimDescriptionChanges.description) {
         if (claimDescriptionChanges.description[0]) {
           contentTemplate = (
             <span className="annotation__claim-description">
@@ -670,17 +708,27 @@ class Annotation extends Component {
       break;
     }
     case 'create_factcheck':
+    case 'update_factcheck':
       contentTemplate = (
-        <span className="annotation__claim-factcheck">
-          <FormattedMessage
-            id="annotation.createFactCheck"
-            defaultMessage="Fact-check added by {author}: {value}"
-            description="Log entry indicating fact-check title has been added"
-            values={{
-              author: authorName,
-              value: object.title,
-            }}
-          />
+        <span className="annotation__claim-add-update-factcheck">
+          { /create_factcheck/.test(activityType) ?
+            <FormattedMessage
+              id="annotation.createFactCheck"
+              defaultMessage="Fact-check added by {author}: {value}"
+              description="Log entry indicating fact-check title has been added"
+              values={{
+                author: authorName,
+                value: object.title,
+              }}
+            /> :
+            <FormattedMessage
+              id="annotation.updateFactCheck"
+              defaultMessage="Fact-check edited by {author}"
+              description="Log entry indicating fact-check has been updated"
+              values={{
+                author: authorName,
+              }}
+            /> }
         </span>
       );
       break;
