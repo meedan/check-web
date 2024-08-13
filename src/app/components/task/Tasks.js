@@ -222,12 +222,7 @@ const Tasks = ({
     }
     return (
       <div className={inputStyles['form-footer-actions-context']}>
-        Saved {moment(latestEditInfo.latestDate).fromNow()} by{' '}
-        <a
-          href={`/check/user/${latestEditInfo.latestAuthorDbid}`}
-        >
-          {latestEditInfo.latestAuthorName}
-        </a>
+        {`Saved ${moment(latestEditInfo.latestDate).fromNow()} by ${latestEditInfo.latestAuthorName}`}
       </div>
     );
   };
