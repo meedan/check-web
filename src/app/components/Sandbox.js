@@ -1504,20 +1504,19 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentInlineVariants}>
-            <div className={cx(
-              {
-                [styles['fixed-width-tags']]: tagsFixedWidth,
-              })
-            }
-            >
-              <TagList
-                readOnly={tagsReadOnly}
-                tags={tags}
-                setTags={setTags}
-                maxTags={maxTags ? 5 : undefined}
-              />
-            </div>
+          <div className={cx(
+            styles.componentInlineVariants,
+            {
+              [styles['fixed-width-tags']]: tagsFixedWidth,
+            })
+          }
+          >
+            <TagList
+              readOnly={tagsReadOnly}
+              tags={tags}
+              setTags={setTags}
+              maxTags={maxTags ? 5 : undefined}
+            />
           </div>
         </div>
       </section>

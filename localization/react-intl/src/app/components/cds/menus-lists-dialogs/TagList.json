@@ -5,11 +5,6 @@
     "defaultMessage": "+ Create search tags"
   },
   {
-    "id": "taglist.tooltipManage",
-    "description": "Tooltip message displayed on a tag item to let the user know they can manage the tags in the list",
-    "defaultMessage": "Manage Tags"
-  },
-  {
     "id": "multiSelector.search",
     "description": "The placeholder text in a search box.",
     "defaultMessage": "Search…"
@@ -35,8 +30,8 @@
     "defaultMessage": "0 tags"
   },
   {
-    "id": "taglist.tooltipAdd",
-    "description": "Tooltip message displayed on a tag item to let the user know they can add new tags to the list",
-    "defaultMessage": "Add Tags"
+    "id": "taglist.tooltipManage",
+    "description": "Tooltip message displayed on a tag item to let the user know they can manage the tags in the list",
+    "defaultMessage": "Manage Tags"
   }
 ]
