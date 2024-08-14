@@ -529,7 +529,12 @@ class Task extends Component {
       return (
         responseObj && responseObj.annotator ? (
           <div className={styles['task-footer']}>
-            {`Saved ${timeAgo} by ${responseObj.annotator.user?.name}`}
+            <FormattedMessage
+              id="task.savedByLabel"
+              defaultMessage="Saved {timeAgo} by {userName}"
+              description="This is a label that indicates when and by whom the task was saved."
+              values={{ timeAgo, userName: responseObj.annotator.user?.name }}
+            />
           </div>)
           : null
       );
