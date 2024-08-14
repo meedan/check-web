@@ -179,9 +179,8 @@ const TagList = ({
               variant="contained"
               theme="lightText"
               size="small"
-              disabled={saving}
               className="int-tag-list__button--manage"
-              onClick={readOnly ? undefined : handleOpenMenu}
+              onClick={handleOpenMenu}
             />
           </div>
         </Tooltip>
