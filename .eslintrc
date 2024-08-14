@@ -32,6 +32,9 @@
         "react/prop-types": "off",
         "react/forbid-prop-types": "off",
         "react/no-children-prop": "off",
+        "react/sort-prop-types": [ "error", {
+            "callbacksLast": true,
+        }],
 
         // Relay
         "relay/unused-fields": "error",
@@ -61,6 +64,16 @@
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "import/no-unused-modules": [1, {"unusedExports": true}],
+        "import/order": [1, {"groups": 
+            [
+            "external", 
+            "builtin", 
+            "internal", 
+            "sibling", 
+            "parent", 
+            "index"
+            ],
+        }],
 
         // TODO
         "class-methods-use-this": ["error", { "exceptMethods": ["getMutation", "getFatQuery", "getConfigs"] }],
