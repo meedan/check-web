@@ -18,6 +18,8 @@ function bemClass(baseClass, modifierBoolean, modifierSuffix) {
  * Parse a JSON string without throwing an exception.
  */
 function safelyParseJSON(jsonString, invalid = null) {
+  if (!jsonString) return invalid;
+
   try {
     return JSON.parse(jsonString);
   } catch (e) {
