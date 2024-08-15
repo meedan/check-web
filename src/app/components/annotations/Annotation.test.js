@@ -11,7 +11,7 @@ const annotation = {
   event_type: 'update_dynamic',
   created_at: '1657904596',
   object_after: '{"id":1766,"data":{"options":[{"language":"en","use_text_message":true,"use_introduction":true,"introduction":"blo","status_label":"Inconclusive","theme_color":"#9e9e9e","image":"","title":"blabla","headline":"blabla","text":"the blabla doesn\'t exist","description":"the blabla doesn\'t exist","published_article_url":"https://lol.com/blabla","previous_published_status_label":"Inconclusive"}],"state":"paused","last_published":"1657718501","first_published":"1656710500","published_count":1},"entities":null,"annotator_type":"User","annotator_id":5,"annotation_type":"report_design","updated_at":"2022-07-15T15:37:37.933Z","annotated_type":"ProjectMedia","annotated_id":201,"file":null,"version_index":null,"created_at":"2022-07-01T21:17:23.347Z","attribution":null,"lock_version":0,"locked":false,"fragment":null}',
-  object_changes_json: '{"annotator_id":[7,5]}',
+  object_changes_json: '{"data":[{"state": "unpublished"}, {"state": "published"}]}',
   meta: null,
   annotation: {
     id: 'QW5ub3RhdGlvbi8xNzY2\n',
@@ -41,7 +41,7 @@ const annotationMultiSelect = {
 };
 
 describe('<Annotation />', () => {
-  it('Renders report edited event', () => {
+  it('Renders report published event', () => {
     const wrapper = mountWithIntl((
       <Annotation
         annotation={annotation}
@@ -49,7 +49,7 @@ describe('<Annotation />', () => {
       />
     ));
     expect(wrapper.find('.annotation__default').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.test-annotation__default-content').hostNodes().html()).toMatch('Fact-check edited by');
+    expect(wrapper.find('.test-annotation__default-content').hostNodes().html()).toMatch('Fact-check published by');
   });
 
   it('Should not crash when rendering malformed multi select annotation response', () => {
