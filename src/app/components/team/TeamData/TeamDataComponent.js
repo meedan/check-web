@@ -56,7 +56,7 @@ const messages = defineMessages({
   },
   newsletterSubscriptions: {
     id: 'teamDataComponent.newsletterSubscriptions',
-    defaultMessage: 'Newsletter subscriptions.',
+    defaultMessage: 'Increase in newsletter subscriptions month on month.',
     description: messagesDescription,
   },
   newsletterCancellations: {
