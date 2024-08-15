@@ -1,15 +1,5 @@
 [
   {
-    "id": "annotation.pausedBy",
-    "description": "Fact-check in paused state",
-    "defaultMessage": "paused by"
-  },
-  {
-    "id": "annotation.publishedBy",
-    "description": "Fact-check in published state",
-    "defaultMessage": "published by"
-  },
-  {
     "id": "annotation.taggedHeader",
     "description": "Log entry indicating a tag was added",
     "defaultMessage": "Tag #{tag} added by {author}"
@@ -80,9 +70,14 @@
     "defaultMessage": "Item unassigned from {name} by {author}"
   },
   {
-    "id": "annotation.reportDesignState",
-    "description": "Log entry indicating a report state has changed. Example: Fact-check [paused by|published by] author",
-    "defaultMessage": "Fact-check {state} {author}"
+    "id": "annotation.reportDesignPublishedState",
+    "description": "Log entry indicating a report state has been published",
+    "defaultMessage": "Fact-check published by {author}"
+  },
+  {
+    "id": "annotation.reportDesignPausedState",
+    "description": "Log entry indicating a report state has been paused",
+    "defaultMessage": "Fact-check paused by {author}"
   },
   {
     "id": "annotation.statusSetHeader",

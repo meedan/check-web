@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
@@ -17,19 +17,6 @@ import {
 } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './Annotation.module.css';
-
-const messages = defineMessages({
-  pausedBy: {
-    id: 'annotation.pausedBy',
-    defaultMessage: 'paused by',
-    description: 'Fact-check in paused state',
-  },
-  publishedBy: {
-    id: 'annotation.publishedBy',
-    defaultMessage: 'published by',
-    description: 'Fact-check in published state',
-  },
-});
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -307,26 +294,30 @@ class Annotation extends Component {
       } else if (object.annotation_type === 'report_design') {
         const reportDesignChange = safelyParseJSON(activity.object_changes_json).data;
         if (reportDesignChange && reportDesignChange[0]) {
-          let reportState = '';
-          if (reportDesignChange[0].state === reportDesignChange[1].state) {
-            reportState = '';
-          } else if (reportDesignChange[1].state === 'published') {
-            reportState = this.props.intl.formatMessage(messages.publishedBy);
-          } else if (reportDesignChange[1].state === 'paused') {
-            reportState = this.props.intl.formatMessage(messages.pausedBy);
-          }
-          if (reportState) {
-            contentTemplate = (
-              <FormattedMessage
-                id="annotation.reportDesignState"
-                defaultMessage="Fact-check {state} {author}"
-                description="Log entry indicating a report state has changed. Example: Fact-check [paused by|published by] author"
-                values={{
-                  state: reportState,
-                  author: authorName,
-                }}
-              />
-            );
+          if (reportDesignChange[0].state !== reportDesignChange[1].state) {
+            if (reportDesignChange[1].state === 'published') {
+              contentTemplate = (
+                <FormattedMessage
+                  id="annotation.reportDesignPublishedState"
+                  defaultMessage="Fact-check published by {author}"
+                  description="Log entry indicating a report state has been published"
+                  values={{
+                    author: authorName,
+                  }}
+                />
+              );
+            } else if (reportDesignChange[1].state === 'paused') {
+              contentTemplate = (
+                <FormattedMessage
+                  id="annotation.reportDesignPausedState"
+                  defaultMessage="Fact-check paused by {author}"
+                  description="Log entry indicating a report state has been paused"
+                  values={{
+                    author: authorName,
+                  }}
+                />
+              );
+            }
           }
         }
       }
@@ -804,7 +795,6 @@ Annotation.propTypes = {
   team: PropTypes.shape({
     verification_statuses: PropTypes.object,
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(Annotation);
