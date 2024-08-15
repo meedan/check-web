@@ -124,7 +124,7 @@ class Annotation extends Component {
             { /confirmed_sibling/.test(type) ?
               <FormattedMessage
                 id="annotation.similarCreated"
-                defaultMessage="Match confirmed by {author}: {title}"
+                defaultMessage="Item merged by {author} with {title}"
                 description="Log entry indicating a similarity match was confirmed"
                 values={{
                   title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),

@@ -22,7 +22,7 @@
   {
     "id": "annotation.similarCreated",
     "description": "Log entry indicating a similarity match was confirmed",
-    "defaultMessage": "Match confirmed by {author}: {title}"
+    "defaultMessage": "Item merged by {author} with {title}"
   },
   {
     "id": "annotation.suggestionCreated",
