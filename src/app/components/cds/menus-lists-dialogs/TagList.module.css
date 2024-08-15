@@ -1,12 +1,5 @@
-.grid-wrapper {
-  display: grid;
-  grid-gap: 0;
-  grid-template-columns: 1fr auto 1fr auto;
-  grid-template-rows: 1fr;
-  width: fit-content;
-}
-
 .tag-list-container {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 6px 8px;
@@ -14,27 +7,18 @@
 
   > div {
     background-color: var(--color-beige-86);
+    border-radius: 50px;
     color: var(--color-beige-40);
     flex: 0 1 auto;
     min-width: 0;
   }
-}
 
-.tag-icon {
-  align-self: start;
-  margin: -2px 4px 0 0;
-}
+  .empty-list {
+    align-self: center;
+    color: var(--color-gray-75);
+  }
 
-.circle-icon {
-  align-self: start;
-  margin: -2px 0 0 4px;
-}
-
-.empty-list {
-  align-self: center;
-  color: var(--color-gray-75);
-}
-
-.tooltip-container {
-  border-radius: 50px;
+  .tooltip-container {
+    border-radius: 50px;
+  }
 }
