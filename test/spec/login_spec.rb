@@ -4,7 +4,7 @@ shared_examples 'login' do
     expect(@driver.page_source.include?('Please check your email to verify your account')).to be(false)
     email = "userTest+#{Time.now.to_i}@email.com"
     register_with_email(false, email, false)
-    wait_for_selector('.int-flash-message__toast')
+    wait_for_selector('.message')
     expect(@driver.page_source.include?('Please check your email to verify your account')).to be(true)
   end
 

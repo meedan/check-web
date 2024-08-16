@@ -22,7 +22,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
     wait_for_selector('.int-flash-message__toast')
-    wait_for_selector('#notistack-snackbar a').click
+    wait_for_selector('#int-media-actions-toast__link--trash').click
     wait_for_selector('.cluster-card')
     wait_for_selector("input[type='checkbox']").click
     wait_for_selector("//span[contains(text(), 'Bulk Change')]", :xpath)
