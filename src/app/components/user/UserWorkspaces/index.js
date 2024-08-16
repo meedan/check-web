@@ -15,7 +15,7 @@ const userWorkspacesQuery = graphql`
 `;
 
 const UserWorkspaces = () => {
-  const pageSize = 10;
+  const pageSize = 100;
 
   return (
     <QueryRenderer
