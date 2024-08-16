@@ -192,15 +192,13 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
 
   if (message) {
     return (
-      <>
-        <Alert
-          content={message}
-          variant="info"
-          banner
-          onClose={resetMessage}
-          className={cx('home__message', styles['alert-flash-home-message'])}
-        />
-      </>
+      <Alert
+        content={message}
+        variant="info"
+        banner
+        onClose={resetMessage}
+        className={cx('home__message', styles['alert-flash-home-message'])}
+      />
     );
   }
 
