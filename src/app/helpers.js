@@ -180,12 +180,7 @@ function getErrorObjectsForRelayModernProblem(errorOrErrors) {
 function createFriendlyErrorMessage(error) {
   const friendlyMessage = CheckError.getMessageFromCode(error.code);
   return (
-    <div id="snack-flex">
-      <p>
-        <strong>
-          {friendlyMessage}
-        </strong>
-      </p>
+    <>
       <FormattedMessage
         tagName="p"
         id="check.helpers.report_please"
@@ -225,8 +220,13 @@ function createFriendlyErrorMessage(error) {
           {error.message}
         </textarea>
       </details>
-    </div>
+    </>
   );
+}
+
+function createFriendlyErrorMessageTitle(error) {
+  const friendlyMessageTitle = CheckError.getMessageFromCode(error.code);
+  return friendlyMessageTitle;
 }
 
 /**
@@ -414,6 +414,7 @@ export { // eslint-disable-line import/no-unused-modules
   getErrorMessageForRelayModernProblem,
   getErrorObjectsForRelayModernProblem,
   getErrorObjects,
+  createFriendlyErrorMessageTitle,
   createFriendlyErrorMessage,
   emojify,
   parseStringUnixTimestamp,

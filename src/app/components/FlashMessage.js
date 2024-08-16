@@ -5,7 +5,7 @@ import reactStringReplace from 'react-string-replace';
 import cx from 'classnames/bind';
 import Alert from './cds/alerts-and-prompts/Alert';
 import { withClientSessionId } from '../ClientSessionId';
-import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
+import { safelyParseJSON, createFriendlyErrorMessageTitle, createFriendlyErrorMessage } from '../helpers';
 import styles from './cds/alerts-and-prompts/Alert.module.css';
 
 /**
@@ -86,6 +86,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
                   })
                 }
                 floating
+                title={<>{createFriendlyErrorMessageTitle(msg)}</>}
                 content={<>{createFriendlyErrorMessage(msg)}</>}
                 variant={variant}
                 onClose={persist ? () => {
