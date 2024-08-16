@@ -76,7 +76,7 @@ shared_examples 'rules' do
     wait_for_selector("//span[contains(text(), 'More')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Delete')]", :xpath).click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('.message')
+    wait_for_selector('.int-flash-message__toast')
     expect(@driver.page_source.include?('Rule 1- Edited')).to be(false)
   end
 end

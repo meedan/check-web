@@ -32,7 +32,7 @@ module LoginSpecHelpers
     fill_field('.int-login__password-confirmation input', 'checkTest@12')
     agree_to_tos(false)
     press_button('#submit-register-or-login')
-    wait_for_selector('.message')
+    wait_for_selector('.int-flash-message__toast')
     confirm_email(email)
     sleep 3
     login_with_email(true, email) if should_login

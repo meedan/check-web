@@ -53,7 +53,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
           persist,
           anchorOrigin,
           content: key => (
-            <div key={key}>
+            <div key={key} className="int-flash-message__toast">
               <Alert
                 className={cx(
                   {
@@ -78,7 +78,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
           persist,
           anchorOrigin,
           content: key => (
-            <div key={key}>
+            <div key={key} className="int-flash-message__toast">
               <Alert
                 className={cx(
                   {
@@ -104,7 +104,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
         persist,
         anchorOrigin,
         content: key => (
-          <div key={key}>
+          <div key={key} className="int-flash-message__toast">
             <Alert
               className={cx(
                 {
