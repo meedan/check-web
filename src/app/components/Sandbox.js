@@ -3,7 +3,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
 import * as Sentry from '@sentry/react';
-import styles from './sandbox.module.css';
+import { FlashMessageSetterContext } from './FlashMessage';
 import Alert from './cds/alerts-and-prompts/Alert';
 import Chip from './cds/buttons-checkboxes-chips/Chip';
 import TagList from './cds/menus-lists-dialogs/TagList';
@@ -30,6 +30,7 @@ import ParsedText from './ParsedText';
 import ClusterCard from './search/SearchResultsCards/ClusterCard';
 import CheckFeedDataPoints from '../CheckFeedDataPoints';
 import Slideout from './cds/slideout/Slideout';
+import styles from './sandbox.module.css';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -109,6 +110,8 @@ const SandboxComponent = ({ admin }) => {
   const [listItemDataPointsFactCheck, setListItemDataPointsFactCheck] = React.useState(Boolean(false));
   const [listItemDataPoints, setListItemDataPoints] = React.useState([]);
   const [listItemFactCheckCount, setListItemFactCheckCount] = React.useState(1);
+
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   // This triggers when the list item data points are changed
   React.useEffect(() => {
@@ -341,6 +344,19 @@ const SandboxComponent = ({ admin }) => {
     };
 
     Sentry.captureException(new Error(`This is a captured error inside the sandbox! Random number: ${Math.random()}`), context);
+  };
+
+  const flashMessage = (variant, link) => (
+    <>This is a test, this is only a test of variant: <strong>{variant}</strong>{ link && <> and a link to: <a href="https://www.meedan.com">meedan.com</a></> }</>
+  );
+
+  const onFlash = () => {
+    setFlashMessage(flashMessage('info', false), 'info');
+    setFlashMessage(flashMessage('success', true), 'success');
+    setFlashMessage(flashMessage('warning', false), 'warning');
+    setFlashMessage(flashMessage('error', true), 'error');
+    setFlashMessage('I am a string<br />with multiple messages one long<br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et ornare nunc. Curabitur quis tempus nulla. Donec molestie leo magna, eget rhoncus diam porta at. Curabitur vel accumsan nisl, sit amet posuere augue. Curabitur quis tristique nulla. In hac habitasse platea dictumst. Vivamus ultrices dignissim eros nec malesuada. Integer lorem ipsum, pharetra quis leo eu, lobortis eleifend nisl. Ut rutrum, lectus nec mattis finibus, dolor ante elementum ligula, sit amet dignissim libero diam viverra justo. Nunc vitae nisi ac purus feugiat congue id non lacus. Aliquam eleifend, felis at tincidunt commodo, erat sapien consequat ligula, faucibus condimentum ligula massa vitae nisi.', 'error');
+    setFlashMessage([{ code: '5000', message: 'Creating an error' }], 'error');
   };
 
   return (
@@ -690,10 +706,10 @@ const SandboxComponent = ({ admin }) => {
             </ul>
           </div>
           <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--color-gray-15)' : null }}>
-            <ButtonMain label="Default" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
-            <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
-            <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
-            <ButtonMain iconCenter={<AddIcon />} label="Center" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+            <ButtonMain label="Default" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} onClick={onFlash} />
+            <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} onClick={onFlash} />
+            <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} onClick={onFlash} />
+            <ButtonMain iconCenter={<AddIcon />} label="Center" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} onClick={onFlash} />
           </div>
         </div>
         <div className={styles.componentWrapper}>
