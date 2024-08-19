@@ -37,7 +37,6 @@
         "react/sort-prop-types": [ "error", {
             "callbacksLast": true,
         }],
-
         "react/jsx-sort-props": [ "error", {
             "callbacksLast": true,
         }],
