@@ -299,9 +299,9 @@ class Annotation extends Component {
             if (reportDesignChange[1].state === 'published') {
               contentTemplate = (
                 <FormattedMessage
-                  id="annotation.reportDesignPublishedState"
                   defaultMessage="Fact-check published by {author}"
                   description="Log entry indicating a report state has been published"
+                  id="annotation.reportDesignPublishedState"
                   values={{
                     author: authorName,
                   }}
@@ -310,9 +310,9 @@ class Annotation extends Component {
             } else if (reportDesignChange[1].state === 'paused') {
               contentTemplate = (
                 <FormattedMessage
-                  id="annotation.reportDesignPausedState"
                   defaultMessage="Fact-check paused by {author}"
                   description="Log entry indicating a report state has been paused"
+                  id="annotation.reportDesignPausedState"
                   values={{
                     author: authorName,
                   }}
@@ -595,9 +595,9 @@ class Annotation extends Component {
       contentTemplate = (
         <span className="annotation__claim-description">
           <FormattedMessage
-            id="annotation.createClaimDescription"
             defaultMessage="Claim added by {author}: {value}"
             description="Log entry indicating a claim has been added"
+            id="annotation.createClaimDescription"
             values={{
               author: authorName,
               value: object.description,
@@ -613,9 +613,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__claim-remove-item">
               <FormattedMessage
-                id="annotation.removeItem"
                 defaultMessage="Fact-check removed by {author}"
                 description="Log entry indicating a claim has been removed"
+                id="annotation.removeItem"
                 values={{
                   author: authorName,
                 }}
@@ -626,9 +626,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__claim-add-item">
               <FormattedMessage
-                id="annotation.addItem"
                 defaultMessage="Fact-check added by {author}"
                 description="Log entry indicating a claim has been added"
+                id="annotation.addItem"
                 values={{
                   author: authorName,
                 }}
@@ -731,18 +731,18 @@ class Annotation extends Component {
         <span className="annotation__add-remove-explainer">
           { /create_explaineritem/.test(activityType) ?
             <FormattedMessage
-              id="annotation.create_explaineritem"
               defaultMessage="Explainer added by {author}: {value}"
               description="Log entry indicating Explainer has been added"
+              id="annotation.create_explaineritem"
               values={{
                 author: authorName,
                 value: meta?.explainer_title,
               }}
             /> :
             <FormattedMessage
-              id="annotation.remove_explaineritem"
               defaultMessage="Explainer removed by {author}: {value}"
               description="Log entry indicating Explainer has been removed"
+              id="annotation.remove_explaineritem"
               values={{
                 author: authorName,
                 value: meta?.explainer_title,

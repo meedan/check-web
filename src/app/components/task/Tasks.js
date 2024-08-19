@@ -223,9 +223,9 @@ const Tasks = ({
     return (
       <div className={inputStyles['form-footer-actions-context']}>
         <FormattedMessage
-          id="tasks.savedByLabel"
           defaultMessage="Saved {timeAgo} by {userName}"
           description="This is a label that indicates when and by whom the task was saved."
+          id="tasks.savedByLabel"
           values={{ timeAgo: moment(latestEditInfo.latestDate).fromNow(), userName: latestEditInfo.latestAuthorName }}
         />
       </div>
