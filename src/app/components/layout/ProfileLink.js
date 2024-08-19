@@ -9,7 +9,7 @@ const ProfileLink = ({ className, user }) => {
   }
 
   return url ?
-    <Link to={url} className={className}>
+    <Link className={className} to={url}>
       {user.name}
     </Link> :
     <span className={className}>

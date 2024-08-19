@@ -47,89 +47,81 @@ const SmoochBotMainMenuOption = ({
 
   return (
     <ConfirmProceedDialog
-      open
-      title={
-        <FormattedMessage
-          id="smoochBotMainMenuOption.scenario"
-          defaultMessage="Menu Option"
-          description="Title of dialog that opens to add a new option to tipline bot main menu"
-        />
-      }
       body={(
         <>
           <LimitedTextArea
-            label={
-              <FormattedMessage
-                id="smoochBotMainMenuOption.label"
-                defaultMessage="Button text"
-                description="Text field label on dialog that opens to add a new option to tipline bot main menu"
-              />
-            }
-            value={text}
-            onBlur={(e) => { setText(e.target.value); }}
-            maxChars={24}
-            variant="contained"
             error={submitted && !text}
-            required
             helpContent={
               submitted && !text ?
                 <FormattedMessage
-                  id="smoochBotMainMenuOption.labelError"
                   defaultMessage="Please add text to label the button"
                   description="Error message displayed when user tries to save tipline menu option with a blank label"
+                  id="smoochBotMainMenuOption.labelError"
                 /> : null
             }
+            label={
+              <FormattedMessage
+                defaultMessage="Button text"
+                description="Text field label on dialog that opens to add a new option to tipline bot main menu"
+                id="smoochBotMainMenuOption.label"
+              />
+            }
+            maxChars={24}
+            required
+            value={text}
+            variant="contained"
+            onBlur={(e) => { setText(e.target.value); }}
           />
           <br />
           <LimitedTextArea
             label={
               <FormattedMessage
-                id="smoochBotMainMenuOption.description"
                 defaultMessage="Description"
                 description="Description field label on dialog that opens to add a new option to tipline bot main menu"
+                id="smoochBotMainMenuOption.description"
               />
             }
-            value={description}
-            onBlur={(e) => { setDescription(e.target.value); }}
             maxChars={72}
+            value={description}
             variant="contained"
+            onBlur={(e) => { setDescription(e.target.value); }}
           />
           <br />
           <SmoochBotMenuKeywords
-            keywords={currentKeywords}
-            currentUser={currentUser}
-            menu={menu}
             currentLanguage={currentLanguage}
-            index={index}
+            currentUser={currentUser}
             hasUnsavedChanges={hasUnsavedChanges}
+            index={index}
+            keywords={currentKeywords}
+            menu={menu}
             onUpdateKeywords={() => { setKeywordsUpdated(true); }}
           />
           <br />
           <FormattedMessage
-            tagName="p"
-            id="smoochBotMainMenuOption.send"
             defaultMessage="If the button is clicked, then send:"
             description="Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu"
+            id="smoochBotMainMenuOption.send"
+            tagName="p"
           />
           <Select
-            value={value}
-            required
             error={submitted && !value}
             helpContent={
               (submitted && !value) ?
                 <FormattedMessage
-                  id="smoochBotMainMenuOption.responseError"
                   defaultMessage="Please choose a response"
                   description="Error message displayed when user tries to save tipline option with empty response"
+                  id="smoochBotMainMenuOption.responseError"
                 /> : null
             }
             label={
               <FormattedMessage
-                id="smoochBotMainMenuOption.response"
                 defaultMessage="Response"
                 description="Input label displayed on dialog that opens to add a new option to tipline bot main menu"
+                id="smoochBotMainMenuOption.response"
               />
             }
+            required
+            value={value}
             onChange={(e) => { setValue(e.target.value); }}
           >
             <option hidden>
@@ -169,7 +161,7 @@ const SmoochBotMainMenuOption = ({
               })}
             >
               { resources.map(resource => (
-                <option value={resource.uuid} key={resource.uuid}>
+                <option key={resource.uuid} value={resource.uuid}>
                   {resource.title}
                 </option>
               ))}
@@ -177,10 +169,18 @@ const SmoochBotMainMenuOption = ({
           </Select>
         </>
       )}
-      proceedLabel={<FormattedMessage id="smoochBotMainMenuOption.save" defaultMessage="Save" description="Button label to save new tipline menu option" />}
-      onProceed={handleSave}
-      cancelLabel={<FormattedMessage id="smoochBotMainMenuOption.cancel" defaultMessage="Cancel" description="Button label to cancel adding a new tipline menu option" />}
+      cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Button label to cancel adding a new tipline menu option" id="smoochBotMainMenuOption.cancel" />}
+      open
+      proceedLabel={<FormattedMessage defaultMessage="Save" description="Button label to save new tipline menu option" id="smoochBotMainMenuOption.save" />}
+      title={
+        <FormattedMessage
+          defaultMessage="Menu Option"
+          description="Title of dialog that opens to add a new option to tipline bot main menu"
+          id="smoochBotMainMenuOption.scenario"
+        />
+      }
       onCancel={handleCancel}
+      onProceed={handleSave}
     />
   );
 };

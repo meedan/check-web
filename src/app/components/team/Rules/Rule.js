@@ -12,16 +12,16 @@ const Rule = (props) => {
     <React.Fragment>
       <div className={settingsStyles['setting-details-wrapper']}>
         <RuleToolbar
-          unsavedChanges={props.unsavedChanges}
           actionsDisabled={!rule.updated_at}
+          unsavedChanges={props.unsavedChanges}
+          onDeleteRule={props.onDeleteRule}
+          onDuplicateRule={props.onDuplicateRule}
           onGoBack={props.onGoBack}
           onSaveRule={props.onSaveRule}
-          onDuplicateRule={props.onDuplicateRule}
-          onDeleteRule={props.onDeleteRule}
         />
         <RuleBody
-          schema={props.schema}
           rule={rule}
+          schema={props.schema}
           onChangeRule={props.onChangeRule}
         />
       </div>

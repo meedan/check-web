@@ -50,39 +50,39 @@ const TeamMembersComponent = ({
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="teamMembers.title"
-            defaultMessage="Members [{membersCount}]"
-            description="Title for workspace members management page"
-            values={{ membersCount: sortedMembers.filter(tu => !tu.node.user.is_bot).length }}
+        actionButton={
+          <ButtonMain
+            buttonProps={{
+              id: 'team-members__invite-button',
+            }}
+            disabled={!can(team.permissions, 'invite Members')}
+            label={
+              <FormattedMessage
+                defaultMessage="Invite"
+                description="Button label for main action to start the process of inviting team members to this workspace"
+                id="teamMembers.invite"
+              />
+            }
+            size="default"
+            theme="brand"
+            variant="contained"
+            onClick={() => setInviteDialogOpen(true)}
           />
         }
         context={
           <FormattedHTMLMessage
-            id="teamMembers.helpContext"
             defaultMessage='Manage your Check workspace’s members. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about member roles</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8712107-team-settings#h_2767b2d557' }}
             description="Context description for the functionality of this page"
+            id="teamMembers.helpContext"
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8712107-team-settings#h_2767b2d557' }}
           />
         }
-        actionButton={
-          <ButtonMain
-            theme="brand"
-            size="default"
-            variant="contained"
-            disabled={!can(team.permissions, 'invite Members')}
-            onClick={() => setInviteDialogOpen(true)}
-            label={
-              <FormattedMessage
-                id="teamMembers.invite"
-                defaultMessage="Invite"
-                description="Button label for main action to start the process of inviting team members to this workspace"
-              />
-            }
-            buttonProps={{
-              id: 'team-members__invite-button',
-            }}
+        title={
+          <FormattedMessage
+            defaultMessage="Members [{membersCount}]"
+            description="Title for workspace members management page"
+            id="teamMembers.title"
+            values={{ membersCount: sortedMembers.filter(tu => !tu.node.user.is_bot).length }}
           />
         }
       />
@@ -93,16 +93,16 @@ const TeamMembersComponent = ({
               <TableRow>
                 <TableCell className={settingsStyles['main-cell']}>
                   <FormattedMessage
-                    id="teamMembers.tableHeaderName"
                     defaultMessage="Name"
                     description="Column header in members table."
+                    id="teamMembers.tableHeaderName"
                   >
                     { text => (
                       <TableSortLabel
                         active={sortParam === 'name'}
                         direction={sortDirection || undefined}
-                        onClick={() => toggleSort('name')}
                         IconComponent={KeyboardArrowDownIcon}
+                        onClick={() => toggleSort('name')}
                       >
                         {text}
                       </TableSortLabel>
@@ -111,16 +111,16 @@ const TeamMembersComponent = ({
                 </TableCell>
                 <TableCell className={settingsStyles['date-cell']}>
                   <FormattedMessage
-                    id="teamMembers.tableHeaderLastActive"
                     defaultMessage="Last active"
                     description="Column header in members table."
+                    id="teamMembers.tableHeaderLastActive"
                   >
                     { text => (
                       <TableSortLabel
                         active={sortParam === 'last_active_at'}
                         direction={sortDirection || undefined}
-                        onClick={() => toggleSort('last_active_at')}
                         IconComponent={KeyboardArrowDownIcon}
+                        onClick={() => toggleSort('last_active_at')}
                       >
                         {text}
                       </TableSortLabel>
@@ -129,16 +129,16 @@ const TeamMembersComponent = ({
                 </TableCell>
                 <TableCell>
                   <FormattedMessage
-                    id="teamMembers.tableHeaderRole"
                     defaultMessage="Workspace permission"
                     description="Column header in members table."
+                    id="teamMembers.tableHeaderRole"
                   >
                     { text => (
                       <TableSortLabel
                         active={sortParam === 'role'}
                         direction={sortDirection || undefined}
-                        onClick={() => toggleSort('role')}
                         IconComponent={KeyboardArrowDownIcon}
+                        onClick={() => toggleSort('role')}
                       >
                         {text}
                       </TableSortLabel>
@@ -150,7 +150,7 @@ const TeamMembersComponent = ({
             </TableHead>
             <tbody>
               { sortedMembers.filter(tu => !tu.node.user.is_bot).map(tu => (
-                <TableRow key={tu.node.id} className="team-members__user-row">
+                <TableRow className="team-members__user-row" key={tu.node.id}>
                   <TableCell className={settingsStyles['main-cell']}>
                     <div className={settingsStyles['teammembers-table-identity']}>
                       { tu.node.status === 'invited' ? (
@@ -171,13 +171,13 @@ const TeamMembersComponent = ({
                         { tu.node.status === 'invited' ? (
                           <React.Fragment>
                             <FormattedMessage
-                              id="teamMembers.pending"
                               defaultMessage="Invitation Sent - pending"
                               description="Label for invite pending acceptance"
+                              id="teamMembers.pending"
                             />
                             <small
-                              title={tu.node.user.email}
                               className={settingsStyles['text-truncate']}
+                              title={tu.node.user.email}
                             >
                               {tu.node.user.email}
                             </small>
@@ -189,8 +189,8 @@ const TeamMembersComponent = ({
                             </div>
                             { tu.node.user.email &&
                               <div
-                                title={tu.node.user.email}
                                 className={settingsStyles['text-truncate']}
+                                title={tu.node.user.email}
                               >
                                 {tu.node.user.email}
                               </div>
@@ -217,8 +217,8 @@ const TeamMembersComponent = ({
             </tbody>
           </Table>
           <InviteDialog
-            team={team}
             open={inviteDialogOpen}
+            team={team}
             onClose={() => setInviteDialogOpen(false)}
           />
         </div>

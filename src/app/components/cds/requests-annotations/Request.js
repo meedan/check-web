@@ -26,11 +26,11 @@ const Request = ({
   return (
     <div className={cx('request-card', styles['request-card'])}>
       <div className={styles['request-card-header']}>
-        <BulletSeparator compact icon={icon} details={details} />
+        <BulletSeparator compact details={details} icon={icon} />
         {time}
       </div>
       <div className={styles['request-content']}>
-        <ParsedText text={preParsedText} fileUrlName={mediaTitle} mediaChips />
+        <ParsedText fileUrlName={mediaTitle} mediaChips text={preParsedText} />
       </div>
       <div className={styles['request-card-footer']}>
         <div className={styles['request-card-actions']}>

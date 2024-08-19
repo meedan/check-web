@@ -73,21 +73,19 @@ class AnnotationFilterDate extends React.Component {
     return (
       <>
         <DatePicker
-          onChange={this.handleChangeStartDate}
+          cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
           maxDate={this.endDateStringOrNull || undefined}
-          okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
-          cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
-          value={this.startDateStringOrNull}
+          okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
           style={{ margin: '0 16px' }}
           TextFieldComponent={({ onClick, params, value: valueText }) => (
             <>
               <ButtonMain
-                disabled
-                theme="text"
-                size="small"
-                variant="text"
                 customStyle={{ color: 'var(--color-gray-15' }}
-                label={<FormattedMessage id="search.afterDate" defaultMessage="after" description="String displayed before a date picker" />}
+                disabled
+                label={<FormattedMessage defaultMessage="after" description="String displayed before a date picker" id="search.afterDate" />}
+                size="small"
+                theme="text"
+                variant="text"
               />
               <ButtonMain
                 className={cx(
@@ -96,57 +94,57 @@ class AnnotationFilterDate extends React.Component {
                     [styles['filter-date']]: valueText,
                   })
                 }
-                size="small"
-                variant="contained"
-                theme={valueText ? 'brand' : 'text'}
                 iconRight={!valueText && <KeyboardArrowDownIcon />}
                 label={
                   !valueText ?
-                    <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
+                    <FormattedMessage defaultMessage="any date" description="Date picker placeholder" id="search.anyDate" />
                     :
                     valueText
                 }
+                size="small"
+                theme={valueText ? 'brand' : 'text'}
+                variant="contained"
                 onClick={onClick}
                 {...params}
               />
               { valueText &&
                 <Tooltip
-                  title={
-                    <FormattedMessage id="search.removeStartDateCondition" defaultMessage="Remove start date" description="Tooltip to tell the user they can add remove the start date portion of this filter" />
-                  }
                   arrow
+                  title={
+                    <FormattedMessage defaultMessage="Remove start date" description="Tooltip to tell the user they can add remove the start date portion of this filter" id="search.removeStartDateCondition" />
+                  }
                 >
                   <span className={styles['filter-date-remove']}>
                     <ButtonMain
                       className="int-annotation-filter__button--clear-start-date"
                       iconCenter={<CloseIcon />}
-                      onClick={e => this.handleClearDate(e, 'start_time')}
+                      size="small"
                       theme="brand"
                       variant="contained"
-                      size="small"
+                      onClick={e => this.handleClearDate(e, 'start_time')}
                     />
                   </span>
                 </Tooltip>
               }
             </>
           )}
+          value={this.startDateStringOrNull}
+          onChange={this.handleChangeStartDate}
         />
         <DatePicker
+          cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
           inputVariant="outlined"
-          onChange={this.handleChangeEndDate}
           minDate={this.startDateStringOrNull || undefined}
-          okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
-          cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
-          value={this.endDateStringOrNull}
+          okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
           TextFieldComponent={({ onClick, params, value: valueText }) => (
             <>
               <ButtonMain
-                disabled
-                theme="text"
-                size="small"
-                variant="text"
                 customStyle={{ color: 'var(--color-gray-15' }}
-                label={<FormattedMessage id="search.beforeDate" defaultMessage="and before" description="String displayed between after and before date pickers" />}
+                disabled
+                label={<FormattedMessage defaultMessage="and before" description="String displayed between after and before date pickers" id="search.beforeDate" />}
+                size="small"
+                theme="text"
+                variant="text"
               />
               <ButtonMain
                 className={cx(
@@ -155,40 +153,42 @@ class AnnotationFilterDate extends React.Component {
                     [styles['filter-date']]: valueText,
                   })
                 }
-                size="small"
-                variant="contained"
-                theme={valueText ? 'brand' : 'text'}
                 iconRight={!valueText && <KeyboardArrowDownIcon />}
                 label={
                   !valueText ?
-                    <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
+                    <FormattedMessage defaultMessage="any date" description="Date picker placeholder" id="search.anyDate" />
                     :
                     valueText
                 }
+                size="small"
+                theme={valueText ? 'brand' : 'text'}
+                variant="contained"
                 onClick={onClick}
                 {...params}
               />
               { valueText &&
                 <Tooltip
-                  title={
-                    <FormattedMessage id="search.removeEndDateCondition" defaultMessage="Remove end date" description="Tooltip to tell the user they can add remove the end date portion of this filter" />
-                  }
                   arrow
+                  title={
+                    <FormattedMessage defaultMessage="Remove end date" description="Tooltip to tell the user they can add remove the end date portion of this filter" id="search.removeEndDateCondition" />
+                  }
                 >
                   <span className={styles['filter-date-remove']}>
                     <ButtonMain
                       className="int-annotation-filter__button--clear-end-date"
                       iconCenter={<CloseIcon />}
-                      onClick={e => this.handleClearDate(e, 'end_time')}
+                      size="small"
                       theme="brand"
                       variant="contained"
-                      size="small"
+                      onClick={e => this.handleClearDate(e, 'end_time')}
                     />
                   </span>
                 </Tooltip>
               }
             </>
           )}
+          value={this.endDateStringOrNull}
+          onChange={this.handleChangeEndDate}
         />
       </>
     );

@@ -27,8 +27,8 @@ const RuleOperatorWrapper = (props) => {
   };
 
   const operatorLabels = {
-    and: <FormattedMessage id="ruleOperatorWrapper.and" defaultMessage="And" description="'and' logical operator choice for a rule step" />,
-    or: <FormattedMessage id="ruleOperatorWrapper.or" defaultMessage="Or" description="'or' logical operator choice for a rule step" />,
+    and: <FormattedMessage defaultMessage="And" description="'and' logical operator choice for a rule step" id="ruleOperatorWrapper.and" />,
+    or: <FormattedMessage defaultMessage="Or" description="'or' logical operator choice for a rule step" id="ruleOperatorWrapper.or" />,
   };
 
   return (
@@ -41,25 +41,25 @@ const RuleOperatorWrapper = (props) => {
               <>
                 { props.onAdd ? (
                   <ButtonMain
-                    label={<FormattedMessage id="ruleOperatorWrapper.add" defaultMessage="Add Condition" description="Button label for the user to add another if/then condition to this rule" />}
                     iconLeft={<AddIcon />}
-                    variant="contained"
-                    theme="text"
+                    label={<FormattedMessage defaultMessage="Add Condition" description="Button label for the user to add another if/then condition to this rule" id="ruleOperatorWrapper.add" />}
                     size="small"
+                    theme="text"
+                    variant="contained"
                     onClick={handleAdd}
                   />
                 ) : null }
               </>
               :
               <ToggleButtonGroup
-                variant="contained"
-                value={props.operator}
-                onChange={(e, newValue) => handleChangeOperator(newValue)}
-                size="small"
                 exclusive
+                size="small"
+                value={props.operator}
+                variant="contained"
+                onChange={(e, newValue) => handleChangeOperator(newValue)}
               >
                 { props.operators.map(operator => (
-                  <ToggleButton value={operator} key={operator}>
+                  <ToggleButton key={operator} value={operator}>
                     {operatorLabels[operator]}
                   </ToggleButton>
                 ))}
@@ -69,15 +69,15 @@ const RuleOperatorWrapper = (props) => {
               <Tooltip
                 arrow
                 title={
-                  <FormattedMessage id="ruleOperatorWrapper.removeTheAbove" defaultMessage="Remove item above" description="Button to remove a new rule operator" />
+                  <FormattedMessage defaultMessage="Remove item above" description="Button to remove a new rule operator" id="ruleOperatorWrapper.removeTheAbove" />
                 }
               >
                 <span>
                   <ButtonMain
                     iconCenter={<ClearIcon style={{ color: props.deleteIconColor }} />}
-                    variant="text"
-                    theme="lightText"
                     size="default"
+                    theme="lightText"
+                    variant="text"
                     onClick={() => { handleRemove(index); }}
                   />
                 </span>

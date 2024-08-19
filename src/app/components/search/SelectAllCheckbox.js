@@ -22,8 +22,8 @@ export default function SelectAllCheckbox({
   return (
     <div className={cx(className, styles['unread-status'])}>
       <Checkbox
-        indeterminate={nSelected ? nSelected < nTotal : false}
         checked={nSelected ? nSelected === nTotal : false}
+        indeterminate={nSelected ? nSelected < nTotal : false}
         onChange={handleChange}
       />
     </div>

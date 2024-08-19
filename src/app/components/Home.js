@@ -37,10 +37,10 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
     ) {
       message = (
         <FormattedMessage
-          id="home.somethingWrong"
           defaultMessage="Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists."
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
           description="Generic error displayed when some error happens."
+          id="home.somethingWrong"
+          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
       );
     }
@@ -51,9 +51,9 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
       if (queryString.msg === 'yes') {
         message = (
           <FormattedMessage
-            id="home.successInvitation"
             defaultMessage="Welcome to Check. Please login with the password that you received in the welcome email."
             description="Message that appears after accepting an invitation to join the app."
+            id="home.successInvitation"
           />
         );
       }
@@ -62,34 +62,34 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
       switch (queryString.invitation_response) {
       case 'invalidTeamInvitation': return (
         <FormattedMessage
-          id="home.invalidTeamInvitation"
           defaultMessage="Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error."
-          values={values}
           description="Error message displayed when an invitation to join the app doesn't work."
+          id="home.invalidTeamInvitation"
+          values={values}
         />
       );
       case 'invalidNoInvitation': return (
         <FormattedMessage
-          id="home.invalidNoInvitation"
           defaultMessage="Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error."
-          values={values}
           description="Error message displayed when an invitation to join the app doesn't work."
+          id="home.invalidNoInvitation"
+          values={values}
         />
       );
       case 'invalidExpiredInvitation': return (
         <FormattedMessage
-          id="home.invalidExpiredInvitation"
           defaultMessage="Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
-          values={values}
           description="Error message displayed when an invitation to join the app doesn't work."
+          id="home.invalidExpiredInvitation"
+          values={values}
         />
       );
       default: return (
         <FormattedMessage
-          id="home.invalidInvitation"
           defaultMessage="Sorry, an error occurred while processing your invitation. Please contact {supportEmail}."
-          values={values}
           description="Error message displayed when an invitation to join the app doesn't work."
+          id="home.invalidInvitation"
+          values={values}
         />
       );
       }
@@ -292,15 +292,15 @@ class HomeComponent extends Component {
           {config.intercomAppId && user.dbid && window.parent === window ?
             <Intercom
               appID={config.intercomAppId}
-              user_id={user.dbid}
+              check_workspace={teamSlug}
+              data={(user && user.current_team) ? user.current_team.get_data_report_url : ''}
               email={user.email}
               name={user.name}
-              check_workspace={teamSlug}
               tipline={userTiplines}
-              data={(user && user.current_team) ? user.current_team.get_data_report_url : ''}
+              user_id={user.dbid}
             /> : null
           }
-          <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
+          <Favicon animated={false} url={`/images/logo/${config.appName}.ico`} />
           <BrowserSupport />
           <UserTos user={user} />
           <div
@@ -311,10 +311,10 @@ class HomeComponent extends Component {
           >
             {loggedIn && !routeIsSplash ? (
               <DrawerNavigation
+                currentUserIsMember={currentUserIsMember}
+                inTeamContext={inTeamContext}
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}
-                inTeamContext={inTeamContext}
-                currentUserIsMember={currentUserIsMember}
                 {...this.props}
                 user={this.props.me}
               />
@@ -426,7 +426,6 @@ class Home extends Component {
     return (
       <Relay.RootContainer
         Component={HomeContainer}
-        route={route}
         renderFetched={data => (
           <HomeContainer
             location={this.props.location}
@@ -436,6 +435,7 @@ class Home extends Component {
             {this.props.children}
           </HomeContainer>
         )}
+        route={route}
       />
     );
   }

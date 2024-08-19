@@ -12,13 +12,13 @@ const FeedMediaRequests = ({ projectMedia }) => {
   const requests = projectMedia.requests?.edges || [];
 
   return (
-    <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>
+    <div className={cx(styles['media-requests'], styles['media-item-content'])} id="media__requests">
       { projectMedia.requests_count > 0 && (
         <p className="typography-subtitle2">
           <FormattedMessage
-            id="feedMediaRequests.counter"
             defaultMessage="{count, plural, one {# request} other {# requests}}"
             description="The count in a readable sentence of the number of requests for this media in the feed."
+            id="feedMediaRequests.counter"
             values={{
               count: projectMedia.requests_count,
             }}
@@ -26,20 +26,20 @@ const FeedMediaRequests = ({ projectMedia }) => {
         </p>
       )}
       <Annotations
-        noLink
-        component={TiplineRequest}
-        componentProps={{ hideButtons: true }}
-        annotations={requests}
         annotated={{ ...projectMedia, archived: 1 }}
         annotatedType="ProjectMedia"
+        annotations={requests}
         annotationsCount={requests.length}
+        component={TiplineRequest}
+        componentProps={{ hideButtons: true }}
         noActivityMessage={
           <FormattedMessage
-            id="feedMediaRequests.noRequest"
             defaultMessage="0 Requests"
             description="Empty message when there are zero requests for this item in the feed"
+            id="feedMediaRequests.noRequest"
           />
         }
+        noLink
       />
     </div>
   );

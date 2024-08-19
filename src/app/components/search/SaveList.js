@@ -151,9 +151,9 @@ const SaveList = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="saveList.defaultErrorMessage"
         defaultMessage="Could not save filters, please try again"
         description="Error message displayed when it's not possible to save a list"
+        id="saveList.defaultErrorMessage"
       />
     ), 'error');
   };
@@ -162,9 +162,9 @@ const SaveList = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="saveList.savedSuccessfully"
         defaultMessage="Filters saved successfully"
         description="Success message displayed when a list is saved"
+        id="saveList.savedSuccessfully"
       />
     ), 'success');
     setTitle('');
@@ -266,71 +266,65 @@ const SaveList = ({
     <React.Fragment>
       {/* The "Save" button */}
       <ButtonMain
-        variant="contained"
-        size="default"
-        theme="lightBrand"
-        onClick={handleClick}
         buttonProps={{
           id: 'save-list__button',
         }}
         label={feedTeam && feedTeam.shared ?
           <FormattedMessage
-            id="saveList.saveFeed"
             defaultMessage="Save and share"
             description="'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters."
+            id="saveList.saveFeed"
           >
             {(...content) => content}
           </FormattedMessage>
           :
           <FormattedMessage
-            id="saveList.saveList"
             defaultMessage="Save"
             description="'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
+            id="saveList.saveList"
           >
             {(...content) => content}
           </FormattedMessage>
         }
+        size="default"
+        theme="lightBrand"
+        variant="contained"
+        onClick={handleClick}
       />
 
       {/* Create a new list */}
       <ConfirmProceedDialog
-        open={showNewDialog}
-        title={intl.formatMessage(messages.saveAsNewList)}
         body={
           <TextField
-            placeholder={intl.formatMessage(messages.saveList)}
-            onChange={(e) => { setTitle(e.target.value); }}
             className="new-list__title"
             id="new-list__title"
+            placeholder={intl.formatMessage(messages.saveList)}
+            onChange={(e) => { setTitle(e.target.value); }}
           />
         }
+        cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Cancel list editing button label" id="saveList.cancel" />}
+        isSaving={saving}
+        open={showNewDialog}
         proceedDisabled={!title}
         proceedLabel={intl.formatMessage(messages.newList)}
-        onProceed={handleSave}
-        isSaving={saving}
-        cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" description="Cancel list editing button label" />}
+        title={intl.formatMessage(messages.saveAsNewList)}
         onCancel={handleClose}
+        onProceed={handleSave}
       />
 
       {/* Create a new list or update an existing list */}
       { savedSearch ?
         <ConfirmProceedDialog
-          open={showExistingDialog}
-          title={operation === 'CREATE' ? intl.formatMessage(messages.saveAsNewList) : intl.formatMessage(messages.newList)}
           body={
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
                 <FormControlLabel
-                  value="UPDATE"
                   control={<Radio />}
-                  label={<FormattedHTMLMessage id="saveList.update" defaultMessage="Save changes to the list <strong>{listName}</strong>" values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
+                  label={<FormattedHTMLMessage defaultMessage="Save changes to the list <strong>{listName}</strong>" description="'Save' here is an infinitive verb" id="saveList.update" values={{ listName: savedSearch.title }} />}
+                  value="UPDATE"
                 />
                 { savedSearch?.is_part_of_feeds && operation === 'UPDATE' ?
                   <Alert
-                    variant="warning"
-                    title={
-                      <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
-                    }
                     content={
                       <ul>
                         {feeds.map(feed => (
@@ -338,40 +332,46 @@ const SaveList = ({
                         ))}
                       </ul>
                     }
+                    title={
+                      <FormattedMessage defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" id="saveList.warningAlert" />
+                    }
+                    variant="warning"
                   />
                   : null }
                 <FormControlLabel
-                  value="CREATE"
-                  control={<Radio />}
-                  className={classes.saveListCreateLabel}
                   classes={{ label: classes.saveListCreateLabel }}
+                  className={classes.saveListCreateLabel}
+                  control={<Radio />}
                   label={
-                    <Box display="flex" alignItems="center" width={1}>
+                    <Box alignItems="center" display="flex" width={1}>
                       <span className={classes.saveListCreate}>
-                        <FormattedMessage id="saveList.create" defaultMessage="Create new list" description="'Create' here is an infinitive verb" />
+                        <FormattedMessage defaultMessage="Create new list" description="'Create' here is an infinitive verb" id="saveList.create" />
                       </span>
                       { operation === 'CREATE' ?
                         <TextField
-                          placeholder={intl.formatMessage(messages.saveList)}
-                          onChange={(e) => { setTitle(e.target.value); }}
+                          autoFocus
                           className="new-list__title"
                           disabled={operation === 'UPDATE'}
-                          autoFocus
+                          placeholder={intl.formatMessage(messages.saveList)}
+                          onChange={(e) => { setTitle(e.target.value); }}
                         />
                         : null
                       }
                     </Box>
                   }
+                  value="CREATE"
                 />
               </RadioGroup>
             </FormControl>
           }
+          cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Cancel list editing button label" id="saveList.cancel" />}
+          isSaving={saving}
+          open={showExistingDialog}
           proceedDisabled={operation === 'CREATE' && !title}
           proceedLabel={operation === 'CREATE' ? intl.formatMessage(messages.createList) : intl.formatMessage(messages.newList)}
-          onProceed={handleSave}
-          isSaving={saving}
-          cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" description="Cancel list editing button label" />}
+          title={operation === 'CREATE' ? intl.formatMessage(messages.saveAsNewList) : intl.formatMessage(messages.newList)}
           onCancel={handleClose}
+          onProceed={handleSave}
         /> : null }
     </React.Fragment>
   );

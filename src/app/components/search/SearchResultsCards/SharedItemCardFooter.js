@@ -36,10 +36,10 @@ const SharedItemCardFooter = ({
       ),
       tags && onChangeTags && (
         <TagList
-          tags={tags}
-          setTags={onChangeTags}
           maxTags={5}
           options={tagOptions ? tagOptions.map(tag => ({ label: tag, value: tag })) : null}
+          setTags={onChangeTags}
+          tags={tags}
         />
       ),
       mediaCount !== null && (
@@ -66,11 +66,11 @@ const SharedItemCardFooter = ({
       channels && <ItemChannels channels={channels} sortMainFirst />,
       onSeeMore && (
         <ButtonMain
+          iconLeft={<OpenInNewIcon />}
+          label={<FormattedMessage defaultMessage="more" description="Label of the a button that opens more details about a feed item" id="sharedItemCardFooter.more" />}
           size="small"
           theme="text"
-          iconLeft={<OpenInNewIcon />}
           variant="contained"
-          label={<FormattedMessage id="sharedItemCardFooter.more" defaultMessage="more" description="Label of the a button that opens more details about a feed item" />}
           onClick={onSeeMore}
         />),
     ]}

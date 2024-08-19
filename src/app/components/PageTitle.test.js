@@ -15,7 +15,7 @@ describe('<PageTitle />', () => {
 
   it('should set document.title when config.appName === "check"', () => {
     config.appName = 'check';
-    mountWithIntlProvider(<PageTitle team={{ name: 'A Team' }} prefix="A Prefix" />);
+    mountWithIntlProvider(<PageTitle prefix="A Prefix" team={{ name: 'A Team' }} />);
     expect(Helmet.peek().title).toEqual('A Prefix | A Team Check');
   });
 
@@ -23,7 +23,7 @@ describe('<PageTitle />', () => {
     config.appName = 'bridge';
     // FIXME don't use i18n to change the brand name. Use a variable.
     mountWithIntlProvider(
-      <PageTitle team={{ name: 'A Team' }} prefix="A Prefix" />,
+      <PageTitle prefix="A Prefix" team={{ name: 'A Team' }} />,
       {
         messages: { 'global.appNameHuman': 'Bridge' },
       },

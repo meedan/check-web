@@ -215,7 +215,7 @@ function withPusher(Component) {
     // TODO streamline design, so components don't need to check
     // clientSessionId.
     const clientSessionId = React.useContext(ClientSessionIdContext);
-    return <Component ref={ref} pusher={pusher} clientSessionId={clientSessionId} {...props} />;
+    return <Component clientSessionId={clientSessionId} pusher={pusher} ref={ref} {...props} />;
   });
   inner.displayName = `WithPusher(${Component.displayName || Component.name || 'Component'})`;
   return inner;

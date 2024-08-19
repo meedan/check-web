@@ -19,10 +19,10 @@ const ErrorPage = ({
       <FormattedGlobalMessage messageKey="appNameHuman">
         {appNameHuman => (
           <img
-            className={styles.logo}
             alt={appNameHuman}
-            width="120"
+            className={styles.logo}
             src={stringHelper('LOGO_URL')}
+            width="120"
           />
         )}
       </FormattedGlobalMessage>

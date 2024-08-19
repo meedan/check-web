@@ -34,51 +34,51 @@ const Reorder = ({
     style={customStyle}
   >
     <Tooltip
+      arrow
       disableHoverListener={disableUp}
       placement="top"
-      arrow
       title={
         <FormattedMessage
-          id="reorder.moveUp"
           defaultMessage="Move item up"
           description="Tooltip for control that moves an item higher up in a list"
+          id="reorder.moveUp"
         />
       }
     >
       <span>
         <ButtonMain
           className="int-reorder__button-up"
-          size="small"
-          variant="text"
-          theme="brand"
-          iconCenter={<ArrowDropUpIcon />}
-          onClick={onMoveUp}
           disabled={disableUp}
+          iconCenter={<ArrowDropUpIcon />}
+          size="small"
+          theme="brand"
+          variant="text"
+          onClick={onMoveUp}
         />
       </span>
     </Tooltip>
     <hr />
     <Tooltip
+      arrow
       disableHoverListener={disableDown}
       placement="bottom"
-      arrow
       title={
         <FormattedMessage
-          id="reorder.moveDown"
           defaultMessage="Move item down"
           description="Tooltip for control that moves an item lower in a list"
+          id="reorder.moveDown"
         />
       }
     >
       <span>
         <ButtonMain
           className="int-reorder__button-down"
-          size="small"
-          variant="text"
-          theme="brand"
-          iconCenter={<ArrowDropDownIcon />}
-          onClick={onMoveDown}
           disabled={disableDown}
+          iconCenter={<ArrowDropDownIcon />}
+          size="small"
+          theme="brand"
+          variant="text"
+          onClick={onMoveDown}
         />
       </span>
     </Tooltip>

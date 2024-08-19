@@ -8,15 +8,15 @@ import { languageLabel } from '../../../LanguageRegistry';
 const Language = ({ languageCode, theme, variant }) => (
   <span>
     <ButtonMain
-      disabled
-      size="small"
-      theme={theme}
-      iconLeft={<LanguageIcon />}
-      variant={variant}
-      label={languageLabel(languageCode)}
       buttonProps={{
         type: null,
       }}
+      disabled
+      iconLeft={<LanguageIcon />}
+      label={languageLabel(languageCode)}
+      size="small"
+      theme={theme}
+      variant={variant}
     />
   </span>
 );

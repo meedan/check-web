@@ -48,9 +48,9 @@ const statuses2 = [
 describe('<TranslateStatuses/>', () => {
   it('should render all the statuses and the translation options', () => {
     const wrapper = mountWithIntl(<TranslateStatuses
-      statuses={statuses}
-      defaultLanguage="en"
       currentLanguage="pt"
+      defaultLanguage="en"
+      statuses={statuses}
       onSubmit={() => {}}
     />);
     expect(wrapper.html()).toMatch('False');
@@ -65,9 +65,9 @@ describe('<TranslateStatuses/>', () => {
 
   it('should render statues message and the field to translate message', () => {
     const wrapper = mountWithIntl(<TranslateStatuses
-      statuses={statuses2}
-      defaultLanguage="en"
       currentLanguage="pt"
+      defaultLanguage="en"
+      statuses={statuses2}
       onSubmit={() => {}}
     />);
     expect(wrapper.html()).toMatch('False');

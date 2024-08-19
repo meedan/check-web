@@ -118,7 +118,7 @@ class MediaTasksComponent extends Component {
 
     return (
       <div className={cx(styles['media-tasks'], styles['media-item-content'])}>
-        <Tasks tasks={itemTasks.edges} media={media} about={about} />
+        <Tasks about={about} media={media} tasks={itemTasks.edges} />
       </div>
     );
   }
@@ -233,8 +233,8 @@ const MediaTasks = (props) => {
       <Relay.RootContainer
         Component={MediaMetadataContainer}
         renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} fieldset="metadata" />}
+        renderLoading={() => <MediasLoading size="medium" theme="grey" variant="inline" />}
         route={route}
-        renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
       />
     </ErrorBoundary>
   );

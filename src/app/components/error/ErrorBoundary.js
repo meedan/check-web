@@ -69,15 +69,15 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <ErrorPage
-          pageTitle={null}
+          cardText={<GenericUnknownErrorMessage />}
           cardTitle={
             <FormattedMessage
-              id="mainErrorBoundary.cardTitle"
               defaultMessage="An unexpected error happened"
               description="Title for error state card displayed in error page"
+              id="mainErrorBoundary.cardTitle"
             />
           }
-          cardText={<GenericUnknownErrorMessage />}
+          pageTitle={null}
         />
       );
     }

@@ -89,39 +89,39 @@ const NewProject = ({
 
   return (
     <ConfirmProceedDialog
-      open={open}
-      title={title}
       body={
         <FormattedMessage
-          id="projectsComponent.placeholder"
           defaultMessage="Enter a short, easily remembered name for this custom list"
           description="Placeholder for creating a new custom list"
+          id="projectsComponent.placeholder"
         >
           { placeholder => (
             <TextField
+              className="new-project__title"
               componentProps={{
                 id: 'new-project__title',
               }}
-              placeholder={placeholder}
               label={
                 <FormattedMessage
-                  id="projectsComponent.title"
                   defaultMessage="Title"
                   description="Text field label for the title input"
+                  id="projectsComponent.title"
                 />
               }
+              placeholder={placeholder}
               onChange={(e) => { setNewTitle(e.target.value); }}
-              className="new-project__title"
             />
           )}
         </FormattedMessage>
       }
+      cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Dialog label for the cancel button to close the dialog" id="newProject.cancel" />}
+      isSaving={saving}
+      open={open}
       proceedDisabled={!newTitle}
       proceedLabel={buttonLabel}
-      onProceed={handleCreate}
-      isSaving={saving}
-      cancelLabel={<FormattedMessage id="newProject.cancel" defaultMessage="Cancel" description="Dialog label for the cancel button to close the dialog" />}
+      title={title}
       onCancel={onClose}
+      onProceed={handleCreate}
     />
   );
 };

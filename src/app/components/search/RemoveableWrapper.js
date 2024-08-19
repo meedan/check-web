@@ -36,21 +36,21 @@ const RemoveableWrapper = ({
     >
       {icon &&
         <Tooltip
+          arrow
           disableHoverListener={readOnly || !onRemove}
           title={
-            <FormattedMessage id="filter.removeFilter" defaultMessage="Remove filter" description="Tooltip to tell the user they can remove this filter" />
+            <FormattedMessage defaultMessage="Remove filter" description="Tooltip to tell the user they can remove this filter" id="filter.removeFilter" />
           }
-          arrow
         >
           <span>
             <ButtonMain
               className={cx('int-removeable-wrapper__button--remove', styles['filter-icon-remove'])}
+              disabled={!showDeleteIcon && !onRemove && readOnly}
               iconCenter={showDeleteIcon && onRemove && !readOnly ? <CloseIcon /> : icon}
-              onClick={handleClick}
+              size="small"
               theme={showDeleteIcon && onRemove && !readOnly ? 'lightError' : 'text'}
               variant={showDeleteIcon && onRemove && !readOnly ? 'contained' : 'text'}
-              size="small"
-              disabled={!showDeleteIcon && !onRemove && readOnly}
+              onClick={handleClick}
             />
           </span>
         </Tooltip>

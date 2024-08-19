@@ -36,7 +36,7 @@ describe('<FeedItemHeader />', () => {
   };
 
   it('should render header', () => {
-    const wrapper = shallowWithIntl(<FeedItemHeader team={team} teamSlug="test" feed={feed} cluster={cluster} />);
+    const wrapper = shallowWithIntl(<FeedItemHeader cluster={cluster} feed={feed} team={team} teamSlug="test" />);
     expect(wrapper.find('#feed-item-page-header')).toHaveLength(1);
   });
 
@@ -45,7 +45,7 @@ describe('<FeedItemHeader />', () => {
       ...cluster,
       center: null,
     };
-    const wrapper = shallowWithIntl(<FeedItemHeader team={team} teamSlug="test" feed={feed} cluster={clusterWithoutCenter} />);
+    const wrapper = shallowWithIntl(<FeedItemHeader cluster={clusterWithoutCenter} feed={feed} team={team} teamSlug="test" />);
     expect(wrapper.find('#feed-item-page-header')).toHaveLength(1);
   });
 });

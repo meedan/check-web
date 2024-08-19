@@ -24,17 +24,17 @@ const FeedTeamFactCheckDialog = ({ claimDescription, onClose, rating }) => (
     >
       <div className={dialogStyles['dialog-title']}>
         <FormattedMessage
-          tagName="h6"
-          id="feedTeamFactCheckDialog.title"
           defaultMessage="Claim & Fact-check"
           description="Title for claim & fact-check dialog on the feed item page."
+          id="feedTeamFactCheckDialog.title"
+          tagName="h6"
         />
         <ButtonMain
           className={dialogStyles['dialog-close-button']}
-          variant="text"
+          iconCenter={<IconClose />}
           size="small"
           theme="text"
-          iconCenter={<IconClose />}
+          variant="text"
           onClick={onClose}
         />
       </div>
@@ -42,9 +42,9 @@ const FeedTeamFactCheckDialog = ({ claimDescription, onClose, rating }) => (
         <div className={styles.feedItemDialogBox}>
           <div className={cx('typography-subtitle2', styles.feedItemDialogSubtitle)}>
             <FormattedMessage
-              id="feedTeamFactCheckDialog.claim"
               defaultMessage="Claim"
               description="Title for the claim section on the claim & fact-check dialog on the feed item page."
+              id="feedTeamFactCheckDialog.claim"
             />
           </div>
           { claimDescription?.description ?
@@ -65,9 +65,9 @@ const FeedTeamFactCheckDialog = ({ claimDescription, onClose, rating }) => (
             { !claimDescription?.fact_check ?
               <h5 className={styles.feedContentNotAvailable}>
                 <FormattedMessage
-                  id="feedTeamFactCheckDialog.noFactCheck"
                   defaultMessage="No Fact-Check Available"
                   description="Title for the fact-check section on the claim & fact-check dialog on the feed item page when there is no fact-check available."
+                  id="feedTeamFactCheckDialog.noFactCheck"
                 />
               </h5> :
               null
@@ -76,9 +76,9 @@ const FeedTeamFactCheckDialog = ({ claimDescription, onClose, rating }) => (
               <>
                 <div className={styles.feedItemDialogSubtitleWrapper}>
                   <FormattedMessage
-                    id="feedTeamFactCheckDialog.factCheck"
                     defaultMessage="Fact-Check"
                     description="Title for the fact-check section on the claim & fact-check dialog on the feed item page."
+                    id="feedTeamFactCheckDialog.factCheck"
                   />
                   <div className={styles.feedItemDialogSubtitleFactCheckRating}>
                     {rating}
@@ -97,7 +97,7 @@ const FeedTeamFactCheckDialog = ({ claimDescription, onClose, rating }) => (
                     (
                       <div className={styles.feedItemDialogBulletSeparatorComponent}>
                         <CalendarIcon />
-                        <FormattedDate value={new Date(parseInt(claimDescription.fact_check.updated_at, 10) * 1000)} year="numeric" month="long" day="numeric" />
+                        <FormattedDate day="numeric" month="long" value={new Date(parseInt(claimDescription.fact_check.updated_at, 10) * 1000)} year="numeric" />
                       </div>
                     ),
                   ]}
@@ -124,15 +124,15 @@ const FeedTeamFactCheckDialog = ({ claimDescription, onClose, rating }) => (
       <div className={dialogStyles['dialog-actions']}>
         <ButtonMain
           className="feed-team-fact-check-dialog__close-button"
-          size="default"
-          onClick={onClose}
           label={
             <FormattedMessage
-              id="feedTeamFactCheckDialog.close"
               defaultMessage="Close"
               description="Label of a button to close the claim & fact-check dialog window on the feed item page."
+              id="feedTeamFactCheckDialog.close"
             />
           }
+          size="default"
+          onClick={onClose}
         />
       </div>
     </Dialog>

@@ -60,10 +60,7 @@ const NewsletterHeader = ({
 }) => (
   <div>
     <Select
-      label={<FormattedMessage id="newsletterHeader.header" defaultMessage="Header" description="Label for the newsletter header type field" />}
       className={styles.select}
-      value={headerType}
-      onChange={(e) => { onUpdateField('headerType', e.target.value); }}
       disabled={disabled}
       error={parentErrors.header_type || error}
       helpContent={
@@ -71,14 +68,17 @@ const NewsletterHeader = ({
           parentErrors.header_type
           :
           <FormattedMessage
-            id="newsletterHeader.headerHelp"
             defaultMessage="Use a Header to send an image, video, or link to newsletter subscribers. Header images should be between 300 and 1600 pixels wide. We recommend the aspect ratio for header images be 1.91:1"
             description="Input help context for selecting a newsletter header"
+            id="newsletterHeader.headerHelp"
           />
       }
+      label={<FormattedMessage defaultMessage="Header" description="Label for the newsletter header type field" id="newsletterHeader.header" />}
+      value={headerType}
+      onChange={(e) => { onUpdateField('headerType', e.target.value); }}
     >
       {Object.keys(headerTypes).map(type => (
-        <option key={type} value={type} disabled={!availableHeaderTypes.includes(type)}>
+        <option disabled={!availableHeaderTypes.includes(type)} key={type} value={type}>
           {intl.formatMessage(headerTypes[type])}
         </option>
       ))}
@@ -87,37 +87,37 @@ const NewsletterHeader = ({
     { (headerType === 'image' || headerType === 'video' || headerType === 'audio') ?
       <div className={styles.uploader}>
         <Upload
-          type="image+video+audio"
-          error={parentErrors.header_file || parentErrors.base}
-          helpContent={parentErrors.header_file || parentErrors.base}
           disabled={disabled}
-          handleFileChange={handleFileChange}
+          error={parentErrors.header_file || parentErrors.base}
           fileName={fileName}
+          handleFileChange={handleFileChange}
+          helpContent={parentErrors.header_file || parentErrors.base}
           setFile={setFile}
           setFileName={setFileName}
+          type="image+video+audio"
           value={file}
         />
       </div> : null
     }
     { headerType === 'image' ?
       <FormattedMessage
-        id="newsletterHeader.overlayPlaceholder"
         defaultMessage="Add text on top of the image"
         description="Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+        id="newsletterHeader.overlayPlaceholder"
       >
         { placeholder => (
           <LimitedTextField
             disabled={disabled || (!file && !fileName)}
+            label={<FormattedMessage
+              defaultMessage="Text overlay"
+              description="Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+              id="newsletterHeader.overlay"
+            />}
             maxChars={160}
-            value={overlayText}
             placeholder={placeholder}
             required={false}
             setValue={(value) => { onUpdateField('overlayText', value); }}
-            label={<FormattedMessage
-              id="newsletterHeader.overlay"
-              defaultMessage="Text overlay"
-              description="Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
-            />}
+            value={overlayText}
           />
         )}
       </FormattedMessage> : null }

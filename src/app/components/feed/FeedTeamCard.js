@@ -54,7 +54,7 @@ const FeedTeamCard = ({
     >
       <Card className={styles.feedItemTeamCard}>
         <div className={styles.feedItemTeamCardHeader}>
-          <TeamAvatar team={{ avatar: team.avatar }} size="54px" />
+          <TeamAvatar size="54px" team={{ avatar: team.avatar }} />
           <div>
             <div>
               <h6 className="typography-button">{team.name}</h6>
@@ -65,9 +65,9 @@ const FeedTeamCard = ({
                   variant: 'text',
                   theme: 'text',
                 }}
+                lastRequestDate={clusterTeam.last_request_date && new Date(parseInt(clusterTeam.last_request_date, 10) * 1000)}
                 mediaCount={clusterTeam.media_count}
                 requestsCount={clusterTeam.requests_count}
-                lastRequestDate={clusterTeam.last_request_date && new Date(parseInt(clusterTeam.last_request_date, 10) * 1000)}
               />
             </div>
           </div>
@@ -75,9 +75,9 @@ const FeedTeamCard = ({
         { Object.keys(clusterTeam).length === 0 ? // Empty clusterTeam object (e.g., {})
           <div className={styles.feedItemTeamCardNotSharing}>
             <FormattedHTMLMessage
-              id="feedTeamCard.notContributing"
               defaultMessage="Your workspace does not contribute to this shared feed item.<br /><br />Select a workspace below to import its media to your workspace."
               description="Displayed on the current workspace card on feed item page when the current workspace is not contributing to that cluster. This is an HTML message, please keep the <br /> tag."
+              id="feedTeamCard.notContributing"
             />
           </div>
           : null

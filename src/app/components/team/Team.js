@@ -6,7 +6,7 @@ import ErrorBoundary from '../error/ErrorBoundary';
 
 const renderQuery = ({ error, props }, { params, route }) => {
   if (!error && props) {
-    return <TeamComponent team={props.team} route={route} params={params} />;
+    return <TeamComponent params={params} route={route} team={props.team} />;
   }
 
   // TODO: We need a better error handling in the future, standardized with other components
@@ -31,11 +31,11 @@ const Team = (props) => {
             }
           }
         `}
+        render={data => renderQuery(data, props)}
         variables={{
           teamSlug,
           timestamp: new Date().getTime(), // FIXME: Forcing re-fetching data from the backend since Relay Modern mutations with file uploads don't update the Relay store yet
         }}
-        render={data => renderQuery(data, props)}
       />
     </ErrorBoundary>
   );

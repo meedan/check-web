@@ -35,7 +35,7 @@ const SettingsHeader = ({
           <h6 className="component__settings-header">
             {title}
             { helpUrl &&
-              <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
+              <ButtonMain iconCenter={<HelpIcon />} size="default" theme="lightText" variant="text" onClick={handleHelp} />
             }
           </h6>
           { extra &&

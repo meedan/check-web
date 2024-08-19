@@ -53,9 +53,9 @@ const TeamTaskCard = ({
               <ButtonMain
                 className="team-tasks__menu-item-button"
                 iconCenter={<IconMoreVert />}
-                variant="outlined"
                 size="default"
                 theme="text"
+                variant="outlined"
                 onClick={e => setAnchorEl(e.currentTarget)}
               />
               <Menu
@@ -65,16 +65,16 @@ const TeamTaskCard = ({
               >
                 <MenuItem className="team-tasks__edit-button" onClick={handleMenuEdit}>
                   <FormattedMessage
-                    id="global.edit"
                     defaultMessage="Edit"
                     description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
+                    id="global.edit"
                   />
                 </MenuItem>
                 <MenuItem className="team-tasks__delete-button" onClick={handleMenuDelete}>
                   <FormattedMessage
-                    id="global.delete"
                     defaultMessage="Delete"
                     description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
+                    id="global.delete"
                   />
                 </MenuItem>
               </Menu>
@@ -88,27 +88,27 @@ const TeamTaskCard = ({
       <div className={settingsStyles['setting-content-container-inner-accent']}>
         <div className={styles['task-card-actions']}>
           <SwitchComponent
-            onChange={() => setRequired(!required)}
             checked={required}
-            labelPlacement="end"
             label={<FormattedMessage
-              id="teamTaskCard.required"
               defaultMessage="Required"
               description="Toggle switch to make field required"
+              id="teamTaskCard.required"
             />}
+            labelPlacement="end"
+            onChange={() => setRequired(!required)}
           />
           <SwitchComponent
-            onChange={() => setShowInBrowserExtension(!showInBrowserExtension)}
             checked={showInBrowserExtension}
-            labelPlacement="end"
             label={<FormattedMessage
-              id="teamTaskCard.showInBrowserExtension"
               defaultMessage="Show in browser extension"
               description="Toggle switch to make field visible in the browser extension"
+              id="teamTaskCard.showInBrowserExtension"
             />}
+            labelPlacement="end"
+            onChange={() => setShowInBrowserExtension(!showInBrowserExtension)}
           />
         </div>
-        <TeamTaskCardForm task={task} about={about} />
+        <TeamTaskCardForm about={about} task={task} />
       </div>
       <div>
         {children}

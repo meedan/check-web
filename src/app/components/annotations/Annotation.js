@@ -54,20 +54,20 @@ class Annotation extends Component {
       if (!coordinates[0] || !coordinates[1]) {
         return (
           <a
-            style={{ textDecoration: 'underline' }}
             href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`}
-            target="_blank"
             rel="noreferrer noopener"
+            style={{ textDecoration: 'underline' }}
+            target="_blank"
           >
-            <ParsedText text={name} block />
+            <ParsedText block text={name} />
           </a>
         );
       }
-      return <ParsedText text={name} block />;
+      return <ParsedText block text={name} />;
     } else if (type === 'datetime') {
       return <DatetimeTaskResponse response={object.value} />;
     }
-    return <ParsedText text={object.value} block />;
+    return <ParsedText block text={object.value} />;
   }
 
   render() {
@@ -89,9 +89,9 @@ class Annotation extends Component {
         contentTemplate = (
           <span>
             <FormattedMessage
-              id="annotation.taggedHeader"
               defaultMessage="Tag #{tag} added by {author}"
               description="Log entry indicating a tag was added"
+              id="annotation.taggedHeader"
               values={{
                 tag: activity.tag.tag_text.replace(/^#/, ''),
                 author: authorName,
@@ -106,9 +106,9 @@ class Annotation extends Component {
         contentTemplate = (
           <span className="annotation__metadata-created">
             <FormattedMessage
-              id="annotation.metadataCreated"
               defaultMessage="Annotation field created by {author}: {fieldLabel}"
               description="Log entry indicating an annotation field was created"
+              id="annotation.metadataCreated"
               values={{
                 fieldLabel: content.label,
                 author: authorName,
@@ -129,21 +129,21 @@ class Annotation extends Component {
           <span>
             { /confirmed_sibling/.test(type) ?
               <FormattedMessage
-                id="annotation.similarCreated"
                 defaultMessage="Match confirmed by {author}: {title}"
                 description="Log entry indicating a similarity match was confirmed"
+                id="annotation.similarCreated"
                 values={{
-                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
+                  title: (<Link target="_blank" to={source.url}>{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
                 }}
               /> : null }
             { /suggested/.test(type) ?
               <FormattedMessage
-                id="annotation.suggestionCreated"
                 defaultMessage="Match suggested by {author}: {title}"
                 description="Log entry indicating a similarity match was suggested"
+                id="annotation.suggestionCreated"
                 values={{
-                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
+                  title: (<Link target="_blank" to={source.url}>{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
                 }}
               /> : null }
@@ -163,21 +163,21 @@ class Annotation extends Component {
           <span>
             { /confirmed_sibling/.test(type) ?
               <FormattedMessage
-                id="annotation.similarDestroyed"
                 defaultMessage="Match deleted by {author}: {title}"
                 description="Tells that one item previously confirmed as similar has been detached from current item."
+                id="annotation.similarDestroyed"
                 values={{
-                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
+                  title: (<Link target="_blank" to={source.url}>{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
                 }}
               /> : null }
             { /suggested_sibling/.test(type) ?
               <FormattedMessage
-                id="annotation.suggestionDestroyed"
                 defaultMessage="Match rejected by {author}: {title}"
                 description="Log entry indicating a similarity match was rejected"
+                id="annotation.suggestionDestroyed"
                 values={{
-                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
+                  title: (<Link target="_blank" to={source.url}>{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
                 }}
               /> : null }
@@ -199,9 +199,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span>
               <FormattedMessage
-                id="annotation.taskAssignmentCreated"
                 defaultMessage="Task assigned to {name} by {author}: {title}"
                 description="Log entry indicating a task has been assigned"
+                id="annotation.taskAssignmentCreated"
                 values={values}
               />
             </span>
@@ -211,9 +211,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span>
               <FormattedMessage
-                id="annotation.mediaAssignmentCreated"
                 defaultMessage="Item assigned to {name} by {author}"
                 description="Log entry indicating an item has been assigned"
+                id="annotation.mediaAssignmentCreated"
                 values={values}
               />
             </span>
@@ -235,9 +235,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span>
               <FormattedMessage
-                id="annotation.taskAssignmentDeleted"
                 defaultMessage="Task unassigned from {name} by {author}: {title}"
                 description="Log entry indicating a task has been unassigned"
+                id="annotation.taskAssignmentDeleted"
                 values={values}
               />
             </span>
@@ -247,9 +247,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span>
               <FormattedMessage
-                id="annotation.mediaAssignmentDeleted"
                 defaultMessage="Item unassigned from {name} by {author}"
                 description="Log entry indicating an item has been unassigned"
+                id="annotation.mediaAssignmentDeleted"
                 values={values}
               />
             </span>
@@ -266,18 +266,18 @@ class Annotation extends Component {
           if (statusChanges.locked[1]) {
             contentTemplate = (
               <FormattedMessage
-                id="annotation.statusLocked"
                 defaultMessage="Item status locked by {author}"
                 description="Log entry indicating an item status has been locked"
+                id="annotation.statusLocked"
                 values={{ author: authorName }}
               />
             );
           } else {
             contentTemplate = (
               <FormattedMessage
-                id="annotation.statusUnlocked"
                 defaultMessage="Item status unlocked by {author}"
                 description="Log entry indicating an item status has been unlocked"
+                id="annotation.statusUnlocked"
                 values={{ author: authorName }}
               />
             );
@@ -287,9 +287,9 @@ class Annotation extends Component {
           if (assignment.assigned_to_name) {
             contentTemplate = (
               <FormattedMessage
-                id="annotation.mediaAssigned"
                 defaultMessage="Item assigned to {name} by {author}"
                 description="Log entry indicating an item has been assigned"
+                id="annotation.mediaAssigned"
                 values={{
                   name: assignment.assigned_to_name,
                   author: authorName,
@@ -299,9 +299,9 @@ class Annotation extends Component {
           } else {
             contentTemplate = (
               <FormattedMessage
-                id="annotation.mediaUnassigned"
                 defaultMessage="Item unassigned from {name} by {author}"
                 description="Log entry indicating an item has been unassigned"
+                id="annotation.mediaUnassigned"
                 values={{
                   name: assignment.assigned_from_name,
                   author: authorName,
@@ -325,9 +325,9 @@ class Annotation extends Component {
         }
         contentTemplate = (
           <FormattedMessage
-            id="annotation.reportDesignState"
             defaultMessage="Fact-check report {state} {author}"
             description="Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
+            id="annotation.reportDesignState"
             values={{
               state: reportState,
               author: authorName,
@@ -346,9 +346,9 @@ class Annotation extends Component {
         contentTemplate = (
           <span>
             <FormattedMessage
-              id="annotation.statusSetHeader"
               defaultMessage="Status changed to {status} by {author}"
               description="Log entry indicating an item status has been changed"
+              id="annotation.statusSetHeader"
               values={{
                 status: (
                   <span
@@ -378,6 +378,7 @@ class Annotation extends Component {
               <div>
                 { botResponse.image_url ?
                   <div
+                    className="annotation__card-thumbnail annotation__bot-response-thumbnail"
                     style={{
                       background: `transparent url('${botResponse.image_url}') top left no-repeat`,
                       backgroundSize: 'cover',
@@ -387,7 +388,6 @@ class Annotation extends Component {
                       cursor: 'pointer',
                       display: 'inline-block',
                     }}
-                    className="annotation__card-thumbnail annotation__bot-response-thumbnail"
                     onClick={this.handleOpenCommentImage.bind(this, botResponse.image_url)}
                   /> : null }
               </div>
@@ -399,17 +399,17 @@ class Annotation extends Component {
       if (object.field_name === 'language') {
         const languageName = object.value !== 'und' ? languageLabel(object.value) : (
           <FormattedMessage
-            id="annotation.unknownLanguage"
             defaultMessage="Unknown language"
             description="Show label for undefined language"
+            id="annotation.unknownLanguage"
           />
         );
         contentTemplate = activityType === 'create_dynamicannotationfield' ? (
           <span>
             <FormattedMessage
-              id="annotation.addLanguage"
               defaultMessage="Language {value} added by {author}"
               description="Log entry indicating an item language has been set. {value} receives language name"
+              id="annotation.addLanguage"
               values={{
                 value: languageName,
                 author: 'Check',
@@ -419,9 +419,9 @@ class Annotation extends Component {
         ) : (
           <span>
             <FormattedMessage
-              id="annotation.updateLanguage"
               defaultMessage="Language {value} updated by {author}"
               description="Log entry indicating an item language has been updated. {value} receives language name"
+              id="annotation.updateLanguage"
               values={{
                 value: languageName,
                 author: authorName,
@@ -436,9 +436,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__metadata-filled">
               <FormattedMessage
-                id="annotation.metadataResponse"
                 defaultMessage='Annotation "{fieldLabel}" edited by {author}: {response}'
                 description="Log entry indicating an annotation response has been changed"
+                id="annotation.metadataResponse"
                 values={{
                   fieldLabel: activity.task.label,
                   author: authorName,
@@ -468,8 +468,8 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.archiverWait"
                 defaultMessage="This item is being archived at {name}. The archive link will be displayed here when it's ready."
+                id="annotation.archiverWait"
                 values={{ name: archiveName }}
               />
             </span>
@@ -484,9 +484,9 @@ class Annotation extends Component {
         contentTemplate = (
           <span>
             <FormattedMessage
-              id="annotation.addSource"
               defaultMessage="Source {name} added by {author}"
               description="Log entry indicating a source has been added"
+              id="annotation.addSource"
               values={{
                 name: meta.source_name,
                 author: 'Check',
@@ -498,9 +498,9 @@ class Annotation extends Component {
         contentTemplate = (
           <span>
             <FormattedMessage
-              id="annotation.createProjectMedia"
               defaultMessage="Item created by {author}"
               description="Log entry indicating an item has been created"
+              id="annotation.createProjectMedia"
               values={{
                 author: authorName,
               }}
@@ -519,9 +519,9 @@ class Annotation extends Component {
             contentTemplate = (
               <span>
                 <FormattedMessage
-                  id="annotation.addSource"
                   defaultMessage="Source {name} added by {author}"
                   description="Log entry indicating a source has been added"
+                  id="annotation.addSource"
                   values={{
                     name: meta.source_name,
                     author: authorName,
@@ -533,9 +533,9 @@ class Annotation extends Component {
             contentTemplate = (
               <span>
                 <FormattedMessage
-                  id="annotation.updateSource"
                   defaultMessage="Source {name} updated by {author}"
                   description="Log entry indicating an item status has been changed"
+                  id="annotation.updateSource"
                   values={{
                     name: meta.source_name,
                     author: authorName,
@@ -550,9 +550,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span>
               <FormattedMessage
-                id="annotation.markedAsSpam"
                 defaultMessage="Marked as Spam by {author}"
                 description="Log entry indicating an item marked as spam"
+                id="annotation.markedAsSpam"
                 values={{
                   author: authorName,
                 }}
@@ -563,9 +563,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span>
               <FormattedMessage
-                id="annotation.markAsSpam"
                 defaultMessage="Sent to Trash by {author}"
                 description="Log entry indicating an item sent to trash"
+                id="annotation.markAsSpam"
                 values={{
                   author: authorName,
                 }}
@@ -577,9 +577,9 @@ class Annotation extends Component {
             contentTemplate = (
               <span>
                 <FormattedMessage
-                  id="annotation.notSpam"
                   defaultMessage="Marked as not Spam by {author}"
                   description="Log entry indicating an item not spam"
+                  id="annotation.notSpam"
                   values={{
                     author: authorName,
                   }}
@@ -590,9 +590,9 @@ class Annotation extends Component {
             contentTemplate = (
               <span>
                 <FormattedMessage
-                  id="annotation.restoreFromTrash"
                   defaultMessage="Restored from Trash by {author}"
                   description="Log entry indicating an item restored from trash"
+                  id="annotation.restoreFromTrash"
                   values={{
                     author: authorName,
                   }}
@@ -612,9 +612,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__claim-description">
               <FormattedMessage
-                id="annotation.updateClaimDescription"
                 defaultMessage="Claim edited by {author}: {value}"
                 description="Log entry indicating a claim has been edited"
+                id="annotation.updateClaimDescription"
                 values={{
                   author: authorName,
                   value: object.description,
@@ -626,9 +626,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__claim-description">
               <FormattedMessage
-                id="annotation.createClaimDescription"
                 defaultMessage="Claim added by {author}: {value}"
                 description="Log entry indicating a claim has been added"
+                id="annotation.createClaimDescription"
                 values={{
                   author: authorName,
                   value: object.description,
@@ -642,9 +642,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__claim-context">
               <FormattedMessage
-                id="annotation.updateClaimContext"
                 defaultMessage="Additional content edited by {author}: {value}"
                 description="Log entry indicating the additional content has been edited"
+                id="annotation.updateClaimContext"
                 values={{
                   author: authorName,
                   value: object.context,
@@ -656,9 +656,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__claim-context">
               <FormattedMessage
-                id="annotation.createClaimContext"
                 defaultMessage="Additional content added by {author}: {value}"
                 description="Log entry indicating additional content has been added"
+                id="annotation.createClaimContext"
                 values={{
                   author: authorName,
                   value: object.context,
@@ -674,9 +674,9 @@ class Annotation extends Component {
       contentTemplate = (
         <span className="annotation__claim-factcheck">
           <FormattedMessage
-            id="annotation.createFactCheck"
             defaultMessage="Fact-check title added by {author}: {value}"
             description="Log entry indicating fact-check title has been added"
+            id="annotation.createFactCheck"
             values={{
               author: authorName,
               value: object.title,

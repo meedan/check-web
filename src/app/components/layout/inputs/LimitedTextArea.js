@@ -50,24 +50,24 @@ const LimitedTextArea = ({
 
   return (
     <TextArea
-      required={required}
-      ref={inputRef}
-      value={localText}
       helpContent={(
         <>
           {helpContent}
           <div className={styles['help-counter']}>
             <FormattedMessage
-              id="limitedTextAreaWithCounter.counter"
               defaultMessage="{remaining, plural, one {# character left} other {# characters left}}"
               description="Label that displays how many characters more can be typed"
+              id="limitedTextAreaWithCounter.counter"
               values={{ remaining: maxChars - (localText?.length || 0) }}
             />
           </div>
         </>
       )}
-      onChange={handleChange}
+      ref={inputRef}
+      required={required}
+      value={localText}
       onBlur={handleBlur}
+      onChange={handleChange}
       {...textFieldProps}
       error={localError || textFieldProps.error}
     />

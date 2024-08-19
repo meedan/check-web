@@ -44,12 +44,12 @@ const FactChecks = ({ intl, routeParams }) => {
 
   return (
     <Articles
-      type="fact-check"
-      title={<FormattedMessage id="factChecks.title" defaultMessage="Claim & Fact-Checks" description="Title of the fact-checks page." />}
-      icon={<FactCheckIcon />}
-      teamSlug={routeParams.team}
-      sortOptions={sortOptions}
       filterOptions={['users', 'tags', 'range', 'language_filter', 'published_by', 'report_status', 'verification_status']}
+      icon={<FactCheckIcon />}
+      sortOptions={sortOptions}
+      teamSlug={routeParams.team}
+      title={<FormattedMessage defaultMessage="Claim & Fact-Checks" description="Title of the fact-checks page." id="factChecks.title" />}
+      type="fact-check"
       updateMutation={updateMutation}
     />
   );

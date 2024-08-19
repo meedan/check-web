@@ -40,11 +40,11 @@ const RoleSelect = ({
   return (
     <Select
       className="role-select"
-      label={showLabel ? <FormattedMessage id="roleSelect.selectLabel" defaultMessage="Workspace permission" description="Label for select input for user to choose the permissions role for this user" /> : null}
       disabled={disabled}
+      label={showLabel ? <FormattedMessage defaultMessage="Workspace permission" description="Label for select input for user to choose the permissions role for this user" id="roleSelect.selectLabel" /> : null}
       required={showLabel}
-      onChange={onChange}
       value={value}
+      onChange={onChange}
     >
       {
         filteredRoles.map(r => (

@@ -5,7 +5,7 @@ import MediasLoading from '../components/media/MediasLoading';
 const RelayContainer = props => (
   <Relay.RootContainer
     {...props}
-    renderLoading={() => <MediasLoading theme="white" variant="page" size="large" />}
+    renderLoading={() => <MediasLoading size="large" theme="white" variant="page" />}
   />
 );
 

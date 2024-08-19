@@ -256,39 +256,39 @@ class Task extends Component {
       MetadataLocation: {
         customize: (
           <FormattedMessage
-            id="metadata.location.customize"
             defaultMessage="Customize place name"
             description="This is a label that appears on a text field, related to a pin on a map. The user may type any text of their choice here and name the place they are pinning. They can also modify suggested place names here."
+            id="metadata.location.customize"
           />
         ),
         coordinates: (
           <FormattedMessage
-            id="metadata.location.coordinates"
             defaultMessage="Latitude, longitude"
             description="This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
+            id="metadata.location.coordinates"
           />
         ),
         coordinatesHelper: (
           <FormattedMessage
-            id="metadata.location.coordinates.helper"
             defaultMessage="Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty."
             description="This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
+            id="metadata.location.coordinates.helper"
           />
         ),
         search: (
           <FormattedMessage
-            id="metadata.location.search"
             defaultMessage="Search the map"
             description="This is a label that appears on a text field. If the user begins to type a location they will receive a list of suggested place names."
+            id="metadata.location.search"
           />
         ),
       },
       MetadataFile: {
         dropFile: (
           <FormattedMessage
-            id="metadata.file.dropFile"
             defaultMessage="Drag and drop a file here, or click to upload a file (max size: {fileSizeLabel}, allowed extensions: {extensions})"
             description="This message appears in a rectangle, instructing the user that they can use their mouse to drag and drop a file, or click to pull up a file selector menu. This also tells them the maximum allowed file size, and the valid types of files that the user can upload. The `fileSizeLabel` variable will read something like '1.0 MB', and the 'extensions' variable is a list of valid file extensions. Neither will be localized."
+            id="metadata.file.dropFile"
             values={{
               fileSizeLabel: about ? about.file_max_size : '',
               extensions: about ? about.file_extensions?.join(', ') : '',
@@ -297,25 +297,25 @@ class Task extends Component {
         ),
         errorTooManyFiles: (
           <FormattedMessage
-            id="metadata.file.tooManyFiles"
             defaultMessage="You can only upload one file here. Please try uploading one file."
             description="This message appears when a user tries to add two or more files at once to the file upload widget."
+            id="metadata.file.tooManyFiles"
           />
         ),
 
         errorInvalidFile: (
           <FormattedMessage
-            id="metadata.file.invalidFile"
             defaultMessage="This is not a valid file. Please try again with a different file."
             description="This message appears when a user tries to add two or more files at once to the file upload widget."
+            id="metadata.file.invalidFile"
           />
         ),
 
         errorFileTooBig: (
           <FormattedMessage
-            id="metadata.file.tooBig"
             defaultMessage="This file is too big. The maximum allowed file size is {fileSizeLabel}. Please try again with a different file."
             description="This message appears when a user tries to upload a file that is too big. The 'fileSizeLabel' will read something like '1.0 MB' and will not be localized."
+            id="metadata.file.tooBig"
             values={{
               fileSizeLabel: about ? about.file_max_size : '',
             }}
@@ -324,9 +324,9 @@ class Task extends Component {
 
         errorFileType: (
           <FormattedMessage
-            id="metadata.file.wrongType"
             defaultMessage="This is not an accepted file type. Accepted file types include: {extensions}. Please try again with a different file."
             description="This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
+            id="metadata.file.wrongType"
             values={{
               extensions: about ? about.file_extensions?.join(', ') : '',
             }}
@@ -335,18 +335,18 @@ class Task extends Component {
 
         errorNoFile: (
           <FormattedMessage
-            id="metadata.file.noFile"
             defaultMessage="This file is missing from the database. Edit and clear this annotation to upload a new file."
             description="This message appears when a user tries to access a file that does not exist in the database."
+            id="metadata.file.noFile"
           />
         ),
       },
       MetadataUrl: {
         helperText: (
           <FormattedMessage
-            id="metadata.url.helperText"
             defaultMessage="Must be a valid URL"
             description="A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL."
+            id="metadata.url.helperText"
           />
         ),
       },
@@ -360,18 +360,18 @@ class Task extends Component {
     const EditButton = () => (
       <div className={styles['task-metadata-button']}>
         <ButtonMain
-          onClick={() => this.handleAction('edit_response', responseObj)}
-          size="default"
-          variant="contained"
-          theme="brand"
           className="metadata-edit"
           label={
             <FormattedMessage
-              id="global.edit"
               defaultMessage="Edit"
               description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
+              id="global.edit"
             />
           }
+          size="default"
+          theme="brand"
+          variant="contained"
+          onClick={() => this.handleAction('edit_response', responseObj)}
         />
       </div>
     );
@@ -380,20 +380,20 @@ class Task extends Component {
       <div className={styles['task-metadata-button']}>
         <ButtonMain
           className="metadata-cancel"
+          label={
+            <FormattedMessage
+              defaultMessage="Cancel"
+              description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+              id="global.cancel"
+            />
+          }
           size="default"
-          variant="text"
           theme="lightText"
+          variant="text"
           onClick={() => {
             this.setState({ editingResponse: false });
             this.setState({ textValue: this.getMultiselectInitialValue(task) || task.first_response_value || '' });
           }}
-          label={
-            <FormattedMessage
-              id="global.cancel"
-              defaultMessage="Cancel"
-              description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
-            />
-          }
         />
       </div>
     );
@@ -414,15 +414,23 @@ class Task extends Component {
       return (
         <div className={styles['task-metadata-button']}>
           <ButtonMain
-            className="metadata-save"
-            size="default"
-            variant="contained"
-            theme="brand"
             buttonProps={{
               'data-required': required,
               'data-empty': empty,
               'data-urlerror': anyInvalidUrls,
             }}
+            className="metadata-save"
+            disabled={disabled}
+            label={
+              <FormattedMessage
+                defaultMessage="Save"
+                description="Generic label for a button or link for a user to press when they wish to save an action or setting"
+                id="global.save"
+              />
+            }
+            size="default"
+            theme="brand"
+            variant="contained"
             onClick={() => {
               let tempTextValue;
               const isEmptyUrlArray = () => task.type === 'url' && Array.isArray(this.state.textValue) && this.state.textValue?.filter(item => item.url !== '' || item.title !== '').length === 0;
@@ -459,14 +467,6 @@ class Task extends Component {
                 );
               }
             }}
-            disabled={disabled}
-            label={
-              <FormattedMessage
-                id="global.save"
-                defaultMessage="Save"
-                description="Generic label for a button or link for a user to press when they wish to save an action or setting"
-              />
-            }
           />
         </div>
       );
@@ -478,22 +478,22 @@ class Task extends Component {
         <div className={styles['task-metadata-button']}>
           <ButtonMain
             className="metadata-delete"
+            label={
+              <FormattedMessage
+                defaultMessage="Delete"
+                description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
+                id="global.delete"
+              />
+            }
             size="default"
-            variant="contained"
             theme="error"
+            variant="contained"
             onClick={() => {
               if (onClick) {
                 onClick();
               }
               this.submitDeleteTaskResponse(task.first_response.id);
             }}
-            label={
-              <FormattedMessage
-                id="global.delete"
-                defaultMessage="Delete"
-                description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
-              />
-            }
           />
         </div>
       );
@@ -512,10 +512,10 @@ class Task extends Component {
 
     const ProgressLabel = ({ fileName }) => (
       <FormattedMessage
-        tagName="p"
-        id="metadata.uploadProgressLabel"
         defaultMessage="Saving {file}…"
         description="This is a label that appears while a file upload is ongoing."
+        id="metadata.uploadProgressLabel"
+        tagName="p"
         values={{ file: fileName }}
       />
     );
@@ -544,25 +544,25 @@ class Task extends Component {
     };
 
     return (
-      <div key={responseObj?.dbid} className="task__resolved">
+      <div className="task__resolved" key={responseObj?.dbid}>
         {task.type === 'free_text' ? (
           <div className="task__response">
             <MetadataText
-              node={task}
+              AnnotatorInformation={AnnotatorInformation}
+              CancelButton={CancelButton}
               classes={{}}
               DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
+              disabled={!this.props.isEditing}
               EditButton={EditButton}
-              AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
-              disabled={!this.props.isEditing}
-              required={task.team_task.required}
               metadataValue={
                 this.state.textValue
               }
+              node={task}
+              required={task.team_task.required}
+              SaveButton={SaveButton}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
@@ -572,21 +572,21 @@ class Task extends Component {
         {task.type === 'number' ? (
           <div className="task__response">
             <MetadataNumber
-              node={task}
+              AnnotatorInformation={AnnotatorInformation}
+              CancelButton={CancelButton}
               classes={{}}
               DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
+              disabled={!this.props.isEditing}
               EditButton={EditButton}
-              AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
-              disabled={!this.props.isEditing}
-              required={task.team_task.required}
               metadataValue={
                 this.state.textValue
               }
+              node={task}
+              required={task.team_task.required}
+              SaveButton={SaveButton}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
@@ -597,25 +597,25 @@ class Task extends Component {
           <div className={styles['task-map']}>
             <div className="task__response">
               <MetadataLocation
-                node={task}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
                 AnnotatorInformation={AnnotatorInformation}
+                CancelButton={CancelButton}
+                DeleteButton={DeleteButton}
+                disabled={!this.props.isEditing}
+                EditButton={EditButton}
                 FieldInformation={FieldInformation}
                 hasData={!!task?.first_response_value}
                 isEditing={this.props.isEditing}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
+                mapboxApiKey={config.mapboxApiKey}
+                messages={messages.MetadataLocation}
                 metadataValue={
                   this.state.textValue
                 }
+                node={task}
+                required={task.team_task.required}
+                SaveButton={SaveButton}
                 setMetadataValue={(textValue) => {
                   this.setState({ textValue });
                 }}
-                mapboxApiKey={config.mapboxApiKey}
-                messages={messages.MetadataLocation}
               />
             </div>
           </div>
@@ -623,21 +623,21 @@ class Task extends Component {
         {task.type === 'datetime' ? (
           <div className="task__response">
             <MetadataDate
-              node={task}
+              AnnotatorInformation={AnnotatorInformation}
+              CancelButton={CancelButton}
               classes={{}}
               DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
+              disabled={!this.props.isEditing}
               EditButton={EditButton}
-              AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
-              disabled={!this.props.isEditing}
-              required={task.team_task.required}
               metadataValue={
                 this.state.textValue
               }
+              node={task}
+              required={task.team_task.required}
+              SaveButton={SaveButton}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
@@ -647,22 +647,22 @@ class Task extends Component {
         {task.type === 'single_choice' ? (
           <div className="task__response">
             <MetadataMultiselect
-              isSingle
-              node={task}
+              AnnotatorInformation={AnnotatorInformation}
+              CancelButton={CancelButton}
               classes={{}}
               DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
+              disabled={!this.props.isEditing}
               EditButton={EditButton}
-              AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
-              disabled={!this.props.isEditing}
-              required={task.team_task.required}
+              isSingle
               metadataValue={
                 this.state.textValue
               }
+              node={task}
+              required={task.team_task.required}
+              SaveButton={SaveButton}
               setMetadataValue={this.handleUpdateMultiselectMetadata}
             />
           </div>
@@ -670,21 +670,21 @@ class Task extends Component {
         {task.type === 'multiple_choice' ? (
           <div className="task__response">
             <MetadataMultiselect
-              node={task}
+              AnnotatorInformation={AnnotatorInformation}
+              CancelButton={CancelButton}
               classes={{}}
               DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
+              disabled={!this.props.isEditing}
               EditButton={EditButton}
-              AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
-              disabled={!this.props.isEditing}
-              required={task.team_task.required}
               metadataValue={
                 this.state.textValue
               }
+              node={task}
+              required={task.team_task.required}
+              SaveButton={SaveButton}
               setMetadataValue={this.handleUpdateMultiselectMetadata}
             />
           </div>
@@ -693,67 +693,67 @@ class Task extends Component {
           <div className="task__response">
             { this.state.isSaving ?
               <NavigateAwayDialog
+                body={
+                  <FormattedMessage
+                    defaultMessage="Navigating away from this page may cause the interruption of the file upload."
+                    description="Warning to prevent user from navigating away while upload is running"
+                    id="task.uploadWarningBody"
+                  />
+                }
                 hasUnsavedChanges={this.state.isSaving}
                 title={
                   <FormattedMessage
-                    id="task.uploadWarningTitle"
                     defaultMessage="There is an ongoing file upload"
                     description="Warning to prevent user from navigating away while upload is running"
-                  />
-                }
-                body={
-                  <FormattedMessage
-                    id="task.uploadWarningBody"
-                    defaultMessage="Navigating away from this page may cause the interruption of the file upload."
-                    description="Warning to prevent user from navigating away while upload is running"
+                    id="task.uploadWarningTitle"
                   />
                 }
               /> : null
             }
             <MetadataFile
-              node={task}
-              DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
-              EditButton={EditButton}
               AnnotatorInformation={AnnotatorInformation}
+              CancelButton={CancelButton}
+              DeleteButton={DeleteButton}
+              disabled={!this.props.isEditing}
+              EditButton={EditButton}
+              extensions={about.file_extensions || []}
               FieldInformation={FieldInformation}
-              ProgressLabel={ProgressLabel}
+              fileSizeMax={about.file_max_size_in_bytes}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
               isSaving={this.state.isSaving}
-              disabled={!this.props.isEditing}
-              required={task.team_task.required}
+              messages={messages.MetadataFile}
               metadataValue={
                 this.state.textValue
               }
+              node={task}
+              ProgressLabel={ProgressLabel}
+              required={task.team_task.required}
+              SaveButton={SaveButton}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
-              extensions={about.file_extensions || []}
-              fileSizeMax={about.file_max_size_in_bytes}
-              messages={messages.MetadataFile}
             />
           </div>
         ) : null}
         {task.type === 'url' ? (
           <MetadataUrl
-            node={task}
+            AnnotatorInformation={AnnotatorInformation}
+            CancelButton={CancelButton}
             classes={{}}
             DeleteButton={DeleteButton}
-            CancelButton={CancelButton}
-            SaveButton={SaveButton}
+            disabled={!this.props.isEditing}
             EditButton={EditButton}
-            AnnotatorInformation={AnnotatorInformation}
             FieldInformation={FieldInformation}
             hasData={task.first_response_value}
             isEditing={this.props.isEditing}
             messages={messages.MetadataUrl}
-            disabled={!this.props.isEditing}
-            required={task.team_task.required}
             metadataValue={
               this.state.textValue
             }
+            node={task}
+            required={task.team_task.required}
+            SaveButton={SaveButton}
             setMetadataValue={(textValue) => {
               this.setState({ textValue });
             }}
@@ -803,7 +803,7 @@ class Task extends Component {
             </div>
 
             {zeroAnswer ? (
-              <Can permissions={media.permissions} permission="create Dynamic">
+              <Can permission="create Dynamic" permissions={media.permissions}>
                 <form name={`task-response-${task.id}`}>
                   <div className="task__response-inputs">
                     {

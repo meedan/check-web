@@ -41,9 +41,6 @@ const SwitchComponent = ({
           <div className={styles.switch}>
             <Switch
               checked={checked}
-              onChange={handleChange}
-              name="checked"
-              disabled={disabled}
               classes={{
                 root: styles.switchRoot,
                 switchBase: styles.switchBase,
@@ -51,13 +48,16 @@ const SwitchComponent = ({
                 track: styles.track,
                 checked: styles.checked,
               }}
+              disabled={disabled}
+              name="checked"
+              onChange={handleChange}
               {...inputProps}
             />
           </div>
         }
+        label={label}
         labelPlacement={labelPlacement}
         value={labelPlacement}
-        label={label}
       />
       { helperContent ?
         <div className={cx([inputStyles['help-container'], styles['switch-help-container']])}>

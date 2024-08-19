@@ -91,9 +91,9 @@ const ArticlesComponent = ({
   const onCompleted = () => {
     setFlashMessage(
       <FormattedMessage
-        id="articles.updateTagsSuccess"
         defaultMessage="Tags updated successfully."
         description="Banner displayed after article tags are updated successfully."
+        id="articles.updateTagsSuccess"
       />,
       'success');
   };
@@ -101,9 +101,9 @@ const ArticlesComponent = ({
   const onError = () => {
     setFlashMessage(
       <FormattedMessage
-        id="articles.updateTagsError"
         defaultMessage="Could not update tags, please try again later or contact support if the error persists."
         description="Banner displayed when article tags can't be updated."
+        id="articles.updateTagsError"
       />,
       'error');
   };
@@ -150,19 +150,19 @@ const ArticlesComponent = ({
       <div className={searchResultsStyles['search-results-top']}>
         <div className={searchStyles['filters-wrapper']}>
           <ListSort
+            className={searchStyles['filters-sorting']}
+            options={sortOptions}
             sort={sort}
             sortType={sortType}
-            options={sortOptions}
             onChange={handleChangeSort}
-            className={searchStyles['filters-sorting']}
           />
           <ArticleFilters
-            type={type}
-            teamSlug={team.slug}
-            filterOptions={filterOptions}
             currentFilters={{ ...filters, article_type: type }}
             defaultFilters={{ ...defaultFilters, article_type: type }}
+            filterOptions={filterOptions}
             statuses={statuses.statuses}
+            teamSlug={team.slug}
+            type={type}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -172,10 +172,10 @@ const ArticlesComponent = ({
           <div className={searchResultsStyles['search-results-toolbar']}>
             <div />
             <Paginator
-              page={page}
-              pageSize={pageSize}
               numberOfPageResults={articles.length}
               numberOfTotalResults={articlesCount}
+              page={page}
+              pageSize={pageSize}
               onChangePage={handleChangePage}
             />
           </div>
@@ -185,9 +185,9 @@ const ArticlesComponent = ({
         { articles.length === 0 ?
           <BlankState>
             <FormattedMessage
-              id="articles.blank"
               defaultMessage="There are no articles here."
               description="Empty message that is displayed when there are no articles to display."
+              id="articles.blank"
             />
           </BlankState>
           : null
@@ -202,22 +202,22 @@ const ArticlesComponent = ({
 
             return (
               <ArticleCard
-                key={article.id}
-                variant={type}
-                title={article.title || article.claim_description?.description}
-                summary={article.description || article.summary}
-                url={article.url}
-                languageCode={article.language !== 'und' ? article.language : null}
                 date={article.updated_at}
-                tags={article.tags}
-                tagOptions={teamTags}
-                statusColor={currentStatus ? currentStatus.style?.color : null}
-                statusLabel={currentStatus ? currentStatus.label : null}
+                handleClick={() => handleClick(article)}
                 isPublished={article.report_status === 'published'}
+                key={article.id}
+                languageCode={article.language !== 'und' ? article.language : null}
                 projectMediaDbid={article.claim_description?.project_media?.dbid}
                 publishedAt={article.claim_description?.project_media?.fact_check_published_on ? parseInt(article.claim_description?.project_media?.fact_check_published_on, 10) : null}
+                statusColor={currentStatus ? currentStatus.style?.color : null}
+                statusLabel={currentStatus ? currentStatus.label : null}
+                summary={article.description || article.summary}
+                tagOptions={teamTags}
+                tags={article.tags}
+                title={article.title || article.claim_description?.description}
+                url={article.url}
+                variant={type}
                 onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
-                handleClick={() => handleClick(article)}
               />
             );
           })}
@@ -229,15 +229,15 @@ const ArticlesComponent = ({
           */}
           {selectedArticleDbid && type === 'fact-check' && (
             <ClaimFactCheckFormQueryRenderer
-              teamSlug={team.slug}
               factCheckId={selectedArticleDbid}
+              teamSlug={team.slug}
               onClose={handleCloseSlideout}
             />
           )}
           {selectedArticleDbid && type === 'explainer' && (
             <ExplainerFormQueryRenderer
-              teamSlug={team.slug}
               explainerId={selectedArticleDbid}
+              teamSlug={team.slug}
               onClose={handleCloseSlideout}
             />
           )}
@@ -350,9 +350,9 @@ const Articles = ({
   return (
     <ErrorBoundary component="Articles">
       <QueryRenderer
+        cacheConfig={{ force: true }}
         environment={Relay.Store}
         key={new Date().getTime()}
-        cacheConfig={{ force: true }}
         query={graphql`
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
@@ -418,6 +418,34 @@ const Articles = ({
             }
           }
         `}
+        render={({ error, props, retry }) => {
+          if (!error && props) {
+            return (
+              <ArticlesComponent
+                articles={props.team.articles.edges.map(edge => edge.node)}
+                articlesCount={props.team.articles_count}
+                defaultFilters={defaultFilters}
+                filterOptions={filterOptions}
+                filters={filters}
+                icon={icon}
+                page={page}
+                reloadData={retry}
+                sort={sort}
+                sortOptions={sortOptions}
+                sortType={sortType}
+                statuses={props.team.verification_statuses}
+                team={props.team}
+                teamTags={props.team.tag_texts.edges.length > 0 ? props.team.tag_texts.edges.map(tag => tag.node.text) : null}
+                title={title}
+                type={type}
+                updateMutation={updateMutation}
+                onChangeSearchParams={handleChangeSearchParams}
+              />
+            );
+          }
+          // TODO render error state
+          return <MediasLoading size="large" theme="white" variant="page" />;
+        }}
         variables={{
           slug: teamSlug,
           type,
@@ -427,34 +455,6 @@ const Articles = ({
           offset: pageSize * (page - 1),
           timestamp: new Date().getTime(),
           ...filters,
-        }}
-        render={({ error, props, retry }) => {
-          if (!error && props) {
-            return (
-              <ArticlesComponent
-                type={type}
-                title={title}
-                icon={icon}
-                page={page}
-                sort={sort}
-                sortType={sortType}
-                sortOptions={sortOptions}
-                filterOptions={filterOptions}
-                filters={filters}
-                defaultFilters={defaultFilters}
-                articles={props.team.articles.edges.map(edge => edge.node)}
-                articlesCount={props.team.articles_count}
-                statuses={props.team.verification_statuses}
-                team={props.team}
-                teamTags={props.team.tag_texts.edges.length > 0 ? props.team.tag_texts.edges.map(tag => tag.node.text) : null}
-                onChangeSearchParams={handleChangeSearchParams}
-                updateMutation={updateMutation}
-                reloadData={retry}
-              />
-            );
-          }
-          // TODO render error state
-          return <MediasLoading theme="white" variant="page" size="large" />;
         }}
       />
     </ErrorBoundary>

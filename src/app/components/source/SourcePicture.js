@@ -117,8 +117,7 @@ class SourcePicture extends Component {
     return (
       <div
         alt="avatar"
-        size={this.props.size}
-        type={this.props.type}
+        avatarUrl={this.state.avatarUrl}
         className={cx(
           styles['source-picture'],
           {
@@ -129,9 +128,10 @@ class SourcePicture extends Component {
             [styles.sourceImage]: this.props.type === 'source',
           })
         }
-        onError={this.handleAvatarError.bind(this)}
+        size={this.props.size}
         style={{ backgroundImage: `url(${this.state.avatarUrl})` }}
-        avatarUrl={this.state.avatarUrl}
+        type={this.props.type}
+        onError={this.handleAvatarError.bind(this)}
       />
     );
   }

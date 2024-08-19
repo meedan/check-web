@@ -28,23 +28,23 @@ const Chip = ({
       <span title={label}>{label}</span>
       { onRemove && (
         <Tooltip
+          arrow
           placement="top"
           title={
             <FormattedMessage
-              id="chip.tooltipRemove"
               defaultMessage="Remove Tag"
               description="Tooltip message displayed on a tag item to let the user know they can click to remove it."
+              id="chip.tooltipRemove"
             />
           }
-          arrow
         >
           <span className={styles['delete-button']}>
             <ButtonMain
               className="int-chip__button--delete"
               iconCenter={<CancelFillIcon />}
               size="small"
-              variant="text"
               theme="error"
+              variant="text"
               onClick={handleRemove}
             />
           </span>

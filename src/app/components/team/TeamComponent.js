@@ -80,7 +80,7 @@ class TeamComponent extends Component {
               ? <TeamMembers teamSlug={team.slug} />
               : null }
             { tab === 'annotation'
-              ? <TeamTasks key={tab} team={team} fieldset="metadata" />
+              ? <TeamTasks fieldset="metadata" key={tab} team={team} />
               : null }
             { tab === 'tipline'
               ? <SmoochBot currentUser={this.getCurrentUser()} />

@@ -15,13 +15,13 @@ function UserConfirmPage({ params }) {
     <ErrorBoundary component="UserConfirmPage">
       <PageTitle>
         <div className={cx('user-confirm-page__component', styles['login-wrapper'])}>
-          <div id="login-container" className={styles['login-container']}>
+          <div className={styles['login-container']} id="login-container">
             <div className={styles['login-form']}>
               <FormattedGlobalMessage messageKey="appNameHuman">
                 {appNameHuman => (
                   <img
-                    className={styles['login-logo']}
                     alt={appNameHuman}
+                    className={styles['login-logo']}
                     src={stringHelper('LOGO_URL')}
                     width="120"
                   />
@@ -30,57 +30,57 @@ function UserConfirmPage({ params }) {
               <h6 className="confirm__heading">
                 { params.confirmType === 'confirmed' ?
                   (<FormattedMessage
-                    id="UserConfirmPage.confirmed"
                     defaultMessage="Account Confirmed"
                     description="Message for confirmed accounts"
+                    id="UserConfirmPage.confirmed"
                   />) : null
                 }
                 { params.confirmType === 'already-confirmed' ?
                   (<FormattedMessage
-                    id="UserConfirmPage.alreadyConfirmed"
                     defaultMessage="Account Already Confirmed"
                     description="Message for accounts already confirmed"
+                    id="UserConfirmPage.alreadyConfirmed"
                   />) : null
                 }
               </h6>
               <p className="confirm_content">
                 { params.confirmType === 'confirmed' ?
                   (<FormattedMessage
-                    id="userConfirmed.confrimMessage"
                     defaultMessage="Thanks for confirming your email address! Now you can sign in."
                     description="Message for confirmed user"
+                    id="userConfirmed.confrimMessage"
                   />) : null
                 }
                 { params.confirmType === 'already-confirmed' ?
                   (<FormattedMessage
-                    id="userConfirmed.alreadyConfrimMessage"
                     defaultMessage="Your account is already confirmed. Please sign in to get started."
                     description="Message for user who already confirmed before"
+                    id="userConfirmed.alreadyConfrimMessage"
                   />) : null
                 }
                 { params.confirmType === 'unconfirmed' ?
                   (<FormattedHTMLMessage
-                    id="userConfirmed.unConfrimMessage"
                     defaultMessage='Sorry, an error occurred while confirming your account. Please try again and contact <a href="mailto:{supportEmail}">{supportEmail}</a> if the condition persists.'
+                    description="Message for unconfirmed users"
+                    id="userConfirmed.unConfrimMessage"
                     values={{
                       supportEmail: stringHelper('SUPPORT_EMAIL'),
                     }}
-                    description="Message for unconfirmed users"
                   />) : null
                 }
               </p>
               <Link to="/">
                 <ButtonMain
+                  label={
+                    <FormattedMessage
+                      defaultMessage="Sign In"
+                      description="Sign in button"
+                      id="userConfirmPage.signIn"
+                    />
+                  }
                   size="default"
                   theme="brand"
                   variant="contained"
-                  label={
-                    <FormattedMessage
-                      id="userConfirmPage.signIn"
-                      defaultMessage="Sign In"
-                      description="Sign in button"
-                    />
-                  }
                 />
               </Link>
               <div className={cx(styles['login-agree-terms'])}>

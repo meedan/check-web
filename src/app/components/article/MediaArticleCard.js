@@ -37,15 +37,15 @@ const MediaArticleCard = ({
       { variant === 'fact-check' && !publishedAt ?
         <Alert
           className={styles.mediaArticleCardAlert}
-          variant="warning"
           contained
           content={
             <FormattedMessage
-              id="mediaArticleCard.unpublishedAlertContent"
               defaultMessage="This Fact-Check will not be returned to Tipline users until it is published"
               description="Description of the alert message displayed on articles list when an unpublished claim & fact-check is added"
+              id="mediaArticleCard.unpublishedAlertContent"
             />
           }
+          variant="warning"
         />
         : null
       }
@@ -57,8 +57,8 @@ const MediaArticleCard = ({
                 { variant === 'fact-check' && <FactCheckIcon /> }
                 { variant === 'explainer' && <BookIcon /> }
               </div>
-              { variant === 'fact-check' && <FormattedMessage id="mediaArticleCard.factCheck" defaultMessage="Fact-Check" description="Title in an article card on item page." /> }
-              { variant === 'explainer' && <FormattedMessage id="mediaArticleCard.explainer" defaultMessage="Explainer" description="Title in an article card on item page." /> }
+              { variant === 'fact-check' && <FormattedMessage defaultMessage="Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
+              { variant === 'explainer' && <FormattedMessage defaultMessage="Explainer" description="Title in an article card on item page." id="mediaArticleCard.explainer" /> }
               { statusLabel && ': ' }
             </div>
             { statusLabel && <div><EllipseIcon style={{ color: statusColor }} /> {statusLabel}</div> }
@@ -71,7 +71,7 @@ const MediaArticleCard = ({
           >
             <div className={cardStyles.cardSummaryContent}>
               { url ?
-                <ArticleUrl url={url} title={title} variant={variant} showIcon={false} linkText={title} />
+                <ArticleUrl linkText={title} showIcon={false} title={title} url={url} variant={variant} />
                 :
                 <span className={cx(cardStyles.cardDescription)}>
                   {title}
@@ -81,38 +81,38 @@ const MediaArticleCard = ({
           </div>
         </div>
         <div className={styles.articleCardRight}>
-          <RemoveArticleButton id={id} variant={variant} onRemove={onRemove} disabled={removeDisabled} />
+          <RemoveArticleButton disabled={removeDisabled} id={id} variant={variant} onRemove={onRemove} />
         </div>
       </div>
       <BulletSeparator
         className={styles.mediaArticleCardFooter}
         details={[
           variant === 'fact-check' && (<ItemReportStatus
-            publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
             isPublished={Boolean(publishedAt)}
-            variant="text"
+            publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
             theme="lightText"
             tooltip={false}
+            variant="text"
           />),
           languageCode && (
             <Language
               languageCode={languageCode}
-              variant="text"
               theme="lightText"
+              variant="text"
             />
           ),
           date && (
             <LastRequestDate
+              lastRequestDate={date}
+              theme="lightText"
               tooltipLabel={(
                 <FormattedMessage
-                  id="sharedItemCard.lastRequested"
                   defaultMessage="Last Updated"
                   description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'."
+                  id="sharedItemCard.lastRequested"
                 />
               )}
               variant="text"
-              theme="lightText"
-              lastRequestDate={date}
             />
           ),
           (
@@ -120,10 +120,10 @@ const MediaArticleCard = ({
               buttonProps={{
                 id: 'media-article-card__edit-button',
               }}
-              label={<FormattedMessage id="mediaArticleCard.editButton" defaultMessage="Edit Article" description="Label for edit button" />}
-              variant="contained"
+              label={<FormattedMessage defaultMessage="Edit Article" description="Label for edit button" id="mediaArticleCard.editButton" />}
               size="small"
               theme="text"
+              variant="contained"
               onClick={onClick}
             />
           ),

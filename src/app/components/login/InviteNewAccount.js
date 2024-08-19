@@ -69,9 +69,9 @@ const InviteNewAccountComponent = ({ user }) => {
     } else {
       const errorMessage = (
         <FormattedMessage
-          id="inviteNewAccounttosMissing"
           defaultMessage="You must agree to the Terms of Service and Privacy Policy"
           description="Error message for check Terms and Privacy Privacy boxes"
+          id="inviteNewAccounttosMissing"
         />
       );
       setMessage(errorMessage);
@@ -86,13 +86,13 @@ const InviteNewAccountComponent = ({ user }) => {
   return (
     <div className={styles['login-wrapper']}>
       <div className={styles['login-container']}>
-        <div id="login" className={cx('login', styles['login-form'])}>
-          <form onSubmit={(e) => { onFormSubmit(e); }} className="login__form">
+        <div className={cx('login', styles['login-form'])} id="login">
+          <form className="login__form" onSubmit={(e) => { onFormSubmit(e); }}>
             <FormattedGlobalMessage messageKey="appNameHuman">
               {appNameHuman => (
                 <img
-                  className={cx('login__icon', styles['login-logo'])}
                   alt={appNameHuman}
+                  className={cx('login__icon', styles['login-logo'])}
                   src={stringHelper('LOGO_URL')}
                   width="120"
                 />
@@ -101,9 +101,9 @@ const InviteNewAccountComponent = ({ user }) => {
             <div className={styles['login-form-invited']}>
               <p>
                 <FormattedMessage
-                  id="inviteNewAccount.invitedBy"
                   defaultMessage="{name} has invited you to join the workspace:"
                   description="Message to the current user about who has invited them to join this workspace"
+                  id="inviteNewAccount.invitedBy"
                   values={{
                     name: teamUser?.invited_by?.name,
                   }}
@@ -112,13 +112,13 @@ const InviteNewAccountComponent = ({ user }) => {
                 <strong>{teamUser?.team?.name}</strong>
               </p>
               <FormattedHTMLMessage
-                tagName="p"
-                id="inviteNewAccount.createMessage"
                 defaultMessage="You need to create an account for <strong>{email}</strong>"
+                description="Inform your to create a new account for signup"
+                id="inviteNewAccount.createMessage"
+                tagName="p"
                 values={{
                   email: user.email,
                 }}
-                description="Inform your to create a new account for signup"
               />
             </div>
             {message &&
@@ -131,91 +131,88 @@ const InviteNewAccountComponent = ({ user }) => {
 
             <div className={inputStyles['form-fieldset']}>
               <TextField
-                required
+                className={cx('int-login__email-input', inputStyles['form-fieldset-field'])}
                 componentProps={{
                   type: 'email',
                   name: 'email',
                 }}
-                value={email}
-                className={cx('int-login__email-input', inputStyles['form-fieldset-field'])}
-                onChange={(e) => { setEmail(e.target.value); }}
+                disabled
                 label={
                   <FormattedMessage
-                    id="inviteNewAccountemailLabel"
                     defaultMessage="Email"
                     description="Label for user email field"
+                    id="inviteNewAccountemailLabel"
                   />
                 }
-                disabled
+                required
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); }}
               />
 
               <TextField
-                required
+                autoFocus
+                className={cx('login__name-input', inputStyles['form-fieldset-field'])}
                 componentProps={{
                   name: 'name',
                 }}
-                value={name}
-                className={cx('login__name-input', inputStyles['form-fieldset-field'])}
-                onChange={(e) => { setName(e.target.value); }}
                 label={
                   <FormattedMessage
-                    id="inviteNewAccountnameLabel"
                     defaultMessage="Name"
                     description="Label for user name field"
+                    id="inviteNewAccountnameLabel"
                   />
                 }
-                autoFocus
+                required
+                value={name}
+                onChange={(e) => { setName(e.target.value); }}
               />
 
               <TextField
-                required
+                className={cx('int-login__password-input', inputStyles['form-fieldset-field'])}
                 componentProps={{
                   type: 'password',
                   name: 'password',
                 }}
-                value={password}
-                className={cx('int-login__password-input', inputStyles['form-fieldset-field'])}
-                onChange={(e) => { setPassword(e.target.value); }}
                 label={
                   <FormattedMessage
-                    id="inviteNewAccountpasswordLabel"
                     defaultMessage="Password (minimum 8 characters)"
                     description="Label for password field"
+                    id="inviteNewAccountpasswordLabel"
                   />
                 }
+                required
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); }}
               />
 
               <TextField
-                required
+                className={cx('int-login__password-confirmation-input', inputStyles['form-fieldset-field'])}
                 componentProps={{
                   type: 'password',
                   name: 'passwordConfirmation',
                 }}
-                value={passwordConfirmation}
-                className={cx('int-login__password-confirmation-input', inputStyles['form-fieldset-field'])}
-                onChange={(e) => { setPasswordConfirmation(e.target.value); }}
                 label={
                   <FormattedMessage
-                    id="inviteNewAccountpasswordConfirmLabel"
                     defaultMessage="Password confirmation"
                     description="Label for password confirmation field"
+                    id="inviteNewAccountpasswordConfirmLabel"
                   />
                 }
+                required
+                value={passwordConfirmation}
+                onChange={(e) => { setPasswordConfirmation(e.target.value); }}
               />
             </div>
             <div className={cx(styles['login-agree-terms'])}>
               <UserTosForm
-                user={{}}
-                showTitle={false}
-                handleCheckTos={handleCheckTos}
                 checkedTos={checkedTos}
+                handleCheckTos={handleCheckTos}
+                showTitle={false}
+                user={{}}
               />
             </div>
             <div className="login__actions">
               <ButtonMain
-                size="default"
-                theme="brand"
-                variant="contained"
                 buttonProps={{
                   id: 'submit-register-or-login',
                   type: 'submit',
@@ -223,11 +220,14 @@ const InviteNewAccountComponent = ({ user }) => {
                 className={cx('login__submit', 'login__submit--register')}
                 label={
                   <FormattedMessage
-                    id="inviteNewAccount.createAccount"
                     defaultMessage="Create Account"
                     description="Submit button for create a new account"
+                    id="inviteNewAccount.createAccount"
                   />
                 }
+                size="default"
+                theme="brand"
+                variant="contained"
               />
             </div>
           </form>
@@ -260,9 +260,6 @@ const InviteNewAccount = ({ teamSlug }) => (
         }
       }
     `}
-    variables={{
-      teamSlug,
-    }}
     render={({ error, props }) => {
       if (!error && props) {
         return <InviteNewAccountComponent user={props.me} />;
@@ -270,6 +267,9 @@ const InviteNewAccount = ({ teamSlug }) => (
 
       // TODO: We need a better error handling in the future, standardized with other components
       return null;
+    }}
+    variables={{
+      teamSlug,
     }}
   />
 );

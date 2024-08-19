@@ -31,9 +31,9 @@ const RulesTableToolbar = (props) => {
         <div className={cx(styles['table-toolbar'])}>
           <div className={cx(styles['table-toolbar-summary'])}>
             <FormattedMessage
-              id="rulesTableToolbar.selected"
               defaultMessage="{numSelected, plural, one {# selected} other {# selected}}"
               description="When rules are selected to perform bulk actions on, this text tells the user how many have been selected"
+              id="rulesTableToolbar.selected"
               values={{ numSelected }}
             />
           </div>
@@ -41,15 +41,15 @@ const RulesTableToolbar = (props) => {
             <Tooltip
               arrow
               title={
-                <FormattedMessage id="rulesTableToolbar.delete" defaultMessage="Delete" description="Tooltip for deleting rules" />
+                <FormattedMessage defaultMessage="Delete" description="Tooltip for deleting rules" id="rulesTableToolbar.delete" />
               }
             >
               <span>
                 <ButtonMain
                   iconCenter={<DeleteIcon />}
-                  variant="text"
-                  theme="text"
                   size="default"
+                  theme="text"
+                  variant="text"
                   onClick={handleConfirmDelete}
                 />
               </span>
@@ -57,36 +57,36 @@ const RulesTableToolbar = (props) => {
           </div>
         </div> : null }
       <ConfirmProceedDialog
-        open={showDeleteConfirmationDialog}
-        title={
-          <FormattedMessage
-            id="rulesTableToolbar.deleteConfirmationTitle"
-            defaultMessage="Do you want to delete the selected rules?"
-            description="Title for the confirmation dialog when the user is trying to delete rules"
-          />
-        }
         body={
           <div>
             <p className="typography-body1">
               <FormattedMessage
-                id="rulesTableToolbar.deleteConfirmationText"
                 defaultMessage="{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
-                values={{ numSelected }}
                 description="Details of what will happen when one or more rules are deleted show in a modal confirmation"
+                id="rulesTableToolbar.deleteConfirmationText"
+                values={{ numSelected }}
               />
             </p>
           </div>
         }
+        open={showDeleteConfirmationDialog}
         proceedLabel={
           <FormattedMessage
-            id="rulesTableToolbar.deleteConfirmationLabel"
             defaultMessage="{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
-            values={{ numSelected }}
             description="Label for proceeding to delete the selected rules"
+            id="rulesTableToolbar.deleteConfirmationLabel"
+            values={{ numSelected }}
           />
         }
-        onProceed={handleDeleteConfirmed}
+        title={
+          <FormattedMessage
+            defaultMessage="Do you want to delete the selected rules?"
+            description="Title for the confirmation dialog when the user is trying to delete rules"
+            id="rulesTableToolbar.deleteConfirmationTitle"
+          />
+        }
         onCancel={handleCloseDialogs}
+        onProceed={handleDeleteConfirmed}
       />
     </React.Fragment>
   );

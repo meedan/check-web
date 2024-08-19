@@ -13,7 +13,7 @@ const BulletSeparator = ({
   icon,
 }) => {
   const subtitleDetails = details.filter(d => !!d).map((d, index) => (
-    <span key={`${d}-${Math.random()}`} className={styles.detailSpan}>
+    <span className={styles.detailSpan} key={`${d}-${Math.random()}`}>
       { index > 0 ? <EllipseIcon className={styles.bullet} /> : null }
       {d}
     </span>

@@ -39,41 +39,41 @@ const RuleField = (props) => {
     <div className={cx(props.className, 'rules__rule-field', inputStyles['form-fieldset-field'])}>
       { options ?
         <Autocomplete
+          getOptionLabel={option => option.value}
           label={label}
+          options={label === 'With a likelihood of at least' ? options : options.sort((a, b) => (a.value.localeCompare(b.value)))}
+          renderInput={params => (
+            <div ref={params.InputProps.ref}>
+              <TextField
+                label={label}
+                placeholder={label}
+                {...params.inputProps}
+              />
+            </div>
+          )}
           value={options.find(option => option.key === props.value)}
           onChange={(event, newValue) => {
             if (newValue) {
               handleSelect(newValue.key);
             }
           }}
-          options={label === 'With a likelihood of at least' ? options : options.sort((a, b) => (a.value.localeCompare(b.value)))}
-          getOptionLabel={option => option.value}
-          renderInput={params => (
-            <div ref={params.InputProps.ref}>
-              <TextField
-                placeholder={label}
-                label={label}
-                {...params.inputProps}
-              />
-            </div>
-          )}
         /> : null }
       { type === 'string' && !options ?
         <TextField
           className="int-rules__rule-field-string-input"
-          value={value}
           label={label}
-          onChange={handleChange}
+          value={value}
           onBlur={handleBlur}
+          onChange={handleChange}
         /> : null }
       { (type === 'integer' || type === 'number') && !options ?
         <TextField
-          value={value}
-          type="number"
-          label={label}
-          onChange={handleChange}
-          onBlur={handleBlur}
           componentProps={inputProps}
+          label={label}
+          type="number"
+          value={value}
+          onBlur={handleBlur}
+          onChange={handleChange}
         /> : null }
       { type === 'object' ?
         <React.Fragment>
@@ -82,8 +82,8 @@ const RuleField = (props) => {
             const subValue = value[field] || '';
             return (
               <RuleField
-                key={field}
                 definition={subDefinition}
+                key={field}
                 value={subValue}
                 onChange={(newSubValue) => {
                   const newValue = Object.assign({}, value);
@@ -104,8 +104,8 @@ const RuleField = (props) => {
                   const subSubValue = value[subFieldName] || '';
                   return (
                     <RuleField
-                      key={`${fieldName}-${subFieldName}`}
                       definition={subSubDefinition}
+                      key={`${fieldName}-${subFieldName}`}
                       value={subSubValue}
                       onChange={(newSubSubValue) => {
                         const newSubValue = Object.assign({}, value);

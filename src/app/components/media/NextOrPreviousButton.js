@@ -29,23 +29,23 @@ export default function NextOrPreviousButton({
       {loading ? (
         <MediaSearchRedirect
           buildSiblingUrl={buildSiblingUrl}
-          listQuery={listQuery}
           listIndex={listIndex}
-          searchIndex={searchIndex}
+          listQuery={listQuery}
           objectType={objectType}
+          searchIndex={searchIndex}
           type={type}
         />
       ) : (
-        <Tooltip title={tooltipTitle} arrow>
+        <Tooltip arrow title={tooltipTitle}>
           <span>
             <ButtonMain
-              size="default"
-              variant="text"
-              theme="text"
-              disabled={disabled}
               className={className}
-              onClick={handleClick}
+              disabled={disabled}
               iconCenter={icon}
+              size="default"
+              theme="text"
+              variant="text"
+              onClick={handleClick}
             />
           </span>
         </Tooltip>

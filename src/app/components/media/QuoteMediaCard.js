@@ -11,7 +11,7 @@ const QuoteMediaCard = ({ languageCode, quote, showAll }) => (
     dir={rtlDetect.isRtlLang(languageCode) ? 'rtl' : 'ltr'}
     lang={languageCode}
   >
-    <LongShort className="typography-body1" showAll={showAll} maxLines={6}>
+    <LongShort className="typography-body1" maxLines={6} showAll={showAll}>
       <ParsedText text={quote} />
     </LongShort>
   </div>

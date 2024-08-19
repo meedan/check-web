@@ -44,9 +44,9 @@ const AddFilterMenu = ({
       icon: <NoteAltIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.annotation"
           defaultMessage="Annotation"
           description="Menu option to enable searching items by annotation fields"
+          id="addFilterMenu.annotation"
         />
       ),
     },
@@ -56,9 +56,9 @@ const AddFilterMenu = ({
       icon: <PersonIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.annotatedBy"
           defaultMessage="Annotator"
           description="Menu option to enable searching items by annotated by"
+          id="addFilterMenu.annotatedBy"
         />
       ),
     },
@@ -68,9 +68,9 @@ const AddFilterMenu = ({
       icon: <PersonIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.assignedTo"
           defaultMessage="Assignment"
           description="Menu option to enable searching items by assigned users"
+          id="addFilterMenu.assignedTo"
         />
       ),
     },
@@ -80,9 +80,9 @@ const AddFilterMenu = ({
       icon: <ForwardIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.channel"
           defaultMessage="Channel"
           description="Menu option to enable searching items by channel"
+          id="addFilterMenu.channel"
         />
       ),
     },
@@ -92,9 +92,9 @@ const AddFilterMenu = ({
       icon: <LabelIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.claim"
           defaultMessage="Claim"
           description="Menu option to enable searching items by claim"
+          id="addFilterMenu.claim"
         />
       ),
     },
@@ -104,9 +104,9 @@ const AddFilterMenu = ({
       icon: <PersonIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.createdBy"
           defaultMessage="Creator"
           description="Menu option to enable searching items by author"
+          id="addFilterMenu.createdBy"
         />
       ),
     },
@@ -116,9 +116,9 @@ const AddFilterMenu = ({
       icon: <DateRangeIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.timeRange"
           defaultMessage="Date"
           description="Menu option to enable searching items by date range"
+          id="addFilterMenu.timeRange"
         />
       ),
     },
@@ -128,9 +128,9 @@ const AddFilterMenu = ({
       icon: <HowToRegIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.feedFactCheckedBy"
           defaultMessage="Fact-checker"
           description="Menu option to enable searching feed items by whether they were fact-checked"
+          id="addFilterMenu.feedFactCheckedBy"
         />
       ),
     },
@@ -140,9 +140,9 @@ const AddFilterMenu = ({
       icon: <LanguageIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.language"
           defaultMessage="Language"
           description="Menu option to enable searching items by language"
+          id="addFilterMenu.language"
         />
       ),
     },
@@ -152,9 +152,9 @@ const AddFilterMenu = ({
       icon: <NumberIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.similarMedias"
           defaultMessage="Media (count)"
           description="Menu option to enable searching items by matched medias"
+          id="addFilterMenu.similarMedias"
         />
       ),
     },
@@ -164,9 +164,9 @@ const AddFilterMenu = ({
       icon: <DescriptionIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.mediaType"
           defaultMessage="Media (type)"
           description="Menu option to enable searching items by media type"
+          id="addFilterMenu.mediaType"
         />
       ),
     },
@@ -176,9 +176,9 @@ const AddFilterMenu = ({
       icon: <UnmatchedIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.showSimilar"
           defaultMessage="Media (matched)"
           description="Menu option to enable individually displaying items with similar media"
+          id="addFilterMenu.showSimilar"
         />
       ),
     }] : [],
@@ -188,9 +188,9 @@ const AddFilterMenu = ({
       icon: <UnmatchedIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.unmatched"
           defaultMessage="Media (unmatched)"
           description="Menu option to enable searching items by whether they have media that has been unmatched at some point"
+          id="addFilterMenu.unmatched"
         />
       ),
     }] : [],
@@ -200,9 +200,9 @@ const AddFilterMenu = ({
       icon: <CorporateFareIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.Workspace"
           defaultMessage="Organization"
           description="Menu option to enable searching items by workspace"
+          id="addFilterMenu.Workspace"
         />
       ),
     },
@@ -212,9 +212,9 @@ const AddFilterMenu = ({
       icon: <HowToRegIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.publishedBy"
           defaultMessage="Publisher"
           description="Menu option to enable searching items by report published by"
+          id="addFilterMenu.publishedBy"
         />
       ),
     },
@@ -224,9 +224,9 @@ const AddFilterMenu = ({
       icon: <HowToRegIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.publishedBy"
           defaultMessage="Publisher"
           description="Menu option to enable searching items by report published by"
+          id="addFilterMenu.publishedBy"
         />
       ),
     },
@@ -236,9 +236,9 @@ const AddFilterMenu = ({
       icon: <LabelIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.itemStatus"
           defaultMessage="Rating"
           description="Menu option to enable searching items by item status"
+          id="addFilterMenu.itemStatus"
         />
       ),
     },
@@ -248,9 +248,9 @@ const AddFilterMenu = ({
       icon: <MarkunreadIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.itemRead"
           defaultMessage="Read/unread"
           description="Menu option to enable searching items by item read/unread"
+          id="addFilterMenu.itemRead"
         />
       ),
     },
@@ -260,9 +260,9 @@ const AddFilterMenu = ({
       icon: <ReportIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.reportStatus"
           defaultMessage="Report (status)"
           description="Menu option to enable searching items by report status"
+          id="addFilterMenu.reportStatus"
         />
       ),
     },
@@ -272,9 +272,9 @@ const AddFilterMenu = ({
       icon: <NumberIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.tiplineRequests"
           defaultMessage="Request (count)"
           description="Menu option to enable searching items by tipline requests"
+          id="addFilterMenu.tiplineRequests"
         />
       ),
     },
@@ -284,9 +284,9 @@ const AddFilterMenu = ({
       icon: <ErrorIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.tiplineRequest"
           defaultMessage="Request (status)"
           description="Menu option to enable searching items by confirmed/unconfirmed items"
+          id="addFilterMenu.tiplineRequest"
         />
       ),
     },
@@ -296,9 +296,9 @@ const AddFilterMenu = ({
       icon: <SettingsInputAntennaIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.source"
           defaultMessage="Source"
           description="Menu option to enable searching items by source"
+          id="addFilterMenu.source"
         />
       ),
     },
@@ -308,9 +308,9 @@ const AddFilterMenu = ({
       icon: <NumberIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.suggestedMedias"
           defaultMessage="Suggestions (count)"
           description="Menu option to enable searching items by suggestions"
+          id="addFilterMenu.suggestedMedias"
         />
       ),
     }] : [],
@@ -320,9 +320,9 @@ const AddFilterMenu = ({
       icon: <LocalOfferIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.tag"
           defaultMessage="Tag"
           description="Menu option to enable searching items by tags"
+          id="addFilterMenu.tag"
         />
       ),
     },
@@ -331,21 +331,21 @@ const AddFilterMenu = ({
   return (
     <React.Fragment>
       <ButtonMain
-        variant="contained"
-        size="default"
-        theme="text"
-        iconLeft={<AddIcon />}
-        onClick={e => setAnchorEl(e.currentTarget)}
-        label={
-          <FormattedMessage
-            id="addFilterMenu.addFilter"
-            defaultMessage="Filter"
-            description="Button that opens menu with filter field options"
-          />
-        }
         buttonProps={{
           id: 'add-filter-menu__open-button',
         }}
+        iconLeft={<AddIcon />}
+        label={
+          <FormattedMessage
+            defaultMessage="Filter"
+            description="Button that opens menu with filter field options"
+            id="addFilterMenu.addFilter"
+          />
+        }
+        size="default"
+        theme="text"
+        variant="contained"
+        onClick={e => setAnchorEl(e.currentTarget)}
       />
       <Menu
         anchorEl={anchorEl}
@@ -354,17 +354,17 @@ const AddFilterMenu = ({
       >
         <MenuItem disabled>
           <FormattedMessage
-            id="addFilterMenu.filterBy"
             defaultMessage="Filter by"
             description="Header to menu of filter field types"
+            id="addFilterMenu.filterBy"
           />
         </MenuItem>
         { options.map(o => (hideOptions.includes(o.key) || (showOptions.length > 0 && !showOptions.includes(o.key))) ? null : (
           <MenuItem
+            disabled={addedFields.includes(o.key)}
             id={o.id}
             key={o.key}
             onClick={() => handleSelect(o.key)}
-            disabled={addedFields.includes(o.key)}
           >
             <ListItemIcon>
               {o.icon}

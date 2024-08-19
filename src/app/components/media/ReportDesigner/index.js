@@ -74,9 +74,9 @@ const ReportDesigner = (props) => {
     <ErrorBoundary component="ReportDesigner">
       <RelayContainer
         Component={ReportDesignerContainer}
-        route={route}
-        renderFetched={data => <ReportDesignerContainer {...props} {...data} />}
         forceFetch
+        renderFetched={data => <ReportDesignerContainer {...props} {...data} />}
+        route={route}
       />
     </ErrorBoundary>
   );

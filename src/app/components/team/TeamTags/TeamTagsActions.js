@@ -40,9 +40,9 @@ const TeamTagsActions = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="teamTagsActions.couldNotDelete"
         defaultMessage="Could not delete tag"
         description="Error message displayed when it's not possible to delete a team tag"
+        id="teamTagsActions.couldNotDelete"
       />
     ), 'error');
   };
@@ -51,9 +51,9 @@ const TeamTagsActions = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="teamTagsActions.deletedSuccessfully"
         defaultMessage="Tag deleted successfully"
         description="Message displayed when a team tag is deleted"
+        id="teamTagsActions.deletedSuccessfully"
       />
     ), 'success');
     setShowDeleteDialog(false);
@@ -108,11 +108,11 @@ const TeamTagsActions = ({
       <ButtonMain
         className="team-tags-actions__icon"
         iconCenter={<IconMoreVert />}
-        variant="outlined"
         size="default"
         theme="text"
-        onClick={e => setAnchorEl(e.currentTarget)}
         title={intl.formatMessage(messages.tooltip)}
+        variant="outlined"
+        onClick={e => setAnchorEl(e.currentTarget)}
       />
       <Menu
         anchorEl={anchorEl}
@@ -121,55 +121,55 @@ const TeamTagsActions = ({
       >
         <MenuItem className="team-tags-actions__edit" onClick={() => { setAnchorEl(null); setShowEditDialog(true); }}>
           <FormattedMessage
-            id="teamTagsActions.edit"
             defaultMessage="Edit"
             description="Menu item to edit a tag"
+            id="teamTagsActions.edit"
           />
         </MenuItem>
         <MenuItem className="team-tags-actions__destroy" onClick={() => { setAnchorEl(null); setShowDeleteDialog(true); }}>
           <FormattedMessage
-            id="teamTagsActions.delete"
             defaultMessage="Delete"
             description="Menu item to delete a tag"
+            id="teamTagsActions.delete"
           />
         </MenuItem>
       </Menu>
       <ConfirmProceedDialog
-        open={showDeleteDialog}
-        title={
-          <FormattedMessage
-            id="teamTagsActions.removeDialogTitle"
-            defaultMessage='Delete tag "{tag}"'
-            description="Title for the dialog box when deleting a tag"
-            values={{ tag: tag.text }}
-          />
-        }
         body={
           <FormattedMessage
-            id="teamTagsActions.removeDialogBody"
             defaultMessage='Tag "{tag}" will be removed from {count} items.'
             description="Description of what will happen when a tag is deleted"
+            id="teamTagsActions.removeDialogBody"
             values={{ tag: tag.text, count: tag.tags_count }}
+          />
+        }
+        open={showDeleteDialog}
+        proceedDisabled={saving}
+        proceedLabel={
+          <FormattedMessage
+            defaultMessage="Delete tag"
+            description="Dialog action text for continuing with the delete tag action"
+            id="teamTagsActions.remove"
+          />
+        }
+        title={
+          <FormattedMessage
+            defaultMessage='Delete tag "{tag}"'
+            description="Title for the dialog box when deleting a tag"
+            id="teamTagsActions.removeDialogTitle"
+            values={{ tag: tag.text }}
           />
         }
         onCancel={() => { setShowDeleteDialog(false); }}
         onProceed={handleDelete}
-        proceedDisabled={saving}
-        proceedLabel={
-          <FormattedMessage
-            id="teamTagsActions.remove"
-            description="Dialog action text for continuing with the delete tag action"
-            defaultMessage="Delete tag"
-          />
-        }
       />
       { showEditDialog ?
         <SaveTag
-          tag={tag}
-          teamId={teamId}
-          teamDbid={teamDbid}
           rules={rules}
           rulesSchema={rulesSchema}
+          tag={tag}
+          teamDbid={teamDbid}
+          teamId={teamId}
           onCancel={() => { setShowEditDialog(false); }}
         /> : null }
     </React.Fragment>

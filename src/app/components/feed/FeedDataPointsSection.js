@@ -21,17 +21,17 @@ const FeedDataPointsSection = ({
     <div className={styles.dataPointsSection}>
       <div className={styles.dataPointsSectionHeader}>
         <ButtonMain
-          variant="contained"
+          iconCenter={expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
           size="small"
           theme="lightText"
+          variant="contained"
           onClick={() => { setExpanded(!expanded); }}
-          iconCenter={expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
         />
         <SwitchComponent
-          label={title}
-          className="typography-body2"
           checked={enabled}
+          className="typography-body2"
           disabled={readOnly}
+          label={title}
           onChange={onToggle}
         />
       </div>

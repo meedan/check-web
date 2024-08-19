@@ -40,12 +40,11 @@ class Annotations extends React.Component {
       <div className="annotations">
         {!props.annotations.length ?
           <div className={cx('annotations__list', styles['empty-list'])}>
-            { props.noActivityMessage || <FormattedMessage tagName="p" id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
+            { props.noActivityMessage || <FormattedMessage defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" id="annotation.noAnnotationsYet" tagName="p" />}
           </div> :
           <div className={cx('annotations__list', styles['media-list'])}>
             { props.annotations.slice(0).reverse().map(annotation => (
               <div
-                key={annotation.node.dbid}
                 className={cx(
                   'annotations__list-item',
                   styles['media-list-item'],
@@ -53,6 +52,7 @@ class Annotations extends React.Component {
                     [styles['media-timeline-item']]: !props.noLink,
                   })
                 }
+                key={annotation.node.dbid}
               >
                 { props.component ?
                   <props.component
@@ -77,10 +77,6 @@ class Annotations extends React.Component {
         { hasMore ? (
           <div className={styles['media-list-actions']}>
             <ButtonMain
-              variant="contained"
-              theme="lightText"
-              size="default"
-              onClick={this.loadMore}
               disabled={this.state.loadingMore}
               iconCenter={
                 this.state.loadingMore ?
@@ -89,11 +85,15 @@ class Annotations extends React.Component {
               }
               label={
                 <FormattedMessage
-                  id="annotations.loadMore"
                   defaultMessage="Load more"
                   description="Button label to fetch additional annotations in this list"
+                  id="annotations.loadMore"
                 />
               }
+              size="default"
+              theme="lightText"
+              variant="contained"
+              onClick={this.loadMore}
             />
           </div>
         ) : null }

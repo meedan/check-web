@@ -68,13 +68,13 @@ function MetadataText({
       ) : (
         <>
           <TextArea
+            disabled={disabled}
             id="metadata-input"
-            placeholder={intl.formatMessage(messages.placeholder)}
             label={intl.formatMessage(messages.label)}
             maxHeight="126px"
+            placeholder={intl.formatMessage(messages.placeholder)}
             value={metadataValue}
             onChange={handleChange}
-            disabled={disabled}
             onRemove={disabled ? null : cleanup}
           />
           <CancelButton />

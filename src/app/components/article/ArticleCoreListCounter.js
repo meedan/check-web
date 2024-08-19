@@ -17,11 +17,6 @@ const ArticlesListCounter = ({ defaultFilters, teamSlug, type }) => (
         }
       }
     `}
-    variables={{
-      slug: teamSlug,
-      type,
-      ...defaultFilters,
-    }}
     render={({ props }) => {
       if (props) {
         let count = props.team.articles_count;
@@ -36,6 +31,11 @@ const ArticlesListCounter = ({ defaultFilters, teamSlug, type }) => (
         return (<ProjectsListCounter key={count} numberOfItems={count} />);
       }
       return null;
+    }}
+    variables={{
+      slug: teamSlug,
+      type,
+      ...defaultFilters,
     }}
   />
 );

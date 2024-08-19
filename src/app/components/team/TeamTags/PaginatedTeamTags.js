@@ -22,20 +22,20 @@ const teamTagsQuery = graphql`
 const PaginatedTeamTags = createPaginationContainer(
   props => (
     <TeamTagsComponent
-      teamId={props.parentProps.team.id}
-      teamDbid={props.parentProps.team.dbid}
-      rulesSchema={JSON.parse(props.parentProps.team.rules_json_schema)}
-      rules={props.parentProps.team.get_rules}
-      permissions={props.parentProps.team.permissions}
-      tags={props.root.tag_texts ? props.root.tag_texts.edges.map(({ node }) => ({ ...node, updated_at: parseStringUnixTimestamp(node.updated_at) })) : []}
-      // total of ALL tags
-      totalTags={props.root.tag_texts_count}
-      // total number of search results
-      totalCount={props.root.tag_texts?.totalCount}
       pageSize={props.pageSize}
+      permissions={props.parentProps.team.permissions}
       relay={props.relay}
+      rules={props.parentProps.team.get_rules}
+      rulesSchema={JSON.parse(props.parentProps.team.rules_json_schema)}
       searchTerm={props.searchTerm}
+      // total of ALL tags
       setSearchTerm={props.setSearchTerm}
+      // total number of search results
+      tags={props.root.tag_texts ? props.root.tag_texts.edges.map(({ node }) => ({ ...node, updated_at: parseStringUnixTimestamp(node.updated_at) })) : []}
+      teamDbid={props.parentProps.team.dbid}
+      teamId={props.parentProps.team.id}
+      totalCount={props.root.tag_texts?.totalCount}
+      totalTags={props.root.tag_texts_count}
     />
   ),
   { // assign graphql fragment to a key called `root`

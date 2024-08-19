@@ -20,24 +20,24 @@ const SearchKeywordMenu = ({
 
   return (
     <React.Fragment>
-      <Tooltip arrow title={<FormattedMessage id="SearchKeywordMenu.searchSettings" defaultMessage="Search settings" description="Button for search settings" />}>
+      <Tooltip arrow title={<FormattedMessage defaultMessage="Search settings" description="Button for search settings" id="SearchKeywordMenu.searchSettings" />}>
         <span>
           <ButtonMain
             iconCenter={<SettingsIcon />}
             size="small"
-            variant="text"
             theme="lightText"
+            variant="text"
             onClick={e => setAnchorEl(e.currentTarget)}
           />
         </span>
       </Tooltip>
       { anchorEl ?
         <SearchKeywordContainer
+          anchorEl={anchorEl}
+          handleClose={handleClose}
           query={query}
           onDismiss={handleClose}
           onSubmit={handleChange}
-          anchorEl={anchorEl}
-          handleClose={handleClose}
         /> : null }
     </React.Fragment>
   );

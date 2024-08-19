@@ -46,13 +46,13 @@ const FeedImportDialog = ({
   const onCompleted = (response) => {
     setFlashMessage(
       <FormattedMessage
-        id="feedImportDialog.success"
         defaultMessage="Media Imported Successfully! It may take a while until all items are actually imported. {linkToImportedMedia}"
         description="Banner displayed after items are imported successfully."
+        id="feedImportDialog.success"
         values={{
           linkToImportedMedia: (
-            <a href={response.feedImportMedia.projectMedia.full_url} target="_blank" rel="noopener noreferrer" className={styles.feedImportSuccessLink}>
-              <FormattedMessage id="feedImportDialog.goToImported" defaultMessage="Go To Workspace Item" description="Link text for the link that takes to the imported item page." />
+            <a className={styles.feedImportSuccessLink} href={response.feedImportMedia.projectMedia.full_url} rel="noopener noreferrer" target="_blank">
+              <FormattedMessage defaultMessage="Go To Workspace Item" description="Link text for the link that takes to the imported item page." id="feedImportDialog.goToImported" />
             </a>
           ),
         }}
@@ -116,38 +116,38 @@ const FeedImportDialog = ({
         <div className={dialogStyles['dialog-title']}>
           <div>
             <FormattedMessage
-              tagName="h6"
-              id="feedImportDialog.title"
               defaultMessage="{mediaCount, plural, one {Import # media into your workspace} other {Import # media into your workspace}}"
               description="Title for the import media dialog on the feed item page."
+              id="feedImportDialog.title"
+              tagName="h6"
               values={{
                 mediaCount: cluster.media_count,
               }}
             />
             <ToggleButtonGroup
+              exclusive
+              size="small"
               value={importType}
               variant="contained"
               onChange={(e, newValue) => setImportType(newValue)}
-              size="small"
-              exclusive
             >
-              <ToggleButton value="create" key="1">
-                <FormattedMessage id="feedImportDialog.typeCreate" defaultMessage="Create New" description="Tab for import type on import dialog on feed item page." />
+              <ToggleButton key="1" value="create">
+                <FormattedMessage defaultMessage="Create New" description="Tab for import type on import dialog on feed item page." id="feedImportDialog.typeCreate" />
               </ToggleButton>
-              <ToggleButton value="add" key="2">
-                <FormattedMessage id="feedImportDialog.typeAdd" defaultMessage="Matched Item" description="Tab for import type on import dialog on feed item page." />
+              <ToggleButton key="2" value="add">
+                <FormattedMessage defaultMessage="Matched Item" description="Tab for import type on import dialog on feed item page." id="feedImportDialog.typeAdd" />
               </ToggleButton>
-              <ToggleButton value="search" key="3">
-                <FormattedMessage id="feedImportDialog.typeSearch" defaultMessage="Search for Item" description="Tab for import type on import dialog on feed item page." />
+              <ToggleButton key="3" value="search">
+                <FormattedMessage defaultMessage="Search for Item" description="Tab for import type on import dialog on feed item page." id="feedImportDialog.typeSearch" />
               </ToggleButton>
             </ToggleButtonGroup>
           </div>
           <ButtonMain
             className={dialogStyles['dialog-close-button']}
-            variant="text"
+            iconCenter={<IconClose />}
             size="small"
             theme="text"
-            iconCenter={<IconClose />}
+            variant="text"
             onClick={onClose}
           />
         </div>
@@ -156,24 +156,24 @@ const FeedImportDialog = ({
 
           {/* First case: Create a new item */}
           { importType === 'create' && (
-            <div id="feed-import-dialog__create" className={styles.feedItemDialogForm}>
+            <div className={styles.feedItemDialogForm} id="feed-import-dialog__create">
               <div className="typography-subtitle2">
                 <FormattedMessage
-                  id="feedImportDialog.explanationImportTypeCreate"
                   defaultMessage="Add an optional claim for the media being imported. This can also be done after completing the import."
                   description="Explanation on import dialog on feed item page."
+                  id="feedImportDialog.explanationImportTypeCreate"
                 />
               </div>
               <TextField
                 className="int-feed-import-dialog__textfield--claim-title"
+                label={<FormattedMessage defaultMessage="Claim title" description="Text field label on import dialog on feed item page." id="feedImportDialog.claimTitle" />}
                 variant="outlined"
-                label={<FormattedMessage id="feedImportDialog.claimTitle" defaultMessage="Claim title" description="Text field label on import dialog on feed item page." />}
                 onBlur={e => setClaimTitle(e.target.value)}
               />
               <TextField
                 className="int-feed-import-dialog__textfield--claim-context"
+                label={<FormattedMessage defaultMessage="Additional context" description="Text field label on import dialog on feed item page." id="feedImportDialog.claimContext" />}
                 variant="outlined"
-                label={<FormattedMessage id="feedImportDialog.claimContext" defaultMessage="Additional context" description="Text field label on import dialog on feed item page." />}
                 onBlur={e => setClaimContext(e.target.value)}
               />
             </div>
@@ -184,20 +184,21 @@ const FeedImportDialog = ({
             <div id="feed-import-dialog__add">
               <div className="typography-subtitle2">
                 <FormattedMessage
-                  id="feedImportDialog.explanationImportTypeAdd"
                   defaultMessage="Add the selected media to your matching  workspace item."
                   description="Explanation on import dialog on feed item page."
+                  id="feedImportDialog.explanationImportTypeAdd"
                 />
               </div>
               <SmallMediaCard
                 customTitle={item.title}
+                description={team.description}
                 details={[
                   (
                     item.last_seen &&
                       <FormattedMessage
-                        id="feedImportDialog.lastSubmitted"
                         defaultMessage="Last submitted {date}"
                         description="Shows the last time a media was submitted (on feed import dialog media card)"
+                        id="feedImportDialog.lastSubmitted"
                         values={{
                           date: intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
                         }}
@@ -206,15 +207,14 @@ const FeedImportDialog = ({
                   (
                     item.requests_count &&
                       <FormattedMessage
-                        id="feedImportDialog.requestsCount"
                         defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
                         description="Header of requests list. Example: 26 requests."
+                        id="feedImportDialog.requestsCount"
                         values={{ requestsCount: item.requests_count }}
                       />
                   ),
                 ]}
                 media={item.media}
-                description={team.description}
               />
             </div>
           )}
@@ -224,32 +224,32 @@ const FeedImportDialog = ({
             <div className={styles.feedImportNotInCluster}>
               <div className="typography-subtitle2">
                 <FormattedMessage
-                  id="feedImportDialog.addNotPart1"
                   defaultMessage="Your workspace does not contribute to this shared feed item."
                   description="Explanation on import dialog on feed item page."
+                  id="feedImportDialog.addNotPart1"
                 />
               </div>
               <div className="typography-subtitle2">
                 <FormattedMessage
-                  id="feedImportDialog.addNotPart2"
                   defaultMessage="You can import this media in a {newItemLink}, or search for an {existingItemLink}."
                   description="Explanation on import dialog on feed item page... the default in English for 'newItemLink' is 'new item in your workspace', while for 'existingItemLink' it's 'existing item to import'."
+                  id="feedImportDialog.addNotPart2"
                   values={{
                     newItemLink: (
-                      <span onClick={() => { setImportType('create'); }} onKeyDown={() => { setImportType('create'); }} className={styles.feedImportLink}>
+                      <span className={styles.feedImportLink} onClick={() => { setImportType('create'); }} onKeyDown={() => { setImportType('create'); }}>
                         <FormattedMessage
-                          id="feedImportDialog.addNotPartLinkNew"
                           defaultMessage="new item in your workspace"
                           description="This is the text of the link to create a new item in the feed import dialog. It's used in the middle of a sentence like: You can import this media in a 'new item in your workspace'."
+                          id="feedImportDialog.addNotPartLinkNew"
                         />
                       </span>
                     ),
                     existingItemLink: (
-                      <span onClick={() => { setImportType('search'); }} onKeyDown={() => { setImportType('search'); }} className={styles.feedImportLink}>
+                      <span className={styles.feedImportLink} onClick={() => { setImportType('search'); }} onKeyDown={() => { setImportType('search'); }}>
                         <FormattedMessage
-                          id="feedImportDialog.addNotPartLinkSearch"
                           defaultMessage="existing item to import"
                           description="This is the text of the link to create a new item in the feed import dialog. It's used in the middle of a sentence like: You can import this media in a new item or search for an 'existing item to import'."
+                          id="feedImportDialog.addNotPartLinkSearch"
                         />
                       </span>
                     ),
@@ -261,7 +261,7 @@ const FeedImportDialog = ({
 
           {/* Third case: Search for media */}
           { importType === 'search' && (
-            <div id="feed-import-dialog__search" className={cx(styles.feedImportSearch, mediaStyles['media-item-autocomplete-wrapper'])}>
+            <div className={cx(styles.feedImportSearch, mediaStyles['media-item-autocomplete-wrapper'])} id="feed-import-dialog__search">
               <AutoCompleteMediaItem onSelect={setSelectedItem} />
             </div>
           )}
@@ -271,30 +271,30 @@ const FeedImportDialog = ({
         <div className={dialogStyles['dialog-actions']}>
           <ButtonMain
             className="feed-import-dialog__close-button"
-            size="default"
-            theme="text"
-            onClick={onClose}
             disabled={saving}
             label={
               <FormattedMessage
-                id="global.cancel"
                 defaultMessage="Cancel"
                 description="Regular Cancel action label"
+                id="global.cancel"
               />
             }
+            size="default"
+            theme="text"
+            onClick={onClose}
           />
           <ButtonMain
             className="feed-import-dialog__import-button"
-            size="default"
-            onClick={handleImport}
             disabled={saving || !canImport}
             label={
               <FormattedMessage
-                id="feedImportDialog.import"
                 defaultMessage="Import Media"
                 description="Label of a confirmation button on the import dialog window on the feed item page."
+                id="feedImportDialog.import"
               />
             }
+            size="default"
+            onClick={handleImport}
           />
         </div>
       </Dialog>

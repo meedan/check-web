@@ -14,9 +14,9 @@ const MediaLanguageSwitcher = ({ projectMedia, setFlashMessage }) => {
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="mediaLanguageSwitcher.error"
         defaultMessage="Could not change language, please try again"
         description="Error message displayed when it's not possible to change an item language"
+        id="mediaLanguageSwitcher.error"
       />
     ), 'error');
   };
@@ -25,9 +25,9 @@ const MediaLanguageSwitcher = ({ projectMedia, setFlashMessage }) => {
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="mediaLanguageSwitcher.success"
         defaultMessage="Language updated"
         description="Success message displayed when an item language is changed"
+        id="mediaLanguageSwitcher.success"
       />
     ), 'success');
   };
@@ -67,11 +67,11 @@ const MediaLanguageSwitcher = ({ projectMedia, setFlashMessage }) => {
 
   return (
     <LanguagePickerSelect
-      label={<FormattedMessage id="mediaLanguageSwitcher.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language" />}
+      isDisabled={saving}
+      label={<FormattedMessage defaultMessage="Language" description="Label for input to select language" id="mediaLanguageSwitcher.selectLanguageLabel" />}
+      languages={projectMedia.team ? safelyParseJSON(projectMedia.team.get_languages) : [projectMedia.language_code || 'und']}
       selectedLanguage={projectMedia.language_code}
       onSubmit={handleUpdate}
-      languages={projectMedia.team ? safelyParseJSON(projectMedia.team.get_languages) : [projectMedia.language_code || 'und']}
-      isDisabled={saving}
     />
   );
 };

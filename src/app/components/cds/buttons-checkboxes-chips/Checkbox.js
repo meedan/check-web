@@ -29,8 +29,6 @@ const Checkbox = ({
 
   return (
     <div
-      onKeyPress={swallowClick}
-      onClick={swallowClick}
       className={cx(
         styles.checkboxWrapper,
         inputStyles['input-wrapper'],
@@ -39,6 +37,8 @@ const Checkbox = ({
           [inputStyles.disabled]: disabled,
         })
       }
+      onClick={swallowClick}
+      onKeyPress={swallowClick}
     >
       <label
         className={cx(
@@ -50,12 +50,12 @@ const Checkbox = ({
         }
       >
         <input
-          className="int-checkbox__input"
-          type="checkbox"
           checked={checked}
+          className="int-checkbox__input"
+          disabled={disabled}
+          type="checkbox"
           onChange={handleChange}
           onClick={swallowClick}
-          disabled={disabled}
           {...inputProps}
         />
         {

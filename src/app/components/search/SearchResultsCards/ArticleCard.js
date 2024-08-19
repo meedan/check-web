@@ -42,10 +42,10 @@ const ArticleCard = ({
         <CardHoverContext.Consumer>
           { isHovered => (
             <ItemDescription
-              title={title}
               description={summary}
-              url={url}
               showCollapseButton={isHovered}
+              title={title}
+              url={url}
               variant={variant}
             />
           )}
@@ -54,15 +54,15 @@ const ArticleCard = ({
           <div>
             <Tooltip arrow title={teamName}>
               <span>
-                <TeamAvatar team={{ avatar: teamAvatar }} size="30px" />
+                <TeamAvatar size="30px" team={{ avatar: teamAvatar }} />
               </span>
             </Tooltip>
           </div>
         ) : null }
         <SharedItemCardFooter
           languageCode={languageCode}
-          tags={tags}
           tagOptions={tagOptions}
+          tags={tags}
           onChangeTags={onChangeTags}
         />
       </div>
@@ -72,9 +72,9 @@ const ArticleCard = ({
             <div className={styles.cardRightTop}>
               { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
               <ItemReportStatus
-                projectMediaDbid={projectMediaDbid}
                 className={styles.cardRightTopPublished}
                 isPublished={isPublished}
+                projectMediaDbid={projectMediaDbid}
                 publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
               />
             </div>
@@ -82,7 +82,7 @@ const ArticleCard = ({
           { date &&
             <ItemDate
               date={new Date(date * 1000)}
-              tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />}
+              tooltipLabel={<FormattedMessage defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." id="sharedItemCard.lastUpdated" />}
             />
           }
         </div> : null

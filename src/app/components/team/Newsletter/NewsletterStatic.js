@@ -40,32 +40,32 @@ const NewsletterStatic = ({
       />
       {[...Array(numberOfArticles)].map((x, i) => (
         <FormattedMessage
-          id="newsletterStatic.articlePlaceholder"
           className="newsletter-article"
           defaultMessage="Add text or link"
           description="Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
+          id="newsletterStatic.articlePlaceholder"
           // Initial values here are `undefined` on first render due to the fetch from the API -- since we only mutate this array by appending items and taking items off the end (rather than sorting), using an index for the key is fine here and in the child element
           // eslint-disable-next-line react/no-array-index-key
           key={`${i}fm`}
         >
           { placeholder => (
             <LimitedTextArea
-              // eslint-disable-next-line react/no-array-index-key
-              key={i}
               disabled={disabled}
               error={!!articleErrors[i]}
-              onErrorTooLong={(error) => {
-                setTextfieldOverLength(error);
-              }}
               helpContent={articleErrors[i]}
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
               label="&nbsp;"
               maxChars={getMaxChars()}
+              placeholder={placeholder}
+              rows={4}
               value={articles[i]}
               onBlur={(e) => {
                 handleArticleUpdate(e.target.value, i);
               }}
-              placeholder={placeholder}
-              rows={4}
+              onErrorTooLong={(error) => {
+                setTextfieldOverLength(error);
+              }}
             />
           )}
         </FormattedMessage>

@@ -18,11 +18,11 @@ const SmoochBotSidebar = ({
     <li>
       <ButtonMain
         key={id}
-        size="default"
-        variant={currentOption === id ? 'contained' : 'text'}
-        theme={currentOption === id ? 'lightBrand' : 'lightText'}
-        onClick={() => { handleClick(id); }}
         label={label}
+        size="default"
+        theme={currentOption === id ? 'lightBrand' : 'lightText'}
+        variant={currentOption === id ? 'contained' : 'text'}
+        onClick={() => { handleClick(id); }}
       />
     </li>
   );
@@ -33,7 +33,7 @@ const SmoochBotSidebar = ({
       {/* Menu options */}
       { Object.keys(labelsV2).map((key) => {
         const label = labelsV2[key];
-        return <Option key={key} id={key} label={label} />;
+        return <Option id={key} key={key} label={label} />;
       })}
       <li className={cx('typography-overline', styles.smoochBotMenuSection)}>Resources</li>
       {/* Resources */}
@@ -41,8 +41,8 @@ const SmoochBotSidebar = ({
         const label = resource.title;
         return (
           <Option
-            key={resource.uuid}
             id={`resource_${resource.dbid}`}
+            key={resource.uuid}
             label={label}
           />
         );

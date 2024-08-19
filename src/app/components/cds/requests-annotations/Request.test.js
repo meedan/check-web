@@ -8,8 +8,8 @@ describe('<Request />', () => {
     const wrapper = mountWithIntl((
       <Request
         details={[]}
-        text="Hello Meedan"
         icon={<WhatsAppIcon />}
+        text="Hello Meedan"
       />
     ));
     expect(wrapper.find(WhatsAppIcon).length).toEqual(1);

@@ -32,17 +32,17 @@ const ReportDesignerConfirmableButton = (props) => {
   return (
     <React.Fragment>
       <ButtonMain
-        variant="contained"
         disabled={props.disabled}
-        onClick={handleClick}
-        theme={props.theme}
         iconLeft={props.icon}
         label={props.label}
+        theme={props.theme}
+        variant="contained"
+        onClick={handleClick}
       />
       <ConfirmProceedDialog
+        body={props.content}
         open={opened}
         title={props.title}
-        body={props.content}
         onProceed={props.onConfirm || handleClose}
         {...otherProps}
       />

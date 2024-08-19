@@ -14,33 +14,33 @@ export default function CreateMediaDialog({
   const formId = 'create-media-dialog-form';
 
   return (
-    <Dialog className={styles['dialog-window']} open={open} fullWidth>
+    <Dialog className={styles['dialog-window']} fullWidth open={open}>
       <div className={styles['dialog-title']}>
         {title}
         <ButtonMain
           className={styles['dialog-close-button']}
-          variant="text"
+          iconCenter={<IconClose />}
           size="small"
           theme="text"
-          iconCenter={<IconClose />}
+          variant="text"
           onClick={onDismiss}
         />
       </div>
       <div className={styles['dialog-content']}>
-        <CreateMediaInput formId={formId} onSubmit={onSubmit} team={team} />
+        <CreateMediaInput formId={formId} team={team} onSubmit={onSubmit} />
       </div>
       <div className={styles['dialog-actions']}>
         <ButtonMain
           buttonProps={{
             id: 'create-media-dialog__dismiss-button',
           }}
-          onClick={onDismiss}
-          size="default"
-          variant="text"
-          theme="lightText"
           label={
-            <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
+            <FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />
           }
+          size="default"
+          theme="lightText"
+          variant="text"
+          onClick={onDismiss}
         />
         <ButtonMain
           buttonProps={{
@@ -48,12 +48,12 @@ export default function CreateMediaDialog({
             form: formId,
             type: 'submit',
           }}
-          size="default"
-          variant="contained"
-          theme="brand"
           label={
-            <FormattedMessage id="global.submit" defaultMessage="Submit" description="Generic label for a button or link for a user to press when they wish to submit and form or action" />
+            <FormattedMessage defaultMessage="Submit" description="Generic label for a button or link for a user to press when they wish to submit and form or action" id="global.submit" />
           }
+          size="default"
+          theme="brand"
+          variant="contained"
         />
       </div>
     </Dialog>

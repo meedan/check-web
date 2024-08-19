@@ -18,25 +18,26 @@ const LastRequestDate = ({
   const buttonContent = (
     <span>
       <ButtonMain
-        disabled
-        size="small"
-        theme={theme}
-        iconLeft={<CalendarMonthIcon />}
-        variant={variant}
-        label={<FormattedDate value={lastRequestDate} year="numeric" month="long" day="numeric" />}
         buttonProps={{
           type: null,
         }}
+        disabled
+        iconLeft={<CalendarMonthIcon />}
+        label={<FormattedDate day="numeric" month="long" value={lastRequestDate} year="numeric" />}
+        size="small"
+        theme={theme}
+        variant={variant}
       />
     </span>
   );
 
   return (
-    <FormattedMessage id="sharedItemCard.lastRequested" defaultMessage="Last Requested" description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'.">
+    <FormattedMessage defaultMessage="Last Requested" description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'." id="sharedItemCard.lastRequested">
       { lastRequestDateLabel => (
         tooltip ? (
           <Tooltip
             arrow
+            placement="top"
             title={(
               <>
                 <span>{tooltipLabel || lastRequestDateLabel}:</span>
@@ -46,7 +47,6 @@ const LastRequestDate = ({
                 </ul>
               </>
             )}
-            placement="top"
           >
             {buttonContent}
           </Tooltip>

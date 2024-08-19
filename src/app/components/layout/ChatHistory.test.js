@@ -78,11 +78,11 @@ describe('ChatHistory component', () => {
   it('should parse message from capi structure', () => {
     const wrapper = mountWithIntl(
       <ChatHistory
-        title="Chat History"
-        history={[mockTiplineMessage]}
-        handleClose={() => {}}
-        intl={{}}
         dateTime="1701714951"
+        handleClose={() => {}}
+        history={[mockTiplineMessage]}
+        intl={{}}
+        title="Chat History"
       />,
     );
 

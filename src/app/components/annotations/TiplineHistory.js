@@ -24,26 +24,26 @@ const TiplineHistory = ({
         }
       }
     `}
-    variables={{
-      teamSlug,
-      uid,
-      pageSize,
-    }}
     render={({ error, props: innerProps }) => {
       if (!error && innerProps) {
         const { team } = innerProps;
 
         return (
           <PaginatedTiplineHistory
-            root={team}
+            handleClose={handleClose}
             pageSize={pageSize}
             parentProps={innerProps}
-            handleClose={handleClose}
+            root={team}
             title={title}
           />
         );
       }
       return null;
+    }}
+    variables={{
+      teamSlug,
+      uid,
+      pageSize,
     }}
   />);
 };

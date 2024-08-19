@@ -11,14 +11,14 @@ const SearchKeywordContainer = ({
 }) => (
   <Menu
     anchorEl={anchorEl}
+    anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
     open={Boolean(anchorEl)}
     onClose={handleClose}
-    anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
   >
     <SearchKeywordConfigComponent
+      query={query}
       onDismiss={onDismiss}
       onSubmit={onSubmit}
-      query={query}
     />
   </Menu>
 );

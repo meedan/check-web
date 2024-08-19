@@ -31,18 +31,18 @@ const team = { id: '1' };
 describe('<TeamTasksProject />', () => {
   it('should render null if project has no tasks', () => {
     const wrapper = mountWithIntl(<TeamTasksProject
+      about={about}
       project={project}
       team={team}
-      about={about}
     />);
     expect(wrapper.html()).toEqual(null);
   });
 
   it('should render items if project has tasks', () => {
     const wrapper = mountWithIntl(<TeamTasksProject
+      about={about}
       project={projectWithTasks}
       team={team}
-      about={about}
     />);
     expect(wrapper.find('.team-tasks__list-item').hostNodes()).toHaveLength(2);
   });

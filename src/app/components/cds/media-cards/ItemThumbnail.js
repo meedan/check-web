@@ -40,8 +40,8 @@ const ItemThumbnail = ({
           <div className={cx(styles.thumbnail, styles.container)}>
             <div className={styles.iconContainer}>
               <img
-                className={styles.thumbnail}
                 alt={type}
+                className={styles.thumbnail}
                 src={picture}
                 onError={(e) => {
                   e.target.onerror = null;
@@ -64,7 +64,7 @@ const ItemThumbnail = ({
       >
         <div className={cx(styles.thumbnail, styles.container)}>
           <div className={styles.iconContainer}>
-            <MediaTypeDisplayIcon mediaType={mediaType} className={styles.mediaIcon} fontSize="var(--iconSizeDefault)" />
+            <MediaTypeDisplayIcon className={styles.mediaIcon} fontSize="var(--iconSizeDefault)" mediaType={mediaType} />
           </div>
         </div>
       </Tooltip>

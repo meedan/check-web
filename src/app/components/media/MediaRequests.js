@@ -59,13 +59,13 @@ class MediaRequestsComponent extends Component {
     const { media } = this.props;
 
     return (
-      <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>
+      <div className={cx(styles['media-requests'], styles['media-item-content'])} id="media__requests">
         { (!this.props.all && media.requests_count > 0) && (
           <p className="typography-subtitle2">
             <FormattedMessage
-              id="mediaRequests.thisRequests"
               defaultMessage="{count, plural, one {# request} other {# requests}}"
               description="The count in a readable sentence of the number of requests for this media"
+              id="mediaRequests.thisRequests"
               values={{
                 count: media.requests_count,
               }}
@@ -73,20 +73,20 @@ class MediaRequestsComponent extends Component {
           </p>
         )}
         <Annotations
-          noLink
-          component={TiplineRequest}
-          annotations={media.requests?.edges}
           annotated={media}
           annotatedType="ProjectMedia"
+          annotations={media.requests?.edges}
           annotationsCount={this.props.all ? media.demand : media.requests_count}
-          relay={this.props.relay}
+          component={TiplineRequest}
           noActivityMessage={
             <FormattedMessage
-              id="mediaRequests.noRequest"
               defaultMessage="0 Requests"
               description="Empty message when there are zero requests for this item"
+              id="mediaRequests.noRequest"
             />
           }
+          noLink
+          relay={this.props.relay}
         />
       </div>
     );
@@ -201,11 +201,11 @@ const MediaRequests = (props) => {
   return (
     <Relay.RootContainer
       Component={Container}
-      renderFetched={data =>
-        <Container cachedMedia={media} style={style} all={all} {...data} />}
-      route={route}
-      renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
       forceFetch
+      renderFetched={data =>
+        <Container all={all} cachedMedia={media} style={style} {...data} />}
+      renderLoading={() => <MediasLoading size="medium" theme="grey" variant="inline" />}
+      route={route}
     />
   );
 };

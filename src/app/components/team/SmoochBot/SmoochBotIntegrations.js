@@ -48,80 +48,74 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
   return (
     <React.Fragment>
       <div className={styles['setting-content-container-title']}>
-        <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
+        <FormattedMessage defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" id="smoochBotIntegrations.title" />
         <div className={styles['setting-content-container-actions']}>
           <ButtonMain
-            variant="text"
+            iconCenter={<HelpIcon />}
             size="small"
             theme="text"
-            iconCenter={<HelpIcon />}
+            variant="text"
             onClick={handleHelp}
           />
         </div>
       </div>
-      <Box display="flex" justifyContent="space-between" flexWrap="wrap">
+      <Box display="flex" flexWrap="wrap" justifyContent="space-between">
         <SmoochBotIntegrationButton
-          installationId={installationId}
           disabled={!isEnabled}
-          type="whatsapp"
-          label="WhatsApp"
-          url="https://airtable.com/shrAhYXEFGe7F9QHr"
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ec472becaf"
           icon={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
-          online={isOnline('whatsapp')}
-          readOnly={isWabaSet || isCapiSet}
           info={
             isOnline('whatsapp') ?
               <Box>
                 <FormattedMessage
-                  id="smoochBotIntegrations.phoneNumber"
                   defaultMessage="Connected phone number: {link}"
                   description="Label showing the whatsapp phone number connected to this bot"
+                  id="smoochBotIntegrations.phoneNumber"
                   values={{
                     link: (
-                      <a href={`https://web.whatsapp.com/send?phone=${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9+]/g, '')}`} target="_blank" rel="noopener noreferrer">
+                      <a href={`https://web.whatsapp.com/send?phone=${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9+]/g, '')}`} rel="noopener noreferrer" target="_blank">
                         {enabledIntegrations.whatsapp.phoneNumber}
                       </a>
                     ),
                   }}
                 />
-                <Box mt={2} mb={1}>
+                <Box mb={1} mt={2}>
                   <strong>
                     <FormattedMessage
-                      id="smoochBotIntegrations.entryPointTitle"
                       defaultMessage="Entry point"
                       description="Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+                      id="smoochBotIntegrations.entryPointTitle"
                     />
                   </strong>
                   <Box mt={1}>
                     <FormattedMessage
-                      id="smoochBotIntegrations.entryPointDescription"
                       defaultMessage="Use this address anywhere online to open WhatsApp and start a tipline conversation:"
                       description="Description displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+                      id="smoochBotIntegrations.entryPointDescription"
                     />
                   </Box>
-                  <Box display="flex" alignItems="center">
+                  <Box alignItems="center" display="flex">
                     <TextField
                       className={styles['smoochbot-component-input']}
-                      variant="outlined"
                       defaultValue={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`}
                       InputProps={{
                         readOnly: true,
                       }}
+                      variant="outlined"
                     />
                     <Tooltip
-                      PopperProps={{
-                        disablePortal: true,
-                      }}
-                      open={copied === 'entrypoint'}
                       disableFocusListener
                       disableHoverListener
                       disableTouchListener
+                      open={copied === 'entrypoint'}
+                      PopperProps={{
+                        disablePortal: true,
+                      }}
                       title={
                         <FormattedMessage
-                          id="smoochBotIntegrations.copied"
                           defaultMessage="Copied"
                           description="Tooltip displayed on tipline settings when a code is copied to clipboard"
+                          id="smoochBotIntegrations.copied"
                         />
                       }
                     >
@@ -139,42 +133,42 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                     </Tooltip>
                   </Box>
                 </Box>
-                <Box mt={2} mb={1}>
+                <Box mb={1} mt={2}>
                   <strong>
                     <FormattedMessage
-                      id="smoochBotIntegrations.qrCodeTitle"
                       defaultMessage="QR code"
                       description="Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+                      id="smoochBotIntegrations.qrCodeTitle"
                     />
                   </strong>
-                  <Box mt={1} mb={1}>
+                  <Box mb={1} mt={1}>
                     <FormattedMessage
-                      id="smoochBotIntegrations.qrCodeDescription"
                       defaultMessage="Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation."
                       description="Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+                      id="smoochBotIntegrations.qrCodeDescription"
                     />
                   </Box>
                   <Box>
-                    <Box display="flex" alignItems="flex-start">
+                    <Box alignItems="flex-start" display="flex">
                       <TextField
                         className={styles['smoochbot-component-input']}
-                        variant="outlined"
                         defaultValue={`<img src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}" />`}
                         disabled
+                        variant="outlined"
                       />
                       <Tooltip
-                        PopperProps={{
-                          disablePortal: true,
-                        }}
-                        open={copied === 'embedcode'}
                         disableFocusListener
                         disableHoverListener
                         disableTouchListener
+                        open={copied === 'embedcode'}
+                        PopperProps={{
+                          disablePortal: true,
+                        }}
                         title={
                           <FormattedMessage
-                            id="smoochBotIntegrations.copied"
                             defaultMessage="Copied"
                             description="Tooltip displayed on tipline settings when a code is copied to clipboard"
+                            id="smoochBotIntegrations.copied"
                           />
                         }
                       >
@@ -191,8 +185,8 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                         </CopyToClipboard>
                       </Tooltip>
                     </Box>
-                    <Box mt={2} display="flex" alignItems="flex-start">
-                      <QRCodeCanvas size={192} value={`https://wa.me/${enabledIntegrations?.whatsapp?.phoneNumber.replace(/[^0-9]/g, '')}`} id="whatsapp-qr-code-canvas" />
+                    <Box alignItems="flex-start" display="flex" mt={2}>
+                      <QRCodeCanvas id="whatsapp-qr-code-canvas" size={192} value={`https://wa.me/${enabledIntegrations?.whatsapp?.phoneNumber.replace(/[^0-9]/g, '')}`} />
                       <IconButton onClick={handleDownloadWhatsAppQrCode}>
                         <GetAppIcon />
                       </IconButton>
@@ -201,174 +195,180 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                 </Box>
               </Box> : null
           }
+          installationId={installationId}
+          label="WhatsApp"
+          online={isOnline('whatsapp')}
           permanentDisconnection
+          readOnly={isWabaSet || isCapiSet}
           skipUrlConfirmation
+          type="whatsapp"
+          url="https://airtable.com/shrAhYXEFGe7F9QHr"
         />
         <SmoochBotIntegrationButton
-          disabled={false}
-          readOnly={false}
-          online={false}
-          installationId={installationId}
-          type="twitter"
-          label="X (Twitter)"
-          url={null}
-          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot"
-          icon={<TwitterIcon style={{ color: 'var(--xBlack)' }} />}
           deprecationNotice={
             <FormattedMessage
-              id="smoochBotIntegrations.twitterDisabled"
               defaultMessage="The integration with X is currently not available, following changes to the X API on April 21, 2023."
               description="Disclaimer displayed on X tipline settings page."
+              id="smoochBotIntegrations.twitterDisabled"
             />
           }
+          disabled={false}
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot"
+          icon={<TwitterIcon style={{ color: 'var(--xBlack)' }} />}
+          installationId={installationId}
+          label="X (Twitter)"
+          online={false}
+          readOnly={false}
+          type="twitter"
+          url={null}
         />
         <SmoochBotIntegrationButton
-          installationId={installationId}
           disabled={!isEnabled}
-          type="messenger"
-          label="Messenger"
-          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/messenger')}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
           icon={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
-          online={isOnline('messenger')}
-          readOnly={!isSmoochSet}
           info={
             isOnline('messenger') ?
               <FormattedMessage
-                id="smoochBotIntegrations.page"
                 defaultMessage="Connected page: {link}"
                 description="Label for the connected Facebook page for this bot"
+                id="smoochBotIntegrations.page"
                 values={{
                   link: (
-                    <a href={`https://m.me/${enabledIntegrations.messenger.pageId}`} target="_blank" rel="noopener noreferrer">
+                    <a href={`https://m.me/${enabledIntegrations.messenger.pageId}`} rel="noopener noreferrer" target="_blank">
                       {enabledIntegrations.messenger.pageId}
                     </a>
                   ),
                 }}
               /> : null
           }
+          installationId={installationId}
+          label="Messenger"
+          online={isOnline('messenger')}
+          readOnly={!isSmoochSet}
+          type="messenger"
+          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/messenger')}
         />
         <SmoochBotIntegrationButton
-          installationId={installationId}
           disabled={!isEnabled}
-          type="telegram"
-          label="Telegram"
-          icon={<TelegramIcon style={{ color: 'var(--telegramBlue)' }} />}
-          online={isOnline('telegram')}
-          readOnly={!isSmoochSet}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ff25899cc2"
-          params={[
-            {
-              key: 'token',
-              label: <FormattedMessage id="smoochBotIntegrations.telegramBotToken" defaultMessage="Telegram bot token" description="Output of the telegram bot token" />,
-            },
-          ]}
+          icon={<TelegramIcon style={{ color: 'var(--telegramBlue)' }} />}
           info={
             isOnline('telegram') ?
               <FormattedMessage
-                id="smoochBotIntegrations.telegramBot"
                 defaultMessage="Connected Telegram bot: {link}"
                 description="Label for the connected Telegram link for this bot"
+                id="smoochBotIntegrations.telegramBot"
                 values={{
                   link: (
-                    <a href={`https://t.me/${enabledIntegrations.telegram.username}`} target="_blank" rel="noopener noreferrer">
+                    <a href={`https://t.me/${enabledIntegrations.telegram.username}`} rel="noopener noreferrer" target="_blank">
                       {enabledIntegrations.telegram.username}
                     </a>
                   ),
                 }}
               /> : null
           }
-        />
-        <SmoochBotIntegrationButton
           installationId={installationId}
-          disabled={!isEnabled}
-          type="viber"
-          label="Viber"
-          icon={<ViberIcon style={{ color: 'var(--viberPurple)' }} />}
-          online={isOnline('viber')}
-          readOnly={!isSmoochSet}
-          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_71c06164f3"
+          label="Telegram"
+          online={isOnline('telegram')}
           params={[
             {
               key: 'token',
-              label: <FormattedMessage id="smoochBotIntegrations.viberPublicAccountToken" defaultMessage="Viber public account token" description="Output of the viber bot token" />,
+              label: <FormattedMessage defaultMessage="Telegram bot token" description="Output of the telegram bot token" id="smoochBotIntegrations.telegramBotToken" />,
             },
           ]}
+          readOnly={!isSmoochSet}
+          type="telegram"
+        />
+        <SmoochBotIntegrationButton
+          disabled={!isEnabled}
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_71c06164f3"
+          icon={<ViberIcon style={{ color: 'var(--viberPurple)' }} />}
           info={
             isOnline('viber') ?
               <FormattedMessage
-                id="smoochBotIntegrations.viberPublicAccount"
                 defaultMessage="Connected Viber public account: {name}"
                 description="Name of the connected viber account for this bot"
+                id="smoochBotIntegrations.viberPublicAccount"
                 values={{
                   name: enabledIntegrations.viber.uri,
                 }}
               /> : null
           }
-        />
-        <SmoochBotIntegrationButton
           installationId={installationId}
-          disabled={!isEnabled}
-          type="line"
-          label="LINE"
-          icon={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
-          online={isOnline('line')}
-          readOnly={!isSmoochSet}
-          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
+          label="Viber"
+          online={isOnline('viber')}
           params={[
             {
-              key: 'channelAccessToken',
-              label: <FormattedMessage id="smoochBotIntegrations.lineChannelAccessToken" defaultMessage="LINE channel access token" description="Output of the LINE bot token" />,
-            },
-            {
-              key: 'channelSecret',
-              label: <FormattedMessage id="smoochBotIntegrations.lineChannelSecret" defaultMessage="LINE channel secret" description="Output of the LINE channel secret paired with the token" />,
+              key: 'token',
+              label: <FormattedMessage defaultMessage="Viber public account token" description="Output of the viber bot token" id="smoochBotIntegrations.viberPublicAccountToken" />,
             },
           ]}
+          readOnly={!isSmoochSet}
+          type="viber"
+        />
+        <SmoochBotIntegrationButton
+          disabled={!isEnabled}
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
+          icon={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
           info={
             isOnline('line') ?
               <TextField
-                label={
-                  <FormattedMessage
-                    id="smoochBotIntegrations.lineWebhook"
-                    defaultMessage="Copy this webhook URL to your LINE settings"
-                    description="Textfield label for the LINE webhook URL"
-                  />
-                }
-                variant="outlined"
                 // eslint-disable-next-line no-underscore-dangle
                 defaultValue={`https://app.smooch.io:443/api/line/webhooks/${settings.smooch_app_id}/${enabledIntegrations.line._id}`}
                 InputProps={{
                   readOnly: true,
                 }}
+                label={
+                  <FormattedMessage
+                    defaultMessage="Copy this webhook URL to your LINE settings"
+                    description="Textfield label for the LINE webhook URL"
+                    id="smoochBotIntegrations.lineWebhook"
+                  />
+                }
+                variant="outlined"
               /> : null
           }
+          installationId={installationId}
+          label="LINE"
+          online={isOnline('line')}
+          params={[
+            {
+              key: 'channelAccessToken',
+              label: <FormattedMessage defaultMessage="LINE channel access token" description="Output of the LINE bot token" id="smoochBotIntegrations.lineChannelAccessToken" />,
+            },
+            {
+              key: 'channelSecret',
+              label: <FormattedMessage defaultMessage="LINE channel secret" description="Output of the LINE channel secret paired with the token" id="smoochBotIntegrations.lineChannelSecret" />,
+            },
+          ]}
+          readOnly={!isSmoochSet}
+          type="line"
         />
         <SmoochBotIntegrationButton
-          installationId={installationId}
           disabled={!isEnabled}
-          type="instagram"
-          label="Instagram"
-          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_b872d32c4d"
           icon={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
-          online={isOnline('instagram')}
-          readOnly={!isSmoochSet}
           info={
             isOnline('instagram') ?
               <FormattedMessage
-                id="smoochBotIntegrations.instagram"
                 defaultMessage="Connected profile: {link}"
                 description="Label for the connected Instagram profile for this bot"
+                id="smoochBotIntegrations.instagram"
                 values={{
                   link: (
-                    <a href={`https://instagram.com/${enabledIntegrations.instagram.businessUsername}`} target="_blank" rel="noopener noreferrer">
+                    <a href={`https://instagram.com/${enabledIntegrations.instagram.businessUsername}`} rel="noopener noreferrer" target="_blank">
                       {enabledIntegrations.instagram.businessName}
                     </a>
                   ),
                 }}
               /> : null
           }
+          installationId={installationId}
+          label="Instagram"
+          online={isOnline('instagram')}
+          readOnly={!isSmoochSet}
+          type="instagram"
+          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
         />
       </Box>
     </React.Fragment>

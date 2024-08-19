@@ -21,7 +21,7 @@ describe('<FeedItemComponent />', () => {
   };
 
   it('should render feed item page', () => {
-    const wrapper = shallowWithIntl(<FeedItemComponent teamSlug="test" feed={feed} cluster={cluster} />);
+    const wrapper = shallowWithIntl(<FeedItemComponent cluster={cluster} feed={feed} teamSlug="test" />);
     expect(wrapper.find('#feed-item-page')).toHaveLength(1);
   });
 });

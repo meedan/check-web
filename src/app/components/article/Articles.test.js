@@ -31,7 +31,7 @@ describe('<Articles />', () => {
         ...article,
       },
     ];
-    const wrapper = shallowWithIntl(<ArticlesComponent {...articlesProps} type="explainer" articles={explainers} />);
+    const wrapper = shallowWithIntl(<ArticlesComponent {...articlesProps} articles={explainers} type="explainer" />);
     expect(wrapper.find('ArticleCard')).toHaveLength(2);
   });
 });

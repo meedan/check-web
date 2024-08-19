@@ -171,50 +171,50 @@ class MediaComponent extends Component {
                 { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} /> : null }
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
-                    projectMediaId={projectMedia.dbid}
-                    projectMediaImportedId={projectMedia.imported_from_project_media_id}
                     feedId={projectMedia.imported_from_feed_id}
+                    mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
                     mediaSlug={
                       <MediaSlug
                         className={styles['media-slug-title']}
-                        mediaType={projectMedia.type}
-                        slug={projectMedia.title}
                         details={[(
                           <FormattedMessage
-                            id="mediaComponent.lastSeen"
                             defaultMessage="Last submitted on {date}"
                             description="Header for the date when the media item was last received by the workspace"
+                            id="mediaComponent.lastSeen"
                             values={{
                               date: (
                                 <FormattedDate
+                                  day="numeric"
+                                  month="short"
                                   value={projectMedia.last_seen * 1000}
                                   year="numeric"
-                                  month="short"
-                                  day="numeric"
                                 />
                               ),
                             }}
                           />
                         ), (
                           <FormattedMessage
-                            id="mediaComponent.requests"
                             defaultMessage="{count, plural, one {# request} other {# requests}}"
                             description="Number of times a request has been sent about this media"
+                            id="mediaComponent.requests"
                             values={{
                               count: projectMedia.requests_count,
                             }}
                           />
                         )]}
+                        mediaType={projectMedia.type}
+                        slug={projectMedia.title}
                       />
                     }
-                    mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
+                    projectMediaId={projectMedia.dbid}
+                    projectMediaImportedId={projectMedia.imported_from_project_media_id}
                     onClick={e => e.stopPropagation()}
                     onClose={() => this.setState({ openMediaDialog: false })}
                   />
                   : null }
                 <MediaCardLarge
-                  projectMedia={projectMedia}
                   currentUserRole={currentUserRole}
+                  projectMedia={projectMedia}
                   superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
@@ -228,8 +228,8 @@ class MediaComponent extends Component {
             <div className={cx('media__annotations-column', styles['media-item-annotations'])}>
               <MediaComponentRightPanel
                 projectMedia={projectMedia}
-                showTab={this.state.showTab}
                 setShowTab={setShowTab}
+                showTab={this.state.showTab}
                 superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
               />
             </div>

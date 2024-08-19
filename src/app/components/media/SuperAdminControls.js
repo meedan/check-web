@@ -31,64 +31,64 @@ const SuperAdminControls = ({
   return (
     <React.Fragment>
       <div
-        id="super-admin__controls"
         className={styles.superAdminBox}
+        id="super-admin__controls"
       >
         {
           superAdminmaskContent ?
             <ButtonMain
-              theme="lightError"
-              size="small"
-              variant="contained"
-              onClick={handleSuperAdminClickPage}
               label={
                 <FormattedMessage
-                  id="superAdminControls.remove"
                   defaultMessage="Remove admin screen on this page"
                   description="A label on a button that remove admin screen."
+                  id="superAdminControls.remove"
                 />
               }
-            /> :
-            <ButtonMain
-              theme="lightError"
               size="small"
+              theme="lightError"
               variant="contained"
               onClick={handleSuperAdminClickPage}
+            /> :
+            <ButtonMain
               label={
                 <FormattedMessage
-                  id="superAdminControls.apply"
                   defaultMessage="Apply admin screen on this page"
                   description="A label on a button that apply admin screen."
+                  id="superAdminControls.apply"
                 />
               }
+              size="small"
+              theme="lightError"
+              variant="contained"
+              onClick={handleSuperAdminClickPage}
             />
         }
         {
           superAdminMaskContentSession ?
             <ButtonMain
-              theme="lightError"
-              size="small"
-              variant="contained"
-              onClick={handleSuperAdminClickSession}
               label={
                 <FormattedMessage
-                  id="superAdminControls.pause"
                   defaultMessage="Pause admin screen for this session"
                   description="A label on a button that pause admin screen for current session."
+                  id="superAdminControls.pause"
                 />}
-            /> :
-            <ButtonMain
-              theme="lightError"
               size="small"
+              theme="lightError"
               variant="contained"
               onClick={handleSuperAdminClickSession}
+            /> :
+            <ButtonMain
               label={
                 <FormattedMessage
-                  id="superAdminControls.play"
                   defaultMessage="Resume admin screen for this session"
                   description="A label on a button that pause admin screen for current session."
+                  id="superAdminControls.play"
                 />
               }
+              size="small"
+              theme="lightError"
+              variant="contained"
+              onClick={handleSuperAdminClickSession}
             />
         }
       </div>

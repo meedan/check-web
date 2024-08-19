@@ -80,14 +80,14 @@ const SmoochBotMainMenu = ({
   return (
     <React.Fragment>
       <div className={styles['setting-content-container-title']}>
-        <FormattedMessage id="smoochBotMainMenu.mainMenu" defaultMessage="Main menu" description="Title of the tipline bot main menu settings page." />
+        <FormattedMessage defaultMessage="Main menu" description="Title of the tipline bot main menu settings page." id="smoochBotMainMenu.mainMenu" />
         { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
           <div className={styles['setting-content-container-actions']}>
             <ButtonMain
-              variant="text"
+              iconCenter={<HelpIcon />}
               size="small"
               theme="text"
-              iconCenter={<HelpIcon />}
+              variant="text"
               onClick={handleHelp}
             />
           </div>
@@ -96,18 +96,18 @@ const SmoochBotMainMenu = ({
       </div>
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
         <FormattedMessage
-          tagName="p"
-          id="smoochBotMainMenu.subtitle2"
           defaultMessage="Please note that some messaging services have different menu display options than others."
           description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
+          id="smoochBotMainMenu.subtitle2"
+          tagName="p"
         />
         : null
       }
       <div className="typography-subtitle2">
         <FormattedMessage
-          id="smoochBotMainMenu.optionsCounter"
           defaultMessage="{available}/{total} main menu options available"
           description="Counter that is displayed on tipline settings page in order to inform the user how many options they can still add to the bot main menu."
+          id="smoochBotMainMenu.optionsCounter"
           values={{
             available: 10 - collapsedCount,
             total: 10,
@@ -117,60 +117,60 @@ const SmoochBotMainMenu = ({
       <br />
       { collapseLanguages ?
         <Alert
-          variant="warning"
           content={
             <FormattedMessage
-              id="smoochBotMainMenu.alertTitle"
               defaultMessage="There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option."
-              values={{ numberOfOptions: optionsCount, numberOfLanguages: (languages.length + 1) }}
               description="Title of an alert box displayed on tipline main menu settings page when there are more than 10 options."
+              id="smoochBotMainMenu.alertTitle"
+              values={{ numberOfOptions: optionsCount, numberOfLanguages: (languages.length + 1) }}
             />
           }
+          variant="warning"
         /> : null }
 
       <SmoochBotMainMenuSection
-        number={1}
-        value={value.smooch_state_main}
-        resources={resources}
-        noTitleNoDescription={!whatsAppEnabled}
         canCreate={canCreateNewOption}
-        currentUser={currentUser}
         currentLanguage={currentLanguage}
+        currentUser={currentUser}
         hasUnsavedChanges={hasUnsavedChanges}
-        onChangeTitle={(newValue) => { handleChangeTitle(newValue, 'smooch_state_main'); }}
+        noTitleNoDescription={!whatsAppEnabled}
+        number={1}
+        resources={resources}
+        value={value.smooch_state_main}
         onChangeMenuOptions={(newOptions) => { handleChangeMenuOptions(newOptions, 'smooch_state_main'); }}
+        onChangeTitle={(newValue) => { handleChangeTitle(newValue, 'smooch_state_main'); }}
       />
 
       { whatsAppEnabled ?
         <SmoochBotMainMenuSection
-          number={2}
-          value={value.smooch_state_secondary}
-          resources={resources}
           canCreate={canCreateNewOption}
-          currentUser={currentUser}
           currentLanguage={currentLanguage}
+          currentUser={currentUser}
           hasUnsavedChanges={hasUnsavedChanges}
-          onChangeTitle={(newValue) => { handleChangeTitle(newValue, 'smooch_state_secondary'); }}
-          onChangeMenuOptions={(newOptions) => { handleChangeMenuOptions(newOptions, 'smooch_state_secondary'); }}
+          number={2}
           optional
+          resources={resources}
+          value={value.smooch_state_secondary}
+          onChangeMenuOptions={(newOptions) => { handleChangeMenuOptions(newOptions, 'smooch_state_secondary'); }}
+          onChangeTitle={(newValue) => { handleChangeTitle(newValue, 'smooch_state_secondary'); }}
         /> : null }
 
       <SmoochBotMainMenuSection
         number={3}
+        readOnly
         value={
           languages.length >= 1 ?
             {
-              smooch_menu_title: <FormattedMessage id="smoochBotMainMenu.languagesAndPrivacy" defaultMessage="Languages and Privacy" description="Title of the main menu third section of the tipline where there is more than one supported language" />,
+              smooch_menu_title: <FormattedMessage defaultMessage="Languages and Privacy" description="Title of the main menu third section of the tipline where there is more than one supported language" id="smoochBotMainMenu.languagesAndPrivacy" />,
               smooch_menu_options: languageOptions.concat({ smooch_menu_option_label: intl.formatMessage(messages.privacyStatement) }),
             } :
             {
-              smooch_menu_title: <FormattedMessage id="smoochBotMainMenu.privacy" defaultMessage="Privacy" description="Title of the main menu third section of the tipline when there is only one supported language" />,
+              smooch_menu_title: <FormattedMessage defaultMessage="Privacy" description="Title of the main menu third section of the tipline when there is only one supported language" id="smoochBotMainMenu.privacy" />,
               smooch_menu_options: [{ smooch_menu_option_label: intl.formatMessage(messages.privacyStatement) }],
             }
         }
-        onChangeTitle={() => {}}
         onChangeMenuOptions={() => {}}
-        readOnly
+        onChangeTitle={() => {}}
       />
     </React.Fragment>
   );

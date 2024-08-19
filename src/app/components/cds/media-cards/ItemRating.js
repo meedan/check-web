@@ -12,18 +12,18 @@ const ItemRating = ({
   ratingColor,
   size,
 }) => rating ? (
-  <div title={rating} className={cx(styles.cardTag, className)}>
+  <div className={cx(styles.cardTag, className)} title={rating}>
     <ButtonMain
-      disabled
-      variant="outlined"
-      size={size}
-      theme="text"
-      iconLeft={<EllipseIcon style={{ color: ratingColor }} />}
-      label={rating}
       customStyle={{
         borderColor: ratingColor,
         color: 'var(--color-gray-15)',
       }}
+      disabled
+      iconLeft={<EllipseIcon style={{ color: ratingColor }} />}
+      label={rating}
+      size={size}
+      theme="text"
+      variant="outlined"
     />
   </div>
 ) : null;

@@ -12,10 +12,10 @@ const UserInfo = (props) => {
     <div className={styles['user-info-edit']}>
       <div className={styles['user-info-avatar']}>
         <SourcePicture
-          size="large"
-          object={props.user.source}
-          type="user"
           className="source__avatar"
+          object={props.user.source}
+          size="large"
+          type="user"
         />
       </div>
 
@@ -27,9 +27,9 @@ const UserInfo = (props) => {
         </div>
         <div className={styles['contact-info']}>
           <FormattedMessage
-            id="userInfo.dateJoined"
             defaultMessage="Joined {date}"
             description="Informational line showing the user the date their account was created on check"
+            id="userInfo.dateJoined"
             values={{
               date: props.intl.formatDate(
                 parseStringUnixTimestamp(props.user.source.created_at),
@@ -39,9 +39,9 @@ const UserInfo = (props) => {
           />
           &bull;
           <FormattedMessage
-            id="userInfo.teamsCount"
             defaultMessage="{teamsCount, plural, one {# workspace} other {# workspaces}}"
             description="Count of how many work spaces this user account can access"
+            id="userInfo.teamsCount"
             values={{
               teamsCount: props.user?.number_of_teams || 0,
             }}

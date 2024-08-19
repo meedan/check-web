@@ -29,16 +29,16 @@ export default function MediaPage({ location, route, routeParams }) {
   return (
     <ErrorBoundary component="MediaPage">
       <MediaPageLayout
-        listUrl={listUrl}
-        listQuery={listQuery}
-        listIndex={listIndex}
         buildSiblingUrl={buildSiblingUrl}
-        teamSlug={teamSlug}
-        listId={listId}
-        projectMediaId={projectMediaId}
-        view={currentView}
-        mediaNavList={location?.state?.mediaNavList}
         count={location?.state?.count}
+        listId={listId}
+        listIndex={listIndex}
+        listQuery={listQuery}
+        listUrl={listUrl}
+        mediaNavList={location?.state?.mediaNavList}
+        projectMediaId={projectMediaId}
+        teamSlug={teamSlug}
+        view={currentView}
       />
     </ErrorBoundary>
   );

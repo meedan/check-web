@@ -44,12 +44,12 @@ const Explainers = ({ intl, routeParams }) => {
 
   return (
     <Articles
-      type="explainer"
-      title={<FormattedMessage id="explainers.title" defaultMessage="Explainers" description="Title of the explainers page." />}
-      icon={<BookIcon />}
-      teamSlug={routeParams.team}
-      sortOptions={sortOptions}
       filterOptions={['users', 'tags', 'range']}
+      icon={<BookIcon />}
+      sortOptions={sortOptions}
+      teamSlug={routeParams.team}
+      title={<FormattedMessage defaultMessage="Explainers" description="Title of the explainers page." id="explainers.title" />}
+      type="explainer"
       updateMutation={updateMutation}
     />
   );

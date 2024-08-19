@@ -346,7 +346,7 @@ const SandboxComponent = ({ admin }) => {
   return (
     <div className={styles.sandbox}>
       <h5>
-        UI Sandbox&nbsp;<span role="img" aria-label="Beach">🏖️</span>
+        UI Sandbox&nbsp;<span aria-label="Beach" role="img">🏖️</span>
       </h5>
       <ul className={styles.sandboxNav}>
         <li>
@@ -384,11 +384,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               ArticleCard
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/design/i1LSbpQXKyA7dLc8AkgtKA/Articles?node-id=61-40003&t=nQx8FOqn9bhFtiZZ-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -396,42 +396,42 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={articleCardShared}
                   label="Shared Feed"
                   labelPlacement="top"
-                  checked={articleCardShared}
                   onChange={() => setArticleCardShared(!articleCardShared)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={articleCardPublished}
+                  disabled={articleCardShared}
                   label="Published"
                   labelPlacement="top"
-                  disabled={articleCardShared}
-                  checked={articleCardPublished}
                   onChange={() => setArticleCardPublished(!articleCardPublished)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={articleCardLink}
                   label="Link"
                   labelPlacement="top"
-                  checked={articleCardLink}
                   onChange={() => setArticleCardLink(!articleCardLink)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={articleCardTags}
                   label="Tags"
                   labelPlacement="top"
-                  checked={articleCardTags}
                   onChange={() => setArticleCardTags(!articleCardTags)}
                 />
               </li>
               <li>
                 <Select
                   label="Variant"
-                  onChange={e => setArticleCardVariant(e.target.value)}
                   value={articleCardVariant}
+                  onChange={e => setArticleCardVariant(e.target.value)}
                 >
                   <option value="explainer">explainer (default)</option>
                   <option value="fact-check">fact-check</option>
@@ -441,20 +441,20 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants}>
             <ArticleCard
-              title="Moby-Dick; or, The Whale."
-              summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
               date={1702677106.846}
               isPublished={articleCardPublished}
-              publishedAt={1702677106.846}
-              statusLabel={articleCardVariant === 'fact-check' ? 'The Status is very very long' : null}
-              statusColor={articleCardVariant === 'fact-check' ? '#ff0000' : null}
-              teamName={articleCardShared ? 'Kitty Team' : null}
-              teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}
               languageCode={articleCardShared ? null : 'en'}
+              publishedAt={1702677106.846}
+              statusColor={articleCardVariant === 'fact-check' ? '#ff0000' : null}
+              statusLabel={articleCardVariant === 'fact-check' ? 'The Status is very very long' : null}
+              summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
               tags={articleCardTags ? ['Novel', 'Moby Dick', '19th Century'] : null}
-              onChangeTags={() => {}}
+              teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}
+              teamName={articleCardShared ? 'Kitty Team' : null}
+              title="Moby-Dick; or, The Whale."
               url={articleCardLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               variant={articleCardVariant}
+              onChangeTags={() => {}}
             />
           </div>
         </div>
@@ -463,11 +463,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               ClusterCard
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/N1W1p7anE8xxekD7EyepVE/Shared-Feeds?type=design&node-id=2411-37415&mode=design"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -475,70 +475,70 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={listItemShared}
                   label="Shared Feed"
                   labelPlacement="top"
-                  checked={listItemShared}
                   onChange={() => onSetListItemShared(!listItemShared)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={listItemMediaPreview}
                   label="Media Preview"
                   labelPlacement="top"
-                  checked={listItemMediaPreview}
                   onChange={() => setListItemMediaPreview(!listItemMediaPreview)}
                 />
               </li>
               <li>
                 <SwitchComponent
-                  label="Requests"
-                  labelPlacement="top"
                   checked={listItemRequests}
                   disabled={listItemShared}
+                  label="Requests"
+                  labelPlacement="top"
                   onChange={() => onSetListItemRequests(!listItemRequests)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={listItemDescription}
                   label="Description"
                   labelPlacement="top"
-                  checked={listItemDescription}
                   onChange={() => setListItemDescription(!listItemDescription)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={listItemArticles}
+                  disabled={listItemShared}
                   label="Articles"
                   labelPlacement="top"
-                  disabled={listItemShared}
-                  checked={listItemArticles}
                   onChange={() => onSetListItemArticles(!listItemArticles)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={listItemFactCheck}
+                  disabled={!listItemArticles}
                   label="Fact-Check"
                   labelPlacement="top"
-                  disabled={!listItemArticles}
-                  checked={listItemFactCheck}
                   onChange={() => onSetListItemFactCheck(!listItemFactCheck)}
                 />
               </li>
               <li>
                 <SwitchComponent
-                  label="Fact-Check Link"
-                  labelPlacement="top"
                   checked={listItemFactCheckLink}
                   disabled={!listItemFactCheck}
+                  label="Fact-Check Link"
+                  labelPlacement="top"
                   onChange={() => setListItemFactCheckLink(!listItemFactCheckLink)}
                 />
               </li>
               <li>
                 <SwitchComponent
-                  label="Fact Checks > 1"
-                  labelPlacement="top"
                   checked={listItemFactCheckCount > 1 && listItemFactCheck}
                   disabled={!listItemShared || !listItemFactCheck}
+                  label="Fact Checks > 1"
+                  labelPlacement="top"
                   onChange={() => {
                     if (listItemFactCheckCount === 1) {
                       setListItemFactCheckCount(12345);
@@ -550,28 +550,28 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
-                  label="Suggestions"
-                  labelPlacement="top"
                   checked={listItemSuggestions}
                   disabled={listItemShared}
+                  label="Suggestions"
+                  labelPlacement="top"
                   onChange={() => setListItemSuggestions(!listItemSuggestions)}
                 />
               </li>
               <li>
                 <SwitchComponent
-                  label="Unread"
-                  labelPlacement="top"
                   checked={listItemUnread}
                   disabled={listItemShared}
+                  label="Unread"
+                  labelPlacement="top"
                   onChange={() => setListItemUnread(!listItemUnread)}
                 />
               </li>
               <li>
                 <SwitchComponent
-                  label="Published"
-                  labelPlacement="top"
                   checked={listItemPublished}
                   disabled={listItemShared || !listItemFactCheck}
+                  label="Published"
+                  labelPlacement="top"
                   onChange={() => setListItemPublished(!listItemPublished)}
                 />
               </li>
@@ -579,26 +579,26 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants}>
             <ClusterCard
-              title={listItemShared ? 'Card in Shared Feed' : 'Card in Tipline Workspace'}
-              date={new Date('2023-12-15T17:19:40Z')}
-              description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
-              mediaThumbnail={listItemMediaPreview ? mediaThumbnail : null}
-              workspaces={listItemShared && workspaces}
-              mediaType="UploadedImage"
-              isUnread={listItemUnread}
-              isPublished={listItemPublished}
-              publishedAt={1702677106846}
-              suggestionsCount={listItemSuggestions ? 567890 : null}
-              dataPoints={listItemDataPoints}
-              mediaCount={12345}
-              requestsCount={listItemRequests || listItemShared ? 7890 : 0}
-              lastRequestDate={new Date('2024-01-15T12:00:22Z')}
-              factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
-              factCheckCount={listItemFactCheck && listItemFactCheckCount}
               articlesCount={listItemArticles ? 1234 : null}
               channels={(listItemRequests || listItemShared) && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
+              dataPoints={listItemDataPoints}
+              date={new Date('2023-12-15T17:19:40Z')}
+              description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
+              factCheckCount={listItemFactCheck && listItemFactCheckCount}
+              factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
+              isPublished={listItemPublished}
+              isUnread={listItemUnread}
+              lastRequestDate={new Date('2024-01-15T12:00:22Z')}
+              mediaCount={12345}
+              mediaThumbnail={listItemMediaPreview ? mediaThumbnail : null}
+              mediaType="UploadedImage"
+              publishedAt={1702677106846}
               rating={listItemFactCheck ? 'False' : null}
               ratingColor={listItemFactCheck ? '#f00' : null}
+              requestsCount={listItemRequests || listItemShared ? 7890 : 0}
+              suggestionsCount={listItemSuggestions ? 567890 : null}
+              title={listItemShared ? 'Card in Shared Feed' : 'Card in Tipline Workspace'}
+              workspaces={listItemShared && workspaces}
               onCheckboxChange={!listItemShared ? () => {} : null}
             />
           </div>
@@ -611,11 +611,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               ButtonMain
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=139-6525&mode=design&t=ZVq51pKdIKdWZicO-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -624,8 +624,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Variant"
-                  onChange={onChangeButtonVariant}
                   value={buttonVariant}
+                  onChange={onChangeButtonVariant}
                 >
                   <option value="contained">contained (default)</option>
                   <option value="outlined">outlined</option>
@@ -635,8 +635,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Size"
-                  onChange={onChangeButtonSize}
                   value={buttonSize}
+                  onChange={onChangeButtonSize}
                 >
                   <option value="default">default</option>
                   <option value="small">small</option>
@@ -646,8 +646,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Theme"
-                  onChange={onChangeButtonTheme}
                   value={buttonTheme}
+                  onChange={onChangeButtonTheme}
                 >
                   <optgroup label="brand">
                     <option value="brand">brand (default)</option>
@@ -681,19 +681,19 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  checked={buttonDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={buttonDisabled}
                   onChange={() => setMainButtonDisabled(!buttonDisabled)}
                 />
               </li>
             </ul>
           </div>
           <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--color-gray-15)' : null }}>
-            <ButtonMain label="Default" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
-            <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
-            <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
-            <ButtonMain iconCenter={<AddIcon />} label="Center" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+            <ButtonMain disabled={buttonDisabled} label="Default" size={buttonSize} theme={buttonTheme} variant={buttonVariant} />
+            <ButtonMain disabled={buttonDisabled} iconLeft={<AddIcon />} label="Left" size={buttonSize} theme={buttonTheme} variant={buttonVariant} />
+            <ButtonMain disabled={buttonDisabled} iconRight={<AddIcon />} label="Right" size={buttonSize} theme={buttonTheme} variant={buttonVariant} />
+            <ButtonMain disabled={buttonDisabled} iconCenter={<AddIcon />} label="Center" size={buttonSize} theme={buttonTheme} variant={buttonVariant} />
           </div>
         </div>
         <div className={styles.componentWrapper}>
@@ -701,11 +701,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               Reorder
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=2142-47843&mode=design&t=Xk5LFyi7pmsXEX1T-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -714,8 +714,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Variant"
-                  onChange={onChangeReorderVariant}
                   value={reorderVariant}
+                  onChange={onChangeReorderVariant}
                 >
                   <option value="vertical">vertical (default)</option>
                   <option value="horizontal">horizontal</option>
@@ -724,8 +724,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Theme"
-                  onChange={onChangeReorderTheme}
                   value={reorderTheme}
+                  onChange={onChangeReorderTheme}
                 >
                   <option value="gray">gray (default)</option>
                   <option value="white">white</option>
@@ -733,17 +733,17 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  checked={reorderFirst}
                   label="First"
                   labelPlacement="top"
-                  checked={reorderFirst}
                   onChange={() => setReorderFirst(!reorderFirst)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={reorderLast}
                   label="Last"
                   labelPlacement="top"
-                  checked={reorderLast}
                   onChange={() => setReorderLast(!reorderLast)}
                 />
               </li>
@@ -751,10 +751,10 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentInlineVariants} style={{ backgroundColor: reorderTheme === 'white' ? 'var(--color-gray-96)' : 'var(--color-white-100' }}>
             <Reorder
-              variant={reorderVariant}
-              theme={reorderTheme}
-              disableUp={reorderFirst}
               disableDown={reorderLast}
+              disableUp={reorderFirst}
+              theme={reorderTheme}
+              variant={reorderVariant}
             />
           </div>
         </div>
@@ -763,8 +763,8 @@ const SandboxComponent = ({ admin }) => {
             Trigger Sentry error
           </div>
           <div className={styles.componentInlineVariants}>
-            <ButtonMain label="Trigger Sentry" onClick={generateUncaughtError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
-            <ButtonMain label="Sentry manual error" onClick={generateManualError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+            <ButtonMain disabled={buttonDisabled} label="Trigger Sentry" size={buttonSize} theme={buttonTheme} variant={buttonVariant} onClick={generateUncaughtError} />
+            <ButtonMain disabled={buttonDisabled} label="Sentry manual error" size={buttonSize} theme={buttonTheme} variant={buttonVariant} onClick={generateManualError} />
           </div>
         </div>
         <div className={styles.componentWrapper}>
@@ -772,11 +772,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               ToggleButtonGroup
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3703-28265&mode=design&t=ZVq51pKdIKdWZicO-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -785,8 +785,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Size"
-                  onChange={onChangeToggleButtonGroupSize}
                   value={toggleButtonGroupSize}
+                  onChange={onChangeToggleButtonGroupSize}
                 >
                   <option value="default">default</option>
                   <option value="small">small</option>
@@ -796,8 +796,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Variant"
-                  onChange={onChangeToggleButtonGroupVariant}
                   value={toggleButtonGroupVariant}
+                  onChange={onChangeToggleButtonGroupVariant}
                 >
                   <option value="contained">contained</option>
                   <option value="outlined">outlined</option>
@@ -805,25 +805,25 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  checked={toggleButtonGroupLabel}
                   label="Label"
                   labelPlacement="top"
-                  checked={toggleButtonGroupLabel}
                   onChange={() => setToggleButtonGroupLabel(!toggleButtonGroupLabel)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={toggleButtonGroupHelp}
                   label="Show Help"
                   labelPlacement="top"
-                  checked={toggleButtonGroupHelp}
                   onChange={() => setToggleButtonGroupHelp(!toggleButtonGroupHelp)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={toggleButtonGroupDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={toggleButtonGroupDisabled}
                   onChange={() => setToggleButtonGroupDisabled(!toggleButtonGroupDisabled)}
                 />
               </li>
@@ -831,21 +831,21 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--color-beige-93' }}>
             <ToggleButtonGroup
-              label={toggleButtonGroupLabel ? 'I am a toggleButtonGroup label' : null}
-              variant={toggleButtonGroupVariant}
-              helpContent={toggleButtonGroupHelp ? 'I can be of help to ToggleButtonGroup' : null}
-              value={toggleButtonGroupValue}
-              onChange={(e, newValue) => changeToggleButtonGroupExample(newValue)}
-              size={toggleButtonGroupSize}
               exclusive
+              helpContent={toggleButtonGroupHelp ? 'I can be of help to ToggleButtonGroup' : null}
+              label={toggleButtonGroupLabel ? 'I am a toggleButtonGroup label' : null}
+              size={toggleButtonGroupSize}
+              value={toggleButtonGroupValue}
+              variant={toggleButtonGroupVariant}
+              onChange={(e, newValue) => changeToggleButtonGroupExample(newValue)}
             >
-              <ToggleButton value="1" key="1" disabled={toggleButtonGroupDisabled}>
+              <ToggleButton disabled={toggleButtonGroupDisabled} key="1" value="1">
                 One
               </ToggleButton>
-              <ToggleButton value="2" key="2" disabled={toggleButtonGroupDisabled}>
+              <ToggleButton disabled={toggleButtonGroupDisabled} key="2" value="2">
                 Two
               </ToggleButton>
-              <ToggleButton value="3" key="3" disabled={toggleButtonGroupDisabled}>
+              <ToggleButton disabled={toggleButtonGroupDisabled} key="3" value="3">
                 Three
               </ToggleButton>
             </ToggleButtonGroup>
@@ -859,11 +859,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               TextField
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=623-12029&mode=design&t=ZVq51pKdIKdWZicO-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -871,65 +871,65 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={textfieldLabel}
                   label="Label"
                   labelPlacement="top"
-                  checked={textfieldLabel}
                   onChange={() => setTextfieldLabel(!textfieldLabel)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textfieldIconLeft}
                   label="Icon Left"
                   labelPlacement="top"
-                  checked={textfieldIconLeft}
                   onChange={() => setTextfieldIconLeft(!textfieldIconLeft)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textfieldIconRight}
                   label="Icon Right"
                   labelPlacement="top"
-                  checked={textfieldIconRight}
                   onChange={() => setTextfieldIconRight(!textfieldIconRight)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textfieldHelp}
                   label="Show Help"
                   labelPlacement="top"
-                  checked={textfieldHelp}
                   onChange={() => setTextfieldHelp(!textfieldHelp)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textfieldDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={textfieldDisabled}
                   onChange={() => setTextfieldDisabled(!textfieldDisabled)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textfieldRequired}
                   label="Required"
                   labelPlacement="top"
-                  checked={textfieldRequired}
                   onChange={() => setTextfieldRequired(!textfieldRequired)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textfieldError}
                   label="Error"
                   labelPlacement="top"
-                  checked={textfieldError}
                   onChange={() => setTextfieldError(!textfieldError)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textfieldRemovable}
                   label="Removable"
                   labelPlacement="top"
-                  checked={textfieldRemovable}
                   onChange={() => setTextfieldRemovable(!textfieldRemovable)}
                 />
               </li>
@@ -937,14 +937,14 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants}>
             <TextField
-              label={textfieldLabel ? 'I am a textfield title' : null}
-              required={textfieldRequired}
-              placeholder="I am a placeholder for textfield"
-              iconLeft={textfieldIconLeft ? <ListIcon /> : null}
-              iconRight={textfieldIconRight ? <CalendarIcon /> : null}
-              helpContent={textfieldHelp ? 'I can be of help to textfield' : null}
               disabled={textfieldDisabled}
               error={textfieldError}
+              helpContent={textfieldHelp ? 'I can be of help to textfield' : null}
+              iconLeft={textfieldIconLeft ? <ListIcon /> : null}
+              iconRight={textfieldIconRight ? <CalendarIcon /> : null}
+              label={textfieldLabel ? 'I am a textfield title' : null}
+              placeholder="I am a placeholder for textfield"
+              required={textfieldRequired}
               value={textfieldContent}
               onChange={e => setTextfieldContent(e.target.value)}
               onRemove={textfieldRemovable ? () => { setTextfieldContent(''); } : null}
@@ -956,11 +956,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               Select
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=34-5720&mode=design&t=ZVq51pKdIKdWZicO-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -968,57 +968,57 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={selectLabel}
                   label="Label"
                   labelPlacement="top"
-                  checked={selectLabel}
                   onChange={() => setSelectLabel(!selectLabel)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={selectIconLeft}
                   label="Icon Left"
                   labelPlacement="top"
-                  checked={selectIconLeft}
                   onChange={() => setSelectIconLeft(!selectIconLeft)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={selectHelp}
                   label="Show Help"
                   labelPlacement="top"
-                  checked={selectHelp}
                   onChange={() => setSelectHelp(!selectHelp)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={selectDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={selectDisabled}
                   onChange={() => setSelectDisabled(!selectDisabled)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={selectRequired}
                   label="Required"
                   labelPlacement="top"
-                  checked={selectRequired}
                   onChange={() => setSelectRequired(!selectRequired)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={selectError}
                   label="Error"
                   labelPlacement="top"
-                  checked={selectError}
                   onChange={() => setSelectError(!selectError)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={selectRemovable}
                   label="Removable"
                   labelPlacement="top"
-                  checked={selectRemovable}
                   onChange={() => setSelectRemovable(!selectRemovable)}
                 />
               </li>
@@ -1026,12 +1026,12 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants}>
             <Select
-              label={selectLabel ? 'I am a select title' : null}
-              required={selectRequired}
-              iconLeft={selectIconLeft ? <ListIcon /> : null}
-              helpContent={selectHelp ? 'I can be of help to select' : null}
               disabled={selectDisabled}
               error={selectError}
+              helpContent={selectHelp ? 'I can be of help to select' : null}
+              iconLeft={selectIconLeft ? <ListIcon /> : null}
+              label={selectLabel ? 'I am a select title' : null}
+              required={selectRequired}
               onRemove={selectRemovable ? () => {} : null}
             >
               <option hidden>Select...</option>
@@ -1046,11 +1046,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               TextArea
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3606-26274&mode=design&t=ZVq51pKdIKdWZicO-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -1059,8 +1059,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Row Count"
-                  onChange={onChangeTextareaRows}
                   value={textareaRows}
+                  onChange={onChangeTextareaRows}
                 >
                   <option value="none">none</option>
                   <option value="1">1</option>
@@ -1072,8 +1072,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Max height"
-                  onChange={onChangeTextareaMaxHeight}
                   value={textareaMaxHeight}
+                  onChange={onChangeTextareaMaxHeight}
                 >
                   <option value="none">none</option>
                   <option value="48px">48px</option>
@@ -1085,57 +1085,57 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  checked={textareaLabel}
                   label="Label"
                   labelPlacement="top"
-                  checked={textareaLabel}
                   onChange={() => setTextareaLabel(!textareaLabel)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textareaAutogrow}
                   label="AutoGrow"
                   labelPlacement="top"
-                  checked={textareaAutogrow}
                   onChange={() => setTextareaAutogrow(!textareaAutogrow)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textareaLimited}
                   label="Limit Character Count"
                   labelPlacement="top"
-                  checked={textareaLimited}
                   onChange={() => setTextareaLimited(!textareaLimited)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textareaHelp}
                   label="Show Help"
                   labelPlacement="top"
-                  checked={textareaHelp}
                   onChange={() => setTextareaHelp(!textareaHelp)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textareaDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={textareaDisabled}
                   onChange={() => setTextareaDisabled(!textareaDisabled)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textareaRequired}
                   label="Required"
                   labelPlacement="top"
-                  checked={textareaRequired}
                   onChange={() => setTextareaRequired(!textareaRequired)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={textareaError}
                   label="Error"
                   labelPlacement="top"
-                  checked={textareaError}
                   onChange={() => setTextareaError(!textareaError)}
                 />
               </li>
@@ -1144,29 +1144,29 @@ const SandboxComponent = ({ admin }) => {
           <div className={styles.componentBlockVariants}>
             { textareaLimited ?
               <LimitedTextArea
-                maxChars={500}
-                setValue={setLimitedText}
-                placeholder="I am a placeholder for limited textarea"
-                label={textareaLabel ? 'I am a limited textarea title' : null}
-                value={limitedText}
-                helpContent={textareaHelp ? 'I can be of help to limited textarea' : null}
                 autoGrow={textareaAutogrow}
-                rows={textareaRows === 'none' ? undefined : textareaRows}
-                required={textareaRequired}
                 disabled={textareaDisabled}
+                helpContent={textareaHelp ? 'I can be of help to limited textarea' : null}
+                label={textareaLabel ? 'I am a limited textarea title' : null}
+                maxChars={500}
                 maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
+                placeholder="I am a placeholder for limited textarea"
+                required={textareaRequired}
+                rows={textareaRows === 'none' ? undefined : textareaRows}
+                setValue={setLimitedText}
+                value={limitedText}
               />
               :
               <TextArea
-                placeholder="I am a placeholder for textarea"
-                label={textareaLabel ? 'I am a textarea title' : null}
-                helpContent={textareaHelp ? 'I can be of help to textarea' : null}
                 autoGrow={textareaAutogrow}
-                rows={textareaRows === 'none' ? undefined : textareaRows}
-                required={textareaRequired}
                 disabled={textareaDisabled}
-                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
                 error={textareaError}
+                helpContent={textareaHelp ? 'I can be of help to textarea' : null}
+                label={textareaLabel ? 'I am a textarea title' : null}
+                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
+                placeholder="I am a placeholder for textarea"
+                required={textareaRequired}
+                rows={textareaRows === 'none' ? undefined : textareaRows}
               />
             }
           </div>
@@ -1176,11 +1176,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               Switch
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -1189,8 +1189,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Label Placement"
-                  onChange={onChangeSwitchLabelPlacement}
                   value={switchLabelPlacement}
+                  onChange={onChangeSwitchLabelPlacement}
                 >
                   <option value="top">top (default)</option>
                   <option value="bottom">bottom</option>
@@ -1200,17 +1200,17 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  checked={switchesDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={switchesDisabled}
                   onChange={() => setSwitchesDisabled(!switchesDisabled)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={switchesHelp}
                   label="Show Help"
                   labelPlacement="top"
-                  checked={switchesHelp}
                   onChange={() => setSwitchesHelp(!switchesHelp)}
                 />
               </li>
@@ -1218,11 +1218,11 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentInlineVariants}>
             <SwitchComponent
-              label="I am a switch label"
-              labelPlacement={switchLabelPlacement}
-              helperContent={switchesHelp ? 'I can help switches' : null}
               checked={switched}
               disabled={switchesDisabled}
+              helperContent={switchesHelp ? 'I can help switches' : null}
+              label="I am a switch label"
+              labelPlacement={switchLabelPlacement}
               onChange={() => setSwitchExample(!switched)}
             />
           </div>
@@ -1232,11 +1232,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               List Sort
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=1475-46077&mode=design&t=GXBsN674hkLPLGfM-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -1256,33 +1256,33 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={timeLabel}
                   label="Label"
                   labelPlacement="top"
-                  checked={timeLabel}
                   onChange={() => setTimeLabel(!timeLabel)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={timeHelp}
                   label="Show Help"
                   labelPlacement="top"
-                  checked={timeHelp}
                   onChange={() => setTimeHelp(!timeHelp)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={timeDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={timeDisabled}
                   onChange={() => setTimeDisabled(!timeDisabled)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={timeError}
                   label="Error"
                   labelPlacement="top"
-                  checked={timeError}
                   onChange={() => setTimeError(!timeError)}
                 />
               </li>
@@ -1290,12 +1290,12 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants}>
             <Time
-              label={timeLabel ? 'I am a time label' : null}
-              error={timeError}
-              value="09:00"
-              helpContent={timeHelp ? 'I can be of help to time' : null}
               disabled={timeDisabled}
+              error={timeError}
+              helpContent={timeHelp ? 'I can be of help to time' : null}
+              label={timeLabel ? 'I am a time label' : null}
               required
+              value="09:00"
             />
           </div>
         </div>
@@ -1307,33 +1307,33 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={datepickerLabel}
                   label="Label"
                   labelPlacement="top"
-                  checked={datepickerLabel}
                   onChange={() => setDatepickerLabel(!datepickerLabel)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={datepickerHelp}
                   label="Show Help"
                   labelPlacement="top"
-                  checked={datepickerHelp}
                   onChange={() => setDatepickerHelp(!datepickerHelp)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={datepickerDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={datepickerDisabled}
                   onChange={() => setDatepickerDisabled(!datepickerDisabled)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={datepickerError}
                   label="Error"
                   labelPlacement="top"
-                  checked={datepickerError}
                   onChange={() => setDatepickerError(!datepickerError)}
                 />
               </li>
@@ -1341,12 +1341,12 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants}>
             <DatePicker
-              label={datepickerLabel ? 'I am a datepicker label' : null}
-              value="2023-12-17"
+              disabled={datepickerDisabled}
               error={datepickerError}
               helpContent={datepickerHelp ? 'I can be of help to datepicker' : null}
-              disabled={datepickerDisabled}
+              label={datepickerLabel ? 'I am a datepicker label' : null}
               required
+              value="2023-12-17"
             />
           </div>
         </div>
@@ -1358,25 +1358,25 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={languagePickerSelectLabel}
                   label="Label"
                   labelPlacement="top"
-                  checked={languagePickerSelectLabel}
                   onChange={() => setLanguagePickerSelectLabel(!languagePickerSelectLabel)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={languagePickerSelectDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={languagePickerSelectDisabled}
                   onChange={() => setLanguagePickerSelectDisabled(!languagePickerSelectDisabled)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={languagePickerSelectHelp}
                   label="Show Help"
                   labelPlacement="top"
-                  checked={languagePickerSelectHelp}
                   onChange={() => setLanguagePickerSelectHelp(!languagePickerSelectHelp)}
                 />
               </li>
@@ -1384,11 +1384,11 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants}>
             <LanguagePickerSelect
-              selectedLanguage="en"
-              languages={JSON.parse('["en", "af", "zn"]')}
-              label={languagePickerSelectLabel ? 'I am a LanguagePickerSelect label' : null}
-              isDisabled={languagePickerSelectDisabled}
               helpContent={languagePickerSelectHelp ? 'I can be of help to LanguagePickerSelect' : null}
+              isDisabled={languagePickerSelectDisabled}
+              label={languagePickerSelectLabel ? 'I am a LanguagePickerSelect label' : null}
+              languages={JSON.parse('["en", "af", "zn"]')}
+              selectedLanguage="en"
             />
           </div>
         </div>
@@ -1400,17 +1400,17 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={checkboxLabel}
                   label="Label"
                   labelPlacement="top"
-                  checked={checkboxLabel}
                   onChange={() => setCheckboxLabel(!checkboxLabel)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={checkboxDisabled}
                   label="Disabled"
                   labelPlacement="top"
-                  checked={checkboxDisabled}
                   onChange={() => setCheckboxDisabled(!checkboxDisabled)}
                 />
               </li>
@@ -1418,9 +1418,9 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants}>
             <Checkbox
-              label={checkboxLabel ? 'I am a Checkbox label' : null}
-              disabled={checkboxDisabled}
               checked={checkboxChecked}
+              disabled={checkboxDisabled}
+              label={checkboxLabel ? 'I am a Checkbox label' : null}
               onChange={() => setCheckboxChecked(!checkboxChecked)}
             />
           </div>
@@ -1433,11 +1433,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               Chip
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=157-5443&mode=design&t=ZVq51pKdIKdWZicO-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -1445,9 +1445,9 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={chipRemovable}
                   label="Removable"
                   labelPlacement="top"
-                  checked={chipRemovable}
                   onChange={() => setChipRemovable(!chipRemovable)}
                 />
               </li>
@@ -1468,11 +1468,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               TagList
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=4295-43910&mode=design&t=ZVq51pKdIKdWZicO-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -1480,25 +1480,25 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <SwitchComponent
+                  checked={tagsReadOnly}
                   label="Read Only"
                   labelPlacement="top"
-                  checked={tagsReadOnly}
                   onChange={() => setTagsReadOnly(!tagsReadOnly)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={maxTags}
                   label="Max 5 Tags"
                   labelPlacement="top"
-                  checked={maxTags}
                   onChange={() => setMaxTags(!maxTags)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={tagsFixedWidth}
                   label="Fixed Width (300px)"
                   labelPlacement="top"
-                  checked={tagsFixedWidth}
                   onChange={() => setTagsFixedWidth(!tagsFixedWidth)}
                 />
               </li>
@@ -1512,10 +1512,10 @@ const SandboxComponent = ({ admin }) => {
             }
             >
               <TagList
-                readOnly={tagsReadOnly}
-                tags={tags}
-                setTags={setTags}
                 maxTags={maxTags ? 5 : undefined}
+                readOnly={tagsReadOnly}
+                setTags={setTags}
+                tags={tags}
               />
             </div>
           </div>
@@ -1528,11 +1528,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               Alert
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=4-45716&mode=design&t=G3fBIdgR6AWtOlNu-4"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -1541,8 +1541,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Variant"
-                  onChange={onChangeAlertVariant}
                   value={alertVariant}
+                  onChange={onChangeAlertVariant}
                 >
                   <option value="info">info</option>
                   <option value="success">success</option>
@@ -1553,8 +1553,8 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Placement"
-                  onChange={onChangeAlertPlacement}
                   value={alertPlacement}
+                  onChange={onChangeAlertPlacement}
                 >
                   <option value="default">default</option>
                   <option value="floating">floating</option>
@@ -1564,41 +1564,41 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  checked={alertTitle}
                   label="Title"
                   labelPlacement="top"
-                  checked={alertTitle}
                   onChange={() => setAlertTitle(!alertTitle)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={alertContent}
                   label="Content"
                   labelPlacement="top"
-                  checked={alertContent}
                   onChange={() => setAlertContent(!alertContent)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={alertIcon}
                   label="Icon"
                   labelPlacement="top"
-                  checked={alertIcon}
                   onChange={() => setAlertIcon(!alertIcon)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={alertButton}
                   label="Button"
                   labelPlacement="top"
-                  checked={alertButton}
                   onChange={() => setAlertButton(!alertButton)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={alertClosable}
                   label="Closable"
                   labelPlacement="top"
-                  checked={alertClosable}
                   onChange={() => setAlertClosable(!alertClosable)}
                 />
               </li>
@@ -1606,13 +1606,13 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentInlineVariants}>
             <Alert
-              title={alertTitle && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>}
-              contained={alertPlacement === 'contained'}
               banner={alertPlacement === 'banner'}
+              buttonLabel={alertButton && <span>alert action</span>}
+              contained={alertPlacement === 'contained'}
+              content={alertContent && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>}
               floating={alertPlacement === 'floating'}
               icon={alertIcon}
-              buttonLabel={alertButton && <span>alert action</span>}
-              content={alertContent && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>}
+              title={alertTitle && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>}
               variant={alertVariant}
               onClose={alertClosable ? () => {} : null}
             />
@@ -1623,9 +1623,9 @@ const SandboxComponent = ({ admin }) => {
         <h6>Parsed Text</h6>
         <div className={styles.componentWrapper}>
           <ParsedText
-            text="Call me Ishmael. This is my Youtube video: https://www.youtube.com/watch?v=zg84olIrn-k Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. This is an image of the cover of this book: https://upload.wikimedia.org/wikipedia/commons/3/36/Moby-Dick_FE_title_page.jpg Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
             fileUrlName=""
             mediaChips
+            text="Call me Ishmael. This is my Youtube video: https://www.youtube.com/watch?v=zg84olIrn-k Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. This is an image of the cover of this book: https://upload.wikimedia.org/wikipedia/commons/3/36/Moby-Dick_FE_title_page.jpg Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
           />
         </div>
       </section>
@@ -1640,22 +1640,22 @@ const SandboxComponent = ({ admin }) => {
               <li>
                 <Select
                   label="Size"
-                  onChange={onChangeLoadingSize}
                   value={loadingSize}
+                  onChange={onChangeLoadingSize}
                 >
                   <option value="icon">icon</option>
                   <option value="small">small</option>
                   <option value="medium">medium</option>
-                  <option value="large" selected>large</option>
+                  <option selected value="large">large</option>
                 </Select>
               </li>
               <li>
                 <Select
                   label="Theme"
-                  onChange={onChangeLoadingTheme}
                   value={loadingTheme}
+                  onChange={onChangeLoadingTheme}
                 >
-                  <option value="grey" selected>grey</option>
+                  <option selected value="grey">grey</option>
                   <option value="white">white</option>=
                 </Select>
               </li>
@@ -1664,7 +1664,7 @@ const SandboxComponent = ({ admin }) => {
                   label="Variant"
                   onChange={onChangeLoadingVariant}
                 >
-                  <option value="inline" selected>inline</option>
+                  <option selected value="inline">inline</option>
                   <option value="page">page</option>=
                 </Select>
               </li>
@@ -1678,7 +1678,7 @@ const SandboxComponent = ({ admin }) => {
               })
             }
           >
-            <MediasLoading theme={loadingTheme} variant={loadingVariant} size={loadingSize} />
+            <MediasLoading size={loadingSize} theme={loadingTheme} variant={loadingVariant} />
           </div>
         </div>
       </section>
@@ -1689,11 +1689,11 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               Slideout
               <a
+                className={styles.figmaLink}
                 href="https://www.figma.com/file/i1LSbpQXKyA7dLc8AkgtKA/Articles?type=design&node-id=106-63346&mode=design&t=1tA1BlK81Dh6DPCk-0"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="Figma Designs"
-                className={styles.figmaLink}
               >
                 <FigmaColorLogo />
               </a>
@@ -1701,58 +1701,60 @@ const SandboxComponent = ({ admin }) => {
             <ul>
               <li>
                 <TextField
-                  value={slideoutTitle}
                   label="Slideout Title"
                   labelPlacement="top"
+                  value={slideoutTitle}
                   onChange={e => setSlideoutTitle(e.target.value)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={slideoutFooter}
                   label="Show Footer"
                   labelPlacement="top"
-                  checked={slideoutFooter}
                   onChange={() => setSlideoutFooter(!slideoutFooter)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={slideoutCancel}
                   label="Show Cancel"
                   labelPlacement="top"
-                  checked={slideoutCancel}
                   onChange={() => setSlideoutCancel(!slideoutCancel)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={slideoutMainAction}
                   label="Show Main Button"
                   labelPlacement="top"
-                  checked={slideoutMainAction}
                   onChange={() => setSlideoutMainAction(!slideoutMainAction)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={slideoutSecondaryAction}
                   label="Show Secondary Action Button"
                   labelPlacement="top"
-                  checked={slideoutSecondaryAction}
                   onChange={() => setSlideoutSecondaryAction(!slideoutSecondaryAction)}
                 />
               </li>
               <li>
                 <SwitchComponent
+                  checked={slideoutOptionalNode}
                   label="Show optional node"
                   labelPlacement="top"
-                  checked={slideoutOptionalNode}
                   onChange={() => setSlideoutOptionalNode(!slideoutOptionalNode)}
                 />
               </li>
             </ul>
           </div>
-          <ButtonMain onClick={() => setOpenSlideout(true)} label="Open slideout" />
+          <ButtonMain label="Open slideout" onClick={() => setOpenSlideout(true)} />
           {openSlideout &&
             <Slideout
-              title={slideoutTitle || 'Placeholder Title'}
+              cancelProps={{
+                size: 'small',
+              }}
               content={
                 <>
                   <TextField />
@@ -1765,14 +1767,12 @@ const SandboxComponent = ({ admin }) => {
                 </>
               }
               footer={slideoutFooter}
-              showCancel={slideoutCancel}
-              cancelProps={{
-                size: 'small',
-              }}
-              onClose={setOpenSlideout}
-              mainActionButton={slideoutMainAction && <ButtonMain size="small" label="Main content" />}
-              secondaryActionButton={slideoutSecondaryAction && <ButtonMain size="small" label="Secondary content" />}
+              mainActionButton={slideoutMainAction && <ButtonMain label="Main content" size="small" />}
               optionalNode={slideoutOptionalNode && <SwitchComponent label="Optional Node label" />}
+              secondaryActionButton={slideoutSecondaryAction && <ButtonMain label="Secondary content" size="small" />}
+              showCancel={slideoutCancel}
+              title={slideoutTitle || 'Placeholder Title'}
+              onClose={setOpenSlideout}
             />
           }
         </div>

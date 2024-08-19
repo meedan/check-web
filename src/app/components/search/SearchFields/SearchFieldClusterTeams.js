@@ -25,10 +25,6 @@ const SearchFieldClusterTeams = ({
           }
         }
       `}
-      variables={{
-        teamSlug,
-        random,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           const { shared_teams: sharedTeams } = props.team;
@@ -36,10 +32,10 @@ const SearchFieldClusterTeams = ({
 
           return (
             <MultiSelectFilter
-              label={label}
               icon={icon}
-              selected={selected}
+              label={label}
               options={options}
+              selected={selected}
               onChange={(newValue) => { onChange(newValue); }}
               onRemove={onRemove}
             />
@@ -47,7 +43,11 @@ const SearchFieldClusterTeams = ({
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading theme="white" variant="inline" size="small" />;
+        return <MediasLoading size="small" theme="white" variant="inline" />;
+      }}
+      variables={{
+        teamSlug,
+        random,
       }}
     />
   );

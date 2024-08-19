@@ -76,9 +76,9 @@ const ExplainerForm = ({
     setError(false);
     onClose(false);
     setFlashMessage(<FormattedMessage
-      id="explainerForm.saveSuccess"
       defaultMessage="Article created successfully!"
       description="Save item action success message"
+      id="explainerForm.saveSuccess"
     />, 'success');
   };
 
@@ -171,15 +171,15 @@ const ExplainerForm = ({
 
   return (
     <ArticleForm
-      handleSave={handleSave}
-      onClose={onClose}
-      handleBlur={handleBlur}
-      articleType="explainer"
-      mode={type}
       article={article}
-      team={team}
-      saving={saving}
+      articleType="explainer"
       error={error}
+      handleBlur={handleBlur}
+      handleSave={handleSave}
+      mode={type}
+      saving={saving}
+      team={team}
+      onClose={onClose}
     />
   );
 };
@@ -228,15 +228,15 @@ const ExplainerFormQueryRenderer = ({
         }
       }
     `}
-    variables={{
-      teamSlug,
-      explainerId,
-    }}
     render={({ error, props }) => {
       if (props && !error) {
         return <ExplainerFormContainer article={props.explainer} team={props.team} onClose={onClose} />;
       }
       return null;
+    }}
+    variables={{
+      teamSlug,
+      explainerId,
     }}
   />
 );

@@ -48,17 +48,17 @@ const MediaSuggestions = ({ dbid, superAdminMask, teamDbid }) => {
     <QueryRenderer
       environment={Relay.Store}
       query={mediaSuggestionsQuery}
-      variables={{
-        ids,
-        pageSize,
-      }}
       render={({ props }) => {
         if (props) {
           return (
-            <PaginatedMediaSuggestions root={props.project_media} parentProps={props} superAdminMask={superAdminMask} pageSize={pageSize} />
+            <PaginatedMediaSuggestions pageSize={pageSize} parentProps={props} root={props.project_media} superAdminMask={superAdminMask} />
           );
         }
-        return <MediasLoading theme="grey" variant="inline" size="medium" />;
+        return <MediasLoading size="medium" theme="grey" variant="inline" />;
+      }}
+      variables={{
+        ids,
+        pageSize,
       }}
     />
   );

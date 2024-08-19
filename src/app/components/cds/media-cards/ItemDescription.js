@@ -70,8 +70,6 @@ const ItemDescription = ({
           : null }
       </div>
       <button
-        type="button"
-        onClick={toggleCollapse}
         className={cx(
           [styles.toggleCollapse],
           {
@@ -79,6 +77,8 @@ const ItemDescription = ({
             [[styles.toggleCollapseHidden]]: !shouldShowButton,
           })
         }
+        type="button"
+        onClick={toggleCollapse}
       >
         { isCollapsed ? <UnfoldMoreIcon /> : <UnfoldLessIcon /> }
       </button>

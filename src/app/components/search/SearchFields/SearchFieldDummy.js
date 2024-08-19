@@ -12,7 +12,7 @@ const SearchFieldDummy = ({
   version,
 }) => (
   <div className={styles['filter-wrapper']}>
-    <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version}>
+    <RemoveableWrapper icon={icon} key={version} readOnly={readOnly} onRemove={onRemove}>
       {label}
     </RemoveableWrapper>
   </div>

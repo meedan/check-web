@@ -10,9 +10,9 @@ const CardHoverContext = React.createContext(false);
 const MaybeLink = ({ children, to }) => {
   if (to) {
     if (/^http/.test(to)) {
-      return <a href={to} target="_blank" rel="noreferrer noopener" className={styles.clickableCard}>{children}</a>;
+      return <a className={styles.clickableCard} href={to} rel="noreferrer noopener" target="_blank">{children}</a>;
     }
-    return <Link to={to} className={styles.clickableCard}>{children}</Link>;
+    return <Link className={styles.clickableCard} to={to}>{children}</Link>;
   }
   return <>{children}</>;
 };

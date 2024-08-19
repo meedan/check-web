@@ -30,9 +30,9 @@ const SmoochBotMenuKeywords = ({
   const handleError = () => {
     const message = (
       <FormattedMessage
-        id="smoochBotMenuKeywords.errorMessage"
         defaultMessage="Could not update NLU keywords"
         description="Error message displayed when NLU keywords for a given tipline menu item can't be updated. NLU stands for Natural Language Understanding."
+        id="smoochBotMenuKeywords.errorMessage"
       />
     );
     setFlashMessage(message, 'error');
@@ -42,9 +42,9 @@ const SmoochBotMenuKeywords = ({
   const handleSuccess = () => {
     const message = (
       <FormattedMessage
-        id="smoochBotMenuKeywords.successMessage"
         defaultMessage="NLU keywords updated successfully"
         description="Success message displayed when NLU keywords for a given tipline menu item are updated successfully. NLU stands for Natural Language Understanding."
+        id="smoochBotMenuKeywords.successMessage"
       />
     );
     setFlashMessage(message, 'success');
@@ -119,38 +119,38 @@ const SmoochBotMenuKeywords = ({
     <div>
       <p>
         <FormattedMessage
-          tagName="span"
-          id="smoochBotMenuKeywords.title"
           defaultMessage="Keywords (super-admin only)"
           description="Label for tags component on tipline menu option editing screen."
+          id="smoochBotMenuKeywords.title"
+          tagName="span"
         />
         <br />
         <FormattedMessage
-          tagName="small"
-          id="smoochBotMenuKeywords.helperText"
           defaultMessage="Keywords and phrases that should match this menu item for NLU. Changes take effect immediately."
           description="Helper text for tags component on tipline menu option editing screen."
+          id="smoochBotMenuKeywords.helperText"
+          tagName="small"
         />
         { hasUnsavedChanges ?
           <span style={{ color: 'var(--color-orange-54)' }}>
             <br />
             <FormattedMessage
-              tagName="small"
-              id="smoochBotMenuKeywords.helperTextUnsavedChanges"
               defaultMessage="There are unsaved changes to tipline settings. Please 'Publish' the tipline or reload the page and then try again."
               description="Helper text for tags component on tipline menu option editing screen when there are unsaved changes."
+              id="smoochBotMenuKeywords.helperTextUnsavedChanges"
+              tagName="small"
             />
           </span> : null
         }
       </p>
       <TagList
-        readOnly={saving || hasUnsavedChanges}
-        setTags={handleSetTags}
-        onClickTag={() => {}}
+        customCreateLabel={<FormattedMessage defaultMessage="+ Create keyword" description="A label for a button that allows people to create a new NLU keyword." id="smoochBotMenuKeyword.create" />}
         options={[]}
-        tags={keywords}
+        readOnly={saving || hasUnsavedChanges}
         saving={saving}
-        customCreateLabel={<FormattedMessage id="smoochBotMenuKeyword.create" defaultMessage="+ Create keyword" description="A label for a button that allows people to create a new NLU keyword." />}
+        setTags={handleSetTags}
+        tags={keywords}
+        onClickTag={() => {}}
       />
     </div>
   );

@@ -14,14 +14,14 @@ const ProjectsCoreListCounter = ({ query }) => (
         }
       }
     `}
-    variables={{
-      query: JSON.stringify(query),
-    }}
     render={({ props }) => {
       if (props) {
         return (<ProjectsListCounter numberOfItems={props.search.number_of_results} />);
       }
       return null;
+    }}
+    variables={{
+      query: JSON.stringify(query),
     }}
   />
 );

@@ -163,9 +163,9 @@ const ClaimFactCheckForm = ({
     setError(false);
     onClose(false);
     setFlashMessage(<FormattedMessage
-      id="claimFactCheckForm.saveSuccess"
       defaultMessage="Article created successfully!"
       description="Save item action success message"
+      id="claimFactCheckForm.saveSuccess"
     />, 'success');
   };
 
@@ -301,15 +301,15 @@ const ClaimFactCheckForm = ({
 
   return (
     <ArticleForm
-      handleSave={handleSave}
-      onClose={onClose}
-      handleBlur={handleBlur}
-      articleType="fact-check"
-      mode={type}
       article={article}
-      team={team}
-      saving={saving}
+      articleType="fact-check"
       error={error}
+      handleBlur={handleBlur}
+      handleSave={handleSave}
+      mode={type}
+      saving={saving}
+      team={team}
+      onClose={onClose}
     />
   );
 };
@@ -361,15 +361,15 @@ const ClaimFactCheckFormQueryRenderer = ({
         }
       }
     `}
-    variables={{
-      teamSlug,
-      factCheckId,
-    }}
     render={({ error, props }) => {
       if (props && !error) {
         return <ClaimFactCheckFormContainer article={props.fact_check} team={props.team} onClose={onClose} />;
       }
       return null;
+    }}
+    variables={{
+      teamSlug,
+      factCheckId,
     }}
   />
 );

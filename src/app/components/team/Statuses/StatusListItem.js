@@ -44,9 +44,9 @@ const StatusListItem = ({
   const statusDescription =
     localeStatus && localeStatus.description ? localeStatus.description : (
       <FormattedMessage
-        id="statusListItem.noDescription"
         defaultMessage="No description"
         description="Empty state message if a status has no additional description"
+        id="statusListItem.noDescription"
       />
     );
 
@@ -59,9 +59,9 @@ const StatusListItem = ({
       <div>
         {isDefault ? (
           <FormattedMessage
-            id="statusListItem.default"
             defaultMessage="{statusLabel}"
             description="The label of the user created status, with an additional note in parenthesis if the label is the default"
+            id="statusListItem.default"
             values={{
               statusLabel: (
                 <StatusLabel color={status.style.color}>
@@ -83,19 +83,19 @@ const StatusListItem = ({
         <StatusMessage message={statusMessage} />
       </div>
       <div className={settingsStyles['setting-content-list-actions']}>
-        <ButtonMain className="status-actions__menu" iconCenter={<IconMoreVert />} variant="outlined" size="default" theme="text" onClick={e => setAnchorEl(e.target)} />
+        <ButtonMain className="status-actions__menu" iconCenter={<IconMoreVert />} size="default" theme="text" variant="outlined" onClick={e => setAnchorEl(e.target)} />
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem className="status-actions__make-default" onClick={handleMakeDefault} disabled={isDefault}>
-            <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" description="Menu item choice for making the label the default choice" />
+          <MenuItem className="status-actions__make-default" disabled={isDefault} onClick={handleMakeDefault}>
+            <FormattedMessage defaultMessage="Make default" description="Menu item choice for making the label the default choice" id="statusListItem.makeDefault" />
           </MenuItem>
           <MenuItem className="status-actions__edit" onClick={handleEdit}>
             <FormattedGlobalMessage messageKey="edit" />
           </MenuItem>
-          <MenuItem className="status-actions__delete" onClick={handleDelete} disabled={preventDelete || isDefault}>
+          <MenuItem className="status-actions__delete" disabled={preventDelete || isDefault} onClick={handleDelete}>
             <FormattedGlobalMessage messageKey="delete" />
           </MenuItem>
         </Menu>

@@ -13,8 +13,8 @@ const LoginContainer = props => (
   <PageTitle>
     <div className={styles['login-wrapper']}>
       <BrowserSupport />
-      <div id="login-container" className={cx('login-container', styles['login-container'])}>
-        <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
+      <div className={cx('login-container', styles['login-container'])} id="login-container">
+        <Favicon animated={false} url={`/images/logo/${config.appName}.ico`} />
         {props.message &&
           <Alert
             content={props.message}

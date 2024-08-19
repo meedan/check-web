@@ -34,13 +34,11 @@
         "react/prop-types": "off",
         "react/forbid-prop-types": "off",
         "react/no-children-prop": "off",
-        "sort-destructure-keys/sort-destructure-keys": [
-            "error",
-            {
-                "caseSensitive": false
-            }
-        ],
         "react/sort-prop-types": [ "error", {
+            "callbacksLast": true,
+        }],
+
+        "react/jsx-sort-props": [ "error", {
             "callbacksLast": true,
         }],
         

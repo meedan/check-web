@@ -32,8 +32,8 @@ describe('<TiplineRequest />', () => {
   it('should display request card with proper data', () => {
     const wrapper = mountWithIntl((
       <TiplineRequest
-        annotation={annotation}
         annotated={media}
+        annotation={annotation}
       />
     ));
     expect(wrapper.find(Request).length).toEqual(1);
@@ -44,8 +44,8 @@ describe('<TiplineRequest />', () => {
   it('should localize date in request card', () => {
     const wrapper = mountWithIntlProvider((
       <TiplineRequest
-        annotation={annotation}
         annotated={media}
+        annotation={annotation}
       />
     ), { locale: 'fr' });
     expect(wrapper.html()).toMatch('22 août 2023');
@@ -55,8 +55,8 @@ describe('<TiplineRequest />', () => {
   it('should localize date in request card 2', () => {
     const wrapper = mountWithIntlProvider((
       <TiplineRequest
-        annotation={{ ...annotation, smooch_report_update_received_at: 1691636400 }}
         annotated={media}
+        annotation={{ ...annotation, smooch_report_update_received_at: 1691636400 }}
       />
     ), { locale: 'fr' });
     expect(wrapper.html()).toMatch('10 août 2023');

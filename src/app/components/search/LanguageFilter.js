@@ -74,10 +74,6 @@ const LanguageFilter = ({
           }
         }
       `}
-      variables={{
-        teamSlug,
-        random,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           const languages = props.team.get_languages ? JSON.parse(props.team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
@@ -87,24 +83,24 @@ const LanguageFilter = ({
                 <RemoveableWrapper icon={<LanguageIcon />} onRemove={onRemove} />
                 <Select
                   className={styles['filter-select']}
-                  onChange={handleChangeType}
                   value={getValueType()}
+                  onChange={handleChangeType}
                 >
                   { ['language', 'report_language', 'request_language'].filter(option => !optionsToHide.includes(option)).map(option => (
                     <option value={option}>{ intl.formatMessage(messages[option]) }</option>
                   ))}
                 </Select>
                 <ButtonMain
-                  disabled
-                  theme="text"
-                  size="small"
-                  variant="text"
                   customStyle={{ color: 'var(--color-gray-15' }}
-                  label={<FormattedMessage id="languageFilter.is" defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" />}
+                  disabled
+                  label={<FormattedMessage defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" id="languageFilter.is" />}
+                  size="small"
+                  theme="text"
+                  variant="text"
                 />
                 <MultiSelectFilter
-                  selected={userLanguages}
                   options={languages}
+                  selected={userLanguages}
                   onChange={(newValue) => { handleChangeLanguage(newValue); }}
                 />
               </div>
@@ -113,7 +109,11 @@ const LanguageFilter = ({
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading theme="grey" variant="icon" size="icon" />;
+        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+      }}
+      variables={{
+        teamSlug,
+        random,
       }}
     />
   );

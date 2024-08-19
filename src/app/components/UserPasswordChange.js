@@ -34,8 +34,8 @@ function UserPasswordChange() {
               <FormattedGlobalMessage messageKey="appNameHuman">
                 {appNameHuman => (
                   <img
-                    className={styles['login-logo']}
                     alt={appNameHuman}
+                    className={styles['login-logo']}
                     src={stringHelper('LOGO_URL')}
                     width="120"
                   />
@@ -43,37 +43,37 @@ function UserPasswordChange() {
               </FormattedGlobalMessage>
               <h6 className="reset-password__heading">
                 { showConfirmDialog ?
-                  <FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" description="Title message when the user password was successfully updated" />
-                  : <FormattedMessage id="passwordChange.title" defaultMessage="Change password" description="Title message for the user to change their password" />
+                  <FormattedMessage defaultMessage="Password updated" description="Title message when the user password was successfully updated" id="passwordChange.successTitle" />
+                  : <FormattedMessage defaultMessage="Change password" description="Title message for the user to change their password" id="passwordChange.title" />
                 }
               </h6>
 
               { showConfirmDialog ?
                 <React.Fragment>
                   <FormattedMessage
-                    tagName="p"
-                    id="passwordChange.successMsg"
                     defaultMessage="You're all set. Now you can log in with your new password."
                     description="Success message when the user's password was changed and they can now login using the new password"
+                    id="passwordChange.successMsg"
+                    tagName="p"
                   />
                   <div className="user-password-change__actions">
                     <ButtonMain
-                      size="default"
-                      variant="contained"
-                      theme="brand"
-                      onClick={handleSignIn}
                       label={
-                        <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" description="Button label for the user to continue to the sign in page" />
+                        <FormattedMessage defaultMessage="Got it" description="Button label for the user to continue to the sign in page" id="passwordChange.signIn" />
                       }
+                      size="default"
+                      theme="brand"
+                      variant="contained"
+                      onClick={handleSignIn}
                     />
                   </div>
                 </React.Fragment> :
                 <div className="user-password-change__card">
                   <ChangePasswordComponent
-                    type="reset-password"
+                    showConfirm={showConfirm}
                     showCurrentPassword={false}
                     token={token}
-                    showConfirm={showConfirm}
+                    type="reset-password"
                   />
                 </div>
               }

@@ -17,7 +17,7 @@ const MediaChip = ({
   const shortUrl = !isFile ? url.match(/https?:\/\/www.?([^ ]+)/)?.[1] : null;
 
   return (
-    <Tooltip title={url} arrow>
+    <Tooltip arrow title={url}>
       <div className={cx(styles['media-chip'], 'media-chip')}>
         <div className={cx(styles['media-chip-icon'], 'media-chip-icon')}><MediaTypeDisplayIcon mediaType={mediaType} /></div>
         <div className={cx(styles['media-chip-label'], 'media-chip-label')}>{shortUrl || label}</div>

@@ -36,16 +36,16 @@ const AssignedToMe = ({ routeParams }) => (
           };
           return (
             <Search
-              searchUrlPrefix={`/${routeParams.team}/assigned-to-me`}
-              mediaUrlPrefix={`/${routeParams.team}/media`}
-              title={<FormattedMessage id="assignedTo.title" defaultMessage="Assigned to me" description="Title of the 'assigned to me' list page. It lists items assigned to the current user" />}
-              icon={<PersonIcon />}
-              teamSlug={routeParams.team}
-              query={query}
               defaultQuery={defaultQuery}
               hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_AssignedToMe_reports']}
-              readOnlyFields={['assigned_to']}
+              icon={<PersonIcon />}
+              mediaUrlPrefix={`/${routeParams.team}/media`}
               page="assigned-to-me"
+              query={query}
+              readOnlyFields={['assigned_to']}
+              searchUrlPrefix={`/${routeParams.team}/assigned-to-me`}
+              teamSlug={routeParams.team}
+              title={<FormattedMessage defaultMessage="Assigned to me" description="Title of the 'assigned to me' list page. It lists items assigned to the current user" id="assignedTo.title" />}
             />
           );
         }

@@ -26,9 +26,9 @@ const FeedItemMediaListComponent = ({ feedDbid, intl, items }) => {
           (
             item.last_seen &&
               <FormattedMessage
-                id="feedItemMediaList.lastSubmitted"
                 defaultMessage="Last submitted {date}"
                 description="Shows the last time a media was submitted (on feed item page media card)"
+                id="feedItemMediaList.lastSubmitted"
                 values={{
                   date: intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
                 }}
@@ -37,9 +37,9 @@ const FeedItemMediaListComponent = ({ feedDbid, intl, items }) => {
           (
             item.requests_count &&
               <FormattedMessage
-                id="feedItemMediaList.requestsCount"
                 defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
                 description="Header of requests list. Example: 26 requests."
+                id="feedItemMediaList.requestsCount"
                 values={{ requestsCount: item.requests_count }}
               />
           ),
@@ -48,25 +48,25 @@ const FeedItemMediaListComponent = ({ feedDbid, intl, items }) => {
         return (
           <>
             <SmallMediaCard
-              key={item.dbid}
               customTitle={item.title}
-              details={details}
-              media={item.media}
               description={item.description}
+              details={details}
+              key={item.dbid}
+              media={item.media}
               onClick={() => setSelectedItemId(item.dbid)}
             />
             { selectedItemId === item.dbid ?
               <MediaAndRequestsDialogComponent
+                feedId={feedDbid}
                 mediaSlug={
                   <MediaSlug
                     className={styles['media-slug-title']}
+                    details={details}
                     mediaType={item.type}
                     slug={item.title}
-                    details={details}
                   />
                 }
                 projectMediaImportedId={selectedItemId}
-                feedId={feedDbid}
                 onClick={swallowClick}
                 onClose={() => setSelectedItemId(null)}
               />
@@ -128,12 +128,6 @@ const FeedItemMediaList = ({ teamDbid }) => {
             }
           }
         `}
-        variables={{
-          currentTeamSlug,
-          feedDbid: parseInt(feedDbid, 10),
-          projectMediaDbid: parseInt(projectMediaDbid, 10),
-          itemTeamDbid: parseInt(teamDbid, 10),
-        }}
         render={({ error, props }) => {
           if (props && !error) {
             const items = props.team?.feed?.cluster?.project_medias;
@@ -142,7 +136,13 @@ const FeedItemMediaList = ({ teamDbid }) => {
             }
             return (<NotFound />);
           }
-          return <MediasLoading theme="grey" variant="inline" size="large" />;
+          return <MediasLoading size="large" theme="grey" variant="inline" />;
+        }}
+        variables={{
+          currentTeamSlug,
+          feedDbid: parseInt(feedDbid, 10),
+          projectMediaDbid: parseInt(projectMediaDbid, 10),
+          itemTeamDbid: parseInt(teamDbid, 10),
         }}
       />
     </ErrorBoundary>

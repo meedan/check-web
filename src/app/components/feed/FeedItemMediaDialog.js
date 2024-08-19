@@ -31,12 +31,6 @@ const FeedItemMediaDialog = ({ feedDbid, itemDbid }) => {
             }
           }
         `}
-        variables={{
-          currentTeamSlug,
-          feedDbid: parseInt(feedDbid, 10),
-          projectMediaDbid: parseInt(itemDbid, 10),
-          itemDbid: parseInt(itemDbid, 10),
-        }}
         render={({ error, props }) => {
           if (props && !error) {
             const projectMedia = props.team?.feed?.cluster?.project_media;
@@ -54,7 +48,13 @@ const FeedItemMediaDialog = ({ feedDbid, itemDbid }) => {
             }
             return (<NotFound />);
           }
-          return <MediasLoading theme="grey" variant="inline" size="large" />;
+          return <MediasLoading size="large" theme="grey" variant="inline" />;
+        }}
+        variables={{
+          currentTeamSlug,
+          feedDbid: parseInt(feedDbid, 10),
+          projectMediaDbid: parseInt(itemDbid, 10),
+          itemDbid: parseInt(itemDbid, 10),
         }}
       />
     </ErrorBoundary>

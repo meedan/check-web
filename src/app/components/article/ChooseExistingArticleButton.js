@@ -24,9 +24,9 @@ const ChooseExistingArticleButton = ({
 
   const title = (
     <FormattedMessage
-      id="chooseExistingArticleButton.title"
       defaultMessage="Choose an existing article"
       description="Label for the button to find an article."
+      id="chooseExistingArticleButton.title"
     />
   );
 
@@ -47,45 +47,42 @@ const ChooseExistingArticleButton = ({
   return (
     <>
       <Tooltip
+        arrow
         placement="top"
         title={disabled ? (
           <FormattedMessage
-            id="newArticleButton.tooltip"
             defaultMessage="You can't add an article here."
             description="Tooltip message displayed on new article button when it is disabled."
+            id="newArticleButton.tooltip"
           />
         ) : null}
-        arrow
       >
         <span>
           <ButtonMain
             className="choose-existing-article-button__open-slideout"
             disabled={disabled}
-            variant="contained"
+            iconLeft={<SearchIcon />}
+            label={title}
             size="small"
             theme="text"
-            iconLeft={<SearchIcon />}
+            variant="contained"
             onClick={() => setOpenSlideout(true)}
-            label={title}
           />
         </span>
       </Tooltip>
       { openSlideout && (
         <Slideout
-          title={title}
-          showCancel
-          footer
           content={
             <div className={styles.contentWrapper}>
               <FormattedMessage
-                id="chooseExistingArticleButton.search"
                 defaultMessage="Search by article title or summary"
                 description="Label for the search field to find an article."
+                id="chooseExistingArticleButton.search"
               >
                 {placeholder => (
                   <TextField
-                    id="search-articles"
                     iconLeft={<SearchIcon />}
+                    id="search-articles"
                     placeholder={placeholder}
                     onChange={e => handleType(e.target.value)}
                   />
@@ -95,16 +92,19 @@ const ChooseExistingArticleButton = ({
                 { !search && (
                   <div className={cx('typography-body2', styles.heading)}>
                     <FormattedMessage
-                      id="chooseExistingArticleButton.recentArticles"
                       defaultMessage="Recent Articles"
                       description="Label for the list of articles."
+                      id="chooseExistingArticleButton.recentArticles"
                     />
                   </div>
                 )}
-                <MediaArticlesTeamArticles textSearch={search} teamSlug={teamSlug} targetId={projectMediaDbid} onAdd={onAdd} />
+                <MediaArticlesTeamArticles targetId={projectMediaDbid} teamSlug={teamSlug} textSearch={search} onAdd={onAdd} />
               </div>
             </div>
           }
+          footer
+          showCancel
+          title={title}
           onClose={handleCloseSlideout}
         />
       )}

@@ -118,9 +118,9 @@ function PageTitle({
   return (
     <React.Fragment>
       <TitleFromProps
-        title={title}
         prefix={prefix}
         teamName={teamName || team?.name}
+        title={title}
       >
         {localizedTitle => (
           <Helmet><title>{emojify(localizedTitle)}</title></Helmet>

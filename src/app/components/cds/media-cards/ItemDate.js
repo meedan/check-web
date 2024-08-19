@@ -26,11 +26,11 @@ const ItemDate = ({
   return (
     <Tooltip
       arrow
-      title={formatTooltip(date)}
       placement="top"
+      title={formatTooltip(date)}
     >
       <div className={cx('typography-body2', styles.cardDate, className)}>
-        <FormattedDate value={date} year="numeric" month="long" day="numeric" />
+        <FormattedDate day="numeric" month="long" value={date} year="numeric" />
       </div>
     </Tooltip>
   );

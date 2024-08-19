@@ -38,10 +38,6 @@ const SearchFieldUser = ({
           }
         }
       `}
-      variables={{
-        teamSlug,
-        random,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           const users = props.team.users ?
@@ -51,21 +47,25 @@ const SearchFieldUser = ({
 
           return (
             <MultiSelectFilter
-              label={label}
               icon={icon}
-              selected={selected}
+              label={label}
+              operator={operator}
               options={extraOptions.concat(users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` })))}
-              onChange={(newValue) => { onChange(newValue); }}
               readOnly={readOnly}
+              selected={selected}
+              onChange={(newValue) => { onChange(newValue); }}
               onRemove={onRemove}
               onToggleOperator={onToggleOperator}
-              operator={operator}
             />
           );
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading theme="grey" variant="icon" size="icon" />;
+        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+      }}
+      variables={{
+        teamSlug,
+        random,
       }}
     />
   );

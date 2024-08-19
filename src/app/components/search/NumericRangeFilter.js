@@ -67,35 +67,35 @@ const NumericRangeFilter = ({
         <div className={styles['filter-label']}>
           { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
         </div>
-        <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
+        <FormattedMessage defaultMessage="enter number" description="Placeholder for text field about entering a number value" id="numericRangeFilter.enterNumber">
           { placeholder => (
             <TextField
               className={`int-numeric-range-filter__textfield--min-number ${styles['filter-input-number']}`}
+              error={showErrorMsg}
               placeholder={placeholder}
+              type="number"
               value={minNumber}
               onChange={(e) => { handleFieldChange('min', e.target.value); }}
-              type="number"
-              error={showErrorMsg}
             />
           )}
         </FormattedMessage>
         <ButtonMain
-          disabled
-          theme="text"
-          size="small"
-          variant="text"
           customStyle={{ color: 'var(--color-gray-15' }}
-          label={<FormattedMessage id="numericRangeFilter.between" defaultMessage="and" description="Logical operator AND statement" />}
+          disabled
+          label={<FormattedMessage defaultMessage="and" description="Logical operator AND statement" id="numericRangeFilter.between" />}
+          size="small"
+          theme="text"
+          variant="text"
         />
-        <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
+        <FormattedMessage defaultMessage="enter number" description="Placeholder for text field about entering a number value" id="numericRangeFilter.enterNumber">
           { placeholder => (
             <TextField
               className={`int-numeric-range-filter__textfield--max-number ${styles['filter-input-number']}`}
+              error={showErrorMsg}
               placeholder={placeholder}
+              type="number"
               value={maxNumber}
               onChange={(e) => { handleFieldChange('max', e.target.value); }}
-              type="number"
-              error={showErrorMsg}
             />
           )}
         </FormattedMessage>
@@ -104,9 +104,9 @@ const NumericRangeFilter = ({
         <div className={styles['filter-error']}>
           <ErrorOutlineIcon />
           <FormattedMessage
-            id="numericRangeFilter.errorMessage"
             defaultMessage="First number should be less than second number"
             description="Message when user set range number with min value greater than max value"
+            id="numericRangeFilter.errorMessage"
           />
         </div> : null
       }

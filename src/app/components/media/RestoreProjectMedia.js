@@ -59,16 +59,16 @@ function RestoreProjectMedia({
         const message = projectMedia.archived === CheckArchivedFlags.TRASHED ?
           (
             <FormattedMessage
-              id="mediaActionsBar.movedRestoreBack"
               defaultMessage="Item restored from Trash"
               description="Success message after restoring item from Trash."
+              id="mediaActionsBar.movedRestoreBack"
             />
           ) :
           (
             <FormattedMessage
-              id="mediaActionsBar.movedSpamBack"
               defaultMessage="Item marked as Not Spam"
               description="Success message after marking item as Not Spam."
+              id="mediaActionsBar.movedSpamBack"
             />
           );
         setFlashMessage(message, 'success');
@@ -78,16 +78,16 @@ function RestoreProjectMedia({
         const message = projectMedia.archived === CheckArchivedFlags.TRASHED ?
           (
             <FormattedMessage
-              id="mediaActionsBar.failedmovedRestoreBack"
               defaultMessage="Failed to restore the item. Please try again later."
               description="Failure message after attempting to restore an item from Trash."
+              id="mediaActionsBar.failedmovedRestoreBack"
             />
           ) :
           (
             <FormattedMessage
-              id="mediaActionsBar.failedmovedSpamBack"
               defaultMessage="Failed to mark the item as Not Spam. Please try again later."
               description="Failure message after attempting to mark an item as Not Spam."
+              id="mediaActionsBar.failedmovedSpamBack"
             />
           );
         setFlashMessage(message, 'error');
@@ -101,17 +101,17 @@ function RestoreProjectMedia({
   if (projectMedia.archived === CheckArchivedFlags.TRASHED) {
     buttonLabel = (
       <FormattedMessage
-        id="mediaActionsBar.restoreTo"
         defaultMessage="Restore from Trash"
         description="Label for button that restores item from Trash"
+        id="mediaActionsBar.restoreTo"
       />
     );
   } else if (projectMedia.archived === CheckArchivedFlags.SPAM) {
     buttonLabel = (
       <FormattedMessage
-        id="mediaActionsBar.notSpamTo"
         defaultMessage="Not spam"
         description="Label for button that marks an item as not spam"
+        id="mediaActionsBar.notSpamTo"
       />
     );
   }
@@ -125,12 +125,12 @@ function RestoreProjectMedia({
       buttonProps={{
         id: 'media-actions-bar__restore-confirm-to',
       }}
+      className={className}
+      color="primary"
+      disabled={isSaving}
+      iconLeft={isSaving ? <MediasLoading size="icon" theme="grey" variant="icon" /> : null}
       label={buttonLabel}
       variant="contained"
-      className={className}
-      iconLeft={isSaving ? <MediasLoading theme="grey" variant="icon" size="icon" /> : null}
-      disabled={isSaving}
-      color="primary"
       onClick={handleSubmit}
     />
   );

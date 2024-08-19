@@ -95,24 +95,24 @@ const TiplineContentTranslation = ({
       <Box mt={1}>
 
         {/* Default value */}
-        <Box p={1} className={classes.defaultString}>
+        <Box className={classes.defaultString} p={1}>
           {defaultValue}
         </Box>
 
         {/* Text field for custom value */}
         <StyledTextField
-          key={identifier}
-          InputProps={{ className: classes.customString }}
-          variant="outlined"
-          placeholder={intl.formatMessage(messages.placeholder)}
-          rowsMax={Infinity}
-          rows={1}
           defaultValue={value}
-          onBlur={(e) => { onUpdate(e.target.value); }}
           error={Boolean(error)}
-          helperText={error}
-          multiline
           fullWidth
+          helperText={error}
+          InputProps={{ className: classes.customString }}
+          key={identifier}
+          multiline
+          placeholder={intl.formatMessage(messages.placeholder)}
+          rows={1}
+          rowsMax={Infinity}
+          variant="outlined"
+          onBlur={(e) => { onUpdate(e.target.value); }}
         />
 
         {extra}

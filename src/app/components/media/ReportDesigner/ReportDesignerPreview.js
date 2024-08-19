@@ -118,9 +118,9 @@ const ReportDesignerPreview = (props) => {
     return (
       <div className={[classes.messagePreview, classes.root].join(' ')}>
         <FormattedMessage
-          id="reportDesigner.nothingToPreview"
           defaultMessage="Start creating your report to preview what users will see when they receive it."
           description="Empty message when there is no preview to show"
+          id="reportDesigner.nothingToPreview"
         />
       </div>
     );
@@ -155,31 +155,29 @@ const ReportDesignerPreview = (props) => {
             <ParsedText text={introduction} />
           ) : (
             <FormattedMessage
-              id="reportDesigner.addIntro"
               defaultMessage="Add content to the introduction"
               description="Help text to tell the user to add content to the introduction"
+              id="reportDesigner.addIntro"
             />
           )}
         </Box> : null }
       { data.use_text_message ?
         <Box className={classes.messagePreview}>
           { text.length ? (
-            <ParsedText text={text.join('\n\n')} truncateFileUrls={false} block />
+            <ParsedText block text={text.join('\n\n')} truncateFileUrls={false} />
           ) : (
             <FormattedMessage
-              id="reportDesigner.addText"
               defaultMessage="Add content to the text message"
               description="Help text to tell the user to add content to the text message"
+              id="reportDesigner.addText"
             />
           )}
         </Box> : null }
       { data.use_visual_card && !data.use_text_message ?
         <Box className={classes.visualCardPreview}>
           <ReportDesignerImagePreview
-            style={{
-              width: 500,
-              height: 500,
-            }}
+            date={data.date || formatDate(new Date(), data.language)}
+            defaultReport={defaultReport}
             image={
               data.image
                 // data.image is either String (from backend) or File (from upload).
@@ -187,38 +185,40 @@ const ReportDesignerPreview = (props) => {
                 ? (data.image.preview || data.image)
                 : originalMediaImage
             }
-            teamAvatar={media.team.avatar}
             params={data}
+            style={{
+              width: 500,
+              height: 500,
+            }}
+            teamAvatar={media.team.avatar}
             template={media.team.get_report_design_image_template}
-            date={data.date || formatDate(new Date(), data.language)}
-            defaultReport={defaultReport}
           />
           { maskContent ? (
             <div className={classes.contentScreen}>
               <WarningIcon className={classes.icon} />
               <h5>
                 <FormattedHTMLMessage
-                  id="reportDesigner.contentScreenHeader"
                   defaultMessage="Content with warning cannot<br />be published as a visual card."
                   description="Header for visual card when there's a content warning active and no alternative image is set"
+                  id="reportDesigner.contentScreenHeader"
                 />
               </h5>
               <FormattedHTMLMessage
-                id="reportDesigner.uploadAlternative"
                 defaultMessage="Upload an alternative image or<br />uncheck the visual card option."
                 description="Header for visual card when there's a content warning active and no alternative image is set"
+                id="reportDesigner.uploadAlternative"
               />
               <div>
                 <FormattedMessage
-                  id="reportDesigner.incorrectWarning"
                   defaultMessage="Was this content warning incorrectly applied?"
                   description="Header for visual card when there's a content warning active and no alternative image is set"
+                  id="reportDesigner.incorrectWarning"
                 />
                 <br />
                 <FormattedMessage
-                  id="reportDesigner.goBack"
                   defaultMessage="Go back to the annotation page and remove the content warning."
                   description="The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
+                  id="reportDesigner.goBack"
                 />
               </div>
             </div>

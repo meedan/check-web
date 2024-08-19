@@ -81,24 +81,24 @@ export default function Search({
 
   return (
     <SearchResults
-      searchUrlPrefix={searchUrlPrefix}
-      mediaUrlPrefix={mediaUrlPrefix}
-      listSubtitle={listSubtitle}
-      teamSlug={teamSlug}
+      defaultQuery={defaultQuery}
+      extra={extra}
       feed={feed}
       feedTeam={feedTeam}
-      savedSearch={savedSearch}
-      listActions={listActions}
-      page={page}
       hideFields={hideFields}
-      readOnlyFields={readOnlyFields}
-      title={title}
       icon={icon}
+      listActions={listActions}
+      listSubtitle={listSubtitle}
+      mediaUrlPrefix={mediaUrlPrefix}
+      page={page}
       query={timestampedQuery}
-      defaultQuery={defaultQuery}
-      showExpand={showExpand}
+      readOnlyFields={readOnlyFields}
       resultType={resultType}
-      extra={extra}
+      savedSearch={savedSearch}
+      searchUrlPrefix={searchUrlPrefix}
+      showExpand={showExpand}
+      teamSlug={teamSlug}
+      title={title}
     />
   );
 }

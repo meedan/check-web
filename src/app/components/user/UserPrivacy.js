@@ -87,10 +87,10 @@ const UserPrivacy = (props, context) => {
 
   const confirmDialog = {
     blurb: <FormattedMessage
-      id="userPrivacy.deleteAccountConfirmationText"
-      tagName="p"
       defaultMessage="Are you sure? This will remove your account and log you out of the app."
       description="Confirmation for the user to know what will happen when they remove their account"
+      id="userPrivacy.deleteAccountConfirmationText"
+      tagName="p"
     />,
   };
 
@@ -98,11 +98,11 @@ const UserPrivacy = (props, context) => {
 
   const ppLink = (
     <a
-      target="_blank"
-      rel="noopener noreferrer"
       href={stringHelper('PP_URL')}
+      rel="noopener noreferrer"
+      target="_blank"
     >
-      <FormattedMessage id="userPrivacy.ppLink" defaultMessage="Privacy Policy" description="Link text for the privacy policy" />
+      <FormattedMessage defaultMessage="Privacy Policy" description="Link text for the privacy policy" id="userPrivacy.ppLink" />
     </a>
   );
 
@@ -113,46 +113,46 @@ const UserPrivacy = (props, context) => {
       <SettingsHeader
         title={
           <FormattedMessage
-            id="userSettings.privacyTitle"
             defaultMessage="Privacy"
             description="Title for user settings area for user privacy settings"
+            id="userSettings.privacyTitle"
           />
         }
       />
-      <div id="user__privacy" className={styles['user-setting-details-wrapper']}>
+      <div className={styles['user-setting-details-wrapper']} id="user__privacy">
         <div className={styles['user-setting-content-container']}>
           <div className={styles['user-setting-content-container-title']}>
-            <FormattedMessage id="userPrivacy.title" defaultMessage="Your information" description="Page title for the user's privacy information" />
+            <FormattedMessage defaultMessage="Your information" description="Page title for the user's privacy information" id="userPrivacy.title" />
           </div>
           <FormattedMessage
-            tagName="p"
-            id="userPrivacy.description"
             defaultMessage="Please review our {ppLink} to learn how {appName} uses and stores your information."
             description="Description text to tell the user why they should review the privacy policy"
+            id="userPrivacy.description"
+            tagName="p"
             values={{
               ppLink,
               appName,
             }}
           />
           <div className={styles['user-setting-content-container-inner']}>
-            <FormattedMessage id="userPrivacy.userRequests" tagName="strong" defaultMessage="User Information Requests" description="Title for area instructing how to request data from Check" />
+            <FormattedMessage defaultMessage="User Information Requests" description="Title for area instructing how to request data from Check" id="userPrivacy.userRequests" tagName="strong" />
             <br />
             <ul className="bulleted-list">
               <FormattedHTMLMessage
-                tagName="li"
-                id="userPrivacy.seeInformationText"
                 defaultMessage='Request a file with the content and data you created and generated on {appName} by contacting <a href="mailto:{privacyEmail}?subject=Send information">{privacyEmail}</a>.'
                 description="Description of what the app will do when the user requests their information"
+                id="userPrivacy.seeInformationText"
+                tagName="li"
                 values={{
                   appName,
                   privacyEmail: stringHelper('PRIVACY_EMAIL'),
                 }}
               />
               <FormattedHTMLMessage
-                tagName="li"
-                id="userPrivacy.stopProcessingText"
                 defaultMessage='Request {appName} to stop processing your information under certain conditions by contacting <a href="mailto:{privacyEmail}?subject=Stop processing">{privacyEmail}</a>.'
                 description="Help text to tell the user how they can request a change to their privacy settings"
+                id="userPrivacy.stopProcessingText"
+                tagName="li"
                 values={{
                   appName,
                   privacyEmail: stringHelper('PRIVACY_EMAIL'),
@@ -163,48 +163,48 @@ const UserPrivacy = (props, context) => {
         </div>
         <div className={styles['user-setting-content-container']}>
           <div className={styles['user-setting-content-container-title']}>
-            <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" description="Title for social accounts connected to their app account" />
+            <FormattedMessage defaultMessage="Connected accounts" description="Title for social accounts connected to their app account" id="userPrivacy.connectedAccounts" />
           </div>
           <ul className={styles['user-setting-content-list']}>
             { providers.map(provider => (
               <UserConnectedAccount
+                key={provider.key}
                 provider={provider}
                 user={user}
-                key={provider.key}
               />
             ))}
           </ul>
         </div>
         <div className={styles['user-setting-content-container']}>
           <div className={styles['user-setting-content-container-title']}>
-            <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" description="Page title for the user to delete their account" />
+            <FormattedMessage defaultMessage="Delete your account" description="Page title for the user to delete their account" id="userPrivacy.delete" />
           </div>
           <FormattedMessage
-            tagName="p"
-            id="userPrivacy.deleteAccountText"
             defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
             description="Text to tell the user what will happen to their personal information when their account is removed"
+            id="userPrivacy.deleteAccountText"
+            tagName="p"
             values={{ appName }}
           />
           <ButtonMain
             buttonProps={{
               id: 'user-privacy__delete-account',
             }}
-            size="default"
-            variant="contained"
-            theme="lightError"
-            onClick={handleOpenDialog.bind(this)}
             label={
-              <FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" description="Button text for the user to delete their account" />
+              <FormattedMessage defaultMessage="Delete my account" description="Button text for the user to delete their account" id="userPrivacy.deleteAccountButton" />
             }
+            size="default"
+            theme="lightError"
+            variant="contained"
+            onClick={handleOpenDialog.bind(this)}
           />
           <ConfirmDialog
-            message={message}
-            open={dialogOpen}
-            title={props.intl.formatMessage(messages.deleteAccount)}
             blurb={confirmDialog.blurb}
             handleClose={handleCloseDialog.bind(this)}
             handleConfirm={handleDeleteAccount.bind(this)}
+            message={message}
+            open={dialogOpen}
+            title={props.intl.formatMessage(messages.deleteAccount)}
           />
         </div>
       </div>

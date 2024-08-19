@@ -4,7 +4,7 @@ import { convertNumbers2English } from '../../helpers';
 
 const DateDisplay = ({ isoDate }) => (
   <time dateTime={isoDate}>
-    <FormattedDate value={new Date(isoDate)} day="numeric" month="long" year="numeric" />
+    <FormattedDate day="numeric" month="long" value={new Date(isoDate)} year="numeric" />
   </time>
 );
 
@@ -35,24 +35,24 @@ function DateTimeDisplay({
   return (
     <time dateTime={date.toISOString()}>
       <FormattedDate
-        value={displayDate /* https://mantis.meedan.com/view.php?id=8437 */}
-        year="numeric"
-        month="long"
         day="numeric"
         hour="numeric"
         minute="numeric"
+        month="long"
+        value={displayDate /* https://mantis.meedan.com/view.php?id=8437 */}
+        year="numeric"
       />
       {' '}
       <FormattedMessage
-        id="datetimeTaskResponse.timeIs"
         defaultMessage="View this timezone on time.is"
         description="Link text for how to view a timezone on time.is"
+        id="datetimeTaskResponse.timeIs"
       >
         {title => (
           <a
             href={`https://time.is/${urlDate}`}
-            target="_blank"
             rel="noreferrer noopener"
+            target="_blank"
             title={title}
           >
             {tzString}
@@ -74,9 +74,9 @@ const DatetimeTaskResponse = (props) => {
   if (!values) {
     return (
       <FormattedMessage
-        id="datetimeTaskResponse.invalidTimestamp"
         defaultMessage="Error: Invalid timestamp"
         description="Error message for an invalid timestamp value"
+        id="datetimeTaskResponse.invalidTimestamp"
       />
     );
   }
@@ -87,8 +87,8 @@ const DatetimeTaskResponse = (props) => {
     <DateDisplay isoDate={values[1]} />
   ) : (
     <DateTimeDisplay
-      isoDate={values[1]}
       hourString={values[2]}
+      isoDate={values[1]}
       minuteString={values[3]}
       tzOffsetHours={Number(values[4])}
       tzString={values[5]}

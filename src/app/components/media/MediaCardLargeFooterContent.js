@@ -16,7 +16,7 @@ const MediaCardLargeFooterContent = ({
           {title}
         </Box>
         <Box color="var(--color-gray-15)">
-          <LongShort showAll={showAll} maxLines={2}>
+          <LongShort maxLines={2} showAll={showAll}>
             {body}
           </LongShort>
         </Box>

@@ -113,25 +113,25 @@ const FlashMessageProvider = ({ children }) => {
 
   return (
     <SnackbarProvider
-      maxSnack={10}
-      ref={notistackRef}
-      iconVariant={{
-        error: <ErrorIcon />,
-      }}
       action={key => (
         <ButtonMain
           className={`message message__dismiss-button ${classes.icon}`}
-          onClick={onClickDismiss(key)}
-          variant="text"
+          iconCenter={<IconClose />}
           size="small"
           theme="white"
-          iconCenter={<IconClose />}
+          variant="text"
+          onClick={onClickDismiss(key)}
         />
       )}
       classes={{
         variantInfo: classes.info,
         root: classes.root,
       }}
+      iconVariant={{
+        error: <ErrorIcon />,
+      }}
+      maxSnack={10}
+      ref={notistackRef}
     >
       <FlashMessageProviderWithSnackBar>
         { children }
@@ -194,7 +194,7 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
           const label = match.match(/\[(.*)\]/)[1];
           const url = match.match(/\((.*)\)/)[1];
           return (
-            <a className={classes.link} href={url} target="_blank" rel="noopener noreferrer" key={i}>
+            <a className={classes.link} href={url} key={i} rel="noopener noreferrer" target="_blank">
               {label}
             </a>
           );
@@ -207,10 +207,10 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
   if (message) {
     return (
       <Alert
-        content={message}
-        onButtonClick={resetMessage}
         buttonLabel={<IconClose />}
         className={`home__message ${classes.flashMessageStyle}`}
+        content={message}
+        onButtonClick={resetMessage}
       />
     );
   }

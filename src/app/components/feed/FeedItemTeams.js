@@ -21,13 +21,13 @@ const FeedItemTeams = ({
 
   return (
     <div className={styles.feedItemColumns}>
-      <div id="feed-item-page-teams" className={styles.feedItemColumn}>
+      <div className={styles.feedItemColumn} id="feed-item-page-teams">
         <div className={cx('typography-subtitle2', styles.feedItemTeamsTitle)}>
           <FormattedMessage
-            id="feedItemTeams.title"
             defaultMessage="Workspaces [{count}]"
-            values={{ count: cluster.cluster_teams?.edges?.length }}
             description="Title of the workspaces box on feed item page"
+            id="feedItemTeams.title"
+            values={{ count: cluster.cluster_teams?.edges?.length }}
           />
         </div>
 
@@ -35,16 +35,16 @@ const FeedItemTeams = ({
         <div className={styles.feedItemCurrentTeam}>
           <div className={cx('typography-subtitle2', styles.feedItemTeamsSubtitle)}>
             <FormattedMessage
-              id="feedItemTeams.yourWorkspace"
               defaultMessage="Your Workspace"
               description="Title of the Your Workspace box on feed item page"
+              id="feedItemTeams.yourWorkspace"
             />
           </div>
           <FeedTeamCard
-            feed={feed}
-            team={team}
             clusterTeam={currentClusterTeam}
+            feed={feed}
             selected={team.dbid === selectedTeamDbid}
+            team={team}
             onClick={selectTeam}
           />
         </div>
@@ -52,11 +52,11 @@ const FeedItemTeams = ({
         {/* Workspaces part of the cluster (except current one), sorted by number of media items, descending */}
         {cluster.cluster_teams?.edges?.map(edge => edge.node).filter(clusterTeam => clusterTeam?.team.dbid !== team.dbid).sort((a, b) => (a.media_count < b.media_count) ? 1 : -1).map(clusterTeam => (
           <FeedTeamCard
-            key={clusterTeam.team.dbid}
-            feed={feed}
-            team={clusterTeam.team}
             clusterTeam={clusterTeam}
+            feed={feed}
+            key={clusterTeam.team.dbid}
             selected={clusterTeam.team.dbid === selectedTeamDbid}
+            team={clusterTeam.team}
             onClick={selectTeam}
           />
         ))}

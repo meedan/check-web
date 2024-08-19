@@ -302,26 +302,26 @@ class TeamTasksListItem extends React.Component {
 
     return (
       <React.Fragment>
-        <Box display="flex" alignItems="center" className="team-tasks__list-item" style={{ gap: '10px' }}>
+        <Box alignItems="center" className="team-tasks__list-item" display="flex" style={{ gap: '10px' }}>
           <Reorder
-            onMoveUp={this.handleMoveTaskUp}
-            onMoveDown={this.handleMoveTaskDown}
-            disableUp={this.props.isFirst}
             disableDown={this.props.isLast}
-            variant="vertical"
+            disableUp={this.props.isFirst}
             theme="gray"
+            variant="vertical"
+            onMoveDown={this.handleMoveTaskDown}
+            onMoveUp={this.handleMoveTaskUp}
           />
           <TeamTaskCard
+            about={this.props.about}
             icon={icon[task.type]}
-            task={this.props.task}
             index={this.props.index}
-            onEdit={this.handleMenuEdit}
-            onDelete={this.handleMenuDelete}
-            showInBrowserExtension={this.state.showInBrowserExtension}
-            setShowInBrowserExtension={this.setShowInBrowserExtension}
             required={this.state.required}
             setRequired={this.setRequired}
-            about={this.props.about}
+            setShowInBrowserExtension={this.setShowInBrowserExtension}
+            showInBrowserExtension={this.state.showInBrowserExtension}
+            task={this.props.task}
+            onDelete={this.handleMenuDelete}
+            onEdit={this.handleMenuEdit}
           >
             <ConditionalField
               task={this.props.task}
@@ -333,13 +333,13 @@ class TeamTasksListItem extends React.Component {
             <TeamTaskContainer task={task} team={this.props.team}>
               {teamTask => (
                 <TeamTaskConfirmDialog
+                  action={this.state.action}
                   editedTask={this.state.editedTask}
                   editLabelOrDescription={this.state.editLabelOrDescription}
-                  task={teamTask}
-                  open={this.state.dialogOpen}
-                  action={this.state.action}
                   handleClose={this.handleCloseDialog}
                   handleConfirm={this.handleConfirmDialog}
+                  open={this.state.dialogOpen}
+                  task={teamTask}
                 />
               )}
             </TeamTaskContainer> : null }
@@ -347,10 +347,10 @@ class TeamTasksListItem extends React.Component {
             <TeamTaskContainer task={task} team={this.props.team}>
               {teamTask => (
                 <EditTaskDialog
+                  task={teamTask}
                   taskType={teamTask.type}
                   onDismiss={this.handleCloseEdit}
                   onSubmit={this.handleEdit}
-                  task={teamTask}
                 />
               )}
             </TeamTaskContainer> : null }

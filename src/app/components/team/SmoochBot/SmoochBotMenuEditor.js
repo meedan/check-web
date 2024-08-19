@@ -94,16 +94,13 @@ const SmoochBotMenuEditor = (props) => {
   return (
     <React.Fragment>
       <SmoochBotTextEditor
-        value={props.value.smooch_menu_message}
-        onChange={handleChangeText}
-        field={props.field}
         extraTextFieldProps={
           props.textHeader ?
             {
               InputProps: {
                 className: classes.content,
                 startAdornment: (
-                  <InputAdornment position="start" className={classes.header}>
+                  <InputAdornment className={classes.header} position="start">
                     {props.textHeader}
                     <Divider className={classes.divider} />
                   </InputAdornment>
@@ -112,14 +109,17 @@ const SmoochBotMenuEditor = (props) => {
             } :
             {}
         }
+        field={props.field}
+        value={props.value.smooch_menu_message}
+        onChange={handleChangeText}
       />
       {menuOptions.map((option, index) => (
         <Box display="flex" key={Math.random().toString().substring(2, 10)}>
           <SmoochBotMenuOption
             field={props.field}
             languages={props.languages}
-            option={option}
             menuActions={props.menuActions}
+            option={option}
             resources={props.resources}
             onChange={(newValue) => { handleChangeMenu(index, newValue); }}
           />
@@ -147,23 +147,23 @@ const SmoochBotMenuEditor = (props) => {
       ))}
       { props.field === 'smooch_state_main' ?
         <SmoochBotMenuOption
-          field={props.field}
           currentLanguage={props.currentLanguage}
+          field={props.field}
           languages={[]}
+          menuActions={[]}
           option={{
             smooch_menu_option_keyword: '9',
             smooch_menu_option_value: 'tos',
           }}
-          menuActions={[]}
+          readOnly
           resources={[]}
           onChange={() => {}}
-          readOnly
         /> : null }
-      <Button onClick={handleAddOption} startIcon={<AddIcon />} className={classes.button}>
+      <Button className={classes.button} startIcon={<AddIcon />} onClick={handleAddOption}>
         <FormattedMessage
-          id="smoochBotMenuEditor.scenario"
           defaultMessage="Scenario"
           description="Button label for the menu editor scenario"
+          id="smoochBotMenuEditor.scenario"
         />
       </Button>
     </React.Fragment>

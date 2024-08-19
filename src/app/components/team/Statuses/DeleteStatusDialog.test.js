@@ -25,11 +25,11 @@ describe('<DeleteStatusDialog />', () => {
   it('should display the status to be deleted and show the message that one item is using this status', () => {
     const wrapper = mountWithIntl(<DeleteStatusDialog
       deleteStatus={statuses[2]}
-      onCancel={() => {}}
-      onProceed={() => {}}
       handleSelect={() => {}}
       open
       statuses={statuses}
+      onCancel={() => {}}
+      onProceed={() => {}}
     />);
     expect(wrapper.html()).toMatch('You need to change the status of one item to delete this status');
     expect(wrapper.html()).not.toMatch('Alternatively, you can change each item status individually');
@@ -41,11 +41,11 @@ describe('<DeleteStatusDialog />', () => {
   it('should display message that four items are using the status', () => {
     const wrapper = mountWithIntl(<DeleteStatusDialog
       deleteStatus={statuses[0]}
-      onCancel={() => {}}
-      onProceed={() => {}}
       handleSelect={() => {}}
       open
       statuses={statuses}
+      onCancel={() => {}}
+      onProceed={() => {}}
     />);
     expect(wrapper.html()).toMatch('There are 4 items with the status');
     expect(wrapper.html()).toMatch('False');
@@ -57,11 +57,11 @@ describe('<DeleteStatusDialog />', () => {
   it('should display the published items using this status', () => {
     const wrapper = mountWithIntl(<DeleteStatusDialog
       deleteStatus={statuses[1]}
-      onCancel={() => {}}
-      onProceed={() => {}}
       handleSelect={() => {}}
       open
       statuses={statuses}
+      onCancel={() => {}}
+      onProceed={() => {}}
     />);
     expect(wrapper.html()).toMatch('There are 5 items with the status');
     expect(wrapper.html()).toMatch('In Progress');
@@ -72,11 +72,11 @@ describe('<DeleteStatusDialog />', () => {
   it('should not display published message when there is no item published', () => {
     const wrapper = mountWithIntl(<DeleteStatusDialog
       deleteStatus={statuses[0]}
-      onCancel={() => {}}
-      onProceed={() => {}}
       handleSelect={() => {}}
       open
       statuses={statuses}
+      onCancel={() => {}}
+      onProceed={() => {}}
     />);
     expect(wrapper.html()).toMatch('There are 4 items with the status');
     expect(wrapper.html()).not.toMatch('items are currently published');

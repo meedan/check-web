@@ -157,31 +157,31 @@ class CreateMediaInput extends React.Component {
           this.state.mediaFile === null ? (
             <div className={inputStyles['form-fieldset-field']}>
               <FormattedMessage
-                id="createMedia.mediaInput"
                 defaultMessage="Add a URL to a social media post or webpage, or a block of text."
                 description="Placeholder text for the media URL input"
+                id="createMedia.mediaInput"
               >
                 { placeholder => (
                   <TextArea
+                    disabled={this.state.mediaFile}
+                    helpContent={
+                      <FormattedMessage defaultMessage="The media that contains the claim." description="Subtitle for the section of the media that contains the claim being created" id="createMedia.mediaMediaSubtitle" />
+                    }
+                    id="create-media-input"
                     key="createMedia.media.input"
+                    label={
+                      <FormattedMessage
+                        defaultMessage="URL or Text Block"
+                        description="Label for the text input for claim title"
+                        id="createMedia.mediaInputLabel"
+                      />
+                    }
                     maxHeight="126px"
                     name="text"
-                    id="create-media-input"
                     placeholder={placeholder}
                     value={this.state.textValue}
                     onChange={this.handleChange}
                     onKeyPress={this.handleKeyPress}
-                    disabled={this.state.mediaFile}
-                    label={
-                      <FormattedMessage
-                        id="createMedia.mediaInputLabel"
-                        defaultMessage="URL or Text Block"
-                        description="Label for the text input for claim title"
-                      />
-                    }
-                    helpContent={
-                      <FormattedMessage id="createMedia.mediaMediaSubtitle" defaultMessage="The media that contains the claim." description="Subtitle for the section of the media that contains the claim being created" />
-                    }
                   />
                 )}
               </FormattedMessage>
@@ -191,7 +191,7 @@ class CreateMediaInput extends React.Component {
         {
           (this.state.mediaFile === null && this.state.textValue.length === 0) ? (
             <div className={inputStyles['form-fieldset-title']}>
-              <FormattedMessage id="createMedia.or" defaultMessage="or" description="This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled." />
+              <FormattedMessage defaultMessage="or" description="This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled." id="createMedia.or" />
             </div>
           ) : null
         }
@@ -199,26 +199,26 @@ class CreateMediaInput extends React.Component {
           this.state.textValue.length === 0 ? (
             <div className={inputStyles['form-fieldset-field']}>
               <UploadFile
-                key="createMedia.image.upload"
-                type="image+video+audio"
-                onChange={this.handleFileChange}
-                onError={this.handleFileError}
-                value={this.state.mediaFile}
                 disabled={this.state.textValue.length > 0}
                 hidden={this.state.textValue.length > 0}
+                key="createMedia.image.upload"
+                type="image+video+audio"
+                value={this.state.mediaFile}
+                onChange={this.handleFileChange}
+                onError={this.handleFileError}
               />
               {
                 this.state.mediaFile ? (
                   <ButtonMain
                     className="clear-button"
-                    variant="text"
-                    theme="lightText"
-                    size="default"
                     iconLeft={<ClearIcon />}
-                    onClick={this.clearFile}
                     label={
-                      <FormattedMessage id="createMedia.mediaRemoveFile" defaultMessage="Remove file" description="Label on a button that the user clicks in order to return a file upload box back to its 'empty' state." />
+                      <FormattedMessage defaultMessage="Remove file" description="Label on a button that the user clicks in order to return a file upload box back to its 'empty' state." id="createMedia.mediaRemoveFile" />
                     }
+                    size="default"
+                    theme="lightText"
+                    variant="text"
+                    onClick={this.clearFile}
                   />
                 ) : null
               }
@@ -240,13 +240,13 @@ class CreateMediaInput extends React.Component {
           />
         }
         <form
-          name="media"
-          id={this.props.formId /* so outsiders can write <button type="submit" form="...id"> */}
           className="create-media__form"
+          id={this.props.formId /* so outsiders can write <button type="submit" form="...id"> */}
+          name="media"
           ref={this.props.formRef}
           onSubmit={this.handleSubmit}
         >
-          <div id="create-media__field" className={inputStyles['form-fieldset']}>
+          <div className={inputStyles['form-fieldset']} id="create-media__field">
             {this.renderFormInput()}
           </div>
         </form>

@@ -17,14 +17,14 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
     <List>
       {props.project.teamTasks.map((task, index) =>
         (<TeamTasksListItem
+          about={props.about}
           index={index + 1}
+          isFirst={index === 0}
+          isLast={index === props.project.teamTasks.length - 1}
           key={`${task.label}-${task.type}`}
           task={task}
           tasks={props.project.teamTasks}
           team={props.team}
-          about={props.about}
-          isFirst={index === 0}
-          isLast={index === props.project.teamTasks.length - 1}
         />))}
     </List>
   </div>

@@ -34,9 +34,9 @@ const AnnotationFilterNumber = ({
       setShowErrorMsg(true);
       onError((
         <FormattedMessage
-          id="customFiltersManager.errorMessage"
           defaultMessage="First number should be less than second number"
           description="Message when user set range number with min value greater than max value"
+          id="customFiltersManager.errorMessage"
         />
       ));
     } else {
@@ -49,42 +49,42 @@ const AnnotationFilterNumber = ({
   return (
     <>
       <ButtonMain
-        disabled
-        theme="text"
-        size="small"
-        variant="text"
         customStyle={{ color: 'var(--color-gray-15' }}
-        label={<FormattedMessage id="numericRangeFilter.between" defaultMessage="between" description="Filter operator denoting user is filtering by numbers between two values" />}
+        disabled
+        label={<FormattedMessage defaultMessage="between" description="Filter operator denoting user is filtering by numbers between two values" id="numericRangeFilter.between" />}
+        size="small"
+        theme="text"
+        variant="text"
       />
-      <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">
+      <FormattedMessage defaultMessage="enter number" description="Placeholder text for the number input in this filter" id="customFiltersManager.enterNumber">
         { placeholder => (
           <TextField
             className={`int-annotation-filter-number__textfield--number-min ${styles['filter-input-number']}`}
+            error={showErrorMsg}
             placeholder={placeholder}
+            type="number"
             value={minNumber}
             onChange={(e) => { handleFieldChange('min', e.target.value); }}
-            type="number"
-            error={showErrorMsg}
           />
         )}
       </FormattedMessage>
       <ButtonMain
-        disabled
-        theme="text"
-        size="small"
-        variant="text"
         customStyle={{ color: 'var(--color-gray-15' }}
-        label={<FormattedMessage id="numericRangeFilter.and" defaultMessage="and" description="Logical operator AND statement" />}
+        disabled
+        label={<FormattedMessage defaultMessage="and" description="Logical operator AND statement" id="numericRangeFilter.and" />}
+        size="small"
+        theme="text"
+        variant="text"
       />
-      <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">
+      <FormattedMessage defaultMessage="enter number" description="Placeholder text for the number input in this filter" id="customFiltersManager.enterNumber">
         { placeholder => (
           <TextField
             className={`int-annotation-filter-number__textfield--number-max ${styles['filter-input-number']}`}
+            error={showErrorMsg}
             placeholder={placeholder}
+            type="number"
             value={maxNumber}
             onChange={(e) => { handleFieldChange('max', e.target.value); }}
-            type="number"
-            error={showErrorMsg}
           />
         )}
       </FormattedMessage>

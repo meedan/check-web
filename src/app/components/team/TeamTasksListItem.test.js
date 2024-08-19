@@ -20,11 +20,11 @@ const about = {
 describe('<TeamTasksListItem />', () => {
   it('should render component', () => {
     const wrapper = mountWithIntl(<TeamTasksListItem
+      about={about}
       index={0}
       task={task}
       tasks={[]}
       team={team}
-      about={about}
     />);
     expect(wrapper.find('.team-tasks__list-item').hostNodes()).toHaveLength(1);
   });

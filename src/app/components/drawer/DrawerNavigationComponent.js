@@ -85,14 +85,14 @@ class DrawerNavigationComponent extends Component {
 
     return (
       <Drawer
+        anchor="left"
         className={[styles.drawer, drawerOpen ? styles.drawerOpen : styles.drawerClosed].join(' ')}
         open={Boolean(drawerOpen)}
         variant="persistent"
-        anchor="left"
       >
         <React.Fragment>
           {!!team && (currentUserIsMember || !team.private) ? (
-            <DrawerProjects team={team.slug} drawerType={drawerType} />
+            <DrawerProjects drawerType={drawerType} team={team.slug} />
           ) : null }
         </React.Fragment>
       </Drawer>

@@ -5,10 +5,10 @@ import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 describe('<TeamDataComponent />', () => {
   it('should not render table if there is no data', () => {
     const wrapper = mountWithIntl(<TeamDataComponent
-      slug="test"
       data={null}
       params={{}}
       route={{ action: 'settings' }}
+      slug="test"
     />);
     expect(wrapper.find('.team-data-component__with-data').hostNodes()).toHaveLength(0);
     expect(wrapper.find('.team-data-component__no-data').hostNodes()).toHaveLength(1);
@@ -16,7 +16,6 @@ describe('<TeamDataComponent />', () => {
 
   it('should render table if there is data', () => {
     const wrapper = mountWithIntl(<TeamDataComponent
-      slug="test"
       data={[{
         Month: 'January 2022',
         Conversations: 123,
@@ -26,6 +25,7 @@ describe('<TeamDataComponent />', () => {
       }]}
       params={{}}
       route={{ action: 'settings' }}
+      slug="test"
     />);
     expect(wrapper.find('.team-data-component__with-data').hostNodes()).toHaveLength(1);
     expect(wrapper.find('.team-data-component__no-data').hostNodes()).toHaveLength(0);
@@ -50,19 +50,19 @@ describe('<TeamDataComponent />', () => {
     ];
 
     let wrapper = mountWithIntl(<TeamDataComponent
-      slug="test"
       data={data}
       params={{}}
       route={{ action: 'settings' }}
+      slug="test"
     />);
     expect(wrapper.html()).toMatch('English');
 
     wrapper = mountWithIntl(<TeamDataComponent
-      slug="test"
       data={data}
       defaultLanguage="es"
       params={{}}
       route={{ action: 'settings' }}
+      slug="test"
     />);
     expect(wrapper.html()).toMatch('Español');
   });

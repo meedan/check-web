@@ -40,32 +40,32 @@ const ThresholdControl = ({
       { type === 'matching' ? (
         <FormattedMessage
           data-testid="threshold-control__matching-explainer-message"
-          id="thresholdControl.matchingExplainer"
           defaultMessage="If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
           description="Description of the confidence score automatically triggering a report being sent to the user"
+          id="thresholdControl.matchingExplainer"
         />
       ) : (
         <FormattedMessage
           data-testid="threshold-control__suggestion-explainer-message"
-          id="thresholdControl.suggestionExplainer"
           defaultMessage="If the confidence score is above this ratio, items will be suggested as similar."
           description="Description of the confidence score automatically suggesting an item to a system editor"
+          id="thresholdControl.suggestionExplainer"
         />
       )}
     </div>
-    <Box display="flex" alignItems="center" mt={1}>
+    <Box alignItems="center" display="flex" mt={1}>
       <TextField
-        disabled={disabled}
-        value={value}
         className={settingsStyles['similarity-component-input']}
-        variant="outlined"
+        disabled={disabled}
         size="small"
         type="number"
+        value={value}
+        variant="outlined"
         onChange={e => onChange(e.target.value)}
       />
       <Slider
-        disabled={disabled}
         classes={{ root: classes.sliderRoot }}
+        disabled={disabled}
         value={value}
         onChange={(e, newValue) => onChange(newValue)}
       />
@@ -74,9 +74,9 @@ const ThresholdControl = ({
       { error ?
         <FormattedMessage
           data-testid="threshold-control__error-message"
-          id="thresholdControl.suggestionGreaterThanMatchingError"
           defaultMessage="The suggestion threshold cannot be higher than the matching one."
           description="Error message displayed when suggestion threshold is set higher than value of matching threshold"
+          id="thresholdControl.suggestionGreaterThanMatchingError"
         /> : null
       }
     </Box>

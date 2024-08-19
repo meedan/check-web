@@ -35,12 +35,12 @@ const ButtonMain = ({
         [styles['input-icon-center']]: iconCenter,
       })
     }
-    style={customStyle}
-    onClick={onClick}
     disabled={disabled}
-    variant={variant}
+    style={customStyle}
     title={title}
     type="button"
+    variant={variant}
+    onClick={onClick}
     {...buttonProps}
   >
     { iconLeft && (

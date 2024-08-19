@@ -25,13 +25,11 @@ const ProjectsListItem = ({
 
   const Item = listItemProps => (
     <Link
-      onClick={handleClick}
       className={styles.linkList}
       to={`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`}
+      onClick={handleClick}
     >
       <li
-        title={tooltip}
-        key={`${project.id}-${project.title}`}
         className={cx(
           'project-list__link',
           styles.listItem,
@@ -41,6 +39,8 @@ const ProjectsListItem = ({
             [styles.listItem_active]: isActive,
           })
         }
+        key={`${project.id}-${project.title}`}
+        title={tooltip}
         {...listItemProps}
       >
         {icon}

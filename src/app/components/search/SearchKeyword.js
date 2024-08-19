@@ -249,42 +249,42 @@ class SearchKeyword extends React.Component {
       <>
         <PageTitle prefix={title} team={this.props.team} />
         <form
-          id="search-form"
-          className={cx('search__form', searchStyles['search-form'])}
-          onSubmit={this.props.handleSubmit}
           autoComplete="off"
+          className={cx('search__form', searchStyles['search-form'])}
+          id="search-form"
+          onSubmit={this.props.handleSubmit}
         >
           <SearchField
-            isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
-            showExpand={showExpand}
-            setParentSearchText={this.setSearchText}
-            searchText={this.props.query?.keyword || ''}
-            searchQuery={this.props.query}
+            handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
             inputBaseProps={{
               onBlur: this.handleInputChange,
               disabled: this.state?.imgData?.data?.length > 0,
             }}
-            handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+            isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
+            searchQuery={this.props.query}
+            searchText={this.props.query?.keyword || ''}
+            setParentSearchText={this.setSearchText}
+            showExpand={showExpand}
           />
           { showExpand || !this.props.hideAdvanced ?
             <div className={searchStyles['search-form-config']}>
               { showExpand &&
                 <>
                   <input
-                    id="media-upload"
-                    type="file"
                     accept="image/*,video/*,audio/*"
-                    onChange={this.handleUpload}
+                    id="media-upload"
                     ref={(el) => { this.fileInput = el; }}
                     style={{ display: 'none' }}
+                    type="file"
+                    onChange={this.handleUpload}
                   />
-                  <Tooltip arrow title={<FormattedMessage id="search.file" defaultMessage="Search with file" description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt." />}>
+                  <Tooltip arrow title={<FormattedMessage defaultMessage="Search with file" description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt." id="search.file" />}>
                     <span>
                       <ButtonMain
                         iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <PermMediaIcon />}
                         size="small"
-                        variant="text"
                         theme="lightText"
+                        variant="text"
                         onClick={this.triggerInputFile}
                       />
                     </span>
@@ -293,8 +293,8 @@ class SearchKeyword extends React.Component {
               }
               { !this.props.hideAdvanced &&
                 <SearchKeywordMenu
-                  onChange={this.handleKeywordConfigChange}
                   query={this.props.query}
+                  onChange={this.handleKeywordConfigChange}
                 />
               }
             </div> : null

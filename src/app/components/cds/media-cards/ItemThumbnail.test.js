@@ -9,8 +9,8 @@ describe('<ItemThumbnail />', () => {
   it('should render picture even when there is no media type', () => {
     const wrapper = mountWithIntl(
       <ItemThumbnail
-        picture="test.jpg"
         maskContent={false}
+        picture="test.jpg"
         url="http://test.com"
       />);
     expect(wrapper.find('img').length).toEqual(1);

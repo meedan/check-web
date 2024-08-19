@@ -62,27 +62,27 @@ const FeedsComponent = ({
     <React.Fragment>
       <div className={styles.listTitle}>
         <FormattedHTMLMessage
-          id="projectsComponent.sharedFeedNavHeader"
           defaultMessage="Shared Feeds [{feedsLength}] <sup>BETA</sup>"
           description="The navigation name of the shared feeds section with included Beta messaging and the total count of items in the list below"
+          id="projectsComponent.sharedFeedNavHeader"
           values={{ feedsLength: feeds.length }}
         />
       </div>
-      <Can permissions={team.permissions} permission="create Feed">
+      <Can permission="create Feed" permissions={team.permissions}>
         <div className={styles.listMainAction}>
           <ButtonMain
             className="projects-list__add-feed"
+            iconLeft={<AddIcon />}
             label={
               <FormattedMessage
-                id="projectsComponent.newSharedFeed"
                 defaultMessage="New Shared Feed"
                 description="Label for the button that navigates to shared feed creation page"
+                id="projectsComponent.newSharedFeed"
               />
             }
-            iconLeft={<AddIcon />}
-            variant="contained"
             size="default"
             theme="lightBeige"
+            variant="contained"
             onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }}
           />
         </div>
@@ -92,7 +92,7 @@ const FeedsComponent = ({
           { feeds.length === 0 ?
             <li className={cx(styles.listItem, styles.listItem_empty)}>
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="em" id="projectsComponent.noSharedFeeds" defaultMessage="No shared feeds" description="Displayed under the shared feed header when there are no feeds in it" />
+                <FormattedMessage defaultMessage="No shared feeds" description="Displayed under the shared feed header when there are no feeds in it" id="projectsComponent.noSharedFeeds" tagName="em" />
               </div>
             </li> :
             <>
@@ -123,13 +123,13 @@ const FeedsComponent = ({
                         [styles.listItemInvited]: feed.type === 'FeedInvitation',
                       })
                     }
+                    icon={itemIcon}
+                    isActive={isActive('feed', feed.dbid)}
                     key={feed.id}
                     project={feed}
                     teamSlug={team.slug}
-                    onClick={handleClick}
-                    isActive={isActive('feed', feed.dbid)}
-                    icon={itemIcon}
                     tooltip={feed.type === 'FeedInvitation' ? intl.formatMessage(messages.pendingInvitationFeedTooltip, { feedTitle: feed.title }) : feed.title}
+                    onClick={handleClick}
                     {...itemProps}
                   />
                 );

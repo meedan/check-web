@@ -61,9 +61,9 @@ class MediaLogComponent extends Component {
 
     return (
       <Annotations
-        annotations={media.log.edges}
         annotated={media}
         annotatedType="ProjectMedia"
+        annotations={media.log.edges}
         team={this.props.team}
       />
     );
@@ -220,6 +220,7 @@ const MediaLog = (props) => {
   return (
     <Relay.RootContainer
       Component={MediaLogContainer}
+      forceFetch
       renderFetched={data => (
         <MediaLogContainer
           cachedMedia={props.media}
@@ -227,9 +228,8 @@ const MediaLog = (props) => {
           team={props.team}
         />
       )}
-      forceFetch
+      renderLoading={() => <MediasLoading size="medium" theme="grey" variant="inline" />}
       route={route}
-      renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
     />
   );
 };

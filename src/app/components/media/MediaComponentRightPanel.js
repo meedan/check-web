@@ -30,94 +30,94 @@ const MediaComponentRightPanel = ({
     <ErrorBoundary component="MediaComponentRightPanel">
       <MediaSecondaryBanner projectMedia={projectMedia} />
       <Tabs
+        className="media__annotations-tabs"
         indicatorColor="primary"
-        onChange={(e, value) => setShowTab(value)}
         scrollButtons="auto"
         textColor="primary"
-        variant="scrollable"
         value={showTab}
-        className="media__annotations-tabs"
+        variant="scrollable"
+        onChange={(e, value) => setShowTab(value)}
       >
         { showArticles && (
           <Tab
+            className="media-tab__articles"
             label={
               <span>
                 <FormattedMessage
-                  id="mediaComponent.articles"
                   defaultMessage="Articles"
                   description="Label for the Articles tab"
+                  id="mediaComponent.articles"
                 />
                 {projectMedia.articles_count > 0 && ` [${projectMedia.articles_count}]`}
               </span>
             }
             value="articles"
-            className="media-tab__articles"
           />
         )}
         { showRequests && (
           <Tab
+            className="media-tab__requests"
             label={
               <span>
                 <FormattedMessage
-                  id="mediaComponent.requests"
                   defaultMessage="Requests"
                   description="Label for the Requests tab, as in requests from users"
+                  id="mediaComponent.requests"
                 />
                 {projectMedia.demand > 0 && ` [${projectMedia.demand}]`}
               </span>
             }
             value="requests"
-            className="media-tab__requests"
           />
         )}
         { showSuggestions && (
           <Tab
+            className="media-tab__sugestedMedia"
             label={
               <span>
                 <FormattedMessage
-                  id="mediaComponent.suggestedMedia"
                   defaultMessage="Suggestions"
                   description="Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
+                  id="mediaComponent.suggestedMedia"
                 />
                 {projectMedia.suggested_similar_items_count > 0 && ` [${projectMedia.suggested_similar_items_count}]`}
               </span>
             }
             value="suggestedMedia"
-            className="media-tab__sugestedMedia"
           />
         )}
         { showAnnotations && (
           <Tab
+            className="media-tab__metadata"
             label={
               <FormattedMessage
-                id="mediaComponent.annotation"
                 defaultMessage="Annotations"
                 description="Label for the Annotation tab"
+                id="mediaComponent.annotation"
               />
             }
             value="metadata"
-            className="media-tab__metadata"
           />
         )}
         { showSources && (
           <Tab
+            className="media-tab__source"
             label={
               <FormattedMessage
-                id="mediaComponent.source"
                 defaultMessage="Source"
                 description="Label for the Source tab, as in source of the information"
+                id="mediaComponent.source"
               />
             }
             value="source"
-            className="media-tab__source"
           />
         )}
       </Tabs>
-      { showTab === 'requests' ? <MediaRequests media={projectMedia} all={!projectMedia.is_confirmed_similar_to_another_item} /> : null }
-      { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} superAdminMask={superAdminMask} /> : null }
-      { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
+      { showTab === 'requests' ? <MediaRequests all={!projectMedia.is_confirmed_similar_to_another_item} media={projectMedia} /> : null }
+      { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} superAdminMask={superAdminMask} teamDbid={projectMedia.team?.dbid} /> : null }
+      { showTab === 'metadata' ? <MediaTasks fieldset="metadata" media={projectMedia} /> : null }
       { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
-      { showTab === 'articles' ? <MediaArticles teamSlug={projectMedia.team.slug} projectMediaDbid={projectMedia.dbid} /> : null }
+      { showTab === 'articles' ? <MediaArticles projectMediaDbid={projectMedia.dbid} teamSlug={projectMedia.team.slug} /> : null }
     </ErrorBoundary>
   );
 };

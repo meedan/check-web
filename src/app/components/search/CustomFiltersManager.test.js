@@ -28,9 +28,9 @@ describe('<CustomFiltersManager />', () => {
     };
 
     const wrapper = mountWithIntl(<CustomFiltersManagerTest
-      onFilterChange={() => {}}
-      team={team}
       query={query}
+      team={team}
+      onFilterChange={() => {}}
     />);
 
     expect(wrapper.find('#free_text-123')).toHaveLength(1);
@@ -45,9 +45,9 @@ describe('<CustomFiltersManager />', () => {
     };
 
     const wrapper = mountWithIntl(<CustomFiltersManagerTest
-      onFilterChange={() => {}}
-      team={team}
       query={query}
+      team={team}
+      onFilterChange={() => {}}
     />);
 
     expect(wrapper.find('#invalid_task-0')).toHaveLength(0);

@@ -33,23 +33,23 @@ const RuleBody = (props) => {
   return (
     <div className={styles['rule-wrapper']}>
       { !props.hideName ?
-        <FormattedMessage id="ruleBody.namePlaceholder" defaultMessage="Enter a descriptive rule name" description="Text field placeholder for the input name of rule" >
+        <FormattedMessage defaultMessage="Enter a descriptive rule name" description="Text field placeholder for the input name of rule" id="ruleBody.namePlaceholder" >
           { placeholder => (
             <TextField
               className={styles['rule-name']}
-              key={rule.name}
-              name="rule-name"
               defaultValue={rule.name}
+              key={rule.name}
               label={
                 <FormattedMessage
-                  id="ruleBody.ruleName"
                   defaultMessage="Rule Name"
                   description="Text field label for the rule name"
+                  id="ruleBody.ruleName"
                 />
               }
+              name="rule-name"
               placeholder={placeholder}
-              onBlur={handleUpdateRuleName}
               required
+              onBlur={handleUpdateRuleName}
             />
           )}
         </FormattedMessage>
@@ -58,10 +58,6 @@ const RuleBody = (props) => {
       <RuleOperatorWrapper
         allowRemove={Boolean(props.onResetRule)}
         operator={rule.rules.operator}
-        onSetOperator={(value) => {
-          rule.rules.operator = value;
-          props.onChangeRule(rule);
-        }}
         onAdd={() => {
           rule.rules.groups.push({ operator: 'and', conditions: [{ rule_definition: '', rule_value: '' }] });
           props.onChangeRule(rule);
@@ -74,6 +70,10 @@ const RuleBody = (props) => {
             props.onChangeRule(rule);
           }
         }}
+        onSetOperator={(value) => {
+          rule.rules.operator = value;
+          props.onChangeRule(rule);
+        }}
       >
         {rule.rules.groups.map((group, i) => {
           const rulesDefinition = props.schema.properties.rules.items.properties.rules
@@ -85,23 +85,23 @@ const RuleBody = (props) => {
             >
               <div className={styles['rule-if-title']}>
                 <FormattedMessage
-                  id="ruleBody.if"
                   defaultMessage="If"
                   description="Logical operator IF statement label"
+                  id="ruleBody.if"
                 />
               </div>
               <RuleOperatorWrapper
                 operator={group.operator}
-                onSetOperator={(value) => {
-                  rule.rules.groups[i].operator = value;
-                  props.onChangeRule(rule);
-                }}
                 onAdd={() => {
                   rule.rules.groups[i].conditions.push({ rule_definition: '', rule_value: '' });
                   props.onChangeRule(rule);
                 }}
                 onRemove={(j) => {
                   rule.rules.groups[i].conditions.splice(j, 1);
+                  props.onChangeRule(rule);
+                }}
+                onSetOperator={(value) => {
+                  rule.rules.groups[i].operator = value;
                   props.onChangeRule(rule);
                 }}
               >
@@ -112,8 +112,8 @@ const RuleBody = (props) => {
 
                   return (
                     <div
-                      key={Math.random().toString().substring(2, 10)}
                       className={cx(styles['rule-field-wrapper'], inputStyles['form-fieldset'])}
+                      key={Math.random().toString().substring(2, 10)}
                     >
                       <RuleField
                         definition={rulesDefinition}
@@ -145,15 +145,14 @@ const RuleBody = (props) => {
         <div className={cx('rules__actions', styles['rule-then-group'])}>
           <div className={styles['rule-then-title']}>
             <FormattedMessage
-              id="ruleBody.then"
               defaultMessage="Then"
               description="Logical operator THEN statement"
+              id="ruleBody.then"
             />
           </div>
           <RuleOperatorWrapper
             operator="and"
             operators={['and']}
-            onSetOperator={() => {}}
             onAdd={() => {
               rule.actions.push({ action_definition: '', action_value: '' });
               props.onChangeRule(rule);
@@ -162,6 +161,7 @@ const RuleBody = (props) => {
               rule.actions.splice(i, 1);
               props.onChangeRule(rule);
             }}
+            onSetOperator={() => {}}
           >
             {rule.actions.map((action, i) => {
               const actions = props.schema.properties.rules.items.properties.actions.items;
@@ -170,8 +170,8 @@ const RuleBody = (props) => {
               const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
               return (
                 <div
-                  key={Math.random().toString().substring(2, 10)}
                   className={cx(styles['rule-field-wrapper'], inputStyles['form-fieldset'])}
+                  key={Math.random().toString().substring(2, 10)}
                 >
                   <RuleField
                     definition={actionsDefinition}

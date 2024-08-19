@@ -5,10 +5,10 @@ import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 describe('<Slideout />', () => {
   it('should render Slideout component', () => {
     const wrapper = mountWithIntl(<Slideout
-      title="Slideout Title"
       content="Slideout content"
       footer
       showCancel
+      title="Slideout Title"
       onClose={() => {}}
     />);
     expect(wrapper.find('.slideout')).toHaveLength(1);

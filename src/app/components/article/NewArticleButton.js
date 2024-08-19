@@ -20,16 +20,16 @@ const NewArticleButtonWrapper = ({ children, disabled }) => {
   if (disabled) {
     return (
       <Tooltip
+        arrow
         key="create-article-button"
         placement="top"
         title={
           <FormattedMessage
-            id="newArticleButton.tooltip"
             defaultMessage="You can't add an article here."
             description="Tooltip message displayed on new article button when it is disabled."
+            id="newArticleButton.tooltip"
           />
         }
-        arrow
       >
         <div className="new-article-button__tooltip-children">
           {children}
@@ -71,59 +71,59 @@ const NewArticleButton = ({
   return (
     <NewArticleButtonWrapper disabled={disabled}>
       <ButtonMain
-        variant="contained"
-        size="default"
-        theme="lightBeige"
-        iconLeft={<AddIcon />}
-        onClick={e => setAnchorEl(e.currentTarget)}
-        label={
-          <FormattedMessage
-            id="newArticleButton.newArticle"
-            defaultMessage="New Article"
-            description="Label of a button that opens a form to create a new article."
-          />
-        }
-        disabled={disabled}
         buttonProps={{
           id: 'new-article-menu__open-button',
         }}
+        disabled={disabled}
+        iconLeft={<AddIcon />}
+        label={
+          <FormattedMessage
+            defaultMessage="New Article"
+            description="Label of a button that opens a form to create a new article."
+            id="newArticleButton.newArticle"
+          />
+        }
+        size="default"
+        theme="lightBeige"
+        variant="contained"
+        onClick={e => setAnchorEl(e.currentTarget)}
         {...buttonMainProps}
       />
       <Menu
         anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        getContentAnchorEl={null}
-        onClose={() => setAnchorEl(null)}
         className={styles.menuList}
+        getContentAnchorEl={null}
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
       >
-        <MenuItem onClick={handleOpenFactCheck} className={styles.menuItem} disabled={Boolean(projectMedia?.claim_description?.id)} id="new-article-button__add-claim-and-fact-check">
+        <MenuItem className={styles.menuItem} disabled={Boolean(projectMedia?.claim_description?.id)} id="new-article-button__add-claim-and-fact-check" onClick={handleOpenFactCheck}>
           <ListItemIcon className={styles.itemIcon}>
             <PublishedIcon />
           </ListItemIcon>
           <ListItemText>
             <FormattedMessage
-              id="articlesComponent.claimAndFactCheck"
               defaultMessage="Claim & Fact-Check"
               description="The navigation name of the articles section"
+              id="articlesComponent.claimAndFactCheck"
             />
           </ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleOpenExplainer} className={styles.menuItem} id="new-article-button__add-explainer">
+        <MenuItem className={styles.menuItem} id="new-article-button__add-explainer" onClick={handleOpenExplainer}>
           <ListItemIcon className={styles.itemIcon}>
             <BookIcon />
           </ListItemIcon>
           <ListItemText>
             <FormattedMessage
-              id="articlesComponent.exaplainer"
               defaultMessage="Explainer"
               description="The navigation name of the articles section"
+              id="articlesComponent.exaplainer"
             />
           </ListItemText>
         </MenuItem>
       </Menu>
-      {openExplainer && <ExplainerForm article={{}} team={team} projectMedia={projectMedia} onClose={setOpenExplainer} onCreate={onCreate} />}
-      {openFactCheck && <ClaimFactCheckForm article={{}} team={team} projectMedia={projectMedia} onClose={setOpenFactCheck} onCreate={onCreate} />}
+      {openExplainer && <ExplainerForm article={{}} projectMedia={projectMedia} team={team} onClose={setOpenExplainer} onCreate={onCreate} />}
+      {openFactCheck && <ClaimFactCheckForm article={{}} projectMedia={projectMedia} team={team} onClose={setOpenFactCheck} onCreate={onCreate} />}
     </NewArticleButtonWrapper>
   );
 };

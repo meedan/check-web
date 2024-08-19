@@ -249,11 +249,28 @@ const TeamDataComponent = ({
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="teamDataComponent.title"
-            defaultMessage="Tipline engagement data"
-            description="Header for the stored data page of the current team"
+        actionButton={
+          <ButtonMain
+            iconLeft={<GetAppIcon />}
+            label={
+              <FormattedMessage
+                defaultMessage="Download CSV"
+                description="Label for action button displayed on workspace data report page."
+                id="teamDataComponent.download"
+              />
+            }
+            size="default"
+            theme="brand"
+            variant="contained"
+            onClick={handleDownload}
+          />
+        }
+        context={
+          <FormattedHTMLMessage
+            defaultMessage='View and export monthly tipline usage data. Data may take 24 hours to update; all data except for WhatsApp conversations are specific to each tipline language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about engagement data</a>.'
+            description="Context description for the functionality of this page"
+            id="teamDataComponent.helpContext"
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data' }}
           />
         }
         extra={(platforms.length > 1 || languages.length > 1) &&
@@ -264,40 +281,23 @@ const TeamDataComponent = ({
                 onChange={(e) => { setCurrentPlatform(e.target.value); }}
               >
                 {platforms.map(platform => (
-                  <option value={platform} key={platform}>{platform}</option>
+                  <option key={platform} value={platform}>{platform}</option>
                 ))}
               </Select> : null }
             { languages.length > 1 ?
               <LanguagePickerSelect
+                languages={languages}
                 selectedLanguage={currentLanguage}
                 onSubmit={newValue => setCurrentLanguage(newValue.languageCode)}
-                languages={languages}
               /> : null
             }
           </>
         }
-        actionButton={
-          <ButtonMain
-            variant="contained"
-            theme="brand"
-            size="default"
-            iconLeft={<GetAppIcon />}
-            onClick={handleDownload}
-            label={
-              <FormattedMessage
-                id="teamDataComponent.download"
-                defaultMessage="Download CSV"
-                description="Label for action button displayed on workspace data report page."
-              />
-            }
-          />
-        }
-        context={
-          <FormattedHTMLMessage
-            id="teamDataComponent.helpContext"
-            defaultMessage='View and export monthly tipline usage data. Data may take 24 hours to update; all data except for WhatsApp conversations are specific to each tipline language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about engagement data</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data' }}
-            description="Context description for the functionality of this page"
+        title={
+          <FormattedMessage
+            defaultMessage="Tipline engagement data"
+            description="Header for the stored data page of the current team"
+            id="teamDataComponent.title"
           />
         }
       />
@@ -308,19 +308,19 @@ const TeamDataComponent = ({
               <TableRow>
                 {headers.map(header => (
                   <TableCell
-                    key={header}
                     className={cx(
                       [settingsStyles.tableCell],
                       {
                         [settingsStyles.stickyTableCell]: header === 'Month',
                       })
                     }
+                    key={header}
                     sortDirection={orderBy === header ? order : false}
                   >
                     <TableSortLabel active={orderBy === header} direction={orderBy === header ? order : 'asc'} onClick={createSortHandler(header)}>
                       <span>{header}</span>
                       { helpMessages[header] ?
-                        <Tooltip key={header} title={helpMessages[header]} arrow>
+                        <Tooltip arrow key={header} title={helpMessages[header]}>
                           <span className={settingsStyles['table-header-tooltip']}>
                             <HelpIcon />
                           </span>
@@ -335,13 +335,13 @@ const TeamDataComponent = ({
                 <TableRow key={row.ID}>
                   {headers.map(header => (
                     <TableCell
-                      key={`${row.ID}-${header}`}
                       className={cx(
                         [settingsStyles.tableCell],
                         {
                           [settingsStyles.stickyTableCell]: header === 'Month',
                         })
                       }
+                      key={`${row.ID}-${header}`}
                     >
                       {formatValue(header, row[header])}
                     </TableCell>
@@ -354,17 +354,17 @@ const TeamDataComponent = ({
         <div className={cx(settingsStyles['setting-details-wrapper'])}>
           <div className={cx(settingsStyles['setting-content-container'], 'team-data-component__no-data')}>
             <FormattedMessage
-              tagName="p"
-              id="teamDataComponent.set1"
               defaultMessage="Fill {thisShortForm} to request access to your data report."
               description="Paragraph text informing the user what they need to do to enable this feature"
+              id="teamDataComponent.set1"
+              tagName="p"
               values={{
                 thisShortForm: (
-                  <a href="https://airtable.com/shrWpaztZ2SzD5TrA" target="_blank" rel="noopener noreferrer">
+                  <a href="https://airtable.com/shrWpaztZ2SzD5TrA" rel="noopener noreferrer" target="_blank">
                     <FormattedMessage
-                      id="teamDataComponent.formLinkText"
                       defaultMessage="this short form"
                       description="Link text taking the user to a form to fill out in order to request this feature be enabled"
+                      id="teamDataComponent.formLinkText"
                     />
                   </a>
                 ),
@@ -372,9 +372,9 @@ const TeamDataComponent = ({
             />
             <span className="typography-body1">
               <FormattedMessage
-                id="teamDataComponent.set2"
                 defaultMessage="Your data report will be enabled within one business day."
                 description="Informational message to let the user know when their report will be available to view"
+                id="teamDataComponent.set2"
               />
             </span>
           </div>

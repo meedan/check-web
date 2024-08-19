@@ -53,9 +53,9 @@ const ReportDesignerTopBar = (props) => {
   // By default, there is no report at all - so we can't publish, of course
   let cantPublishReason = (
     <FormattedMessage
-      id="reportDesignerToolbar.cantPublishInitial"
       defaultMessage="You must have at least Report Text or Visual Card selected in order to publish the report."
       description="Report designer helper message"
+      id="reportDesignerToolbar.cantPublishInitial"
     />
   );
   const defaultReport = data.options;
@@ -63,9 +63,9 @@ const ReportDesignerTopBar = (props) => {
   if (defaultReport && !defaultReport.use_visual_card && !defaultReport.use_text_message) {
     cantPublishReason = (
       <FormattedMessage
-        id="reportDesignerToolbar.cantPublishDefault"
         defaultMessage="The report for {language} cannot be empty because it is the default language. You must have content in Report Text or Visual Card for {language}. Or, you can right-click on the tab for another language to make it the default language."
         description="Report designer helper message"
+        id="reportDesignerToolbar.cantPublishDefault"
         values={{ language: languageLabel(defaultLanguage) }}
       />
     );
@@ -79,9 +79,9 @@ const ReportDesignerTopBar = (props) => {
   } else {
     cantPublishReason = (
       <FormattedMessage
-        id="reportDesignerToolbar.cantPublishText"
         defaultMessage="You must add a title, a summary and a language to the fact-check in order to publish the report."
         description="Text with a reason why user can not publish a report"
+        id="reportDesignerToolbar.cantPublishText"
       />
     );
   }
@@ -89,9 +89,9 @@ const ReportDesignerTopBar = (props) => {
   if (media.last_status === media.team.verification_statuses.default) {
     cantPublishReason = (
       <FormattedMessage
-        id="reportDesignerToolbar.cantPublishStatus"
         defaultMessage="Your item still has the default status {status} and must be changed to a different status before it can be published."
         description="Report designer helper message"
+        id="reportDesignerToolbar.cantPublishStatus"
         values={{ status: <strong>{getStatus(media.team.verification_statuses, media.last_status, defaultLanguage, defaultLanguage).label}</strong> }}
       />
     );
@@ -100,9 +100,9 @@ const ReportDesignerTopBar = (props) => {
   if (media.show_warning_cover && defaultReport.image === media.media.picture && defaultReport.use_visual_card) {
     cantPublishReason = (
       <FormattedMessage
-        id="reportDesignerToolbar.cantPublishContentFlag"
         defaultMessage="Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
         description="Report designer helper message"
+        id="reportDesignerToolbar.cantPublishContentFlag"
       />
     );
   }
@@ -140,24 +140,24 @@ const ReportDesignerTopBar = (props) => {
     <div className={styles['report-header-bar']}>
       <ButtonMain
         iconLeft={<IconArrowBack />}
-        theme="text"
-        size="default"
-        variant="text"
-        onClick={handleGoBack}
         label={
           <FormattedMessage
-            id="reportDesigner.back"
             defaultMessage="Back"
             description="Button label to navigate back to item page"
+            id="reportDesigner.back"
           />
         }
+        size="default"
+        theme="text"
+        variant="text"
+        onClick={handleGoBack}
       />
       <div className={styles['report-header-meta']}>
         <div className="typography-subtitle2">
           <FormattedMessage
-            id="reportDesigner.firstSent"
             defaultMessage="First published"
             description="Header for first publication date of report"
+            id="reportDesigner.firstSent"
           />
           <div className="typography-body1">
             {firstSent || '-'}
@@ -165,9 +165,9 @@ const ReportDesignerTopBar = (props) => {
         </div>
         <div className="typography-subtitle2">
           <FormattedMessage
-            id="reportDesigner.lastPublished"
             defaultMessage="Last published"
             description="Header for last publication date of report"
+            id="reportDesigner.lastPublished"
           />
           <div className="typography-body1">
             {lastSent || firstSent || '-'}
@@ -175,9 +175,9 @@ const ReportDesignerTopBar = (props) => {
         </div>
         <div className="typography-subtitle2">
           <FormattedMessage
-            id="reportDesigner.sentCount"
             defaultMessage="Reports sent"
             description="Header for reports sent count"
+            id="reportDesigner.sentCount"
           />
           <div className="typography-body1">
             { media.dynamic_annotation_report_design ?
@@ -188,50 +188,12 @@ const ReportDesignerTopBar = (props) => {
       <div className={styles['report-actions']}>
         { (state === 'paused' || state === 'unpublished') ?
           <ReportDesignerConfirmableButton
-            theme="validation"
-            disabled={readOnly}
-            label={
+            cancelLabel={
               <FormattedMessage
-                id="reportDesigner.publish"
-                defaultMessage="Publish"
-                description="Label for publish report button"
+                defaultMessage="Go back"
+                description="Cancel action button label"
+                id="reportDesigner.cancelPublish"
               />
-            }
-            icon={<IconPlay />}
-            title={
-              <React.Fragment>
-                {/* Can't publish report */}
-                { cantPublishReason ?
-                  <FormattedMessage
-                    id="reportDesigner.cantPublishTitle"
-                    defaultMessage="Your report is not ready to be published"
-                    description="Helper message to publishing report action"
-                  /> : null }
-
-                {/* Sending report for the first time */}
-                { !cantPublishReason && !data.last_published ?
-                  <FormattedMessage
-                    id="reportDesigner.confirmPublishTitle"
-                    defaultMessage="Ready to publish your report?"
-                    description="Helper message to publishing report action"
-                  /> : null }
-
-                {/* Re-sending a report after a status change */}
-                { !cantPublishReason && statusChanged ?
-                  <FormattedMessage
-                    id="reportDesigner.confirmRepublishResendTitle"
-                    defaultMessage="Ready to publish your changes?"
-                    description="Helper message to publishing report action"
-                  /> : null }
-
-                {/* Re-sending a report with the same status */}
-                { !cantPublishReason && data.last_published && !statusChanged ?
-                  <FormattedMessage
-                    id="reportDesigner.confirmRepublishTitle"
-                    defaultMessage="Ready to publish your changes?"
-                    description="Helper message to publishing report action"
-                  /> : null }
-              </React.Fragment>
             }
             content={
               <Box>
@@ -240,37 +202,37 @@ const ReportDesignerTopBar = (props) => {
                 {/* Sending report for the first time */}
                 { !cantPublishReason && !data.last_published && media.demand > 0 ?
                   <FormattedMessage
-                    tagName="p"
-                    id="reportDesigner.confirmPublishText"
                     defaultMessage="{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
                     description="Helper message to publishing report action"
+                    id="reportDesigner.confirmPublishText"
+                    tagName="p"
                     values={{ demand: media.demand }}
                   /> : null }
 
                 { !cantPublishReason ?
                   <FormattedMessage
-                    tagName="p"
-                    id="reportDesigner.confirmPublishText2"
                     defaultMessage="Future users who request this item will receive this version of the report while it remains published."
                     description="Helper message to publishing report action"
+                    id="reportDesigner.confirmPublishText2"
+                    tagName="p"
                   /> : null }
 
                 {/* Re-sending a report after a status change */}
                 { !cantPublishReason && statusChanged && media.demand > 0 ?
                   <FormattedMessage
-                    tagName="p"
-                    id="reportDesigner.confirmRepublishResendText"
                     defaultMessage="{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
                     description="Helper message to publishing report action"
+                    id="reportDesigner.confirmRepublishResendText"
+                    tagName="p"
                     values={{
                       demand: media.demand,
                       correctionLink: (
                         <React.Fragment>
-                          <a href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
+                          <a className={classes.correctionLink} href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" target="_blank">
                             <FormattedMessage
-                              id="reportDesigner.correction"
                               defaultMessage="correction"
                               description="This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
+                              id="reportDesigner.correction"
                             />
                             {' '}
                             <HelpIcon />
@@ -286,34 +248,34 @@ const ReportDesignerTopBar = (props) => {
                     <FormControlLabel
                       control={
                         <Checkbox
+                          checked={resendToPrevious}
                           key="resend-report"
                           onChange={(e) => { setResendToPrevious(e.target.checked); }}
-                          checked={resendToPrevious}
                         />
                       }
                       label={
                         media.team?.get_languages?.length > 1 && data.options?.language && data.options.language !== 'und' && media.team?.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled ?
                           <FormattedMessage
-                            id="reportDesigner.republishAndResendSingleLanguage"
                             defaultMessage="Also send this updated report only to users who requested this item in {reportLanguage}."
                             description="Helper message to publishing report action"
+                            id="reportDesigner.republishAndResendSingleLanguage"
                             values={{
                               reportLanguage: languageLabel(data?.options?.language),
                             }}
                           /> :
                           <FormattedMessage
-                            id="reportDesigner.republishAndResend"
                             defaultMessage="{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
                             description="Helper message to publishing report correction action"
+                            id="reportDesigner.republishAndResend"
                             values={{
                               demand: media.demand,
                               correctionLink: (
                                 <React.Fragment>
-                                  <a href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
+                                  <a className={classes.correctionLink} href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" target="_blank">
                                     <FormattedMessage
-                                      id="reportDesigner.correction"
                                       defaultMessage="correction"
                                       description="This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
+                                      id="reportDesigner.correction"
                                     />
                                     {' '}
                                     <HelpIcon />
@@ -327,46 +289,84 @@ const ReportDesignerTopBar = (props) => {
                   </Box> : null }
               </Box>
             }
-            cancelLabel={
+            disabled={readOnly}
+            icon={<IconPlay />}
+            label={
               <FormattedMessage
-                id="reportDesigner.cancelPublish"
-                defaultMessage="Go back"
-                description="Cancel action button label"
+                defaultMessage="Publish"
+                description="Label for publish report button"
+                id="reportDesigner.publish"
               />
             }
+            noCancel={Boolean(cantPublishReason)}
             proceedLabel={
               <React.Fragment>
                 {/* Can't publish report */}
                 { cantPublishReason ?
                   <FormattedMessage
-                    id="reportDesigner.cantPublish"
                     defaultMessage="Go back to editing"
                     description="Back to editing action button label"
+                    id="reportDesigner.cantPublish"
                   /> : null }
                 {/* Sending report for the first time */}
                 { !cantPublishReason && !data.last_published ?
                   <FormattedMessage
-                    id="reportDesigner.confirmPublish"
                     defaultMessage="Publish report"
                     description="Publish report action button label"
+                    id="reportDesigner.confirmPublish"
                   /> : null }
                 {/* Re-sending a report with the same status */}
                 { !cantPublishReason && data.last_published && !statusChanged ?
                   <FormattedMessage
-                    id="reportDesigner.confirmPublishSameStatus"
                     defaultMessage="Publish changes"
                     description="Publish report action button label"
+                    id="reportDesigner.confirmPublishSameStatus"
                   /> : null }
                 {/* Re-sending a report after a status change */}
                 { !cantPublishReason && statusChanged ?
                   <FormattedMessage
-                    id="reportDesigner.confirmPublishStatusChange"
                     defaultMessage="Publish changes and send correction"
                     description="Publish report action button label"
+                    id="reportDesigner.confirmPublishStatusChange"
                   /> : null }
               </React.Fragment>
             }
-            noCancel={Boolean(cantPublishReason)}
+            theme="validation"
+            title={
+              <React.Fragment>
+                {/* Can't publish report */}
+                { cantPublishReason ?
+                  <FormattedMessage
+                    defaultMessage="Your report is not ready to be published"
+                    description="Helper message to publishing report action"
+                    id="reportDesigner.cantPublishTitle"
+                  /> : null }
+
+                {/* Sending report for the first time */}
+                { !cantPublishReason && !data.last_published ?
+                  <FormattedMessage
+                    defaultMessage="Ready to publish your report?"
+                    description="Helper message to publishing report action"
+                    id="reportDesigner.confirmPublishTitle"
+                  /> : null }
+
+                {/* Re-sending a report after a status change */}
+                { !cantPublishReason && statusChanged ?
+                  <FormattedMessage
+                    defaultMessage="Ready to publish your changes?"
+                    description="Helper message to publishing report action"
+                    id="reportDesigner.confirmRepublishResendTitle"
+                  /> : null }
+
+                {/* Re-sending a report with the same status */}
+                { !cantPublishReason && data.last_published && !statusChanged ?
+                  <FormattedMessage
+                    defaultMessage="Ready to publish your changes?"
+                    description="Helper message to publishing report action"
+                    id="reportDesigner.confirmRepublishTitle"
+                  /> : null }
+              </React.Fragment>
+            }
             onClose={null}
             onConfirm={
               cantPublishReason ?
@@ -386,43 +386,43 @@ const ReportDesignerTopBar = (props) => {
           /> : null }
         { state === 'published' ?
           <ReportDesignerConfirmableButton
-            theme="alert"
-            disabled={readOnly}
-            label={
+            cancelLabel={
               <FormattedMessage
-                id="reportDesigner.pause"
-                defaultMessage="Pause"
-                description="Pause report publication action button label"
-              />
-            }
-            icon={<IconPause />}
-            title={
-              <FormattedMessage
-                id="reportDesigner.confirmPauseTitle"
-                defaultMessage="Do you want to pause the report?"
-                description="Pause report publication dialog title"
+                defaultMessage="Go back"
+                description="Cancel action button label"
+                id="reportDesigner.cancelPause"
               />
             }
             content={
               <FormattedMessage
-                tagName="p"
-                id="reportDesigner.confirmPauseText"
                 defaultMessage="This will stop the report from being sent out to users until it is published again."
                 description="Pause report publication action helper text"
+                id="reportDesigner.confirmPauseText"
+                tagName="p"
               />
             }
-            cancelLabel={
+            disabled={readOnly}
+            icon={<IconPause />}
+            label={
               <FormattedMessage
-                id="reportDesigner.cancelPause"
-                defaultMessage="Go back"
-                description="Cancel action button label"
+                defaultMessage="Pause"
+                description="Pause report publication action button label"
+                id="reportDesigner.pause"
               />
             }
             proceedLabel={
               <FormattedMessage
-                id="reportDesigner.confirmPause"
                 defaultMessage="Pause report"
                 description="Confirm pause report publication action button label"
+                id="reportDesigner.confirmPause"
+              />
+            }
+            theme="alert"
+            title={
+              <FormattedMessage
+                defaultMessage="Do you want to pause the report?"
+                description="Pause report publication dialog title"
+                id="reportDesigner.confirmPauseTitle"
               />
             }
             onConfirm={() => {
@@ -430,9 +430,9 @@ const ReportDesignerTopBar = (props) => {
             }}
           /> : null }
         <MediaStatus
+          callback={handleStatusChanged}
           media={media}
           readonly={readOnly || state === 'published'}
-          callback={handleStatusChanged}
           onChanging={handleStatusChanging}
         />
       </div>

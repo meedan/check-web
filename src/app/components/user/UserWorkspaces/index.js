@@ -21,9 +21,6 @@ const UserWorkspaces = () => {
     <QueryRenderer
       environment={Relay.Store}
       query={userWorkspacesQuery}
-      variables={{
-        pageSize,
-      }}
       render={({ error, props: innerProps }) => {
         if (!error && innerProps) {
           const { me } = innerProps;
@@ -40,6 +37,9 @@ const UserWorkspaces = () => {
           );
         }
         return null;
+      }}
+      variables={{
+        pageSize,
       }}
     />
   );

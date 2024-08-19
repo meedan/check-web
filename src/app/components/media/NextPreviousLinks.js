@@ -19,42 +19,42 @@ function NextPreviousLinksComponent({
   return (
     <div className={styles['next-prev-pager']}>
       <NextOrPreviousButton
-        className="media-search__previous-item"
-        key={`${JSON.stringify(listQuery)}-${listIndex - 1}`}
-        disabled={listIndex < 1}
-        tooltipTitle={
-          <FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" description="Tooltip message for a paging button to move to the previous item" />
-        }
         buildSiblingUrl={buildSiblingUrl}
-        listQuery={listQuery}
-        listIndex={listIndex - 1}
-        searchIndex={(listIndex - 1) - ((listIndex - 1) % pageSize)}
-        objectType={objectType}
-        type="prev"
+        className="media-search__previous-item"
+        disabled={listIndex < 1}
         icon={<PrevIcon />}
+        key={`${JSON.stringify(listQuery)}-${listIndex - 1}`}
+        listIndex={listIndex - 1}
+        listQuery={listQuery}
+        objectType={objectType}
+        searchIndex={(listIndex - 1) - ((listIndex - 1) % pageSize)}
+        tooltipTitle={
+          <FormattedMessage defaultMessage="Previous item" description="Tooltip message for a paging button to move to the previous item" id="mediaSearch.previousItem" />
+        }
+        type="prev"
       />
       <span id="media-search__current-item">
         <FormattedMessage
-          id="mediaSearch.xOfY"
           defaultMessage="{current} of {total}"
           description="The current item number and total in the list paging control is showing"
+          id="mediaSearch.xOfY"
           values={{ current: listIndex + 1, total: nTotal }}
         />
       </span>
       <NextOrPreviousButton
-        className="media-search__next-item"
-        key={`${JSON.stringify(listQuery)}-${listIndex + 1}`}
-        disabled={listIndex + 1 >= nTotal}
-        tooltipTitle={
-          <FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" description="Tooltip message for a paging button to move to the next item" />
-        }
         buildSiblingUrl={buildSiblingUrl}
-        listQuery={listQuery}
-        listIndex={listIndex + 1}
-        searchIndex={(listIndex + 1) - ((listIndex + 1) % pageSize)}
-        objectType={objectType}
-        type="next"
+        className="media-search__next-item"
+        disabled={listIndex + 1 >= nTotal}
         icon={<NextIcon />}
+        key={`${JSON.stringify(listQuery)}-${listIndex + 1}`}
+        listIndex={listIndex + 1}
+        listQuery={listQuery}
+        objectType={objectType}
+        searchIndex={(listIndex + 1) - ((listIndex + 1) % pageSize)}
+        tooltipTitle={
+          <FormattedMessage defaultMessage="Next item" description="Tooltip message for a paging button to move to the next item" id="mediaSearch.nextItem" />
+        }
+        type="next"
       />
     </div>
   );
@@ -86,74 +86,74 @@ function NextPreviousLinksFastComponent({
     <div className={styles['next-prev-pager']}>
       { localIndex === 0 && listIndex !== 0 ? (
         <NextOrPreviousButton
-          className="media-search__previous-item"
-          key={listIndex - 1}
-          tooltipTitle={
-            <FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" description="Tooltip message for a paging button to move to the previous item" />
-          }
           buildSiblingUrl={buildSiblingUrl}
-          listQuery={listQuery}
-          listIndex={listIndex - 1}
-          searchIndex={(listIndex - 1) - ((listIndex - 1) % pageSize)}
-          objectType={objectType}
-          type="prev"
+          className="media-search__previous-item"
           icon={<PrevIcon />}
+          key={listIndex - 1}
+          listIndex={listIndex - 1}
+          listQuery={listQuery}
+          objectType={objectType}
+          searchIndex={(listIndex - 1) - ((listIndex - 1) % pageSize)}
+          tooltipTitle={
+            <FormattedMessage defaultMessage="Previous item" description="Tooltip message for a paging button to move to the previous item" id="mediaSearch.previousItem" />
+          }
+          type="prev"
         />
       ) : (
         <Tooltip
           arrow
-          title={<FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" description="Tooltip message for a paging button to move to the previous item" />}
+          title={<FormattedMessage defaultMessage="Previous item" description="Tooltip message for a paging button to move to the previous item" id="mediaSearch.previousItem" />}
         >
           <span>
             <ButtonMain
-              size="default"
-              variant="text"
-              theme="text"
-              disabled={listIndex === 0}
               className="media-search__previous-item"
-              onClick={handlePrevClick}
+              disabled={listIndex === 0}
               iconCenter={<PrevIcon />}
+              size="default"
+              theme="text"
+              variant="text"
+              onClick={handlePrevClick}
             />
           </span>
         </Tooltip>
       )}
       <span id="media-search__current-item">
         <FormattedMessage
-          id="mediaSearch.xOfY"
           defaultMessage="{current} of {total}"
           description="The current item number and total in the list paging control is showing"
+          id="mediaSearch.xOfY"
           values={{ current: listIndex + 1, total: count }}
         />
       </span>
       { localIndex === pageSize - 1 && listIndex !== count - 1 ? (
         <NextOrPreviousButton
-          className="media-search__previous-item"
-          key={listIndex + 1}
-          tooltipTitle={
-            <FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" description="Tooltip message for a paging button to move to the next item" />
-          }
           buildSiblingUrl={buildSiblingUrl}
-          listQuery={listQuery}
-          listIndex={listIndex + 1}
-          searchIndex={(listIndex + 1) - ((listIndex + 1) % pageSize)}
-          objectType={objectType}
-          type="next"
+          className="media-search__previous-item"
           icon={<NextIcon />}
+          key={listIndex + 1}
+          listIndex={listIndex + 1}
+          listQuery={listQuery}
+          objectType={objectType}
+          searchIndex={(listIndex + 1) - ((listIndex + 1) % pageSize)}
+          tooltipTitle={
+            <FormattedMessage defaultMessage="Next item" description="Tooltip message for a paging button to move to the next item" id="mediaSearch.nextItem" />
+          }
+          type="next"
         />
       ) : (
         <Tooltip
-          title={<FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" description="Tooltip message for a paging button to move to the next item" />}
           arrow
+          title={<FormattedMessage defaultMessage="Next item" description="Tooltip message for a paging button to move to the next item" id="mediaSearch.nextItem" />}
         >
           <span>
             <ButtonMain
-              size="default"
-              variant="text"
-              theme="text"
-              disabled={listIndex === count - 1}
               className="media-search__next-item"
-              onClick={handleNextClick}
+              disabled={listIndex === count - 1}
               iconCenter={<NextIcon />}
+              size="default"
+              theme="text"
+              variant="text"
+              onClick={handleNextClick}
             />
           </span>
         </Tooltip>
@@ -175,11 +175,11 @@ export default function NextPreviousLinks({
   if (mediaNavList && count) {
     return (
       <NextPreviousLinksFastComponent
-        listIndex={listIndex}
-        count={count}
-        mediaNavList={mediaNavList}
-        listQuery={listQuery}
         buildSiblingUrl={buildSiblingUrl}
+        count={count}
+        listIndex={listIndex}
+        listQuery={listQuery}
+        mediaNavList={mediaNavList}
         objectType={objectType}
       />
     );
@@ -196,7 +196,6 @@ export default function NextPreviousLinks({
           }
         }
       `}
-      variables={{ queryJson: JSON.stringify(listQuery) }}
       render={({ error, props }) => {
         if (error) {
           // Assume the network layer warned us. Just hide the links.
@@ -207,15 +206,16 @@ export default function NextPreviousLinks({
         }
         return (
           <NextPreviousLinksComponent
-            buildSiblingUrl={buildSiblingUrl}
-            listQuery={listQuery}
-            listIndex={listIndex}
             annotationState={annotationState}
-            objectType={objectType}
+            buildSiblingUrl={buildSiblingUrl}
+            listIndex={listIndex}
+            listQuery={listQuery}
             nTotal={props.search.number_of_results}
+            objectType={objectType}
           />
         );
       }}
+      variables={{ queryJson: JSON.stringify(listQuery) }}
     />
   );
 }

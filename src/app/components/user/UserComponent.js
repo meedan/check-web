@@ -31,7 +31,7 @@ class UserComponent extends React.Component {
         <div className={cx('source', styles['user-settings-wrapper'])}>
           <div className={styles['user-content']}>
             <div className={cx('source', styles['user-setting-details-wrapper'])}>
-              <UserInfo user={user} context={context} />
+              <UserInfo context={context} user={user} />
             </div>
           </div>
         </div>

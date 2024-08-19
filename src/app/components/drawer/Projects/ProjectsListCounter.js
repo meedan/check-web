@@ -6,7 +6,7 @@ import { getCompactNumber } from '../../../helpers';
 import styles from './Projects.module.css';
 
 const ProjectsListCounter = ({ intl, numberOfItems }) => (
-  <div title={numberOfItems} className={styles.listItemCount}>
+  <div className={styles.listItemCount} title={numberOfItems}>
     <small>
       { !Number.isNaN(parseInt(numberOfItems, 10)) ?
         getCompactNumber(intl.locale, numberOfItems) : null }

@@ -46,9 +46,9 @@ const CreateTeamDialog = ({ intl, onDismiss, team }) => {
     setSaving(false);
     const defaultErrorMessage = (
       <FormattedMessage
-        id="createTeamDialog.defaultErrorMessage"
         defaultMessage="Could not create new workspace"
         description="Error message when a workspace could not be created"
+        id="createTeamDialog.defaultErrorMessage"
       />
     );
     setErrorMessage(getErrorMessage(error, defaultErrorMessage));
@@ -150,94 +150,94 @@ const CreateTeamDialog = ({ intl, onDismiss, team }) => {
         { team ?
           <>
             <FormattedMessage
-              tagName="h6"
-              id="createTeamDialog.dialogTitleDuplicate"
               defaultMessage="Duplicate workspace"
               description="Title of a dialog box to duplicate the current workspace"
+              id="createTeamDialog.dialogTitleDuplicate"
+              tagName="h6"
             />
             <Alert
               className={styles['dialog-alert']}
-              variant="info"
               content={
                 <FormattedMessage
-                  id="createTeamDialog.description"
                   defaultMessage="All settings from this workspace will be duplicated. No content will be added."
                   description="Description note to tell the user what information will be duplicated"
+                  id="createTeamDialog.description"
                 />
               }
+              variant="info"
             />
           </> :
           <FormattedMessage
-            tagName="h6"
-            id="createTeamDialog.dialogTitleCreate"
             defaultMessage="Create new workspace"
             description="Dialog title for creating a new workspace"
+            id="createTeamDialog.dialogTitleCreate"
+            tagName="h6"
           /> }
       </div>
       <div className={styles['dialog-content']}>
         <div className={inputStyles['form-fieldset']}>
           <div className={inputStyles['form-fieldset-field']}>
             <TextField
-              required
-              value={name}
               id="create-team-dialog__name-input"
               label={
                 <FormattedMessage
-                  id="createTeamDialog.name"
                   defaultMessage="Workspace name"
                   description="Text field label for the name of the new workspace"
+                  id="createTeamDialog.name"
                 />
               }
+              required
+              value={name}
               onChange={(e) => { setName(e.target.value); }}
             />
           </div>
           <div className={inputStyles['form-fieldset-field']}>
             <TextField
-              required
-              value={slug || autoSlug}
+              error={Boolean(errorMessage)}
+              helpContent={errorMessage ? `${errorMessage}
+              https://checkmedia.org/${slug || autoSlug}` : `https://checkmedia.org/${slug || autoSlug}`}
+              helperText={errorMessage}
               label={
                 <FormattedMessage
-                  id="createTeamDialog.url"
                   defaultMessage="Workspace URL"
                   description="Text field label for the URL of the new workspace"
+                  id="createTeamDialog.url"
                 />
               }
+              required // maintain line break to separate error message from help text
+              value={slug || autoSlug}
               onChange={(e) => {
                 if (errorMessage) {
                   setErrorMessage(null);
                 }
                 setSlug(e.target.value);
               }}
-              helpContent={errorMessage ? `${errorMessage}
-              https://checkmedia.org/${slug || autoSlug}` : `https://checkmedia.org/${slug || autoSlug}`} // maintain line break to separate error message from help text
-              error={Boolean(errorMessage)}
-              helperText={errorMessage}
             />
           </div>
         </div>
       </div>
       <div className={styles['dialog-actions']}>
         <ButtonMain
-          onClick={onDismiss}
-          theme="text"
-          variant="text"
-          size="default"
           label={
             <FormattedMessage
-              id="createTeamDialog.cancel"
               defaultMessage="Cancel"
               description="Button label to cancel creating a workspace"
+              id="createTeamDialog.cancel"
             />
           }
+          size="default"
+          theme="text"
+          variant="text"
+          onClick={onDismiss}
         />
         <ButtonMain
-          theme="brand"
-          variant="contained"
-          size="default"
           className="create-team-dialog__confirm-button"
-          onClick={handleSubmit}
           disabled={saving || !name}
           label={buttonLabel}
+          size="default"
+          theme="brand"
+          variant="contained"
+          onClick={handleSubmit}
         />
       </div>
     </Dialog>

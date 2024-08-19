@@ -19,68 +19,68 @@ function TeamMetadataRender({ about, team }) {
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="teamMetadataRender.headerTitle"
-            defaultMessage="Annotation Form"
-            description="Title for annotation settings screen."
-          />
+        actionButton={
+          <CreateTeamTask associatedType={associatedType} fieldset="metadata" team={team} />
         }
         context={
           associatedType === 'ProjectMedia' ?
             <FormattedHTMLMessage
-              id="teamMetadataRender.itemHelpContext"
               defaultMessage='Customize the item annotation form. Learn more about <a href="{helpLink}" target="_blank" title="Learn more">using annotations</a> to add context to items.'
               description="Context description for the functionality of the item portion of this page"
+              id="teamMetadataRender.itemHelpContext"
               values={{ helpLink: 'https://help.checkmedia.org/en/articles/4346772-annotation' }}
             /> :
             <FormattedHTMLMessage
-              id="teamMetadataRender.sourceHelpContext"
               defaultMessage='Customize the source annotation form. Learn more about <a href="{helpLink}" target="_blank" title="Learn more">describing sources</a>.'
               description="Context description for the functionality of source portion of this page"
+              id="teamMetadataRender.sourceHelpContext"
               values={{ helpLink: 'https://help.checkmedia.org/en/articles/4346772-annotation' }}
             />
         }
         extra={
           <ToggleButtonGroup
-            variant="contained"
-            value={showTab}
-            onChange={(e, newValue) => { setShowTab(newValue); }}
             exclusive
+            value={showTab}
+            variant="contained"
+            onChange={(e, newValue) => { setShowTab(newValue); }}
           >
-            <ToggleButton value="items" key="items" className="int-annotations__button--page-content-items">
+            <ToggleButton className="int-annotations__button--page-content-items" key="items" value="items">
               <FormattedMessage
-                id="teamMetadataRender.headerItemButton"
                 defaultMessage="Items"
                 description="Button to select to see the content for this page. Refers to annotation applied to items generally, not any specific item or items."
+                id="teamMetadataRender.headerItemButton"
               />
             </ToggleButton>
-            <ToggleButton value="sources" key="sources" className="int-annotations__button--page-content-sources">
+            <ToggleButton className="int-annotations__button--page-content-sources" key="sources" value="sources">
               <FormattedMessage
-                id="teamMetadataRender.headerSourceButton"
                 defaultMessage="Sources"
                 description="Button to select to see the content for this page. Refers to annotation applied to sources generally, not any specific source or sources."
+                id="teamMetadataRender.headerSourceButton"
               />
             </ToggleButton>
           </ToggleButtonGroup>
         }
-        actionButton={
-          <CreateTeamTask fieldset="metadata" associatedType={associatedType} team={team} />
+        title={
+          <FormattedMessage
+            defaultMessage="Annotation Form"
+            description="Title for annotation settings screen."
+            id="teamMetadataRender.headerTitle"
+          />
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
         { teamMetadata.length ?
           <TeamTasksProject
+            about={about}
             fieldset="metadata"
             project={{ teamTasks: teamMetadata }}
             team={team}
-            about={about}
           /> :
           <BlankState>
             <FormattedMessage
-              id="teamMetadataRender.blankAnnotations"
               defaultMessage="No Workspace Annotations"
               description="Text for empty annotations"
+              id="teamMetadataRender.blankAnnotations"
             />
           </BlankState>
         }

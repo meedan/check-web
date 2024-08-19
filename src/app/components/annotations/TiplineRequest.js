@@ -100,7 +100,7 @@ const TiplineRequest = ({
   const smoochRequestLanguage = activity.smooch_user_request_language;
 
   const userName = objectValue.name === 'deleted' ?
-    <FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" /> :
+    <FormattedMessage defaultMessage="Deleted User" description="Label for deleted user" id="annotation.deletedUser" /> :
     emojify(objectValue.name);
   // the unique ID of the conversation associated with this media item
   const uid = objectValue.authorId;
@@ -142,29 +142,29 @@ const TiplineRequest = ({
   return (
     <Request
       details={details}
-      time={<TimeBefore date={updatedAt} />}
+      historyButton={(
+        !hideButtons && <TiplineHistoryButton
+          channel={channelLabel[messageType] || messageType}
+          messageId={messageId}
+          name={userName}
+          uid={uid}
+        />
+      )}
+      icon={<SmoochIcon name={messageType} />}
+      receipt={<RequestReceipt events={reportHistory} />}
+      sendMessageButton={(
+        !hideButtons && <SendTiplineMessage
+          annotationId={activity.dbid}
+          channel={channelLabel[messageType] || messageType}
+          username={userName}
+        />
+      )}
       text={messageText ? (
         parseText(messageText, projectMedia, activity)
       ) : (
         intl.formatMessage(messages.smoochNoMessage)
       )}
-      icon={<SmoochIcon name={messageType} />}
-      historyButton={(
-        !hideButtons && <TiplineHistoryButton
-          uid={uid}
-          name={userName}
-          channel={channelLabel[messageType] || messageType}
-          messageId={messageId}
-        />
-      )}
-      sendMessageButton={(
-        !hideButtons && <SendTiplineMessage
-          username={userName}
-          channel={channelLabel[messageType] || messageType}
-          annotationId={activity.dbid}
-        />
-      )}
-      receipt={<RequestReceipt events={reportHistory} />}
+      time={<TimeBefore date={updatedAt} />}
     />
   );
 };

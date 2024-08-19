@@ -15,9 +15,9 @@ const SearchKeywordConfigComponent = ({
       value: 'claim_and_fact_check',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.factCheck"
           defaultMessage="Fact-check"
           description="Label for checkbox to toggle searching for keyword across Fact-checks"
+          id="searchKeywordConfig.factCheck"
         />
       ),
       hasChildren: true,
@@ -26,9 +26,9 @@ const SearchKeywordConfigComponent = ({
       value: 'claim_description_content',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.claimDescription"
           defaultMessage="Claim"
           description="Label for checkbox to toggle searching for keyword across claims"
+          id="searchKeywordConfig.claimDescription"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -37,9 +37,9 @@ const SearchKeywordConfigComponent = ({
       value: 'claim_description_context',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.claimDescriptionContext"
           defaultMessage="Context"
           description="Label for checkbox to toggle searching for keyword across context data"
+          id="searchKeywordConfig.claimDescriptionContext"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -48,9 +48,9 @@ const SearchKeywordConfigComponent = ({
       value: 'fact_check_summary',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.factCheckSummary"
           defaultMessage="Summary"
           description="Label for checkbox to toggle searching for keyword across summaries data"
+          id="searchKeywordConfig.factCheckSummary"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -59,9 +59,9 @@ const SearchKeywordConfigComponent = ({
       value: 'tags',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.tags"
           defaultMessage="Tags"
           description="Label for checkbox to toggle searching for keyword across tags"
+          id="searchKeywordConfig.tags"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -70,9 +70,9 @@ const SearchKeywordConfigComponent = ({
       value: 'fact_check_title',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.factCheckTitle"
           defaultMessage="Title"
           description="Label for checkbox to toggle searching for keyword across Fact-check titles"
+          id="searchKeywordConfig.factCheckTitle"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -81,9 +81,9 @@ const SearchKeywordConfigComponent = ({
       value: 'fact_check_url',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.factCheckUrl"
           defaultMessage="URLs"
           description="Label for checkbox to toggle searching for keyword across Fact-checks urls"
+          id="searchKeywordConfig.factCheckUrl"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -94,9 +94,9 @@ const SearchKeywordConfigComponent = ({
       value: 'media',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.media"
           defaultMessage="Media"
           description="Label for checkbox to toggle searching for keyword across medias"
+          id="searchKeywordConfig.media"
         />
       ),
       hasChildren: true,
@@ -105,9 +105,9 @@ const SearchKeywordConfigComponent = ({
       value: 'description',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.mediaContent"
           defaultMessage="Content"
           description="Label for checkbox to toggle searching for keyword across media contents"
+          id="searchKeywordConfig.mediaContent"
         />
       ),
       parent: 'media',
@@ -116,9 +116,9 @@ const SearchKeywordConfigComponent = ({
       value: 'source_name',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.sourceTitle"
           defaultMessage="Source"
           description="Label for checkbox to toggle searching for keyword across titles of media sources"
+          id="searchKeywordConfig.sourceTitle"
         />
       ),
       parent: 'media',
@@ -127,9 +127,9 @@ const SearchKeywordConfigComponent = ({
       value: 'title',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.mediaTitle"
           defaultMessage="Title"
           description="Label for checkbox to toggle searching for keyword across media titles"
+          id="searchKeywordConfig.mediaTitle"
         />
       ),
       parent: 'media',
@@ -138,9 +138,9 @@ const SearchKeywordConfigComponent = ({
       value: 'url',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.mediaUrl"
           defaultMessage="URL"
           description="Label for checkbox to toggle searching for keyword across media URLs"
+          id="searchKeywordConfig.mediaUrl"
         />
       ),
       parent: 'media',
@@ -151,9 +151,9 @@ const SearchKeywordConfigComponent = ({
       value: 'comments',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.allNotes"
           defaultMessage="Notes"
           description="Label for checkbox to toggle searching for keyword across notes (aka comments)"
+          id="searchKeywordConfig.allNotes"
         />
       ),
     },
@@ -163,9 +163,9 @@ const SearchKeywordConfigComponent = ({
       value: 'user_and_request',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.request"
           defaultMessage="Request"
           description="Label for checkbox to toggle searching for keyword across Requests data"
+          id="searchKeywordConfig.request"
         />
       ),
       hasChildren: true,
@@ -174,9 +174,9 @@ const SearchKeywordConfigComponent = ({
       value: 'request_username',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.userNamePhoneNumber"
           defaultMessage="Username / phone number"
           description="Label for checkbox to toggle searching for keyword across usernames and phone numbers in Requests"
+          id="searchKeywordConfig.userNamePhoneNumber"
         />
       ),
       parent: 'user_and_request',
@@ -185,9 +185,9 @@ const SearchKeywordConfigComponent = ({
       value: 'request_content',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.requestContent"
           defaultMessage="Content"
           description="Label for checkbox to toggle searching for keyword across requests contents"
+          id="searchKeywordConfig.requestContent"
         />
       ),
       parent: 'user_and_request',
@@ -219,25 +219,25 @@ const SearchKeywordConfigComponent = ({
   return (
     <MultiSelector
       allowToggleAll
-      toggleAllLabel={
-        <FormattedMessage
-          id="SearchKeywordConfigComponent.all"
-          defaultMessage="Select all"
-          description="Label for checkbox to toggle selection of all checkboxes in menu"
-        />
-      }
-      submitLabel={<FormattedMessage id="global.update" defaultMessage="Update" description="Generic label for a button or link for a user to press when they wish to update an action" />}
-      cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+      cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+      defaultValue={defaultSelected}
+      options={options}
       resetLabel={
         <FormattedMessage
-          id="SearchKeywordConfigComponent.resetLabel"
           defaultMessage="Reset"
           description="Label for reset options to default"
+          id="SearchKeywordConfigComponent.resetLabel"
         />
       }
-      options={options}
       selected={selected}
-      defaultValue={defaultSelected}
+      submitLabel={<FormattedMessage defaultMessage="Update" description="Generic label for a button or link for a user to press when they wish to update an action" id="global.update" />}
+      toggleAllLabel={
+        <FormattedMessage
+          defaultMessage="Select all"
+          description="Label for checkbox to toggle selection of all checkboxes in menu"
+          id="SearchKeywordConfigComponent.all"
+        />
+      }
       onDismiss={onDismiss}
       onSubmit={handleChange}
     />

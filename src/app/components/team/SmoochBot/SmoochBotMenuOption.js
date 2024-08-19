@@ -148,60 +148,62 @@ const SmoochBotMenuOption = (props) => {
   return (
     <Paper className={classes.paper}>
       <Box display="flex">
-        <Box flex="1" className={classes.box}>
-          <Box display="flex" alignItems="center">
+        <Box className={classes.box} flex="1">
+          <Box alignItems="center" display="flex">
             <div className={['typography-subtitle1', classes.title, classes.ifTitle].join(' ')}>
               <FormattedMessage
-                id="smoochBotMenuOption.if"
                 defaultMessage="If"
                 description="Logical operator IF statement"
+                id="smoochBotMenuOption.if"
               />
             </div>
             <div className={['typography-caption', classes.caption].join(' ')}>
               <FormattedMessage
-                id="smoochBotMenuOption.condition"
                 defaultMessage="The following keyword is matched"
                 description="Label for keyword matching rule"
+                id="smoochBotMenuOption.condition"
               />
             </div>
           </Box>
           <TextField
-            key={Math.random().toString().substring(2, 10)}
             defaultValue={option.smooch_menu_option_keyword}
-            onBlur={handleChangeKeywords}
-            placeholder={props.intl.formatMessage(placeholders.menu_keywords)}
-            variant="outlined"
             disabled={props.readOnly}
+            error={option.smooch_menu_option_value !== 'tos' && error}
             helperText={
               option.smooch_menu_option_value !== 'tos' && error ?
                 <FormattedMessage
-                  id="smoochBotMenuOption.errorTos"
                   defaultMessage="'9' will redirect to the terms of service. It cannot be used as an option in the main menu."
                   description="Help text for an text field input"
+                  id="smoochBotMenuOption.errorTos"
                 /> : null
             }
-            error={option.smooch_menu_option_value !== 'tos' && error}
+            key={Math.random().toString().substring(2, 10)}
+            placeholder={props.intl.formatMessage(placeholders.menu_keywords)}
+            variant="outlined"
+            onBlur={handleChangeKeywords}
           />
         </Box>
-        <Box flex="1" className={classes.box}>
-          <Box display="flex" alignItems="center">
+        <Box className={classes.box} flex="1">
+          <Box alignItems="center" display="flex">
             <div className={['typography-subtitle1', classes.title, classes.thenTitle].join(' ')}>
               <FormattedMessage
-                id="smoochBotMenuOption.then"
                 defaultMessage="Then"
                 description="Logical operator THEN statement"
+                id="smoochBotMenuOption.then"
               />
             </div>
             <div className={['typography-caption', classes.caption].join(' ')}>
               <FormattedMessage
-                id="smoochBotMenuOption.action"
                 defaultMessage="Respond with"
                 description="Label for the field describing how the bot should respond"
+                id="smoochBotMenuOption.action"
               />
             </div>
           </Box>
           { option.smooch_menu_option_value === 'tos' ?
             <TextField
+              disabled
+              fullWidth
               key="tos"
               placeholder={
                 props.intl.formatMessage(placeholders.tos, {
@@ -209,43 +211,40 @@ const SmoochBotMenuOption = (props) => {
                 })
               }
               variant="outlined"
-              fullWidth
-              disabled
             /> : null }
           { option.smooch_menu_option_value === 'resource' ?
             <TextField
-              key={option.smooch_menu_project_media_id}
               defaultValue={option.smooch_menu_project_media_title}
+              disabled
+              fullWidth
               InputProps={{
                 endAdornment: (
-                  <InputAdornment onClick={handleClear} className={classes.button}>
+                  <InputAdornment className={classes.button} onClick={handleClear}>
                     <ClearIcon />
                   </InputAdornment>
                 ),
               }}
+              key={option.smooch_menu_project_media_id}
               variant="outlined"
-              fullWidth
-              disabled
             /> : null }
           { option.smooch_menu_option_value === 'custom_resource' && resourceIdToTitle(option.smooch_menu_custom_resource_id) ?
             <TextField
-              key={option.smooch_menu_custom_resource_id}
               defaultValue={resourceIdToTitle(option.smooch_menu_custom_resource_id)}
+              disabled
+              fullWidth
               InputProps={{
                 endAdornment: (
-                  <InputAdornment onClick={handleClear} className={classes.button}>
+                  <InputAdornment className={classes.button} onClick={handleClear}>
                     <ClearIcon />
                   </InputAdornment>
                 ),
               }}
+              key={option.smooch_menu_custom_resource_id}
               variant="outlined"
-              fullWidth
-              disabled
             /> : null }
           { (option.smooch_menu_option_value !== 'custom_resource' || !resourceIdToTitle(option.smooch_menu_custom_resource_id)) && option.smooch_menu_option_value !== 'resource' && option.smooch_menu_option_value !== 'tos' ?
             <Autocomplete
-              value={option.smooch_menu_option_value}
-              onChange={handleSelectAction}
+              clearOnBlur
               filterOptions={(options, params) => {
                 const filtered = filter(options, params);
 
@@ -255,9 +254,9 @@ const SmoochBotMenuOption = (props) => {
                     inputValue: params.inputValue,
                     title: (
                       <FormattedMessage
-                        id="smoochBotMenuOption.add"
                         defaultMessage='Create "{resourceName}"'
                         description="Suggestion for creating a new resource of the name listed"
+                        id="smoochBotMenuOption.add"
                         values={{ resourceName: params.inputValue }}
                       />
                     ),
@@ -266,9 +265,7 @@ const SmoochBotMenuOption = (props) => {
 
                 return filtered;
               }}
-              selectOnFocus
-              clearOnBlur
-              options={menuOptions}
+              freeSolo
               getOptionLabel={(opt) => {
                 // Value selected from the options
                 if (typeof opt === 'string' && opt !== '') {
@@ -290,22 +287,25 @@ const SmoochBotMenuOption = (props) => {
                 // Regular option
                 return opt.title;
               }}
-              renderOption={opt => opt.title}
-              freeSolo
+              options={menuOptions}
               renderInput={params => (
                 <TextField
                   {...params}
+                  fullWidth
                   label={
                     <FormattedMessage
-                      id="smoochBotMenuOption.selectMessage"
                       defaultMessage="Select message"
                       description="Text field label to select a message to send"
+                      id="smoochBotMenuOption.selectMessage"
                     />
                   }
                   variant="outlined"
-                  fullWidth
                 />
               )}
+              renderOption={opt => opt.title}
+              selectOnFocus
+              value={option.smooch_menu_option_value}
+              onChange={handleSelectAction}
             /> : null }
         </Box>
       </Box>

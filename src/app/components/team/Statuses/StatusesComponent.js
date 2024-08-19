@@ -33,10 +33,10 @@ const StatusesComponent = ({ setFlashMessage, team }) => {
   const handleError = (error) => {
     const fallbackMessage = (
       <FormattedMessage
-        id="statusesComponent.error"
         defaultMessage="Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
-        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         description="Error message displayed when status can't be changed."
+        id="statusesComponent.error"
+        values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
     const message = getErrorMessage(error, fallbackMessage);
@@ -99,9 +99,9 @@ const StatusesComponent = ({ setFlashMessage, team }) => {
       setSelectedStatus(null);
       setFlashMessage((
         <FormattedMessage
-          id="statusesComponent.deleted"
           defaultMessage="Status deleted successfully"
           description="Success message displayed when status is deleted."
+          id="statusesComponent.deleted"
         />
       ), 'success');
     };
@@ -127,18 +127,18 @@ const StatusesComponent = ({ setFlashMessage, team }) => {
       if (showSuccessMessage === 'saved') {
         setFlashMessage((
           <FormattedMessage
-            id="statusesComponent.saved"
             defaultMessage="Statuses saved successfully"
             description="Success message displayed when status is saved."
+            id="statusesComponent.saved"
           />
         ), 'success');
       }
       if (showSuccessMessage === 'created') {
         setFlashMessage((
           <FormattedMessage
-            id="statusesComponent.created"
             defaultMessage="Status created successfully"
             description="Success message displayed when status is created."
+            id="statusesComponent.created"
           />
         ), 'success');
       }
@@ -208,48 +208,48 @@ const StatusesComponent = ({ setFlashMessage, team }) => {
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="statusesComponent.title"
-            defaultMessage="{languageName} Statuses [{statusCount}]"
-            values={{
-              languageName: languageName(currentLanguage),
-              statusCount: statuses.length,
-            }}
-            description="The idea of this sentence is 'statuses written in language <languageName>'"
+        actionButton={
+          <ButtonMain
+            className="team-statuses__add-button"
+            label={
+              <FormattedMessage
+                defaultMessage="New status"
+                description="Button label to create a new status."
+                id="statusesComponent.newStatus"
+              />
+            }
+            size="default"
+            theme="brand"
+            variant="contained"
+            onClick={() => setAddingNewStatus(true)}
           />
         }
         context={
           <FormattedHTMLMessage
-            id="statusesComponent.helpContext"
             defaultMessage='Statuses represent the position of claims in the editorial workflow. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about statuses</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/3623387-item-status' }}
             description="Context description for the functionality of this page"
-          />
-        }
-        actionButton={
-          <ButtonMain
-            className="team-statuses__add-button"
-            theme="brand"
-            size="default"
-            variant="contained"
-            onClick={() => setAddingNewStatus(true)}
-            label={
-              <FormattedMessage
-                id="statusesComponent.newStatus"
-                defaultMessage="New status"
-                description="Button label to create a new status."
-              />
-            }
+            id="statusesComponent.helpContext"
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/3623387-item-status' }}
           />
         }
         extra={
           languages.length > 1 ?
             <LanguagePickerSelect
+              languages={languages}
               selectedLanguage={currentLanguage}
               onSubmit={handleChangeLanguage}
-              languages={languages}
             /> : null
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="{languageName} Statuses [{statusCount}]"
+            description="The idea of this sentence is 'statuses written in language <languageName>'"
+            id="statusesComponent.title"
+            values={{
+              languageName: languageName(currentLanguage),
+              statusCount: statuses.length,
+            }}
+          />
         }
       />
       <div className={cx('status-settings', settingsStyles['setting-details-wrapper'])}>
@@ -262,50 +262,50 @@ const StatusesComponent = ({ setFlashMessage, team }) => {
                     defaultLanguage={defaultLanguage}
                     isDefault={s.id === defaultStatusId}
                     key={s.id}
+                    preventDelete={statuses.length === 1}
+                    status={s}
                     onDelete={handleMenuDelete}
                     onEdit={handleMenuEdit}
                     onMakeDefault={handleMenuMakeDefault}
-                    preventDelete={statuses.length === 1}
-                    status={s}
                   />
                 ))}
               </ul>
             ) : (
               <React.Fragment>
                 <FormattedMessage
-                  tagName="p"
-                  id="statusesComponent.blurbSecondary"
                   defaultMessage="Translate statuses in secondary languages to display them to tipline users in their conversation language."
                   description="Message displayed on status translation page."
+                  id="statusesComponent.blurbSecondary"
+                  tagName="p"
                 />
                 <TranslateStatuses
                   currentLanguage={currentLanguage}
                   defaultLanguage={defaultLanguage}
                   key={currentLanguage}
-                  onSubmit={handleTranslateStatuses}
                   statuses={statuses}
+                  onSubmit={handleTranslateStatuses}
                 />
               </React.Fragment>
             )
           }
         </div>
         <EditStatusDialog
-          team={team}
           defaultLanguage={defaultLanguage}
           defaultValue={selectedStatus}
           key={selectedStatus || 'edit-status-dialog'}
+          open={addingNewStatus || Boolean(selectedStatus)}
+          team={team}
           onCancel={handleCancelEdit}
           onSubmit={handleAddOrEditStatus}
-          open={addingNewStatus || Boolean(selectedStatus)}
         />
         { showDeleteStatusDialogFor ?
           <DeleteStatusDialog
-            open
             defaultValue={showDeleteStatusDialogFor}
             key={showDeleteStatusDialogFor || 'delete-status-dialog'}
+            open
+            statuses={statuses}
             onCancel={() => setShowDeleteStatusDialogFor(null)}
             onProceed={handleDelete}
-            statuses={statuses}
           /> : null }
       </div>
     </>

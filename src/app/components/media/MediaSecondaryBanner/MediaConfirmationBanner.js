@@ -9,26 +9,26 @@ const MediaConfirmationBanner = ({ projectMedia }) => (
   <>
     { projectMedia.is_confirmed && (
       <Alert
-        icon
-        variant="success"
-        title={
-          <FormattedMessage
-            id="mediaConfirmationBanner.alertTitle"
-            defaultMessage="Media and Requests have been matched to another item in this workspace."
-            description="Title of the alert message displayed on item page for confirmed matches."
-          />
-        }
         content={
           <>
             <FormattedMessage
-              id="mediaConfirmationBanner.alertContent"
+              component="div"
               defaultMessage="All requests for this item will be responded to by the matched item below."
               description="Content of the alert message displayed on item page for confirmed matches."
-              component="div"
+              id="mediaConfirmationBanner.alertContent"
             />
             { projectMedia.confirmed_main_item && <MediaMainItemPreview projectMedia={projectMedia.confirmed_main_item} /> }
           </>
         }
+        icon
+        title={
+          <FormattedMessage
+            defaultMessage="Media and Requests have been matched to another item in this workspace."
+            description="Title of the alert message displayed on item page for confirmed matches."
+            id="mediaConfirmationBanner.alertTitle"
+          />
+        }
+        variant="success"
       />
     )}
   </>

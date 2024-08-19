@@ -107,33 +107,33 @@ const MediaSourceComponent = ({ about, projectMedia }) => {
 
   return (
     <React.Fragment>
-      <div id="media__source" className={cx(styles['media-sources'], styles['media-item-content'])}>
+      <div className={cx(styles['media-sources'], styles['media-item-content'])} id="media__source">
         { action === 'view' && source !== null ?
           <SourceInfo
-            key={source ? source.id : 0}
-            source={source}
             about={about}
-            team={team}
+            key={source ? source.id : 0}
             projectMediaPermissions={projectMedia.permissions}
-            onChangeClick={handleChangeSource}
             relateToExistingSource={handleChangeSourceSubmit}
+            source={source}
+            team={team}
+            onChangeClick={handleChangeSource}
           /> : null
         }
         { action === 'create' && can(projectMedia.permissions, 'create Source') ?
           <CreateMediaSource
-            name={newSourceName}
             media={projectMedia}
-            onCancel={handleCancel}
+            name={newSourceName}
             relateToExistingSource={handleChangeSourceSubmit}
+            onCancel={handleCancel}
           /> : null
         }
         { can(projectMedia.permissions, 'update ProjectMedia') && action !== 'create' && (action === 'change' || source === null) ?
           <ChangeMediaSource
-            team={team}
-            projectMediaPermissions={projectMedia.permissions}
-            onSubmit={handleChangeSourceSubmit}
-            onCancel={handleCancel}
             createNewClick={handleCreateNewSource}
+            projectMediaPermissions={projectMedia.permissions}
+            team={team}
+            onCancel={handleCancel}
+            onSubmit={handleChangeSourceSubmit}
           /> : null
         }
       </div>
@@ -179,21 +179,21 @@ const MediaSource = ({ params, projectMedia }) => {
             }
           }
         `}
-        variables={{
-          ids,
-          teamSlug,
-        }}
         render={({ error, props }) => {
           if (!error && !props) {
-            return <MediasLoading theme="grey" variant="inline" size="medium" />;
+            return <MediasLoading size="medium" theme="grey" variant="inline" />;
           }
 
           if (!error && props) {
-            return <MediaSourceComponent projectMedia={props.project_media} about={props.about} />;
+            return <MediaSourceComponent about={props.about} projectMedia={props.project_media} />;
           }
 
           // TODO: We need a better error handling in the future, standardized with other components
           return null;
+        }}
+        variables={{
+          ids,
+          teamSlug,
         }}
       />
     </ErrorBoundary>

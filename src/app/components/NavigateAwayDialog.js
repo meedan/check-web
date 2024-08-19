@@ -59,17 +59,17 @@ const NavigateAwayDialog = ({
 
   return (
     <ConfirmProceedDialog
-      open={Boolean(leaveLocation)}
-      title={title}
       body={
         <p>
           {body}
         </p>
       }
-      proceedLabel={proceedLabel}
-      onProceed={handleConfirmLeave}
       cancelLabel={cancelLabel}
+      open={Boolean(leaveLocation)}
+      proceedLabel={proceedLabel}
+      title={title}
       onCancel={handleCancelLeave}
+      onProceed={handleConfirmLeave}
     />
   );
 };
@@ -86,16 +86,16 @@ NavigateAwayDialog.propTypes = {
 NavigateAwayDialog.defaultProps = {
   cancelLabel: (
     <FormattedMessage
-      id="global.cancel"
       defaultMessage="Cancel"
       description="Regular Cancel action label"
+      id="global.cancel"
     />
   ),
   proceedLabel: (
     <FormattedMessage
-      id="global.ok"
       defaultMessage="OK"
       description="Regular OK/confirmation label"
+      id="global.ok"
     />
   ),
 };

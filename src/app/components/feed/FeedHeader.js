@@ -31,47 +31,47 @@ const FeedHeader = ({ feed, feedTeam }) => {
     <div className={cx('feed-header', searchResultsStyles.searchHeaderActions)}>
       {feed.licenses.map(licenseId => (
         <Tooltip
+          arrow
           key={licenseId}
           placement="right"
           title={
             <FormattedMessage
-              id="feedHeader.tooltipLicense"
               defaultMessage="Feed License: {licenseName}"
+              description="Tooltip message displayed on feed license icon."
+              id="feedHeader.tooltipLicense"
               values={{
                 licenseName: getLicenseTranslatedName(getLicenseName(licenseId)),
               }}
-              description="Tooltip message displayed on feed license icon."
             />
           }
-          arrow
         >
           <div className="feed-header-icon">
             <ButtonMain
-              variant="outlined"
+              className={searchResultsStyles.searchHeaderActionButton}
+              iconCenter={getLicenseIcon(getLicenseName(licenseId))}
               size="small"
               theme="text"
-              iconCenter={getLicenseIcon(getLicenseName(licenseId))}
+              variant="outlined"
               onClick={handleClickLicense}
-              className={searchResultsStyles.searchHeaderActionButton}
             />
           </div>
         </Tooltip>
       ))}
 
-      <Can permissions={JSON.stringify(mergedPermissions)} permission={permissionRequired}>
+      <Can permission={permissionRequired} permissions={JSON.stringify(mergedPermissions)}>
         <Tooltip
+          arrow
           placement="right"
           title={
             <FormattedMessage
-              id="feedHeader.tooltipSettings"
               defaultMessage="Shared Feed Settings"
               description="Tooltip message displayed on feed settings icon."
+              id="feedHeader.tooltipSettings"
             />
           }
-          arrow
         >
           <span>{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
-            <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SettingsIcon />} onClick={handleClickSettings} className={searchResultsStyles.searchHeaderActionButton} />
+            <ButtonMain className={searchResultsStyles.searchHeaderActionButton} iconCenter={<SettingsIcon />} size="small" theme="text" variant="outlined" onClick={handleClickSettings} />
           </span>
         </Tooltip>
       </Can>

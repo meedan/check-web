@@ -85,16 +85,16 @@ function ReportImagePreview({
 
   return (
     <FormattedMessage
-      id="reportDesigner.reportImagePreviewTitle"
-      description="Image caption spoken by screen readers but not seen by most users"
       defaultMessage="Report preview"
+      description="Image caption spoken by screen readers but not seen by most users"
+      id="reportDesigner.reportImagePreviewTitle"
     >
       {title => (
         <iframe
           ref={setIframe /* causing a re-render -- and thus useEffect() -- on load */}
           src="about:blank"
-          title={title}
           style={fullStyle}
+          title={title}
         />
       )}
     </FormattedMessage>

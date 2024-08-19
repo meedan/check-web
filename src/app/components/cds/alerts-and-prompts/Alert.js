@@ -71,7 +71,7 @@ const Alert = ({
       }
       { buttonLabel &&
         <div className={styles.actionsWrapper}>
-          <ButtonMain label={buttonLabel} variant="contained" size="small" theme={buttonTheme(variant)} onClick={onButtonClick} />
+          <ButtonMain label={buttonLabel} size="small" theme={buttonTheme(variant)} variant="contained" onClick={onButtonClick} />
         </div>
       }
     </div>
@@ -81,14 +81,14 @@ const Alert = ({
           arrow
           title={
             <FormattedMessage
-              id="alert.closeButton"
               defaultMessage="Close alert"
               description="Tooltip for close alert"
+              id="alert.closeButton"
             />
           }
         >
           <span>
-            <ButtonMain variant="text" size="small" theme={buttonTheme(variant)} iconCenter={<IconClose />} onClick={onClose} />
+            <ButtonMain iconCenter={<IconClose />} size="small" theme={buttonTheme(variant)} variant="text" onClick={onClose} />
           </span>
         </Tooltip>
       </div>

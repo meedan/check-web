@@ -22,9 +22,9 @@ const MediaCardLargeFooter = ({
   if (extractedText) {
     footerTitle = (
       <FormattedMessage
-        id="mediaCardLargeFooter.extractedText"
         defaultMessage="Extracted text"
         description="Header for the OCR extracted text content of an image"
+        id="mediaCardLargeFooter.extractedText"
       />
     );
   }
@@ -35,9 +35,9 @@ const MediaCardLargeFooter = ({
   } else if (projectMedia.transcription?.data?.last_response.job_status === 'IN_PROGRESS') {
     transcription = (
       <FormattedMessage
-        id="mediaExpanded.transcriptionInProgress"
         defaultMessage="Audio transcription in progress…"
         description="Label when transcription is in progress"
+        id="mediaExpanded.transcriptionInProgress"
       />
     );
   }
@@ -45,9 +45,9 @@ const MediaCardLargeFooter = ({
   if (transcription) {
     footerTitle = (
       <FormattedMessage
-        id="mediaCardLargeFooter.transcription"
         defaultMessage="Transcription"
         description="Header for the transcription content of an audio or video"
+        id="mediaCardLargeFooter.transcription"
       />
     );
   }
@@ -58,9 +58,9 @@ const MediaCardLargeFooter = ({
 
   const transcriptionOrExtractedFooter = (
     <MediaCardLargeFooterContent
-      title={footerTitle}
       body={footerBody}
       showAll={inModal}
+      title={footerTitle}
     />
   );
 
@@ -69,34 +69,34 @@ const MediaCardLargeFooter = ({
       { !inModal ?
         <Box mb={2}>
           <MediaSlug
-            mediaType={mediaType}
-            slug={projectMedia.media_slug || projectMedia.title}
             details={[(
               <FormattedMessage
-                id="mediaCardLarge.lastSeen"
                 defaultMessage="Last submitted on {date}"
                 description="Header for the date when the media item was last received by the workspace"
+                id="mediaCardLarge.lastSeen"
                 values={{
                   date: (
                     <FormattedDate
+                      day="numeric"
+                      month="short"
                       value={projectMedia.last_seen * 1000}
                       year="numeric"
-                      month="short"
-                      day="numeric"
                     />
                   ),
                 }}
               />
             ), (
               <FormattedMessage
-                id="mediaCardLarge.requests"
                 defaultMessage="{count, plural, one {# request} other {# requests}}"
                 description="Number of times a request has been sent about this media"
+                id="mediaCardLarge.requests"
                 values={{
                   count: projectMedia.requests_count,
                 }}
               />
             )]}
+            mediaType={mediaType}
+            slug={projectMedia.media_slug || projectMedia.title}
           />
         </Box> : null }
       { projectMedia.type !== 'Claim' ?
@@ -104,35 +104,35 @@ const MediaCardLargeFooter = ({
           { /* 1st MediaLargeFooterContent, exclusive for Link, always displays URL above MediaCardLargeActions */}
           { projectMedia.type === 'Link' ?
             <MediaCardLargeFooterContent
+              body={<ExternalLink url={data.url} />}
               title={
                 data.published_at ? (
                   <FormattedMessage
-                    id="mediaCardLarge.publishedOn"
                     defaultMessage="Published on {date}"
                     description="Publication date and time of a web article"
+                    id="mediaCardLarge.publishedOn"
                     values={{
                       date: (
                         <FormattedDate
+                          day="numeric"
+                          month="short"
                           value={data.published_at}
                           year="numeric"
-                          month="short"
-                          day="numeric"
                         />
                       ),
                     }}
                   />
                 ) : null
               }
-              body={<ExternalLink url={data.url} />}
             /> : '' }
         </Box> : null }
       { /* This MediaLargeFooterContent displays short preview textual content above MediaCardLargeActions */}
       { footerBody && !inModal ? <Box my={2}>{transcriptionOrExtractedFooter}</Box> : null }
       <MediaCardLargeActions
+        bottomSeparator={inModal && footerBody && mediaType !== 'Claim'}
         inModal={inModal}
         projectMedia={projectMedia}
         onClickMore={onClickMore}
-        bottomSeparator={inModal && footerBody && mediaType !== 'Claim'}
       />
       { /* This MediaLargeFooterContent displays full-length textual content below MediaCardLargeActions */}
       { footerBody && inModal ? <Box mt={2}>{transcriptionOrExtractedFooter}</Box> : null }

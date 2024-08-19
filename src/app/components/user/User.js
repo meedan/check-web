@@ -18,9 +18,9 @@ const User = (props) => {
     <ErrorBoundary component="User">
       <Relay.RootContainer
         Component={UserContainer}
-        route={route}
-        renderLoading={() => <MediasLoading theme="grey" variant="page" size="large" />}
         renderFetched={data => <UserContainer {...props} {...data} />}
+        renderLoading={() => <MediasLoading size="large" theme="grey" variant="page" />}
+        route={route}
       />
     </ErrorBoundary>
   );

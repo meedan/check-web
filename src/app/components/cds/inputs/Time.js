@@ -36,10 +36,10 @@ const Time = ({
     )}
     <div className={cx(inputStyles['input-container'], styles['time-container'])}>
       <input
-        type="time"
-        error={error}
         className={`${styles.input} ${error && styles.error} ${variant === 'outlined' && styles.outlined}`}
         disabled={disabled}
+        error={error}
+        type="time"
         {...inputProps}
       />
     </div>

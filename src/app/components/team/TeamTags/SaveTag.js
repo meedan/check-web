@@ -61,9 +61,9 @@ const SaveTag = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="saveTag.couldNotSave"
         defaultMessage="Could not save tag"
         description="Error message displayed when it's not possible to save a team tag"
+        id="saveTag.couldNotSave"
       />
     ), 'error');
   };
@@ -72,9 +72,9 @@ const SaveTag = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="saveTag.savedSuccessfully"
         defaultMessage="Tag saved successfully"
         description="Message displayed when a team tag is saved"
+        id="saveTag.savedSuccessfully"
       />
     ), 'success');
     onCancel();
@@ -213,54 +213,54 @@ const SaveTag = ({
 
   return (
     <ConfirmProceedDialog
-      open
-      title={
-        tag ?
-          <FormattedMessage
-            id="saveTag.titleEdit"
-            defaultMessage="Edit tag"
-            description="Dialog title when editing a tag"
-          /> :
-          <FormattedMessage
-            id="saveTag.titleCreate"
-            defaultMessage="Create new tag"
-            description="Dialog title when creating a new tag"
-          />
-      }
       body={(
         <React.Fragment>
-          <FormattedMessage id="saveTag.namePlaceholder" defaultMessage="New tag name" description="Text field placeholder for the input name of tag" >
+          <FormattedMessage defaultMessage="New tag name" description="Text field placeholder for the input name of tag" id="saveTag.namePlaceholder" >
             { placeholder => (
               <TextField
                 componentProps={{
                   id: 'team-tags__name-input',
                 }}
                 defaultValue={text}
-                label={<FormattedMessage id="saveTag.name" defaultMessage="Name" description="Text field label for the input name of tag" />}
+                label={<FormattedMessage defaultMessage="Name" description="Text field label for the input name of tag" id="saveTag.name" />}
                 placeholder={placeholder}
                 onBlur={(e) => { setText(e.target.value); }}
               />
             )}
           </FormattedMessage>
           <br />
-          <FormattedMessage tagName="p" id="saveTag.rule" defaultMessage="Automatically tag items matching the following conditions:" description="Help text about automatically matching tags to a rule" />
+          <FormattedMessage defaultMessage="Automatically tag items matching the following conditions:" description="Help text about automatically matching tags to a rule" id="saveTag.rule" tagName="p" />
           <RuleBody
-            hideName
             hideActions
-            schema={filteredRulesSchema}
+            hideName
             rule={rule}
+            schema={filteredRulesSchema}
             onChangeRule={(newRule) => { setRule(newRule); }}
             onResetRule={() => { setRule(JSON.parse(JSON.stringify(defaultRule))); }}
           />
         </React.Fragment>
       )}
+      open
       proceedDisabled={saving}
       proceedLabel={
         <FormattedMessage
-          id="saveTag.save"
           defaultMessage="Save tag"
           description="Button label to continue saving a new tag via a dialog message"
+          id="saveTag.save"
         />
+      }
+      title={
+        tag ?
+          <FormattedMessage
+            defaultMessage="Edit tag"
+            description="Dialog title when editing a tag"
+            id="saveTag.titleEdit"
+          /> :
+          <FormattedMessage
+            defaultMessage="Create new tag"
+            description="Dialog title when creating a new tag"
+            id="saveTag.titleCreate"
+          />
       }
       onCancel={onCancel}
       onProceed={handleSave}

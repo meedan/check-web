@@ -50,12 +50,12 @@ const ClusterCard = ({
       },
     )}
   >
-    <Card className={styles.clusterCard} cardUrl={cardUrl}>
+    <Card cardUrl={cardUrl} className={styles.clusterCard}>
       <div className={styles.clusterCardLeft}>
-        { onCheckboxChange && (<Checkbox checked={isChecked} onChange={onCheckboxChange} className={styles.checkbox} />)}
+        { onCheckboxChange && (<Checkbox checked={isChecked} className={styles.checkbox} onChange={onCheckboxChange} />)}
         <ItemThumbnail
-          picture={mediaThumbnail?.media?.picture}
           maskContent={mediaThumbnail?.show_warning_cover}
+          picture={mediaThumbnail?.media?.picture}
           type={mediaThumbnail?.media?.type}
           url={mediaThumbnail?.media?.url}
         />
@@ -64,10 +64,10 @@ const ClusterCard = ({
         <CardHoverContext.Consumer>
           { isHovered => (
             <ItemDescription
-              title={title}
               description={description}
-              url={factCheckUrl}
               showCollapseButton={isHovered}
+              title={title}
+              url={factCheckUrl}
               variant="fact-check"
             />
           )}
@@ -75,28 +75,28 @@ const ClusterCard = ({
         <ItemWorkspaces workspaces={workspaces} />
         <div>
           <SharedItemCardFooter
+            channels={channels}
+            lastRequestDate={lastRequestDate}
             mediaCount={mediaCount}
             mediaType={mediaType || mediaThumbnail?.media?.type}
             requestsCount={requestsCount}
             suggestionsCount={suggestionsCount}
-            lastRequestDate={lastRequestDate}
-            channels={channels}
           />
         </div>
       </div>
       <div className={styles.clusterCardRight}>
         <div className={styles.clusterCardRating}>
           <ItemArticlesOrFactCheck
-            dataPoints={dataPoints}
             articlesCount={articlesCount}
+            dataPoints={dataPoints}
             factCheckCount={factCheckCount}
-            rating={rating}
-            ratingColor={ratingColor}
             isPublished={isPublished}
             publishedAt={publishedAt}
+            rating={rating}
+            ratingColor={ratingColor}
           />
         </div>
-        <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} />
+        <ItemDate date={date} tooltipLabel={<FormattedMessage defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." id="sharedItemCard.lastUpdated" />} />
       </div>
     </Card>
   </div>

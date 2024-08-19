@@ -71,13 +71,13 @@ class TeamBots extends Component {
     const onSuccess = () => {
       this.setState({
         messageBotId,
-        message: <FormattedMessage id="teamBots.success" defaultMessage="Settings updated!" description="Success message when an integration setting has been updated" />,
+        message: <FormattedMessage defaultMessage="Settings updated!" description="Success message when an integration setting has been updated" id="teamBots.success" />,
       });
     };
     const onFailure = () => {
       this.setState({
         messageBotId,
-        message: <FormattedMessage id="teamBots.fail" defaultMessage="Error! Please try again." description="Error message when an integration setting did not update correctly" />,
+        message: <FormattedMessage defaultMessage="Error! Please try again." description="Error message when an integration setting did not update correctly" id="teamBots.fail" />,
       });
     };
 
@@ -113,45 +113,45 @@ class TeamBots extends Component {
 
           const botExpanded = installation && this.state.expanded === bot.dbid;
           return (
-            <div key={`bot-${bot.dbid}`} className={cx(settingsStyles['setting-content-container'], styles['integration-bot'])}>
+            <div className={cx(settingsStyles['setting-content-container'], styles['integration-bot'])} key={`bot-${bot.dbid}`}>
               <div className={settingsStyles['setting-content-container-title']}>
                 <span>{botName(bot)}</span>
                 <div className={settingsStyles['setting-content-container-actions']}>
                   <ButtonMain
-                    variant="text"
+                    className="settingsIcon"
+                    disabled={!installation}
+                    iconCenter={<SettingsIcon />}
                     size="default"
                     theme="text"
-                    disabled={!installation}
+                    variant="text"
                     onClick={this.handleToggleSettings.bind(this, bot.dbid)}
-                    className="settingsIcon"
-                    iconCenter={<SettingsIcon />}
                   />
                 </div>
               </div>
               <SwitchComponent
+                checked={Boolean(installation)}
+                disabled={this.state.saving === bot.id}
                 inputProps={{
                   id: `team-bots__${bot.identifier}-${installation ? 'installed' : 'uninstalled'}`,
                 }}
-                checked={Boolean(installation)}
-                onChange={this.handleToggle.bind(this, installation, bot, team)}
-                disabled={this.state.saving === bot.id}
                 label={bot.description}
                 labelPlacement="end"
+                onChange={this.handleToggle.bind(this, installation, bot, team)}
               />
-              <Collapse in={botExpanded} timeout="auto" className={styles['integration-details']}>
+              <Collapse className={styles['integration-details']} in={botExpanded} timeout="auto">
                 { bot.installation?.json_settings ?
                   <React.Fragment>
                     <div className={settingsStyles['setting-content-container-title']}>
-                      <FormattedMessage id="teamBots.settings" defaultMessage="Settings" description="section title for the settings of an individual integration" />
+                      <FormattedMessage defaultMessage="Settings" description="section title for the settings of an individual integration" id="teamBots.settings" />
                       <div className={settingsStyles['setting-content-container-actions']}>
                         <ButtonMain
-                          variant="contained"
+                          label={
+                            <FormattedMessage defaultMessage="Save" description="Save button on an individual integration settings" id="teamBots.save" />
+                          }
                           size="default"
                           theme="brand"
+                          variant="contained"
                           onClick={this.handleSubmitSettings.bind(this, installation)}
-                          label={
-                            <FormattedMessage id="teamBots.save" defaultMessage="Save" description="Save button on an individual integration settings" />
-                          }
                         />
                         { this.state.message && this.state.messageBotId === bot.dbid ?
                           <div>
@@ -168,9 +168,9 @@ class TeamBots extends Component {
                     }
                   </React.Fragment> :
                   <FormattedMessage
-                    id="teamBots.noSettings"
                     defaultMessage="There are no settings for this bot."
                     description="message to the the user that there are no additional settings for an integration"
+                    id="teamBots.noSettings"
                   />
                 }
               </Collapse>

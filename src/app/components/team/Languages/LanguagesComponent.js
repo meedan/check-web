@@ -72,74 +72,58 @@ const LanguagesComponent = ({ team }) => {
   return (
     <React.Fragment>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="languagesComponent.title"
-            defaultMessage="Language"
-            description="Title of Language settings page"
-          />
+        actionButton={
+          <AddLanguageAction setLanguages={setLanguages} team={team} />
         }
         context={
           <FormattedHTMLMessage
-            id="languagesComponent.helpContext"
             defaultMessage='Manage tipline language settings. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about language support</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772818-tipline-languages' }}
             description="Context description for the functionality of this page"
+            id="languagesComponent.helpContext"
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772818-tipline-languages' }}
           />
         }
-        actionButton={
-          <AddLanguageAction team={team} setLanguages={setLanguages} />
+        title={
+          <FormattedMessage
+            defaultMessage="Language"
+            description="Title of Language settings page"
+            id="languagesComponent.title"
+          />
         }
       />
       <div className={settingsStyles['setting-details-wrapper']}>
         <div className={settingsStyles['setting-content-container']}>
           <div className={settingsStyles['setting-content-container-title']}>
             <FormattedMessage
-              id="languagesComponent.languageDetection"
               defaultMessage="Language detection"
               description="Title of the Language detection section in language settings page"
+              id="languagesComponent.languageDetection"
             />
           </div>
           <SwitchComponent
+            checked={team.get_language_detection}
             label={
               <FormattedMessage
-                id="languagesComponent.languageDetectionSwitch"
                 defaultMessage="Enable language detection"
                 description="Label for a switch where the user toggles auto language detection"
+                id="languagesComponent.languageDetectionSwitch"
               />
             }
-            checked={team.get_language_detection}
             onChange={toggleLanguageDetection}
           />
           <Alert
-            variant={team.get_language_detection ? 'info' : 'warning'}
-            icon
-            title={
-              team.get_language_detection ?
-                <FormattedHTMLMessage
-                  id="languagesComponent.alertTitleEnabled"
-                  defaultMessage="Language detection is enabled"
-                  description="Title for extra information about the language detection toggle switch when it is enabled"
-                />
-                :
-                <FormattedHTMLMessage
-                  id="languagesComponent.alertTitleDisabled"
-                  defaultMessage="Language detection is disabled"
-                  description="Title for extra information about the language detection toggle switch when it is disabled"
-                />
-            }
             content={
               team.get_language_detection ?
                 <FormattedHTMLMessage
-                  id="languagesComponent.enabledDescription"
                   defaultMessage="The Check Tipline bot will automatically recognize and respond in the language of your user's request."
                   description="Instructions for the language detection toggle switch when enabled"
+                  id="languagesComponent.enabledDescription"
                 />
                 :
                 <FormattedHTMLMessage
-                  id="languagesComponent.disabledDescription"
                   defaultMessage="The Check Tipline bot will respond in the workspace default language: <strong>{defaultLanguage}</strong>"
                   description="Instructions for the language detection toggle switch when disabled"
+                  id="languagesComponent.disabledDescription"
                   values={
                     {
                       defaultLanguage: languageLabelFull(team.get_language),
@@ -147,14 +131,30 @@ const LanguagesComponent = ({ team }) => {
                   }
                 />
             }
+            icon
+            title={
+              team.get_language_detection ?
+                <FormattedHTMLMessage
+                  defaultMessage="Language detection is enabled"
+                  description="Title for extra information about the language detection toggle switch when it is enabled"
+                  id="languagesComponent.alertTitleEnabled"
+                />
+                :
+                <FormattedHTMLMessage
+                  defaultMessage="Language detection is disabled"
+                  description="Title for extra information about the language detection toggle switch when it is disabled"
+                  id="languagesComponent.alertTitleDisabled"
+                />
+            }
+            variant={team.get_language_detection ? 'info' : 'warning'}
           />
         </div>
         <div className={settingsStyles['setting-content-container']}>
           <div className={settingsStyles['setting-content-container-title']}>
             <FormattedMessage
-              id="languagesComponent.languages"
               defaultMessage="Supported Languages [{languageCount}]"
               description="Title of the active languages list section in language settings page"
+              id="languagesComponent.languages"
               values={{ languageCount: languages.length }}
             />
           </div>
@@ -163,8 +163,8 @@ const LanguagesComponent = ({ team }) => {
               <LanguageListItem
                 code={l}
                 key={l}
-                team={team}
                 setLanguages={setLanguages}
+                team={team}
               />
             ))}
           </ul>

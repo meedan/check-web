@@ -44,13 +44,13 @@ const PublishedArticles = ({ intl, routeParams }) => {
 
   return (
     <Articles
-      type="fact-check"
-      title={<FormattedMessage id="publishedArticles.title" defaultMessage="Published" description="Title of the published articles page." />}
-      icon={<PublishedIcon />}
-      teamSlug={routeParams.team}
-      sortOptions={sortOptions}
       defaultFilters={{ report_status: 'published' }}
       filterOptions={['users', 'tags', 'range']}
+      icon={<PublishedIcon />}
+      sortOptions={sortOptions}
+      teamSlug={routeParams.team}
+      title={<FormattedMessage defaultMessage="Published" description="Title of the published articles page." id="publishedArticles.title" />}
+      type="fact-check"
       updateMutation={updateMutation}
     />
   );

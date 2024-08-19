@@ -48,15 +48,15 @@ const Slideout = ({
             <Tooltip
               arrow
               title={
-                <FormattedMessage id="global.closeSlideout" description="Button label for closing an open slideout" defaultMessage="Close Slideout" />
+                <FormattedMessage defaultMessage="Close Slideout" description="Button label for closing an open slideout" id="global.closeSlideout" />
               }
             >
               <span>
                 <ButtonMain
+                  iconCenter={<IconClose />}
+                  size="small"
                   theme="beige"
                   variant="contained"
-                  size="small"
-                  iconCenter={<IconClose />}
                   onClick={() => handleClose()}
                 />
               </span>
@@ -72,16 +72,16 @@ const Slideout = ({
               <div className={styles.slideoutFooterContent}>
                 { showCancel &&
                   <ButtonMain
-                    variant="text"
-                    theme="text"
-                    onClick={() => handleClose()}
                     label={
                       <FormattedMessage
-                        id="global.cancel"
                         defaultMessage="Cancel"
                         description="Regular Cancel action label"
+                        id="global.cancel"
                       />
                     }
+                    theme="text"
+                    variant="text"
+                    onClick={() => handleClose()}
                     {...cancelProps}
                   />
                 }

@@ -26,21 +26,21 @@ const MediaSimilarityBarComponent = ({
   const classes = useStyles();
 
   return (
-    <Box className={classes.root} display="flex" justifyContent="space-between" alignItems="center">
+    <Box alignItems="center" className={classes.root} display="flex" justifyContent="space-between">
       <Box className="similarity-bar__matches-count typography-subtitle2">
         <FormattedMessage
-          id="mediaSimilarityBarComponent.similarMedia"
           defaultMessage="Media"
           description="Plural. Heading for the number of media"
+          id="mediaSimilarityBarComponent.similarMedia"
         />
         {confirmedSimilarCount > 0 && ` [${confirmedSimilarCount}]`}
       </Box>
       <Box>
         { canAdd ?
           <MediaSimilarityBarAdd
-            projectMediaId={confirmedMainItemId}
-            projectMediaDbid={projectMediaDbid}
             canMerge={!hasMain}
+            projectMediaDbid={projectMediaDbid}
+            projectMediaId={confirmedMainItemId}
           /> : null }
       </Box>
     </Box>
