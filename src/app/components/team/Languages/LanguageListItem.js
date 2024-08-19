@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedHTMLMessage, FormattedMessage, defineMessages, injectIntl } from 'react-intl';
@@ -24,10 +25,10 @@ const messages = defineMessages({
 });
 
 function submitDefaultLanguage({
-  team,
   code,
-  onSuccess,
   onFailure,
+  onSuccess,
+  team,
 }) {
   commitMutation(Store, {
     mutation: graphql`
@@ -57,10 +58,10 @@ function submitDefaultLanguage({
 }
 
 function submitDeleteLanguage({
-  team,
   languages,
-  onSuccess,
   onFailure,
+  onSuccess,
+  team,
 }) {
   commitMutation(Store, {
     mutation: graphql`
@@ -99,9 +100,9 @@ function checkTranslation(code, statuses) {
 
 const LanguageListItem = ({
   code,
-  team,
   intl,
   setLanguages,
+  team,
 }) => {
   const languages = safelyParseJSON(team.get_languages) || [];
   const defaultLanguage = team.get_language;

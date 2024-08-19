@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -20,15 +21,15 @@ const messages = defineMessages({
 });
 
 const TeamTagsActions = ({
-  tag,
-  teamId,
-  teamDbid,
+  intl,
+  pageSize,
+  relay,
   rules,
   rulesSchema,
   setFlashMessage,
-  relay,
-  pageSize,
-  intl,
+  tag,
+  teamDbid,
+  teamId,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -5,12 +6,12 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 
 import cx from 'classnames/bind';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import SettingsHeader from '../SettingsHeader';
 import DeleteStatusDialog from './DeleteStatusDialog';
 import EditStatusDialog from './EditStatusDialog';
 import StatusListItem from './StatusListItem';
 import TranslateStatuses from './TranslateStatuses';
+import SettingsHeader from '../SettingsHeader';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { stringHelper } from '../../../customHelpers';
 import { getErrorMessage } from '../../../helpers';
@@ -18,7 +19,7 @@ import { withSetFlashMessage } from '../../FlashMessage';
 import { languageName } from '../../../LanguageRegistry';
 import settingsStyles from '../Settings.module.css';
 
-const StatusesComponent = ({ team, setFlashMessage }) => {
+const StatusesComponent = ({ setFlashMessage, team }) => {
   const defaultStatusId = team.verification_statuses.default;
   const defaultLanguage = team.get_language || 'en';
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
@@ -91,7 +92,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
     });
   }
 
-  const handleDelete = ({ status_id, fallback_status_id }) => {
+  const handleDelete = ({ fallback_status_id, status_id }) => {
     const onCompleted = () => {
       setStatuses(statuses.filter(s => s.id !== status_id));
       setShowDeleteStatusDialogFor(null);

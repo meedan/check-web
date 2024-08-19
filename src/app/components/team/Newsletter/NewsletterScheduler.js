@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
@@ -31,21 +32,21 @@ const getWeekDays = (locale) => {
 export { getWeekDays }; // For unit test
 
 const NewsletterScheduler = ({
-  type,
-  timezone,
-  onUpdate,
-  sendEvery,
-  sendOn,
-  time,
-  parentErrors,
-  subscribersCount,
-  lastDeliveryError,
-  lastSentAt,
-  lastScheduledAt,
-  lastScheduledBy,
-  scheduled,
   disabled,
   intl,
+  lastDeliveryError,
+  lastScheduledAt,
+  lastScheduledBy,
+  lastSentAt,
+  onUpdate,
+  parentErrors,
+  scheduled,
+  sendEvery,
+  sendOn,
+  subscribersCount,
+  time,
+  timezone,
+  type,
 }) => {
   const weekDays = getWeekDays(intl.locale);
   const weekDaysLabels = weekDays.labels;

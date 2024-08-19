@@ -1,24 +1,25 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from './NewsletterComponent.module.css';
 import TextField from '../../cds/inputs/TextField';
 import TextArea from '../../cds/inputs/TextArea';
-import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
 import LinkIcon from '../../../icons/link.svg';
 import AutorenewIcon from '../../../icons/autorenew.svg';
+import styles from './NewsletterComponent.module.css';
 
 const NewsletterRssFeed = ({
   disabled,
-  parentErrors,
   helpContent,
   numberOfArticles,
   onUpdateNumberOfArticles,
-  rssFeedUrl,
   onUpdateUrl,
+  parentErrors,
+  rssFeedUrl,
 }) => {
   const [localRssFeedUrl, setLocalRssFeedUrl] = React.useState(rssFeedUrl);
   const [loadCount, setLoadCount] = React.useState(0); // Forces a re-fetch

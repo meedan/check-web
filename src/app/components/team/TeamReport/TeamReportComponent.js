@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -9,7 +10,6 @@ import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import TextArea from '../../cds/inputs/TextArea';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import settingsStyles from '../Settings.module.css';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import FacebookIcon from '../../../icons/facebook.svg';
 import TwitterIcon from '../../../icons/twitter.svg';
@@ -21,8 +21,9 @@ import SettingsHeader from '../SettingsHeader';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { withSetFlashMessage } from '../../FlashMessage';
 import Can from '../../Can';
+import settingsStyles from '../Settings.module.css';
 
-const TeamReportComponent = ({ team, setFlashMessage }) => {
+const TeamReportComponent = ({ setFlashMessage, team }) => {
   const defaultLanguage = team.get_language || 'en';
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const [reports, setReports] = React.useState(JSON.parse(JSON.stringify(team.get_report || {})));

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, defineMessages } from 'react-intl';
@@ -20,10 +21,10 @@ const messages = defineMessages({
 });
 
 const FeedsComponent = ({
-  team,
   feeds,
-  location,
   intl,
+  location,
+  team,
 }) => {
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');

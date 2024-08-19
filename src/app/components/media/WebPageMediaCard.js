@@ -3,8 +3,8 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
 import { Box } from '@material-ui/core';
-import AspectRatio from '../layout/AspectRatio';
 import MediaCardTitleSummary from './MediaCardTitleSummary';
+import AspectRatio from '../layout/AspectRatio';
 
 class WebPageMediaCard extends Component {
   shouldComponentUpdate(nextProps) {
@@ -24,14 +24,14 @@ class WebPageMediaCard extends Component {
 
   render() {
     const {
-      projectMedia,
-      data,
       contentWarning,
-      warningCreator,
-      warningCategory,
-      inModal,
       currentUserRole,
+      data,
+      inModal,
+      projectMedia,
       superAdminMask,
+      warningCategory,
+      warningCreator,
     } = this.props;
 
     return (

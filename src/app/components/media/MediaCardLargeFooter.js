@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
@@ -9,11 +10,11 @@ import MediaSlug from './MediaSlug';
 import ExternalLink from '../ExternalLink';
 
 const MediaCardLargeFooter = ({
-  inModal,
-  projectMedia,
-  onClickMore,
-  mediaType,
   data,
+  inModal,
+  mediaType,
+  onClickMore,
+  projectMedia,
 }) => {
   let footerTitle = null;
 

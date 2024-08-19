@@ -10,16 +10,16 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import cx from 'classnames/bind';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChangeUserRole from './ChangeUserRole';
 import InviteDialog from './InviteDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamMemberActions from './TeamMemberActions';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import settingsStyles from './Settings.module.css';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
+import settingsStyles from './Settings.module.css';
 
 const TeamMembersComponent = ({
   team,

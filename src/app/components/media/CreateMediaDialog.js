@@ -1,14 +1,15 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateMediaInput from './CreateMediaInput';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconClose from '../../icons/clear.svg';
 import styles from '../../styles/css/dialog.module.css';
 
 export default function CreateMediaDialog({
-  open, title, onSubmit, onDismiss, team,
+  onDismiss, onSubmit, open, team, title,
 }) {
   const formId = 'create-media-dialog-form';
 

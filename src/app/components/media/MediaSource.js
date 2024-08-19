@@ -5,9 +5,9 @@ import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
+import CreateMediaSource from './CreateMediaSource';
 import ErrorBoundary from '../error/ErrorBoundary';
 import SourceInfo from '../source/SourceInfo';
-import CreateMediaSource from './CreateMediaSource';
 import { can } from '../Can';
 import styles from './media.module.css';
 
@@ -22,7 +22,7 @@ function updateHeight() {
   sourceTabFrameTimer = setTimeout(updateHeight, 500);
 }
 
-const MediaSourceComponent = ({ projectMedia, about }) => {
+const MediaSourceComponent = ({ about, projectMedia }) => {
   const [action, setAction] = React.useState('view');
   const [newSourceName, setNewSourceName] = React.useState('');
 
@@ -103,7 +103,7 @@ const MediaSourceComponent = ({ projectMedia, about }) => {
   };
   const handleChangeSource = () => setAction('change');
 
-  const { team, source } = projectMedia;
+  const { source, team } = projectMedia;
 
   return (
     <React.Fragment>
@@ -141,7 +141,7 @@ const MediaSourceComponent = ({ projectMedia, about }) => {
   );
 };
 
-const MediaSource = ({ projectMedia, params }) => {
+const MediaSource = ({ params, projectMedia }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   let ids = null;
 

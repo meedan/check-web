@@ -64,8 +64,8 @@ class CreateRelatedMediaDialog extends React.Component {
   render() {
     const { mode } = this.state;
     const {
-      media,
       hideNew,
+      media,
       typesToShow,
     } = this.props;
     const formId = 'create-related-media-dialog-form';

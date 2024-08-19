@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import PublishedIcon from '../../icons/fact_check.svg';
-import FileDownloadIcon from '../../icons/file_download.svg';
-import BookIcon from '../../icons/book.svg';
 import styles from './../drawer/Projects/Projects.module.css';
 import ArticleCoreListCounter from './ArticleCoreListCounter';
 import NewArticleButton from './NewArticleButton';
+import PublishedIcon from '../../icons/fact_check.svg';
+import FileDownloadIcon from '../../icons/file_download.svg';
+import BookIcon from '../../icons/book.svg';
 
 const ArticlesComponent = ({ team }) => {
   // Get/set which list item should be highlighted

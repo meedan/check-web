@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';

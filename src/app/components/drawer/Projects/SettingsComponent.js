@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { withRouter, Link } from 'react-router';
 import PropTypes from 'prop-types';
@@ -82,9 +83,9 @@ const messages = defineMessages({
 });
 
 const SettingsComponent = ({
-  team,
-  params,
   intl,
+  params,
+  team,
 }) => {
   const { tab } = params;
   const userRole = UserUtil.myRole(window.Check.store.getState().app.context.currentUser, team.slug);

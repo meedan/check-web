@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { FeedImportDialog } from './FeedImportDialog';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedImportDialog />', () => {
   const team = {

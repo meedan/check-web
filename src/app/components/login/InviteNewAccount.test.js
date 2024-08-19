@@ -1,7 +1,7 @@
 import React from 'react';
+import { InviteNewAccountComponent } from './InviteNewAccount';
 import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
-import { InviteNewAccountComponent } from './InviteNewAccount';
 
 const team = {
   id: '2',

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -11,7 +12,7 @@ import ClearIcon from '../icons/clear.svg';
 import { unhumanizeSize } from '../helpers';
 import styles from './UploadFile.module.css';
 
-const UploadMessage = ({ type, about }) => {
+const UploadMessage = ({ about, type }) => {
   switch (type) {
   case 'image': return (
     <FormattedMessage
@@ -99,9 +100,9 @@ class UploadFileComponent extends React.PureComponent {
   onDrop = (files) => {
     const {
       about,
-      type,
       onChange,
       onError,
+      type,
     } = this.props;
     const file = files[0];
     let extensions = '';
@@ -153,7 +154,7 @@ class UploadFileComponent extends React.PureComponent {
   }
 
   maybePreview() {
-    const { value, noPreview, type } = this.props;
+    const { noPreview, type, value } = this.props;
 
     if (type !== 'image') {
       return null;
@@ -183,9 +184,9 @@ class UploadFileComponent extends React.PureComponent {
   render() {
     const {
       about,
-      value,
-      type,
       disabled,
+      type,
+      value,
     } = this.props;
     return (
       <div className={styles.UploadFile}>

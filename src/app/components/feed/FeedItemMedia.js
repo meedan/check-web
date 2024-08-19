@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import TeamAvatar from '../team/TeamAvatar';
 import FeedItemMediaList from './FeedItemMediaList';
+import TeamAvatar from '../team/TeamAvatar';
 import styles from './FeedItem.module.css';
 
 const FeedItemMedia = ({ clusterTeam }) => (

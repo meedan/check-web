@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -5,7 +6,7 @@ import { Link } from 'react-router';
 import EmptyFeedIcon from '../../icons/empty_feed.svg';
 import styles from './FeedBlankState.module.css';
 
-const FeedBlankState = ({ teamSlug, feedDbid, listDbid }) => (
+const FeedBlankState = ({ feedDbid, listDbid, teamSlug }) => (
   <div className={styles.feedBlankState}>
     <EmptyFeedIcon />
     <h6 className="typography-h6">

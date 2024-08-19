@@ -1,7 +1,9 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
+import SharedItemCardFooter from './SharedItemCardFooter';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import Checkbox from '../../cds/buttons-checkboxes-chips/Checkbox';
 import ItemThumbnail from '../../cds/media-cards/ItemThumbnail';
@@ -9,7 +11,6 @@ import ItemArticlesOrFactCheck from '../../cds/media-cards/ItemArticlesOrFactChe
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemDate from '../../cds/media-cards/ItemDate';
 import ItemWorkspaces from '../../cds/media-cards/ItemWorkspaces';
-import SharedItemCardFooter from './SharedItemCardFooter';
 import styles from './ItemCard.module.css';
 
 const ClusterCard = ({
@@ -20,11 +21,11 @@ const ClusterCard = ({
   dataPoints,
   date,
   description,
-  isChecked,
-  isUnread,
-  isPublished,
   factCheckCount,
   factCheckUrl,
+  isChecked,
+  isPublished,
+  isUnread,
   lastRequestDate,
   mediaCount,
   mediaThumbnail,

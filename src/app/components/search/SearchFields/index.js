@@ -1,9 +1,15 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
+import SearchFieldDummy from './SearchFieldDummy';
+import SearchFieldSource from './SearchFieldSource';
+import SearchFieldTag from './SearchFieldTag';
+import SearchFieldChannel from './SearchFieldChannel';
+import SearchFieldUser from './SearchFieldUser';
+import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -11,12 +17,6 @@ import LanguageFilter from '../LanguageFilter';
 import NumericRangeFilter from '../NumericRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
-import SearchFieldDummy from './SearchFieldDummy';
-import SearchFieldSource from './SearchFieldSource';
-import SearchFieldTag from './SearchFieldTag';
-import SearchFieldChannel from './SearchFieldChannel';
-import SearchFieldUser from './SearchFieldUser';
-import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -143,20 +143,20 @@ const messages = defineMessages({
 });
 
 const SearchFields = ({
-  intl,
-  team,
-  stateQuery,
   appliedQuery,
   defaultQuery,
   feedTeam,
-  readOnlyFields,
-  setStateQuery,
+  handleSubmit,
+  hideFields,
+  intl,
   onChange,
   onChangeSort,
   page,
-  handleSubmit,
+  readOnlyFields,
   savedSearch,
-  hideFields,
+  setStateQuery,
+  stateQuery,
+  team,
 }) => {
   /**
   * Return `query`, with property `key` changed to the `newArray`.

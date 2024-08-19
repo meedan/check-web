@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -62,11 +63,11 @@ const commitPinMutation = (id, targetId, sourceId, onCompleted, onError) => {
 const RelationshipMenu = ({
   canDelete,
   canSwitch,
-  setFlashMessage,
   id,
+  mainProjectMedia,
+  setFlashMessage,
   sourceId,
   targetId,
-  mainProjectMedia,
 }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -262,17 +263,17 @@ const RelationshipMenu = ({
 };
 
 const MediaRelationship = ({
+  canDelete,
+  canSwitch,
+  intl,
+  mainProjectMediaConfirmedSimilarCount,
+  mainProjectMediaDemand,
+  mainProjectMediaId,
   relationship,
   relationshipSourceId,
   relationshipTargetId,
-  canSwitch,
-  canDelete,
-  mainProjectMediaId,
-  mainProjectMediaDemand,
-  mainProjectMediaConfirmedSimilarCount,
-  superAdminMask,
   setFlashMessage,
-  intl,
+  superAdminMask,
 }) => {
   const classes = useStyles();
   const [isSelected, setIsSelected] = React.useState(false);

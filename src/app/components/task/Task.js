@@ -213,7 +213,7 @@ class Task extends Component {
   };
 
   submitDeleteTask = () => {
-    const { task, media } = this.props;
+    const { media, task } = this.props;
     this.setState({ isSaving: true });
 
     const onSuccess = () => {
@@ -354,7 +354,7 @@ class Task extends Component {
   );
 
   renderTaskResponse(responseObj) {
-    const { task, about } = this.props;
+    const { about, task } = this.props;
     const messages = this.generateMessages(about);
 
     const EditButton = () => (
@@ -400,12 +400,12 @@ class Task extends Component {
 
     const SaveButton = (props) => {
       const {
+        anyInvalidUrls,
         disabled,
-        uploadables,
+        empty,
         mutationPayload,
         required,
-        empty,
-        anyInvalidUrls,
+        uploadables,
       } = props;
       const payload =
         mutationPayload?.response_multiple_choice ||
@@ -764,7 +764,7 @@ class Task extends Component {
   }
 
   render() {
-    const { task: teamTask, media } = this.props;
+    const { media, task: teamTask } = this.props;
     const task = { ...teamTask };
     const data = getResponseData(task.first_response);
     const { response } = data;

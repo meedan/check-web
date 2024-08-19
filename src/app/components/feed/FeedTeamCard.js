@@ -1,21 +1,22 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import FeedTeamFactCheckCard from './FeedTeamFactCheckCard';
 import Card from '../cds/media-cards/Card';
 import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
-import FeedTeamFactCheckCard from './FeedTeamFactCheckCard';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import TeamAvatar from '../team/TeamAvatar';
 import styles from './FeedItem.module.css';
 
 const FeedTeamCard = ({
-  feed,
-  team,
   clusterTeam,
-  selected,
+  feed,
   onClick,
+  selected,
+  team,
 }) => {
   const factChecks = clusterTeam.fact_checks || { edges: [] };
   const isSharingFactChecks = (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS));

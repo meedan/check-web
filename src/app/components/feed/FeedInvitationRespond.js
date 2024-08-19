@@ -5,22 +5,22 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
+import FeedMetadata from './FeedMetadata';
+import FeedCollaboration from './FeedCollaboration';
 import ErrorBoundary from '../error/ErrorBoundary';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem, safelyParseJSON } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import FeedMetadata from './FeedMetadata';
-import FeedCollaboration from './FeedCollaboration';
-import styles from './FeedInvitation.module.css';
-import saveFeedStyles from './SaveFeed.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import MediasLoading from '../media/MediasLoading';
 import NotFound from '../NotFound';
 import { can } from '../Can';
 import CheckError from '../../CheckError';
+import saveFeedStyles from './SaveFeed.module.css';
+import styles from './FeedInvitation.module.css';
 
 const acceptMutation = graphql`
   mutation FeedInvitationRespondAcceptFeedInvitationMutation($input: UpdateFeedInvitationInput!) {

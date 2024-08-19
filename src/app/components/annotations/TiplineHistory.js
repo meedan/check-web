@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 import PaginatedTiplineHistory from './PaginatedTiplineHistory';
 
 const TiplineHistory = ({
-  uid,
-  teamSlug,
   handleClose,
+  teamSlug,
   title,
+  uid,
 }) => {
   const pageSize = 1000;
 

@@ -8,10 +8,10 @@ import CloseIcon from '../../icons/clear.svg';
 import styles from '../../styles/css/dialog.module.css';
 
 const ItemHistoryDialog = ({
+  onClose,
   open,
   projectMedia,
   team,
-  onClose,
 }) => (
   <Dialog
     className={styles['dialog-window']}

@@ -6,14 +6,14 @@ import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
 import ApiKeyCreate from './ApiKeyCreate';
 import ApiKeyEntry from './ApiKeyEntry';
-import styles from './ApiKeys.module.css';
-import settingsStyles from './Settings.module.css';
 import BlankState from '../layout/BlankState';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import SettingsIcon from '../../icons/settings.svg';
 import HelpIcon from '../../icons/help.svg';
 import ExternalLink from '../ExternalLink';
+import settingsStyles from './Settings.module.css';
+import styles from './ApiKeys.module.css';
 
 const ApiKeys = ({ team }) => {
   const apiKeys = team.api_keys;

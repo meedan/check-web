@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { WebPageMediaCard } from './WebPageMediaCard.js';
+import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 describe('<WebPageMediaCard />', () => {

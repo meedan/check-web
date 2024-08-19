@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -9,10 +10,10 @@ import Select from '../cds/inputs/Select';
 import styles from './SelectList.module.css';
 
 const SelectListQueryRenderer = ({
-  required,
   label,
   onChange,
   onRemove,
+  required,
   value,
 }) => (
   <QueryRenderer

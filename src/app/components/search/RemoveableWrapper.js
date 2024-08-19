@@ -1,18 +1,19 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from './search.module.css';
 import CloseIcon from '../../icons/clear.svg';
+import styles from './search.module.css';
 
 // FIXME This should probably not be called RemoveableWrapper as removing can be optional
 // FilterWrapper maybe?
 const RemoveableWrapper = ({
+  children,
   icon,
   onRemove,
-  children,
   readOnly,
 }) => {
   const [showDeleteIcon, setShowDeleteIcon] = React.useState(false);

@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import MediaStatus from './MediaStatus';
 import { MediaActionsBarComponent } from './MediaActionsBar';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 describe('<MediaActionsBarComponent />', () => {

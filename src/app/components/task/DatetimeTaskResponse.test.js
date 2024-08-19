@@ -1,7 +1,7 @@
 import React from 'react';
+import DatetimeTaskResponse from './DatetimeTaskResponse';
 import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
-import DatetimeTaskResponse from './DatetimeTaskResponse';
 
 describe('<DatetimeTaskResponse />', () => {
   it('Renders date', () => {

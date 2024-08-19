@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -6,7 +7,7 @@ import styles from './Card.module.css';
 
 const CardHoverContext = React.createContext(false);
 
-const MaybeLink = ({ to, children }) => {
+const MaybeLink = ({ children, to }) => {
   if (to) {
     if (/^http/.test(to)) {
       return <a href={to} target="_blank" rel="noreferrer noopener" className={styles.clickableCard}>{children}</a>;
@@ -18,9 +19,9 @@ const MaybeLink = ({ to, children }) => {
 
 const Card = ({
   cardUrl,
-  footer,
   children,
   className,
+  footer,
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 

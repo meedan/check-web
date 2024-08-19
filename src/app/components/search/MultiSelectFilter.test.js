@@ -1,7 +1,7 @@
 import React from 'react';
+import MultiSelectFilter from './MultiSelectFilter';
 import CloseIcon from '../../icons/clear.svg';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
-import MultiSelectFilter from './MultiSelectFilter';
 
 describe('<MultiSelectFilter />', () => {
   const options = [

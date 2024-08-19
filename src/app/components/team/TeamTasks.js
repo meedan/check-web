@@ -5,7 +5,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import TeamTaskCardForm from './TeamTaskCardForm'; // eslint-disable-line no-unused-vars
 import TeamMetadataRender from './TeamMetadataRender';
 
-const TeamTasksComponent = ({ team, about }) => (
+const TeamTasksComponent = ({ about, team }) => (
   <div className="team-tasks">
     <TeamMetadataRender
       team={team}

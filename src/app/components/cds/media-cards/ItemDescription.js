@@ -1,16 +1,17 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
+import ArticleUrl from './ArticleUrl';
 import UnfoldLessIcon from '../../../icons/unfold_less.svg';
 import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
-import ArticleUrl from './ArticleUrl';
 import styles from './Card.module.css';
 
 const ItemDescription = ({
   className,
   description,
-  title,
   showCollapseButton,
+  title,
   url,
   variant,
 }) => {

@@ -5,10 +5,10 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from './search.module.css';
 
 const AnnotationFilterNumber = ({
-  teamTask,
-  query,
   onChange,
   onError,
+  query,
+  teamTask,
 }) => {
   const getFieldValue = (field) => {
     const teamTaskValue = query.team_tasks.find(tt => tt.id.toString() === teamTask.node.dbid.toString());

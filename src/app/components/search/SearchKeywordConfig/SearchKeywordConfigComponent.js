@@ -4,9 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import MultiSelector from '../../layout/MultiSelector';
 
 const SearchKeywordConfigComponent = ({
-  query,
   onDismiss,
   onSubmit,
+  query,
 }) => {
   const defaultSelected = ['claim_description_content', 'fact_check_title', 'fact_check_summary', 'title', 'description'];
   const selected = query.keyword_fields?.fields || defaultSelected;

@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Can from '../Can';
 import MediasLoading from './MediasLoading';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import BulkActionsAssign from './BulkActionsAssign';
 import BulkActionsStatus from './BulkActionsStatus';
 import BulkActionsTag from './BulkActionsTag';
 import BulkActionsRemoveTag from './BulkActionsRemoveTag';
+import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import Can from '../Can';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
@@ -22,11 +22,11 @@ import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const BulkActionsMenu = ({
+  onUnselectAll,
+  page,
   selectedMedia,
   selectedProjectMedia,
   team,
-  page,
-  onUnselectAll,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mode, setMode] = React.useState('menu');
@@ -157,7 +157,7 @@ const BulkActionsMenu = ({
             read,
           },
         },
-        onCompleted: ({ response, error }) => {
+        onCompleted: ({ error, response }) => {
           if (error) {
             return fail(error);
           }

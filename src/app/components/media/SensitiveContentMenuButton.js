@@ -21,11 +21,11 @@ import inputStyles from '../../styles/css/inputs.module.css';
 
 const SensitiveContentMenu = ({
   anchorEl,
+  container,
   onDismiss,
+  onSave,
   projectMedia,
   setFlashMessage,
-  container,
-  onSave,
 }) => {
   let warningType = null;
   let warningTypeCustom = null;
@@ -159,7 +159,7 @@ const SensitiveContentMenu = ({
             set_fields: JSON.stringify(fields),
           },
         },
-        onCompleted: ({ response, error }) => {
+        onCompleted: ({ error, response }) => {
           if (error) {
             return onFailure(error);
           }
@@ -194,7 +194,7 @@ const SensitiveContentMenu = ({
             set_fields: JSON.stringify(fields),
           },
         },
-        onCompleted: ({ response, error }) => {
+        onCompleted: ({ error, response }) => {
           if (error) {
             return onFailure(error);
           }
@@ -331,8 +331,8 @@ const SensitiveContentMenu = ({
 
 const SensitiveContentMenuButton = ({
   currentUserRole,
-  projectMedia,
   onSave,
+  projectMedia,
   setFlashMessage,
 }) => {
   const { show_warning_cover } = projectMedia;

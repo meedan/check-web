@@ -2,10 +2,10 @@ import React from 'react';
 import Favicon from 'react-favicon';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import cx from 'classnames/bind';
+import Login from './Login';
 import BrowserSupport from '../BrowserSupport';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Footer from '../Footer';
-import Login from './Login';
 import PageTitle from '../PageTitle';
 import styles from './login.module.css';
 

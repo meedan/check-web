@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 import QuickFilterMenu from './QuickFilterMenu';
+import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
 describe('<QuickFilterMenu />', () => {
   const setTeamFilters = jest.fn();

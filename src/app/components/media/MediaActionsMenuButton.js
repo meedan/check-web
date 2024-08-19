@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -59,13 +59,13 @@ class MediaActionsMenuButton extends React.PureComponent {
 
   render() {
     const {
-      projectMedia,
-      isParent,
-      handleSendToTrash,
-      handleSendToSpam,
       handleAssign,
-      handleStatusLock,
       handleItemHistory,
+      handleSendToSpam,
+      handleSendToTrash,
+      handleStatusLock,
+      isParent,
+      projectMedia,
     } = this.props;
     const menuItems = [];
 

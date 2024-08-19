@@ -4,9 +4,9 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import reactStringReplace from 'react-string-replace';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import Alert from './cds/alerts-and-prompts/Alert';
 import IconClose from '../icons/clear.svg';
 import ErrorIcon from '../icons/error.svg';
-import Alert from './cds/alerts-and-prompts/Alert';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
 

@@ -1,30 +1,31 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
 import TextField from '../../cds/inputs/TextField';
 import CancelIcon from '../../../icons/cancel.svg';
 import EditIcon from '../../../icons/edit.svg';
 import LockIcon from '../../../icons/lock.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import Reorder from '../../layout/Reorder';
 import AddIcon from '../../../icons/add.svg';
 import styles from '../Settings.module.css';
 
 const SmoochBotMainMenuSection = ({
-  number,
-  value,
-  resources,
-  readOnly,
-  optional,
-  noTitleNoDescription,
-  currentUser,
-  currentLanguage,
   canCreate,
+  currentLanguage,
+  currentUser,
   hasUnsavedChanges,
-  onChangeTitle,
+  noTitleNoDescription,
+  number,
   onChangeMenuOptions,
+  onChangeTitle,
+  optional,
+  readOnly,
+  resources,
+  value,
 }) => {
   const [showNewOptionDialog, setShowNewOptionDialog] = React.useState(false);
   const [editingOptionIndex, setEditingOptionIndex] = React.useState(-1);

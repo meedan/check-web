@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -47,13 +48,13 @@ const messages = defineMessages({
 });
 
 const SearchFieldChannelComponent = ({
-  query,
+  about,
+  intl,
   onChange,
   onRemove,
-  about,
   page,
+  query,
   readOnly,
-  intl,
 }) => {
   const { channels } = about;
 

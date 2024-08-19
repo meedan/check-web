@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -19,14 +20,14 @@ const messages = defineMessages({
 });
 
 const LanguagePickerSelect = ({
+  helpContent,
   intl,
-  selectedLanguage,
-  onSubmit,
-  languages,
   isDisabled,
   label,
-  helpContent,
+  languages,
+  onSubmit,
   required,
+  selectedLanguage,
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
   const options = (languages || []).slice();

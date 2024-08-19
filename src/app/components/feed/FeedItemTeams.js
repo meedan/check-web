@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -10,9 +11,9 @@ import styles from './FeedItem.module.css';
 const findTeamInCluster = (cluster, teamDbid) => (cluster.cluster_teams?.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === teamDbid));
 
 const FeedItemTeams = ({
-  team,
   cluster,
   feed,
+  team,
 }) => {
   const currentClusterTeam = findTeamInCluster(cluster, team.dbid) || {};
   const [selectedTeamDbid, selectTeam] = React.useState(null); // Slug

@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { FeedItemHeader } from './FeedItemHeader';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedItemHeader />', () => {
   const feed = {

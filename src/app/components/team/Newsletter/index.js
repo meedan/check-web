@@ -1,8 +1,8 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { safelyParseJSON } from '../../../helpers';
 import NewsletterComponent from './NewsletterComponent';
+import { safelyParseJSON } from '../../../helpers';
 import createEnvironment from '../../../relay/EnvironmentModern';
 
 const Newsletter = () => {

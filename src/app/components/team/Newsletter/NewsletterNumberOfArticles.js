@@ -6,8 +6,8 @@ import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGr
 const NewsletterNumberOfArticles = ({
   disabled,
   number,
-  options,
   onChangeNumber,
+  options,
 }) => (
   <ToggleButtonGroup
     label={

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -8,14 +9,14 @@ import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './Switch.module.css';
 
 const SwitchComponent = ({
-  inputProps,
   checked,
+  className,
   disabled,
+  helperContent,
+  inputProps,
   label,
   labelPlacement,
-  helperContent,
   onChange,
-  className,
 }) => {
   const handleChange = (event) => {
     if (onChange) {

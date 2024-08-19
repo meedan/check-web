@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -12,13 +13,13 @@ let lastTypedValue = '';
 let plainTagsTexts = [];
 
 const SearchFieldTag = ({
-  teamSlug,
-  query,
   onChange,
   onRemove,
   onToggleOperator,
   operator,
+  query,
   readOnly,
+  teamSlug,
 }) => {
   // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
   const [random] = React.useState(String(Math.random()));

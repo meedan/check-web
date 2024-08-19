@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -54,7 +55,7 @@ const UserTosComponent = (props) => {
       setMessage(<FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" description="Message to the user that they must review the application terms of service" />);
     }
   };
-  const { user, about } = props;
+  const { about, user } = props;
 
   const actions = [
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events

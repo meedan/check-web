@@ -1,12 +1,13 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import MediasLoading from '../media/MediasLoading';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
+import MediasLoading from '../media/MediasLoading';
 import CheckBoxIcon from '../../icons/check_box.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import IconFileUpload from '../../icons/file_upload.svg';
@@ -47,10 +48,10 @@ const messages = defineMessages({
 const CustomFiltersManagerComponent = ({
   hide,
   intl,
-  team,
-  operatorToggle,
   onFilterChange,
+  operatorToggle,
   query,
+  team,
 }) => {
   if (hide) { return null; }
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -214,10 +215,10 @@ const CustomFiltersManagerComponent = ({
 const CustomFiltersManager = ({
   hide,
   intl,
-  team,
-  operatorToggle,
   onFilterChange,
+  operatorToggle,
   query,
+  team,
 }) => {
   const teamSlug = team.slug;
   // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)

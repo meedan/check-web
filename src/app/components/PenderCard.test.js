@@ -1,7 +1,7 @@
 import React from 'react';
 import MediasLoading from './media/MediasLoading';
-import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
 import PenderCard from './PenderCard';
+import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
 
 describe('<PenderCard />', () => {
   it('contains an SVG spinner if fallback is not provided', () => {

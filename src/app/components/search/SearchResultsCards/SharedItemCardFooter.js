@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -14,17 +15,17 @@ import TagList from '../../cds/menus-lists-dialogs/TagList';
 import styles from './ItemCard.module.css';
 
 const SharedItemCardFooter = ({
-  mediaCount,
-  mediaType,
-  requestsCount,
-  suggestionsCount,
+  channels,
   languageCode,
   lastRequestDate,
-  tags,
-  tagOptions,
+  mediaCount,
+  mediaType,
   onChangeTags,
-  channels,
   onSeeMore,
+  requestsCount,
+  suggestionsCount,
+  tagOptions,
+  tags,
 }) => (
   <BulletSeparator
     className={styles.bulletSeparator}

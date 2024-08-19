@@ -1,15 +1,16 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import { FormattedGlobalMessage } from './MappedMessage';
-import { stringHelper } from '../customHelpers';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import PageTitle from './PageTitle';
+import { stringHelper } from '../customHelpers';
 import styles from './NotFound.module.css';
 
-const NotFound = ({ title, description }) => (
+const NotFound = ({ description, title }) => (
   <PageTitle
     prefix={
       <FormattedMessage

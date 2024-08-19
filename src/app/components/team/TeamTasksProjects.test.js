@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import TeamTasksProject from './TeamTasksProject';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 const project = {
   teamTasks: [],

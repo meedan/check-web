@@ -1,35 +1,36 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
+import RemoveArticleButton from './RemoveArticleButton';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Card from '../cds/media-cards/Card';
 import EllipseIcon from '../../icons/ellipse.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import BookIcon from '../../icons/book.svg';
 import BulletSeparator from '../layout/BulletSeparator';
-import styles from './ArticleCard.module.css';
-import cardStyles from '../cds/media-cards/Card.module.css';
 import Language from '../cds/media-cards/Language';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import ArticleUrl from '../cds/media-cards/ArticleUrl';
 import ItemReportStatus from '../cds/media-cards/ItemReportStatus';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import RemoveArticleButton from './RemoveArticleButton';
+import cardStyles from '../cds/media-cards/Card.module.css';
+import styles from './ArticleCard.module.css';
 
 const MediaArticleCard = ({
-  id,
-  title,
-  url,
   date,
-  statusLabel,
-  statusColor,
+  id,
   languageCode,
-  publishedAt,
-  variant,
   onClick,
   onRemove,
+  publishedAt,
   removeDisabled,
+  statusColor,
+  statusLabel,
+  title,
+  url,
+  variant,
 }) => (
   <div className={cx('article-card', styles.articleCard, styles.mediaArticleCardWrapper)}>
     <Card className={styles.mediaArticleCard}>

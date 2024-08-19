@@ -2,8 +2,8 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import util from 'util';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import util from 'util';
 
 const fetchTimeout = config.timeout || 60000;
 

@@ -5,9 +5,9 @@ import TextField from '../../cds/inputs/TextField';
 
 const LimitedTextField = ({
   maxChars,
-  value,
-  setValue,
   onChange,
+  setValue,
+  value,
   ...textFieldProps
 }) => {
   const [error, setError] = React.useState(false);

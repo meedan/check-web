@@ -1,16 +1,17 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages, intlShape } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import cx from 'classnames/bind';
+import UserEmail from './UserEmail';
+import ConfirmEmail from './ConfirmEmail';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TextField from '../cds/inputs/TextField';
 import SourcePicture from '../source/SourcePicture';
-import UserEmail from './UserEmail';
-import ConfirmEmail from './ConfirmEmail';
 import UploadFile from '../UploadFile';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
@@ -19,8 +20,8 @@ import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSour
 import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
-import styles from './user.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
+import styles from './user.module.css';
 
 const messages = defineMessages({
   sourceName: {

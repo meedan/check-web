@@ -1,10 +1,11 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Linkify from 'react-linkify';
 import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
 import reactStringReplace from 'react-string-replace';
-import styles from './ParsedText.module.css';
 import MediaChip from './cds/buttons-checkboxes-chips/MediaChip';
+import styles from './ParsedText.module.css';
 
 const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
   let parsedText = text;

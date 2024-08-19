@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { FeedClustersComponent } from './FeedClusters';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedClusters />', () => {
   const feedTeam = {

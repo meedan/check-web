@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -56,10 +57,10 @@ const removeClaimDescriptionMutation = graphql`
 `;
 
 const RemoveArticleButton = ({
-  id,
-  variant,
   disabled,
+  id,
   onRemove,
+  variant,
 }) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [removing, setRemoving] = React.useState(false);

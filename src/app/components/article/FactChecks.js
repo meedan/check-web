@@ -1,9 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import FactCheckIcon from '../../icons/fact_check.svg';
 import Articles from './Articles';
+import FactCheckIcon from '../../icons/fact_check.svg';
 
 const messages = defineMessages({
   sortTitle: {
@@ -23,7 +24,7 @@ const messages = defineMessages({
   },
 });
 
-const FactChecks = ({ routeParams, intl }) => {
+const FactChecks = ({ intl, routeParams }) => {
   const sortOptions = [
     { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'language', label: intl.formatMessage(messages.sortLanguage) },

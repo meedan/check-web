@@ -13,8 +13,8 @@ import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const ChangeUserRole = ({
-  teamUser,
   setFlashMessage,
+  teamUser,
 }) => {
   const [newRole, setNewRole] = React.useState(null);
 

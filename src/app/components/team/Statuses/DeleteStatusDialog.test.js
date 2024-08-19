@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import { DeleteStatusDialog } from './DeleteStatusDialog';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<DeleteStatusDialog />', () => {
   const statuses = [

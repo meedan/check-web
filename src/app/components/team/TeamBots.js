@@ -3,17 +3,17 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import SwitchComponent from '../cds/inputs/SwitchComponent';
 import ApiKeys from './ApiKeys';
 import TeamBot from './TeamBot';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import SwitchComponent from '../cds/inputs/SwitchComponent';
 import CreateTeamBotInstallationMutation from '../../relay/mutations/CreateTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import { botName } from '../../helpers';
 import SettingsIcon from '../../icons/settings.svg';
-import styles from './Integrations.module.css';
 import settingsStyles from './Settings.module.css';
+import styles from './Integrations.module.css';
 
 class TeamBots extends Component {
   constructor(props) {

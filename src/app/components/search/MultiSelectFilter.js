@@ -1,12 +1,13 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Popover from '@material-ui/core/Popover';
 import cx from 'classnames/bind';
+import RemoveableWrapper from './RemoveableWrapper';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import MultiSelector from '../layout/MultiSelector';
-import RemoveableWrapper from './RemoveableWrapper';
 import MediasLoading from '../media/MediasLoading';
 import AddIcon from '../../icons/add.svg';
 import CloseIcon from '../../icons/clear.svg';
@@ -80,26 +81,26 @@ const Tag = ({
 );
 
 const MultiSelectFilter = ({
-  error,
   allowSearch,
+  error,
   extraInputs,
   hasMore,
-  selected,
   icon,
+  inputPlaceholder,
   label,
   loading,
-  options,
   onChange,
   onRemove,
   onScrollBottom,
   onSelectChange,
   onToggleOperator,
-  operator,
-  readOnly,
-  single,
   onType,
-  inputPlaceholder,
   oneOption,
+  operator,
+  options,
+  readOnly,
+  selected,
+  single,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
   const [version, setVersion] = React.useState(0);
@@ -206,15 +207,15 @@ const MultiSelectFilter = ({
 const CustomSelectDropdown = ({
   allowSearch,
   hasMore,
+  inputPlaceholder,
   loading,
+  onScrollBottom,
+  onSelectChange,
+  onSubmit,
+  onType,
   options,
   selected,
   single,
-  onScrollBottom,
-  onSubmit,
-  onSelectChange,
-  onType,
-  inputPlaceholder,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 

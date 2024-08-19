@@ -1,6 +1,6 @@
 import React from 'react';
-import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import Request from './Request';
+import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<Request />', () => {

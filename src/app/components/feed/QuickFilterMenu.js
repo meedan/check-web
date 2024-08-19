@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -11,8 +12,8 @@ import BoltIcon from '../../icons/bolt.svg';
 import styles from './FeedTopBar.module.css';
 
 const QuickFilterMenu = ({
-  setTeamFilters,
   currentOrg,
+  setTeamFilters,
   teamsWithoutCurrentOrg,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
@@ -16,16 +17,16 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ParsedText from '../ParsedText';
-import mediaStyles from '../media/media.module.css';
 import styles from './FeedItem.module.css';
+import mediaStyles from '../media/media.module.css';
 
 const FeedImportDialog = ({
-  team,
   cluster,
   feed,
-  setFlashMessage,
-  onClose,
   intl,
+  onClose,
+  setFlashMessage,
+  team,
 }) => {
   const [claimTitle, setClaimTitle] = React.useState(null);
   const [claimContext, setClaimContext] = React.useState(null);

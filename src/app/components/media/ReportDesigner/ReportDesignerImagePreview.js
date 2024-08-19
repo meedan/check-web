@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -10,7 +11,7 @@ function overwriteDocumentHtml(contentDocument, html) {
 }
 
 function tweakIframeDom({
-  contentDocument, headline, description, status_label, url, date, defaultReport,
+  contentDocument, date, defaultReport, description, headline, status_label, url,
 }) {
   const fillInOrHide = (selector, textContent) => {
     const el = contentDocument.querySelector(selector);
@@ -41,17 +42,17 @@ function tweakIframeDom({
 }
 
 function ReportImagePreview({
-  template, teamAvatar, image, style, params, date, defaultReport,
+  date, defaultReport, image, params, style, teamAvatar, template,
 }) {
   const [iframe, setIframe] = React.useState(null);
 
   const {
-    theme_color: themeColor,
-    headline,
-    description,
-    status_label,
-    url,
     dark_overlay,
+    description,
+    headline,
+    status_label,
+    theme_color: themeColor,
+    url,
   } = params;
 
   // TODO don't use 'style' attribute at all

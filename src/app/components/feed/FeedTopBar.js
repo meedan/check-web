@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -15,11 +16,11 @@ import styles from './FeedTopBar.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
 const FeedTopBar = ({
-  team,
   feed,
-  teamFilters,
   hideQuickFilterMenu,
   setTeamFilters,
+  team,
+  teamFilters,
 }) => {
   const hasList = Boolean(feed.saved_search);
 
@@ -37,11 +38,11 @@ const FeedTopBar = ({
 
   const OrgFilterButton = ({
     avatar,
+    current,
     dbid,
     enabled,
-    slug,
     name,
-    current,
+    slug,
   }) => {
     const handleFilterClick = () => {
       // remove this team from the filter
@@ -162,9 +163,9 @@ const FeedTopBar = ({
           { teamsWithoutCurrentOrg.map((feedTeam) => {
             const {
               avatar,
-              slug,
               dbid,
               name,
+              slug,
             } = feedTeam.node;
             return (
               <OrgFilterButton

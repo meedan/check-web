@@ -7,11 +7,11 @@ import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import styles from './FeedInvitation.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import DoneIcon from '../../icons/done.svg';
 import { can } from '../Can';
+import styles from './FeedInvitation.module.css';
 
 const FeedInvitationComponent = ({ routeParams, ...props }) => {
   // display an error if the user is not an admin on any workspaces

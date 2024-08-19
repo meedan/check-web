@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -6,6 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
+import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import GetAppIcon from '../../../icons/file_download.svg';
@@ -18,10 +20,9 @@ import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
-import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
 import styles from '../Settings.module.css';
 
-const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }) => {
+const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }) => {
   const [copied, setCopied] = React.useState(null);
 
   const isWabaSet = settings.turnio_host && settings.turnio_secret && settings.turnio_token;

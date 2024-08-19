@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import styles from './MediaChip.module.css';
 import MediaTypeDisplayIcon, { mediaTypeFromFilename, mediaTypeFromUrl } from '../../media/MediaTypeDisplayIcon';
 import Tooltip from '../alerts-and-prompts/Tooltip';
+import styles from './MediaChip.module.css';
 
 const MediaChip = ({
   label,

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -5,11 +6,11 @@ import EllipseIcon from '../../icons/ellipse.svg';
 import styles from './BulletSeparator.module.css';
 
 const BulletSeparator = ({
-  icon,
-  details,
-  compact,
   caption,
   className,
+  compact,
+  details,
+  icon,
 }) => {
   const subtitleDetails = details.filter(d => !!d).map((d, index) => (
     <span key={`${d}-${Math.random()}`} className={styles.detailSpan}>

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -32,15 +33,15 @@ const messages = defineMessages({
 });
 
 const AspectRatio = ({
-  currentUserRole,
-  expandedImage,
-  downloadUrl,
   children,
-  projectMedia,
-  isVideoFile,
-  isPenderCard,
-  superAdminMask,
+  currentUserRole,
+  downloadUrl,
+  expandedImage,
   intl,
+  isPenderCard,
+  isVideoFile,
+  projectMedia,
+  superAdminMask,
 }) => {
   const contentWarning = projectMedia?.show_warning_cover;
   const warningCreator = projectMedia?.dynamic_annotation_flag?.annotator?.name;

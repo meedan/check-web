@@ -1,10 +1,11 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateMediaDialog from './CreateMediaDialog';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';

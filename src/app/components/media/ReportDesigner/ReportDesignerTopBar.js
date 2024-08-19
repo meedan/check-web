@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
@@ -6,8 +7,8 @@ import { browserHistory } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Box from '@material-ui/core/Box';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaStatus from '../MediaStatus';
 import { getStatus } from '../../../helpers';
 import { languageLabel } from '../../../LanguageRegistry';
@@ -39,12 +40,12 @@ const ReportDesignerTopBar = (props) => {
   const classes = useStyles();
 
   const {
-    media,
-    state,
     data,
     defaultLanguage,
     intl,
+    media,
     prefixUrl,
+    state,
   } = props;
   const [resendToPrevious, setResendToPrevious] = React.useState(false);
   const [statusChanging, setStatusChanging] = React.useState(false);

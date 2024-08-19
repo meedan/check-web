@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import { MediaSimilaritiesComponent } from './MediaSimilaritiesComponent';
+import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<MediaSimilaritiesComponent />', () => {
   it('should render without errors even if requests_count is null', () => {

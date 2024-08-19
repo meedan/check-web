@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation } from 'react-relay/compat';
@@ -25,12 +26,12 @@ const messages = defineMessages({
 });
 
 const ProjectActions = ({
-  object,
-  updateMutation,
-  deleteMutation,
   deleteMessage,
-  setFlashMessage,
+  deleteMutation,
   intl,
+  object,
+  setFlashMessage,
+  updateMutation,
 }) => {
   const [newTitle, setNewTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);

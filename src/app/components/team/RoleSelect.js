@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -21,9 +22,9 @@ const messages = defineMessages({
 const RoleSelect = ({
   disabled,
   excludeRoles,
-  showLabel,
   intl,
   onChange,
+  showLabel,
   value,
 }) => {
   const roles = [

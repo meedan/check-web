@@ -1,7 +1,8 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
-import styles from './TiplineRequest.module.css';
+import TiplineHistoryButton from './TiplineHistoryButton';
 import TimeBefore from '../TimeBefore';
 import FacebookIcon from '../../icons/facebook.svg';
 import TwitterIcon from '../../icons/twitter.svg';
@@ -11,7 +12,6 @@ import LineIcon from '../../icons/line.svg';
 import WhatsAppIcon from '../../icons/whatsapp.svg';
 import InstagramIcon from '../../icons/instagram.svg';
 import SendTiplineMessage from '../SendTiplineMessage';
-import TiplineHistoryButton from './TiplineHistoryButton';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -19,6 +19,7 @@ import {
 } from '../../helpers';
 import Request from '../cds/requests-annotations/Request';
 import RequestReceipt from '../cds/requests-annotations/RequestReceipt';
+import styles from './TiplineRequest.module.css';
 
 const messages = defineMessages({
   smoochNoMessage: {
@@ -72,8 +73,8 @@ function parseText(text, projectMedia, activity) {
 }
 
 const TiplineRequest = ({
-  annotation: activity,
   annotated: projectMedia,
+  annotation: activity,
   hideButtons,
   intl,
 }) => {

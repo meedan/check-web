@@ -1,8 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import cx from 'classnames/bind';
+import RemoveableWrapper from './RemoveableWrapper';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Select from '../cds/inputs/Select';
 import TextField from '../cds/inputs/TextField';
@@ -10,7 +12,6 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import CloseIcon from '../../icons/clear.svg';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
-import RemoveableWrapper from './RemoveableWrapper';
 import styles from './search.module.css';
 
 const messages = defineMessages({
@@ -128,7 +129,7 @@ function DateRangeSelectorStartEnd(props) {
         cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         value={getStartDateStringOrNull()}
         style={{ margin: '0 16px' }}
-        TextFieldComponent={({ params, onClick, value: valueText }) => (
+        TextFieldComponent={({ onClick, params, value: valueText }) => (
           <>
             <ButtonMain
               className={cx(
@@ -179,7 +180,7 @@ function DateRangeSelectorStartEnd(props) {
         okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
         cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         value={getEndDateStringOrNull()}
-        TextFieldComponent={({ params, onClick, value: valueText }) => (
+        TextFieldComponent={({ onClick, params, value: valueText }) => (
           <>
             <ButtonMain
               disabled
@@ -275,11 +276,11 @@ function DateRangeSelectorRelative(props) {
 const DateRangeFilter = ({
   classes,
   hide,
-  value,
-  optionsToHide,
+  intl,
   onChange,
   onRemove,
-  intl,
+  optionsToHide,
+  value,
 }) => {
   const getValueType = () => {
     if (value && value.updated_at) return 'updated_at';

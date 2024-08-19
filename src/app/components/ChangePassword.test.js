@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
 import ChangePasswordComponent from './ChangePasswordComponent';
+import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
 
 describe('<ChangePasswordComponent />', () => {
   it('should render Change Password Component', () => {

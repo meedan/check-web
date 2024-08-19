@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -22,12 +23,12 @@ const styles = theme => ({
 
 const ThresholdControl = ({
   classes,
+  disabled,
+  error,
+  label,
   onChange,
   type,
   value,
-  disabled,
-  label,
-  error,
 }) => (
   <Box mb={2} ml={7}>
     <Box mb={1}>

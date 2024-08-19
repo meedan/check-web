@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -130,7 +131,7 @@ const BulkActionsTag = ({
           inputs,
         },
       },
-      onCompleted: ({ response, error }) => {
+      onCompleted: ({ error, response }) => {
         if (error) {
           return onFailure(error);
         }

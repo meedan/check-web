@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
 import { UploadFileComponent } from './UploadFile';
+import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
 
 describe('<UploadFileComponent />', () => {
   const about = {

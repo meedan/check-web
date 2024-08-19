@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -10,11 +11,11 @@ import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMedia
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 function handleRestore({
-  team,
-  projectMedia,
   context,
-  onSuccess,
   onFailure,
+  onSuccess,
+  projectMedia,
+  team,
 }) {
   const newContext = context;
   if (context.team && !context.team.public_team) {
@@ -39,10 +40,10 @@ function handleRestore({
 }
 
 function RestoreProjectMedia({
-  team,
-  projectMedia,
-  context,
   className,
+  context,
+  projectMedia,
+  team,
 }) {
   const [isSaving, setIsSaving] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);

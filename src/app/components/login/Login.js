@@ -13,8 +13,8 @@ import { stringHelper } from '../../customHelpers';
 import { getErrorObjects } from '../../helpers';
 import CheckError from '../../CheckError';
 import CheckAgreeTerms from '../CheckAgreeTerms';
-import styles from './login.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
+import styles from './login.module.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -67,7 +67,7 @@ class Login extends React.Component {
 
     const failureCallback = (transaction) => {
       const errors = getErrorObjects(transaction);
-      const { message, code } = errors[0];
+      const { code, message } = errors[0];
       const showOtp =
         (code === CheckError.codes.LOGIN_2FA_REQUIRED) ||
         this.state.showOtp;
@@ -93,7 +93,7 @@ class Login extends React.Component {
 
     const failureCallback = (transaction) => {
       const errors = getErrorObjects(transaction);
-      const { message, code } = errors[0];
+      const { code, message } = errors[0];
       if (code === CheckError.codes.UNAUTHORIZED) {
         this.setState({ registrationSubmitted: true });
       }

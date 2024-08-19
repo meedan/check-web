@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
-import Alert from '../../cds/alerts-and-prompts/Alert';
 import MediaMainItemPreview from './MediaMainItemPreview';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 
 const MediaConfirmationBanner = ({ projectMedia }) => (
   <>

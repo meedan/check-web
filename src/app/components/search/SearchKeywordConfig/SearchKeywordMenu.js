@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import SearchKeywordContainer from './SearchKeywordContainer';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import SearchKeywordContainer from './SearchKeywordContainer';
 import SettingsIcon from '../../../icons/settings.svg';
 
 const SearchKeywordMenu = ({
-  query,
   onChange,
+  query,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClose = () => setAnchorEl(null);

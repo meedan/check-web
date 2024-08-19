@@ -1,28 +1,29 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import cx from 'classnames/bind';
+import TeamTaskCardForm from './TeamTaskCardForm';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconMoreVert from '../../icons/more_vert.svg';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
-import TeamTaskCardForm from './TeamTaskCardForm';
-import settingsStyles from './Settings.module.css';
 import styles from './Tasks.module.css';
+import settingsStyles from './Settings.module.css';
 
 const TeamTaskCard = ({
   about,
   children,
   icon,
   index,
-  task,
-  onEdit,
   onDelete,
-  showInBrowserExtension,
-  setShowInBrowserExtension,
+  onEdit,
   required,
   setRequired,
+  setShowInBrowserExtension,
+  showInBrowserExtension,
+  task,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 

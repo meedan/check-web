@@ -5,12 +5,12 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import ProjectsComponent from './ProjectsComponent';
 import FeedsComponent from './FeedsComponent';
-import NewArticleButton from '../../article/NewArticleButton'; // eslint-disable-line no-unused-vars
-import ArticlesComponent from '../../article/ArticlesComponent';
 import SettingsComponent from './SettingsComponent';
 import UserSettingsComponent from './UserSettingsComponent';
+import NewArticleButton from '../../article/NewArticleButton'; // eslint-disable-line no-unused-vars
+import ArticlesComponent from '../../article/ArticlesComponent';
 
-const renderQuery = ({ error, props, drawerType }) => {
+const renderQuery = ({ drawerType, error, props }) => {
   if (!error && props) {
     const feedsCreated = props.team.feeds.edges.map(f => f.node).filter(f => f.team_id === props.team.dbid);
     const feedsJoined = props.team.feed_teams.edges.map(ft => ft.node).filter(ft => !feedsCreated.find(f => f.dbid === ft.feed_id));

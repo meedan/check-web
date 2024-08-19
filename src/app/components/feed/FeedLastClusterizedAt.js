@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import ScheduleSendIcon from '../../icons/schedule.svg';
-import styles from './FeedLastClusterizedAt.module.css';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import styles from './FeedLastClusterizedAt.module.css';
 
 const FeedLastClusterizedAt = ({ feed }) => {
   const message = feed.last_clusterized_at ? (

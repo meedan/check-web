@@ -4,6 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import cx from 'classnames/bind';
+import ApiKeyDelete from './ApiKeyDelete';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
@@ -11,7 +12,6 @@ import BulletSeparator from '../layout/BulletSeparator';
 import ContentCopyIcon from '../../icons/content_copy.svg';
 import ErrorOutlineIcon from '../../icons/error_outline.svg';
 import styles from './ApiKeys.module.css';
-import ApiKeyDelete from './ApiKeyDelete';
 
 const ApiKeyEntry = ({ apiKey }) => {
   const setFlashMessage = React.useContext(FlashMessageSetterContext);

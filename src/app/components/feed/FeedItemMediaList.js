@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -11,7 +12,7 @@ import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAnd
 import NotFound from '../NotFound';
 import styles from '../media/media.module.css';
 
-const FeedItemMediaListComponent = ({ items, feedDbid, intl }) => {
+const FeedItemMediaListComponent = ({ feedDbid, intl, items }) => {
   const [selectedItemId, setSelectedItemId] = React.useState(null);
 
   const swallowClick = (event) => {
@@ -133,7 +134,7 @@ const FeedItemMediaList = ({ teamDbid }) => {
           projectMediaDbid: parseInt(projectMediaDbid, 10),
           itemTeamDbid: parseInt(teamDbid, 10),
         }}
-        render={({ props, error }) => {
+        render={({ error, props }) => {
           if (props && !error) {
             const items = props.team?.feed?.cluster?.project_medias;
             if (items) {

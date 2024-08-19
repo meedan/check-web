@@ -1,23 +1,24 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/i1LSbpQXKyA7dLc8AkgtKA/Articles?type=design&node-id=106-63346&mode=design&t=o7PouU0Z5ISH5G3K-0
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
-import styles from './Slideout.module.css';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import IconClose from '../../../icons/clear.svg';
+import styles from './Slideout.module.css';
 
 const Slideout = ({
-  title,
+  cancelProps,
   content,
   footer,
-  onClose,
-  showCancel,
-  cancelProps,
   mainActionButton,
-  secondaryActionButton,
+  onClose,
   optionalNode,
+  secondaryActionButton,
+  showCancel,
+  title,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import PropTypes from 'prop-types';
@@ -5,13 +6,13 @@ import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import AddIcon from '../../icons/add.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
-import styles from './FeedPage.module.css';
 import Can from '../Can';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import PageTitle from '../PageTitle';
+import styles from './FeedPage.module.css';
 
 const FeedSection = ({
-  title, content,
+  content, title,
 }) => (
   <div className={cx(styles['feed-content-wrapper'], styles['feed-content'])}>
     <h2 className="typography-subtitle2">
@@ -28,7 +29,7 @@ FeedSection.propTypes = {
   content: PropTypes.node.isRequired,
 };
 
-const FeedPageContent = ({ permissions, slug, name }) => {
+const FeedPageContent = ({ name, permissions, slug }) => {
   const handleCreateFeed = () => {
     browserHistory.push(`/${slug}/feed/create`);
   };

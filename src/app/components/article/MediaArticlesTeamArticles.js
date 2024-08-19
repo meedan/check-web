@@ -1,20 +1,21 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
+import MediaArticlesCard from './MediaArticlesCard';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
-import MediaArticlesCard from './MediaArticlesCard';
-import styles from './Articles.module.css';
 import DescriptionIcon from '../../icons/description.svg';
+import styles from './Articles.module.css';
 
 const MediaArticlesTeamArticlesComponent = ({
   articles,
+  onAdd,
   team,
   textSearch,
-  onAdd,
 }) => (
   <>
     { textSearch && !articles.length ? (
@@ -51,10 +52,10 @@ MediaArticlesTeamArticlesComponent.propTypes = {
 const numberOfArticles = 30;
 
 const MediaArticlesTeamArticles = ({
+  onAdd,
+  targetId,
   teamSlug,
   textSearch,
-  targetId,
-  onAdd,
 }) => (
   <ErrorBoundary component="MediaArticlesTeamArticles">
     <QueryRenderer

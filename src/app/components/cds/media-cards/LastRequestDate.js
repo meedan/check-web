@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
@@ -9,10 +10,10 @@ import CalendarMonthIcon from '../../../icons/calendar_month.svg';
 const LastRequestDate = ({
   intl,
   lastRequestDate,
-  variant,
   theme,
   tooltip,
   tooltipLabel,
+  variant,
 }) => {
   const buttonContent = (
     <span>

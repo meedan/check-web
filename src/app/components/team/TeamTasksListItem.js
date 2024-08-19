@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -24,8 +25,8 @@ import RadioButtonCheckedIcon from '../../icons/radio_button_checked.svg';
 import ShortTextIcon from '../../icons/notes.svg';
 
 function submitMoveTeamTaskUp({
-  task,
   onFailure,
+  task,
 }) {
   commitMutation(Relay.Store, {
     mutation: graphql`
@@ -62,8 +63,8 @@ function submitMoveTeamTaskUp({
 }
 
 function submitMoveTeamTaskDown({
-  task,
   onFailure,
+  task,
 }) {
   commitMutation(Relay.Store, {
     mutation: graphql`
@@ -100,8 +101,8 @@ function submitMoveTeamTaskDown({
 }
 
 function submitTask({
-  task,
   onFailure,
+  task,
 }) {
   commitMutation(Relay.Store, {
     mutation: graphql`

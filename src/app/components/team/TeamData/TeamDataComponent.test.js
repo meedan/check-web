@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import TeamDataComponent from './TeamDataComponent';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<TeamDataComponent />', () => {
   it('should not render table if there is no data', () => {

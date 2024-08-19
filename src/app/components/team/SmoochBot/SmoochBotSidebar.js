@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { labelsV2 } from './localizables';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from '../Settings.module.css';
 
 const SmoochBotSidebar = ({
   currentOption,
-  resources,
   onClick,
+  resources,
 }) => {
   const handleClick = (option) => {
     onClick(option);

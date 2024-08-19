@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -29,15 +30,15 @@ const defaultRule = {
 };
 
 const SaveTag = ({
-  tag,
-  teamId,
-  teamDbid,
+  onCancel,
+  pageSize,
+  relay,
   rules,
   rulesSchema,
-  onCancel,
-  relay,
-  pageSize,
   setFlashMessage,
+  tag,
+  teamDbid,
+  teamId,
 }) => {
   // Find the first rule associated with this tag
   let tagRuleIndex = -1;

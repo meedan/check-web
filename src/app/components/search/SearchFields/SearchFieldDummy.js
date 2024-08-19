@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import RemoveableWrapper from '../RemoveableWrapper';
@@ -6,8 +7,8 @@ import styles from '../search.module.css';
 const SearchFieldDummy = ({
   icon,
   label,
-  readOnly,
   onRemove,
+  readOnly,
   version,
 }) => (
   <div className={styles['filter-wrapper']}>

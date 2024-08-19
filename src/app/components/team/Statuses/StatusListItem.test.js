@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import StatusListItem from './StatusListItem';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 const status = {
   id: '1',

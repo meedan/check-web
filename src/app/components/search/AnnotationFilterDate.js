@@ -79,7 +79,7 @@ class AnnotationFilterDate extends React.Component {
           cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
           value={this.startDateStringOrNull}
           style={{ margin: '0 16px' }}
-          TextFieldComponent={({ params, onClick, value: valueText }) => (
+          TextFieldComponent={({ onClick, params, value: valueText }) => (
             <>
               <ButtonMain
                 disabled
@@ -138,7 +138,7 @@ class AnnotationFilterDate extends React.Component {
           okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
           cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
           value={this.endDateStringOrNull}
-          TextFieldComponent={({ params, onClick, value: valueText }) => (
+          TextFieldComponent={({ onClick, params, value: valueText }) => (
             <>
               <ButtonMain
                 disabled

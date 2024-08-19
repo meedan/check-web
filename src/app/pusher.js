@@ -9,8 +9,8 @@ import { ClientSessionIdContext } from './ClientSessionId';
 function createPusher({
   clientSessionId,
   cluster,
-  pusherKey,
   debug,
+  pusherKey,
 }) {
   // Pusher is imported at runtime from a <script file> tag.
   // eslint-disable-next-line no-console
@@ -54,7 +54,7 @@ function createPusher({
       if (checkPusher.currentChannels[channel] &&
         checkPusher.currentChannels[channel][eventName]) {
         Object.keys(checkPusher.currentChannels[channel][eventName]).forEach((component) => {
-          const { id, callback } =
+          const { callback, id } =
             checkPusher.currentChannels[channel][eventName][component](data, false);
           if (id && callback) {
             if (run) {

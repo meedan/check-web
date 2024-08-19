@@ -1,6 +1,6 @@
 import React from 'react';
-import SettingsHeader from '../team/SettingsHeader';
 import UserInfoEdit from './UserInfoEdit';
+import SettingsHeader from '../team/SettingsHeader';
 import styles from './user.module.css';
 
 const UserProfile = (props) => {

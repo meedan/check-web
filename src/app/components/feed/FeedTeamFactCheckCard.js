@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
 import FeedTeamFactCheckDialog from './FeedTeamFactCheckDialog';
+import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
 import styles from './FeedItem.module.css';
 
 const FeedTeamFactCheckCard = ({ clusterTeamFactCheck }) => {

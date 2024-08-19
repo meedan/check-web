@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { ArticlesComponent } from './Articles';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<Articles />', () => {
   const article = {

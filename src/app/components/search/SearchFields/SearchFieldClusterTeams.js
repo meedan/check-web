@@ -6,12 +6,12 @@ import MediasLoading from '../../media/MediasLoading';
 import MultiSelectFilter from '../MultiSelectFilter';
 
 const SearchFieldClusterTeams = ({
-  label,
   icon,
-  teamSlug,
-  selected,
+  label,
   onChange,
   onRemove,
+  selected,
+  teamSlug,
 }) => {
   // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
   const [random] = React.useState(String(Math.random()));

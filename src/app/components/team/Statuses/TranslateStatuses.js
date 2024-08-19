@@ -1,22 +1,23 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import StatusLabel from './StatusLabel';
+import StatusMessage from './StatusMessage';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { languageLabel } from '../../../LanguageRegistry';
 import { FormattedGlobalMessage } from '../../MappedMessage';
-import StatusLabel from './StatusLabel';
-import StatusMessage from './StatusMessage';
 import styles from './Statuses.module.css';
 import settingsStyles from '../Settings.module.css';
 
 const TranslateStatuses = ({
-  statuses,
-  defaultLanguage,
   currentLanguage,
+  defaultLanguage,
   onSubmit,
+  statuses,
 }) => {
   const [translations, setTranslations] = React.useState({});
   const [messages, setMessages] = React.useState({});

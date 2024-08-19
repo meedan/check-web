@@ -12,8 +12,8 @@ import { FormattedGlobalMessage } from '../MappedMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import styles from './login.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
+import styles from './login.module.css';
 
 const InviteNewAccountComponent = ({ user }) => {
   const [message, setMessage] = React.useState(null);

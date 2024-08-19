@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -6,11 +7,11 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import dialogStyles from '../../styles/css/dialog.module.css';
 
 function SetSourceDialog({
-  open,
-  sourceName,
-  primaryUrl,
   onCancel,
   onSubmit,
+  open,
+  primaryUrl,
+  sourceName,
 }) {
   return (
     <Dialog className={dialogStyles['dialog-window']} open={open} maxWidth="sm" fullWidth>

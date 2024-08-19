@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -6,10 +7,10 @@ import { FormattedMessage } from 'react-intl';
 import * as EmailValidator from 'email-validator';
 import Dialog from '@material-ui/core/Dialog';
 import ListItemText from '@material-ui/core/ListItemText';
+import RoleSelect from './RoleSelect';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import RoleSelect from './RoleSelect';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
@@ -17,8 +18,8 @@ import styles from '../../styles/css/dialog.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 
 const InviteDialog = ({
-  open,
   onClose,
+  open,
   setFlashMessage,
   team,
 }) => {

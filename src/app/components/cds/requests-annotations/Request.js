@@ -1,20 +1,21 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import styles from './Request.module.css';
 import ParsedText from '../../ParsedText';
 import BulletSeparator from '../../layout/BulletSeparator';
+import styles from './Request.module.css';
 
 const Request = ({
-  icon,
   details,
+  fileUrl,
+  historyButton,
+  icon,
+  mediaTitle,
+  receipt,
+  sendMessageButton,
   text,
   time,
-  fileUrl,
-  mediaTitle,
-  sendMessageButton,
-  historyButton,
-  receipt,
 }) => {
   let preParsedText = text;
   preParsedText = preParsedText.replace(/^null /, '').replace(/^undefined /, ''); // Clean-up bad Feed API requests

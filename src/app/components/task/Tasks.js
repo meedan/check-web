@@ -3,8 +3,8 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
 import moment from 'moment';
 import cx from 'classnames/bind';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Task from './Task';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NavigateAwayDialog from '../NavigateAwayDialog';
 import BlankState from '../layout/BlankState';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -13,10 +13,10 @@ import inputStyles from '../../styles/css/inputs.module.css';
 import styles from '../media/media.module.css';
 
 const Tasks = ({
-  tasks,
-  media,
   about,
+  media,
   setFlashMessage,
+  tasks,
 }) => {
   const teamSlug = /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/annotation`);
@@ -68,7 +68,7 @@ const Tasks = ({
     if (conditional_info) {
       try {
         const parsedConditionalInfo = JSON.parse(conditional_info);
-        const { selectedFieldId, selectedConditional } = parsedConditionalInfo;
+        const { selectedConditional, selectedFieldId } = parsedConditionalInfo;
         let { selectedCondition } = parsedConditionalInfo;
         const matchingTask = localResponses.find(item => item.node.team_task_id === selectedFieldId);
 

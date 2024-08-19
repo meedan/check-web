@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -46,18 +47,18 @@ const messages = defineMessages({
 });
 
 const FeedFilters = ({
-  sort,
-  sortType,
-  onChangeSort,
-  onSubmit,
-  filterOptions,
   currentFilters,
-  feed,
-  feedTeam,
   disableSave,
   extra,
+  feed,
+  feedTeam,
+  filterOptions,
   intl,
+  onChangeSort,
+  onSubmit,
   setFlashMessage,
+  sort,
+  sortType,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
 

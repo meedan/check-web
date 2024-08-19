@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -12,10 +13,10 @@ import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import NewsletterHeader from '../Newsletter/NewsletterHeader';
 import NewsletterRssFeed from '../Newsletter/NewsletterRssFeed';
-import newsletterStyles from '../Newsletter/NewsletterComponent.module.css';
-import styles from './SmoochBotResourceEditor.module.css';
-import settingsStyles from '../Settings.module.css';
 import { withSetFlashMessage } from '../../FlashMessage';
+import newsletterStyles from '../Newsletter/NewsletterComponent.module.css';
+import settingsStyles from '../Settings.module.css';
+import styles from './SmoochBotResourceEditor.module.css';
 
 // Mutations
 
@@ -68,11 +69,11 @@ const deleteMutation = graphql`
 
 const SmoochBotResourceEditorComponent = (props) => {
   const {
-    language,
     environment,
-    setFlashMessage,
+    language,
     onCreate,
     onDelete,
+    setFlashMessage,
   } = props;
 
   // Existing resource or new resource

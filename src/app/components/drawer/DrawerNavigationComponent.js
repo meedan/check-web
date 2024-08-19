@@ -1,8 +1,9 @@
+/* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
-import { withPusher, pusherShape } from '../../pusher';
 import DrawerProjects from './Projects';
+import { withPusher, pusherShape } from '../../pusher';
 import CheckContext from '../../CheckContext';
 import styles from './Drawer.module.css';
 
@@ -45,7 +46,7 @@ class DrawerNavigationComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, team } = this.props;
+    const { clientSessionId, pusher, team } = this.props;
     if (pusher && team) {
       pusher.subscribe(team.pusher_channel).bind('media_updated', 'DrawerNavigationComponent', (data, run) => {
         if (clientSessionId !== data.actor_session_id) {
@@ -72,7 +73,7 @@ class DrawerNavigationComponent extends Component {
 
   render() {
     const {
-      team, currentUserIsMember, drawerOpen, drawerType,
+      currentUserIsMember, drawerOpen, drawerType, team,
     } = this.props;
 
     // This component now renders based on teamPublicFragment

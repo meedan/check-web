@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -8,11 +9,11 @@ import PrevIcon from '../../../icons/chevron_left.svg';
 import styles from './Paginator.module.css';
 
 const Paginator = ({
-  page,
-  pageSize,
   numberOfPageResults,
   numberOfTotalResults,
   onChangePage,
+  page,
+  pageSize,
 }) => {
   const startingIndex = (page - 1) * pageSize;
   const endingIndex = startingIndex + (numberOfPageResults - 1);

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -23,10 +24,10 @@ const messages = defineMessages({
 });
 
 const TeamMemberActions = ({
-  setFlashMessage,
-  teamUser,
-  team,
   intl,
+  setFlashMessage,
+  team,
+  teamUser,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [removeUserId, setRemoveUserId] = React.useState(null);

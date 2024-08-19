@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -14,9 +15,9 @@ import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import LabelIcon from '../../icons/label.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
-import searchStyles from '../search/search.module.css';
 import SearchFieldChannel from '../search/SearchFields/SearchFieldChannel';
 import CheckChannels from '../../CheckChannels';
+import searchStyles from '../search/search.module.css';
 
 const messages = defineMessages({
   explainer: {
@@ -32,15 +33,15 @@ const messages = defineMessages({
 });
 
 const ArticleFilters = ({
-  type,
-  onSubmit,
-  filterOptions,
   currentFilters,
   defaultFilters,
-  teamSlug,
-  statuses,
   extra,
+  filterOptions,
   intl,
+  onSubmit,
+  statuses,
+  teamSlug,
+  type,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
@@ -17,20 +18,20 @@ const messages = defineMessages({
 });
 
 function MetadataText({
-  intl,
-  node,
-  EditButton,
-  DeleteButton,
-  CancelButton,
-  SaveButton,
   AnnotatorInformation,
+  CancelButton,
+  DeleteButton,
+  EditButton,
   FieldInformation,
+  SaveButton,
+  disabled,
   hasData,
+  intl,
   isEditing,
   metadataValue,
-  setMetadataValue,
-  disabled,
+  node,
   required,
+  setMetadataValue,
 }) {
   const mutationPayload = {
     annotation_type: 'task_response_free_text',

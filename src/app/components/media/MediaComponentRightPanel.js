@@ -7,8 +7,8 @@ import MediaTasks from './MediaTasks';
 import MediaRequests from './MediaRequests';
 import MediaSource from './MediaSource';
 import MediaSuggestions from './Similarity/MediaSuggestions';
-import MediaArticles from '../article/MediaArticles';
 import MediaSecondaryBanner from './MediaSecondaryBanner';
+import MediaArticles from '../article/MediaArticles';
 import ErrorBoundary from '../error/ErrorBoundary';
 
 const MediaComponentRightPanel = ({

@@ -77,10 +77,10 @@ Error.propTypes = {
  */
 export default function MediaSearchRedirect({
   buildSiblingUrl,
-  listQuery,
   listIndex,
-  searchIndex,
+  listQuery,
   objectType,
+  searchIndex,
 }) {
   return (
     <QueryRenderer

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
@@ -6,16 +7,16 @@ import { FormattedMessage } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ExplainerForm from './ExplainerForm';
+import ClaimFactCheckForm from './ClaimFactCheckForm';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../icons/add.svg';
-import styles from './NewArticleButton.module.css';
 import PublishedIcon from '../../icons/fact_check.svg';
 import BookIcon from '../../icons/book.svg';
-import ExplainerForm from './ExplainerForm';
-import ClaimFactCheckForm from './ClaimFactCheckForm';
+import styles from './NewArticleButton.module.css';
 
-const NewArticleButtonWrapper = ({ disabled, children }) => {
+const NewArticleButtonWrapper = ({ children, disabled }) => {
   if (disabled) {
     return (
       <Tooltip
@@ -45,11 +46,11 @@ const NewArticleButtonWrapper = ({ disabled, children }) => {
 };
 
 const NewArticleButton = ({
-  team,
-  projectMedia,
-  disabled,
   buttonMainProps,
+  disabled,
   onCreate,
+  projectMedia,
+  team,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openExplainer, setOpenExplainer] = React.useState(false);

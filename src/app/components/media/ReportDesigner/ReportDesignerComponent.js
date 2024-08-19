@@ -2,17 +2,17 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Alert from '../../cds/alerts-and-prompts/Alert';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
 import ReportDesignerForm from './ReportDesignerForm';
-import { withSetFlashMessage } from '../../FlashMessage';
-import { can } from '../../Can';
 import {
   defaultOptions,
   propsToData,
 } from './reportDesignerHelpers';
+import Alert from '../../cds/alerts-and-prompts/Alert';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import { withSetFlashMessage } from '../../FlashMessage';
+import { can } from '../../Can';
 import { getStatus, getStatusStyle, safelyParseJSON } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
@@ -179,7 +179,7 @@ const ReportDesignerComponent = (props) => {
     window.open('https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_274b08eeab');
   };
 
-  const { routeParams, location } = props;
+  const { location, routeParams } = props;
   let prefixUrl = `/${team.slug}`;
   if (routeParams.projectId || routeParams.listId) {
     const { listUrl } = getListUrlQueryAndIndex(routeParams, location.query);

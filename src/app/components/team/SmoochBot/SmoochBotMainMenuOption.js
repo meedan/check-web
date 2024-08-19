@@ -1,26 +1,27 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import SmoochBotMenuKeywords from './SmoochBotMenuKeywords';
 import Select from '../../cds/inputs/Select';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import SmoochBotMenuKeywords from './SmoochBotMenuKeywords';
 
 const SmoochBotMainMenuOption = ({
-  currentTitle,
   currentDescription,
-  currentValue,
-  currentUser,
   currentKeywords,
   currentLanguage,
-  menu,
+  currentTitle,
+  currentUser,
+  currentValue,
+  hasUnsavedChanges,
   id,
   index,
-  resources,
-  hasUnsavedChanges,
-  onSave,
-  onCancel,
   intl,
+  menu,
+  onCancel,
+  onSave,
+  resources,
 }) => {
   const [text, setText] = React.useState(currentTitle);
   const [description, setDescription] = React.useState(currentDescription);

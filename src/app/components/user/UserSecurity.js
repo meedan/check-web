@@ -15,8 +15,8 @@ import CheckContext from '../../CheckContext';
 import { getErrorMessage, getErrorObjects } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import styles from './user.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
+import styles from './user.module.css';
 
 const messages = defineMessages({
   passwordInput: {

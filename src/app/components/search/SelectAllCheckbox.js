@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -5,10 +6,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import styles from './SearchResults.module.css';
 
 export default function SelectAllCheckbox({
-  selectedIds,
-  projectMedias,
-  onChangeSelectedIds,
   className,
+  onChangeSelectedIds,
+  projectMedias,
+  selectedIds,
 }) {
   const handleChange = React.useCallback((ev) => {
     const newIds = ev.target.checked ? projectMedias.map(pm => pm.id) : [];

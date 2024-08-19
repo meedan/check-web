@@ -1,15 +1,12 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React, { Component } from 'react';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import cx from 'classnames/bind';
-import { withPusher, pusherShape } from '../../pusher';
-import PageTitle from '../PageTitle';
 import MediaCardLarge from './MediaCardLarge';
 import MediaSlug from './MediaSlug';
-import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
@@ -20,6 +17,9 @@ import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getSuperAdminMask } from '../../helpers';
+import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
+import PageTitle from '../PageTitle';
+import { withPusher, pusherShape } from '../../pusher';
 import styles from './media.module.css';
 
 class MediaComponent extends Component {
@@ -94,7 +94,7 @@ class MediaComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, projectMedia } = this.props;
+    const { clientSessionId, projectMedia, pusher } = this.props;
     pusher.subscribe(projectMedia.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
       const relationship = JSON.parse(data.message);
       if (
@@ -131,7 +131,7 @@ class MediaComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher, projectMedia } = this.props;
+    const { projectMedia, pusher } = this.props;
     pusher.unsubscribe(projectMedia.pusher_channel);
   }
 

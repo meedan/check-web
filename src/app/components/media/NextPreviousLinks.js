@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -10,11 +10,11 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
-import styles from './media.module.css';
 import { getPathnameAndSearch, pageSize } from '../../urlHelpers';
+import styles from './media.module.css';
 
 function NextPreviousLinksComponent({
-  buildSiblingUrl, listQuery, listIndex, nTotal, objectType,
+  buildSiblingUrl, listIndex, listQuery, nTotal, objectType,
 }) {
   return (
     <div className={styles['next-prev-pager']}>
@@ -67,7 +67,7 @@ NextPreviousLinksComponent.propTypes = {
 };
 
 function NextPreviousLinksFastComponent({
-  listIndex, mediaNavList, count, listQuery, buildSiblingUrl, objectType,
+  buildSiblingUrl, count, listIndex, listQuery, mediaNavList, objectType,
 }) {
   const localIndex = listIndex % pageSize;
 
@@ -163,13 +163,13 @@ function NextPreviousLinksFastComponent({
 }
 
 export default function NextPreviousLinks({
-  buildSiblingUrl,
-  listQuery,
-  listIndex,
   annotationState,
-  objectType,
-  mediaNavList,
+  buildSiblingUrl,
   count,
+  listIndex,
+  listQuery,
+  mediaNavList,
+  objectType,
 }) {
   // if we have a navigation list passed down to us, and we know the overall count, then render our new, faster component. This should happen in every single case except where a user is linked directly to a media item from outside the app
   if (mediaNavList && count) {

@@ -1,10 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
+import ReportDesignerComponent from './ReportDesignerComponent';
 import ErrorBoundary from '../../error/ErrorBoundary';
 import RelayContainer from '../../../relay/RelayContainer';
 import MediaRoute from '../../../relay/MediaRoute';
-import ReportDesignerComponent from './ReportDesignerComponent';
 
 const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
   initialVariables: {

@@ -2,9 +2,9 @@ import React from 'react';
 import AspectRatio from '../layout/AspectRatio';
 
 const ImageMediaCard = ({
+  currentUserRole,
   imagePath,
   projectMedia,
-  currentUserRole,
   superAdminMask,
 }) => (
   <article className="image-media-card">

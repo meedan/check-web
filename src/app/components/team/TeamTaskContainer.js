@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 
-const TeamTaskContainer = ({ task, team, children }) => {
+const TeamTaskContainer = ({ children, task, team }) => {
   const { dbid } = task;
   const { slug } = team;
 

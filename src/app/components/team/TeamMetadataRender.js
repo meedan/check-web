@@ -1,15 +1,16 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
 import TeamTasksProject from './TeamTasksProject';
 import SettingsHeader from './SettingsHeader';
 import CreateTeamTask from './CreateTeamTask';
 import BlankState from '../layout/BlankState';
+import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
 import settingsStyles from './Settings.module.css';
 
-function TeamMetadataRender({ team, about }) {
+function TeamMetadataRender({ about, team }) {
   const [showTab, setShowTab] = React.useState('items');
   const associatedType = showTab === 'items' ? 'ProjectMedia' : 'Source';
   const teamMetadata = team.team_tasks.edges.map(task => task.node)

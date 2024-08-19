@@ -13,10 +13,10 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import LoginContainer from './login/LoginContainer';
 import InviteNewAccount from './login/InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
-import CheckContext from '../CheckContext';
 import DrawerNavigation from './drawer/DrawerNavigation';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import UserTos from './UserTos';
+import CheckContext from '../CheckContext';
 import { withClientSessionId } from '../ClientSessionId';
 import { stringHelper } from '../customHelpers';
 import { bemClass } from '../helpers';

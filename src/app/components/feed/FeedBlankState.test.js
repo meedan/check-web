@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 import FeedBlankState from './FeedBlankState';
+import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedBlankState />', () => {
   it('should render FeedBlankState component with two links', () => {

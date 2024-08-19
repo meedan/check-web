@@ -1,8 +1,8 @@
 import React from 'react';
 import { MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
+import { TaskComponentTest } from './Task';
 import MetadataText from '../metadata/MetadataText';
 import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
-import { TaskComponentTest } from './Task';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const permissions = JSON.stringify({

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -8,8 +9,8 @@ import FactCheckIcon from '../../../icons/fact_check.svg';
 const ItemReportStatus = ({
   className,
   isPublished,
-  publishedAt,
   projectMediaDbid,
+  publishedAt,
   theme,
   useTooltip,
   variant,

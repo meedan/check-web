@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -7,34 +8,34 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import SaveTag from './SaveTag';
+import TeamTagsActions from './TeamTagsActions';
 import BlankState from '../../layout/BlankState';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import NextIcon from '../../../icons/chevron_right.svg';
 import PrevIcon from '../../../icons/chevron_left.svg';
 import SearchField from '../../search/SearchField';
-import SaveTag from './SaveTag';
-import TeamTagsActions from './TeamTagsActions';
 import TimeBefore from '../../TimeBefore';
 import SettingsHeader from '../SettingsHeader';
 import MediasLoading from '../../media/MediasLoading';
-import styles from './TeamTagsComponent.module.css';
 import Can from '../../Can';
+import styles from './TeamTagsComponent.module.css';
 import settingsStyles from '../Settings.module.css';
 
 const TeamTagsComponent = ({
-  teamId,
-  teamDbid,
+  pageSize,
   permissions,
+  relay,
   rules,
   rulesSchema,
-  tags,
-  pageSize,
-  totalTags,
-  totalCount,
-  relay,
   searchTerm,
   setSearchTerm,
+  tags,
+  teamDbid,
+  teamId,
+  totalCount,
+  totalTags,
 }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [showCreateTag, setShowCreateTag] = React.useState(false);

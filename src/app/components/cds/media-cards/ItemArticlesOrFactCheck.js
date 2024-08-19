@@ -1,21 +1,21 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
 import ItemReportStatus from './ItemReportStatus';
 import ItemRating from './ItemRating';
+import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import BookIcon from '../../../icons/book.svg';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import styles from './Card.module.css';
 
 const ItemArticlesOrFactCheck = ({
-  factCheckCount,
   articlesCount,
   dataPoints,
-  rating,
-  ratingColor,
+  factCheckCount,
   isPublished,
   publishedAt,
+  rating,
+  ratingColor,
 }) => {
   const inSharedFeed = dataPoints.length > 0;
   let feedContainsFactChecks = null;

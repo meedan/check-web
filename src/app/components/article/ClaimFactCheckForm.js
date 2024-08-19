@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, QueryRenderer, commitMutation, createFragmentContainer } from 'react-relay/compat';
@@ -145,10 +146,10 @@ const updateFactCheckMutation = graphql`
 
 const ClaimFactCheckForm = ({
   article,
-  team,
-  projectMedia,
   onClose,
   onCreate,
+  projectMedia,
+  team,
 }) => {
   const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
@@ -344,9 +345,9 @@ const ClaimFactCheckFormContainer = createFragmentContainer(ClaimFactCheckForm, 
 `);
 
 const ClaimFactCheckFormQueryRenderer = ({
-  teamSlug,
   factCheckId,
   onClose,
+  teamSlug,
 }) => (
   <QueryRenderer
     environment={Relay.Store}

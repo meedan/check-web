@@ -1,15 +1,16 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
+import SmoochBotConfig from './SmoochBotConfig';
+import { placeholders } from './localizables';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import UserUtil from '../../user/UserUtil';
 import SettingsHeader from '../SettingsHeader';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
-import SmoochBotConfig from './SmoochBotConfig';
-import { placeholders } from './localizables';
 import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
@@ -21,11 +22,11 @@ import CheckError from '../../../CheckError';
 import settingsStyles from '../Settings.module.css';
 
 const SmoochBotComponent = ({
-  team,
   currentUser,
-  smoochBotDbid,
   intl,
   setFlashMessage,
+  smoochBotDbid,
+  team,
 }) => {
   const [saving, setSaving] = React.useState(false);
   const [editingResource, setEditingResource] = React.useState(false);

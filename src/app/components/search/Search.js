@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import SearchResults from './SearchResults';
@@ -54,24 +55,24 @@ function noFilters(query_) {
 }
 
 export default function Search({
-  hideFields,
-  readOnlyFields,
-  listActions,
-  mediaUrlPrefix,
-  page,
-  listSubtitle,
-  teamSlug,
+  defaultQuery,
+  extra,
   feed,
   feedTeam,
-  savedSearch,
-  query,
-  defaultQuery,
-  searchUrlPrefix,
-  title,
+  hideFields,
   icon,
-  showExpand,
+  listActions,
+  listSubtitle,
+  mediaUrlPrefix,
+  page,
+  query,
+  readOnlyFields,
   resultType,
-  extra,
+  savedSearch,
+  searchUrlPrefix,
+  showExpand,
+  teamSlug,
+  title,
 }) {
   let timestampedQuery = query;
   if (!noFilters(query)) {

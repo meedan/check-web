@@ -1,8 +1,7 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -11,6 +10,8 @@ import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
+import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../../icons/add.svg';
 import createEnvironment from '../../../relay/EnvironmentModern';
 import styles from '../Settings.module.css';
@@ -18,12 +19,12 @@ import styles from '../Settings.module.css';
 const SmoochBotConfig = (props) => {
   const {
     currentLanguage,
+    hasUnsavedChanges,
     languages,
+    onEditingResource,
+    resources,
     userRole,
     value,
-    resources,
-    hasUnsavedChanges,
-    onEditingResource,
   } = props;
   const [currentTab, setCurrentTab] = React.useState('bot');
   const defaultOption = value.smooch_version === 'v2' ? 'smooch_content' : 'smooch_message_smooch_bot_greetings';

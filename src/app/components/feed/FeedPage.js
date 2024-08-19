@@ -1,8 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay';
-import ErrorBoundary from '../error/ErrorBoundary';
 import FeedPageContent from './FeedPageContent';
+import ErrorBoundary from '../error/ErrorBoundary';
 
 const FeedPage = ({ routeParams }) => (
   <>

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
@@ -14,7 +15,7 @@ import dialogStyles from '../../styles/css/dialog.module.css';
 import { languageLabel } from '../../LanguageRegistry';
 import styles from './FeedItem.module.css';
 
-const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
+const FeedTeamFactCheckDialog = ({ claimDescription, onClose, rating }) => (
   // Avoid closing the dialog when clicking on it
   <div onClick={(e) => { e.stopPropagation(); }} onKeyDown={(e) => { e.stopPropagation(); }}>
     <Dialog

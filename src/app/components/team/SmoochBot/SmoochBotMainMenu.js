@@ -1,9 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
+import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
 import HelpIcon from '../../../icons/help.svg';
 import { languageLabel } from '../../../LanguageRegistry';
-import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
 import Alert from '../../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from '../Settings.module.css';
@@ -27,15 +28,15 @@ const messages = defineMessages({
 });
 
 const SmoochBotMainMenu = ({
-  value,
-  languages,
   currentLanguage,
-  resources,
-  enabledIntegrations,
   currentUser,
+  enabledIntegrations,
   hasUnsavedChanges,
   intl,
+  languages,
   onChange,
+  resources,
+  value,
 }) => {
   let optionsCount = 1; // "Privacy Policy" option
   let collapsedCount = 2; // "Privacy Policy" and "Languages" options

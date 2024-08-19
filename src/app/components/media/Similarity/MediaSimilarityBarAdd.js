@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -9,9 +10,9 @@ import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const MediaSimilarityBarAdd = ({
-  projectMediaId,
-  projectMediaDbid,
   canMerge,
+  projectMediaDbid,
+  projectMediaId,
   setFlashMessage,
 }) => {
   const [showDialog, setShowDialog] = React.useState(false);

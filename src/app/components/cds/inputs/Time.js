@@ -8,10 +8,10 @@ import styles from './Time.module.css';
 const Time = ({
   className,
   disabled,
-  variant,
   error,
-  label,
   helpContent,
+  label,
+  variant,
   ...inputProps
 }) => (
   <div

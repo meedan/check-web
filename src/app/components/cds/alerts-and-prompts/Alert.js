@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=4-45716&mode=design&t=G3fBIdgR6AWtOlNu-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -22,17 +23,17 @@ const buttonThemes = {
 const buttonTheme = alertVariant => buttonThemes[alertVariant] || 'brand';
 
 const Alert = ({
-  className,
-  title,
-  content,
-  variant,
-  buttonLabel,
-  icon,
-  floating,
   banner,
+  buttonLabel,
+  className,
   contained,
+  content,
+  floating,
+  icon,
   onButtonClick,
   onClose,
+  title,
+  variant,
 }) => (
   <div
     className={cx(

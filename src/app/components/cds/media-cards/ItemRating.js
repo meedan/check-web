@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -6,10 +7,10 @@ import EllipseIcon from '../../../icons/ellipse.svg';
 import styles from './Card.module.css';
 
 const ItemRating = ({
+  className,
   rating,
   ratingColor,
   size,
-  className,
 }) => rating ? (
   <div title={rating} className={cx(styles.cardTag, className)}>
     <ButtonMain

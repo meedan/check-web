@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -13,13 +14,13 @@ import dialogStyles from '../../../styles/css/dialog.module.css';
 import styles from './MediaAndRequestsDialog.module.css';
 
 const MediaAndRequestsDialogComponent = ({
-  mediaSlug,
-  mediaHeader,
-  projectMediaId,
-  projectMediaImportedId,
   feedId,
+  mediaHeader,
+  mediaSlug,
   onClick,
   onClose,
+  projectMediaId,
+  projectMediaImportedId,
 }) => {
   const [context, setContext] = React.useState(projectMediaId ? 'workspace' : 'feed');
 

@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 // FIXME / TODO this relay/unused-fields bypass is simply because TeamAvatar uses team.avatar internally
 // Perhaps a better approach is to have TeamAvatar receive team.avatar value directly as prop
 import React from 'react';
@@ -7,7 +7,6 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import cx from 'classnames/bind';
 import * as EmailValidator from 'email-validator';
-import styles from './FeedCollaboration.module.css';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -18,6 +17,7 @@ import PersonAddIcon from '../../icons/person_add.svg';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import TeamAvatar from '../team/TeamAvatar';
 import ExternalLink from '../ExternalLink';
+import styles from './FeedCollaboration.module.css';
 
 const messages = defineMessages({
   placeholder: {
@@ -31,10 +31,10 @@ const FeedCollaboration = ({
   collaboratorId,
   feed,
   intl,
-  permissions,
   onChange,
   onChangeCollaboratorsToRemove,
   onChangeInvitesToDelete,
+  permissions,
   readOnly,
 }) => {
   const [textValue, setTextValue] = React.useState('');
@@ -76,9 +76,9 @@ const FeedCollaboration = ({
   const FeedCollabRow = ({
     className,
     label,
+    onRemove,
     team,
     type,
-    onRemove,
   }) => (
     <div className={cx(styles['feed-collab-row'], className)}>
       { !team &&

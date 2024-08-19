@@ -1,8 +1,9 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import MediaSearchRedirect from './MediaSearchRedirect';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import MediaSearchRedirect from './MediaSearchRedirect';
 
 /**
  * <Button> that renders a <MediaSearchRedirect> when clicked.
@@ -12,7 +13,7 @@ import MediaSearchRedirect from './MediaSearchRedirect';
  * to unmount the component if any of its props are going to change.
  */
 export default function NextOrPreviousButton({
-  icon, className, disabled, tooltipTitle, buildSiblingUrl, listQuery, listIndex, objectType, type, searchIndex,
+  buildSiblingUrl, className, disabled, icon, listIndex, listQuery, objectType, searchIndex, tooltipTitle, type,
 }) {
   const [loading, setLoading] = React.useState(false);
   const handleClick = React.useCallback(() => {

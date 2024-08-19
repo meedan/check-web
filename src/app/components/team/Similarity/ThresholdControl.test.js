@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ThresholdControl from './ThresholdControl';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ThresholdControl />', () => {
   const label = <div />;

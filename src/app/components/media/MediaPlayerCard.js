@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable jsx-a11y/media-has-caption, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -27,9 +27,9 @@ const MediaPlayerCard = ({
   isAudio,
   isYoutube,
   projectMedia,
+  superAdminMask,
   warningCategory,
   warningCreator,
-  superAdminMask,
 }) => {
   const classes = useStyles();
   const videoRef = React.useRef();

@@ -1,11 +1,11 @@
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import styles from './SaveFeed.module.css';
 import TimeBefore from '../TimeBefore';
 import BulletSeparator from '../layout/BulletSeparator';
 import { parseStringUnixTimestamp } from '../../helpers';
 import RssFeedIcon from '../../icons/rss_feed.svg';
+import styles from './SaveFeed.module.css';
 
 const FeedMetadata = ({ feed }) => feed.dbid ? (
   <div className={styles.saveFeedMetadata}>

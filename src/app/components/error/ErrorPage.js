@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -7,9 +8,9 @@ import PageTitle from '../PageTitle';
 import styles from './ErrorPage.module.css';
 
 const ErrorPage = ({
-  pageTitle,
-  cardTitle,
   cardText,
+  cardTitle,
+  pageTitle,
 }) => (
   <PageTitle
     prefix={pageTitle}

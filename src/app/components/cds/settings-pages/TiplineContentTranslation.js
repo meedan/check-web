@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -69,15 +70,15 @@ const messages = defineMessages({
 });
 
 const TiplineContentTranslation = ({
-  intl,
-  identifier,
-  title,
-  description,
   defaultValue,
-  onUpdate,
-  value,
+  description,
   error,
   extra,
+  identifier,
+  intl,
+  onUpdate,
+  title,
+  value,
 }) => {
   const classes = useStyles();
   return (

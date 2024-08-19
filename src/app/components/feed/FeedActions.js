@@ -1,21 +1,22 @@
+/* eslint-disable react/sort-prop-types */
 import React, { useState } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import styles from './SaveFeed.module.css';
 import Can from '../Can';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChevronDownIcon from '../../icons/chevron_down.svg';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import styles from './SaveFeed.module.css';
 
 const FeedActions = ({
-  saving,
+  feedTeam,
   handleDelete,
   handleLeaveFeed,
-  feedTeam,
+  saving,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);

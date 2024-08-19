@@ -1,14 +1,15 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import SelectListQueryRenderer from './SelectList';
+import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import styles from './SaveFeed.module.css';
 
 const FeedContent = ({
-  listId,
   dataPoints,
+  listId,
   onChange,
   onRemove,
 }) => (

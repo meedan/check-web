@@ -77,9 +77,9 @@ const CustomSlider = withStyles(theme => ({
 }))(Slider);
 
 const MediaVolume = ({
-  volume,
   setVolume,
   videoRef,
+  volume,
 }) => {
   const classes = useStyles();
   const [isVolumeOff, setIsVolumeOff] = React.useState(false);

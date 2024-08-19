@@ -1,16 +1,17 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import cx from 'classnames/bind';
+import SetSourceDialog from './SetSourceDialog';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import AddIcon from '../../icons/add.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
-import SetSourceDialog from './SetSourceDialog';
 import { getErrorObjects, getErrorMessage } from '../../helpers';
 import CheckError from '../../CheckError';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -19,9 +20,9 @@ import styles from '../media/media.module.css';
 
 function CreateMediaSource({
   media,
+  name,
   onCancel,
   relateToExistingSource,
-  name,
 }) {
   const [sourceName, setSourceName] = React.useState(name || '');
   const [primaryUrl, setPrimaryUrl] = React.useState({ url: '', error: '' });

@@ -61,7 +61,7 @@ class Root extends Component {
   }
 
   render() {
-    const { store, translations, locale } = this.props;
+    const { locale, store, translations } = this.props;
     window.Check = { store };
 
     return (

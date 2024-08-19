@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -7,16 +8,16 @@ import SearchIcon from '../../icons/search.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Slideout from '../cds/slideout/Slideout';
 import TextField from '../cds/inputs/TextField';
-import styles from './ChooseExistingArticleButton.module.css';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import styles from './ChooseExistingArticleButton.module.css';
 
 let lastTypedValue = '';
 
 const ChooseExistingArticleButton = ({
   disabled,
-  teamSlug,
-  projectMediaDbid,
   onAdd,
+  projectMediaDbid,
+  teamSlug,
 }) => {
   const [openSlideout, setOpenSlideout] = React.useState(false);
   const [search, setSearch] = React.useState('');

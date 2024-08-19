@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -9,10 +9,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import ThresholdControl from './ThresholdControl';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
-import ThresholdControl from './ThresholdControl';
 import SettingsHeader from '../SettingsHeader';
 import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -42,8 +42,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SimilarityComponent = ({
-  team,
   setFlashMessage,
+  team,
   user,
 }) => {
   const classes = useStyles();

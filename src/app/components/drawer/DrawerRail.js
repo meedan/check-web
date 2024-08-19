@@ -71,12 +71,12 @@ const DrawerRail = (props) => {
   const [activeItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
 
   const {
+    currentUserIsMember,
     drawerOpen,
     drawerType,
-    onDrawerTypeChange,
     onDrawerOpenChange,
+    onDrawerTypeChange,
     team,
-    currentUserIsMember,
   } = props;
 
   const setDrawerTypeChange = (newDrawerType) => {

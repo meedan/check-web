@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -24,22 +25,22 @@ import SpamIcon from '../../../icons/report.svg';
 import TrashIcon from '../../../icons/delete.svg';
 import NextIcon from '../../../icons/chevron_right.svg';
 import PreviousIcon from '../../../icons/chevron_left.svg';
-import styles from '../media.module.css';
-import suggestionsStyles from './MediaSuggestions.module.css';
 import inputStyles from '../../../styles/css/inputs.module.css';
 import dialogStyles from '../../../styles/css/dialog.module.css';
+import styles from '../media.module.css';
+import suggestionsStyles from './MediaSuggestions.module.css';
 
 const MediaSuggestionsComponent = ({
-  mainItem,
-  reportType,
-  relationships,
-  team,
-  superAdminMask,
-  setFlashMessage,
-  relay,
-  totalCount,
-  pageSize,
   intl,
+  mainItem,
+  pageSize,
+  relationships,
+  relay,
+  reportType,
+  setFlashMessage,
+  superAdminMask,
+  team,
+  totalCount,
 }) => {
   const [selectedItemId, setSelectedItemId] = React.useState(0);
   const [isBulkRejectDialogOpen, setIsBulkRejectDialogOpen] = React.useState(false);
@@ -286,7 +287,7 @@ const MediaSuggestionsComponent = ({
           action: 'accept',
         },
       },
-      onCompleted: ({ response, error }) => {
+      onCompleted: ({ error, response }) => {
         if (error) {
           return onFailure(error);
         }
@@ -385,7 +386,7 @@ const MediaSuggestionsComponent = ({
           relationship_target_type: relationship_type,
         },
       },
-      onCompleted: ({ response, error }) => {
+      onCompleted: ({ error, response }) => {
         if (error) {
           return onFailure(error);
         }
@@ -405,7 +406,7 @@ const MediaSuggestionsComponent = ({
           id: selectedRelationship.id,
         },
       },
-      onCompleted: ({ response, error }) => {
+      onCompleted: ({ error, response }) => {
         if (error) {
           return onFailure(error);
         }
@@ -530,7 +531,7 @@ const MediaSuggestionsComponent = ({
     );
   }
 
-  const RelationshipItem = ({ relationshipItem, details }) => (
+  const RelationshipItem = ({ details, relationshipItem }) => (
     <div className={cx('suggested-media__item', suggestionsStyles['suggestions-item'])}>
       <div className={suggestionsStyles['suggestions-item-content']}>
         {

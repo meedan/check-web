@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -9,14 +10,14 @@ import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const NewProject = ({
-  open,
-  title,
-  team,
   buttonLabel,
-  onClose,
   errorMessage,
-  successMessage,
+  onClose,
+  open,
   setFlashMessage,
+  successMessage,
+  team,
+  title,
 }) => {
   const [newTitle, setNewTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);

@@ -7,25 +7,25 @@ import Dialog from '@material-ui/core/Dialog';
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
-import TextArea from '../cds/inputs/TextArea.js';
-import MultiSelector from '../layout/MultiSelector';
 import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaTags from './MediaTags';
 import MediaStatus from './MediaStatus';
-import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
+import RestoreProjectMedia from './RestoreProjectMedia';
+import ItemTitle from './ItemTitle';
+import TextArea from '../cds/inputs/TextArea.js';
+import MultiSelector from '../layout/MultiSelector';
+import MediaRoute from '../../relay/MediaRoute';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
-import RestoreProjectMedia from './RestoreProjectMedia';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
-import styles from './media.module.css';
 import ItemThumbnail from '../cds/media-cards/ItemThumbnail';
-import ItemTitle from './ItemTitle';
 import dialogStyles from '../../styles/css/dialog.module.css';
+import styles from './media.module.css';
 
 const Styles = theme => ({
   spacedButton: {
@@ -87,7 +87,7 @@ class MediaActionsBarComponent extends Component {
   }
 
   canSubmit = () => {
-    const { title, description } = this.state;
+    const { description, title } = this.state;
     const permissions = JSON.parse(this.props.media.permissions);
     return (permissions['update Dynamic'] !== false && (typeof title === 'string' || typeof description === 'string'));
   };

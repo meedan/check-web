@@ -1,12 +1,13 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import TextField from '../../cds/inputs/TextField';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
-import styles from './Rules.module.css';
+import TextField from '../../cds/inputs/TextField';
 import inputStyles from '../../../styles/css/inputs.module.css';
+import styles from './Rules.module.css';
 
 const RuleBody = (props) => {
   const rule = JSON.parse(JSON.stringify(props.rule));

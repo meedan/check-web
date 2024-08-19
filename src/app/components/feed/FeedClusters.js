@@ -1,34 +1,35 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
-import ClusterCard from '../search/SearchResultsCards/ClusterCard';
-import searchResultsStyles from '../search/SearchResults.module.css';
-import Paginator from '../cds/inputs/Paginator';
-import SharedFeedIcon from '../../icons/dynamic_feed.svg';
-import NextIcon from '../../icons/chevron_right.svg';
-import CheckChannels from '../../CheckChannels';
 import FeedHeader from './FeedHeader';
 import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
-import searchStyles from '../search/search.module.css';
+import ClusterCard from '../search/SearchResultsCards/ClusterCard';
+import Paginator from '../cds/inputs/Paginator';
+import SharedFeedIcon from '../../icons/dynamic_feed.svg';
+import NextIcon from '../../icons/chevron_right.svg';
+import CheckChannels from '../../CheckChannels';
 import MediasLoading from '../media/MediasLoading';
+import searchStyles from '../search/search.module.css';
+import searchResultsStyles from '../search/SearchResults.module.css';
 
 const pageSize = 50;
 
 const FeedClustersComponent = ({
-  team,
   feed,
   feedTeam,
+  onChangeSearchParams,
+  otherFilters,
   page,
   sort,
   sortType,
+  team,
   teamFilters,
-  otherFilters,
-  onChangeSearchParams,
 }) => {
   const clusters = feed.clusters.edges.map(edge => edge.node);
 
@@ -227,7 +228,7 @@ FeedClustersComponent.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { FeedClustersComponent };
 
-const FeedClusters = ({ teamSlug, feedId }) => {
+const FeedClusters = ({ feedId, teamSlug }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
     sort: 'requests_count',
@@ -236,11 +237,11 @@ const FeedClusters = ({ teamSlug, feedId }) => {
     otherFilters: {},
   });
   const {
+    otherFilters,
     page,
     sort,
     sortType,
     teamFilters,
-    otherFilters,
   } = searchParams;
 
   const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType, teamFilters, ...otherFilters } - a single state for a single query/render

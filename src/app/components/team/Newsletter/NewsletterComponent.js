@@ -1,31 +1,32 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
 import cx from 'classnames/bind';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import NewsletterHeader from './NewsletterHeader';
 import NewsletterStatic from './NewsletterStatic';
 import NewsletterRssFeed from './NewsletterRssFeed';
 import NewsletterScheduler from './NewsletterScheduler';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
-import settingsStyles from '../Settings.module.css';
-import styles from './NewsletterComponent.module.css';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import SettingsHeader from '../SettingsHeader';
 import { getTimeZoneOptions } from '../../../helpers';
 import { can } from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
+import settingsStyles from '../Settings.module.css';
+import styles from './NewsletterComponent.module.css';
 
 const NewsletterComponent = ({
   environment,
-  team,
   language,
   languages,
   onChangeLanguage,
   setFlashMessage,
+  team,
 }) => {
   const newsletters = team.tipline_newsletters?.edges;
   const newsletter = newsletters.find(item => item.node.language === language)?.node || {};
@@ -38,27 +39,27 @@ const NewsletterComponent = ({
   };
 
   const {
-    id,
-    number_of_articles,
-    introduction,
-    header_type,
-    header_overlay_text,
-    header_file_url,
     content_type,
-    first_article,
-    second_article,
-    third_article,
-    rss_feed_url,
-    send_every,
-    send_on,
-    timezone: send_timezone,
-    time: send_time,
     enabled,
-    subscribers_count,
-    last_sent_at,
+    first_article,
+    header_file_url,
+    header_overlay_text,
+    header_type,
+    id,
+    introduction,
+    last_delivery_error,
     last_scheduled_at,
     last_scheduled_by,
-    last_delivery_error,
+    last_sent_at,
+    number_of_articles,
+    rss_feed_url,
+    second_article,
+    send_every,
+    send_on,
+    subscribers_count,
+    third_article,
+    time: send_time,
+    timezone: send_timezone,
   } = newsletter;
 
   const [saving, setSaving] = React.useState(false);

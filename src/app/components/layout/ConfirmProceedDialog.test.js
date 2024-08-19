@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ConfirmProceedDialog from './ConfirmProceedDialog';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<ConfirmProceedDialog />', () => {
   it('should render dialog title and content', () => {

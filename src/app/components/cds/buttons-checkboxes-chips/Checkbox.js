@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -8,12 +9,12 @@ import CheckboxCheckedIcon from '../../../icons/check_box.svg';
 import styles from './Checkbox.module.css';
 
 const Checkbox = ({
-  inputProps,
   checked,
+  className,
   disabled,
+  inputProps,
   label,
   onChange,
-  className,
 }) => {
   const swallowClick = (ev) => {
     // prevent click events on items "under" the checkbox from firing when we click the link

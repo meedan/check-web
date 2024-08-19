@@ -15,10 +15,10 @@ import { compareLanguages, languageLabelFull } from '../../../LanguageRegistry';
 import settingsStyles from '../Settings.module.css';
 
 const submitToggleLanguageDetection = ({
+  onFailure,
+  onSuccess,
   team,
   value,
-  onSuccess,
-  onFailure,
 }) => {
   commitMutation(Relay.Store, {
     mutation: graphql`

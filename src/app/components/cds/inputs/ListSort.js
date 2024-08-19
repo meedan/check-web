@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import cx from 'classnames/bind';
+import Select from './Select';
 import ArrowDropUpIcon from '../../../icons/arrow_upward.svg';
 import ArrowDropDownIcon from '../../../icons/arrow_downward.svg';
 import Tooltip from '../alerts-and-prompts/Tooltip';
-import Select from './Select';
 import styles from './ListSort.module.css';
 
 const sortLabels = defineMessages({
@@ -69,10 +69,10 @@ const sortLabels = defineMessages({
 
 const ListSort = ({
   className,
+  onChange,
   options,
   sort,
   sortType,
-  onChange,
 }) => {
   const handleChangeSortCriteria = (e) => {
     onChange({ sort: e.target.value, sortType });

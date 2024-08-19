@@ -1,11 +1,12 @@
+/* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
+import MediasLoading from './MediasLoading';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
-import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import TiplineRequest from '../annotations/TiplineRequest';
 import styles from './media.module.css';
@@ -32,7 +33,7 @@ class MediaRequestsComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, media } = this.props;
+    const { clientSessionId, media, pusher } = this.props;
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaRequests', (data, run) => {
       const annotation = JSON.parse(data.message);
       if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
@@ -50,7 +51,7 @@ class MediaRequestsComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher, media } = this.props;
+    const { media, pusher } = this.props;
     pusher.unsubscribe(media.pusher_channel);
   }
 
@@ -193,7 +194,7 @@ const MediaRequests = (props) => {
   const projectId = props.media.project_id;
   const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
-  const { media, style, all } = props;
+  const { all, media, style } = props;
 
   const Container = all ? MediaAllRequestsContainer : MediaOwnRequestsContainer;
 

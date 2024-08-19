@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import Slideout from './Slideout';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<Slideout />', () => {
   it('should render Slideout component', () => {

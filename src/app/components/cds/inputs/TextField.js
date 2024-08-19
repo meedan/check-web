@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=623-12029&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -25,22 +26,22 @@ function useEffectSkipFirst(fn, inputs) {
 }
 
 const TextField = React.forwardRef(({
+  autoGrow,
   className,
+  componentProps,
   disabled,
   error,
-  suppressInitialError,
   helpContent,
   iconLeft,
   iconRight,
   label,
+  maxHeight,
+  onRemove,
   placeholder,
   required,
-  variant,
+  suppressInitialError,
   textArea,
-  autoGrow,
-  maxHeight,
-  componentProps,
-  onRemove,
+  variant,
   ...inputProps
 }, ref) => {
   const [internalError, setInternalError] = React.useState(suppressInitialError ? false : error);

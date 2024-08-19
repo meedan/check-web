@@ -1,25 +1,26 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import ItemThumbnail from './ItemThumbnail';
 import Alert from '../alerts-and-prompts/Alert';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
-import ItemThumbnail from './ItemThumbnail';
 import { getMediaType } from '../../../helpers';
 import styles from './Card.module.css';
 
 const SmallMediaCard = ({
-  media, // { type, url, domain, quote, picture, metadata }
+  className, // { type, url, domain, quote, picture, metadata }
   customTitle,
-  details,
   description,
+  details,
   maskContent,
-  superAdminMask,
+  media,
   onClick,
-  className,
+  superAdminMask,
 }) => {
   if (!media) {
     return (

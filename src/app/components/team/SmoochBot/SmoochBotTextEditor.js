@@ -1,9 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '../../cds/inputs/TextField';
 import { labels, descriptions, placeholders, footnotes } from './localizables';
+import TextField from '../../cds/inputs/TextField';
 
 const useStyles = makeStyles(theme => ({
   textarea: {
@@ -11,13 +12,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ValueOrPlaceholder = ({ value, field, children }) => (value || !placeholders[field])
+const ValueOrPlaceholder = ({ children, field, value }) => (value || !placeholders[field])
   ? children(value)
   : <FormattedMessage {...placeholders[field]}>{children}</FormattedMessage>; // eslint-disable-line @calm/react-intl/missing-attribute
 
 const SmoochBotTextEditor = (props) => {
   const classes = useStyles();
-  const { value, field } = props;
+  const { field, value } = props;
 
   const handleChange = (event) => {
     props.onChange(event.target.value);

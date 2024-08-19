@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -189,7 +190,7 @@ const AutoCompleteMediaItem = (props, context) => {
         credentials: 'include',
         referrerPolicy: 'no-referrer',
       };
-      const { jsonPromise, abort } = fetchJsonEnsuringOkAllowingAbort(config.relayPath, params);
+      const { abort, jsonPromise } = fetchJsonEnsuringOkAllowingAbort(config.relayPath, params);
       // abortAsyncStuff() should call this HTTP abort(). That will cause
       // an AbortError from the HTTP response.
       abortHttpRequest = abort;

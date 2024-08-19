@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import EditStatusDialog from './EditStatusDialog';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<EditStatusDialog />', () => {
   const team = {

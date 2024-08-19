@@ -1,22 +1,23 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import cx from 'classnames/bind';
+import FeedLastClusterizedAt from './FeedLastClusterizedAt';
+import FeedImportDialog from './FeedImportDialog';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
 import PermMediaIcon from '../../icons/perm_media.svg';
 import ItemThumbnail from '../cds/media-cards/ItemThumbnail';
-import FeedLastClusterizedAt from './FeedLastClusterizedAt';
-import FeedImportDialog from './FeedImportDialog';
-import searchResultsStyles from '../search/SearchResults.module.css';
 import styles from './FeedItem.module.css';
+import searchResultsStyles from '../search/SearchResults.module.css';
 
-const FeedItemHeader = ({ team, feed, cluster }) => {
+const FeedItemHeader = ({ cluster, feed, team }) => {
   const [showImportDialog, setShowImportDialog] = React.useState(false);
-  const { title, center } = cluster;
+  const { center, title } = cluster;
 
   const handleViewFeed = () => {
     browserHistory.push(`/${team.slug}/feed/${feed.dbid}`);

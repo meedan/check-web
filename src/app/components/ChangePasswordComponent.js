@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation } from 'react-relay/compat';
@@ -13,10 +14,10 @@ import { getErrorMessage } from '../helpers';
 import inputStyles from '../styles/css/inputs.module.css';
 
 function ChangePasswordComponent({
-  type,
+  showConfirm,
   showCurrentPassword,
   token,
-  showConfirm,
+  type,
   user,
 }) {
   const [submitDisabled, setSubmitDisabled] = React.useState(true);
@@ -92,7 +93,7 @@ function ChangePasswordComponent({
             id,
           },
         },
-        onCompleted: ({ response, error }) => {
+        onCompleted: ({ error, response }) => {
           if (error) {
             return onFailure(error);
           }

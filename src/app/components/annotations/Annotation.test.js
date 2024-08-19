@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import Annotation from './Annotation';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 const annotation = {
   id: 'VmVyc2lvbi8xMzE4\n',

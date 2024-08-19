@@ -7,11 +7,11 @@ import Dialog from '@material-ui/core/Dialog';
 import Tooltip from './cds/alerts-and-prompts/Tooltip';
 import { FlashMessageSetterContext } from './FlashMessage';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import { getErrorMessageForRelayModernProblem } from '../helpers';
 import IconClose from '../icons/clear.svg';
 import SendIcon from '../icons/send.svg';
-import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
-import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import styles from '../styles/css/dialog.module.css';
 import inputStyles from '../styles/css/inputs.module.css';
 

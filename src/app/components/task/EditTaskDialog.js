@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -18,11 +19,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { getTimeZones } from '@vvo/tzdb';
 import cx from 'classnames/bind';
+import EditTaskAlert from './EditTaskAlert';
+import EditTaskOptions from './EditTaskOptions';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField2 from '../cds/inputs/TextField';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import EditTaskAlert from './EditTaskAlert';
-import EditTaskOptions from './EditTaskOptions';
 import CheckBoxIcon from '../../icons/check_box.svg';
 import CloudUploadIcon from '../../icons/file_upload.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';

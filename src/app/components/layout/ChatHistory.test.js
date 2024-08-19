@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ChatHistory from './ChatHistory';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('ChatHistory component', () => {
   const mockTiplineMessage = {

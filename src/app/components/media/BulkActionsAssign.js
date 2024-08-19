@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -61,7 +61,7 @@ const BulkActionsAssign = ({
           }),
         },
       },
-      onCompleted: ({ response, error }) => {
+      onCompleted: ({ error, response }) => {
         if (error) {
           return onFailure(error);
         }

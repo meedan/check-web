@@ -1,9 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import MediasLoading from './MediasLoading';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
-import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 
 class MediaLogComponent extends Component {
@@ -33,7 +34,7 @@ class MediaLogComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, media } = this.props;
+    const { clientSessionId, media, pusher } = this.props;
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaLog', (data, run) => {
       const annotation = JSON.parse(data.message);
       if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
@@ -51,7 +52,7 @@ class MediaLogComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher, media } = this.props;
+    const { media, pusher } = this.props;
     pusher.unsubscribe(media.pusher_channel);
   }
 

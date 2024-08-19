@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 /*
   FIXME: had to skip this relay/unused-fields rule unfortunately because of the team fragment that is needed
   for MediaStatusCommon (some 4 levels up the component tree) and is very difficult to
@@ -20,15 +20,15 @@ import WebPageMediaCard from './WebPageMediaCard';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import { getMediaType } from '../../helpers';
-import styles from './media.module.css';
 import ErrorBoundary from '../error/ErrorBoundary';
+import styles from './media.module.css';
 
 const MediaCardLarge = ({
-  inModal,
-  projectMedia,
   currentUserRole,
-  superAdminMask,
+  inModal,
   onClickMore,
+  projectMedia,
+  superAdminMask,
 }) => {
   const { media } = projectMedia;
   const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;

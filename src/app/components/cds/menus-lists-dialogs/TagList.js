@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=4295-43910&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -6,22 +7,22 @@ import cx from 'classnames/bind';
 import Popover from '@material-ui/core/Popover';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MultiSelector from '../../layout/MultiSelector';
-import styles from './TagList.module.css';
 import Chip from '../buttons-checkboxes-chips/Chip';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import LocalOfferIcon from '../../../icons/local_offer.svg';
 import AddCircleIcon from '../../../icons/add_circle.svg';
 import MediasLoading from '../../media/MediasLoading';
+import styles from './TagList.module.css';
 
 const TagList = ({
-  readOnly,
-  options: teamTags,
-  tags,
-  setTags,
+  customCreateLabel,
   maxTags,
   onClickTag,
+  options: teamTags,
+  readOnly,
   saving,
-  customCreateLabel,
+  setTags,
+  tags,
 }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);

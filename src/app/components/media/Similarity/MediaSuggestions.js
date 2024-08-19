@@ -40,7 +40,7 @@ const mediaSuggestionsQuery = graphql`
   }
 `;
 
-const MediaSuggestions = ({ dbid, teamDbid, superAdminMask }) => {
+const MediaSuggestions = ({ dbid, superAdminMask, teamDbid }) => {
   const ids = `${dbid},0,${teamDbid}`; // Project ID doesn't matter
   const pageSize = 4;
 

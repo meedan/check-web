@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -5,12 +6,12 @@ import { withRouter } from 'react-router';
 import ConfirmProceedDialog from './layout/ConfirmProceedDialog';
 
 const NavigateAwayDialog = ({
-  title,
   body,
-  hasUnsavedChanges,
-  router,
   cancelLabel,
+  hasUnsavedChanges,
   proceedLabel,
+  router,
+  title,
 }) => {
   const [leaveLocation, setLeaveLocation] = React.useState(null);
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -16,10 +17,10 @@ import LanguageRegistry, { compareLanguages, languageLabelFull } from '../../../
 import dialogStyles from '../../../styles/css/dialog.module.css';
 
 function submitAddLanguage({
-  team,
   languages,
-  onSuccess,
   onFailure,
+  onSuccess,
+  team,
 }) {
   commitMutation(Store, {
     mutation: graphql`
@@ -50,7 +51,7 @@ function submitAddLanguage({
 }
 
 // FIXME rewrite using LanguagePickerDialog
-const AddLanguageAction = ({ team, setLanguages }) => {
+const AddLanguageAction = ({ setLanguages, team }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [value, setValue] = React.useState(null);

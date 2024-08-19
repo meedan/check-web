@@ -41,7 +41,7 @@ const conditionalVerbs = [
   },
 ];
 
-const ConditionalField = ({ task, tasks, onChange }) => {
+const ConditionalField = ({ onChange, task, tasks }) => {
   const parsedConditionalInfo = JSON.parse(task?.conditional_info || null);
   const hasConditionsInitial = task ? parsedConditionalInfo?.selectedFieldId !== (null || undefined) : null;
 

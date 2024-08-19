@@ -1,14 +1,15 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { truncateLength } from '../helpers';
 
 const ExternalLink = ({
-  className,
   children,
-  url,
+  className,
   maxUrlLength,
-  style,
   readable,
+  style,
+  url,
 }) => {
   let displayUrl = url;
   if (readable) {

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -159,10 +160,10 @@ function formatValue(header, value) {
 }
 
 const TeamDataComponent = ({
-  intl,
-  slug,
   data,
   defaultLanguage,
+  intl,
+  slug,
 }) => {
   const defaultOrder = 'Month';
   const [order, setOrder] = React.useState('desc');

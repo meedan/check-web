@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
@@ -188,7 +189,7 @@ class Annotation extends Component {
     case 'create_assignment': {
       const meta = safelyParseJSON(activity.meta);
       if (meta) {
-        const { type, title, user_name } = meta;
+        const { title, type, user_name } = meta;
         const values = {
           title,
           name: user_name,
@@ -224,7 +225,7 @@ class Annotation extends Component {
     case 'destroy_assignment': {
       const meta = safelyParseJSON(activity.meta);
       if (meta) {
-        const { type, title, user_name } = meta;
+        const { title, type, user_name } = meta;
         const values = {
           title,
           name: user_name,

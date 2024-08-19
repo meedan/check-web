@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -32,14 +33,14 @@ const messages = defineMessages({
 });
 
 const SearchField = ({
+  handleClear,
+  inputBaseProps,
   intl,
   isActive,
-  inputBaseProps,
-  showExpand,
-  setParentSearchText,
-  searchText,
-  handleClear,
   searchQuery,
+  searchText,
+  setParentSearchText,
+  showExpand,
 }) => {
   const [expand, setExpand] = React.useState(false);
   const [expandMedia, setExpandMedia] = React.useState(false);

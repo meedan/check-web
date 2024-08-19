@@ -1,7 +1,9 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import SharedItemCardFooter from './SharedItemCardFooter';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
 import ItemDate from '../../cds/media-cards/ItemDate';
@@ -9,27 +11,26 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
-import SharedItemCardFooter from './SharedItemCardFooter';
 import styles from './ArticleCard.module.css';
 
 const ArticleCard = ({
-  title,
-  summary,
-  url,
   date,
-  statusLabel,
-  statusColor,
-  teamAvatar,
-  teamName,
-  languageCode,
-  tags,
-  tagOptions,
+  handleClick,
   isPublished,
+  languageCode,
+  onChangeTags,
   projectMediaDbid,
   publishedAt,
-  onChangeTags,
+  statusColor,
+  statusLabel,
+  summary,
+  tagOptions,
+  tags,
+  teamAvatar,
+  teamName,
+  title,
+  url,
   variant,
-  handleClick,
 }) => (
   <div
     className={cx('article-card', styles.articleCard)}

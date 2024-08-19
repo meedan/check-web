@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -11,11 +11,11 @@ import { can } from '../Can';
 import inputStyles from '../../styles/css/inputs.module.css';
 
 function ChangeMediaSource({
-  team,
-  projectMediaPermissions,
+  createNewClick,
   onCancel,
   onSubmit,
-  createNewClick,
+  projectMediaPermissions,
+  team,
 }) {
   const [value, setValue] = React.useState(null);
   const [input, setInput] = React.useState('');

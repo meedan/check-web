@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -7,11 +8,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const TranscriptionButton = ({
+  onClick,
   projectMediaId,
   projectMediaType,
-  transcription,
   setFlashMessage,
-  onClick,
+  transcription,
 }) => {
   const [pending, setPending] = React.useState(false);
 

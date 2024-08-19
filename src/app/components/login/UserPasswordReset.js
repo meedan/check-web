@@ -14,8 +14,8 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import styles from './login.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
+import styles from './login.module.css';
 
 const UserPasswordReset = (props) => {
   const [showConfirmDialog, setShowConfirmDialog] = React.useState(false);

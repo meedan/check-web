@@ -1,10 +1,11 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
+import Annotation from './Annotation';
 import MediasLoading from '../media/MediasLoading';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import Annotation from './Annotation';
 import styles from '../media/media.module.css';
 
 const pageSize = 10;

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -11,7 +12,7 @@ import EllipseIcon from '../../icons/ellipse.svg';
 import { getStatus, getStatusStyle } from '../../helpers';
 import styles from './Articles.module.css';
 
-const MediaArticlesCard = ({ article, team, onAdd }) => {
+const MediaArticlesCard = ({ article, onAdd, team }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
   const handleMouseEnter = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { CustomFiltersManagerTest } from './CustomFiltersManager';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<CustomFiltersManager />', () => {
   const team = {

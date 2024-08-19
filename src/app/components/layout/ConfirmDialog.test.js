@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ConfirmDialog from './ConfirmDialog';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<ConfirmDialog />', () => {
   it('should render title and blurb', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { MediaActionsMenuButton } from './MediaActionsMenuButton';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 describe('<MediaActionsMenuButton />', () => {

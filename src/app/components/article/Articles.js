@@ -1,8 +1,12 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
+import ArticleFilters from './ArticleFilters';
+import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
+import { ExplainerFormQueryRenderer } from './ExplainerForm';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import BlankState from '../layout/BlankState';
@@ -17,32 +21,29 @@ import {
   pageSize,
 } from '../../urlHelpers';
 import MediasLoading from '../media/MediasLoading';
-import ArticleFilters from './ArticleFilters';
-import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
-import { ExplainerFormQueryRenderer } from './ExplainerForm';
 import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
 const ArticlesComponent = ({
-  team,
-  type,
-  title,
-  icon,
-  page,
-  sort,
-  sortType,
-  sortOptions,
-  filterOptions,
-  filters,
-  defaultFilters,
-  onChangeSearchParams,
-  statuses,
-  teamTags,
   articles,
   articlesCount,
-  updateMutation,
+  defaultFilters,
+  filterOptions,
+  filters,
+  icon,
+  onChangeSearchParams,
+  page,
   reloadData,
+  sort,
+  sortOptions,
+  sortType,
+  statuses,
+  team,
+  teamTags,
+  title,
+  type,
+  updateMutation,
 }) => {
   let articleDbidFromUrl = null;
 
@@ -309,13 +310,13 @@ ArticlesComponent.propTypes = {
 export { ArticlesComponent };
 
 const Articles = ({
-  type,
-  icon,
-  title,
-  teamSlug,
-  sortOptions,
-  filterOptions,
   defaultFilters,
+  filterOptions,
+  icon,
+  sortOptions,
+  teamSlug,
+  title,
+  type,
   updateMutation,
 }) => {
   const [searchParams, setSearchParams] = React.useState({
@@ -325,10 +326,10 @@ const Articles = ({
     filters: { ...defaultFilters },
   });
   const {
+    filters,
     page,
     sort,
     sortType,
-    filters,
   } = searchParams;
 
   const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType, filters } - a single state for a single query/render

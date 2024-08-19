@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import TiplineContentTranslation from './TiplineContentTranslation';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<TiplineContentTranslation />', () => {
   it('should render TiplineContentTranslation component', () => {

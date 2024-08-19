@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -87,13 +88,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SaveList = ({
-  intl,
-  team,
   feedTeam,
-  savedSearch,
+  intl,
   page,
   query,
+  savedSearch,
   setFlashMessage,
+  team,
 }) => {
   // FIXME: Replace pathname context-detection and derived logic with the `page` prop
   const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|all-items|assigned-to-me|tipline-inbox|suggested-matches|feed|imported-fact-checks|unmatched-media|published)(\/([0-9]+))?/);

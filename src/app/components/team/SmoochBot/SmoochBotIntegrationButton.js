@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -72,22 +73,22 @@ const messages = defineMessages({
 });
 
 const SmoochBotIntegrationButton = ({
-  installationId,
-  type,
-  label,
-  url,
-  params,
-  info,
-  icon,
-  online,
-  disabled,
-  permanentDisconnection,
-  skipUrlConfirmation,
-  helpUrl,
-  readOnly,
   deprecationNotice,
+  disabled,
+  helpUrl,
+  icon,
+  info,
+  installationId,
   intl,
+  label,
+  online,
+  params,
+  permanentDisconnection,
+  readOnly,
   setFlashMessage,
+  skipUrlConfirmation,
+  type,
+  url,
 }) => {
   const classes = useStyles();
   const [openFormDialog, setOpenFormDialog] = React.useState(false);

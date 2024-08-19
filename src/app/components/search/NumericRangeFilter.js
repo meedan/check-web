@@ -1,10 +1,10 @@
 import React from 'react';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import RemoveableWrapper from './RemoveableWrapper';
 import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ErrorOutlineIcon from '../../icons/error_outline.svg';
-import RemoveableWrapper from './RemoveableWrapper';
 import NumberIcon from '../../icons/numbers.svg';
 import styles from './search.module.css';
 
@@ -27,12 +27,12 @@ const messages = defineMessages({
 });
 
 const NumericRangeFilter = ({
+  filterKey,
+  intl,
   onChange,
   onRemove,
   readOnly,
-  filterKey,
   value,
-  intl,
 }) => {
   const defaultMinValue = (value && value.min) ? value.min : 0;
   const defaultMaxValue = (value && value.max) ? value.max : '';

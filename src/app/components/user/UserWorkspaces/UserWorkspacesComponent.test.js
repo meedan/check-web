@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import { UserWorkspacesComponent } from './PaginatedUserWorkspaces';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 const workspaces = [
   {

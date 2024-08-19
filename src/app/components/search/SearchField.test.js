@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import SearchField from './SearchField';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<SearchResults />', () => {
   it('should check that onBlur is called when press "enter" on input field', () => {

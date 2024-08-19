@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
@@ -13,9 +14,9 @@ import styles from './RatingSelector.module.css';
 
 const RatingSelector = ({
   disabled,
+  onStatusChange,
   status,
   statuses,
-  onStatusChange,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const currentStatus = getStatus(statuses, status || statuses.default);

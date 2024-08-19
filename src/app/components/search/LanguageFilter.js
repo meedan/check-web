@@ -1,15 +1,16 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import MultiSelectFilter from './MultiSelectFilter';
+import RemoveableWrapper from './RemoveableWrapper';
 import Select from '../cds/inputs/Select';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import MediasLoading from '../media/MediasLoading';
-import MultiSelectFilter from './MultiSelectFilter';
 import { languageLabel } from '../../LanguageRegistry';
 import LanguageIcon from '../../icons/language.svg';
-import RemoveableWrapper from './RemoveableWrapper';
 import styles from './search.module.css';
 
 const messages = defineMessages({
@@ -32,12 +33,12 @@ const messages = defineMessages({
 
 const LanguageFilter = ({
   hide,
-  value,
-  optionsToHide,
+  intl,
   onChange,
   onRemove,
+  optionsToHide,
   teamSlug,
-  intl,
+  value,
 }) => {
   const getValueType = () => {
     if (value && value.language) return 'language';

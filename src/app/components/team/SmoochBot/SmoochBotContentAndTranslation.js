@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
@@ -6,10 +7,10 @@ import TiplineContentTranslation from '../../cds/settings-pages/TiplineContentTr
 import UploadFile from '../../UploadFile';
 
 const SmoochBotContentAndTranslation = ({
-  value,
+  onChangeImage,
   onChangeMessage,
   onChangeStateMessage,
-  onChangeImage,
+  value,
 }) => {
   let greetingImage = value.smooch_greeting_image;
   if (typeof greetingImage === 'string') {

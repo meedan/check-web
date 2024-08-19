@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const SmoochBotSetting = (props) => {
   const classes = useStyles();
-  const { value, schema, field } = props;
+  const { field, schema, value } = props;
 
   const handleChange = (key, newValue) => {
     props.onChange(key, newValue);

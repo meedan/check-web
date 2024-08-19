@@ -3,11 +3,11 @@ import Menu from '@material-ui/core/Menu';
 import SearchKeywordConfigComponent from './SearchKeywordConfigComponent';
 
 const SearchKeywordContainer = ({
+  anchorEl,
+  handleClose,
   onDismiss,
   onSubmit,
   query,
-  anchorEl,
-  handleClose,
 }) => (
   <Menu
     anchorEl={anchorEl}

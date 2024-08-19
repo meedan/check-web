@@ -1,14 +1,15 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
+import SearchField from './SearchField';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import MediasLoading from '../media/MediasLoading';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
-import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
@@ -183,7 +184,7 @@ class SearchKeyword extends React.Component {
   };
 
   subscribe() {
-    const { pusher, clientSessionId, team } = this.props;
+    const { clientSessionId, pusher, team } = this.props;
     pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'SearchKeyword', (data, run) => {
       if (clientSessionId !== data.actor_session_id) {
         if (run) {
@@ -233,7 +234,7 @@ class SearchKeyword extends React.Component {
   triggerInputFile = () => this.fileInput.click()
 
   render() {
-    const { team, showExpand } = this.props;
+    const { showExpand, team } = this.props;
     const { statuses } = team.verification_statuses;
     let projects = [];
     if (team.projects) {

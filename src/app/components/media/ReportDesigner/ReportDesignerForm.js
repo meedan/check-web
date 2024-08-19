@@ -1,7 +1,9 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import { formatDate } from './reportDesignerHelpers';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../../cds/inputs/TextArea';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
@@ -9,11 +11,10 @@ import ColorPicker from '../../cds/inputs/ColorPicker';
 import UploadFile from '../../UploadFile';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
-import { formatDate } from './reportDesignerHelpers';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import { safelyParseJSON } from '../../../helpers';
-import styles from './ReportDesigner.module.css';
 import inputStyles from '../../../styles/css/inputs.module.css';
+import styles from './ReportDesigner.module.css';
 
 const ReportDesignerForm = (props) => {
   const { media, team } = props;

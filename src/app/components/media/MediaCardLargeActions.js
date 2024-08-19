@@ -8,13 +8,13 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import MoreVertIcon from '../../icons/more_vert.svg';
 import RefreshButton from './RefreshButton';
 import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
-import ExternalLink from '../ExternalLink';
 import MediaLanguageSwitcher from './MediaLanguageSwitcher';
+import ExternalLink from '../ExternalLink';
+import MoreVertIcon from '../../icons/more_vert.svg';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -100,10 +100,10 @@ class MediaExpandedActions extends React.Component {
 
   render() {
     const {
-      projectMedia,
+      bottomSeparator,
       inModal,
       onClickMore,
-      bottomSeparator,
+      projectMedia,
     } = this.props;
     const { media } = projectMedia;
 

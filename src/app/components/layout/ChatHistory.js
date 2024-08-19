@@ -1,3 +1,5 @@
+/* eslint-disable react/sort-prop-types */
+
 // DESIGNS: https://www.figma.com/file/bQWUXJItRRX8xO3uQ9FWdg/Multimedia-Newsletter-%2B-Report?type=design&node-id=656-50446&mode=design&t=PjtorENpol0lp5QG-://www.figma.com/file/swpcrmbyoYJXMnqhsVT5sr/Conversation-history-and-messaging-via-request?type=design&node-id=110-15572&mode=design&t=3zQWKZA3YXye2rWF-0
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -25,10 +27,10 @@ const messages = defineMessages({
 });
 
 const ChatHistory = ({
+  handleClose,
+  history,
   intl,
   title,
-  history,
-  handleClose,
 }) => {
   const parseHistory = () => {
     let output = history;
@@ -109,14 +111,14 @@ const ChatHistory = ({
   );
 
   const Message = ({
-    messageId,
-    messageEvent,
     content,
     dateTime,
-    userMessage,
     isDelivered,
-    userSelection,
     mediaUrl,
+    messageEvent,
+    messageId,
+    userMessage,
+    userSelection,
   }) => {
     const d = new Date(dateTime);
 

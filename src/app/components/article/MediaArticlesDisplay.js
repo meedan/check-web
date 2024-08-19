@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
-import Alert from '../cds/alerts-and-prompts/Alert';
 import MediaArticleCard from './MediaArticleCard';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
 import { getStatus } from '../../helpers';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import styles from './MediaArticlesDisplay.module.css';
 
-const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
+const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
   const [articleToEdit, setArticleToEdit] = React.useState(null);
 
   const explainerItems = projectMedia.explainer_items.edges.map(edge => edge.node);

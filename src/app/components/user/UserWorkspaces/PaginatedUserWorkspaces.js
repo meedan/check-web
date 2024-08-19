@@ -18,10 +18,10 @@ import CreateTeamDialog from '../../team/CreateTeamDialog';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
-import styles from '../user.module.css';
-import workspaceStyles from './UserWorkspacesComponent.module.css';
 import MediasLoading from '../../media/MediasLoading';
 import Paginator from '../../cds/inputs/Paginator';
+import styles from '../user.module.css';
+import workspaceStyles from './UserWorkspacesComponent.module.css';
 
 const updateUserMutation = graphql`
   mutation PaginatedUserWorkspacesUpdateUserMutation($input: UpdateUserInput!) {

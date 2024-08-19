@@ -1,7 +1,7 @@
 import React from 'react';
+import Login from './Login';
 import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
-import Login from './Login';
 
 describe('<Login />', () => {
   it('should not have password confirmation in default login mode', () => {

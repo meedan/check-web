@@ -4,8 +4,8 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import styles from './Task.module.css';
 
 const EditTaskAlert = ({
-  showAlert,
   diff,
+  showAlert,
   task,
 }) => {
   if (!showAlert) return null;

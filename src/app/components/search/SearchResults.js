@@ -1,12 +1,16 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import cx from 'classnames/bind';
-import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
+import SelectAllCheckbox from './SelectAllCheckbox';
+import SearchResultsCards from './SearchResultsCards';
+import ClusterCard from './SearchResultsCards/ClusterCard';
+import { withPusher, pusherShape } from '../../pusher';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
@@ -16,9 +20,6 @@ import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
-import SelectAllCheckbox from './SelectAllCheckbox';
-import SearchResultsCards from './SearchResultsCards';
-import ClusterCard from './SearchResultsCards/ClusterCard';
 import SearchRoute from '../../relay/SearchRoute';
 import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
@@ -44,27 +45,27 @@ function simplifyQuery(query) {
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 function SearchResultsComponent({
-  pusher,
   clientSessionId,
-  query: appliedQuery,
   defaultQuery,
-  search,
-  feedTeam,
-  feed,
-  searchUrlPrefix,
-  mediaUrlPrefix,
-  showExpand,
-  relay,
-  title,
-  icon,
-  listSubtitle,
-  listActions,
-  page,
-  resultType,
-  hideFields,
-  readOnlyFields,
-  savedSearch,
   extra,
+  feed,
+  feedTeam,
+  hideFields,
+  icon,
+  listActions,
+  listSubtitle,
+  mediaUrlPrefix,
+  page,
+  pusher,
+  query: appliedQuery,
+  readOnlyFields,
+  relay,
+  resultType,
+  savedSearch,
+  search,
+  searchUrlPrefix,
+  showExpand,
+  title,
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);

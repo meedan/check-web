@@ -1,18 +1,19 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateRelatedMediaDialog from './CreateRelatedMediaDialog';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import { safelyParseJSON } from '../../helpers';
 
 const BlankMediaButton = ({
-  projectMediaId,
-  team,
-  reverse,
   ButtonComponent,
+  projectMediaId,
+  reverse,
+  team,
 }) => {
   const [showItemDialog, setShowItemDialog] = React.useState(false);
   const [message, setMessage] = React.useState(null);

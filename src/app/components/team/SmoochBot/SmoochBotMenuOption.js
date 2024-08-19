@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
@@ -6,9 +7,9 @@ import Paper from '@material-ui/core/Paper';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import Box from '@material-ui/core/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { placeholders } from './localizables';
 import TextField from '../../cds/inputs/TextField';
 import ClearIcon from '../../../icons/clear.svg';
-import { placeholders } from './localizables';
 import { languageLabel } from '../../../LanguageRegistry';
 
 const useStyles = makeStyles(theme => ({

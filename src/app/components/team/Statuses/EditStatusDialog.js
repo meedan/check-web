@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -11,16 +12,16 @@ import { FormattedGlobalMessage } from '../../MappedMessage';
 import ColorPicker from '../../cds/inputs/ColorPicker';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import dialogStyles from '../../../styles/css/dialog.module.css';
-import styles from './Statuses.module.css';
 import inputStyles from '../../../styles/css/inputs.module.css';
+import styles from './Statuses.module.css';
 
 const EditStatusDialog = ({
   defaultLanguage,
+  defaultValue: status,
   onCancel,
   onSubmit,
   open,
   team,
-  defaultValue: status,
 }) => {
   const [statusLabel, setStatusLabel] = React.useState(status ? status.locales[defaultLanguage].label : '');
   const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].description : '');

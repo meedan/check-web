@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -6,6 +7,7 @@ import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
+import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import AddIcon from '../../../icons/add_filled.svg';
@@ -26,14 +28,13 @@ import { assignedToMeDefaultQuery } from '../../team/AssignedToMe';
 import { suggestedMatchesDefaultQuery } from '../../team/SuggestedMatches';
 import { unmatchedMediaDefaultQuery } from '../../team/UnmatchedMedia';
 import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
-import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import styles from './Projects.module.css';
 
 const ProjectsComponent = ({
   currentUser,
-  team,
-  savedSearches,
   location,
+  savedSearches,
+  team,
 }) => {
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
   const getBooleanPref = (key, fallback) => {

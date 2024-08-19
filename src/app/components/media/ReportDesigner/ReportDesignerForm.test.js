@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ReportDesignerForm from './ReportDesignerForm';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ReportDesignerForm />', () => {
   const data = {

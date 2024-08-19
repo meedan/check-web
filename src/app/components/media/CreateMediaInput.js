@@ -18,7 +18,7 @@ class CreateMediaInput extends React.Component {
   };
 
   getMediaInputValue = () => {
-    const { mediaFile, textValue, claimText } = this.state;
+    const { claimText, mediaFile, textValue } = this.state;
     const inferMediaTypeFromMimeType = (mimeType) => {
       if (mimeType.match(/^audio/)) {
         return 'UploadedAudio';

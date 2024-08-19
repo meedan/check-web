@@ -1,9 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import config from 'config';
+import PageTitle from './PageTitle';
 import { mountWithIntlProvider } from '../../../test/unit/helpers/intl-test';
 
-import PageTitle from './PageTitle';
 
 jest.mock('config');
 

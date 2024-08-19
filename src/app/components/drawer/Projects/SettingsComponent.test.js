@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import { SettingsComponent } from './SettingsComponent';
+import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<SettingsComponent />', () => {
   const permissions = JSON.stringify({ 'update Team': true, 'read Team': true });

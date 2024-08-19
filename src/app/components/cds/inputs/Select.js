@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=34-5720&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -8,8 +9,8 @@ import ClearIcon from '../../../icons/clear.svg';
 import ErrorIcon from '../../../icons/error.svg';
 import ChevronDownIcon from '../../../icons/chevron_down.svg';
 import inputStyles from '../../../styles/css/inputs.module.css';
-import styles from './Select.module.css';
 import Tooltip from '../alerts-and-prompts/Tooltip';
+import styles from './Select.module.css';
 
 const Select = ({
   children,

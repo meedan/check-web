@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -14,9 +15,9 @@ import CheckPropTypes from '../../../CheckPropTypes';
 import styles from './Card.module.css';
 
 const ItemChannels = ({
+  channels,
   className,
   sortMainFirst,
-  channels,
 }) => {
   const tiplines = CheckChannels.TIPLINE;
 

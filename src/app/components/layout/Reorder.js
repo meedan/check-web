@@ -1,3 +1,5 @@
+/* eslint-disable react/sort-prop-types */
+
 // DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=2142-47843&mode=design&t=Xk5LFyi7pmsXEX1T-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -12,10 +14,10 @@ import styles from './Reorder.module.css';
 const Reorder = ({
   className,
   customStyle,
+  disableDown,
+  disableUp,
   onMoveDown,
   onMoveUp,
-  disableUp,
-  disableDown,
   theme,
   variant,
 }) => (

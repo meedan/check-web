@@ -1,13 +1,14 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import FeedDataPointsSection from './FeedDataPointsSection';
+import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import { stringHelper } from '../../customHelpers';
 import styles from './SaveFeed.module.css';
 
-const FeedDataPoints = ({ readOnly, dataPoints, onChange }) => {
+const FeedDataPoints = ({ dataPoints, onChange, readOnly }) => {
   const toggleDataPoint = (enabled, dataPoint) => {
     const newDataPoints = dataPoints.filter(x => x !== dataPoint);
     if (enabled) {

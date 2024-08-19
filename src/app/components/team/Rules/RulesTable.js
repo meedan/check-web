@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, FormattedRelative } from 'react-intl';
@@ -7,12 +8,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import cx from 'classnames/bind';
+import RulesTableToolbar from './RulesTableToolbar';
+import RulesTableHead from './RulesTableHead';
 import BlankState from '../../layout/BlankState';
 import EditIcon from '../../../icons/edit.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsHeader from '../SettingsHeader';
-import RulesTableToolbar from './RulesTableToolbar';
-import RulesTableHead from './RulesTableHead';
 import settingsStyles from '../Settings.module.css';
 
 export default function RulesTable(props) {
@@ -128,7 +129,7 @@ export default function RulesTable(props) {
               />
               <TableBody>
                 {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
-                  const { name, index } = row;
+                  const { index, name } = row;
                   const isItemSelected = isSelected(index);
                   const labelId = `rules-table-checkbox-${index}`;
                   const date = new Date(row.updated_at * 1000);

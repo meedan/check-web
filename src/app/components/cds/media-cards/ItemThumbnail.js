@@ -1,15 +1,16 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import EmptyMediaIcon from '../../../icons/empty_media.svg';
-import styles from './ItemThumbnail.module.css';
 import MediaTypeDisplayName from '../../media/MediaTypeDisplayName';
 import MediaTypeDisplayIcon, { mediaTypeFromUrl } from '../../media/MediaTypeDisplayIcon';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
+import styles from './ItemThumbnail.module.css';
 
 const ItemThumbnail = ({
-  type, picture, maskContent, url,
+  maskContent, picture, type, url,
 }) => {
   if (!type && !picture) {
     return (

@@ -24,11 +24,11 @@ import SettingsInputAntennaIcon from '../../icons/settings_input_antenna.svg';
 import UnmatchedIcon from '../../icons/unmatched.svg';
 
 const AddFilterMenu = ({
-  team,
   addedFields,
   hideOptions,
-  showOptions,
   onSelect,
+  showOptions,
+  team,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 

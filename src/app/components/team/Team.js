@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import TeamComponent from './TeamComponent';
 import ErrorBoundary from '../error/ErrorBoundary';
 
-const renderQuery = ({ error, props }, { route, params }) => {
+const renderQuery = ({ error, props }, { params, route }) => {
   if (!error && props) {
     return <TeamComponent team={props.team} route={route} params={params} />;
   }

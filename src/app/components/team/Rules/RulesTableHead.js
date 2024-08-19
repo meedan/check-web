@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -11,7 +12,7 @@ const headCells = [
   { id: 'updated_at', label: <FormattedMessage id="rulesTableHead.updated" defaultMessage="Updated" description="Table header for rule update dates" /> },
 ];
 
-const RulesTableHead = ({ orderBy, order, onSort }) => (
+const RulesTableHead = ({ onSort, order, orderBy }) => (
   <TableHead className="rulesTableHead">
     <TableRow>
       <TableCell padding="checkbox" />

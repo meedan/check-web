@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -5,13 +6,13 @@ import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 
 const NewsletterStatic = ({
-  disabled,
   articleErrors,
-  numberOfArticles,
-  onUpdateNumberOfArticles,
   articles,
-  setTextfieldOverLength,
+  disabled,
+  numberOfArticles,
   onUpdateArticles,
+  onUpdateNumberOfArticles,
+  setTextfieldOverLength,
 }) => {
   const getMaxChars = () => {
     let maxChars = 694;

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -11,15 +12,15 @@ import styles from '../../styles/css/dialog.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 
 const ConfirmProceedDialog = ({
-  open,
-  title,
   body,
   cancelLabel,
   isSaving,
   onCancel,
   onProceed,
+  open,
   proceedDisabled,
   proceedLabel,
+  title,
   typeTextToConfirm,
 }) => {
   const [confirmationText, setConfirmationText] = React.useState('');

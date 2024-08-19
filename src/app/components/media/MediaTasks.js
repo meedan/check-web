@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -89,7 +90,7 @@ class MediaTasksComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, media } = this.props;
+    const { clientSessionId, media, pusher } = this.props;
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaTasks', (data, run) => {
       const annotation = JSON.parse(data.message);
       if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
@@ -107,7 +108,7 @@ class MediaTasksComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher, media } = this.props;
+    const { media, pusher } = this.props;
     pusher.unsubscribe(media.pusher_channel);
   }
 

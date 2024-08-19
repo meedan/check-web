@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -34,7 +35,7 @@ const messages = defineMessages({
   },
 });
 
-const CreateTeamDialog = ({ onDismiss, team, intl }) => {
+const CreateTeamDialog = ({ intl, onDismiss, team }) => {
   const [saving, setSaving] = React.useState(false);
   const [name, setName] = React.useState(team ? `Copy of ${team.name}` : '');
   const [slug, setSlug] = React.useState(null);

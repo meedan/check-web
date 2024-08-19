@@ -3,22 +3,22 @@ import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import CreateTeamDialog from './CreateTeamDialog';
+import SettingsHeader from './SettingsHeader';
+import TeamAvatar from './TeamAvatar';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
-import CreateTeamDialog from './CreateTeamDialog';
-import SettingsHeader from './SettingsHeader';
-import TeamAvatar from './TeamAvatar';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import UploadFile from '../UploadFile';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import inputStyles from '../../styles/css/inputs.module.css';
-import settingsStyles from './Settings.module.css';
 import styles from './TeamDetails.module.css';
+import settingsStyles from './Settings.module.css';
 
 const TeamDetails = ({
   setFlashMessage,

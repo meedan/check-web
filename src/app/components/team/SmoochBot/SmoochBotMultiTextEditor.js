@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -7,10 +8,10 @@ import { labels } from './localizables';
 
 const SmoochBotMultiTextEditor = (props) => {
   const {
-    field,
-    subSchema,
     currentLanguage,
+    field,
     onChange,
+    subSchema,
   } = props;
   let { value } = props;
   if (!value) {

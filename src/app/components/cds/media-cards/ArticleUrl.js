@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -11,11 +12,11 @@ const icons = {
 };
 
 const ArticleUrl = ({
+  linkText,
+  showIcon,
+  title,
   url,
   variant,
-  title,
-  showIcon,
-  linkText,
 }) => {
   if (!url) return null;
 

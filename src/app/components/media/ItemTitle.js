@@ -120,11 +120,11 @@ const ItemTitleComponent = ({
   };
 
   const ItemTitleOption = ({
-    fieldName,
-    optionIcon,
     disabled,
-    label,
+    fieldName,
     helperText,
+    label,
+    optionIcon,
   }) => (
     <MenuItem
       key={fieldName}

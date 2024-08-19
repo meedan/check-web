@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -16,11 +17,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MediaSimilarityBarComponent = ({
-  projectMediaDbid,
+  canAdd,
+  confirmedMainItemId,
   confirmedSimilarCount,
   hasMain,
-  confirmedMainItemId,
-  canAdd,
+  projectMediaDbid,
 }) => {
   const classes = useStyles();
 

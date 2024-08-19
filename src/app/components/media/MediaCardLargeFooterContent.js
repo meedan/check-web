@@ -3,9 +3,9 @@ import Box from '@material-ui/core/Box';
 import LongShort from '../layout/LongShort';
 
 const MediaCardLargeFooterContent = ({
-  title,
   body,
   showAll,
+  title,
 }) => {
   if (!body) return null;
 

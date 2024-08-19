@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
@@ -41,7 +42,7 @@ RenderedValue.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.node.isRequired]).isRequired,
 };
 
-function DefaultSuffix({ teamName, children }) {
+function DefaultSuffix({ children, teamName }) {
   return (
     <FormattedGlobalMessage messageKey="appNameHuman">
       {s => children(teamName ? `${teamName} ${s}` : s)}
@@ -56,7 +57,7 @@ DefaultSuffix.propTypes = {
   children: PropTypes.func.isRequired,
 };
 
-function TitleFromPrefixAndTeam({ prefix, teamName, children }) {
+function TitleFromPrefixAndTeam({ children, prefix, teamName }) {
   return (
     <DefaultSuffix teamName={teamName}>
       {localizedSuffix => (
@@ -77,7 +78,7 @@ TitleFromPrefixAndTeam.propTypes = {
 };
 
 function TitleFromProps({
-  prefix, teamName, title, children,
+  children, prefix, teamName, title,
 }) {
   if (title === null) {
     if (prefix === null) {
@@ -112,7 +113,7 @@ TitleFromProps.propTypes = {
 };
 
 function PageTitle({
-  children, title, prefix, team, teamName,
+  children, prefix, team, teamName, title,
 }) {
   return (
     <React.Fragment>

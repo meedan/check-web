@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
@@ -6,13 +6,13 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import cx from 'classnames/bind';
+import SourcePicture from './SourcePicture';
 import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../icons/add.svg';
 import SetSourceDialog from '../media/SetSourceDialog';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import SourcePicture from './SourcePicture';
 import { urlFromSearchQuery } from '../search/Search';
 import Tasks from '../task/Tasks';
 import CheckError from '../../CheckError';
@@ -27,7 +27,7 @@ import inputStyles from '../../styles/css/inputs.module.css';
 import styles from '../media/media.module.css';
 
 function commitCreateAccountSource({
-  source, url, onSuccess, onFailure,
+  onFailure, onSuccess, source, url,
 }) {
   const accountSources = source.account_sources ? source.account_sources.edges : [];
   const newAccountSources = accountSources.concat({ node: { account: { url, metadata: '' } } });
@@ -79,7 +79,7 @@ function commitCreateAccountSource({
   });
 }
 
-function commitDeleteAccountSource({ source, asId }) {
+function commitDeleteAccountSource({ asId, source }) {
   const onFailure = () => {};
   const onSuccess = () => {};
   commitMutation(Relay.Store, {
@@ -130,11 +130,11 @@ function commitDeleteAccountSource({ source, asId }) {
 
 function SourceInfo({
   about,
+  onChangeClick,
+  projectMediaPermissions,
+  relateToExistingSource,
   source,
   team,
-  projectMediaPermissions,
-  onChangeClick,
-  relateToExistingSource,
 }) {
   const [sourceName, setSourceName] = React.useState(source.name);
   const [sourceError, setSourceError] = React.useState('');

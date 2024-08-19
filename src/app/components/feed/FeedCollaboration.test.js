@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl, mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { FeedCollaboration } from './FeedCollaboration';
+import { shallowWithIntl, mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 const feed = {
   dbid: 1,

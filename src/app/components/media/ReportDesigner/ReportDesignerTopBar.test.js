@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ReportDesignerTopBar />', () => {
   const team = {

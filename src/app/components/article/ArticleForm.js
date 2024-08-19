@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React, { useEffect } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -14,18 +15,18 @@ import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import inputStyles from '../../styles/css/inputs.module.css';
 import { safelyParseJSON, truncateLength } from '../../helpers';
-import styles from './ArticleForm.module.css';
 import RatingSelector from '../cds/inputs/RatingSelector';
 import Alert from '../cds/alerts-and-prompts/Alert.js';
+import styles from './ArticleForm.module.css';
 
 const ArticleForm = ({
-  saving,
-  handleSave,
-  onClose,
-  handleBlur,
-  articleType,
-  mode,
   article,
+  articleType,
+  handleBlur,
+  handleSave,
+  mode,
+  onClose,
+  saving,
   team,
 }) => {
   const title = (

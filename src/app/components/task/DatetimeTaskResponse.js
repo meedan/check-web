@@ -18,7 +18,7 @@ function tzOffsetHoursToIso8601Offset(nHours) {
 }
 
 function DateTimeDisplay({
-  isoDate, hourString, minuteString, tzOffsetHours, tzString,
+  hourString, isoDate, minuteString, tzOffsetHours, tzString,
 }) {
   const dateString = `${isoDate}T${hourString.padStart(2, '0')}:${minuteString.padStart(2, '0')}`;
   const iso8601TzOffset = tzOffsetHoursToIso8601Offset(tzOffsetHours);

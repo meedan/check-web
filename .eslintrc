@@ -23,6 +23,7 @@
         "@calm/react-intl",
         "sort-destructure-keys",
         "relay",
+        "sort-destructure-keys",
     ],
     "rules": {
         "indent": [2, 2],
@@ -42,6 +43,9 @@
         "react/sort-prop-types": [ "error", {
             "callbacksLast": true,
         }],
+        
+        // Sorts destructured keys alphabetically
+        "sort-destructure-keys/sort-destructure-keys": 2,
 
         // Relay
         "relay/unused-fields": "error",
@@ -78,7 +82,22 @@
             "internal", 
             "sibling", 
             "parent", 
-            "index"
+            "index",
+            "unknown",
+            ],
+            "pathGroups": [
+                {
+                  "pattern": "**/*.css",
+                  "patternOptions": {"dot": true, "nocomment": true},
+                  "group": "unknown",
+                  "position": "after"
+                },
+                {
+                  "pattern": "{.,..}/**/*.css",
+                  "patternOptions": {"dot": true, "nocomment": true},
+                  "group": "unknown",
+                  "position": "after"
+                }
             ],
         }],
 

@@ -37,9 +37,9 @@ const messages = defineMessages({
 });
 
 const UserSettingsComponent = ({
+  intl,
   me,
   params,
-  intl,
 }) => {
   const { tab } = params;
   const isUserSelf = (me.id === window.Check.store.getState().app.context.currentUser.id);

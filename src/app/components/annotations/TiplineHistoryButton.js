@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -8,9 +9,9 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import QuestionAnswerIcon from '../../icons/question_answer.svg';
 
 const TiplineHistoryButton = ({
-  uid,
-  name,
   channel,
+  name,
+  uid,
   // messageId,
 }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);

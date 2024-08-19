@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -9,12 +10,12 @@ import { withSetFlashMessage } from '../../FlashMessage';
 // This is used for the NLU integration
 
 const SmoochBotMenuKeywords = ({
-  menu,
-  index,
   currentLanguage,
   currentUser,
-  keywords: savedKeywords,
   hasUnsavedChanges,
+  index,
+  keywords: savedKeywords,
+  menu,
   onUpdateKeywords,
   setFlashMessage,
 }) => {

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -7,6 +8,7 @@ import cx from 'classnames/bind';
 import ChooseExistingArticleButton from './ChooseExistingArticleButton';
 import NewArticleButton from './NewArticleButton';
 import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
+import MediaArticlesDisplay from './MediaArticlesDisplay';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -15,7 +17,6 @@ import DescriptionIcon from '../../icons/description.svg';
 import { getErrorMessage } from '../../helpers';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import styles from './Articles.module.css';
-import MediaArticlesDisplay from './MediaArticlesDisplay';
 
 const addExplainerMutation = graphql`
   mutation MediaArticlesCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
@@ -47,9 +48,9 @@ const addFactCheckMutation = graphql`
 `;
 
 const MediaArticlesComponent = ({
-  team,
-  projectMedia,
   onUpdate,
+  projectMedia,
+  team,
 }) => {
   const [adding, setAdding] = React.useState(false);
   const [confirmReplaceFactCheck, setConfirmReplaceFactCheck] = React.useState(null);
@@ -228,7 +229,7 @@ MediaArticlesComponent.propTypes = {
   onUpdate: PropTypes.func.isRequired,
 };
 
-const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
+const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
   const [updateCount, setUpdateCount] = React.useState(0);
 
   // FIXME: Shouldn't be needed if Relay works as expected

@@ -1,10 +1,11 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import styles from './NewsletterComponent.module.css';
 import Select from '../../cds/inputs/Select';
 import LimitedTextField from '../../layout/inputs/LimitedTextField';
 import Upload from '../../cds/inputs/Upload';
+import styles from './NewsletterComponent.module.css';
 
 const messages = defineMessages({
   headerTypeNone: {
@@ -43,19 +44,19 @@ const headerTypes = {
 };
 
 const NewsletterHeader = ({
-  disabled,
   availableHeaderTypes,
+  disabled,
   error,
-  headerType,
-  handleFileChange,
   file,
   fileName,
+  handleFileChange,
+  headerType,
+  intl,
+  onUpdateField,
+  overlayText,
   parentErrors,
   setFile,
   setFileName,
-  overlayText,
-  onUpdateField,
-  intl,
 }) => (
   <div>
     <Select

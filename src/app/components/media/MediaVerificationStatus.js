@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
+import MediaStatusCommon from './MediaStatusCommon';
 import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
-import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {
   setStatus(context, store, media, status) {

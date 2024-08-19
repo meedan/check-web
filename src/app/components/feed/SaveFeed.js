@@ -4,7 +4,6 @@ import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import styles from './SaveFeed.module.css';
 import FeedCollaboration from './FeedCollaboration';
 import FeedContent from './FeedContent';
 import FeedMetadata from './FeedMetadata';
@@ -20,6 +19,7 @@ import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import NavigateAwayDialog from '../NavigateAwayDialog';
 import PageTitle from '../PageTitle';
+import styles from './SaveFeed.module.css';
 
 const createMutation = graphql`
   mutation SaveFeedCreateFeedMutation($input: CreateFeedInput!) {
@@ -191,7 +191,7 @@ const removeTeamMutation = graphql`
 `;
 
 const SaveFeed = (props) => {
-  const { feedTeam, teamName, permissions } = props;
+  const { feedTeam, permissions, teamName } = props;
   const feed = feedTeam?.feed || {}; // Editing a feed or creating a new feed
   const isFeedOwner = feedTeam?.team_id === feed?.team?.dbid;
   const teamNameFeed = feedTeam?.team ? feedTeam.team.name : teamName; // user team name if creating, feed team name if editing
@@ -251,7 +251,7 @@ const SaveFeed = (props) => {
   const handlePostSaveMutations = (dbid) => {
     setSaving(true);
 
-    const { newInvites, invitesToDelete, collaboratorsToRemove } = formData;
+    const { collaboratorsToRemove, invitesToDelete, newInvites } = formData;
 
     // FIXME: Make atomic mutations createFeed/updateFeed accept these lists of changes as input
     pendingMessages = newInvites.length + invitesToDelete.length + collaboratorsToRemove.length;
@@ -289,7 +289,7 @@ const SaveFeed = (props) => {
   };
 
   React.useEffect(() => {
-    const { newInvites, invitesToDelete, collaboratorsToRemove } = formData;
+    const { collaboratorsToRemove, invitesToDelete, newInvites } = formData;
 
     if (createdFeedDbid && (newInvites.length || collaboratorsToRemove.length || invitesToDelete.length)) {
       handlePostSaveMutations(createdFeedDbid);

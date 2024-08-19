@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
@@ -57,11 +58,11 @@ const updateMutation = graphql`
 `;
 
 const ExplainerForm = ({
-  team,
   article,
-  projectMedia,
   onClose,
   onCreate,
+  projectMedia,
+  team,
 }) => {
   const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
@@ -211,9 +212,9 @@ const ExplainerFormContainer = createFragmentContainer(ExplainerForm, graphql`
 `);
 
 const ExplainerFormQueryRenderer = ({
-  teamSlug,
   explainerId,
   onClose,
+  teamSlug,
 }) => (
   <QueryRenderer
     environment={Relay.Store}
