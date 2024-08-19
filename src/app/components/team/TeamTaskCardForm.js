@@ -20,16 +20,16 @@ const TeamTaskCardForm = ({ about, task }) => (
       <MetadataMultiselect
         AnnotatorInformation={() => null}
         CancelButton={() => null}
-        classes={{}}
         DeleteButton={() => null}
-        disabled
         EditButton={() => null}
         FieldInformation={() => null}
+        SaveButton={() => null}
+        classes={{}}
+        disabled
         hasData=""
         isSingle={task.type === 'single_choice'}
         metadataValue=""
         node={task}
-        SaveButton={() => null}
         setMetadataValue={() => null}
       /> : null
     }
@@ -38,13 +38,13 @@ const TeamTaskCardForm = ({ about, task }) => (
         AnnotatorInformation={() => null}
         CancelButton={() => null}
         DeleteButton={() => null}
-        disabled
         EditButton={() => null}
         FieldInformation={() => null}
+        SaveButton={() => null}
+        disabled
         hasData=""
         metadataValue=""
         node={task}
-        SaveButton={() => null}
         setMetadataValue={() => null}
       /> : null
     }
@@ -52,15 +52,15 @@ const TeamTaskCardForm = ({ about, task }) => (
       <MetadataNumber
         AnnotatorInformation={() => null}
         CancelButton={() => null}
-        classes={{}}
         DeleteButton={() => null}
-        disabled
         EditButton={() => null}
         FieldInformation={() => null}
+        SaveButton={() => null}
+        classes={{}}
+        disabled
         hasData=""
         metadataValue=""
         node={task}
-        SaveButton={() => null}
         setMetadataValue={() => null}
       /> : null
     }
@@ -68,11 +68,12 @@ const TeamTaskCardForm = ({ about, task }) => (
       <MetadataLocation
         AnnotatorInformation={() => null}
         CancelButton={() => null}
-        classes={{}}
         DeleteButton={() => null}
-        disabled
         EditButton={() => null}
         FieldInformation={() => null}
+        SaveButton={() => null}
+        classes={{}}
+        disabled
         hasData=""
         mapboxApiKey={config.mapboxApiKey}
         messages={{
@@ -107,7 +108,6 @@ const TeamTaskCardForm = ({ about, task }) => (
         }}
         metadataValue=""
         node={task}
-        SaveButton={() => null}
         setMetadataValue={() => null}
       /> : null
     }
@@ -115,15 +115,15 @@ const TeamTaskCardForm = ({ about, task }) => (
       <MetadataDate
         AnnotatorInformation={() => null}
         CancelButton={() => null}
-        classes={{}}
         DeleteButton={() => null}
-        disabled
         EditButton={() => null}
         FieldInformation={() => null}
+        SaveButton={() => null}
+        classes={{}}
+        disabled
         hasData=""
         metadataValue=""
         node={task}
-        SaveButton={() => null}
         setMetadataValue={() => null}
       /> : null
     }
@@ -131,12 +131,13 @@ const TeamTaskCardForm = ({ about, task }) => (
       <MetadataFile
         AnnotatorInformation={() => null}
         CancelButton={() => null}
-        classes={{}}
         DeleteButton={() => null}
-        disabled
         EditButton={() => null}
-        extensions={[]}
         FieldInformation={() => null}
+        SaveButton={() => null}
+        classes={{}}
+        disabled
+        extensions={[]}
         fileSizeMax=""
         hasData=""
         messages={{
@@ -154,7 +155,6 @@ const TeamTaskCardForm = ({ about, task }) => (
         }}
         metadataValue=""
         node={task}
-        SaveButton={() => null}
         setMetadataValue={() => null}
       /> : null
     }
@@ -162,11 +162,12 @@ const TeamTaskCardForm = ({ about, task }) => (
       <MetadataUrl
         AnnotatorInformation={() => null}
         CancelButton={() => null}
-        classes={{}}
         DeleteButton={() => null}
-        disabled
         EditButton={() => null}
         FieldInformation={() => null}
+        SaveButton={() => null}
+        classes={{}}
+        disabled
         hasData=""
         messages={{
           helperText: (
@@ -179,7 +180,6 @@ const TeamTaskCardForm = ({ about, task }) => (
         }}
         metadataValue=""
         node={task}
-        SaveButton={() => null}
         setMetadataValue={() => null}
       /> : null
     }

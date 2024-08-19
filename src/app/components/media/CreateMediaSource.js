@@ -270,7 +270,11 @@ function CreateMediaSource({
               </div>
             }
             { links.map((link, index) => (
-              <div className={cx('source__url-input', inputStyles['form-fieldset-field'])} key={index.toString()}>
+              <div
+                className={cx('source__url-input', inputStyles['form-fieldset-field'])}
+                // eslint-disable-next-line react/no-array-index-key
+                key={index.toString()}
+              >
                 <TextField
                   componentProps={{
                     id: `source__link-input${index.toString()}`,

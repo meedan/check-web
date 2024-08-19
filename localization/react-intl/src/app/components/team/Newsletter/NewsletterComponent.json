@@ -55,9 +55,9 @@
     "defaultMessage": "Article field cannot be blank"
   },
   {
-    "id": "newsletterComponent.title",
-    "description": "Title for newsletter settings page.",
-    "defaultMessage": "Newsletter"
+    "id": "newsletterComponent.save",
+    "description": "Label for a button to save settings for the newsletter",
+    "defaultMessage": "Save"
   },
   {
     "id": "newsletterComponent.helpContext",
@@ -65,9 +65,9 @@
     "defaultMessage": "Manage, draft, and schedule newsletters sent to all subscribers. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about newsletters</a>."
   },
   {
-    "id": "newsletterComponent.save",
-    "description": "Label for a button to save settings for the newsletter",
-    "defaultMessage": "Save"
+    "id": "newsletterComponent.title",
+    "description": "Title for newsletter settings page.",
+    "defaultMessage": "Newsletter"
   },
   {
     "id": "newsletterComponent.content",
@@ -85,13 +85,13 @@
     "defaultMessage": "Introduction"
   },
   {
-    "id": "newsletterComponent.rss",
-    "description": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'",
-    "defaultMessage": "RSS"
-  },
-  {
     "id": "newsletterComponent.rssFeed",
     "description": "Message on tipline newsletter settings page that explains how RSS feeds work there.",
     "defaultMessage": "Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS."
+  },
+  {
+    "id": "newsletterComponent.rss",
+    "description": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'",
+    "defaultMessage": "RSS"
   }
 ]

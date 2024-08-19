@@ -101,11 +101,11 @@ const TiplineContentTranslation = ({
 
         {/* Text field for custom value */}
         <StyledTextField
+          InputProps={{ className: classes.customString }}
           defaultValue={value}
           error={Boolean(error)}
           fullWidth
           helperText={error}
-          InputProps={{ className: classes.customString }}
           key={identifier}
           multiline
           placeholder={intl.formatMessage(messages.placeholder)}

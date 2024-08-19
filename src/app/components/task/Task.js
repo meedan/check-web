@@ -547,11 +547,12 @@ class Task extends Component {
             <MetadataText
               AnnotatorInformation={AnnotatorInformation}
               CancelButton={CancelButton}
-              classes={{}}
               DeleteButton={DeleteButton}
-              disabled={!this.props.isEditing}
               EditButton={EditButton}
               FieldInformation={FieldInformation}
+              SaveButton={SaveButton}
+              classes={{}}
+              disabled={!this.props.isEditing}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
               metadataValue={
@@ -559,7 +560,6 @@ class Task extends Component {
               }
               node={task}
               required={task.team_task.required}
-              SaveButton={SaveButton}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
@@ -571,11 +571,12 @@ class Task extends Component {
             <MetadataNumber
               AnnotatorInformation={AnnotatorInformation}
               CancelButton={CancelButton}
-              classes={{}}
               DeleteButton={DeleteButton}
-              disabled={!this.props.isEditing}
               EditButton={EditButton}
               FieldInformation={FieldInformation}
+              SaveButton={SaveButton}
+              classes={{}}
+              disabled={!this.props.isEditing}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
               metadataValue={
@@ -583,7 +584,6 @@ class Task extends Component {
               }
               node={task}
               required={task.team_task.required}
-              SaveButton={SaveButton}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
@@ -597,9 +597,10 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 CancelButton={CancelButton}
                 DeleteButton={DeleteButton}
-                disabled={!this.props.isEditing}
                 EditButton={EditButton}
                 FieldInformation={FieldInformation}
+                SaveButton={SaveButton}
+                disabled={!this.props.isEditing}
                 hasData={!!task?.first_response_value}
                 isEditing={this.props.isEditing}
                 mapboxApiKey={config.mapboxApiKey}
@@ -609,7 +610,6 @@ class Task extends Component {
                 }
                 node={task}
                 required={task.team_task.required}
-                SaveButton={SaveButton}
                 setMetadataValue={(textValue) => {
                   this.setState({ textValue });
                 }}
@@ -622,11 +622,12 @@ class Task extends Component {
             <MetadataDate
               AnnotatorInformation={AnnotatorInformation}
               CancelButton={CancelButton}
-              classes={{}}
               DeleteButton={DeleteButton}
-              disabled={!this.props.isEditing}
               EditButton={EditButton}
               FieldInformation={FieldInformation}
+              SaveButton={SaveButton}
+              classes={{}}
+              disabled={!this.props.isEditing}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
               metadataValue={
@@ -634,7 +635,6 @@ class Task extends Component {
               }
               node={task}
               required={task.team_task.required}
-              SaveButton={SaveButton}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
@@ -646,11 +646,12 @@ class Task extends Component {
             <MetadataMultiselect
               AnnotatorInformation={AnnotatorInformation}
               CancelButton={CancelButton}
-              classes={{}}
               DeleteButton={DeleteButton}
-              disabled={!this.props.isEditing}
               EditButton={EditButton}
               FieldInformation={FieldInformation}
+              SaveButton={SaveButton}
+              classes={{}}
+              disabled={!this.props.isEditing}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
               isSingle
@@ -659,7 +660,6 @@ class Task extends Component {
               }
               node={task}
               required={task.team_task.required}
-              SaveButton={SaveButton}
               setMetadataValue={this.handleUpdateMultiselectMetadata}
             />
           </div>
@@ -669,11 +669,12 @@ class Task extends Component {
             <MetadataMultiselect
               AnnotatorInformation={AnnotatorInformation}
               CancelButton={CancelButton}
-              classes={{}}
               DeleteButton={DeleteButton}
-              disabled={!this.props.isEditing}
               EditButton={EditButton}
               FieldInformation={FieldInformation}
+              SaveButton={SaveButton}
+              classes={{}}
+              disabled={!this.props.isEditing}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
               metadataValue={
@@ -681,7 +682,6 @@ class Task extends Component {
               }
               node={task}
               required={task.team_task.required}
-              SaveButton={SaveButton}
               setMetadataValue={this.handleUpdateMultiselectMetadata}
             />
           </div>
@@ -711,10 +711,12 @@ class Task extends Component {
               AnnotatorInformation={AnnotatorInformation}
               CancelButton={CancelButton}
               DeleteButton={DeleteButton}
-              disabled={!this.props.isEditing}
               EditButton={EditButton}
-              extensions={about.file_extensions || []}
               FieldInformation={FieldInformation}
+              ProgressLabel={ProgressLabel}
+              SaveButton={SaveButton}
+              disabled={!this.props.isEditing}
+              extensions={about.file_extensions || []}
               fileSizeMax={about.file_max_size_in_bytes}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
@@ -724,9 +726,7 @@ class Task extends Component {
                 this.state.textValue
               }
               node={task}
-              ProgressLabel={ProgressLabel}
               required={task.team_task.required}
-              SaveButton={SaveButton}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
@@ -737,11 +737,12 @@ class Task extends Component {
           <MetadataUrl
             AnnotatorInformation={AnnotatorInformation}
             CancelButton={CancelButton}
-            classes={{}}
             DeleteButton={DeleteButton}
-            disabled={!this.props.isEditing}
             EditButton={EditButton}
             FieldInformation={FieldInformation}
+            SaveButton={SaveButton}
+            classes={{}}
+            disabled={!this.props.isEditing}
             hasData={task.first_response_value}
             isEditing={this.props.isEditing}
             messages={messages.MetadataUrl}
@@ -750,7 +751,6 @@ class Task extends Component {
             }
             node={task}
             required={task.team_task.required}
-            SaveButton={SaveButton}
             setMetadataValue={(textValue) => {
               this.setState({ textValue });
             }}

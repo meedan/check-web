@@ -339,8 +339,8 @@ const SaveList = ({
                   />
                   : null }
                 <FormControlLabel
-                  classes={{ label: classes.saveListCreateLabel }}
                   className={classes.saveListCreateLabel}
+                  classes={{ label: classes.saveListCreateLabel }}
                   control={<Radio />}
                   label={
                     <Box alignItems="center" display="flex" width={1}>

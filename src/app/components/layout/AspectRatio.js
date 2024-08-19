@@ -166,7 +166,7 @@ const AspectRatio = ({
       <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
         { warningCreator !== 'Alegre' ? (
           <FormattedHTMLMessage
-            defaultMessage={'<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>'}
+            defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
             description="Content warning displayed over sensitive content"
             id="contentScreen.warning"
             tagName="p"

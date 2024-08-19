@@ -334,8 +334,8 @@ class TeamTasksListItem extends React.Component {
               {teamTask => (
                 <TeamTaskConfirmDialog
                   action={this.state.action}
-                  editedTask={this.state.editedTask}
                   editLabelOrDescription={this.state.editLabelOrDescription}
+                  editedTask={this.state.editedTask}
                   handleClose={this.handleCloseDialog}
                   handleConfirm={this.handleConfirmDialog}
                   open={this.state.dialogOpen}

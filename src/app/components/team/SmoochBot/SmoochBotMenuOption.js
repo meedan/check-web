@@ -214,9 +214,6 @@ const SmoochBotMenuOption = (props) => {
             /> : null }
           { option.smooch_menu_option_value === 'resource' ?
             <TextField
-              defaultValue={option.smooch_menu_project_media_title}
-              disabled
-              fullWidth
               InputProps={{
                 endAdornment: (
                   <InputAdornment className={classes.button} onClick={handleClear}>
@@ -224,14 +221,14 @@ const SmoochBotMenuOption = (props) => {
                   </InputAdornment>
                 ),
               }}
+              defaultValue={option.smooch_menu_project_media_title}
+              disabled
+              fullWidth
               key={option.smooch_menu_project_media_id}
               variant="outlined"
             /> : null }
           { option.smooch_menu_option_value === 'custom_resource' && resourceIdToTitle(option.smooch_menu_custom_resource_id) ?
             <TextField
-              defaultValue={resourceIdToTitle(option.smooch_menu_custom_resource_id)}
-              disabled
-              fullWidth
               InputProps={{
                 endAdornment: (
                   <InputAdornment className={classes.button} onClick={handleClear}>
@@ -239,6 +236,9 @@ const SmoochBotMenuOption = (props) => {
                   </InputAdornment>
                 ),
               }}
+              defaultValue={resourceIdToTitle(option.smooch_menu_custom_resource_id)}
+              disabled
+              fullWidth
               key={option.smooch_menu_custom_resource_id}
               variant="outlined"
             /> : null }

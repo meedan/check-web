@@ -23,7 +23,6 @@
         "@calm/react-intl",
         "sort-destructure-keys",
         "relay",
-        "sort-destructure-keys",
     ],
     "rules": {
         "indent": [2, 2],
@@ -34,6 +33,7 @@
         "react/prop-types": "off",
         "react/forbid-prop-types": "off",
         "react/no-children-prop": "off",
+        "react/no-unknown-property": "off",
         "react/sort-prop-types": [ "error", {
             "callbacksLast": true,
         }],

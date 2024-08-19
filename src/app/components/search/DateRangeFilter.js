@@ -123,10 +123,6 @@ function DateRangeSelectorStartEnd(props) {
   return (
     <div className={styles['filter-removable-wrapper']}>
       <DatePicker
-        cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
-        maxDate={getEndDateStringOrNull() || undefined}
-        okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
-        style={{ margin: '0 16px' }}
         TextFieldComponent={({ onClick, params, value: valueText }) => (
           <>
             <ButtonMain
@@ -170,14 +166,14 @@ function DateRangeSelectorStartEnd(props) {
             }
           </>
         )}
+        cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+        maxDate={getEndDateStringOrNull() || undefined}
+        okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
+        style={{ margin: '0 16px' }}
         value={getStartDateStringOrNull()}
         onChange={handleChangeStartDate}
       />
       <DatePicker
-        cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
-        inputVariant="outlined"
-        minDate={getStartDateStringOrNull() || undefined}
-        okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
         TextFieldComponent={({ onClick, params, value: valueText }) => (
           <>
             <ButtonMain
@@ -229,6 +225,10 @@ function DateRangeSelectorStartEnd(props) {
             }
           </>
         )}
+        cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+        inputVariant="outlined"
+        minDate={getStartDateStringOrNull() || undefined}
+        okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
         value={getEndDateStringOrNull()}
         onChange={handleChangeEndDate}
       />

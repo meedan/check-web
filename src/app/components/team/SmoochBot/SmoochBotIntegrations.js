@@ -96,21 +96,21 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                   </Box>
                   <Box alignItems="center" display="flex">
                     <TextField
-                      className={styles['smoochbot-component-input']}
-                      defaultValue={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`}
                       InputProps={{
                         readOnly: true,
                       }}
+                      className={styles['smoochbot-component-input']}
+                      defaultValue={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`}
                       variant="outlined"
                     />
                     <Tooltip
+                      PopperProps={{
+                        disablePortal: true,
+                      }}
                       disableFocusListener
                       disableHoverListener
                       disableTouchListener
                       open={copied === 'entrypoint'}
-                      PopperProps={{
-                        disablePortal: true,
-                      }}
                       title={
                         <FormattedMessage
                           defaultMessage="Copied"
@@ -157,13 +157,13 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                         variant="outlined"
                       />
                       <Tooltip
+                        PopperProps={{
+                          disablePortal: true,
+                        }}
                         disableFocusListener
                         disableHoverListener
                         disableTouchListener
                         open={copied === 'embedcode'}
-                        PopperProps={{
-                          disablePortal: true,
-                        }}
                         title={
                           <FormattedMessage
                             defaultMessage="Copied"
@@ -313,11 +313,11 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           info={
             isOnline('line') ?
               <TextField
-                // eslint-disable-next-line no-underscore-dangle
-                defaultValue={`https://app.smooch.io:443/api/line/webhooks/${settings.smooch_app_id}/${enabledIntegrations.line._id}`}
                 InputProps={{
                   readOnly: true,
                 }}
+                // eslint-disable-next-line no-underscore-dangle
+                defaultValue={`https://app.smooch.io:443/api/line/webhooks/${settings.smooch_app_id}/${enabledIntegrations.line._id}`}
                 label={
                   <FormattedMessage
                     defaultMessage="Copy this webhook URL to your LINE settings"

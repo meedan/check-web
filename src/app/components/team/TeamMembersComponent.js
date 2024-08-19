@@ -99,9 +99,9 @@ const TeamMembersComponent = ({
                   >
                     { text => (
                       <TableSortLabel
+                        IconComponent={KeyboardArrowDownIcon}
                         active={sortParam === 'name'}
                         direction={sortDirection || undefined}
-                        IconComponent={KeyboardArrowDownIcon}
                         onClick={() => toggleSort('name')}
                       >
                         {text}
@@ -117,9 +117,9 @@ const TeamMembersComponent = ({
                   >
                     { text => (
                       <TableSortLabel
+                        IconComponent={KeyboardArrowDownIcon}
                         active={sortParam === 'last_active_at'}
                         direction={sortDirection || undefined}
-                        IconComponent={KeyboardArrowDownIcon}
                         onClick={() => toggleSort('last_active_at')}
                       >
                         {text}
@@ -135,9 +135,9 @@ const TeamMembersComponent = ({
                   >
                     { text => (
                       <TableSortLabel
+                        IconComponent={KeyboardArrowDownIcon}
                         active={sortParam === 'role'}
                         direction={sortDirection || undefined}
-                        IconComponent={KeyboardArrowDownIcon}
                         onClick={() => toggleSort('role')}
                       >
                         {text}
