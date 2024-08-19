@@ -1,7 +1,7 @@
 /* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
@@ -18,24 +18,6 @@ import {
 } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './Annotation.module.css';
-
-const messages = defineMessages({
-  editedBy: {
-    id: 'annotation.editedBy',
-    defaultMessage: 'edited by',
-    description: 'Fact-check in edited state',
-  },
-  pausedBy: {
-    id: 'annotation.pausedBy',
-    defaultMessage: 'paused by',
-    description: 'Fact-check in paused state',
-  },
-  publishedBy: {
-    id: 'annotation.publishedBy',
-    defaultMessage: 'published by',
-    description: 'Fact-check in published state',
-  },
-});
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -129,7 +111,7 @@ class Annotation extends Component {
           <span>
             { /confirmed_sibling/.test(type) ?
               <FormattedMessage
-                defaultMessage="Match confirmed by {author}: {title}"
+                defaultMessage="Item merged by {author} with {title}"
                 description="Log entry indicating a similarity match was confirmed"
                 id="annotation.similarCreated"
                 values={{
@@ -312,28 +294,33 @@ class Annotation extends Component {
         }
       } else if (object.annotation_type === 'report_design') {
         const reportDesignChange = safelyParseJSON(activity.object_changes_json).data;
-        let reportState = this.props.intl.formatMessage(messages.editedBy);
         if (reportDesignChange && reportDesignChange[0]) {
-          reportState = reportDesignChange[1].state;
-          if (reportDesignChange[0].state === reportDesignChange[1].state) {
-            reportState = this.props.intl.formatMessage(messages.editedBy);
-          } else if (reportDesignChange[1].state === 'published') {
-            reportState = this.props.intl.formatMessage(messages.publishedBy);
-          } else {
-            reportState = this.props.intl.formatMessage(messages.pausedBy);
+          if (reportDesignChange[0].state !== reportDesignChange[1].state) {
+            if (reportDesignChange[1].state === 'published') {
+              contentTemplate = (
+                <FormattedMessage
+                  id="annotation.reportDesignPublishedState"
+                  defaultMessage="Fact-check published by {author}"
+                  description="Log entry indicating a report state has been published"
+                  values={{
+                    author: authorName,
+                  }}
+                />
+              );
+            } else if (reportDesignChange[1].state === 'paused') {
+              contentTemplate = (
+                <FormattedMessage
+                  id="annotation.reportDesignPausedState"
+                  defaultMessage="Fact-check paused by {author}"
+                  description="Log entry indicating a report state has been paused"
+                  values={{
+                    author: authorName,
+                  }}
+                />
+              );
+            }
           }
         }
-        contentTemplate = (
-          <FormattedMessage
-            defaultMessage="Fact-check report {state} {author}"
-            description="Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
-            id="annotation.reportDesignState"
-            values={{
-              state: reportState,
-              author: authorName,
-            }}
-          />
-        );
       }
       break;
     case 'create_dynamicannotationfield':
@@ -605,9 +592,51 @@ class Annotation extends Component {
       break;
     }
     case 'create_claimdescription':
+      contentTemplate = (
+        <span className="annotation__claim-description">
+          <FormattedMessage
+            id="annotation.createClaimDescription"
+            defaultMessage="Claim added by {author}: {value}"
+            description="Log entry indicating a claim has been added"
+            values={{
+              author: authorName,
+              value: object.description,
+            }}
+          />
+        </span>
+      );
+      break;
     case 'update_claimdescription': {
       const claimDescriptionChanges = safelyParseJSON(activity.object_changes_json);
-      if (claimDescriptionChanges.description) {
+      if (claimDescriptionChanges.project_media_id) {
+        if (claimDescriptionChanges.project_media_id[0]) {
+          contentTemplate = (
+            <span className="annotation__claim-remove-item">
+              <FormattedMessage
+                id="annotation.removeItem"
+                defaultMessage="Fact-check removed by {author}"
+                description="Log entry indicating a claim has been removed"
+                values={{
+                  author: authorName,
+                }}
+              />
+            </span>
+          );
+        } else {
+          contentTemplate = (
+            <span className="annotation__claim-add-item">
+              <FormattedMessage
+                id="annotation.addItem"
+                defaultMessage="Fact-check added by {author}"
+                description="Log entry indicating a claim has been added"
+                values={{
+                  author: authorName,
+                }}
+              />
+            </span>
+          );
+        }
+      } else if (claimDescriptionChanges.description) {
         if (claimDescriptionChanges.description[0]) {
           contentTemplate = (
             <span className="annotation__claim-description">
@@ -671,20 +700,58 @@ class Annotation extends Component {
       break;
     }
     case 'create_factcheck':
+    case 'update_factcheck':
       contentTemplate = (
-        <span className="annotation__claim-factcheck">
-          <FormattedMessage
-            defaultMessage="Fact-check title added by {author}: {value}"
-            description="Log entry indicating fact-check title has been added"
-            id="annotation.createFactCheck"
-            values={{
-              author: authorName,
-              value: object.title,
-            }}
-          />
+        <span className="annotation__claim-add-update-factcheck">
+          { /create_factcheck/.test(activityType) ?
+            <FormattedMessage
+              defaultMessage="Fact-check added by {author}: {value}"
+              description="Log entry indicating fact-check title has been added"
+              id="annotation.createFactCheck"
+              values={{
+                author: authorName,
+                value: object.title,
+              }}
+            /> :
+            <FormattedMessage
+              defaultMessage="Fact-check edited by {author}"
+              description="Log entry indicating fact-check has been updated"
+              id="annotation.updateFactCheck"
+              values={{
+                author: authorName,
+              }}
+            /> }
         </span>
       );
       break;
+    case 'create_explaineritem':
+    case 'destroy_explaineritem': {
+      const meta = safelyParseJSON(activity.meta);
+      contentTemplate = (
+        <span className="annotation__add-remove-explainer">
+          { /create_explaineritem/.test(activityType) ?
+            <FormattedMessage
+              id="annotation.create_explaineritem"
+              defaultMessage="Explainer added by {author}: {value}"
+              description="Log entry indicating Explainer has been added"
+              values={{
+                author: authorName,
+                value: meta?.explainer_title,
+              }}
+            /> :
+            <FormattedMessage
+              id="annotation.remove_explaineritem"
+              defaultMessage="Explainer removed by {author}: {value}"
+              description="Log entry indicating Explainer has been removed"
+              values={{
+                author: authorName,
+                value: meta?.explainer_title,
+              }}
+            /> }
+        </span>
+      );
+      break;
+    }
     default:
       contentTemplate = null;
       break;
@@ -729,7 +796,6 @@ Annotation.propTypes = {
   team: PropTypes.shape({
     verification_statuses: PropTypes.object,
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(Annotation);

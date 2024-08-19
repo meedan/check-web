@@ -51,7 +51,7 @@ const LanguagesComponent = ({ team }) => {
   const defaultCode = team.get_language || 'en';
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
-  const [languages, setLanguages] = React.useState(safelyParseJSON(team.get_languages).sort((a, b) => compareLanguages(defaultCode, a, b)) || []);
+  const [languages, setLanguages] = React.useState(safelyParseJSON(team.get_languages, []).sort((a, b) => compareLanguages(defaultCode, a, b)));
 
   const toggleLanguageDetection = (value) => {
     const onFailure = (errors) => {

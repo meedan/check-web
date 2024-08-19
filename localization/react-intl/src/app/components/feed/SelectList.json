@@ -1,8 +1,8 @@
 [
   {
-    "id": "selectList.noListTitle",
-    "description": "Title of a warning displayed on edit feed page when the workspace has no lists.",
-    "defaultMessage": "Your workspace needs a Custom Filtered List to contribute."
+    "id": "selectList.noListButtonLabel",
+    "description": "Helper link in a warning displayed on edit feed page when the workspace has no lists.",
+    "defaultMessage": "How to create lists"
   },
   {
     "id": "selectList.noListDescription",
@@ -10,9 +10,9 @@
     "defaultMessage": "Create a list and set up filters in order to select the fact-checks you would like to contribute to this shared feed."
   },
   {
-    "id": "selectList.noListButtonLabel",
-    "description": "Helper link in a warning displayed on edit feed page when the workspace has no lists.",
-    "defaultMessage": "How to create lists"
+    "id": "selectList.noListTitle",
+    "description": "Title of a warning displayed on edit feed page when the workspace has no lists.",
+    "defaultMessage": "Your workspace needs a Custom Filtered List to contribute."
   },
   {
     "id": "saveFeed.noListSelected",

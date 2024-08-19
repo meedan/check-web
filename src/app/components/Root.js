@@ -12,7 +12,6 @@ import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './login/UserPasswordReset';
 import ErrorBoundary from './error/ErrorBoundary';
-import User from './user/User';
 import Me from './user/Me';
 import Team from './team/Team';
 import AssignedToMe from './team/AssignedToMe';
@@ -77,8 +76,6 @@ class Root extends Component {
                   <Route component={UserPasswordReset} path="check/user/password-reset" public />
                   <Route component={UserPasswordChange} path="check/user/password-change" public />
                   <Route component={NotFound} path="check/not-found" public />
-                  <Route component={User} isEditing path="check/user/:userId/edit" />
-                  <Route component={User} path="check/user/:userId(/:tab)" />
                   <Route component={Me} isEditing path="check/me/edit" />
                   <Route component={Sandbox} path="check/me/ui-sandbox" />
                   <Route component={SandboxCrash} path="check/me/ui-sandbox/crash" />

@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import ButtonMain from './ButtonMain';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import CancelFillIcon from '../../../icons/cancel_fill.svg';
@@ -22,7 +23,14 @@ const Chip = ({
   /* eslint jsx-a11y/click-events-have-key-events: 0 */
   return (
     <div
-      className={`${styles['chip-container']} typography-body2 ${className}`}
+      className={cx(
+        'typography-body2',
+        styles['chip-container'],
+        {
+          [className]: true,
+          [styles['chip-removable']]: onRemove,
+        })
+      }
       onClick={onClick}
     >
       <span title={label}>{label}</span>

@@ -9,8 +9,7 @@ import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MultiSelector from '../../layout/MultiSelector';
 import Chip from '../buttons-checkboxes-chips/Chip';
 import Tooltip from '../alerts-and-prompts/Tooltip';
-import LocalOfferIcon from '../../../icons/local_offer.svg';
-import AddCircleIcon from '../../../icons/add_circle.svg';
+import TagMoreIcon from '../../../icons/tag_add.svg';
 import MediasLoading from '../../media/MediasLoading';
 import styles from './TagList.module.css';
 
@@ -87,31 +86,7 @@ const TagList = ({
   };
 
   return (
-    <div className={styles['grid-wrapper']} onClick={swallowClick} onKeyDown={swallowClick}>
-      <Tooltip
-        arrow
-        disableHoverListener={readOnly}
-        placement="top"
-        title={
-          <FormattedMessage
-            defaultMessage="Manage Tags"
-            description="Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
-            id="taglist.tooltipManage"
-          />
-        }
-      >
-        <span>
-          <ButtonMain
-            className={`int-tag-list__button--manage ${styles['tag-icon']}`}
-            disabled={readOnly || saving}
-            iconCenter={<LocalOfferIcon />}
-            size="small"
-            theme="beige"
-            variant="text"
-            onClick={readOnly ? undefined : handleOpenMenu}
-          />
-        </span>
-      </Tooltip>
+    <div className={styles['tag-list-container']} onClick={swallowClick} onKeyDown={swallowClick}>
       <Popover
         anchorEl={anchorEl}
         className={styles['tag-list-manager']}
@@ -154,65 +129,61 @@ const TagList = ({
           )}
         </FormattedMessage>
       </Popover>
-      <div
-        className={`${styles['tag-list-container']}`}
-      >
-        { tags.length > 0 && tags.map(tag => (
-          <Chip
-            className="tag-list__chip"
-            key={tag}
-            label={tag}
-            onClick={onClickTag ? () => onClickTag(tag) : null}
-            onRemove={!readOnly ? () => {
-              deleteTag(tag);
-            } : null}
-          />
-        )).slice(0, maxTags)}
-        {
-          (tags.length > maxTags) && (
-            <Tooltip arrow title={tags.slice(maxTags).join(', ')}>
-              <div className={styles['tooltip-container']} id="hidden-tags">
-                <Chip
-                  label={`+${tags.length - maxTags}`}
-                />
-              </div>
-            </Tooltip>
-          )
-        }
-        {
-          tags.length === 0 && (
-            <em className={cx('typography-body2', styles['empty-list'])} id="empty-list">
-              <FormattedMessage
-                defaultMessage="0 tags"
-                description="A message that appears in a lag list when there are no available tags to display."
-                id="tagList.empty"
+      { tags.length > 0 && tags.map(tag => (
+        <Chip
+          className="tag-list__chip"
+          key={tag}
+          label={tag}
+          onClick={onClickTag ? () => onClickTag(tag) : null}
+          onRemove={!readOnly ? () => {
+            deleteTag(tag);
+          } : null}
+        />
+      )).slice(0, maxTags)}
+      {
+        (tags.length > maxTags) && (
+          <Tooltip arrow title={tags.slice(maxTags).join(', ')}>
+            <div className={styles['tooltip-container']} id="hidden-tags">
+              <Chip
+                label={`+${tags.length - maxTags}`}
               />
-            </em>
-          )
-        }
-      </div>
+            </div>
+          </Tooltip>
+        )
+      }
+      {
+        tags.length === 0 && (
+          <em className={cx('typography-body2', styles['empty-list'])} id="empty-list" >
+            <FormattedMessage
+              defaultMessage="0 tags"
+              description="A message that appears in a lag list when there are no available tags to display."
+              id="tagList.empty"
+            />
+          </em>
+        )
+      }
       { !readOnly &&
         <Tooltip
           arrow
           placement="top"
           title={
             <FormattedMessage
-              defaultMessage="Add Tags"
-              description="Tooltip message displayed on a tag item to let the user know they can add new tags to the list"
-              id="taglist.tooltipAdd"
+              defaultMessage="Manage Tags"
+              description="Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
+              id="taglist.tooltipManage"
             />
           }
         >
-          <span>
+          <div>
             <ButtonMain
-              className={`int-tag-list__button--add ${styles['circle-icon']}`}
-              iconCenter={<AddCircleIcon />}
+              className="int-tag-list__button--manage"
+              iconCenter={<TagMoreIcon />}
               size="small"
-              theme="beige"
-              variant="text"
+              theme="lightText"
+              variant="contained"
               onClick={handleOpenMenu}
             />
-          </span>
+          </div>
         </Tooltip>
       }
       { saving && <MediasLoading size="icon" theme="grey" variant="icon" /> }

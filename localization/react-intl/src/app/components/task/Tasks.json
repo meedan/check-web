@@ -20,6 +20,11 @@
     "defaultMessage": "Could not save, at least one URL is invalid"
   },
   {
+    "id": "tasks.savedByLabel",
+    "description": "This is a label that indicates when and by whom the task was saved.",
+    "defaultMessage": "Saved {timeAgo} by {userName}"
+  },
+  {
     "id": "tasks.contentTrash",
     "description": "This message tells the user that the content typically shown in unavailable when the item is in the trash",
     "defaultMessage": "Annotations unavailable"

@@ -78,12 +78,12 @@
           border: solid 4px var(--color-beige-93);
           border-radius: 0 0 5px 5px;
           padding: 20px;
-        }
-      }
 
-      .fixed-width-tags {
-        background-color: var(--color-green-97);
-        width: 300px;
+          &.fixed-width-tags {
+            background-color: var(--color-green-97);
+            width: 300px;
+          }
+        }
       }
     }
   }
