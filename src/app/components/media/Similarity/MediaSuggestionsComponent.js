@@ -484,7 +484,7 @@ const MediaSuggestionsComponent = ({
               values={{
                 trash: (
                   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-                  <a onClick={() => browserHistory.push(`/${team.slug}/trash`)}>
+                  <a id="int-media-suggestion-toast__link--trash" onClick={() => browserHistory.push(`/${team.slug}/trash`)}>
                     <FormattedMessage defaultMessage="Trash" description="Label on a link that, when clicked, takes the user to a list of trashed (marked for deletion) items" id="mediaDetail.trash" />
                   </a>
                 ),
@@ -498,7 +498,7 @@ const MediaSuggestionsComponent = ({
               values={{
                 spam: (
                   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-                  <a onClick={() => browserHistory.push(`/${team.slug}/spam`)}>
+                  <a id="int-media-suggestion-toast__link--spam" onClick={() => browserHistory.push(`/${team.slug}/spam`)}>
                     <FormattedMessage defaultMessage="Spam" description="Label on a link that, when clicked, takes the user to a list of items marked as spam" id="mediaDetail.spam" />
                   </a>
                 ),

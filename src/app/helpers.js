@@ -5,7 +5,6 @@ import { toArray } from 'react-emoji-render';
 import { getTimeZones } from '@vvo/tzdb';
 import ButtonMain from './components/cds/buttons-checkboxes-chips/ButtonMain';
 import CheckError from './CheckError';
-import styles from './helpers.module.css';
 
 /**
  * TODO
@@ -181,12 +180,7 @@ function getErrorObjectsForRelayModernProblem(errorOrErrors) {
 function createFriendlyErrorMessage(error) {
   const friendlyMessage = CheckError.getMessageFromCode(error.code);
   return (
-    <div className={styles['snackbar-wrapper']} id="snack-flex">
-      <p>
-        <strong>
-          {friendlyMessage}
-        </strong>
-      </p>
+    <>
       <FormattedMessage
         defaultMessage="Please report this issue to Meedan to help us fix it."
         description="Paragraph asking the user to report the issue that happened to Meedan."
@@ -215,7 +209,7 @@ function createFriendlyErrorMessage(error) {
           />
         )}
       </FormattedMessage>
-      <details className={styles['snackbar-message-details']}>
+      <details>
         <FormattedMessage
           defaultMessage="More info…"
           description="This is a label on a button that users press in order to get more info related to an error message."
@@ -226,8 +220,13 @@ function createFriendlyErrorMessage(error) {
           {error.message}
         </textarea>
       </details>
-    </div>
+    </>
   );
+}
+
+function createFriendlyErrorMessageTitle(error) {
+  const friendlyMessageTitle = CheckError.getMessageFromCode(error.code);
+  return friendlyMessageTitle;
 }
 
 /**
@@ -415,6 +414,7 @@ export { // eslint-disable-line import/no-unused-modules
   getErrorMessageForRelayModernProblem,
   getErrorObjectsForRelayModernProblem,
   getErrorObjects,
+  createFriendlyErrorMessageTitle,
   createFriendlyErrorMessage,
   emojify,
   parseStringUnixTimestamp,

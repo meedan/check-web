@@ -29,7 +29,7 @@ shared_examples 'team' do
 
     wait_for_selector('#team-details__update-button').click
 
-    wait_for_selector('.message')
+    wait_for_selector('.int-flash-message__toast')
     expect(@driver.page_source.include?('Workspace details saved successfully')).to be(true)
 
     @driver.navigate.refresh
@@ -54,7 +54,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('Report settings saved successfully')).to be(false)
     wait_for_selector('#introduction').send_keys('introduction text')
     wait_for_selector('#team-report__save').click
-    wait_for_selector('.message')
+    wait_for_selector('.int-flash-message__toast')
     expect(@driver.page_source.include?('Report settings saved successfully')).to be(true)
   end
 
