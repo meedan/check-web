@@ -5,7 +5,6 @@ import { toArray } from 'react-emoji-render';
 import { getTimeZones } from '@vvo/tzdb';
 import ButtonMain from './components/cds/buttons-checkboxes-chips/ButtonMain';
 import CheckError from './CheckError';
-import styles from './helpers.module.css';
 
 /**
  * TODO
@@ -181,12 +180,7 @@ function getErrorObjectsForRelayModernProblem(errorOrErrors) {
 function createFriendlyErrorMessage(error) {
   const friendlyMessage = CheckError.getMessageFromCode(error.code);
   return (
-    <div id="snack-flex" className={styles['snackbar-wrapper']}>
-      <p>
-        <strong>
-          {friendlyMessage}
-        </strong>
-      </p>
+    <>
       <FormattedMessage
         tagName="p"
         id="check.helpers.report_please"
@@ -202,7 +196,7 @@ function createFriendlyErrorMessage(error) {
         {help_text => (
           <ButtonMain
             size="default"
-            theme="lightError"
+            theme="error"
             variant="contained"
             onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
             label={
@@ -215,7 +209,7 @@ function createFriendlyErrorMessage(error) {
           />
         )}
       </FormattedMessage>
-      <details className={styles['snackbar-message-details']}>
+      <details>
         <FormattedMessage
           tagName="summary"
           id="check.helpers.more_info"
@@ -226,8 +220,13 @@ function createFriendlyErrorMessage(error) {
           {error.message}
         </textarea>
       </details>
-    </div>
+    </>
   );
+}
+
+function createFriendlyErrorMessageTitle(error) {
+  const friendlyMessageTitle = CheckError.getMessageFromCode(error.code);
+  return friendlyMessageTitle;
 }
 
 /**
@@ -415,6 +414,7 @@ export { // eslint-disable-line import/no-unused-modules
   getErrorMessageForRelayModernProblem,
   getErrorObjectsForRelayModernProblem,
   getErrorObjects,
+  createFriendlyErrorMessageTitle,
   createFriendlyErrorMessage,
   emojify,
   parseStringUnixTimestamp,
