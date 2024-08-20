@@ -1,14 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { SnackbarProvider, withSnackbar } from 'notistack';
+import { SnackbarProvider, withSnackbar, useSnackbar } from 'notistack';
 import reactStringReplace from 'react-string-replace';
-import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
-import IconClose from '../icons/clear.svg';
-import ErrorIcon from '../icons/error.svg';
+import cx from 'classnames/bind';
 import Alert from './cds/alerts-and-prompts/Alert';
 import { withClientSessionId } from '../ClientSessionId';
-import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
+import { safelyParseJSON, createFriendlyErrorMessageTitle, createFriendlyErrorMessage } from '../helpers';
+import styles from './cds/alerts-and-prompts/Alert.module.css';
 
 /**
  * A global message, already translated for the user.
@@ -30,7 +28,6 @@ FlashMessageContext.displayName = 'FlashMessageContext';
 const FlashMessageSetterContext = React.createContext(() => {});
 FlashMessageSetterContext.displayName = 'FlashMessageSetterContext';
 
-
 /**
  * Combination <FlashMessageContext.Provider> and
  * <FlashMessageSetterContext.Provider>.
@@ -39,6 +36,8 @@ FlashMessageSetterContext.displayName = 'FlashMessageSetterContext';
  * <FlashMessageContext.Consumer>.
  */
 const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackbar }) => {
+  const { closeSnackbar } = useSnackbar();
+
   const setMessage = (message, type) => {
     const variant = type || 'error';
     const persist = (variant === 'error');
@@ -48,11 +47,80 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
     };
     if (variant === 'error' && typeof message === 'string') {
       // Split into multiple message in case we have a multiple validation errors
-      message.split('<br />').forEach(msg => enqueueSnackbar(msg, { variant, persist, anchorOrigin }));
+      message.split('<br />').forEach(msg =>
+        enqueueSnackbar(msg, {
+          variant,
+          persist,
+          anchorOrigin,
+          content: key => (
+            <div key={key} className="int-flash-message__toast">
+              <Alert
+                className={cx(
+                  {
+                    [styles['persist-alert-flash-message']]: persist,
+                  })
+                }
+                floating
+                content={msg}
+                variant={variant}
+                onClose={persist ? () => {
+                  closeSnackbar(key);
+                } : null}
+              />
+            </div>
+          ),
+        }),
+      );
     } else if (variant === 'error' && message && typeof message === 'object' && message.length) {
-      message.forEach(msg => enqueueSnackbar(createFriendlyErrorMessage(msg), { variant, persist, anchorOrigin }));
+      message.forEach(msg =>
+        enqueueSnackbar(msg, {
+          variant,
+          persist,
+          anchorOrigin,
+          content: key => (
+            <div key={key} className="int-flash-message__toast">
+              <Alert
+                className={cx(
+                  {
+                    [styles['persist-alert-flash-message']]: persist,
+                  })
+                }
+                floating
+                title={<>{createFriendlyErrorMessageTitle(msg)}</>}
+                content={<>{createFriendlyErrorMessage(msg)}</>}
+                variant={variant}
+                onClose={persist ? () => {
+                  closeSnackbar(key);
+                } : null}
+              />
+            </div>
+          ),
+        }),
+      );
     } else {
-      enqueueSnackbar(message, { variant, persist, anchorOrigin });
+      // enqueueSnackbar(message, { variant, persist, anchorOrigin });
+      enqueueSnackbar(message, {
+        variant,
+        persist,
+        anchorOrigin,
+        content: key => (
+          <div key={key} className="int-flash-message__toast">
+            <Alert
+              className={cx(
+                {
+                  [styles['persist-alert-flash-message']]: persist,
+                })
+              }
+              floating
+              content={message}
+              variant={variant}
+              onClose={persist ? () => {
+                closeSnackbar(key);
+              } : null}
+            />
+          </div>
+        ),
+      });
     }
   };
 
@@ -65,74 +133,11 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
   );
 });
 
-const useSnackBarStyles = makeStyles({
-  info: {
-    backgroundColor: 'var(--color-blue-54) !important',
-  },
-  icon: {
-    color: 'var(--color-white-100) !important',
-    marginTop: '8px !important',
-    paddingTop: '0px !important',
-    '&:hover': {
-      backgroundColor: 'transparent !important',
-    },
-  },
-  root: {
-    '& div': {
-      alignItems: 'flex-start',
-    },
-    '& a': {
-      color: 'var(--color-white-100)',
-      textDecoration: 'underline',
-      cursor: 'pointer',
-      '&:not([href])': {
-        textDecoration: 'underline',
-      },
-      '&:not([href]):hover': {
-        color: 'var(--color-gray-37)',
-        textDecoration: 'underline',
-      },
-      '&:visited': {
-        color: 'var(--color-white-100)',
-      },
-      '&:hover': {
-        color: 'var(--color-gray-37)',
-      },
-    },
-  },
-});
-
 const FlashMessageProvider = ({ children }) => {
   const notistackRef = React.createRef();
 
-  const onClickDismiss = key => () => {
-    notistackRef.current.closeSnackbar(key);
-  };
-
-  const classes = useSnackBarStyles();
-
   return (
-    <SnackbarProvider
-      maxSnack={10}
-      ref={notistackRef}
-      iconVariant={{
-        error: <ErrorIcon />,
-      }}
-      action={key => (
-        <ButtonMain
-          className={`message message__dismiss-button ${classes.icon}`}
-          onClick={onClickDismiss(key)}
-          variant="text"
-          size="small"
-          theme="white"
-          iconCenter={<IconClose />}
-        />
-      )}
-      classes={{
-        variantInfo: classes.info,
-        root: classes.root,
-      }}
-    >
+    <SnackbarProvider maxSnack={10} ref={notistackRef}>
       <FlashMessageProviderWithSnackBar>
         { children }
       </FlashMessageProviderWithSnackBar>
@@ -140,28 +145,10 @@ const FlashMessageProvider = ({ children }) => {
   );
 };
 
-const useStyles = makeStyles({
-  flashMessageStyle: {
-    left: '0',
-    marginTop: '0',
-    position: 'fixed',
-    width: '100%',
-    zIndex: '1000',
-  },
-  link: {
-    color: 'var(--color-white-100)',
-    textDecoration: 'underline',
-    '&:visited': {
-      color: 'var(--color-white-100)',
-    },
-  },
-});
-
 /**
  * Display the message in an ancestor <FlashMessageContext.Provider>.
  */
 const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueueSnackbar }) => {
-  const classes = useStyles();
   const message = React.useContext(FlashMessageContext);
   const setMessage = React.useContext(FlashMessageSetterContext);
   const resetMessage = React.useCallback(() => setMessage(null), [setMessage]);
@@ -194,7 +181,7 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
           const label = match.match(/\[(.*)\]/)[1];
           const url = match.match(/\((.*)\)/)[1];
           return (
-            <a className={classes.link} href={url} target="_blank" rel="noopener noreferrer" key={i}>
+            <a href={url} target="_blank" rel="noopener noreferrer" key={i} title={label}>
               {label}
             </a>
           );
@@ -208,9 +195,10 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
     return (
       <Alert
         content={message}
-        onButtonClick={resetMessage}
-        buttonLabel={<IconClose />}
-        className={`home__message ${classes.flashMessageStyle}`}
+        variant="info"
+        banner
+        onClose={resetMessage}
+        className={cx('home__message', styles['alert-flash-home-message'])}
       />
     );
   }
