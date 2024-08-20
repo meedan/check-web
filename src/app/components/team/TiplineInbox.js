@@ -11,6 +11,8 @@ import InboxIcon from '../../icons/inbox.svg';
 
 const defaultQuery = {
   channels: [CheckChannels.ANYTIPLINE],
+  sort: 'recent_activity',
+  sort_type: 'DESC',
   verification_status: [], // To be set to the value returned by the backend
 };
 

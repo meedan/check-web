@@ -61,6 +61,7 @@ const ArticleForm = ({
   const isPublished = article.report_status === 'published';
   const readOnly = isPublished;
   const publishedAt = isPublished ? article.updated_at : null;
+  const isStatusLocked = article.claim_description?.project_media?.last_status_obj?.locked || false;
 
   React.useEffect(() => {
     setLanguage(language || defaultArticleLanguage);
@@ -143,7 +144,12 @@ const ArticleForm = ({
             <div className={inputStyles['form-inner-wrapper']}>
               <div className={styles['article-rating-wrapper']}>
                 { articleType === 'fact-check' && statuses &&
-                  <RatingSelector status={status} statuses={statuses} onStatusChange={handleStatusChange} />
+                  <RatingSelector
+                    disabled={isPublished || isStatusLocked}
+                    status={status}
+                    statuses={statuses}
+                    onStatusChange={handleStatusChange}
+                  />
                 }
                 { articleType === 'fact-check' &&
                   <div className={inputStyles['form-fieldset-field']}>
@@ -216,14 +222,14 @@ const ArticleForm = ({
                           defaultValue={claimDescription || ''}
                           error={claimDescriptionError}
                           onBlur={(e) => {
-                            const newValue = e.target.value;
+                            const newValue = e.target.value.trim();
                             if (newValue.length) {
                               setClaimDescriptionError(false);
-                              setClaimDescription(newValue);
                               handleBlur('claim description', newValue);
                             } else {
                               setClaimDescriptionError(true);
                             }
+                            setClaimDescription(newValue);
                           }}
                           label={
                             <FormattedMessage
@@ -323,14 +329,14 @@ const ArticleForm = ({
                         placeholder={placeholder}
                         label={<FormattedMessage id="articleForm.explainerTitle" defaultMessage="Title" description="Label for explainer title field" />}
                         onBlur={(e) => {
-                          const newValue = e.target.value;
+                          const newValue = e.target.value.trim();
                           if (newValue.length) {
                             setTitleError(false);
-                            setArticleTitle(newValue);
                             handleBlur('title', newValue);
                           } else {
                             setTitleError(true);
                           }
+                          setArticleTitle(newValue);
                         }}
                       />)}
                     </FormattedMessage> :
@@ -355,14 +361,14 @@ const ArticleForm = ({
                         label={<FormattedMessage id="articleForm.factCheckTitle" defaultMessage="Title" description="Label for fact-check title field" />}
                         disabled={readOnly}
                         onBlur={(e) => {
-                          const newValue = e.target.value;
+                          const newValue = e.target.value.trim();
                           if (newValue.length) {
                             setTitleError(false);
-                            setArticleTitle(newValue);
                             handleBlur('title', newValue);
                           } else {
                             setTitleError(true);
                           }
+                          setArticleTitle(newValue);
                         }}
                       />)}
                     </FormattedMessage>}
@@ -390,14 +396,14 @@ const ArticleForm = ({
                           autoGrow
                           placeholder={placeholder}
                           onBlur={(e) => {
-                            const newValue = e.target.value;
+                            const newValue = e.target.value.trim();
                             if (newValue.length) {
                               setSummaryError(false);
-                              setSummary(newValue);
                               handleBlur('description', newValue);
                             } else {
                               setSummaryError(true);
                             }
+                            setSummary(newValue);
                           }}
                         />
                       )}
@@ -425,14 +431,14 @@ const ArticleForm = ({
                           placeholder={placeholder}
                           disabled={readOnly}
                           onBlur={(e) => {
-                            const newValue = e.target.value;
+                            const newValue = e.target.value.trim();
                             if (newValue.length) {
                               setSummaryError(false);
-                              setSummary(newValue);
                               handleBlur('summary', newValue);
                             } else {
                               setSummaryError(true);
                             }
+                            setSummary(newValue);
                           }}
                         />
                       )}
@@ -576,6 +582,9 @@ export default createFragmentContainer(ArticleForm, graphql`
         context
         project_media {
           dbid
+          last_status_obj {
+            locked
+          }
         }
       }
     }

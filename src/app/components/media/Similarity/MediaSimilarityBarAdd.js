@@ -4,74 +4,18 @@ import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import Divider from '@material-ui/core/Divider';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import BlankMediaButton from '../BlankMediaButton';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
-import ExpandMoreIcon from '../../../icons/expand_more.svg';
-import IconFileDownload from '../../../icons/file_download.svg';
-import IconFileUpload from '../../../icons/file_upload.svg';
-import IconReport from '../../../icons/playlist_add_check.svg';
 
 const MediaSimilarityBarAdd = ({
   projectMediaId,
   projectMediaDbid,
+  canMerge,
   setFlashMessage,
-  canBeAddedToSimilar,
-  similarCanBeAddedToIt,
-  canBeAddedToImported,
 }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [action, setAction] = React.useState(null);
+  const [showDialog, setShowDialog] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
-
-  let label = '';
-  let reverse = false;
-  if (action === 'addSimilarToThis') {
-    label = (
-      <FormattedMessage
-        tagName="h6"
-        id="mediaSimilarityBarAdd.addSimilarToThisTitle"
-        defaultMessage="Import media from other items"
-        description="Dialog title for importing media from other items."
-      />
-    );
-  } else if (action === 'addThisToSimilar') {
-    label = (
-      <FormattedMessage
-        tagName="h6"
-        id="mediaSimilarityBarAdd.addThisToSimilarTitle"
-        defaultMessage="Export all media to another item"
-        description="Dialog title for exporting media to other item."
-      />
-    );
-    reverse = true;
-  }
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAction(null);
-    setAnchorEl(null);
-  };
-
-  const handleAddSimilarToThis = () => {
-    setAction('addSimilarToThis');
-    setAnchorEl(null);
-  };
-
-  const handleAddThisToSimilar = () => {
-    setAction('addThisToSimilar');
-    setAnchorEl(null);
-  };
 
   // Accepts a JS Error object
   const handleError = (error) => {
@@ -83,12 +27,12 @@ const MediaSimilarityBarAdd = ({
     setSubmitting(false);
     setFlashMessage((
       <FormattedMessage
-        id="mediaSimilarityBarAdd.savedSuccessfully"
-        defaultMessage="Similar item added successfully"
-        description="Banner displayed when similar item is added successfully"
+        id="mediaSimilarityBarAdd.mergedSuccessfully"
+        defaultMessage="Items merged successfully."
+        description="Banner displayed when items are merged successfully."
       />
     ), 'success');
-    handleClose();
+    setShowDialog(false);
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     const mainItemDbid = response.createRelationship.relationshipEdge.node.source_id;
     const mediaUrl = `/${teamSlug}/media/${mainItemDbid}`;
@@ -99,12 +43,8 @@ const MediaSimilarityBarAdd = ({
     setSubmitting(true);
 
     const relationship_type = 'confirmed_sibling';
-    let source_id = projectMediaDbid;
-    let target_id = selectedProjectMedia.dbid;
-    if (reverse) {
-      source_id = selectedProjectMedia.dbid;
-      target_id = projectMediaDbid;
-    }
+    const source_id = projectMediaDbid;
+    const target_id = selectedProjectMedia.dbid;
 
     const mutation = graphql`
       mutation MediaSimilarityBarAddCreateRelationshipMutation($input: CreateRelationshipInput!) {
@@ -188,121 +128,39 @@ const MediaSimilarityBarAdd = ({
   return (
     <React.Fragment>
       <ButtonMain
-        iconRight={<ExpandMoreIcon />}
-        label={<FormattedMessage id="mediaSimilarityBarAdd.addSimilar" defaultMessage="Manage media" description="Label to the similarity menu that allows importing and exporting media" />}
-        variant="outlined"
+        label={<FormattedMessage id="mediaSimilarityBarAdd.mergeItems" defaultMessage="Merge Items" description="Label for the Merge Items button." />}
+        variant="contained"
         size="default"
         theme="brand"
-        onClick={handleClick}
-        disabled={!canBeAddedToSimilar && !similarCanBeAddedToIt}
+        onClick={() => { setShowDialog(true); }}
+        disabled={!canMerge}
         buttonProps={{
           id: 'media-similarity__add-button',
         }}
       />
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        keepMounted
-      >
-        <MenuItem onClick={handleAddSimilarToThis} disabled={!similarCanBeAddedToIt}>
-          <ListItemIcon>
-            <IconFileDownload />
-          </ListItemIcon>
-          <ListItemText
-            id="import-fact-check__button"
-            primary={
-              <FormattedMessage
-                id="mediaSimilarityBarAdd.addSimilarToThis"
-                defaultMessage="Add media to this fact-check"
-                description="Menu item for importing (one or more) media matched as similar"
-              />
-            }
-          />
-        </MenuItem>
-        <Tooltip
-          arrow
-          disableFocusListener
-          disableTouchListener
-          disableHoverListener={canBeAddedToSimilar}
-          title={
-            <FormattedMessage
-              id="mediaSimilarityBarAdd.exportTooltip"
-              defaultMessage="Media from this item cannot be exported if this item is attached to a main item or if its report is published"
-              description="Tooltip message for exporting media menu option"
-            />
-          }
-        >
-          <span>
-            <MenuItem onClick={handleAddThisToSimilar} disabled={!canBeAddedToSimilar}>
-              <ListItemIcon>
-                <IconFileUpload />
-              </ListItemIcon>
-              <ListItemText
-                id="export-fact-check__button"
-                primary={
-                  <FormattedMessage
-                    id="mediaSimilarityBarAdd.addThisToSimilar"
-                    defaultMessage="Move all media to another fact-check"
-                    description="Menu option for exporting media from this item to another"
-                  />
-                }
-              />
-            </MenuItem>
-          </span>
-        </Tooltip>
-        <Divider />
-        <BlankMediaButton
-          reverse
-          projectMediaId={projectMediaId}
-          ButtonComponent={({ onClick }) => (
-            <MenuItem
-              onClick={() => {
-                setAnchorEl(null);
-                onClick();
-              }}
-              disabled={!canBeAddedToImported}
-            >
-              <ListItemIcon>
-                <IconReport />
-              </ListItemIcon>
-              <ListItemText
-                primary={
-                  <FormattedMessage
-                    id="mediaSimilarityBarAdd.addToImportedReport"
-                    defaultMessage="Move all media to an imported fact-check"
-                    description="Menu option for adding the current media to an imported fact-check"
-                  />
-                }
-              />
-            </MenuItem>
-          )}
-        />
-      </Menu>
       <CreateRelatedMediaDialog
-        title={label}
-        open={Boolean(action)}
-        onDismiss={handleClose}
+        title={
+          <FormattedMessage
+            tagName="h6"
+            id="mediaSimilarityBarAdd.mergeItemsTitle"
+            defaultMessage="Find other media to merge with this item"
+            description="Dialog title for merging items."
+          />
+        }
+        open={showDialog}
+        onDismiss={() => { setShowDialog(false); }}
         onSelect={handleSubmit}
         media={{ dbid: projectMediaDbid }}
         isSubmitting={submitting}
         submitButtonLabel={count => (
-          reverse ? (
-            <FormattedMessage
-              id="mediaSimilarityBarAdd.addAsSimilar"
-              defaultMessage="Export all media"
-              description="Button label to commit action of exporting media"
-            />
-          ) : (
-            <FormattedMessage
-              id="mediaSimilarityBarAdd.addSimilarItem"
-              defaultMessage="{count, plural, one {Import all media from one item} other {Import all media from # items}}"
-              values={{ count }}
-              description="Button label to commit action of importing media from one or more items into the current one"
-            />
-          )
+          <FormattedMessage
+            id="mediaSimilarityBarAdd.mergeItemsButton"
+            defaultMessage="{count, plural, one {Merge Selected Item} other {Merge # Selected Items}}"
+            values={{ count }}
+            description="Button label to commit action of merging items."
+          />
         )}
-        multiple={!reverse}
+        multiple
         hideNew
         showFilters
         disablePublished
@@ -312,17 +170,13 @@ const MediaSimilarityBarAdd = ({
 };
 
 MediaSimilarityBarAdd.defaultProps = {
-  canBeAddedToSimilar: true,
-  similarCanBeAddedToIt: true,
-  canBeAddedToImported: false,
+  canMerge: true,
 };
 
 MediaSimilarityBarAdd.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
   projectMediaDbid: PropTypes.number.isRequired,
-  canBeAddedToSimilar: PropTypes.bool,
-  similarCanBeAddedToIt: PropTypes.bool,
-  canBeAddedToImported: PropTypes.bool,
+  canMerge: PropTypes.bool,
 };
 
 export default withSetFlashMessage(MediaSimilarityBarAdd);

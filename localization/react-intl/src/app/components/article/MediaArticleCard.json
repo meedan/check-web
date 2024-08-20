@@ -1,5 +1,10 @@
 [
   {
+    "id": "mediaArticleCard.unpublishedAlertContent",
+    "description": "Description of the alert message displayed on articles list when an unpublished claim & fact-check is added",
+    "defaultMessage": "This Fact-Check will not be returned to Tipline users until it is published"
+  },
+  {
     "id": "mediaArticleCard.factCheck",
     "description": "Title in an article card on item page.",
     "defaultMessage": "Fact-Check"
@@ -8,6 +13,11 @@
     "id": "mediaArticleCard.explainer",
     "description": "Title in an article card on item page.",
     "defaultMessage": "Explainer"
+  },
+  {
+    "id": "sharedItemCard.lastRequested",
+    "description": "This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'.",
+    "defaultMessage": "Last Updated"
   },
   {
     "id": "mediaArticleCard.editButton",

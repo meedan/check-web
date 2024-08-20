@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
+import { graphql, QueryRenderer, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ArticleForm from './ArticleForm';
@@ -326,8 +326,7 @@ ClaimFactCheckForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   onCreate: PropTypes.func,
 };
-
-export default createFragmentContainer(ClaimFactCheckForm, graphql`
+const ClaimFactCheckFormContainer = createFragmentContainer(ClaimFactCheckForm, graphql`
   fragment ClaimFactCheckForm_team on Team {
     id
     ...ArticleForm_team
@@ -343,3 +342,36 @@ export default createFragmentContainer(ClaimFactCheckForm, graphql`
     dbid
   }
 `);
+
+const ClaimFactCheckFormQueryRenderer = ({
+  teamSlug,
+  factCheckId,
+  onClose,
+}) => (
+  <QueryRenderer
+    environment={Relay.Store}
+    query={graphql`
+      query ClaimFactCheckFormQuery($teamSlug: String!, $factCheckId: ID!) {
+        team(slug: $teamSlug) {
+          ...ClaimFactCheckForm_team
+        }
+        fact_check(id: $factCheckId) {
+          ...ClaimFactCheckForm_article
+        }
+      }
+    `}
+    variables={{
+      teamSlug,
+      factCheckId,
+    }}
+    render={({ error, props }) => {
+      if (props && !error) {
+        return <ClaimFactCheckFormContainer article={props.fact_check} team={props.team} onClose={onClose} />;
+      }
+      return null;
+    }}
+  />
+);
+
+export default ClaimFactCheckFormContainer;
+export { ClaimFactCheckFormQueryRenderer };

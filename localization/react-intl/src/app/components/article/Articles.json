@@ -7,7 +7,7 @@
   {
     "id": "articles.updateTagsError",
     "description": "Banner displayed when article tags can't be updated.",
-    "defaultMessage": "Could not update tags, please try again later or connect the support if the error persists."
+    "defaultMessage": "Could not update tags, please try again later or contact support if the error persists."
   },
   {
     "id": "articles.blank",

@@ -21,6 +21,7 @@ import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import { getMediaType } from '../../helpers';
 import styles from './media.module.css';
+import ErrorBoundary from '../error/ErrorBoundary';
 
 const MediaCardLarge = ({
   inModal,
@@ -168,31 +169,33 @@ const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`
 `);
 
 const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
-  <QueryRenderer
-    environment={Relay.Store}
-    query={graphql`
-      query MediaCardLargeQuery($ids: String!) {
-        project_media(ids: $ids) {
-          ...MediaCardLarge_projectMedia
+  <ErrorBoundary component="MediaCardLargeQueryRenderer">
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query MediaCardLargeQuery($ids: String!) {
+          project_media(ids: $ids) {
+            ...MediaCardLarge_projectMedia
+          }
         }
-      }
-    `}
-    variables={{
-      ids: `${projectMediaId},,`,
-    }}
-    render={({ error, props }) => {
-      if (!error && !props) {
-        return (<MediasLoading theme="grey" variant="inline" size="small" />);
-      }
+      `}
+      variables={{
+        ids: `${projectMediaId},,`,
+      }}
+      render={({ error, props }) => {
+        if (!error && !props) {
+          return (<MediasLoading theme="grey" variant="inline" size="small" />);
+        }
 
-      if (!error && props) {
-        return <MediaCardLargeContainer inModal projectMedia={props.project_media} />;
-      }
+        if (!error && props) {
+          return <MediaCardLargeContainer inModal projectMedia={props.project_media} />;
+        }
 
-      // TODO: We need a better error handling in the future, standardized with other components
-      return null;
-    }}
-  />
+        // TODO: We need a better error handling in the future, standardized with other components
+        return null;
+      }}
+    />
+  </ErrorBoundary>
 );
 
 export default MediaCardLargeContainer;

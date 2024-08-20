@@ -139,6 +139,7 @@ const MediaArticlesComponent = ({
         <ChooseExistingArticleButton
           disabled={projectMedia.type === 'Blank'}
           teamSlug={team.slug}
+          projectMediaDbid={projectMedia.dbid}
           onAdd={handleConfirmAdd}
         />
         <NewArticleButton
@@ -181,7 +182,7 @@ const MediaArticlesComponent = ({
           <FormattedMessage
             id="mediaArticles.confirmReplaceFactCheckTitle"
             defaultMessage="Replace claim & fact-check?"
-            description="'Leave' here is an infinitive verb."
+            description="'Replace' here is an infinitive verb."
           />
         }
         body={

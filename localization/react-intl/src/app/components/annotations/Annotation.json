@@ -1,20 +1,5 @@
 [
   {
-    "id": "annotation.editedBy",
-    "description": "Fact-check in edited state",
-    "defaultMessage": "edited by"
-  },
-  {
-    "id": "annotation.pausedBy",
-    "description": "Fact-check in paused state",
-    "defaultMessage": "paused by"
-  },
-  {
-    "id": "annotation.publishedBy",
-    "description": "Fact-check in published state",
-    "defaultMessage": "published by"
-  },
-  {
     "id": "annotation.taggedHeader",
     "description": "Log entry indicating a tag was added",
     "defaultMessage": "Tag #{tag} added by {author}"
@@ -27,7 +12,7 @@
   {
     "id": "annotation.similarCreated",
     "description": "Log entry indicating a similarity match was confirmed",
-    "defaultMessage": "Match confirmed by {author}: {title}"
+    "defaultMessage": "Item merged by {author} with {title}"
   },
   {
     "id": "annotation.suggestionCreated",
@@ -85,9 +70,14 @@
     "defaultMessage": "Item unassigned from {name} by {author}"
   },
   {
-    "id": "annotation.reportDesignState",
-    "description": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author",
-    "defaultMessage": "Fact-check report {state} {author}"
+    "id": "annotation.reportDesignPublishedState",
+    "description": "Log entry indicating a report state has been published",
+    "defaultMessage": "Fact-check published by {author}"
+  },
+  {
+    "id": "annotation.reportDesignPausedState",
+    "description": "Log entry indicating a report state has been paused",
+    "defaultMessage": "Fact-check paused by {author}"
   },
   {
     "id": "annotation.statusSetHeader",
@@ -154,14 +144,24 @@
     "defaultMessage": "Restored from Trash by {author}"
   },
   {
-    "id": "annotation.updateClaimDescription",
-    "description": "Log entry indicating a claim has been edited",
-    "defaultMessage": "Claim edited by {author}: {value}"
-  },
-  {
     "id": "annotation.createClaimDescription",
     "description": "Log entry indicating a claim has been added",
     "defaultMessage": "Claim added by {author}: {value}"
+  },
+  {
+    "id": "annotation.removeItem",
+    "description": "Log entry indicating a claim has been removed",
+    "defaultMessage": "Fact-check removed by {author}"
+  },
+  {
+    "id": "annotation.addItem",
+    "description": "Log entry indicating a claim has been added",
+    "defaultMessage": "Fact-check added by {author}"
+  },
+  {
+    "id": "annotation.updateClaimDescription",
+    "description": "Log entry indicating a claim has been edited",
+    "defaultMessage": "Claim edited by {author}: {value}"
   },
   {
     "id": "annotation.updateClaimContext",
@@ -176,6 +176,21 @@
   {
     "id": "annotation.createFactCheck",
     "description": "Log entry indicating fact-check title has been added",
-    "defaultMessage": "Fact-check title added by {author}: {value}"
+    "defaultMessage": "Fact-check added by {author}: {value}"
+  },
+  {
+    "id": "annotation.updateFactCheck",
+    "description": "Log entry indicating fact-check has been updated",
+    "defaultMessage": "Fact-check edited by {author}"
+  },
+  {
+    "id": "annotation.create_explaineritem",
+    "description": "Log entry indicating Explainer has been added",
+    "defaultMessage": "Explainer added by {author}: {value}"
+  },
+  {
+    "id": "annotation.remove_explaineritem",
+    "description": "Log entry indicating Explainer has been removed",
+    "defaultMessage": "Explainer removed by {author}: {value}"
   }
 ]

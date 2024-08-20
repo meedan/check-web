@@ -40,7 +40,7 @@ const ItemTitleComponent = ({
   const fallbackTitle = claimTitle || factCheckTitle || projectMedia.title;
 
   React.useEffect(() => {
-    if ((titleField === 'claim_title' && claimTitle === '') || (titleField === 'fact_check_title' && factCheckTitle === '')) {
+    if ((titleField === 'claim_title' && !claimTitle) || (titleField === 'fact_check_title' && !factCheckTitle)) {
       setTitleField('custom_title');
       setCustomTitle(projectMedia.title);
     } else if (!titleField) {

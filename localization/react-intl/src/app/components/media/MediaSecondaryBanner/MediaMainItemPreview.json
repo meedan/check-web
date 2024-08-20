@@ -1,0 +1,7 @@
+[
+  {
+    "id": "mediaMainItemPreview.viewItem",
+    "description": "Button label on secondary item banner. This button opens the main item.",
+    "defaultMessage": "View Item"
+  }
+]

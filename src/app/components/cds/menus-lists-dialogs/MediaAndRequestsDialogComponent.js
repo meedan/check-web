@@ -50,23 +50,25 @@ const MediaAndRequestsDialogComponent = ({
             <>
               <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
               <div>
-                <div className={styles.toggle}>
-                  <ToggleButtonGroup
-                    value={context}
-                    variant="contained"
-                    onChange={(e, newValue) => setContext(newValue)}
-                    size="small"
-                    exclusive
-                    fullWidth
-                  >
-                    <ToggleButton value="workspace" key="1">
-                      <FormattedMessage id="mediaAndRequestsDialogComponent.contextWorkspace" defaultMessage="Tipline Requests" description="Tab for choosing which requests to list in imported media dialog." />
-                    </ToggleButton>
-                    <ToggleButton value="feed" key="2">
-                      <FormattedMessage id="mediaAndRequestsDialogComponent.contextFeed" defaultMessage="Imported Requests" description="Tab for choosing which requests to list in imported media dialog." />
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                </div>
+                { projectMediaId && projectMediaImportedId && ( // Show the toggle if we have two values to switch between
+                  <div className={styles.toggle}>
+                    <ToggleButtonGroup
+                      value={context}
+                      variant="contained"
+                      onChange={(e, newValue) => setContext(newValue)}
+                      size="small"
+                      exclusive
+                      fullWidth
+                    >
+                      <ToggleButton value="workspace" key="1">
+                        <FormattedMessage id="mediaAndRequestsDialogComponent.contextWorkspace" defaultMessage="Tipline Requests" description="Tab for choosing which requests to list in imported media dialog." />
+                      </ToggleButton>
+                      <ToggleButton value="feed" key="2">
+                        <FormattedMessage id="mediaAndRequestsDialogComponent.contextFeed" defaultMessage="Imported Requests" description="Tab for choosing which requests to list in imported media dialog." />
+                      </ToggleButton>
+                    </ToggleButtonGroup>
+                  </div>
+                )}
                 <MediaRequests media={{ dbid: projectMediaId }} />
               </div>
             </> :

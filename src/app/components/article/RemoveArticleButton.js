@@ -28,6 +28,21 @@ const removeClaimDescriptionMutation = graphql`
   mutation RemoveArticleButtonUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
     updateClaimDescription(input: $input) {
       claim_description {
+        project_media_was {
+          title
+          last_status_obj {
+            locked
+          }
+          dynamic_annotation_report_design {
+            data
+          }
+          claim_description {
+            description
+            fact_check {
+              title
+            }
+          }
+        }
         project_media {
           articles_count
           report_status
@@ -153,7 +168,7 @@ const RemoveArticleButton = ({
           <FormattedMessage
             tagName="p"
             id="removeArticleButton.confirmationDialogBody"
-            defaultMessage="This article will no longer be associated with this media item but remain in your workspace."
+            defaultMessage="This article will no longer be associated with this media item but will remain in your workspace."
             description="Confirmation message displayed on a modal when a user tries to remove an article."
           />
         }

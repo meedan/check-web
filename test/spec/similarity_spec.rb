@@ -1,30 +1,15 @@
 shared_examples 'similarity' do
   it 'should import and export items', bin4: true do
     api_create_team_claims_sources_and_redirect_to_all_items({ count: 3 })
-    verbose_wait 2 # wait for the items to be indexed in the Elasticsearch
+    verbose_wait 2 # Wait for the items to be indexed in ElasticSearch
     wait_for_selector('.search__results-heading')
-    all_items_url = @driver.current_url.to_s
     wait_for_selector('.cluster-card').click
     wait_for_selector('#media-similarity__add-button').click
-    # import similarity item
-    wait_for_selector('#import-fact-check__button').click
+
+    # Merge similar items
     add_related_item('Claim 0')
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
-    expect(@driver.page_source.include?('Media')).to be(true)
-    @driver.navigate.to all_items_url
-    wait_for_selector('.search__results-heading')
-    wait_for_selector_list('.cluster-card').last.click
-    # export similarity item
-    wait_for_selector('#media-similarity__add-button').click
-    wait_for_selector('#export-fact-check__button').click
-    add_related_item('Claim 2')
-    wait_for_selector('.media-similarity__menu-icon')
-    expect(@driver.page_source.include?('Media')).to be(true)
-    # list similar items
-    wait_for_selector('.media__relationship')
-    wait_for_selector_none('.media-tab__metadata"')
-    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 2
     expect(@driver.page_source.include?('Media')).to be(true)
   end
 
@@ -52,7 +37,7 @@ shared_examples 'similarity' do
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__pin-relationship')
     wait_for_selector('.similarity-media-item__delete-relationship').click
-    wait_for_selector('.message')
+    wait_for_selector('.int-flash-message__toast')
     @driver.navigate.refresh
     wait_for_selector('.test__media')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 0

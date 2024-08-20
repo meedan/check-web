@@ -12,7 +12,12 @@ import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 
 let lastTypedValue = '';
 
-const ChooseExistingArticleButton = ({ disabled, teamSlug, onAdd }) => {
+const ChooseExistingArticleButton = ({
+  disabled,
+  teamSlug,
+  projectMediaDbid,
+  onAdd,
+}) => {
   const [openSlideout, setOpenSlideout] = React.useState(false);
   const [search, setSearch] = React.useState('');
 
@@ -95,7 +100,7 @@ const ChooseExistingArticleButton = ({ disabled, teamSlug, onAdd }) => {
                     />
                   </div>
                 )}
-                <MediaArticlesTeamArticles textSearch={search} teamSlug={teamSlug} onAdd={onAdd} />
+                <MediaArticlesTeamArticles textSearch={search} teamSlug={teamSlug} targetId={projectMediaDbid} onAdd={onAdd} />
               </div>
             </div>
           }
@@ -113,6 +118,7 @@ ChooseExistingArticleButton.defaultProps = {
 ChooseExistingArticleButton.propTypes = {
   disabled: PropTypes.bool,
   teamSlug: PropTypes.string.isRequired,
+  projectMediaDbid: PropTypes.number.isRequired,
   onAdd: PropTypes.func.isRequired,
 };
 

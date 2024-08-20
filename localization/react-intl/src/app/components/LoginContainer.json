@@ -1,7 +1,0 @@
-[
-  {
-    "id": "global.bestViewed",
-    "description": "Message shown to the user when they are using an unsupported browser",
-    "defaultMessage": "Best viewed with <a href=\"{chromedownload}\">Chrome for Desktop</a>."
-  }
-]

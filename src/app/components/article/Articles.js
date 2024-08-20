@@ -10,17 +10,19 @@ import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
+import {
+  getQueryStringValue,
+  pushQueryStringValue,
+  deleteQueryStringValue,
+  pageSize,
+} from '../../urlHelpers';
 import MediasLoading from '../media/MediasLoading';
-// eslint-disable-next-line no-unused-vars
-import ArticleForm from './ArticleForm'; // For GraphQL fragment
 import ArticleFilters from './ArticleFilters';
-import ClaimFactCheckForm from './ClaimFactCheckForm';
-import ExplainerForm from './ExplainerForm';
+import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
+import { ExplainerFormQueryRenderer } from './ExplainerForm';
 import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
-
-const pageSize = 50;
 
 const ArticlesComponent = ({
   team,
@@ -42,8 +44,12 @@ const ArticlesComponent = ({
   updateMutation,
   reloadData,
 }) => {
-  const [openEdit, setOpenEdit] = React.useState(false);
-  const [selectedArticle, setSelectedArticle] = React.useState(null);
+  let articleDbidFromUrl = null;
+
+  if (type === 'fact-check') articleDbidFromUrl = getQueryStringValue('factCheckId');
+  if (type === 'explainer') articleDbidFromUrl = getQueryStringValue('explainerId');
+
+  const [selectedArticleDbid, setSelectedArticleDbid] = React.useState(articleDbidFromUrl);
 
   // Track when number of articles increases: When it happens, it's because a new article was created, so refresh the list
   const [totalArticlesCount, setTotalArticlesCount] = React.useState(team.totalArticlesCount);
@@ -76,6 +82,11 @@ const ArticlesComponent = ({
     });
   };
 
+  const handleCloseSlideout = () => {
+    setSelectedArticleDbid(null);
+    deleteQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId');
+  };
+
   const onCompleted = () => {
     setFlashMessage(
       <FormattedMessage
@@ -90,7 +101,7 @@ const ArticlesComponent = ({
     setFlashMessage(
       <FormattedMessage
         id="articles.updateTagsError"
-        defaultMessage="Could not update tags, please try again later or connect the support if the error persists."
+        defaultMessage="Could not update tags, please try again later or contact support if the error persists."
         description="Banner displayed when article tags can't be updated."
       />,
       'error');
@@ -111,15 +122,11 @@ const ArticlesComponent = ({
   };
 
   const handleClick = (article) => {
-    if (!openEdit) {
-      setSelectedArticle(article);
-      setOpenEdit(true);
-    }
-    if (openEdit && article !== selectedArticle) {
-      setOpenEdit(false);
-      setSelectedArticle(article);
+    if (article.dbid !== selectedArticleDbid) {
+      setSelectedArticleDbid(null);
       setTimeout(() => {
-        setOpenEdit(true);
+        setSelectedArticleDbid(article.dbid);
+        pushQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
       }, 10);
     }
   };
@@ -219,16 +226,20 @@ const ArticlesComponent = ({
           {/* NOTE: If we happen to edit articles from multiple places we're probably better off
               having each form type be its own QueryRenderer instead of doing lots of prop passing repeatedly
           */}
-          {openEdit && selectedArticle && type === 'fact-check' && <ClaimFactCheckForm
-            team={team}
-            article={selectedArticle}
-            onClose={setOpenEdit}
-          />}
-          {openEdit && selectedArticle && type === 'explainer' && <ExplainerForm
-            team={team}
-            article={selectedArticle}
-            onClose={setOpenEdit}
-          />}
+          {selectedArticleDbid && type === 'fact-check' && (
+            <ClaimFactCheckFormQueryRenderer
+              teamSlug={team.slug}
+              factCheckId={selectedArticleDbid}
+              onClose={handleCloseSlideout}
+            />
+          )}
+          {selectedArticleDbid && type === 'explainer' && (
+            <ExplainerFormQueryRenderer
+              teamSlug={team.slug}
+              explainerId={selectedArticleDbid}
+              onClose={handleCloseSlideout}
+            />
+          )}
         </>
       </div>
     </PageTitle>
@@ -276,6 +287,7 @@ ArticlesComponent.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
+    summary: PropTypes.string,
     url: PropTypes.string,
     language: PropTypes.string,
     updated_at: PropTypes.string,
@@ -347,10 +359,9 @@ const Articles = ({
             $report_status: [String], $verification_status: [String], $imported: Boolean,
           ) {
             team(slug: $slug) {
-              ...ArticleForm_team
               name
-              totalArticlesCount: articles_count
               slug
+              totalArticlesCount: articles_count
               verification_statuses
               tag_texts(first: 100) {
                 edges {
@@ -372,18 +383,19 @@ const Articles = ({
                   node {
                     ... on Explainer {
                       id
+                      dbid
                       title
                       description
                       url
                       language
                       updated_at
                       tags
-                      ...ExplainerForm_article
                     }
                     ... on FactCheck {
                       id
+                      dbid
                       title
-                      description: summary
+                      summary
                       url
                       language
                       updated_at
@@ -398,7 +410,6 @@ const Articles = ({
                           fact_check_published_on
                         }
                       }
-                      ...ClaimFactCheckForm_article
                     }
                   }
                 }

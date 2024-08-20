@@ -19,11 +19,6 @@ const messages = defineMessages({
     defaultMessage: 'Request submitted',
     description: 'This is a header in a drop down selector, to filter a search by the submission date',
   },
-  media_published_at: {
-    id: 'search.dateLastSubmittedHeading',
-    defaultMessage: 'Media published',
-    description: 'This is a heading in a drop down selector, to filter a search by the last submitted date',
-  },
   updated_at: {
     id: 'search.dateUpdatedHeading',
     defaultMessage: 'Item updated',
@@ -288,7 +283,6 @@ const DateRangeFilter = ({
 }) => {
   const getValueType = () => {
     if (value && value.updated_at) return 'updated_at';
-    if (value && value.media_published_at) return 'media_published_at';
     if (value && value.report_published_at) return 'report_published_at';
     if (value && value.request_created_at) return 'request_created_at';
     return 'created_at';
@@ -446,7 +440,7 @@ const DateRangeFilter = ({
           onChange={handleChangeType}
           value={getValueType()}
         >
-          { ['created_at', 'media_published_at', 'updated_at', 'report_published_at', 'request_created_at'].filter(option => !optionsToHide.includes(option)).map(option => (
+          { ['created_at', 'updated_at', 'report_published_at', 'request_created_at'].filter(option => !optionsToHide.includes(option)).map(option => (
             <option key={option} value={option}>{ intl.formatMessage(messages[option]) }</option>
           ))}
         </Select>
@@ -499,19 +493,6 @@ DateRangeFilter.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.shape({
       created_at: PropTypes.oneOfType([
-        PropTypes.shape({
-          start_time: PropTypes.string,
-          end_time: PropTypes.string,
-        }),
-        PropTypes.shape({
-          condition: PropTypes.string,
-          period: PropTypes.number,
-          period_type: PropTypes.string,
-        }),
-      ]),
-    }),
-    PropTypes.shape({
-      media_published_at: PropTypes.oneOfType([
         PropTypes.shape({
           start_time: PropTypes.string,
           end_time: PropTypes.string,

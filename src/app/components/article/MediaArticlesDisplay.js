@@ -15,7 +15,7 @@ const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
   const explainerItems = projectMedia.explainer_items.edges.map(edge => edge.node);
   const hasExplainer = (explainerItems.length > 0);
   const factCheck = projectMedia.fact_check;
-  const hasFactCheck = Boolean(factCheck);
+  const hasFactCheck = (factCheck && factCheck.id);
   let publishedAt = null; // FIXME: It would be better if it came from the backend
   if (hasFactCheck && factCheck.report_status === 'published') {
     publishedAt = projectMedia.fact_check_published_on;
@@ -35,7 +35,7 @@ const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
           title={factCheck.title || factCheck.claim_description.description}
           url={factCheck.url}
           languageCode={factCheck.language !== 'und' ? factCheck.language : null}
-          date={factCheck.updated_at}
+          date={new Date(factCheck.updated_at * 1000)}
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
           publishedAt={publishedAt}
@@ -82,7 +82,7 @@ const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
               url={explainer.url}
               id={explainerItem.id}
               languageCode={explainer.language !== 'und' ? explainer.language : null}
-              date={explainer.updated_at}
+              date={new Date(explainer.updated_at * 1000)}
               onClick={() => { setArticleToEdit(explainer); }}
               removeDisabled={projectMedia.type === 'Blank'}
             />
@@ -123,25 +123,25 @@ MediaArticlesDisplay.propTypes = {
     fact_check: PropTypes.shape({
       title: PropTypes.string,
       language: PropTypes.string,
-      updated_at: PropTypes.number,
+      updated_at: PropTypes.string,
       url: PropTypes.string,
       report_status: PropTypes.string,
       rating: PropTypes.string,
       nodeType: PropTypes.oneOf(['Explainer', 'FactCheck']),
       claim_description: PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.string,
         description: PropTypes.string,
       }).isRequired,
     }).isRequired,
     explainer_items: PropTypes.shape({
-      edges: PropTypes.arrayOf(PropTypes.exact({
+      edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
           id: PropTypes.string,
           explainer: PropTypes.shape({
             language: PropTypes.string,
             title: PropTypes.string,
             url: PropTypes.string,
-            updated_at: PropTypes.number,
+            updated_at: PropTypes.string,
             nodeType: PropTypes.oneOf(['Explainer', 'FactCheck']),
           }),
         }),

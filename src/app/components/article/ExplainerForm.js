@@ -1,12 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
+import { graphql, QueryRenderer, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import ArticleForm from './ArticleForm';
 import { FlashMessageSetterContext } from '../FlashMessage';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const addMutation = graphql`
   mutation ExplainerFormCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
@@ -197,7 +197,7 @@ ExplainerForm.propTypes = {
   onCreate: PropTypes.func,
 };
 
-export default createFragmentContainer(ExplainerForm, graphql`
+const ExplainerFormContainer = createFragmentContainer(ExplainerForm, graphql`
   fragment ExplainerForm_team on Team {
     ...ArticleForm_team
   }
@@ -209,3 +209,36 @@ export default createFragmentContainer(ExplainerForm, graphql`
     dbid
   }
 `);
+
+const ExplainerFormQueryRenderer = ({
+  teamSlug,
+  explainerId,
+  onClose,
+}) => (
+  <QueryRenderer
+    environment={Relay.Store}
+    query={graphql`
+      query ExplainerFormQuery($teamSlug: String!, $explainerId: ID!) {
+        team(slug: $teamSlug) {
+          ...ExplainerForm_team
+        }
+        explainer(id: $explainerId) {
+          ...ExplainerForm_article
+        }
+      }
+    `}
+    variables={{
+      teamSlug,
+      explainerId,
+    }}
+    render={({ error, props }) => {
+      if (props && !error) {
+        return <ExplainerFormContainer article={props.explainer} team={props.team} onClose={onClose} />;
+      }
+      return null;
+    }}
+  />
+);
+
+export default ExplainerFormContainer;
+export { ExplainerFormQueryRenderer };

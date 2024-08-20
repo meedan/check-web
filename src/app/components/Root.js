@@ -12,7 +12,6 @@ import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './login/UserPasswordReset';
 import ErrorBoundary from './error/ErrorBoundary';
-import User from './user/User';
 import Me from './user/Me';
 import Team from './team/Team';
 import AssignedToMe from './team/AssignedToMe';
@@ -33,8 +32,8 @@ import MediaTasks from './media/MediaTasks';
 import SavedSearch from './search/SavedSearch';
 import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
-import Sandbox from './Sandbox';
-import SandboxCrash from './SandboxCrash';
+import Sandbox from './cds/Sandbox';
+import SandboxCrash from './cds/SandboxCrash';
 import FeedPage from './feed/FeedPage';
 import Explainers from './article/Explainers';
 import FactChecks from './article/FactChecks';
@@ -77,8 +76,6 @@ class Root extends Component {
                   <Route path="check/user/password-reset" component={UserPasswordReset} public />
                   <Route path="check/user/password-change" component={UserPasswordChange} public />
                   <Route path="check/not-found" component={NotFound} public />
-                  <Route path="check/user/:userId/edit" isEditing component={User} />
-                  <Route path="check/user/:userId(/:tab)" component={User} />
                   <Route path="check/me/edit" isEditing component={Me} />
                   <Route path="check/me/ui-sandbox" component={Sandbox} />
                   <Route path="check/me/ui-sandbox/crash" component={SandboxCrash} />
