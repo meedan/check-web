@@ -1,8 +1,8 @@
 [
   {
-    "id": "ConfirmEmail.resendConfirmation",
-    "description": "Button label to allow the user to resend their email address confirmation",
-    "defaultMessage": "Resend"
+    "id": "ConfirmEmail.title",
+    "description": "Container title for confirming user email address",
+    "defaultMessage": "Confirm your email"
   },
   {
     "id": "ConfirmEmail.content",
@@ -10,8 +10,8 @@
     "defaultMessage": "Please check your email to verify your account."
   },
   {
-    "id": "ConfirmEmail.title",
-    "description": "Container title for confirming user email address",
-    "defaultMessage": "Confirm your email"
+    "id": "ConfirmEmail.resendConfirmation",
+    "description": "Button label to allow the user to resend their email address confirmation",
+    "defaultMessage": "Resend"
   }
 ]

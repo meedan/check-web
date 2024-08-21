@@ -1,8 +1,8 @@
 [
   {
-    "id": "mediaFeedInformation.viewSharedFeed",
-    "description": "Label of action button in alert box displayed on media modal when this media was imported from a feed.",
-    "defaultMessage": "View Shared Feed"
+    "id": "mediaFeedInformation.importedMediaTitle",
+    "description": "Singular. Title of alert box displayed on media modal when this media was imported from a feed.",
+    "defaultMessage": "Imported Media"
   },
   {
     "id": "mediaFeedInformation.importedMediaContent",
@@ -10,8 +10,8 @@
     "defaultMessage": "This media was imported from a shared feed: {feedTitle}"
   },
   {
-    "id": "mediaFeedInformation.importedMediaTitle",
-    "description": "Singular. Title of alert box displayed on media modal when this media was imported from a feed.",
-    "defaultMessage": "Imported Media"
+    "id": "mediaFeedInformation.viewSharedFeed",
+    "description": "Label of action button in alert box displayed on media modal when this media was imported from a feed.",
+    "defaultMessage": "View Shared Feed"
   }
 ]

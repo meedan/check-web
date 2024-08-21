@@ -10,6 +10,16 @@
     "defaultMessage": "Tag saved successfully"
   },
   {
+    "id": "saveTag.titleEdit",
+    "description": "Dialog title when editing a tag",
+    "defaultMessage": "Edit tag"
+  },
+  {
+    "id": "saveTag.titleCreate",
+    "description": "Dialog title when creating a new tag",
+    "defaultMessage": "Create new tag"
+  },
+  {
     "id": "saveTag.namePlaceholder",
     "description": "Text field placeholder for the input name of tag",
     "defaultMessage": "New tag name"
@@ -28,15 +38,5 @@
     "id": "saveTag.save",
     "description": "Button label to continue saving a new tag via a dialog message",
     "defaultMessage": "Save tag"
-  },
-  {
-    "id": "saveTag.titleEdit",
-    "description": "Dialog title when editing a tag",
-    "defaultMessage": "Edit tag"
-  },
-  {
-    "id": "saveTag.titleCreate",
-    "description": "Dialog title when creating a new tag",
-    "defaultMessage": "Create new tag"
   }
 ]

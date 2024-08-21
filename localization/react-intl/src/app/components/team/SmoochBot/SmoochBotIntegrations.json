@@ -45,19 +45,14 @@
     "defaultMessage": "Connected page: {link}"
   },
   {
-    "id": "smoochBotIntegrations.telegramBot",
-    "description": "Label for the connected Telegram link for this bot",
-    "defaultMessage": "Connected Telegram bot: {link}"
-  },
-  {
     "id": "smoochBotIntegrations.telegramBotToken",
     "description": "Output of the telegram bot token",
     "defaultMessage": "Telegram bot token"
   },
   {
-    "id": "smoochBotIntegrations.viberPublicAccount",
-    "description": "Name of the connected viber account for this bot",
-    "defaultMessage": "Connected Viber public account: {name}"
+    "id": "smoochBotIntegrations.telegramBot",
+    "description": "Label for the connected Telegram link for this bot",
+    "defaultMessage": "Connected Telegram bot: {link}"
   },
   {
     "id": "smoochBotIntegrations.viberPublicAccountToken",
@@ -65,9 +60,9 @@
     "defaultMessage": "Viber public account token"
   },
   {
-    "id": "smoochBotIntegrations.lineWebhook",
-    "description": "Textfield label for the LINE webhook URL",
-    "defaultMessage": "Copy this webhook URL to your LINE settings"
+    "id": "smoochBotIntegrations.viberPublicAccount",
+    "description": "Name of the connected viber account for this bot",
+    "defaultMessage": "Connected Viber public account: {name}"
   },
   {
     "id": "smoochBotIntegrations.lineChannelAccessToken",
@@ -78,6 +73,11 @@
     "id": "smoochBotIntegrations.lineChannelSecret",
     "description": "Output of the LINE channel secret paired with the token",
     "defaultMessage": "LINE channel secret"
+  },
+  {
+    "id": "smoochBotIntegrations.lineWebhook",
+    "description": "Textfield label for the LINE webhook URL",
+    "defaultMessage": "Copy this webhook URL to your LINE settings"
   },
   {
     "id": "smoochBotIntegrations.instagram",

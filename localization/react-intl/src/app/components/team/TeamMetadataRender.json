@@ -1,5 +1,10 @@
 [
   {
+    "id": "teamMetadataRender.headerTitle",
+    "description": "Title for annotation settings screen.",
+    "defaultMessage": "Annotation Form"
+  },
+  {
     "id": "teamMetadataRender.itemHelpContext",
     "description": "Context description for the functionality of the item portion of this page",
     "defaultMessage": "Customize the item annotation form. Learn more about <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">using annotations</a> to add context to items."
@@ -18,11 +23,6 @@
     "id": "teamMetadataRender.headerSourceButton",
     "description": "Button to select to see the content for this page. Refers to annotation applied to sources generally, not any specific source or sources.",
     "defaultMessage": "Sources"
-  },
-  {
-    "id": "teamMetadataRender.headerTitle",
-    "description": "Title for annotation settings screen.",
-    "defaultMessage": "Annotation Form"
   },
   {
     "id": "teamMetadataRender.blankAnnotations",

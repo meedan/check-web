@@ -10,9 +10,9 @@
     "defaultMessage": "Report settings saved successfully"
   },
   {
-    "id": "teamReportComponent.save",
-    "description": "Save settings button label",
-    "defaultMessage": "Save"
+    "id": "teamReportComponent.title",
+    "description": "Header for the report settings page",
+    "defaultMessage": "Reports"
   },
   {
     "id": "teamReportComponent.helpContext",
@@ -20,9 +20,9 @@
     "defaultMessage": "Customize fact-check reports sent to tipline users. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about fact-check reports</a>."
   },
   {
-    "id": "teamReportComponent.title",
-    "description": "Header for the report settings page",
-    "defaultMessage": "Reports"
+    "id": "teamReportComponent.save",
+    "description": "Save settings button label",
+    "defaultMessage": "Save"
   },
   {
     "id": "teamReportComponent.introduction",
@@ -65,14 +65,14 @@
     "defaultMessage": "Include a custom signature anytime the report is sent to reference the initial query from the end user."
   },
   {
-    "id": "teamReportComponent.signatureHelp",
-    "description": "Help content for signature field in report settings",
-    "defaultMessage": "{max} characters max"
-  },
-  {
     "id": "teamReportComponent.signatureLabel",
     "description": "Label for signature field in report settings",
     "defaultMessage": "Signature"
+  },
+  {
+    "id": "teamReportComponent.signatureHelp",
+    "description": "Help content for signature field in report settings",
+    "defaultMessage": "{max} characters max"
   },
   {
     "id": "teamReportComponent.whatsapp",

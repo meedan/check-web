@@ -25,6 +25,11 @@
     "defaultMessage": "no description"
   },
   {
+    "id": "smoochBotMainMenuSection.maxOptionsReachedTitle",
+    "description": "Title of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached.",
+    "defaultMessage": "Maximum menu options"
+  },
+  {
     "id": "smoochBotMainMenuSection.maxOptionsReachedDescription",
     "description": "Text of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached.",
     "defaultMessage": "The maximum number of options in the main menu is 10."
@@ -33,10 +38,5 @@
     "id": "smoochBotMainMenuSection.maxOptionsReachedLabel",
     "description": "A label on a button that the user can press to go back to the screen where they edit the tipline bot menu options.",
     "defaultMessage": "Go back"
-  },
-  {
-    "id": "smoochBotMainMenuSection.maxOptionsReachedTitle",
-    "description": "Title of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached.",
-    "defaultMessage": "Maximum menu options"
   }
 ]

@@ -10,6 +10,11 @@
     "defaultMessage": "Error when trying to update suggestion. Please try again or contact support if the error persists."
   },
   {
+    "id": "mediaSuggestionBanner.alertTitle",
+    "description": "Title of the alert message displayed on item page for suggestions.",
+    "defaultMessage": "Media and Requests appear to be similar to an existing item in your workspace. Are they a good match?"
+  },
+  {
     "id": "mediaSuggestionBanner.approve",
     "description": "Button label to accept similarity suggestion.",
     "defaultMessage": "Yes, they are similar"
@@ -18,10 +23,5 @@
     "id": "mediaSuggestionBanner.reject",
     "description": "Button label to reject similarity suggestion.",
     "defaultMessage": "No, keep them separate"
-  },
-  {
-    "id": "mediaSuggestionBanner.alertTitle",
-    "description": "Title of the alert message displayed on item page for suggestions.",
-    "defaultMessage": "Media and Requests appear to be similar to an existing item in your workspace. Are they a good match?"
   }
 ]

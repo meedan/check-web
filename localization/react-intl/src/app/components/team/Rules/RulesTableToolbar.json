@@ -10,6 +10,11 @@
     "defaultMessage": "Delete"
   },
   {
+    "id": "rulesTableToolbar.deleteConfirmationTitle",
+    "description": "Title for the confirmation dialog when the user is trying to delete rules",
+    "defaultMessage": "Do you want to delete the selected rules?"
+  },
+  {
     "id": "rulesTableToolbar.deleteConfirmationText",
     "description": "Details of what will happen when one or more rules are deleted show in a modal confirmation",
     "defaultMessage": "{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
@@ -18,10 +23,5 @@
     "id": "rulesTableToolbar.deleteConfirmationLabel",
     "description": "Label for proceeding to delete the selected rules",
     "defaultMessage": "{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
-  },
-  {
-    "id": "rulesTableToolbar.deleteConfirmationTitle",
-    "description": "Title for the confirmation dialog when the user is trying to delete rules",
-    "defaultMessage": "Do you want to delete the selected rules?"
   }
 ]

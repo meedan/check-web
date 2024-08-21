@@ -1,8 +1,8 @@
 [
   {
-    "id": "rulesTableToolbar.add",
-    "description": "Button label for creating a new rule",
-    "defaultMessage": "New rule"
+    "id": "rulesTableToolbar.title",
+    "description": "Title area for the rules admin section of the settings page",
+    "defaultMessage": "Rules [{rulesCount}]"
   },
   {
     "id": "rulesTableToolbar.helpContext",
@@ -10,9 +10,9 @@
     "defaultMessage": "Use rules to automate actions on Check. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about rules</a>."
   },
   {
-    "id": "rulesTableToolbar.title",
-    "description": "Title area for the rules admin section of the settings page",
-    "defaultMessage": "Rules [{rulesCount}]"
+    "id": "rulesTableToolbar.add",
+    "description": "Button label for creating a new rule",
+    "defaultMessage": "New rule"
   },
   {
     "id": "rulesTableTool.blank",

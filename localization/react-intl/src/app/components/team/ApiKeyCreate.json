@@ -15,14 +15,14 @@
     "defaultMessage": "Enter a name for your key"
   },
   {
-    "id": "apiKeyCreate.keyNameHelper",
-    "description": "Label for key name input",
-    "defaultMessage": "The Key Name will be displayed as the author of content added"
-  },
-  {
     "id": "apiKeyCreate.keyName",
     "description": "Label for key name input",
     "defaultMessage": "Key name"
+  },
+  {
+    "id": "apiKeyCreate.keyNameHelper",
+    "description": "Label for key name input",
+    "defaultMessage": "The Key Name will be displayed as the author of content added"
   },
   {
     "id": "apiKeyCreate.descriptionBlurb",

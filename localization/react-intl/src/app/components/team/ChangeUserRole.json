@@ -1,5 +1,10 @@
 [
   {
+    "id": "changeUserRole.dialogTitle",
+    "description": "Confirmation message to check if the user is sure they want to alter a user role",
+    "defaultMessage": "Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
+  },
+  {
     "id": "changeUserRole.changingTo",
     "description": "Description confirmation of what the current user role is, and what it will be changed to",
     "defaultMessage": "You will be changing {userLabel}'s role to {newRole}."
@@ -18,10 +23,5 @@
     "id": "changeUserRole.proceedLabel",
     "description": "Dialog continuation label for altering a user role",
     "defaultMessage": "Change role to {newRole}"
-  },
-  {
-    "id": "changeUserRole.dialogTitle",
-    "description": "Confirmation message to check if the user is sure they want to alter a user role",
-    "defaultMessage": "Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
   }
 ]

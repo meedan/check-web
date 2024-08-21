@@ -25,6 +25,11 @@
     "defaultMessage": "{numItems, plural, one {Remove # tag} other {Remove # tags}}"
   },
   {
+    "id": "bulkActionsRemoveTag.dialogTitle",
+    "description": "Title of dialog warning after bulk untagging items",
+    "defaultMessage": "Tags will be removed from eligible items"
+  },
+  {
     "id": "bulkActionsRemoveTag.dialogBody",
     "description": "Body of dialog warning that bulk untagging items",
     "defaultMessage": "The <strong>{tags}</strong> tags will be removed from selected items.<br /><br /><strong>This action cannot be undone.</strong> Are you sure you want to continue?"
@@ -33,10 +38,5 @@
     "id": "bulkActionsRemoveTag.proceedLabel",
     "description": "Button to confirm remove tags",
     "defaultMessage": "Remove tags"
-  },
-  {
-    "id": "bulkActionsRemoveTag.dialogTitle",
-    "description": "Title of dialog warning after bulk untagging items",
-    "defaultMessage": "Tags will be removed from eligible items"
   }
 ]

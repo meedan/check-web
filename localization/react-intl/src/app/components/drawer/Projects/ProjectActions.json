@@ -25,6 +25,11 @@
     "defaultMessage": "Delete"
   },
   {
+    "id": "projectsComponent.renameType",
+    "description": "'Rename' here is an infinitive verb",
+    "defaultMessage": "Rename list"
+  },
+  {
     "id": "projectsComponent.title",
     "description": "Label for the title input when renaming a list",
     "defaultMessage": "Title"
@@ -35,18 +40,13 @@
     "defaultMessage": "Cancel"
   },
   {
-    "id": "projectsComponent.renameType",
-    "description": "'Rename' here is an infinitive verb",
-    "defaultMessage": "Rename list"
+    "id": "projectsComponent.deleteTitleType",
+    "description": "'Delete' here is an infinitive verb",
+    "defaultMessage": "Delete list?"
   },
   {
     "id": "projectsComponent.deleteType",
     "description": "'Delete' here is an infinitive verb",
     "defaultMessage": "Delete list"
-  },
-  {
-    "id": "projectsComponent.deleteTitleType",
-    "description": "'Delete' here is an infinitive verb",
-    "defaultMessage": "Delete list?"
   }
 ]

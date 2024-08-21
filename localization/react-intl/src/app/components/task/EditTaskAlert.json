@@ -1,5 +1,10 @@
 [
   {
+    "id": "tasks.editFieldWithAnswersTitle",
+    "description": "Title of warning when user tries to edit an annotation field that already has collected responses",
+    "defaultMessage": "{number, plural, one {Editing field with # existing response} other {Editing field with # existing responses}}"
+  },
+  {
     "id": "tasks.deleteOptionWithAnswersBody",
     "description": "Body of warning when user tries to edit an annotation field that already has collected responses",
     "defaultMessage": "• \"{deletedOption}\" will be permanently deleted from existing responses."
@@ -13,10 +18,5 @@
     "id": "tasks.addOptionWithAnswersBody",
     "description": "Body of warning when user tries to edit an annotation field that already has collected responses",
     "defaultMessage": "{number, plural, one {• # new option will be added to this field.} other {• # new options will be added to this field.}}"
-  },
-  {
-    "id": "tasks.editFieldWithAnswersTitle",
-    "description": "Title of warning when user tries to edit an annotation field that already has collected responses",
-    "defaultMessage": "{number, plural, one {Editing field with # existing response} other {Editing field with # existing responses}}"
   }
 ]

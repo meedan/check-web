@@ -5,6 +5,11 @@
     "defaultMessage": "What workspace data will be shared in this feed?"
   },
   {
+    "id": "feedDataPoints.readOnlyAlertTitle",
+    "description": "Title of the alert message displayed on data points section of the edit feed page.",
+    "defaultMessage": "This shared feed already contains data from other collaborators."
+  },
+  {
     "id": "feedDataPoints.readOnlyAlertContent",
     "description": "Description of the alert message displayed on data points section of the edit feed page.",
     "defaultMessage": "Contact {checkSupportLink} to make adjustments to the workspace data of this shared feed."
@@ -15,9 +20,9 @@
     "defaultMessage": "Check Support"
   },
   {
-    "id": "feedDataPoints.readOnlyAlertTitle",
-    "description": "Title of the alert message displayed on data points section of the edit feed page.",
-    "defaultMessage": "This shared feed already contains data from other collaborators."
+    "id": "feedDataPoints.factChecksTitle",
+    "description": "Title of section on save feed page where a user can select that fact-checks will be shared in this feed.",
+    "defaultMessage": "Published Fact-Checks"
   },
   {
     "id": "feedDataPoints.factChecksContentTitle",
@@ -65,9 +70,9 @@
     "defaultMessage": "fact-check data"
   },
   {
-    "id": "feedDataPoints.factChecksTitle",
-    "description": "Title of section on save feed page where a user can select that fact-checks will be shared in this feed.",
-    "defaultMessage": "Published Fact-Checks"
+    "id": "feedDataPoints.feedDataPointsFactChecksMediaClaimsRequestsTitle",
+    "description": "Title of section on save feed page where a user can select that media, claim and requests will be shared in this feed.",
+    "defaultMessage": "Media, Claim & Requests"
   },
   {
     "id": "feedDataPoints.mediaContentTitle",
@@ -138,10 +143,5 @@
     "id": "feedDataPoints.mediaDataArticleLink",
     "description": "Text of the link to an article that explains media and requests data. This link is displayed on the media/requests data points section on the save feed page.",
     "defaultMessage": "media & requests data"
-  },
-  {
-    "id": "feedDataPoints.feedDataPointsFactChecksMediaClaimsRequestsTitle",
-    "description": "Title of section on save feed page where a user can select that media, claim and requests will be shared in this feed.",
-    "defaultMessage": "Media, Claim & Requests"
   }
 ]

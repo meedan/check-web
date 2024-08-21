@@ -1,8 +1,8 @@
 [
   {
-    "id": "teamTagsComponent.newTag",
-    "description": "Button label for calling the new tag creation modal",
-    "defaultMessage": "New tag"
+    "id": "teamTagsComponent.title",
+    "description": "Title for the tags settings page",
+    "defaultMessage": "Tags [{count}]"
   },
   {
     "id": "teamTagsComponent.helpContext",
@@ -10,9 +10,9 @@
     "defaultMessage": "Automatically categorize items by keyword. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about tags</a>."
   },
   {
-    "id": "teamTagsComponent.title",
-    "description": "Title for the tags settings page",
-    "defaultMessage": "Tags [{count}]"
+    "id": "teamTagsComponent.newTag",
+    "description": "Button label for calling the new tag creation modal",
+    "defaultMessage": "New tag"
   },
   {
     "id": "search.previousPage",
