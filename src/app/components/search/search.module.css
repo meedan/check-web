@@ -13,7 +13,7 @@
   .search-form-config {
     align-items: center;
     background-color: var(--color-beige-86);
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     display: flex;
     flex-direction: row;
     gap: 8px;
@@ -72,7 +72,7 @@
 .search-expanded-popover {
   :global(.MuiPopover-paper) {
     background-color: var(--color-white-100);
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     box-shadow: var(--dropShadowMedium);
     margin: 16px 0 0 2px;
     padding: 16px;
@@ -107,7 +107,7 @@
 
   .filter-wrapper {
     background-color: var(--color-beige-93);
-    border-radius: 12px;
+    border-radius: var(--border-radius-large);
     max-width: 100%;
     min-height: 42px;
     padding: 3px 6px;
@@ -147,7 +147,7 @@
     .filter-value {
       align-items: center;
       background-color: var(--color-blue-54);
-      border-radius: 8px;
+      border-radius: var(--border-radius-default);
       color: var(--color-white-100);
       display: flex;
       font-size: var(--font-size-body-2);
@@ -211,7 +211,7 @@
     }
 
     .filter-date {
-      border-radius: 8px 0 0 8px;
+      border-radius: var(--border-radius-default) var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-default);
       margin: 0 -12px 0 0;
 
       + .filter-date-remove button {

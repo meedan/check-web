@@ -19,7 +19,7 @@
 .mediaMainItemPreview {
   align-items: center;
   background: var(--color-beige-93);
-  border-radius: 5px;
+  border-radius: var(--border-radius-medium);
   display: flex;
   flex: 1;
   gap: 8px;

@@ -36,7 +36,7 @@
   .railIconLink {
     background-color: var(--color-beige-86);
     border: 0;
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     color: var(--color-gray-37);
     cursor: pointer;
     display: block;

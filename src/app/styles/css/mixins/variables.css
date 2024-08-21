@@ -91,6 +91,13 @@
   --iconSizeDefault: 24px;
   --iconSizeBig: 176px;
 
+  --border-radius-max: 44px;
+  --border-radius-large: 16px;
+  --border-radius-default: 8px;
+  --border-radius-medium: 5px;
+  --border-radius-small: 3px;
+  --border-radius-zero: 0;
+
   --font-size-base: 16px;
   --font-size-h1: 96px;
   --font-size-h2: 60px;

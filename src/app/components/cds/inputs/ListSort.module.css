@@ -25,7 +25,7 @@
     align-items: center;
     background: var(--color-gray-96);
     border: 0;
-    border-radius: 5px;
+    border-radius: var(--border-radius-medium);
     cursor: pointer;
     display: flex;
     flex-direction: column;
