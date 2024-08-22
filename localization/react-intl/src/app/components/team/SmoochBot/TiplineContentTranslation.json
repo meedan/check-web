@@ -28,10 +28,5 @@
     "id": "smoochBotContentAndTranslation.placeholder",
     "description": "Placeholder used in all fields under tipline content and translation settings.",
     "defaultMessage": "Type custom content or translation here."
-  },
-  {
-    "id": "smoochBotContentAndTranslation.addMoreInformationDefault",
-    "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "Are you ready to submit?"
   }
 ]

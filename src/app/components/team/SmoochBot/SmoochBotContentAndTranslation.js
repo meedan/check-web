@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import TiplineContentTranslation from '../../cds/settings-pages/TiplineContentTranslation';
+import TiplineContentTranslation from './TiplineContentTranslation';
 import UploadFile from '../../UploadFile';
 import settingsStyles from '../Settings.module.css';
 

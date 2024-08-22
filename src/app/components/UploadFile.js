@@ -161,8 +161,21 @@ class UploadFileComponent extends React.PureComponent {
 
     if (value) {
       return (
-        <div style={{ display: 'flex' }}>
-          {noPreview ? <span className={styles.NoPreview} /> : <span className={styles.Preview} styles={{ backgroundImage: `url(${props => props.image})` }} image={value.preview} />}
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {noPreview ?
+            <span className={styles.NoPreview} />
+            :
+            <div
+              className={styles.Preview}
+              style={{
+                backgroundImage: `url(${value.preview})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
+              image={value.preview}
+            />
+          }
           <span className="no-preview" />
           <ButtonMain
             iconCenter={<ClearIcon />}
@@ -199,7 +212,7 @@ class UploadFileComponent extends React.PureComponent {
           )}
           disabled={disabled}
         >
-          <div>
+          <>
             {value ? (
               <FormattedMessage
                 id="uploadFile.changeFile"
@@ -210,9 +223,8 @@ class UploadFileComponent extends React.PureComponent {
             ) : (
               <UploadMessage type={type} about={about} />
             )}
-          </div>
+          </>
         </Dropzone>
-        <br />
       </div>
     );
   }
