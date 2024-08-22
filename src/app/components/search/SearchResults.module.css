@@ -59,7 +59,7 @@
       .searchHeaderActionButton {
         background: var(--color-gray-96);
         border: 2px solid var(--color-gray-88);
-        border-radius: 8px;
+        border-radius: var(--border-radius-default);
         color: var(--color-gray-37);
         font-size: var(--iconSizeSmall);
         height: 32px;
@@ -94,7 +94,7 @@
 
 .search-results-top {
   background-color: var(--color-white-100);
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   margin: 0 32px 16px;
   padding: 16px;
 
@@ -106,7 +106,7 @@
 .search-results-wrapper {
   background-color: var(--color-white-100);
   border: solid 3px var(--color-white-100);
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   display: flex;
   flex-direction: column;
   margin: 0 32px 16px;
@@ -272,29 +272,4 @@
 
 .noBottomBorder {
   border-bottom: none !important;
-}
-
-/* ine- styles can be removed when deprecating the INE style shared feed */
-.ine-pager {
-  flex: 1 1 auto;
-  justify-content: flex-end;
-}
-
-.ine-fact-check {
-  white-space: nowrap;
-}
-
-.ine-search-results-row:hover {
-  cursor: pointer;
-}
-
-.ine-no-fact-check {
-  background: var(--color-orange-54);
-  border-radius: 50px;
-  color: var(--color-white-100);
-  display: inline-block;
-  font-size: var(--fontSizeSmall);
-  font-weight: 400;
-  padding: 3px 10px;
-  white-space: nowrap;
 }

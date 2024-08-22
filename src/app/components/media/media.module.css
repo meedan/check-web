@@ -15,7 +15,7 @@
   .media-actions-bar {
     align-items: center;
     background-color: var(--color-white-100);
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     display: flex;
     flex: 0 0 64px;
     flex-wrap: wrap;
@@ -93,7 +93,7 @@
     .media-item-medias,
     .media-item-annotations {
       background-color: var(--color-white-100);
-      border-radius: 8px;
+      border-radius: var(--border-radius-default);
       overflow: hidden;
     }
 
@@ -303,7 +303,7 @@
     .media-item-autocomplete-results {
       background-color: var(--color-beige-93);
       border: solid 2px var(--color-beige-86);
-      border-radius: 5px;
+      border-radius: var(--border-radius-medium);
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
@@ -359,12 +359,12 @@
   &.media-card-large-border {
     background-color: var(--color-white-100);
     border: 1px solid var(--color-gray-88);
-    border-radius: 0 0 8px 8px;
+    border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-default) var(--border-radius-default);
     outline: 1px solid var(--color-gray-88);
     outline-offset: -1px;
 
     &.rounded-top-corners {
-      border-radius: 8px;
+      border-radius: var(--border-radius-default);
     }
 
     &.no-border {

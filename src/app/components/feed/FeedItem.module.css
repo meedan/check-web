@@ -43,7 +43,7 @@
 .feedItemColumn {
   align-self: flex-start;
   background: var(--color-white-100);
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -131,7 +131,7 @@
 
 .feedItemCurrentTeam {
   background: var(--color-beige-93);
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   padding: 8px;
 }
 
@@ -152,7 +152,7 @@
 
 .feedItemDialogBox {
   background: var(--color-beige-93);
-  border-radius: 5px;
+  border-radius: var(--border-radius-medium);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -177,7 +177,7 @@
   .feedItemDialogSubtitleFactCheckRating {
     @mixin typography-body2;
     border: solid 2px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     padding: 2px 4px;
   }
 }

@@ -41,9 +41,9 @@
             }
         ],
         "scale-unlimited/declaration-strict-value": [
-            ["/color/", "fill", "stroke", "font-size"],
+            ["/color/", "fill", "stroke", "font-size", "border-radius"],
             {
-                "ignoreValues": ["transparent", "inherit", "currentColor", "currentcolor", "none", "underline", "medium"]
+                "ignoreValues": ["transparent", "inherit", "currentColor", "currentcolor", "none", "underline", "medium", "unset"]
             }
         ],
         "selector-class-pattern": null,

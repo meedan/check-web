@@ -1,6 +1,6 @@
 .alert-wrapper {
   align-items: flex-start;
-  border-radius: 16px;
+  border-radius: var(--border-radius-large);
   display: flex;
   gap: 10px;
   padding: 16px;
@@ -55,12 +55,12 @@
   }
 
   &.banner {
-    border-radius: 0;
+    border-radius: var(--border-radius-zero);
   }
 
   &.contained {
     border: solid 2px var(--color-blue-38);
-    border-radius: 5px;
+    border-radius: var(--border-radius-medium);
     padding: 12px;
 
     .iconWrapper {

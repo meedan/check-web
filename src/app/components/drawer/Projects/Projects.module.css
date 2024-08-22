@@ -6,7 +6,7 @@
 
   sup {
     background-color: var(--color-green-35);
-    border-radius: 16px;
+    border-radius: var(--border-radius-large);
     color: var(--color-white-100);
     /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     font-size: 50%;
@@ -72,10 +72,9 @@
   }
 
   .listItem {
-    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     background-color: unset;
     border: solid 1px var(--color-beige-93);
-    border-radius: 44px;
+    border-radius: var(--border-radius-max);
     display: flex;
     height: 42px;
     margin: 0;
@@ -174,7 +173,7 @@
 
   .groupList {
     border: solid 1px var(--color-blue-98);
-    border-radius: 0 0 5px 5px;
+    border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-medium) var(--border-radius-medium);
     border-width: 0 1px 1px;
     margin: 0 0 0 1px;
     padding: 6px;
