@@ -1,7 +1,7 @@
 .error-page {
   align-items: center;
   background-color: var(--color-white-100);
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   display: flex;
   flex-direction: column;
   gap: 16px;

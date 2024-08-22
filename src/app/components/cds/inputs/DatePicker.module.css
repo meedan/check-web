@@ -2,7 +2,7 @@
   .input {
     background-color: var(--color-white-100);
     border: 2px solid var(--color-gray-88);
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     color: var(--color-gray-15);
     font: 400 14px var(--fontStackSans);
     letter-spacing: .15px;

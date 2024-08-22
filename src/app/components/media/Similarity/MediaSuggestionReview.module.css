@@ -1,7 +1,7 @@
 .MediaSuggestionReview {
   background-color: var(--color-orange-95);
   border-color: var(--color-orange-95);
-  border-radius: 5px;
+  border-radius: var(--border-radius-medium);
   display: flex;
   flex-direction: column;
   gap: 8px;

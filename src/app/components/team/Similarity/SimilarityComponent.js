@@ -7,7 +7,6 @@ import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import ThresholdControl from './ThresholdControl';
 import TextField from '../../cds/inputs/TextField';
@@ -28,25 +27,11 @@ const FILIPINO_MODEL = 'paraphrase-filipino-mpnet-base-v2';
 const OPENAI_ADA_MODEL = 'openai-text-embedding-ada-002';
 const PARAPHRASE_MULTILINGUAL_MODEL = 'paraphrase-multilingual-mpnet-base-v2';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(-1),
-    width: theme.spacing(10),
-  },
-  inputMarginDense: {
-    padding: '6px 8px',
-  },
-  transactionMargin: {
-    marginRight: theme.spacing(2),
-  },
-}));
-
 const SimilarityComponent = ({
   setFlashMessage,
   team,
   user,
 }) => {
-  const classes = useStyles();
   const isSuperAdmin = user.is_admin;
   const { alegre_settings } = team.alegre_bot;
 
@@ -319,13 +304,11 @@ const SimilarityComponent = ({
                   onChange={newValue => handleThresholdChange('text_elasticsearch_suggestion_threshold', newValue)}
                 />
                 <Box ml={7}>
-                  <span className={classes.transactionMargin} style={{ fontWeight: 'bold' }}>
-                    <FormattedMessage
-                      defaultMessage="Minimum words required for a confirmed match"
-                      description="A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
-                      id="similarityComponent.textLength"
-                    />
-                  </span>
+                  <FormattedMessage
+                    defaultMessage="Minimum words required for a confirmed match"
+                    description="A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
+                    id="similarityComponent.textLength"
+                  />
                   <TextField
                     className={settingsStyles['similarity-component-input']}
                     disabled={!settings.text_similarity_enabled}
@@ -497,13 +480,11 @@ const SimilarityComponent = ({
                   onChange={() => handleSettingsChange('transcription_similarity_enabled', !settings.transcription_similarity_enabled)}
                 />
                 <Box mb={2} ml={7}>
-                  <span className={classes.transactionMargin}>
-                    <FormattedMessage
-                      defaultMessage="Minimum duration in seconds"
-                      description="number input for Automated transcription minimum duration"
-                      id="similarityComponent.minimumDuration"
-                    />
-                  </span>
+                  <FormattedMessage
+                    defaultMessage="Minimum duration in seconds"
+                    description="number input for Automated transcription minimum duration"
+                    id="similarityComponent.minimumDuration"
+                  />
                   <TextField
                     className={settingsStyles['similarity-component-input']}
                     disabled={!settings.transcription_similarity_enabled}
@@ -515,13 +496,11 @@ const SimilarityComponent = ({
                   />
                 </Box>
                 <Box mb={2} ml={7}>
-                  <span className={classes.transactionMargin}>
-                    <FormattedMessage
-                      defaultMessage="Maximum duration in seconds"
-                      description="number input for Automated transcription maximum duration"
-                      id="similarityComponent.maximumDuration"
-                    />
-                  </span>
+                  <FormattedMessage
+                    defaultMessage="Maximum duration in seconds"
+                    description="number input for Automated transcription maximum duration"
+                    id="similarityComponent.maximumDuration"
+                  />
                   <TextField
                     className={settingsStyles['similarity-component-input']}
                     disabled={!settings.transcription_similarity_enabled}
@@ -533,13 +512,11 @@ const SimilarityComponent = ({
                   />
                 </Box>
                 <Box mb={2} ml={7}>
-                  <span className={classes.transactionMargin}>
-                    <FormattedMessage
-                      defaultMessage="Minimum number of requests"
-                      description="number input for Automated transcription duration requests"
-                      id="similarityComponent.minimumRequests"
-                    />
-                  </span>
+                  <FormattedMessage
+                    defaultMessage="Minimum number of requests"
+                    description="number input for Automated transcription duration requests"
+                    id="similarityComponent.minimumRequests"
+                  />
                   <TextField
                     className={settingsStyles['similarity-component-input']}
                     disabled={!settings.transcription_similarity_enabled}
