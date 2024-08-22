@@ -560,6 +560,7 @@ class Task extends Component {
               metadataValue={
                 this.state.textValue
               }
+              saveEnabled={this.state.textValue !== task.first_response_value}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
@@ -587,6 +588,7 @@ class Task extends Component {
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
+              saveEnabled={this.state.textValue !== task.first_response_value}
             />
           </div>
         ) : null}
@@ -613,6 +615,7 @@ class Task extends Component {
                 }}
                 mapboxApiKey={config.mapboxApiKey}
                 messages={messages.MetadataLocation}
+                saveEnabled={this.state.textValue !== task.first_response_value}
               />
             </div>
           </div>
@@ -638,6 +641,7 @@ class Task extends Component {
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
+              saveEnabled={this.state.textValue !== task.first_response_value}
             />
           </div>
         ) : null}
@@ -661,6 +665,7 @@ class Task extends Component {
                 this.state.textValue
               }
               setMetadataValue={this.handleUpdateMultiselectMetadata}
+              saveEnabled={this.state.textValue !== task.first_response_value}
             />
           </div>
         ) : null}
@@ -683,6 +688,7 @@ class Task extends Component {
                 this.state.textValue
               }
               setMetadataValue={this.handleUpdateMultiselectMetadata}
+              saveEnabled={this.state.textValue !== task.first_response_value}
             />
           </div>
         ) : null}

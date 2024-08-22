@@ -30,6 +30,7 @@ function MetadataText({
   metadataValue,
   setMetadataValue,
   disabled,
+  saveEnabled,
   required,
 }) {
   const mutationPayload = {
@@ -80,6 +81,7 @@ function MetadataText({
           <SaveButton
             {...{ mutationPayload, required }}
             empty={metadataValue === ''}
+            disabled={!saveEnabled}
           />
         </>
       )}
