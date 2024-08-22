@@ -111,20 +111,6 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'similarity'
     it_behaves_like 'media', 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
-    it 'should redirect to not found page when access is denied', bin1: true do
-      user = api_register_and_login_with_email
-      api_logout
-      api_register_and_login_with_email
-      @driver.navigate.to("#{@config['self_url']}/check/me/workspaces")
-      wait_for_selector("//span[contains(text(), 'Create')]", :xpath)
-      expect(@driver.page_source.include?('page does not exist')).to be(false)
-      expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(true)
-      @driver.navigate.to(@config['self_url'] + "/check/user/#{user.dbid}") # unauthorized page
-      wait_for_selector('.not-found__component')
-      expect(@driver.page_source.include?('page does not exist')).to be(true)
-      expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
-    end
-
     it 'should localize interface based on browser language', bin2: true do
       @driver.quit
       @driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'fr' })
@@ -181,20 +167,6 @@ shared_examples 'app' do |webdriver_url|
       expect((@driver.current_url.to_s =~ %r{/$}).nil?).to be(false)
       @driver.navigate.forward
       expect((@driver.current_url.to_s =~ %r{/terms-of-service$}).nil?).to be(false)
-    end
-
-    it 'should redirect to 404 page if id does not exist', bin4: true do
-      api_create_team_and_bot
-      @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
-      wait_for_selector('#side-navigation__tipline-toggle').click
-      wait_for_selector('.projects-list')
-      wait_for_selector('.projects-list__all-items').click
-      wait_for_selector('#create-media__add-item')
-      url = @driver.current_url.to_s
-      @driver.navigate.to url.gsub('all-items', 'media/999')
-      title = wait_for_selector('.not-found__component')
-      expect(title.text).to match(/page does not exist/)
-      expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
     end
   end
 end

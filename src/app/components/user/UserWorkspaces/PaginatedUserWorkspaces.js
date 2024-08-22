@@ -100,14 +100,16 @@ const UserWorkspacesComponent = ({
         relay.loadMore(pageSize, () => {
           setCursor(cursor + pageSize);
           setIsPaginationLoading(false);
+          setPage(newPage);
         });
       } else if (cursor + pageSize < teams.length) {
         setCursor(cursor + pageSize);
+        setPage(newPage);
       }
     } else if (cursor - pageSize >= 0) {
       setCursor(cursor - pageSize);
+      setPage(newPage);
     }
-    setPage(newPage);
   };
 
   return (
@@ -216,28 +218,26 @@ const PaginatedUserWorkspaces = createPaginationContainer(
   props => (
     <UserWorkspacesComponent
       currentTeam={props.root.current_team_id}
-      numberOfTeams={props.root.team_users_count}
+      numberOfTeams={props.root.accessible_teams_count}
       pageSize={props.pageSize}
       relay={props.relay}
-      teams={props.root.team_users.edges.map(n => n.node.team) || []}
-      totalCount={props.root.team_users?.totalCount}
+      teams={props.root.accessible_teams.edges.map(edge => edge.node) || []}
+      totalCount={props.root.accessible_teams?.totalCount}
     />
   ),
   {
     root: graphql`
       fragment PaginatedUserWorkspaces_root on Me {
         current_team_id
-        team_users_count(status: "member")
-        team_users(first: $pageSize, after: $after, status: "member") @connection(key: "PaginatedUserWorkspaces_team_users"){
+        accessible_teams_count
+        accessible_teams(first: $pageSize, after: $after) @connection(key: "PaginatedUserWorkspaces_accessible_teams") {
           edges {
             node {
-              team {
-                dbid
-                name
-                avatar
-                slug
-                members_count
-              }
+              dbid
+              name
+              avatar
+              slug
+              members_count
             }
           }
           pageInfo {
@@ -252,7 +252,7 @@ const PaginatedUserWorkspaces = createPaginationContainer(
   {
     direction: 'forward',
     query: userWorkspacesQuery,
-    getConnectionFromProps: props => props.root.team_users,
+    getConnectionFromProps: props => props.root.accessible_teams,
     getFragmentVariables: (previousVars, pageSize) => ({
       ...previousVars,
       pageSize,

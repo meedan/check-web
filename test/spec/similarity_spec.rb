@@ -37,7 +37,7 @@ shared_examples 'similarity' do
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__pin-relationship')
     wait_for_selector('.similarity-media-item__delete-relationship').click
-    wait_for_selector('.message')
+    wait_for_selector('.int-flash-message__toast')
     @driver.navigate.refresh
     wait_for_selector('.test__media')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 0

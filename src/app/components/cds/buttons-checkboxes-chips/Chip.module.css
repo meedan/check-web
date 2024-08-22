@@ -2,7 +2,7 @@
   background-color: var(--color-blue-54);
   border-radius: 50px;
   color: var(--color-white-100);
-  cursor: pointer;
+  cursor: default;
   display: inline-flex;
   height: 26px;
   padding: 3px 12px;
@@ -16,6 +16,7 @@
 
   .delete-button {
     border-radius: 0 50px 50px 0;
+    cursor: pointer;
     display: none;
     height: 26px;
     margin: -3px -12px 0 -6px;

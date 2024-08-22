@@ -7,7 +7,7 @@ shared_examples 'media actions' do
     wait_for_selector('.media-actions__assign').click
     wait_for_selector('input[type=checkbox]').click
     wait_for_selector('.int-multiselector__button--save').click
-    wait_for_selector('.message')
+    wait_for_selector('.int-flash-message__toast')
     expect(@driver.page_source.include?('Assignments updated successfully')).to be(true)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__history').click

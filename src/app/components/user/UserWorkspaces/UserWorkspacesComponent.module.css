@@ -10,3 +10,7 @@
 .current-active-item {
   border-left: 4px var(--color-beige-47) solid;
 }
+
+.list-item {
+  cursor: pointer;
+}

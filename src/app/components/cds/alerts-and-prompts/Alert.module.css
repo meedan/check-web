@@ -40,9 +40,17 @@
     color: inherit;
   }
 
+  a:not([href]) {
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   &.floating {
     border: solid 2px var(--color-blue-38);
-    box-shadow: 0 4px 16px 0 rgba(0 0 0 / .1);
+    box-shadow: 0 3px 14px 2px rgba(0 0 0 / .12), 0 8px 10px 1px rgba(0 0 0 / .14), 0 5px 5px -3px rgba(0 0 0 / .2);
     max-width: 320px;
   }
 
@@ -95,4 +103,27 @@
     border-color: var(--color-pink-40);
     color: var(--color-pink-40);
   }
+
+  &.persist-alert-flash-message {
+    max-width: inherit;
+    min-width: 600px;
+
+    details {
+      cursor: pointer;
+      margin: 8px 0;
+      user-select: none;
+
+      textarea {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.alert-flash-home-message {
+  left: 0;
+  margin-top: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
 }
