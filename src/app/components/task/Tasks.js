@@ -157,6 +157,10 @@ const Tasks = ({
       return;
     }
 
+    document.querySelectorAll('.metadata-save').forEach((saveButton) => {
+      saveButton.click();
+    });
+
     // const saveTasks = tasks.filter((t, i) => t.response !== localResponses[i].response);
 
     // saveTasks.forEach((task) => {

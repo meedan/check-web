@@ -403,6 +403,7 @@ class Task extends Component {
         required,
         empty,
         anyInvalidUrls,
+        disabled,
       } = props;
       const payload =
         mutationPayload?.response_multiple_choice ||
@@ -457,7 +458,8 @@ class Task extends Component {
                 );
               }
             }}
-            disabled={this.state.textValue === task.first_response_value}
+            disabled={disabled}
+            // disabled={this.state.textValue === task.first_response_value}
             label={
               <FormattedMessage
                 id="global.save"
@@ -560,7 +562,6 @@ class Task extends Component {
               metadataValue={
                 this.state.textValue
               }
-              saveEnabled={this.state.textValue !== task.first_response_value}
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
@@ -588,7 +589,6 @@ class Task extends Component {
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
-              saveEnabled={this.state.textValue !== task.first_response_value}
             />
           </div>
         ) : null}
@@ -615,7 +615,6 @@ class Task extends Component {
                 }}
                 mapboxApiKey={config.mapboxApiKey}
                 messages={messages.MetadataLocation}
-                saveEnabled={this.state.textValue !== task.first_response_value}
               />
             </div>
           </div>
@@ -641,7 +640,6 @@ class Task extends Component {
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
-              saveEnabled={this.state.textValue !== task.first_response_value}
             />
           </div>
         ) : null}
@@ -665,7 +663,6 @@ class Task extends Component {
                 this.state.textValue
               }
               setMetadataValue={this.handleUpdateMultiselectMetadata}
-              saveEnabled={this.state.textValue !== task.first_response_value}
             />
           </div>
         ) : null}
@@ -688,7 +685,6 @@ class Task extends Component {
                 this.state.textValue
               }
               setMetadataValue={this.handleUpdateMultiselectMetadata}
-              saveEnabled={this.state.textValue !== task.first_response_value}
             />
           </div>
         ) : null}
