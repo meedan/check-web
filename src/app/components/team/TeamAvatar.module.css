@@ -4,7 +4,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   border: 2px solid var(--color-gray-88);
-  border-radius: 5px;
+  border-radius: var(--border-radius-medium);
   flex: 0 0 auto;
   height: 40px;
   position: relative;

@@ -1,6 +1,6 @@
 .suggestions-bulk-actions-wrapper {
   background-color: var(--color-beige-93);
-  border-radius: 5px;
+  border-radius: var(--border-radius-medium);
   display: flex;
   justify-content: space-between;
   padding: 8px;
@@ -20,7 +20,7 @@
 
   .suggestions-bulk-actions {
     background-color: var(--color-beige-86);
-    border-radius: 5px;
+    border-radius: var(--border-radius-medium);
     flex: 0 0 auto;
     justify-content: center;
     padding: 3px;
@@ -35,7 +35,7 @@
 
   .suggestions-item-actions {
     background: var(--color-beige-93);
-    border-radius: 5px;
+    border-radius: var(--border-radius-medium);
     display: none;
     flex: 0 0 48px;
     flex-direction: row;

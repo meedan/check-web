@@ -1,6 +1,6 @@
 .feedBlankState {
   background: var(--color-white-100);
-  border-radius: 0 0 8px 8px;
+  border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-default) var(--border-radius-default);
   padding-bottom: 32px;
   text-align: center;
 
