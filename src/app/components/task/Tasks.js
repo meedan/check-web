@@ -156,9 +156,17 @@ const Tasks = ({
       ), 'error');
       return;
     }
-    document.querySelectorAll('.metadata-save').forEach((saveButton) => {
-      saveButton.click();
-    });
+
+    // const saveTasks = tasks.filter((t, i) => t.response !== localResponses[i].response);
+
+    // saveTasks.forEach((task) => {
+    //   document.querySelector(`.metadata-save-${task.node.dbid}`).click();
+    // });
+
+    // document.querySelectorAll('.metadata-save').forEach((saveButton) => {
+    //   saveButton.click();
+    // });
+
     setIsEditing(false);
   }
 
