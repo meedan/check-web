@@ -68,7 +68,7 @@ const TeamMembersComponent = ({
         }
         actionButton={
           <ButtonMain
-            theme="brand"
+            theme="info"
             size="default"
             variant="contained"
             disabled={!can(team.permissions, 'invite Members')}

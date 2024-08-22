@@ -137,7 +137,7 @@ const FeedPageContent = ({ permissions, slug, name }) => {
               iconLeft={<AddIcon />}
               variant="contained"
               size="default"
-              theme="brand"
+              theme="info"
               onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }}
             />
           </span>

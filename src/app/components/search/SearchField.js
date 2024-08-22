@@ -192,7 +192,7 @@ const SearchField = ({
             <ButtonMain
               size="default"
               variant="contained"
-              theme="brand"
+              theme="info"
               disabled={!localSearchText}
               label={
                 <FormattedMessage id="search.expandedButton" defaultMessage="Search" description="Button label for the search submit button when entering long text." />

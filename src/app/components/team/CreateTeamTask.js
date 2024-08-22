@@ -68,7 +68,7 @@ class CreateTeamTask extends React.Component {
           className="create-task__add-button"
           onClick={this.handleOpen}
           variant="contained"
-          theme="brand"
+          theme="info"
           size="default"
           label={
             <FormattedMessage

@@ -144,7 +144,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 form: formId,
                 type: 'submit',
               }}
-              theme="brand"
+              theme="info"
               size="default"
               variant="contained"
               disabled={this.props.isSubmitting}
@@ -159,7 +159,7 @@ class CreateRelatedMediaDialog extends React.Component {
               buttonProps={{
                 id: 'create-media-dialog__submit-button',
               }}
-              theme="brand"
+              theme="info"
               size="default"
               variant="contained"
               onClick={this.handleSubmitExisting}

@@ -166,7 +166,7 @@ const ArticleForm = ({
                           onClick={() => handleGoToReport(article.claim_description.project_media.dbid)}
                           className="media-fact-check__report-designer"
                           variant="contained"
-                          theme={isPublished ? 'brand' : 'alert'}
+                          theme={isPublished ? 'info' : 'alert'}
                           size="default"
                           iconLeft={isPublished ? <IconReport /> : <IconUnpublishedReport />}
                           disabled={claimDescriptionMissing || !article.claim_description?.project_media?.dbid}

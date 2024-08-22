@@ -52,7 +52,7 @@ const NotFound = ({ title, description }) => (
       <ButtonMain
         className={cx('int-feed-invitation__button--profile')}
         size="default"
-        theme="brand"
+        theme="info"
         variant="contained"
         onClick={() => browserHistory.push('/check/me')}
         label={

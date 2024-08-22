@@ -340,7 +340,7 @@ const UserSecurity = (props, context) => {
                         <div className={inputStyles['form-fieldset-field']}>
                           <ButtonMain
                             variant="contained"
-                            theme="brand"
+                            theme="info"
                             size="default"
                             onClick={handleSubmitTwoFactorAuthentication.bind(this, false)}
                             className="user-two-factor__enable-button"
@@ -431,7 +431,7 @@ const UserSecurity = (props, context) => {
                       />
                       <ButtonMain
                         variant="contained"
-                        theme="brand"
+                        theme="info"
                         size="default"
                         onClick={handleGenerateBackupCodes.bind(this)}
                         className="user-two-factor__backup-button"
@@ -478,7 +478,7 @@ const UserSecurity = (props, context) => {
                         <div className={inputStyles['form-fieldset-field']}>
                           <ButtonMain
                             variant="contained"
-                            theme="brand"
+                            theme="info"
                             size="default"
                             onClick={handleSubmitTwoFactorAuthentication.bind(this, true)}
                             className="user-two-factor__enable-button"

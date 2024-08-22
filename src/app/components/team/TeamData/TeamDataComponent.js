@@ -278,7 +278,7 @@ const TeamDataComponent = ({
         actionButton={
           <ButtonMain
             variant="contained"
-            theme="brand"
+            theme="info"
             size="default"
             iconLeft={<GetAppIcon />}
             onClick={handleDownload}

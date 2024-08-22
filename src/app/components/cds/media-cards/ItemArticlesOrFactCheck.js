@@ -41,7 +41,7 @@ const ItemArticlesOrFactCheck = ({
           type: null,
         }}
         size="small"
-        theme="lightBrand"
+        theme="lightInfo"
         iconLeft={<FactCheckIcon />}
         variant="contained"
         label={
@@ -65,7 +65,7 @@ const ItemArticlesOrFactCheck = ({
           type: null,
         }}
         size="small"
-        theme="lightBrand"
+        theme="lightInfo"
         iconLeft={<BookIcon />}
         variant="contained"
         label={

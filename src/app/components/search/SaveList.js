@@ -253,7 +253,7 @@ const SaveList = ({
       <ButtonMain
         variant="contained"
         size="default"
-        theme="lightBrand"
+        theme="lightInfo"
         onClick={handleClick}
         buttonProps={{
           id: 'save-list__button',

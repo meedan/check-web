@@ -60,7 +60,7 @@ function UserPasswordChange() {
                     <ButtonMain
                       size="default"
                       variant="contained"
-                      theme="brand"
+                      theme="info"
                       onClick={handleSignIn}
                       label={
                         <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" description="Button label for the user to continue to the sign in page" />

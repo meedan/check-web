@@ -134,7 +134,7 @@ BlankMediaButton.defaultProps = {
   ButtonComponent: ({ onClick }) => (
     <ButtonMain
       variant="contained"
-      brand="primary"
+      theme="info"
       size="default"
       onClick={onClick}
       label={

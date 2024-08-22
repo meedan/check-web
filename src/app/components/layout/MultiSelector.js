@@ -281,7 +281,7 @@ class MultiSelector extends React.Component {
           }
           <ButtonMain
             className="int-multiselector__button--save"
-            theme="brand"
+            theme="info"
             size="default"
             variant="contained"
             onClick={() => onSubmit(this.state.selected)}

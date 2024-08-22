@@ -67,7 +67,7 @@ const TagList = ({
   const actionButton = (
     <ButtonMain
       className="int-tag-list__button--create"
-      theme="brand"
+      theme="info"
       variant="text"
       size="default"
       onClick={() => handleAddNew(searchValue)}

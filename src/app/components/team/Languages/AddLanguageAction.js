@@ -97,7 +97,7 @@ const AddLanguageAction = ({ team, setLanguages }) => {
     <React.Fragment>
       <ButtonMain
         className="add-language-action__add-button"
-        theme="brand"
+        theme="info"
         size="default"
         variant="contained"
         onClick={() => setDialogOpen(true)}
@@ -168,7 +168,7 @@ const AddLanguageAction = ({ team, setLanguages }) => {
           />
           <ButtonMain
             className="add-language-action__submit"
-            theme="brand"
+            theme="info"
             size="default"
             iconLeft={isSaving ? <MediasLoading size="icon" theme="white" variant="icon" /> : null}
             disabled={!value || isSaving}

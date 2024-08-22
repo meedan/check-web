@@ -80,7 +80,7 @@ const RuleToolbar = (props) => {
             </MenuItem>
           </Menu>
           <ButtonMain
-            theme="brand"
+            theme="info"
             variant="contained"
             size="default"
             className="rules__save-button"

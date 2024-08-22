@@ -101,7 +101,7 @@ class UserConnectedAccount extends Component {
                 <ButtonMain
                   size="default"
                   variant="contained"
-                  theme="brand"
+                  theme="info"
                   onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
                   className="team-connect-account-button--disconnect"
                   disabled={disableDisconnect}

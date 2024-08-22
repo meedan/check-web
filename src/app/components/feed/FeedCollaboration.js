@@ -233,7 +233,7 @@ const FeedCollaboration = ({
             iconCenter={<AddIcon />}
             variant="contained"
             size="default"
-            theme="brand"
+            theme="info"
             disabled={error}
           />
         </div>

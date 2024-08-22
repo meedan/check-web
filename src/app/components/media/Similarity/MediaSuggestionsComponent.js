@@ -767,7 +767,7 @@ const MediaSuggestionsComponent = ({
                 <ButtonMain
                   variant="contained"
                   size="default"
-                  theme="brand"
+                  theme="info"
                   onClick={handleBulkConfirm}
                   label={
                     <FormattedMessage
@@ -817,7 +817,7 @@ const MediaSuggestionsComponent = ({
                 <ButtonMain
                   variant="contained"
                   size="default"
-                  theme="brand"
+                  theme="info"
                   onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.SPAM)}
                   label={
                     <FormattedMessage
@@ -867,7 +867,7 @@ const MediaSuggestionsComponent = ({
                 <ButtonMain
                   variant="contained"
                   size="default"
-                  theme="brand"
+                  theme="info"
                   onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.TRASHED)}
                   label={
                     <FormattedMessage
@@ -915,7 +915,7 @@ const MediaSuggestionsComponent = ({
                 <ButtonMain
                   variant="contained"
                   size="default"
-                  theme="brand"
+                  theme="info"
                   onClick={() => handleBulkReject()}
                   label={<FormattedMessage
                     id="mediaSuggestionsComponent.dialogBulkRejectConfirm"

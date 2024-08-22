@@ -130,7 +130,7 @@ const NewsletterRssFeed = ({
                   label={<FormattedMessage id="newsletterRssFeed.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />}
                   variant="contained"
                   size="large"
-                  theme="brand"
+                  theme="info"
                   onClick={handleLoad}
                   disabled={!localRssFeedUrl || disabled}
                   buttonProps={{

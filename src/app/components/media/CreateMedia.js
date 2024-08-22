@@ -111,7 +111,7 @@ class CreateProjectMedia extends React.Component {
       <React.Fragment>
         <ButtonMain
           onClick={this.handleOpenDialog}
-          theme="brand"
+          theme="info"
           size="default"
           variant="contained"
           label={

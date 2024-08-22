@@ -134,7 +134,7 @@ class MediaExpandedActions extends React.Component {
                 onClick={onClickMore}
                 variant="contained"
                 size="default"
-                theme="brand"
+                theme="info"
               /> : null }
             { inModal ? <MediaLanguageSwitcher projectMedia={projectMedia} /> : null }
           </div>

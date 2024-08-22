@@ -95,7 +95,7 @@ export default function RulesTable(props) {
         actionButton={
           <ButtonMain
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             className="int-rules-table__button--new-rule"
             onClick={handleNewRule}

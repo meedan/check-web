@@ -58,7 +58,7 @@ const Tag = ({
                 className="int-multi-select-filter__button--tag-remove"
                 iconCenter={<CloseIcon />}
                 onClick={onDelete}
-                theme="brand"
+                theme="info"
                 variant="contained"
                 size="small"
               />

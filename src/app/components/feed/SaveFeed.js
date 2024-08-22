@@ -446,7 +446,7 @@ const SaveFeed = (props) => {
               <ButtonMain
                 variant="outlined"
                 size="default"
-                theme="brand"
+                theme="info"
                 onClick={() => { handleViewFeed(feed.dbid); }}
                 disabled={!isFeedOwner && !feedTeam.saved_search_id}
                 label={
@@ -566,7 +566,7 @@ const SaveFeed = (props) => {
           <div className={styles.saveFeedButtonContainer}>
             <ButtonMain
               className={styles.saveFeedContentNarrowAction}
-              theme="brand"
+              theme="info"
               size="default"
               variant="contained"
               onClick={handleConfirmOrSave}

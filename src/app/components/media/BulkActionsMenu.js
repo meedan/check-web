@@ -283,7 +283,7 @@ const BulkActionsMenu = ({
     <span id="media-bulk-actions">
       <Can permission="bulk_update ProjectMedia" permissions={team.permissions}>
         <ButtonMain
-          theme="brand"
+          theme="info"
           variant="contained"
           size="default"
           onClick={e => setAnchorEl(e.currentTarget)}

@@ -206,7 +206,7 @@ const InviteDialog = ({
           onClick={handleSubmit}
           size="default"
           variant="contained"
-          theme="brand"
+          theme="info"
           disabled={inviteEmails.length < 1}
           label={
             <FormattedMessage id="inviteDialog.submit" defaultMessage="Invite" description="Button to submit invitations." />

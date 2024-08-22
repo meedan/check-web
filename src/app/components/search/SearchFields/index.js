@@ -325,7 +325,7 @@ const SearchFields = ({
             className="int-search-fields__button--toggle-and-or-operator"
             variant="contained"
             size="small"
-            theme={page === 'feed' ? 'text' : 'lightBrand'}
+            theme={page === 'feed' ? 'text' : 'lightInfo'}
             customStyle={{ fontWeight: 'bold' }}
             label={stateQuery.operator === 'OR' ?
               <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :

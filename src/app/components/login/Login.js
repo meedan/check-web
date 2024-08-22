@@ -306,7 +306,7 @@ class Login extends React.Component {
                 <div className="login__actions">
                   <ButtonMain
                     size="default"
-                    theme="brand"
+                    theme="info"
                     variant="contained"
                     buttonProps={{
                       id: 'submit-register-or-login',

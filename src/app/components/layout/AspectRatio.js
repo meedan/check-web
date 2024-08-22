@@ -120,7 +120,7 @@ const AspectRatio = ({
       onClick={() => setMaskContent(!maskContent)}
       variant={maskContent ? 'outlined' : 'contained'}
       size="default"
-      theme={maskContent ? 'white' : 'brand'}
+      theme={maskContent ? 'white' : 'info'}
       label={maskContent ? (
         <FormattedMessage
           id="contentScreen.viewContentButton"

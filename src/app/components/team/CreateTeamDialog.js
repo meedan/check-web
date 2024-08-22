@@ -230,7 +230,7 @@ const CreateTeamDialog = ({ onDismiss, team, intl }) => {
           }
         />
         <ButtonMain
-          theme="brand"
+          theme="info"
           variant="contained"
           size="default"
           className="create-team-dialog__confirm-button"

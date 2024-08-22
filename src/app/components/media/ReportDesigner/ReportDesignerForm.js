@@ -510,7 +510,7 @@ const ReportDesignerForm = (props) => {
                     onClick={handleDefaultImage}
                     variant="contained"
                     size="default"
-                    theme="lightBrand"
+                    theme="lightInfo"
                     disabled={media.media.picture === data.image}
                     label={
                       <FormattedMessage
@@ -524,7 +524,7 @@ const ReportDesignerForm = (props) => {
                   onClick={handleRemoveImage}
                   variant="contained"
                   size="default"
-                  theme="brand"
+                  theme="info"
                   label={
                     <FormattedMessage
                       id="reportDesigner.removeImage"

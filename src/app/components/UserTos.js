@@ -65,7 +65,7 @@ const UserTosComponent = (props) => {
         }}
         size="default"
         variant="contained"
-        theme="brand"
+        theme="info"
         onClick={handleSubmit.bind(this)}
         disabled={!checkedTos}
         label={

@@ -68,7 +68,7 @@ const TeamTagsComponent = ({
           <Can permissions={permissions} permission="create TagText">
             <ButtonMain
               variant="contained"
-              theme="brand"
+              theme="info"
               size="default"
               onClick={() => { setShowCreateTag(true); }}
               label={
@@ -106,7 +106,7 @@ const TeamTagsComponent = ({
               <ButtonMain
                 disabled={isPaginationLoading || cursor - pageSize < 0}
                 variant="text"
-                theme="brand"
+                theme="info"
                 size="default"
                 onClick={() => {
                   if (cursor - pageSize >= 0) {
@@ -138,7 +138,7 @@ const TeamTagsComponent = ({
               <ButtonMain
                 disabled={isPaginationLoading || cursor + pageSize >= totalCount}
                 variant="text"
-                theme="brand"
+                theme="info"
                 size="default"
                 onClick={() => {
                   if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= tags.length)) {

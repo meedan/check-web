@@ -113,7 +113,7 @@ function ChangeMediaSource({
           }
         />
         <ButtonMain
-          theme="brand"
+          theme="info"
           size="default"
           variant="contained"
           className="media-source__save-button"

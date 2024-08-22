@@ -180,7 +180,7 @@ const SmoochBotComponent = ({
           installation && !editingResource ?
             <Can permissions={team.permissions} permission="update Team">
               <ButtonMain
-                theme="brand"
+                theme="info"
                 variant="contained"
                 size="default"
                 onClick={handleSave}
@@ -230,7 +230,7 @@ const SmoochBotComponent = ({
               { currentUser.is_admin ?
                 <ButtonMain
                   variant="contained"
-                  theme="brand"
+                  theme="info"
                   size="default"
                   onClick={handleInstall}
                   disable={saving}
@@ -245,7 +245,7 @@ const SmoochBotComponent = ({
                 /> :
                 <ButtonMain
                   variant="contained"
-                  theme="brand"
+                  theme="info"
                   size="default"
                   onClick={handleOpenForm}
                   label={

@@ -162,7 +162,7 @@ function ChangePasswordComponent({
       <ButtonMain
         size="default"
         variant="contained"
-        theme="brand"
+        theme="info"
         className="user-password-change__submit-button"
         onClick={handleSubmit}
         disabled={submitDisabled}

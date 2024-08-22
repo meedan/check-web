@@ -65,7 +65,7 @@ const FeedItemHeader = ({ team, feed, cluster }) => {
           <ButtonMain
             variant="outlined"
             size="default"
-            theme="brand"
+            theme="info"
             onClick={handleViewFeed}
             label={
               <FormattedMessage
@@ -78,7 +78,7 @@ const FeedItemHeader = ({ team, feed, cluster }) => {
           <ButtonMain
             variant="outlined"
             size="default"
-            theme="brand"
+            theme="info"
             onClick={handleOpenImportDialog}
             iconLeft={<PermMediaIcon />}
             label={

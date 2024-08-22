@@ -72,7 +72,7 @@ function UserConfirmPage({ params }) {
               <Link to="/">
                 <ButtonMain
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   label={
                     <FormattedMessage

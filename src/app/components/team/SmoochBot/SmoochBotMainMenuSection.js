@@ -168,7 +168,7 @@ const SmoochBotMainMenuSection = ({
         {/* Add a new menu option */}
         <div className={styles['setting-content-container-actions']}>
           <ButtonMain
-            theme="brand"
+            theme="info"
             variant="text"
             size="default"
             disabled={readOnly}
@@ -243,7 +243,7 @@ const SmoochBotMainMenuSection = ({
               <ButtonMain
                 iconCenter={<EditIcon />}
                 variant="contained"
-                theme="lightBrand"
+                theme="lightInfo"
                 size="default"
                 disabled={readOnly}
                 onClick={() => { handleEditOption(i); }}
@@ -254,7 +254,7 @@ const SmoochBotMainMenuSection = ({
               <ButtonMain
                 iconCenter={<CancelIcon />}
                 variant="contained"
-                theme="lightBrand"
+                theme="lightInfo"
                 size="default"
                 onClick={() => { handleDeleteOption(i); }}
               />

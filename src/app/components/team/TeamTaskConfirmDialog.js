@@ -144,7 +144,7 @@ class TeamTaskConfirmDialog extends React.Component {
             }}
             size="default"
             variant="contained"
-            theme="brand"
+            theme="info"
             onClick={this.handleProceed}
             disabled={this.props.disabled}
             label={action === 'delete' ? deleteAction : editAction}

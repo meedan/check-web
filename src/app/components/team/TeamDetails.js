@@ -113,7 +113,7 @@ const TeamDetails = ({
               buttonProps={{
                 id: 'team-details__update-button',
               }}
-              theme="brand"
+              theme="info"
               size="default"
               variant="contained"
               onClick={handleSave}
@@ -140,7 +140,7 @@ const TeamDetails = ({
               buttonProps={{
                 id: 'team-details__edit-avatar-button',
               }}
-              theme="brand"
+              theme="info"
               variant="text"
               size="default"
               onClick={() => setEditProfileImg(true)}

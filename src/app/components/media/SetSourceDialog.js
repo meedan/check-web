@@ -70,7 +70,7 @@ function SetSourceDialog({
           }
         />
         <ButtonMain
-          theme="brand"
+          theme="info"
           size="default"
           variant="contained"
           className="source__create-use-existing-source"

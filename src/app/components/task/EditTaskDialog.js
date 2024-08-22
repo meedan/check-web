@@ -586,7 +586,7 @@ class EditTaskDialog extends React.Component {
             onClick={this.handleSave}
             size="default"
             variant="contained"
-            theme="brand"
+            theme="info"
             disabled={this.state.submitDisabled}
             label={this.state.showWarning ? (
               <FormattedMessage

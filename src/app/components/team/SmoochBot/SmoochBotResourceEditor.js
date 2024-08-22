@@ -415,7 +415,7 @@ const SmoochBotResourceEditorComponent = (props) => {
       <div className={styles.resourceEditorActions}>
         <ButtonMain
           variant="contained"
-          theme="brand"
+          theme="info"
           size="default"
           onClick={handleSave}
           disabled={disableSaveNoFile || disableSaveTextTooLong || saving}

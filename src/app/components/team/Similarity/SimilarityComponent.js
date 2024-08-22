@@ -181,7 +181,7 @@ const SimilarityComponent = ({
           team.alegre_bot ?
             <Can permissions={team.permissions} permission="update Team">
               <ButtonMain
-                theme="brand"
+                theme="info"
                 variant="contained"
                 size="default"
                 onClick={handleSave}

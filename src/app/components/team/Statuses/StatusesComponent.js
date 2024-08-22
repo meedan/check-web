@@ -229,7 +229,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         actionButton={
           <ButtonMain
             className="team-statuses__add-button"
-            theme="brand"
+            theme="info"
             size="default"
             variant="contained"
             onClick={() => setAddingNewStatus(true)}

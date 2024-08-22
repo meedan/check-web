@@ -141,7 +141,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
           <Can permissions={team.permissions} permission="update Team">
             <ButtonMain
               onClick={handleSave}
-              theme="brand"
+              theme="info"
               size="default"
               variant="contained"
               disabled={saving}

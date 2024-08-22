@@ -454,7 +454,7 @@ const NewsletterComponent = ({
           <ButtonMain
             className="save-button"
             variant="contained"
-            theme="brand"
+            theme="info"
             size="default"
             onClick={handleSave}
             disabled={scheduled || saving || disableSaveNoFile || !can(team.permissions, 'create TiplineNewsletter')}

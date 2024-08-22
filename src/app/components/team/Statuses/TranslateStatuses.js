@@ -106,7 +106,7 @@ const TranslateStatuses = ({
           <ButtonMain
             className="translate-statuses__save"
             variant="contained"
-            theme="brand"
+            theme="info"
             size="default"
             onClick={handleSave}
             label={

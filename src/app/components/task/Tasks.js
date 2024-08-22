@@ -36,7 +36,7 @@ const Tasks = ({
             <ButtonMain
               variant="contained"
               size="default"
-              theme="brand"
+              theme="info"
               onClick={goToSettings}
               label={
                 <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" description="Button label to take the user to the settings area of the application" />
@@ -294,7 +294,7 @@ const Tasks = ({
                     size="default"
                     variant="contained"
                     onClick={handleEditAnnotations}
-                    theme="brand"
+                    theme="info"
                     label={
                       <FormattedMessage id="metadata.form.edit" defaultMessage="Edit Annotations" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
                     }

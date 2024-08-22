@@ -85,7 +85,7 @@ const ArticleFilters = ({
       className="int-search-fields__button--and-operator"
       variant="contained"
       size="small"
-      theme="lightBrand"
+      theme="lightInfo"
       customStyle={{ fontWeight: 'bold' }}
       label={<FormattedMessage id="search.connectorAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering articles by multiple fields." />}
     />

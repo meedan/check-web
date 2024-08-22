@@ -125,7 +125,7 @@ const UserWorkspacesComponent = ({
         }
         actionButton={
           <ButtonMain
-            theme="brand"
+            theme="info"
             size="default"
             variant="contained"
             onClick={() => setShowCreateTeamDialog(true)}

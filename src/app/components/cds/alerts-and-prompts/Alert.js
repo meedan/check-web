@@ -13,13 +13,13 @@ import ReportProblemOutlinedIcon from '../../../icons/report_problem.svg';
 import styles from './Alert.module.css';
 
 const buttonThemes = {
-  info: 'brand',
+  info: 'info',
   success: 'validation',
   warning: 'alert',
   error: 'error',
 };
 
-const buttonTheme = alertVariant => buttonThemes[alertVariant] || 'brand';
+const buttonTheme = alertVariant => buttonThemes[alertVariant] || 'info';
 
 const Alert = ({
   className,

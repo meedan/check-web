@@ -314,7 +314,7 @@ const FeedFilters = ({
           <ButtonMain
             variant="contained"
             size="default"
-            theme="lightBrand"
+            theme="lightInfo"
             buttonProps={{
               id: 'save-list__button',
             }}

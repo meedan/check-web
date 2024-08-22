@@ -137,7 +137,7 @@ const UserPasswordReset = (props) => {
                 <ButtonMain
                   size="default"
                   variant="contained"
-                  theme="brand"
+                  theme="info"
                   disabled={submitDisabled}
                   onClick={handleSignIn}
                   label={
@@ -189,7 +189,7 @@ const UserPasswordReset = (props) => {
                   <ButtonMain
                     size="default"
                     variant="contained"
-                    theme="brand"
+                    theme="info"
                     disabled={submitDisabled}
                     onClick={handleSubmit}
                     label={pagetitleMessage}

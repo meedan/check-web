@@ -174,7 +174,7 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
               disabled={isSending || submitDisabled}
               size="default"
               variant="contained"
-              theme="brand"
+              theme="info"
               onClick={() => submitMessage(annotationId, text)}
               label={
                 <FormattedMessage

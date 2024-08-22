@@ -95,7 +95,7 @@ const ConfirmProceedDialog = ({
           className="int-confirm-proceed-dialog__proceed"
           size="default"
           variant="contained"
-          theme="brand"
+          theme="info"
           disabled={proceedDisabled || isSaving || confirmationText !== typeTextToConfirm}
           iconLeft={isSaving ? <MediasLoading size="icon" theme="white" variant="icon" /> : null}
           onClick={onProceed}

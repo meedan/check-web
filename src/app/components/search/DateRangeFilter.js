@@ -139,7 +139,7 @@ function DateRangeSelectorStartEnd(props) {
               }
               size="small"
               variant="contained"
-              theme={valueText ? 'brand' : 'text'}
+              theme={valueText ? 'info' : 'text'}
               label={
                 !valueText ?
                   <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
@@ -162,7 +162,7 @@ function DateRangeSelectorStartEnd(props) {
                     className="int-date-filter__button--clear-start-date"
                     iconCenter={<CloseIcon />}
                     onClick={e => handleClearDate(e, 'start_time')}
-                    theme="brand"
+                    theme="info"
                     variant="contained"
                     size="small"
                   />
@@ -198,7 +198,7 @@ function DateRangeSelectorStartEnd(props) {
               }
               size="small"
               variant="contained"
-              theme={valueText ? 'brand' : 'text'}
+              theme={valueText ? 'info' : 'text'}
               iconRight={!valueText && <KeyboardArrowDownIcon />}
               label={
                 !valueText ?
@@ -221,7 +221,7 @@ function DateRangeSelectorStartEnd(props) {
                     className="int-date-filter__button--clear-end-date"
                     iconCenter={<CloseIcon />}
                     onClick={e => handleClearDate(e, 'end_time')}
-                    theme="brand"
+                    theme="info"
                     variant="contained"
                     size="small"
                   />

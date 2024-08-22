@@ -63,7 +63,7 @@ const BulkActionsTag = ({
         id: 'bulk-actions-tag__create-button',
       }}
       iconLeft={<AddIcon />}
-      theme="lightBrand"
+      theme="lightInfo"
       variant="contained"
       size="default"
       onClick={() => handleAddNew(searchValue)}

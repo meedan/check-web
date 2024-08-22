@@ -361,7 +361,7 @@ class Task extends Component {
           onClick={() => this.handleAction('edit_response', responseObj)}
           size="default"
           variant="contained"
-          theme="brand"
+          theme="info"
           className="metadata-edit"
           label={
             <FormattedMessage
@@ -415,7 +415,7 @@ class Task extends Component {
             className="metadata-save"
             size="default"
             variant="contained"
-            theme="brand"
+            theme="info"
             buttonProps={{
               'data-required': required,
               'data-empty': empty,

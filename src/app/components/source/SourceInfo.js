@@ -314,7 +314,7 @@ function SourceInfo({
               <ButtonMain
                 size="default"
                 variant="contained"
-                theme="brand"
+                theme="info"
                 onClick={onChangeClick}
                 buttonProps={{
                   id: 'media-source-change',

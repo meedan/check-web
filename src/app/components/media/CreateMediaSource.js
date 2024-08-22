@@ -323,7 +323,7 @@ function CreateMediaSource({
           <ButtonMain
             size="default"
             variant="contained"
-            theme="brand"
+            theme="info"
             className="source__edit-save-button"
             onClick={handleSave}
             disabled={submitDisabled}
