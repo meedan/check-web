@@ -412,7 +412,6 @@ class Task extends Component {
         <div className={styles['task-metadata-button']}>
           <ButtonMain
             className="metadata-save"
-            id={`metadata-save-${task.dbid}`}
             size="default"
             variant="contained"
             theme="brand"

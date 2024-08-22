@@ -159,9 +159,9 @@ const Tasks = ({
     document.querySelectorAll('.metadata-save').forEach((saveButton) => {
       saveButton.click();
     });
-
     setIsEditing(false);
   }
+
   function handleCancelAnnotations() {
     document.querySelectorAll('.metadata-cancel').forEach((cancelButton) => {
       cancelButton.click();
