@@ -403,7 +403,6 @@ class Task extends Component {
         required,
         empty,
         anyInvalidUrls,
-        disabled,
       } = props;
       const payload =
         mutationPayload?.response_multiple_choice ||
@@ -458,8 +457,7 @@ class Task extends Component {
                 );
               }
             }}
-            disabled={disabled}
-            // disabled={this.state.textValue === task.first_response_value}
+            disabled={this.state.textValue === task.first_response_value}
             label={
               <FormattedMessage
                 id="global.save"
