@@ -80,7 +80,7 @@
     "defaultMessage": "Saving {file}…"
   },
   {
-    "id": "task.savedByLabel",
+    "id": "metadata.savedByLabel",
     "description": "This is a label that indicates when and by whom the task was saved.",
     "defaultMessage": "Saved {timeAgo} by {userName}"
   },
