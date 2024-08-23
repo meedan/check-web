@@ -138,7 +138,7 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
                 />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
               onClick={handleSave}
             />

@@ -63,7 +63,7 @@ const TeamTagsComponent = ({
                 />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
               onClick={() => { setShowCreateTag(true); }}
             />
@@ -108,7 +108,7 @@ const TeamTagsComponent = ({
                 disabled={isPaginationLoading || cursor - pageSize < 0}
                 iconCenter={<PrevIcon />}
                 size="default"
-                theme="brand"
+                theme="info"
                 variant="text"
                 onClick={() => {
                   if (cursor - pageSize >= 0) {
@@ -140,7 +140,7 @@ const TeamTagsComponent = ({
                 disabled={isPaginationLoading || cursor + pageSize >= totalCount}
                 iconCenter={<NextIcon />}
                 size="default"
-                theme="brand"
+                theme="info"
                 variant="text"
                 onClick={() => {
                   if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= tags.length)) {

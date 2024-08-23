@@ -80,7 +80,7 @@ function SetSourceDialog({
             />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={onSubmit}
         />

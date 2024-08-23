@@ -200,7 +200,7 @@ const SearchField = ({
                 <FormattedMessage defaultMessage="Search" description="Button label for the search submit button when entering long text." id="search.expandedButton" />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
             />
           </div>

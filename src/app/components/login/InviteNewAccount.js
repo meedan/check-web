@@ -226,7 +226,7 @@ const InviteNewAccountComponent = ({ user }) => {
                   />
                 }
                 size="default"
-                theme="brand"
+                theme="info"
                 variant="contained"
               />
             </div>

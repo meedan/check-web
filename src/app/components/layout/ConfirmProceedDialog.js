@@ -98,7 +98,7 @@ const ConfirmProceedDialog = ({
           iconLeft={isSaving ? <MediasLoading size="icon" theme="white" variant="icon" /> : null}
           label={proceedLabel}
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={onProceed}
         />

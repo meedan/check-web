@@ -435,7 +435,7 @@ const NewsletterComponent = ({
               <FormattedMessage defaultMessage="Save" description="Label for a button to save settings for the newsletter" id="newsletterComponent.save" />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={handleSave}
           />

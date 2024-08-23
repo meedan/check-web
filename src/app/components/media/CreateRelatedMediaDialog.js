@@ -150,7 +150,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 this.props.submitButtonLabel(this.state.selectedItems.length)
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
             />
           }
@@ -165,7 +165,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 this.props.submitButtonLabel(this.state.selectedItems.length)
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
               onClick={this.handleSubmitExisting}
             />

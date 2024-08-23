@@ -132,7 +132,7 @@ class MediaExpandedActions extends React.Component {
                   />
                 }
                 size="default"
-                theme="brand"
+                theme="info"
                 variant="contained"
                 onClick={onClickMore}
               /> : null }

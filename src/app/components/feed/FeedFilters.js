@@ -324,7 +324,7 @@ const FeedFilters = ({
               />
             }
             size="default"
-            theme="lightBrand"
+            theme="lightInfo"
             variant="contained"
             onClick={handleSaveFilters}
           />

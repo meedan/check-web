@@ -115,7 +115,7 @@ const TeamDetails = ({
                 />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
               onClick={handleSave}
             />
@@ -146,7 +146,7 @@ const TeamDetails = ({
                 <FormattedMessage defaultMessage="Edit" description="Label for a button to change a workspace image" id="teamDetails.edit" />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="text"
               onClick={() => setEditProfileImg(true)}
             />

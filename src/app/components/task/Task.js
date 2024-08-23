@@ -367,7 +367,7 @@ class Task extends Component {
             />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={() => this.handleAction('edit_response', responseObj)}
         />
@@ -426,7 +426,7 @@ class Task extends Component {
               />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={() => {
               let tempTextValue;

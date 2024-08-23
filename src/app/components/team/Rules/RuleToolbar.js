@@ -86,7 +86,7 @@ const RuleToolbar = (props) => {
               <FormattedMessage defaultMessage="Save" description="Button label to save the changes to the current rule" id="rulesTableToolbar.save" />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={props.onSaveRule}
           />

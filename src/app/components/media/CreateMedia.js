@@ -118,7 +118,7 @@ class CreateProjectMedia extends React.Component {
             <FormattedMessage defaultMessage="Add Media" description="Button label for adding an item" id="createMedia.addItem" />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={this.handleOpenDialog}
         />

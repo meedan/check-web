@@ -20,7 +20,7 @@ const SmoochBotSidebar = ({
         key={id}
         label={label}
         size="default"
-        theme={currentOption === id ? 'lightBrand' : 'lightText'}
+        theme={currentOption === id ? 'lightInfo' : 'lightText'}
         variant={currentOption === id ? 'contained' : 'text'}
         onClick={() => { handleClick(id); }}
       />

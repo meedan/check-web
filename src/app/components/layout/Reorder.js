@@ -51,7 +51,7 @@ const Reorder = ({
           disabled={disableUp}
           iconCenter={<ArrowDropUpIcon />}
           size="small"
-          theme="brand"
+          theme="info"
           variant="text"
           onClick={onMoveUp}
         />
@@ -76,7 +76,7 @@ const Reorder = ({
           disabled={disableDown}
           iconCenter={<ArrowDropDownIcon />}
           size="small"
-          theme="brand"
+          theme="info"
           variant="text"
           onClick={onMoveDown}
         />

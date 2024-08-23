@@ -424,7 +424,7 @@ const SmoochBotResourceEditorComponent = (props) => {
             />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={handleSave}
         />

@@ -777,7 +777,7 @@ const MediaSuggestionsComponent = ({
                     />
                   }
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={handleBulkConfirm}
                 />
@@ -827,7 +827,7 @@ const MediaSuggestionsComponent = ({
                     />
                   }
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.SPAM)}
                 />
@@ -877,7 +877,7 @@ const MediaSuggestionsComponent = ({
                     />
                   }
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.TRASHED)}
                 />
@@ -923,7 +923,7 @@ const MediaSuggestionsComponent = ({
                     }}
                   />}
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={() => handleBulkReject()}
                 />

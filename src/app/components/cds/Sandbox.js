@@ -314,7 +314,7 @@ const SandboxComponent = ({ admin }) => {
     setButtonSize(event.target.value);
   };
 
-  const [buttonTheme, setButtonTheme] = React.useState('brand');
+  const [buttonTheme, setButtonTheme] = React.useState('info');
   const onChangeButtonTheme = (event) => {
     setButtonTheme(event.target.value);
   };
@@ -390,37 +390,37 @@ const SandboxComponent = ({ admin }) => {
       </h5>
       <ul className={styles.sandboxNav}>
         <li>
-          <ButtonMain label="All" size="small" theme={!selectedCategory ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('all')} />
+          <ButtonMain label="All" size="small" theme={!selectedCategory ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('all')} />
         </li>
         <li>
-          <ButtonMain label="Cards" size="small" theme={selectedCategory === 'cards' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('cards')} />
+          <ButtonMain label="Cards" size="small" theme={selectedCategory === 'cards' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('cards')} />
         </li>
         <li>
-          <ButtonMain label="Buttons" size="small" theme={selectedCategory === 'buttons' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('buttons')} />
+          <ButtonMain label="Buttons" size="small" theme={selectedCategory === 'buttons' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('buttons')} />
         </li>
         <li>
-          <ButtonMain label="Inputs" size="small" theme={selectedCategory === 'inputs' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('inputs')} />
+          <ButtonMain label="Inputs" size="small" theme={selectedCategory === 'inputs' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('inputs')} />
         </li>
         <li>
-          <ButtonMain label="Chips" size="small" theme={selectedCategory === 'chips' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('chips')} />
+          <ButtonMain label="Chips" size="small" theme={selectedCategory === 'chips' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('chips')} />
         </li>
         <li>
-          <ButtonMain label="Tags" size="small" theme={selectedCategory === 'tags' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('tags')} />
+          <ButtonMain label="Tags" size="small" theme={selectedCategory === 'tags' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('tags')} />
         </li>
         <li>
-          <ButtonMain label="Alerts &amp; Prompts" size="small" theme={selectedCategory === 'alerts' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('alerts')} />
+          <ButtonMain label="Alerts &amp; Prompts" size="small" theme={selectedCategory === 'alerts' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('alerts')} />
         </li>
         <li>
-          <ButtonMain label="Text Display" size="small" theme={selectedCategory === 'text' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('text')} />
+          <ButtonMain label="Text Display" size="small" theme={selectedCategory === 'text' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('text')} />
         </li>
         <li>
-          <ButtonMain label="Loading Animations" size="small" theme={selectedCategory === 'loaders' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('loaders')} />
+          <ButtonMain label="Loading Animations" size="small" theme={selectedCategory === 'loaders' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('loaders')} />
         </li>
         <li>
-          <ButtonMain label="Slideout" size="small" theme={selectedCategory === 'slideout' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('slideout')} />
+          <ButtonMain label="Slideout" size="small" theme={selectedCategory === 'slideout' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('slideout')} />
         </li>
         <li>
-          <ButtonMain label="Errors" size="small" theme={selectedCategory === 'errors' ? 'brand' : 'lightText'} variant="contained" onClick={() => handleClick('errors')} />
+          <ButtonMain label="Errors" size="small" theme={selectedCategory === 'errors' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('errors')} />
         </li>
       </ul>
       { (!selectedCategory || selectedCategory === 'cards') &&
@@ -698,9 +698,9 @@ const SandboxComponent = ({ admin }) => {
                     value={buttonTheme}
                     onChange={onChangeButtonTheme}
                   >
-                    <optgroup label="brand">
-                      <option value="brand">brand (default)</option>
-                      <option value="lightBrand">lightBrand</option>
+                    <optgroup label="info">
+                      <option value="info">info (default)</option>
+                      <option value="lightInfo">lightInfo</option>
                     </optgroup>
                     <optgroup label="text">
                       <option value="text">text</option>
@@ -1690,7 +1690,7 @@ const SandboxComponent = ({ admin }) => {
               </ul>
             </div>
             <div className={styles.componentInlineVariants}>
-              <ButtonMain disabled={toastBreaks} label="Info" size="default" theme="brand" variant="contained" onClick={() => onFlash('info')} />
+              <ButtonMain disabled={toastBreaks} label="Info" size="default" theme="info" variant="contained" onClick={() => onFlash('info')} />
               <ButtonMain disabled={toastBreaks} label="Success" size="default" theme="validation" variant="contained" onClick={() => onFlash('success')} />
               <ButtonMain disabled={toastBreaks} label="Warning" size="default" theme="alert" variant="contained" onClick={() => onFlash('warning')} />
               <ButtonMain label="Error" size="default" theme="error" variant="contained" onClick={() => onFlash('error')} />

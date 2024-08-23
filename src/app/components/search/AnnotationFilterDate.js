@@ -98,7 +98,7 @@ class AnnotationFilterDate extends React.Component {
                     valueText
                 }
                 size="small"
-                theme={valueText ? 'brand' : 'text'}
+                theme={valueText ? 'info' : 'text'}
                 variant="contained"
                 onClick={onClick}
                 {...params}
@@ -115,7 +115,7 @@ class AnnotationFilterDate extends React.Component {
                       className="int-annotation-filter__button--clear-start-date"
                       iconCenter={<CloseIcon />}
                       size="small"
-                      theme="brand"
+                      theme="info"
                       variant="contained"
                       onClick={e => this.handleClearDate(e, 'start_time')}
                     />
@@ -157,7 +157,7 @@ class AnnotationFilterDate extends React.Component {
                     valueText
                 }
                 size="small"
-                theme={valueText ? 'brand' : 'text'}
+                theme={valueText ? 'info' : 'text'}
                 variant="contained"
                 onClick={onClick}
                 {...params}
@@ -174,7 +174,7 @@ class AnnotationFilterDate extends React.Component {
                       className="int-annotation-filter__button--clear-end-date"
                       iconCenter={<CloseIcon />}
                       size="small"
-                      theme="brand"
+                      theme="info"
                       variant="contained"
                       onClick={e => this.handleClearDate(e, 'end_time')}
                     />

@@ -453,7 +453,7 @@ const SaveFeed = (props) => {
                   />
                 }
                 size="default"
-                theme="brand"
+                theme="info"
                 variant="outlined"
                 onClick={() => { handleViewFeed(feed.dbid); }}
               />
@@ -580,7 +580,7 @@ const SaveFeed = (props) => {
                 />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
               onClick={handleConfirmOrSave}
             />

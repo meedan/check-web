@@ -103,7 +103,7 @@ class UserConnectedAccount extends Component {
                   disabled={disableDisconnect}
                   label={UserConnectedAccount.renderLabel(userAction)}
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
                 />

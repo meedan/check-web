@@ -181,7 +181,7 @@ const ArticleForm = ({
                             />
                           }
                           size="default"
-                          theme={isPublished ? 'brand' : 'alert'}
+                          theme={isPublished ? 'info' : 'alert'}
                           variant="contained"
                           onClick={() => handleGoToReport(article.claim_description.project_media.dbid)}
                         />

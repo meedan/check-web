@@ -79,7 +79,7 @@ function UserConfirmPage({ params }) {
                     />
                   }
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                 />
               </Link>

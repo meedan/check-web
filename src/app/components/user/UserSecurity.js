@@ -344,7 +344,7 @@ const UserSecurity = (props, context) => {
                               <FormattedMessage defaultMessage="Disable" description="Button label to disable two-factor authentication settings" id="userSecurity.disableTwofactor" />
                             }
                             size="default"
-                            theme="brand"
+                            theme="info"
                             variant="contained"
                             onClick={handleSubmitTwoFactorAuthentication.bind(this, false)}
                           />
@@ -435,7 +435,7 @@ const UserSecurity = (props, context) => {
                           <FormattedMessage defaultMessage="Generate backup code" description="Button label to generate two-factor authentication backup codes" id="userSecurity.generateGackup" />
                         }
                         size="default"
-                        theme="brand"
+                        theme="info"
                         variant="contained"
                         onClick={handleGenerateBackupCodes.bind(this)}
                       />
@@ -482,7 +482,7 @@ const UserSecurity = (props, context) => {
                               <FormattedMessage defaultMessage="Enable" description="Button label to enabled two-factor authentication settings" id="userSecurity.enableTwofactor" />
                             }
                             size="default"
-                            theme="brand"
+                            theme="info"
                             variant="contained"
                             onClick={handleSubmitTwoFactorAuthentication.bind(this, true)}
                           />

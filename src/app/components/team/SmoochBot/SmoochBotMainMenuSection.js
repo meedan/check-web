@@ -179,7 +179,7 @@ const SmoochBotMainMenuSection = ({
               />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="text"
             onClick={handleAddNewOption}
           />
@@ -245,7 +245,7 @@ const SmoochBotMainMenuSection = ({
                 disabled={readOnly}
                 iconCenter={<EditIcon />}
                 size="default"
-                theme="lightBrand"
+                theme="lightInfo"
                 variant="contained"
                 onClick={() => { handleEditOption(i); }}
               />
@@ -255,7 +255,7 @@ const SmoochBotMainMenuSection = ({
               <ButtonMain
                 iconCenter={<CancelIcon />}
                 size="default"
-                theme="lightBrand"
+                theme="lightInfo"
                 variant="contained"
                 onClick={() => { handleDeleteOption(i); }}
               />

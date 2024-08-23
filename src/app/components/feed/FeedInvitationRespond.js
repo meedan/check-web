@@ -169,7 +169,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
                   className="int-feed-invitation-respond__button--accept"
                   disabled={saving}
                   label={<FormattedMessage defaultMessage="Accept Invitation" description="Label for a button that the user presses to accept an invitation they have received to collaborate with another organization" id="feedInvitation.accept" />}
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={handleAcceptInvite}
                 />

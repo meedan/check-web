@@ -298,7 +298,7 @@ const BulkActionsMenu = ({
             />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={e => setAnchorEl(e.currentTarget)}
         />

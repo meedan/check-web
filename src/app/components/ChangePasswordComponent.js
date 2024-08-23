@@ -167,7 +167,7 @@ function ChangePasswordComponent({
           <FormattedMessage defaultMessage="Change password" description="Button label to initial password change" id="passwordChange.changePassword" />
         }
         size="default"
-        theme="brand"
+        theme="info"
         variant="contained"
         onClick={handleSubmit}
       />

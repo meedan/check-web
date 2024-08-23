@@ -135,7 +135,7 @@ const MediaSimilarityBarAdd = ({
         disabled={!canMerge}
         label={<FormattedMessage defaultMessage="Merge Items" description="Label for the Merge Items button." id="mediaSimilarityBarAdd.mergeItems" />}
         size="default"
-        theme="brand"
+        theme="info"
         variant="contained"
         onClick={() => { setShowDialog(true); }}
       />

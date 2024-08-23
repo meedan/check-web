@@ -149,7 +149,7 @@ class TeamBots extends Component {
                             <FormattedMessage defaultMessage="Save" description="Save button on an individual integration settings" id="teamBots.save" />
                           }
                           size="default"
-                          theme="brand"
+                          theme="info"
                           variant="contained"
                           onClick={this.handleSubmitSettings.bind(this, installation)}
                         />

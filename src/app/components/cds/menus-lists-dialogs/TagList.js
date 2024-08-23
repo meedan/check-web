@@ -75,7 +75,7 @@ const TagList = ({
         customCreateLabel || <FormattedMessage defaultMessage="+ Create search tags" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." id="tagList.create" />
       }
       size="default"
-      theme="brand"
+      theme="info"
       variant="text"
       onClick={() => handleAddNew(searchValue)}
     />

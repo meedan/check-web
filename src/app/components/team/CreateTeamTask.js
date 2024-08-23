@@ -75,7 +75,7 @@ class CreateTeamTask extends React.Component {
             />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={this.handleOpen}
         />

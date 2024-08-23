@@ -329,7 +329,7 @@ const SearchFields = ({
               <FormattedMessage defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" id="search.fieldAnd" />
             }
             size="small"
-            theme={page === 'feed' ? 'text' : 'lightBrand'}
+            theme={page === 'feed' ? 'text' : 'lightInfo'}
             variant="contained"
             {...operatorProps}
           />

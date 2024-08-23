@@ -69,7 +69,7 @@ const UserTosComponent = (props) => {
           <FormattedMessage defaultMessage="Save" description="Button label for the user to save their review of the terms of service" id="userTos.save" />
         }
         size="default"
-        theme="brand"
+        theme="info"
         variant="contained"
         onClick={handleSubmit.bind(this)}
       />

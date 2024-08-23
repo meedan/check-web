@@ -72,7 +72,7 @@ const FeedItemHeader = ({ cluster, feed, team }) => {
               />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="outlined"
             onClick={handleViewFeed}
           />
@@ -86,7 +86,7 @@ const FeedItemHeader = ({ cluster, feed, team }) => {
               />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="outlined"
             onClick={handleOpenImportDialog}
           />

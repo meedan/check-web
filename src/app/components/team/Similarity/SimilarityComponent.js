@@ -174,7 +174,7 @@ const SimilarityComponent = ({
                   <FormattedMessage defaultMessage="Save" description="Label for Save Button on Similarity settings page" id="similarityComponent.save" />
                 }
                 size="default"
-                theme="brand"
+                theme="info"
                 variant="contained"
                 onClick={handleSave}
               />

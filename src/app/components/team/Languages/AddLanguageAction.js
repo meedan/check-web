@@ -106,7 +106,7 @@ const AddLanguageAction = ({ setLanguages, team }) => {
           />
         }
         size="default"
-        theme="brand"
+        theme="info"
         variant="contained"
         onClick={() => setDialogOpen(true)}
       />
@@ -179,7 +179,7 @@ const AddLanguageAction = ({ setLanguages, team }) => {
               />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={handleSubmit}
           />

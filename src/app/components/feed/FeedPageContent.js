@@ -137,7 +137,7 @@ const FeedPageContent = ({ name, permissions, slug }) => {
                 <FormattedMessage defaultMessage="New Shared Feed" description="Button label create new shared feed" id="feedComponent.newSharedFeed" />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
               onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }}
             />

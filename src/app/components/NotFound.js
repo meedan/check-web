@@ -60,7 +60,7 @@ const NotFound = ({ description, title }) => (
           />
         }
         size="default"
-        theme="brand"
+        theme="info"
         variant="contained"
         onClick={() => browserHistory.push('/check/me')}
       />

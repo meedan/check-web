@@ -68,7 +68,7 @@ const BulkActionsTag = ({
         <FormattedMessage defaultMessage="Create this tag" description="Button label for creating a new tag" id="tagMenu.create" />
       }
       size="default"
-      theme="lightBrand"
+      theme="lightInfo"
       variant="contained"
       onClick={() => handleAddNew(searchValue)}
     />

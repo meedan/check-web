@@ -132,7 +132,7 @@ const AspectRatio = ({
         />
       )}
       size="default"
-      theme={maskContent ? 'white' : 'brand'}
+      theme={maskContent ? 'white' : 'info'}
       variant={maskContent ? 'outlined' : 'contained'}
       onClick={() => setMaskContent(!maskContent)}
     />

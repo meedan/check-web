@@ -110,7 +110,7 @@ const TranslateStatuses = ({
               <FormattedGlobalMessage messageKey="save" />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={handleSave}
           />

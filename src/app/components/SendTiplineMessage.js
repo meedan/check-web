@@ -180,7 +180,7 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
                 />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
               onClick={() => submitMessage(annotationId, text)}
             />

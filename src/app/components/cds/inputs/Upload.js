@@ -123,7 +123,7 @@ function Upload({
             className={styles['delete-button']}
             iconCenter={<CancelIcon />}
             size="large"
-            theme="brand"
+            theme="info"
             variant="text"
             onClick={handleRemove}
           />

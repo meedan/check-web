@@ -517,7 +517,7 @@ const ReportDesignerForm = (props) => {
                       />
                     }
                     size="default"
-                    theme="lightBrand"
+                    theme="lightInfo"
                     variant="contained"
                     onClick={handleDefaultImage}
                   /> : null }
@@ -530,7 +530,7 @@ const ReportDesignerForm = (props) => {
                     />
                   }
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={handleRemoveImage}
                 />

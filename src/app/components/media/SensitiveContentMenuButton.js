@@ -320,7 +320,7 @@ const SensitiveContentMenu = ({
             <FormattedMessage defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" id="global.save" />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={submitFlagAnnotation}
         />

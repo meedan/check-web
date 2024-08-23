@@ -134,7 +134,6 @@ BlankMediaButton.defaultProps = {
   reverse: false,
   ButtonComponent: ({ onClick }) => (
     <ButtonMain
-      brand="primary"
       label={
         <FormattedMessage
           defaultMessage="Add item"
@@ -143,6 +142,7 @@ BlankMediaButton.defaultProps = {
         />
       }
       size="default"
+      theme="info"
       variant="contained"
       onClick={onClick}
     />

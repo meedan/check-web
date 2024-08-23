@@ -140,7 +140,7 @@ function DateRangeSelectorStartEnd(props) {
                   `${valueText} ${getUTCOffset(getStartDateStringOrNull(), true)}`
               }
               size="small"
-              theme={valueText ? 'brand' : 'text'}
+              theme={valueText ? 'info' : 'text'}
               variant="contained"
               onClick={onClick}
               {...params}
@@ -157,7 +157,7 @@ function DateRangeSelectorStartEnd(props) {
                     className="int-date-filter__button--clear-start-date"
                     iconCenter={<CloseIcon />}
                     size="small"
-                    theme="brand"
+                    theme="info"
                     variant="contained"
                     onClick={e => handleClearDate(e, 'start_time')}
                   />
@@ -199,7 +199,7 @@ function DateRangeSelectorStartEnd(props) {
                   `${valueText} ${getUTCOffset(getEndDateStringOrNull(), false)}`
               }
               size="small"
-              theme={valueText ? 'brand' : 'text'}
+              theme={valueText ? 'info' : 'text'}
               variant="contained"
               onClick={onClick}
               {...params}
@@ -216,7 +216,7 @@ function DateRangeSelectorStartEnd(props) {
                     className="int-date-filter__button--clear-end-date"
                     iconCenter={<CloseIcon />}
                     size="small"
-                    theme="brand"
+                    theme="info"
                     variant="contained"
                     onClick={e => handleClearDate(e, 'end_time')}
                   />

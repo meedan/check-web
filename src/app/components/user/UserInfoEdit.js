@@ -373,7 +373,7 @@ class UserInfoEdit extends React.Component {
                 <FormattedMessage defaultMessage="Edit" description="Generic label for a button or link for a user to press when they wish to edit content or functionality" id="global.edit" />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="text"
               onClick={this.handleEditProfileImg.bind(this)}
             />
@@ -459,7 +459,7 @@ class UserInfoEdit extends React.Component {
                 <FormattedMessage defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" id="global.save" />
               }
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
               onClick={this.handleSubmit.bind(this)}
             />

@@ -323,7 +323,7 @@ class Login extends React.Component {
                       />
                     }
                     size="default"
-                    theme="brand"
+                    theme="info"
                     variant="contained"
                   />
                   {this.state.type === 'login' ?

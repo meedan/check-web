@@ -209,7 +209,7 @@ const InviteDialog = ({
             <FormattedMessage defaultMessage="Invite" description="Button to submit invitations." id="inviteDialog.submit" />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={handleSubmit}
         />

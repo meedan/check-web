@@ -52,7 +52,7 @@ export default function CreateMediaDialog({
             <FormattedMessage defaultMessage="Submit" description="Generic label for a button or link for a user to press when they wish to submit and form or action" id="global.submit" />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
         />
       </div>

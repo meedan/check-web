@@ -260,7 +260,7 @@ const TeamDataComponent = ({
               />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={handleDownload}
           />

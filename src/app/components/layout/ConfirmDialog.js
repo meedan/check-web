@@ -86,7 +86,7 @@ class ConfirmDialog extends React.Component {
               disabled={this.props.disabled || !this.state.confirmed}
               label={this.props.continueButtonLabel}
               size="default"
-              theme="brand"
+              theme="info"
               variant="contained"
               onClick={this.handleProceed}
             /> : null

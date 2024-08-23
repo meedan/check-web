@@ -52,7 +52,7 @@ const ItemArticlesOrFactCheck = ({
           />
         }
         size="small"
-        theme="lightBrand"
+        theme="lightInfo"
         variant="contained"
       />
     );
@@ -76,7 +76,7 @@ const ItemArticlesOrFactCheck = ({
           />
         }
         size="small"
-        theme="lightBrand"
+        theme="lightInfo"
         variant="contained"
       />
     );

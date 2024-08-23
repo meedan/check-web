@@ -232,7 +232,7 @@ const FeedCollaboration = ({
             disabled={error}
             iconCenter={<AddIcon />}
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={() => handleAdd(textValue)}
           />

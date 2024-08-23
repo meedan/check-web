@@ -219,7 +219,7 @@ const StatusesComponent = ({ setFlashMessage, team }) => {
               />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={() => setAddingNewStatus(true)}
           />

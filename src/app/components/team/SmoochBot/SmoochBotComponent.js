@@ -178,7 +178,7 @@ const SmoochBotComponent = ({
                   />
                 }
                 size="default"
-                theme="brand"
+                theme="info"
                 variant="contained"
                 onClick={handleSave}
               />
@@ -240,7 +240,7 @@ const SmoochBotComponent = ({
                     />
                   }
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={handleInstall}
                 /> :
@@ -253,7 +253,7 @@ const SmoochBotComponent = ({
                     />
                   }
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={handleOpenForm}
                 /> }

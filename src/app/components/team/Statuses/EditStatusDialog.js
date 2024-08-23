@@ -222,7 +222,7 @@ const EditStatusDialog = ({
             />
           )}
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={team.smooch_bot ? handleConfirmSubmit : handleSubmit}
         />

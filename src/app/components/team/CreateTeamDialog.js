@@ -235,7 +235,7 @@ const CreateTeamDialog = ({ intl, onDismiss, team }) => {
           disabled={saving || !name}
           label={buttonLabel}
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={handleSubmit}
         />

@@ -121,7 +121,7 @@ const UserWorkspacesComponent = ({
               <FormattedMessage defaultMessage="Create" description="Button label for initiating creating a new team workspace" id="switchTeams.newTeamLink" />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={() => setShowCreateTeamDialog(true)}
           />

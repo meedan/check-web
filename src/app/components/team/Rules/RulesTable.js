@@ -84,7 +84,7 @@ export default function RulesTable(props) {
               <FormattedMessage defaultMessage="New rule" description="Button label for creating a new rule" id="rulesTableToolbar.add" />
             }
             size="default"
-            theme="brand"
+            theme="info"
             variant="contained"
             onClick={handleNewRule}
           />

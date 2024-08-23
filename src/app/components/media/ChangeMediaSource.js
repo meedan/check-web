@@ -123,7 +123,7 @@ function ChangeMediaSource({
             />
           }
           size="default"
-          theme="brand"
+          theme="info"
           variant="contained"
           onClick={() => { onSubmit(value); }}
         />

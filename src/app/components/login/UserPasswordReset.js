@@ -140,7 +140,7 @@ const UserPasswordReset = (props) => {
                     <FormattedMessage defaultMessage="Sign In" description="Sign in button label" id="passwordReset.signIn" />
                   }
                   size="default"
-                  theme="brand"
+                  theme="info"
                   variant="contained"
                   onClick={handleSignIn}
                 />,
@@ -190,7 +190,7 @@ const UserPasswordReset = (props) => {
                     disabled={submitDisabled}
                     label={pagetitleMessage}
                     size="default"
-                    theme="brand"
+                    theme="info"
                     variant="contained"
                     onClick={handleSubmit}
                   />
