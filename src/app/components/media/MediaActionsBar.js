@@ -23,7 +23,7 @@ import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './media.module.css';
-import ItemThumbnail from '../search/SearchResultsTable/ItemThumbnail';
+import ItemThumbnail from '../cds/media-cards/ItemThumbnail';
 import ItemTitle from './ItemTitle';
 import dialogStyles from '../../styles/css/dialog.module.css';
 
@@ -111,7 +111,7 @@ class MediaActionsBarComponent extends Component {
           values={{
             trash: (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-              <a onClick={() => browserHistory.push(`/${pm.team.slug}/trash`)}>
+              <a id="int-media-actions-toast__link--trash" onClick={() => browserHistory.push(`/${pm.team.slug}/trash`)}>
                 <FormattedMessage
                   id="mediaDetail.trash"
                   defaultMessage="Trash"
@@ -129,7 +129,7 @@ class MediaActionsBarComponent extends Component {
           values={{
             spam: (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-              <a onClick={() => browserHistory.push(`/${pm.team.slug}/spam`)}>
+              <a id="int-media-actions-toast__link--spam" onClick={() => browserHistory.push(`/${pm.team.slug}/spam`)}>
                 <FormattedMessage
                   id="mediaDetail.spam"
                   defaultMessage="Spam"

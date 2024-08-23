@@ -55,6 +55,9 @@ shared_examples 'source' do
     wait_for_selector('#media-source__create-button')
     wait_for_selector('input[name=source-name]').send_keys('CNN')
     @driver.action.send_keys(:enter).perform
+    @driver.navigate.refresh
+    wait_for_selector('.test__media')
+    wait_for_selector('.media-tab__source').click
     wait_for_selector('#main_source__link')
     wait_for_selector('.source__name')
     expect(@driver.page_source.downcase.include?('brasil')).to be(true)
@@ -71,7 +74,10 @@ shared_examples 'source' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('#source_primary__link-input').send_keys('https://www.bbc.com/portuguese')
     wait_for_selector('.source__edit-save-button').click
-    wait_for_selector_none('.source__edit-cancel-button')
+    @driver.navigate.refresh
+    wait_for_selector('.media-card-large')
+    wait_for_selector('.media-tab__source').click
+    wait_for_selector('#source__name-input')
     expect(wait_for_selector('.source__name').text == 'BBC').to be(true)
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://www.bbc.com/portuguese').to be(true)
   end

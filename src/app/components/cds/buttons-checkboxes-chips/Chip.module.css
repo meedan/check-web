@@ -1,8 +1,8 @@
 .chip-container {
   background-color: var(--color-blue-54);
-  border-radius: 50px;
+  border-radius: var(--border-radius-max);
   color: var(--color-white-100);
-  cursor: pointer;
+  cursor: default;
   display: inline-flex;
   height: 26px;
   padding: 3px 12px;
@@ -15,7 +15,8 @@
   }
 
   .delete-button {
-    border-radius: 0 50px 50px 0;
+    border-radius: var(--border-radius-zero) var(--border-radius-max) var(--border-radius-max) var(--border-radius-zero);
+    cursor: pointer;
     display: none;
     height: 26px;
     margin: -3px -12px 0 -6px;
@@ -23,7 +24,7 @@
     overflow: hidden;
 
     button {
-      border-radius: 0;
+      border-radius: var(--border-radius-zero);
       height: 26px;
       padding: 0;
     }

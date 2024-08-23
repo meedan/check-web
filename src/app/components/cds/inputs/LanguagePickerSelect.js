@@ -26,6 +26,7 @@ const LanguagePickerSelect = ({
   isDisabled,
   label,
   helpContent,
+  required,
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
   const options = (languages || []).slice();
@@ -76,6 +77,7 @@ const LanguagePickerSelect = ({
                   label={label}
                   placeholder={placeholder}
                   helpContent={helpContent}
+                  required={required}
                   {...params.inputProps}
                 />
               )}
@@ -93,6 +95,7 @@ LanguagePickerSelect.defaultProps = {
   label: null,
   selectedLanguage: 'und',
   helpContent: null,
+  required: false,
 };
 
 LanguagePickerSelect.propTypes = {
@@ -103,6 +106,7 @@ LanguagePickerSelect.propTypes = {
   isDisabled: PropTypes.bool,
   label: PropTypes.node,
   helpContent: PropTypes.node,
+  required: PropTypes.bool,
 };
 
 export default injectIntl(LanguagePickerSelect);

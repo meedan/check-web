@@ -21,9 +21,7 @@ describe('TagList', () => {
     expect(wrapper.find('#empty-list')).toHaveLength(0);
     expect(wrapper.find('#hidden-tags')).toHaveLength(0);
     expect(wrapper.find('ButtonMain.int-tag-list__button--manage')).toHaveLength(1);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--add')).toHaveLength(1);
     expect(wrapper.find('ButtonMain.int-tag-list__button--manage').prop('onClick')).toBeInstanceOf(Function);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--manage').prop('disabled')).toBeFalsy();
   });
 
   it('renders empty tag list', () => {
@@ -43,9 +41,7 @@ describe('TagList', () => {
 
   it('does not render menu buttons in read only mode', () => {
     const wrapper = mount(<TagList {...defaultProps} readOnly />);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--manage')).toHaveLength(1);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--add')).toHaveLength(0);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--manage').prop('disabled')).toBeTruthy();
+    expect(wrapper.find('ButtonMain.int-tag-list__button--manage')).toHaveLength(0);
   });
 });
 

@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { makeStyles } from '@material-ui/core/styles';
 import { browserHistory } from 'react-router';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import Box from '@material-ui/core/Box';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -16,6 +14,7 @@ import TextField from '../cds/inputs/TextField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import styles from './search.module.css';
 
 const messages = defineMessages({
   saveList: {
@@ -75,17 +74,6 @@ const updateMutation = graphql`
   }
 `;
 
-const useStyles = makeStyles(theme => ({
-  saveListCreate: {
-    whiteSpace: 'nowrap',
-    marginRight: theme.spacing(1),
-  },
-  saveListCreateLabel: {
-    marginRight: 0,
-    flexGrow: 1,
-  },
-}));
-
 const SaveList = ({
   intl,
   team,
@@ -105,8 +93,6 @@ const SaveList = ({
   if (['spam', 'trash'].includes(page)) {
     return null;
   }
-
-  const classes = useStyles();
 
   const objectType = page || currentPath[1];
 
@@ -300,6 +286,7 @@ const SaveList = ({
             placeholder={intl.formatMessage(messages.saveList)}
             onChange={(e) => { setTitle(e.target.value); }}
             className="new-list__title"
+            id="new-list__title"
           />
         }
         proceedDisabled={!title}
@@ -341,13 +328,10 @@ const SaveList = ({
                 <FormControlLabel
                   value="CREATE"
                   control={<Radio />}
-                  className={classes.saveListCreateLabel}
-                  classes={{ label: classes.saveListCreateLabel }}
+                  classes={{ label: styles['save-new-list'] }}
                   label={
-                    <Box display="flex" alignItems="center" width={1}>
-                      <span className={classes.saveListCreate}>
-                        <FormattedMessage id="saveList.create" defaultMessage="Create new list" description="'Create' here is an infinitive verb" />
-                      </span>
+                    <>
+                      <FormattedMessage id="saveList.create" defaultMessage="Create new list" description="'Create' here is an infinitive verb" />
                       { operation === 'CREATE' ?
                         <TextField
                           placeholder={intl.formatMessage(messages.saveList)}
@@ -358,7 +342,7 @@ const SaveList = ({
                         />
                         : null
                       }
-                    </Box>
+                    </>
                   }
                 />
               </RadioGroup>

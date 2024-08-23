@@ -15,7 +15,7 @@
   .media-actions-bar {
     align-items: center;
     background-color: var(--color-white-100);
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     display: flex;
     flex: 0 0 64px;
     flex-wrap: wrap;
@@ -51,6 +51,10 @@
     align-items: center;
     display: flex;
     gap: 4px;
+
+    button {
+      background: var(--color-white-100);
+    }
 
     button:disabled > span:first-of-type {
       color: var(--color-gray-37);
@@ -89,7 +93,7 @@
     .media-item-medias,
     .media-item-annotations {
       background-color: var(--color-white-100);
-      border-radius: 8px;
+      border-radius: var(--border-radius-default);
       overflow: hidden;
     }
 
@@ -138,12 +142,6 @@
       color: var(--color-gray-75);
       padding: 16px;
       text-align: center;
-    }
-
-    .media-list-actions {
-      display: flex;
-      justify-content: center;
-      padding: 16px;
     }
   }
 
@@ -235,16 +233,14 @@
 
 .media-list {
   .media-list-item {
-    border-bottom: solid 1px var(--color-gray-88);
-    padding: 16px 0;
+    padding: 8px 0;
 
     &:first-of-type {
-      padding: 0 0 16px;
+      padding: 0 0 8px;
     }
 
     &:last-of-type {
-      border-bottom: 0;
-      padding: 16px 0 0;
+      padding: 8px 0 0;
     }
 
     &:only-child {
@@ -269,6 +265,12 @@
       }
     }
   }
+}
+
+.media-list-actions {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
 }
 
 .media-item-autocomplete-wrapper {
@@ -301,7 +303,7 @@
     .media-item-autocomplete-results {
       background-color: var(--color-beige-93);
       border: solid 2px var(--color-beige-86);
-      border-radius: 5px;
+      border-radius: var(--border-radius-medium);
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
@@ -334,11 +336,21 @@
     margin: 4px 0;
 
     h6 {
-      @mixin typography-subtitle2;
+      @mixin typography-body2;
       min-width: 0; /* https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child */
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+  }
+
+  .media-slug-bullets {
+    @mixin typography-body2;
+  }
+
+  &.media-slug-title {
+    h6 {
+      @mixin typography-body1-bold;
     }
   }
 }
@@ -347,12 +359,12 @@
   &.media-card-large-border {
     background-color: var(--color-white-100);
     border: 1px solid var(--color-gray-88);
-    border-radius: 0 0 8px 8px;
+    border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-default) var(--border-radius-default);
     outline: 1px solid var(--color-gray-88);
     outline-offset: -1px;
 
     &.rounded-top-corners {
-      border-radius: 8px;
+      border-radius: var(--border-radius-default);
     }
 
     &.no-border {

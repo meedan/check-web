@@ -1,0 +1,22 @@
+[
+  {
+    "id": "explainers.sortTitle",
+    "description": "Label for sort criteria option displayed in a drop-down in the explainers page.",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "explainers.sortLanguage",
+    "description": "Label for sort criteria option displayed in a drop-down in the explainers page.",
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "explainers.sortDate",
+    "description": "Label for sort criteria option displayed in a drop-down in the explainers page.",
+    "defaultMessage": "Updated (date)"
+  },
+  {
+    "id": "publishedArticles.title",
+    "description": "Title of the published articles page.",
+    "defaultMessage": "Published"
+  }
+]

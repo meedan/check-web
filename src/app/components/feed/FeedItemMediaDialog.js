@@ -2,14 +2,13 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
-import { Grid } from '@material-ui/core';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import NotFound from '../NotFound';
 import FeedMediaRequests from './FeedMediaRequests';
 import MediaCardLarge from '../media/MediaCardLarge';
 
-const FeedItemMediaDialog = ({ itemDbid, feedDbid, classes }) => {
+const FeedItemMediaDialog = ({ itemDbid, feedDbid }) => {
   const urlParseRegex = new RegExp('^/(?<currentTeamSlug>[^/]+)/');
   const { currentTeamSlug } = urlParseRegex.test(window.location.pathname) && window.location.pathname.match(urlParseRegex).groups;
 
@@ -43,12 +42,12 @@ const FeedItemMediaDialog = ({ itemDbid, feedDbid, classes }) => {
             if (projectMedia) {
               return (
                 <>
-                  <Grid item xs={6} className={classes.mediaColumn}>
+                  <div>
                     <MediaCardLarge inModal projectMedia={projectMedia} />
-                  </Grid>
-                  <Grid item xs={6} className={classes.requestsColumn}>
+                  </div>
+                  <div>
                     <FeedMediaRequests projectMedia={projectMedia} />
-                  </Grid>
+                  </div>
                 </>
               );
             }
@@ -61,12 +60,7 @@ const FeedItemMediaDialog = ({ itemDbid, feedDbid, classes }) => {
   );
 };
 
-FeedItemMediaDialog.defaultProps = {
-  classes: {},
-};
-
 FeedItemMediaDialog.propTypes = {
-  classes: PropTypes.object,
   itemDbid: PropTypes.number.isRequired,
   feedDbid: PropTypes.number.isRequired,
 };

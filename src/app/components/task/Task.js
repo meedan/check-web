@@ -13,7 +13,6 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import NavigateAwayDialog from '../NavigateAwayDialog';
 import ParsedText from '../ParsedText';
 import { getErrorMessage } from '../../helpers';
-import ProfileLink from '../layout/ProfileLink';
 import CheckContext from '../../CheckContext';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
@@ -31,7 +30,6 @@ function getResponseData(response) {
     if (response.attribution) {
       response.attribution.edges.forEach((user) => {
         const u = user.node;
-        data.by.push(<ProfileLink user={u || null} />);
         data.byPictures.push(u);
       });
     }
@@ -400,7 +398,6 @@ class Task extends Component {
 
     const SaveButton = (props) => {
       const {
-        disabled,
         uploadables,
         mutationPayload,
         required,
@@ -459,7 +456,7 @@ class Task extends Component {
                 );
               }
             }}
-            disabled={disabled}
+            disabled={this.state.textValue === task.first_response_value}
             label={
               <FormattedMessage
                 id="global.save"
@@ -531,13 +528,12 @@ class Task extends Component {
       return (
         responseObj && responseObj.annotator ? (
           <div className={styles['task-footer']}>
-            Saved {timeAgo} by{' '}
-            <a
-              href={`/check/user/${responseObj.annotator.user?.dbid}`}
-              title={responseObj.annotator.user?.name}
-            >
-              {responseObj.annotator.user?.name}
-            </a>
+            <FormattedMessage
+              id="task.savedByLabel"
+              defaultMessage="Saved {timeAgo} by {userName}"
+              description="This is a label that indicates when and by whom the task was saved."
+              values={{ timeAgo, userName: responseObj.annotator.user?.name }}
+            />
           </div>)
           : null
       );
@@ -781,11 +777,7 @@ class Task extends Component {
     const taskAnswered = !!response;
 
     const assignments = task.assignments.edges;
-    const assignmentComponents = [];
     assignments.forEach((assignment) => {
-      assignmentComponents.push(
-        <ProfileLink user={assignment.node || null} />,
-      );
       if (currentUser && assignment.node.dbid === currentUser.dbid) {
         taskAssigned = true;
       }

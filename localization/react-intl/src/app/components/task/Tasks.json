@@ -2,7 +2,7 @@
   {
     "id": "tasks.blankAnnotation",
     "description": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings.",
-    "defaultMessage": "No annotation fields"
+    "defaultMessage": "No Workspace Annotations"
   },
   {
     "id": "tasks.goToSettings",
@@ -18,6 +18,11 @@
     "id": "metadata.couldNotSaveUrl",
     "description": "Error message displayed when a URL is not in the correct format in the form, which prevents the form from being saved.",
     "defaultMessage": "Could not save, at least one URL is invalid"
+  },
+  {
+    "id": "tasks.savedByLabel",
+    "description": "This is a label that indicates when and by whom the task was saved.",
+    "defaultMessage": "Saved {timeAgo} by {userName}"
   },
   {
     "id": "tasks.contentTrash",

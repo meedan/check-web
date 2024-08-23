@@ -1,7 +1,0 @@
-[
-  {
-    "id": "itemRating.noFactCheck",
-    "description": "A label that appears when no fact-check is present to display.",
-    "defaultMessage": "no fact-check"
-  }
-]

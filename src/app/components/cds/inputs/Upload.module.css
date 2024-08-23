@@ -2,7 +2,7 @@
   align-items: center;
   background-color: var(--color-white-100);
   border: 2px dashed var(--color-gray-88);
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   display: grid;
   min-height: 84px;
   padding: 10px;
@@ -71,7 +71,7 @@ a.link-text {
 
 .error {
   background-color: var(--color-pink-96);
-  border-radius: 5px;
+  border-radius: var(--border-radius-medium);
   color: var(--color-pink-40) !important;
   font-size: var(--iconSizeSmall);
   padding: 5px;

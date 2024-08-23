@@ -29,6 +29,11 @@ const messages = defineMessages({
     defaultMessage: 'Any tipline',
     description: 'Filter option that refers to items created via a tipline',
   },
+  imported: {
+    id: 'searchFieldChannel.imported',
+    defaultMessage: 'Imported',
+    description: 'Filter option that refers to items imported from external systems',
+  },
   webForm: {
     id: 'searchFieldChannel.webForm',
     defaultMessage: 'Web Form',
@@ -54,7 +59,7 @@ const SearchFieldChannelComponent = ({
 
   const optionLabels = {
     MANUAL: intl.formatMessage(messages.manual),
-    FETCH: 'Imported Fact-checks',
+    FETCH: intl.formatMessage(messages.imported),
     BROWSER_EXTENSION: intl.formatMessage(messages.browserExtension),
     API: intl.formatMessage(messages.api),
     ZAPIER: 'Zapier',
@@ -109,8 +114,8 @@ const SearchFieldChannelComponent = ({
           icon={<ForwardIcon />}
           selected={query.channels || selectedChannels}
           options={options}
-          onChange={handleChange}
-          onRemove={(page !== 'tipline-inbox') ? onRemove : null}
+          onChange={!readOnly ? handleChange : null}
+          onRemove={!readOnly && (page !== 'tipline-inbox') ? onRemove : null}
           readOnly={readOnly}
         />
       )}
@@ -139,11 +144,17 @@ const SearchFieldChannel = parentProps => (
   />
 );
 
+SearchFieldChannel.defaultProps = {
+  readOnly: false,
+  page: '',
+};
+
 SearchFieldChannel.propTypes = {
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
+  readOnly: PropTypes.bool,
 };
 
 export default injectIntl(SearchFieldChannel);

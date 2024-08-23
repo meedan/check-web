@@ -1,25 +1,83 @@
 .alert-wrapper {
   align-items: flex-start;
-  border-radius: 16px;
+  border-radius: var(--border-radius-large);
   display: flex;
   gap: 10px;
   padding: 16px;
-  position: relative;
   width: 100%;
+
+  .iconWrapper {
+    flex: 0 0 24px;
+    font-size: var(--iconSizeDefault);
+    height: 24px;
+  }
+
+  .contentWrapper {
+    flex: 1 1 auto;
+    padding: 2px 0 0;
+
+    .title {
+      @mixin typography-subtitle2;
+    }
+
+    .content {
+      @mixin typography-body1;
+    }
+
+    .title + .content {
+      margin: 6px 0 0;
+    }
+
+    .actionsWrapper {
+      margin: 12px 0 0;
+    }
+  }
+
+  a,
+  a:hover,
+  a:visited,
+  a:active {
+    color: inherit;
+  }
+
+  a:not([href]) {
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 
   &.floating {
     border: solid 2px var(--color-blue-38);
-    box-shadow: 0 4px 16px 0 rgba(0 0 0 / .1);
+    box-shadow: 0 3px 14px 2px rgba(0 0 0 / .12), 0 8px 10px 1px rgba(0 0 0 / .14), 0 5px 5px -3px rgba(0 0 0 / .2);
     max-width: 320px;
   }
 
   &.banner {
-    border-radius: 0;
+    border-radius: var(--border-radius-zero);
   }
 
   &.contained {
-    border: solid 1px var(--color-blue-38);
-    border-radius: 5px;
+    border: solid 2px var(--color-blue-38);
+    border-radius: var(--border-radius-medium);
+    padding: 12px;
+
+    .iconWrapper {
+      flex: 0 0 20px;
+      font-size: var(--iconSizeSmall);
+      height: 20px;
+    }
+
+    .contentWrapper {
+      .title {
+        @mixin typography-body1-bold;
+      }
+
+      .content {
+        @mixin typography-body2;
+      }
+    }
   }
 
   &.success {
@@ -46,28 +104,26 @@
     color: var(--color-pink-40);
   }
 
-  .iconWrapper {
-    flex: 0 0 24px;
-    font-size: var(--iconSizeDefault);
-  }
+  &.persist-alert-flash-message {
+    max-width: inherit;
+    min-width: 600px;
 
-  .contentWrapper {
-    flex: 1 1 auto;
-    padding: 2px 0 0;
+    details {
+      cursor: pointer;
+      margin: 8px 0;
+      user-select: none;
 
-    .title + .content {
-      margin: 6px 0 0;
-    }
-
-    .actionsWrapper {
-      margin: 12px 0 0;
+      textarea {
+        width: 100%;
+      }
     }
   }
+}
 
-  a,
-  a:hover,
-  a:visited,
-  a:active {
-    color: inherit;
-  }
+.alert-flash-home-message {
+  left: 0;
+  margin-top: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
 }

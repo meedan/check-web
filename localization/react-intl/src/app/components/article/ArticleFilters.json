@@ -1,0 +1,67 @@
+[
+  {
+    "id": "articleFilters.explainer",
+    "description": "Describes the article type Explainer",
+    "defaultMessage": "Explainer"
+  },
+  {
+    "id": "articleFilters.factCheck",
+    "description": "Describes the article type Fact-Check",
+    "defaultMessage": "Fact-Check"
+  },
+  {
+    "id": "search.connectorAnd",
+    "description": "Logical operator 'AND' to be applied when filtering articles by multiple fields.",
+    "defaultMessage": "and"
+  },
+  {
+    "id": "articleFilters.createdBy",
+    "description": "Prefix label for field to filter by item creator.",
+    "defaultMessage": "Created by"
+  },
+  {
+    "id": "articleFilters.articleType",
+    "description": "Prefix label for field to filter by article type.",
+    "defaultMessage": "Article type is"
+  },
+  {
+    "id": "articleFilters.publishedBy",
+    "description": "Prefix label for field to filter by published by",
+    "defaultMessage": "Publisher is"
+  },
+  {
+    "id": "articleFilters.reportStatusUnpublished",
+    "description": "Refers to a report status",
+    "defaultMessage": "Unpublished"
+  },
+  {
+    "id": "articleFilters.reportStatusPublished",
+    "description": "Refers to a report status",
+    "defaultMessage": "Published"
+  },
+  {
+    "id": "articleFilters.reportStatusPaused",
+    "description": "Refers to a report status",
+    "defaultMessage": "Paused"
+  },
+  {
+    "id": "articleFilters.reportStatus",
+    "description": "Prefix label for field to filter by report status",
+    "defaultMessage": "Report (status) is"
+  },
+  {
+    "id": "search.statusHeading",
+    "description": "Prefix label for field to filter by status",
+    "defaultMessage": "Rating is"
+  },
+  {
+    "id": "articleFilters.applyFilters",
+    "description": "Button to perform query with specified filters",
+    "defaultMessage": "Apply"
+  },
+  {
+    "id": "articleFilters.reset",
+    "description": "Tooltip for button to remove any applied filters",
+    "defaultMessage": "Reset"
+  }
+]

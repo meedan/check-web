@@ -5,7 +5,6 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import mergeWith from 'lodash.mergewith';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
 import { can } from '../Can';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import TagList from '../cds/menus-lists-dialogs/TagList';
@@ -43,11 +42,7 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
     }
   };
 
-  const readOnly =
-    !can(projectMedia.permissions, 'update ProjectMedia') ||
-    projectMedia.is_secondary ||
-    projectMedia.suggested_main_item?.dbid ||
-    projectMedia.archived === CheckArchivedFlags.TRASHED;
+  const readOnly = !can(projectMedia.permissions, 'update ProjectMedia');
 
   const onFailure = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
@@ -175,8 +170,6 @@ const MediaTags = parentProps => (
       query MediaTagsQuery($ids: String!) {
         project_media(ids: $ids) {
           dbid
-          archived
-          is_secondary
           permissions
           team {
             slug
@@ -187,9 +180,6 @@ const MediaTags = parentProps => (
                 }
               }
             }
-          }
-          suggested_main_item {
-            dbid
           }
           tags(last: 100) {
             edges {

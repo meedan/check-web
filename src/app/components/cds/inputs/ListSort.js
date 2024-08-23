@@ -95,7 +95,7 @@ const ListSort = ({
       <FormattedMessage id="listSort.sort" defaultMessage="Sort" description="Label for sort criteria drop-down field displayed on listing pages" />
       <Select className={styles.listSortSelect} onChange={handleChangeSortCriteria} value={sort}>
         {options.map(({ label, value }) => (
-          <option value={value}>{label}</option>
+          <option key={value} value={value}>{label}</option>
         ))}
       </Select>
       <Tooltip

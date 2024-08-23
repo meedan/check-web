@@ -7,7 +7,6 @@ import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -28,25 +27,11 @@ const FILIPINO_MODEL = 'paraphrase-filipino-mpnet-base-v2';
 const OPENAI_ADA_MODEL = 'openai-text-embedding-ada-002';
 const PARAPHRASE_MULTILINGUAL_MODEL = 'paraphrase-multilingual-mpnet-base-v2';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(-1),
-    width: theme.spacing(10),
-  },
-  inputMarginDense: {
-    padding: '6px 8px',
-  },
-  transactionMargin: {
-    marginRight: theme.spacing(2),
-  },
-}));
-
 const SimilarityComponent = ({
   team,
   setFlashMessage,
   user,
 }) => {
-  const classes = useStyles();
   const isSuperAdmin = user.is_admin;
   const { alegre_settings } = team.alegre_bot;
 
@@ -271,15 +256,15 @@ const SimilarityComponent = ({
               label={
                 <FormattedMessage
                   id="similarityComponent.singleLanguageFactChecksEnabled"
-                  description="Label displayed when similarity setting for single language fact-checks is enabled"
-                  defaultMessage="Only send fact-checks in the same language as the conversation language"
+                  description="Label displayed when similarity setting for single language articles is enabled"
+                  defaultMessage="Only send articles in the same language as the conversation language"
                 />
               }
               helperContent={
                 <FormattedHTMLMessage
                   id="similarityComponent.singleLanguageFactChecksHelp"
-                  description="Help text displayed when similarity setting for single language fact-checks is enabled"
-                  defaultMessage='If enabled, fact-checks will only be sent to users whose chosen language of conversation in the tipline matches the fact-check language. If disabled, fact-checks will be sent to all users whose media matches the claim, regardless of their conversation language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about tipline menus</a>.'
+                  description="Help text displayed when similarity setting for single language articles is enabled"
+                  defaultMessage='If enabled, articles will only be sent to users whose chosen language of conversation in the tipline matches the article language. If disabled, articles will be sent to all users whose media matches the claim, regardless of their conversation language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about tipline menus</a>.'
                   values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772787-design-your-tipline' }}
                 />
               }
@@ -319,13 +304,11 @@ const SimilarityComponent = ({
                   error={(settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold)}
                 />
                 <Box ml={7}>
-                  <span style={{ fontWeight: 'bold' }} className={classes.transactionMargin}>
-                    <FormattedMessage
-                      id="similarityComponent.textLength"
-                      defaultMessage="Minimum words required for a confirmed match"
-                      description="A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
-                    />
-                  </span>
+                  <FormattedMessage
+                    id="similarityComponent.textLength"
+                    defaultMessage="Minimum words required for a confirmed match"
+                    description="A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
+                  />
                   <TextField
                     className={settingsStyles['similarity-component-input']}
                     variant="outlined"
@@ -497,13 +480,11 @@ const SimilarityComponent = ({
                   label="Automated transcription"
                 />
                 <Box mb={2} ml={7}>
-                  <span className={classes.transactionMargin}>
-                    <FormattedMessage
-                      id="similarityComponent.minimumDuration"
-                      defaultMessage="Minimum duration in seconds"
-                      description="number input for Automated transcription minimum duration"
-                    />
-                  </span>
+                  <FormattedMessage
+                    id="similarityComponent.minimumDuration"
+                    defaultMessage="Minimum duration in seconds"
+                    description="number input for Automated transcription minimum duration"
+                  />
                   <TextField
                     className={settingsStyles['similarity-component-input']}
                     variant="outlined"
@@ -515,13 +496,11 @@ const SimilarityComponent = ({
                   />
                 </Box>
                 <Box mb={2} ml={7}>
-                  <span className={classes.transactionMargin}>
-                    <FormattedMessage
-                      id="similarityComponent.maximumDuration"
-                      defaultMessage="Maximum duration in seconds"
-                      description="number input for Automated transcription maximum duration"
-                    />
-                  </span>
+                  <FormattedMessage
+                    id="similarityComponent.maximumDuration"
+                    defaultMessage="Maximum duration in seconds"
+                    description="number input for Automated transcription maximum duration"
+                  />
                   <TextField
                     className={settingsStyles['similarity-component-input']}
                     variant="outlined"
@@ -533,13 +512,11 @@ const SimilarityComponent = ({
                   />
                 </Box>
                 <Box mb={2} ml={7}>
-                  <span className={classes.transactionMargin}>
-                    <FormattedMessage
-                      id="similarityComponent.minimumRequests"
-                      defaultMessage="Minimum number of requests"
-                      description="number input for Automated transcription duration requests"
-                    />
-                  </span>
+                  <FormattedMessage
+                    id="similarityComponent.minimumRequests"
+                    defaultMessage="Minimum number of requests"
+                    description="number input for Automated transcription duration requests"
+                  />
                   <TextField
                     className={settingsStyles['similarity-component-input']}
                     variant="outlined"

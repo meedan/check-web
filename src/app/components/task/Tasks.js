@@ -29,7 +29,7 @@ const Tasks = ({
     return (
       <React.Fragment>
         <BlankState>
-          <FormattedMessage id="tasks.blankAnnotation" defaultMessage="No annotation fields" description="A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings." />
+          <FormattedMessage id="tasks.blankAnnotation" defaultMessage="No Workspace Annotations" description="A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings." />
         </BlankState>
         { !isBrowserExtension ?
           <div>
@@ -222,12 +222,12 @@ const Tasks = ({
     }
     return (
       <div className={inputStyles['form-footer-actions-context']}>
-        Saved {moment(latestEditInfo.latestDate).fromNow()} by{' '}
-        <a
-          href={`/check/user/${latestEditInfo.latestAuthorDbid}`}
-        >
-          {latestEditInfo.latestAuthorName}
-        </a>
+        <FormattedMessage
+          id="tasks.savedByLabel"
+          defaultMessage="Saved {timeAgo} by {userName}"
+          description="This is a label that indicates when and by whom the task was saved."
+          values={{ timeAgo: moment(latestEditInfo.latestDate).fromNow(), userName: latestEditInfo.latestAuthorName }}
+        />
       </div>
     );
   };

@@ -1,0 +1,7 @@
+[
+  {
+    "id": "mediaArticlesTeamArticles.noResults",
+    "description": "Message displayed on articles sidebar when search returns no articles.",
+    "defaultMessage": "No results matched your search."
+  }
+]

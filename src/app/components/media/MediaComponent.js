@@ -8,13 +8,14 @@ import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaCardLarge from './MediaCardLarge';
-import MediaSidebar from './MediaSidebar';
 import MediaSlug from './MediaSlug';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
 import MediaFeedInformation from './MediaFeedInformation';
+/* eslint-disable-next-line no-unused-vars */
+import MediaSecondaryBanner from './MediaSecondaryBanner'; // For fragment
 import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
@@ -35,12 +36,15 @@ class MediaComponent extends Component {
 
     let initialTab = 'metadata';
     if (showRequests && this.props.view !== 'similarMedia') {
-      initialTab = 'requests';
+      initialTab = 'articles';
       if (this.props.projectMedia.suggested_similar_items_count > 0 && !this.props.projectMedia.is_suggested) {
         initialTab = 'suggestedMedia';
       }
     } else if (this.props.view === 'similarMedia') {
       initialTab = 'suggestedMedia';
+    }
+    if (this.props.projectMedia.is_suggested || this.props.projectMedia.is_confirmed_similar_to_another_item) {
+      initialTab = 'requests';
     }
 
     this.state = {
@@ -53,7 +57,7 @@ class MediaComponent extends Component {
 
   componentDidMount() {
     this.subscribe();
-    if (!this.props.projectMedia.is_read) {
+    if (!this.props.projectMedia.is_read && !this.getContext().currentUser.is_admin) {
       commitMutation(Store, {
         mutation: graphql`
           mutation MediaComponentMarkAsReadMutation($input: BulkProjectMediaMarkReadInput!) {
@@ -160,12 +164,11 @@ class MediaComponent extends Component {
     return (
       <>
         <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
-        <MediaSidebar projectMedia={projectMedia} />
         { view === 'default' || view === 'similarMedia' ?
           <React.Fragment>
             <div className={cx('media__column', styles['media-item-medias'])}>
               <div className={styles['media-item-content']}>
-                { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
+                { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} /> : null }
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
                     projectMediaId={projectMedia.dbid}
@@ -173,6 +176,7 @@ class MediaComponent extends Component {
                     feedId={projectMedia.imported_from_feed_id}
                     mediaSlug={
                       <MediaSlug
+                        className={styles['media-slug-title']}
                         mediaType={projectMedia.type}
                         slug={projectMedia.title}
                         details={[(
@@ -258,6 +262,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     ...MediaSimilaritiesComponent_projectMedia
     ...MediaCardLarge_projectMedia
     ...MediaFeedInformation_projectMedia
+    ...MediaSecondaryBanner_projectMedia
     id
     dbid
     title
@@ -268,6 +273,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     project_id
     last_seen
     demand
+    articles_count
     requests_count
     picture
     show_warning_cover

@@ -12,13 +12,11 @@ import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import styles from './SearchResults.module.css';
-import Toolbar from './Toolbar';
 import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
-import SelectAllTh from './SearchResultsTable/SelectAllTh';
+import SelectAllCheckbox from './SelectAllCheckbox';
 import SearchResultsCards from './SearchResultsCards';
 import ClusterCard from './SearchResultsCards/ClusterCard';
 import SearchRoute from '../../relay/SearchRoute';
@@ -26,6 +24,7 @@ import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
+import styles from './SearchResults.module.css';
 
 /**
  * Delete `esoffset`, `timestamp` and `channels` -- whenever
@@ -303,15 +302,6 @@ function SearchResultsComponent({
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
-  // TODO in CV2-3924: Use ListSort component to sort the search results
-  // const sortParams = stateQuery.sort ? {
-  //   key: stateQuery.sort,
-  //   ascending: stateQuery.sort_type !== 'DESC',
-  // } : {
-  //   key: 'recent_added',
-  //   ascending: false,
-  // };
-
   const selectedProjectMedia = [];
 
   projectMedias.forEach((pm) => {
@@ -345,7 +335,7 @@ function SearchResultsComponent({
   let content = null;
 
   // Return nothing if feed doesn't have a list
-  if (resultType === 'factCheck' && !feed.saved_search_id) {
+  if (feed && !feed.saved_search_id && resultType === 'factCheck') {
     count = 0;
   }
 
@@ -370,7 +360,7 @@ function SearchResultsComponent({
           </Can> : null }
       </BlankState>
     );
-    if (resultType === 'factCheck' || resultType === 'emptyFeed') {
+    if (feed && (resultType === 'factCheck' || resultType === 'emptyFeed')) {
       content = (
         <FeedBlankState
           teamSlug={team.slug}
@@ -390,6 +380,8 @@ function SearchResultsComponent({
         { projectMedias.map((item) => {
           const numberOfRequests = item.is_confirmed_similar_to_another_item ? item.requests_count : item.demand;
 
+          const factCheckCount = item.fact_check_id ? 1 : 0;
+
           return (
             <ClusterCard
               key={item.id}
@@ -406,6 +398,8 @@ function SearchResultsComponent({
               lastRequestDate={numberOfRequests && new Date(+item.last_seen * 1000)}
               rating={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.label}
               ratingColor={item.team?.verification_statuses.statuses.find(s => s.id === item.status)?.style.color}
+              articlesCount={item.articles_count}
+              factCheckCount={factCheckCount}
               requestsCount={numberOfRequests}
               mediaCount={item.linked_items_count}
               mediaThumbnail={{
@@ -426,6 +420,8 @@ function SearchResultsComponent({
   }
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
+
+  const perms = { permissions: team?.permissions, permission: 'create ProjectMedia' };
 
   return (
     <React.Fragment>
@@ -527,77 +523,17 @@ function SearchResultsComponent({
           /> : null
         }
         { count > 0 ?
-          <Toolbar
-            resultType={resultType}
-            team={team}
-            title={count ?
-              <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
+          <div className={cx(styles['search-results-toolbar'], 'toolbar', `toolbar__${resultType}`)}>
+            <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
+              <div className={styles['search-results-bulk-actions']}>
                 { resultType === 'default' && (
-                  <SelectAllTh
+                  <SelectAllCheckbox
                     className={styles.noBottomBorder}
                     selectedIds={filteredSelectedProjectMediaIds}
                     projectMedias={projectMedias}
                     onChangeSelectedIds={handleChangeSelectedIds}
                   />
                 )}
-                <span className={styles['search-pagination']}>
-                  <Tooltip title={
-                    <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
-                  }
-                  >
-                    {getPreviousPageLocation() ? (
-                      <Link
-                        className={cx('search__previous-page', styles['search-nav'])}
-                        to={getPreviousPageLocation()}
-                      >
-                        <PrevIcon />
-                      </Link>
-                    ) : (
-                      <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
-                        <PrevIcon />
-                      </span>
-                    )}
-                  </Tooltip>
-                  <span className="typography-button">
-                    <FormattedMessage
-                      id="searchResults.itemsCount"
-                      defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                      description="Pagination count of items returned"
-                      values={{
-                        from: getBeginIndex() + 1,
-                        to: getEndIndex(),
-                        count,
-                      }}
-                    />
-                    {filteredSelectedProjectMediaIds.length ?
-                      <FormattedMessage
-                        id="searchResults.withSelection"
-                        defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                        description="Label for number of selected items"
-                        values={{
-                          selectedCount: filteredSelectedProjectMediaIds.length,
-                        }}
-                      >
-                        {txt => <span className={styles['search-selected']}>{txt}</span>}
-                      </FormattedMessage>
-                      : null
-                    }
-                  </span>
-                  <Tooltip title={
-                    <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
-                  }
-                  >
-                    {getNextPageLocation() ? (
-                      <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
-                        <NextIcon />
-                      </span>
-                    ) : (
-                      <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
-                        <NextIcon />
-                      </span>
-                    )}
-                  </Tooltip>
-                </span>
                 { projectMedias.length && selectedProjectMedia.length ?
                   <BulkActionsMenu
                   /*
@@ -614,11 +550,61 @@ function SearchResultsComponent({
                     onUnselectAll={onUnselectAll}
                   /> : null
                 }
-              </span> : null
-            }
-            page={page}
-            search={search}
-          /> : null
+              </div>
+              { page === 'all-items' ? (
+                <Can {...perms}>
+                  <div className={styles['search-results-add-item']}>
+                    <CreateMedia search={search} team={team} />
+                  </div>
+                </Can>
+              ) : null}
+              <span className={styles['search-pagination']}>
+                <Tooltip title={
+                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+                }
+                >
+                  {getPreviousPageLocation() ? (
+                    <Link
+                      className={cx('search__previous-page', styles['search-nav'])}
+                      to={getPreviousPageLocation()}
+                    >
+                      <PrevIcon />
+                    </Link>
+                  ) : (
+                    <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
+                      <PrevIcon />
+                    </span>
+                  )}
+                </Tooltip>
+                <span className="typography-button">
+                  <FormattedMessage
+                    id="searchResults.itemsCount"
+                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                    description="Pagination count of items returned"
+                    values={{
+                      from: getBeginIndex() + 1,
+                      to: getEndIndex(),
+                      count,
+                    }}
+                  />
+                </span>
+                <Tooltip title={
+                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+                }
+                >
+                  {getNextPageLocation() ? (
+                    <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
+                      <NextIcon />
+                    </span>
+                  ) : (
+                    <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
+                      <NextIcon />
+                    </span>
+                  )}
+                </Tooltip>
+              </span>
+            </span>
+          </div> : null
         }
         {content}
       </div>
@@ -728,9 +714,11 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               is_confirmed_similar_to_another_item
               status
               report_status # Needed by BulkActionsStatus
+              fact_check_id
               fact_check_published_on
-              demand
+              articles_count
               requests_count
+              demand
               linked_items_count
               suggestions_count
               last_seen

@@ -1,0 +1,90 @@
+.sandbox {
+  height: 100%;
+  overflow: auto;
+  padding: 16px 32px;
+
+  .sandboxNav {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    list-style: none;
+    margin: 20px 0 40px;
+    padding: 0;
+  }
+
+  h6 {
+    margin: 0 0 1em;
+  }
+
+  section {
+    background-color: var(--color-white-100);
+    border-radius: var(--border-radius-default);
+    margin: 0 0 16px;
+    padding: 16px;
+
+    .componentWrapper {
+      margin: 0 0 40px;
+
+      &:last-of-type {
+        margin: 0;
+      }
+
+      .componentName {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        margin: 0 0 10px;
+
+        .figmaLink {
+          font-size: var(--iconSizeSmall);
+        }
+      }
+
+      .componentInlineVariants,
+      .componentBlockVariants {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 32px;
+        width: 100%;
+
+        &.componentInlineGreyVariants {
+          background-color: var(--color-gray-96);
+        }
+      }
+
+      .componentBlockVariants {
+        display: block;
+      }
+
+      .componentControls {
+        background-color: var(--color-beige-93);
+        border-radius: var(--border-radius-medium) var(--border-radius-medium) var(--border-radius-zero) var(--border-radius-zero);
+        padding: 8px;
+
+        ul {
+          display: flex;
+          flex-flow: row wrap;
+          gap: 16px;
+          list-style: none;
+
+          li {
+            flex: 1 1 auto;
+          }
+        }
+
+        + .componentInlineVariants,
+        + .componentBlockVariants {
+          border: solid 4px var(--color-beige-93);
+          border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-medium) var(--border-radius-medium);
+          padding: 20px;
+
+          &.fixed-width-tags {
+            background-color: var(--color-green-97);
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+}

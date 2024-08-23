@@ -70,6 +70,26 @@
     "defaultMessage": "Send media to trash"
   },
   {
+    "id": "mediaSuggestionsComponent.bulkAccept",
+    "description": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media.",
+    "defaultMessage": "Match all media on this page"
+  },
+  {
+    "id": "mediaSuggestionsComponent.bulkReject",
+    "description": "Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list.",
+    "defaultMessage": "Reject all media on this page"
+  },
+  {
+    "id": "mediaSuggestionsComponent.bulkSpam",
+    "description": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list.",
+    "defaultMessage": "Mark all media on this page as spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.bulkTrash",
+    "description": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list.",
+    "defaultMessage": "Send all media on this page to trash"
+  },
+  {
     "id": "mediaSuggestionsComponent.previous",
     "description": "Label for the 'go to previous page' button on paginated suggestions",
     "defaultMessage": "Previous"
@@ -83,26 +103,6 @@
     "id": "mediaSuggestionsComponent.next",
     "description": "Label for the 'go to next page' button on paginated suggestions",
     "defaultMessage": "Next"
-  },
-  {
-    "id": "mediaSuggestionsComponent.bulkAccept",
-    "description": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media.",
-    "defaultMessage": "Match all media on this page"
-  },
-  {
-    "id": "mediaSuggestionsComponent.bulkReject",
-    "description": "Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list.",
-    "defaultMessage": "Reject all medias on this page"
-  },
-  {
-    "id": "mediaSuggestionsComponent.bulkSpam",
-    "description": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list.",
-    "defaultMessage": "Mark all medias on this page as spam"
-  },
-  {
-    "id": "mediaSuggestionsComponent.bulkTrash",
-    "description": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list.",
-    "defaultMessage": "Send all medias on this page to trash"
   },
   {
     "id": "mediaSuggestionsComponent.dialogBulkAcceptTitle",

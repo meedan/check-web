@@ -1,0 +1,82 @@
+.articleCard {
+  display: block;
+  min-width: 500px;
+
+  .mediaArticleCardAlert {
+    border-width: 0;
+    margin: 0 0 8px;
+  }
+
+  &.mediaArticleCardWrapper {
+    min-width: unset;
+
+    :global(.card):hover {
+      border-color: var(--color-gray-88);
+      cursor: auto;
+      outline-color: transparent;
+    }
+
+    .mediaArticleCard {
+      flex-direction: column;
+      gap: 3px;
+
+      .articleCardHeader {
+        align-items: flex-start;
+        display: flex;
+
+        .articleIcon {
+          font-size: var(--font-size-subtitle-1);
+        }
+
+        .articleType {
+          color: var(--color-gray-37);
+          white-space: nowrap;
+        }
+
+        & > div {
+          display: flex;
+          gap: 3px;
+        }
+
+        & > div + div {
+          align-items: center;
+        }
+      }
+
+      .mediaArticleCardContent {
+        display: flex;
+        flex: 1 1 100%;
+        width: 100%;
+
+        .mediaArticleCardDescription {
+          align-items: flex-start;
+          display: flex;
+          flex: 1 1 auto;
+          flex-direction: column;
+          overflow: hidden;
+        }
+
+        .articleCardRight {
+          align-items: flex-end;
+          display: flex;
+          flex: 0 0;
+          flex-direction: column;
+          text-align: right;
+          width: 150px;
+        }
+      }
+
+      .mediaArticleCardFooter {
+        width: 100%;
+      }
+
+      :global(.article-url) a {
+        -webkit-box-orient: vertical;
+        display: -webkit-box; /* stylelint-disable-line */
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        white-space: pre-line;
+      }
+    }
+  }
+}

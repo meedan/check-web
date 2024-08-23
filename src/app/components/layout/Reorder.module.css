@@ -1,6 +1,6 @@
 .reorder {
   background-color: var(--color-gray-96);
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   display: flex;
 
   span {

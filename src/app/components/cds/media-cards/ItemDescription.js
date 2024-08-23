@@ -21,7 +21,7 @@ const ItemDescription = ({
   const shouldShowButton = showCollapseButton && (!isCollapsed || (isCollapsed && isTextOverflowing));
 
   const toggleCollapse = (e) => {
-    e.preventDefault();
+    e.stopPropagation();
     setIsCollapsed(!isCollapsed);
   };
 
@@ -60,12 +60,12 @@ const ItemDescription = ({
       <div className={styles.cardSummaryContent}>
         <h6 className={cx('typography-button', styles.cardTitle)}>{title}</h6>
         { description ?
-          <>
-            <span className={cx('description-text', styles.cardDescription)} ref={descriptionRef}>
-              {description}
-            </span>
-            <ArticleUrl url={url} variant={variant} />
-          </>
+          <span className={cx('description-text', styles.cardDescription)} ref={descriptionRef}>
+            {description}
+          </span>
+          : null }
+        { url ?
+          <ArticleUrl url={url} variant={variant} />
           : null }
       </div>
       <button

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "removeArticleWrapperButton.success",
+    "description": "Banner displayed after an article is successfully removed from an item.",
+    "defaultMessage": "Article successfully removed from item."
+  },
+  {
+    "id": "removeArticleButton.tooltipDisabled",
+    "description": "Tooltip message displayed on remove article button when it is disabled.",
+    "defaultMessage": "You can't remove this article."
+  },
+  {
+    "id": "removeArticleButton.tooltip",
+    "description": "Tooltip message displayed on remove article button.",
+    "defaultMessage": "Remove article from media cluster"
+  },
+  {
+    "id": "removeArticleButton.confirmationDialogTitle",
+    "description": "Title displayed on a confirmation modal when a user tries to remove an article.",
+    "defaultMessage": "Are you sure you want to remove this article?"
+  },
+  {
+    "id": "removeArticleButton.confirmationDialogBody",
+    "description": "Confirmation message displayed on a modal when a user tries to remove an article.",
+    "defaultMessage": "This article will no longer be associated with this media item but will remain in your workspace."
+  },
+  {
+    "id": "removeArticleButton.removeButton",
+    "description": "Button label to remove article from item",
+    "defaultMessage": "Remove article"
+  }
+]

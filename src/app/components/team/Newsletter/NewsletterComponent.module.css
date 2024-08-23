@@ -73,7 +73,7 @@
 
 .newsletter-scheduler-container {
   .newsletter-scheduler {
-    border-radius: 5px;
+    border-radius: var(--border-radius-medium);
     display: flex;
     flex-direction: column;
     gap: 8px;

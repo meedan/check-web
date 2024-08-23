@@ -7,7 +7,7 @@ shared_examples 'media actions' do
     wait_for_selector('.media-actions__assign').click
     wait_for_selector('input[type=checkbox]').click
     wait_for_selector('.int-multiselector__button--save').click
-    wait_for_selector('.message')
+    wait_for_selector('.int-flash-message__toast')
     expect(@driver.page_source.include?('Assignments updated successfully')).to be(true)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__history').click
@@ -33,12 +33,15 @@ shared_examples 'media actions' do
     wait_for_selector('.media-actions__assign')
     expect(@driver.page_source.include?('Lock status')).to be(true)
     wait_for_selector('.media-actions__lock-status').click
-    wait_for_selector_none('.media-actions__assign') # wait for close dialog
+    @driver.navigate.refresh
+    wait_for_selector('.test__media')
     wait_for_selector('.media-actions__icon').click
     expect(@driver.page_source.include?('Unlock status')).to be(true)
     wait_for_selector('.media-actions__lock-status').click
-    wait_for_selector_none('.media-actions__assign') # wait for close dialog
+    @driver.navigate.refresh
+    wait_for_selector('.test__media')
     wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__assign')
     expect(@driver.page_source.include?('Lock status')).to be(true)
     expect(@driver.page_source.include?('Unlock status')).to be(false)
   end

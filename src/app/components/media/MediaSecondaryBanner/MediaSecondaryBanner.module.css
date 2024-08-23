@@ -1,0 +1,42 @@
+.mediaSecondaryBanner {
+  margin: 16px;
+}
+
+.mediaSuggestionsBanner {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.mediaSuggestionsBannerButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.mediaMainItemPreview {
+  align-items: center;
+  background: var(--color-beige-93);
+  border-radius: var(--border-radius-medium);
+  display: flex;
+  flex: 1;
+  gap: 8px;
+  margin-top: 32px;
+  padding: 8px;
+}
+
+.mediaMainItemPreviewTitle {
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  -webkit-box-orient: vertical;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  display: -webkit-box;
+  height: 34px;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  -webkit-line-clamp: 2;
+  line-height: 17px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

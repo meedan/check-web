@@ -1,0 +1,7 @@
+[
+  {
+    "id": "explainerForm.saveSuccess",
+    "description": "Save item action success message",
+    "defaultMessage": "Article created successfully!"
+  }
+]

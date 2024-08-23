@@ -1,0 +1,22 @@
+[
+  {
+    "id": "chooseExistingArticleButton.title",
+    "description": "Label for the button to find an article.",
+    "defaultMessage": "Choose an existing article"
+  },
+  {
+    "id": "newArticleButton.tooltip",
+    "description": "Tooltip message displayed on new article button when it is disabled.",
+    "defaultMessage": "You can't add an article here."
+  },
+  {
+    "id": "chooseExistingArticleButton.search",
+    "description": "Label for the search field to find an article.",
+    "defaultMessage": "Search by article title or summary"
+  },
+  {
+    "id": "chooseExistingArticleButton.recentArticles",
+    "description": "Label for the list of articles.",
+    "defaultMessage": "Recent Articles"
+  }
+]

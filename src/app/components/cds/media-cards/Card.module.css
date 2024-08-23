@@ -21,7 +21,7 @@
 .card {
   background-color: var(--color-white-100);
   border: 1px solid var(--color-gray-88);
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   outline: solid 1px transparent;
   padding: 8px;
   transition: border-color 225ms cubic-bezier(0, 0, .2, 1) 0ms, outline-color 225ms cubic-bezier(0, 0, .2, 1) 0ms;
@@ -29,6 +29,7 @@
 
   &:hover {
     border-color: var(--color-blue-32);
+    cursor: pointer;
     outline-color: var(--color-blue-32);
   }
 
@@ -71,7 +72,7 @@
       align-items: center;
       background-color: var(--color-blue-98);
       border: 0 solid var(--color-gray-88);
-      border-radius: 8px;
+      border-radius: var(--border-radius-default);
       color: var(--color-gray-37);
       cursor: pointer;
       display: flex;
@@ -162,7 +163,7 @@
       align-items: center;
       background-color: var(--color-white-100);
       border: 2px solid var(--color-gray-88);
-      border-radius: 6px;
+      border-radius: var(--border-radius-default);
       color: var(--color-gray-37);
       cursor: pointer;
       display: flex;
@@ -185,5 +186,49 @@
     color: inherit;
     cursor: pointer;
     text-decoration: none;
+  }
+}
+
+.smallMediaCardWrapper {
+  padding: 8px;
+
+  .smallMediaCard {
+    display: flex;
+    gap: 8px;
+
+    .row {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .smallMediaCardContent {
+      margin: 3px 30px 0 0;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .titleAndUrl {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .oneLineDescription {
+      max-height: 20px;
+    }
+
+    .twoLinesDescription {
+      -webkit-box-orient: vertical;
+      display: -webkit-box; /* stylelint-disable-line */
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: pre-line;
+    }
+
+    .alert {
+      margin-top: 16px;
+    }
   }
 }

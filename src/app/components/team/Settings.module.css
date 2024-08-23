@@ -1,13 +1,13 @@
 :global(.MuiTableContainer-root).engagement-data-table-wrapper {
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   flex: 1 1 auto;
   overflow: auto;
   width: 100%;
 
   table {
     background-color: var(--color-white-100);
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
 
     th,
     td {
@@ -108,7 +108,7 @@
 
       .setting-content-container {
         background-color: var(--color-white-100);
-        border-radius: 8px;
+        border-radius: var(--border-radius-default);
         padding: 16px;
 
         .setting-content-container-title {
@@ -150,13 +150,13 @@
 
         .setting-content-container-inner {
           background-color: var(--color-beige-93);
-          border-radius: 5px;
+          border-radius: var(--border-radius-medium);
           padding: 16px;
         }
 
         .setting-content-container-inner-accent {
           background: var(--color-beige-86);
-          border-radius: 3px;
+          border-radius: var(--border-radius-small);
           padding: 16px;
         }
 
@@ -172,7 +172,7 @@
 
             .teammembers-table-identity-pending {
               border: solid 2px var(--color-gray-88);
-              border-radius: 6px;
+              border-radius: var(--border-radius-default);
               color: var(--color-orange-54);
               font-size: var(--iconSizeDefault);
               height: 40px;
@@ -218,14 +218,14 @@
 
       :global(.MuiTableContainer-root) {
         background-color: var(--color-white-100);
-        border-radius: 8px;
+        border-radius: var(--border-radius-default);
         border-top: 0;
       }
 
       .table-toolbar {
         align-items: center;
         background-color: var(--color-blue-98);
-        border-radius: 5px;
+        border-radius: var(--border-radius-medium);
         color: var(--color-blue-54);
         display: flex;
         margin: 0 0 16px;
@@ -313,7 +313,7 @@
 
 .tipline-settings-toggle {
   background-color: var(--color-beige-93);
-  border-radius: 5px;
+  border-radius: var(--border-radius-medium);
   display: flex;
   justify-content: center;
   margin: 0 0 16px;

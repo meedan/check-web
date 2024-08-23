@@ -12,21 +12,17 @@ import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './login/UserPasswordReset';
 import ErrorBoundary from './error/ErrorBoundary';
-import User from './user/User';
 import Me from './user/Me';
 import Team from './team/Team';
 import AssignedToMe from './team/AssignedToMe';
 import TiplineInbox from './team/TiplineInbox';
-import ImportedReports from './team/ImportedReports';
 import SuggestedMatches from './team/SuggestedMatches';
 import UnmatchedMedia from './team/UnmatchedMedia';
-import Published from './team/Published';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
 import CreateFeed from './feed/CreateFeed';
 import EditFeedTeam from './feed/EditFeedTeam';
 import Feed from './feed/Feed';
-import FeedClusterPage from './feed/FeedClusterPage';
 import FeedInvitation from './feed/FeedInvitation';
 import FeedInvitationRespond from './feed/FeedInvitationRespond';
 import FeedItem from './feed/FeedItem';
@@ -36,9 +32,13 @@ import MediaTasks from './media/MediaTasks';
 import SavedSearch from './search/SavedSearch';
 import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
-import Sandbox from './Sandbox';
-import SandboxCrash from './SandboxCrash';
+import Sandbox from './cds/Sandbox';
+import SandboxCrash from './cds/SandboxCrash';
 import FeedPage from './feed/FeedPage';
+import Explainers from './article/Explainers';
+import FactChecks from './article/FactChecks';
+import ImportedArticles from './article/ImportedArticles';
+import PublishedArticles from './article/PublishedArticles';
 
 class Root extends Component {
   static logPageView() {
@@ -76,14 +76,11 @@ class Root extends Component {
                   <Route path="check/user/password-reset" component={UserPasswordReset} public />
                   <Route path="check/user/password-change" component={UserPasswordChange} public />
                   <Route path="check/not-found" component={NotFound} public />
-                  <Route path="check/user/:userId/edit" isEditing component={User} />
-                  <Route path="check/user/:userId(/:tab)" component={User} />
                   <Route path="check/me/edit" isEditing component={Me} />
                   <Route path="check/me/ui-sandbox" component={Sandbox} />
                   <Route path="check/me/ui-sandbox/crash" component={SandboxCrash} />
                   <Route path="check/me(/:tab)" component={Me} />
                   <Route path="check/feed/:feedId/invitation" component={FeedInvitation} splash />
-                  <Route path="check/feed/:feedId/request/:requestId" component={FeedClusterPage} />
                   <Route path=":team" component={Team} />
                   <Route path=":team/settings(/:tab)" component={Team} />
                   <Route path=":team/media/:mediaId" component={MediaPage} />
@@ -108,10 +105,8 @@ class Root extends Component {
                   <Route path=":team/all-items(/:query)" component={AllItems} />
                   <Route path=":team/assigned-to-me(/:query)" component={AssignedToMe} />
                   <Route path=":team/tipline-inbox(/:query)" component={TiplineInbox} />
-                  <Route path=":team/imported-fact-checks(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
-                  <Route path=":team/published(/:query)" component={Published} />
                   <Route path=":team/feed/create" component={CreateFeed} />
                   <Route path=":team/feeds" component={FeedPage} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
@@ -120,6 +115,10 @@ class Root extends Component {
                   <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
+                  <Route path=":team/articles/explainers" component={Explainers} />
+                  <Route path=":team/articles/fact-checks" component={FactChecks} />
+                  <Route path=":team/articles/imported-fact-checks" component={ImportedArticles} />
+                  <Route path=":team/articles/published" component={PublishedArticles} />
                   <Route path="*" component={NotFound} public />
                 </Route>
               </Router>

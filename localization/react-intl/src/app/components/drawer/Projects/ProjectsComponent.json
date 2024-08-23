@@ -6,8 +6,8 @@
   },
   {
     "id": "projectsComponent.allItems",
-    "description": "Label for the 'All items' list displayed on the left sidebar",
-    "defaultMessage": "All"
+    "description": "Label for the 'All media' list displayed on the left sidebar",
+    "defaultMessage": "All Media"
   },
   {
     "id": "projectsComponent.assignedToMe",
@@ -18,11 +18,6 @@
     "id": "projectsComponent.tiplineInbox",
     "description": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted",
     "defaultMessage": "Inbox"
-  },
-  {
-    "id": "projectsComponent.importedReports",
-    "description": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel",
-    "defaultMessage": "Imported"
   },
   {
     "id": "projectsComponent.suggestedMatches",

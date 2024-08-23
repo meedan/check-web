@@ -1,0 +1,125 @@
+.articlesSidebar {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+
+  &::after {
+    background-color: var(--color-beige-86);
+    content: '';
+    display: block;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    right: 16px;
+    top: 62px;
+    z-index: 1;
+  }
+
+  .articlesSidebarTopBar {
+    background: var(--color-white-100);
+    display: flex;
+    gap: 16px;
+    height: 62px;
+    justify-content: flex-start;
+    padding: 16px;
+  }
+
+  .articlesSidebarNoArticleWrapper {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    padding: 0 16px 16px;
+    width: 100%;
+
+    &::before {
+      background-color: var(--color-white-100);
+      content: '';
+      display: block;
+      flex-shrink: 0;
+      height: 2px;
+      left: 0;
+      margin: auto -16px 0;
+      position: relative;
+      right: 0;
+      z-index: 2;
+    }
+  }
+
+  .articlesSidebarNoArticle {
+    border: 2px dashed var(--color-gray-88);
+    border-radius: var(--border-radius-default);
+    color: var(--color-gray-75);
+    font-style: italic;
+    margin: 16px 0 32px;
+    padding: 16px;
+    text-align: center;
+
+    :global(.check-icon) {
+      font-size: var(--font-size-h4);
+    }
+  }
+
+  .articlesSidebarList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .articlesSidebarCard {
+    border: 1px solid var(--color-gray-88);
+    border-radius: var(--border-radius-medium);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px;
+
+    .articlesSidebarCardIcon {
+      align-items: center;
+      color: var(--color-gray-37);
+      display: flex;
+      flex-direction: row;
+      gap: 3px;
+
+      :global(.check-icon) {
+        font-size: var(--font-size-subtitle-1);
+      }
+    }
+
+    .articlesSidebarCardTitle {
+      -webkit-box-orient: vertical;
+      color: var(--color-gray-15);
+      display: -webkit-box; /* stylelint-disable-line */
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .articlesSidebarCardCaption {
+      align-items: center;
+      display: flex;
+
+      svg {
+        font-size: var(--font-size-base);
+      }
+    }
+
+    &:hover {
+      border-color: var(--color-blue-54);
+      border-width: 2px;
+      padding: 5px;
+
+      .articlesSidebarCardIcon {
+        color: var(--color-blue-54);
+        font-weight: bold;
+      }
+    }
+  }
+}
