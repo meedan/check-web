@@ -399,7 +399,6 @@ class Task extends Component {
     const SaveButton = (props) => {
       const {
         anyInvalidUrls,
-        disabled,
         empty,
         mutationPayload,
         required,
@@ -418,7 +417,7 @@ class Task extends Component {
               'data-urlerror': anyInvalidUrls,
             }}
             className="metadata-save"
-            disabled={disabled}
+            disabled={this.state.textValue === task.first_response_value}
             label={
               <FormattedMessage
                 defaultMessage="Save"
