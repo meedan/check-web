@@ -5,9 +5,9 @@
     "defaultMessage": "Similarity settings saved successfully"
   },
   {
-    "id": "similarityComponent.title",
-    "description": "Title to similarity matching settings page",
-    "defaultMessage": "Similarity matching"
+    "id": "similarityComponent.save",
+    "description": "Label for Save Button on Similarity settings page",
+    "defaultMessage": "Save"
   },
   {
     "id": "similarityComponent.helpContext",
@@ -15,9 +15,9 @@
     "defaultMessage": "Manage settings for automatic matching of similar media. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about automatic matching</a>."
   },
   {
-    "id": "similarityComponent.save",
-    "description": "Label for Save Button on Similarity settings page",
-    "defaultMessage": "Save"
+    "id": "similarityComponent.title",
+    "description": "Title to similarity matching settings page",
+    "defaultMessage": "Similarity matching"
   },
   {
     "id": "similarityComponent.masterSwitchLabelOn",
@@ -40,14 +40,14 @@
     "defaultMessage": "Similar content last submitted more than {maxTime} months ago will only be suggested"
   },
   {
-    "id": "similarityComponent.singleLanguageFactChecksEnabled",
-    "description": "Label displayed when similarity setting for single language articles is enabled",
-    "defaultMessage": "Only send articles in the same language as the conversation language"
-  },
-  {
     "id": "similarityComponent.singleLanguageFactChecksHelp",
     "description": "Help text displayed when similarity setting for single language articles is enabled",
     "defaultMessage": "If enabled, articles will only be sent to users whose chosen language of conversation in the tipline matches the article language. If disabled, articles will be sent to all users whose media matches the claim, regardless of their conversation language. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about tipline menus</a>."
+  },
+  {
+    "id": "similarityComponent.singleLanguageFactChecksEnabled",
+    "description": "Label displayed when similarity setting for single language articles is enabled",
+    "defaultMessage": "Only send articles in the same language as the conversation language"
   },
   {
     "id": "similarityComponent.textLength",

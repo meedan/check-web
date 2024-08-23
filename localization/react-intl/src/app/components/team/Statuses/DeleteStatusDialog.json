@@ -1,10 +1,5 @@
 [
   {
-    "id": "deleteStatusDialog.statusNotInUseTitle",
-    "description": "Title displayed on a confirmation modal when a status being deleted is not in used by any item.",
-    "defaultMessage": "Confirm status deletion"
-  },
-  {
     "id": "deleteStatusDialog.statusNotInUseMessage",
     "description": "Confirmation message displayed on a modal when a status is deleted from statuses settings page.",
     "defaultMessage": "Are you sure you want to delete this status?"
@@ -15,14 +10,14 @@
     "defaultMessage": "Delete status"
   },
   {
+    "id": "deleteStatusDialog.statusNotInUseTitle",
+    "description": "Title displayed on a confirmation modal when a status being deleted is not in used by any item.",
+    "defaultMessage": "Confirm status deletion"
+  },
+  {
     "id": "deleteStatusDialog.moveItemsTo",
     "description": "This is a field label. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field.",
     "defaultMessage": "Move items to"
-  },
-  {
-    "id": "deleteStatusDialog.statusInUseTitle",
-    "description": "Title of a modal that is displayed when a status in use is being deleted.",
-    "defaultMessage": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
   },
   {
     "id": "deleteStatusDialog.statusInUseMessage",
@@ -43,5 +38,10 @@
     "id": "statusesComponent.moveItemsAndDelete",
     "description": "Label of a button that is displayed when a status in use is being deleted.",
     "defaultMessage": "Move items and delete status"
+  },
+  {
+    "id": "deleteStatusDialog.statusInUseTitle",
+    "description": "Title of a modal that is displayed when a status in use is being deleted.",
+    "defaultMessage": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
   }
 ]
