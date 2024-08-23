@@ -398,7 +398,6 @@ class Task extends Component {
 
     const SaveButton = (props) => {
       const {
-        disabled,
         uploadables,
         mutationPayload,
         required,
@@ -457,7 +456,7 @@ class Task extends Component {
                 );
               }
             }}
-            disabled={disabled}
+            disabled={this.state.textValue === task.first_response_value}
             label={
               <FormattedMessage
                 id="global.save"
