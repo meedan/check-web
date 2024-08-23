@@ -53,11 +53,11 @@ describe('<NewsletterComponent />', () => {
 
   it('renders static newsletter correctly', () => {
     const newsletter = shallow(<NewsletterComponentTest
-      team={teamStatic}
-      setFlashMessage={() => {}}
       className="newsletter"
       language="en"
       languages={['en', 'es']}
+      setFlashMessage={() => {}}
+      team={teamStatic}
       onChangeLanguage={() => {}}
     />);
     expect(newsletter.find('.newsletter-component')).toHaveLength(1);
@@ -74,11 +74,11 @@ describe('<NewsletterComponent />', () => {
 
   it('renders rss newsletter correctly', () => {
     const newsletter = shallow(<NewsletterComponentTest
-      team={teamRss}
-      setFlashMessage={() => {}}
       className="newsletter"
       language="en"
       languages={['en', 'es']}
+      setFlashMessage={() => {}}
+      team={teamRss}
       onChangeLanguage={() => {}}
     />);
     expect(newsletter.find('.newsletter-component')).toHaveLength(1);

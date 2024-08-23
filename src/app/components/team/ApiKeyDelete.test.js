@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ApiKeyDelete from './ApiKeyDelete';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 

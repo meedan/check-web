@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -15,11 +16,11 @@ import styles from './FeedTopBar.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
 const FeedTopBar = ({
-  team,
   feed,
-  teamFilters,
   hideQuickFilterMenu,
   setTeamFilters,
+  team,
+  teamFilters,
 }) => {
   const hasList = Boolean(feed.saved_search);
 
@@ -37,11 +38,11 @@ const FeedTopBar = ({
 
   const OrgFilterButton = ({
     avatar,
+    current,
     dbid,
     enabled,
-    slug,
     name,
-    current,
+    slug,
   }) => {
     const handleFilterClick = () => {
       // remove this team from the filter
@@ -60,9 +61,9 @@ const FeedTopBar = ({
     if (!enabled) {
       message = (
         <FormattedMessage
-          id="feedTopBar.showItems"
           defaultMessage="Show items from {orgName}"
           description="Tooltip message displayed on button that the user presses in order to show items from an organization."
+          id="feedTopBar.showItems"
           values={{
             orgName: name,
           }}
@@ -71,9 +72,9 @@ const FeedTopBar = ({
     } else {
       message = (
         <FormattedMessage
-          id="feedTopBar.hideItems"
           defaultMessage="Hide items from {orgName}"
           description="Tooltip message displayed on button that the user presses in order to hide items from an organization."
+          id="feedTopBar.hideItems"
           values={{
             orgName: name,
           }}
@@ -84,9 +85,9 @@ const FeedTopBar = ({
     return (
       <div style={{ position: 'relative' }}>
         <Tooltip
+          arrow
           placement="top"
           title={message}
-          arrow
         >
           <button
             className={cx(
@@ -101,7 +102,7 @@ const FeedTopBar = ({
             }
             onClick={handleFilterClick}
           >
-            <TeamAvatar className={styles.feedListAvatar} team={{ avatar, slug }} size="24px" />
+            <TeamAvatar className={styles.feedListAvatar} size="24px" team={{ avatar, slug }} />
             {
               current && (
                 <div className="typography-body2">
@@ -110,31 +111,31 @@ const FeedTopBar = ({
                       <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
                         <span className={styles.feedListTitle}>{feed.current_feed_team?.saved_search?.title || feed.saved_search.title}</span>
                       </div> :
-                      <span className={styles.feedNoListTitle}><FormattedMessage id="feedTopBar.noListSelected" defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." /></span>
+                      <span className={styles.feedNoListTitle}><FormattedMessage defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." id="feedTopBar.noListSelected" /></span>
                   }
                 </div>)
             }
           </button>
         </Tooltip>
         { current && hasList && (
-          <Can permissions={feed.permissions} permission="update Feed">
+          <Can permission="update Feed" permissions={feed.permissions}>
             <Tooltip
+              arrow
               placement="right"
               title={<FormattedMessage
-                id="feedTopBar.customList"
                 defaultMessage="Go to custom list"
                 description="Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
+                id="feedTopBar.customList"
               />}
-              arrow
             >
               <span className={styles.feedTopBarCustomListButton}>
                 <ButtonMain
-                  size="small"
-                  variant="contained"
-                  theme="lightText"
-                  onClick={handleClick}
                   className={cx(styles.feedListIcon, 'int-feed-top-bar__icon-button--settings')}
                   iconCenter={<ShareIcon />}
+                  size="small"
+                  theme="lightText"
+                  variant="contained"
+                  onClick={handleClick}
                 />
               </span>
             </Tooltip>
@@ -153,41 +154,41 @@ const FeedTopBar = ({
         <div className={`${styles.feedTopBarLeft} feed-top-bar`}>
           <OrgFilterButton
             avatar={currentOrg.avatar}
-            slug={currentOrg.slug}
+            current
             dbid={currentOrg.dbid}
             enabled={teamFilters.includes(currentOrg.dbid)}
             name={currentOrg.name}
-            current
+            slug={currentOrg.slug}
           />
           { teamsWithoutCurrentOrg.map((feedTeam) => {
             const {
               avatar,
-              slug,
               dbid,
               name,
+              slug,
             } = feedTeam.node;
             return (
               <OrgFilterButton
                 avatar={avatar}
-                slug={slug}
                 dbid={dbid}
                 enabled={teamFilters.includes(dbid)}
                 name={name}
+                slug={slug}
               />
             );
           // sort the remaining items alphabetically per locale
           }).sort((a, b) => a.props.name.localeCompare(b.props.name))}
-          <Can permissions={feed.permissions} permission="update Feed">
+          <Can permission="update Feed" permissions={feed.permissions}>
             <Tooltip
+              arrow
               placement="top"
               title={
                 <FormattedMessage
-                  id="feedTopBar.addOrg"
                   defaultMessage="Add a collaborating organization"
                   description="Tooltip message displayed on a button that takes the user toa page where they can add an organization to this shared feed with an expectation to collaborate with the organization."
+                  id="feedTopBar.addOrg"
                 />
               }
-              arrow
             >
               <span>{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
                 <ButtonMain iconCenter={<AddIcon />} label="Center" size="small" theme="lightText" onClick={handleClickAdd} />
@@ -198,8 +199,8 @@ const FeedTopBar = ({
         <div className={`${styles.feedTopBarRight} feed-top-bar-right`}>
           { !hideQuickFilterMenu ?
             <QuickFilterMenu
-              setTeamFilters={setTeamFilters}
               currentOrg={currentOrg}
+              setTeamFilters={setTeamFilters}
               teamsWithoutCurrentOrg={teamsWithoutCurrentOrg}
             /> :
             null

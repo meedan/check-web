@@ -5,22 +5,22 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
+import FeedMetadata from './FeedMetadata';
+import FeedCollaboration from './FeedCollaboration';
 import ErrorBoundary from '../error/ErrorBoundary';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem, safelyParseJSON } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import FeedMetadata from './FeedMetadata';
-import FeedCollaboration from './FeedCollaboration';
-import styles from './FeedInvitation.module.css';
-import saveFeedStyles from './SaveFeed.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import MediasLoading from '../media/MediasLoading';
 import NotFound from '../NotFound';
 import { can } from '../Can';
 import CheckError from '../../CheckError';
+import saveFeedStyles from './SaveFeed.module.css';
+import styles from './FeedInvitation.module.css';
 
 const acceptMutation = graphql`
   mutation FeedInvitationRespondAcceptFeedInvitationMutation($input: UpdateFeedInvitationInput!) {
@@ -107,18 +107,18 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
   if (!canAcceptFeedInvitation) {
     return (
       <NotFound
-        title={
-          <FormattedMessage
-            id="feedInvitation.noPermissionTitle"
-            defaultMessage="You don't have access to this invitation"
-            description="Title of the error page that is displayed when a user does not have permission to accept or reject a feed invitation."
-          />
-        }
         description={
           <FormattedMessage
-            id="feedInvitation.noPermissionDescription"
             defaultMessage="Make sure you are a workspace admin to accept invitations. If not, ask the workspace admin for assistance."
             description="Description of the error page that is displayed when a user does not have permission to accept or reject a feed invitation."
+            id="feedInvitation.noPermissionDescription"
+          />
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="You don't have access to this invitation"
+            description="Title of the error page that is displayed when a user does not have permission to accept or reject a feed invitation."
+            id="feedInvitation.noPermissionTitle"
           />
         }
       />
@@ -137,7 +137,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
               {props.feed_invitation.user.name}, <span className={styles.email}>{props.feed_invitation.user.email}</span>
             </div>
             <div className={cx('typography-body1', styles.invited)}>
-              <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
+              <FormattedMessage defaultMessage="has invited your organization to contribute to a Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." id="feedInvitation.invited" />
             </div>
             <div>
               <span className={cx('typography-body1-bold')}>&ldquo;{props.feed_invitation.feed.name}&rdquo;</span>
@@ -150,7 +150,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
             <Alert
               className={cx(styles['no-admin-alert'])}
               contained
-              title={<FormattedMessage id="feedInvitation.notAdmin" defaultMessage="You are not the admin of this workspace. Please contact your workspace administrator if you think this is in error." description="An error message that informs the user that they are not the administrator of this workspace and as such cannot perform any actions on this page." />}
+              title={<FormattedMessage defaultMessage="You are not the admin of this workspace. Please contact your workspace administrator if you think this is in error." description="An error message that informs the user that they are not the administrator of this workspace and as such cannot perform any actions on this page." id="feedInvitation.notAdmin" />}
               variant="error"
             />
           )}
@@ -158,7 +158,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
             <Alert
               className={cx(styles['no-admin-alert'])}
               contained
-              title={<FormattedMessage id="feedInvitation.alreadyAccepted" defaultMessage="You have already accepted this invitation." description="An informational message that appears if the user tries to accept an invitation that they have already accepted." />}
+              title={<FormattedMessage defaultMessage="You have already accepted this invitation." description="An informational message that appears if the user tries to accept an invitation that they have already accepted." id="feedInvitation.alreadyAccepted" />}
               variant="info"
             />
           )}
@@ -167,22 +167,22 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
               <div className={cx(styles['action-container'])}>
                 <ButtonMain
                   className="int-feed-invitation-respond__button--accept"
-                  label={<FormattedMessage id="feedInvitation.accept" defaultMessage="Accept Invitation" description="Label for a button that the user presses to accept an invitation they have received to collaborate with another organization" />}
-                  variant="contained"
-                  theme="brand"
-                  onClick={handleAcceptInvite}
                   disabled={saving}
+                  label={<FormattedMessage defaultMessage="Accept Invitation" description="Label for a button that the user presses to accept an invitation they have received to collaborate with another organization" id="feedInvitation.accept" />}
+                  theme="brand"
+                  variant="contained"
+                  onClick={handleAcceptInvite}
                 />
-                { saving && <MediasLoading theme="grey" variant="icon" size="icon" /> }
+                { saving && <MediasLoading size="icon" theme="grey" variant="icon" /> }
               </div>
               <div className={cx(styles['action-container'])}>
-                { saving && <MediasLoading theme="grey" variant="icon" size="icon" /> }
+                { saving && <MediasLoading size="icon" theme="grey" variant="icon" /> }
                 <ButtonMain
                   className="int-feed-invitation-respond__button--reject"
-                  label={<FormattedMessage id="feedInvitation.decline" defaultMessage="Decline Invitation" description="Label for a button that the user presses to decline an invitation they have received to collaborate with another organization" />}
-                  variant="outlined"
-                  theme="text"
                   disabled={saving}
+                  label={<FormattedMessage defaultMessage="Decline Invitation" description="Label for a button that the user presses to decline an invitation they have received to collaborate with another organization" id="feedInvitation.decline" />}
+                  theme="text"
+                  variant="outlined"
                   onClick={() => { setConfirmReject(true); }}
                 />
               </div>
@@ -199,21 +199,13 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
         />
       </div>
       <ConfirmProceedDialog
-        open={confirmReject}
-        title={
-          <FormattedMessage
-            id="feedInvitation.promptDeclineTitle"
-            defaultMessage="Decline Invitation?"
-            description="Dialog title when a user is prompted to confirm that they wish to decline (reject) an invitation."
-          />
-        }
         body={(
           <>
             <span className="typography-title">
               <FormattedMessage
-                id="feedItem.promptDeclineInfo"
                 defaultMessage="You will need to contact {creator} in order to rejoin."
                 description="Dialog description when a user declines an invitation, telling them who to contact if they change their mind and want another invitation."
+                id="feedItem.promptDeclineInfo"
                 values={{
                   creator: `${props.feed_invitation.user.name} (${props.feed_invitation.user.email})`,
                 }}
@@ -221,11 +213,19 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
             </span>
           </>
         )}
-        // proceedDisabled={!selectedImportingTeam || (!importingClaimDescription && !importingClaim?.description)}
-        proceedLabel={<FormattedMessage id="feedItem.promptDeclineConfirm" defaultMessage="Decline invitation" description="Button label to confirm declining an invitation" />}
-        onProceed={handleRejectInvite}
-        onCancel={() => { setConfirmReject(false); }}
         isSaving={saving}
+        open={confirmReject}
+        // proceedDisabled={!selectedImportingTeam || (!importingClaimDescription && !importingClaim?.description)}
+        proceedLabel={<FormattedMessage defaultMessage="Decline invitation" description="Button label to confirm declining an invitation" id="feedItem.promptDeclineConfirm" />}
+        title={
+          <FormattedMessage
+            defaultMessage="Decline Invitation?"
+            description="Dialog title when a user is prompted to confirm that they wish to decline (reject) an invitation."
+            id="feedInvitation.promptDeclineTitle"
+          />
+        }
+        onCancel={() => { setConfirmReject(false); }}
+        onProceed={handleRejectInvite}
       />
     </div>
   );
@@ -282,14 +282,14 @@ const FeedInvitationRespond = ({ routeParams }) => (
           }
         }
       `}
-      variables={{
-        feedId: parseInt(routeParams.feedId, 10),
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           return <FeedInvitationRespondComponent routeParams={routeParams} {...props} />;
         }
         return null;
+      }}
+      variables={{
+        feedId: parseInt(routeParams.feedId, 10),
       }}
     />
   </ErrorBoundary>

@@ -74,88 +74,88 @@ const ApiKeyCreate = () => {
     <>
       <ButtonMain
         className="api-key-create__open-dialog-button"
-        onClick={() => setDialogOpen(true)}
+        iconLeft={<AddIcon />}
         label={
           <FormattedMessage
-            id="apiKeyCreate.newButton"
             defaultMessage="New API Key"
             description="Button that opens the api key creation dialog"
+            id="apiKeyCreate.newButton"
           />
         }
-        iconLeft={<AddIcon />}
         size="small"
+        onClick={() => setDialogOpen(true)}
       />
       <Dialog className={styles['dialog-window']} open={dialogOpen}>
         <div className={styles['dialog-title']}>
           <FormattedMessage
-            tagName="h6"
-            id="apiKeyCreate.dialogTitle"
             defaultMessage="New API Key"
             description="Title of a dialog box to create API keys"
+            id="apiKeyCreate.dialogTitle"
+            tagName="h6"
           />
         </div>
         <div className={styles['dialog-content']}>
           <div className={inputStyles['form-fieldset']}>
             <div className={inputStyles['form-fieldset-field']}>
               <FormattedMessage
-                id="apiKeyCreate.keyNamePlaceholder"
                 defaultMessage="Enter a name for your key"
                 description="Placeholder text for api key name input field"
+                id="apiKeyCreate.keyNamePlaceholder"
               >
                 { placeholder => (
                   <TextField
                     className="api-key-create__name-field"
-                    required
-                    placeholder={placeholder}
-                    label={
-                      <FormattedMessage
-                        id="apiKeyCreate.keyName"
-                        defaultMessage="Key name"
-                        description="Label for key name input"
-                      />
-                    }
-                    value={name}
-                    onChange={e => setName(e.target.value)}
                     error={error}
                     helpContent={
                       <FormattedMessage
-                        id="apiKeyCreate.keyNameHelper"
                         defaultMessage="The Key Name will be displayed as the author of content added"
                         description="Label for key name input"
+                        id="apiKeyCreate.keyNameHelper"
                       />
                     }
+                    label={
+                      <FormattedMessage
+                        defaultMessage="Key name"
+                        description="Label for key name input"
+                        id="apiKeyCreate.keyName"
+                      />
+                    }
+                    placeholder={placeholder}
+                    required
+                    value={name}
+                    onChange={e => setName(e.target.value)}
                   />
                 )}
               </FormattedMessage>
             </div>
             <p className="typography-subtitle2">
               <FormattedMessage
-                id="apiKeyCreate.descriptionBlurb"
                 defaultMessage="What will you use this API Key for? (optional)"
                 description="Label displayed before the API Key description input"
+                id="apiKeyCreate.descriptionBlurb"
               />
             </p>
             <div className={inputStyles['form-fieldset-field']}>
               <FormattedMessage
-                id="apiKeyCreate.descriptionPlaceholder"
                 defaultMessage="A brief description can help remind the purpose of your integration"
                 description="Placeholder text for api key description input field"
+                id="apiKeyCreate.descriptionPlaceholder"
               >
                 { placeholder => (
                   <LimitedTextField
                     className="api-key-create__description-field"
-                    required={false}
-                    maxChars={720}
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}
-                    placeholder={placeholder}
                     label={
                       <FormattedMessage
-                        id="global.description"
                         defaultMessage="Description"
                         description="Generic label for a text field to input a description"
+                        id="global.description"
                       />
                     }
+                    maxChars={720}
+                    placeholder={placeholder}
+                    required={false}
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
                   />
                 )}
               </FormattedMessage>
@@ -165,30 +165,30 @@ const ApiKeyCreate = () => {
         <div className={styles['dialog-actions']}>
           <ButtonMain
             className="api-key-create__cancel-button"
+            label={
+              <FormattedMessage
+                defaultMessage="Cancel"
+                description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+                id="global.cancel"
+              />
+            }
+            theme="text"
+            variant="text"
             onClick={() => {
               setDialogOpen(false);
               resetForm();
             }}
-            label={
-              <FormattedMessage
-                id="global.cancel"
-                defaultMessage="Cancel"
-                description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
-              />
-            }
-            variant="text"
-            theme="text"
           />
           <ButtonMain
             className="api-key-create__submit-button"
-            onClick={handleSubmit}
             label={
               <FormattedMessage
-                id="apiKeyCreate.submit"
                 defaultMessage="Generate Key"
                 description="Label for button that creates a new API key"
+                id="apiKeyCreate.submit"
               />
             }
+            onClick={handleSubmit}
           />
         </div>
       </Dialog>

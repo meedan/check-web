@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ChooseExistingArticleButton from './ChooseExistingArticleButton';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<ChooseExistingArticleButton />', () => {
   it('should open slideout', () => {

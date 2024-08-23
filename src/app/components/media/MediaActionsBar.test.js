@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import MediaStatus from './MediaStatus';
 import { MediaActionsBarComponent } from './MediaActionsBar';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 describe('<MediaActionsBarComponent />', () => {
@@ -66,7 +66,7 @@ describe('<MediaActionsBarComponent />', () => {
         },
       },
     };
-    const wrapper = shallowWithIntl(<MediaActionsBarComponent media={media} classes={classes} setFlashMessage={() => {}} />);
+    const wrapper = shallowWithIntl(<MediaActionsBarComponent classes={classes} media={media} setFlashMessage={() => {}} />);
     expect(wrapper.find(MediaStatus)).toHaveLength(1);
     expect(wrapper.find(MediaStatus).props().readonly).toEqual(false);
   });
@@ -87,7 +87,7 @@ describe('<MediaActionsBarComponent />', () => {
         },
       },
     };
-    const wrapper = shallowWithIntl(<MediaActionsBarComponent media={media} classes={classes} setFlashMessage={() => {}} />);
+    const wrapper = shallowWithIntl(<MediaActionsBarComponent classes={classes} media={media} setFlashMessage={() => {}} />);
     expect(wrapper.find(MediaStatus)).toHaveLength(1);
     expect(wrapper.find(MediaStatus).props().readonly).toEqual(true);
   });
@@ -108,7 +108,7 @@ describe('<MediaActionsBarComponent />', () => {
         },
       },
     };
-    const wrapper = shallowWithIntl(<MediaActionsBarComponent media={media} classes={classes} setFlashMessage={() => {}} />);
+    const wrapper = shallowWithIntl(<MediaActionsBarComponent classes={classes} media={media} setFlashMessage={() => {}} />);
     expect(wrapper.find(MediaStatus)).toHaveLength(1);
     expect(wrapper.find(MediaStatus).props().readonly).toEqual(true);
   });
@@ -129,7 +129,7 @@ describe('<MediaActionsBarComponent />', () => {
         },
       },
     };
-    const wrapper = shallowWithIntl(<MediaActionsBarComponent media={media} classes={classes} setFlashMessage={() => {}} />);
+    const wrapper = shallowWithIntl(<MediaActionsBarComponent classes={classes} media={media} setFlashMessage={() => {}} />);
     expect(wrapper.find('.project__assignment-menu')).toHaveLength(1);
   });
 
@@ -146,7 +146,7 @@ describe('<MediaActionsBarComponent />', () => {
         },
       },
     };
-    const wrapper = shallowWithIntl(<MediaActionsBarComponent media={media} classes={classes} setFlashMessage={() => {}} />);
+    const wrapper = shallowWithIntl(<MediaActionsBarComponent classes={classes} media={media} setFlashMessage={() => {}} />);
     expect(wrapper.find('.project__assignment-menu')).toHaveLength(1);
   });
 });

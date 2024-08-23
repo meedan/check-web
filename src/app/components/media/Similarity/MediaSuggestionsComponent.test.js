@@ -80,17 +80,17 @@ describe('<MediaSuggestionsComponent />', () => {
 
   it('should render no media when no media is suggested', () => {
     const wrapper = shallow(<MediaSuggestionsComponentTest
-      team={team}
-      media={media}
-      relationships={[]}
-      mainItem={mainItem}
-      setFlashMessage={() => {}}
       intl={intl}
-      reportType="blank"
+      mainItem={mainItem}
+      media={media}
       pageSize={2}
-      totalCount={0}
       project={{}}
+      relationships={[]}
       relay={{}}
+      reportType="blank"
+      setFlashMessage={() => {}}
+      team={team}
+      totalCount={0}
     />);
     expect(wrapper.find('.similarity-media-item__accept-relationship')).toHaveLength(0);
     expect(wrapper.find('.similarity-media-item__reject-relationship')).toHaveLength(0);

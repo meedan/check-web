@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { FeedImportDialog } from './FeedImportDialog';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedImportDialog />', () => {
   const team = {
@@ -22,12 +22,12 @@ describe('<FeedImportDialog />', () => {
   };
 
   it('should render dialog', () => {
-    const wrapper = shallowWithIntl(<FeedImportDialog team={team} feed={feed} cluster={cluster} setFlashMessage={() => {}} />);
+    const wrapper = shallowWithIntl(<FeedImportDialog cluster={cluster} feed={feed} setFlashMessage={() => {}} team={team} />);
     expect(wrapper.find('#feed-import-dialog')).toHaveLength(1);
   });
 
   it('should render dialog with import mode "search" if workspace is not contributing to cluster', () => {
-    const wrapper = shallowWithIntl(<FeedImportDialog team={team} feed={feed} cluster={cluster} setFlashMessage={() => {}} />);
+    const wrapper = shallowWithIntl(<FeedImportDialog cluster={cluster} feed={feed} setFlashMessage={() => {}} team={team} />);
     expect(wrapper.find('#feed-import-dialog__add')).toHaveLength(0);
     expect(wrapper.find('#feed-import-dialog__create')).toHaveLength(0);
     expect(wrapper.find('#feed-import-dialog__search')).toHaveLength(1);
@@ -46,7 +46,7 @@ describe('<FeedImportDialog />', () => {
         ],
       },
     };
-    const wrapper = shallowWithIntl(<FeedImportDialog team={team} feed={feed} cluster={clusterWithItem} setFlashMessage={() => {}} />);
+    const wrapper = shallowWithIntl(<FeedImportDialog cluster={clusterWithItem} feed={feed} setFlashMessage={() => {}} team={team} />);
     expect(wrapper.find('#feed-import-dialog__add')).toHaveLength(1);
     expect(wrapper.find('#feed-import-dialog__create')).toHaveLength(0);
     expect(wrapper.find('#feed-import-dialog__search')).toHaveLength(0);

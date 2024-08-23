@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -32,14 +33,14 @@ const messages = defineMessages({
 });
 
 const SearchField = ({
+  handleClear,
+  inputBaseProps,
   intl,
   isActive,
-  inputBaseProps,
-  showExpand,
-  setParentSearchText,
-  searchText,
-  handleClear,
   searchQuery,
+  searchText,
+  setParentSearchText,
+  showExpand,
 }) => {
   const [expand, setExpand] = React.useState(false);
   const [expandMedia, setExpandMedia] = React.useState(false);
@@ -96,6 +97,8 @@ const SearchField = ({
           iconLeft={<SearchIcon />}
           placeholder={intl.formatMessage(messages.searchPlaceholder)}
           {...inputBaseProps}
+          disabled={expand}
+          value={localSearchText}
           onBlur={(e) => {
             setParentSearchText(e.target.value);
             if (inputBaseProps.onBlur) {
@@ -117,56 +120,54 @@ const SearchField = ({
               }
             }
           }}
-          value={localSearchText}
-          disabled={expand}
         />
         { localSearchText || searchQuery?.file_type ? (
           <ButtonMain
+            className={cx(styles['search-clear-button'])}
             iconCenter={<ClearIcon />}
-            variant="contained"
             size="small"
             theme="lightText"
-            className={cx(styles['search-clear-button'])}
-            onClick={handleClickClear}
             title={intl.formatMessage(messages.clearSearch)}
+            variant="contained"
+            onClick={handleClickClear}
           />
         ) : null }
         { showExpand ? (
           <ButtonMain
+            className={cx(styles['search-expand-button'])}
             iconCenter={<OpenInFullIcon />}
-            variant="contained"
             size="small"
             theme="lightText"
-            className={cx(styles['search-expand-button'])}
-            onClick={searchQuery?.file_type ? handleExpandMedia : handleExpand}
             title={intl.formatMessage(messages.expandSearch)}
+            variant="contained"
+            onClick={searchQuery?.file_type ? handleExpandMedia : handleExpand}
           />
         ) : null }
         <Popover
-          className={cx(styles['search-expanded-popover'])}
-          open={expand}
-          onClose={handleClose}
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
+          className={cx(styles['search-expanded-popover'])}
+          open={expand}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'left',
           }}
+          onClose={handleClose}
         >
           <TextArea
             disabled={!expand}
+            label={
+              <FormattedMessage defaultMessage="Enter search terms" description="Label for expanded search box with extra room for longer search strings" id="search.expandedSearchLabel" />
+            }
             rows="5"
+            value={localSearchText}
             onChange={(e) => {
               setParentSearchText(e.target.value);
               setLocalSearchText(e.target.value);
             }}
-            value={localSearchText}
-            label={
-              <FormattedMessage id="search.expandedSearchLabel" defaultMessage="Enter search terms" description="Label for expanded search box with extra room for longer search strings" />
-            }
           />
           <div
             className={cx(
@@ -178,49 +179,49 @@ const SearchField = ({
           >
             { localSearchText || searchQuery?.file_type ? (
               <ButtonMain
-                iconLeft={<ClearIcon />}
-                size="default"
-                variant="contained"
-                theme="lightText"
-                onClick={handleClickClear}
                 disabled={!localSearchText}
+                iconLeft={<ClearIcon />}
                 label={
-                  <FormattedMessage id="search.clear" defaultMessage="Clear" description="A label on a button that lets a user clear typing search text, deleting the text in the process." />
+                  <FormattedMessage defaultMessage="Clear" description="A label on a button that lets a user clear typing search text, deleting the text in the process." id="search.clear" />
                 }
+                size="default"
+                theme="lightText"
+                variant="contained"
+                onClick={handleClickClear}
               />
             ) : null }
             <ButtonMain
-              size="default"
-              variant="contained"
-              theme="brand"
-              disabled={!localSearchText}
-              label={
-                <FormattedMessage id="search.expandedButton" defaultMessage="Search" description="Button label for the search submit button when entering long text." />
-              }
               buttonProps={{
                 form: 'search-form',
                 type: 'submit',
               }}
+              disabled={!localSearchText}
+              label={
+                <FormattedMessage defaultMessage="Search" description="Button label for the search submit button when entering long text." id="search.expandedButton" />
+              }
+              size="default"
+              theme="brand"
+              variant="contained"
             />
           </div>
         </Popover>
       </div>
       <Dialog
+        fullWidth
+        maxWidth="md"
         open={expandMedia}
         onClose={handleCloseExpandMedia}
-        maxWidth="md"
-        fullWidth
       >
         <ButtonMain
-          iconCenter={<ClearIcon />}
-          variant="contained"
-          size="default"
-          theme="text"
           aria-label="close"
-          className={styles['close-media-button']}
           buttonProps={{
             id: 'search-field__close-button',
           }}
+          className={styles['close-media-button']}
+          iconCenter={<ClearIcon />}
+          size="default"
+          theme="text"
+          variant="contained"
           onClick={handleCloseExpandMedia}
         />
         <MediaPreview media={mediaData} />

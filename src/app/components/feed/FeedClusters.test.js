@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { FeedClustersComponent } from './FeedClusters';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedClusters />', () => {
   const feedTeam = {
@@ -80,7 +80,7 @@ describe('<FeedClusters />', () => {
   };
 
   it('should render clusters as cards', () => {
-    const wrapper = shallowWithIntl(<FeedClustersComponent team={{ slug: 'test' }} feed={feed} feedTeam={feedTeam} />);
+    const wrapper = shallowWithIntl(<FeedClustersComponent feed={feed} feedTeam={feedTeam} team={{ slug: 'test' }} />);
     expect(wrapper.find('.feed-clusters__card')).toHaveLength(2);
   });
 });

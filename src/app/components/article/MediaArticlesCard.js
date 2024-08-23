@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -11,7 +12,7 @@ import EllipseIcon from '../../icons/ellipse.svg';
 import { getStatus, getStatusStyle } from '../../helpers';
 import styles from './Articles.module.css';
 
-const MediaArticlesCard = ({ article, team, onAdd }) => {
+const MediaArticlesCard = ({ article, onAdd, team }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
   const handleMouseEnter = () => {
@@ -45,23 +46,23 @@ const MediaArticlesCard = ({ article, team, onAdd }) => {
 
   return (
     <Tooltip
+      arrow
       key={article.id}
       placement="top"
       title={
         <>
-          { article.nodeType === 'FactCheck' && <FormattedMessage id="mediaArticlesCard.factcheckTooltip" defaultMessage="Add Claim & Fact-Check article to this media cluster" description="Tooltip message displayed on article cards on item page for fact-check type articles." /> }
-          { article.nodeType === 'Explainer' && <FormattedMessage id="mediaArticlesCard.explainerTooltip" defaultMessage="Add Explainer article to this media cluster" description="Tooltip message displayed on article cards on item page for explainer type articles." /> }
+          { article.nodeType === 'FactCheck' && <FormattedMessage defaultMessage="Add Claim & Fact-Check article to this media cluster" description="Tooltip message displayed on article cards on item page for fact-check type articles." id="mediaArticlesCard.factcheckTooltip" /> }
+          { article.nodeType === 'Explainer' && <FormattedMessage defaultMessage="Add Explainer article to this media cluster" description="Tooltip message displayed on article cards on item page for explainer type articles." id="mediaArticlesCard.explainerTooltip" /> }
         </>
       }
-      arrow
     >
-      <div className={styles.articlesSidebarCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick} onKeyDown={handleClick}>
+      <div className={styles.articlesSidebarCard} onClick={handleClick} onKeyDown={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <div className={cx(styles.articlesSidebarCardIcon, 'media-articles-card__card')}>
           { isHovered && <AddIcon /> }
           { article.nodeType === 'Explainer' && !isHovered && <BookIcon /> }
           { article.nodeType === 'FactCheck' && !isHovered && <FactCheckIcon /> }
-          { article.nodeType === 'FactCheck' && <FormattedMessage id="mediaArticlesCard.factCheck" tagName="small" defaultMessage="Claim & Fact-Check" description="Type description of a fact-check article card." /> }
-          { article.nodeType === 'Explainer' && <FormattedMessage id="mediaArticlesCard.explainer" tagName="small" defaultMessage="Explainer" description="Type description of an explainer article card." /> }
+          { article.nodeType === 'FactCheck' && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Type description of a fact-check article card." id="mediaArticlesCard.factCheck" tagName="small" /> }
+          { article.nodeType === 'Explainer' && <FormattedMessage defaultMessage="Explainer" description="Type description of an explainer article card." id="mediaArticlesCard.explainer" tagName="small" /> }
         </div>
         <div className={cx('typography-body1', styles.articlesSidebarCardTitle)}>
           {article.title}

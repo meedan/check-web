@@ -16,30 +16,30 @@ const MediaFeedInformation = ({ projectMedia }) => {
   return (
     <>
       <Alert
-        title={
+        buttonLabel={
           <FormattedMessage
-            id="mediaFeedInformation.importedMediaTitle"
-            defaultMessage="Imported Media"
-            description="Singular. Title of alert box displayed on media modal when this media was imported from a feed."
+            defaultMessage="View Shared Feed"
+            description="Label of action button in alert box displayed on media modal when this media was imported from a feed."
+            id="mediaFeedInformation.viewSharedFeed"
           />
         }
         content={
           <FormattedMessage
-            id="mediaFeedInformation.importedMediaContent"
             defaultMessage="This media was imported from a shared feed: {feedTitle}"
             description="Content of alert box displayed on media modal when this media was imported from a feed."
+            id="mediaFeedInformation.importedMediaContent"
             values={{ feedTitle: <strong>{projectMedia.imported_from_feed.name}</strong> }}
           />
         }
-        buttonLabel={
+        title={
           <FormattedMessage
-            id="mediaFeedInformation.viewSharedFeed"
-            defaultMessage="View Shared Feed"
-            description="Label of action button in alert box displayed on media modal when this media was imported from a feed."
+            defaultMessage="Imported Media"
+            description="Singular. Title of alert box displayed on media modal when this media was imported from a feed."
+            id="mediaFeedInformation.importedMediaTitle"
           />
         }
-        onButtonClick={handleViewSharedFeed}
         variant="info"
+        onButtonClick={handleViewSharedFeed}
       />
     </>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -126,7 +127,6 @@ const EditTaskOptions = ({
           <div key={`edit-task-options__option-${index.toString()}`}>
             <div className={styles['task-multi-select']}>
               <ButtonMain
-                key="create-task__remove-option-button"
                 className="create-task__remove-option-button create-task__md-icon"
                 disabled
                 iconCenter={
@@ -135,68 +135,69 @@ const EditTaskOptions = ({
                     { taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null }
                   </>
                 }
-                variant="text"
+                key="create-task__remove-option-button"
                 size="small"
                 theme="text"
+                variant="text"
               />
-              <Box clone py={0.5} px={1} width="75%">
+              <Box clone px={1} py={0.5} width="75%">
                 <TextField
-                  key="create-task__add-option-input"
                   className="create-task__add-option-input"
                   componentProps={{
                     id: index.toString(),
                   }}
+                  disabled={item.other}
+                  error={item.label && options.filter(o => o.label === item.label).length > 1}
+                  key="create-task__add-option-input"
                   placeholder={`${intl.formatMessage(messages.value)} ${index + 1}`}
                   value={item.label}
                   onChange={e => handleEditOption(e.target.value, index)}
-                  disabled={item.other}
-                  error={item.label && options.filter(o => o.label === item.label).length > 1}
                 />
               </Box>
               { canRemove ?
                 <ButtonMain
-                  key="create-task__remove-option-button"
                   className="create-task__remove-option-button create-task__md-icon"
-                  onClick={() => handleRemoveOption(index)}
                   iconCenter={<ClearIcon />}
-                  variant="contained"
+                  key="create-task__remove-option-button"
                   size="small"
                   theme="lightText"
+                  variant="contained"
+                  onClick={() => handleRemoveOption(index)}
                 /> : null
               }
             </div>
           </div>
         ))}
-        <Box mt={1} display="flex">
+        <Box display="flex" mt={1}>
           <ButtonMain
-            onClick={handleAddOption}
             iconLeft={<AddIcon />}
-            theme="text"
-            size="default"
-            variant="contained"
             label={
               <FormattedMessage
-                id="singleChoiceTask.addValue"
                 defaultMessage="Add Option"
                 description="Button for creating a new entry to a list of selectable options"
+                id="singleChoiceTask.addValue"
               />
             }
+            size="default"
+            theme="text"
+            variant="contained"
+            onClick={handleAddOption}
           />
           <Box ml={1}>
             <ButtonMain
-              onClick={handleAddOther}
-              iconLeft={<AddIcon />}
-              theme="text"
-              size="default"
-              variant="contained"
               disabled={hasOther}
+              iconLeft={<AddIcon />}
               label={
                 <FormattedMessage
-                  id="singleChoiceTask.addOther"
                   defaultMessage='Add "Other"'
                   description="Button for creating a new entry to a list of selectable options, in which the user is free to specify the value that will be selected"
+                  id="singleChoiceTask.addOther"
                 />
               }
+              size="default"
+              theme="text"
+              variant="contained"
+              onClick={handleAddOther}
             />
           </Box>
         </Box>

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -12,13 +13,13 @@ let lastTypedValue = '';
 let plainTagsTexts = [];
 
 const SearchFieldTag = ({
-  teamSlug,
-  query,
   onChange,
   onRemove,
   onToggleOperator,
   operator,
+  query,
   readOnly,
+  teamSlug,
 }) => {
   // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
   const [random] = React.useState(String(Math.random()));
@@ -56,12 +57,6 @@ const SearchFieldTag = ({
           }
         }
       `}
-      variables={{
-        teamSlug,
-        keyword,
-        pageSize,
-        random,
-      }}
       render={({ error, props }) => {
         const loading = Boolean(!error && !props);
         let total = 0;
@@ -82,22 +77,28 @@ const SearchFieldTag = ({
         return (
           <MultiSelectFilter
             className="int-search-field-tag__multi-select-filter--select-tag"
-            label={<FormattedMessage id="SearchFieldTag.label" defaultMessage="Tag is" description="Prefix label for field to filter by tags" />}
-            icon={<LocalOfferIcon />}
-            loading={loading}
-            selected={query.tags}
-            options={plainTagsTexts.map(t => ({ label: t, value: t }))}
-            onChange={onChange}
-            onScrollBottom={handleLoadMore}
             hasMore={hasMore}
-            onToggleOperator={onToggleOperator}
-            operator={operator}
-            readOnly={readOnly}
-            onRemove={onRemove}
-            onType={handleType}
+            icon={<LocalOfferIcon />}
             inputPlaceholder={keyword}
+            label={<FormattedMessage defaultMessage="Tag is" description="Prefix label for field to filter by tags" id="SearchFieldTag.label" />}
+            loading={loading}
+            operator={operator}
+            options={plainTagsTexts.map(t => ({ label: t, value: t }))}
+            readOnly={readOnly}
+            selected={query.tags}
+            onChange={onChange}
+            onRemove={onRemove}
+            onScrollBottom={handleLoadMore}
+            onToggleOperator={onToggleOperator}
+            onType={handleType}
           />
         );
+      }}
+      variables={{
+        teamSlug,
+        keyword,
+        pageSize,
+        random,
       }}
     />
   );

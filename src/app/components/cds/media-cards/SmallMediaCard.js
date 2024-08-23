@@ -1,42 +1,43 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import ItemThumbnail from './ItemThumbnail';
 import Alert from '../alerts-and-prompts/Alert';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
-import ItemThumbnail from './ItemThumbnail';
 import { getMediaType } from '../../../helpers';
 import styles from './Card.module.css';
 
 const SmallMediaCard = ({
-  media, // { type, url, domain, quote, picture, metadata }
+  className, // { type, url, domain, quote, picture, metadata }
   customTitle,
-  details,
   description,
+  details,
   maskContent,
-  superAdminMask,
+  media,
   onClick,
-  className,
+  superAdminMask,
 }) => {
   if (!media) {
     return (
       <Alert
         className={styles.alert}
-        title={
-          <FormattedMessage
-            id="smallMediaCard.noMediaTitle"
-            defaultMessage="There was an error loading the media for this card."
-            description="Title for an error message that appears when media fails to load."
-          />
-        }
         content={
           <FormattedMessage
-            id="smallMediaCard.noMediaDescription"
             defaultMessage="Please reload the page and try again. Contact support if the error continues."
             description="Description for an error message that appears when media fails to load."
+            id="smallMediaCard.noMediaDescription"
+          />
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="There was an error loading the media for this card."
+            description="Title for an error message that appears when media fails to load."
+            id="smallMediaCard.noMediaTitle"
           />
         }
         variant="error"
@@ -55,7 +56,7 @@ const SmallMediaCard = ({
       }
     >
       <div className={styles.smallMediaCard} onClick={onClick} onKeyDown={onClick}>
-        <ItemThumbnail picture={media?.picture} maskContent={maskContent || superAdminMask} type={media?.type} url={media?.url} />
+        <ItemThumbnail maskContent={maskContent || superAdminMask} picture={media?.picture} type={media?.type} url={media?.url} />
         <div className={styles.smallMediaCardContent}>
           <div className={styles.titleAndUrl}>
             <div className={cx('typography-subtitle2', styles.row, (media.url ? styles.oneLineDescription : styles.twoLinesDescription))}>
@@ -63,14 +64,14 @@ const SmallMediaCard = ({
             </div>
             { media.url ?
               <div className={cx(styles.row, 'typography-body2')}>
-                <ExternalLink url={media.url} maxUrlLength={60} readable />
+                <ExternalLink maxUrlLength={60} readable url={media.url} />
               </div> : null
             }
           </div>
           <MediaSlug
+            details={details}
             mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
             slug={customTitle || media.metadata?.title}
-            details={details}
           />
         </div>
       </div>

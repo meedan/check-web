@@ -1,22 +1,23 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import cx from 'classnames/bind';
+import FeedLastClusterizedAt from './FeedLastClusterizedAt';
+import FeedImportDialog from './FeedImportDialog';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
 import PermMediaIcon from '../../icons/perm_media.svg';
 import ItemThumbnail from '../cds/media-cards/ItemThumbnail';
-import FeedLastClusterizedAt from './FeedLastClusterizedAt';
-import FeedImportDialog from './FeedImportDialog';
-import searchResultsStyles from '../search/SearchResults.module.css';
 import styles from './FeedItem.module.css';
+import searchResultsStyles from '../search/SearchResults.module.css';
 
-const FeedItemHeader = ({ team, feed, cluster }) => {
+const FeedItemHeader = ({ cluster, feed, team }) => {
   const [showImportDialog, setShowImportDialog] = React.useState(false);
-  const { title, center } = cluster;
+  const { center, title } = cluster;
 
   const handleViewFeed = () => {
     browserHistory.push(`/${team.slug}/feed/${feed.dbid}`);
@@ -34,11 +35,11 @@ const FeedItemHeader = ({ team, feed, cluster }) => {
     <div id="feed-item-page-header">
       <div className={cx(searchResultsStyles['search-results-header'], styles.feedItemHeader)}>
         <div className={cx(searchResultsStyles.searchResultsTitleWrapper, styles.feedItemHeaderMetadata)}>
-          <ItemThumbnail picture={center?.media?.picture} maskContent={false} type={center?.media?.type} url={center?.media?.url} />
+          <ItemThumbnail maskContent={false} picture={center?.media?.picture} type={center?.media?.type} url={center?.media?.url} />
           <div>
             <div className={searchResultsStyles.searchHeaderSubtitle}>
               <div className={styles.feedItemHeaderMetadataRow}>
-                <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" component="div" />
+                <FormattedMessage component="div" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" id="global.sharedFeed" />
                 <ChevronRightIcon />
                 <span className={styles.feedItemHeaderLabel}>{feed.name}</span>
                 <ChevronRightIcon />
@@ -54,7 +55,7 @@ const FeedItemHeader = ({ team, feed, cluster }) => {
               { cluster.last_request_date ?
                 <span className={styles.feedItemHeaderMetadataRow}>
                   <CalendarIcon />
-                  <FormattedDate value={new Date(parseInt(cluster.last_request_date, 10) * 1000)} year="numeric" month="long" day="numeric" />
+                  <FormattedDate day="numeric" month="long" value={new Date(parseInt(cluster.last_request_date, 10) * 1000)} year="numeric" />
                 </span>
                 : null
               }
@@ -63,35 +64,35 @@ const FeedItemHeader = ({ team, feed, cluster }) => {
         </div>
         <div className={styles.feedItemHeaderButtons}>
           <ButtonMain
-            variant="outlined"
-            size="default"
-            theme="brand"
-            onClick={handleViewFeed}
             label={
               <FormattedMessage
-                id="feedItemHeader.viewSharedFeed"
                 defaultMessage="View Shared Feed"
                 description="Label of a button displayed on the feed item page that when clicked takes the user to the shared feed page."
+                id="feedItemHeader.viewSharedFeed"
               />
             }
-          />
-          <ButtonMain
-            variant="outlined"
             size="default"
             theme="brand"
-            onClick={handleOpenImportDialog}
+            variant="outlined"
+            onClick={handleViewFeed}
+          />
+          <ButtonMain
             iconLeft={<PermMediaIcon />}
             label={
               <FormattedMessage
-                id="feedItemHeader.importMediaToWorkspace"
                 defaultMessage="Import Media to Workspace"
                 description="Label of a button displayed on the feed item page that when clicked allows the user to import media from the feed into the workspace."
+                id="feedItemHeader.importMediaToWorkspace"
               />
             }
+            size="default"
+            theme="brand"
+            variant="outlined"
+            onClick={handleOpenImportDialog}
           />
         </div>
       </div>
-      { showImportDialog && <FeedImportDialog team={team} cluster={cluster} feed={feed} onClose={handleCloseImportDialog} key={cluster.id} /> }
+      { showImportDialog && <FeedImportDialog cluster={cluster} feed={feed} key={cluster.id} team={team} onClose={handleCloseImportDialog} /> }
     </div>
   );
 };

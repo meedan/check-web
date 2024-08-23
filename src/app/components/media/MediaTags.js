@@ -131,11 +131,11 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
 
   return (
     <TagList
+      options={options}
       readOnly={readOnly}
       setTags={handleSetTags}
-      onClickTag={handleTagViewClick}
-      options={options}
       tags={selected}
+      onClickTag={handleTagViewClick}
     />
   );
 };
@@ -192,9 +192,6 @@ const MediaTags = parentProps => (
         }
       }
     `}
-    variables={{
-      ids: `${parentProps.projectMediaId},,`,
-    }}
     render={({ error, props }) => {
       if (!error && props) {
         return (<MediaTagsComponent {...parentProps} projectMedia={props.project_media} />);
@@ -202,6 +199,9 @@ const MediaTags = parentProps => (
 
       // TODO: We need a better error handling in the future, standardized with other components
       return null;
+    }}
+    variables={{
+      ids: `${parentProps.projectMediaId},,`,
     }}
   />
 );

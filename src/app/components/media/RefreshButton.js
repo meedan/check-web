@@ -47,9 +47,9 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
     setWaitRequest(false);
     setFlashMessage((
       <FormattedMessage
-        id="refreshButton.success"
         defaultMessage="Media refreshed successfully"
         description="Notification displayed when refresh action (re-parsing) of media is completed"
+        id="refreshButton.success"
       />
     ), 'success');
   };
@@ -65,14 +65,14 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
 
   return (
     <ButtonMain
+      className="media-actions__refresh"
+      customStyle={{ color: waitRequest ? null : 'var(--color-gray-15)' }}
+      disabled={waitRequest}
       iconCenter={<RefreshIcon />}
-      onClick={handleClick}
-      variant="outlined"
       size="small"
       theme="text"
-      disabled={waitRequest}
-      customStyle={{ color: waitRequest ? null : 'var(--color-gray-15)' }}
-      className="media-actions__refresh" // For integration test
+      variant="outlined"
+      onClick={handleClick} // For integration test
     />
   );
 };

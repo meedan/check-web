@@ -52,7 +52,7 @@ class UpdateDynamicMutation extends Relay.Mutation {
 
   getOptimisticResponse() {
     if (this.props.parent_type === 'task') {
-      const { task, dynamic } = this.props;
+      const { dynamic, task } = this.props;
       const content = [];
       Object.keys(dynamic.fields).forEach((field) => {
         content.push({

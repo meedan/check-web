@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=4295-43910&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -6,21 +7,21 @@ import cx from 'classnames/bind';
 import Popover from '@material-ui/core/Popover';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MultiSelector from '../../layout/MultiSelector';
-import styles from './TagList.module.css';
 import Chip from '../buttons-checkboxes-chips/Chip';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import TagMoreIcon from '../../../icons/tag_add.svg';
 import MediasLoading from '../../media/MediasLoading';
+import styles from './TagList.module.css';
 
 const TagList = ({
-  readOnly,
-  options: teamTags,
-  tags,
-  setTags,
+  customCreateLabel,
   maxTags,
   onClickTag,
+  options: teamTags,
+  readOnly,
   saving,
-  customCreateLabel,
+  setTags,
+  tags,
 }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -66,17 +67,17 @@ const TagList = ({
 
   const actionButton = (
     <ButtonMain
-      className="int-tag-list__button--create"
-      theme="brand"
-      variant="text"
-      size="default"
-      onClick={() => handleAddNew(searchValue)}
-      label={
-        customCreateLabel || <FormattedMessage id="tagList.create" defaultMessage="+ Create search tags" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." />
-      }
       buttonProps={{
         id: 'tag-menu__create-button',
       }}
+      className="int-tag-list__button--create"
+      label={
+        customCreateLabel || <FormattedMessage defaultMessage="+ Create search tags" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." id="tagList.create" />
+      }
+      size="default"
+      theme="brand"
+      variant="text"
+      onClick={() => handleAddNew(searchValue)}
     />
   );
 
@@ -88,51 +89,51 @@ const TagList = ({
     <div className={styles['tag-list-container']} onClick={swallowClick} onKeyDown={swallowClick}>
       <Popover
         anchorEl={anchorEl}
+        className={styles['tag-list-manager']}
         open={menuOpen}
         onClose={handleCloseMenu}
-        className={styles['tag-list-manager']}
       >
-        <FormattedMessage id="multiSelector.search" defaultMessage="Search…" description="The placeholder text in a search box.">
+        <FormattedMessage defaultMessage="Search…" description="The placeholder text in a search box." id="multiSelector.search">
           {placeholder => (
             <MultiSelector
               actionButton={actionButton}
               allowSearch
-              inputPlaceholder={placeholder}
-              selected={selected}
-              options={options}
               cancelLabel={
                 <FormattedMessage
-                  id="global.cancel"
                   defaultMessage="Cancel"
                   description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+                  id="global.cancel"
+                />
+              }
+              inputPlaceholder={placeholder}
+              notFoundLabel={
+                <FormattedMessage
+                  defaultMessage="No tags found"
+                  description="A message that appears when a user has searched for tag text but no matches have been found."
+                  id="tagList.notFound"
+                />
+              }
+              options={options}
+              selected={selected}
+              submitLabel={
+                <FormattedMessage
+                  defaultMessage="Tag"
+                  description="Verb, infinitive form. Button to commit action of tagging an item"
+                  id="tagList.submit"
                 />
               }
               onDismiss={handleCloseMenu}
               onSearchChange={handleSearchChange}
               onSubmit={handleSubmit}
-              notFoundLabel={
-                <FormattedMessage
-                  id="tagList.notFound"
-                  defaultMessage="No tags found"
-                  description="A message that appears when a user has searched for tag text but no matches have been found."
-                />
-              }
-              submitLabel={
-                <FormattedMessage
-                  id="tagList.submit"
-                  defaultMessage="Tag"
-                  description="Verb, infinitive form. Button to commit action of tagging an item"
-                />
-              }
             />
           )}
         </FormattedMessage>
       </Popover>
       { tags.length > 0 && tags.map(tag => (
         <Chip
-          label={tag}
           className="tag-list__chip"
           key={tag}
+          label={tag}
           onClick={onClickTag ? () => onClickTag(tag) : null}
           onRemove={!readOnly ? () => {
             deleteTag(tag);
@@ -142,7 +143,7 @@ const TagList = ({
       {
         (tags.length > maxTags) && (
           <Tooltip arrow title={tags.slice(maxTags).join(', ')}>
-            <div id="hidden-tags" className={styles['tooltip-container']}>
+            <div className={styles['tooltip-container']} id="hidden-tags">
               <Chip
                 label={`+${tags.length - maxTags}`}
               />
@@ -152,40 +153,40 @@ const TagList = ({
       }
       {
         tags.length === 0 && (
-          <em id="empty-list" className={cx('typography-body2', styles['empty-list'])}>
+          <em className={cx('typography-body2', styles['empty-list'])} id="empty-list" >
             <FormattedMessage
-              id="tagList.empty"
               defaultMessage="0 tags"
               description="A message that appears in a lag list when there are no available tags to display."
+              id="tagList.empty"
             />
           </em>
         )
       }
       { !readOnly &&
         <Tooltip
+          arrow
           placement="top"
           title={
             <FormattedMessage
-              id="taglist.tooltipManage"
               defaultMessage="Manage Tags"
               description="Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
+              id="taglist.tooltipManage"
             />
           }
-          arrow
         >
           <div>
             <ButtonMain
-              iconCenter={<TagMoreIcon />}
-              variant="contained"
-              theme="lightText"
-              size="small"
               className="int-tag-list__button--manage"
+              iconCenter={<TagMoreIcon />}
+              size="small"
+              theme="lightText"
+              variant="contained"
               onClick={handleOpenMenu}
             />
           </div>
         </Tooltip>
       }
-      { saving && <MediasLoading theme="grey" variant="icon" size="icon" /> }
+      { saving && <MediasLoading size="icon" theme="grey" variant="icon" /> }
     </div>
   );
 };

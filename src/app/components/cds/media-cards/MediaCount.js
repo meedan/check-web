@@ -13,29 +13,29 @@ const MediaCount = ({
   mediaType,
 }) => (
   <FormattedMessage
-    id="sharedItemCard.medias"
-    // {mediaCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
     defaultMessage="{mediaCount, plural, one {# Media} other {{mediaCount, number} Media}}"
+    // {mediaCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
     description="A count of media in an item. Title-case where applicable. Example: 3 Media. In English we prefer Media for both singular and plural"
+    id="sharedItemCard.medias"
     values={{ mediaCount }}
   >
     { mediaLabel => (
       <Tooltip
         arrow
-        title={mediaLabel}
         placement="top"
+        title={mediaLabel}
       >
         <span>
           <ButtonMain
-            disabled
-            size="small"
-            theme="lightBeige"
-            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} fontSize="unset" color="unset" /> : <MediaIcon />}
-            variant={mediaCount === 0 ? 'text' : 'contained'}
-            label={getCompactNumber(intl.locale, mediaCount)}
             buttonProps={{
               type: null,
             }}
+            disabled
+            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon color="unset" fontSize="unset" mediaType={mediaType} /> : <MediaIcon />}
+            label={getCompactNumber(intl.locale, mediaCount)}
+            size="small"
+            theme="lightBeige"
+            variant={mediaCount === 0 ? 'text' : 'contained'}
           />
         </span>
       </Tooltip>

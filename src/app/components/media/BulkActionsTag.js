@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -63,13 +64,13 @@ const BulkActionsTag = ({
         id: 'bulk-actions-tag__create-button',
       }}
       iconLeft={<AddIcon />}
+      label={
+        <FormattedMessage defaultMessage="Create this tag" description="Button label for creating a new tag" id="tagMenu.create" />
+      }
+      size="default"
       theme="lightBrand"
       variant="contained"
-      size="default"
       onClick={() => handleAddNew(searchValue)}
-      label={
-        <FormattedMessage id="tagMenu.create" defaultMessage="Create this tag" description="Button label for creating a new tag" />
-      }
     />
   ) : null;
 
@@ -77,9 +78,9 @@ const BulkActionsTag = ({
     const onSuccess = () => {
       setFlashMessage((
         <FormattedMessage
-          id="bulkActionsTag.success"
           defaultMessage="Items tagged successfully"
           description="Success message for bulk tagging actions"
+          id="bulkActionsTag.success"
         />
       ), 'success');
       onDismiss();
@@ -130,7 +131,7 @@ const BulkActionsTag = ({
           inputs,
         },
       },
-      onCompleted: ({ response, error }) => {
+      onCompleted: ({ error, response }) => {
         if (error) {
           return onFailure(error);
         }
@@ -141,34 +142,34 @@ const BulkActionsTag = ({
   };
 
   return (
-    <FormattedMessage id="tagMenu.search" defaultMessage="Search…" description="Placeholder text for searching tags">
+    <FormattedMessage defaultMessage="Search…" description="Placeholder text for searching tags" id="tagMenu.search">
       {placeholder => (
         <MultiSelector
-          allowSearch
           actionButton={actionButton}
-          cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+          allowSearch
+          cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
           inputPlaceholder={placeholder}
+          notFoundLabel={
+            <FormattedMessage
+              defaultMessage="No tags found"
+              description="Empty message when a search results in no tags"
+              id="tagMenu.notFound"
+            />
+          }
+          options={options}
           selected={[]}
+          submitLabel={
+            <FormattedMessage
+              defaultMessage="{numItems, plural, one {Add 1 tag} other {Add # tags}}"
+              description="Button for committing the action of tagging of a number of items in bulk"
+              id="bulkActionsTag.submitLabel"
+              values={{ numItems: selectedValue.length }}
+            />
+          }
           onDismiss={onDismiss}
           onSearchChange={value => setSearchValue(value)}
           onSelectChange={handleSelectChange}
-          options={options}
           onSubmit={handleSubmit}
-          notFoundLabel={
-            <FormattedMessage
-              id="tagMenu.notFound"
-              defaultMessage="No tags found"
-              description="Empty message when a search results in no tags"
-            />
-          }
-          submitLabel={
-            <FormattedMessage
-              id="bulkActionsTag.submitLabel"
-              defaultMessage="{numItems, plural, one {Add 1 tag} other {Add # tags}}"
-              values={{ numItems: selectedValue.length }}
-              description="Button for committing the action of tagging of a number of items in bulk"
-            />
-          }
         />
       )}
     </FormattedMessage>

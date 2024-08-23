@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
@@ -57,11 +58,11 @@ const updateMutation = graphql`
 `;
 
 const ExplainerForm = ({
-  team,
   article,
-  projectMedia,
   onClose,
   onCreate,
+  projectMedia,
+  team,
 }) => {
   const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
@@ -75,9 +76,9 @@ const ExplainerForm = ({
     setError(false);
     onClose(false);
     setFlashMessage(<FormattedMessage
-      id="explainerForm.saveSuccess"
       defaultMessage="Article created successfully!"
       description="Save item action success message"
+      id="explainerForm.saveSuccess"
     />, 'success');
   };
 
@@ -170,15 +171,15 @@ const ExplainerForm = ({
 
   return (
     <ArticleForm
-      handleSave={handleSave}
-      onClose={onClose}
-      handleBlur={handleBlur}
-      articleType="explainer"
-      mode={type}
       article={article}
-      team={team}
-      saving={saving}
+      articleType="explainer"
       error={error}
+      handleBlur={handleBlur}
+      handleSave={handleSave}
+      mode={type}
+      saving={saving}
+      team={team}
+      onClose={onClose}
     />
   );
 };
@@ -211,9 +212,9 @@ const ExplainerFormContainer = createFragmentContainer(ExplainerForm, graphql`
 `);
 
 const ExplainerFormQueryRenderer = ({
-  teamSlug,
   explainerId,
   onClose,
+  teamSlug,
 }) => (
   <QueryRenderer
     environment={Relay.Store}
@@ -227,15 +228,15 @@ const ExplainerFormQueryRenderer = ({
         }
       }
     `}
-    variables={{
-      teamSlug,
-      explainerId,
-    }}
     render={({ error, props }) => {
       if (props && !error) {
         return <ExplainerFormContainer article={props.explainer} team={props.team} onClose={onClose} />;
       }
       return null;
+    }}
+    variables={{
+      teamSlug,
+      explainerId,
     }}
   />
 );

@@ -18,10 +18,10 @@ import CreateTeamDialog from '../../team/CreateTeamDialog';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
-import styles from '../user.module.css';
-import workspaceStyles from './UserWorkspacesComponent.module.css';
 import MediasLoading from '../../media/MediasLoading';
 import Paginator from '../../cds/inputs/Paginator';
+import styles from '../user.module.css';
+import workspaceStyles from './UserWorkspacesComponent.module.css';
 
 const updateUserMutation = graphql`
   mutation PaginatedUserWorkspacesUpdateUserMutation($input: UpdateUserInput!) {
@@ -57,9 +57,9 @@ const UserWorkspacesComponent = ({
 
   const onFailure = (errors) => {
     const errorMessage = getErrorMessageForRelayModernProblem(errors) || <FormattedMessage
-      id="switchTeams.error"
       defaultMessage="Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
       description="Error message with instructions on how to contact support"
+      id="switchTeams.error"
       values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
     />;
     setFlashMessage(errorMessage, 'error');
@@ -115,32 +115,32 @@ const UserWorkspacesComponent = ({
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="userSettings.workspacesTitle"
-            defaultMessage="Workspaces [{workspacesCount}]"
-            description="Title for user settings area for user workspaces list they are a memeber of"
-            values={{ workspacesCount: numberOfTeams || 0 }}
-          />
-        }
         actionButton={
           <ButtonMain
-            theme="brand"
+            label={
+              <FormattedMessage defaultMessage="Create" description="Button label for initiating creating a new team workspace" id="switchTeams.newTeamLink" />
+            }
             size="default"
+            theme="brand"
             variant="contained"
             onClick={() => setShowCreateTeamDialog(true)}
-            label={
-              <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create" description="Button label for initiating creating a new team workspace" />
-            }
+          />
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="Workspaces [{workspacesCount}]"
+            description="Title for user settings area for user workspaces list they are a memeber of"
+            id="userSettings.workspacesTitle"
+            values={{ workspacesCount: numberOfTeams || 0 }}
           />
         }
       />
       { totalCount > pageSize && // only display paginator if there are more than pageSize worth of workspaces overall in the database
         <Paginator
-          page={page}
-          pageSize={pageSize}
           numberOfPageResults={cursor + pageSize >= totalCount ? totalCount % pageSize : pageSize}
           numberOfTotalResults={totalCount}
+          page={page}
+          pageSize={pageSize}
           onChangePage={handlePageChange}
         />
       }
@@ -151,33 +151,33 @@ const UserWorkspacesComponent = ({
             <ul className={cx('teams', styles['user-setting-content-list'])}>
               {teams.slice(cursor, cursor + pageSize).map(team => (
                 <ListItem
-                  key={team.slug}
                   className={cx(workspaceStyles['list-item'], currentTeam === team.dbid && teams.length > 1 && workspaceStyles['current-active-item'])}
-                  onClick={() => setCurrentTeam(team)}
-                  to={`/${team.slug}/all-items`}
                   id={`switch-teams__link-to-${team.slug}`}
+                  key={team.slug}
+                  to={`/${team.slug}/all-items`}
+                  onClick={() => setCurrentTeam(team)}
                 >
                   <ListItemAvatar>
-                    <TeamAvatar team={{ avatar: team.avatar }} size="32px" />
+                    <TeamAvatar size="32px" team={{ avatar: team.avatar }} />
                   </ListItemAvatar>
                   <ListItemText
                     primary={team.name}
-                    style={{ color: 'var(--color-gray-15)' }}
                     secondary={
                       <FormattedMessage
-                        id="switchTeams.member"
                         defaultMessage="{membersCount, plural, one {# member} other {# members}}"
                         description="Count of members of a workspace"
+                        id="switchTeams.member"
                         values={{ membersCount: team.members_count }}
                       />
                     }
+                    style={{ color: 'var(--color-gray-15)' }}
                   />
                   <ListItemSecondaryAction>
                     <ButtonMain
                       iconCenter={<NextIcon />}
+                      size="default"
                       theme="text"
                       variant="text"
-                      size="default"
                       onClick={() => setCurrentTeam(team)}
                     />
                   </ListItemSecondaryAction>
@@ -187,7 +187,7 @@ const UserWorkspacesComponent = ({
           </div> :
           <div className={cx('no-workspaces', styles['user-setting-content-container'])}>
             <BlankState>
-              <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." description="Empty message when the user is not a member of a workspace" />
+              <FormattedMessage defaultMessage="Not a member of any workspace." description="Empty message when the user is not a member of a workspace" id="switchTeams.noTeams" />
             </BlankState>
           </div>
         }

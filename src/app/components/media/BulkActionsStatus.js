@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -33,9 +34,9 @@ const BulkActionsStatus = ({
         onDismiss();
         setFlashMessage((
           <FormattedMessage
-            id="bulkActionsStatus.success"
             defaultMessage="Item statuses changed successfully"
             description="Success message for bulk status change action"
+            id="bulkActionsStatus.success"
           />
         ), 'success');
       }
@@ -62,7 +63,7 @@ const BulkActionsStatus = ({
           }),
         },
       },
-      onCompleted: ({ response, error }) => {
+      onCompleted: ({ error, response }) => {
         if (error) {
           return onFailure(error);
         }
@@ -74,49 +75,49 @@ const BulkActionsStatus = ({
 
   return (
     <React.Fragment>
-      <FormattedMessage id="tagMenu.search" defaultMessage="Search…" description="Placeholder for search input">
+      <FormattedMessage defaultMessage="Search…" description="Placeholder for search input" id="tagMenu.search">
         {placeholder => (
           <MultiSelector
             allowSearch
             inputPlaceholder={placeholder}
-            selected={[]}
-            single
-            options={options}
-            onSubmit={handleSubmit}
             notFoundLabel={
               <FormattedMessage
-                id="tagMenu.notFound"
                 defaultMessage="No status found"
                 description="Empty message when no statuses are returned"
+                id="tagMenu.notFound"
               />
             }
+            options={options}
+            selected={[]}
+            single
             submitLabel={
               <FormattedMessage
-                id="bulkActionsStatus.submitLabel"
                 defaultMessage="{numItems, plural, one {Set status of 1 item} other {Set status of # items}}"
-                values={{ numItems: selectedMedia.length }}
                 description="Button for commiting the action of setting status of a number of items in bulk"
+                id="bulkActionsStatus.submitLabel"
+                values={{ numItems: selectedMedia.length }}
               />
             }
+            onSubmit={handleSubmit}
           />
         )}
       </FormattedMessage>
       <ConfirmProceedDialog
+        body={
+          <FormattedMessage
+            defaultMessage="{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}"
+            description="Body of dialog warning that bulk updating item statuses could not be performed entirely"
+            id="bulkActionsStatus.dialogBody"
+            tagName="p"
+            values={{ publishedCount }}
+          />
+        }
         open={Boolean(publishedCount)}
         title={
           <FormattedMessage
-            id="bulkActionsStatus.dialogTitle"
             defaultMessage="Some statuses could not be changed"
             description="Title of dialog warning after bulk updating item statuses"
-          />
-        }
-        body={
-          <FormattedMessage
-            tagName="p"
-            id="bulkActionsStatus.dialogBody"
-            defaultMessage="{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}"
-            values={{ publishedCount }}
-            description="Body of dialog warning that bulk updating item statuses could not be performed entirely"
+            id="bulkActionsStatus.dialogTitle"
           />
         }
         onProceed={onDismiss}

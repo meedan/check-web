@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import styles from './mediasloading.module.css';
 import CheckMarkIcon from '../../icons/check_color_mark.svg';
+import styles from './mediasloading.module.css';
 
 const MediasLoading = ({
   size,

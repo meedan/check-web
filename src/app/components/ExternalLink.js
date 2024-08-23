@@ -1,14 +1,15 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { truncateLength } from '../helpers';
 
 const ExternalLink = ({
-  className,
   children,
-  url,
+  className,
   maxUrlLength,
-  style,
   readable,
+  style,
+  url,
 }) => {
   let displayUrl = url;
   if (readable) {
@@ -17,7 +18,7 @@ const ExternalLink = ({
   displayUrl = maxUrlLength ? truncateLength(displayUrl, maxUrlLength) : displayUrl;
 
   return (
-    <a className={className} href={url} style={{ color: 'var(--color-blue-32)', ...style }} target="_blank" rel="noopener noreferrer">
+    <a className={className} href={url} rel="noopener noreferrer" style={{ color: 'var(--color-blue-32)', ...style }} target="_blank">
       {children || displayUrl}
     </a>
   );

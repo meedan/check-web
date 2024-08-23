@@ -1,16 +1,17 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages, intlShape } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import cx from 'classnames/bind';
+import UserEmail from './UserEmail';
+import ConfirmEmail from './ConfirmEmail';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TextField from '../cds/inputs/TextField';
 import SourcePicture from '../source/SourcePicture';
-import UserEmail from './UserEmail';
-import ConfirmEmail from './ConfirmEmail';
 import UploadFile from '../UploadFile';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
@@ -19,8 +20,8 @@ import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSour
 import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
-import styles from './user.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
+import styles from './user.module.css';
 
 const messages = defineMessages({
   sourceName: {
@@ -123,9 +124,9 @@ class UserInfoEdit extends React.Component {
     this.removePendingMutation(mutation);
     this.props.setFlashMessage((
       <FormattedMessage
-        id="userInfoEdit.savedSuccessfully"
         defaultMessage="Profile details saved successfully"
         description="Success message displayed when user profile is saved"
+        id="userInfoEdit.savedSuccessfully"
       />
     ), 'success');
   }
@@ -360,21 +361,21 @@ class UserInfoEdit extends React.Component {
         }
         <div className={styles['user-info-avatar']}>
           <SourcePicture
-            size="large"
-            object={source}
-            type="user"
             className="source__avatar"
+            object={source}
+            size="large"
+            type="user"
           />
           {!this.state.editProfileImg ?
             <ButtonMain
               className={styles.StyledAvatarEditButton}
+              label={
+                <FormattedMessage defaultMessage="Edit" description="Generic label for a button or link for a user to press when they wish to edit content or functionality" id="global.edit" />
+              }
+              size="default"
               theme="brand"
               variant="text"
-              size="default"
               onClick={this.handleEditProfileImg.bind(this)}
-              label={
-                <FormattedMessage id="global.edit" defaultMessage="Edit" description="Generic label for a button or link for a user to press when they wish to edit content or functionality" />
-              }
             />
             : null}
         </div>
@@ -389,33 +390,31 @@ class UserInfoEdit extends React.Component {
             : null
           }
           <form
-            onSubmit={this.handleSubmit.bind(this)}
             name="edit-source-form"
+            onSubmit={this.handleSubmit.bind(this)}
           >
             <div className={inputStyles['form-fieldset']}>
               {this.state.editProfileImg ?
                 <UploadFile
+                  noPreview
                   type="image"
                   value={this.state.image}
                   onChange={this.handleImageChange}
                   onError={this.handleImageError}
-                  noPreview
                 />
                 : null}
               <TextField
-                required
+                className={cx('source__name-input', inputStyles['form-fieldset-field'])}
                 componentProps={{
                   id: 'source__name-container',
                   name: 'name',
                 }}
-                className={cx('source__name-input', inputStyles['form-fieldset-field'])}
                 defaultValue={user.name}
-                label={this.props.intl.formatMessage(messages.sourceName)}
                 helpContent={
                   <FormattedMessage
-                    id="userInfoEdit.dateJoined"
                     defaultMessage="Joined {date}"
                     description="Informational line showing the user the date their account was created on check"
+                    id="userInfoEdit.dateJoined"
                     values={{
                       date: this.props.intl.formatDate(
                         parseStringUnixTimestamp(user.source.created_at),
@@ -424,43 +423,45 @@ class UserInfoEdit extends React.Component {
                     }}
                   />
                 }
+                label={this.props.intl.formatMessage(messages.sourceName)}
+                required
               />
               <TextField
+                className={cx('source__email-input', inputStyles['form-fieldset-field'])}
                 componentProps={{
                   id: 'source__email-container',
                   name: 'email',
                 }}
-                className={cx('source__email-input', inputStyles['form-fieldset-field'])}
                 defaultValue={user.unconfirmed_email || user.email}
+                helpContent={emailHelperText}
                 label={this.props.intl.formatMessage(messages.userEmail)}
                 placeholder={
                   this.props.intl.formatMessage(messages.emailHint)
                 }
-                helpContent={emailHelperText}
               />
               <SwitchComponent
-                className={inputStyles['form-fieldset-field']}
                 checked={Boolean(this.state.sendEmail)}
-                onChange={this.handleSendEmail.bind(this, Boolean(!this.state.sendEmail))}
-                label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
-                labelPlacement="end"
+                className={inputStyles['form-fieldset-field']}
                 inputProps={{
                   name: 'sendNotification',
                 }}
+                label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
+                labelPlacement="end"
+                onChange={this.handleSendEmail.bind(this, Boolean(!this.state.sendEmail))}
               />
             </div>
           </form>
           <div className={cx('source__edit-buttons-cancel-save', inputStyles['form-footer-actions'])}>
             <ButtonMain
-              disabled={this.state.submitDisabled}
               className="source__edit-save-button"
-              size="default"
-              variant="contained"
-              theme="brand"
-              onClick={this.handleSubmit.bind(this)}
+              disabled={this.state.submitDisabled}
               label={
-                <FormattedMessage id="global.save" defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" />
+                <FormattedMessage defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" id="global.save" />
               }
+              size="default"
+              theme="brand"
+              variant="contained"
+              onClick={this.handleSubmit.bind(this)}
             />
           </div>
         </div>

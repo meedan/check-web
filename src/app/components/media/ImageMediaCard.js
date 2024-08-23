@@ -2,23 +2,23 @@ import React from 'react';
 import AspectRatio from '../layout/AspectRatio';
 
 const ImageMediaCard = ({
+  currentUserRole,
   imagePath,
   projectMedia,
-  currentUserRole,
   superAdminMask,
 }) => (
   <article className="image-media-card">
     <AspectRatio
-      expandedImage={imagePath}
-      downloadUrl={imagePath}
-      projectMedia={projectMedia}
       currentUserRole={currentUserRole}
+      downloadUrl={imagePath}
+      expandedImage={imagePath}
+      projectMedia={projectMedia}
       superAdminMask={superAdminMask}
     >
       <div className="aspect-ratio__overlay">
         <img
-          src={imagePath}
           alt=""
+          src={imagePath}
         />
       </div>
     </AspectRatio>

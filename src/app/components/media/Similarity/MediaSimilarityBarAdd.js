@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -9,9 +10,9 @@ import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const MediaSimilarityBarAdd = ({
-  projectMediaId,
-  projectMediaDbid,
   canMerge,
+  projectMediaDbid,
+  projectMediaId,
   setFlashMessage,
 }) => {
   const [showDialog, setShowDialog] = React.useState(false);
@@ -27,9 +28,9 @@ const MediaSimilarityBarAdd = ({
     setSubmitting(false);
     setFlashMessage((
       <FormattedMessage
-        id="mediaSimilarityBarAdd.mergedSuccessfully"
         defaultMessage="Items merged successfully."
         description="Banner displayed when items are merged successfully."
+        id="mediaSimilarityBarAdd.mergedSuccessfully"
       />
     ), 'success');
     setShowDialog(false);
@@ -128,42 +129,42 @@ const MediaSimilarityBarAdd = ({
   return (
     <React.Fragment>
       <ButtonMain
-        label={<FormattedMessage id="mediaSimilarityBarAdd.mergeItems" defaultMessage="Merge Items" description="Label for the Merge Items button." />}
-        variant="contained"
-        size="default"
-        theme="brand"
-        onClick={() => { setShowDialog(true); }}
-        disabled={!canMerge}
         buttonProps={{
           id: 'media-similarity__add-button',
         }}
+        disabled={!canMerge}
+        label={<FormattedMessage defaultMessage="Merge Items" description="Label for the Merge Items button." id="mediaSimilarityBarAdd.mergeItems" />}
+        size="default"
+        theme="brand"
+        variant="contained"
+        onClick={() => { setShowDialog(true); }}
       />
       <CreateRelatedMediaDialog
-        title={
-          <FormattedMessage
-            tagName="h6"
-            id="mediaSimilarityBarAdd.mergeItemsTitle"
-            defaultMessage="Find other media to merge with this item"
-            description="Dialog title for merging items."
-          />
-        }
-        open={showDialog}
-        onDismiss={() => { setShowDialog(false); }}
-        onSelect={handleSubmit}
-        media={{ dbid: projectMediaDbid }}
+        disablePublished
+        hideNew
         isSubmitting={submitting}
+        media={{ dbid: projectMediaDbid }}
+        multiple
+        open={showDialog}
+        showFilters
         submitButtonLabel={count => (
           <FormattedMessage
-            id="mediaSimilarityBarAdd.mergeItemsButton"
             defaultMessage="{count, plural, one {Merge Selected Item} other {Merge # Selected Items}}"
-            values={{ count }}
             description="Button label to commit action of merging items."
+            id="mediaSimilarityBarAdd.mergeItemsButton"
+            values={{ count }}
           />
         )}
-        multiple
-        hideNew
-        showFilters
-        disablePublished
+        title={
+          <FormattedMessage
+            defaultMessage="Find other media to merge with this item"
+            description="Dialog title for merging items."
+            id="mediaSimilarityBarAdd.mergeItemsTitle"
+            tagName="h6"
+          />
+        }
+        onDismiss={() => { setShowDialog(false); }}
+        onSelect={handleSubmit}
       />
     </React.Fragment>
   );

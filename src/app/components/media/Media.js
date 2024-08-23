@@ -24,12 +24,9 @@ const ProjectMedia = (parentProps, context) => {
             }
           }
         `}
-        variables={{
-          ids: `${projectMediaId},,`,
-        }}
         render={({ error, props }) => {
           if (!error && !props) {
-            return (<MediasLoading theme="white" variant="page" size="large" />);
+            return (<MediasLoading size="large" theme="white" variant="page" />);
           }
 
           if (!error && props) {
@@ -43,6 +40,9 @@ const ProjectMedia = (parentProps, context) => {
 
           // TODO: We need a better error handling in the future, standardized with other components
           return null;
+        }}
+        variables={{
+          ids: `${projectMediaId},,`,
         }}
       />
     </ErrorBoundary>

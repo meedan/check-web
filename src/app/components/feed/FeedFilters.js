@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -46,27 +47,27 @@ const messages = defineMessages({
 });
 
 const FeedFilters = ({
-  sort,
-  sortType,
-  onChangeSort,
-  onSubmit,
-  filterOptions,
   currentFilters,
-  feed,
-  feedTeam,
   disableSave,
   extra,
+  feed,
+  feedTeam,
+  filterOptions,
   intl,
+  onChangeSort,
+  onSubmit,
   setFlashMessage,
+  sort,
+  sortType,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
 
   const handleError = () => {
     setFlashMessage((
       <FormattedMessage
-        id="feedFilters.defaultErrorMessage"
         defaultMessage="Could not save filters, please try again"
         description="Error message displayed when it's not possible to save feed requests filters"
+        id="feedFilters.defaultErrorMessage"
       />
     ), 'error');
   };
@@ -74,9 +75,9 @@ const FeedFilters = ({
   const handleSuccess = () => {
     setFlashMessage((
       <FormattedMessage
-        id="feedFilters.savedSuccessfully"
         defaultMessage="Filters saved successfully"
         description="Success message displayed when feed requests filters are saved"
+        id="feedFilters.savedSuccessfully"
       />
     ), 'success');
   };
@@ -176,9 +177,9 @@ const FeedFilters = ({
       <div className={searchStyles['filters-wrapper']}>
         <ListSort
           className={searchStyles['filters-sorting']}
+          options={sortOptions}
           sort={sort}
           sortType={sortType}
-          options={sortOptions}
           onChange={onChangeSort}
         />
         {Object.keys(filters).map((filter) => {
@@ -187,10 +188,10 @@ const FeedFilters = ({
           if (filter === 'linked_items_count') {
             return (
               <NumericRangeFilter
-                key={filter}
                 filterKey="linked_items_count"
-                onChange={handleNumericRange}
+                key={filter}
                 value={value}
+                onChange={handleNumericRange}
                 onRemove={() => handleRemoveFilter('linked_items_count')}
               />
             );
@@ -199,10 +200,10 @@ const FeedFilters = ({
           if (filter === 'demand') {
             return (
               <NumericRangeFilter
-                key={filter}
                 filterKey="demand"
-                onChange={handleNumericRange}
+                key={filter}
                 value={value}
+                onChange={handleNumericRange}
                 onRemove={() => handleRemoveFilter('demand')}
               />
             );
@@ -211,11 +212,11 @@ const FeedFilters = ({
           if (filter === 'range') {
             return (
               <DateRangeFilter
-                key={filter}
                 filterKey="range"
-                onChange={handleDateRange}
-                value={value || { request_created_at: {} }}
+                key={filter}
                 optionsToHide={['created_at', 'media_published_at', 'report_published_at', 'request_created_at']}
+                value={value || { request_created_at: {} }}
+                onChange={handleDateRange}
                 onRemove={() => handleRemoveFilter('range')}
               />
             );
@@ -224,18 +225,18 @@ const FeedFilters = ({
           if (filter === 'feed_fact_checked_by') {
             return (
               <MultiSelectFilter
-                key={filter}
-                label={<FormattedMessage id="feedFilters.factCheckedBy" defaultMessage="Fact-checked by" description="Field label for feed filter" />}
+                allowSearch={false}
                 icon={<HowToRegIcon />}
-                selected={['ANY', 'NONE'].includes(value) ? [value] : []}
+                key={filter}
+                label={<FormattedMessage defaultMessage="Fact-checked by" description="Field label for feed filter" id="feedFilters.factCheckedBy" />}
                 options={[
-                  { key: 'ANY', label: <FormattedMessage id="feedFilters.factCheckByAny" defaultMessage="Any organization" description="Filter option for feed filter 'Fact-checked by'" />, value: 'ANY' },
-                  { key: 'NONE', label: <FormattedMessage id="feedFilters.factCheckByNone" defaultMessage="No organization" description="Filter option for feed filter 'Fact-checked by'" />, value: 'NONE' },
+                  { key: 'ANY', label: <FormattedMessage defaultMessage="Any organization" description="Filter option for feed filter 'Fact-checked by'" id="feedFilters.factCheckByAny" />, value: 'ANY' },
+                  { key: 'NONE', label: <FormattedMessage defaultMessage="No organization" description="Filter option for feed filter 'Fact-checked by'" id="feedFilters.factCheckByNone" />, value: 'NONE' },
                 ]}
+                selected={['ANY', 'NONE'].includes(value) ? [value] : []}
+                single
                 onChange={newValue => handleOptionChange('feed_fact_checked_by', newValue)}
                 onRemove={() => handleRemoveFilter('feed_fact_checked_by')}
-                allowSearch={false}
-                single
               />
             );
           }
@@ -244,9 +245,9 @@ const FeedFilters = ({
             return (
               <SearchFieldChannel
                 key={filter}
+                page="feed"
                 query={{ channels: value }}
                 onChange={newValue => handleOptionChange('channels', newValue)}
-                page="feed"
                 onRemove={() => handleRemoveFilter('channels')}
               />
             );
@@ -256,9 +257,8 @@ const FeedFilters = ({
             return (
               <MultiSelectFilter
                 allowSearch={false}
-                label={<FormattedMessage id="feedFilters.mediaType" defaultMessage="Media (type)" description="Field label for feed filter" />}
                 icon={<DescriptionIcon />}
-                selected={value || []}
+                label={<FormattedMessage defaultMessage="Media (type)" description="Field label for feed filter" id="feedFilters.mediaType" />}
                 options={[
                   { value: 'UploadedAudio', label: intl.formatMessage(messages.mediaTypeAudio) },
                   { value: 'UploadedImage', label: intl.formatMessage(messages.mediaTypeImage) },
@@ -266,6 +266,7 @@ const FeedFilters = ({
                   { value: 'Claim', label: intl.formatMessage(messages.mediaTypeText) },
                   { value: 'Link', label: intl.formatMessage(messages.mediaTypeLink) },
                 ]}
+                selected={value || []}
                 onChange={newValue => handleOptionChange('show', newValue)}
                 onRemove={() => handleRemoveFilter('show')}
               />
@@ -275,57 +276,57 @@ const FeedFilters = ({
           return null;
         })}
         <AddFilterMenu
-          team={{}}
-          showOptions={filterOptions}
           addedFields={Object.keys(filters)}
+          showOptions={filterOptions}
+          team={{}}
           onSelect={handleAddFilter}
         />
         { Object.keys(filters).length > 0 ?
           <div className={cx(searchStyles['filters-buttons-wrapper'], searchStyles['filters-buttons-wrapper-visible'])}>
             <ButtonMain
-              className="int-search-fields__button--apply-feedfilter"
-              variant="contained"
-              size="default"
-              theme="lightValidation"
-              onClick={handleSubmit}
-              label={
-                <FormattedMessage id="feedFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
-              }
               buttonProps={{
                 id: 'search-fields__submit-button',
               }}
+              className="int-search-fields__button--apply-feedfilter"
+              label={
+                <FormattedMessage defaultMessage="Apply" description="Button to perform query with specified filters" id="feedFilters.applyFilters" />
+              }
+              size="default"
+              theme="lightValidation"
+              variant="contained"
+              onClick={handleSubmit}
             />
             <ButtonMain
-              className="int-search-fields__button--reset-feedfilter"
-              variant="contained"
-              size="default"
-              theme="lightText"
-              onClick={handleClear}
-              label={
-                <FormattedMessage id="feedFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
-              }
               buttonProps={{
                 id: 'search-fields__clear-button',
               }}
+              className="int-search-fields__button--reset-feedfilter"
+              label={
+                <FormattedMessage defaultMessage="Reset" description="Tooltip for button to remove any applied filters" id="feedFilters.reset" />
+              }
+              size="default"
+              theme="lightText"
+              variant="contained"
+              onClick={handleClear}
             />
           </div>
           : null }
         { disableSave ?
           <ButtonMain
-            variant="contained"
-            size="default"
-            theme="lightBrand"
             buttonProps={{
               id: 'save-list__button',
             }}
-            onClick={handleSaveFilters}
             label={
               <FormattedMessage
-                id="feedFilters.saveFilters"
                 defaultMessage="Save"
                 description="'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
+                id="feedFilters.saveFilters"
               />
             }
+            size="default"
+            theme="lightBrand"
+            variant="contained"
+            onClick={handleSaveFilters}
           />
           : null }
       </div>

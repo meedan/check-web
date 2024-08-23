@@ -1,9 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import FactCheckIcon from '../../icons/fact_check.svg';
 import Articles from './Articles';
+import FactCheckIcon from '../../icons/fact_check.svg';
 
 const messages = defineMessages({
   sortTitle: {
@@ -23,7 +24,7 @@ const messages = defineMessages({
   },
 });
 
-const FactChecks = ({ routeParams, intl }) => {
+const FactChecks = ({ intl, routeParams }) => {
   const sortOptions = [
     { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'language', label: intl.formatMessage(messages.sortLanguage) },
@@ -43,12 +44,12 @@ const FactChecks = ({ routeParams, intl }) => {
 
   return (
     <Articles
-      type="fact-check"
-      title={<FormattedMessage id="factChecks.title" defaultMessage="Claim & Fact-Checks" description="Title of the fact-checks page." />}
-      icon={<FactCheckIcon />}
-      teamSlug={routeParams.team}
-      sortOptions={sortOptions}
       filterOptions={['users', 'tags', 'range', 'language_filter', 'published_by', 'report_status', 'verification_status']}
+      icon={<FactCheckIcon />}
+      sortOptions={sortOptions}
+      teamSlug={routeParams.team}
+      title={<FormattedMessage defaultMessage="Claim & Fact-Checks" description="Title of the fact-checks page." id="factChecks.title" />}
+      type="fact-check"
       updateMutation={updateMutation}
     />
   );

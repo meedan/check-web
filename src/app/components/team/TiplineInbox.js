@@ -27,9 +27,6 @@ const TiplineInbox = ({ routeParams }) => (
           }
         }
       `}
-      variables={{
-        slug: routeParams.team,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           const { team } = props;
@@ -41,20 +38,23 @@ const TiplineInbox = ({ routeParams }) => (
           };
           return (
             <Search
-              searchUrlPrefix={`/${routeParams.team}/tipline-inbox`}
-              mediaUrlPrefix={`/${routeParams.team}/media`}
-              title={<FormattedMessage id="tiplineInbox.title" defaultMessage="Tipline inbox" description="Title for the tipline inbox listing of items" />}
-              icon={<InboxIcon />}
-              teamSlug={routeParams.team}
-              query={query}
               defaultQuery={defaultQuery}
               hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
-              readOnlyFields={['verification_status']}
+              icon={<InboxIcon />}
+              mediaUrlPrefix={`/${routeParams.team}/media`}
               page="tipline-inbox"
+              query={query}
+              readOnlyFields={['verification_status']}
+              searchUrlPrefix={`/${routeParams.team}/tipline-inbox`}
+              teamSlug={routeParams.team}
+              title={<FormattedMessage defaultMessage="Tipline inbox" description="Title for the tipline inbox listing of items" id="tiplineInbox.title" />}
             />
           );
         }
         return null;
+      }}
+      variables={{
+        slug: routeParams.team,
       }}
     />
   </ErrorBoundary>

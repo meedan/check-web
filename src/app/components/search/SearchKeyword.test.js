@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { SearchKeywordTest } from './SearchKeyword';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<SearchKeyword />', () => {
   const team = {
@@ -23,19 +23,19 @@ describe('<SearchKeyword />', () => {
   it('should render with title set to initial keyword', () => {
     const wrapper = mountWithIntl(<SearchKeywordTest
       classes={{}}
-      team={team}
+      cleanupQuery={() => {}}
+      clientSessionId=""
+      handleSubmit={() => {}}
+      project={project}
       pusher={{
         subscribe: () => () => null,
         unsubscribe: () => {},
       }}
-      project={project}
       query={{
         keyword: 'search keyword',
       }}
-      clientSessionId=""
       setStateQuery={() => {}}
-      cleanupQuery={() => {}}
-      handleSubmit={() => {}}
+      team={team}
     />);
 
     expect(wrapper.find('PageTitle').props().prefix).toBe('search keyword');
@@ -44,17 +44,17 @@ describe('<SearchKeyword />', () => {
   it('should render with title set to project title when no query keyword present', () => {
     const wrapper = mountWithIntl(<SearchKeywordTest
       classes={{}}
-      team={team}
+      cleanupQuery={() => {}}
+      clientSessionId=""
+      handleSubmit={() => {}}
+      project={project}
       pusher={{
         subscribe: () => () => null,
         unsubscribe: () => {},
       }}
-      project={project}
       query={{}}
-      clientSessionId=""
       setStateQuery={() => {}}
-      cleanupQuery={() => {}}
-      handleSubmit={() => {}}
+      team={team}
     />);
 
     expect(wrapper.find('PageTitle').props().prefix).toBe('project-title');

@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import LanguagePickerSelect from './LanguagePickerSelect';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<LanguagePickerSelect />', () => {
   const props = {

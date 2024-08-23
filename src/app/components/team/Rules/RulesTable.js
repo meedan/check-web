@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, FormattedRelative } from 'react-intl';
@@ -7,12 +8,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import cx from 'classnames/bind';
+import RulesTableToolbar from './RulesTableToolbar';
+import RulesTableHead from './RulesTableHead';
 import BlankState from '../../layout/BlankState';
 import EditIcon from '../../../icons/edit.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsHeader from '../SettingsHeader';
-import RulesTableToolbar from './RulesTableToolbar';
-import RulesTableHead from './RulesTableHead';
 import settingsStyles from '../Settings.module.css';
 
 export default function RulesTable(props) {
@@ -76,32 +77,32 @@ export default function RulesTable(props) {
   return (
     <React.Fragment>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="rulesTableToolbar.title"
-            defaultMessage="Rules [{rulesCount}]"
-            description="Title area for the rules admin section of the settings page"
-            values={{ rulesCount: rows.length }}
+        actionButton={
+          <ButtonMain
+            className="int-rules-table__button--new-rule"
+            label={
+              <FormattedMessage defaultMessage="New rule" description="Button label for creating a new rule" id="rulesTableToolbar.add" />
+            }
+            size="default"
+            theme="brand"
+            variant="contained"
+            onClick={handleNewRule}
           />
         }
         context={
           <FormattedHTMLMessage
-            id="rulesTableToolbar.helpContext"
             defaultMessage='Use rules to automate actions on Check. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about rules</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772836-rules' }}
             description="Context description for the functionality of this page"
+            id="rulesTableToolbar.helpContext"
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772836-rules' }}
           />
         }
-        actionButton={
-          <ButtonMain
-            size="default"
-            theme="brand"
-            variant="contained"
-            className="int-rules-table__button--new-rule"
-            onClick={handleNewRule}
-            label={
-              <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" description="Button label for creating a new rule" />
-            }
+        title={
+          <FormattedMessage
+            defaultMessage="Rules [{rulesCount}]"
+            description="Title area for the rules admin section of the settings page"
+            id="rulesTableToolbar.title"
+            values={{ rulesCount: rows.length }}
           />
         }
       />
@@ -109,9 +110,9 @@ export default function RulesTable(props) {
         {rows.length === 0 ?
           <BlankState>
             <FormattedMessage
-              id="rulesTableTool.blank"
               defaultMessage="No Workspace Rules"
               description="Message displayed when there are no rules items"
+              id="rulesTableTool.blank"
             />
           </BlankState>
           :
@@ -128,7 +129,7 @@ export default function RulesTable(props) {
               />
               <TableBody>
                 {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
-                  const { name, index } = row;
+                  const { index, name } = row;
                   const isItemSelected = isSelected(index);
                   const labelId = `rules-table-checkbox-${index}`;
                   const date = new Date(row.updated_at * 1000);
@@ -138,8 +139,8 @@ export default function RulesTable(props) {
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
-                          onClick={(event) => { handleChange(event, index); }}
                           inputProps={{ 'aria-labelledby': labelId }}
+                          onClick={(event) => { handleChange(event, index); }}
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row">
@@ -152,11 +153,11 @@ export default function RulesTable(props) {
                       </TableCell>
                       <TableCell>
                         <ButtonMain
-                          iconCenter={<EditIcon />}
                           className="int-rules-table__button--rule-menu"
-                          variant="outlined"
+                          iconCenter={<EditIcon />}
                           size="default"
                           theme="text"
+                          variant="outlined"
                           onClick={() => { handleClick(index); }}
                         />
                       </TableCell>

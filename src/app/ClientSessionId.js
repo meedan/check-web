@@ -26,7 +26,7 @@ function generateRandomClientSessionId() {
 function withClientSessionId(Component) {
   const inner = React.forwardRef((props, ref) => {
     const clientSessionId = React.useContext(ClientSessionIdContext);
-    return <Component ref={ref} clientSessionId={clientSessionId} {...props} />;
+    return <Component clientSessionId={clientSessionId} ref={ref} {...props} />;
   });
   inner.displayName = `WithClientSessionId(${Component.displayName || Component.name || 'Component'})`;
   return inner;

@@ -8,13 +8,13 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import MoreVertIcon from '../../icons/more_vert.svg';
 import RefreshButton from './RefreshButton';
 import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
-import ExternalLink from '../ExternalLink';
 import MediaLanguageSwitcher from './MediaLanguageSwitcher';
+import ExternalLink from '../ExternalLink';
+import MoreVertIcon from '../../icons/more_vert.svg';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -37,14 +37,14 @@ const ExtraMediaActions = ({
   return (
     <div className="media-expanded-actions">
       <ButtonMain
-        iconCenter={<MoreVertIcon />}
-        variant="contained"
-        size="small"
-        theme="text"
-        onClick={e => setAnchorEl(e.currentTarget)}
         buttonProps={{
           id: 'media-expanded-actions__menu',
         }}
+        iconCenter={<MoreVertIcon />}
+        size="small"
+        theme="text"
+        variant="contained"
+        onClick={e => setAnchorEl(e.currentTarget)}
       />
       <Menu
         anchorEl={anchorEl}
@@ -54,13 +54,13 @@ const ExtraMediaActions = ({
         { (projectMedia.media && projectMedia.media.url) ?
           <MenuItem onClick={() => setAnchorEl(null)}>
             <ExternalLink
-              url={projectMedia.media.url}
               style={{ color: 'unset', textDecoration: 'none' }}
+              url={projectMedia.media.url}
             >
               <FormattedMessage
-                id="mediaMetadata.openLink"
                 defaultMessage="Open link"
                 description="Menu option for navigating to the original media url"
+                id="mediaMetadata.openLink"
               />
             </ExternalLink>
           </MenuItem> : null }
@@ -76,15 +76,15 @@ const ExtraMediaActions = ({
             onClick={() => handleMenuAndClose(reverseImageSearchGoogle)}
           >
             <FormattedMessage
-              id="mediaMetadata.ImageSearch"
               defaultMessage="Reverse image search"
               description="Menu option for performing reverse image searches on google or other engines"
+              id="mediaMetadata.ImageSearch"
             />
           </MenuItem> : null }
         <OcrButton
+          hasExtractedText={Boolean(projectMedia.extracted_text)}
           projectMediaId={projectMedia.id}
           projectMediaType={projectMedia.media.type}
-          hasExtractedText={Boolean(projectMedia.extracted_text)}
           onClick={() => setAnchorEl(null)}
         />
       </Menu>
@@ -100,10 +100,10 @@ class MediaExpandedActions extends React.Component {
 
   render() {
     const {
-      projectMedia,
+      bottomSeparator,
       inModal,
       onClickMore,
-      bottomSeparator,
+      projectMedia,
     } = this.props;
     const { media } = projectMedia;
 
@@ -120,21 +120,21 @@ class MediaExpandedActions extends React.Component {
             {}
         }
       >
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box alignItems="center" display="flex" justifyContent="space-between">
           <div>
             { !inModal ?
               <ButtonMain
                 label={
                   <FormattedMessage
-                    id="mediaCardLarge.more"
-                    description="Button to open an expanded view of the media"
                     defaultMessage="More"
+                    description="Button to open an expanded view of the media"
+                    id="mediaCardLarge.more"
                   />
                 }
-                onClick={onClickMore}
-                variant="contained"
                 size="default"
                 theme="brand"
+                variant="contained"
+                onClick={onClickMore}
               /> : null }
             { inModal ? <MediaLanguageSwitcher projectMedia={projectMedia} /> : null }
           </div>

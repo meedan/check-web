@@ -42,13 +42,17 @@ describe('<SearchResults />', () => {
 
   it('Should render feed icon when list is related to a feed', () => {
     const wrapper = shallow(<SearchResultsComponentTest
-      team={team}
-      search={search}
-      projectGroup={null}
       clientSessionId="checkClientSessionId"
+      feedTeam={null}
       mediaUrlPrefix=""
-      searchUrlPrefix=""
-      title="title"
+      page="list"
+      projectGroup={null}
+      pusher={{
+        subscribe: () => () => null,
+        unsubscribe: () => {},
+      }}
+      query={{ verification_status: ['undetermined'] }}
+      relay={{}}
       savedSearch={{
         id: '1',
         is_part_of_feeds: true,
@@ -56,33 +60,27 @@ describe('<SearchResults />', () => {
         filters: '{"verification_status":["undetermined"],"timestamp":1687444240820}',
         feeds,
       }}
-      pusher={{
-        subscribe: () => () => null,
-        unsubscribe: () => {},
-      }}
-      page="list"
-      relay={{}}
-      feedTeam={null}
-      query={{ verification_status: ['undetermined'] }}
+      search={search}
+      searchUrlPrefix=""
+      team={team}
+      title="title"
     />);
     expect(wrapper.find('#shared-feed__icon')).toHaveLength(1);
   });
 
   it('Should not render feed icon when list is not related to a feed', () => {
     const wrapper = shallow(<SearchResultsComponentTest
-      team={team}
-      search={search}
-      projectGroup={null}
       clientSessionId="checkClientSessionId"
+      feedTeam={null}
       mediaUrlPrefix=""
-      searchUrlPrefix=""
-      title="title"
       page="all-items"
-      relay={{}}
+      projectGroup={null}
       pusher={{
         subscribe: () => () => null,
         unsubscribe: () => {},
       }}
+      query={{ verification_status: ['undetermined'] }}
+      relay={{}}
       savedSearch={{
         id: '1',
         is_part_of_feeds: false,
@@ -90,8 +88,10 @@ describe('<SearchResults />', () => {
         filters: '{"verification_status":["undetermined"],"timestamp":1687444240820}',
         feeds,
       }}
-      feedTeam={null}
-      query={{ verification_status: ['undetermined'] }}
+      search={search}
+      searchUrlPrefix=""
+      team={team}
+      title="title"
     />);
     expect(wrapper.find('#shared-feed__icon')).toHaveLength(0);
   });

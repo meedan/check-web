@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -59,13 +59,13 @@ class MediaActionsMenuButton extends React.PureComponent {
 
   render() {
     const {
-      projectMedia,
-      isParent,
-      handleSendToTrash,
-      handleSendToSpam,
       handleAssign,
-      handleStatusLock,
       handleItemHistory,
+      handleSendToSpam,
+      handleSendToTrash,
+      handleStatusLock,
+      isParent,
+      projectMedia,
     } = this.props;
     const menuItems = [];
 
@@ -73,13 +73,13 @@ class MediaActionsMenuButton extends React.PureComponent {
       if (can(projectMedia.permissions, 'update Status') && [CheckArchivedFlags.NONE, CheckArchivedFlags.UNCONFIRMED].includes(projectMedia.archived)) {
         menuItems.push((
           <MenuItem
-            key="mediaActions.assign"
             className="media-actions__assign"
+            key="mediaActions.assign"
             onClick={e => this.handleActionAndClose(e, handleAssign)}
           >
             <ListItemText
               primary={
-                <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assign to…" description="Menu item to select a team to assign item" />
+                <FormattedMessage defaultMessage="Assign to…" description="Menu item to select a team to assign item" id="mediaActions.assignOrUnassign" />
               }
             />
           </MenuItem>));
@@ -88,14 +88,14 @@ class MediaActionsMenuButton extends React.PureComponent {
       if (can(projectMedia.permissions, 'lock Annotation') && projectMedia.archived === CheckArchivedFlags.NONE) {
         menuItems.push((
           <MenuItem
-            key="mediaActions.lockStatus"
             className="media-actions__lock-status"
+            key="mediaActions.lockStatus"
             onClick={e => this.handleActionAndClose(e, handleStatusLock)}
           >
             <ListItemText
               primary={projectMedia.last_status_obj?.locked ?
-                <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" description="Menu item to unlock an item status so it can be changed" /> :
-                <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" description="Menu item to lock an item status so it cannot be changed" />}
+                <FormattedMessage defaultMessage="Unlock status" description="Menu item to unlock an item status so it can be changed" id="mediaActions.unlockStatus" /> :
+                <FormattedMessage defaultMessage="Lock status" description="Menu item to lock an item status so it cannot be changed" id="mediaActions.lockStatus" />}
             />
           </MenuItem>));
       }
@@ -106,22 +106,22 @@ class MediaActionsMenuButton extends React.PureComponent {
       )) {
         menuItems.push((
           <MenuItem
-            key="mediaActions.sendToTrash"
             className="media-actions__send-to-trash"
+            key="mediaActions.sendToTrash"
             onClick={e => this.handleActionAndClose(e, handleSendToTrash)}
           >
             <ListItemText
-              primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to Trash" description="Menu item to move the current item to the trash list" />}
+              primary={<FormattedMessage defaultMessage="Send to Trash" description="Menu item to move the current item to the trash list" id="mediaActions.sendToTrash" />}
             />
           </MenuItem>));
         menuItems.push((
           <MenuItem
-            key="mediaActions.sendToSpam"
             className="media-actions__send-to-spam"
+            key="mediaActions.sendToSpam"
             onClick={e => this.handleActionAndClose(e, handleSendToSpam)}
           >
             <ListItemText
-              primary={<FormattedMessage id="mediaActions.sendToSpam" defaultMessage="Mark as Spam" description="Menu item to move the current item to the spam list" />}
+              primary={<FormattedMessage defaultMessage="Mark as Spam" description="Menu item to move the current item to the spam list" id="mediaActions.sendToSpam" />}
             />
           </MenuItem>));
       }
@@ -129,13 +129,13 @@ class MediaActionsMenuButton extends React.PureComponent {
 
     menuItems.push((
       <MenuItem
-        key="mediaActions.history"
         className="media-actions__history"
         id="media-actions__history"
+        key="mediaActions.history"
         onClick={e => this.handleActionAndClose(e, handleItemHistory)}
       >
         <ListItemText
-          primary={<FormattedMessage id="mediaActions.history" defaultMessage="Item history" description="Menu item to view the history of changes to the item" />}
+          primary={<FormattedMessage defaultMessage="Item history" description="Menu item to view the history of changes to the item" id="mediaActions.history" />}
         />
       </MenuItem>
     ));
@@ -143,19 +143,19 @@ class MediaActionsMenuButton extends React.PureComponent {
       <>
         &nbsp;
         <ButtonMain
-          title={this.props.intl.formatMessage(messages.tooltip)}
-          iconCenter={<IconMoreVert className="media-actions__icon" />}
-          variant="outlined"
-          size="default"
-          theme="text"
-          onClick={this.handleOpenMenu}
           buttonProps={{
             id: 'media-actions-menu-button__icon-button',
           }}
+          iconCenter={<IconMoreVert className="media-actions__icon" />}
+          size="default"
+          theme="text"
+          title={this.props.intl.formatMessage(messages.tooltip)}
+          variant="outlined"
+          onClick={this.handleOpenMenu}
         />
         <Menu
-          className="media-actions"
           anchorEl={this.state.anchorEl}
+          className="media-actions"
           open={Boolean(this.state.anchorEl)}
           onClose={this.handleCloseMenu}
         >

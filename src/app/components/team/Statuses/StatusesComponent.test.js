@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import StatusesComponent from './StatusesComponent';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 const statuses = [
   {

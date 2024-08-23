@@ -1,12 +1,13 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import MediasLoading from '../media/MediasLoading';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
+import MediasLoading from '../media/MediasLoading';
 import CheckBoxIcon from '../../icons/check_box.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import IconFileUpload from '../../icons/file_upload.svg';
@@ -47,10 +48,10 @@ const messages = defineMessages({
 const CustomFiltersManagerComponent = ({
   hide,
   intl,
-  team,
-  operatorToggle,
   onFilterChange,
+  operatorToggle,
   query,
+  team,
 }) => {
   if (hide) { return null; }
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -128,8 +129,8 @@ const CustomFiltersManagerComponent = ({
         if (filter.task_type === 'number' && filter.response === 'NUMERIC_RANGE') {
           return (
             <AnnotationFilterNumber
-              teamTask={teamTask}
               query={query}
+              teamTask={teamTask}
               onChange={handleChoiceTaskFilterChange}
               onError={message => setErrorMessage(message)}
             />
@@ -137,8 +138,8 @@ const CustomFiltersManagerComponent = ({
         } else if (filter.task_type === 'datetime' && filter.response === 'DATE_RANGE') {
           return (
             <AnnotationFilterDate
-              teamTask={teamTask}
               query={query}
+              teamTask={teamTask}
               onChange={handleChoiceTaskFilterChange}
             />
           );
@@ -149,17 +150,17 @@ const CustomFiltersManagerComponent = ({
 
       return (
         <MultiSelectFilter
-          className="int-custom-filters-manager__multi-select-filter"
-          id={`${filter.task_type}-${filter.id}`}
           allowSearch={false}
+          className="int-custom-filters-manager__multi-select-filter"
+          error={errorMessage}
           extraInputs={getExtraInputs()}
-          label={intl.formatMessage(messages.labelIs, { title: teamTask.node?.label })}
           icon={icons[teamTask.node.type]}
-          selected={filter.response}
+          id={`${filter.task_type}-${filter.id}`}
+          label={intl.formatMessage(messages.labelIs, { title: teamTask.node?.label })}
           options={options}
+          selected={filter.response}
           onChange={handleChoiceTaskFilterChange}
           onRemove={() => handleRemoveFilter(i)}
-          error={errorMessage}
         />
       );
     }
@@ -167,21 +168,21 @@ const CustomFiltersManagerComponent = ({
     const existingFilters = query.team_tasks.map(tt => tt.id);
 
     return (
-      <FormattedMessage id="customFiltersManager.label" defaultMessage="Custom field is" description="Placeholder label for metadata field when not fully configured">
+      <FormattedMessage defaultMessage="Custom field is" description="Placeholder label for metadata field when not fully configured" id="customFiltersManager.label">
         { label => (
           <MultiSelectFilter
             className="int-custom-filters-manager__multi-select-filter--team-tasks"
-            label={label}
             icon={<NoteAltOutlinedIcon />}
+            label={label}
             options={teamTasks.filter(tt => existingFilters.indexOf(tt.node?.dbid.toString()) === -1).map(tt => ({
               label: tt.node.label,
               value: tt.node.dbid.toString(),
               icon: icons[tt.node.type],
               checkedIcon: icons[tt.node.type],
             }))}
+            single
             onChange={val => handleSelectMetadataField(val, i)}
             onRemove={() => handleRemoveFilter(i)}
-            single
           />
         )}
       </FormattedMessage>
@@ -214,10 +215,10 @@ const CustomFiltersManagerComponent = ({
 const CustomFiltersManager = ({
   hide,
   intl,
-  team,
-  operatorToggle,
   onFilterChange,
+  operatorToggle,
   query,
+  team,
 }) => {
   const teamSlug = team.slug;
   // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
@@ -243,10 +244,6 @@ const CustomFiltersManager = ({
           }
         }
       `}
-      variables={{
-        teamSlug,
-        random,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           return (
@@ -254,14 +251,18 @@ const CustomFiltersManager = ({
               hide={hide}
               intl={intl}
               operatorToggle={operatorToggle}
-              onFilterChange={onFilterChange}
               query={query}
               team={props.team}
+              onFilterChange={onFilterChange}
             />
           );
         }
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading theme="grey" variant="icon" size="icon" />;
+        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+      }}
+      variables={{
+        teamSlug,
+        random,
       }}
     />
   );

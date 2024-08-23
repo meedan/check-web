@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ReportDesignerTopBar />', () => {
   const team = {
@@ -46,16 +46,16 @@ describe('<ReportDesignerTopBar />', () => {
 
   it('should render a published report', () => {
     const wrapper = mountWithIntl(<ReportDesignerTopBar
-      state="published"
-      media={media}
       data={{
         options: [],
       }}
       defaultLanguage="en"
-      onStatusChange={() => {}}
-      onStateChange={() => {}}
-      readOnly
+      media={media}
       prefixUrl="prefix"
+      readOnly
+      state="published"
+      onStateChange={() => {}}
+      onStatusChange={() => {}}
     />);
     expect(wrapper.find('ReportDesignerConfirmableButton').text()).toBe('Pause');
     expect(wrapper.find('MediaStatus > MediaStatus').text()).toBe('Unstarted');
@@ -63,15 +63,15 @@ describe('<ReportDesignerTopBar />', () => {
 
   it('should render a paused report', () => {
     const wrapper = mountWithIntl(<ReportDesignerTopBar
-      state="paused"
-      media={media}
       data={{
         options: [],
       }}
       defaultLanguage="en"
-      onStatusChange={() => {}}
-      onStateChange={() => {}}
+      media={media}
       prefixUrl="prefix"
+      state="paused"
+      onStateChange={() => {}}
+      onStatusChange={() => {}}
     />);
     expect(wrapper.find('ReportDesignerConfirmableButton').text()).toBe('Publish');
   });

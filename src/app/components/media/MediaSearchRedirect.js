@@ -16,7 +16,7 @@ function BrokenLink() {
   return (
     <Tooltip
       arrow
-      title={<FormattedMessage id="mediaSearch.itemWentAway" defaultMessage="Not found" description="Tooltip text to let the user know the item has been removed and is no longer availble" />}
+      title={<FormattedMessage defaultMessage="Not found" description="Tooltip text to let the user know the item has been removed and is no longer availble" id="mediaSearch.itemWentAway" />}
     >
       <span className={styles['paging-not-found']}>
         <WarningIcon />
@@ -31,9 +31,9 @@ function Error({ message }) {
       arrow
       title={
         <FormattedMessage
-          id="mediaSearch.error"
-          description="Error message with instructions on how the user should proceed"
           defaultMessage="Sorry, the following error occurred: {message}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+          description="Error message with instructions on how the user should proceed"
+          id="mediaSearch.error"
           values={{ message, supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
       }
@@ -77,10 +77,10 @@ Error.propTypes = {
  */
 export default function MediaSearchRedirect({
   buildSiblingUrl,
-  listQuery,
   listIndex,
-  searchIndex,
+  listQuery,
   objectType,
+  searchIndex,
 }) {
   return (
     <QueryRenderer
@@ -101,10 +101,6 @@ export default function MediaSearchRedirect({
           }
         }
       `}
-      variables={{
-        queryJson: JSON.stringify({ ...listQuery, esoffset: searchIndex }),
-        pageSize,
-      }}
       render={({ error, props }) => {
         if (error) {
           return <Error message={error.message} />;
@@ -124,6 +120,10 @@ export default function MediaSearchRedirect({
           return <BrokenLink />;
         }
         return <MediasLoading size="icon" variant="icon" />;
+      }}
+      variables={{
+        queryJson: JSON.stringify({ ...listQuery, esoffset: searchIndex }),
+        pageSize,
       }}
     />
   );

@@ -1,25 +1,26 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateRelatedMediaDialog from './CreateRelatedMediaDialog';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import { safelyParseJSON } from '../../helpers';
 
 const BlankMediaButton = ({
-  projectMediaId,
-  team,
-  reverse,
   ButtonComponent,
+  projectMediaId,
+  reverse,
+  team,
 }) => {
   const [showItemDialog, setShowItemDialog] = React.useState(false);
   const [message, setMessage] = React.useState(null);
   const [pending, setPending] = React.useState(false);
 
   const handleError = (error) => {
-    let errorMessage = <FormattedMessage id="blankMediaButton.defaultErrorMessage" defaultMessage="Could not save item" description="Error message displayed when saving an item fails" />;
+    let errorMessage = <FormattedMessage defaultMessage="Could not save item" description="Error message displayed when saving an item fails" id="blankMediaButton.defaultErrorMessage" />;
     const json = safelyParseJSON(error.source);
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
@@ -96,33 +97,33 @@ const BlankMediaButton = ({
     <React.Fragment>
       <ButtonComponent onClick={handleOpenItemDialog} />
       <CreateRelatedMediaDialog
+        hideNew={reverse}
+        isSubmitting={pending}
+        media={null}
         message={message}
+        open={showItemDialog}
+        showFilters
+        submitButtonLabel={() => (
+          <FormattedMessage
+            defaultMessage="Add to report"
+            description="Submit button label to dialog in which the user adds media to already existing (imported) fact-check report"
+            id="blankMediaButton.addToReport"
+          />
+        )}
+        team={team}
         title={
           reverse ?
             <FormattedMessage
-              tagName="h6"
-              id="blankMediaButton.addToImportedReport"
               defaultMessage="Add to imported fact-check"
               description="Header to dialog in which the user adds media to already existing (imported) fact-checks"
+              id="blankMediaButton.addToImportedReport"
+              tagName="h6"
             /> : null
         }
-        team={team}
-        open={showItemDialog}
-        onDismiss={handleCloseItemDialog}
-        onSubmit={handleSubmitNew}
-        onSelect={handleSubmitExisting}
-        media={null}
-        isSubmitting={pending}
-        hideNew={reverse}
         typesToShow={reverse ? ['blank'] : null}
-        submitButtonLabel={() => (
-          <FormattedMessage
-            id="blankMediaButton.addToReport"
-            defaultMessage="Add to report"
-            description="Submit button label to dialog in which the user adds media to already existing (imported) fact-check report"
-          />
-        )}
-        showFilters
+        onDismiss={handleCloseItemDialog}
+        onSelect={handleSubmitExisting}
+        onSubmit={handleSubmitNew}
       />
     </React.Fragment>
   );
@@ -133,17 +134,17 @@ BlankMediaButton.defaultProps = {
   reverse: false,
   ButtonComponent: ({ onClick }) => (
     <ButtonMain
-      variant="contained"
       brand="primary"
-      size="default"
-      onClick={onClick}
       label={
         <FormattedMessage
-          id="blankMediaButton.addItem"
           defaultMessage="Add item"
           description="Button label that opens dialog in which the user can add a media item to an existing fact-check"
+          id="blankMediaButton.addItem"
         />
       }
+      size="default"
+      variant="contained"
+      onClick={onClick}
     />
   ),
 };

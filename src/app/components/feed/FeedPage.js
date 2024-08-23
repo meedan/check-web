@@ -1,8 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay';
-import ErrorBoundary from '../error/ErrorBoundary';
 import FeedPageContent from './FeedPageContent';
+import ErrorBoundary from '../error/ErrorBoundary';
 
 const FeedPage = ({ routeParams }) => (
   <>
@@ -18,14 +18,14 @@ const FeedPage = ({ routeParams }) => (
             }
           }
         `}
-        variables={{
-          slug: routeParams.team,
-        }}
         render={({ error, props }) => {
           if (!error && props) {
-            return <FeedPageContent routeParams={routeParams} permissions={props.team.permissions} slug={props.team.slug} name={props.team.name} />;
+            return <FeedPageContent name={props.team.name} permissions={props.team.permissions} routeParams={routeParams} slug={props.team.slug} />;
           }
           return null;
+        }}
+        variables={{
+          slug: routeParams.team,
         }}
       />
     </ErrorBoundary>

@@ -25,10 +25,10 @@ const TaggerBot = ({
       <FormGroup>
         <FormControlLabel
           control={<TextField
-            value={value.threshold}
             name="threshold"
-            onChange={e => handleChange('threshold', e.target.value)}
             type="number"
+            value={value.threshold}
+            onChange={e => handleChange('threshold', e.target.value)}
           />}
           label={intl.formatMessage({
             id: 'taggerBot.threshold',
@@ -38,10 +38,10 @@ const TaggerBot = ({
         />
         <FormControlLabel
           control={<TextField
-            value={value.minimum_count}
             name="minimum_count"
-            onChange={e => handleChange('minimum_count', e.target.value)}
             type="number"
+            value={value.minimum_count}
+            onChange={e => handleChange('minimum_count', e.target.value)}
           />}
           label={intl.formatMessage({
             id: 'taggerBot.minimum_count',
@@ -52,8 +52,8 @@ const TaggerBot = ({
         <FormControlLabel
           control={<Checkbox
             checked={value.ignore_autotags}
-            onChange={e => handleChange('ignore_autotags', e.target.value)}
             name="ignore_autotags"
+            onChange={e => handleChange('ignore_autotags', e.target.value)}
           />}
           label={intl.formatMessage({
             id: 'taggerBot.ignore_autotags',

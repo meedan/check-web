@@ -21,6 +21,7 @@
     "plugins": [
         "require-path-exists",
         "@calm/react-intl",
+        "sort-destructure-keys",
         "relay",
     ],
     "rules": {
@@ -32,6 +33,16 @@
         "react/prop-types": "off",
         "react/forbid-prop-types": "off",
         "react/no-children-prop": "off",
+        "react/no-unknown-property": "off",
+        "react/sort-prop-types": [ "error", {
+            "callbacksLast": true,
+        }],
+        "react/jsx-sort-props": [ "error", {
+            "callbacksLast": true,
+        }],
+        
+        // Sorts destructured keys alphabetically
+        "sort-destructure-keys/sort-destructure-keys": 2,
 
         // Relay
         "relay/unused-fields": "error",
@@ -61,6 +72,31 @@
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "import/no-unused-modules": [1, {"unusedExports": true}],
+        "import/order": [1, {"groups": 
+            [
+            "external", 
+            "builtin", 
+            "internal", 
+            "sibling", 
+            "parent", 
+            "index",
+            "unknown",
+            ],
+            "pathGroups": [
+                {
+                  "pattern": "**/*.css",
+                  "patternOptions": {"dot": true, "nocomment": true},
+                  "group": "unknown",
+                  "position": "after"
+                },
+                {
+                  "pattern": "{.,..}/**/*.css",
+                  "patternOptions": {"dot": true, "nocomment": true},
+                  "group": "unknown",
+                  "position": "after"
+                }
+            ],
+        }],
 
         // TODO
         "class-methods-use-this": ["error", { "exceptMethods": ["getMutation", "getFatQuery", "getConfigs"] }],

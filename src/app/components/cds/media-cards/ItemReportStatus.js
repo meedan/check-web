@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -8,8 +9,8 @@ import FactCheckIcon from '../../../icons/fact_check.svg';
 const ItemReportStatus = ({
   className,
   isPublished,
-  publishedAt,
   projectMediaDbid,
+  publishedAt,
   theme,
   useTooltip,
   variant,
@@ -17,15 +18,15 @@ const ItemReportStatus = ({
   const formatTooltip = () => {
     const label = isPublished ? (
       <FormattedMessage
-        id="itemReportStatus.tooltipPublished"
-        description="Tooltip of a report status icon when the report is published"
         defaultMessage="Published Fact-Check"
+        description="Tooltip of a report status icon when the report is published"
+        id="itemReportStatus.tooltipPublished"
       />
     ) : (
       <FormattedMessage
-        id="itemReportStatus.tooltipUnpublished"
-        description="Tooltip of a report status icon when the report is not published"
         defaultMessage="Unpublished Fact-Check"
+        description="Tooltip of a report status icon when the report is not published"
+        id="itemReportStatus.tooltipUnpublished"
       />
     );
 
@@ -52,15 +53,15 @@ const ItemReportStatus = ({
   const button = (
     <div className={className}>
       <ButtonMain
-        disabled={!projectMediaDbid}
         buttonProps={{
           type: null,
         }}
-        variant={variant}
+        customStyle={{ color: isPublished ? 'var(--color-green-35)' : 'var(--color-gray-59)' }}
+        disabled={!projectMediaDbid}
+        iconCenter={<FactCheckIcon />}
         size="small"
         theme={theme}
-        iconCenter={<FactCheckIcon />}
-        customStyle={{ color: isPublished ? 'var(--color-green-35)' : 'var(--color-gray-59)' }}
+        variant={variant}
         onClick={handleGoToReport}
       />
     </div>
@@ -69,8 +70,8 @@ const ItemReportStatus = ({
   return useTooltip ? (
     <Tooltip
       arrow
-      title={formatTooltip()}
       placement="top"
+      title={formatTooltip()}
     >
       {button}
     </Tooltip>

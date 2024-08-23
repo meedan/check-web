@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -7,10 +8,10 @@ import { labels } from './localizables';
 
 const SmoochBotMultiTextEditor = (props) => {
   const {
-    field,
-    subSchema,
     currentLanguage,
+    field,
     onChange,
+    subSchema,
   } = props;
   let { value } = props;
   if (!value) {
@@ -24,17 +25,17 @@ const SmoochBotMultiTextEditor = (props) => {
         let errorMessage = null;
 
         if (field === 'smooch_message_smooch_bot_tos' && key === 'greeting' && (value[key] && !/9/.test(value[key]))) {
-          errorMessage = <FormattedMessage id="smoochBotMultiTextEditor.errorNine" description="Error message about a missing option" defaultMessage="The option '9' must be included for users to access the Privacy Statement" />;
+          errorMessage = <FormattedMessage defaultMessage="The option '9' must be included for users to access the Privacy Statement" description="Error message about a missing option" id="smoochBotMultiTextEditor.errorNine" />;
         }
 
         return (
-          <Box mb={2} key={key}>
+          <Box key={key} mb={2}>
             <SmoochBotTextEditor
+              errorMessage={errorMessage}
+              extraTextFieldProps={{ rows: 5 }}
+              field={`${field}_${key}`}
               value={(value[key] || subSchema.properties[key].default[currentLanguage] || '').trim()}
               onChange={(newValue) => { onChange(key, newValue); }}
-              field={`${field}_${key}`}
-              extraTextFieldProps={{ rows: 5 }}
-              errorMessage={errorMessage}
             />
           </Box>
         );

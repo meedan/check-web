@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -47,13 +48,13 @@ const messages = defineMessages({
 });
 
 const SearchFieldChannelComponent = ({
-  query,
+  about,
+  intl,
   onChange,
   onRemove,
-  about,
   page,
+  query,
   readOnly,
-  intl,
 }) => {
   const { channels } = about;
 
@@ -107,16 +108,16 @@ const SearchFieldChannelComponent = ({
   }
 
   return (
-    <FormattedMessage id="SearchFieldChannel.label" defaultMessage="Channel is" description="Prefix label for field to filter by item channel">
+    <FormattedMessage defaultMessage="Channel is" description="Prefix label for field to filter by item channel" id="SearchFieldChannel.label">
       { label => (
         <MultiSelectFilter
-          label={label}
           icon={<ForwardIcon />}
-          selected={query.channels || selectedChannels}
+          label={label}
           options={options}
+          readOnly={readOnly}
+          selected={query.channels || selectedChannels}
           onChange={!readOnly ? handleChange : null}
           onRemove={!readOnly && (page !== 'tipline-inbox') ? onRemove : null}
-          readOnly={readOnly}
         />
       )}
     </FormattedMessage>
@@ -139,7 +140,7 @@ const SearchFieldChannel = parentProps => (
       }
 
       // TODO: We need a better error handling in the future, standardized with other components
-      return <MediasLoading theme="grey" variant="icon" size="icon" />;
+      return <MediasLoading size="icon" theme="grey" variant="icon" />;
     }}
   />
 );

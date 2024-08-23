@@ -1,15 +1,16 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
+import SmoochBotConfig from './SmoochBotConfig';
+import { placeholders } from './localizables';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import UserUtil from '../../user/UserUtil';
 import SettingsHeader from '../SettingsHeader';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
-import SmoochBotConfig from './SmoochBotConfig';
-import { placeholders } from './localizables';
 import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
@@ -21,11 +22,11 @@ import CheckError from '../../../CheckError';
 import settingsStyles from '../Settings.module.css';
 
 const SmoochBotComponent = ({
-  team,
   currentUser,
-  smoochBotDbid,
   intl,
   setFlashMessage,
+  smoochBotDbid,
+  team,
 }) => {
   const [saving, setSaving] = React.useState(false);
   const [editingResource, setEditingResource] = React.useState(false);
@@ -73,9 +74,9 @@ const SmoochBotComponent = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="smoochBotComponent.savedSuccessfully"
         defaultMessage="Tipline settings saved successfully"
         description="Banner displayed when tipline settings are saved successfully"
+        id="smoochBotComponent.savedSuccessfully"
       />
     ), 'success');
   };
@@ -161,50 +162,50 @@ const SmoochBotComponent = ({
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="smoochBotComponent.title"
-            defaultMessage="Tipline"
-            description="Page title for tipling settings page"
-          />
-        }
-        context={
-          <FormattedHTMLMessage
-            id="smoochBotComponent.helpContext"
-            defaultMessage='Manage your tipline’s menu, customize its responses, and connect it to messaging services. <a href="{helpLink}" target="_blank" title="Learn more">Learn more</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot' }}
-            description="Context description for the functionality of this page"
-          />
-        }
         actionButton={
           installation && !editingResource ?
-            <Can permissions={team.permissions} permission="update Team">
+            <Can permission="update Team" permissions={team.permissions}>
               <ButtonMain
-                theme="brand"
-                variant="contained"
-                size="default"
-                onClick={handleSave}
-                disabled={saving}
-                label={
-                  <FormattedMessage
-                    id="smoochBotComponent.save"
-                    defaultMessage="Publish"
-                    description="Button label to save and publish the tipline settings"
-                  />
-                }
                 buttonProps={{
                   id: 'smooch-bot-component__save',
                 }}
+                disabled={saving}
+                label={
+                  <FormattedMessage
+                    defaultMessage="Publish"
+                    description="Button label to save and publish the tipline settings"
+                    id="smoochBotComponent.save"
+                  />
+                }
+                size="default"
+                theme="brand"
+                variant="contained"
+                onClick={handleSave}
               />
             </Can> : null
+        }
+        context={
+          <FormattedHTMLMessage
+            defaultMessage='Manage your tipline’s menu, customize its responses, and connect it to messaging services. <a href="{helpLink}" target="_blank" title="Learn more">Learn more</a>.'
+            description="Context description for the functionality of this page"
+            id="smoochBotComponent.helpContext"
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot' }}
+          />
         }
         extra={
           installation && bot && languages.length > 1 ?
             <LanguagePickerSelect
+              languages={languages}
               selectedLanguage={currentLanguage}
               onSubmit={handleChangeLanguage}
-              languages={languages}
             /> : null
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="Tipline"
+            description="Page title for tipling settings page"
+            id="smoochBotComponent.title"
+          />
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
@@ -212,71 +213,71 @@ const SmoochBotComponent = ({
           { installation && bot ?
             <SmoochBotConfig
               bot={bot}
+              currentLanguage={currentLanguage}
+              currentUser={currentUser}
+              enabledIntegrations={installation.smooch_enabled_integrations}
+              hasUnsavedChanges={hasUnsavedChanges}
               installationId={installation.id}
+              languages={validLanguages}
+              resources={team.tipline_resources.edges.map(edge => edge.node).filter(node => node.language === currentLanguage)}
               schema={JSON.parse(bot.settings_as_json_schema)}
               uiSchema={JSON.parse(bot.settings_ui_schema)}
+              userRole={userRole}
               value={settings}
               onChange={updateSettings}
-              currentUser={currentUser}
-              userRole={userRole}
-              currentLanguage={currentLanguage}
-              languages={validLanguages}
-              enabledIntegrations={installation.smooch_enabled_integrations}
-              resources={team.tipline_resources.edges.map(edge => edge.node).filter(node => node.language === currentLanguage)}
               onEditingResource={handleEditingResource}
-              hasUnsavedChanges={hasUnsavedChanges}
             /> :
-            <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
+            <Box alignItems="center" display="flex" justifyContent="center" mb={30} mt={30}>
               { currentUser.is_admin ?
                 <ButtonMain
-                  variant="contained"
-                  theme="brand"
-                  size="default"
-                  onClick={handleInstall}
                   disable={saving}
                   label={
                     <FormattedMessage
                       data-testid="install-smooch__button"
-                      id="smoochBotComponent.install"
                       defaultMessage="Install"
                       description="Button label for action to install the tipline in this workspace"
+                      id="smoochBotComponent.install"
                     />
                   }
+                  size="default"
+                  theme="brand"
+                  variant="contained"
+                  onClick={handleInstall}
                 /> :
                 <ButtonMain
-                  variant="contained"
-                  theme="brand"
-                  size="default"
-                  onClick={handleOpenForm}
                   label={
                     <FormattedMessage
-                      id="smoochBotComponent.contactUs"
                       defaultMessage="Contact us to setup"
                       description="Button label for contacting support for help setting up a tipline in this workspace"
+                      id="smoochBotComponent.contactUs"
                     />
                   }
+                  size="default"
+                  theme="brand"
+                  variant="contained"
+                  onClick={handleOpenForm}
                 /> }
             </Box>
           }
           <ConfirmProceedDialog
-            open={showContentError}
-            title={
-              <FormattedMessage
-                id="smoochBotComponent.missingInformationTitle"
-                defaultMessage="Missing information"
-                description="Title of dialog that opens when there is a validation error on tipline settings"
-              />
-            }
             body={(
               <FormattedMessage
-                id="smoochBotComponent.missingInformationBody"
                 defaultMessage="The message 'Newsletter opt-in and opt-out' is missing a placeholder."
                 description="Content of dialog that opens when there is a validation error on tipline settings"
+                id="smoochBotComponent.missingInformationBody"
               />
             )}
-            proceedLabel={<FormattedMessage id="smoochBotComponent.back" defaultMessage="Go back to editing" description="Button label to close error dialog on tipline settings page" />}
-            onProceed={() => { setShowContentError(false); }}
+            open={showContentError}
+            proceedLabel={<FormattedMessage defaultMessage="Go back to editing" description="Button label to close error dialog on tipline settings page" id="smoochBotComponent.back" />}
+            title={
+              <FormattedMessage
+                defaultMessage="Missing information"
+                description="Title of dialog that opens when there is a validation error on tipline settings"
+                id="smoochBotComponent.missingInformationTitle"
+              />
+            }
             onCancel={null}
+            onProceed={() => { setShowContentError(false); }}
           />
         </div>
       </div>

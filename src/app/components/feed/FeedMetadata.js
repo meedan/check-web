@@ -1,11 +1,11 @@
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import styles from './SaveFeed.module.css';
 import TimeBefore from '../TimeBefore';
 import BulletSeparator from '../layout/BulletSeparator';
 import { parseStringUnixTimestamp } from '../../helpers';
 import RssFeedIcon from '../../icons/rss_feed.svg';
+import styles from './SaveFeed.module.css';
 
 const FeedMetadata = ({ feed }) => feed.dbid ? (
   <div className={styles.saveFeedMetadata}>
@@ -13,24 +13,24 @@ const FeedMetadata = ({ feed }) => feed.dbid ? (
       compact
       details={[
         <FormattedMessage
-          id="saveFeed.createdBy"
           defaultMessage="Created by {teamName}"
-          values={{ teamName: feed.team?.name }}
           description="Metadata field displayed on feed edit page."
+          id="saveFeed.createdBy"
+          values={{ teamName: feed.team?.name }}
         />,
         <span>{feed.user?.email}</span>,
-        <FormattedDate value={parseInt(feed.created_at, 10) * 1000} year="numeric" month="long" day="numeric" />,
+        <FormattedDate day="numeric" month="long" value={parseInt(feed.created_at, 10) * 1000} year="numeric" />,
       ]}
     />
     <div className={styles.saveFeedLastUpdated}>
       <RssFeedIcon />
       <FormattedMessage
-        id="saveFeed.lastUpdated"
         defaultMessage="Settings last updated {timeAgo}"
+        description="On feed edit page, show the last time the feed settings were changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
+        id="saveFeed.lastUpdated"
         values={{
           timeAgo: <TimeBefore date={parseStringUnixTimestamp(feed.updated_at)} />,
         }}
-        description="On feed edit page, show the last time the feed settings were changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
       />
     </div>
   </div>

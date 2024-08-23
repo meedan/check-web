@@ -30,10 +30,10 @@ const Statuses = props => (
         }
       }
     `}
+    render={renderQuery}
     variables={{
       teamSlug: props.teamSlug,
     }}
-    render={renderQuery}
   />
 );
 

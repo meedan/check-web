@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -8,11 +9,11 @@ import PrevIcon from '../../../icons/chevron_left.svg';
 import styles from './Paginator.module.css';
 
 const Paginator = ({
-  page,
-  pageSize,
   numberOfPageResults,
   numberOfTotalResults,
   onChangePage,
+  page,
+  pageSize,
 }) => {
   const startingIndex = (page - 1) * pageSize;
   const endingIndex = startingIndex + (numberOfPageResults - 1);
@@ -31,22 +32,22 @@ const Paginator = ({
 
   return (
     <div className={styles.paginator}>
-      <Tooltip title={<FormattedMessage id="paginator.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page." />}>
+      <Tooltip title={<FormattedMessage defaultMessage="Previous page" description="Pagination button to go to previous page." id="paginator.previousPage" />}>
         <span>
           <ButtonMain
-            onClick={handleGoToPreviousPage}
-            iconCenter={<PrevIcon />}
             disabled={page === 1}
+            iconCenter={<PrevIcon />}
             theme="text"
             variant="text"
+            onClick={handleGoToPreviousPage}
           />
         </span>
       </Tooltip>
       <span className="typography-button">
         <FormattedMessage
-          id="paginator.itemsCount"
           defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
           description="Pagination count of items returned"
+          id="paginator.itemsCount"
           values={{
             from: startingIndex + 1,
             to: endingIndex + 1,
@@ -54,14 +55,14 @@ const Paginator = ({
           }}
         />
       </span>
-      <Tooltip title={<FormattedMessage id="paginator.nextPage" defaultMessage="Next page" description="Pagination button to go to next page." />}>
+      <Tooltip title={<FormattedMessage defaultMessage="Next page" description="Pagination button to go to next page." id="paginator.nextPage" />}>
         <span>
           <ButtonMain
-            onClick={handleGoToNextPage}
-            iconCenter={<NextIcon />}
             disabled={endingIndex + 1 === numberOfTotalResults}
+            iconCenter={<NextIcon />}
             theme="text"
             variant="text"
+            onClick={handleGoToNextPage}
           />
         </span>
       </Tooltip>

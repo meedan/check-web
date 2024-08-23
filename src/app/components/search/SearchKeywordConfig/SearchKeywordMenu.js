@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import SearchKeywordContainer from './SearchKeywordContainer';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import SearchKeywordContainer from './SearchKeywordContainer';
 import SettingsIcon from '../../../icons/settings.svg';
 
 const SearchKeywordMenu = ({
-  query,
   onChange,
+  query,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClose = () => setAnchorEl(null);
@@ -20,24 +20,24 @@ const SearchKeywordMenu = ({
 
   return (
     <React.Fragment>
-      <Tooltip arrow title={<FormattedMessage id="SearchKeywordMenu.searchSettings" defaultMessage="Search settings" description="Button for search settings" />}>
+      <Tooltip arrow title={<FormattedMessage defaultMessage="Search settings" description="Button for search settings" id="SearchKeywordMenu.searchSettings" />}>
         <span>
           <ButtonMain
             iconCenter={<SettingsIcon />}
             size="small"
-            variant="text"
             theme="lightText"
+            variant="text"
             onClick={e => setAnchorEl(e.currentTarget)}
           />
         </span>
       </Tooltip>
       { anchorEl ?
         <SearchKeywordContainer
+          anchorEl={anchorEl}
+          handleClose={handleClose}
           query={query}
           onDismiss={handleClose}
           onSubmit={handleChange}
-          anchorEl={anchorEl}
-          handleClose={handleClose}
         /> : null }
     </React.Fragment>
   );

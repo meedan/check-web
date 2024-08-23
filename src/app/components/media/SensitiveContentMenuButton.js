@@ -21,11 +21,11 @@ import inputStyles from '../../styles/css/inputs.module.css';
 
 const SensitiveContentMenu = ({
   anchorEl,
+  container,
   onDismiss,
+  onSave,
   projectMedia,
   setFlashMessage,
-  container,
-  onSave,
 }) => {
   let warningType = null;
   let warningTypeCustom = null;
@@ -159,7 +159,7 @@ const SensitiveContentMenu = ({
             set_fields: JSON.stringify(fields),
           },
         },
-        onCompleted: ({ response, error }) => {
+        onCompleted: ({ error, response }) => {
           if (error) {
             return onFailure(error);
           }
@@ -194,7 +194,7 @@ const SensitiveContentMenu = ({
             set_fields: JSON.stringify(fields),
           },
         },
-        onCompleted: ({ response, error }) => {
+        onCompleted: ({ error, response }) => {
           if (error) {
             return onFailure(error);
           }
@@ -207,24 +207,24 @@ const SensitiveContentMenu = ({
 
   return (
     <Popover
-      className={dialogStyles['dialog-window']}
-      open={Boolean(anchorEl)}
       anchorEl={anchorEl}
-      onClose={onDismiss}
+      className={dialogStyles['dialog-window']}
       container={container}
+      open={Boolean(anchorEl)}
+      onClose={onDismiss}
     >
       <div className={dialogStyles['dialog-content']}>
         <div className={inputStyles['form-fieldset']} style={{ color: !enableSwitch && (formError === 'no_switch_enabled') ? 'red' : null }}>
           <SwitchComponent
-            className={inputStyles['form-fieldset-field']}
             checked={enableSwitch}
-            onChange={() => handleSwitch(!enableSwitch)}
-            labelPlacement="end"
+            className={inputStyles['form-fieldset-field']}
             label={<FormattedMessage
-              id="sensitiveContentMenuButton.enableSwitch"
               defaultMessage="Enable content warning"
               description="Switch to enable sensitive content screen"
+              id="sensitiveContentMenuButton.enableSwitch"
             />}
+            labelPlacement="end"
+            onChange={() => handleSwitch(!enableSwitch)}
           />
         </div>
         { enableSwitch &&
@@ -237,69 +237,69 @@ const SensitiveContentMenu = ({
             >
               <div className={inputStyles['form-fieldset-title']} style={{ color: formError === 'no_warning_type' ? 'red' : null }}>
                 <FormattedMessage
-                  tagName="strong"
-                  id="sensitiveContentMenuButton.selectCategory"
                   defaultMessage="Select a category"
                   description="Header for sensitive content types"
+                  id="sensitiveContentMenuButton.selectCategory"
+                  tagName="strong"
                 />
               </div>
               <FormControlLabel
-                value="adult"
                 control={<Radio />}
                 label={<FormattedMessage
-                  id="sensitiveContentMenuButton.adult"
                   defaultMessage="Adult (nudity, pornographic)"
                   description="Label for adult content type"
+                  id="sensitiveContentMenuButton.adult"
                 />}
+                value="adult"
               />
               <FormControlLabel
-                value="medical"
                 control={<Radio />}
                 label={<FormattedMessage
-                  id="sensitiveContentMenuButton.medical"
                   defaultMessage="Medical conditions/procedures"
                   description="Label for medical content type"
+                  id="sensitiveContentMenuButton.medical"
                 />}
+                value="medical"
               />
               <FormControlLabel
-                value="violence"
                 control={<Radio />}
                 label={<FormattedMessage
-                  id="sensitiveContentMenuButton.violence"
                   defaultMessage="Violence"
                   description="Label for violence content type"
+                  id="sensitiveContentMenuButton.violence"
                 />}
+                value="violence"
               />
               <FormControlLabel
-                value="other"
                 control={<Radio />}
                 label={(
                   <FormattedMessage
-                    id="sensitiveContentMenuButton.typeOther"
                     defaultMessage="Type other"
                     description="Label for other content type"
+                    id="sensitiveContentMenuButton.typeOther"
                   >
                     { placeholder => (
                       <LimitedTextArea
-                        className={inputStyles['form-fieldset-field']}
-                        required={Boolean(false)}
-                        value={customType || ''}
-                        maxChars={48}
-                        maxLength="48"
-                        rows={1}
-                        maxHeight="48px"
                         autoGrow="false"
-                        placeholder={placeholder}
+                        className={inputStyles['form-fieldset-field']}
                         error={(
                           formError &&
                           contentType === 'other' &&
                           !customType
                         )}
+                        maxChars={48}
+                        maxHeight="48px"
+                        maxLength="48"
+                        placeholder={placeholder}
+                        required={Boolean(false)}
+                        rows={1}
+                        value={customType || ''}
                         onBlur={handleChangeCustom}
                       />
                     )}
                   </FormattedMessage>
                 )}
+                value="other"
               />
             </RadioGroup>
           </>
@@ -307,22 +307,22 @@ const SensitiveContentMenu = ({
       </div>
       <div className={dialogStyles['dialog-actions']}>
         <ButtonMain
-          size="default"
-          variant="text"
-          theme="lightText"
-          onClick={onDismiss}
           label={
-            <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
+            <FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />
           }
+          size="default"
+          theme="lightText"
+          variant="text"
+          onClick={onDismiss}
         />
         <ButtonMain
-          size="default"
-          variant="contained"
-          theme="brand"
-          onClick={submitFlagAnnotation}
           label={
-            <FormattedMessage id="global.save" defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" />
+            <FormattedMessage defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" id="global.save" />
           }
+          size="default"
+          theme="brand"
+          variant="contained"
+          onClick={submitFlagAnnotation}
         />
       </div>
     </Popover>
@@ -331,8 +331,8 @@ const SensitiveContentMenu = ({
 
 const SensitiveContentMenuButton = ({
   currentUserRole,
-  projectMedia,
   onSave,
+  projectMedia,
   setFlashMessage,
 }) => {
   const { show_warning_cover } = projectMedia;
@@ -342,25 +342,25 @@ const SensitiveContentMenuButton = ({
   return (
     <div ref={containerRef}>
       <ButtonMain
-        theme="black"
-        size="default"
-        variant="contained"
         disabled={(
           show_warning_cover &&
           currentUserRole !== 'admin' &&
           currentUserRole !== 'editor'
         )}
-        onClick={e => setAnchorEl(e.currentTarget)}
         iconCenter={<VisibilityOffIcon />}
+        size="default"
+        theme="black"
+        variant="contained"
+        onClick={e => setAnchorEl(e.currentTarget)}
       />
       <SensitiveContentMenu
-        key={anchorEl}
         anchorEl={anchorEl}
-        onDismiss={() => setAnchorEl(null)}
-        onSave={onSave}
+        container={containerRef.current}
+        key={anchorEl}
         projectMedia={projectMedia}
         setFlashMessage={setFlashMessage}
-        container={containerRef.current}
+        onDismiss={() => setAnchorEl(null)}
+        onSave={onSave}
       />
     </div>
   );

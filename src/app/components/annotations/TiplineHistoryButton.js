@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -8,9 +9,9 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import QuestionAnswerIcon from '../../icons/question_answer.svg';
 
 const TiplineHistoryButton = ({
-  uid,
-  name,
   channel,
+  name,
+  uid,
   // messageId,
 }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -28,11 +29,11 @@ const TiplineHistoryButton = ({
       <Tooltip
         arrow
         title={
-          <FormattedMessage id="tiplineHistory.tooltip" description="Tooltip labeling a chat log with a user" defaultMessage="Chat history with {user} on {channel}" values={{ user: name, channel }} />
+          <FormattedMessage defaultMessage="Chat history with {user} on {channel}" description="Tooltip labeling a chat log with a user" id="tiplineHistory.tooltip" values={{ user: name, channel }} />
         }
       >
         <span>
-          <ButtonMain variant="outlined" theme="text" iconCenter={<QuestionAnswerIcon />} onClick={handleClick} className="int-tipline-history__button--open" />
+          <ButtonMain className="int-tipline-history__button--open" iconCenter={<QuestionAnswerIcon />} theme="text" variant="outlined" onClick={handleClick} />
         </span>
       </Tooltip>
       <Modal
@@ -40,9 +41,9 @@ const TiplineHistoryButton = ({
         onClose={handleClose}
       >
         <TiplineHistory
-          uid={uid}
           handleClose={handleClose}
-          title={<FormattedMessage id="tiplineHistory.title" description="Title field labeling a chat log with a user" defaultMessage="Chat history with {user} on {channel}" values={{ user: name, channel }} />}
+          title={<FormattedMessage defaultMessage="Chat history with {user} on {channel}" description="Title field labeling a chat log with a user" id="tiplineHistory.title" values={{ user: name, channel }} />}
+          uid={uid}
         />
       </Modal>
     </>

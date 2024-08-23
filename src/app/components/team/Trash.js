@@ -25,15 +25,15 @@ export default function Trash({ routeParams }) {
   return (
     <ErrorBoundary component="Trash">
       <Search
-        searchUrlPrefix={`/${routeParams.team}/trash`}
-        mediaUrlPrefix={`/${routeParams.team}/media`}
-        title={<FormattedMessage id="trash.title" defaultMessage="Trash" description="Title for the trash listing of items" />}
-        icon={<DeleteIcon />}
-        teamSlug={routeParams.team}
-        query={query}
         defaultQuery={defaultQuery}
         hideFields={['feed_fact_checked_by', 'user', 'cluster_teams', 'cluster_published_reports', 'archived']}
+        icon={<DeleteIcon />}
+        mediaUrlPrefix={`/${routeParams.team}/media`}
         page="trash"
+        query={query}
+        searchUrlPrefix={`/${routeParams.team}/trash`}
+        teamSlug={routeParams.team}
+        title={<FormattedMessage defaultMessage="Trash" description="Title for the trash listing of items" id="trash.title" />}
       />
     </ErrorBoundary>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
@@ -23,7 +24,7 @@ const RulesComponent = (props) => {
   const [savedRule, setSavedRule] = React.useState(null);
 
   const handleError = (error) => {
-    let errorMessage = <FormattedMessage id="rulesComponent.defaultErrorMessage" defaultMessage="Could not save rules" description="Error message when rule cannot be saved" />;
+    let errorMessage = <FormattedMessage defaultMessage="Could not save rules" description="Error message when rule cannot be saved" id="rulesComponent.defaultErrorMessage" />;
     const json = safelyParseJSON(error.source);
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
@@ -32,7 +33,7 @@ const RulesComponent = (props) => {
   };
 
   const handleSuccess = () => {
-    props.setFlashMessage(<FormattedMessage id="rulesComponent.savedSuccessfully" defaultMessage="Rules saved successfully" description="Success message when rule has saved" />, 'success');
+    props.setFlashMessage(<FormattedMessage defaultMessage="Rules saved successfully" description="Success message when rule has saved" id="rulesComponent.savedSuccessfully" />, 'success');
   };
 
   const handleUpdateRules = (newRules, commit) => {
@@ -163,11 +164,11 @@ const RulesComponent = (props) => {
         rule={rule}
         schema={JSON.parse(props.team.rules_json_schema)}
         unsavedChanges={JSON.stringify(rule) !== JSON.stringify(savedRule)}
-        onGoBack={handleGoBack}
-        onDeleteRule={handleDeleteRule}
-        onSaveRule={handleSaveRule}
-        onDuplicateRule={handleDuplicateRule}
         onChangeRule={handleChangeRule}
+        onDeleteRule={handleDeleteRule}
+        onDuplicateRule={handleDuplicateRule}
+        onGoBack={handleGoBack}
+        onSaveRule={handleSaveRule}
       />
     );
   }
@@ -175,8 +176,8 @@ const RulesComponent = (props) => {
   return (
     <RulesTable
       rules={rules}
-      onClickRule={handleClickRule}
       onAddRule={handleAddRule}
+      onClickRule={handleClickRule}
       onDeleteRules={handleDeleteRules}
     />
   );

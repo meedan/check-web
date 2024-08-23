@@ -14,8 +14,8 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import styles from './login.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
+import styles from './login.module.css';
 
 const UserPasswordReset = (props) => {
   const [showConfirmDialog, setShowConfirmDialog] = React.useState(false);
@@ -36,9 +36,9 @@ const UserPasswordReset = (props) => {
     const canSubmit = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
     const message = canSubmit ? '' : (
       <FormattedMessage
-        id="passwordReset.emailNotValid"
         defaultMessage="Please enter a valid email address."
         description="Error message for invalid email address"
+        id="passwordReset.emailNotValid"
       />
     );
     setErrorMsg(message);
@@ -82,9 +82,9 @@ const UserPasswordReset = (props) => {
 
   const pagetitleMessage = (
     <FormattedMessage
-      id="passwordReset.title"
       defaultMessage="Reset password"
       description="Reset password page title"
+      id="passwordReset.title"
     />
   );
 
@@ -97,10 +97,10 @@ const UserPasswordReset = (props) => {
               <FormattedGlobalMessage messageKey="appNameHuman">
                 {appNameHuman => (
                   <img
-                    className={styles['login-logo']}
                     alt={appNameHuman}
-                    width="120"
+                    className={styles['login-logo']}
                     src={stringHelper('LOGO_URL')}
+                    width="120"
                   />
                 )}
               </FormattedGlobalMessage>
@@ -108,64 +108,64 @@ const UserPasswordReset = (props) => {
                 { pagetitleMessage }
               </h6>
               { showConfirmDialog ? [
-                <div key="usr-2" className="user-password-reset__sent_password">
+                <div className="user-password-reset__sent_password" key="usr-2">
                   <FormattedHTMLMessage
-                    tagName="p"
-                    id="passwordReset.confirmedText"
                     defaultMessage='If this email address exists, you will receive an email from <a href="mailto:{adminEmail}">{adminEmail}</a> with instructions to reset your password.'
                     description="Confirmation text to tell the user what will happen if their password request request was valid"
+                    id="passwordReset.confirmedText"
+                    tagName="p"
                     values={{
                       adminEmail: stringHelper('ADMIN_EMAIL'),
                     }}
                   />
                   <FormattedMessage
-                    tagName="p"
-                    id="passwordReset.confirmedTextSpam"
                     defaultMessage="Make sure password reset emails do not end up in your spam mailbox."
                     description="Confirmation text to tell the user that password resets may end up in spam folders"
+                    id="passwordReset.confirmedTextSpam"
+                    tagName="p"
                   />
                   <FormattedHTMLMessage
-                    tagName="p"
-                    id="passwordReset.confirmedTextExtra"
                     defaultMessage='If you are not receiving our password reset emails, contact <a href="mailto:{supportEmail}">{supportEmail}</a>.'
                     description="Confirmation text to tell the user how to contact support if they do not receive a password reset email"
+                    id="passwordReset.confirmedTextExtra"
+                    tagName="p"
                     values={{
                       supportEmail: stringHelper('SUPPORT_EMAIL'),
                     }}
                   />
                 </div>,
                 <ButtonMain
-                  size="default"
-                  variant="contained"
-                  theme="brand"
                   disabled={submitDisabled}
-                  onClick={handleSignIn}
                   label={
-                    <FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" description="Sign in button label" />
+                    <FormattedMessage defaultMessage="Sign In" description="Sign in button label" id="passwordReset.signIn" />
                   }
+                  size="default"
+                  theme="brand"
+                  variant="contained"
+                  onClick={handleSignIn}
                 />,
               ] : [
                 <div key="usr-2">
                   { previousErrorMsg ? <p>{previousErrorMsg}</p> : null }
                   <FormattedMessage
-                    tagName="p"
-                    id="passwordReset.text"
                     defaultMessage="Add your address and an email will be sent with further instructions."
                     description="Helper text about why the user should enter their email address"
+                    id="passwordReset.text"
+                    tagName="p"
                   />
                   <div className={cx('user-password-reset__email-input', inputStyles['form-fieldset'])}>
                     <TextField
-                      required
+                      autoFocus
+                      className={inputStyles['form-fieldset-field']}
                       componentProps={{
                         id: 'password-reset-email-input',
                         type: 'email',
                       }}
-                      className={inputStyles['form-fieldset-field']}
-                      label={<FormattedMessage id="passwordReset.email" defaultMessage="Email" description="Textfield label for email address" />}
-                      onChange={handleChange}
-                      helpContent={errorMsg}
                       error={errorMsg}
-                      autoFocus
+                      helpContent={errorMsg}
+                      label={<FormattedMessage defaultMessage="Email" description="Textfield label for email address" id="passwordReset.email" />}
+                      required
+                      onChange={handleChange}
                     />
                   </div>
                 </div>,
@@ -174,25 +174,25 @@ const UserPasswordReset = (props) => {
                 </div>,
                 <div className={cx('user-password-reset__actions', inputStyles['form-footer-actions'], styles['user-password-reset__actions'])}>
                   <ButtonMain
-                    onClick={handleGoBack}
-                    size="default"
-                    variant="text"
-                    theme="lightText"
                     label={
                       <FormattedMessage
-                        id="global.cancel"
                         defaultMessage="Cancel"
                         description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+                        id="global.cancel"
                       />
                     }
+                    size="default"
+                    theme="lightText"
+                    variant="text"
+                    onClick={handleGoBack}
                   />
                   <ButtonMain
-                    size="default"
-                    variant="contained"
-                    theme="brand"
                     disabled={submitDisabled}
-                    onClick={handleSubmit}
                     label={pagetitleMessage}
+                    size="default"
+                    theme="brand"
+                    variant="contained"
+                    onClick={handleSubmit}
                   />
                 </div>,
               ]}

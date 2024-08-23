@@ -1,3 +1,5 @@
+/* eslint-disable react/sort-prop-types */
+
 // DESIGNS: https://www.figma.com/file/bQWUXJItRRX8xO3uQ9FWdg/Multimedia-Newsletter-%2B-Report?type=design&node-id=656-50446&mode=design&t=PjtorENpol0lp5QG-://www.figma.com/file/swpcrmbyoYJXMnqhsVT5sr/Conversation-history-and-messaging-via-request?type=design&node-id=110-15572&mode=design&t=3zQWKZA3YXye2rWF-0
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -25,10 +27,10 @@ const messages = defineMessages({
 });
 
 const ChatHistory = ({
+  handleClose,
+  history,
   intl,
   title,
-  history,
-  handleClose,
 }) => {
   const parseHistory = () => {
     let output = history;
@@ -109,14 +111,14 @@ const ChatHistory = ({
   );
 
   const Message = ({
-    messageId,
-    messageEvent,
     content,
     dateTime,
-    userMessage,
     isDelivered,
-    userSelection,
     mediaUrl,
+    messageEvent,
+    messageId,
+    userMessage,
+    userSelection,
   }) => {
     const d = new Date(dateTime);
 
@@ -161,11 +163,11 @@ const ChatHistory = ({
 
     return (
       <div
-        id={`message-${messageId}`}
         className={cx(
           styles.message,
           { [styles['bot-message']]: !userMessage },
         )}
+        id={`message-${messageId}`}
       >
         { preParsedText ?
           <div className={cx(
@@ -178,7 +180,7 @@ const ChatHistory = ({
             },
           )}
           >
-            <ParsedText text={preParsedText} mediaChips />
+            <ParsedText mediaChips text={preParsedText} />
           </div> : null }
         <div className={`typography-body2 ${styles.time}`}>
           {icon}
@@ -199,10 +201,10 @@ const ChatHistory = ({
         </div>
         <div className={styles['right-side']}>
           <ButtonMain
-            variant="text"
+            iconCenter={<IconClose />}
             size="small"
             theme="text"
-            iconCenter={<IconClose />}
+            variant="text"
             onClick={handleClose}
           />
         </div>
@@ -228,14 +230,14 @@ const ChatHistory = ({
           return (
             <div dateTime={dateTime}>
               <Message
-                messageId={item.dbid}
-                messageEvent={item.event}
                 content={content}
-                mediaUrl={item.media_url}
                 dateTime={dateTime}
+                isDelivered={item.isDelivered}
+                mediaUrl={item.media_url}
+                messageEvent={item.event}
+                messageId={item.dbid}
                 userMessage={item.direction === 'incoming'}
                 userSelection={item.userSelection}
-                isDelivered={item.isDelivered}
               />
               { dateHeader }
             </div>
@@ -249,9 +251,9 @@ const ChatHistory = ({
             <Alert
               title={
                 <FormattedMessage
-                  id="chatHistory.noMessages"
                   defaultMessage="Chat history is available beginning March 2023. Contact support for more information."
                   description="Informational message that appears when a user accesses a chat history but the messages are too old to display."
+                  id="chatHistory.noMessages"
                 />
               }
               variant="info"
