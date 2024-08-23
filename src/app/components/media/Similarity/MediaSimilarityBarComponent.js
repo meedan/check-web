@@ -10,6 +10,7 @@ const MediaSimilarityBarComponent = ({
   confirmedMainItemId,
   confirmedSimilarCount,
   hasMain,
+  projectMediaDbid,
 }) => (
   <div className={styles['similar-matched-media-bar']}>
     <div className="similarity-bar__matches-count typography-subtitle2">
