@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import PublishedIcon from '../../icons/fact_check.svg';
-import FileDownloadIcon from '../../icons/file_download.svg';
-import BookIcon from '../../icons/book.svg';
 import styles from './../drawer/Projects/Projects.module.css';
 import ArticleCoreListCounter from './ArticleCoreListCounter';
 import NewArticleButton from './NewArticleButton';
+import PublishedIcon from '../../icons/fact_check.svg';
+import FileDownloadIcon from '../../icons/file_download.svg';
+import BookIcon from '../../icons/book.svg';
 
 const ArticlesComponent = ({ team }) => {
   // Get/set which list item should be highlighted
@@ -29,9 +29,9 @@ const ArticlesComponent = ({ team }) => {
     <React.Fragment>
       <div className={styles.listTitle}>
         <FormattedMessage
-          id="articlesComponent.articles"
           defaultMessage="Articles"
           description="The navigation name of the articles section"
+          id="articlesComponent.articles"
         />
       </div>
       <div className={styles.listMainAction}>
@@ -40,9 +40,9 @@ const ArticlesComponent = ({ team }) => {
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper)}>
           <Link
-            onClick={() => { handleSpecialLists('fact-checks'); }}
-            to={`/${team.slug}/articles/fact-checks`}
             className={styles.linkList}
+            to={`/${team.slug}/articles/fact-checks`}
+            onClick={() => { handleSpecialLists('fact-checks'); }}
           >
             <li
               className={cx(
@@ -56,15 +56,15 @@ const ArticlesComponent = ({ team }) => {
             >
               <PublishedIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.claimAndFactChecks" defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim & fact-checks" />
+                <FormattedMessage defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim & fact-checks" id="articlesComponent.claimAndFactChecks" tagName="span" />
               </div>
               <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" />
             </li>
           </Link>
           <Link
-            onClick={() => { handleSpecialLists('explainers'); }}
-            to={`/${team.slug}/articles/explainers`}
             className={styles.linkList}
+            to={`/${team.slug}/articles/explainers`}
+            onClick={() => { handleSpecialLists('explainers'); }}
           >
             <li
               className={cx(
@@ -78,15 +78,15 @@ const ArticlesComponent = ({ team }) => {
             >
               <BookIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="articlesComponent.explainers" defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have explainers" />
+                <FormattedMessage defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have explainers" id="articlesComponent.explainers" tagName="span" />
               </div>
               <ArticleCoreListCounter teamSlug={team.slug} type="explainer" />
             </li>
           </Link>
           <Link
-            onClick={() => { handleSpecialLists('imported-fact-checks'); }}
-            to={`/${team.slug}/articles/imported-fact-checks`}
             className={styles.linkList}
+            to={`/${team.slug}/articles/imported-fact-checks`}
+            onClick={() => { handleSpecialLists('imported-fact-checks'); }}
           >
             <li
               className={cx(
@@ -100,15 +100,15 @@ const ArticlesComponent = ({ team }) => {
             >
               <FileDownloadIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
+                <FormattedMessage defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" id="projectsComponent.importedReports" tagName="span" />
               </div>
-              <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" defaultFilters={{ imported: true }} />
+              <ArticleCoreListCounter defaultFilters={{ imported: true }} teamSlug={team.slug} type="fact-check" />
             </li>
           </Link>
           <Link
-            onClick={() => { handleSpecialLists('published'); }}
-            to={`/${team.slug}/articles/published`}
             className={styles.linkList}
+            to={`/${team.slug}/articles/published`}
+            onClick={() => { handleSpecialLists('published'); }}
           >
             <li
               className={cx(
@@ -122,9 +122,9 @@ const ArticlesComponent = ({ team }) => {
             >
               <PublishedIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
+                <FormattedMessage defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" id="projectsComponent.published" tagName="span" />
               </div>
-              <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" defaultFilters={{ report_status: 'published' }} />
+              <ArticleCoreListCounter defaultFilters={{ report_status: 'published' }} teamSlug={team.slug} type="fact-check" />
             </li>
           </Link>
         </ul>

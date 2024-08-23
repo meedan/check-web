@@ -7,8 +7,6 @@ describe('<MediaPage />', () => {
   describe('URL helpers', () => {
     it('should parse { listPath, listQuery, listIndex } from the /trash query string', () => {
       const childProps = shallow(<MediaPage
-        route={{}}
-        routeParams={{ team: 'a-team', mediaId: '2' }}
         location={{
           hash: 'hash',
           query: {
@@ -17,6 +15,8 @@ describe('<MediaPage />', () => {
             listIndex: 3,
           },
         }}
+        route={{}}
+        routeParams={{ team: 'a-team', mediaId: '2' }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl)
         .toEqual(`/a-team/trash/${encodeURIComponent('{"key1":"value1","key2":"value2"}')}`);
@@ -30,8 +30,6 @@ describe('<MediaPage />', () => {
 
     it('should parse { listPath, listQuery, listIndex } from the /project query string', () => {
       const childProps = shallow(<MediaPage
-        route={{}}
-        routeParams={{ team: 'a-team', projectId: '1', mediaId: '2' }}
         location={{
           hash: 'hash',
           query: {
@@ -40,6 +38,8 @@ describe('<MediaPage />', () => {
             listIndex: 3,
           },
         }}
+        route={{}}
+        routeParams={{ team: 'a-team', projectId: '1', mediaId: '2' }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl)
         .toEqual(`/a-team/project/1/${encodeURIComponent('{"key1":"value1","key2":"value2"}')}`);
@@ -52,12 +52,12 @@ describe('<MediaPage />', () => {
 
     it('should infer listUrl, listQuery and nulls when there is no query string or projectId', () => {
       const childProps = shallow(<MediaPage
-        route={{}}
-        routeParams={{ team: 'a-team', mediaId: '2' }}
         location={{
           hash: 'hash',
           query: {},
         }}
+        route={{}}
+        routeParams={{ team: 'a-team', mediaId: '2' }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl).toEqual('/a-team/all-items');
       expect(childProps.listQuery).toEqual({});
@@ -67,12 +67,12 @@ describe('<MediaPage />', () => {
 
     it('should infer listUrl, listQuery and nulls when there is no query string but there is a projectId', () => {
       const childProps = shallow(<MediaPage
-        route={{}}
-        routeParams={{ team: 'a-team', projectId: '1', mediaId: '2' }}
         location={{
           hash: 'hash',
           query: {},
         }}
+        route={{}}
+        routeParams={{ team: 'a-team', projectId: '1', mediaId: '2' }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl).toEqual('/a-team/project/1');
       expect(childProps.listQuery).toEqual({ projects: [1] });
@@ -82,12 +82,12 @@ describe('<MediaPage />', () => {
 
     it('should give a buildSiblingUrl() even when inferring listUrl and listQuery if there is no projectId', () => {
       const childProps = shallow(<MediaPage
-        route={{}}
-        routeParams={{ team: 'a-team', mediaId: '2' }}
         location={{
           hash: 'hash',
           query: { listIndex: '3' },
         }}
+        route={{}}
+        routeParams={{ team: 'a-team', mediaId: '2' }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl).toEqual('/a-team/all-items');
       expect(childProps.listQuery).toEqual({});
@@ -97,12 +97,12 @@ describe('<MediaPage />', () => {
 
     it('should give a buildSiblingUrl() even when inferring listUrl and listQuery if there is a projectId', () => {
       const childProps = shallow(<MediaPage
-        route={{}}
-        routeParams={{ team: 'a-team', projectId: '1', mediaId: '2' }}
         location={{
           hash: 'hash',
           query: { listIndex: '3' },
         }}
+        route={{}}
+        routeParams={{ team: 'a-team', projectId: '1', mediaId: '2' }}
       />).find(MediaPageLayout).props();
       expect(childProps.listUrl).toEqual('/a-team/project/1');
       expect(childProps.listQuery).toEqual({ projects: [1] });

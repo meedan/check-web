@@ -1,3 +1,5 @@
+/* eslint-disable react/sort-prop-types */
+
 // DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=2142-47843&mode=design&t=Xk5LFyi7pmsXEX1T-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -12,10 +14,10 @@ import styles from './Reorder.module.css';
 const Reorder = ({
   className,
   customStyle,
+  disableDown,
+  disableUp,
   onMoveDown,
   onMoveUp,
-  disableUp,
-  disableDown,
   theme,
   variant,
 }) => (
@@ -32,51 +34,51 @@ const Reorder = ({
     style={customStyle}
   >
     <Tooltip
+      arrow
       disableHoverListener={disableUp}
       placement="top"
-      arrow
       title={
         <FormattedMessage
-          id="reorder.moveUp"
           defaultMessage="Move item up"
           description="Tooltip for control that moves an item higher up in a list"
+          id="reorder.moveUp"
         />
       }
     >
       <span>
         <ButtonMain
           className="int-reorder__button-up"
-          size="small"
-          variant="text"
-          theme="info"
-          iconCenter={<ArrowDropUpIcon />}
-          onClick={onMoveUp}
           disabled={disableUp}
+          iconCenter={<ArrowDropUpIcon />}
+          size="small"
+          theme="info"
+          variant="text"
+          onClick={onMoveUp}
         />
       </span>
     </Tooltip>
     <hr />
     <Tooltip
+      arrow
       disableHoverListener={disableDown}
       placement="bottom"
-      arrow
       title={
         <FormattedMessage
-          id="reorder.moveDown"
           defaultMessage="Move item down"
           description="Tooltip for control that moves an item lower in a list"
+          id="reorder.moveDown"
         />
       }
     >
       <span>
         <ButtonMain
           className="int-reorder__button-down"
-          size="small"
-          variant="text"
-          theme="info"
-          iconCenter={<ArrowDropDownIcon />}
-          onClick={onMoveDown}
           disabled={disableDown}
+          iconCenter={<ArrowDropDownIcon />}
+          size="small"
+          theme="info"
+          variant="text"
+          onClick={onMoveDown}
         />
       </span>
     </Tooltip>

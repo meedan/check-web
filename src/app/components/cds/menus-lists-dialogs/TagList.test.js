@@ -25,7 +25,7 @@ describe('TagList', () => {
   });
 
   it('renders empty tag list', () => {
-    const wrapper = shallow(<TagList tags={[]} setTags={() => {}} />);
+    const wrapper = shallow(<TagList setTags={() => {}} tags={[]} />);
     expect(wrapper.find('Chip')).toHaveLength(0);
     expect(wrapper.find('#empty-list')).toHaveLength(1);
     expect(wrapper.find('#hidden-tags')).toHaveLength(0);

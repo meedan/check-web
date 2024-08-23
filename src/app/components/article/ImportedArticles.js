@@ -1,9 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import FileDownloadIcon from '../../icons/file_download.svg';
 import Articles from './Articles';
+import FileDownloadIcon from '../../icons/file_download.svg';
 
 const messages = defineMessages({
   sortTitle: {
@@ -23,7 +24,7 @@ const messages = defineMessages({
   },
 });
 
-const ImportedArticles = ({ routeParams, intl }) => {
+const ImportedArticles = ({ intl, routeParams }) => {
   const sortOptions = [
     { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'language', label: intl.formatMessage(messages.sortLanguage) },
@@ -43,13 +44,13 @@ const ImportedArticles = ({ routeParams, intl }) => {
 
   return (
     <Articles
-      type="fact-check"
-      title={<FormattedMessage id="importedArticles.title" defaultMessage="Imported" description="Title of the imported articles page." />}
-      icon={<FileDownloadIcon />}
-      teamSlug={routeParams.team}
-      sortOptions={sortOptions}
       defaultFilters={{ imported: true }}
       filterOptions={['users', 'tags', 'range']}
+      icon={<FileDownloadIcon />}
+      sortOptions={sortOptions}
+      teamSlug={routeParams.team}
+      title={<FormattedMessage defaultMessage="Imported" description="Title of the imported articles page." id="importedArticles.title" />}
+      type="fact-check"
       updateMutation={updateMutation}
     />
   );

@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import EditStatusDialog from './EditStatusDialog';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<EditStatusDialog />', () => {
   const team = {
@@ -29,9 +29,9 @@ describe('<EditStatusDialog />', () => {
 
   it('should render "Add a new status" title when do not pass status', () => {
     const wrapper = mountWithIntl(<EditStatusDialog
+      defaultLanguage="English"
       open
       team={team}
-      defaultLanguage="English"
       onCancel={() => {}}
       onSubmit={() => {}}
     />);
@@ -41,11 +41,11 @@ describe('<EditStatusDialog />', () => {
 
   it('should render "Edit status" title when pass status', () => {
     const wrapper = mountWithIntl(<EditStatusDialog
-      status={status}
-      team={team}
       defaultLanguage="en"
       defaultValue={status}
       open={Boolean(status)}
+      status={status}
+      team={team}
       onCancel={() => {}}
       onSubmit={() => {}}
     />);
@@ -59,10 +59,10 @@ describe('<EditStatusDialog />', () => {
 
   it('should render message field when smooch is installed on the team', () => {
     const wrapper = mountWithIntl(<EditStatusDialog
-      team={team2}
       defaultLanguage="en"
       defaultValue={status}
       open={Boolean(status)}
+      team={team2}
       onCancel={() => {}}
       onSubmit={() => {}}
     />);
@@ -77,10 +77,10 @@ describe('<EditStatusDialog />', () => {
     const handleConfirmSubmit = jest.fn();
     const handleSubmit = jest.fn();
     const wrapper = mountWithIntl(<EditStatusDialog
-      team={team2}
       defaultLanguage="en"
       defaultValue={status}
       open={Boolean(status)}
+      team={team2}
       onCancel={() => {}}
       onSubmit={team2.smooch_bot ? handleConfirmSubmit : handleSubmit}
     />);
@@ -93,10 +93,10 @@ describe('<EditStatusDialog />', () => {
     const handleConfirmSubmit = jest.fn();
     const handleSubmit = jest.fn();
     const wrapper = mountWithIntl(<EditStatusDialog
-      team={team}
       defaultLanguage="en"
       defaultValue={status}
       open={Boolean(status)}
+      team={team}
       onCancel={() => {}}
       onSubmit={team.smooch_bot ? handleConfirmSubmit : handleSubmit}
     />);

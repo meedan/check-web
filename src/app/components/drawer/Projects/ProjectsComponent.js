@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -6,6 +7,7 @@ import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
+import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import AddIcon from '../../../icons/add_filled.svg';
@@ -26,14 +28,13 @@ import { assignedToMeDefaultQuery } from '../../team/AssignedToMe';
 import { suggestedMatchesDefaultQuery } from '../../team/SuggestedMatches';
 import { unmatchedMediaDefaultQuery } from '../../team/UnmatchedMedia';
 import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
-import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import styles from './Projects.module.css';
 
 const ProjectsComponent = ({
   currentUser,
-  team,
-  savedSearches,
   location,
+  savedSearches,
+  team,
 }) => {
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
   const getBooleanPref = (key, fallback) => {
@@ -80,18 +81,18 @@ const ProjectsComponent = ({
     <React.Fragment>
       <div className={styles.listTitle}>
         <FormattedMessage
-          id="projectsComponent.tiplineNavHeader"
           defaultMessage="Tipline"
           description="The navigation name of the tipline section"
+          id="projectsComponent.tiplineNavHeader"
         />
       </div>
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper, 'projects-list')}>
           {/* All items */}
           <Link
-            onClick={handleAllItems}
-            to={`/${team.slug}/all-items`}
             className={styles.linkList}
+            to={`/${team.slug}/all-items`}
+            onClick={handleAllItems}
           >
             <li
               className={cx(
@@ -105,9 +106,9 @@ const ProjectsComponent = ({
             >
               <CategoryIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All Media" description="Label for the 'All media' list displayed on the left sidebar" />
+                <FormattedMessage defaultMessage="All Media" description="Label for the 'All media' list displayed on the left sidebar" id="projectsComponent.allItems" tagName="span" />
               </div>
-              <div title={team.medias_count} className={styles.listItemCount}>
+              <div className={styles.listItemCount} title={team.medias_count}>
                 <small>
                   {team.medias_count}
                 </small>
@@ -116,9 +117,9 @@ const ProjectsComponent = ({
           </Link>
           { /* Assigned to me */}
           <Link
-            onClick={() => { handleSpecialLists('assigned-to-me'); }}
-            to={`/${team.slug}/assigned-to-me`}
             className={styles.linkList}
+            to={`/${team.slug}/assigned-to-me`}
+            onClick={() => { handleSpecialLists('assigned-to-me'); }}
           >
             <li
               className={cx(
@@ -132,16 +133,16 @@ const ProjectsComponent = ({
             >
               <PersonIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.assignedToMe" defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" />
+                <FormattedMessage defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" id="projectsComponent.assignedToMe" tagName="span" />
               </div>
               <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
             </li>
           </Link>
           { team.smooch_bot &&
             <Link
-              onClick={() => { handleSpecialLists('tipline-inbox'); }}
-              to={`/${team.slug}/tipline-inbox`}
               className={styles.linkList}
+              to={`/${team.slug}/tipline-inbox`}
+              onClick={() => { handleSpecialLists('tipline-inbox'); }}
             >
               <li
                 className={cx(
@@ -155,7 +156,7 @@ const ProjectsComponent = ({
               >
                 <InboxIcon className={styles.listIcon} />
                 <div className={styles.listLabel}>
-                  <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted" />
+                  <FormattedMessage defaultMessage="Inbox" description="Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted" id="projectsComponent.tiplineInbox" tagName="span" />
                 </div>
                 <ProjectsCoreListCounter query={{ ...tiplineInboxDefaultQuery, verification_status: [team.verification_statuses.default] }} />
               </li>
@@ -163,9 +164,9 @@ const ProjectsComponent = ({
           }
           { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
             <Link
-              onClick={() => { handleSpecialLists('suggested-matches'); }}
-              to={`/${team.slug}/suggested-matches`}
               className={styles.linkList}
+              to={`/${team.slug}/suggested-matches`}
+              onClick={() => { handleSpecialLists('suggested-matches'); }}
             >
               <li
                 className={cx(
@@ -179,7 +180,7 @@ const ProjectsComponent = ({
               >
                 <LightbulbIcon className={styles.listIcon} />
                 <div className={styles.listLabel}>
-                  <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1" />
+                  <FormattedMessage defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1" id="projectsComponent.suggestedMatches" tagName="span" />
                 </div>
                 <ProjectsCoreListCounter query={suggestedMatchesDefaultQuery} />
               </li>
@@ -188,9 +189,9 @@ const ProjectsComponent = ({
 
           { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
             <Link
-              onClick={() => { handleSpecialLists('unmatched-media'); }}
-              to={`/${team.slug}/unmatched-media`}
               className={styles.linkList}
+              to={`/${team.slug}/unmatched-media`}
+              onClick={() => { handleSpecialLists('unmatched-media'); }}
             >
               <li
                 className={cx(
@@ -204,7 +205,7 @@ const ProjectsComponent = ({
               >
                 <UnmatchedIcon className={styles.listIcon} />
                 <div className={styles.listLabel}>
-                  <FormattedMessage tagName="span" id="projectsComponent.unmatchedMedia" defaultMessage="Unmatched media" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" />
+                  <FormattedMessage defaultMessage="Unmatched media" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" id="projectsComponent.unmatchedMedia" tagName="span" />
                 </div>
                 <ProjectsCoreListCounter query={unmatchedMediaDefaultQuery} />
               </li>
@@ -213,23 +214,23 @@ const ProjectsComponent = ({
 
           {/* Lists Header */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-          <li onClick={handleToggleListsExpand} className={cx(styles.listItem, styles.listHeader, styles.listItem_containsCount, 'project-list__header')}>
+          <li className={cx(styles.listItem, styles.listHeader, styles.listItem_containsCount, 'project-list__header')} onClick={handleToggleListsExpand}>
             { listsExpanded ? <ExpandLessIcon className={styles.listIcon} /> : <ExpandMoreIcon className={styles.listIcon} /> }
             <div className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
+              <FormattedMessage defaultMessage="Custom Lists" description="List of items with some filters applied" id="projectsComponent.lists" tagName="span" />
             </div>
-            <Can permissions={team.permissions} permission="create Project">
-              <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
+            <Can permission="create Project" permissions={team.permissions}>
+              <Tooltip arrow title={<FormattedMessage defaultMessage="New list" description="Tooltip for button that opens list creation dialog" id="projectsComponent.newListButton" />}>
                 <div className={cx(styles.listItemCount, styles.listAddListButton)}>
                   <ButtonMain
-                    iconCenter={<AddIcon />}
-                    variant="text"
-                    size="default"
-                    theme="text"
-                    onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
                     buttonProps={{
                       id: 'projects-list__add-filtered-list',
                     }}
+                    iconCenter={<AddIcon />}
+                    size="default"
+                    theme="text"
+                    variant="text"
+                    onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
                   />
                 </div>
               </Tooltip>
@@ -238,25 +239,25 @@ const ProjectsComponent = ({
 
           {/* Lists */}
           <React.Fragment>
-            <Collapse in={listsExpanded} className={styles.listCollapseWrapper}>
+            <Collapse className={styles.listCollapseWrapper} in={listsExpanded}>
               { savedSearches.length === 0 ?
                 <li className={cx(styles.listItem, styles.listItem_containsCount, styles.listItem_empty)}>
                   <div className={styles.listLabel}>
                     <span>
-                      <FormattedMessage tagName="em" id="projectsComponent.noCustomLists" defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" />
+                      <FormattedMessage defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" id="projectsComponent.noCustomLists" tagName="em" />
                     </span>
                   </div>
                 </li> :
                 <>
                   {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
                     <ProjectsListItem
-                      tooltip={search.title}
-                      key={search.id}
-                      routePrefix="list"
-                      project={search}
-                      teamSlug={team.slug}
                       icon={search.is_part_of_feeds ? <SharedFeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} /> : <ListIcon className={styles.listIcon} />}
                       isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
+                      key={search.id}
+                      project={search}
+                      routePrefix="list"
+                      teamSlug={team.slug}
+                      tooltip={search.title}
                     />
                   ))}
                 </>
@@ -268,9 +269,9 @@ const ProjectsComponent = ({
       <ul className={cx(styles.listWrapper, styles.listFooter)}>
         {/* Spam */}
         <Link
-          onClick={handleSpam}
-          to={`/${team.slug}/spam`}
           className={styles.linkList}
+          to={`/${team.slug}/spam`}
+          onClick={handleSpam}
         >
           <li
             className={cx(
@@ -285,9 +286,9 @@ const ProjectsComponent = ({
           >
             <ReportIcon className={styles.listIcon} />
             <div className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.spam" defaultMessage="Spam" description="Label for a list displayed on the left sidebar that includes items that have been trashed" />
+              <FormattedMessage defaultMessage="Spam" description="Label for a list displayed on the left sidebar that includes items that have been trashed" id="projectsComponent.spam" tagName="span" />
             </div>
-            <div title={team.spam_count} className={styles.listItemCount}>
+            <div className={styles.listItemCount} title={team.spam_count}>
               <small>{String(team.spam_count)}</small>
             </div>
           </li>
@@ -295,9 +296,9 @@ const ProjectsComponent = ({
 
         {/* Trash */}
         <Link
-          onClick={handleTrash}
-          to={`/${team.slug}/trash`}
           className={styles.linkList}
+          to={`/${team.slug}/trash`}
+          onClick={handleTrash}
         >
           <li
             className={cx(
@@ -312,9 +313,9 @@ const ProjectsComponent = ({
           >
             <DeleteIcon className={styles.listIcon} />
             <div className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.trash" defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items marked as spam" />
+              <FormattedMessage defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items marked as spam" id="projectsComponent.trash" tagName="span" />
             </div>
-            <div title={team.trash_count} className={styles.listItemCount}>
+            <div className={styles.listItemCount} title={team.trash_count}>
               <small>{String(team.trash_count)}</small>
             </div>
           </li>
@@ -324,13 +325,13 @@ const ProjectsComponent = ({
       {/* Dialog to create list */}
 
       <NewProject
-        team={team}
+        buttonLabel={<FormattedMessage defaultMessage="Create List" description="Label for a button to create a new list displayed on the left sidebar." id="projectsComponent.createList" />}
+        errorMessage={<FormattedMessage defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" id="projectsComponent.newListErrorMessage" />}
         open={showNewListDialog}
+        successMessage={<FormattedMessage defaultMessage="List created successfully" description="Success message when new list is created" id="projectsComponent.newListSuccessMessage" />}
+        team={team}
+        title={<FormattedMessage defaultMessage="New List" description="Title for a dialog to create a new list displayed on the left sidebar." id="projectsComponent.newList" />}
         onClose={() => { setShowNewListDialog(false); }}
-        title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New List" description="Title for a dialog to create a new list displayed on the left sidebar." />}
-        buttonLabel={<FormattedMessage id="projectsComponent.createList" defaultMessage="Create List" description="Label for a button to create a new list displayed on the left sidebar." />}
-        errorMessage={<FormattedMessage id="projectsComponent.newListErrorMessage" defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" />}
-        successMessage={<FormattedMessage id="projectsComponent.newListSuccessMessage" defaultMessage="List created successfully" description="Success message when new list is created" />}
       />
     </React.Fragment>
   );

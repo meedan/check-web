@@ -8,17 +8,17 @@ import styles from './ColorPicker.module.css';
 const ColorPicker = ({ color, onChange }) => (
   <React.Fragment>
     <ButtonMain
-      variant="contained"
-      size="default"
-      theme="black"
       className={cx('int-colorpicker__button--open', styles.colorPicker)}
       customStyle={{ backgroundColor: color, borderColor: color }}
       iconCenter={
         <>
           <ExpandMoreIcon />
-          <input type="color" id="head" name="head" value={color} onChange={onChange} />
+          <input id="head" name="head" type="color" value={color} onChange={onChange} />
         </>
       }
+      size="default"
+      theme="black"
+      variant="contained"
     />
   </React.Fragment>
 );

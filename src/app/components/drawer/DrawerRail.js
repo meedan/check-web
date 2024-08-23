@@ -71,12 +71,12 @@ const DrawerRail = (props) => {
   const [activeItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
 
   const {
+    currentUserIsMember,
     drawerOpen,
     drawerType,
-    onDrawerTypeChange,
     onDrawerOpenChange,
+    onDrawerTypeChange,
     team,
-    currentUserIsMember,
   } = props;
 
   const setDrawerTypeChange = (newDrawerType) => {
@@ -131,7 +131,6 @@ const DrawerRail = (props) => {
             </Tooltip>
             <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.railToggleDescription)}>
               <button
-                type="button"
                 className={cx(
                   [styles.railIconButton],
                   {
@@ -140,6 +139,7 @@ const DrawerRail = (props) => {
                   })
                 }
                 id="side-navigation__toggle"
+                type="button"
                 onClick={() => setDrawerOpenChange()}
               >
                 {drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -156,8 +156,8 @@ const DrawerRail = (props) => {
                   })
                 }
                 id="side-navigation__article-toggle"
-                onClick={() => setDrawerTypeChange('articles')}
                 to={`/${props.team.slug}/articles/fact-checks`}
+                onClick={() => setDrawerTypeChange('articles')}
               >
                 <DescriptionIcon />
               </Link>
@@ -171,8 +171,8 @@ const DrawerRail = (props) => {
                   })
                 }
                 id="side-navigation__tipline-toggle"
-                onClick={() => setDrawerTypeChange('tipline')}
                 to={`/${props.team.slug}/all-items`}
+                onClick={() => setDrawerTypeChange('tipline')}
               >
                 <QuestionAnswerIcon />
               </Link>
@@ -186,8 +186,8 @@ const DrawerRail = (props) => {
                   })
                 }
                 id="side-navigation__feed-toggle"
-                onClick={() => setDrawerTypeChange('feed')}
                 to={`/${props.team.slug}/feeds`}
+                onClick={() => setDrawerTypeChange('feed')}
               >
                 <SharedFeedIcon />
               </Link>
@@ -200,8 +200,8 @@ const DrawerRail = (props) => {
                     [styles.railIconLinkActive]: isSettingsPage,
                   })
                 }
-                onClick={() => setDrawerTypeChange('settings')}
                 to={`/${props.team.slug}/settings/workspace`}
+                onClick={() => setDrawerTypeChange('settings')}
               >
                 <SettingsIcon />
               </Link>
@@ -215,8 +215,8 @@ const DrawerRail = (props) => {
                     [styles.railIconLinkActive]: isUserSettingsPage,
                   })
                 }
-                onClick={() => setDrawerTypeChange('user')}
                 to="/check/me/profile"
+                onClick={() => setDrawerTypeChange('user')}
               >
                 <PersonIcon />
               </Link>
@@ -236,20 +236,20 @@ const DrawerRail = (props) => {
       <div className={styles.drawerRailBottom}>
         <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.trainingDescription)}>
           <a
-            href="https://help.checkmedia.org/"
             className={styles.railIconLink}
-            target="_blank"
+            href="https://help.checkmedia.org/"
             rel="noopener noreferrer"
+            target="_blank"
           >
             <HelpIcon />
           </a>
         </Tooltip>
         <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.legalDescription)}>
           <a
-            href="https://meedan.com/legal"
             className={styles.railIconLink}
-            target="_blank"
+            href="https://meedan.com/legal"
             rel="noopener noreferrer"
+            target="_blank"
           >
             <InfoIcon />
           </a>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { FeedItemTeams } from './FeedItemTeams';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedItemTeams />', () => {
   const team = {
@@ -37,7 +37,7 @@ describe('<FeedItemTeams />', () => {
   };
 
   it('should render teams', () => {
-    const wrapper = shallowWithIntl(<FeedItemTeams team={team} feed={feed} cluster={cluster} />);
+    const wrapper = shallowWithIntl(<FeedItemTeams cluster={cluster} feed={feed} team={team} />);
     expect(wrapper.find('#feed-item-page-teams')).toHaveLength(1);
   });
 
@@ -46,7 +46,7 @@ describe('<FeedItemTeams />', () => {
       ...cluster,
       center: null,
     };
-    const wrapper = shallowWithIntl(<FeedItemTeams team={team} feed={feed} cluster={clusterWithoutCenter} />);
+    const wrapper = shallowWithIntl(<FeedItemTeams cluster={clusterWithoutCenter} feed={feed} team={team} />);
     expect(wrapper.find('#feed-item-page-teams')).toHaveLength(1);
   });
 });

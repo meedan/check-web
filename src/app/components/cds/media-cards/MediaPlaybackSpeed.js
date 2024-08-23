@@ -48,22 +48,22 @@ const MediaPlaybackSpeed = ({
   };
 
   return (
-    <div ref={containerRef} id="media-playback-speed">
-      <IconButton className={classes.icon} onClick={handleClick} size="small">
+    <div id="media-playback-speed" ref={containerRef}>
+      <IconButton className={classes.icon} size="small" onClick={handleClick}>
         <SlowMotionVideoIcon />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
+        container={containerRef.current}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        container={containerRef.current}
       >
         <MenuItem className={playbackSpeed === 0.25 ? classes.active : ''} onClick={() => handlePlaybackRateChange(0.25)}>0.25x</MenuItem>
         <MenuItem className={playbackSpeed === 0.5 ? classes.active : ''} onClick={() => handlePlaybackRateChange(0.5)}>0.5x</MenuItem>
         <MenuItem className={playbackSpeed === 0.75 ? classes.active : ''} onClick={() => handlePlaybackRateChange(0.75)}>0.75x</MenuItem>
         <MenuItem className={playbackSpeed === 1 ? classes.active : ''} onClick={() => handlePlaybackRateChange(1)}>
-          <FormattedMessage id="media.normalSpeed" defaultMessage="Normal speed" description="Sets video playback rate to original 1x speed" />
+          <FormattedMessage defaultMessage="Normal speed" description="Sets video playback rate to original 1x speed" id="media.normalSpeed" />
         </MenuItem>
         <MenuItem className={playbackSpeed === 1.25 ? classes.active : ''} onClick={() => handlePlaybackRateChange(1.25)}>1.25x</MenuItem>
         <MenuItem className={playbackSpeed === 1.5 ? classes.active : ''} onClick={() => handlePlaybackRateChange(1.5)}>1.5x</MenuItem>

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
@@ -17,20 +18,20 @@ const messages = defineMessages({
 });
 
 function MetadataText({
-  intl,
-  node,
-  EditButton,
-  DeleteButton,
-  CancelButton,
-  SaveButton,
   AnnotatorInformation,
+  CancelButton,
+  DeleteButton,
+  EditButton,
   FieldInformation,
+  SaveButton,
+  disabled,
   hasData,
+  intl,
   isEditing,
   metadataValue,
-  setMetadataValue,
-  disabled,
+  node,
   required,
+  setMetadataValue,
 }) {
   const mutationPayload = {
     annotation_type: 'task_response_free_text',
@@ -67,13 +68,13 @@ function MetadataText({
       ) : (
         <>
           <TextArea
+            disabled={disabled}
             id="metadata-input"
-            placeholder={intl.formatMessage(messages.placeholder)}
             label={intl.formatMessage(messages.label)}
             maxHeight="126px"
+            placeholder={intl.formatMessage(messages.placeholder)}
             value={metadataValue}
             onChange={handleChange}
-            disabled={disabled}
             onRemove={disabled ? null : cleanup}
           />
           <CancelButton />

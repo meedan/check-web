@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=531-31202&mode=design&t=G3fBIdgR6AWtOlNu-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -10,10 +11,10 @@ import CancelIcon from '../../../icons/cancel.svg';
 import styles from './Upload.module.css';
 
 function Upload({
-  fileName,
   error,
-  helpContent,
+  fileName,
   handleFileChange,
+  helpContent,
   setFile,
   setFileName,
 }) {
@@ -24,15 +25,15 @@ function Upload({
   const [errorInternal, setErrorInternal] = React.useState(null);
 
   const errorTooManyFiles = (<FormattedMessage
-    id="metadata.file.tooManyFiles"
     defaultMessage="You can only upload one file here. Please try uploading one file."
     description="This message appears when a user tries to add two or more files at once to the file upload widget."
+    id="metadata.file.tooManyFiles"
   />);
 
   const errorInvalidFile = (<FormattedMessage
-    id="metadata.file.invalidFile"
     defaultMessage="This is not a valid file. Please try again with a different file."
     description="This message appears when a user tries to add a file that the browser cannot read for some reason to the file upload widget."
+    id="metadata.file.invalidFile"
   />);
 
   const handleClick = (e) => {
@@ -83,7 +84,7 @@ function Upload({
     if (dropping) {
       return (
         <div className={`typography-button ${styles['drop-text']} ${styles.red}`}>
-          <FormattedMessage id="upload.dropFile" defaultMessage="Drop file here" description="A label that appears when a user drags a file over a valid file drop area" />
+          <FormattedMessage defaultMessage="Drop file here" description="A label that appears when a user drags a file over a valid file drop area" id="upload.dropFile" />
         </div>
       );
     }
@@ -93,11 +94,11 @@ function Upload({
           <input className={`upload-input ${styles.input}`} type="file" onChange={handleFileChange} />
         </form>
         <span className={`typography-button ${styles['drag-text']}`}>
-          <FormattedMessage id="upload.dragMessage" defaultMessage="Drag a file here or" description="A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'." />
+          <FormattedMessage defaultMessage="Drag a file here or" description="A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'." id="upload.dragMessage" />
         </span>
         &nbsp;
         <a className={`typography-button ${styles['link-text']}`} href="#!" onClick={handleClick}>
-          <FormattedMessage id="upload.selectFile" defaultMessage="select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." />
+          <FormattedMessage defaultMessage="select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." id="upload.selectFile" />
         </a>.
       </div>
     );
@@ -107,24 +108,24 @@ function Upload({
     <div className={`typography-button ${styles['file-name']} ${styles['file-name-grid']}`}>
       <div className={styles['file-name-added']}><CheckCircleIcon className={styles['icon-label']} />&nbsp;{fileName}</div>
       <Tooltip
+        arrow
         placement="right"
         title={
           <FormattedMessage
-            id="upload.removeUpload"
             defaultMessage="Remove file"
             description="Tooltip message displayed on upload component. Cancel file selected for upload"
+            id="upload.removeUpload"
           />
         }
-        arrow
       >
         <span>
           <ButtonMain
-            iconCenter={<CancelIcon />}
-            variant="text"
-            theme="info"
-            size="large"
-            onClick={handleRemove}
             className={styles['delete-button']}
+            iconCenter={<CancelIcon />}
+            size="large"
+            theme="info"
+            variant="text"
+            onClick={handleRemove}
           />
         </span>
       </Tooltip>
@@ -141,10 +142,10 @@ function Upload({
   return (
     <div
       className={`${styles.container} ${(dropping && !fileName) && styles.dropping} ${fileName && styles['file-name-container']} ${errorInternal && styles['container-error']}`}
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
       { (errorInternal || error) && <RenderError /> }
       { fileName ? <RenderFile /> : <RenderDropZone /> }

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -8,11 +9,11 @@ import SwitchComponent from '../cds/inputs/SwitchComponent';
 import styles from './SaveFeed.module.css';
 
 const FeedDataPointsSection = ({
-  readOnly,
-  enabled,
-  title,
   content,
+  enabled,
   onToggle,
+  readOnly,
+  title,
 }) => {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -20,17 +21,17 @@ const FeedDataPointsSection = ({
     <div className={styles.dataPointsSection}>
       <div className={styles.dataPointsSectionHeader}>
         <ButtonMain
-          variant="contained"
+          iconCenter={expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
           size="small"
           theme="lightText"
+          variant="contained"
           onClick={() => { setExpanded(!expanded); }}
-          iconCenter={expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
         />
         <SwitchComponent
-          label={title}
-          className="typography-body2"
           checked={enabled}
+          className="typography-body2"
           disabled={readOnly}
+          label={title}
           onChange={onToggle}
         />
       </div>

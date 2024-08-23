@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -24,7 +25,7 @@ const UserTosComponent = (props) => {
     const onSuccess = () => {
     };
     const onFailure = () => {
-      setMessage(<FormattedMessage id="global.unknownError" defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists." description="Message displayed in error notification when an operation fails unexpectedly" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />);
+      setMessage(<FormattedMessage defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists." description="Message displayed in error notification when an operation fails unexpectedly" id="global.unknownError" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />);
     };
     if (checkedTos) {
       commitMutation(Relay.Store, {
@@ -51,39 +52,39 @@ const UserTosComponent = (props) => {
 
   const handleValidate = () => {
     if (!checkedTos) {
-      setMessage(<FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" description="Message to the user that they must review the application terms of service" />);
+      setMessage(<FormattedMessage defaultMessage="You must agree to the Terms of Service and Privacy Policy" description="Message to the user that they must review the application terms of service" id="userTos.validation" />);
     }
   };
-  const { user, about } = props;
+  const { about, user } = props;
 
   const actions = [
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-    <div onClick={handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
+    <div style={{ cursor: 'pointer' }} onClick={handleValidate.bind(this)}>
       <ButtonMain
         buttonProps={{
           id: 'tos__save',
         }}
-        size="default"
-        variant="contained"
-        theme="info"
-        onClick={handleSubmit.bind(this)}
         disabled={!checkedTos}
         label={
-          <FormattedMessage id="userTos.save" defaultMessage="Save" description="Button label for the user to save their review of the terms of service" />
+          <FormattedMessage defaultMessage="Save" description="Button label for the user to save their review of the terms of service" id="userTos.save" />
         }
+        size="default"
+        theme="info"
+        variant="contained"
+        onClick={handleSubmit.bind(this)}
       />
     </div>,
   ];
 
   return (
     <React.Fragment>
-      { message && <Alert variant="error" className={dialogStyles['dialog-alert']} content={message} /> }
+      { message && <Alert className={dialogStyles['dialog-alert']} content={message} variant="error" /> }
       <UserTosForm
-        user={user}
+        checkedTos={checkedTos}
+        handleCheckTos={handleCheckTos.bind(this)}
         showTitle
         termsLastUpdatedAt={about.terms_last_updated_at}
-        handleCheckTos={handleCheckTos.bind(this)}
-        checkedTos={checkedTos}
+        user={user}
       />
       <div className={dialogStyles['dialog-actions']}>
         {actions}
@@ -116,10 +117,10 @@ const UserTos = (props) => {
     <Dialog className={dialogStyles['dialog-window']} open={openDialog}>
       <RelayContainer
         Component={UserTosContainer}
-        route={route}
         renderFetched={data =>
           <UserTosContainer user={user} {...data} />
         }
+        route={route}
       />
     </Dialog>
   );

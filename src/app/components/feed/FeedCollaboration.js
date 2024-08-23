@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 // FIXME / TODO this relay/unused-fields bypass is simply because TeamAvatar uses team.avatar internally
 // Perhaps a better approach is to have TeamAvatar receive team.avatar value directly as prop
 import React from 'react';
@@ -7,7 +7,6 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import cx from 'classnames/bind';
 import * as EmailValidator from 'email-validator';
-import styles from './FeedCollaboration.module.css';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -18,6 +17,7 @@ import PersonAddIcon from '../../icons/person_add.svg';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import TeamAvatar from '../team/TeamAvatar';
 import ExternalLink from '../ExternalLink';
+import styles from './FeedCollaboration.module.css';
 
 const messages = defineMessages({
   placeholder: {
@@ -31,10 +31,10 @@ const FeedCollaboration = ({
   collaboratorId,
   feed,
   intl,
-  permissions,
   onChange,
   onChangeCollaboratorsToRemove,
   onChangeInvitesToDelete,
+  permissions,
   readOnly,
 }) => {
   const [textValue, setTextValue] = React.useState('');
@@ -76,9 +76,9 @@ const FeedCollaboration = ({
   const FeedCollabRow = ({
     className,
     label,
+    onRemove,
     team,
     type,
-    onRemove,
   }) => (
     <div className={cx(styles['feed-collab-row'], className)}>
       { !team &&
@@ -108,7 +108,7 @@ const FeedCollaboration = ({
       >
         { type === 'invitation-sent' &&
           <span className="typography-body1">
-            <FormattedMessage id="feedCollaboration.pending" defaultMessage="Invitation sent - pending" description="The status of a sent invitation to join a shared feed - pending acceptance" />
+            <FormattedMessage defaultMessage="Invitation sent - pending" description="The status of a sent invitation to join a shared feed - pending acceptance" id="feedCollaboration.pending" />
             <br />
           </span>
         }
@@ -118,24 +118,24 @@ const FeedCollaboration = ({
       </div>
       { type === 'organizer' ?
         <span className={cx('typography-body2', styles['feed-collab-organizer'])}>
-          <FormattedMessage id="feedCollaboration.organizer" defaultMessage="organizer" description="Label to highlight the Shared Feed organizer" />
+          <FormattedMessage defaultMessage="organizer" description="Label to highlight the Shared Feed organizer" id="feedCollaboration.organizer" />
         </span> : null
       }
       { type !== 'organizer' && collaboratorId === team?.dbid ?
         <span className={cx('typography-body2', styles['feed-collab-organizer'])}>
-          <FormattedMessage id="feedCollaboration.you" defaultMessage="you" description="Label to highlight user's organization in Shared Feed collaboration widget" />
+          <FormattedMessage defaultMessage="you" description="Label to highlight user's organization in Shared Feed collaboration widget" id="feedCollaboration.you" />
         </span> : null
       }
       { type !== 'organizer' && !readOnly && ((team && permissions['destroy FeedTeam']) || (!team && permissions['destroy FeedInvitation'])) ?
-        <Tooltip arrow title={<FormattedMessage id="feedCollaboration.remove" defaultMessage="Remove" description="Tooltip for button to remove invitation or feed collaborator" />}>
+        <Tooltip arrow title={<FormattedMessage defaultMessage="Remove" description="Tooltip for button to remove invitation or feed collaborator" id="feedCollaboration.remove" />}>
           <span>
             <ButtonMain
               className="int-feed-collab-row__remove-button"
-              onClick={onRemove}
               iconCenter={<ClearIcon />}
-              variant="contained"
               size="small"
               theme="lightText"
+              variant="contained"
+              onClick={onRemove}
             />
           </span>
         </Tooltip> : null
@@ -158,27 +158,27 @@ const FeedCollaboration = ({
   if (alreadyInvited) {
     error = (
       <FormattedMessage
-        id="feedCollaboration.alreadyInvited"
         defaultMessage="Email address is already invited"
         description="Error message displayed when attempting to send a Shared Feed invitation to an already invited address"
+        id="feedCollaboration.alreadyInvited"
       />
     );
   }
   if (alreadyAdded) {
     error = (
       <FormattedMessage
-        id="feedCollaboration.alreadyAdded"
         defaultMessage="Email address is already added to invitations list"
         description="Error message displayed when attempting to send a Shared Feed invitation to an already invited address"
+        id="feedCollaboration.alreadyAdded"
       />
     );
   }
   if (textValue.trim() && !EmailValidator.validate(textValue)) {
     error = (
       <FormattedMessage
-        id="feedCollaboration.invalidEmail"
         defaultMessage="Invalid email address"
         description="Error message displayed when attempting to send a Shared Feed invitation to an invalid address"
+        id="feedCollaboration.invalidEmail"
       />
     );
   }
@@ -188,31 +188,31 @@ const FeedCollaboration = ({
       <span className="typography-subtitle2">
         { readOnly ?
           <FormattedMessage
-            id="feedCollaboration.titleCollaborator"
             defaultMessage="Collaborating Organizations [{count}]"
             description="Title of the collaboration box in which feed organizer invites other organizations to a shared feed"
+            id="feedCollaboration.titleCollaborator"
             values={{ count: feed.feed_teams?.edges.length }}
           /> :
           <FormattedMessage
-            id="feedCollaboration.title"
             defaultMessage="Collaboration"
             description="Title of the collaboration box in which feed organizer invites other organizations to a shared feed"
+            id="feedCollaboration.title"
           />
         }
       </span>
       { !feed.dbid &&
         <span className="typography-body2">
           <FormattedMessage
-            id="feedCollaboration.description"
             defaultMessage="Invite other organizations to contribute data into this shared feed. All contributing organizations to this feed share the same data point."
             description="Description to the feed collaboration management feature"
+            id="feedCollaboration.description"
           />
           &nbsp;
           <ExternalLink url="https://help.checkmedia.org/en/articles/8542417-invitation-shared-feed">
             <FormattedMessage
-              id="feedCollaboration.learnMore"
               defaultMessage="Learn more"
               description="Link to knowledge base article on shared feed invitations"
+              id="feedCollaboration.learnMore"
             />
           </ExternalLink>
         </span>
@@ -221,33 +221,33 @@ const FeedCollaboration = ({
         <div className={styles['feed-collab-input']}>
           <TextField
             className={cx(styles['feed-collab-text-field'], 'int-feed-collab__text-field')}
-            value={textValue}
-            placeholder={intl.formatMessage(messages.placeholder)}
-            onChange={e => setTextValue(e.target.value)}
-            helpContent={error}
             error={error}
+            helpContent={error}
+            placeholder={intl.formatMessage(messages.placeholder)}
+            value={textValue}
+            onChange={e => setTextValue(e.target.value)}
           />
           <ButtonMain
             className={cx(styles['feed-collab-add-button'], 'int-feed-collab__add-button')}
-            onClick={() => handleAdd(textValue)}
+            disabled={error}
             iconCenter={<AddIcon />}
-            variant="contained"
             size="default"
             theme="info"
-            disabled={error}
+            variant="contained"
+            onClick={() => handleAdd(textValue)}
           />
         </div>
       )}
       { !feed.dbid && !permissions['create FeedInvitation'] && (
         <Alert
-          variant="warning"
           title={
             <FormattedMessage
-              id="feedCollaboration.editorWarningCreateFeed"
               defaultMessage="Contact your workspace admin to add other organizations to this shared feed."
               description="Warning displayed on feed collaboration box on create feed page when user is an editor and can't invite people to the feed."
+              id="feedCollaboration.editorWarningCreateFeed"
             />
           }
+          variant="warning"
         />
       )}
       <div className={styles['feed-collab-invites']}>
@@ -255,8 +255,8 @@ const FeedCollaboration = ({
           .filter(ft => !collaboratorsToRemove.map(c => c.value).includes(ft.node.id))
           .map(ft => (
             <FeedCollabRow
-              key={ft.node.team.name}
               className="feed-collab-row__member"
+              key={ft.node.team.name}
               label={ft.node.team.name}
               team={ft.node.team}
               type={ft.node.team.dbid === feed.team.dbid ? 'organizer' : 'collaborator'}
@@ -268,34 +268,34 @@ const FeedCollaboration = ({
           .filter(fi => (fi.node.state === 'invited' && !invitesToDelete.map(i => i.value).includes(fi.node.id)))
           .map(fi => (
             <FeedCollabRow
-              key={fi.node.email}
               className="feed-collab-row__invitation-sent"
+              key={fi.node.email}
               label={fi.node.email}
-              onRemove={() => handleSelectInvitesToDelete({ label: fi.node.email, value: fi.node.id })}
               type="invitation-sent"
+              onRemove={() => handleSelectInvitesToDelete({ label: fi.node.email, value: fi.node.id })}
             />
           ))
         }
         { invites.map(email => (
           <FeedCollabRow
-            key={email}
             className="feed-collab-row__invitation-new"
+            key={email}
             label={email}
-            onRemove={() => handleDelete(email)}
             type="invitation-new"
+            onRemove={() => handleDelete(email)}
           />
         ))}
       </div>
       { feed.dbid && !permissions['create FeedInvitation'] && (
         <Alert
-          variant="warning"
           title={
             <FormattedMessage
-              id="feedCollaboration.editorWarningUpdateFeed"
               defaultMessage="Contact your workspace admin to manage Collaborating organizations."
               description="Warning displayed on feed collaboration box on edit feed page when user is an editor and can't invite people to the feed."
+              id="feedCollaboration.editorWarningUpdateFeed"
             />
           }
+          variant="warning"
         />
       )}
     </div>

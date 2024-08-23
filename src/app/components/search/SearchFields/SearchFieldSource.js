@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -10,10 +11,10 @@ import MultiSelectFilter from '../MultiSelectFilter';
 let lastTypedValue = '';
 
 const SearchFieldSource = ({
-  teamSlug,
-  selected,
   onChange,
   onRemove,
+  selected,
+  teamSlug,
 }) => {
   const [keyword, setKeyword] = React.useState('');
   // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
@@ -49,28 +50,22 @@ const SearchFieldSource = ({
           }
         }
       `}
-      variables={{
-        teamSlug,
-        keyword,
-        max,
-        random,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           const options = props.team.sources.edges.map(s => s.node).sort((a, b) => a.name.localeCompare(b.name)).map(s => ({ label: s.name, value: `${s.dbid}` }));
           const total = props.team.sources_count;
           return (
-            <FormattedMessage id="searchFieldSource.label" defaultMessage="Source is" description="Prefix label for field to filter by source">
+            <FormattedMessage defaultMessage="Source is" description="Prefix label for field to filter by source" id="searchFieldSource.label">
               { label => (
                 <MultiSelectFilter
-                  label={label}
                   icon={<SettingsInputAntennaIcon />}
-                  selected={selected}
+                  inputPlaceholder={total > max ? keyword : null}
+                  label={label}
                   options={options}
+                  selected={selected}
                   onChange={(newValue) => { onChange(newValue); }}
                   onRemove={onRemove}
                   onType={total > max ? handleType : null}
-                  inputPlaceholder={total > max ? keyword : null}
                 />
               )}
             </FormattedMessage>
@@ -78,7 +73,13 @@ const SearchFieldSource = ({
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading theme="grey" variant="icon" size="icon" />;
+        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+      }}
+      variables={{
+        teamSlug,
+        keyword,
+        max,
+        random,
       }}
     />
   );

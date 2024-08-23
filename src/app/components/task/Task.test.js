@@ -1,8 +1,8 @@
 import React from 'react';
 import { MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
+import { TaskComponentTest } from './Task';
 import MetadataText from '../metadata/MetadataText';
 import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
-import { TaskComponentTest } from './Task';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const permissions = JSON.stringify({
@@ -213,100 +213,100 @@ const media = {
 describe('<Task />', () => {
   it('should render MetadataText when task type is free text', () => {
     const wrapper = shallowWithIntl(<TaskComponentTest
-      task={task_free_text}
-      media={media}
       about={{}}
       isEditing={false}
+      media={media}
+      task={task_free_text}
     />);
     expect(wrapper.find(MetadataText)).toHaveLength(1);
   });
 
   it('should render MetadataNumber when task type is file_upload', () => {
     const wrapper = shallowWithIntl(<TaskComponentTest
-      task={task_number}
-      media={media}
       about={{}}
       isEditing={false}
+      media={media}
+      task={task_number}
     />);
     expect(wrapper.find(MetadataNumber)).toHaveLength(1);
   });
 
   it('should render MetadataFile when task type is file_upload', () => {
     const wrapper = shallowWithIntl(<TaskComponentTest
-      task={task_upload_file}
-      media={media}
       about={{}}
       isEditing
+      media={media}
+      task={task_upload_file}
     />);
     expect(wrapper.find(MetadataFile)).toHaveLength(1);
   });
 
   it('should render MetadataUrl when task type is url', () => {
     const wrapper = shallowWithIntl(<TaskComponentTest
-      task={task_url}
-      media={media}
       about={{}}
       isEditing
+      media={media}
+      task={task_url}
     />);
     expect(wrapper.find(MetadataUrl)).toHaveLength(1);
   });
 
   it('should render MetadataDate when task type is file_upload', () => {
     const wrapper = shallowWithIntl(<TaskComponentTest
-      task={task_datetime}
-      media={media}
       about={{}}
       isEditing
+      media={media}
+      task={task_datetime}
     />);
     expect(wrapper.find(MetadataDate)).toHaveLength(1);
   });
 
   it('should render MetadataMultiselect when task type is multiple_choice', () => {
     const wrapper = shallowWithIntl(<TaskComponentTest
-      task={task_multiple_choice}
-      media={media}
       about={{}}
       isEditing
+      media={media}
+      task={task_multiple_choice}
     />);
     expect(wrapper.find(MetadataMultiselect)).toHaveLength(1);
   });
 
   it('should render MetadataMultiselect when task type is single_choice', () => {
     const wrapper = shallowWithIntl(<TaskComponentTest
-      task={task_single_choice}
-      media={media}
       about={{}}
       isEditing
+      media={media}
+      task={task_single_choice}
     />);
     expect(wrapper.find(MetadataMultiselect)).toHaveLength(1);
   });
 
   it('should render MetadataLocation when task type is geolocation', () => {
     const wrapper = shallowWithIntl(<TaskComponentTest
-      task={task_geolocation}
-      media={media}
       about={{}}
       isEditing
+      media={media}
+      task={task_geolocation}
     />);
     expect(wrapper.find(MetadataLocation)).toHaveLength(1);
   });
 
   it('should render "edit button" when user is not editing annotation', () => {
     const wrapper = mountWithIntl(<TaskComponentTest
-      task={task_free_text}
-      media={media}
       about={{}}
       isEditing={false}
+      media={media}
+      task={task_free_text}
     />);
     expect(wrapper.find('.metadata-edit').hostNodes()).toHaveLength(1);
   });
 
   it('should render "edit forms" when user is editing annotation', () => {
     const wrapper = mountWithIntl(<TaskComponentTest
-      task={task_free_text}
-      media={media}
       about={{}}
       isEditing
+      media={media}
+      task={task_free_text}
     />);
     expect(wrapper.find('.metadata-cancel').hostNodes()).toHaveLength(1);
     expect(wrapper.find('.metadata-save').hostNodes()).toHaveLength(1);

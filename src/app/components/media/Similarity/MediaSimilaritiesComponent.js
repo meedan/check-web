@@ -17,17 +17,17 @@ function sort(items) {
 }
 
 const MediaSimilaritiesComponent = ({ projectMedia, superAdminMask }) => (
-  <div id="matched-media" className={cx('media__more-medias', styles['similar-matched-media-list'])}>
+  <div className={cx('media__more-medias', styles['similar-matched-media-list'])} id="matched-media">
     <span id="matched-overlay" />
     { sort(projectMedia.confirmed_similar_relationships?.edges).map(relationship => (
       <MediaRelationship
-        key={relationship.node.id}
-        relationship={relationship.node}
-        canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
         canDelete={can(projectMedia.permissions, 'destroy ProjectMedia')}
-        mainProjectMediaId={projectMedia.id}
-        mainProjectMediaDemand={projectMedia.demand}
+        canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
+        key={relationship.node.id}
         mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
+        mainProjectMediaDemand={projectMedia.demand}
+        mainProjectMediaId={projectMedia.id}
+        relationship={relationship.node}
         relationshipSourceId={relationship.node.source_id}
         relationshipTargetId={relationship.node.target_id}
         superAdminMask={superAdminMask}

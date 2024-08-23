@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=4-45716&mode=design&t=G3fBIdgR6AWtOlNu-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -22,17 +23,17 @@ const buttonThemes = {
 const buttonTheme = alertVariant => buttonThemes[alertVariant] || 'info';
 
 const Alert = ({
-  className,
-  title,
-  content,
-  variant,
-  buttonLabel,
-  icon,
-  floating,
   banner,
+  buttonLabel,
+  className,
   contained,
+  content,
+  floating,
+  icon,
   onButtonClick,
   onClose,
+  title,
+  variant,
 }) => (
   <div
     className={cx(
@@ -70,7 +71,7 @@ const Alert = ({
       }
       { buttonLabel &&
         <div className={styles.actionsWrapper}>
-          <ButtonMain label={buttonLabel} variant="contained" size="small" theme={buttonTheme(variant)} onClick={onButtonClick} />
+          <ButtonMain label={buttonLabel} size="small" theme={buttonTheme(variant)} variant="contained" onClick={onButtonClick} />
         </div>
       }
     </div>
@@ -80,14 +81,14 @@ const Alert = ({
           arrow
           title={
             <FormattedMessage
-              id="alert.closeButton"
               defaultMessage="Close alert"
               description="Tooltip for close alert"
+              id="alert.closeButton"
             />
           }
         >
           <span>
-            <ButtonMain variant="text" size="small" theme={buttonTheme(variant)} iconCenter={<IconClose />} onClick={onClose} />
+            <ButtonMain iconCenter={<IconClose />} size="small" theme={buttonTheme(variant)} variant="text" onClick={onClose} />
           </span>
         </Tooltip>
       </div>

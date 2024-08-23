@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 /*
   FIXME: had to skip this relay/unused-fields rule unfortunately because of the team fragment that is needed
   for MediaStatusCommon (some 4 levels up the component tree) and is very difficult to
@@ -20,15 +20,15 @@ import WebPageMediaCard from './WebPageMediaCard';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import { getMediaType } from '../../helpers';
-import styles from './media.module.css';
 import ErrorBoundary from '../error/ErrorBoundary';
+import styles from './media.module.css';
 
 const MediaCardLarge = ({
-  inModal,
-  projectMedia,
   currentUserRole,
-  superAdminMask,
+  inModal,
   onClickMore,
+  projectMedia,
+  superAdminMask,
 }) => {
   const { media } = projectMedia;
   const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
@@ -62,51 +62,51 @@ const MediaCardLarge = ({
       { type === 'Claim' && !inModal ? (
         <div className={styles['quote-mediacard-wrapper']}>
           <QuoteMediaCard
-            showAll={inModal}
             quote={media.quote}
+            showAll={inModal}
           />
         </div>
       ) : null }
       { type === 'UploadedImage' ? (
         <ImageMediaCard
-          projectMedia={projectMedia}
-          imagePath={media.embed_path}
           currentUserRole={currentUserRole}
+          imagePath={media.embed_path}
+          projectMedia={projectMedia}
           superAdminMask={superAdminMask}
         />
       ) : null }
       { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
         <MediaPlayerCard
-          projectMedia={projectMedia}
-          isYoutube={isYoutube}
-          filePath={media.file_path || media.url}
-          currentUserRole={currentUserRole}
-          isAudio={type === 'UploadedAudio'}
           coverImage={coverImage}
+          currentUserRole={currentUserRole}
+          filePath={media.file_path || media.url}
+          isAudio={type === 'UploadedAudio'}
+          isYoutube={isYoutube}
+          projectMedia={projectMedia}
           superAdminMask={superAdminMask}
         />
       ) : null }
       { isWebPage && !isYoutube ? (
         <WebPageMediaCard
-          projectMedia={projectMedia}
           currentUserRole={currentUserRole}
           data={data}
           inModal={inModal}
+          projectMedia={projectMedia}
           superAdminMask={superAdminMask}
         />
       ) : null }
       { isPender ? (
         <AspectRatio
-          projectMedia={projectMedia}
           currentUserRole={currentUserRole}
-          superAdminMask={superAdminMask}
           isPenderCard={isPender}
+          projectMedia={projectMedia}
+          superAdminMask={superAdminMask}
         >
           <PenderCard
-            url={media.url}
-            fallback={null}
             domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
+            fallback={null}
             mediaVersion={data.refreshes_count}
+            url={media.url}
           />
         </AspectRatio>
       ) : null }
@@ -120,11 +120,11 @@ const MediaCardLarge = ({
       ) : null }
       { !isBlank ?
         <MediaCardLargeFooter
+          data={data}
           inModal={inModal}
+          mediaType={type}
           projectMedia={projectMedia}
           onClickMore={onClickMore}
-          mediaType={type}
-          data={data}
         /> : null }
     </div>
   );
@@ -179,12 +179,9 @@ const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
           }
         }
       `}
-      variables={{
-        ids: `${projectMediaId},,`,
-      }}
       render={({ error, props }) => {
         if (!error && !props) {
-          return (<MediasLoading theme="grey" variant="inline" size="small" />);
+          return (<MediasLoading size="small" theme="grey" variant="inline" />);
         }
 
         if (!error && props) {
@@ -193,6 +190,9 @@ const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
 
         // TODO: We need a better error handling in the future, standardized with other components
         return null;
+      }}
+      variables={{
+        ids: `${projectMediaId},,`,
       }}
     />
   </ErrorBoundary>

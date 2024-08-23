@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -14,9 +15,9 @@ import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import LabelIcon from '../../icons/label.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
-import searchStyles from '../search/search.module.css';
 import SearchFieldChannel from '../search/SearchFields/SearchFieldChannel';
 import CheckChannels from '../../CheckChannels';
+import searchStyles from '../search/search.module.css';
 
 const messages = defineMessages({
   explainer: {
@@ -32,15 +33,15 @@ const messages = defineMessages({
 });
 
 const ArticleFilters = ({
-  type,
-  onSubmit,
-  filterOptions,
   currentFilters,
   defaultFilters,
-  teamSlug,
-  statuses,
   extra,
+  filterOptions,
   intl,
+  onSubmit,
+  statuses,
+  teamSlug,
+  type,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
 
@@ -83,11 +84,11 @@ const ArticleFilters = ({
   const filterConnector = (
     <ButtonMain
       className="int-search-fields__button--and-operator"
-      variant="contained"
+      customStyle={{ fontWeight: 'bold' }}
+      label={<FormattedMessage defaultMessage="and" description="Logical operator 'AND' to be applied when filtering articles by multiple fields." id="search.connectorAnd" />}
       size="small"
       theme="lightInfo"
-      customStyle={{ fontWeight: 'bold' }}
-      label={<FormattedMessage id="search.connectorAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering articles by multiple fields." />}
+      variant="contained"
     />
   );
 
@@ -112,9 +113,9 @@ const ArticleFilters = ({
                 <SearchFieldChannel
                   // Little hack here to hardcode the channel for imported articles
                   query={{ channels: value && CheckChannels.FETCH }}
+                  readOnly
                   onChange={newValue => handleOptionChange('channels', newValue)}
                   onRemove={() => handleRemoveFilter('channels')}
-                  readOnly
                 />
               </React.Fragment>
             );
@@ -124,13 +125,13 @@ const ArticleFilters = ({
             return (
               <React.Fragment key={filter}>
                 {connector}
-                <FormattedMessage id="articleFilters.createdBy" defaultMessage="Created by" description="Prefix label for field to filter by item creator.">
+                <FormattedMessage defaultMessage="Created by" description="Prefix label for field to filter by item creator." id="articleFilters.createdBy">
                   { label => (
                     <SearchFieldUser
-                      teamSlug={teamSlug}
-                      label={label}
                       icon={<PersonIcon />}
+                      label={label}
                       selected={value || []}
+                      teamSlug={teamSlug}
                       value={value}
                       onChange={(newValue) => { handleOptionChange('users', newValue.map(userId => parseInt(userId, 10))); }}
                       onRemove={() => handleRemoveFilter('users')}
@@ -146,8 +147,8 @@ const ArticleFilters = ({
               <React.Fragment key={filter}>
                 {connector}
                 <SearchFieldTag
-                  teamSlug={teamSlug}
                   query={value ? filters : { tags: [] }}
+                  teamSlug={teamSlug}
                   onChange={(newValue) => { handleOptionChange('tags', newValue); }}
                   onRemove={() => handleRemoveFilter('tags')}
                 />
@@ -161,9 +162,9 @@ const ArticleFilters = ({
                 {connector}
                 <DateRangeFilter
                   filterKey="range"
-                  onChange={handleDateRange}
-                  value={value || { updated_at: {} }}
                   optionsToHide={['created_at', 'media_published_at', 'report_published_at', 'request_created_at']}
+                  value={value || { updated_at: {} }}
+                  onChange={handleDateRange}
                   onRemove={() => handleRemoveFilter('range')}
                 />
               </React.Fragment>
@@ -176,14 +177,14 @@ const ArticleFilters = ({
                 {connector}
                 <MultiSelectFilter
                   allowSearch={false}
-                  label={<FormattedMessage id="articleFilters.articleType" defaultMessage="Article type is" description="Prefix label for field to filter by article type." />}
                   icon={<DescriptionIcon />}
-                  selected={[type]}
+                  label={<FormattedMessage defaultMessage="Article type is" description="Prefix label for field to filter by article type." id="articleFilters.articleType" />}
                   options={[
                     { value: 'explainer', label: intl.formatMessage(messages.explainer) },
                     { value: 'fact-check', label: intl.formatMessage(messages.factCheck) },
                   ]}
                   readOnly
+                  selected={[type]}
                 />
               </React.Fragment>
             );
@@ -194,11 +195,11 @@ const ArticleFilters = ({
               <React.Fragment key={filter}>
                 {connector}
                 <LanguageFilter
-                  onChange={(newValue) => { handleOptionChange('language_filter', newValue); }}
-                  value={value}
-                  onRemove={() => handleRemoveFilter('language_filter')}
-                  teamSlug={teamSlug}
                   optionsToHide={['request_language', 'language']}
+                  teamSlug={teamSlug}
+                  value={value}
+                  onChange={(newValue) => { handleOptionChange('language_filter', newValue); }}
+                  onRemove={() => handleRemoveFilter('language_filter')}
                 />
               </React.Fragment>
             );
@@ -208,13 +209,13 @@ const ArticleFilters = ({
             return (
               <React.Fragment key={filter}>
                 {connector}
-                <FormattedMessage id="articleFilters.publishedBy" defaultMessage="Publisher is" description="Prefix label for field to filter by published by">
+                <FormattedMessage defaultMessage="Publisher is" description="Prefix label for field to filter by published by" id="articleFilters.publishedBy">
                   { label => (
                     <SearchFieldUser
-                      teamSlug={teamSlug}
-                      label={label}
                       icon={<HowToRegIcon />}
+                      label={label}
                       selected={value || []}
+                      teamSlug={teamSlug}
                       value={value}
                       onChange={(newValue) => { handleOptionChange('published_by', newValue.map(userId => parseInt(userId, 10))); }}
                       onRemove={() => handleRemoveFilter('published_by')}
@@ -227,24 +228,24 @@ const ArticleFilters = ({
 
           if (filter === 'report_status') {
             const reportStatusOptions = [
-              { label: <FormattedMessage id="articleFilters.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
-              { label: <FormattedMessage id="articleFilters.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
-              { label: <FormattedMessage id="articleFilters.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
+              { label: <FormattedMessage defaultMessage="Unpublished" description="Refers to a report status" id="articleFilters.reportStatusUnpublished" />, value: 'unpublished' },
+              { label: <FormattedMessage defaultMessage="Published" description="Refers to a report status" id="articleFilters.reportStatusPublished" />, value: 'published' },
+              { label: <FormattedMessage defaultMessage="Paused" description="Refers to a report status" id="articleFilters.reportStatusPaused" />, value: 'paused' },
             ];
             return (
               <React.Fragment key={filter}>
                 {connector}
-                <FormattedMessage id="articleFilters.reportStatus" defaultMessage="Report (status) is" description="Prefix label for field to filter by report status">
+                <FormattedMessage defaultMessage="Report (status) is" description="Prefix label for field to filter by report status" id="articleFilters.reportStatus">
                   { label => (
                     <MultiSelectFilter
                       allowSearch={false}
-                      label={label}
                       icon={<ReportIcon />}
-                      selected={value || []}
+                      label={label}
                       options={reportStatusOptions}
+                      readOnly={!!defaultFilters.report_status}
+                      selected={value || []}
                       onChange={(newValue) => { handleOptionChange('report_status', newValue); }}
                       onRemove={() => handleRemoveFilter('report_status')}
-                      readOnly={!!defaultFilters.report_status}
                     />
                   )}
                 </FormattedMessage>
@@ -256,13 +257,13 @@ const ArticleFilters = ({
             return (
               <React.Fragment key={filter}>
                 {connector}
-                <FormattedMessage id="search.statusHeading" defaultMessage="Rating is" description="Prefix label for field to filter by status">
+                <FormattedMessage defaultMessage="Rating is" description="Prefix label for field to filter by status" id="search.statusHeading">
                   { label => (
                     <MultiSelectFilter
-                      label={label}
                       icon={<LabelIcon />}
-                      selected={value || []}
+                      label={label}
                       options={statuses.map(s => ({ label: s.label, value: s.id }))}
+                      selected={value || []}
                       onChange={(newValue) => { handleOptionChange('verification_status', newValue); }}
                       onRemove={() => handleRemoveFilter('verification_status')}
                     />
@@ -275,41 +276,41 @@ const ArticleFilters = ({
           return null;
         })}
         <AddFilterMenu
-          team={{}}
-          showOptions={filterOptions}
           addedFields={Object.keys(filters)}
+          showOptions={filterOptions}
+          team={{}}
           onSelect={handleAddFilter}
         />
         { canReset && (
           <div className={cx(searchStyles['filters-buttons-wrapper'], searchStyles['filters-buttons-wrapper-visible'])}>
             { canApply && (
               <ButtonMain
-                className="int-search-fields__button--apply-articlefilter"
-                variant="contained"
-                size="default"
-                theme="lightValidation"
-                onClick={handleSubmit}
-                label={
-                  <FormattedMessage id="articleFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
-                }
                 buttonProps={{
                   id: 'search-fields__submit-button',
                 }}
+                className="int-search-fields__button--apply-articlefilter"
+                label={
+                  <FormattedMessage defaultMessage="Apply" description="Button to perform query with specified filters" id="articleFilters.applyFilters" />
+                }
+                size="default"
+                theme="lightValidation"
+                variant="contained"
+                onClick={handleSubmit}
               />
             )}
             { canReset && (
               <ButtonMain
-                className="int-search-fields__button--reset-articlefilter"
-                variant="contained"
-                size="default"
-                theme="lightText"
-                onClick={handleReset}
-                label={
-                  <FormattedMessage id="articleFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
-                }
                 buttonProps={{
                   id: 'search-fields__clear-button',
                 }}
+                className="int-search-fields__button--reset-articlefilter"
+                label={
+                  <FormattedMessage defaultMessage="Reset" description="Tooltip for button to remove any applied filters" id="articleFilters.reset" />
+                }
+                size="default"
+                theme="lightText"
+                variant="contained"
+                onClick={handleReset}
               />
             )}
           </div>

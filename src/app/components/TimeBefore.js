@@ -14,12 +14,12 @@ const TimeBefore = ({ date, intl }) => {
   }
   return (
     <FormattedDate
-      value={date}
-      year="numeric"
-      month="long"
       day="numeric"
       hour="numeric"
       minute="numeric"
+      month="long"
+      value={date}
+      year="numeric"
     >
       {title => (
         <time dateTime={date.toISOString()} title={title}>

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -178,9 +179,9 @@ class MultiSelector extends React.Component {
             <>
               <TextField
                 className={cx('int-multiselector__search--input', styles['multiselector-search-input'])}
-                onChange={this.handleChange}
-                placeholder={this.props.inputPlaceholder}
                 iconLeft={<SearchIcon />}
+                placeholder={this.props.inputPlaceholder}
+                onChange={this.handleChange}
               />
               { this.props.actionButton }
             </>
@@ -191,8 +192,8 @@ class MultiSelector extends React.Component {
                 control={
                   <Checkbox
                     checked={this.isAllSelected()}
-                    onChange={this.handleToggleAll}
                     id="multiselector__select-all"
+                    onChange={this.handleToggleAll}
                   />
                 }
                 label={this.props.toggleAllLabel}
@@ -200,9 +201,9 @@ class MultiSelector extends React.Component {
               { this.props.resetLabel &&
                 <ButtonMain
                   className="int-multiselector__button--reset"
-                  onClick={this.handleReset}
                   disabled={disableReset}
                   label={this.props.resetLabel}
+                  onClick={this.handleReset}
                 />
               }
             </div>
@@ -211,10 +212,10 @@ class MultiSelector extends React.Component {
         <div className={styles['multiselector-scroller']}>
           <InfiniteScroll
             hasMore={hasMore}
-            loadMore={onScrollBottom}
             initialLoad={false}
-            useWindow={false}
+            loadMore={onScrollBottom}
             threshold={32}
+            useWindow={false}
           >
             <FormGroup>
               {
@@ -237,22 +238,22 @@ class MultiSelector extends React.Component {
 
                   return (
                     <FormControlLabel
-                      key={`multiselector-option-${index.toString()}`}
                       className={o.parent ? styles['list-item-child'] : ''}
                       control={this.props.single ?
                         <Radio
                           checked={this.state.selected === o.value}
-                          onChange={this.handleSelectRadio}
                           id={o.value}
+                          onChange={this.handleSelectRadio}
                           {...icons}
                         /> :
                         <Checkbox
                           checked={this.state.selected.indexOf(o.value) > -1}
-                          onChange={this.handleSelectCheckbox}
                           id={o.value}
+                          onChange={this.handleSelectCheckbox}
                           {...icons}
                         />
                       }
+                      key={`multiselector-option-${index.toString()}`}
                       label={<span style={{ color: o.color }}>{o.label}</span>}
                     />
                   );
@@ -272,20 +273,19 @@ class MultiSelector extends React.Component {
           { onDismiss && this.props.cancelLabel &&
             <ButtonMain
               className="int-multiselector__button--cancel"
-              variant="text"
-              theme="text"
-              size="default"
-              onClick={onDismiss}
               label={this.props.cancelLabel}
+              size="default"
+              theme="text"
+              variant="text"
+              onClick={onDismiss}
             />
           }
           <ButtonMain
             className="int-multiselector__button--save"
-            theme="info"
             size="default"
+            theme="info"
             variant="contained"
             onClick={() => onSubmit(this.state.selected)}
-            label={this.props.submitLabel}
           />
         </div>
       </div>

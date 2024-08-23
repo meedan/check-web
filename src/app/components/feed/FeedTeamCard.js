@@ -1,21 +1,22 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import FeedTeamFactCheckCard from './FeedTeamFactCheckCard';
 import Card from '../cds/media-cards/Card';
 import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
-import FeedTeamFactCheckCard from './FeedTeamFactCheckCard';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import TeamAvatar from '../team/TeamAvatar';
 import styles from './FeedItem.module.css';
 
 const FeedTeamCard = ({
-  feed,
-  team,
   clusterTeam,
-  selected,
+  feed,
   onClick,
+  selected,
+  team,
 }) => {
   const factChecks = clusterTeam.fact_checks || { edges: [] };
   const isSharingFactChecks = (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS));
@@ -53,7 +54,7 @@ const FeedTeamCard = ({
     >
       <Card className={styles.feedItemTeamCard}>
         <div className={styles.feedItemTeamCardHeader}>
-          <TeamAvatar team={{ avatar: team.avatar }} size="54px" />
+          <TeamAvatar size="54px" team={{ avatar: team.avatar }} />
           <div>
             <div>
               <h6 className="typography-button">{team.name}</h6>
@@ -64,9 +65,9 @@ const FeedTeamCard = ({
                   variant: 'text',
                   theme: 'text',
                 }}
+                lastRequestDate={clusterTeam.last_request_date && new Date(parseInt(clusterTeam.last_request_date, 10) * 1000)}
                 mediaCount={clusterTeam.media_count}
                 requestsCount={clusterTeam.requests_count}
-                lastRequestDate={clusterTeam.last_request_date && new Date(parseInt(clusterTeam.last_request_date, 10) * 1000)}
               />
             </div>
           </div>
@@ -74,9 +75,9 @@ const FeedTeamCard = ({
         { Object.keys(clusterTeam).length === 0 ? // Empty clusterTeam object (e.g., {})
           <div className={styles.feedItemTeamCardNotSharing}>
             <FormattedHTMLMessage
-              id="feedTeamCard.notContributing"
               defaultMessage="Your workspace does not contribute to this shared feed item.<br /><br />Select a workspace below to import its media to your workspace."
               description="Displayed on the current workspace card on feed item page when the current workspace is not contributing to that cluster. This is an HTML message, please keep the <br /> tag."
+              id="feedTeamCard.notContributing"
             />
           </div>
           : null

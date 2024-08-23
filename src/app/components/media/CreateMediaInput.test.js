@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 import CreateMediaInput from './CreateMediaInput';
+import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 import UploadFile from '../UploadFile';
 
 describe('<CreateMediaInput />', () => {

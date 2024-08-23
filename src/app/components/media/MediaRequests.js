@@ -1,11 +1,12 @@
+/* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
+import MediasLoading from './MediasLoading';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
-import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import TiplineRequest from '../annotations/TiplineRequest';
 import styles from './media.module.css';
@@ -32,7 +33,7 @@ class MediaRequestsComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, media } = this.props;
+    const { clientSessionId, media, pusher } = this.props;
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaRequests', (data, run) => {
       const annotation = JSON.parse(data.message);
       if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
@@ -50,7 +51,7 @@ class MediaRequestsComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher, media } = this.props;
+    const { media, pusher } = this.props;
     pusher.unsubscribe(media.pusher_channel);
   }
 
@@ -58,13 +59,13 @@ class MediaRequestsComponent extends Component {
     const { media } = this.props;
 
     return (
-      <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>
+      <div className={cx(styles['media-requests'], styles['media-item-content'])} id="media__requests">
         { (!this.props.all && media.requests_count > 0) && (
           <p className="typography-subtitle2">
             <FormattedMessage
-              id="mediaRequests.thisRequests"
               defaultMessage="{count, plural, one {# request} other {# requests}}"
               description="The count in a readable sentence of the number of requests for this media"
+              id="mediaRequests.thisRequests"
               values={{
                 count: media.requests_count,
               }}
@@ -72,20 +73,20 @@ class MediaRequestsComponent extends Component {
           </p>
         )}
         <Annotations
-          noLink
-          component={TiplineRequest}
-          annotations={media.requests?.edges}
           annotated={media}
           annotatedType="ProjectMedia"
+          annotations={media.requests?.edges}
           annotationsCount={this.props.all ? media.demand : media.requests_count}
-          relay={this.props.relay}
+          component={TiplineRequest}
           noActivityMessage={
             <FormattedMessage
-              id="mediaRequests.noRequest"
               defaultMessage="0 Requests"
               description="Empty message when there are zero requests for this item"
+              id="mediaRequests.noRequest"
             />
           }
+          noLink
+          relay={this.props.relay}
         />
       </div>
     );
@@ -193,18 +194,18 @@ const MediaRequests = (props) => {
   const projectId = props.media.project_id;
   const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
-  const { media, style, all } = props;
+  const { all, media, style } = props;
 
   const Container = all ? MediaAllRequestsContainer : MediaOwnRequestsContainer;
 
   return (
     <Relay.RootContainer
       Component={Container}
-      renderFetched={data =>
-        <Container cachedMedia={media} style={style} all={all} {...data} />}
-      route={route}
-      renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
       forceFetch
+      renderFetched={data =>
+        <Container all={all} cachedMedia={media} style={style} {...data} />}
+      renderLoading={() => <MediasLoading size="medium" theme="grey" variant="inline" />}
+      route={route}
     />
   );
 };

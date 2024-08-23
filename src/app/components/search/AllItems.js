@@ -13,17 +13,17 @@ export default function AllItems({ routeParams }) {
   return (
     <ErrorBoundary component="AllItems">
       <Search
-        searchUrlPrefix={`/${routeParams.team}/all-items`}
-        mediaUrlPrefix={`/${routeParams.team}/media`}
-        title={<FormattedMessage id="search.allClaimsTitle" defaultMessage="All Media" description="Page title for listing all media items in check" />}
-        query={safelyParseJSON(routeParams.query, defaultQuery)}
         defaultQuery={defaultQuery}
-        icon={<CategoryIcon />}
-        teamSlug={routeParams.team}
         hideFields={[
           'cluster_teams', 'cluster_published_reports', 'feed_fact_checked_by',
         ]}
+        icon={<CategoryIcon />}
+        mediaUrlPrefix={`/${routeParams.team}/media`}
         page="all-items"
+        query={safelyParseJSON(routeParams.query, defaultQuery)}
+        searchUrlPrefix={`/${routeParams.team}/all-items`}
+        teamSlug={routeParams.team}
+        title={<FormattedMessage defaultMessage="All Media" description="Page title for listing all media items in check" id="search.allClaimsTitle" />}
       />
     </ErrorBoundary>
   );

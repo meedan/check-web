@@ -18,15 +18,15 @@ const EditFeedTeam = ({ routeParams }) => (
         }
       }
     `}
-    variables={{
-      feedId: parseInt(routeParams.feedId, 10),
-      teamSlug: routeParams.team,
-    }}
     render={({ error, props }) => {
       if (!error && props) {
         return (<SaveFeed feedTeam={props.feed_team} permissions={safelyParseJSON(props.team.permissions)} teamName={props.team.name} />);
       }
       return null;
+    }}
+    variables={{
+      feedId: parseInt(routeParams.feedId, 10),
+      teamSlug: routeParams.team,
     }}
   />
 );

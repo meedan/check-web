@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -47,7 +48,7 @@ class ConfirmDialog extends React.Component {
           <h6>{this.props.title}</h6>
         </div>
         <div className={styles['dialog-content']}>
-          { this.props.message && <><Alert variant="error" contained title={this.props.message} /><br /></> }
+          { this.props.message && <><Alert contained title={this.props.message} variant="error" /><br /></> }
           {this.props.blurb}
           { this.props.handleConfirm ?
             <div className={inputStyles['form-fieldset']}>
@@ -55,9 +56,9 @@ class ConfirmDialog extends React.Component {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={this.state.confirmed}
                       id="confirm-dialog__checkbox"
                       onChange={this.handleConfirmation.bind(this)}
-                      checked={this.state.confirmed}
                     />
                   }
                   label={this.props.checkBoxLabel}
@@ -71,23 +72,23 @@ class ConfirmDialog extends React.Component {
             buttonProps={{
               id: 'confirm-dialog__cancel-action-button',
             }}
-            size="default"
-            variant="text"
-            theme="lightText"
-            onClick={this.handleCancel}
             label={this.props.cancelButtonLabel}
+            size="default"
+            theme="lightText"
+            variant="text"
+            onClick={this.handleCancel}
           />
           { this.props.handleConfirm ?
             <ButtonMain
               buttonProps={{
                 id: 'confirm-dialog__confirm-action-button',
               }}
-              size="default"
-              variant="contained"
-              theme="info"
-              onClick={this.handleProceed}
               disabled={this.props.disabled || !this.state.confirmed}
               label={this.props.continueButtonLabel}
+              size="default"
+              theme="info"
+              variant="contained"
+              onClick={this.handleProceed}
             /> : null
           }
         </div>
@@ -99,9 +100,9 @@ class ConfirmDialog extends React.Component {
 ConfirmDialog.defaultProps = {
   blurb: null,
   disabled: false,
-  checkBoxLabel: <FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" description="Positive label for a checkbox field" />,
-  continueButtonLabel: <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" description="Button label to continue a process" />,
-  cancelButtonLabel: <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" description="Button label to cancel a process" />,
+  checkBoxLabel: <FormattedMessage defaultMessage="Yes" description="Positive label for a checkbox field" id="teamTasks.confirmAction" />,
+  continueButtonLabel: <FormattedMessage defaultMessage="Continue" description="Button label to continue a process" id="teamTasks.continue" />,
+  cancelButtonLabel: <FormattedMessage defaultMessage="Cancel" description="Button label to cancel a process" id="teamTasks.cancelAction" />,
   message: null,
   handleConfirm: null,
 };

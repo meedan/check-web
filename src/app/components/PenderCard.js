@@ -52,21 +52,21 @@ class PenderCard extends Component {
     return (
       <div className={styles['pender-card-wrapper']}>
         <div
-          id={this.props.domId}
           className={cx('pender-card', styles['pender-card'])}
+          id={this.props.domId}
           style={{ maxHeight: 'none' }}
         />
 
         <div
-          id={`pender-card-loader-${this.props.domId}`}
           className={cx('pender-card__loader', styles['pender-card-loader'])}
+          id={`pender-card-loader-${this.props.domId}`}
         >
           {(() => {
             if (this.props.fallback) {
               return this.props.fallback;
             }
             return (
-              <MediasLoading theme="white" variant="inline" size="medium" />
+              <MediasLoading size="medium" theme="white" variant="inline" />
             );
           })()}
         </div>

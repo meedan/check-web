@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -7,34 +8,34 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import SaveTag from './SaveTag';
+import TeamTagsActions from './TeamTagsActions';
 import BlankState from '../../layout/BlankState';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import NextIcon from '../../../icons/chevron_right.svg';
 import PrevIcon from '../../../icons/chevron_left.svg';
 import SearchField from '../../search/SearchField';
-import SaveTag from './SaveTag';
-import TeamTagsActions from './TeamTagsActions';
 import TimeBefore from '../../TimeBefore';
 import SettingsHeader from '../SettingsHeader';
 import MediasLoading from '../../media/MediasLoading';
-import styles from './TeamTagsComponent.module.css';
 import Can from '../../Can';
+import styles from './TeamTagsComponent.module.css';
 import settingsStyles from '../Settings.module.css';
 
 const TeamTagsComponent = ({
-  teamId,
-  teamDbid,
+  pageSize,
   permissions,
+  relay,
   rules,
   rulesSchema,
-  tags,
-  pageSize,
-  totalTags,
-  totalCount,
-  relay,
   searchTerm,
   setSearchTerm,
+  tags,
+  teamDbid,
+  teamId,
+  totalCount,
+  totalTags,
 }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [showCreateTag, setShowCreateTag] = React.useState(false);
@@ -48,49 +49,49 @@ const TeamTagsComponent = ({
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="teamTagsComponent.title"
-            defaultMessage="Tags [{count}]"
-            description="Title for the tags settings page"
-            values={{ count: totalTags }}
-          />
-        }
-        context={
-          <FormattedHTMLMessage
-            id="teamTagsComponent.helpContext"
-            defaultMessage='Automatically categorize items by keyword. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about tags</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8720966-tags' }}
-            description="Context description for the functionality of this page"
-          />
-        }
         actionButton={
-          <Can permissions={permissions} permission="create TagText">
+          <Can permission="create TagText" permissions={permissions}>
             <ButtonMain
-              variant="contained"
-              theme="info"
-              size="default"
-              onClick={() => { setShowCreateTag(true); }}
-              label={
-                <FormattedMessage
-                  id="teamTagsComponent.newTag"
-                  defaultMessage="New tag"
-                  description="Button label for calling the new tag creation modal"
-                />
-              }
               buttonProps={{
                 id: 'team-tags__create',
               }}
+              label={
+                <FormattedMessage
+                  defaultMessage="New tag"
+                  description="Button label for calling the new tag creation modal"
+                  id="teamTagsComponent.newTag"
+                />
+              }
+              size="default"
+              theme="info"
+              variant="contained"
+              onClick={() => { setShowCreateTag(true); }}
             />
           </Can>
         }
+        context={
+          <FormattedHTMLMessage
+            defaultMessage='Automatically categorize items by keyword. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about tags</a>.'
+            description="Context description for the functionality of this page"
+            id="teamTagsComponent.helpContext"
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8720966-tags' }}
+          />
+        }
         extra={
           <SearchField
+            handleClear={handleSearchFieldClear}
             inputBaseProps={{
               onBlur: (e) => { setSearchTerm(e.target.value); },
             }}
-            handleClear={handleSearchFieldClear}
             searchText={searchTerm}
+          />
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="Tags [{count}]"
+            description="Title for the tags settings page"
+            id="teamTagsComponent.title"
+            values={{ count: totalTags }}
           />
         }
       />
@@ -99,29 +100,29 @@ const TeamTagsComponent = ({
           <Tooltip
             arrow
             title={
-              <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+              <FormattedMessage defaultMessage="Previous page" description="Pagination button to go to previous page" id="search.previousPage" />
             }
           >
             <span>
               <ButtonMain
                 disabled={isPaginationLoading || cursor - pageSize < 0}
-                variant="text"
-                theme="info"
+                iconCenter={<PrevIcon />}
                 size="default"
+                theme="info"
+                variant="text"
                 onClick={() => {
                   if (cursor - pageSize >= 0) {
                     setCursor(cursor - pageSize);
                   }
                 }}
-                iconCenter={<PrevIcon />}
               />
             </span>
           </Tooltip>
           <span className={cx('typography-button', styles['tags-header-count'])}>
             <FormattedMessage
-              id="searchResults.itemsCount"
               defaultMessage="{totalCount, plural, one {1 / 1} other {{from} - {to} / #}}"
               description="Pagination count of items returned"
+              id="searchResults.itemsCount"
               values={{
                 from: cursor + 1,
                 to: Math.min(cursor + pageSize, totalCount),
@@ -131,15 +132,16 @@ const TeamTagsComponent = ({
           </span>
           <Tooltip
             title={
-              <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+              <FormattedMessage defaultMessage="Next page" description="Pagination button to go to next page" id="search.nextPage" />
             }
           >
             <span>
               <ButtonMain
                 disabled={isPaginationLoading || cursor + pageSize >= totalCount}
-                variant="text"
-                theme="info"
+                iconCenter={<NextIcon />}
                 size="default"
+                theme="info"
+                variant="text"
                 onClick={() => {
                   if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= tags.length)) {
                     setIsPaginationLoading(true);
@@ -151,7 +153,6 @@ const TeamTagsComponent = ({
                     setCursor(cursor + pageSize);
                   }
                 }}
-                iconCenter={<NextIcon />}
               />
             </span>
           </Tooltip>
@@ -161,9 +162,9 @@ const TeamTagsComponent = ({
         {totalTags === 0 ?
           <BlankState>
             <FormattedMessage
-              id="teamTagsComponent.blank"
               defaultMessage="No Workspace Tags"
               description="Message displayed when there are no tags in the workspace"
+              id="teamTagsComponent.blank"
             />
           </BlankState>
           :
@@ -173,32 +174,32 @@ const TeamTagsComponent = ({
                 <TableRow>
                   <TableCell className={styles['table-col-head-name']}>
                     <FormattedMessage
-                      id="teamTagsComponent.tableHeaderName"
                       defaultMessage="Name"
                       description="Column header in tags table."
+                      id="teamTagsComponent.tableHeaderName"
                     />
                   </TableCell>
                   <TableCell className={styles['table-col-head-updated']}>
                     <FormattedMessage
-                      id="teamTagsComponent.tableHeaderUpdatedAt"
                       defaultMessage="Updated"
                       description="Column header in tags table."
+                      id="teamTagsComponent.tableHeaderUpdatedAt"
                     />
                   </TableCell>
                   <TableCell className={styles['table-col-head-items']}>
                     <FormattedMessage
-                      id="teamTagsComponent.tableHeaderTagsCount"
                       defaultMessage="Items"
                       description="Column header in tags table."
+                      id="teamTagsComponent.tableHeaderTagsCount"
                     />
                   </TableCell>
-                  <TableCell padding="checkbox" className={styles['table-col-head-action']} />
+                  <TableCell className={styles['table-col-head-action']} padding="checkbox" />
                 </TableRow>
               </TableHead>
               { isPaginationLoading && <MediasLoading size="medium" theme="grey" variant="inline" /> }
               <TableBody className={isPaginationLoading && styles['tags-hide']}>
                 { tags.slice(cursor, cursor + pageSize).map(tag => (
-                  <TableRow key={tag.id} className="team-tags__row">
+                  <TableRow className="team-tags__row" key={tag.id}>
                     <TableCell>
                       {tag.text}
                     </TableCell>
@@ -206,20 +207,20 @@ const TeamTagsComponent = ({
                       <TimeBefore date={tag.updated_at} />
                     </TableCell>
                     <TableCell>
-                      <a href={`/${teamSlug}/all-items/%7B"tags"%3A%5B"${tag.text}"%5D%7D`} target="_blank" rel="noopener noreferrer">
+                      <a href={`/${teamSlug}/all-items/%7B"tags"%3A%5B"${tag.text}"%5D%7D`} rel="noopener noreferrer" target="_blank">
                         {tag.tags_count}
                       </a>
                     </TableCell>
                     <TableCell>
-                      <Can permissions={permissions} permission="create TagText">
+                      <Can permission="create TagText" permissions={permissions}>
                         <TeamTagsActions
-                          tag={tag}
-                          teamId={teamId}
-                          teamDbid={teamDbid}
+                          pageSize={pageSize}
+                          relay={relay}
                           rules={rules}
                           rulesSchema={rulesSchema}
-                          relay={relay}
-                          pageSize={pageSize}
+                          tag={tag}
+                          teamDbid={teamDbid}
+                          teamId={teamId}
                         />
                       </Can>
                     </TableCell>
@@ -232,14 +233,14 @@ const TeamTagsComponent = ({
       </div>
       { showCreateTag ?
         <SaveTag
-          tag={null}
-          teamId={teamId}
-          teamDbid={teamDbid}
-          rules={rules}
-          rulesSchema={rulesSchema}
-          onCancel={() => { setShowCreateTag(false); }}
           pageSize={pageSize}
           relay={relay}
+          rules={rules}
+          rulesSchema={rulesSchema}
+          tag={null}
+          teamDbid={teamDbid}
+          teamId={teamId}
+          onCancel={() => { setShowCreateTag(false); }}
         /> : null }
     </>
   );

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
-import Alert from '../cds/alerts-and-prompts/Alert';
 import MediaArticleCard from './MediaArticleCard';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
 import { getStatus } from '../../helpers';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import styles from './MediaArticlesDisplay.module.css';
 
-const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
+const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
   const [articleToEdit, setArticleToEdit] = React.useState(null);
 
   const explainerItems = projectMedia.explainer_items.edges.map(edge => edge.node);
@@ -30,40 +30,40 @@ const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
     <div className={styles.mediaArticlesDisplay}>
       { hasFactCheck ?
         <MediaArticleCard
-          key={factCheck.id}
-          variant="fact-check"
-          title={factCheck.title || factCheck.claim_description.description}
-          url={factCheck.url}
-          languageCode={factCheck.language !== 'und' ? factCheck.language : null}
           date={new Date(factCheck.updated_at * 1000)}
+          id={factCheck.claim_description.id}
+          key={factCheck.id}
+          languageCode={factCheck.language !== 'und' ? factCheck.language : null}
+          publishedAt={publishedAt}
+          removeDisabled={projectMedia.type === 'Blank'}
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
-          publishedAt={publishedAt}
-          id={factCheck.claim_description.id}
+          title={factCheck.title || factCheck.claim_description.description}
+          url={factCheck.url}
+          variant="fact-check"
           onClick={() => { setArticleToEdit(factCheck); }}
           onRemove={onUpdate}
-          removeDisabled={projectMedia.type === 'Blank'}
         />
         : null
       }
       { (hasFactCheck && hasExplainer) ?
         <Alert
-          variant="info"
           contained
-          title={
-            <FormattedMessage
-              id="mediaArticlesDisplay.readOnlyAlertTitle"
-              defaultMessage="Claim & Fact-Check Added"
-              description="Title of the alert message displayed on data points section of the edit feed page."
-            />
-          }
           content={
             <FormattedMessage
-              id="mediaArticlesDisplay.readOnlyAlertContent"
               defaultMessage="When a claim & fact-check article is added, it will be prioritized as the only article to be delivered as a response to requests that match this item."
               description="Description of the alert message displayed on data points section of the edit feed page."
+              id="mediaArticlesDisplay.readOnlyAlertContent"
             />
           }
+          title={
+            <FormattedMessage
+              defaultMessage="Claim & Fact-Check Added"
+              description="Title of the alert message displayed on data points section of the edit feed page."
+              id="mediaArticlesDisplay.readOnlyAlertTitle"
+            />
+          }
+          variant="info"
         />
         : null
       }
@@ -72,19 +72,19 @@ const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
 
         return (
           <div
-            style={{ opacity: ((hasFactCheck && hasExplainer) ? 0.15 : 1) }}
             className={styles.explainerCard}
             key={explainerItem.id}
+            style={{ opacity: ((hasFactCheck && hasExplainer) ? 0.15 : 1) }}
           >
             <MediaArticleCard
-              variant="explainer"
-              title={explainer.title}
-              url={explainer.url}
+              date={new Date(explainer.updated_at * 1000)}
               id={explainerItem.id}
               languageCode={explainer.language !== 'und' ? explainer.language : null}
-              date={new Date(explainer.updated_at * 1000)}
-              onClick={() => { setArticleToEdit(explainer); }}
               removeDisabled={projectMedia.type === 'Blank'}
+              title={explainer.title}
+              url={explainer.url}
+              variant="explainer"
+              onClick={() => { setArticleToEdit(explainer); }}
             />
           </div>
         );
@@ -92,16 +92,16 @@ const MediaArticlesDisplay = ({ projectMedia, onUpdate }) => {
 
       { articleToEdit && articleToEdit.nodeType === 'FactCheck' && (
         <ClaimFactCheckForm
-          team={projectMedia.team}
           article={articleToEdit}
+          team={projectMedia.team}
           onClose={() => { setArticleToEdit(false); }}
         />
       )}
 
       { articleToEdit && articleToEdit.nodeType === 'Explainer' && (
         <ExplainerForm
-          team={projectMedia.team}
           article={articleToEdit}
+          team={projectMedia.team}
           onClose={() => { setArticleToEdit(false); }}
         />
       )}

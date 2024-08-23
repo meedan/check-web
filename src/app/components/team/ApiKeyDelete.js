@@ -69,56 +69,56 @@ const ApiKeyDelete = ({ keyId }) => {
     <>
       <ButtonMain
         className="api-key-delete__open-dialog-button"
-        onClick={() => setDialogOpen(true)}
-        theme="error"
         label={
           <FormattedMessage
-            id="global.delete"
             defaultMessage="Delete"
             description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
+            id="global.delete"
           />
         }
+        theme="error"
+        onClick={() => setDialogOpen(true)}
       />
       <ConfirmProceedDialog
-        open={dialogOpen}
-        title={
-          <FormattedMessage
-            id="apiKeyDelete.title"
-            defaultMessage="Delete API Key?"
-            description="Dialog title for API key deletion"
-          />
-        }
         body={
           <div>
             <FormattedHTMLMessage
-              tagName="p"
-              id="apiKeyDelete.body"
               defaultMessage="This action <strong>CANNOT</strong> be undone. This will permanently delete the API key and if you'd like, you will need to generate a replacement key."
               description="Dialog body for API key deletion"
+              id="apiKeyDelete.body"
+              tagName="p"
             />
             <Checkbox
               checked={checkboxChecked}
-              onChange={() => setCheckboxChecked(!checkboxChecked)}
               label={
                 <FormattedHTMLMessage
-                  id="apiKeyDelete.checkboxLabel"
                   defaultMessage="Yes, Delete API Key"
                   description="Dialog body for API key deletion"
+                  id="apiKeyDelete.checkboxLabel"
                 />
               }
+              onChange={() => setCheckboxChecked(!checkboxChecked)}
             />
           </div>
         }
+        open={dialogOpen}
         proceedDisabled={!checkboxChecked}
         proceedLabel={
           <FormattedHTMLMessage
-            id="apiKeyDelete.submitLabel"
             defaultMessage="Delete API Key"
             description="Dialog submit button label for API key deletion"
+            id="apiKeyDelete.submitLabel"
           />
         }
-        onProceed={handleSubmit}
+        title={
+          <FormattedMessage
+            defaultMessage="Delete API Key?"
+            description="Dialog title for API key deletion"
+            id="apiKeyDelete.title"
+          />
+        }
         onCancel={() => setDialogOpen(false)}
+        onProceed={handleSubmit}
       />
     </>
   );

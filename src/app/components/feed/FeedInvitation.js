@@ -7,11 +7,11 @@ import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import styles from './FeedInvitation.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import DoneIcon from '../../icons/done.svg';
 import { can } from '../Can';
+import styles from './FeedInvitation.module.css';
 
 const FeedInvitationComponent = ({ routeParams, ...props }) => {
   // display an error if the user is not an admin on any workspaces
@@ -40,20 +40,20 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
             {props.feed_invitation.user.name}, <span className={styles.email}>{props.feed_invitation.user.email}</span>
           </div>
           <div className={cx('typography-body1', styles.invited)}>
-            <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
+            <FormattedMessage defaultMessage="has invited your organization to contribute to a Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." id="feedInvitation.invited" />
           </div>
           <div>
             <span className={cx('typography-body1-bold')}>&ldquo;{props.feed_invitation.feed.name}&rdquo;</span>
           </div>
         </div>
         <div className={cx('typography-h6')}>
-          <FormattedMessage id="feedInvitation.prompt" defaultMessage="Which workspace will you use to contribute to this shared feed?" description="A question prompting the user to pick one of several workspaces from a list, reminding them that this will contribute data to a shared feed." />
+          <FormattedMessage defaultMessage="Which workspace will you use to contribute to this shared feed?" description="A question prompting the user to pick one of several workspaces from a list, reminding them that this will contribute data to a shared feed." id="feedInvitation.prompt" />
         </div>
         {alreadyAccepted && (
           <Alert
             className={cx(styles['no-admin-alert'])}
             contained
-            title={<FormattedMessage id="feedInvitation.alreadyAccepted" defaultMessage="You have already accepted this invitation." description="An informational message that appears if the user tries to accept an invitation that they have already accepted." />}
+            title={<FormattedMessage defaultMessage="You have already accepted this invitation." description="An informational message that appears if the user tries to accept an invitation that they have already accepted." id="feedInvitation.alreadyAccepted" />}
             variant="info"
           />
         )}
@@ -61,7 +61,7 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
           <Alert
             className={cx(styles['no-admin-alert'])}
             contained
-            title={<FormattedMessage id="feedInvitation.noWorkspaces" defaultMessage="You are not an admin of any workspaces. Please contact your workspace administrator if you think this is in error." description="An error message that informs the user that they are not a workspace administrator and as such cannot perform any actions on this page." />}
+            title={<FormattedMessage defaultMessage="You are not an admin of any workspaces. Please contact your workspace administrator if you think this is in error." description="An error message that informs the user that they are not a workspace administrator and as such cannot perform any actions on this page." id="feedInvitation.noWorkspaces" />}
             variant="error"
           />
         )}
@@ -71,32 +71,32 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
           .map(team => (
             <div
               className={cx(styles.workspace)}
-              onKeyDown={() => handleClick(team)}
               onClick={() => handleClick(team)}
+              onKeyDown={() => handleClick(team)}
             >
               <div className={cx(styles.avatar)}>
-                <img src={team.node.avatar} alt={team.node.name} />
+                <img alt={team.node.name} src={team.node.avatar} />
               </div>
               <span className="typography-body1">{team.node.name}</span>
               <ButtonMain
                 className={`int-feed-invitation__button--workspace ${teamDbids.includes(team.node.dbid) ? styles['feed-invitation-accepted'] : ''}`}
+                iconLeft={<DoneIcon />}
                 label={
                   teamDbids.includes(team.node.dbid) ?
                     <FormattedMessage
-                      id="feedInvitation.acceptedButton"
                       defaultMessage="Invitation accepted"
                       description="Label for a button indicating the invitation has been accepted"
+                      id="feedInvitation.acceptedButton"
                     /> :
                     <FormattedMessage
-                      id="feedInvitation.viewButton"
                       defaultMessage="View invitation"
                       description="Label for a button that the user presses to view an invitation that they are going to accept or reject"
+                      id="feedInvitation.viewButton"
                     />
                 }
-                iconLeft={<DoneIcon />}
-                variant="text"
                 size="small"
                 theme="validation"
+                variant="text"
               />
             </div>
           ))
@@ -152,14 +152,14 @@ const FeedInvitation = ({ routeParams }) => (
           }
         }
       `}
-      variables={{
-        feedId: parseInt(routeParams.feedId, 10),
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           return <FeedInvitationComponent routeParams={routeParams} {...props} />;
         }
         return null;
+      }}
+      variables={{
+        feedId: parseInt(routeParams.feedId, 10),
       }}
     />
   </ErrorBoundary>

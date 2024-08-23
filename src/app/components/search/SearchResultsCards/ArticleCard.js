@@ -1,7 +1,9 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import SharedItemCardFooter from './SharedItemCardFooter';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
 import ItemDate from '../../cds/media-cards/ItemDate';
@@ -9,27 +11,26 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
-import SharedItemCardFooter from './SharedItemCardFooter';
 import styles from './ArticleCard.module.css';
 
 const ArticleCard = ({
-  title,
-  summary,
-  url,
   date,
-  statusLabel,
-  statusColor,
-  teamAvatar,
-  teamName,
-  languageCode,
-  tags,
-  tagOptions,
+  handleClick,
   isPublished,
+  languageCode,
+  onChangeTags,
   projectMediaDbid,
   publishedAt,
-  onChangeTags,
+  statusColor,
+  statusLabel,
+  summary,
+  tagOptions,
+  tags,
+  teamAvatar,
+  teamName,
+  title,
+  url,
   variant,
-  handleClick,
 }) => (
   <div
     className={cx('article-card', styles.articleCard)}
@@ -41,10 +42,10 @@ const ArticleCard = ({
         <CardHoverContext.Consumer>
           { isHovered => (
             <ItemDescription
-              title={title}
               description={summary}
-              url={url}
               showCollapseButton={isHovered}
+              title={title}
+              url={url}
               variant={variant}
             />
           )}
@@ -53,15 +54,15 @@ const ArticleCard = ({
           <div>
             <Tooltip arrow title={teamName}>
               <span>
-                <TeamAvatar team={{ avatar: teamAvatar }} size="30px" />
+                <TeamAvatar size="30px" team={{ avatar: teamAvatar }} />
               </span>
             </Tooltip>
           </div>
         ) : null }
         <SharedItemCardFooter
           languageCode={languageCode}
-          tags={tags}
           tagOptions={tagOptions}
+          tags={tags}
           onChangeTags={onChangeTags}
         />
       </div>
@@ -71,9 +72,9 @@ const ArticleCard = ({
             <div className={styles.cardRightTop}>
               { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
               <ItemReportStatus
-                projectMediaDbid={projectMediaDbid}
                 className={styles.cardRightTopPublished}
                 isPublished={isPublished}
+                projectMediaDbid={projectMediaDbid}
                 publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
               />
             </div>
@@ -81,7 +82,7 @@ const ArticleCard = ({
           { date &&
             <ItemDate
               date={new Date(date * 1000)}
-              tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />}
+              tooltipLabel={<FormattedMessage defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." id="sharedItemCard.lastUpdated" />}
             />
           }
         </div> : null

@@ -7,8 +7,8 @@ describe('<ClusterCard />', () => {
   it('should always render a card', () => {
     const wrapper = mountWithIntl(
       <ClusterCard
-        title="Title"
         date={new Date()}
+        title="Title"
       />,
     );
     expect(wrapper.find('.cluster-card').length).toBe(1);
@@ -18,8 +18,8 @@ describe('<ClusterCard />', () => {
     const date = new Date();
     const wrapper = mountWithIntl(
       <ClusterCard
-        title="Title"
         date={date}
+        title="Title"
       />);
     expect(wrapper.find('ItemDate').length).toBe(1);
   });
@@ -27,8 +27,8 @@ describe('<ClusterCard />', () => {
   it('should be selectable by checkbox if onCheckboxChange provided', () => {
     const wrapper = mountWithIntl(
       <ClusterCard
-        title="Title"
         date={new Date()}
+        title="Title"
         onCheckboxChange={() => {}}
       />,
     );
@@ -38,10 +38,10 @@ describe('<ClusterCard />', () => {
   it('should render a fact check count if feed contains fact checks', () => {
     const wrapper = mountWithIntl(
       <ClusterCard
-        title="Title"
-        date={new Date()}
         dataPoints={[CheckFeedDataPoints.PUBLISHED_FACT_CHECKS]}
+        date={new Date()}
         factCheckCount={3}
+        title="Title"
       />,
     );
     expect(wrapper.find('ButtonMain').html()).toContain('3 Fact-checks');
@@ -50,11 +50,11 @@ describe('<ClusterCard />', () => {
   it('should render the item rating', () => {
     const wrapper = mountWithIntl(
       <ClusterCard
-        title="Title"
         date={new Date()}
         factCheckCount={1}
-        rating="Verdadeiro"
         isPublished
+        rating="Verdadeiro"
+        title="Title"
       />,
     );
     expect(wrapper.find('ItemRating').html()).toContain('Verdadeiro');

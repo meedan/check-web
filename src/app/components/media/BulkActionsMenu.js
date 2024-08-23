@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Can from '../Can';
 import MediasLoading from './MediasLoading';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import BulkActionsAssign from './BulkActionsAssign';
 import BulkActionsStatus from './BulkActionsStatus';
 import BulkActionsTag from './BulkActionsTag';
 import BulkActionsRemoveTag from './BulkActionsRemoveTag';
+import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import Can from '../Can';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
@@ -22,11 +22,11 @@ import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const BulkActionsMenu = ({
+  onUnselectAll,
+  page,
   selectedMedia,
   selectedProjectMedia,
   team,
-  page,
-  onUnselectAll,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mode, setMode] = React.useState('menu');
@@ -50,21 +50,21 @@ const BulkActionsMenu = ({
     const onSuccess = () => {
       const message = page === 'trash' ? (
         <FormattedMessage
-          id="bulkActions.movedRestoreSuccessfully"
           defaultMessage="{count, plural, one {# item} other {# items}} moved from Trash to 'All'"
+          description="Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
+          id="bulkActions.movedRestoreSuccessfully"
           values={{
             count: selectedMedia?.length,
           }}
-          description="Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
         />
       ) : (
         <FormattedMessage
-          id="bulkActions.movedFromSpamSuccessfully"
           defaultMessage="{count, plural, one {# item} other {# items}} moved from Spam to 'All'"
+          description="Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
+          id="bulkActions.movedFromSpamSuccessfully"
           values={{
             count: selectedMedia?.length,
           }}
-          description="Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
         />
       );
       setFlashMessage(message, 'success');
@@ -87,21 +87,21 @@ const BulkActionsMenu = ({
     const onSuccess = () => {
       const message = archived === CheckArchivedFlags.TRASHED ? (
         <FormattedMessage
-          id="bulkActions.moveToTrashSuccessfully"
           defaultMessage="{count, plural, one {# item} other {# items}} moved to Trash."
+          description="Message that appears when one or more items have been selected and moved to the trash."
+          id="bulkActions.moveToTrashSuccessfully"
           values={{
             count: selectedMedia?.length,
           }}
-          description="Message that appears when one or more items have been selected and moved to the trash."
         />
       ) : (
         <FormattedMessage
-          id="bulkActions.moveToSpamSuccessfully"
           defaultMessage="{count, plural, one {# item} other {# items}} moved to Spam."
+          description="Message that appears when one or more items have been selected and moved to spam."
+          id="bulkActions.moveToSpamSuccessfully"
           values={{
             count: selectedMedia?.length,
           }}
-          description="Message that appears when one or more items have been selected and moved to spam."
         />
       );
       setFlashMessage(message, 'success');
@@ -122,17 +122,17 @@ const BulkActionsMenu = ({
     const onSuccess = () => {
       const message = read ? (
         <FormattedMessage
-          id="bulkActions.markAsReadSuccess"
           defaultMessage="{count, plural, one {# item} other {# items}} marked as read successfully."
-          values={{ count: selectedMedia?.length }}
           description="Message that appears when one or more items have been marked as read."
+          id="bulkActions.markAsReadSuccess"
+          values={{ count: selectedMedia?.length }}
         />
       ) : (
         <FormattedMessage
-          id="bulkActions.markAsUnreadSuccess"
           defaultMessage="{count, plural, one {# item} other {# items}} marked as unread successfully."
-          values={{ count: selectedMedia?.length }}
           description="Message that appears when one or more items have been marked as unread."
+          id="bulkActions.markAsUnreadSuccess"
+          values={{ count: selectedMedia?.length }}
         />
       );
       setFlashMessage(message, 'success');
@@ -157,7 +157,7 @@ const BulkActionsMenu = ({
             read,
           },
         },
-        onCompleted: ({ response, error }) => {
+        onCompleted: ({ error, response }) => {
           if (error) {
             return fail(error);
           }
@@ -174,106 +174,106 @@ const BulkActionsMenu = ({
       <React.Fragment>
         <MenuItem className="bulk-actions-menu__assign" onClick={handleMenuAssign}>
           <FormattedMessage
-            id="bulkActionsMenu.assign"
             defaultMessage="Assign"
             description="Menu option for bulk assigning selected items"
+            id="bulkActionsMenu.assign"
           />
         </MenuItem>
         <hr />
         <MenuItem className="bulk-actions-menu__mark-read" onClick={() => handleMarkAsRead(true)}>
           <FormattedMessage
-            id="bulkActions.markAsRead"
             defaultMessage="Mark as read"
             description="Menu option for bulk marking selected items as read"
+            id="bulkActions.markAsRead"
           />
         </MenuItem>
         <MenuItem className="bulk-actions-menu__mark-not-read" onClick={() => handleMarkAsRead(false)}>
           <FormattedMessage
-            id="bulkActions.markAsNotRead"
             defaultMessage="Mark as unread"
             description="Menu option for bulk marking selected items as unread"
+            id="bulkActions.markAsNotRead"
           />
         </MenuItem>
         <hr />
         <MenuItem className="bulk-actions-menu__change-status" onClick={handleMenuChangeStatus}>
           <FormattedMessage
-            id="bulkActionsMenu.changeStatus"
             defaultMessage="Change status"
             description="Menu option for bulk changing statuses of selected items"
+            id="bulkActionsMenu.changeStatus"
           />
         </MenuItem>
         <hr />
         <MenuItem className="bulk-actions-menu__add-tag" onClick={handleMenuTag}>
           <FormattedMessage
-            id="bulkActionsMenu.addTag"
             defaultMessage="Add tag"
             description="Menu option for bulk tagging selected items"
+            id="bulkActionsMenu.addTag"
           />
         </MenuItem>
         <MenuItem className="bulk-actions-menu__remove-tag" onClick={handleMenuRemoveTag}>
           <FormattedMessage
-            id="bulkActionsMenu.removeTag"
             defaultMessage="Remove tag"
             description="Menu option for bulk untagging selected items"
+            id="bulkActionsMenu.removeTag"
           />
         </MenuItem>
         <hr />
         <MenuItem className="bulk-actions-menu__archive" onClick={() => handleArchive(CheckArchivedFlags.TRASHED)}>
           <FormattedMessage
-            id="bulkActions.sendItemsToTrash"
             defaultMessage="Send to trash"
             description="Label for button that sends one or more items to Trash"
+            id="bulkActions.sendItemsToTrash"
           />
         </MenuItem>
         <MenuItem className="bulk-actions-menu__archive" onClick={() => handleArchive(CheckArchivedFlags.SPAM)}>
           <FormattedMessage
-            id="bulkActions.sendItemsToSpam"
             defaultMessage="Mark as spam"
             description="Label for button that sends one or more items to Spam"
+            id="bulkActions.sendItemsToSpam"
           />
         </MenuItem>
       </React.Fragment>
     ),
     tag: (
       <BulkActionsTag
-        onDismiss={handleClose}
         selectedMedia={selectedProjectMedia.map(pm => pm.dbid)}
         team={team}
+        onDismiss={handleClose}
       />
     ),
     untag: (
       <BulkActionsRemoveTag
-        onDismiss={handleClose}
         selectedMedia={selectedMedia}
         team={team}
+        onDismiss={handleClose}
       />
     ),
     assign: (
       <BulkActionsAssign
-        onDismiss={handleClose}
         selectedMedia={selectedMedia}
         team={team}
+        onDismiss={handleClose}
       />
     ),
     status: (
       <BulkActionsStatus
-        onDismiss={handleClose}
         selectedMedia={selectedMedia}
         selectedProjectMedia={selectedProjectMedia}
         team={team}
+        onDismiss={handleClose}
       />
     ),
   } : {
     menu: page === 'spam' ? (
       <React.Fragment>
         <MenuItem className="bulk-actions-menu__restore" onClick={() => handleRestoreOrConfirm({ archived_was: CheckArchivedFlags.SPAM })}>
-          <FormattedMessage id="bulkActions.notSpam" defaultMessage="Not spam" description="Label for button that removes one or more items from Spam and puts them back in the normal workspace" />
+          <FormattedMessage defaultMessage="Not spam" description="Label for button that removes one or more items from Spam and puts them back in the normal workspace" id="bulkActions.notSpam" />
         </MenuItem>
       </React.Fragment>
     ) : (
       <React.Fragment>
         <MenuItem className="bulk-actions-menu__restore" onClick={() => handleRestoreOrConfirm({ archived_was: CheckArchivedFlags.TRASHED })}>
-          <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" description="Label for button that removes one or more items from Trash and puts it back in the normal workspace" />
+          <FormattedMessage defaultMessage="Restore from trash" description="Label for button that removes one or more items from Trash and puts it back in the normal workspace" id="bulkActions.restore" />
         </MenuItem>
       </React.Fragment>
     ),
@@ -283,24 +283,24 @@ const BulkActionsMenu = ({
     <span id="media-bulk-actions">
       <Can permission="bulk_update ProjectMedia" permissions={team.permissions}>
         <ButtonMain
-          theme="info"
-          variant="contained"
-          size="default"
-          onClick={e => setAnchorEl(e.currentTarget)}
-          iconRight={<KeyboardArrowDownIcon />}
           buttonProps={{
             id: 'bulk-actions-menu__button',
           }}
+          iconRight={<KeyboardArrowDownIcon />}
           label={
             <FormattedMessage
-              id="bulkActionsMenu.action"
               defaultMessage="Bulk Change [{count}]"
               description="Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
+              id="bulkActionsMenu.action"
               values={{
                 count: selectedMedia?.length,
               }}
             />
           }
+          size="default"
+          theme="info"
+          variant="contained"
+          onClick={e => setAnchorEl(e.currentTarget)}
         />
         <Menu
           anchorEl={anchorEl}
@@ -332,6 +332,7 @@ const BulkActionsMenuRenderer = (parentProps) => {
 
   return (
     <QueryRenderer
+      cacheConfig={{ force: true }}
       environment={Relay.Store}
       query={graphql`
         query BulkActionsMenuRendererQuery($teamSlug: String!) {
@@ -368,17 +369,16 @@ const BulkActionsMenuRenderer = (parentProps) => {
           }
         }
       `}
-      cacheConfig={{ force: true }}
-      variables={{
-        teamSlug,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           return (
             <BulkActionsMenu {...parentProps} {...props} />
           );
         }
-        return <MediasLoading theme="grey" variant="icon" size="icon" />;
+        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+      }}
+      variables={{
+        teamSlug,
       }}
     />
   );

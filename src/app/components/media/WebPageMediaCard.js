@@ -3,8 +3,8 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
 import { Box } from '@material-ui/core';
-import AspectRatio from '../layout/AspectRatio';
 import MediaCardTitleSummary from './MediaCardTitleSummary';
+import AspectRatio from '../layout/AspectRatio';
 
 class WebPageMediaCard extends Component {
   shouldComponentUpdate(nextProps) {
@@ -24,22 +24,22 @@ class WebPageMediaCard extends Component {
 
   render() {
     const {
-      projectMedia,
-      data,
       contentWarning,
-      warningCreator,
-      warningCategory,
-      inModal,
       currentUserRole,
+      data,
+      inModal,
+      projectMedia,
       superAdminMask,
+      warningCategory,
+      warningCreator,
     } = this.props;
 
     return (
       <article className="web-page-media-card">
         <MediaCardTitleSummary
-          title={data.title}
-          summary={inModal ? null : data.description}
           style={inModal ? { padding: '0 0 16px 0' } : null}
+          summary={inModal ? null : data.description}
+          title={data.title}
         />
         {this.canEmbedHtml() ?
           <div
@@ -51,24 +51,24 @@ class WebPageMediaCard extends Component {
           <>
             { projectMedia.picture ?
               <AspectRatio
-                key={contentWarning}
                 contentWarning={contentWarning}
-                warningCreator={warningCreator}
-                warningCategory={warningCategory}
-                projectMedia={projectMedia}
                 currentUserRole={currentUserRole}
+                key={contentWarning}
+                projectMedia={projectMedia}
                 superAdminMask={superAdminMask}
+                warningCategory={warningCategory}
+                warningCreator={warningCreator}
               >
-                <img src={projectMedia.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
+                <img alt="" src={projectMedia.picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
               </AspectRatio> : null
             }
             { data.error ?
               <div className="web-page-media-card__error">
                 <Box mt={2}>
                   <FormattedMessage
-                    id="webPageMediaCard.Error"
                     defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
                     description="Error message displayed when link data is unavailable"
+                    id="webPageMediaCard.Error"
                   />
                 </Box>
               </div> : null

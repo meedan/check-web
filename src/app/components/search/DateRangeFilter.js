@@ -1,8 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import cx from 'classnames/bind';
+import RemoveableWrapper from './RemoveableWrapper';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Select from '../cds/inputs/Select';
 import TextField from '../cds/inputs/TextField';
@@ -10,7 +12,6 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import CloseIcon from '../../icons/clear.svg';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
-import RemoveableWrapper from './RemoveableWrapper';
 import styles from './search.module.css';
 
 const messages = defineMessages({
@@ -122,13 +123,7 @@ function DateRangeSelectorStartEnd(props) {
   return (
     <div className={styles['filter-removable-wrapper']}>
       <DatePicker
-        onChange={handleChangeStartDate}
-        maxDate={getEndDateStringOrNull() || undefined}
-        okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
-        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
-        value={getStartDateStringOrNull()}
-        style={{ margin: '0 16px' }}
-        TextFieldComponent={({ params, onClick, value: valueText }) => (
+        TextFieldComponent={({ onClick, params, value: valueText }) => (
           <>
             <ButtonMain
               className={cx(
@@ -137,57 +132,57 @@ function DateRangeSelectorStartEnd(props) {
                   [styles['filter-date']]: valueText,
                 })
               }
-              size="small"
-              variant="contained"
-              theme={valueText ? 'info' : 'text'}
+              iconRight={!valueText && <KeyboardArrowDownIcon />}
               label={
                 !valueText ?
-                  <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
+                  <FormattedMessage defaultMessage="any date" description="Date picker placeholder" id="search.anyDate" />
                   :
                   `${valueText} ${getUTCOffset(getStartDateStringOrNull(), true)}`
               }
+              size="small"
+              theme={valueText ? 'info' : 'text'}
+              variant="contained"
               onClick={onClick}
-              iconRight={!valueText && <KeyboardArrowDownIcon />}
               {...params}
             />
             { valueText &&
               <Tooltip
-                title={
-                  <FormattedMessage id="search.removeStartDateCondition" defaultMessage="Remove start date" description="Tooltip to tell the user they can add remove the start date portion of this filter" />
-                }
                 arrow
+                title={
+                  <FormattedMessage defaultMessage="Remove start date" description="Tooltip to tell the user they can add remove the start date portion of this filter" id="search.removeStartDateCondition" />
+                }
               >
                 <span className={styles['filter-date-remove']}>
                   <ButtonMain
                     className="int-date-filter__button--clear-start-date"
                     iconCenter={<CloseIcon />}
-                    onClick={e => handleClearDate(e, 'start_time')}
+                    size="small"
                     theme="info"
                     variant="contained"
-                    size="small"
+                    onClick={e => handleClearDate(e, 'start_time')}
                   />
                 </span>
               </Tooltip>
             }
           </>
         )}
+        cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+        maxDate={getEndDateStringOrNull() || undefined}
+        okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
+        style={{ margin: '0 16px' }}
+        value={getStartDateStringOrNull()}
+        onChange={handleChangeStartDate}
       />
       <DatePicker
-        inputVariant="outlined"
-        onChange={handleChangeEndDate}
-        minDate={getStartDateStringOrNull() || undefined}
-        okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
-        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
-        value={getEndDateStringOrNull()}
-        TextFieldComponent={({ params, onClick, value: valueText }) => (
+        TextFieldComponent={({ onClick, params, value: valueText }) => (
           <>
             <ButtonMain
-              disabled
-              theme="text"
-              size="small"
-              variant="text"
               customStyle={{ color: 'var(--color-gray-15' }}
-              label={<FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />}
+              disabled
+              label={<FormattedMessage defaultMessage="and" description="String displayed between after and before date pickers" id="search.beforeDate" />}
+              size="small"
+              theme="text"
+              variant="text"
             />
             <ButtonMain
               className={cx(
@@ -196,40 +191,46 @@ function DateRangeSelectorStartEnd(props) {
                   [styles['filter-date']]: valueText,
                 })
               }
-              size="small"
-              variant="contained"
-              theme={valueText ? 'info' : 'text'}
               iconRight={!valueText && <KeyboardArrowDownIcon />}
               label={
                 !valueText ?
-                  <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
+                  <FormattedMessage defaultMessage="any date" description="Date picker placeholder" id="search.anyDate" />
                   :
                   `${valueText} ${getUTCOffset(getEndDateStringOrNull(), false)}`
               }
+              size="small"
+              theme={valueText ? 'info' : 'text'}
+              variant="contained"
               onClick={onClick}
               {...params}
             />
             { valueText &&
               <Tooltip
-                title={
-                  <FormattedMessage id="search.removeEndDateCondition" defaultMessage="Remove end date" description="Tooltip to tell the user they can add remove the end date portion of this filter" />
-                }
                 arrow
+                title={
+                  <FormattedMessage defaultMessage="Remove end date" description="Tooltip to tell the user they can add remove the end date portion of this filter" id="search.removeEndDateCondition" />
+                }
               >
                 <span className={styles['filter-date-remove']}>
                   <ButtonMain
                     className="int-date-filter__button--clear-end-date"
                     iconCenter={<CloseIcon />}
-                    onClick={e => handleClearDate(e, 'end_time')}
+                    size="small"
                     theme="info"
                     variant="contained"
-                    size="small"
+                    onClick={e => handleClearDate(e, 'end_time')}
                   />
                 </span>
               </Tooltip>
             }
           </>
         )}
+        cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+        inputVariant="outlined"
+        minDate={getStartDateStringOrNull() || undefined}
+        okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
+        value={getEndDateStringOrNull()}
+        onChange={handleChangeEndDate}
       />
     </div>
   );
@@ -246,22 +247,22 @@ function DateRangeSelectorRelative(props) {
 
   return (
     <>
-      <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder text to tell the user to enter a number">
+      <FormattedMessage defaultMessage="enter number" description="Placeholder text to tell the user to enter a number" id="numericRangeFilter.enterNumber">
         { placeholder => (
           <TextField
             className={styles['filter-input-number']}
-            variant="contained"
             placeholder={placeholder}
-            onChange={handleChangeRelativeQuantity}
-            value={relativeQuantity}
             type="number"
+            value={relativeQuantity}
+            variant="contained"
+            onChange={handleChangeRelativeQuantity}
           />
         )}
       </FormattedMessage>
       <Select
         className={styles['filter-select']}
-        onChange={handleChangeRelativeRange}
         value={relativeRange}
+        onChange={handleChangeRelativeRange}
       >
         <option value="d"> { intl.formatMessage(messages.relativeDays) } </option>
         <option value="w"> { intl.formatMessage(messages.relativeWeeks) } </option>
@@ -275,11 +276,11 @@ function DateRangeSelectorRelative(props) {
 const DateRangeFilter = ({
   classes,
   hide,
-  value,
-  optionsToHide,
+  intl,
   onChange,
   onRemove,
-  intl,
+  optionsToHide,
+  value,
 }) => {
   const getValueType = () => {
     if (value && value.updated_at) return 'updated_at';
@@ -437,8 +438,8 @@ const DateRangeFilter = ({
         <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} />
         <Select
           className={styles['filter-select']}
-          onChange={handleChangeType}
           value={getValueType()}
+          onChange={handleChangeType}
         >
           { ['created_at', 'updated_at', 'report_published_at', 'request_created_at'].filter(option => !optionsToHide.includes(option)).map(option => (
             <option key={option} value={option}>{ intl.formatMessage(messages[option]) }</option>
@@ -446,8 +447,8 @@ const DateRangeFilter = ({
         </Select>
         <Select
           className={styles['filter-select']}
-          onChange={handleChangeRangeType}
           value={rangeType}
+          onChange={handleChangeRangeType}
         >
           <option value="startEnd">{ intl.formatMessage(messages.startEnd) }</option>
           <option value="less_than">{ intl.formatMessage(messages.lessThan) }</option>

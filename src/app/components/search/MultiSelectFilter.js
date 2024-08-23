@@ -1,12 +1,13 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Popover from '@material-ui/core/Popover';
 import cx from 'classnames/bind';
+import RemoveableWrapper from './RemoveableWrapper';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import MultiSelector from '../layout/MultiSelector';
-import RemoveableWrapper from './RemoveableWrapper';
 import MediasLoading from '../media/MediasLoading';
 import AddIcon from '../../icons/add.svg';
 import CloseIcon from '../../icons/clear.svg';
@@ -17,13 +18,13 @@ import styles from './search.module.css';
 const OperatorToggle = ({ onClick, operator }) => (
   <ButtonMain
     className="int-multi-select-filter__button--operator-toggle"
-    onClick={onClick}
-    disabled={!onClick}
-    theme="text"
-    size="small"
-    variant="text"
     customStyle={{ color: 'var(--color-gray-15' }}
-    label={operator === 'and' ? <FormattedMessage id="search.and" defaultMessage="and" description="Logical operator to be applied when filtering by multiple tags" /> : <FormattedMessage id="search.or" defaultMessage="or" description="Logical operator to be applied when filtering by multiple tags" />}
+    disabled={!onClick}
+    label={operator === 'and' ? <FormattedMessage defaultMessage="and" description="Logical operator to be applied when filtering by multiple tags" id="search.and" /> : <FormattedMessage defaultMessage="or" description="Logical operator to be applied when filtering by multiple tags" id="search.or" />}
+    size="small"
+    theme="text"
+    variant="text"
+    onClick={onClick}
   />
 );
 
@@ -48,19 +49,19 @@ const Tag = ({
         <span>{label}</span>
         { readOnly ? null : (
           <Tooltip
-            title={
-              <FormattedMessage id="filter.removeFilterCondition" defaultMessage="Remove filter condition" description="Tooltip to tell the user they can add remove the argument to the filter they are interacting with" />
-            }
             arrow
+            title={
+              <FormattedMessage defaultMessage="Remove filter condition" description="Tooltip to tell the user they can add remove the argument to the filter they are interacting with" id="filter.removeFilterCondition" />
+            }
           >
             <span>
               <ButtonMain
                 className="int-multi-select-filter__button--tag-remove"
                 iconCenter={<CloseIcon />}
-                onClick={onDelete}
+                size="small"
                 theme="info"
                 variant="contained"
-                size="small"
+                onClick={onDelete}
               />
             </span>
           </Tooltip>
@@ -69,7 +70,7 @@ const Tag = ({
       :
       <div className={cx('multi-select-filter__tag', styles['filter-value'], styles['filter-value-missing'])} {...props}>
         <span>
-          <FormattedMessage id="filter.tag.deleted" defaultMessage="Property deleted" description="Message shown a placeholder when someone tries to filter a search by a property that the user has deleted" />
+          <FormattedMessage defaultMessage="Property deleted" description="Message shown a placeholder when someone tries to filter a search by a property that the user has deleted" id="filter.tag.deleted" />
         </span>
         { readOnly ? null : (
           <CloseIcon className="int-multi-select-filter__icon--tag-remove-missing" onClick={onDelete} />
@@ -80,26 +81,26 @@ const Tag = ({
 );
 
 const MultiSelectFilter = ({
-  error,
   allowSearch,
+  error,
   extraInputs,
   hasMore,
-  selected,
   icon,
+  inputPlaceholder,
   label,
   loading,
-  options,
   onChange,
   onRemove,
   onScrollBottom,
   onSelectChange,
   onToggleOperator,
-  operator,
-  readOnly,
-  single,
   onType,
-  inputPlaceholder,
   oneOption,
+  operator,
+  options,
+  readOnly,
+  selected,
+  single,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
   const [version, setVersion] = React.useState(0);
@@ -131,7 +132,7 @@ const MultiSelectFilter = ({
 
   return (
     <div className={cx('multi-select-filter', styles['filter-wrapper'], styles['filter-multiselect'])}>
-      <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version}>
+      <RemoveableWrapper icon={icon} key={version} readOnly={readOnly} onRemove={onRemove}>
         {label &&
           <div className={styles['filter-label']}>
             {label}
@@ -141,52 +142,52 @@ const MultiSelectFilter = ({
           <React.Fragment key={getLabelForValue(value)}>
             { index > 0 ? (
               <OperatorToggle
-                onClick={onToggleOperator}
                 operator={operator}
+                onClick={onToggleOperator}
               />
             ) : null }
             <Tag
               label={getLabelForValue(value)}
-              onDelete={() => handleTagDelete(value)}
               readOnly={readOnly}
+              onDelete={() => handleTagDelete(value)}
             />
           </React.Fragment>
         )) }
         { !oneOption && selectedArray.length > 0 && showSelect ? (
           <OperatorToggle
-            onClick={onToggleOperator}
             operator={operator}
+            onClick={onToggleOperator}
           />
         ) : null }
         { !oneOption && (selectedArray.length === 0 || showSelect) && !readOnly ? (
           <CustomSelectDropdown
             allowSearch={allowSearch}
-            inputPlaceholder={inputPlaceholder}
             hasMore={hasMore}
+            inputPlaceholder={inputPlaceholder}
             loading={loading}
             options={options}
+            selected={selectedArray}
+            single={single}
             onScrollBottom={onScrollBottom}
             onSelectChange={onSelectChange}
             onSubmit={handleSelect}
             onType={onType}
-            selected={selectedArray}
-            single={single}
           />
         ) : null }
         { extraInputs }
         { !oneOption && !readOnly && !single ? (
           <Tooltip
-            title={
-              <FormattedMessage id="filter.addParameter" defaultMessage="Add filter condition" description="Tooltip to tell the user they can add another argument to the filter they are interacting with" />
-            }
             arrow
+            title={
+              <FormattedMessage defaultMessage="Add filter condition" description="Tooltip to tell the user they can add another argument to the filter they are interacting with" id="filter.addParameter" />
+            }
           >
             <span>
               <ButtonMain
                 className="int-multi-select-filter__button--add-filter-condition"
                 iconCenter={<AddIcon />}
-                theme="lightValidation"
                 size="small"
+                theme="lightValidation"
                 variant="contained"
                 onClick={() => setShowSelect(true)}
               />
@@ -206,15 +207,15 @@ const MultiSelectFilter = ({
 const CustomSelectDropdown = ({
   allowSearch,
   hasMore,
+  inputPlaceholder,
   loading,
+  onScrollBottom,
+  onSelectChange,
+  onSubmit,
+  onType,
   options,
   selected,
   single,
-  onScrollBottom,
-  onSubmit,
-  onSelectChange,
-  onType,
-  inputPlaceholder,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -226,54 +227,54 @@ const CustomSelectDropdown = ({
   return (
     <>
       <ButtonMain
-        size="small"
-        variant="contained"
-        theme="text"
         className="int-multi-select-filter__button--select-dropdown"
         iconRight={<KeyboardArrowDownIcon />}
-        onClick={e => setAnchorEl(e.currentTarget)}
         label={
           <FormattedMessage
-            id="customAutocomplete.select"
             defaultMessage="Select"
             description="Verb. Label for generic dropdown component"
+            id="customAutocomplete.select"
           />
         }
+        size="small"
+        theme="text"
+        variant="contained"
+        onClick={e => setAnchorEl(e.currentTarget)}
       />
       <Popover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <FormattedMessage id="multiSelector.search" defaultMessage="Search…" description="Placeholder text for search input">
+        <FormattedMessage defaultMessage="Search…" description="Placeholder text for search input" id="multiSelector.search">
           {placeholder => (
             <MultiSelector
               allowSearch={allowSearch}
               hasMore={hasMore}
               inputPlaceholder={inputPlaceholder || placeholder}
-              loadingIcon={loading && <MediasLoading theme="white" variant="inline" size="small" />}
-              options={options}
-              selected={selected}
-              onSubmit={handleSubmit}
-              single={single}
-              onScrollBottom={onScrollBottom}
-              onSelectChange={onSelectChange}
-              onSearchChange={onType}
+              loadingIcon={loading && <MediasLoading size="small" theme="white" variant="inline" />}
               notFoundLabel={!loading && inputPlaceholder ? (
                 <FormattedMessage
-                  id="multiSelectFilter.noResultsMatching"
                   defaultMessage="No results matching {keyword}."
                   description="Label displayed on filter component when no results are found"
+                  id="multiSelectFilter.noResultsMatching"
                   values={{ keyword: inputPlaceholder }}
                 />) : null
               }
+              options={options}
+              selected={selected}
+              single={single}
               submitLabel={
                 <FormattedMessage
-                  id="customAutocomplete.done"
                   defaultMessage="Done"
                   description="Label for closing dropdown when user is done selecting tags"
+                  id="customAutocomplete.done"
                 />
               }
+              onScrollBottom={onScrollBottom}
+              onSearchChange={onType}
+              onSelectChange={onSelectChange}
+              onSubmit={handleSubmit}
             />
           )}
         </FormattedMessage>

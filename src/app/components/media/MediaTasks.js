@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -89,7 +90,7 @@ class MediaTasksComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, media } = this.props;
+    const { clientSessionId, media, pusher } = this.props;
     pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaTasks', (data, run) => {
       const annotation = JSON.parse(data.message);
       if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
@@ -107,7 +108,7 @@ class MediaTasksComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher, media } = this.props;
+    const { media, pusher } = this.props;
     pusher.unsubscribe(media.pusher_channel);
   }
 
@@ -117,7 +118,7 @@ class MediaTasksComponent extends Component {
 
     return (
       <div className={cx(styles['media-tasks'], styles['media-item-content'])}>
-        <Tasks tasks={itemTasks.edges} media={media} about={about} />
+        <Tasks about={about} media={media} tasks={itemTasks.edges} />
       </div>
     );
   }
@@ -232,8 +233,8 @@ const MediaTasks = (props) => {
       <Relay.RootContainer
         Component={MediaMetadataContainer}
         renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} fieldset="metadata" />}
+        renderLoading={() => <MediasLoading size="medium" theme="grey" variant="inline" />}
         route={route}
-        renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
       />
     </ErrorBoundary>
   );

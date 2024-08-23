@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -32,15 +33,15 @@ const messages = defineMessages({
 });
 
 const AspectRatio = ({
-  currentUserRole,
-  expandedImage,
-  downloadUrl,
   children,
-  projectMedia,
-  isVideoFile,
-  isPenderCard,
-  superAdminMask,
+  currentUserRole,
+  downloadUrl,
+  expandedImage,
   intl,
+  isPenderCard,
+  isVideoFile,
+  projectMedia,
+  superAdminMask,
 }) => {
   const contentWarning = projectMedia?.show_warning_cover;
   const warningCreator = projectMedia?.dynamic_annotation_flag?.annotator?.name;
@@ -69,26 +70,26 @@ const AspectRatio = ({
       { expandedImage || isVideoFile ?
         <ButtonMain
           className="int-aspect-ratio__button--fullscreen"
-          theme="black"
+          iconCenter={isFullscreenVideo ? <FullscreenExitIcon /> : <FullscreenIcon />}
           size="default"
+          theme="black"
           variant="contained"
           onClick={handleOnExpand}
-          iconCenter={isFullscreenVideo ? <FullscreenExitIcon /> : <FullscreenIcon />}
         /> : null }
       { downloadUrl ?
-        <a href={downloadUrl} download>
+        <a download href={downloadUrl}>
           <ButtonMain
             className="int-aspect-ratio__button--download"
-            theme="black"
-            size="default"
-            variant="contained"
             iconCenter={<DownloadIcon />}
+            size="default"
+            theme="black"
+            variant="contained"
           />
         </a> : null }
       { projectMedia ?
         <SensitiveContentMenuButton
-          projectMedia={projectMedia}
           currentUserRole={currentUserRole}
+          projectMedia={projectMedia}
           onSave={(enabled) => { setMaskContent(enabled); }}
         /> : null
       }
@@ -117,23 +118,23 @@ const AspectRatio = ({
   const ToggleShowHideButton = () => (
     <ButtonMain
       className={styles.toggleShowHideButton}
-      onClick={() => setMaskContent(!maskContent)}
-      variant={maskContent ? 'outlined' : 'contained'}
-      size="default"
-      theme={maskContent ? 'white' : 'info'}
       label={maskContent ? (
         <FormattedMessage
-          id="contentScreen.viewContentButton"
           defaultMessage="Temporarily view content"
           description="Button to enable view of sensitive content"
+          id="contentScreen.viewContentButton"
         />
       ) : (
         <FormattedMessage
-          id="contentScreen.hideContentButton"
           defaultMessage="Hide content"
           description="Button to disable view of sensitive content"
+          id="contentScreen.hideContentButton"
         />
       )}
+      size="default"
+      theme={maskContent ? 'white' : 'info'}
+      variant={maskContent ? 'outlined' : 'contained'}
+      onClick={() => setMaskContent(!maskContent)}
     />
   );
 
@@ -156,19 +157,19 @@ const AspectRatio = ({
       />
       { superAdminMask ? (
         <FormattedMessage
-          tagName="p"
-          id="contentScreen.superAdminMaskMessage"
           defaultMessage="Sensitive Content Masking Applied"
           description="Text to show that admin screen is on"
+          id="contentScreen.superAdminMaskMessage"
+          tagName="p"
         />
       ) : null }
       <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
         { warningCreator !== 'Alegre' ? (
           <FormattedHTMLMessage
-            tagName="p"
-            id="contentScreen.warning"
-            defaultMessage={'<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>'}
+            defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
             description="Content warning displayed over sensitive content"
+            id="contentScreen.warning"
+            tagName="p"
             values={{
               user_name: warningCreator,
               warning_category: (
@@ -179,10 +180,10 @@ const AspectRatio = ({
           />
         ) : (
           <FormattedHTMLMessage
-            tagName="p"
-            id="contentScreen.warningByAutomationRule"
             defaultMessage="An automation rule has detected this content as sensitive"
             description="Content warning displayed over sensitive content"
+            id="contentScreen.warningByAutomationRule"
+            tagName="p"
           />
         )}
       </div>
@@ -204,9 +205,9 @@ const AspectRatio = ({
     <div className={cx(uniqueClassName, styles.aspectRatio)}>
       { expandedContent ?
         <Lightbox
-          onCloseRequest={() => setExpandedContent(null)}
           mainSrc={expandedContent}
           reactModalStyle={{ overlay: { zIndex: 2000 } }}
+          onCloseRequest={() => setExpandedContent(null)}
         />
         : null }
       <div className={styles.innerWrapper}>

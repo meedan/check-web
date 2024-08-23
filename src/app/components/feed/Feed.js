@@ -4,11 +4,11 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
-import ErrorBoundary from '../error/ErrorBoundary';
 import FeedTopBar from './FeedTopBar';
 import FeedHeader from './FeedHeader';
 import FeedClusters from './FeedClusters';
+import ErrorBoundary from '../error/ErrorBoundary';
+import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import Search from '../search/Search';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import { safelyParseJSON } from '../../helpers';
@@ -39,13 +39,13 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     title: feed.name,
     extra: () => (
       <FeedTopBar
-        team={team}
         feed={feed}
-        teamFilters={teamFilters}
         setTeamFilters={setTeamFilters}
+        team={team}
+        teamFilters={teamFilters}
       />
     ),
-    listSubtitle: <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />,
+    listSubtitle: <FormattedMessage defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" id="global.sharedFeed" />,
     icon: <SharedFeedIcon />,
     teamSlug: routeParams.team,
     readOnlyFields: Object.keys(feed.filters),
@@ -68,18 +68,9 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
         {/* Feed is sharing only fact-checks */}
         {feed.published && !feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
-          <div id="feed__fact-checks" className="feed__fact-checks search-results-wrapper">
+          <div className="feed__fact-checks search-results-wrapper" id="feed__fact-checks">
             <Search
-              mediaUrlPrefix="media"
-              query={{
-                ...safelyParseJSON(routeParams.query, {}),
-                feed_team_ids: teamFilters,
-                feed_id: feed.dbid,
-                ...feed.filters,
-              }}
               defaultQuery={feed.filters}
-              // if all filters are empty, force an empty result
-              resultType={teamFilters.length === 0 ? 'emptyFeed' : 'factCheck'}
               hideFields={[
                 'feed_fact_checked_by',
                 'tags',
@@ -106,11 +97,20 @@ export const FeedComponent = ({ routeParams, ...props }) => {
                 'unmatched',
                 'verification_status',
               ]}
+              mediaUrlPrefix="media"
+              // if all filters are empty, force an empty result
+              query={{
+                ...safelyParseJSON(routeParams.query, {}),
+                feed_team_ids: teamFilters,
+                feed_id: feed.dbid,
+                ...feed.filters,
+              }}
+              resultType={teamFilters.length === 0 ? 'emptyFeed' : 'factCheck'}
               {...commonSearchProps}
-              title={feed.name}
               listActions={
-                <FeedHeader feedTeam={feedTeam} feed={feed} />
+                <FeedHeader feed={feed} feedTeam={feedTeam} />
               }
+              title={feed.name}
             />
           </div>
           : null
@@ -118,10 +118,10 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
         {/* Feed is sharing media */}
         {feed.published && feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
-          <div id="feed__clusters" className="search-results-wrapper">
+          <div className="search-results-wrapper" id="feed__clusters">
             <FeedClusters
-              teamSlug={routeParams.team}
               feedId={parseInt(routeParams.feedId, 10)}
+              teamSlug={routeParams.team}
             />
           </div>
           : null
@@ -193,15 +193,15 @@ const Feed = ({ routeParams }) => (
           }
         }
       `}
-      variables={{
-        slug: routeParams.team,
-        feedId: parseInt(routeParams.feedId, 10),
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           return <FeedComponent routeParams={routeParams} {...props} />;
         }
         return null;
+      }}
+      variables={{
+        slug: routeParams.team,
+        feedId: parseInt(routeParams.feedId, 10),
       }}
     />
   </ErrorBoundary>

@@ -1,23 +1,24 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/i1LSbpQXKyA7dLc8AkgtKA/Articles?type=design&node-id=106-63346&mode=design&t=o7PouU0Z5ISH5G3K-0
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
-import styles from './Slideout.module.css';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import IconClose from '../../../icons/clear.svg';
+import styles from './Slideout.module.css';
 
 const Slideout = ({
-  title,
+  cancelProps,
   content,
   footer,
-  onClose,
-  showCancel,
-  cancelProps,
   mainActionButton,
-  secondaryActionButton,
+  onClose,
   optionalNode,
+  secondaryActionButton,
+  showCancel,
+  title,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -47,15 +48,15 @@ const Slideout = ({
             <Tooltip
               arrow
               title={
-                <FormattedMessage id="global.closeSlideout" description="Button label for closing an open slideout" defaultMessage="Close Slideout" />
+                <FormattedMessage defaultMessage="Close Slideout" description="Button label for closing an open slideout" id="global.closeSlideout" />
               }
             >
               <span>
                 <ButtonMain
+                  iconCenter={<IconClose />}
+                  size="small"
                   theme="beige"
                   variant="contained"
-                  size="small"
-                  iconCenter={<IconClose />}
                   onClick={() => handleClose()}
                 />
               </span>
@@ -71,16 +72,16 @@ const Slideout = ({
               <div className={styles.slideoutFooterContent}>
                 { showCancel &&
                   <ButtonMain
-                    variant="text"
-                    theme="text"
-                    onClick={() => handleClose()}
                     label={
                       <FormattedMessage
-                        id="global.cancel"
                         defaultMessage="Cancel"
                         description="Regular Cancel action label"
+                        id="global.cancel"
                       />
                     }
+                    theme="text"
+                    variant="text"
+                    onClick={() => handleClose()}
                     {...cancelProps}
                   />
                 }

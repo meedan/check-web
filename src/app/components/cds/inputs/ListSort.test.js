@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ListSort from './ListSort';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ListSort />', () => {
   it('should render ListSort component', () => {

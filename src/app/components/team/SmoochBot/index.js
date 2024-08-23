@@ -70,15 +70,15 @@ const SmoochBot = ({ currentUser }) => {
           }
         }
       `}
-      variables={{
-        teamSlug,
-      }}
       render={({ props }) => {
         if (props) {
           const smoochBotDbid = props.root.team_bots_listed.edges.find(bot => bot.node.name === 'Smooch').node.dbid;
-          return (<SmoochBotComponent team={props.root.current_team} currentUser={currentUser} smoochBotDbid={smoochBotDbid} />);
+          return (<SmoochBotComponent currentUser={currentUser} smoochBotDbid={smoochBotDbid} team={props.root.current_team} />);
         }
         return null;
+      }}
+      variables={{
+        teamSlug,
       }}
     />
   );

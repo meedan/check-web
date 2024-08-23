@@ -64,36 +64,36 @@ class CreateRelatedMediaDialog extends React.Component {
   render() {
     const { mode } = this.state;
     const {
-      media,
       hideNew,
+      media,
       typesToShow,
     } = this.props;
     const formId = 'create-related-media-dialog-form';
 
     return (
-      <Dialog className={dialogStyles['dialog-window']} open={this.props.open} fullWidth maxWidth="md">
+      <Dialog className={dialogStyles['dialog-window']} fullWidth maxWidth="md" open={this.props.open}>
         <div className={dialogStyles['dialog-title']}>
           { hideNew ?
             this.props.title :
             <Tabs
-              value={this.state.mode}
               indicatorColor="primary"
               textColor="primary"
+              value={this.state.mode}
               onChange={this.handleChange}
             >
               <Tab
                 id="create-media-dialog__tab-existing"
-                value="existing"
                 label={
-                  <FormattedMessage id="createMedia.existing" defaultMessage="Add existing item" description="Tab text for adding an existing media item" />
+                  <FormattedMessage defaultMessage="Add existing item" description="Tab text for adding an existing media item" id="createMedia.existing" />
                 }
+                value="existing"
               />
               <Tab
                 id="create-media-dialog__tab-new"
-                value="new"
                 label={
-                  <FormattedMessage id="createMedia.addNew" defaultMessage="Add new item" description="Tab text for adding a new item" />
+                  <FormattedMessage defaultMessage="Add new item" description="Tab text for adding a new item" id="createMedia.addNew" />
                 }
+                value="new"
               />
             </Tabs>
           }
@@ -101,25 +101,25 @@ class CreateRelatedMediaDialog extends React.Component {
         <div className={cx(dialogStyles['dialog-content'], mediaStyles['media-item-autocomplete-wrapper'])}>
           { mode === 'new' &&
             <CreateMediaInput
-              message={this.props.message}
               formId={formId}
               isSubmitting={this.props.isSubmitting}
-              onSubmit={this.props.onSubmit}
+              message={this.props.message}
               team={this.props.team}
+              onSubmit={this.props.onSubmit}
             />
           }
           { mode === 'existing' &&
             <>
-              { this.props.message && <><Alert variant="error" contained title={this.props.message} /><br /></> }
+              { this.props.message && <><Alert contained title={this.props.message} variant="error" /><br /></> }
               <AutoCompleteMediaItem
-                media={media}
-                dbid={media ? media.dbid : null}
-                onSelect={this.handleSelectExisting}
-                typesToShow={typesToShow}
                 customFilter={this.props.customFilter}
-                showFilters={Boolean(this.props.showFilters)}
-                multiple={Boolean(this.props.multiple)}
+                dbid={media ? media.dbid : null}
                 disablePublished={Boolean(this.props.disablePublished)}
+                media={media}
+                multiple={Boolean(this.props.multiple)}
+                showFilters={Boolean(this.props.showFilters)}
+                typesToShow={typesToShow}
+                onSelect={this.handleSelectExisting}
               />
             </>
           }
@@ -129,13 +129,13 @@ class CreateRelatedMediaDialog extends React.Component {
             buttonProps={{
               id: 'create-media-dialog__dismiss-button',
             }}
-            variant="text"
-            theme="lightText"
-            size="default"
-            onClick={this.props.onDismiss}
             label={
-              <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
+              <FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />
             }
+            size="default"
+            theme="lightText"
+            variant="text"
+            onClick={this.props.onDismiss}
           />
           { mode === 'new' &&
             <ButtonMain
@@ -144,14 +144,14 @@ class CreateRelatedMediaDialog extends React.Component {
                 form: formId,
                 type: 'submit',
               }}
-              theme="info"
-              size="default"
-              variant="contained"
               disabled={this.props.isSubmitting}
               label={this.props.isSubmitting ?
-                <FormattedMessage id="global.submitting" defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" /> :
+                <FormattedMessage defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" id="global.submitting" /> :
                 this.props.submitButtonLabel(this.state.selectedItems.length)
               }
+              size="default"
+              theme="info"
+              variant="contained"
             />
           }
           { mode === 'existing' &&
@@ -159,15 +159,15 @@ class CreateRelatedMediaDialog extends React.Component {
               buttonProps={{
                 id: 'create-media-dialog__submit-button',
               }}
-              theme="info"
-              size="default"
-              variant="contained"
-              onClick={this.handleSubmitExisting}
               disabled={this.submitExistingDisabled() || this.props.isSubmitting}
               label={this.props.isSubmitting ?
-                <FormattedMessage id="global.submitting" defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" /> :
+                <FormattedMessage defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" id="global.submitting" /> :
                 this.props.submitButtonLabel(this.state.selectedItems.length)
               }
+              size="default"
+              theme="info"
+              variant="contained"
+              onClick={this.handleSubmitExisting}
             />
           }
         </div>

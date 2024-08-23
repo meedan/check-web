@@ -48,8 +48,8 @@ const CustomSlider = withStyles(theme => ({
 
 const MediaTimeline = ({
   currentTime,
-  setCurrentTime,
   duration,
+  setCurrentTime,
   videoRef,
 }) => {
   const classes = useStyles();
@@ -66,9 +66,9 @@ const MediaTimeline = ({
   return (
     <CustomSlider
       className={classes.root}
-      value={currentTime}
-      step={duration / 1000}
       max={duration}
+      step={duration / 1000}
+      value={currentTime}
       onChange={handleChange}
       onChangeCommitted={handleCommit}
     />

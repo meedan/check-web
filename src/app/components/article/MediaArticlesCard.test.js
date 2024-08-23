@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { MediaArticlesCard } from './MediaArticlesCard';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 const team = {
   verification_statuses: {

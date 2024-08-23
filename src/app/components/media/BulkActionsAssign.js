@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -35,9 +35,9 @@ const BulkActionsAssign = ({
     const onSuccess = () => {
       setFlashMessage((
         <FormattedMessage
-          id="bulkActionsAssign.success"
           defaultMessage="Items assigned successfully"
           description="Success message for bulk assignment action"
+          id="bulkActionsAssign.success"
         />
       ), 'success');
       onDismiss();
@@ -61,7 +61,7 @@ const BulkActionsAssign = ({
           }),
         },
       },
-      onCompleted: ({ response, error }) => {
+      onCompleted: ({ error, response }) => {
         if (error) {
           return onFailure(error);
         }
@@ -72,44 +72,44 @@ const BulkActionsAssign = ({
   };
 
   return (
-    <FormattedMessage id="tagMenu.search" defaultMessage="Search…" description="Placeholder text for searching tags">
+    <FormattedMessage defaultMessage="Search…" description="Placeholder text for searching tags" id="tagMenu.search">
       {placeholder => (
         <MultiSelector
           allowSearch
+          cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
           inputPlaceholder={placeholder}
-          selected={[]}
-          options={options}
-          onSubmit={handleSubmit}
-          cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
           notFoundLabel={
             <FormattedMessage
-              id="bulkActionsAssign.notFound"
               defaultMessage="No members found"
               description="Displayed when no member names match search input"
+              id="bulkActionsAssign.notFound"
             />
           }
+          options={options}
+          selected={[]}
           submitLabel={
             <FormattedMessage
-              id="bulkActionsAssign.submitLabel"
               defaultMessage="{numItems, plural, one {Assign # item} other {Assign # items}}"
-              values={{ numItems: selectedMedia.length }}
               description="Button for commiting the action of assigning of a number of items in bulk"
+              id="bulkActionsAssign.submitLabel"
+              values={{ numItems: selectedMedia.length }}
             />
           }
+          onSubmit={handleSubmit}
         >
-          <Box mx={2} mt={2}>
+          <Box mt={2} mx={2}>
             <TextField
               label={
                 <FormattedMessage
-                  id="bulkActionsAssign.assignmentNotes"
                   defaultMessage="Add a note to email notification"
                   description="Field for adding complementary information for the assignee"
+                  id="bulkActionsAssign.assignmentNotes"
                 />
               }
-              onChange={e => setAssignMessage(e.target.value)}
-              variant="outlined"
-              rows={4}
               multiline
+              rows={4}
+              variant="outlined"
+              onChange={e => setAssignMessage(e.target.value)}
             />
           </Box>
         </MultiSelector>
