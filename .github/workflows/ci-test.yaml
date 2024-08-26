@@ -8,9 +8,9 @@ on:
     # - CV2-4797-identify-workflows-CI-migration
 #   #   - master
 #   #   - develop
-#   # pull_request:
-#   #   branches:
-#   #   - develop
+  pull_request:
+    branches:
+    - develop
 
 env:
   GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
@@ -63,7 +63,7 @@ jobs:
       env:
         GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
       run: | 
-        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GIT_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'develop')
+        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'develop')
         echo "Using branch $PENDER_BRANCH for Pender"
         git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
         cd pender
@@ -74,7 +74,7 @@ jobs:
 
     -  name: Setup Check API
        run: | 
-        export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $GIT_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'develop')
+        export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
         echo "Using branch $CHECK_API_BRANCH for Check API"
         git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
         cd check-api
@@ -85,7 +85,7 @@ jobs:
       
     - name: Setup Alegre
       run: | 
-       export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $GIT_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'develop')
+       export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
        echo "Using branch $ALEGRE_BRANCH for Alegre"
        git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
        cd alegre
@@ -95,7 +95,7 @@ jobs:
 
     - name: Setup Presto
       run: |
-        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GIT_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'master')
+        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
         echo "Using branch $PRESTO_BRANCH for Presto"
         git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
         cd presto
@@ -132,9 +132,10 @@ jobs:
           -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME
           -e GITHUB_BRANCH=$GITHUB_BRANCH
           -e AWS_ENDPOINT=$AWS_ENDPOINT
-          -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-          -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-          -e AWS_REGION=$AWS_REGION
+          -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          -e ROLE_TO_ASSUME=${{ secrets.AWS_ROLE_TO_ASSUME }}
+          -e AWS_REGION=eu-west-1
           -e TEST_RETRY_COUNT=3
           web npm run tests
 
