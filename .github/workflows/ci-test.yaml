@@ -287,7 +287,7 @@ jobs:
     - name: Decrypt credentials for Alegre
       run: |
         openssl aes-256-cbc -K $encrypted_e6af0c606e27_key -iv $encrypted_e6af0c606e27_iv
-  -in test/google_credentials.json.enc -out test/google_credentials.json -d
+        -in test/google_credentials.json.enc -out test/google_credentials.json -d
 
     - name: Setup UTF-8 Capable locale
       run: | 
