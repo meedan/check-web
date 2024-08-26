@@ -2,7 +2,7 @@ module FlakyTests
   require 'json'
   require 'aws-sdk-s3'
 
-  KEY = if ENV['TRAVIS_BRANCH'] == 'master'
+  KEY = if ENV['GITHUB_BRANCH'] == 'master'
           'flaky-tests/master.json'
         else
           'flaky-tests/develop.json'
@@ -22,7 +22,7 @@ module FlakyTests
   end
 
   def update_flaky_tests_file(failing_tests)
-    return if failing_tests.empty? || ENV['TRAVIS_BRANCH'].nil?
+    return if failing_tests.empty? || ENV['GITHUB_BRANCH'].nil?
 
     file = JSON.parse(get_file_from_aws_bucket.get.body.read)
     failing_tests.each do |key, value|
@@ -57,6 +57,6 @@ module FlakyTests
   end
 
   def upload_file_to_aws
-    get_file_from_aws_bucket.upload_file('file.json') if ENV['TRAVIS_BRANCH'] == 'develop' || ENV['TRAVIS_BRANCH'] == 'master'
+    get_file_from_aws_bucket.upload_file('file.json') if ENV['GITHUB_BRANCH'] == 'develop' || ENV['GITHUB_BRANCH'] == 'master'
   end
 end
