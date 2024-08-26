@@ -1,14 +1,14 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import cx from 'classnames/bind';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import ClearIcon from '../../../icons/clear.svg';
@@ -20,19 +20,7 @@ import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../../helpers';
 import styles from '../media.module.css';
-
-const useStyles = makeStyles(() => ({
-  outer: {
-    margin: '16px 0 0',
-    position: 'relative',
-    cursor: 'pointer',
-  },
-  inner: {
-    position: 'absolute',
-    top: '8px',
-    right: '8px',
-  },
-}));
+import similarityStyles from './MediaSimilarities.module.css';
 
 const commitPinMutation = (id, targetId, sourceId, onCompleted, onError) => {
   const mutation = graphql`
@@ -62,11 +50,11 @@ const commitPinMutation = (id, targetId, sourceId, onCompleted, onError) => {
 const RelationshipMenu = ({
   canDelete,
   canSwitch,
-  setFlashMessage,
   id,
+  mainProjectMedia,
+  setFlashMessage,
   sourceId,
   targetId,
-  mainProjectMedia,
 }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -94,9 +82,9 @@ const RelationshipMenu = ({
   const handleSwitch = () => {
     setFlashMessage(
       <FormattedMessage
-        id="mediaItem.pinning"
         defaultMessage="Pinning…"
         description="Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item"
+        id="mediaItem.pinning"
       />,
       'info',
     );
@@ -107,9 +95,9 @@ const RelationshipMenu = ({
       } else {
         setFlashMessage((
           <FormattedMessage
-            id="mediaItem.doneRedirecting"
             defaultMessage="Done, redirecting to new main item…"
             description="A message that informs the user a 'pin' action is finished and a redirect is about to happen"
+            id="mediaItem.doneRedirecting"
           />
         ), 'success');
         browserHistory.push(`/${teamSlug}/media/${targetId}`);
@@ -192,9 +180,9 @@ const RelationshipMenu = ({
         } else {
           const message = (
             <FormattedMessage
-              id="mediaItem.detachedSuccessfully"
               defaultMessage="Item detached"
               description="Banner displayed after items are detached successfully"
+              id="mediaItem.detachedSuccessfully"
             />
           );
           setFlashMessage(message, 'success');
@@ -205,16 +193,16 @@ const RelationshipMenu = ({
   };
 
   return (
-    <>
+    <div className={similarityStyles['similar-matched-media-options']}>
       { canDelete && canSwitch ? (
-        <Box>
+        <>
           <ButtonMain
-            iconCenter={<IconMoreVert />}
-            onClick={handleOpenMenu}
             className="media-similarity__menu-icon"
+            iconCenter={<IconMoreVert />}
             size="small"
-            variant="contained"
             theme="text"
+            variant="contained"
+            onClick={handleOpenMenu}
           />
           <Menu
             anchorEl={anchorEl}
@@ -227,9 +215,9 @@ const RelationshipMenu = ({
                 className="similarity-media-item__pin-relationship"
                 primary={
                   <FormattedMessage
-                    id="mediaItem.pinAsMain"
                     defaultMessage="Pin to the top"
                     description="Menu option for pinning an item as the main item"
+                    id="mediaItem.pinAsMain"
                   />
                 }
               />
@@ -238,43 +226,40 @@ const RelationshipMenu = ({
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
-                  <FormattedMessage id="mediaItem.detach" defaultMessage="Detach media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." />
+                  <FormattedMessage defaultMessage="Detach media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." id="mediaItem.detach" />
                 }
               />
             </MenuItem>
           </Menu>
-        </Box>) : null
+        </>) : null
       }
       { canDelete && !canSwitch ?
-        <Box>
-          <ButtonMain
-            iconCenter={<ClearIcon />}
-            onClick={event => swallowClick(event, handleDelete)}
-            className="related-media-item__delete-relationship"
-            size="small"
-            variant="contained"
-            theme="text"
-          />
-        </Box> : null
+        <ButtonMain
+          className="related-media-item__delete-relationship"
+          iconCenter={<ClearIcon />}
+          size="small"
+          theme="text"
+          variant="contained"
+          onClick={event => swallowClick(event, handleDelete)}
+        /> : null
       }
-    </>
+    </div>
   );
 };
 
 const MediaRelationship = ({
+  canDelete,
+  canSwitch,
+  intl,
+  mainProjectMediaConfirmedSimilarCount,
+  mainProjectMediaDemand,
+  mainProjectMediaId,
   relationship,
   relationshipSourceId,
   relationshipTargetId,
-  canSwitch,
-  canDelete,
-  mainProjectMediaId,
-  mainProjectMediaDemand,
-  mainProjectMediaConfirmedSimilarCount,
-  superAdminMask,
   setFlashMessage,
-  intl,
+  superAdminMask,
 }) => {
-  const classes = useStyles();
   const [isSelected, setIsSelected] = React.useState(false);
 
   const swallowClick = (ev) => {
@@ -284,17 +269,17 @@ const MediaRelationship = ({
 
   const details = [
     <FormattedMessage
-      id="mediaRelationship.lastSubmitted"
       defaultMessage="Last submitted {date}"
       description="Shows the last time a media was submitted"
+      id="mediaRelationship.lastSubmitted"
       values={{
         date: intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
       }}
     />,
     <FormattedMessage
-      id="mediaSuggestions.requestsCount"
       defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
       description="Header of requests list. Example: 26 requests"
+      id="mediaSuggestions.requestsCount"
       values={{ requestsCount: relationship?.target?.requests_count }}
     />,
   ];
@@ -302,53 +287,51 @@ const MediaRelationship = ({
   const maskContent = relationship?.target?.show_warning_cover;
 
   return (
-    <div className={`${classes.outer} media__relationship`} >
+    <div className={cx('media__relationship', similarityStyles['similar-matched-media'])} >
       { isSelected ?
         <MediaAndRequestsDialogComponent
-          projectMediaId={relationship.target_id}
-          projectMediaImportedId={relationship?.target?.imported_from_project_media_id}
           feedId={relationship?.target?.imported_from_feed_id}
+          mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           mediaSlug={
             <MediaSlug
               className={styles['media-slug-title']}
+              details={details}
               mediaType={relationship?.target?.type}
               slug={relationship.target?.title}
-              details={details}
             />
           }
-          mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
+          projectMediaId={relationship.target_id}
+          projectMediaImportedId={relationship?.target?.imported_from_project_media_id}
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
         /> : null }
       {
         relationship?.target && (
           <SmallMediaCard
-            key={relationship.id}
             customTitle={relationship?.target?.title}
-            details={details}
-            media={relationship?.target?.media}
             description={relationship?.target?.description}
+            details={details}
+            key={relationship.id}
             maskContent={maskContent}
+            media={relationship?.target?.media}
             superAdminMask={superAdminMask}
             onClick={() => setIsSelected(true)}
           />
         )
       }
-      <div className={`${classes.inner} media__relationship__menu`}>
-        <RelationshipMenu
-          canDelete={canDelete}
-          canSwitch={canSwitch}
-          id={relationship.id}
-          sourceId={relationshipSourceId}
-          targetId={relationshipTargetId}
-          setFlashMessage={setFlashMessage}
-          mainProjectMedia={{
-            id: mainProjectMediaId,
-            confirmedSimilarCount: mainProjectMediaConfirmedSimilarCount,
-            demand: mainProjectMediaDemand,
-          }}
-        />
-      </div>
+      <RelationshipMenu
+        canDelete={canDelete}
+        canSwitch={canSwitch}
+        id={relationship.id}
+        mainProjectMedia={{
+          id: mainProjectMediaId,
+          confirmedSimilarCount: mainProjectMediaConfirmedSimilarCount,
+          demand: mainProjectMediaDemand,
+        }}
+        setFlashMessage={setFlashMessage}
+        sourceId={relationshipSourceId}
+        targetId={relationshipTargetId}
+      />
     </div>
   );
 };

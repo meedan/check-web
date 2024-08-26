@@ -20,12 +20,12 @@ const ItemWorkspaces = ({
       { renderedWorkspaces.map(workspace => (
         <Tooltip
           arrow
-          title={workspace.name}
           key={workspace.name}
           placement="top"
+          title={workspace.name}
         >
           <span>
-            <TeamAvatar team={{ avatar: workspace.url }} size="30px" />
+            <TeamAvatar size="30px" team={{ avatar: workspace.url }} />
           </span>
         </Tooltip>
       )) }
@@ -33,8 +33,8 @@ const ItemWorkspaces = ({
         <div className={styles.extraWorkspaces}>
           <Tooltip
             arrow
-            title={<ul>{extraWorkspaces}</ul>}
             placement="right"
+            title={<ul>{extraWorkspaces}</ul>}
           >
             <span className="typography-body2">
               +{extraWorkspaces.length}

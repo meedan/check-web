@@ -18,11 +18,11 @@ const tiplineHistoryQuery = graphql`
 const PaginatedTiplineHistory = createPaginationContainer(
   props => (
     <ChatHistory
-      title={props.title}
-      history={props.root.tipline_messages ? props.root.tipline_messages.edges.map(({ node }) => ({ ...node })) : []}
       handleClose={props.handleClose}
-      relay={props.relay}
+      history={props.root.tipline_messages ? props.root.tipline_messages.edges.map(({ node }) => ({ ...node })) : []}
       pageSize={props.pageSize}
+      relay={props.relay}
+      title={props.title}
     />
   ),
   { // assign graphql fragment to a key called `root`

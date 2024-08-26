@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { ApiKeyEntry } from './ApiKeyEntry';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 const expiredKey = {

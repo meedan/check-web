@@ -22,16 +22,16 @@ const UnmatchedMedia = ({ routeParams }) => {
 
   return (
     <Search
-      searchUrlPrefix={`/${routeParams.team}/unmatched-media`}
-      mediaUrlPrefix={`/${routeParams.team}/media`}
-      title={<FormattedMessage id="unmatchedMedia.title" defaultMessage="Unmatched media" description="Title of the unmatched media list page" />}
-      icon={<UnmatchedIcon />}
-      teamSlug={routeParams.team}
-      query={query}
       defaultQuery={{ ...defaultFilters, ...defaultSort }}
       hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
-      readOnlyFields={['unmatched']}
+      icon={<UnmatchedIcon />}
+      mediaUrlPrefix={`/${routeParams.team}/media`}
       page="unmatched-media"
+      query={query}
+      readOnlyFields={['unmatched']}
+      searchUrlPrefix={`/${routeParams.team}/unmatched-media`}
+      teamSlug={routeParams.team}
+      title={<FormattedMessage defaultMessage="Unmatched media" description="Title of the unmatched media list page" id="unmatchedMedia.title" />}
     />
   );
 };

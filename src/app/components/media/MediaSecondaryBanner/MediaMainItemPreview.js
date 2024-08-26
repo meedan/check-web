@@ -15,17 +15,17 @@ const MediaMainItemPreview = ({ projectMedia }) => {
 
   return (
     <div className={styles.mediaMainItemPreview}>
-      <ItemThumbnail picture={projectMedia.media.picture} type={projectMedia.media.type} url={projectMedia.media.url} maskContent={projectMedia.show_warning_cover} />
+      <ItemThumbnail maskContent={projectMedia.show_warning_cover} picture={projectMedia.media.picture} type={projectMedia.media.type} url={projectMedia.media.url} />
       <div>
         <h6 className={cx('typography-body2-bold', styles.mediaMainItemPreviewTitle)}>
           {projectMedia.title}
         </h6>
         <ButtonMain
-          size="small"
-          variant="contained"
-          theme="lightBeige"
-          label={<FormattedMessage id="mediaMainItemPreview.viewItem" defaultMessage="View Item" description="Button label on secondary item banner. This button opens the main item." />}
           iconRight={<OpenInNewIcon />}
+          label={<FormattedMessage defaultMessage="View Item" description="Button label on secondary item banner. This button opens the main item." id="mediaMainItemPreview.viewItem" />}
+          size="small"
+          theme="lightBeige"
+          variant="contained"
           onClick={handleClick}
         />
       </div>

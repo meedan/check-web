@@ -18,7 +18,7 @@
 
   section {
     background-color: var(--color-white-100);
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     margin: 0 0 16px;
     padding: 16px;
 
@@ -59,7 +59,7 @@
 
       .componentControls {
         background-color: var(--color-beige-93);
-        border-radius: 5px 5px 0 0;
+        border-radius: var(--border-radius-medium) var(--border-radius-medium) var(--border-radius-zero) var(--border-radius-zero);
         padding: 8px;
 
         ul {
@@ -76,7 +76,7 @@
         + .componentInlineVariants,
         + .componentBlockVariants {
           border: solid 4px var(--color-beige-93);
-          border-radius: 0 0 5px 5px;
+          border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-medium) var(--border-radius-medium);
           padding: 20px;
 
           &.fixed-width-tags {

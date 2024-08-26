@@ -1,9 +1,15 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
+import SearchFieldDummy from './SearchFieldDummy';
+import SearchFieldSource from './SearchFieldSource';
+import SearchFieldTag from './SearchFieldTag';
+import SearchFieldChannel from './SearchFieldChannel';
+import SearchFieldUser from './SearchFieldUser';
+import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -11,12 +17,6 @@ import LanguageFilter from '../LanguageFilter';
 import NumericRangeFilter from '../NumericRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
-import SearchFieldDummy from './SearchFieldDummy';
-import SearchFieldSource from './SearchFieldSource';
-import SearchFieldTag from './SearchFieldTag';
-import SearchFieldChannel from './SearchFieldChannel';
-import SearchFieldUser from './SearchFieldUser';
-import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -143,20 +143,20 @@ const messages = defineMessages({
 });
 
 const SearchFields = ({
-  intl,
-  team,
-  stateQuery,
   appliedQuery,
   defaultQuery,
   feedTeam,
-  readOnlyFields,
-  setStateQuery,
+  handleSubmit,
+  hideFields,
+  intl,
   onChange,
   onChangeSort,
   page,
-  handleSubmit,
+  readOnlyFields,
   savedSearch,
-  hideFields,
+  setStateQuery,
+  stateQuery,
+  team,
 }) => {
   /**
   * Return `query`, with property `key` changed to the `newArray`.
@@ -303,9 +303,9 @@ const SearchFields = ({
   ];
 
   const reportStatusOptions = [
-    { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
-    { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
-    { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
+    { label: <FormattedMessage defaultMessage="Unpublished" description="Refers to a report status" id="search.reportStatusUnpublished" />, value: 'unpublished' },
+    { label: <FormattedMessage defaultMessage="Published" description="Refers to a report status" id="search.reportStatusPublished" />, value: 'published' },
+    { label: <FormattedMessage defaultMessage="Paused" description="Refers to a report status" id="search.reportStatusPaused" />, value: 'paused' },
   ];
 
   const OperatorToggle = () => {
@@ -315,22 +315,22 @@ const SearchFields = ({
     }
     return (
       <Tooltip
-        title={
-          <FormattedMessage id="search.switchOperator" defaultMessage="Toggle AND/OR" description="Tooltip to tell the user they can switch the logical operator between 'AND/OR' when filtering by multiple fields" />
-        }
         arrow
+        title={
+          <FormattedMessage defaultMessage="Toggle AND/OR" description="Tooltip to tell the user they can switch the logical operator between 'AND/OR' when filtering by multiple fields" id="search.switchOperator" />
+        }
       >
         <span>
           <ButtonMain
             className="int-search-fields__button--toggle-and-or-operator"
-            variant="contained"
-            size="small"
-            theme={page === 'feed' ? 'text' : 'lightBrand'}
             customStyle={{ fontWeight: 'bold' }}
             label={stateQuery.operator === 'OR' ?
-              <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
-              <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+              <FormattedMessage defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" id="search.fieldOr" /> :
+              <FormattedMessage defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" id="search.fieldAnd" />
             }
+            size="small"
+            theme={page === 'feed' ? 'text' : 'lightInfo'}
+            variant="contained"
             {...operatorProps}
           />
         </span>
@@ -340,15 +340,15 @@ const SearchFields = ({
 
   const fieldComponents = {
     has_claim: (
-      <FormattedMessage id="search.claim" defaultMessage="Claim is" description="Prefix label for field to filter by claim">
+      <FormattedMessage defaultMessage="Claim is" description="Prefix label for field to filter by claim" id="search.claim">
         { label => (
           <MultiSelectFilter
-            label={label}
-            icon={<LabelIcon />}
             allowSearch={false}
-            selected={stateQuery.has_claim}
+            icon={<LabelIcon />}
+            label={label}
             options={hasClaimOptions}
             readOnly={readOnlyFields.includes('has_claim')}
+            selected={stateQuery.has_claim}
             onChange={(newValue) => { handleFilterClick(newValue, 'has_claim'); }}
             onRemove={() => handleRemoveField('has_claim')}
           />
@@ -357,34 +357,34 @@ const SearchFields = ({
     ),
     range: (
       <DateRangeFilter
-        onChange={handleDateChange}
-        value={stateQuery.range}
-        readOnly={readOnlyFields.includes('range')}
         optionsToHide={['request_created_at']}
+        readOnly={readOnlyFields.includes('range')}
+        value={stateQuery.range}
+        onChange={handleDateChange}
         onRemove={() => handleRemoveField('range')}
       />
     ),
     tags: (
       <SearchFieldTag
-        teamSlug={team.slug}
-        query={stateQuery}
-        onChange={(newValue) => { handleFilterClick(newValue, 'tags'); }}
-        onToggleOperator={() => handleSwitchOperator('tags_operator')}
         operator={stateQuery.tags_operator}
+        query={stateQuery}
         readOnly={readOnlyFields.includes('tags')}
+        teamSlug={team.slug}
+        onChange={(newValue) => { handleFilterClick(newValue, 'tags'); }}
         onRemove={() => handleRemoveField('tags')}
+        onToggleOperator={() => handleSwitchOperator('tags_operator')}
       />
     ),
     show: (
-      <FormattedMessage id="search.show" defaultMessage="Type is" description="Prefix label for field to filter by media type">
+      <FormattedMessage defaultMessage="Type is" description="Prefix label for field to filter by media type" id="search.show">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
-            label={label}
             icon={<DescriptionIcon />}
-            selected={stateQuery.show}
+            label={label}
             options={types}
             readOnly={readOnlyFields.includes('show')}
+            selected={stateQuery.show}
             onChange={(newValue) => { handleFilterClick(newValue, 'show'); }}
             onRemove={() => handleRemoveField('show')}
           />
@@ -392,16 +392,16 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     show_similar: (
-      <FormattedMessage id="search.showSimilar" defaultMessage="Include matched media" description="Label for filter field to display matched media">
+      <FormattedMessage defaultMessage="Include matched media" description="Label for filter field to display matched media" id="search.showSimilar">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
-            label={label}
             icon={<UnmatchedIcon />}
-            selected={stateQuery.show_similar}
-            options={showSimilarValues}
+            label={label}
             oneOption
+            options={showSimilarValues}
             readOnly={readOnlyFields.includes('show_similar')}
+            selected={stateQuery.show_similar}
             onChange={(newValue) => { handleFilterClick(newValue, 'show_similar'); }}
             onRemove={() => handleRemoveField('show_similar')}
           />
@@ -409,16 +409,16 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     unmatched: (
-      <FormattedMessage id="search.unmatched" defaultMessage="Media is unmatched" description="Label for field to filter by unmatched media">
+      <FormattedMessage defaultMessage="Media is unmatched" description="Label for field to filter by unmatched media" id="search.unmatched">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
-            label={label}
             icon={<UnmatchedIcon />}
-            selected={stateQuery.unmatched}
-            options={unmatchedValues}
+            label={label}
             oneOption
+            options={unmatchedValues}
             readOnly={readOnlyFields.includes('unmatched')}
+            selected={stateQuery.unmatched}
             onChange={(newValue) => { handleFilterClick(newValue, 'unmatched'); }}
             onRemove={() => handleRemoveField('unmatched')}
           />
@@ -426,15 +426,15 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     read: (
-      <FormattedMessage id="search.read" defaultMessage="Item is" description="Prefix label for field to filter by media read">
+      <FormattedMessage defaultMessage="Item is" description="Prefix label for field to filter by media read" id="search.read">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
-            label={label}
             icon={<MarkunreadIcon />}
-            selected={stateQuery.read}
+            label={label}
             options={readValues}
             readOnly={readOnlyFields.includes('read')}
+            selected={stateQuery.read}
             onChange={(newValue) => { handleFilterClick(newValue, 'read'); }}
             onRemove={() => handleRemoveField('read')}
           />
@@ -442,14 +442,14 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     verification_status: (
-      <FormattedMessage id="search.statusHeading" defaultMessage="Rating is" description="Prefix label for field to filter by status">
+      <FormattedMessage defaultMessage="Rating is" description="Prefix label for field to filter by status" id="search.statusHeading">
         { label => (
           <MultiSelectFilter
-            label={label}
             icon={<LabelIcon />}
-            selected={stateQuery.verification_status}
+            label={label}
             options={statuses.map(s => ({ label: s.label, value: s.id }))}
             readOnly={readOnlyFields.includes('verification_status')}
+            selected={stateQuery.verification_status}
             onChange={(newValue) => { handleFilterClick(newValue, 'verification_status'); }}
             onRemove={() => handleRemoveField('verification_status')}
           />
@@ -457,15 +457,15 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     users: (
-      <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
+      <FormattedMessage defaultMessage="Created by" description="Prefix label for field to filter by item creator" id="search.userHeading">
         { label => (
           <SearchFieldUser
-            teamSlug={team.slug}
-            label={label}
             icon={<PersonIcon />}
-            selected={stateQuery.users}
-            onChange={(newValue) => { handleFilterClick(newValue, 'users'); }}
+            label={label}
             readOnly={readOnlyFields.includes('users')}
+            selected={stateQuery.users}
+            teamSlug={team.slug}
+            onChange={(newValue) => { handleFilterClick(newValue, 'users'); }}
             onRemove={() => handleRemoveField('users')}
           />
         )}
@@ -473,26 +473,26 @@ const SearchFields = ({
     ),
     channels: (
       <SearchFieldChannel
-        query={stateQuery}
-        onChange={(newValue) => { handleFilterClick(newValue, 'channels'); }}
         page={page}
-        onRemove={() => handleRemoveField('channels')}
+        query={stateQuery}
         readOnly={readOnlyFields.includes('channels')}
+        onChange={(newValue) => { handleFilterClick(newValue, 'channels'); }}
+        onRemove={() => handleRemoveField('channels')}
       />
     ),
     archived: (
-      <FormattedMessage id="search.archived" defaultMessage="Request is" description="Prefix label for field to filter by Tipline request">
+      <FormattedMessage defaultMessage="Request is" description="Prefix label for field to filter by Tipline request" id="search.archived">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
-            label={label}
             icon={<ErrorIcon />}
-            selected={stateQuery.archived}
+            label={label}
             options={confirmedValues}
             readOnly={readOnlyFields.includes('archived')}
+            selected={stateQuery.archived}
+            single
             onChange={(newValue) => { handleFilterClick(newValue, 'archived'); }}
             onRemove={() => handleRemoveField('archived')}
-            single
           />
         )}
       </FormattedMessage>
@@ -500,40 +500,40 @@ const SearchFields = ({
     linked_items_count: (
       <NumericRangeFilter
         filterKey="linked_items_count"
-        onChange={handleNumericRange}
-        value={stateQuery.linked_items_count}
         readOnly={readOnlyFields.includes('linked_items_count')}
+        value={stateQuery.linked_items_count}
+        onChange={handleNumericRange}
         onRemove={() => handleRemoveField('linked_items_count')}
       />
     ),
     suggestions_count: (
       <NumericRangeFilter
         filterKey="suggestions_count"
-        onChange={handleNumericRange}
-        value={stateQuery.suggestions_count}
-        onRemove={() => handleRemoveField('suggestions_count')}
         readOnly={readOnlyFields.includes('suggestions_count')}
+        value={stateQuery.suggestions_count}
+        onChange={handleNumericRange}
+        onRemove={() => handleRemoveField('suggestions_count')}
       />
     ),
     demand: (
       <NumericRangeFilter
         filterKey="demand"
-        onChange={handleNumericRange}
         readOnly={readOnlyFields.includes('demand')}
         value={stateQuery.demand}
+        onChange={handleNumericRange}
         onRemove={() => handleRemoveField('demand')}
       />
     ),
     report_status: (
-      <FormattedMessage id="search.reportStatus" defaultMessage="Report (status) is" description="Prefix label for field to filter by report status">
+      <FormattedMessage defaultMessage="Report (status) is" description="Prefix label for field to filter by report status" id="search.reportStatus">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
-            label={label}
             icon={<ReportIcon />}
-            selected={stateQuery.report_status}
+            label={label}
             options={reportStatusOptions}
             readOnly={readOnlyFields.includes('report_status')}
+            selected={stateQuery.report_status}
             onChange={(newValue) => { handleFilterClick(newValue, 'report_status'); }}
             onRemove={() => handleRemoveField('report_status')}
           />
@@ -541,89 +541,89 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     published_by: (
-      <FormattedMessage id="search.publishedBy" defaultMessage="Publisher is" description="Prefix label for field to filter by published by">
+      <FormattedMessage defaultMessage="Publisher is" description="Prefix label for field to filter by published by" id="search.publishedBy">
         { label => (
           <SearchFieldUser
-            teamSlug={team.slug}
-            label={label}
             icon={<HowToRegIcon />}
-            selected={stateQuery.published_by}
-            onChange={(newValue) => { handleFilterClick(newValue, 'published_by'); }}
+            label={label}
             readOnly={readOnlyFields.includes('published_by')}
+            selected={stateQuery.published_by}
+            teamSlug={team.slug}
+            onChange={(newValue) => { handleFilterClick(newValue, 'published_by'); }}
             onRemove={() => handleRemoveField('published_by')}
           />
         )}
       </FormattedMessage>
     ),
     annotated_by: (
-      <FormattedMessage id="search.annotatedBy" defaultMessage="Annotater is" description="Prefix label for field to filter by annotated by">
+      <FormattedMessage defaultMessage="Annotater is" description="Prefix label for field to filter by annotated by" id="search.annotatedBy">
         { label => (
           <SearchFieldUser
-            teamSlug={team.slug}
-            label={label}
             icon={<PersonIcon />}
-            selected={stateQuery.annotated_by}
-            onChange={(newValue) => { handleFilterClick(newValue, 'annotated_by'); }}
+            label={label}
+            operator={stateQuery.annotated_by_operator}
             readOnly={readOnlyFields.includes('annotated_by')}
+            selected={stateQuery.annotated_by}
+            teamSlug={team.slug}
+            onChange={(newValue) => { handleFilterClick(newValue, 'annotated_by'); }}
             onRemove={() => handleRemoveField('annotated_by')}
             onToggleOperator={() => handleSwitchOperator('annotated_by_operator')}
-            operator={stateQuery.annotated_by_operator}
           />
         )}
       </FormattedMessage>
     ),
     language_filter: (
       <LanguageFilter
-        onChange={handleLanguageChange}
-        value={stateQuery.language_filter}
-        readOnly={readOnlyFields.includes('language_filter')}
-        onRemove={() => handleRemoveField('language_filter')}
-        teamSlug={team.slug}
         optionsToHide={page === 'feed' ? ['request_language', 'language'] : []}
+        readOnly={readOnlyFields.includes('language_filter')}
+        teamSlug={team.slug}
+        value={stateQuery.language_filter}
+        onChange={handleLanguageChange}
+        onRemove={() => handleRemoveField('language_filter')}
       />
     ),
     assigned_to: (
-      <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
+      <FormattedMessage defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users" id="search.assignedTo">
         { label => (
           <SearchFieldUser
-            teamSlug={team.slug}
-            label={label}
-            icon={<PersonIcon />}
-            selected={stateQuery.assigned_to}
-            onChange={(newValue) => { handleFilterClick(newValue, 'assigned_to'); }}
-            readOnly={readOnlyFields.includes('assigned_to')}
-            onRemove={() => handleRemoveField('assigned_to')}
             extraOptions={assignedToOptions}
+            icon={<PersonIcon />}
+            label={label}
+            readOnly={readOnlyFields.includes('assigned_to')}
+            selected={stateQuery.assigned_to}
+            teamSlug={team.slug}
+            onChange={(newValue) => { handleFilterClick(newValue, 'assigned_to'); }}
+            onRemove={() => handleRemoveField('assigned_to')}
           />
         )}
       </FormattedMessage>
     ),
     team_tasks: (
       <CustomFiltersManager
-        onFilterChange={handleCustomFilterChange}
-        team={team}
-        query={stateQuery}
         operatorToggle={<OperatorToggle />}
+        query={stateQuery}
+        team={team}
+        onFilterChange={handleCustomFilterChange}
       />
     ),
     sources: (
       <SearchFieldSource
-        teamSlug={team.slug}
-        selected={stateQuery.sources}
         readOnly={readOnlyFields.includes('sources')}
+        selected={stateQuery.sources}
+        teamSlug={team.slug}
         onChange={(newValue) => { handleFilterClick(newValue, 'sources'); }}
         onRemove={() => handleRemoveField('sources')}
       />
     ),
     cluster_teams: (
-      <FormattedMessage id="search.clusterTeams" defaultMessage="Organization is" description="Prefix label for field to filter by workspace">
+      <FormattedMessage defaultMessage="Organization is" description="Prefix label for field to filter by workspace" id="search.clusterTeams">
         { label => (
           <SearchFieldClusterTeams
-            label={label}
             icon={<CorporateFareIcon />}
-            teamSlug={team.slug}
-            selected={stateQuery.cluster_teams}
+            label={label}
             readOnly={readOnlyFields.includes('cluster_teams')}
+            selected={stateQuery.cluster_teams}
+            teamSlug={team.slug}
             onChange={(newValue) => { handleFilterClick(newValue, 'cluster_teams'); }}
             onRemove={() => handleRemoveField('cluster_teams')}
           />
@@ -631,14 +631,14 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     cluster_published_reports: (
-      <FormattedMessage id="search.publishedBy" defaultMessage="Publisher is" description="Prefix label for field to filter by published by">
+      <FormattedMessage defaultMessage="Publisher is" description="Prefix label for field to filter by published by" id="search.publishedBy">
         { label => (
           <SearchFieldClusterTeams
-            label={label}
             icon={<HowToRegIcon />}
-            teamSlug={team.slug}
-            selected={stateQuery.cluster_published_reports}
+            label={label}
             readOnly={readOnlyFields.includes('cluster_published_reports')}
+            selected={stateQuery.cluster_published_reports}
+            teamSlug={team.slug}
             onChange={(newValue) => { handleFilterClick(newValue, 'cluster_published_reports'); }}
             onRemove={() => handleRemoveField('cluster_published_reports')}
           />
@@ -648,13 +648,13 @@ const SearchFields = ({
     spam: (
       <SearchFieldDummy
         icon={<SpamIcon />}
-        label={<FormattedMessage id="search.spam" defaultMessage="Item is marked as spam" description="Label for spam filter field" />}
+        label={<FormattedMessage defaultMessage="Item is marked as spam" description="Label for spam filter field" id="search.spam" />}
       />
     ),
     trash: (
       <SearchFieldDummy
         icon={<DeleteIcon />}
-        label={<FormattedMessage id="search.trash" defaultMessage="Item is in the Trash" description="Label for spam filter field" />}
+        label={<FormattedMessage defaultMessage="Item is in the Trash" description="Label for spam filter field" id="search.trash" />}
       />
     ),
   };
@@ -710,9 +710,9 @@ const SearchFields = ({
     <div className={styles['filters-wrapper']}>
       <ListSort
         className={styles['filters-sorting']}
+        options={page === 'feed' ? feedSortOptions : listSortOptions}
         sort={stateQuery.sort}
         sortType={stateQuery.sort_type}
-        options={page === 'feed' ? feedSortOptions : listSortOptions}
         onChange={({ sort, sortType }) => { onChangeSort({ key: sort, ascending: (sortType === 'ASC') }); }}
       />
       { fieldKeys.map((key, index) => {
@@ -732,9 +732,9 @@ const SearchFields = ({
         );
       })}
       <AddFilterMenu
-        team={team}
-        hideOptions={hideFields}
         addedFields={addedFields}
+        hideOptions={hideFields}
+        team={team}
         onSelect={handleAddField}
       />
       <div
@@ -747,41 +747,41 @@ const SearchFields = ({
       >
         { canReset && (
           <ButtonMain
-            className="int-search-fields__button--reset-filter"
-            variant="contained"
-            size="default"
-            theme="lightText"
-            onClick={handleClickClear}
-            label={
-              <FormattedMessage id="search.resetFilter" defaultMessage="Reset" description="Button label to reset search filters." />
-            }
             buttonProps={{
               id: 'search-fields__clear-button',
             }}
+            className="int-search-fields__button--reset-filter"
+            label={
+              <FormattedMessage defaultMessage="Reset" description="Button label to reset search filters." id="search.resetFilter" />
+            }
+            size="default"
+            theme="lightText"
+            variant="contained"
+            onClick={handleClickClear}
           />
         )}
         { canApply && (
           <ButtonMain
-            className="int-search-fields__button--apply-filter"
-            variant="contained"
-            size="default"
-            theme="lightValidation"
-            onClick={handleSubmit}
-            label={
-              <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
-            }
             buttonProps={{
               id: 'search-fields__submit-button',
             }}
+            className="int-search-fields__button--apply-filter"
+            label={
+              <FormattedMessage defaultMessage="Apply" description="Button label to apply search filters." id="search.applyFilter" />
+            }
+            size="default"
+            theme="lightValidation"
+            variant="contained"
+            onClick={handleSubmit}
           />
         )}
         { canSave && (
           <SaveList
-            team={team}
-            query={stateQuery}
-            savedSearch={savedSearch}
             feedTeam={feedTeam}
             page={page}
+            query={stateQuery}
+            savedSearch={savedSearch}
+            team={team}
           />
         )}
       </div>

@@ -13,7 +13,7 @@
     .feedTopBarItem {
       align-items: center;
       border: 2px solid var(--color-blue-54);
-      border-radius: 6px;
+      border-radius: var(--border-radius-default);
       display: inline-flex;
       gap: 12px;
       padding: 6px;
@@ -69,7 +69,7 @@
 
       .feedListIcon {
         background-color: var(--color-gray-96);
-        border-radius: 8px;
+        border-radius: var(--border-radius-default);
         color: var(--color-gray-37);
         /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
         font-size: 16px;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import SuggestedMatches from './SuggestedMatches';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<SuggestedMatches />', () => {
   const team = 'new-team';

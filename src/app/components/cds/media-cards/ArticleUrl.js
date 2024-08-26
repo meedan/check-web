@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -11,11 +12,11 @@ const icons = {
 };
 
 const ArticleUrl = ({
+  linkText,
+  showIcon,
+  title,
   url,
   variant,
-  title,
-  showIcon,
-  linkText,
 }) => {
   if (!url) return null;
 
@@ -26,7 +27,7 @@ const ArticleUrl = ({
   return (
     <span className={cx('article-url', styles.articleLink)} onClick={swallowClick} onKeyDown={swallowClick}>
       { showIcon && icons[variant] }
-      <a href={url} target="_blank" rel="noreferrer noopener" title={title || url}>{linkText || url}</a>
+      <a href={url} rel="noreferrer noopener" target="_blank" title={title || url}>{linkText || url}</a>
     </span>
   );
 };

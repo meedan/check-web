@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import FeedDataPointsSection from './FeedDataPointsSection';
+import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 const props = {
   title: <h1>Published fact-checks</h1>,

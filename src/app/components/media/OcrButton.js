@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -7,11 +8,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const OcrButton = ({
+  hasExtractedText,
+  onClick,
   projectMediaId,
   projectMediaType,
-  hasExtractedText,
   setFlashMessage,
-  onClick,
 }) => {
   const [pending, setPending] = React.useState(false);
 
@@ -19,9 +20,9 @@ const OcrButton = ({
     setPending(false);
     setFlashMessage((
       <FormattedMessage
-        id="ocrButton.defaultErrorMessage"
         defaultMessage="Could not extract text from image"
         description="Warning displayed if an error occurred when extracting text from image"
+        id="ocrButton.defaultErrorMessage"
       />
     ), 'error');
   };
@@ -30,9 +31,9 @@ const OcrButton = ({
     setPending(false);
     setFlashMessage((
       <FormattedMessage
-        id="ocrButton.textExtractedSuccessfully"
         defaultMessage="Text extraction completed"
         description="Banner displayed when text extraction operation for an image is done"
+        id="ocrButton.textExtractedSuccessfully"
       />
     ), 'success');
   };
@@ -77,20 +78,20 @@ const OcrButton = ({
 
   return (
     <MenuItem
+      disabled={pending}
       id="ocr-button__extract-text"
       onClick={handleClick}
-      disabled={pending}
     >
       { pending ?
         <FormattedMessage
-          id="ocrButton.inProgress"
           defaultMessage="Text extraction in progress…"
           description="Message displayed while text is being extracted from an image"
+          id="ocrButton.inProgress"
         /> :
         <FormattedMessage
-          id="ocrButton.label"
           defaultMessage="Extract text"
           description="Button label - when this button is clicked, text is extracted from image"
+          id="ocrButton.label"
         /> }
     </MenuItem>
   );

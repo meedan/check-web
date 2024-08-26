@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -13,14 +14,14 @@ const SearchResultsCards = ({ projectMedias, team }) => (
       return (
         <div className="fact-check-card-wrapper" key={values.fact_check_title}>
           <ArticleCard
-            title={values.fact_check_title || projectMedia.title}
-            summary={values.fact_check_summary}
             date={values.updated_at_timestamp}
-            statusLabel={status.label || values.status}
             statusColor={status.style?.color}
-            url={values.fact_check_url}
+            statusLabel={status.label || values.status}
+            summary={values.fact_check_summary}
             teamAvatar={values.team_avatar}
             teamName={values?.team_name}
+            title={values.fact_check_title || projectMedia.title}
+            url={values.fact_check_url}
             variant="fact-check"
           />
         </div>

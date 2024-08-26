@@ -9,8 +9,8 @@ import { ClientSessionIdContext } from './ClientSessionId';
 function createPusher({
   clientSessionId,
   cluster,
-  pusherKey,
   debug,
+  pusherKey,
 }) {
   // Pusher is imported at runtime from a <script file> tag.
   // eslint-disable-next-line no-console
@@ -54,7 +54,7 @@ function createPusher({
       if (checkPusher.currentChannels[channel] &&
         checkPusher.currentChannels[channel][eventName]) {
         Object.keys(checkPusher.currentChannels[channel][eventName]).forEach((component) => {
-          const { id, callback } =
+          const { callback, id } =
             checkPusher.currentChannels[channel][eventName][component](data, false);
           if (id && callback) {
             if (run) {
@@ -215,7 +215,7 @@ function withPusher(Component) {
     // TODO streamline design, so components don't need to check
     // clientSessionId.
     const clientSessionId = React.useContext(ClientSessionIdContext);
-    return <Component ref={ref} pusher={pusher} clientSessionId={clientSessionId} {...props} />;
+    return <Component clientSessionId={clientSessionId} pusher={pusher} ref={ref} {...props} />;
   });
   inner.displayName = `WithPusher(${Component.displayName || Component.name || 'Component'})`;
   return inner;

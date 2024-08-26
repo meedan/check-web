@@ -1,31 +1,32 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
 import cx from 'classnames/bind';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import NewsletterHeader from './NewsletterHeader';
 import NewsletterStatic from './NewsletterStatic';
 import NewsletterRssFeed from './NewsletterRssFeed';
 import NewsletterScheduler from './NewsletterScheduler';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
-import settingsStyles from '../Settings.module.css';
-import styles from './NewsletterComponent.module.css';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import SettingsHeader from '../SettingsHeader';
 import { getTimeZoneOptions } from '../../../helpers';
 import { can } from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
+import settingsStyles from '../Settings.module.css';
+import styles from './NewsletterComponent.module.css';
 
 const NewsletterComponent = ({
   environment,
-  team,
   language,
   languages,
   onChangeLanguage,
   setFlashMessage,
+  team,
 }) => {
   const newsletters = team.tipline_newsletters?.edges;
   const newsletter = newsletters.find(item => item.node.language === language)?.node || {};
@@ -38,27 +39,27 @@ const NewsletterComponent = ({
   };
 
   const {
-    id,
-    number_of_articles,
-    introduction,
-    header_type,
-    header_overlay_text,
-    header_file_url,
     content_type,
-    first_article,
-    second_article,
-    third_article,
-    rss_feed_url,
-    send_every,
-    send_on,
-    timezone: send_timezone,
-    time: send_time,
     enabled,
-    subscribers_count,
-    last_sent_at,
+    first_article,
+    header_file_url,
+    header_overlay_text,
+    header_type,
+    id,
+    introduction,
+    last_delivery_error,
     last_scheduled_at,
     last_scheduled_by,
-    last_delivery_error,
+    last_sent_at,
+    number_of_articles,
+    rss_feed_url,
+    second_article,
+    send_every,
+    send_on,
+    subscribers_count,
+    third_article,
+    time: send_time,
+    timezone: send_timezone,
   } = newsletter;
 
   const [saving, setSaving] = React.useState(false);
@@ -131,9 +132,9 @@ const NewsletterComponent = ({
       if (scheduledDateTime.getTime() < currentDateTime.getTime()) {
         setDatetimeIsPast(true);
         errorsCopy.datetime_past = (<FormattedMessage
-          id="newsletterComponent.errorDatetimePast"
           defaultMessage="Scheduled newsletter date cannot be in the past."
           description="Error message displayed when a user tries to schedule sending a newsletter on a past date."
+          id="newsletterComponent.errorDatetimePast"
         />);
       } else {
         setDatetimeIsPast(false);
@@ -171,63 +172,63 @@ const NewsletterComponent = ({
       if (data.timezone && data.timezone[0] === 'can\'t be blank') {
         data.timezone = (
           <FormattedMessage
-            id="newsletterComponent.errorTimezone"
             defaultMessage="Time zone cannot be blank."
             description="Error message displayed when a user submits a form with a blank time zone field."
+            id="newsletterComponent.errorTimezone"
           />
         );
       }
       if (data.introduction && data.introduction[0] === 'can\'t be blank') {
         data.introduction = (
           <FormattedMessage
-            id="newsletterComponent.errorIntroduction"
             defaultMessage="Introduction cannot be blank."
             description="Error message displayed when a user submits a form with a blank introduction field."
+            id="newsletterComponent.errorIntroduction"
           />
         );
       }
       if (data.introduction && /is too long/.test(data.introduction[0])) {
         data.introduction = (
           <FormattedMessage
-            id="newsletterComponent.errorIntroductionTooLong"
             defaultMessage="Introduction is too long"
             description="Error message displayed when a user submits a form with an introduction field that is too long."
+            id="newsletterComponent.errorIntroductionTooLong"
           />
         );
       }
       if (data.rss_feed_url && data.rss_feed_url[0] === 'is invalid') {
         data.rss_feed_url = (
           <FormattedMessage
-            id="newsletterComponent.errorRssFeedUrl"
             defaultMessage="RSS feed URL is invalid."
             description="Error message displayed when a user submits a form with a URL that the server does not recognize."
+            id="newsletterComponent.errorRssFeedUrl"
           />
         );
       }
       if (data.send_on && data.send_on[0] === 'can\'t be blank') {
         data.send_on = (
           <FormattedMessage
-            id="newsletterComponent.errorSendOn"
             defaultMessage="Scheduled date cannot be blank."
             description="Error message displayed when a user submits a form with a blank scheduled date field."
+            id="newsletterComponent.errorSendOn"
           />
         );
       }
       if (data.header_type && data.header_type[0] === 'is not included in the list') {
         data.header_type = (
           <FormattedMessage
-            id="newsletterComponent.errorHeaderType"
             defaultMessage="Header type must be supplied from the list."
             description="Error message displayed when a user submits a form with a blank header type field (this is chosen from a list)."
+            id="newsletterComponent.errorHeaderType"
           />
         );
       }
       if (data.header_file && data.header_file[0].includes('cannot be of type')) {
         data.header_file = (
           <FormattedMessage
-            id="newsletterComponent.errorHeaderFile"
             defaultMessage="File must be of the following allowed types: {fileTypes}"
             description="Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
+            id="newsletterComponent.errorHeaderFile"
             values={{
               fileTypes: data.header_file[0].split(':')[1],
             }}
@@ -244,9 +245,9 @@ const NewsletterComponent = ({
     } else {
       setFlashMessage((
         <FormattedMessage
-          id="newsletterComponent.error"
           defaultMessage="Could not save newsletter, please try again."
           description="Error message displayed when it's not possible to save a newsletter."
+          id="newsletterComponent.error"
         />
       ), 'error');
     }
@@ -257,9 +258,9 @@ const NewsletterComponent = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="newsletterComponent.success"
         defaultMessage="Newsletter saved successfully."
         description="Success message displayed when a newsletter is saved."
+        id="newsletterComponent.success"
       />
     ), 'success');
   };
@@ -312,9 +313,9 @@ const NewsletterComponent = ({
     let isValidated = true;
     const errorArr = [];
     const blankArticleError = (<FormattedMessage
-      id="newsletterComponent.articleBlank"
       defaultMessage="Article field cannot be blank"
       description="Message displayed on the article text field when it is empty and a user tries to save"
+      id="newsletterComponent.articleBlank"
     />);
     if (numberOfArticles >= 1 && articles[0].length === 0) {
       isValidated = false;
@@ -426,64 +427,64 @@ const NewsletterComponent = ({
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="newsletterComponent.title"
-            defaultMessage="Newsletter"
-            description="Title for newsletter settings page."
+        actionButton={
+          <ButtonMain
+            className="save-button"
+            disabled={scheduled || saving || disableSaveNoFile || !can(team.permissions, 'create TiplineNewsletter')}
+            label={
+              <FormattedMessage defaultMessage="Save" description="Label for a button to save settings for the newsletter" id="newsletterComponent.save" />
+            }
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={handleSave}
           />
         }
         context={
           <FormattedHTMLMessage
-            id="newsletterComponent.helpContext"
             defaultMessage='Manage, draft, and schedule newsletters sent to all subscribers. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about newsletters</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8722205-newsletter' }}
             description="Context description for the functionality of this page"
+            id="newsletterComponent.helpContext"
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8722205-newsletter' }}
           />
         }
         extra={
           languages.length > 1 ?
             <LanguagePickerSelect
+              isDisabled={saving}
+              languages={languages}
               selectedLanguage={language}
               onSubmit={handleLanguageChange}
-              languages={languages}
-              isDisabled={saving}
             /> : null
         }
-        actionButton={
-          <ButtonMain
-            className="save-button"
-            variant="contained"
-            theme="brand"
-            size="default"
-            onClick={handleSave}
-            disabled={scheduled || saving || disableSaveNoFile || !can(team.permissions, 'create TiplineNewsletter')}
-            label={
-              <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
-            }
+        helpUrl="https://help.checkmedia.org/en/articles/8722205-newsletter"
+        title={
+          <FormattedMessage
+            defaultMessage="Newsletter"
+            description="Title for newsletter settings page."
+            id="newsletterComponent.title"
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/8722205-newsletter"
       />
       <div className={cx('newsletter-component', settingsStyles['setting-details-wrapper'])}>
         <div className={cx(settingsStyles['setting-content-container'])}>
           <div className={cx(styles.settings, settingsStyles['setting-content-container-inner'])}>
             <div className={settingsStyles['setting-content-container-title']}>
-              <FormattedMessage id="newsletterComponent.content" defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" />
+              <FormattedMessage defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" id="newsletterComponent.content" />
             </div>
             <NewsletterHeader
+              availableHeaderTypes={team.available_newsletter_header_types ? team.available_newsletter_header_types.filter(type => type !== 'link_preview') : []}
               className="newsletter-component-header"
-              key={`newsletter-header-${language}`}
               disabled={scheduled}
-              parentErrors={errors}
               file={file}
+              fileName={fileName}
               handleFileChange={handleFileChange}
+              headerType={headerType}
+              key={`newsletter-header-${language}`}
+              overlayText={overlayText}
+              parentErrors={errors}
               setFile={setFile}
               setFileName={setFileName}
-              availableHeaderTypes={team.available_newsletter_header_types ? team.available_newsletter_header_types.filter(type => type !== 'link_preview') : []}
-              headerType={headerType}
-              fileName={fileName}
-              overlayText={overlayText}
               onUpdateField={(fieldName, value) => {
                 if (fieldName === 'headerType') {
                   setHeaderType(value);
@@ -493,42 +494,42 @@ const NewsletterComponent = ({
               }}
             />
             <FormattedMessage
-              id="newsletterComponent.placeholder"
               defaultMessage="Example: Hello! Welcome to our newsletter. Here are the most popular fact-checks you should read now:"
               description="Placeholder text for newsletter field"
+              id="newsletterComponent.placeholder"
             >
               { placeholder => (
                 <LimitedTextArea
-                  maxChars={introductionTextMaxChars}
                   disabled={scheduled}
-                  onErrorTooLong={(error) => {
-                    setTextfieldOverLength(error);
-                  }}
-                  value={introductionText}
-                  setValue={setIntroductionText}
-                  placeholder={placeholder}
                   error={errors.introduction}
                   helpContent={errors.introduction}
                   label={<FormattedMessage
-                    id="newsletterComponent.introduction"
                     defaultMessage="Introduction"
                     description="Label for a field where the user inputs text for an introduction to a newsletter"
+                    id="newsletterComponent.introduction"
                   />}
+                  maxChars={introductionTextMaxChars}
+                  placeholder={placeholder}
+                  setValue={setIntroductionText}
+                  value={introductionText}
+                  onErrorTooLong={(error) => {
+                    setTextfieldOverLength(error);
+                  }}
                 />
               )}
             </FormattedMessage>
             <div className={cx(settingsStyles['setting-content-container-inner-accent'], styles['newsletter-body'])}>
               <div className={styles.switcher}>
                 <SwitchComponent
-                  key={`newsletter-rss-feed-enabled-${language}`}
-                  label={<FormattedMessage
-                    id="newsletterComponent.rss"
-                    defaultMessage="RSS"
-                    description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
-                  />}
-                  helperContent={<FormattedMessage id="newsletterComponent.rssFeed" defaultMessage="Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS." description="Message on tipline newsletter settings page that explains how RSS feeds work there." />}
                   checked={contentType === 'rss'}
                   disabled={scheduled}
+                  helperContent={<FormattedMessage defaultMessage="Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS." description="Message on tipline newsletter settings page that explains how RSS feeds work there." id="newsletterComponent.rssFeed" />}
+                  key={`newsletter-rss-feed-enabled-${language}`}
+                  label={<FormattedMessage
+                    defaultMessage="RSS"
+                    description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
+                    id="newsletterComponent.rss"
+                  />}
                   onChange={(checked) => {
                     if (checked) {
                       setContentType('rss');
@@ -541,39 +542,39 @@ const NewsletterComponent = ({
               { contentType === 'rss' ?
                 <NewsletterRssFeed
                   disabled={scheduled}
-                  parentErrors={errors}
                   helpContent={errors.rss_feed_url}
                   numberOfArticles={numberOfArticles}
-                  onUpdateNumberOfArticles={setArticleNum}
+                  parentErrors={errors}
                   rssFeedUrl={rssFeedUrl}
+                  onUpdateNumberOfArticles={setArticleNum}
                   onUpdateUrl={setRssFeedUrl}
                 /> : null }
               { contentType === 'static' ?
                 <NewsletterStatic
-                  disabled={scheduled}
                   articleErrors={articleErrors}
-                  numberOfArticles={numberOfArticles}
-                  onUpdateNumberOfArticles={setArticleNum}
                   articles={articles}
+                  disabled={scheduled}
+                  numberOfArticles={numberOfArticles}
                   setTextfieldOverLength={setTextfieldOverLength}
                   onUpdateArticles={setArticles}
+                  onUpdateNumberOfArticles={setArticleNum}
                 /> : null }
             </div>
             <div className={styles['newsletter-scheduler-container']}>
               <NewsletterScheduler
-                type={contentType}
-                sendEvery={sendEvery}
-                sendOn={sendOn}
-                timezone={timezone}
-                time={time}
-                parentErrors={errors}
-                scheduled={scheduled}
                 disabled={saving || (!scheduled && (disableSaveNoFile || datetimeIsPast || textfieldOverLength))}
-                subscribersCount={subscribers_count}
-                lastSentAt={last_sent_at}
+                lastDeliveryError={last_delivery_error}
                 lastScheduledAt={last_scheduled_at}
                 lastScheduledBy={last_scheduled_by?.name}
-                lastDeliveryError={last_delivery_error}
+                lastSentAt={last_sent_at}
+                parentErrors={errors}
+                scheduled={scheduled}
+                sendEvery={sendEvery}
+                sendOn={sendOn}
+                subscribersCount={subscribers_count}
+                time={time}
+                timezone={timezone}
+                type={contentType}
                 onUpdate={handleUpdateSchedule}
               />
             </div>

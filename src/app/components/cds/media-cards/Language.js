@@ -1,21 +1,22 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import LanguageIcon from '../../../icons/language.svg';
 import { languageLabel } from '../../../LanguageRegistry';
 
-const Language = ({ languageCode, variant, theme }) => (
+const Language = ({ languageCode, theme, variant }) => (
   <span>
     <ButtonMain
-      disabled
-      size="small"
-      theme={theme}
-      iconLeft={<LanguageIcon />}
-      variant={variant}
-      label={languageLabel(languageCode)}
       buttonProps={{
         type: null,
       }}
+      disabled
+      iconLeft={<LanguageIcon />}
+      label={languageLabel(languageCode)}
+      size="small"
+      theme={theme}
+      variant={variant}
     />
   </span>
 );

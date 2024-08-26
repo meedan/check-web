@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
@@ -13,9 +14,9 @@ import styles from './RatingSelector.module.css';
 
 const RatingSelector = ({
   disabled,
+  onStatusChange,
   status,
   statuses,
-  onStatusChange,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const currentStatus = getStatus(statuses, status || statuses.default);
@@ -37,28 +38,28 @@ const RatingSelector = ({
         className={styles['rating-button']}
         customStyle={{ borderColor: currentStatus?.style?.color }}
         disabled={disabled}
-        variant="outlined"
-        theme="text"
-        size="default"
-        onClick={e => setAnchorEl(e.currentTarget)}
         iconLeft={currentStatus.should_send_message ? <ChatBubbleFilledIcon style={{ color: currentStatus?.style?.color }} /> : <EllipseIcon style={{ color: currentStatus?.style?.color }} />}
         iconRight={!disabled ? <ChevronDownIcon /> : <LockIcon style={{ color: currentStatus?.style?.color }} />}
         label={currentStatus.label}
+        size="default"
+        theme="text"
+        variant="outlined"
+        onClick={e => setAnchorEl(e.currentTarget)}
       />
       <Popover
         anchorEl={anchorEl}
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         open={Boolean(anchorEl)}
         onClose={handleCloseMenu}
-        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
       >
         {statuses.statuses.map(statusItem => (
           <MenuItem
-            key={statusItem.id}
             className={`${bemClass(
               'media-status__menu-item',
               currentStatus === statusItem.id,
               '--current',
             )} media-status__menu-item--${statusItem.id.replace('_', '-')}`}
+            key={statusItem.id}
             onClick={() => handleStatusClick(statusItem.id)}
           >
             <span className={styles['status-label']}>

@@ -1,15 +1,16 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import MultiSelectFilter from './MultiSelectFilter';
+import RemoveableWrapper from './RemoveableWrapper';
 import Select from '../cds/inputs/Select';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import MediasLoading from '../media/MediasLoading';
-import MultiSelectFilter from './MultiSelectFilter';
 import { languageLabel } from '../../LanguageRegistry';
 import LanguageIcon from '../../icons/language.svg';
-import RemoveableWrapper from './RemoveableWrapper';
 import styles from './search.module.css';
 
 const messages = defineMessages({
@@ -32,12 +33,12 @@ const messages = defineMessages({
 
 const LanguageFilter = ({
   hide,
-  value,
-  optionsToHide,
+  intl,
   onChange,
   onRemove,
+  optionsToHide,
   teamSlug,
-  intl,
+  value,
 }) => {
   const getValueType = () => {
     if (value && value.language) return 'language';
@@ -73,10 +74,6 @@ const LanguageFilter = ({
           }
         }
       `}
-      variables={{
-        teamSlug,
-        random,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           const languages = props.team.get_languages ? JSON.parse(props.team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
@@ -86,24 +83,24 @@ const LanguageFilter = ({
                 <RemoveableWrapper icon={<LanguageIcon />} onRemove={onRemove} />
                 <Select
                   className={styles['filter-select']}
-                  onChange={handleChangeType}
                   value={getValueType()}
+                  onChange={handleChangeType}
                 >
                   { ['language', 'report_language', 'request_language'].filter(option => !optionsToHide.includes(option)).map(option => (
                     <option value={option}>{ intl.formatMessage(messages[option]) }</option>
                   ))}
                 </Select>
                 <ButtonMain
-                  disabled
-                  theme="text"
-                  size="small"
-                  variant="text"
                   customStyle={{ color: 'var(--color-gray-15' }}
-                  label={<FormattedMessage id="languageFilter.is" defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" />}
+                  disabled
+                  label={<FormattedMessage defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" id="languageFilter.is" />}
+                  size="small"
+                  theme="text"
+                  variant="text"
                 />
                 <MultiSelectFilter
-                  selected={userLanguages}
                   options={languages}
+                  selected={userLanguages}
                   onChange={(newValue) => { handleChangeLanguage(newValue); }}
                 />
               </div>
@@ -112,7 +109,11 @@ const LanguageFilter = ({
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading theme="grey" variant="icon" size="icon" />;
+        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+      }}
+      variables={{
+        teamSlug,
+        random,
       }}
     />
   );

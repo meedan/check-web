@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
@@ -6,14 +7,14 @@ import ProjectsListCounter from './ProjectsListCounter';
 import styles from './Projects.module.css';
 
 const ProjectsListItem = ({
-  onClick,
-  isActive,
   className,
-  teamSlug,
-  project,
   icon,
+  isActive,
+  onClick,
+  project,
   routePrefix,
   routeSuffix,
+  teamSlug,
   tooltip,
 }) => {
   const handleClick = () => {
@@ -24,13 +25,11 @@ const ProjectsListItem = ({
 
   const Item = listItemProps => (
     <Link
-      onClick={handleClick}
       className={styles.linkList}
       to={`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`}
+      onClick={handleClick}
     >
       <li
-        title={tooltip}
-        key={`${project.id}-${project.title}`}
         className={cx(
           'project-list__link',
           styles.listItem,
@@ -40,6 +39,8 @@ const ProjectsListItem = ({
             [styles.listItem_active]: isActive,
           })
         }
+        key={`${project.id}-${project.title}`}
+        title={tooltip}
         {...listItemProps}
       >
         {icon}

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -41,9 +42,9 @@ class CreateTeamTask extends React.Component {
     const onFailure = (transaction) => {
       const fallbackMessage = (
         <FormattedMessage
-          id="createTeamTask.errorMetadata"
           defaultMessage="Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists."
           description="Error message displayed when creating an annotation field fails"
+          id="createTeamTask.errorMetadata"
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
       );
@@ -66,17 +67,17 @@ class CreateTeamTask extends React.Component {
       <React.Fragment>
         <ButtonMain
           className="create-task__add-button"
-          onClick={this.handleOpen}
-          variant="contained"
-          theme="brand"
-          size="default"
           label={
             <FormattedMessage
-              id="createTeamTask.addField"
               defaultMessage="New annotation field"
               description="Button that triggers creation of a new field"
+              id="createTeamTask.addField"
             />
           }
+          size="default"
+          theme="info"
+          variant="contained"
+          onClick={this.handleOpen}
         />
         { this.state.dialogOpen ?
           <EditTaskDialog

@@ -36,9 +36,9 @@ const DatePicker = ({
     )}
     <div className={cx(inputStyles['input-container'], styles['datepicker-container'])}>
       <input
-        type="date"
         className={`${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error}`}
         disabled={disabled}
+        type="date"
         {...inputProps}
       />
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/bQWUXJItRRX8xO3uQ9FWdg/Multimedia-Newsletter-%2B-Report?type=design&node-id=656-50446&mode=design&t=PjtorENpol0lp5QG-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -6,14 +7,14 @@ import TextArea from '../../cds/inputs/TextArea';
 import styles from '../../../styles/css/inputs.module.css';
 
 const LimitedTextArea = ({
+  helpContent,
   maxChars,
-  value,
+  onBlur,
+  onChange,
+  onErrorTooLong,
   required,
   setValue,
-  onChange,
-  onBlur,
-  helpContent,
-  onErrorTooLong,
+  value,
   ...textFieldProps
 }) => {
   const [localError, setLocalError] = React.useState(false);
@@ -49,24 +50,24 @@ const LimitedTextArea = ({
 
   return (
     <TextArea
-      required={required}
-      ref={inputRef}
-      value={localText}
       helpContent={(
         <>
           {helpContent}
           <div className={styles['help-counter']}>
             <FormattedMessage
-              id="limitedTextAreaWithCounter.counter"
               defaultMessage="{remaining, plural, one {# character left} other {# characters left}}"
               description="Label that displays how many characters more can be typed"
+              id="limitedTextAreaWithCounter.counter"
               values={{ remaining: maxChars - (localText?.length || 0) }}
             />
           </div>
         </>
       )}
-      onChange={handleChange}
+      ref={inputRef}
+      required={required}
+      value={localText}
       onBlur={handleBlur}
+      onChange={handleChange}
       {...textFieldProps}
       error={localError || textFieldProps.error}
     />

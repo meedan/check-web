@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -19,14 +20,14 @@ const messages = defineMessages({
 });
 
 const LanguagePickerSelect = ({
+  helpContent,
   intl,
-  selectedLanguage,
-  onSubmit,
-  languages,
   isDisabled,
   label,
-  helpContent,
+  languages,
+  onSubmit,
   required,
+  selectedLanguage,
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
   const options = (languages || []).slice();
@@ -56,27 +57,25 @@ const LanguagePickerSelect = ({
   return (
     <div id="language-change" style={{ minWidth: '230px' }}>
       <Autocomplete
-        disabled={isDisabled}
         disableClearable
+        disabled={isDisabled}
+        getOptionDisabled={option => option === 'und'}
+        getOptionLabel={getOptionLabel}
+        getOptionSelected={(option, val) => val !== null && option.id === val.id}
         id="autocomplete-add-language"
         name="autocomplete-add-language"
-        options={options}
         openOnFocus
-        getOptionLabel={getOptionLabel}
-        getOptionDisabled={option => option === 'und'}
-        getOptionSelected={(option, val) => val !== null && option.id === val.id}
-        value={value}
-        onChange={handleChange}
+        options={options}
         renderInput={params => (
           <div ref={params.InputProps.ref}>
-            <FormattedMessage id="LanguagePickerSelect.selectLanguage" defaultMessage="Select language" description="Change language label" >
+            <FormattedMessage defaultMessage="Select language" description="Change language label" id="LanguagePickerSelect.selectLanguage" >
               { placeholder => (
                 <TextField
+                  helpContent={helpContent}
                   iconLeft={<LanguageIcon />}
                   iconRight={<ChevronDownIcon />}
                   label={label}
                   placeholder={placeholder}
-                  helpContent={helpContent}
                   required={required}
                   {...params.inputProps}
                 />
@@ -84,6 +83,8 @@ const LanguagePickerSelect = ({
             </FormattedMessage>
           </div>
         )}
+        value={value}
+        onChange={handleChange}
       />
     </div>
   );

@@ -17,9 +17,9 @@ class UserConnectedAccount extends Component {
   static renderLabel(userAction) {
     switch (userAction) {
     case 'connect':
-      return <FormattedMessage id="UserConnectedAccount.connectButton" defaultMessage="Connect" description="Button label for connecting an account" />;
+      return <FormattedMessage defaultMessage="Connect" description="Button label for connecting an account" id="UserConnectedAccount.connectButton" />;
     case 'disconnect':
-      return <FormattedMessage id="UserConnectedAccount.disconnectButton" defaultMessage="Disconnect" description="Button label for disconnecting an account" />;
+      return <FormattedMessage defaultMessage="Disconnect" description="Button label for disconnecting an account" id="UserConnectedAccount.disconnectButton" />;
     default:
       return null;
     }
@@ -71,15 +71,15 @@ class UserConnectedAccount extends Component {
 
     const confirmDialog = {
       title: <FormattedMessage
-        id="UserConnectedAccount.disconnectAccountTitle"
         defaultMessage="Disconnect account"
         description="Dialog title for disconnecting an account"
+        id="UserConnectedAccount.disconnectAccountTitle"
       />,
       blurb: <FormattedMessage
-        id="UserConnectedAccount.disconnectAccountConfirmationText"
-        tagName="p"
         defaultMessage="Are you sure? This will disconnect login account."
         description="Confirmation to ensure the user knows they are disconnecting an account"
+        id="UserConnectedAccount.disconnectAccountConfirmationText"
+        tagName="p"
       />,
     };
 
@@ -94,25 +94,25 @@ class UserConnectedAccount extends Component {
           return (
             <ListItem className="user-connect__list-item" key={`account-connect-disconnect-raw-${index.toString()}`}>
               <ListItemIcon className="user-connect__list-icon">
-                <SocialIcon inColor domain={this.props.provider.key} />
+                <SocialIcon domain={this.props.provider.key} inColor />
               </ListItemIcon>
               <ListItemText primary={socialAccount.info} />
               <ListItemSecondaryAction>
                 <ButtonMain
-                  size="default"
-                  variant="contained"
-                  theme="brand"
-                  onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
                   className="team-connect-account-button--disconnect"
                   disabled={disableDisconnect}
                   label={UserConnectedAccount.renderLabel(userAction)}
+                  size="default"
+                  theme="info"
+                  variant="contained"
+                  onClick={userAction === 'connect' ? this.handleUserClick.bind(this, userAction) : this.handleOpenDialog.bind(this)}
                 />
                 <ConfirmDialog
-                  open={this.state.dialogOpen}
-                  title={confirmDialog.title}
                   blurb={confirmDialog.blurb}
                   handleClose={this.handleCloseDialog.bind(this)}
                   handleConfirm={this.handleUserClick.bind(this, userAction, socialAccount.uid)}
+                  open={this.state.dialogOpen}
+                  title={confirmDialog.title}
                 />
               </ListItemSecondaryAction>
             </ListItem>
@@ -120,15 +120,15 @@ class UserConnectedAccount extends Component {
         })}
         { provider.add_another === true ?
           <ButtonMain
-            size="default"
-            variant="contained"
-            theme="text"
-            iconLeft={<AddIcon />}
-            onClick={this.handleUserClick.bind(this, 'connect')}
             className="team-connect-account-button--disconnect"
+            iconLeft={<AddIcon />}
             label={
-              <FormattedMessage id="UserConnectedAccount.addAnother" defaultMessage="Add another account" description="Button label for the user to connect another account" />
+              <FormattedMessage defaultMessage="Add another account" description="Button label for the user to connect another account" id="UserConnectedAccount.addAnother" />
             }
+            size="default"
+            theme="text"
+            variant="contained"
+            onClick={this.handleUserClick.bind(this, 'connect')}
           />
           : null
         }

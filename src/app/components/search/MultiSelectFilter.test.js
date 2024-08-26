@@ -1,7 +1,7 @@
 import React from 'react';
+import MultiSelectFilter from './MultiSelectFilter';
 import CloseIcon from '../../icons/clear.svg';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
-import MultiSelectFilter from './MultiSelectFilter';
 
 describe('<MultiSelectFilter />', () => {
   const options = [
@@ -12,12 +12,12 @@ describe('<MultiSelectFilter />', () => {
 
   it('should render a label and selected option', () => {
     const wrapper = mountWithIntl(<MultiSelectFilter
-      selected={['second']}
+      icon={<CloseIcon />}
       label="bar"
       options={options}
+      selected={['second']}
       onChange={() => {}}
       onRemove={() => {}}
-      icon={<CloseIcon />}
     />);
 
     expect(wrapper.text().includes('bar')).toBe(true);
@@ -26,12 +26,12 @@ describe('<MultiSelectFilter />', () => {
 
   it('should render a special "Property deleted" tag if an unavailable option is selected', () => {
     const wrapper = mountWithIntl(<MultiSelectFilter
-      selected={['foo']}
+      icon={<CloseIcon />}
       label="bar"
       options={options}
+      selected={['foo']}
       onChange={() => {}}
       onRemove={() => {}}
-      icon={<CloseIcon />}
     />);
 
     expect(wrapper.find('Tag').text()).toBe('Property deleted');
@@ -39,13 +39,13 @@ describe('<MultiSelectFilter />', () => {
 
   it('should render only the label and no tags if oneOption is true', () => {
     const wrapper = mountWithIntl(<MultiSelectFilter
-      selected={['foo']}
+      icon={<CloseIcon />}
       label="bar"
+      oneOption
       options={options}
+      selected={['foo']}
       onChange={() => {}}
       onRemove={() => {}}
-      icon={<CloseIcon />}
-      oneOption
     />);
 
     expect(wrapper.find('Tag').length).toBe(0);

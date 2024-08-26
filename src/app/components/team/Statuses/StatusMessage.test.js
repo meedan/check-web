@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import StatusMessage from './StatusMessage';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 const statuses = [
   {
@@ -16,11 +16,11 @@ const statuses = [
 describe('<StatusMessage/>', () => {
   it('should render status message', () => {
     const wrapper = mountWithIntl(<StatusMessage
-      statuses={statuses}
-      defaultLanguage="en"
       CurrentLanguage="pt"
-      onSubmit={() => {}}
+      defaultLanguage="en"
       message="status message"
+      statuses={statuses}
+      onSubmit={() => {}}
     />);
     expect(wrapper.html()).toMatch('status message');
     expect(wrapper.find('.test__status-message').hostNodes()).toHaveLength(1);

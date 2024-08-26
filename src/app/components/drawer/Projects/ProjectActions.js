@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation } from 'react-relay/compat';
@@ -25,12 +26,12 @@ const messages = defineMessages({
 });
 
 const ProjectActions = ({
-  object,
-  updateMutation,
-  deleteMutation,
   deleteMessage,
-  setFlashMessage,
+  deleteMutation,
   intl,
+  object,
+  setFlashMessage,
+  updateMutation,
 }) => {
   const [newTitle, setNewTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);
@@ -53,9 +54,9 @@ const ProjectActions = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="projectActions.defaultErrorMessage"
         defaultMessage="Error, please try again"
         description="Generic error message displayed when it's not possible to update or delete a list"
+        id="projectActions.defaultErrorMessage"
       />
     ), 'error');
   };
@@ -64,9 +65,9 @@ const ProjectActions = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="projectActions.savedSuccessfully"
         defaultMessage="Done"
         description="Generic success message displayed when a list is updated or deleted"
+        id="projectActions.savedSuccessfully"
       />
     ), 'success');
     setNewTitle('');
@@ -149,15 +150,15 @@ const ProjectActions = ({
   };
 
   return (
-    <Can permissions={team.permissions} permission="create Project">
+    <Can permission="create Project" permissions={team.permissions}>
       <ButtonMain
-        variant="outlined"
+        className={cx('project-actions', searchResultsStyles.searchHeaderActionButton)}
+        iconCenter={<IconMoreVert className="project-actions__icon" />}
         size="small"
         theme="text"
-        iconCenter={<IconMoreVert className="project-actions__icon" />}
-        onClick={(e) => { setAnchorEl(e.currentTarget); }}
-        className={cx('project-actions', searchResultsStyles.searchHeaderActionButton)}
         title={intl.formatMessage(messages.actionsTooltip)}
+        variant="outlined"
+        onClick={(e) => { setAnchorEl(e.currentTarget); }}
       />
       <Menu
         anchorEl={anchorEl}
@@ -168,9 +169,9 @@ const ProjectActions = ({
           <ListItemText
             primary={
               <FormattedMessage
-                id="projectActions.rename"
                 defaultMessage="Rename"
                 description="'Rename' here is an infinitive verb"
+                id="projectActions.rename"
               />
             }
           />
@@ -179,9 +180,9 @@ const ProjectActions = ({
           <ListItemText
             primary={
               <FormattedMessage
-                id="projectActions.delete"
                 defaultMessage="Delete"
                 description="'Delete' here is an infinitive verb"
+                id="projectActions.delete"
               />
             }
           />
@@ -190,70 +191,70 @@ const ProjectActions = ({
 
       {/* "Edit" dialog */}
       <ConfirmProceedDialog
-        open={showEditDialog}
-        title={
-          <FormattedMessage
-            id="projectsComponent.renameType"
-            defaultMessage="Rename list"
-            description="'Rename' here is an infinitive verb"
-          />
-        }
         body={
           <TextField
+            className="project-actions__edit-title"
+            defaultValue={object.title}
             id="project-actions__edit-title-input"
             label={
               <FormattedMessage
-                id="projectsComponent.title"
                 defaultMessage="Title"
                 description="Label for the title input when renaming a list"
+                id="projectsComponent.title"
               />
             }
-            defaultValue={object.title}
-            onChange={(e) => { setNewTitle(e.target.value); }}
             variant="outlined"
-            className="project-actions__edit-title"
+            onChange={(e) => { setNewTitle(e.target.value); }}
           />
         }
+        cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+        isSaving={saving}
+        open={showEditDialog}
         proceedDisabled={!newTitle && !object.title}
         proceedLabel={
           <FormattedMessage
-            id="projectsComponent.renameType"
             defaultMessage="Rename list"
             description="'Rename' here is an infinitive verb"
+            id="projectsComponent.renameType"
           />
         }
-        onProceed={handleUpdate}
-        isSaving={saving}
-        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+        title={
+          <FormattedMessage
+            defaultMessage="Rename list"
+            description="'Rename' here is an infinitive verb"
+            id="projectsComponent.renameType"
+          />
+        }
         onCancel={handleClose}
+        onProceed={handleUpdate}
       />
 
       {/* "Delete" dialog */}
       <ConfirmProceedDialog
-        open={showDeleteDialog}
-        title={
-          <FormattedMessage
-            id="projectsComponent.deleteTitleType"
-            defaultMessage="Delete list?"
-            description="'Delete' here is an infinitive verb"
-          />
-        }
         body={
           <p className="typography-body1">
             {deleteMessage}
           </p>
         }
+        cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+        isSaving={saving}
+        open={showDeleteDialog}
         proceedLabel={
           <FormattedMessage
-            id="projectsComponent.deleteType"
             defaultMessage="Delete list"
             description="'Delete' here is an infinitive verb"
+            id="projectsComponent.deleteType"
           />
         }
-        onProceed={handleDelete}
-        isSaving={saving}
-        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+        title={
+          <FormattedMessage
+            defaultMessage="Delete list?"
+            description="'Delete' here is an infinitive verb"
+            id="projectsComponent.deleteTitleType"
+          />
+        }
         onCancel={handleClose}
+        onProceed={handleDelete}
       />
     </Can>
   );

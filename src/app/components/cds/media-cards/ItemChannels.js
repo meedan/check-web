@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -14,9 +15,9 @@ import CheckPropTypes from '../../../CheckPropTypes';
 import styles from './Card.module.css';
 
 const ItemChannels = ({
+  channels,
   className,
   sortMainFirst,
-  channels,
 }) => {
   const tiplines = CheckChannels.TIPLINE;
 
@@ -59,8 +60,8 @@ const ItemChannels = ({
     return (
       <Tooltip
         arrow
-        title={humanTiplineNames[tipline]}
         placement="top"
+        title={humanTiplineNames[tipline]}
       >
         <span>
           { tiplineIcon(tipline) }
@@ -78,14 +79,14 @@ const ItemChannels = ({
         channels?.others
           ?.sort((a, b) => getHumanNameFromChannelNumber(a)?.localeCompare(getHumanNameFromChannelNumber(b)))
           .filter(channel => channel !== channels?.main)
-          .map(channel => <ChannelIcon key={channel} channel={channel} className="channel-icon--other" />)
+          .map(channel => <ChannelIcon channel={channel} className="channel-icon--other" key={channel} />)
       }
       { /* return this block if we are just sorting alphabetical */ }
       {
         !sortMainFirst &&
         channels?.others
           ?.sort((a, b) => getHumanNameFromChannelNumber(a)?.localeCompare(getHumanNameFromChannelNumber(b)))
-          .map(channel => <ChannelIcon key={channel} channel={channel} className="channel-icon--other" />)
+          .map(channel => <ChannelIcon channel={channel} className="channel-icon--other" key={channel} />)
       }
     </div>
   );

@@ -1,9 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '../../cds/inputs/TextField';
 import { labels, descriptions, placeholders, footnotes } from './localizables';
+import TextField from '../../cds/inputs/TextField';
 
 const useStyles = makeStyles(theme => ({
   textarea: {
@@ -11,13 +12,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ValueOrPlaceholder = ({ value, field, children }) => (value || !placeholders[field])
+const ValueOrPlaceholder = ({ children, field, value }) => (value || !placeholders[field])
   ? children(value)
   : <FormattedMessage {...placeholders[field]}>{children}</FormattedMessage>; // eslint-disable-line @calm/react-intl/missing-attribute
 
 const SmoochBotTextEditor = (props) => {
   const classes = useStyles();
-  const { value, field } = props;
+  const { field, value } = props;
 
   const handleChange = (event) => {
     props.onChange(event.target.value);
@@ -27,22 +28,22 @@ const SmoochBotTextEditor = (props) => {
     <React.Fragment>
       { labels[field] ? <div className="typography-subtitle2">{labels[field]}</div> : null }
       { descriptions[field] ? <div>{descriptions[field]}</div> : null }
-      <ValueOrPlaceholder value={value} field={field}>
+      <ValueOrPlaceholder field={field} value={value}>
         {valueOrPlaceholder => (
           <TextField
-            key={valueOrPlaceholder}
-            name={field}
             className={classes.textarea}
             defaultValue={valueOrPlaceholder}
+            error={Boolean(props.errorMessage)}
+            fullWidth
+            helperText={props.errorMessage}
+            key={valueOrPlaceholder}
+            multiline
+            name={field}
             placeholder={valueOrPlaceholder}
-            onBlur={handleChange}
-            variant="outlined"
             rows="12"
             rowsMax={Infinity}
-            error={Boolean(props.errorMessage)}
-            helperText={props.errorMessage}
-            fullWidth
-            multiline
+            variant="outlined"
+            onBlur={handleChange}
             {...props.extraTextFieldProps}
           />
         )}

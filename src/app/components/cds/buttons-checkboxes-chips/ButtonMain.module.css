@@ -2,7 +2,7 @@
 .buttonMain {
   @mixin typography-button;
   align-items: center;
-  border-radius: 8px;
+  border-radius: var(--border-radius-default);
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -82,8 +82,8 @@
     }
   }
 
-  &.theme-brand,
-  &.theme-lightBrand,
+  &.theme-info,
+  &.theme-lightInfo,
   &.theme-text,
   &.theme-lightText,
   &.theme-error,
@@ -130,7 +130,7 @@
     }
   }
 
-  &.theme-brand:not([type='button']:disabled) {
+  &.theme-info:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-blue-54), var(--color-blue-38), var(--color-white-100), var(--color-white-100);
 
@@ -170,7 +170,7 @@
     }
   }
 
-  &.theme-lightBrand:not([type='button']:disabled) {
+  &.theme-lightInfo:not([type='button']:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--color-blue-98), var(--color-blue-54), var(--color-blue-38), var(--color-white-100);
     }

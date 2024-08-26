@@ -40,7 +40,7 @@ const mediaSuggestionsQuery = graphql`
   }
 `;
 
-const MediaSuggestions = ({ dbid, teamDbid, superAdminMask }) => {
+const MediaSuggestions = ({ dbid, superAdminMask, teamDbid }) => {
   const ids = `${dbid},0,${teamDbid}`; // Project ID doesn't matter
   const pageSize = 4;
 
@@ -48,17 +48,17 @@ const MediaSuggestions = ({ dbid, teamDbid, superAdminMask }) => {
     <QueryRenderer
       environment={Relay.Store}
       query={mediaSuggestionsQuery}
-      variables={{
-        ids,
-        pageSize,
-      }}
       render={({ props }) => {
         if (props) {
           return (
-            <PaginatedMediaSuggestions root={props.project_media} parentProps={props} superAdminMask={superAdminMask} pageSize={pageSize} />
+            <PaginatedMediaSuggestions pageSize={pageSize} parentProps={props} root={props.project_media} superAdminMask={superAdminMask} />
           );
         }
-        return <MediasLoading theme="grey" variant="inline" size="medium" />;
+        return <MediasLoading size="medium" theme="grey" variant="inline" />;
+      }}
+      variables={{
+        ids,
+        pageSize,
       }}
     />
   );

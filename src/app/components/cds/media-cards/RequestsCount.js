@@ -11,29 +11,29 @@ const RequestsCount = ({
   requestsCount,
 }) => (
   <FormattedMessage
-    id="sharedItemCard.requests"
-    // {requestsCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
     defaultMessage="{requestsCount, plural, one {# Request} other {{requestsCount, number} Requests}}"
+    // {requestsCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
     description="A count of requests for an item. Title-case where applicable. Example: 3 Requests"
+    id="sharedItemCard.requests"
     values={{ requestsCount }}
   >
     { requestsLabel => (
       <Tooltip
         arrow
-        title={requestsLabel}
         placement="top"
+        title={requestsLabel}
       >
         <span>
           <ButtonMain
-            disabled
-            size="small"
-            theme="lightBeige"
-            iconLeft={<RequestsIcon />}
-            variant={requestsCount === 0 ? 'text' : 'contained'}
-            label={getCompactNumber(intl.locale, requestsCount)}
             buttonProps={{
               type: null,
             }}
+            disabled
+            iconLeft={<RequestsIcon />}
+            label={getCompactNumber(intl.locale, requestsCount)}
+            size="small"
+            theme="lightBeige"
+            variant={requestsCount === 0 ? 'text' : 'contained'}
           />
         </span>
       </Tooltip>

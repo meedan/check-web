@@ -30,9 +30,9 @@ class BrowserSupport extends Component {
     if (BrowserSupport.shouldShowMessage()) {
       return (
         <Alert
-          title={<FormattedMessage id="browserSupport.message" description="Banner message encouraging users to use the Google Chrome browser, as their current browser is not supported" defaultMessage="{appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />}
           banner
           icon
+          title={<FormattedMessage defaultMessage="{appName} is optimized for Google Chrome on desktop." description="Banner message encouraging users to use the Google Chrome browser, as their current browser is not supported" id="browserSupport.message" values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />}
           variant="warning"
           onClose={this.close.bind(this)}
         />

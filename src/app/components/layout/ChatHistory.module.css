@@ -1,7 +1,7 @@
 .chat-history {
   background-color: var(--color-white-100);
   border: 1px solid var(--color-gray-88);
-  border-radius: 16px;
+  border-radius: var(--border-radius-large);
   left: 50%;
   position: absolute;
   top: 25%;
@@ -30,7 +30,7 @@
   .chat-content {
     background-color: var(--color-gray-96);
     border: 0 none;
-    border-radius: 0 0 16px 16px;
+    border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-large) var(--border-radius-large);
     display: flex;
     flex-direction: column-reverse;
     gap: 14px;
@@ -71,7 +71,7 @@
 
       .user {
         background-color: var(--color-blue-54);
-        border-radius: 16px 16px 16px 4px;
+        border-radius: var(--border-radius-large) var(--border-radius-large) var(--border-radius-large) var(--border-radius-medium);
         /* stylelint-disable-next-line color-function-notation */
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
         color: var(--color-white-100);
@@ -83,7 +83,7 @@
 
       .bot {
         background-color: var(--color-green-97);
-        border-radius: 16px 16px 4px;
+        border-radius: var(--border-radius-large) var(--border-radius-large) var(--border-radius-medium);
         /* stylelint-disable-next-line color-function-notation */
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
         color: var(--color-gray-15);
@@ -95,7 +95,7 @@
 
       .selection {
         background-color: var(--color-blue-98);
-        border-radius: 16px 16px 16px 4px;
+        border-radius: var(--border-radius-large) var(--border-radius-large) var(--border-radius-large) var(--border-radius-medium);
         /* stylelint-disable-next-line color-function-notation */
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
         color: var(--color-gray-15);

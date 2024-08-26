@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import EditTaskDialog from './EditTaskDialog';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 const task = {};
 

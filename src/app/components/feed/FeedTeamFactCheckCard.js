@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
 import FeedTeamFactCheckDialog from './FeedTeamFactCheckDialog';
+import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
 import styles from './FeedItem.module.css';
 
 const FeedTeamFactCheckCard = ({ clusterTeamFactCheck }) => {
@@ -29,7 +29,7 @@ const FeedTeamFactCheckCard = ({ clusterTeamFactCheck }) => {
       { hasFactCheck ?
         <>
           <h6 className="typography-body2-bold">
-            <FormattedMessage id="feedTeamFactCheckCard.factCheck" defaultMessage="Fact-check:" description="Label for fact-check card on feed item page" />
+            <FormattedMessage defaultMessage="Fact-check:" description="Label for fact-check card on feed item page" id="feedTeamFactCheckCard.factCheck" />
             &nbsp;
             {clusterTeamFactCheck.rating}
           </h6>
@@ -41,7 +41,7 @@ const FeedTeamFactCheckCard = ({ clusterTeamFactCheck }) => {
       {/* There is a claim, but no fact-check */}
       { !hasFactCheck && clusterTeamFactCheck.claim ?
         <>
-          <h6 className="typography-body2-bold"><FormattedMessage id="feedTeamFactCheckCard.claim" defaultMessage="Claim:" description="Label for claim card on feed item page" /></h6>
+          <h6 className="typography-body2-bold"><FormattedMessage defaultMessage="Claim:" description="Label for claim card on feed item page" id="feedTeamFactCheckCard.claim" /></h6>
           <div className="typography-body2">{clusterTeamFactCheck.claim}</div>
         </>
         : null
@@ -49,7 +49,7 @@ const FeedTeamFactCheckCard = ({ clusterTeamFactCheck }) => {
 
       {/* No claim and no fact-check - "uncategorized media" */}
       { !hasFactCheck && !clusterTeamFactCheck.claim ?
-        <h6 className="typography-body2-bold"><FormattedMessage id="feedTeamFactCheckCard.uncategorizedMedia" defaultMessage="Uncategorized Media" description="Label for uncategorized media card on feed item page" /></h6>
+        <h6 className="typography-body2-bold"><FormattedMessage defaultMessage="Uncategorized Media" description="Label for uncategorized media card on feed item page" id="feedTeamFactCheckCard.uncategorizedMedia" /></h6>
         : null
       }
 
@@ -64,7 +64,7 @@ const FeedTeamFactCheckCard = ({ clusterTeamFactCheck }) => {
       />
 
       { dialogOpen ?
-        <FeedTeamFactCheckDialog rating={clusterTeamFactCheck.rating} claimDescription={clusterTeamFactCheck.claim_description} onClose={handleCloseDialog} />
+        <FeedTeamFactCheckDialog claimDescription={clusterTeamFactCheck.claim_description} rating={clusterTeamFactCheck.rating} onClose={handleCloseDialog} />
         : null
       }
     </div>

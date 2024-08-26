@@ -1,9 +1,10 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import PublishedIcon from '../../icons/playlist_add_check.svg';
 import Articles from './Articles';
+import PublishedIcon from '../../icons/playlist_add_check.svg';
 
 const messages = defineMessages({
   sortTitle: {
@@ -23,7 +24,7 @@ const messages = defineMessages({
   },
 });
 
-const PublishedArticles = ({ routeParams, intl }) => {
+const PublishedArticles = ({ intl, routeParams }) => {
   const sortOptions = [
     { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'language', label: intl.formatMessage(messages.sortLanguage) },
@@ -43,13 +44,13 @@ const PublishedArticles = ({ routeParams, intl }) => {
 
   return (
     <Articles
-      type="fact-check"
-      title={<FormattedMessage id="publishedArticles.title" defaultMessage="Published" description="Title of the published articles page." />}
-      icon={<PublishedIcon />}
-      teamSlug={routeParams.team}
-      sortOptions={sortOptions}
       defaultFilters={{ report_status: 'published' }}
       filterOptions={['users', 'tags', 'range']}
+      icon={<PublishedIcon />}
+      sortOptions={sortOptions}
+      teamSlug={routeParams.team}
+      title={<FormattedMessage defaultMessage="Published" description="Title of the published articles page." id="publishedArticles.title" />}
+      type="fact-check"
       updateMutation={updateMutation}
     />
   );

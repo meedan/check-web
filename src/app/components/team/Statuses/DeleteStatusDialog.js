@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -35,86 +36,77 @@ export const DeleteStatusDialog = ({
   if (!deleteStatus.items_count) {
     return (
       <ConfirmProceedDialog
-        open
-        title={
-          <FormattedMessage
-            id="deleteStatusDialog.statusNotInUseTitle"
-            defaultMessage="Confirm status deletion"
-            description="Title displayed on a confirmation modal when a status being deleted is not in used by any item."
-          />
-        }
         body={
           <FormattedMessage
-            tagName="p"
-            id="deleteStatusDialog.statusNotInUseMessage"
             defaultMessage="Are you sure you want to delete this status?"
             description="Confirmation message displayed on a modal when a status is deleted from statuses settings page."
+            id="deleteStatusDialog.statusNotInUseMessage"
+            tagName="p"
+          />
+        }
+        open
+        proceedLabel={
+          <FormattedMessage
+            defaultMessage="Delete status"
+            description="Button label to delete status"
+            id="statusesComponent.deleteButton"
+          />
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="Confirm status deletion"
+            description="Title displayed on a confirmation modal when a status being deleted is not in used by any item."
+            id="deleteStatusDialog.statusNotInUseTitle"
           />
         }
         onCancel={onCancel}
         onProceed={handleSubmit}
-        proceedLabel={
-          <FormattedMessage
-            id="statusesComponent.deleteButton"
-            defaultMessage="Delete status"
-            description="Button label to delete status"
-          />
-        }
       />
     );
   }
 
   const inputLabel = (
     <FormattedMessage
-      id="deleteStatusDialog.moveItemsTo"
       defaultMessage="Move items to"
       description="This is a field label. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field."
+      id="deleteStatusDialog.moveItemsTo"
     />
   );
 
   return (
     <ConfirmProceedDialog
-      open={open}
-      title={
-        <FormattedMessage
-          id="deleteStatusDialog.statusInUseTitle"
-          defaultMessage="{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
-          values={{ itemsCount: deleteStatus.items_count }}
-          description="Title of a modal that is displayed when a status in use is being deleted."
-        />
-      }
       body={
         <div>
           <FormattedMessage
-            tagName="p"
-            id="deleteStatusDialog.statusInUseMessage"
             defaultMessage="{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
+            description="Message of a modal that is displayed when a status in use is being deleted."
+            id="deleteStatusDialog.statusInUseMessage"
+            tagName="p"
             values={{
               itemsCount: deleteStatus.items_count,
               statusLabel: <strong>{deleteStatus.label}</strong>,
             }}
-            description="Message of a modal that is displayed when a status in use is being deleted."
           />
           { deleteStatus.published_reports_count ?
             <FormattedMessage
-              tagName="p"
-              id="deleteStatusDialog.itemsPublishedMessage"
               defaultMessage="{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
+              description="Message of a modal that is displayed when a status in use is being deleted."
+              id="deleteStatusDialog.itemsPublishedMessage"
+              tagName="p"
               values={{
                 publishedCount: deleteStatus.published_reports_count,
                 statusLabel: <strong>{deleteStatus.label}</strong>,
               }}
-              description="Message of a modal that is displayed when a status in use is being deleted."
             /> : null
           }
           <div>
             <Select
-              id="delete-status-dialog__select"
               defaultValue=""
+              id="delete-status-dialog__select"
               label={inputLabel}
               onChange={handleSelect}
             >
-              <FormattedMessage id="deleteStatusDialog.moveItemsToPlaceholder" defaultMessage="Select status…" description="This is a field placeholder. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field." >
+              <FormattedMessage defaultMessage="Select status…" description="This is a field placeholder. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field." id="deleteStatusDialog.moveItemsToPlaceholder" >
                 { placeholder => (
                   <option hidden>
                     {placeholder}
@@ -137,16 +129,25 @@ export const DeleteStatusDialog = ({
           </div>
         </div>
       }
-      onCancel={onCancel}
-      onProceed={handleSubmit}
+      open={open}
       proceedDisabled={!moveToStatus}
       proceedLabel={
         <FormattedMessage
-          id="statusesComponent.moveItemsAndDelete"
           defaultMessage="Move items and delete status"
           description="Label of a button that is displayed when a status in use is being deleted."
+          id="statusesComponent.moveItemsAndDelete"
         />
       }
+      title={
+        <FormattedMessage
+          defaultMessage="{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
+          description="Title of a modal that is displayed when a status in use is being deleted."
+          id="deleteStatusDialog.statusInUseTitle"
+          values={{ itemsCount: deleteStatus.items_count }}
+        />
+      }
+      onCancel={onCancel}
+      onProceed={handleSubmit}
     />
   );
 };
@@ -177,10 +178,6 @@ const DeleteStatusDialogContainer = originalProps => (
         }
       }
     `}
-    variables={{
-      teamSlug: originalProps.teamSlug,
-      status: originalProps.defaultValue,
-    }}
     render={({ error, props }) => {
       if (!error && props) {
         const deleteStatus = props.team.verification_statuses_with_counters.statuses.find(s => s.id === originalProps.defaultValue);
@@ -189,6 +186,10 @@ const DeleteStatusDialogContainer = originalProps => (
 
       // TODO: We need a better error handling in the future, standardized with other components
       return null;
+    }}
+    variables={{
+      teamSlug: originalProps.teamSlug,
+      status: originalProps.defaultValue,
     }}
   />
 );

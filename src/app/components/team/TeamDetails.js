@@ -3,22 +3,22 @@ import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import CreateTeamDialog from './CreateTeamDialog';
+import SettingsHeader from './SettingsHeader';
+import TeamAvatar from './TeamAvatar';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
-import CreateTeamDialog from './CreateTeamDialog';
-import SettingsHeader from './SettingsHeader';
-import TeamAvatar from './TeamAvatar';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import UploadFile from '../UploadFile';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import inputStyles from '../../styles/css/inputs.module.css';
-import settingsStyles from './Settings.module.css';
 import styles from './TeamDetails.module.css';
+import settingsStyles from './Settings.module.css';
 
 const TeamDetails = ({
   setFlashMessage,
@@ -57,9 +57,9 @@ const TeamDetails = ({
       setEditProfileImg(false);
       setFlashMessage((
         <FormattedMessage
-          id="teamDetails.savedSuccessfully"
           defaultMessage="Workspace details saved successfully"
           description="Success message displayed when workspace settings are saved"
+          id="teamDetails.savedSuccessfully"
         />
       ), 'success');
     };
@@ -83,13 +83,6 @@ const TeamDetails = ({
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="teamDetails.title"
-            defaultMessage="Workspace"
-            description="Title for details page of current workspace"
-          />
-        }
         actionButton={
           <>
             <ButtonMain
@@ -97,58 +90,65 @@ const TeamDetails = ({
                 id: 'team-details__duplicate-button',
               }}
               disabled={!can(team.permissions, 'duplicate Team')}
-              variant="outlined"
-              theme="text"
-              size="default"
-              onClick={() => setShowDuplicateTeamDialog(true)}
               label={
                 <FormattedMessage
-                  id="teamDetails.duplicateWorkspace"
                   defaultMessage="Duplicate workspace"
                   description="Label of a button to duplicate a workspace"
+                  id="teamDetails.duplicateWorkspace"
                 />
               }
+              size="default"
+              theme="text"
+              variant="outlined"
+              onClick={() => setShowDuplicateTeamDialog(true)}
             />
             <ButtonMain
               buttonProps={{
                 id: 'team-details__update-button',
               }}
-              theme="brand"
-              size="default"
-              variant="contained"
-              onClick={handleSave}
               disabled={!canEditTeam || isSaving}
               label={
                 <FormattedMessage
-                  id="teamDetails.update"
                   defaultMessage="Update"
                   description="Label of the button that saves workspace details"
+                  id="teamDetails.update"
                 />
               }
+              size="default"
+              theme="info"
+              variant="contained"
+              onClick={handleSave}
             />
           </>
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="Workspace"
+            description="Title for details page of current workspace"
+            id="teamDetails.title"
+          />
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'], styles['team-details'])}>
         <div className={styles['team-details-avatar']}>
           <TeamAvatar
-            team={avatar && avatar.preview ? { avatar: avatar.preview } : { avatar: team.avatar }}
             size="72px"
+            team={avatar && avatar.preview ? { avatar: avatar.preview } : { avatar: team.avatar }}
           />
           { !editProfileImg ?
             <ButtonMain
               buttonProps={{
                 id: 'team-details__edit-avatar-button',
               }}
-              theme="brand"
-              variant="text"
-              size="default"
-              onClick={() => setEditProfileImg(true)}
+              className={styles.StyledAvatarEditButton}
               disabled={!canEditTeam}
               label={
-                <FormattedMessage id="teamDetails.edit" defaultMessage="Edit" description="Label for a button to change a workspace image" />
+                <FormattedMessage defaultMessage="Edit" description="Label for a button to change a workspace image" id="teamDetails.edit" />
               }
-              className={styles.StyledAvatarEditButton}
+              size="default"
+              theme="info"
+              variant="text"
+              onClick={() => setEditProfileImg(true)}
             />
             : null
           }
@@ -157,105 +157,105 @@ const TeamDetails = ({
         <div className={styles['team-details-column']}>
           <div className={settingsStyles['setting-content-container']}>
             <div className={settingsStyles['setting-content-container-title']}>
-              <FormattedMessage id="teamDetails.profile" defaultMessage="Profile" description="Title of the profile section in team details page" />
+              <FormattedMessage defaultMessage="Profile" description="Title of the profile section in team details page" id="teamDetails.profile" />
             </div>
             { editProfileImg ?
               <UploadFile
+                noPreview
                 type="image"
                 value={avatar}
                 onChange={handleImageChange}
                 onError={handleImageError}
-                noPreview
               />
               : null
             }
             <TextField
-              id="team-details__name-input"
               defaultValue={team.name}
               disabled={!canEditTeam}
+              id="team-details__name-input"
               label={
                 <FormattedMessage
-                  id="teamDetails.workspaceName"
                   defaultMessage="Workspace name"
                   description="Label for workspace name field"
+                  id="teamDetails.workspaceName"
                 />
               }
-              onChange={e => setName(e.target.value)}
               required
+              onChange={e => setName(e.target.value)}
             />
           </div>
 
           <div className={settingsStyles['setting-content-container']}>
             <div className={settingsStyles['setting-content-container-title']}>
-              <FormattedMessage id="teamDetails.linkManagement" defaultMessage="Link management" description="Title of the link management section in team details page" />
+              <FormattedMessage defaultMessage="Link management" description="Title of the link management section in team details page" id="teamDetails.linkManagement" />
             </div>
             <div className={inputStyles['form-fieldset']}>
               <SwitchComponent
-                className={inputStyles['form-fieldset-field']}
-                label={<FormattedMessage
-                  id="teamDetails.linkManagementSwitcher"
-                  defaultMessage="Enable link shortening and analytics"
-                  description="Label for a switch where the user toggles link management in team details page"
-                />}
                 checked={shortenOutgoingUrls || hasRssNewsletters}
+                className={inputStyles['form-fieldset-field']}
                 disabled={hasRssNewsletters || hasScheduledNewsletters}
                 helperContent={
                   <FormattedHTMLMessage
-                    id="teamDetails.linkManagementRss"
                     defaultMessage='Link shortening makes URLs more readable and a predictable length. If you’re using an RSS feed, the link service cannot be disabled. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about link shortening</a>.'
                     description="Helper text for link management switcher when workspace has RSS newsletters configured"
+                    id="teamDetails.linkManagementRss"
                     values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_99c0776acf' }}
                   />
                 }
+                label={<FormattedMessage
+                  defaultMessage="Enable link shortening and analytics"
+                  description="Label for a switch where the user toggles link management in team details page"
+                  id="teamDetails.linkManagementSwitcher"
+                />}
                 onChange={setShortenOutgoingUrls}
               />
               { shortenOutgoingUrls ?
                 <>
 
                   <FormattedMessage
-                    id="teamDetails.utmCodePlaceholder"
                     defaultMessage="Leave blank to disable UTM codes."
                     description="Placeholder for the optional UTM code text field"
+                    id="teamDetails.utmCodePlaceholder"
                   >
                     { placeholder => (
                       <TextField
                         className={inputStyles['form-fieldset-field']}
-                        id="team-details__utm-code"
                         defaultValue={utmCode}
-                        placeholder={placeholder}
-                        label={
-                          <FormattedMessage
-                            id="teamDetails.utmCode"
-                            defaultMessage="UTM code (optional)"
-                            description="Label for 'UTM code' field"
-                          />
-                        }
-                        onChange={e => setUtmCode(e.target.value)}
+                        disabled={hasScheduledNewsletters}
                         helpContent={
                           <FormattedHTMLMessage
-                            id="teamDetails.utmCodeHelp"
                             defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
-                            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_9bfd0e654f' }}
                             description="Helper text for UTM code field"
+                            id="teamDetails.utmCodeHelp"
+                            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_9bfd0e654f' }}
                           />
                         }
-                        disabled={hasScheduledNewsletters}
+                        id="team-details__utm-code"
+                        label={
+                          <FormattedMessage
+                            defaultMessage="UTM code (optional)"
+                            description="Label for 'UTM code' field"
+                            id="teamDetails.utmCode"
+                          />
+                        }
+                        placeholder={placeholder}
+                        onChange={e => setUtmCode(e.target.value)}
                       />
                     )}
                   </FormattedMessage>
                   <Alert
                     className={inputStyles['form-fieldset-field']}
-                    variant="warning"
                     contained
-                    title={<FormattedMessage id="teamDetails.warnTitle" defaultMessage="All links sent via Check will be rewritten." description="Text displayed in the title of a warning box on team details page when link shortening is on" />}
                     content={
                       <FormattedHTMLMessage
-                        id="teamDetails.warnContent"
                         defaultMessage="<strong>Before:</strong> https://www.example.com/your-link<br /><strong>After:</strong> https://chck.media/x1y2z3w4/{code}"
-                        values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
                         description="Text displayed in the content of a warning box on team details page when link shortening is on"
+                        id="teamDetails.warnContent"
+                        values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
                       />
                     }
+                    title={<FormattedMessage defaultMessage="All links sent via Check will be rewritten." description="Text displayed in the title of a warning box on team details page when link shortening is on" id="teamDetails.warnTitle" />}
+                    variant="warning"
                   />
                 </>
                 : null
@@ -265,7 +265,7 @@ const TeamDetails = ({
         </div>
 
         { showDuplicateTeamDialog &&
-          <CreateTeamDialog onDismiss={() => setShowDuplicateTeamDialog(false)} team={team} />
+          <CreateTeamDialog team={team} onDismiss={() => setShowDuplicateTeamDialog(false)} />
         }
       </div>
     </>

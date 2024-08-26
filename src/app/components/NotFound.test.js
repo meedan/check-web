@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
 import NotFound from './NotFound';
+import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
 
 describe('<NotFound />', () => {
   it('should set a default title', () => {

@@ -5,9 +5,9 @@ import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
+import CreateMediaSource from './CreateMediaSource';
 import ErrorBoundary from '../error/ErrorBoundary';
 import SourceInfo from '../source/SourceInfo';
-import CreateMediaSource from './CreateMediaSource';
 import { can } from '../Can';
 import styles from './media.module.css';
 
@@ -22,7 +22,7 @@ function updateHeight() {
   sourceTabFrameTimer = setTimeout(updateHeight, 500);
 }
 
-const MediaSourceComponent = ({ projectMedia, about }) => {
+const MediaSourceComponent = ({ about, projectMedia }) => {
   const [action, setAction] = React.useState('view');
   const [newSourceName, setNewSourceName] = React.useState('');
 
@@ -103,37 +103,37 @@ const MediaSourceComponent = ({ projectMedia, about }) => {
   };
   const handleChangeSource = () => setAction('change');
 
-  const { team, source } = projectMedia;
+  const { source, team } = projectMedia;
 
   return (
     <React.Fragment>
-      <div id="media__source" className={cx(styles['media-sources'], styles['media-item-content'])}>
+      <div className={cx(styles['media-sources'], styles['media-item-content'])} id="media__source">
         { action === 'view' && source !== null ?
           <SourceInfo
-            key={source ? source.id : 0}
-            source={source}
             about={about}
-            team={team}
+            key={source ? source.id : 0}
             projectMediaPermissions={projectMedia.permissions}
-            onChangeClick={handleChangeSource}
             relateToExistingSource={handleChangeSourceSubmit}
+            source={source}
+            team={team}
+            onChangeClick={handleChangeSource}
           /> : null
         }
         { action === 'create' && can(projectMedia.permissions, 'create Source') ?
           <CreateMediaSource
-            name={newSourceName}
             media={projectMedia}
-            onCancel={handleCancel}
+            name={newSourceName}
             relateToExistingSource={handleChangeSourceSubmit}
+            onCancel={handleCancel}
           /> : null
         }
         { can(projectMedia.permissions, 'update ProjectMedia') && action !== 'create' && (action === 'change' || source === null) ?
           <ChangeMediaSource
-            team={team}
-            projectMediaPermissions={projectMedia.permissions}
-            onSubmit={handleChangeSourceSubmit}
-            onCancel={handleCancel}
             createNewClick={handleCreateNewSource}
+            projectMediaPermissions={projectMedia.permissions}
+            team={team}
+            onCancel={handleCancel}
+            onSubmit={handleChangeSourceSubmit}
           /> : null
         }
       </div>
@@ -141,7 +141,7 @@ const MediaSourceComponent = ({ projectMedia, about }) => {
   );
 };
 
-const MediaSource = ({ projectMedia, params }) => {
+const MediaSource = ({ params, projectMedia }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   let ids = null;
 
@@ -179,21 +179,21 @@ const MediaSource = ({ projectMedia, params }) => {
             }
           }
         `}
-        variables={{
-          ids,
-          teamSlug,
-        }}
         render={({ error, props }) => {
           if (!error && !props) {
-            return <MediasLoading theme="grey" variant="inline" size="medium" />;
+            return <MediasLoading size="medium" theme="grey" variant="inline" />;
           }
 
           if (!error && props) {
-            return <MediaSourceComponent projectMedia={props.project_media} about={props.about} />;
+            return <MediaSourceComponent about={props.about} projectMedia={props.project_media} />;
           }
 
           // TODO: We need a better error handling in the future, standardized with other components
           return null;
+        }}
+        variables={{
+          ids,
+          teamSlug,
         }}
       />
     </ErrorBoundary>

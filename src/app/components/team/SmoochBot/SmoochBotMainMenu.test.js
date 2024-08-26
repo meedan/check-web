@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import Alert from '../../cds/alerts-and-prompts/Alert';
 
 const defaultProps = {

@@ -7,7 +7,7 @@
   .report-header-bar {
     align-items: center;
     background-color: var(--color-white-100);
-    border-radius: 8px;
+    border-radius: var(--border-radius-default);
     display: flex;
     flex: 0 0 64px;
     flex-wrap: wrap;
@@ -57,12 +57,12 @@
     .report-editor {
       .report-designer-form {
         background-color: var(--color-white-100);
-        border-radius: 8px;
+        border-radius: var(--border-radius-default);
         padding: 16px;
 
         .report-designer-form-container {
           background-color: var(--color-beige-93);
-          border-radius: 5px;
+          border-radius: var(--border-radius-medium);
           padding: 16px;
           position: relative;
 
@@ -88,7 +88,7 @@
 
           .report-rating-wrapper {
             background: var(--color-beige-86);
-            border-radius: 3px;
+            border-radius: var(--border-radius-small);
             margin: 0 0 16px;
             padding: 16px;
 
@@ -118,7 +118,7 @@
           &.report-designer-form-disabled {
             &::after {
               background-color: var(--color-gray-15);
-              border-radius: 8px;
+              border-radius: var(--border-radius-default);
               bottom: 0;
               content: '';
               cursor: not-allowed;

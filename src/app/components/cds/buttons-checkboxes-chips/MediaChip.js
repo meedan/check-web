@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import styles from './MediaChip.module.css';
 import MediaTypeDisplayIcon, { mediaTypeFromFilename, mediaTypeFromUrl } from '../../media/MediaTypeDisplayIcon';
 import Tooltip from '../alerts-and-prompts/Tooltip';
+import styles from './MediaChip.module.css';
 
 const MediaChip = ({
   label,
@@ -17,7 +17,7 @@ const MediaChip = ({
   const shortUrl = !isFile ? url.match(/https?:\/\/www.?([^ ]+)/)?.[1] : null;
 
   return (
-    <Tooltip title={url} arrow>
+    <Tooltip arrow title={url}>
       <div className={cx(styles['media-chip'], 'media-chip')}>
         <div className={cx(styles['media-chip-icon'], 'media-chip-icon')}><MediaTypeDisplayIcon mediaType={mediaType} /></div>
         <div className={cx(styles['media-chip-label'], 'media-chip-label')}>{shortUrl || label}</div>

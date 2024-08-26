@@ -5,8 +5,8 @@ import Alert from './Alert';
 describe('<Alert />', () => {
   it('should render Alert component', () => {
     const wrapper = shallow(<Alert
-      title={<span>Foo</span>}
       content={<span>Bar</span>}
+      title={<span>Foo</span>}
       type="success"
     />);
     expect(wrapper.html()).toMatch('Foo');

@@ -42,7 +42,7 @@
 
 .article-form-info {
   border: 1px solid var(--color-gray-88);
-  border-radius: 5px;
+  border-radius: var(--border-radius-medium);
   display: flex;
   margin-bottom: 10px;
   padding: 8px;

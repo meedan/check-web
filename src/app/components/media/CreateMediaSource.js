@@ -1,16 +1,17 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import cx from 'classnames/bind';
+import SetSourceDialog from './SetSourceDialog';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import AddIcon from '../../icons/add.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
-import SetSourceDialog from './SetSourceDialog';
 import { getErrorObjects, getErrorMessage } from '../../helpers';
 import CheckError from '../../CheckError';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -19,9 +20,9 @@ import styles from '../media/media.module.css';
 
 function CreateMediaSource({
   media,
+  name,
   onCancel,
   relateToExistingSource,
-  name,
 }) {
   const [sourceName, setSourceName] = React.useState(name || '');
   const [primaryUrl, setPrimaryUrl] = React.useState({ url: '', error: '' });
@@ -69,9 +70,9 @@ function CreateMediaSource({
       }
       const error = (
         <FormattedMessage
-          id="sourceInfo.invalidLink"
           defaultMessage="Please enter a valid URL"
           description="Error message for invalid link"
+          id="sourceInfo.invalidLink"
         />
       );
       setPrimaryUrl({ url: primaryUrl.url, error });
@@ -101,9 +102,9 @@ function CreateMediaSource({
       } else {
         item.error = (
           <FormattedMessage
-            id="sourceInfo.invalidLink"
             defaultMessage="Please enter a valid URL"
             description="Error message for invalid link"
+            id="sourceInfo.invalidLink"
           />
         );
         success = false;
@@ -171,30 +172,30 @@ function CreateMediaSource({
 
   return (
     <React.Fragment>
-      { message && <><Alert variant="error" contained title={message} /><br /></> }
+      { message && <><Alert contained title={message} variant="error" /><br /></> }
       <div className={inputStyles['form-inner-wrapper']}>
         <div className={styles['media-sources-header']}>
           <div className={styles['media-sources-header-left']}>
             <SourcePicture
-              type="user"
               className="source__avatar"
+              type="user"
             />
             <div className={styles['media-sources-title']}>
               <h6 className="source__name">
                 {sourceName.length !== 0 ?
                   sourceName :
                   <FormattedMessage
-                    id="sourceInfo.createNew"
                     defaultMessage="Create new"
                     description="Create a new media source label"
+                    id="sourceInfo.createNew"
                   />
                 }
               </h6>
               <span className="typography-caption">
                 <FormattedMessage
-                  id="sourceInfo.mediasCount"
                   defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
                   description="show source media counts"
+                  id="sourceInfo.mediasCount"
                   values={{
                     mediasCount: 0,
                   }}
@@ -206,9 +207,9 @@ function CreateMediaSource({
         <div className={inputStyles['form-inner-wrapper']}>
           <div className={inputStyles['form-fieldset']}>
             <FormattedMessage
-              id="sourceInfo.sourceNamePlaceholder"
               defaultMessage="Add a name for this source"
               description="placeholder for create source name"
+              id="sourceInfo.sourceNamePlaceholder"
             >
               { placeholder => (
                 <TextField
@@ -218,23 +219,23 @@ function CreateMediaSource({
                     name: 'source__name-input',
                   }}
                   defaultValue={sourceName}
-                  placeholder={placeholder}
                   label={
                     <FormattedMessage
-                      id="sourceInfo.sourceName"
                       defaultMessage="Main Source Name"
                       description="label for create source name"
+                      id="sourceInfo.sourceName"
                     />
                   }
-                  onChange={e => handleChangeName(e)}
+                  placeholder={placeholder}
                   required
+                  onChange={e => handleChangeName(e)}
                 />
               )}
             </FormattedMessage>
             <FormattedMessage
-              id="sourceInfo.primaryLinkPlaceholder"
               defaultMessage="Add a main URL for this source"
               description="placeholder for create source main url"
+              id="sourceInfo.primaryLinkPlaceholder"
             >
               { placeholder => (
                 <TextField
@@ -243,17 +244,17 @@ function CreateMediaSource({
                     id: 'source_primary__link-input',
                     name: 'source_primary__link-input',
                   }}
-                  placeholder={placeholder}
-                  label={
-                    <FormattedMessage
-                      id="sourceInfo.primaryLink"
-                      defaultMessage="Main source URL"
-                      description="Allow user to add a main source URL"
-                    />
-                  }
                   defaultValue={primaryUrl.url ? primaryUrl.url.replace(/^https?:\/\//, '') : ''}
                   error={Boolean(primaryUrl.error)}
                   helpContent={primaryUrl.error}
+                  label={
+                    <FormattedMessage
+                      defaultMessage="Main source URL"
+                      description="Allow user to add a main source URL"
+                      id="sourceInfo.primaryLink"
+                    />
+                  }
+                  placeholder={placeholder}
                   onChange={(e) => { setPrimaryUrl({ url: e.target.value, error: '' }); }}
                 />
               )}
@@ -262,14 +263,18 @@ function CreateMediaSource({
               null :
               <div className={inputStyles['form-fieldset-title']}>
                 <FormattedMessage
-                  id="sourceInfo.secondaryAccounts"
                   defaultMessage="Secondary source URLs"
                   description="URLs for source accounts except first account"
+                  id="sourceInfo.secondaryAccounts"
                 />
               </div>
             }
             { links.map((link, index) => (
-              <div key={index.toString()} className={cx('source__url-input', inputStyles['form-fieldset-field'])}>
+              <div
+                className={cx('source__url-input', inputStyles['form-fieldset-field'])}
+                // eslint-disable-next-line react/no-array-index-key
+                key={index.toString()}
+              >
                 <TextField
                   componentProps={{
                     id: `source__link-input${index.toString()}`,
@@ -280,31 +285,31 @@ function CreateMediaSource({
                   helpContent={link.error}
                   label={
                     <FormattedMessage
-                      id="sourceInfo.addSecondaryLink"
                       defaultMessage="Add a secondary URL"
                       description="Label for add a new source secondary URL"
+                      id="sourceInfo.addSecondaryLink"
                     />
                   }
+                  placeholder="http(s)://"
                   onChange={(e) => { handleChangeLink(e, index); }}
                   onRemove={() => handleRemoveNewLink(index)}
-                  placeholder="http(s)://"
                 />
               </div>
             ))}
             <div className={inputStyles['form-footer-actions']}>
               <ButtonMain
-                variant="contained"
-                theme="text"
-                size="default"
-                onClick={() => handleAddLink()}
                 iconLeft={<AddIcon />}
                 label={
                   <FormattedMessage
-                    id="sourceInfo.addLink"
                     defaultMessage="Add a secondary URL"
                     description="allow user to relate a new link to media source"
+                    id="sourceInfo.addLink"
                   />
                 }
+                size="default"
+                theme="text"
+                variant="contained"
+                onClick={() => handleAddLink()}
               />
             </div>
           </div>
@@ -312,38 +317,38 @@ function CreateMediaSource({
         <div className={inputStyles['form-footer-actions']}>
           <ButtonMain
             className="source__edit-cancel-button"
-            size="default"
-            variant="text"
-            theme="lightText"
-            onClick={handleCancelOrSave}
             label={
-              <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
+              <FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />
             }
+            size="default"
+            theme="lightText"
+            variant="text"
+            onClick={handleCancelOrSave}
           />
           <ButtonMain
-            size="default"
-            variant="contained"
-            theme="brand"
             className="source__edit-save-button"
-            onClick={handleSave}
             disabled={submitDisabled}
             label={
               <FormattedMessage
-                id="createMediaSource.createSource"
                 defaultMessage="Create source"
                 description="Label for button to create a new source"
+                id="createMediaSource.createSource"
               />
             }
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={handleSave}
           />
         </div>
       </div>
       {dialogOpen ?
         <SetSourceDialog
           open={dialogOpen}
-          sourceName={existingSource.name}
           primaryUrl={primaryUrl.url}
-          onSubmit={handleSubmitDialog}
+          sourceName={existingSource.name}
           onCancel={handleCancelDialog}
+          onSubmit={handleSubmitDialog}
         /> : null
       }
     </React.Fragment>

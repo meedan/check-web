@@ -1,10 +1,11 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateMediaDialog from './CreateMediaDialog';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
@@ -25,9 +26,9 @@ class CreateProjectMedia extends React.Component {
   fail = (transaction) => {
     let message = (
       <FormattedMessage
-        id="createMedia.error"
         defaultMessage="Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists."
         description="Error message for user to know how to reach out for support"
+        id="createMedia.error"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
@@ -110,23 +111,23 @@ class CreateProjectMedia extends React.Component {
     return (
       <React.Fragment>
         <ButtonMain
-          onClick={this.handleOpenDialog}
-          theme="brand"
-          size="default"
-          variant="contained"
-          label={
-            <FormattedMessage id="createMedia.addItem" defaultMessage="Add Media" description="Button label for adding an item" />
-          }
           buttonProps={{
             id: 'create-media__add-item',
           }}
+          label={
+            <FormattedMessage defaultMessage="Add Media" description="Button label for adding an item" id="createMedia.addItem" />
+          }
+          size="default"
+          theme="info"
+          variant="contained"
+          onClick={this.handleOpenDialog}
         />
         <CreateMediaDialog
-          title={<FormattedMessage tagName="h6" id="createMedia.addNewItem" defaultMessage="Add Media" description="Dialog title for adding a new item" />}
           open={this.state.dialogOpen}
+          team={this.props.team}
+          title={<FormattedMessage defaultMessage="Add Media" description="Dialog title for adding a new item" id="createMedia.addNewItem" tagName="h6" />}
           onDismiss={this.handleCloseDialog}
           onSubmit={this.handleSubmit}
-          team={this.props.team}
         />
       </React.Fragment>
     );

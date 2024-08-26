@@ -21,8 +21,8 @@ const KeepBot = ({
         <FormControlLabel
           control={<Checkbox
             checked={value.archive_archive_org_enabled}
-            onChange={() => handleChange('archive_archive_org_enabled')}
             name="checkedB"
+            onChange={() => handleChange('archive_archive_org_enabled')}
           />}
           label={intl.formatMessage({
             id: 'keepBot.archiveOrg',
@@ -33,8 +33,8 @@ const KeepBot = ({
         <FormControlLabel
           control={<Checkbox
             checked={value.archive_perma_cc_enabled}
-            onChange={() => handleChange('archive_perma_cc_enabled')}
             name="checkedC"
+            onChange={() => handleChange('archive_perma_cc_enabled')}
           />}
           label={intl.formatMessage({
             id: 'keepBot.permaCc',
