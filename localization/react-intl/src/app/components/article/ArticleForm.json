@@ -30,6 +30,11 @@
     "defaultMessage": "Last Published:"
   },
   {
+    "id": "articleForm.mediaCluster",
+    "description": "Label for the link to the media cluster that this fact-check is applied to.",
+    "defaultMessage": "Media Cluster:"
+  },
+  {
     "id": "articleForm.reportDesignerTooltip",
     "description": "Tooltip for the report designer button",
     "defaultMessage": "Assign this Fact Check to a media item to be able to edit and publish a report"
