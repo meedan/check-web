@@ -22,6 +22,38 @@ import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
 import styles from './media.module.css';
 
+const setInitialTab = (projectMedia) => {
+  let initialTab = 'articles';
+  const articlesCount = projectMedia.articles_count;
+  const suggestionsCount = projectMedia.suggested_similar_items_count;
+  const requestsCount = projectMedia.requests_count;
+
+  if (articlesCount === 0 && requestsCount === 0 && suggestionsCount === 0) {
+    initialTab = 'articles';
+  }
+
+  if (articlesCount >= 1 && requestsCount >= 0 && suggestionsCount === 0) {
+    initialTab = 'articles';
+  }
+
+  if (articlesCount === 0 && requestsCount >= 1 && suggestionsCount === 0) {
+    initialTab = 'requests';
+  }
+
+  if (articlesCount >= 1 && requestsCount >= 0 && suggestionsCount >= 1) {
+    initialTab = 'suggestions';
+  }
+
+  if (articlesCount === 0 && requestsCount === 0 && suggestionsCount >= 1) {
+    initialTab = 'suggestions';
+  }
+
+  return initialTab;
+};
+
+// eslint-disable-next-line import/no-unused-modules
+export { setInitialTab }; // For unit test
+
 class MediaComponent extends Component {
   static handleSuperAdminMaskSession(value) {
     sessionStorage.setItem('superAdminMaskSession', value);
@@ -30,22 +62,7 @@ class MediaComponent extends Component {
   constructor(props) {
     super(props);
 
-    const { team_bots: teamBots } = this.props.projectMedia.team;
-    const enabledBots = teamBots.edges.map(b => b.node.login);
-    const showRequests = (enabledBots.indexOf('smooch') > -1 || this.props.projectMedia.requests_count > 0);
-
-    let initialTab = 'metadata';
-    if (showRequests && this.props.view !== 'similarMedia') {
-      initialTab = 'articles';
-      if (this.props.projectMedia.suggested_similar_items_count > 0 && !this.props.projectMedia.is_suggested) {
-        initialTab = 'suggestedMedia';
-      }
-    } else if (this.props.view === 'similarMedia') {
-      initialTab = 'suggestedMedia';
-    }
-    if (this.props.projectMedia.is_suggested || this.props.projectMedia.is_confirmed_similar_to_another_item) {
-      initialTab = 'requests';
-    }
+    const initialTab = setInitialTab(this.props.projectMedia);
 
     this.state = {
       showTab: initialTab,
