@@ -63,10 +63,10 @@ const MediaArticlesTeamArticles = ({
       environment={Relay.Store}
       key={new Date().getTime()}
       query={graphql`
-        query MediaArticlesTeamArticlesQuery($slug: String!, $textSearch: String!, $numberOfArticles: Int!, $targetId: Int) {
+        query MediaArticlesTeamArticlesQuery($slug: String!, $textSearch: String!, $numberOfArticles: Int!, $targetId: Int, $standalone: Boolean) {
           team(slug: $slug) {
             ...MediaArticlesCard_team
-            factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", text: $textSearch, target_id: $targetId, standalone: true) {
+            factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", text: $textSearch, target_id: $targetId, standalone: $standalone) {
               edges {
                 node {
                   ... on FactCheck {
@@ -108,6 +108,7 @@ const MediaArticlesTeamArticles = ({
         numberOfArticles,
         targetId,
         timestamp: new Date().getTime(), // No cache
+        standalone: !textSearch,
       }}
     />
   </ErrorBoundary>
