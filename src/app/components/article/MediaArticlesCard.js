@@ -15,6 +15,8 @@ import styles from './Articles.module.css';
 const MediaArticlesCard = ({ article, onAdd, team }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
+  const factCheckInUse = (article.nodeType === 'FactCheck' && article.claim_description?.project_media?.id && article.claim_description?.project_media?.type !== 'Blank');
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -24,7 +26,7 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
   };
 
   const handleClick = (e) => {
-    if (onAdd) {
+    if (onAdd && !factCheckInUse) {
       let id = null;
       if (article.nodeType === 'FactCheck') {
         ({ id } = article.claim_description);
@@ -51,7 +53,8 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
       placement="top"
       title={
         <>
-          { article.nodeType === 'FactCheck' && <FormattedMessage defaultMessage="Add Claim & Fact-Check article to this media cluster" description="Tooltip message displayed on article cards on item page for fact-check type articles." id="mediaArticlesCard.factcheckTooltip" /> }
+          { article.nodeType === 'FactCheck' && factCheckInUse && <FormattedMessage defaultMessage="Can't add Claim & Fact-Check article to this media cluster because it's already applied to another media cluster. You need to first remove it from the other media cluster." description="Tooltip message displayed on article cards on item page for fact-check type articles." id="mediaArticlesCard.factcheckInUseTooltip" /> }
+          { article.nodeType === 'FactCheck' && !factCheckInUse && <FormattedMessage defaultMessage="Add Claim & Fact-Check article to this media cluster" description="Tooltip message displayed on article cards on item page for fact-check type articles." id="mediaArticlesCard.factcheckTooltip" /> }
           { article.nodeType === 'Explainer' && <FormattedMessage defaultMessage="Add Explainer article to this media cluster" description="Tooltip message displayed on article cards on item page for explainer type articles." id="mediaArticlesCard.explainerTooltip" /> }
         </>
       }
@@ -88,6 +91,10 @@ MediaArticlesCard.propTypes = {
     rating: PropTypes.string,
     claim_description: PropTypes.shape({
       id: PropTypes.string,
+      project_media: PropTypes.shape({
+        id: PropTypes.string,
+        type: PropTypes.string,
+      }),
     }),
     nodeType: PropTypes.oneOf(['FactCheck', 'Explainer']).isRequired,
   }).isRequired,
@@ -115,6 +122,10 @@ export default createFragmentContainer(MediaArticlesCard, graphql`
       rating
       claim_description {
         id
+        project_media {
+          id
+          type
+        }
       }
     }
   }

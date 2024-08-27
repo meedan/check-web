@@ -1,5 +1,10 @@
 [
   {
+    "id": "mediaArticlesCard.factcheckInUseTooltip",
+    "description": "Tooltip message displayed on article cards on item page for fact-check type articles.",
+    "defaultMessage": "Can't add Claim & Fact-Check article to this media cluster because it's already applied to another media cluster. You need to first remove it from the other media cluster."
+  },
+  {
     "id": "mediaArticlesCard.factcheckTooltip",
     "description": "Tooltip message displayed on article cards on item page for fact-check type articles.",
     "defaultMessage": "Add Claim & Fact-Check article to this media cluster"
