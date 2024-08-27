@@ -60,7 +60,18 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
         </>
       }
     >
-      <div className={styles.articlesSidebarCard} onClick={handleClick} onKeyDown={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div
+        className={cx(
+          styles.articlesSidebarCard,
+          {
+            [styles.articlesSidebarCardUnavailable]: factCheckInUse,
+          })
+        }
+        onClick={handleClick}
+        onKeyDown={handleClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <div className={cx(styles.articlesSidebarCardIcon, 'media-articles-card__card')}>
           { isHovered && !factCheckInUse && <AddIcon /> }
           { isHovered && factCheckInUse && <UnavilableIcon /> }
