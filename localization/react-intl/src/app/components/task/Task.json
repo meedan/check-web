@@ -80,18 +80,18 @@
     "defaultMessage": "Saving {file}…"
   },
   {
-    "id": "metadata.savedByLabel",
+    "id": "task.savedByLabel",
     "description": "This is a label that indicates when and by whom the task was saved.",
     "defaultMessage": "Saved {timeAgo} by {userName}"
-  },
-  {
-    "id": "task.uploadWarningTitle",
-    "description": "Warning to prevent user from navigating away while upload is running",
-    "defaultMessage": "There is an ongoing file upload"
   },
   {
     "id": "task.uploadWarningBody",
     "description": "Warning to prevent user from navigating away while upload is running",
     "defaultMessage": "Navigating away from this page may cause the interruption of the file upload."
+  },
+  {
+    "id": "task.uploadWarningTitle",
+    "description": "Warning to prevent user from navigating away while upload is running",
+    "defaultMessage": "There is an ongoing file upload"
   }
 ]

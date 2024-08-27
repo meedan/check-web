@@ -10,13 +10,13 @@
     "defaultMessage": "Merge Items"
   },
   {
-    "id": "mediaSimilarityBarAdd.mergeItemsTitle",
-    "description": "Dialog title for merging items.",
-    "defaultMessage": "Find other media to merge with this item"
-  },
-  {
     "id": "mediaSimilarityBarAdd.mergeItemsButton",
     "description": "Button label to commit action of merging items.",
     "defaultMessage": "{count, plural, one {Merge Selected Item} other {Merge # Selected Items}}"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.mergeItemsTitle",
+    "description": "Dialog title for merging items.",
+    "defaultMessage": "Find other media to merge with this item"
   }
 ]

@@ -55,11 +55,6 @@
     "defaultMessage": "Trash"
   },
   {
-    "id": "projectsComponent.newList",
-    "description": "Title for a dialog to create a new list displayed on the left sidebar.",
-    "defaultMessage": "New List"
-  },
-  {
     "id": "projectsComponent.createList",
     "description": "Label for a button to create a new list displayed on the left sidebar.",
     "defaultMessage": "Create List"
@@ -73,5 +68,10 @@
     "id": "projectsComponent.newListSuccessMessage",
     "description": "Success message when new list is created",
     "defaultMessage": "List created successfully"
+  },
+  {
+    "id": "projectsComponent.newList",
+    "description": "Title for a dialog to create a new list displayed on the left sidebar.",
+    "defaultMessage": "New List"
   }
 ]
