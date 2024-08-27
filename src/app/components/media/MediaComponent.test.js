@@ -41,7 +41,7 @@ describe('<MediaComponent />', () => {
       suggested_similar_items_count: 1,
     };
     const initialTab = setInitialTab(projectMedia);
-    expect(initialTab).toBe('suggestions');
+    expect(initialTab).toBe('suggestedMedia');
   });
 
   it('should have the initial tab as Suggestions for items with suggestions and no articles', () => {
@@ -51,6 +51,6 @@ describe('<MediaComponent />', () => {
       suggested_similar_items_count: 1,
     };
     const initialTab = setInitialTab(projectMedia);
-    expect(initialTab).toBe('suggestions');
+    expect(initialTab).toBe('suggestedMedia');
   });
 });
