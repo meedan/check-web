@@ -17,6 +17,7 @@ import inputStyles from '../../styles/css/inputs.module.css';
 import { safelyParseJSON, truncateLength } from '../../helpers';
 import RatingSelector from '../cds/inputs/RatingSelector';
 import Alert from '../cds/alerts-and-prompts/Alert.js';
+import ExternalLink from '../ExternalLink';
 import styles from './ArticleForm.module.css';
 
 const ArticleForm = ({
@@ -126,6 +127,15 @@ const ArticleForm = ({
                       />
                     </div>
                   }
+                  { articleType === 'fact-check' && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' &&
+                    <div className="typography-subtitle2">
+                      <FormattedMessage
+                        defaultMessage="Media Cluster:"
+                        description="Label for the link to the media cluster that this fact-check is applied to."
+                        id="articleForm.mediaCluster"
+                      />
+                    </div>
+                  }
                 </div>
                 <div className={styles['article-form-info-content']}>
                   { article.updated_at &&
@@ -136,6 +146,11 @@ const ArticleForm = ({
                   { publishedAt && articleType === 'fact-check' &&
                     <div className="typography-body2">
                       <FormattedDate day="numeric" month="long" value={new Date(publishedAt * 1000)} year="numeric" />
+                    </div>
+                  }
+                  { articleType === 'fact-check' && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' &&
+                    <div className="typography-body2">
+                      <ExternalLink maxUrlLength={50} title={article.claim_description?.project_media.title} url={article.claim_description?.project_media.full_url} />
                     </div>
                   }
                 </div>
@@ -583,6 +598,9 @@ export default createFragmentContainer(ArticleForm, graphql`
         context
         project_media {
           dbid
+          title
+          type
+          full_url
           last_status_obj {
             locked
           }

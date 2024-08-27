@@ -121,5 +121,13 @@
         font-weight: bold;
       }
     }
+
+    &.articlesSidebarCardUnavailable {
+      opacity: .45;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 }

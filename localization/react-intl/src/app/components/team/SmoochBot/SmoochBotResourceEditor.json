@@ -50,14 +50,14 @@
     "defaultMessage": "Text"
   },
   {
-    "id": "smoochBotResourceEditor.rss",
-    "description": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'",
-    "defaultMessage": "RSS"
-  },
-  {
     "id": "smoochBotResourceEditor.rssFeed",
     "description": "Message on tipline resource settings page that explains how RSS feeds work there.",
     "defaultMessage": "Use an RSS feed to automatically load new content for your resource."
+  },
+  {
+    "id": "smoochBotResourceEditor.rss",
+    "description": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'",
+    "defaultMessage": "RSS"
   },
   {
     "id": "smoochBotResourceEditor.save",
@@ -70,11 +70,6 @@
     "defaultMessage": "Delete"
   },
   {
-    "id": "smoochBotResourceEditor.confirmationDialogTitle",
-    "description": "Confirmation dialog title when deleting a tipline resource.",
-    "defaultMessage": "Are you sure you want to delete this resource?"
-  },
-  {
     "id": "smoochBotResourceEditor.confirmationDialogBody",
     "description": "Confirmation dialog message when deleting a tipline resource.",
     "defaultMessage": "This content won't be available for tipline users anymore. This action can't be undone."
@@ -83,5 +78,10 @@
     "id": "smoochBotResourceEditor.confirmationDialogButton",
     "description": "Button label to confirm tipline resource deletion.",
     "defaultMessage": "Delete"
+  },
+  {
+    "id": "smoochBotResourceEditor.confirmationDialogTitle",
+    "description": "Confirmation dialog title when deleting a tipline resource.",
+    "defaultMessage": "Are you sure you want to delete this resource?"
   }
 ]
