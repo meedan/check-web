@@ -2,11 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import AddIcon from '../../icons/add.svg';
 import BookIcon from '../../icons/book.svg';
+import UnavilableIcon from '../../icons/do_not_disturb.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import EllipseIcon from '../../icons/ellipse.svg';
 import { getStatus, getStatusStyle } from '../../helpers';
@@ -53,7 +54,7 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
       placement="top"
       title={
         <>
-          { article.nodeType === 'FactCheck' && factCheckInUse && <FormattedMessage defaultMessage="Can't add Claim & Fact-Check article to this media cluster because it's already applied to another media cluster. You need to first remove it from the other media cluster." description="Tooltip message displayed on article cards on item page for fact-check type articles." id="mediaArticlesCard.factcheckInUseTooltip" /> }
+          { article.nodeType === 'FactCheck' && factCheckInUse && <FormattedHTMLMessage defaultMessage="This Claim & Fact-Check article is already applied to another media cluster<br /><br />Remove it from its current media cluster in order to add it here." description="Tooltip message displayed on article cards on item page for fact-check type articles." id="mediaArticlesCard.factcheckInUseTooltip" /> }
           { article.nodeType === 'FactCheck' && !factCheckInUse && <FormattedMessage defaultMessage="Add Claim & Fact-Check article to this media cluster" description="Tooltip message displayed on article cards on item page for fact-check type articles." id="mediaArticlesCard.factcheckTooltip" /> }
           { article.nodeType === 'Explainer' && <FormattedMessage defaultMessage="Add Explainer article to this media cluster" description="Tooltip message displayed on article cards on item page for explainer type articles." id="mediaArticlesCard.explainerTooltip" /> }
         </>
@@ -61,7 +62,8 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
     >
       <div className={styles.articlesSidebarCard} onClick={handleClick} onKeyDown={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <div className={cx(styles.articlesSidebarCardIcon, 'media-articles-card__card')}>
-          { isHovered && <AddIcon /> }
+          { isHovered && !factCheckInUse && <AddIcon /> }
+          { isHovered && factCheckInUse && <UnavilableIcon /> }
           { article.nodeType === 'Explainer' && !isHovered && <BookIcon /> }
           { article.nodeType === 'FactCheck' && !isHovered && <FactCheckIcon /> }
           { article.nodeType === 'FactCheck' && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Type description of a fact-check article card." id="mediaArticlesCard.factCheck" tagName="small" /> }
