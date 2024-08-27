@@ -40,11 +40,6 @@
     "defaultMessage": "Resend invite"
   },
   {
-    "id": "teamMembers.removeDialogTitle",
-    "description": "Confirmation title for removing a team member",
-    "defaultMessage": "Remove {userLabel}"
-  },
-  {
     "id": "teamMembers.removeDialogBody",
     "description": "explanation text about what will happen when a team member is removed from the workspace",
     "defaultMessage": "{userLabel} will no longer have access to {teamName}'s workspace, including all content and files."
@@ -53,5 +48,10 @@
     "id": "teamMembers.removeConfrm",
     "description": "Confirmation label action for removing team member",
     "defaultMessage": "Remove"
+  },
+  {
+    "id": "teamMembers.removeDialogTitle",
+    "description": "Confirmation title for removing a team member",
+    "defaultMessage": "Remove {userLabel}"
   }
 ]

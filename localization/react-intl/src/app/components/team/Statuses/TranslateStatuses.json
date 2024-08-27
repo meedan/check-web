@@ -10,11 +10,6 @@
     "defaultMessage": "Message"
   },
   {
-    "id": "translateStatuses.missingTranslations",
-    "description": "Modal Title informing the user that there are missing translations",
-    "defaultMessage": "Missing translations"
-  },
-  {
     "id": "translateStatuses.missingTranslationsBody",
     "description": "Modal paragraph description informing the user that there are missing translations",
     "defaultMessage": "Some statuses are missing translations. Users may not be able to read untranslated statuses."
@@ -28,5 +23,10 @@
     "id": "translateStatuses.continueAndSave",
     "description": "Label for confirmation to save the updated status translations",
     "defaultMessage": "Continue and save"
+  },
+  {
+    "id": "translateStatuses.missingTranslations",
+    "description": "Modal Title informing the user that there are missing translations",
+    "defaultMessage": "Missing translations"
   }
 ]

@@ -15,19 +15,14 @@
     "defaultMessage": "Custom Title"
   },
   {
-    "id": "itemTitle.pinnedMediaId",
-    "description": "Label for a menu item that selects Pinned Media Title as the title field for an item.",
-    "defaultMessage": "Pinned Media Title"
-  },
-  {
     "id": "itemTitle.pinnedMediaIdHelper",
     "description": "Helper text displayed under the Pinned Media Title option for an item title when the item has no media.",
     "defaultMessage": "(Add a media to enable)"
   },
   {
-    "id": "itemTitle.claimTitle",
-    "description": "Label for a menu item that selects Claim Title as the title field for an item.",
-    "defaultMessage": "Claim Title"
+    "id": "itemTitle.pinnedMediaId",
+    "description": "Label for a menu item that selects Pinned Media Title as the title field for an item.",
+    "defaultMessage": "Pinned Media Title"
   },
   {
     "id": "itemTitle.claimTitleHelper",
@@ -35,13 +30,18 @@
     "defaultMessage": "(Add a claim to enable)"
   },
   {
-    "id": "itemTitle.factCheckTitle",
-    "description": "Label for a menu item that selects Fact-Check Title as the title field for an item.",
-    "defaultMessage": "Fact-Check Title"
+    "id": "itemTitle.claimTitle",
+    "description": "Label for a menu item that selects Claim Title as the title field for an item.",
+    "defaultMessage": "Claim Title"
   },
   {
     "id": "itemTitle.factCheckTitleHelper",
     "description": "Helper text displayed under the Fact-Check Title option for an item title when the item has no fact-check.",
     "defaultMessage": "(Add a fact-check to enable)"
+  },
+  {
+    "id": "itemTitle.factCheckTitle",
+    "description": "Label for a menu item that selects Fact-Check Title as the title field for an item.",
+    "defaultMessage": "Fact-Check Title"
   }
 ]

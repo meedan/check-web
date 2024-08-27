@@ -20,9 +20,9 @@
     "defaultMessage": "Status created successfully"
   },
   {
-    "id": "statusesComponent.title",
-    "description": "The idea of this sentence is 'statuses written in language <languageName>'",
-    "defaultMessage": "{languageName} Statuses [{statusCount}]"
+    "id": "statusesComponent.newStatus",
+    "description": "Button label to create a new status.",
+    "defaultMessage": "New status"
   },
   {
     "id": "statusesComponent.helpContext",
@@ -30,9 +30,9 @@
     "defaultMessage": "Statuses represent the position of claims in the editorial workflow. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about statuses</a>."
   },
   {
-    "id": "statusesComponent.newStatus",
-    "description": "Button label to create a new status.",
-    "defaultMessage": "New status"
+    "id": "statusesComponent.title",
+    "description": "The idea of this sentence is 'statuses written in language <languageName>'",
+    "defaultMessage": "{languageName} Statuses [{statusCount}]"
   },
   {
     "id": "statusesComponent.blurbSecondary",

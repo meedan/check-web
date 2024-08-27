@@ -15,14 +15,14 @@
     "defaultMessage": "Choose a recent article to add to this media:"
   },
   {
-    "id": "mediaArticles.confirmReplaceFactCheckTitle",
-    "description": "'Replace' here is an infinitive verb.",
-    "defaultMessage": "Replace claim & fact-check?"
-  },
-  {
     "id": "mediaArticles.confirmReplaceFactCheckBody",
     "description": "Confirmation dialog message when replacing a fact-check.",
     "defaultMessage": "Are you sure you would like to replace the current claim & fact-check?"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
   },
   {
     "id": "mediaArticles.confirmReplaceFactCheckButton",
@@ -30,8 +30,8 @@
     "defaultMessage": "Replace claim & fact-check"
   },
   {
-    "id": "global.cancel",
-    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
-    "defaultMessage": "Cancel"
+    "id": "mediaArticles.confirmReplaceFactCheckTitle",
+    "description": "'Replace' here is an infinitive verb.",
+    "defaultMessage": "Replace claim & fact-check?"
   }
 ]
