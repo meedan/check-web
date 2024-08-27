@@ -10,14 +10,14 @@
     "defaultMessage": "Choose a source"
   },
   {
-    "id": "changeMediaSource.chooseLabel",
-    "description": "Change media source label",
-    "defaultMessage": "Source"
-  },
-  {
     "id": "changeMediaSource.helpContent",
     "description": "Helper text for the input to select an item source",
     "defaultMessage": "Add a source for this item"
+  },
+  {
+    "id": "changeMediaSource.chooseLabel",
+    "description": "Change media source label",
+    "defaultMessage": "Source"
   },
   {
     "id": "changeMediaSource.cancelButton",

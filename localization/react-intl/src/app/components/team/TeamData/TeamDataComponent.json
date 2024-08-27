@@ -95,11 +95,6 @@
     "defaultMessage": "The total number of newsletters sent to subscribers."
   },
   {
-    "id": "teamDataComponent.title",
-    "description": "Header for the stored data page of the current team",
-    "defaultMessage": "Tipline engagement data"
-  },
-  {
     "id": "teamDataComponent.download",
     "description": "Label for action button displayed on workspace data report page.",
     "defaultMessage": "Download CSV"
@@ -108,6 +103,11 @@
     "id": "teamDataComponent.helpContext",
     "description": "Context description for the functionality of this page",
     "defaultMessage": "View and export monthly tipline usage data. Data may take 24 hours to update; all data except for WhatsApp conversations are specific to each tipline language. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about engagement data</a>."
+  },
+  {
+    "id": "teamDataComponent.title",
+    "description": "Header for the stored data page of the current team",
+    "defaultMessage": "Tipline engagement data"
   },
   {
     "id": "teamDataComponent.set1",
