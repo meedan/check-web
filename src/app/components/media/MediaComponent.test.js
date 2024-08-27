@@ -1,4 +1,3 @@
-import React from 'react';
 import { setInitialTab } from './MediaComponent';
 
 describe('<MediaComponent />', () => {
