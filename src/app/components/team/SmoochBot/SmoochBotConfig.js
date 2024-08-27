@@ -27,7 +27,7 @@ const SmoochBotConfig = (props) => {
     value,
   } = props;
   const [currentTab, setCurrentTab] = React.useState('bot');
-  const defaultOption = value.smooch_version === 'v2' ? 'smooch_content' : 'smooch_message_smooch_bot_greetings';
+  const defaultOption = value.smooch_version === 'smooch_content';
   const [currentOption, setCurrentOption] = React.useState(defaultOption);
   const team = props?.currentUser?.current_team;
   const environment = createEnvironment(props?.currentUser?.token, team.slug);
