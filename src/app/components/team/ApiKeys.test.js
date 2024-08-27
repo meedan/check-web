@@ -1,7 +1,7 @@
 import React from 'react';
+import { ApiKeys } from './ApiKeys';
 import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import StyledBlankState from '../layout/BlankState';
-import { ApiKeys } from './ApiKeys';
 
 const teamWithoutApiKeys = { api_keys: { edges: [] } };
 const teamWithApiKeys = {

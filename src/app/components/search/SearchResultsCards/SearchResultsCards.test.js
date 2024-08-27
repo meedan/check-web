@@ -36,8 +36,8 @@ const projectMedias = [
 describe('<SearchResultsCards />', () => {
   it('should render SearchResultsCards component', () => {
     const resultsComponent = shallow(<SearchResultsCards
-      team={team}
       projectMedias={projectMedias}
+      team={team}
     />);
     const results = resultsComponent.find('.search-results-cards');
     expect(results).toHaveLength(1);
@@ -45,8 +45,8 @@ describe('<SearchResultsCards />', () => {
 
   it('should render one fact-check card for each item', () => {
     const resultsComponent = shallow(<SearchResultsCards
-      team={team}
       projectMedias={projectMedias}
+      team={team}
     />);
     const results = resultsComponent.find('.fact-check-card-wrapper').hostNodes();
     expect(results).toHaveLength(2);
@@ -54,8 +54,8 @@ describe('<SearchResultsCards />', () => {
 
   it('should pass fact-check status label and color', () => {
     const resultsComponent = shallow(<SearchResultsCards
-      team={team}
       projectMedias={[projectMedias[0]]}
+      team={team}
     />);
     const card = resultsComponent.find('ArticleCard');
     expect(card.props().statusLabel).toBe('Test');

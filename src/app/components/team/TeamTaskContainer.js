@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 
-const TeamTaskContainer = ({ task, team, children }) => {
+const TeamTaskContainer = ({ children, task, team }) => {
   const { dbid } = task;
   const { slug } = team;
 
@@ -32,10 +32,6 @@ const TeamTaskContainer = ({ task, team, children }) => {
           }
         }
       `}
-      variables={{
-        slug,
-        dbid,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           return <React.Fragment>{children(props.team.team_task)}</React.Fragment>;
@@ -43,6 +39,10 @@ const TeamTaskContainer = ({ task, team, children }) => {
 
         // TODO: We need a better error handling in the future, standardized with other components
         return null;
+      }}
+      variables={{
+        slug,
+        dbid,
       }}
     />
   );

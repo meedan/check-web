@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -7,11 +8,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const TranscriptionButton = ({
+  onClick,
   projectMediaId,
   projectMediaType,
-  transcription,
   setFlashMessage,
-  onClick,
+  transcription,
 }) => {
   const [pending, setPending] = React.useState(false);
 
@@ -19,9 +20,9 @@ const TranscriptionButton = ({
     setPending(false);
     setFlashMessage((
       <FormattedMessage
-        id="transcriptionButton.defaultErrorMessage"
         defaultMessage="Could not get transcription"
         description="Warning displayed if an error occurred when transcribing an audio or video file"
+        id="transcriptionButton.defaultErrorMessage"
       />
     ), 'error');
   };
@@ -30,9 +31,9 @@ const TranscriptionButton = ({
     setPending(false);
     setFlashMessage((
       <FormattedMessage
-        id="transcriptionButton.textExtractedSuccessfully"
         defaultMessage="Transcription started, please come back in a few seconds to see it"
         description="Banner displayed when transcription operation starts"
+        id="transcriptionButton.textExtractedSuccessfully"
       />
     ), 'success');
   };
@@ -77,20 +78,20 @@ const TranscriptionButton = ({
 
   return (
     <MenuItem
+      disabled={pending || (transcription && transcription.data && transcription.data.last_response.job_status)}
       id="transcription-button__request-transcription"
       onClick={handleClick}
-      disabled={pending || (transcription && transcription.data && transcription.data.last_response.job_status)}
     >
       { pending ?
         <FormattedMessage
-          id="transcriptionButton.inProgress"
           defaultMessage="Requesting transcription…"
           description="Message displayed when transcription operation hasn't started yet"
+          id="transcriptionButton.inProgress"
         /> :
         <FormattedMessage
-          id="transcriptionButton.label"
           defaultMessage="Transcription"
           description="Button label - when this button is clicked, transcription operation starts"
+          id="transcriptionButton.label"
         /> }
     </MenuItem>
   );

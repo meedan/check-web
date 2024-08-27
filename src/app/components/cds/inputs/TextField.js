@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=623-12029&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -25,22 +26,22 @@ function useEffectSkipFirst(fn, inputs) {
 }
 
 const TextField = React.forwardRef(({
+  autoGrow,
   className,
+  componentProps,
   disabled,
   error,
-  suppressInitialError,
   helpContent,
   iconLeft,
   iconRight,
   label,
+  maxHeight,
+  onRemove,
   placeholder,
   required,
-  variant,
+  suppressInitialError,
   textArea,
-  autoGrow,
-  maxHeight,
-  componentProps,
-  onRemove,
+  variant,
   ...inputProps
 }, ref) => {
   const [internalError, setInternalError] = React.useState(suppressInitialError ? false : error);
@@ -77,7 +78,7 @@ const TextField = React.forwardRef(({
         }
         >
           { label && <label htmlFor="name">{label}</label> }
-          { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
+          { required && <span className={inputStyles.required}>*<FormattedMessage defaultMessage="Required" description="A label to indicate that a form field must be filled out" id="textfield.required" /></span>}
         </div>
       )}
       <div className={styles['textfield-wrapper']}>
@@ -113,10 +114,10 @@ const TextField = React.forwardRef(({
                   [styles['input-icon-right']]: iconRight,
                 })
               }
-              ref={ref}
               disabled={disabled}
               error={internalError}
               placeholder={placeholder}
+              ref={ref}
               {...componentProps}
               {...inputProps}
             />
@@ -132,11 +133,11 @@ const TextField = React.forwardRef(({
                   [styles['input-icon-right']]: iconRight,
                 })
               }
-              ref={ref}
-              type="text"
               disabled={disabled}
               error={internalError}
               placeholder={placeholder}
+              ref={ref}
+              type="text"
               {...componentProps}
               {...inputProps}
             />
@@ -148,14 +149,14 @@ const TextField = React.forwardRef(({
           )}
         </div>
         { onRemove ?
-          <Tooltip arrow title={<FormattedMessage id="textfield.removeSelection" defaultMessage="Clear text" description="Tooltip for button on Textfield component to remove current text of the input" />}>
+          <Tooltip arrow title={<FormattedMessage defaultMessage="Clear text" description="Tooltip for button on Textfield component to remove current text of the input" id="textfield.removeSelection" />}>
             <span>
               <ButtonMain
+                className="int-clear-input__button--textfield"
                 iconCenter={<ClearIcon />}
-                variant="contained"
                 size="default"
                 theme="lightText"
-                className="int-clear-input__button--textfield"
+                variant="contained"
                 onClick={() => { onRemove(); }}
               />
             </span>

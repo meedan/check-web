@@ -38,3 +38,4 @@ Please describe parts of the change that require extra attention during code rev
 - [ ] If my components involve user interaction - specifically button, text fields, or other inputs - I have added a [BEM-like class name](https://meedan.atlassian.net/wiki/spaces/ENG/pages/1327628289/Naming+conventions+for+interactive+elements) to the element that is interacted with
 - [ ] To the best of my knowledge, any new styles are applied according to the design system
 - [ ] If I added a new external dependency, I included a rationale for doing so and an estimate of the change in bundle size (e.g., checked in https://bundlephobia.com/)
+- [ ] If I touched a file that included an eslint-disable-file header, I updated the code such that the disabler can be removed 

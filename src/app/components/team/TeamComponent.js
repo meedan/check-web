@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -80,7 +80,7 @@ class TeamComponent extends Component {
               ? <TeamMembers teamSlug={team.slug} />
               : null }
             { tab === 'annotation'
-              ? <TeamTasks key={tab} team={team} fieldset="metadata" />
+              ? <TeamTasks fieldset="metadata" key={tab} team={team} />
               : null }
             { tab === 'tipline'
               ? <SmoochBot currentUser={this.getCurrentUser()} />

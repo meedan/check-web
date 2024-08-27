@@ -30,6 +30,11 @@
     "defaultMessage": "Last Published:"
   },
   {
+    "id": "articleForm.mediaCluster",
+    "description": "Label for the link to the media cluster that this fact-check is applied to.",
+    "defaultMessage": "Media Cluster:"
+  },
+  {
     "id": "articleForm.reportDesignerTooltip",
     "description": "Tooltip for the report designer button",
     "defaultMessage": "Assign this Fact Check to a media item to be able to edit and publish a report"
@@ -80,9 +85,9 @@
     "defaultMessage": "Fact-check"
   },
   {
-    "id": "articleForm.reportPublishedTitle",
-    "description": "Title of alert box in article form.",
-    "defaultMessage": "Report is published"
+    "id": "articleForm.reportPublishedLabel",
+    "description": "Label of alert button in article form.",
+    "defaultMessage": "Update Report"
   },
   {
     "id": "articleForm.reportPublishedBody",
@@ -90,9 +95,9 @@
     "defaultMessage": "To make edits, pause this report. This will stop the report from being sent out to users until it is published again"
   },
   {
-    "id": "articleForm.reportPublishedLabel",
-    "description": "Label of alert button in article form.",
-    "defaultMessage": "Update Report"
+    "id": "articleForm.reportPublishedTitle",
+    "description": "Title of alert box in article form.",
+    "defaultMessage": "Report is published"
   },
   {
     "id": "articleForm.explainerTitleInputPlaceholder",

@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { ArticlesComponent } from './Articles';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<Articles />', () => {
   const article = {
@@ -31,7 +31,7 @@ describe('<Articles />', () => {
         ...article,
       },
     ];
-    const wrapper = shallowWithIntl(<ArticlesComponent {...articlesProps} type="explainer" articles={explainers} />);
+    const wrapper = shallowWithIntl(<ArticlesComponent {...articlesProps} articles={explainers} type="explainer" />);
     expect(wrapper.find('ArticleCard')).toHaveLength(2);
   });
 });

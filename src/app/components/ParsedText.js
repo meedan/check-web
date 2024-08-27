@@ -1,10 +1,11 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Linkify from 'react-linkify';
 import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
 import reactStringReplace from 'react-string-replace';
-import styles from './ParsedText.module.css';
 import MediaChip from './cds/buttons-checkboxes-chips/MediaChip';
+import styles from './ParsedText.module.css';
 
 const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
   let parsedText = text;
@@ -13,9 +14,9 @@ const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
 
   if (truncateFileUrls) {
     parsedText = reactStringReplace(text, /(https?:\/\/[^ ]+\/[^/.]+\.[^ ]+)/gm, (match, i) => (
-      <a className={styles['media-chip-link']} href={match} target="_blank" key={i} rel="noopener noreferrer">
+      <a className={styles['media-chip-link']} href={match} key={i} rel="noopener noreferrer" target="_blank">
         { mediaChips
-          ? <MediaChip url={match} label={fileUrlName || match.replace(/.*\//, '')} />
+          ? <MediaChip label={fileUrlName || match.replace(/.*\//, '')} url={match} />
           : fileUrlName || match.replace(/.*\//, '')
         }
       </a>
@@ -27,7 +28,7 @@ const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
   parsedText = reactStringReplace(parsedText, /(\[[^\]]+\]\(https?:\/\/[^ ]+\))/gm, (match, i) => {
     const markdown = match.match(/\[(?<text>[^\]]+)\]\((?<url>https?:\/\/[^ ]+)\)/m); // Extract "text" and "url" from Markdown link
     return (
-      <a className={styles['markdown-link']} href={markdown.groups.url} target="_blank" key={i} rel="noopener noreferrer">
+      <a className={styles['markdown-link']} href={markdown.groups.url} key={i} rel="noopener noreferrer" target="_blank">
         {markdown.groups.text}
       </a>
     );
@@ -36,8 +37,8 @@ const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
   // Turn other URLs into links
 
   parsedText = reactStringReplace(parsedText, /(https?:\/\/[^ ]+)/gm, (match, i) => (
-    <a className={styles['media-chip-link']} href={match} target="_blank" key={i} rel="noopener noreferrer">
-      { mediaChips ? <MediaChip url={match} label={match} /> : match }
+    <a className={styles['media-chip-link']} href={match} key={i} rel="noopener noreferrer" target="_blank">
+      { mediaChips ? <MediaChip label={match} url={match} /> : match }
     </a>
   ));
 

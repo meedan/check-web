@@ -1,8 +1,8 @@
 import React from 'react';
-import { mountWithIntlProvider } from '../../../../../test/unit/helpers/intl-test';
 import Rule from './Rule';
 import schema from './../../../../../test/unit/mocks/rules-schema';
 import rules from './../../../../../test/unit/mocks/rules';
+import { mountWithIntlProvider } from '../../../../../test/unit/helpers/intl-test';
 
 const CommonProps = {
   schema,

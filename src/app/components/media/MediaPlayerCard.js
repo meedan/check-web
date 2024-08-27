@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable jsx-a11y/media-has-caption, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -27,9 +27,9 @@ const MediaPlayerCard = ({
   isAudio,
   isYoutube,
   projectMedia,
+  superAdminMask,
   warningCategory,
   warningCreator,
-  superAdminMask,
 }) => {
   const classes = useStyles();
   const videoRef = React.useRef();
@@ -53,63 +53,63 @@ const MediaPlayerCard = ({
       { errorAlert &&
       <Alert
         banner
-        variant="error"
         buttonLabel="Download video"
-        onButtonClick={handleDownloadButtonClick}
-        title={
-          <FormattedMessage
-            id="mediaPlayer.errorTitle"
-            defaultMessage="A Playback Error Occurred."
-            description="Text displayed in an error box on media page when the video cannot be played"
-          />
-        }
         content={
           <FormattedMessage
-            id="mediaPlayer.errorContent"
             defaultMessage="The video cannot be played because of an issue with the video file. Download the file to play locally."
             description="Text displayed in an error box on media page when the video cannot be played"
+            id="mediaPlayer.errorContent"
           />
         }
+        title={
+          <FormattedMessage
+            defaultMessage="A Playback Error Occurred."
+            description="Text displayed in an error box on media page when the video cannot be played"
+            id="mediaPlayer.errorTitle"
+          />
+        }
+        variant="error"
+        onButtonClick={handleDownloadButtonClick}
         onClose={() => setErrorAlert(false)}
       />
       }
       <AspectRatio
-        key={contentWarning}
         contentWarning={contentWarning}
-        warningCreator={warningCreator}
-        warningCategory={warningCategory}
-        projectMedia={projectMedia}
+        currentUserRole={currentUserRole}
         downloadUrl={isYoutube ? null : filePath}
         isVideoFile
-        currentUserRole={currentUserRole}
+        key={contentWarning}
+        projectMedia={projectMedia}
         superAdminMask={superAdminMask}
+        warningCategory={warningCategory}
+        warningCreator={warningCreator}
       >
         { coverImage ? (
           <img
-            src={coverImage}
             alt=""
+            src={coverImage}
             onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }}
           />
         ) : null }
         <div className="aspect-ratio__overlay">
           { isYoutube ? (
             <iframe
+              frameBorder="0"
+              height="100%"
               id="ytplayer"
+              src={`https://www.youtube.com/embed/${filePath.match(youtubeRegex)[1]}?autoplay=1`}
               title="ytplayer"
               type="text/html"
               width="100%"
-              height="100%"
-              src={`https://www.youtube.com/embed/${filePath.match(youtubeRegex)[1]}?autoplay=1`}
-              frameBorder="0"
             />
           ) : (
             <>
               <video
+                className={classes.video}
                 id="media-player-card__video"
+                poster={isAudio ? poster : ''}
                 ref={videoRef}
                 src={filePath}
-                className={classes.video}
-                poster={isAudio ? poster : ''}
                 onError={() => setErrorAlert(true)}
               />
               <MediaControls videoRef={videoRef} />

@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ReportDesignerForm from './ReportDesignerForm';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ReportDesignerForm />', () => {
   const data = {
@@ -23,13 +23,13 @@ describe('<ReportDesignerForm />', () => {
 
   it('should render report form', () => {
     const wrapper = mountWithIntl(<ReportDesignerForm
-      state="published"
-      media={media}
       data={data}
+      disabled={false}
+      media={media}
+      pending
+      state="published"
       team={team}
       onUpdate={() => {}}
-      pending
-      disabled={false}
     />);
     expect(wrapper.find('[data-testid="report-designer__introduction"]')).toHaveLength(1);
     expect(wrapper.find('[data-testid="report-designer__text-url"]')).toHaveLength(1);

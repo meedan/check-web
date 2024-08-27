@@ -24,14 +24,14 @@ const TeamReport = () => {
           }
         }
       `}
-      variables={{
-        teamSlug,
-      }}
       render={({ props }) => {
         if (props) {
           return (<TeamReportComponent team={props.team} />);
         }
         return null;
+      }}
+      variables={{
+        teamSlug,
       }}
     />
   );

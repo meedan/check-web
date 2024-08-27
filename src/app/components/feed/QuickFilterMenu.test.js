@@ -1,14 +1,14 @@
 import React from 'react';
-import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 import QuickFilterMenu from './QuickFilterMenu';
+import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
 describe('<QuickFilterMenu />', () => {
   const setTeamFilters = jest.fn();
   it('should render QuickFilterMenu component', () => {
     const quickFilterMenuComponent = mountWithIntlProvider((
       <QuickFilterMenu
-        setTeamFilters={setTeamFilters}
         currentOrg={{}}
+        setTeamFilters={setTeamFilters}
         teamsWithoutCurrentOrg={[]}
       />
     ));
@@ -20,8 +20,8 @@ describe('<QuickFilterMenu />', () => {
   it('should filter for the current workspace', () => {
     const quickFilterMenuComponent = mountWithIntlProvider((
       <QuickFilterMenu
-        setTeamFilters={setTeamFilters}
         currentOrg={{ dbid: 1 }}
+        setTeamFilters={setTeamFilters}
         teamsWithoutCurrentOrg={[
           { node: { dbid: 2 } },
           { node: { dbid: 3 } },
@@ -45,8 +45,8 @@ describe('<QuickFilterMenu />', () => {
   it('should filter for other workspaces', () => {
     const quickFilterMenuComponent = mountWithIntlProvider((
       <QuickFilterMenu
-        setTeamFilters={setTeamFilters}
         currentOrg={{ dbid: 1 }}
+        setTeamFilters={setTeamFilters}
         teamsWithoutCurrentOrg={[
           { node: { dbid: 2 } },
           { node: { dbid: 3 } },

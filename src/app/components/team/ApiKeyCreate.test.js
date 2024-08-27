@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ApiKeyCreate from './ApiKeyCreate';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 describe('<ApiKeyCreate />', () => {

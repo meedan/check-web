@@ -1,8 +1,7 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -11,6 +10,8 @@ import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
+import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../../icons/add.svg';
 import createEnvironment from '../../../relay/EnvironmentModern';
 import styles from '../Settings.module.css';
@@ -18,12 +19,12 @@ import styles from '../Settings.module.css';
 const SmoochBotConfig = (props) => {
   const {
     currentLanguage,
+    hasUnsavedChanges,
     languages,
+    onEditingResource,
+    resources,
     userRole,
     value,
-    resources,
-    hasUnsavedChanges,
-    onEditingResource,
   } = props;
   const [currentTab, setCurrentTab] = React.useState('bot');
   const defaultOption = value.smooch_version === 'v2' ? 'smooch_content' : 'smooch_message_smooch_bot_greetings';
@@ -153,16 +154,16 @@ const SmoochBotConfig = (props) => {
       { userRole === 'admin' ?
         <div className={styles['tipline-settings-toggle']}>
           <ToggleButtonGroup
+            exclusive
             value={currentTab}
             variant="contained"
             onChange={handleChangeTab}
-            exclusive
           >
-            <ToggleButton value="bot" key="1">
-              <FormattedMessage id="smoochBot.designYourBot" defaultMessage="Design your bot" description="Title of tipline settings page" />
+            <ToggleButton key="1" value="bot">
+              <FormattedMessage defaultMessage="Design your bot" description="Title of tipline settings page" id="smoochBot.designYourBot" />
             </ToggleButton>
-            <ToggleButton value="settings" key="2">
-              <FormattedMessage id="smoochBot.settings" defaultMessage="Settings" description="Tab label to click to see the settings area" />
+            <ToggleButton key="2" value="settings">
+              <FormattedMessage defaultMessage="Settings" description="Tab label to click to see the settings area" id="smoochBot.settings" />
             </ToggleButton>
           </ToggleButtonGroup>
         </div>
@@ -179,64 +180,64 @@ const SmoochBotConfig = (props) => {
               />
               <ButtonMain
                 iconLeft={<AddIcon />}
-                theme="text"
+                label={
+                  <FormattedMessage
+                    defaultMessage="Resource"
+                    description="Button label to add a resource to this bot"
+                    id="smoochBot.addResource"
+                  />
+                }
                 size="default"
+                theme="text"
                 variant="contained"
                 onClick={() => {
                   handleSelectOption('resource_new');
                 }}
-                label={
-                  <FormattedMessage
-                    id="smoochBot.addResource"
-                    defaultMessage="Resource"
-                    description="Button label to add a resource to this bot"
-                  />
-                }
               />
             </div>
             <div className={styles['bot-designer-content']}>
               { currentOption === 'smooch_message_smooch_bot_tos' ?
                 <SmoochBotMultiTextEditor
-                  value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
-                  onChange={handleChangeMultiTextField}
+                  currentLanguage={currentLanguage}
+                  field={currentOption}
                   subSchema={
                     props.schema.properties.smooch_workflows.items.properties[currentOption]
                   }
-                  field={currentOption}
-                  currentLanguage={currentLanguage}
+                  value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
+                  onChange={handleChangeMultiTextField}
                 /> : null }
               { /^smooch_message_smooch_bot_/.test(currentOption) && currentOption !== 'smooch_message_smooch_bot_tos' && currentOption !== 'smooch_message_smooch_bot_no_action' ?
                 <SmoochBotTextEditor
+                  field={currentOption}
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
                   onChange={handleChangeTextField}
-                  field={currentOption}
                 /> : null }
               { /^smooch_state_/.test(currentOption) ?
                 <SmoochBotMenuEditor
-                  languages={languages}
-                  field={currentOption}
-                  value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
-                  resources={resources}
-                  menuActions={menuActions(currentOption)}
-                  onChange={handleChangeMenu}
                   currentLanguage={currentLanguage}
+                  field={currentOption}
+                  languages={languages}
+                  menuActions={menuActions(currentOption)}
+                  resources={resources}
                   textHeader={
                     currentOption === 'smooch_state_subscription' ?
                       <FormattedMessage
-                        id="smoochBotConfig.subscriptionHeader"
                         defaultMessage="You are currently {subscription_status} to our newsletter."
                         description="Status message for the user to know if they are subscribed or not to the newsletter"
+                        id="smoochBotConfig.subscriptionHeader"
                       /> : null
                   }
+                  value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
+                  onChange={handleChangeMenu}
                 /> : null }
               { currentResource ?
                 <SmoochBotResourceEditor
-                  key={currentResource.id}
                   environment={environment}
-                  resource={currentResource}
+                  key={currentResource.id}
                   language={currentLanguage}
-                  onDelete={() => { handleSelectOption(defaultOption); }}
+                  resource={currentResource}
                   onCreate={(newResource) => { handleSelectOption(`resource_${newResource.dbid}`); }}
+                  onDelete={() => { handleSelectOption(defaultOption); }}
                 /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation
@@ -248,27 +249,27 @@ const SmoochBotConfig = (props) => {
                 /> : null }
               { currentOption === 'smooch_main_menu' ?
                 <SmoochBotMainMenu
+                  currentLanguage={currentLanguage}
+                  currentUser={props.currentUser}
+                  enabledIntegrations={props.enabledIntegrations}
+                  hasUnsavedChanges={hasUnsavedChanges}
                   key={currentLanguage}
                   languages={languages.filter(f => f !== currentLanguage)}
-                  currentLanguage={currentLanguage}
-                  value={value.smooch_workflows[currentWorkflowIndex]}
-                  enabledIntegrations={props.enabledIntegrations}
-                  onChange={handleChangeMenu}
                   resources={resources}
-                  currentUser={props.currentUser}
-                  hasUnsavedChanges={hasUnsavedChanges}
+                  value={value.smooch_workflows[currentWorkflowIndex]}
+                  onChange={handleChangeMenu}
                 /> : null }
             </div>
           </div>
         </React.Fragment> : null }
       { currentTab === 'settings' ?
         <SmoochBotSettings
-          settings={settings}
-          schema={settingsSchema}
           currentUser={props.currentUser}
-          onChange={handleUpdateSetting}
           enabledIntegrations={props.enabledIntegrations}
           installationId={props.installationId}
+          schema={settingsSchema}
+          settings={settings}
+          onChange={handleUpdateSetting}
         /> : null }
     </React.Fragment>
   );

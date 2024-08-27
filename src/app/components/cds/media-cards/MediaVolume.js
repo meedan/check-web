@@ -77,9 +77,9 @@ const CustomSlider = withStyles(theme => ({
 }))(Slider);
 
 const MediaVolume = ({
-  volume,
   setVolume,
   videoRef,
+  volume,
 }) => {
   const classes = useStyles();
   const [isVolumeOff, setIsVolumeOff] = React.useState(false);
@@ -111,17 +111,17 @@ const MediaVolume = ({
   };
 
   return (
-    <Box display="flex" className={classes.container} id="media-volume">
+    <Box className={classes.container} display="flex" id="media-volume">
       <CustomSlider
         className={classes.slider}
         id="media-volume-slider"
-        value={volume}
-        step={0.01}
-        min={0}
         max={1}
+        min={0}
+        step={0.01}
+        value={volume}
         onChange={handleChange}
       />
-      <IconButton className={classes.icon} onClick={handleMute} size="small">
+      <IconButton className={classes.icon} size="small" onClick={handleMute}>
         { isVolumeOff ? <VolumeOffIcon className="icon__vol-off" /> : <VolumeUpIcon className="icon__vol-up" /> }
       </IconButton>
     </Box>

@@ -11,29 +11,29 @@ const SuggestionsCount = ({
   suggestionsCount,
 }) => (
   <FormattedMessage
-    id="suggestionsCount.suggestions"
-    // {suggestionsCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
     defaultMessage="{suggestionsCount, plural, one {# Suggestion} other {{suggestionsCount, number} Suggestions}}"
+    // {suggestionsCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
     description="A count of suggestions for an item. Title-case where applicable. Example: 3 Suggestions"
+    id="suggestionsCount.suggestions"
     values={{ suggestionsCount }}
   >
     { suggestionsLabel => (
       <Tooltip
         arrow
-        title={suggestionsLabel}
         placement="top"
+        title={suggestionsLabel}
       >
         <span>
           <ButtonMain
-            disabled
-            size="small"
-            theme={suggestionsCount === 0 ? 'lightBeige' : 'alert'}
-            iconLeft={<SuggestionsIcon />}
-            variant={suggestionsCount === 0 ? 'text' : 'contained'}
-            label={getCompactNumber(intl.locale, suggestionsCount)}
             buttonProps={{
               type: null,
             }}
+            disabled
+            iconLeft={<SuggestionsIcon />}
+            label={getCompactNumber(intl.locale, suggestionsCount)}
+            size="small"
+            theme={suggestionsCount === 0 ? 'lightBeige' : 'alert'}
+            variant={suggestionsCount === 0 ? 'text' : 'contained'}
           />
         </span>
       </Tooltip>

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=139-6525&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -5,8 +6,8 @@ import cx from 'classnames/bind';
 import styles from './ButtonMain.module.css';
 
 const ButtonMain = ({
-  className,
   buttonProps,
+  className,
   customStyle,
   disabled,
   iconCenter,
@@ -16,8 +17,8 @@ const ButtonMain = ({
   onClick,
   size,
   theme,
-  variant,
   title,
+  variant,
 }) => (
   <button
     className={cx(
@@ -34,12 +35,12 @@ const ButtonMain = ({
         [styles['input-icon-center']]: iconCenter,
       })
     }
-    style={customStyle}
-    onClick={onClick}
     disabled={disabled}
-    variant={variant}
+    style={customStyle}
     title={title}
     type="button"
+    variant={variant}
+    onClick={onClick}
     {...buttonProps}
   >
     { iconLeft && (
@@ -67,7 +68,7 @@ ButtonMain.defaultProps = {
   label: null,
   title: null,
   size: 'default',
-  theme: 'brand',
+  theme: 'info',
   variant: 'contained',
   iconLeft: null,
   iconRight: null,
@@ -83,7 +84,7 @@ ButtonMain.propTypes = {
   className: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   size: PropTypes.oneOf(['default', 'small', 'large']),
-  theme: PropTypes.oneOf(['brand', 'lightBrand', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert', 'black', 'white', 'beige', 'lightBeige']),
+  theme: PropTypes.oneOf(['info', 'lightInfo', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert', 'black', 'white', 'beige', 'lightBeige']),
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
   iconCenter: PropTypes.element,

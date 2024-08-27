@@ -1,21 +1,22 @@
+/* eslint-disable react/sort-prop-types */
 import React, { useState } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import styles from './SaveFeed.module.css';
 import Can from '../Can';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChevronDownIcon from '../../icons/chevron_down.svg';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import styles from './SaveFeed.module.css';
 
 const FeedActions = ({
-  saving,
+  feedTeam,
   handleDelete,
   handleLeaveFeed,
-  feedTeam,
+  saving,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
@@ -50,9 +51,9 @@ const FeedActions = ({
     menuItem = (
       <MenuItem onClick={handleLeaveClick}>
         <FormattedMessage
-          id="SaveFeed.leaveButton"
           defaultMessage="Leave shared feed"
           description="Menu option to leave the selected shared feed"
+          id="SaveFeed.leaveButton"
         />
       </MenuItem>
     );
@@ -60,9 +61,9 @@ const FeedActions = ({
     menuItem = (
       <MenuItem disabled>
         <FormattedHTMLMessage
-          id="SaveFeed.deleteButtonDisabled"
           defaultMessage="Delete shared feed <br />(Remove collaborators to <br /> delete this shared feed)"
           description="Menu option to inform user to remove collaborators before deleting the selected shared feed"
+          id="SaveFeed.deleteButtonDisabled"
         />
       </MenuItem>
     );
@@ -70,9 +71,9 @@ const FeedActions = ({
     menuItem = (
       <MenuItem onClick={handleDeleteClick}>
         <FormattedMessage
-          id="SaveFeed.deleteButton"
           defaultMessage="Delete shared feed"
           description="Menu option to delete the selected shared feed"
+          id="SaveFeed.deleteButton"
         />
       </MenuItem>
     );
@@ -80,21 +81,21 @@ const FeedActions = ({
 
   return (
     <>
-      <Can permissions={JSON.stringify(mergedPermissions)} permission={permissionRequired}>
+      <Can permission={permissionRequired} permissions={JSON.stringify(mergedPermissions)}>
         <ButtonMain
           className={`typography-button ${styles.saveFeedButtonMoreActions}`}
-          theme="text"
-          size="default"
-          variant="outlined"
-          onClick={handleMenuClick}
           iconRight={<ChevronDownIcon />}
           label={
             <FormattedMessage
-              id="saveFeed.MoreActionsButton"
               defaultMessage="More Actions"
               description="Label to the save button of the shared feed update form"
+              id="saveFeed.MoreActionsButton"
             />
           }
+          size="default"
+          theme="text"
+          variant="outlined"
+          onClick={handleMenuClick}
         />
       </Can>
       <Menu
@@ -107,116 +108,116 @@ const FeedActions = ({
 
       {/* "Delete" dialog */}
       <ConfirmProceedDialog
-        open={showDeleteDialog}
-        title={
-          feed.saved_search_id ? (
-            <FormattedMessage
-              id="saveFeed.deleteSharedFeedWarningTitle"
-              defaultMessage="Are you sure you want to delete this shared feed?"
-              description="'Delete' here is an infinitive verb"
-            />
-          ) : (
-            <FormattedMessage
-              id="saveFeed.deleteSharedFeedTitle"
-              defaultMessage="Delete Shared Feed?"
-              description="'Delete' here is an infinitive verb"
-            />
-          )
-        }
         body={
           feed.saved_search_id ? (
             <>
               <FormattedHTMLMessage
-                id="saveFeed.deleteSharedFeedConfirmationDialogWaningBody"
                 defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
+                description="Confirmation dialog message when deleting a feed."
+                id="saveFeed.deleteSharedFeedConfirmationDialogWaningBody"
                 values={{
                   orgName: feed.team?.name,
                 }}
-                description="Confirmation dialog message when deleting a feed."
               />
               <Alert
-                variant="warning"
-                title={
-                  <FormattedHTMLMessage
-                    id="saveFeed.deleteSharedFeedWarning"
-                    defaultMessage="<strong>Note: Your custom list and items will remain available and unaffected.</strong>"
-                    description="Warning displayed on edit feed page when no list is selected."
-                  />
-                }
                 content={
                   <ul className="bulleted-list">
                     <li>{feed.saved_search.title}</li>
                   </ul>
                 }
+                title={
+                  <FormattedHTMLMessage
+                    defaultMessage="<strong>Note: Your custom list and items will remain available and unaffected.</strong>"
+                    description="Warning displayed on edit feed page when no list is selected."
+                    id="saveFeed.deleteSharedFeedWarning"
+                  />
+                }
+                variant="warning"
               />
             </>
           ) : (
             <FormattedHTMLMessage
-              id="saveFeed.deleteSharedFeedConfirmationDialogBody"
               defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
+              description="Confirmation dialog message when deleting a feed."
+              id="saveFeed.deleteSharedFeedConfirmationDialogBody"
               values={{
                 orgName: feed.team?.name,
               }}
-              description="Confirmation dialog message when deleting a feed."
             />
           )
         }
-        proceedLabel={
-          <FormattedMessage
-            id="saveFeed.deleteSharedFeedConfirmationButton"
-            defaultMessage="Delete Shared Feed"
-            description="'Delete' here is an infinitive verb"
-          />
-        }
-        onProceed={handleDelete}
-        isSaving={saving}
         cancelLabel={
           <FormattedMessage
-            id="global.cancel"
             defaultMessage="Cancel"
             description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+            id="global.cancel"
           />
         }
+        isSaving={saving}
+        open={showDeleteDialog}
+        proceedLabel={
+          <FormattedMessage
+            defaultMessage="Delete Shared Feed"
+            description="'Delete' here is an infinitive verb"
+            id="saveFeed.deleteSharedFeedConfirmationButton"
+          />
+        }
+        title={
+          feed.saved_search_id ? (
+            <FormattedMessage
+              defaultMessage="Are you sure you want to delete this shared feed?"
+              description="'Delete' here is an infinitive verb"
+              id="saveFeed.deleteSharedFeedWarningTitle"
+            />
+          ) : (
+            <FormattedMessage
+              defaultMessage="Delete Shared Feed?"
+              description="'Delete' here is an infinitive verb"
+              id="saveFeed.deleteSharedFeedTitle"
+            />
+          )
+        }
         onCancel={handleClose}
+        onProceed={handleDelete}
       />
 
       {/* "Leave" dialog */}
       <ConfirmProceedDialog
-        open={showLeaveDialog}
-        title={
-          <FormattedMessage
-            id="saveFeed.leaveFeedWarningTitle"
-            defaultMessage="Leave Shared Feed?"
-            description="'Leave' here is an infinitive verb"
-          />
-        }
         body={
           <FormattedHTMLMessage
-            id="saveFeed.leaveFeedConfirmationBod"
             defaultMessage="Are you sure? Any content you are currently sharing with this feed will no longer be accessible by collaborating organizations.<br /><br />You will need to contact <strong>{orgName}</strong> in order to rejoin."
+            description="Confirmation dialog message when leaving a feed.."
+            id="saveFeed.leaveFeedConfirmationBod"
             values={{
               orgName: feed.team?.name,
             }}
-            description="Confirmation dialog message when leaving a feed.."
           />
         }
-        proceedLabel={
-          <FormattedMessage
-            id="saveFeed.leaveFeedConfirmationButton"
-            defaultMessage="Leave Feed"
-            description="'Leave' here is an infinitive verb"
-          />
-        }
-        onProceed={handleLeaveFeed}
-        isSaving={saving}
         cancelLabel={
           <FormattedMessage
-            id="global.cancel"
             defaultMessage="Cancel"
             description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+            id="global.cancel"
+          />
+        }
+        isSaving={saving}
+        open={showLeaveDialog}
+        proceedLabel={
+          <FormattedMessage
+            defaultMessage="Leave Feed"
+            description="'Leave' here is an infinitive verb"
+            id="saveFeed.leaveFeedConfirmationButton"
+          />
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="Leave Shared Feed?"
+            description="'Leave' here is an infinitive verb"
+            id="saveFeed.leaveFeedWarningTitle"
           />
         }
         onCancel={handleClose}
+        onProceed={handleLeaveFeed}
       />
     </>
   );

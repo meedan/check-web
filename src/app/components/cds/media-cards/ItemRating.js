@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -6,23 +7,23 @@ import EllipseIcon from '../../../icons/ellipse.svg';
 import styles from './Card.module.css';
 
 const ItemRating = ({
+  className,
   rating,
   ratingColor,
   size,
-  className,
 }) => rating ? (
-  <div title={rating} className={cx(styles.cardTag, className)}>
+  <div className={cx(styles.cardTag, className)} title={rating}>
     <ButtonMain
-      disabled
-      variant="outlined"
-      size={size}
-      theme="text"
-      iconLeft={<EllipseIcon style={{ color: ratingColor }} />}
-      label={rating}
       customStyle={{
         borderColor: ratingColor,
         color: 'var(--color-gray-15)',
       }}
+      disabled
+      iconLeft={<EllipseIcon style={{ color: ratingColor }} />}
+      label={rating}
+      size={size}
+      theme="text"
+      variant="outlined"
     />
   </div>
 ) : null;

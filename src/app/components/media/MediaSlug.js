@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -7,9 +8,9 @@ import styles from './media.module.css';
 
 const MediaSlug = ({
   className,
+  details,
   mediaType,
   slug,
-  details,
 }) => (
   <div className={cx(styles['media-slug'], { [className]: true })}>
     <div className={styles['media-slug-title']}>

@@ -2,12 +2,12 @@ import React from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import styles from './RequestReceipt.module.css';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import SearchIcon from '../../../icons/search.svg';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import EditNoteIcon from '../../../icons/edit_note.svg';
 import RecommendIcon from '../../../icons/recommend.svg';
+import styles from './RequestReceipt.module.css';
 
 const messages = defineMessages({
   smooch_report_sent_at: {

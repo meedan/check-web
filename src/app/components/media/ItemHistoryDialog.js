@@ -8,29 +8,29 @@ import CloseIcon from '../../icons/clear.svg';
 import styles from '../../styles/css/dialog.module.css';
 
 const ItemHistoryDialog = ({
+  onClose,
   open,
   projectMedia,
   team,
-  onClose,
 }) => (
   <Dialog
     className={styles['dialog-window']}
+    fullWidth
     open={open}
     onClose={onClose}
-    fullWidth
   >
     <div className={styles['dialog-title']}>
-      <FormattedMessage tagName="h6" id="ItemHistoryDialog.title" defaultMessage="Item history" description="Dialog window title for the item's history" />
+      <FormattedMessage defaultMessage="Item history" description="Dialog window title for the item's history" id="ItemHistoryDialog.title" tagName="h6" />
       <ButtonMain
-        variant="text"
-        size="small"
-        theme="text"
-        iconCenter={<CloseIcon />}
-        onClick={onClose}
-        className={styles['dialog-close-button']}
         buttonProps={{
           id: 'item-history__close-button',
         }}
+        className={styles['dialog-close-button']}
+        iconCenter={<CloseIcon />}
+        size="small"
+        theme="text"
+        variant="text"
+        onClick={onClose}
       />
     </div>
     <div className={styles['dialog-content']}>

@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -11,11 +11,11 @@ import { can } from '../Can';
 import inputStyles from '../../styles/css/inputs.module.css';
 
 function ChangeMediaSource({
-  team,
-  projectMediaPermissions,
+  createNewClick,
   onCancel,
   onSubmit,
-  createNewClick,
+  projectMediaPermissions,
+  team,
 }) {
   const [value, setValue] = React.useState(null);
   const [input, setInput] = React.useState('');
@@ -46,46 +46,43 @@ function ChangeMediaSource({
   if (can(projectMediaPermissions, 'create Source')) {
     createNew = (
       <ButtonMain
-        variant="contained"
-        size="default"
-        theme="lightText"
-        onClick={() => { createNewClick(input); }}
-        label={
-          <FormattedMessage
-            id="changeMediaSource.createSource"
-            defaultMessage="Create new"
-            description="allow user to create a new source"
-          />
-        }
         buttonProps={{
           id: 'media-source__create-button',
         }}
+        label={
+          <FormattedMessage
+            defaultMessage="Create new"
+            description="allow user to create a new source"
+            id="changeMediaSource.createSource"
+          />
+        }
+        size="default"
+        theme="lightText"
+        variant="contained"
+        onClick={() => { createNewClick(input); }}
       />
     );
   }
 
   return (
-    <div id="media_source-change" className={cx(inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'])}>
+    <div className={cx(inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'])} id="media_source-change">
       <div className={inputStyles['form-fieldset']}>
         <div className={cx(inputStyles['form-fieldset-field'], inputStyles['form-autocomplete-create'])}>
           <Autocomplete
-            className="int-change-source__textfield--autocomplete"
             autoHighlight
-            options={teamSources}
+            className="int-change-source__textfield--autocomplete"
             getOptionLabel={option => option.name}
             getOptionSelected={(option, val) => val !== null && option.id === val.id}
-            value={value}
-            onChange={handleChange}
             inputValue={input}
-            onInputChange={handleInputChange}
+            options={teamSources}
             renderInput={params => (
               <div ref={params.InputProps.ref}>
-                <FormattedMessage id="changeMediaSource.choose" defaultMessage="Choose a source" description="Change media source placeholder">
+                <FormattedMessage defaultMessage="Choose a source" description="Change media source placeholder" id="changeMediaSource.choose">
                   { placeholder => (
                     <TextField
+                      helpContent={<FormattedMessage defaultMessage="Add a source for this item" description="Helper text for the input to select an item source" id="changeMediaSource.helpContent" />}
+                      label={<FormattedMessage defaultMessage="Source" description="Change media source label" id="changeMediaSource.chooseLabel" />}
                       name="source-name"
-                      label={<FormattedMessage id="changeMediaSource.chooseLabel" defaultMessage="Source" description="Change media source label" />}
-                      helpContent={<FormattedMessage id="changeMediaSource.helpContent" defaultMessage="Add a source for this item" description="Helper text for the input to select an item source" />}
                       placeholder={placeholder}
                       {...params.inputProps}
                     />
@@ -93,39 +90,42 @@ function ChangeMediaSource({
                 </FormattedMessage>
               </div>
             )}
+            value={value}
+            onChange={handleChange}
+            onInputChange={handleInputChange}
           />
           {createNew}
         </div>
       </div>
       <div className={inputStyles['form-footer-actions']}>
         <ButtonMain
-          theme="lightText"
-          size="default"
-          variant="text"
-          onClick={onCancel}
           className="media-source__cancel-button"
           label={
             <FormattedMessage
-              id="changeMediaSource.cancelButton"
               defaultMessage="Cancel"
               description="Cancel change media source action"
+              id="changeMediaSource.cancelButton"
             />
           }
+          size="default"
+          theme="lightText"
+          variant="text"
+          onClick={onCancel}
         />
         <ButtonMain
-          theme="brand"
-          size="default"
-          variant="contained"
           className="media-source__save-button"
-          onClick={() => { onSubmit(value); }}
           disabled={!value}
           label={
             <FormattedMessage
-              id="changeMediaSource.saveButton"
               defaultMessage="Save"
               description="Save media source label"
+              id="changeMediaSource.saveButton"
             />
           }
+          size="default"
+          theme="info"
+          variant="contained"
+          onClick={() => { onSubmit(value); }}
         />
       </div>
     </div>

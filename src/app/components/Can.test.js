@@ -15,8 +15,8 @@ describe('<Can />', () => {
   it('should render child component if permission is satisfied', () => {
     const wrapper = shallow((
       <Can
-        permissions='{"create Media":true}'
         permission="create Media"
+        permissions='{"create Media":true}'
       >
         <Child />
       </Can>
@@ -27,8 +27,8 @@ describe('<Can />', () => {
   it('should not render child component if permission is not satisfied', () => {
     const wrapper = shallow((
       <Can
-        permissions='{"create Media":false}'
         permission="create Media"
+        permissions='{"create Media":false}'
       >
         <Child />
       </Can>
@@ -39,9 +39,9 @@ describe('<Can />', () => {
   it('should render "otherwise" component if permission is not satisfied', () => {
     const wrapper = shallow((
       <Can
-        permissions='{"create Media":false}'
-        permission="create Media"
         otherwise={<Otherwise />}
+        permission="create Media"
+        permissions='{"create Media":false}'
       >
         <Child />
       </Can>

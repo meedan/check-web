@@ -1,15 +1,12 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields, react/sort-prop-types */
 import React, { Component } from 'react';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import cx from 'classnames/bind';
-import { withPusher, pusherShape } from '../../pusher';
-import PageTitle from '../PageTitle';
 import MediaCardLarge from './MediaCardLarge';
 import MediaSlug from './MediaSlug';
-import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
@@ -20,7 +17,42 @@ import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getSuperAdminMask } from '../../helpers';
+import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
+import PageTitle from '../PageTitle';
+import { withPusher, pusherShape } from '../../pusher';
 import styles from './media.module.css';
+
+const setInitialTab = (projectMedia) => {
+  let initialTab = 'articles';
+  const articlesCount = projectMedia.articles_count;
+  const suggestionsCount = projectMedia.suggested_similar_items_count;
+  const requestsCount = projectMedia.requests_count;
+
+  if (articlesCount === 0 && requestsCount === 0 && suggestionsCount === 0) {
+    initialTab = 'articles';
+  }
+
+  if (articlesCount >= 1 && requestsCount >= 0 && suggestionsCount === 0) {
+    initialTab = 'articles';
+  }
+
+  if (articlesCount === 0 && requestsCount >= 1 && suggestionsCount === 0) {
+    initialTab = 'requests';
+  }
+
+  if (articlesCount >= 1 && requestsCount >= 0 && suggestionsCount >= 1) {
+    initialTab = 'suggestedMedia';
+  }
+
+  if (articlesCount === 0 && requestsCount === 0 && suggestionsCount >= 1) {
+    initialTab = 'suggestedMedia';
+  }
+
+  return initialTab;
+};
+
+// eslint-disable-next-line import/no-unused-modules
+export { setInitialTab }; // For unit test
 
 class MediaComponent extends Component {
   static handleSuperAdminMaskSession(value) {
@@ -30,22 +62,7 @@ class MediaComponent extends Component {
   constructor(props) {
     super(props);
 
-    const { team_bots: teamBots } = this.props.projectMedia.team;
-    const enabledBots = teamBots.edges.map(b => b.node.login);
-    const showRequests = (enabledBots.indexOf('smooch') > -1 || this.props.projectMedia.requests_count > 0);
-
-    let initialTab = 'metadata';
-    if (showRequests && this.props.view !== 'similarMedia') {
-      initialTab = 'articles';
-      if (this.props.projectMedia.suggested_similar_items_count > 0 && !this.props.projectMedia.is_suggested) {
-        initialTab = 'suggestedMedia';
-      }
-    } else if (this.props.view === 'similarMedia') {
-      initialTab = 'suggestedMedia';
-    }
-    if (this.props.projectMedia.is_suggested || this.props.projectMedia.is_confirmed_similar_to_another_item) {
-      initialTab = 'requests';
-    }
+    const initialTab = setInitialTab(this.props.projectMedia);
 
     this.state = {
       showTab: initialTab,
@@ -94,7 +111,7 @@ class MediaComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, projectMedia } = this.props;
+    const { clientSessionId, projectMedia, pusher } = this.props;
     pusher.subscribe(projectMedia.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
       const relationship = JSON.parse(data.message);
       if (
@@ -131,7 +148,7 @@ class MediaComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher, projectMedia } = this.props;
+    const { projectMedia, pusher } = this.props;
     pusher.unsubscribe(projectMedia.pusher_channel);
   }
 
@@ -171,50 +188,50 @@ class MediaComponent extends Component {
                 { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} /> : null }
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
-                    projectMediaId={projectMedia.dbid}
-                    projectMediaImportedId={projectMedia.imported_from_project_media_id}
                     feedId={projectMedia.imported_from_feed_id}
+                    mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
                     mediaSlug={
                       <MediaSlug
                         className={styles['media-slug-title']}
-                        mediaType={projectMedia.type}
-                        slug={projectMedia.title}
                         details={[(
                           <FormattedMessage
-                            id="mediaComponent.lastSeen"
                             defaultMessage="Last submitted on {date}"
                             description="Header for the date when the media item was last received by the workspace"
+                            id="mediaComponent.lastSeen"
                             values={{
                               date: (
                                 <FormattedDate
+                                  day="numeric"
+                                  month="short"
                                   value={projectMedia.last_seen * 1000}
                                   year="numeric"
-                                  month="short"
-                                  day="numeric"
                                 />
                               ),
                             }}
                           />
                         ), (
                           <FormattedMessage
-                            id="mediaComponent.requests"
                             defaultMessage="{count, plural, one {# request} other {# requests}}"
                             description="Number of times a request has been sent about this media"
+                            id="mediaComponent.requests"
                             values={{
                               count: projectMedia.requests_count,
                             }}
                           />
                         )]}
+                        mediaType={projectMedia.type}
+                        slug={projectMedia.title}
                       />
                     }
-                    mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
+                    projectMediaId={projectMedia.dbid}
+                    projectMediaImportedId={projectMedia.imported_from_project_media_id}
                     onClick={e => e.stopPropagation()}
                     onClose={() => this.setState({ openMediaDialog: false })}
                   />
                   : null }
                 <MediaCardLarge
-                  projectMedia={projectMedia}
                   currentUserRole={currentUserRole}
+                  projectMedia={projectMedia}
                   superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
@@ -228,8 +245,8 @@ class MediaComponent extends Component {
             <div className={cx('media__annotations-column', styles['media-item-annotations'])}>
               <MediaComponentRightPanel
                 projectMedia={projectMedia}
-                showTab={this.state.showTab}
                 setShowTab={setShowTab}
+                showTab={this.state.showTab}
                 superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
               />
             </div>

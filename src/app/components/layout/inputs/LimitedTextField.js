@@ -5,9 +5,9 @@ import TextField from '../../cds/inputs/TextField';
 
 const LimitedTextField = ({
   maxChars,
-  value,
-  setValue,
   onChange,
+  setValue,
+  value,
   ...textFieldProps
 }) => {
   const [error, setError] = React.useState(false);
@@ -23,16 +23,16 @@ const LimitedTextField = ({
 
   return (
     <TextField
-      required
+      error={error}
       helpContent={<FormattedMessage
-        id="limitedTextFieldWithCounter.counter"
         defaultMessage="{remaining, plural, one {# character left} other {# characters left}}"
         description="Label that displays how many characters more can be typed"
+        id="limitedTextFieldWithCounter.counter"
         values={{ remaining: maxChars - value.length }}
       />}
-      onChange={onChange || handleChange}
+      required
       value={value}
-      error={error}
+      onChange={onChange || handleChange}
       {...textFieldProps}
     />
   );

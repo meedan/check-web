@@ -5,29 +5,29 @@ import { FormattedMessage } from 'react-intl';
 export default function MediaTypeDisplayName({ mediaType }) {
   switch (mediaType) {
   case 'Claim':
-    return <FormattedMessage id="media.typeClaim" defaultMessage="Text" description="Label to show that the type of media is text" />;
+    return <FormattedMessage defaultMessage="Text" description="Label to show that the type of media is text" id="media.typeClaim" />;
   case 'Link':
-    return <FormattedMessage id="media.typeLink" defaultMessage="Link" description="Label to show that the type of media is a link" />;
+    return <FormattedMessage defaultMessage="Link" description="Label to show that the type of media is a link" id="media.typeLink" />;
   case 'UploadedImage':
-    return <FormattedMessage id="media.typeImage" defaultMessage="Image" description="Label to show that the type of media is an image" />;
+    return <FormattedMessage defaultMessage="Image" description="Label to show that the type of media is an image" id="media.typeImage" />;
   case 'UploadedVideo':
-    return <FormattedMessage id="media.typeVideo" defaultMessage="Video" description="Label to show that the type of media is a video" />;
+    return <FormattedMessage defaultMessage="Video" description="Label to show that the type of media is a video" id="media.typeVideo" />;
   case 'UploadedAudio':
-    return <FormattedMessage id="media.typeAudio" defaultMessage="Audio" description="Label to show that the type of media is an audio file" />;
+    return <FormattedMessage defaultMessage="Audio" description="Label to show that the type of media is an audio file" id="media.typeAudio" />;
   case 'Blank':
-    return <FormattedMessage id="media.typeBlank" defaultMessage="Imported fact-check" description="Label to show that the type of media is was imported into the application" />;
+    return <FormattedMessage defaultMessage="Imported fact-check" description="Label to show that the type of media is was imported into the application" id="media.typeBlank" />;
   case 'Facebook':
-    return <FormattedMessage id="media.typeFacebook" defaultMessage="Facebook Post" description="Label to show that the type of media is a Facebook post" />;
+    return <FormattedMessage defaultMessage="Facebook Post" description="Label to show that the type of media is a Facebook post" id="media.typeFacebook" />;
   case 'Instagram':
-    return <FormattedMessage id="media.typeInstagram" defaultMessage="Instagram Post" description="Label to show that the type of media is an Instagram post" />;
+    return <FormattedMessage defaultMessage="Instagram Post" description="Label to show that the type of media is an Instagram post" id="media.typeInstagram" />;
   case 'Telegram':
-    return <FormattedMessage id="media.typeTelegram" defaultMessage="Telegram" description="Label to show that the type of media is a Telegram message" />;
+    return <FormattedMessage defaultMessage="Telegram" description="Label to show that the type of media is a Telegram message" id="media.typeTelegram" />;
   case 'Tiktok':
-    return <FormattedMessage id="media.typeTiktok" defaultMessage="TikTok Post" description="Label to show that the type of media is a Tiktok video" />;
+    return <FormattedMessage defaultMessage="TikTok Post" description="Label to show that the type of media is a Tiktok video" id="media.typeTiktok" />;
   case 'Twitter':
-    return <FormattedMessage id="media.typeTwitter" defaultMessage="X (Twitter) Post" description="Label to show that the type of media is a Twitter tweet" />;
+    return <FormattedMessage defaultMessage="X (Twitter) Post" description="Label to show that the type of media is a Twitter tweet" id="media.typeTwitter" />;
   case 'Youtube':
-    return <FormattedMessage id="media.typeYoutube" defaultMessage="Youtube Video" description="Label to show that the type of media is a Youtube video" />;
+    return <FormattedMessage defaultMessage="Youtube Video" description="Label to show that the type of media is a Youtube video" id="media.typeYoutube" />;
   case '-':
   default:
     return <React.Fragment>-</React.Fragment>;

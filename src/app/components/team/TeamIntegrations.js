@@ -71,25 +71,24 @@ const TeamIntegrations = () => (<QueryRenderer
       }
     }
   `}
-  variables={{}}
   render={({ props }) => {
     if (props) {
       return (
         <>
           <SettingsHeader
-            title={
-              <FormattedMessage
-                id="teamIntegrations.title"
-                defaultMessage="Integrations"
-                description="Settings page title for the Integrations section"
-              />
-            }
             context={
               <FormattedHTMLMessage
-                id="teamIntegrations.helpContext"
                 defaultMessage='Connect your Check workflow with third-party services. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about integrations</a>.'
-                values={{ helpLink: 'https://help.checkmedia.org/en/articles/6925397-integrations' }}
                 description="Context description for the functionality of this page"
+                id="teamIntegrations.helpContext"
+                values={{ helpLink: 'https://help.checkmedia.org/en/articles/6925397-integrations' }}
+              />
+            }
+            title={
+              <FormattedMessage
+                defaultMessage="Integrations"
+                description="Settings page title for the Integrations section"
+                id="teamIntegrations.title"
               />
             }
           />
@@ -101,6 +100,7 @@ const TeamIntegrations = () => (<QueryRenderer
     }
     return null;
   }}
+  variables={{}}
 />);
 
 export default TeamIntegrations;

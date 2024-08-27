@@ -1,7 +1,7 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ReportDesignerComponent from './ReportDesignerComponent';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 describe('<ReportDesignerComponent />', () => {

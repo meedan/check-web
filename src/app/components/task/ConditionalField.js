@@ -41,7 +41,7 @@ const conditionalVerbs = [
   },
 ];
 
-const ConditionalField = ({ task, tasks, onChange }) => {
+const ConditionalField = ({ onChange, task, tasks }) => {
   const parsedConditionalInfo = JSON.parse(task?.conditional_info || null);
   const hasConditionsInitial = task ? parsedConditionalInfo?.selectedFieldId !== (null || undefined) : null;
 
@@ -103,32 +103,32 @@ const ConditionalField = ({ task, tasks, onChange }) => {
     <React.Fragment>
       <SwitchComponent
         checked={hasConditions}
-        onChange={() => handleToggleHasConditions(!hasConditions)}
-        labelPlacement="end"
         label={<FormattedMessage
-          id="tasks.showIfCondition"
           defaultMessage="Show field when condition is met"
           description="This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
+          id="tasks.showIfCondition"
         />}
+        labelPlacement="end"
+        onChange={() => handleToggleHasConditions(!hasConditions)}
       />
       { hasConditions ?
         <div className={styles['task-conditions']}>
           <FormattedMessage
-            id="tasks.when"
             defaultMessage="When"
             description="We have a form that says in English, 'When [selected field] [is / is not] [user-selected value]'. Where the parts between brackets are interactive drop-downs. The word for this field should indicate that the following user-selected conditions hold true."
+            id="tasks.when"
           />
           <CdsSelect
-            onChange={handlePrerequisiteFieldChange}
-            value={selectedFieldId}
             name="prerequisites"
+            value={selectedFieldId}
+            onChange={handlePrerequisiteFieldChange}
           >
             { prerequisiteFields.map(field => <option value={field.dbid}>{field.label}</option>) }
           </CdsSelect>
           <CdsSelect
-            onChange={handlePrerequisiteFieldChange}
-            value={selectedConditional}
             name="conditionals"
+            value={selectedConditional}
+            onChange={handlePrerequisiteFieldChange}
           >
             { conditionalVerbs
               .filter(verb => verb.itemTypes.includes(prerequisiteFields.find(field => field.dbid === selectedFieldId)?.type))
@@ -138,9 +138,9 @@ const ConditionalField = ({ task, tasks, onChange }) => {
             /* eslint-disable react/jsx-closing-tag-location, react/jsx-indent */
             {
               'is...': (<CdsSelect
-                onChange={handlePrerequisiteFieldChange}
                 name="conditions"
                 value={selectedCondition}
+                onChange={handlePrerequisiteFieldChange}
               >
                 {
                   prerequisiteFields
@@ -150,9 +150,9 @@ const ConditionalField = ({ task, tasks, onChange }) => {
               </CdsSelect>),
               'is not...': (
                 <CdsSelect
-                  onChange={handlePrerequisiteFieldChange}
                   name="conditions"
                   value={selectedCondition}
+                  onChange={handlePrerequisiteFieldChange}
                 >
                   {
                     prerequisiteFields
@@ -163,11 +163,9 @@ const ConditionalField = ({ task, tasks, onChange }) => {
               ),
               'is any of...': (<span className={styles['task-conditional-multiselect']}>
                 <Select
+                  input={<Input id="select-multiple-chip" />}
                   multiple
                   name="multiple-conditions"
-                  value={selectedCondition.split(', ')}
-                  onChange={handlePrerequisiteFieldChange}
-                  input={<Input id="select-multiple-chip" />}
                   renderValue={selected => (
                     <div>
                       {selected.map(value => (
@@ -175,6 +173,8 @@ const ConditionalField = ({ task, tasks, onChange }) => {
                       ))}
                     </div>
                   )}
+                  value={selectedCondition.split(', ')}
+                  onChange={handlePrerequisiteFieldChange}
                 >
                   {
                     prerequisiteFields
@@ -185,11 +185,9 @@ const ConditionalField = ({ task, tasks, onChange }) => {
               </span>),
               'is none of...': (<span className={styles['task-conditional-multiselect']}>
                 <Select
+                  input={<Input id="select-multiple-chip" />}
                   multiple
                   name="multiple-conditions"
-                  value={selectedCondition.split(', ')}
-                  onChange={handlePrerequisiteFieldChange}
-                  input={<Input id="select-multiple-chip" />}
                   renderValue={selected => (
                     <div>
                       {selected.map(value => (
@@ -197,6 +195,8 @@ const ConditionalField = ({ task, tasks, onChange }) => {
                       ))}
                     </div>
                   )}
+                  value={selectedCondition.split(', ')}
+                  onChange={handlePrerequisiteFieldChange}
                 >
                   {
                     prerequisiteFields

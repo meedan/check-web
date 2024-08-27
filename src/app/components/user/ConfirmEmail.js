@@ -15,17 +15,17 @@ const ConfirmEmail = (props) => {
 
   return (
     <Alert
+      buttonLabel={<FormattedMessage defaultMessage="Resend" description="Button label to allow the user to resend their email address confirmation" id="ConfirmEmail.resendConfirmation" />}
       contained
-      variant="warning"
-      title={<FormattedMessage id="ConfirmEmail.title" defaultMessage="Confirm your email" description="Container title for confirming user email address" />}
       content={
         <FormattedMessage
-          id="ConfirmEmail.content"
           defaultMessage="Please check your email to verify your account."
           description="Message to the user to check their email inbox in order to verify their application account"
+          id="ConfirmEmail.content"
         />
       }
-      buttonLabel={<FormattedMessage id="ConfirmEmail.resendConfirmation" defaultMessage="Resend" description="Button label to allow the user to resend their email address confirmation" />}
+      title={<FormattedMessage defaultMessage="Confirm your email" description="Container title for confirming user email address" id="ConfirmEmail.title" />}
+      variant="warning"
       onButtonClick={handleResend}
     />
   );

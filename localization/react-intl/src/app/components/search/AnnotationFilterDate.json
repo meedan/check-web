@@ -1,15 +1,5 @@
 [
   {
-    "id": "global.ok",
-    "description": "Generic label for a button or link for a user to press when they wish to confirm an action",
-    "defaultMessage": "OK"
-  },
-  {
-    "id": "global.cancel",
-    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
-    "defaultMessage": "Cancel"
-  },
-  {
     "id": "search.afterDate",
     "description": "String displayed before a date picker",
     "defaultMessage": "after"
@@ -23,6 +13,16 @@
     "id": "search.removeStartDateCondition",
     "description": "Tooltip to tell the user they can add remove the start date portion of this filter",
     "defaultMessage": "Remove start date"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "global.ok",
+    "description": "Generic label for a button or link for a user to press when they wish to confirm an action",
+    "defaultMessage": "OK"
   },
   {
     "id": "search.beforeDate",

@@ -1,15 +1,15 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ConfirmDialog from './ConfirmDialog';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<ConfirmDialog />', () => {
   it('should render title and blurb', () => {
     const wrapper = mountWithIntl(<ConfirmDialog
-      open
-      title="Dialog Title"
       blurb="Dialog Blurb"
       handleClose={() => {}}
       handleConfirm={() => {}}
+      open
+      title="Dialog Title"
     />);
     expect(wrapper.html()).toMatch('Dialog Title');
     expect(wrapper.html()).toMatch('Dialog Blurb');

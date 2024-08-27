@@ -2,17 +2,17 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Alert from '../../cds/alerts-and-prompts/Alert';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
 import ReportDesignerForm from './ReportDesignerForm';
-import { withSetFlashMessage } from '../../FlashMessage';
-import { can } from '../../Can';
 import {
   defaultOptions,
   propsToData,
 } from './reportDesignerHelpers';
+import Alert from '../../cds/alerts-and-prompts/Alert';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import { withSetFlashMessage } from '../../FlashMessage';
+import { can } from '../../Can';
 import { getStatus, getStatusStyle, safelyParseJSON } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
@@ -48,9 +48,9 @@ const ReportDesignerComponent = (props) => {
   const handleSave = (action, state, updatedData) => {
     const onFailure = () => {
       const message = (<FormattedMessage
-        id="reportDesigner.error"
         defaultMessage="Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
         description="Message when an error is returned and how to reach support via email address"
+        id="reportDesigner.error"
         values={{
           supportEmail: stringHelper('SUPPORT_EMAIL'),
         }}
@@ -179,7 +179,7 @@ const ReportDesignerComponent = (props) => {
     window.open('https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_274b08eeab');
   };
 
-  const { routeParams, location } = props;
+  const { location, routeParams } = props;
   let prefixUrl = `/${team.slug}`;
   if (routeParams.projectId || routeParams.listId) {
     const { listUrl } = getListUrlQueryAndIndex(routeParams, location.query);
@@ -192,20 +192,20 @@ const ReportDesignerComponent = (props) => {
         {data.state === 'published' ?
           <>
             <Alert
-              title={
-                <FormattedMessage
-                  id="reportDesigner.alertTitle"
-                  defaultMessage="Report is published"
-                  description="Title of a page level alert telling the user the report is currently in the published state"
-                />
-              }
               banner
-              icon
               content={
                 <FormattedMessage
-                  id="reportDesigner.alertContent"
                   defaultMessage="To make edits, pause this report. This will stop the report from being sent out to users until it is published again."
                   description="Content of a page level alert telling the user the report is currently in the published state and they need to change the state to pause in order to edit"
+                  id="reportDesigner.alertContent"
+                />
+              }
+              icon
+              title={
+                <FormattedMessage
+                  defaultMessage="Report is published"
+                  description="Title of a page level alert telling the user the report is currently in the published state"
+                  id="reportDesigner.alertTitle"
                 />
               }
               variant="success"
@@ -213,50 +213,50 @@ const ReportDesignerComponent = (props) => {
           </> : null
         }
         <ReportDesignerTopBar
-          media={media}
-          defaultLanguage={currentLanguage}
           data={data}
-          state={data.state}
+          defaultLanguage={currentLanguage}
+          media={media}
+          prefixUrl={prefixUrl}
           readOnly={
             !can(media.permissions, 'update ProjectMedia') ||
             (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
             pending
           }
-          onStatusChange={handleStatusChange}
+          state={data.state}
           onStateChange={(action, state) => { handleSave(action, state); }}
-          prefixUrl={prefixUrl}
+          onStatusChange={handleStatusChange}
         />
         <div className={styles['report-designer']}>
           <div className={styles['report-editor']}>
             <h6 className="report-designer__title">
               <FormattedMessage
-                id="reportDesigner.title"
                 defaultMessage="Design your report"
                 description="Section title for inputs to design the report"
+                id="reportDesigner.title"
               />
               <ButtonMain
-                variant="text"
+                iconCenter={<HelpIcon />}
                 size="default"
                 theme="text"
+                variant="text"
                 onClick={handleHelp}
-                iconCenter={<HelpIcon />}
               />
             </h6>
             <ReportDesignerForm
               data={data.options}
               disabled={data.state === 'published'}
-              pending={pending}
               media={media}
+              pending={pending}
               team={team}
               onUpdate={handleUpdate}
             />
           </div>
           <div className={styles['report-preview']}>
             <FormattedMessage
-              tagName="h6"
-              id="reportDesigner.previewTitle"
               defaultMessage="Preview your report"
               description="Section title for the visual preview of the report being created"
+              id="reportDesigner.previewTitle"
+              tagName="h6"
             />
             <ReportDesignerPreview data={data.options} media={media} />
           </div>

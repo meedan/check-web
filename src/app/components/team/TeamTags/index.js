@@ -23,26 +23,26 @@ const TeamTags = (props) => {
         }
       }
     `}
-    variables={{
-      teamSlug: props.teamSlug,
-      pageSize,
-      keyword: searchTerm,
-    }}
     render={({ error, props: innerProps }) => {
       if (!error && innerProps) {
         const { team } = innerProps;
 
         return (
           <PaginatedTeamTags
-            root={team}
             pageSize={pageSize}
             parentProps={innerProps}
+            root={team}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
           />
         );
       }
       return null;
+    }}
+    variables={{
+      teamSlug: props.teamSlug,
+      pageSize,
+      keyword: searchTerm,
     }}
   />);
 };

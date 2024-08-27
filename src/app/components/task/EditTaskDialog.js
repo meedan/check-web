@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -18,11 +19,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { getTimeZones } from '@vvo/tzdb';
 import cx from 'classnames/bind';
+import EditTaskAlert from './EditTaskAlert';
+import EditTaskOptions from './EditTaskOptions';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField2 from '../cds/inputs/TextField';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import EditTaskAlert from './EditTaskAlert';
-import EditTaskOptions from './EditTaskOptions';
 import CheckBoxIcon from '../../icons/check_box.svg';
 import CloudUploadIcon from '../../icons/file_upload.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
@@ -191,144 +192,144 @@ class EditTaskDialog extends React.Component {
       {
         label: (
           <FormattedMessage
-            id="tasks.textType"
             defaultMessage="Text"
             description="Label for text type field"
+            id="tasks.textType"
           />
         ),
         value: 'free_text',
         icon: <ShortTextIcon />,
         description: (
           <FormattedMessage
-            id="tasks.shortTextDescription"
             defaultMessage="Allows you to enter text"
             description="Description for text type field"
+            id="tasks.shortTextDescription"
           />
         ),
       },
       {
         label: (
           <FormattedMessage
-            id="tasks.numberType"
             defaultMessage="Number"
             description="Label for number type field"
+            id="tasks.numberType"
           />
         ),
         value: 'number',
         icon: <NumberIcon style={{ fontSize: '24px' }} />,
         description: (
           <FormattedMessage
-            id="tasks.numberDescription"
             defaultMessage="Allows you to enter a number"
             description="Description for number type field"
+            id="tasks.numberDescription"
           />
         ),
       },
       {
         label: (
           <FormattedMessage
-            id="tasks.locationType"
             defaultMessage="Location"
             description="Label for location type field"
+            id="tasks.locationType"
           />
         ),
         value: 'geolocation',
         icon: <LocationIcon />,
         description: (
           <FormattedMessage
-            id="tasks.locationDescription"
             defaultMessage="Allows you to add coordinates of a place, or search a place by name"
             description="Description for location type field"
+            id="tasks.locationDescription"
           />
         ),
       },
       {
         label: (
           <FormattedMessage
-            id="tasks.dateTimeType"
             defaultMessage="Date"
             description="Label for date type field"
+            id="tasks.dateTimeType"
           />
         ),
         value: 'datetime',
         icon: <DateRangeIcon />,
         description: (
           <FormattedMessage
-            id="tasks.datetimeDescription"
             defaultMessage="Allows you to pick a date from the calendar"
             description="Description for date type field"
+            id="tasks.datetimeDescription"
           />
         ),
       },
       {
         label: (
           <FormattedMessage
-            id="tasks.singleChoiceType"
             defaultMessage="Single select"
             description="Label for single selection type field"
+            id="tasks.singleChoiceType"
           />
         ),
         value: 'single_choice',
         icon: <RadioButtonCheckedIcon />,
         description: (
           <FormattedMessage
-            id="tasks.singleChoiceDescription"
             defaultMessage="Allows you to select a single option from predefined options in a list"
             description="Description for single selection type field"
+            id="tasks.singleChoiceDescription"
           />
         ),
       },
       {
         label: (
           <FormattedMessage
-            id="tasks.multipleChoiceType"
             defaultMessage="Multiple select"
             description="Label for multiple selection type field"
+            id="tasks.multipleChoiceType"
           />
         ),
         value: 'multiple_choice',
         icon: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
         description: (
           <FormattedMessage
-            id="tasks.multipleChoiceDescription"
             defaultMessage="Allows you to select one or more predefined options"
             description="Description for multiple selection type field"
+            id="tasks.multipleChoiceDescription"
           />
         ),
       },
       {
         label: (
           <FormattedMessage
-            id="tasks.fileUploadType"
             defaultMessage="File upload"
             description="Label for file upload type field"
+            id="tasks.fileUploadType"
           />
         ),
         value: 'file_upload',
         icon: <CloudUploadIcon />,
         description: (
           <FormattedMessage
-            id="tasks.fileUploadDescription"
             defaultMessage="Allows you to upload a file"
             description="Description for file upload type field"
+            id="tasks.fileUploadDescription"
           />
         ),
       },
       {
         label: (
           <FormattedMessage
-            id="tasks.UrlType"
             defaultMessage="URL"
             description="Label for the URL type field"
+            id="tasks.UrlType"
           />
         ),
         value: 'url',
         icon: <LinkOutlinedIcon />,
         description: (
           <FormattedMessage
-            id="tasks.UrlDescription"
             defaultMessage="Must be a valid URL"
             description="Hint text about what kind of text a user can put in the URL box"
+            id="tasks.UrlDescription"
           />
         ),
       },
@@ -338,44 +339,44 @@ class EditTaskDialog extends React.Component {
       <React.Fragment>
         { this.state.hasCollectedAnswers &&
           <Alert
-            icon
             content={
               <FormattedMessage
-                id="tasks.cantChangeTypeMessage"
                 defaultMessage="The field type cannot be changed because answers have already been filled"
                 description="Message when team task has answers and type cannot be updated"
+                id="tasks.cantChangeTypeMessage"
               />
             }
+            icon
             variant="warning"
           />
         }
-        <FormControl variant="outlined" margin="normal" fullWidth id="edit-task-dialog__type-select">
+        <FormControl fullWidth id="edit-task-dialog__type-select" margin="normal" variant="outlined">
           <InputLabel id="edit-task-dialog__type-select-label">
             <FormattedMessage
-              id="tasks.chooseType"
               defaultMessage="Choose a field type"
               description="Label for field type selection box"
+              id="tasks.chooseType"
             />
           </InputLabel>
           <Select
             classes={{ root: classes.select }}
-            onChange={this.handleSelectType}
-            labelId="edit-task-dialog__type-select-label"
-            value={this.state.taskType}
             disabled={this.state.hasCollectedAnswers}
             label={
               <FormattedMessage
-                id="tasks.chooseType"
                 defaultMessage="Choose a field type"
                 description="Label for field type selection box"
+                id="tasks.chooseType"
               />
             }
+            labelId="edit-task-dialog__type-select-label"
+            value={this.state.taskType}
+            onChange={this.handleSelectType}
           >
             {types.map(t => (
               <MenuItem
+                className={`edit-task-dialog__menu-item-${t.value}`}
                 key={t.value}
                 value={t.value}
-                className={`edit-task-dialog__menu-item-${t.value}`}
               >
                 <ListItemIcon>{t.icon}</ListItemIcon>
                 {t.label}
@@ -383,7 +384,7 @@ class EditTaskDialog extends React.Component {
             ))}
           </Select>
         </FormControl>
-        <Box mt={1} mb={this.state.hasCollectedAnswers ? 1 : 2}>
+        <Box mb={this.state.hasCollectedAnswers ? 1 : 2} mt={1}>
           { types.find(t => t.value === this.state.taskType)?.description }
         </Box>
       </React.Fragment>
@@ -392,60 +393,60 @@ class EditTaskDialog extends React.Component {
     return (
       <Dialog
         className={cx('create-task__dialog', dialogStyles['dialog-window'])}
-        open
-        onClose={this.props.onDismiss}
-        scroll="body"
-        maxWidth="sm"
         fullWidth
+        maxWidth="sm"
+        open
+        scroll="body"
+        onClose={this.props.onDismiss}
       >
         <div className={dialogStyles['dialog-title']}>
           <FormattedMessage
-            tagName="h6"
-            id="tasks.editAnnotationDialogTitle"
             defaultMessage="Edit Annotation"
             description="Title for dialog when editing an annotation"
+            id="tasks.editAnnotationDialogTitle"
+            tagName="h6"
           />
         </div>
         <div className={dialogStyles['dialog-content']}>
-          { this.props.message && <><Alert variant="error" contained title={this.props.message} /><br /></> }
+          { this.props.message && <><Alert contained title={this.props.message} variant="error" /><br /></> }
           <div className={inputStyles['form-fieldset']}>
-            <FormattedMessage id="task.TitlePlaceholder" defaultMessage="Enter a title for this annotation" description="Input Placeholder for the Title field for custom annotation field">
+            <FormattedMessage defaultMessage="Enter a title for this annotation" description="Input Placeholder for the Title field for custom annotation field" id="task.TitlePlaceholder">
               {placeholder => (
                 <TextField2
+                  className={cx('tasks__task-label-input', inputStyles['form-fieldset-field'])}
                   componentProps={{
                     id: 'task-label-input',
                   }}
-                  required
-                  className={cx('tasks__task-label-input', inputStyles['form-fieldset-field'])}
-                  placeholder={placeholder}
+                  defaultValue={this.state.label}
                   label={
                     <FormattedMessage
-                      id="tasks.taskPrompt"
                       defaultMessage="Title"
                       description="Title field for custom annotation field"
+                      id="tasks.taskPrompt"
                     />
                   }
-                  defaultValue={this.state.label}
+                  placeholder={placeholder}
+                  required
                   onChange={this.handleLabelChange}
                 />
               )}
             </FormattedMessage>
-            <FormattedMessage id="task.DescriptionPlaceholder" defaultMessage="Enter an optional description for this annotation" description="Input Placeholder for the Description field for custom annotation field">
+            <FormattedMessage defaultMessage="Enter an optional description for this annotation" description="Input Placeholder for the Description field for custom annotation field" id="task.DescriptionPlaceholder">
               {placeholder => (
                 <TextField2
+                  className={cx('create-task__task-description-input', inputStyles['form-fieldset-field'])}
                   componentProps={{
                     id: 'task-description-input',
                   }}
-                  className={cx('create-task__task-description-input', inputStyles['form-fieldset-field'])}
-                  placeholder={placeholder}
+                  defaultValue={this.state.description}
                   label={
                     <FormattedMessage
-                      id="tasks.description"
                       defaultMessage="Description (optional)"
                       description="Description field for custom annotation field"
+                      id="tasks.description"
                     />
                   }
-                  defaultValue={this.state.description}
+                  placeholder={placeholder}
                   onChange={this.handleDescriptionChange}
                 />
               )}
@@ -456,9 +457,9 @@ class EditTaskDialog extends React.Component {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      name="checkedB"
-                      color="primary"
                       checked={this.state.alwaysShowTime}
+                      color="primary"
+                      name="checkedB"
                       onChange={() => {
                         const alwaysShowTime = !this.state.alwaysShowTime;
                         const options = Array.from(this.state.options).map((option) => {
@@ -484,9 +485,9 @@ class EditTaskDialog extends React.Component {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        name="checkedB"
-                        color="primary"
                         checked={this.state.restrictTimezones}
+                        color="primary"
+                        name="checkedB"
                         onChange={() => {
                           const restrictTimezones = !this.state.restrictTimezones;
                           const options = Array.from(this.state.options).map((option) => {
@@ -514,11 +515,24 @@ class EditTaskDialog extends React.Component {
                   this.state.restrictTimezones ? (
                     <Autocomplete
                       classes={{ root: classes.autocomplete }}
-                      multiple
-                      options={timezones}
-                      getOptionLabel={option => option.label}
                       defaultValue={this.state.options}
                       filterSelectedOptions
+                      getOptionLabel={option => option.label}
+                      multiple
+                      options={timezones}
+                      renderInput={params => (
+                        <TextField
+                          {...params}
+                          label={
+                            <FormattedMessage
+                              defaultMessage="Timezones available to complete the task"
+                              description="Label of timezones list available to the task"
+                              id="tasks.timezones"
+                            />
+                          }
+                          variant="outlined"
+                        />
+                      )}
                       onChange={(event, newValue) => {
                         const { restrictTimezones } = this.state;
                         const options = Array.from(newValue).map((option) => {
@@ -530,19 +544,6 @@ class EditTaskDialog extends React.Component {
                         this.setState({ options });
                         this.validateTask(this.state.label, newValue);
                       }}
-                      renderInput={params => (
-                        <TextField
-                          {...params}
-                          variant="outlined"
-                          label={
-                            <FormattedMessage
-                              id="tasks.timezones"
-                              defaultMessage="Timezones available to complete the task"
-                              description="Label of timezones list available to the task"
-                            />
-                          }
-                        />
-                      )}
                     />
                   ) : null
                 }
@@ -560,47 +561,47 @@ class EditTaskDialog extends React.Component {
               onChange={this.handleOptionsChange}
             />
             <EditTaskAlert
+              diff={this.state.diff}
               showAlert={this.state.showWarning}
               task={this.props.task}
-              diff={this.state.diff}
             />
           </div>
         </div>
         <div className={dialogStyles['dialog-actions']}>
           <ButtonMain
             className="create-task__dialog-cancel-button"
-            onClick={this.props.onDismiss}
-            size="default"
-            variant="text"
-            theme="lightText"
             label={
               <FormattedMessage
-                id="tasks.cancelAdd"
                 defaultMessage="Cancel"
                 description="Cancel action button label"
+                id="tasks.cancelAdd"
               />
             }
+            size="default"
+            theme="lightText"
+            variant="text"
+            onClick={this.props.onDismiss}
           />
           <ButtonMain
             className="create-task__dialog-submit-button"
-            onClick={this.handleSave}
-            size="default"
-            variant="contained"
-            theme="brand"
             disabled={this.state.submitDisabled}
             label={this.state.showWarning ? (
               <FormattedMessage
-                id="tasks.saveButtonWarning"
                 defaultMessage="I understand, save changes"
                 description="Save action button label warning"
+                id="tasks.saveButtonWarning"
               />
             ) : (
               <FormattedMessage
-                id="tasks.add"
                 defaultMessage="Save"
                 description="Save action button label"
+                id="tasks.add"
               />
             )}
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={this.handleSave}
           />
         </div>
       </Dialog>

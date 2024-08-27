@@ -1,24 +1,25 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from './NewsletterComponent.module.css';
 import TextField from '../../cds/inputs/TextField';
 import TextArea from '../../cds/inputs/TextArea';
-import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
 import LinkIcon from '../../../icons/link.svg';
 import AutorenewIcon from '../../../icons/autorenew.svg';
+import styles from './NewsletterComponent.module.css';
 
 const NewsletterRssFeed = ({
   disabled,
-  parentErrors,
   helpContent,
   numberOfArticles,
   onUpdateNumberOfArticles,
-  rssFeedUrl,
   onUpdateUrl,
+  parentErrors,
+  rssFeedUrl,
 }) => {
   const [localRssFeedUrl, setLocalRssFeedUrl] = React.useState(rssFeedUrl);
   const [loadCount, setLoadCount] = React.useState(0); // Forces a re-fetch
@@ -49,11 +50,6 @@ const NewsletterRssFeed = ({
           }
         }
       `}
-      variables={{
-        numberOfArticles,
-        rssFeedUrl,
-        loadCount,
-      }}
       render={({ error, props }) => {
         const invalid = (!!parentErrors?.rss_feed_url || (!!error && localRssFeedUrl && localRssFeedUrl === rssFeedUrl));
         const loading = (!props && !invalid && !error);
@@ -68,22 +64,38 @@ const NewsletterRssFeed = ({
           <div className="newsletter-rss">
             <div className={styles['rss-feed-url']}>
               <FormattedMessage
-                id="newsletterRssFeed.urlPlaceholder"
                 defaultMessage="https://example.com/rss.xml"
                 description="Placeholder text for newsletter RSS field"
+                id="newsletterRssFeed.urlPlaceholder"
               >
                 { placeholder => (
                   <TextField
-                    placeholder={placeholder}
-                    disabled={disabled}
                     className={styles['rss-feed-url-field']}
-                    onChange={(e) => {
-                      let { value } = e.target;
-                      if (value && !/^https?:\/\//.test(value)) {
-                        value = `https://${value}`;
-                      }
-                      setLocalRssFeedUrl(value);
-                    }}
+                    disabled={disabled}
+                    error={invalid}
+                    helpContent={
+                      helpContent ||
+                      (invalid &&
+                        <span>
+                          <FormattedMessage
+                            defaultMessage="This URL is not a valid RSS URL."
+                            description="Error message displayed under RSS feed URL field."
+                            id="newsletterRssFeed.error"
+                          />
+                          {' '}
+                          <a className={styles['error-label']} href="https://help.checkmedia.org/en/articles/8722205-newsletter" rel="noopener noreferrer" target="_blank">
+                            <FormattedMessage
+                              defaultMessage="Learn more."
+                              description="This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'"
+                              id="newsletterRssFeed.learnMore"
+                            />
+                          </a>
+                        </span>
+                      )
+                    }
+                    iconLeft={<LinkIcon />}
+                    placeholder={placeholder}
+                    value={localRssFeedUrl}
                     onBlur={(e) => {
                       if (e.target.value === '') {
                         onUpdateUrl(null);
@@ -91,51 +103,35 @@ const NewsletterRssFeed = ({
                         handleLoad();
                       }
                     }}
-                    value={localRssFeedUrl}
-                    iconLeft={<LinkIcon />}
-                    error={invalid}
-                    helpContent={
-                      helpContent ||
-                      (invalid &&
-                        <span>
-                          <FormattedMessage
-                            id="newsletterRssFeed.error"
-                            defaultMessage="This URL is not a valid RSS URL."
-                            description="Error message displayed under RSS feed URL field."
-                          />
-                          {' '}
-                          <a href="https://help.checkmedia.org/en/articles/8722205-newsletter" target="_blank" rel="noopener noreferrer" className={styles['error-label']}>
-                            <FormattedMessage
-                              id="newsletterRssFeed.learnMore"
-                              defaultMessage="Learn more."
-                              description="This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'"
-                            />
-                          </a>
-                        </span>
-                      )
-                    }
+                    onChange={(e) => {
+                      let { value } = e.target;
+                      if (value && !/^https?:\/\//.test(value)) {
+                        value = `https://${value}`;
+                      }
+                      setLocalRssFeedUrl(value);
+                    }}
                   />
                 )}
               </FormattedMessage>
               { (rssFeedUrl && loading) ?
                 <ButtonMain
-                  iconCenter={<AutorenewIcon />}
                   className={styles['loading-rss-feed-button']}
-                  variant="contained"
+                  disabled={disabled}
+                  iconCenter={<AutorenewIcon />}
                   size="large"
                   theme="alert"
-                  disabled={disabled}
+                  variant="contained"
                 /> :
                 <ButtonMain
-                  label={<FormattedMessage id="newsletterRssFeed.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />}
-                  variant="contained"
-                  size="large"
-                  theme="brand"
-                  onClick={handleLoad}
-                  disabled={!localRssFeedUrl || disabled}
                   buttonProps={{
                     id: 'media-similarity__add-button',
                   }}
+                  disabled={!localRssFeedUrl || disabled}
+                  label={<FormattedMessage defaultMessage="Load" description="Label for a button to load RSS feed entries" id="newsletterRssFeed.load" />}
+                  size="large"
+                  theme="info"
+                  variant="contained"
+                  onClick={handleLoad}
                 />}
             </div>
             <NewsletterNumberOfArticles
@@ -148,18 +144,23 @@ const NewsletterRssFeed = ({
               <div key={rssFeedUrl}>
                 {[...Array(numberOfArticles)].map((_, i) => (
                   <TextArea
-                    disabled
-                    key={articles[i]}
-                    value={articles[i]}
                     className={styles['two-spaced']}
-                    rows={4}
+                    disabled
                     error={!invalid && !articles[i] && !loading}
-                    helpContent={!loading && !articles[i] && !invalid && <FormattedMessage id="newsletterRssFeed.noArticle" defaultMessage="No article retrieved from RSS at this time" description="Message displayed when RSS feed has less entries than requested" />}
+                    helpContent={!loading && !articles[i] && !invalid && <FormattedMessage defaultMessage="No article retrieved from RSS at this time" description="Message displayed when RSS feed has less entries than requested" id="newsletterRssFeed.noArticle" />}
+                    key={articles[i]}
+                    rows={4}
+                    value={articles[i]}
                   />
                 ))}
               </div> : null }
           </div>
         );
+      }}
+      variables={{
+        numberOfArticles,
+        rssFeedUrl,
+        loadCount,
       }}
     />
   );

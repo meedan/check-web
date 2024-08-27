@@ -1,7 +1,7 @@
 import React from 'react';
+import TimeBefore from './TimeBefore';
 import { mountWithIntlProvider } from '../../../test/unit/helpers/intl-test';
 
-import TimeBefore from './TimeBefore';
 
 describe('<TimeBefore />', () => {
   it('should display relative time correctly', () => {

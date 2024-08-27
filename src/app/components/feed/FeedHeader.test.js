@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 import { FeedHeader } from './FeedHeader';
+import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
 const feed = {
   dbid: 1,

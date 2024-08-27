@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import Alert from '../../cds/alerts-and-prompts/Alert';
 import MediaMainItemPreview from './MediaMainItemPreview';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain.js';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import ApproveIcon from '../../../icons/done.svg';
@@ -37,9 +37,9 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
   const onSuccess = () => {
     setFlashMessage(
       <FormattedMessage
-        id="mediaSuggestionBanner.updateSuggestionSuccess"
         defaultMessage="Updated successfully, refreshing…"
         description="Message display once suggestion is approved or rejected successfully."
+        id="mediaSuggestionBanner.updateSuggestionSuccess"
       />,
       'success');
     setSaving(false);
@@ -49,9 +49,9 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
   const onError = () => {
     setFlashMessage(
       <FormattedMessage
-        id="mediaSuggestionBanner.updateSuggestionError"
         defaultMessage="Error when trying to update suggestion. Please try again or contact support if the error persists."
         description="Message display when it fails to approve or reject suggestion."
+        id="mediaSuggestionBanner.updateSuggestionError"
       />,
       'error');
     setSaving(false);
@@ -103,40 +103,40 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
     <>
       { projectMedia.is_suggested && (
         <Alert
-          icon
-          variant="warning"
-          title={
-            <FormattedMessage
-              id="mediaSuggestionBanner.alertTitle"
-              defaultMessage="Media and Requests appear to be similar to an existing item in your workspace. Are they a good match?"
-              description="Title of the alert message displayed on item page for suggestions."
-            />
-          }
           content={
             <div className={styles.mediaSuggestionsBanner}>
               { projectMedia.suggested_main_item && <MediaMainItemPreview projectMedia={projectMedia.suggested_main_item} /> }
               <div className={styles.mediaSuggestionsBannerButtons}>
                 <ButtonMain
-                  size="small"
-                  variant="contained"
-                  theme="validation"
                   disabled={saving}
                   iconLeft={<ApproveIcon />}
-                  label={<FormattedMessage id="mediaSuggestionBanner.approve" defaultMessage="Yes, they are similar" description="Button label to accept similarity suggestion." />}
+                  label={<FormattedMessage defaultMessage="Yes, they are similar" description="Button label to accept similarity suggestion." id="mediaSuggestionBanner.approve" />}
+                  size="small"
+                  theme="validation"
+                  variant="contained"
                   onClick={handleApprove}
                 />
                 <ButtonMain
-                  size="small"
-                  variant="contained"
-                  theme="error"
                   disabled={saving}
                   iconLeft={<RejectIcon />}
-                  label={<FormattedMessage id="mediaSuggestionBanner.reject" defaultMessage="No, keep them separate" description="Button label to reject similarity suggestion." />}
+                  label={<FormattedMessage defaultMessage="No, keep them separate" description="Button label to reject similarity suggestion." id="mediaSuggestionBanner.reject" />}
+                  size="small"
+                  theme="error"
+                  variant="contained"
                   onClick={handleReject}
                 />
               </div>
             </div>
           }
+          icon
+          title={
+            <FormattedMessage
+              defaultMessage="Media and Requests appear to be similar to an existing item in your workspace. Are they a good match?"
+              description="Title of the alert message displayed on item page for suggestions."
+              id="mediaSuggestionBanner.alertTitle"
+            />
+          }
+          variant="warning"
         />
       )}
     </>

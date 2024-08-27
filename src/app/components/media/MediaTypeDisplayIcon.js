@@ -52,7 +52,7 @@ export function mediaTypeFromFilename(fileName) {
   return mediaType;
 }
 
-export default function MediaTypeDisplayIcon({ mediaType, fontSize = 'var(--iconSizeSmall)', color = 'var(--color-gray-75)' }) {
+export default function MediaTypeDisplayIcon({ color = 'var(--color-gray-75)', fontSize = 'var(--iconSizeSmall)', mediaType }) {
   switch (mediaType) {
   case 'Claim':
     return <Description style={{ fontSize, color }} />;

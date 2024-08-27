@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import LimitedTextArea from './LimitedTextArea';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<LimitedTextArea />', () => {
   it('should render LimitedTextArea when value is null ', () => {

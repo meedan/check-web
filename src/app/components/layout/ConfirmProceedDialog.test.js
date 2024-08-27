@@ -1,17 +1,17 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ConfirmProceedDialog from './ConfirmProceedDialog';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<ConfirmProceedDialog />', () => {
   it('should render dialog title and content', () => {
     const wrapper = mountWithIntl(<ConfirmProceedDialog
-      open
-      title="Dialog Title"
       body="Body Content"
+      open
       proceedLabel=""
+      title="Dialog Title"
       onCancel={() => {}}
-      onProceed={() => {}}
       onClick={() => {}}
+      onProceed={() => {}}
     />);
     expect(wrapper.html()).toMatch('Dialog Title');
     expect(wrapper.html()).toMatch('Body Content');

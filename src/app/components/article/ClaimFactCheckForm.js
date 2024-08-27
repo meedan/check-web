@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, QueryRenderer, commitMutation, createFragmentContainer } from 'react-relay/compat';
@@ -145,10 +146,10 @@ const updateFactCheckMutation = graphql`
 
 const ClaimFactCheckForm = ({
   article,
-  team,
-  projectMedia,
   onClose,
   onCreate,
+  projectMedia,
+  team,
 }) => {
   const type = article?.id ? 'edit' : 'create';
   const [saving, setSaving] = React.useState(false);
@@ -162,9 +163,9 @@ const ClaimFactCheckForm = ({
     setError(false);
     onClose(false);
     setFlashMessage(<FormattedMessage
-      id="claimFactCheckForm.saveSuccess"
       defaultMessage="Article created successfully!"
       description="Save item action success message"
+      id="claimFactCheckForm.saveSuccess"
     />, 'success');
   };
 
@@ -300,15 +301,15 @@ const ClaimFactCheckForm = ({
 
   return (
     <ArticleForm
-      handleSave={handleSave}
-      onClose={onClose}
-      handleBlur={handleBlur}
-      articleType="fact-check"
-      mode={type}
       article={article}
-      team={team}
-      saving={saving}
+      articleType="fact-check"
       error={error}
+      handleBlur={handleBlur}
+      handleSave={handleSave}
+      mode={type}
+      saving={saving}
+      team={team}
+      onClose={onClose}
     />
   );
 };
@@ -344,9 +345,9 @@ const ClaimFactCheckFormContainer = createFragmentContainer(ClaimFactCheckForm, 
 `);
 
 const ClaimFactCheckFormQueryRenderer = ({
-  teamSlug,
   factCheckId,
   onClose,
+  teamSlug,
 }) => (
   <QueryRenderer
     environment={Relay.Store}
@@ -360,15 +361,15 @@ const ClaimFactCheckFormQueryRenderer = ({
         }
       }
     `}
-    variables={{
-      teamSlug,
-      factCheckId,
-    }}
     render={({ error, props }) => {
       if (props && !error) {
         return <ClaimFactCheckFormContainer article={props.fact_check} team={props.team} onClose={onClose} />;
       }
       return null;
+    }}
+    variables={{
+      teamSlug,
+      factCheckId,
     }}
   />
 );

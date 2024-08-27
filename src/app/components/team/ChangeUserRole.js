@@ -13,8 +13,8 @@ import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const ChangeUserRole = ({
-  teamUser,
   setFlashMessage,
+  teamUser,
 }) => {
   const [newRole, setNewRole] = React.useState(null);
 
@@ -65,45 +65,32 @@ const ChangeUserRole = ({
         onChange={e => setNewRole(e.target.value)}
       />
       <ConfirmProceedDialog
-        open={Boolean(newRole)}
-        title={
-          <FormattedMessage
-            id="changeUserRole.dialogTitle"
-            defaultMessage="Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
-            description="Confirmation message to check if the user is sure they want to alter a user role"
-            values={{
-              userLabel: teamUser.user.name || teamUser.user.email,
-              currentRole: teamUser.role,
-              newRole,
-            }}
-          />
-        }
         body={
           <>
             <FormattedMessage
-              tagName="p"
-              id="changeUserRole.changingTo"
               defaultMessage="You will be changing {userLabel}'s role to {newRole}."
               description="Description confirmation of what the current user role is, and what it will be changed to"
+              id="changeUserRole.changingTo"
+              tagName="p"
               values={{
                 userLabel: teamUser.user.name || teamUser.user.email,
                 newRole,
               }}
             />
             <FormattedMessage
-              tagName="p"
-              id="changeUserRole.learnMore"
               defaultMessage="To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
               description="Help link to learn about roles and permissions for this application"
+              id="changeUserRole.learnMore"
+              tagName="p"
               values={{
                 userLabel: teamUser.user.name || teamUser.user.email,
                 newRole,
                 helpCenterLink: (
                   <ExternalLink url="https://help.checkmedia.org/en/articles/8712107-team-settings">
                     <FormattedMessage
-                      id="changeUserRole.helpCenter"
                       defaultMessage="Help Center"
                       description="Link text to go to the help website"
+                      id="changeUserRole.helpCenter"
                     />
                   </ExternalLink>
                 ),
@@ -111,16 +98,29 @@ const ChangeUserRole = ({
             />
           </>
         }
-        onCancel={() => setNewRole(null)}
-        onProceed={() => handleChangeRole(teamUser.id, newRole)}
+        open={Boolean(newRole)}
         proceedLabel={
           <FormattedMessage
-            id="changeUserRole.proceedLabel"
             defaultMessage="Change role to {newRole}"
             description="Dialog continuation label for altering a user role"
+            id="changeUserRole.proceedLabel"
             values={{ newRole }}
           />
         }
+        title={
+          <FormattedMessage
+            defaultMessage="Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
+            description="Confirmation message to check if the user is sure they want to alter a user role"
+            id="changeUserRole.dialogTitle"
+            values={{
+              userLabel: teamUser.user.name || teamUser.user.email,
+              currentRole: teamUser.role,
+              newRole,
+            }}
+          />
+        }
+        onCancel={() => setNewRole(null)}
+        onProceed={() => handleChangeRole(teamUser.id, newRole)}
       />
     </React.Fragment>
   );

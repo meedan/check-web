@@ -11,14 +11,14 @@ const MediaPreview = ({ media }) => {
     const coverImage = media.thumbnail_path || '/images/player_cover.svg';
     preview = (
       <MediaPlayerCard
-        filePath={media.file_path || media.url}
         coverImage={coverImage}
+        filePath={media.file_path || media.url}
       />
     );
   } else if (media.picture) {
     preview = (
       <AspectRatio>
-        <img src={media.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
+        <img alt="" src={media.picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
       </AspectRatio>
     );
   }

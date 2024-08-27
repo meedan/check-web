@@ -39,8 +39,8 @@ class TeamTaskConfirmDialog extends React.Component {
     if (this.props.action === 'edit') {
       action = this.props.editLabelOrDescription ? 'editLabelOrDescription' : 'edit';
     }
-    const deleteConfirmDialogTitle = <FormattedMessage tagName="h6" id="teamTasks.confirmDeleteMetadataTitle" defaultMessage="Are you sure you want to delete this field?" description="Delete confirmation message" />;
-    const editConfirmDialogTitle = <FormattedMessage tagName="h6" id="teamTasks.confirmEditMetadataTitle" defaultMessage="Are you sure you want to edit this field?" description="Editing confirmation message" />;
+    const deleteConfirmDialogTitle = <FormattedMessage defaultMessage="Are you sure you want to delete this field?" description="Delete confirmation message" id="teamTasks.confirmDeleteMetadataTitle" tagName="h6" />;
+    const editConfirmDialogTitle = <FormattedMessage defaultMessage="Are you sure you want to edit this field?" description="Editing confirmation message" id="teamTasks.confirmEditMetadataTitle" tagName="h6" />;
     const confirmDialogTitle = {
       edit: editConfirmDialogTitle,
       delete: deleteConfirmDialogTitle,
@@ -48,10 +48,10 @@ class TeamTaskConfirmDialog extends React.Component {
 
     const confirmDialogBlurbEditOrDelete = (
       <FormattedMessage
-        tagName="p"
-        id="teamTasks.confirmDeleteBlurbMetadata"
         defaultMessage="{itemsNumber, plural, one {The field {fieldLabel} has been completed in # item.} other {The field {fieldLabel} has been completed in # items.}}"
         description="Warning about existing completed instances of a field before performing deletion of it"
+        id="teamTasks.confirmDeleteBlurbMetadata"
+        tagName="p"
         values={{
           itemsNumber: task.tasks_with_answers_count,
           fieldLabel: <strong>{this.props.task.label}</strong>,
@@ -61,10 +61,10 @@ class TeamTaskConfirmDialog extends React.Component {
     const confirmDialogBlurb = {
       edit: (
         <FormattedMessage
-          tagName="p"
-          id="teamTasks.confirmEditBlurbMetadata"
           defaultMessage="Related item fields will be modified as a consequence of applying this change, except for those that have already been completed."
           description="Warning about existing instances of a field before performing changes to it"
+          id="teamTasks.confirmEditBlurbMetadata"
+          tagName="p"
         />
       ),
       editLabelOrDescription: confirmDialogBlurbEditOrDelete,
@@ -74,26 +74,26 @@ class TeamTaskConfirmDialog extends React.Component {
     const confirmkeepCompleted = {
       edit: (
         <FormattedMessage
-          id="teamTasks.confirmEditkeepCompletedMetadata"
           defaultMessage="Do not alter fields that have been completed, and keep their existing answers."
           description="Label to checkbox for choosing whether completed fields should be changed or not"
+          id="teamTasks.confirmEditkeepCompletedMetadata"
         />
       ),
       delete: (
         <FormattedMessage
-          id="teamTasks.confirmDeletekeepCompletedMetadata"
           defaultMessage="Keep this field with answers in items where it has been completed."
           description="Label to checkbox for choosing whether completed fields should be deleted or not"
+          id="teamTasks.confirmDeletekeepCompletedMetadata"
         />
       ),
     };
 
     const deleteAction = (
-      <FormattedMessage id="teamTasks.deleteMetadata" defaultMessage="Delete field" description="Button label to delete a field" />
+      <FormattedMessage defaultMessage="Delete field" description="Button label to delete a field" id="teamTasks.deleteMetadata" />
     );
 
     const editAction = (
-      <FormattedMessage id="teamTasks.continueMetadata" defaultMessage="Edit field" description="Button label to edit a field" />
+      <FormattedMessage defaultMessage="Edit field" description="Button label to edit a field" id="teamTasks.continueMetadata" />
     );
 
     return (
@@ -113,9 +113,9 @@ class TeamTaskConfirmDialog extends React.Component {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={this.state.keepCompleted}
                       id="keep-dialog__checkbox"
                       onChange={this.handlekeepCompleted.bind(this)}
-                      checked={this.state.keepCompleted}
                     />
                   }
                   label={confirmkeepCompleted[this.props.action]}
@@ -130,24 +130,24 @@ class TeamTaskConfirmDialog extends React.Component {
             buttonProps={{
               id: 'confirm-dialog__cancel-action-button',
             }}
-            size="default"
-            variant="text"
-            theme="lightText"
-            onClick={this.handleCancel}
             label={
-              <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" description="Dialog box cancel button label" />
+              <FormattedMessage defaultMessage="Cancel" description="Dialog box cancel button label" id="teamTasks.cancelAction" />
             }
+            size="default"
+            theme="lightText"
+            variant="text"
+            onClick={this.handleCancel}
           />
           <ButtonMain
             buttonProps={{
               id: 'confirm-dialog__confirm-action-button',
             }}
-            size="default"
-            variant="contained"
-            theme="brand"
-            onClick={this.handleProceed}
             disabled={this.props.disabled}
             label={action === 'delete' ? deleteAction : editAction}
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={this.handleProceed}
           />
         </div>
       </Dialog>

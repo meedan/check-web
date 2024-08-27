@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import PropTypes from 'prop-types';
 
 /**
@@ -22,7 +23,7 @@ function can(permissionsData, permission) {
  * particular, do not wrap a `<MenuItem>` in a `<Can>`. (use `can()` instead.)
  */
 const Can = ({
-  permissions, permission, children, otherwise,
+  children, otherwise, permission, permissions,
 }) => can(permissions, permission) ? children : otherwise;
 Can.defaultProps = {
   otherwise: null,

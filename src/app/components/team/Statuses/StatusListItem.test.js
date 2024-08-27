@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import StatusListItem from './StatusListItem';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 const status = {
   id: '1',
@@ -25,13 +25,13 @@ describe('<StatusListItem/>', () => {
   it('should render status item', () => {
     const wrapper = mountWithIntl(<StatusListItem
       defaultLanguage="pt"
+      isDefault
+      key={status.id}
+      label
+      status={status}
       onDelete={() => {}}
       onEdit={() => {}}
       onMakeDefault={() => {}}
-      status={status}
-      isDefault
-      label
-      key={status.id}
     />);
     expect(wrapper.html()).toMatch('true');
     expect(wrapper.html()).toMatch('description x');
@@ -44,11 +44,11 @@ describe('<StatusListItem/>', () => {
   it('should display status item with no description', () => {
     const wrapper = mountWithIntl(<StatusListItem
       defaultLanguage="en"
+      key={status.id}
+      status={status2}
       onDelete={() => {}}
       onEdit={() => {}}
       onMakeDefault={() => {}}
-      status={status2}
-      key={status.id}
     />);
     expect(wrapper.html()).toMatch('false');
     expect(wrapper.html()).not.toMatch('(default)');
