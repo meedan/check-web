@@ -282,6 +282,7 @@ class MultiSelector extends React.Component {
           }
           <ButtonMain
             className="int-multiselector__button--save"
+            label={this.props.submitLabel}
             size="default"
             theme="info"
             variant="contained"
