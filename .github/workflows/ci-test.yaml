@@ -48,7 +48,7 @@ jobs:
         # encrypted_e6af0c606e27_key: ${{ secrets.DECRYPTION_PASSWORDy }}
         encrypted_e6af0c606e27_iv: ${{ secrets.encrypted_e6af0c606e27_iv }}
       run: |
-        openssl aes-256-cbc -in test/google_credentials.json.enc -out test/google_credentials.json -d -pass pass:${{ secrets.DECRYPTION_PASSWORD }}
+        openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -pass pass:${{ secrets.DECRYPTION_PASSWORD }}
 
     - name: Setup UTF-8 Capable locale
       run: | 
