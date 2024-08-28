@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React, { useEffect } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -23,6 +22,7 @@ import styles from './ArticleForm.module.css';
 const ArticleForm = ({
   article,
   articleType,
+  createFromMediaPage,
   handleBlur,
   handleSave,
   mode,
@@ -100,6 +100,32 @@ const ArticleForm = ({
     setStatus(clickedStatus);
     handleBlur('rating', clickedStatus);
   };
+
+  const mainActionButtonLabelExplainer = (
+    <FormattedMessage
+      defaultMessage="Create Article"
+      description="Button that saves the form data as a new article"
+      id="articleForm.saveArticleButton"
+    />
+  );
+
+  const secondaryActionButtonLabelFactCheck = (
+    <FormattedMessage
+      defaultMessage="Create Unpublished"
+      description="Button that saves the form data as a new fact-check article, without proceeding to publish it"
+      id="articleForm.saveUnpublishedButton"
+    />
+  );
+
+  const mainActionButtonLabelFactCheck = createFromMediaPage ? (
+    <FormattedMessage
+      defaultMessage="Create & Publish"
+      description="Button that saves the form data as a new fact-check article and redirects to publish report page"
+      id="articleForm.saveAndPublishButton"
+    />
+  ) : secondaryActionButtonLabelFactCheck;
+
+  const mainActionButtonLabel = articleType === 'explainer' ? mainActionButtonLabelExplainer : mainActionButtonLabelFactCheck;
 
   return (
     <Slideout
@@ -536,14 +562,24 @@ const ArticleForm = ({
         </>
       }
       footer={mode === 'create'}
-      mainActionButton={mode === 'create' ? <ButtonMain
-        buttonProps={{
-          id: 'article-form__save-button',
-        }}
-        disabled={!isValid || saving}
-        label={<FormattedMessage defaultMessage="Create content" description="the save button for the article forom" id="articleForm.formSaveButton" />}
-        onClick={handleSave}
-      /> : null}
+      mainActionButton={mode === 'create' ? (
+        <ButtonMain
+          buttonProps={{ id: 'article-form__save-button' }}
+          disabled={!isValid || saving}
+          label={mainActionButtonLabel}
+          onClick={() => handleSave({ publish: createFromMediaPage })}
+        />
+      ) : null}
+      secondaryActionButton={(articleType === 'fact-check') && createFromMediaPage ? (
+        <ButtonMain
+          buttonProps={{ id: 'article-form__save-unpublished-button' }}
+          disabled={!isValid || saving}
+          label={secondaryActionButtonLabelFactCheck}
+          theme="lightBeige"
+          variant="contained"
+          onClick={() => handleSave({ publish: false })}
+        />
+      ) : null}
       showCancel={mode === 'create'} // just here until trash is added
       title={title}
       onClose={onClose}
@@ -552,20 +588,22 @@ const ArticleForm = ({
 };
 
 ArticleForm.defaultProps = {
-  saving: false,
-  handleSave: null,
   article: {},
+  createFromMediaPage: false,
+  handleSave: null,
+  saving: false,
 };
 
 ArticleForm.propTypes = {
-  saving: PropTypes.bool,
-  handleSave: PropTypes.func,
-  onClose: PropTypes.func.isRequired,
-  handleBlur: PropTypes.func.isRequired,
+  article: PropTypes.object,
   articleType: PropTypes.oneOf(['fact-check', 'explainer']).isRequired,
+  createFromMediaPage: PropTypes.bool,
+  handleBlur: PropTypes.func.isRequired,
+  handleSave: PropTypes.func,
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
-  article: PropTypes.object, // FIXME: Describe the structure
+  saving: PropTypes.bool,
   team: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(ArticleForm, graphql`
