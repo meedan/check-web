@@ -28,6 +28,7 @@ const MediaArticleCard = ({
   removeDisabled,
   statusColor,
   statusLabel,
+  summary,
   title,
   url,
   variant,
@@ -70,13 +71,18 @@ const MediaArticleCard = ({
             )}
           >
             <div className={cardStyles.cardSummaryContent}>
-              { url ?
-                <ArticleUrl linkText={title} showIcon={false} title={title} url={url} variant={variant} />
-                :
-                <span className={cx(cardStyles.cardDescription)}>
-                  {title}
-                </span>
-              }
+              <h6 className={cx(cardStyles.cardTitle)}>
+                { url ?
+                  <ArticleUrl linkText={title} showIcon={false} title={title} url={url} variant={variant} />
+                  :
+                  <>
+                    {title}
+                  </>
+                }
+              </h6>
+              <div className={cardStyles.cardDescription}>
+                {summary}
+              </div>
             </div>
           </div>
         </div>
@@ -89,6 +95,7 @@ const MediaArticleCard = ({
         details={[
           variant === 'fact-check' && (<ItemReportStatus
             isPublished={Boolean(publishedAt)}
+            label
             publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
             theme="lightText"
             tooltip={false}
@@ -139,6 +146,7 @@ MediaArticleCard.defaultProps = {
   variant: 'explainer',
   statusLabel: null,
   statusColor: null,
+  summary: null,
   publishedAt: null,
   onClick: () => {},
   onRemove: () => {},
@@ -152,6 +160,7 @@ MediaArticleCard.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,
   statusLabel: PropTypes.string,
   statusColor: PropTypes.string,
+  summary: PropTypes.string,
   languageCode: PropTypes.string,
   publishedAt: PropTypes.number, // Timestamp
   variant: PropTypes.oneOf(['explainer', 'fact-check']),

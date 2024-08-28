@@ -8,5 +8,15 @@
     "id": "itemReportStatus.tooltipUnpublished",
     "description": "Tooltip of a report status icon when the report is not published",
     "defaultMessage": "Unpublished Fact-Check"
+  },
+  {
+    "id": "itemReportStatus.labelPublished",
+    "description": "Label of a report status icon when the report is published",
+    "defaultMessage": "Published"
+  },
+  {
+    "id": "itemReportStatus.labelUnpublished",
+    "description": "Label of a report status icon when the report is not published",
+    "defaultMessage": "Unpublished"
   }
 ]
