@@ -7,6 +7,7 @@ import cx from 'classnames/bind';
 import AutoCompleteMediaItem from './AutoCompleteMediaItem';
 import CreateMediaInput from './CreateMediaInput';
 import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
+import CloseIcon from '../../icons/clear.svg';
 import ExportToMediaIcon from '../../icons/export_to_media.svg';
 import ImportToMediaIcon from '../../icons/import_to_media.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
@@ -124,6 +125,14 @@ class CreateRelatedMediaDialog extends React.Component {
               />
             </Tabs>
           }
+          <ButtonMain
+            className={dialogStyles['dialog-close-button']}
+            iconCenter={<CloseIcon />}
+            size="small"
+            theme="text"
+            variant="text"
+            onClick={this.props.onDismiss}
+          />
         </div>
         <div className={cx(dialogStyles['dialog-content'], mediaStyles['media-item-autocomplete-wrapper'])}>
           { mode === 'new' &&
