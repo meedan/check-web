@@ -6,6 +6,9 @@ import Tab from '@material-ui/core/Tab';
 import cx from 'classnames/bind';
 import AutoCompleteMediaItem from './AutoCompleteMediaItem';
 import CreateMediaInput from './CreateMediaInput';
+import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
+import ExportToMediaIcon from '../../icons/export_to_media.svg';
+import ImportToMediaIcon from '../../icons/import_to_media.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import dialogStyles from '../../styles/css/dialog.module.css';
@@ -18,18 +21,23 @@ class CreateRelatedMediaDialog extends React.Component {
     this.formRef = React.createRef(null);
 
     this.state = {
+      action: 'addThisToSimilar',
       mode: 'existing',
-      selectedItem: null, // Used when props.multiple = false
-      selectedItems: [], // Used when props.multiple = true
+      selectedItem: null, // Used when action = addThisToSimilar
+      selectedItems: [], // Used when action = addSimilarToThis
     };
   }
+
+  handleAtionChange = (event, action) => {
+    this.setState({ action, selectedItem: null, selectedItems: [] });
+  };
 
   handleChange = (event, mode) => {
     this.setState({ mode, selectedItem: null, selectedItems: [] });
   };
 
   handleSelectExisting = (selectedItem, selected) => {
-    if (this.props.multiple) {
+    if (this.state.action === 'addThisToSimilar') {
       const selectedItems = this.state.selectedItems.slice();
       const i = selectedItems.findIndex(item => item.dbid === selectedItem.dbid);
       if (selected) {
@@ -47,10 +55,10 @@ class CreateRelatedMediaDialog extends React.Component {
 
   handleSubmitExisting = () => {
     if (this.props.onSelect) {
-      if (!this.props.multiple && this.state.selectedItem) {
+      if (this.state.action === 'addSimilarToThis' && this.state.selectedItem) {
         this.props.onSelect(this.state.selectedItem);
         this.setState({ selectedItem: null });
-      } else if (this.props.multiple && this.state.selectedItems.length > 0) {
+      } else if (this.state.action === 'addThisToSimilar' && this.state.selectedItems.length > 0) {
         this.state.selectedItems.forEach((item) => {
           this.props.onSelect(item);
         });
@@ -62,7 +70,7 @@ class CreateRelatedMediaDialog extends React.Component {
   submitExistingDisabled = () => (!this.state.selectedItem && !this.state.selectedItems.length);
 
   render() {
-    const { mode } = this.state;
+    const { action, mode } = this.state;
     const {
       hideNew,
       media,
@@ -74,7 +82,24 @@ class CreateRelatedMediaDialog extends React.Component {
       <Dialog className={dialogStyles['dialog-window']} fullWidth maxWidth="md" open={this.props.open}>
         <div className={dialogStyles['dialog-title']}>
           { hideNew ?
-            this.props.title :
+            <div className={dialogStyles['dialog-title-choice']}>
+              {this.props.title}
+              <ToggleButtonGroup
+                exclusive
+                value={this.state.action}
+                variant="contained"
+                onChange={this.handleAtionChange}
+              >
+                <ToggleButton key="1" value="addSimilarToThis">
+                  <ImportToMediaIcon />
+                  <FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />
+                </ToggleButton>
+                <ToggleButton key="2" value="addThisToSimilar">
+                  <FormattedMessage defaultMessage="Export to Existing Media" description="Tab text for exporting media out of this item" id="createMedia.export" />
+                  <ExportToMediaIcon />
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </div> :
             <Tabs
               indicatorColor="primary"
               textColor="primary"
@@ -116,7 +141,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 dbid={media ? media.dbid : null}
                 disablePublished={Boolean(this.props.disablePublished)}
                 media={media}
-                multiple={Boolean(this.props.multiple)}
+                multiple={Boolean(action === 'addThisToSimilar')}
                 showFilters={Boolean(this.props.showFilters)}
                 typesToShow={typesToShow}
                 onSelect={this.handleSelectExisting}

@@ -144,7 +144,6 @@ const MediaSimilarityBarAdd = ({
         hideNew
         isSubmitting={submitting}
         media={{ dbid: projectMediaDbid }}
-        multiple
         open={showDialog}
         showFilters
         submitButtonLabel={count => (
@@ -157,7 +156,7 @@ const MediaSimilarityBarAdd = ({
         )}
         title={
           <FormattedMessage
-            defaultMessage="Find other media to merge with this item"
+            defaultMessage="Merge Media"
             description="Dialog title for merging items."
             id="mediaSimilarityBarAdd.mergeItemsTitle"
             tagName="h6"

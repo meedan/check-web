@@ -1,5 +1,15 @@
 [
   {
+    "id": "createMedia.import",
+    "description": "Tab text for importing media into this item",
+    "defaultMessage": "Import into this Media"
+  },
+  {
+    "id": "createMedia.export",
+    "description": "Tab text for exporting media out of this item",
+    "defaultMessage": "Export to Existing Media"
+  },
+  {
     "id": "createMedia.existing",
     "description": "Tab text for adding an existing media item",
     "defaultMessage": "Add existing item"

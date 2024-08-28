@@ -9,6 +9,12 @@
   .dialog-title {
     border-bottom: solid 1px var(--color-gray-88);
     padding: 16px 48px 16px 24px;
+
+    .dialog-title-choice {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
   }
 
   .dialog-close-button {
