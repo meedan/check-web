@@ -12,9 +12,7 @@ const ItemReportStatus = ({
   label,
   projectMediaDbid,
   publishedAt,
-  theme,
   useTooltip,
-  variant,
 }) => {
   const formatTooltip = () => {
     const tooltipLabel = isPublished ? (
@@ -57,7 +55,6 @@ const ItemReportStatus = ({
         buttonProps={{
           type: null,
         }}
-        customStyle={{ color: isPublished ? 'var(--color-green-24)' : 'var(--color-gray-59)' }}
         disabled={!projectMediaDbid}
         iconCenter={!label && <FactCheckIcon />}
         iconLeft={label && <FactCheckIcon />}
@@ -75,8 +72,8 @@ const ItemReportStatus = ({
           />
         }
         size="small"
-        theme={theme}
-        variant={variant}
+        theme={isPublished ? 'lightValidation' : 'lightText'}
+        variant={label ? 'text' : 'contained'}
         onClick={handleGoToReport}
       />
     </div>
@@ -97,8 +94,6 @@ ItemReportStatus.defaultProps = {
   className: null,
   isPublished: false,
   publishedAt: null,
-  variant: 'contained',
-  theme: 'text',
   useTooltip: true,
   label: false,
 };
@@ -107,8 +102,6 @@ ItemReportStatus.propTypes = {
   className: PropTypes.string,
   isPublished: PropTypes.bool,
   publishedAt: PropTypes.instanceOf(Date), // Timestamp
-  theme: PropTypes.string,
-  variant: PropTypes.string,
   useTooltip: PropTypes.bool,
   label: PropTypes.bool,
 };

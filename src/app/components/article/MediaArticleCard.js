@@ -99,7 +99,6 @@ const MediaArticleCard = ({
             publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
             theme="lightText"
             tooltip={false}
-            variant="text"
           />),
           languageCode && (
             <Language

@@ -29,24 +29,22 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
   return (
     <div className={styles.mediaArticlesDisplay}>
       { hasFactCheck ?
-        <>
-          <MediaArticleCard
-            date={new Date(factCheck.updated_at * 1000)}
-            id={factCheck.claim_description.id}
-            key={factCheck.id}
-            languageCode={factCheck.language !== 'und' ? factCheck.language : null}
-            publishedAt={publishedAt}
-            removeDisabled={projectMedia.type === 'Blank'}
-            statusColor={currentStatus ? currentStatus.style?.color : null}
-            statusLabel={currentStatus ? currentStatus.label : null}
-            summary={factCheck.summary || factCheck.claim_description.context}
-            title={factCheck.title || factCheck.claim_description.description}
-            url={factCheck.url}
-            variant="fact-check"
-            onClick={() => { setArticleToEdit(factCheck); }}
-            onRemove={onUpdate}
-          />
-        </>
+        <MediaArticleCard
+          date={new Date(factCheck.updated_at * 1000)}
+          id={factCheck.claim_description.id}
+          key={factCheck.id}
+          languageCode={factCheck.language !== 'und' ? factCheck.language : null}
+          publishedAt={publishedAt}
+          removeDisabled={projectMedia.type === 'Blank'}
+          statusColor={currentStatus ? currentStatus.style?.color : null}
+          statusLabel={currentStatus ? currentStatus.label : null}
+          summary={factCheck.summary || factCheck.claim_description.context}
+          title={factCheck.title || factCheck.claim_description.description}
+          url={factCheck.url}
+          variant="fact-check"
+          onClick={() => { setArticleToEdit(factCheck); }}
+          onRemove={onUpdate}
+        />
         : null
       }
       { (hasFactCheck && hasExplainer) ?
