@@ -58,9 +58,8 @@ const MediaArticleCard = ({
                 { variant === 'fact-check' && <FactCheckIcon /> }
                 { variant === 'explainer' && <BookIcon /> }
               </div>
-              { variant === 'fact-check' && <FormattedMessage defaultMessage="Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
+              { variant === 'fact-check' && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
               { variant === 'explainer' && <FormattedMessage defaultMessage="Explainer" description="Title in an article card on item page." id="mediaArticleCard.explainer" /> }
-              { statusLabel && ': ' }
             </div>
             { statusLabel && <div><EllipseIcon style={{ color: statusColor }} /> {statusLabel}</div> }
           </div>
@@ -94,8 +93,8 @@ const MediaArticleCard = ({
         className={styles.mediaArticleCardFooter}
         details={[
           variant === 'fact-check' && (<ItemReportStatus
+            displayLabel
             isPublished={Boolean(publishedAt)}
-            label
             publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
             theme="lightText"
             tooltip={false}

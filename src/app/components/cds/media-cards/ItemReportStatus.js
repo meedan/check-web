@@ -8,8 +8,8 @@ import FactCheckIcon from '../../../icons/fact_check.svg';
 
 const ItemReportStatus = ({
   className,
+  displayLabel,
   isPublished,
-  label,
   projectMediaDbid,
   publishedAt,
   useTooltip,
@@ -56,9 +56,9 @@ const ItemReportStatus = ({
           type: null,
         }}
         disabled={!projectMediaDbid}
-        iconCenter={!label && <FactCheckIcon />}
-        iconLeft={label && <FactCheckIcon />}
-        label={isPublished && label ?
+        iconCenter={!displayLabel && <FactCheckIcon />}
+        iconLeft={displayLabel && <FactCheckIcon />}
+        label={isPublished && displayLabel ?
           <FormattedMessage
             defaultMessage="Published"
             description="Label of a report status icon when the report is published"
@@ -73,7 +73,7 @@ const ItemReportStatus = ({
         }
         size="small"
         theme={isPublished ? 'lightValidation' : 'lightText'}
-        variant={label ? 'text' : 'contained'}
+        variant={displayLabel ? 'text' : 'contained'}
         onClick={handleGoToReport}
       />
     </div>
@@ -92,18 +92,18 @@ const ItemReportStatus = ({
 
 ItemReportStatus.defaultProps = {
   className: null,
+  displayLabel: false,
   isPublished: false,
   publishedAt: null,
   useTooltip: true,
-  label: false,
 };
 
 ItemReportStatus.propTypes = {
   className: PropTypes.string,
+  displayLabel: PropTypes.bool,
   isPublished: PropTypes.bool,
   publishedAt: PropTypes.instanceOf(Date), // Timestamp
   useTooltip: PropTypes.bool,
-  label: PropTypes.bool,
 };
 
 export default ItemReportStatus;
