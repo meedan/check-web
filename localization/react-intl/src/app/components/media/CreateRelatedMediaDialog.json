@@ -7,7 +7,7 @@
   {
     "id": "createMedia.export",
     "description": "Tab text for exporting media out of this item",
-    "defaultMessage": "Export to Existing Media"
+    "defaultMessage": "Export to another Media"
   },
   {
     "id": "createMedia.existing",

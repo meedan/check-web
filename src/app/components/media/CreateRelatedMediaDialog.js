@@ -29,7 +29,9 @@ class CreateRelatedMediaDialog extends React.Component {
   }
 
   handleAtionChange = (event, action) => {
-    this.setState({ action, selectedItem: null, selectedItems: [] });
+    if (action !== null) {
+      this.setState({ action, selectedItem: null, selectedItems: [] });
+    }
   };
 
   handleChange = (event, mode) => {
@@ -90,12 +92,12 @@ class CreateRelatedMediaDialog extends React.Component {
                 variant="contained"
                 onChange={this.handleAtionChange}
               >
-                <ToggleButton key="1" value="addSimilarToThis">
+                <ToggleButton className={dialogStyles['dialog-title-choice-option']} key="1" value="addSimilarToThis">
                   <ImportToMediaIcon />
                   <FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />
                 </ToggleButton>
-                <ToggleButton key="2" value="addThisToSimilar">
-                  <FormattedMessage defaultMessage="Export to Existing Media" description="Tab text for exporting media out of this item" id="createMedia.export" />
+                <ToggleButton className={dialogStyles['dialog-title-choice-option']} key="2" value="addThisToSimilar">
+                  <FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />
                   <ExportToMediaIcon />
                 </ToggleButton>
               </ToggleButtonGroup>

@@ -17,6 +17,6 @@
   {
     "id": "mediaSimilarityBarAdd.mergeItemsTitle",
     "description": "Dialog title for merging items.",
-    "defaultMessage": "Merge Media"
+    "defaultMessage": "Search for Media to Merge"
   }
 ]

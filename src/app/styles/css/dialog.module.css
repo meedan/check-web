@@ -14,6 +14,19 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+
+      .dialog-title-choice-option {
+        :global(.MuiToggleButton-label) {
+          display: flex;
+          flex-direction: row;
+          gap: 3px;
+
+          :global(.check-icon) {
+            font-size: var(--iconSizeDefault);
+            margin: -4px 0 0;
+          }
+        }
+      }
     }
   }
 

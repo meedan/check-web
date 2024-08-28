@@ -156,7 +156,7 @@ const MediaSimilarityBarAdd = ({
         )}
         title={
           <FormattedMessage
-            defaultMessage="Merge Media"
+            defaultMessage="Search for Media to Merge"
             description="Dialog title for merging items."
             id="mediaSimilarityBarAdd.mergeItemsTitle"
             tagName="h6"
