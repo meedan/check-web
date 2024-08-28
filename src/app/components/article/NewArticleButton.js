@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
@@ -129,17 +128,17 @@ const NewArticleButton = ({
 };
 
 NewArticleButton.defaultProps = {
-  disabled: false,
   buttonMainProps: {},
+  disabled: false,
   projectMedia: null,
   onCreate: () => {},
 };
 
 NewArticleButton.propTypes = {
-  team: PropTypes.object.isRequired,
-  disabled: PropTypes.bool,
   buttonMainProps: PropTypes.object,
+  disabled: PropTypes.bool,
   projectMedia: PropTypes.object,
+  team: PropTypes.object.isRequired,
   onCreate: PropTypes.func,
 };
 
