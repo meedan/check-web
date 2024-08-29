@@ -82,7 +82,7 @@ const CreateMediaButton = ({
     <>
       <ButtonMain
         buttonProps={{
-          id: 'new-article-menu__open-button',
+          id: 'create-media-button__open-button',
         }}
         iconLeft={<AddIcon />}
         label={
