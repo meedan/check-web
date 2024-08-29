@@ -21,8 +21,6 @@ import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import SearchRoute from '../../relay/SearchRoute';
-import CreateMedia from '../media/CreateMedia';
-import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import styles from './SearchResults.module.css';
@@ -353,12 +351,6 @@ function SearchResultsComponent({
           description="Empty message that is displayed when search results are zero"
           id="projectBlankState.blank"
         />
-        { page === 'all-items' ?
-          <Can permission="create ProjectMedia" permissions={team.permissions}>
-            <div className={styles['no-search-results-add']}>
-              <CreateMedia search={search} team={team} />
-            </div>
-          </Can> : null }
       </BlankState>
     );
     if (feed && (resultType === 'factCheck' || resultType === 'emptyFeed')) {
@@ -421,8 +413,6 @@ function SearchResultsComponent({
   }
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
-
-  const perms = { permissions: team?.permissions, permission: 'create ProjectMedia' };
 
   return (
     <React.Fragment>
@@ -552,13 +542,6 @@ function SearchResultsComponent({
                   /> : null
                 }
               </div>
-              { page === 'all-items' ? (
-                <Can {...perms}>
-                  <div className={styles['search-results-add-item']}>
-                    <CreateMedia search={search} team={team} />
-                  </div>
-                </Can>
-              ) : null}
               <span className={styles['search-pagination']}>
                 <Tooltip title={
                   <FormattedMessage defaultMessage="Previous page" description="Pagination button to go to previous page" id="search.previousPage" />
