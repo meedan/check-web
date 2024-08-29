@@ -116,7 +116,7 @@ const CreateMediaButton = ({
         <div className={styles['dialog-actions']}>
           <ButtonMain
             buttonProps={{
-              id: 'create-media-dialog__dismiss-button',
+              id: 'create-media-button__dismiss-button',
             }}
             disabled={saving}
             label={
@@ -129,7 +129,7 @@ const CreateMediaButton = ({
           />
           <ButtonMain
             buttonProps={{
-              id: 'create-media-dialog__submit-button',
+              id: 'create-media-button__submit-button',
               form: 'create-media-dialog-form',
               type: 'submit',
             }}
