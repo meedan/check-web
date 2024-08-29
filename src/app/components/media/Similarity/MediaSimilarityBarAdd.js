@@ -40,12 +40,16 @@ const MediaSimilarityBarAdd = ({
     browserHistory.push(mediaUrl);
   };
 
-  const handleSubmit = (selectedProjectMedia) => {
+  const handleSubmit = (selectedProjectMedia, reverse) => {
     setSubmitting(true);
 
     const relationship_type = 'confirmed_sibling';
-    const source_id = projectMediaDbid;
-    const target_id = selectedProjectMedia.dbid;
+    let source_id = projectMediaDbid;
+    let target_id = selectedProjectMedia.dbid;
+    if (reverse) {
+      source_id = selectedProjectMedia.dbid;
+      target_id = projectMediaDbid;
+    }
 
     const mutation = graphql`
       mutation MediaSimilarityBarAddCreateRelationshipMutation($input: CreateRelationshipInput!) {

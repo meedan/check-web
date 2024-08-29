@@ -29,7 +29,7 @@ class CreateRelatedMediaDialog extends React.Component {
     };
   }
 
-  handleAtionChange = (event, action) => {
+  handleActionChange = (event, action) => {
     if (action !== null) {
       this.setState({ action, selectedItem: null, selectedItems: [] });
     }
@@ -40,7 +40,7 @@ class CreateRelatedMediaDialog extends React.Component {
   };
 
   handleSelectExisting = (selectedItem, selected) => {
-    if (this.state.action === 'addThisToSimilar') {
+    if (this.state.action === 'addSimilarToThis') {
       const selectedItems = this.state.selectedItems.slice();
       const i = selectedItems.findIndex(item => item.dbid === selectedItem.dbid);
       if (selected) {
@@ -58,12 +58,12 @@ class CreateRelatedMediaDialog extends React.Component {
 
   handleSubmitExisting = () => {
     if (this.props.onSelect) {
-      if (this.state.action === 'addSimilarToThis' && this.state.selectedItem) {
-        this.props.onSelect(this.state.selectedItem);
+      if (this.state.action === 'addThisToSimilar' && this.state.selectedItem) {
+        this.props.onSelect(this.state.selectedItem, true);
         this.setState({ selectedItem: null });
-      } else if (this.state.action === 'addThisToSimilar' && this.state.selectedItems.length > 0) {
+      } else if (this.state.action === 'addSimilarToThis' && this.state.selectedItems.length > 0) {
         this.state.selectedItems.forEach((item) => {
-          this.props.onSelect(item);
+          this.props.onSelect(item, false);
         });
         this.setState({ selectedItems: [] });
       }
@@ -91,7 +91,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 exclusive
                 value={this.state.action}
                 variant="contained"
-                onChange={this.handleAtionChange}
+                onChange={this.handleActionChange}
               >
                 <ToggleButton className={dialogStyles['dialog-title-choice-option']} key="1" value="addSimilarToThis">
                   <ImportToMediaIcon />
@@ -152,7 +152,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 dbid={media ? media.dbid : null}
                 disablePublished={Boolean(this.props.disablePublished)}
                 media={media}
-                multiple={Boolean(action === 'addThisToSimilar')}
+                multiple={action === 'addSimilarToThis'}
                 showFilters={Boolean(this.props.showFilters)}
                 typesToShow={typesToShow}
                 onSelect={this.handleSelectExisting}
@@ -183,7 +183,7 @@ class CreateRelatedMediaDialog extends React.Component {
               disabled={this.props.isSubmitting}
               label={this.props.isSubmitting ?
                 <FormattedMessage defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" id="global.submitting" /> :
-                this.props.submitButtonLabel(this.state.selectedItems.length)
+                this.props.submitButtonLabel(this.state.selectedItem ? 2 : this.state.selectedItems.length)
               }
               size="default"
               theme="info"
@@ -198,7 +198,7 @@ class CreateRelatedMediaDialog extends React.Component {
               disabled={this.submitExistingDisabled() || this.props.isSubmitting}
               label={this.props.isSubmitting ?
                 <FormattedMessage defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" id="global.submitting" /> :
-                this.props.submitButtonLabel(this.state.selectedItems.length)
+                this.props.submitButtonLabel(this.state.selectedItem ? 2 : this.state.selectedItems.length)
               }
               size="default"
               theme="info"
