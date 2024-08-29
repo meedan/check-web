@@ -7,6 +7,7 @@ import cx from 'classnames/bind';
 import AutoCompleteMediaItem from './AutoCompleteMediaItem';
 import CreateMediaInput from './CreateMediaInput';
 import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import CloseIcon from '../../icons/clear.svg';
 import ExportToMediaIcon from '../../icons/export_to_media.svg';
 import ImportToMediaIcon from '../../icons/import_to_media.svg';
@@ -93,11 +94,51 @@ class CreateRelatedMediaDialog extends React.Component {
                 variant="contained"
                 onChange={this.handleActionChange}
               >
-                <ToggleButton className={dialogStyles['dialog-title-choice-option']} key="1" value="addSimilarToThis">
+                <Tooltip
+                  arrow
+                  className={dialogStyles['toggle-button-tooltip']}
+                  title={<FormattedMessage defaultMessage="DISABLED IMPORT" description="Tooltip text for when importing media into this item is not allowed" id="createMedia.importTooltip" />}
+                >
+                  <span>
+                    <ButtonMain
+                      disabled
+                      iconLeft={<ImportToMediaIcon />}
+                      label={<FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />}
+                      size="default"
+                      theme="text"
+                      variant="text"
+                    />
+                  </span>
+                </Tooltip>
+                <ToggleButton
+                  className={dialogStyles['dialog-title-choice-option']}
+                  key="1"
+                  value="addSimilarToThis"
+                >
                   <ImportToMediaIcon />
                   <FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />
                 </ToggleButton>
-                <ToggleButton className={dialogStyles['dialog-title-choice-option']} key="2" value="addThisToSimilar">
+                <Tooltip
+                  arrow
+                  className={dialogStyles['toggle-button-tooltip']}
+                  title={<FormattedMessage defaultMessage="DISABLED EXPOR" description="Tooltip text for when exporting media from this item is not allowed" id="createMedia.exportTooltip" />}
+                >
+                  <span>
+                    <ButtonMain
+                      disabled
+                      iconRight={<ExportToMediaIcon />}
+                      label={<FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />}
+                      size="default"
+                      theme="text"
+                      variant="text"
+                    />
+                  </span>
+                </Tooltip>
+                <ToggleButton
+                  className={dialogStyles['dialog-title-choice-option']}
+                  key="2"
+                  value="addThisToSimilar"
+                >
                   <FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />
                   <ExportToMediaIcon />
                 </ToggleButton>

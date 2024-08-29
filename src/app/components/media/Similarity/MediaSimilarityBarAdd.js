@@ -140,7 +140,7 @@ const MediaSimilarityBarAdd = ({
         disableTouchListener
         title={
           <FormattedMessage
-            defaultMessage="TEMP Content"
+            defaultMessage="This media item has already been merged."
             description="Tooltip message for when merging media is not allowed from this item"
             id="mediaSimilarityBarAdd.mergeItemsTooltip"
           />
