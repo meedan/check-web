@@ -41,11 +41,11 @@ const setInitialTab = (projectMedia) => {
   }
 
   if (articlesCount >= 1 && requestsCount >= 0 && suggestionsCount >= 1) {
-    initialTab = 'suggestions';
+    initialTab = 'suggestedMedia';
   }
 
   if (articlesCount === 0 && requestsCount === 0 && suggestionsCount >= 1) {
-    initialTab = 'suggestions';
+    initialTab = 'suggestedMedia';
   }
 
   return initialTab;

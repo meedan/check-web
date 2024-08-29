@@ -59,7 +59,7 @@ const ItemDescription = ({
       }
     >
       <div className={styles.cardSummaryContent}>
-        <h6 className={cx('typography-button', styles.cardTitle)}>{title}</h6>
+        <h6 className={styles.cardTitle}>{title}</h6>
         { description ?
           <span className={cx('description-text', styles.cardDescription)} ref={descriptionRef}>
             {description}

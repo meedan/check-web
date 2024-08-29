@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, QueryRenderer, commitMutation, createFragmentContainer } from 'react-relay/compat';
@@ -152,18 +151,26 @@ const ClaimFactCheckForm = ({
   team,
 }) => {
   const type = article?.id ? 'edit' : 'create';
+  const createFromMediaPage = (type === 'create') && projectMedia;
+
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [factCheck, setFactCheck] = React.useState({});
   const [claim, setClaim] = React.useState({});
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
-  const onSuccess = () => {
+  const onSuccess = (createAndPublish) => {
+    if (createAndPublish?.publish) {
+      const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+      // FIXME: use browserHistory.push instead of window.location.assign
+      window.location.assign(`/${teamSlug}/media/${projectMedia.dbid}/report`);
+    }
+
     setSaving(false);
     setError(false);
     onClose(false);
     setFlashMessage(<FormattedMessage
-      defaultMessage="Article created successfully!"
+      defaultMessage="Article created successfully! This new article may take a while to appear up everywhere."
       description="Save item action success message"
       id="claimFactCheckForm.saveSuccess"
     />, 'success');
@@ -175,7 +182,7 @@ const ClaimFactCheckForm = ({
     setFlashMessage(errorMessage, 'error');
   };
 
-  const handleSaveFactCheck = (response) => {
+  const handleSaveFactCheck = (response, createAndPublish) => {
     setSaving(true);
     commitMutation(Relay.Store, {
       mutation: createFactCheckMutation,
@@ -202,7 +209,7 @@ const ClaimFactCheckForm = ({
       */
       onCompleted: () => {
         setSaving(false);
-        onSuccess();
+        onSuccess(createAndPublish);
         onCreate();
       },
       onError: (err) => {
@@ -212,7 +219,7 @@ const ClaimFactCheckForm = ({
     });
   };
 
-  const handleSave = () => {
+  const handleSave = (createAndPublish) => {
     setSaving(true);
     const input = { ...claim };
     if (projectMedia) {
@@ -228,7 +235,7 @@ const ClaimFactCheckForm = ({
           onFailure(err);
         } else {
           // claim has to exist before creating fact check
-          handleSaveFactCheck(response);
+          handleSaveFactCheck(response, createAndPublish);
         }
       },
       onError: (err) => {
@@ -303,6 +310,7 @@ const ClaimFactCheckForm = ({
     <ArticleForm
       article={article}
       articleType="fact-check"
+      createFromMediaPage={createFromMediaPage}
       error={error}
       handleBlur={handleBlur}
       handleSave={handleSave}
@@ -321,12 +329,13 @@ ClaimFactCheckForm.defaultProps = {
 };
 
 ClaimFactCheckForm.propTypes = {
-  team: PropTypes.object.isRequired,
   article: PropTypes.object,
   projectMedia: PropTypes.object,
+  team: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   onCreate: PropTypes.func,
 };
+
 const ClaimFactCheckFormContainer = createFragmentContainer(ClaimFactCheckForm, graphql`
   fragment ClaimFactCheckForm_team on Team {
     id

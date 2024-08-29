@@ -20,6 +20,21 @@
     "defaultMessage": "Edit Claim & Fact-Check Article"
   },
   {
+    "id": "articleForm.saveArticleButton",
+    "description": "Button that saves the form data as a new article",
+    "defaultMessage": "Create Article"
+  },
+  {
+    "id": "articleForm.saveUnpublishedButton",
+    "description": "Button that saves the form data as a new fact-check article, without proceeding to publish it",
+    "defaultMessage": "Create Unpublished"
+  },
+  {
+    "id": "articleForm.saveAndPublishButton",
+    "description": "Button that saves the form data as a new fact-check article and redirects to publish report page",
+    "defaultMessage": "Create & Publish"
+  },
+  {
     "id": "articleForm.editedByLabel",
     "description": "Label to convey when the item was last edited",
     "defaultMessage": "Edited by:"
@@ -163,10 +178,5 @@
     "id": "articleForm.selectLanguageLabel",
     "description": "Label for input to select language",
     "defaultMessage": "Language"
-  },
-  {
-    "id": "articleForm.formSaveButton",
-    "description": "the save button for the article forom",
-    "defaultMessage": "Create content"
   }
 ]

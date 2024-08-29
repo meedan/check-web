@@ -23,6 +23,7 @@
       .articleCardHeader {
         align-items: flex-start;
         display: flex;
+        gap: 3px;
 
         .articleIcon {
           font-size: var(--font-size-subtitle-1);
