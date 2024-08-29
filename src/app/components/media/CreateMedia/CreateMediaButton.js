@@ -102,6 +102,7 @@ const CreateMediaButton = ({
           <FormattedMessage defaultMessage="Add Media" description="Dialog title for adding a new item" id="createMediaButton.addNewItem" tagName="h6" />
           <ButtonMain
             className={styles['dialog-close-button']}
+            disabled={saving}
             iconCenter={<IconClose />}
             size="small"
             theme="text"
@@ -117,6 +118,7 @@ const CreateMediaButton = ({
             buttonProps={{
               id: 'create-media-dialog__dismiss-button',
             }}
+            disabled={saving}
             label={
               <FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />
             }
@@ -131,6 +133,7 @@ const CreateMediaButton = ({
               form: 'create-media-dialog-form',
               type: 'submit',
             }}
+            disabled={saving}
             label={
               <FormattedMessage defaultMessage="Submit" description="Generic label for a button or link for a user to press when they wish to submit and form or action" id="global.submit" />
             }
