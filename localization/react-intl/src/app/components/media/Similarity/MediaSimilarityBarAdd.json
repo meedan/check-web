@@ -5,6 +5,11 @@
     "defaultMessage": "Items merged successfully."
   },
   {
+    "id": "mediaSimilarityBarAdd.mergeItemsTooltip",
+    "description": "Tooltip message for when merging media is not allowed from this item",
+    "defaultMessage": "TEMP Content"
+  },
+  {
     "id": "mediaSimilarityBarAdd.mergeItems",
     "description": "Label for the Merge Items button.",
     "defaultMessage": "Merge Items"

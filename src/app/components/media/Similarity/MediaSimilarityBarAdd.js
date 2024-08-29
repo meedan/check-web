@@ -6,6 +6,7 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
@@ -132,17 +133,33 @@ const MediaSimilarityBarAdd = ({
 
   return (
     <React.Fragment>
-      <ButtonMain
-        buttonProps={{
-          id: 'media-similarity__add-button',
-        }}
-        disabled={!canMerge}
-        label={<FormattedMessage defaultMessage="Merge Items" description="Label for the Merge Items button." id="mediaSimilarityBarAdd.mergeItems" />}
-        size="default"
-        theme="info"
-        variant="contained"
-        onClick={() => { setShowDialog(true); }}
-      />
+      <Tooltip
+        arrow
+        disableFocusListener
+        disableHoverListener={canMerge}
+        disableTouchListener
+        title={
+          <FormattedMessage
+            defaultMessage="TEMP Content"
+            description="Tooltip message for when merging media is not allowed from this item"
+            id="mediaSimilarityBarAdd.mergeItemsTooltip"
+          />
+        }
+      >
+        <span>
+          <ButtonMain
+            buttonProps={{
+              id: 'media-similarity__add-button',
+            }}
+            disabled={!canMerge}
+            label={<FormattedMessage defaultMessage="Merge Items" description="Label for the Merge Items button." id="mediaSimilarityBarAdd.mergeItems" />}
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={() => { setShowDialog(true); }}
+          />
+        </span>
+      </Tooltip>
       <CreateRelatedMediaDialog
         disablePublished
         hideNew
