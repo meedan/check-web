@@ -170,7 +170,7 @@ const ClaimFactCheckForm = ({
     setError(false);
     onClose(false);
     setFlashMessage(<FormattedMessage
-      defaultMessage="Article created successfully!"
+      defaultMessage="Article created successfully! This new article may take a while to appear up everywhere."
       description="Save item action success message"
       id="claimFactCheckForm.saveSuccess"
     />, 'success');
