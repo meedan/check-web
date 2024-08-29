@@ -9,6 +9,7 @@ import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import CreateMedia from '../../media/CreateMedia';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import AddIcon from '../../../icons/add_filled.svg';
 import CategoryIcon from '../../../icons/category.svg';
@@ -29,6 +30,7 @@ import { suggestedMatchesDefaultQuery } from '../../team/SuggestedMatches';
 import { unmatchedMediaDefaultQuery } from '../../team/UnmatchedMedia';
 import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
 import styles from './Projects.module.css';
+
 
 const ProjectsComponent = ({
   currentUser,
@@ -86,6 +88,11 @@ const ProjectsComponent = ({
           id="projectsComponent.tiplineNavHeader"
         />
       </div>
+      <Can permission="create ProjectMedia" permissions={team.permissions}>
+        <div className={styles.listMainAction}>
+          <CreateMedia />
+        </div>
+      </Can>
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper, 'projects-list')}>
           {/* All items */}
