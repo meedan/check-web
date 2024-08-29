@@ -110,7 +110,7 @@ const CreateMediaButton = ({
           />
         </div>
         <div className={styles['dialog-content']}>
-          { !saving ? <CreateMediaInput formId="create-media-dialog-form" team={team} onSubmit={handleSubmit} /> : <MediasLoading size="large" theme="white" variant="inline" />}
+          { !saving ? <CreateMediaInput formId="create-media-dialog-form" team={team} onSubmit={handleSubmit} /> : <MediasLoading size="medium" theme="white" variant="inline" />}
         </div>
         <div className={styles['dialog-actions']}>
           <ButtonMain
