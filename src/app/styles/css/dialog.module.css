@@ -21,14 +21,6 @@
           flex-direction: row;
           gap: 3px;
 
-          .toggle-button-tooltip {
-            align-items: inherit;
-            display: flex;
-            flex-direction: row;
-            gap: 3px;
-            height: 100%;
-          }
-
           :global(.check-icon) {
             font-size: var(--iconSizeDefault);
             margin: -4px 0 0;

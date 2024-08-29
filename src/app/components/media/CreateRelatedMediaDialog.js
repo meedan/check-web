@@ -96,7 +96,6 @@ class CreateRelatedMediaDialog extends React.Component {
               >
                 <Tooltip
                   arrow
-                  className={dialogStyles['toggle-button-tooltip']}
                   title={<FormattedMessage defaultMessage="DISABLED IMPORT" description="Tooltip text for when importing media into this item is not allowed" id="createMedia.importTooltip" />}
                 >
                   <span>
@@ -120,7 +119,6 @@ class CreateRelatedMediaDialog extends React.Component {
                 </ToggleButton>
                 <Tooltip
                   arrow
-                  className={dialogStyles['toggle-button-tooltip']}
                   title={<FormattedMessage defaultMessage="DISABLED EXPOR" description="Tooltip text for when exporting media from this item is not allowed" id="createMedia.exportTooltip" />}
                 >
                   <span>
