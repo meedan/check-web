@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import ArticleFilters from './ArticleFilters';
 import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
 import { ExplainerFormQueryRenderer } from './ExplainerForm';
@@ -11,6 +12,7 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import BlankState from '../layout/BlankState';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
+import SearchField from '../search/SearchField';
 import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
 import { getStatus } from '../../helpers';
@@ -22,6 +24,7 @@ import {
 } from '../../urlHelpers';
 import MediasLoading from '../media/MediasLoading';
 import PageTitle from '../PageTitle';
+import styles from './Articles.module.css';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
@@ -139,11 +142,18 @@ const ArticlesComponent = ({
           <div className={searchResultsStyles.searchHeaderSubtitle}>
             &nbsp;
           </div>
-          <div className={searchResultsStyles.searchHeaderTitle}>
+          <div className={cx(searchResultsStyles.searchHeaderTitle, styles.articlesHeader)}>
             <h6>
               {icon}
               {title}
             </h6>
+            <div>
+              <SearchField
+                handleClear={() => { handleChangeFilters({ ...filters, text: null }); }}
+                searchText={filters.text}
+                setParentSearchText={(text) => { handleChangeFilters({ ...filters, text }); }}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -224,9 +234,6 @@ const ArticlesComponent = ({
         </div>
 
         <>
-          {/* NOTE: If we happen to edit articles from multiple places we're probably better off
-              having each form type be its own QueryRenderer instead of doing lots of prop passing repeatedly
-          */}
           {selectedArticleDbid && type === 'fact-check' && (
             <ClaimFactCheckFormQueryRenderer
               factCheckId={selectedArticleDbid}
@@ -357,7 +364,7 @@ const Articles = ({
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
             $users: [Int], $updatedAt: String, $tags: [String], $language: [String], $published_by: [Int],
-            $report_status: [String], $verification_status: [String], $imported: Boolean,
+            $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String,
           ) {
             team(slug: $slug) {
               name
@@ -372,13 +379,13 @@ const Articles = ({
                 }
               }
               articles_count(
-                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language,
+                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language, text: $text,
                 publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported
               )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
                 user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language, publisher_ids: $published_by,
-                report_status: $report_status, rating: $verification_status, imported: $imported,
+                report_status: $report_status, rating: $verification_status, imported: $imported, text: $text,
               ) {
                 edges {
                   node {
