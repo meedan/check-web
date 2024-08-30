@@ -24,7 +24,7 @@ class CreateRelatedMediaDialog extends React.Component {
     this.formRef = React.createRef(null);
 
     this.state = {
-      action: 'addThisToSimilar',
+      action: props.canExport ? 'addThisToSimilar' : 'addSimilarToThis',
       mode: 'existing',
       selectedItem: null, // Used when action = addThisToSimilar
       selectedItems: [], // Used when action = addSimilarToThis
