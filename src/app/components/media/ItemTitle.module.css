@@ -1,53 +1,5 @@
-.itemTitle {
-  align-items: center;
-  display: flex;
-  flex: 0 0 100%;
-  gap: 8px;
-
-  .itemTitleWrapper {
-    display: flex;
-    flex-direction: column;
-
-    .itemTitleInputField {
-      display: none;
-      width: 100%;
-    }
-
-    .itemTitleStatic {
-      display: flex;
-      gap: 3px;
-
-      :global(.check-icon) {
-        color: var(--color-gray-37);
-        font-size: var(--iconSizeDefault);
-      }
-
-      span {
-        @mixin typography-subtitle2;
-        -webkit-box-orient: vertical;
-        display: -webkit-box; /* stylelint-disable-line */
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-
-    &.itemTitleCustom {
-      width: 100%;
-
-      .itemTitleInputField {
-        display: block;
-      }
-
-      .itemTitleStatic {
-        display: none;
-      }
-    }
-  }
-}
-
-.itemTitleMenuHeader {
-  color: var(--color-gray-75);
+.itemTitleMenuButton {
+  margin: 5px 0 0;
 }
 
 .itemTitleOption {
@@ -99,4 +51,70 @@
       }
     }
   }
+}
+
+.itemTitle {
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 100%;
+  gap: 8px;
+
+  .itemTitleWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .itemTitleInputField {
+      display: none;
+      width: 100%;
+    }
+
+    .itemTitleStatic {
+      background-color: var(--color-gray-96);
+      border: solid 2px var(--color-gray-88);
+      border-radius: var(--border-radius-default);
+      display: flex;
+      gap: 3px;
+      padding: .75rem .625rem .625rem;
+      position: relative;
+
+      &.itemTitleStaticIcon {
+        padding: .75rem .625rem .625rem 38px;
+      }
+
+      :global(.check-icon) {
+        color: var(--color-gray-37);
+        font-size: var(--iconSizeDefault);
+        left: 8px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      span {
+        @mixin typography-body1;
+        -webkit-box-orient: vertical;
+        display: -webkit-box; /* stylelint-disable-line */
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &.itemTitleCustom {
+      width: 100%;
+
+      .itemTitleInputField {
+        display: block;
+      }
+
+      .itemTitleStatic {
+        display: none;
+      }
+    }
+  }
+}
+
+.itemTitleMenuHeader {
+  color: var(--color-gray-75);
 }

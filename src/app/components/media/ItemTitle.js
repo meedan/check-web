@@ -161,7 +161,15 @@ const ItemTitleComponent = ({
           })
         }
       >
-        <div className={styles.itemTitleStatic}>
+        <div
+          className={cx(
+            styles.itemTitleStatic,
+            {
+              [styles.itemTitleStaticIcon]: icon,
+            })
+          }
+          title={title}
+        >
           {icon}
           <span>
             {title}
@@ -191,6 +199,7 @@ const ItemTitleComponent = ({
       { canChange ?
         <>
           <ButtonMain
+            className={cx(styles.itemTitleMenuButton, 'int-item-title__button--menu')}
             disabled={saving}
             iconCenter={<EditIcon />}
             theme="text"
