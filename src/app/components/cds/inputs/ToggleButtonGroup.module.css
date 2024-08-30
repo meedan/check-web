@@ -2,7 +2,7 @@
   @mixin typography-button;
   background-color: transparent;
   border: 2px solid var(--color-gray-88);
-  border-radius: 8px !important;
+  border-radius: var(--border-radius-default) !important;
   height: 42px;
   overflow: hidden;
   width: min-content;

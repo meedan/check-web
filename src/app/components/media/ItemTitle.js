@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import TextField from '../cds/inputs/TextField';
+import TextArea from '../cds/inputs/TextArea';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import EditIcon from '../../icons/edit.svg';
 import TextFieldsIcon from '../../icons/text_fields.svg';
@@ -153,35 +153,54 @@ const ItemTitleComponent = ({
 
   return (
     <div className={styles.itemTitle}>
-      <TextField
-        className={cx(styles.itemTitleInputField, 'int-item-title__textfield--title')}
-        defaultValue={title}
-        disabled={titleField !== 'custom_title' || saving || !canChange}
-        error={error}
-        helpContent={
-          error ?
-            <FormattedMessage
-              defaultMessage="Could not update the title. Please try again and contact the support if the error persists"
-              description="Error message displayed underneath the text field when an item title settings cannot be saved."
-              id="itemTitle.itemTitleError"
-            /> : null
+      <div
+        className={cx(
+          styles.itemTitleWrapper,
+          {
+            [styles.itemTitleCustom]: titleField === 'custom_title',
+          })
         }
-        iconLeft={icon}
-        key={`${titleField}-${title}-${saving}`}
-        variant="outlined"
-        onBlur={e => handleUpdateCustomTitle(e.target.value)}
-      />
-      { canChange ?
-        <ButtonMain
-          disabled={saving}
-          iconCenter={<EditIcon />}
-          theme="text"
+      >
+        <div className={styles.itemTitleStatic}>
+          {icon}
+          <span>
+            {title}
+          </span>
+        </div>
+        <TextArea
+          autoGrow
+          className={cx(styles.itemTitleInputField, 'int-item-title__textfield--title')}
+          defaultValue={title}
+          disabled={titleField !== 'custom_title' || saving || !canChange}
+          error={error}
+          helpContent={
+            error ?
+              <FormattedMessage
+                defaultMessage="Could not update the title. Please try again and contact the support if the error persists"
+                description="Error message displayed underneath the text field when an item title settings cannot be saved."
+                id="itemTitle.itemTitleError"
+              /> : null
+          }
+          iconLeft={icon}
+          key={`${titleField}-${title}-${saving}`}
+          maxHeight="60px"
           variant="outlined"
-          onClick={(e) => {
-            setError(false);
-            setAnchorEl(e.currentTarget);
-          }}
-        /> : null
+          onBlur={e => handleUpdateCustomTitle(e.target.value)}
+        />
+      </div>
+      { canChange ?
+        <>
+          <ButtonMain
+            disabled={saving}
+            iconCenter={<EditIcon />}
+            theme="text"
+            variant="outlined"
+            onClick={(e) => {
+              setError(false);
+              setAnchorEl(e.currentTarget);
+            }}
+          />
+        </> : null
       }
       <Menu
         anchorEl={anchorEl}

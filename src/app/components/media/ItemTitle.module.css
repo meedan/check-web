@@ -3,25 +3,67 @@
   display: flex;
   flex: 0 0 100%;
   gap: 8px;
-}
 
-.itemTitleInputField {
-  width: 100%;
-}
+  .itemTitleWrapper {
+    display: flex;
+    flex-direction: column;
 
-.itemTitleMenuHeader {
-  color: var(--color-gray-37);
-}
+    .itemTitleInputField {
+      display: none;
+      width: 100%;
+    }
 
-.itemTitleOptionIcon {
-  margin-right: 8px;
+    .itemTitleStatic {
+      display: flex;
+      gap: 3px;
 
-  &:global(.MuiListItemIcon-root) {
-    min-width: fit-content;
+      :global(.check-icon) {
+        color: var(--color-gray-37);
+        font-size: var(--iconSizeDefault);
+      }
+
+      span {
+        @mixin typography-subtitle2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box; /* stylelint-disable-line */
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &.itemTitleCustom {
+      width: 100%;
+
+      .itemTitleInputField {
+        display: block;
+      }
+
+      .itemTitleStatic {
+        display: none;
+      }
+    }
   }
 }
 
+.itemTitleMenuHeader {
+  color: var(--color-gray-75);
+}
+
 .itemTitleOption {
+  .itemTitleOptionIcon {
+    margin-right: 8px;
+
+    &:global(.MuiListItemIcon-root) {
+      min-width: fit-content;
+    }
+  }
+
+  .itemTitleOptionHelperText {
+    color: var(--color-gray-59);
+    font-style: italic;
+  }
+
   &:global(.MuiMenuItem-root) {
     align-items: flex-start;
     padding: 12px 16px;
@@ -35,31 +77,26 @@
     margin-bottom: 0;
     margin-top: 0;
   }
-}
 
-.itemTitleOptionHelperText {
-  color: var(--color-gray-59);
-  font-style: italic;
-}
-
-.itemTitleOptionSelected {
-  span,
-  svg {
-    color: var(--color-blue-54);
-    font-weight: 700;
+  &.itemTitleOptionSelected {
+    span,
+    svg {
+      color: var(--color-blue-54);
+      font-weight: 700;
+    }
   }
-}
 
-.itemTitleOptionNotSelected {
-  span,
-  svg {
-    color: var(--color-gray-15);
-  }
-}
+  &.itemTitleOptionNotSelected {
+    span,
+    svg {
+      color: var(--color-gray-37);
+    }
 
-.itemTitleOptionNotSelected:hover {
-  span,
-  svg {
-    color: var(--color-blue-38);
+    &:hover {
+      span,
+      svg {
+        color: var(--color-blue-38);
+      }
+    }
   }
 }
