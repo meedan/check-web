@@ -1,23 +1,9 @@
 import React from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
-import Box from '@material-ui/core/Box';
 
 const labels = {
   smooch_content: <FormattedMessage defaultMessage="Content & translation" description="Button label in tipline settings page" id="smoochBot.labelContent" />,
   smooch_main_menu: <FormattedMessage defaultMessage="Main menu" description="Label for the bot Main menu content area" id="smoochBot.labelMainMenu" />,
-};
-
-const footnotes = {
-  smooch_message_smooch_bot_greetings: (
-    <React.Fragment>
-      <Box mt={2}>
-        <FormattedMessage defaultMessage="The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'." description="Description of what extra content will be appended to the footer of messages" id="smoochBot.footnoteGreeting" />
-      </Box>
-      <Box my={2}>
-        <FormattedMessage defaultMessage="The default Privacy Statement can be replaced with a custom one under the option 'Privacy Statement' on this page." description="Description of how to replace the privacy statement content with custom content" id="smoochBot.footnoteGreeting2" />
-      </Box>
-    </React.Fragment>
-  ),
 };
 
 const placeholders = defineMessages({
@@ -85,5 +71,4 @@ Contact us at *[email or other contact]* for further inquiries.`,
 export {
   labels,
   placeholders,
-  footnotes,
 };

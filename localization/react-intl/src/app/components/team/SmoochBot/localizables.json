@@ -10,16 +10,6 @@
     "defaultMessage": "Main menu"
   },
   {
-    "id": "smoochBot.footnoteGreeting",
-    "description": "Description of what extra content will be appended to the footer of messages",
-    "defaultMessage": "The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'."
-  },
-  {
-    "id": "smoochBot.footnoteGreeting2",
-    "description": "Description of how to replace the privacy statement content with custom content",
-    "defaultMessage": "The default Privacy Statement can be replaced with a custom one under the option 'Privacy Statement' on this page."
-  },
-  {
     "id": "smoochBot.placeholderGreeting",
     "defaultMessage": "Hi! Welcome to [Name of your organization]’s fact-checking bot."
   },
