@@ -80,10 +80,12 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
           { article.nodeType === 'FactCheck' && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Type description of a fact-check article card." id="mediaArticlesCard.factCheck" tagName="small" /> }
           { article.nodeType === 'Explainer' && <FormattedMessage defaultMessage="Explainer" description="Type description of an explainer article card." id="mediaArticlesCard.explainer" tagName="small" /> }
         </div>
-        <div className={cx('typography-body1', styles.articlesSidebarCardTitle)}>
+        <h6 className={styles.articlesSidebarCardTitle}>
           {article.title}
-          { ratingLabel && ratingColor && <div className={cx('typography-caption', styles.articlesSidebarCardCaption)}><EllipseIcon style={{ color: ratingColor }} /> {ratingLabel}</div> }
-        </div>
+        </h6>
+        { article.nodeType === 'Explainer' && article.description && <div className={styles.articlesSidebarCardDescription}>{article.description}</div> }
+        { article.nodeType === 'FactCheck' && article.summary && <div className={styles.articlesSidebarCardDescription}>{article.summary}</div> }
+        { ratingLabel && ratingColor && <div className={cx('typography-caption', styles.articlesSidebarCardCaption)}><EllipseIcon style={{ color: ratingColor }} /> {ratingLabel}</div> }
       </div>
     </Tooltip>
   );
@@ -101,6 +103,8 @@ MediaArticlesCard.propTypes = {
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
+    summary: PropTypes.string,
+    description: PropTypes.string,
     rating: PropTypes.string,
     claim_description: PropTypes.shape({
       id: PropTypes.string,
@@ -127,11 +131,13 @@ export default createFragmentContainer(MediaArticlesCard, graphql`
       id
       dbid
       title
+      description
     }
     ... on FactCheck {
       id
       dbid
       title
+      summary
       rating
       claim_description {
         id
