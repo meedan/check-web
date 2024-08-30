@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import { labelsV2 } from './localizables';
+import { labels } from './localizables';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from '../Settings.module.css';
 
@@ -31,8 +31,8 @@ const SmoochBotSidebar = ({
     <ul className={styles.smoochBotMenu}>
       <li className={cx('typography-overline', styles.smoochBotMenuSection)}>Menu Options</li>
       {/* Menu options */}
-      { Object.keys(labelsV2).map((key) => {
-        const label = labelsV2[key];
+      { Object.keys(labels).map((key) => {
+        const label = labels[key];
         return <Option id={key} key={key} label={label} />;
       })}
       <li className={cx('typography-overline', styles.smoochBotMenuSection)}>Resources</li>

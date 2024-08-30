@@ -14,9 +14,6 @@ const labels = {
   smooch_message_smooch_bot_message_type_unsupported: <FormattedMessage defaultMessage="Invalid format" description="Label for the bot Invalid format content area" id="smoochBot.labelInvalidFormat" />,
   smooch_message_smooch_bot_disabled: <FormattedMessage defaultMessage="Notice of inactivity" description="Label for the bot Notice of inactivity content area" id="smoochBot.labelInactive" />,
   smooch_message_smooch_bot_tos: <FormattedMessage defaultMessage="Privacy Statement" description="Label for the bot Privacy statement content area" id="smoochBot.labelPrivacyStatement" />,
-};
-
-const labelsV2 = {
   smooch_content: <FormattedMessage defaultMessage="Content & translation" description="Button label in tipline settings page" id="smoochBot.labelContent" />,
   smooch_main_menu: <FormattedMessage defaultMessage="Main menu" description="Label for the bot Main menu content area" id="smoochBot.labelMainMenu" />,
 };
@@ -135,7 +132,6 @@ Contact us at *[email or other contact]* for further inquiries.`,
 
 export {
   labels,
-  labelsV2,
   descriptions,
   placeholders,
   footnotes,
