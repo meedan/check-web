@@ -42,7 +42,12 @@
     height: 42px;
 
     :global(.MuiToggleButtonGroup-grouped) {
-      padding: 0 15px;
+      padding: 0;
+
+      :global(.MuiToggleButton-label) {
+        height: 100%;
+        padding: 0 15px;
+      }
     }
   }
 
