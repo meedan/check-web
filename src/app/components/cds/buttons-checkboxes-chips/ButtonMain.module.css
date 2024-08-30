@@ -94,7 +94,7 @@
   &.theme-lightAlert,
   &.theme-white,
   &.theme-beige,
-  &.theme-lightBeige, {
+  &.theme-lightBeige {
     &:disabled {
       cursor: default;
     }
