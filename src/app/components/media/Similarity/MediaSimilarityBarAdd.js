@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -6,11 +5,13 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const MediaSimilarityBarAdd = ({
-  canMerge,
+  canExport,
+  canImport,
   projectMediaDbid,
   projectMediaId,
   setFlashMessage,
@@ -18,13 +19,15 @@ const MediaSimilarityBarAdd = ({
   const [showDialog, setShowDialog] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
 
+  const canMerge = canExport || canImport;
+
   // Accepts a JS Error object
   const handleError = (error) => {
     setSubmitting(false);
     setFlashMessage(error.message, 'error');
   };
 
-  const handleSuccess = (response) => {
+  const handleSuccess = (mainItemDbid) => {
     setSubmitting(false);
     setFlashMessage((
       <FormattedMessage
@@ -35,17 +38,51 @@ const MediaSimilarityBarAdd = ({
     ), 'success');
     setShowDialog(false);
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-    const mainItemDbid = response.createRelationship.relationshipEdge.node.source_id;
     const mediaUrl = `/${teamSlug}/media/${mainItemDbid}`;
     browserHistory.push(mediaUrl);
   };
 
-  const handleSubmit = (selectedProjectMedia) => {
+  const handleAdd = (projectMedia) => {
+    setSubmitting(true);
+    commitMutation(Store, {
+      mutation: graphql`
+        mutation MediaSimilarityBarAddReplaceProjectMediaMutation($input: ReplaceProjectMediaInput!) {
+          replaceProjectMedia(input: $input) {
+            new_project_media {
+              dbid
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {
+          project_media_to_be_replaced_id: projectMedia.id,
+          new_project_media_id: projectMediaId,
+        },
+      },
+      onCompleted: (response, error) => {
+        if (error) {
+          handleError(error);
+        } else {
+          handleSuccess(response.replaceProjectMedia.new_project_media.dbid);
+        }
+      },
+      onError: (error) => {
+        handleError(error);
+      },
+    });
+  };
+
+  const handleSubmit = (selectedProjectMedia, reverse) => {
     setSubmitting(true);
 
     const relationship_type = 'confirmed_sibling';
-    const source_id = projectMediaDbid;
-    const target_id = selectedProjectMedia.dbid;
+    let source_id = projectMediaDbid;
+    let target_id = selectedProjectMedia.dbid;
+    if (reverse) {
+      source_id = selectedProjectMedia.dbid;
+      target_id = projectMediaDbid;
+    }
 
     const mutation = graphql`
       mutation MediaSimilarityBarAddCreateRelationshipMutation($input: CreateRelationshipInput!) {
@@ -117,7 +154,7 @@ const MediaSimilarityBarAdd = ({
             handleError(errors[i]);
           }
         } else {
-          handleSuccess(response);
+          handleSuccess(response.createRelationship.relationshipEdge.node.source_id);
         }
       },
       onError: (error) => {
@@ -128,41 +165,58 @@ const MediaSimilarityBarAdd = ({
 
   return (
     <React.Fragment>
-      <ButtonMain
-        buttonProps={{
-          id: 'media-similarity__add-button',
-        }}
-        disabled={!canMerge}
-        label={<FormattedMessage defaultMessage="Merge Items" description="Label for the Merge Items button." id="mediaSimilarityBarAdd.mergeItems" />}
-        size="default"
-        theme="info"
-        variant="contained"
-        onClick={() => { setShowDialog(true); }}
-      />
+      <Tooltip
+        arrow
+        disableFocusListener
+        disableHoverListener={canMerge}
+        disableTouchListener
+        title={
+          <FormattedMessage
+            defaultMessage="This media item has already been merged."
+            description="Tooltip message for when merging media is not allowed from this item"
+            id="mediaSimilarityBarAdd.mergeItemsTooltip"
+          />
+        }
+      >
+        <span>
+          <ButtonMain
+            buttonProps={{
+              id: 'media-similarity__add-button',
+            }}
+            disabled={!canMerge}
+            label={<FormattedMessage defaultMessage="Merge Items" description="Label for the Merge Items button." id="mediaSimilarityBarAdd.mergeItems" />}
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={() => { setShowDialog(true); }}
+          />
+        </span>
+      </Tooltip>
       <CreateRelatedMediaDialog
+        canExport={canExport}
+        canImport={canImport}
         disablePublished
         hideNew
         isSubmitting={submitting}
         media={{ dbid: projectMediaDbid }}
-        multiple
         open={showDialog}
         showFilters
-        submitButtonLabel={count => (
+        submitButtonLabel={() => (
           <FormattedMessage
-            defaultMessage="{count, plural, one {Merge Selected Item} other {Merge # Selected Items}}"
+            defaultMessage="Merge Selected Items"
             description="Button label to commit action of merging items."
             id="mediaSimilarityBarAdd.mergeItemsButton"
-            values={{ count }}
           />
         )}
         title={
           <FormattedMessage
-            defaultMessage="Find other media to merge with this item"
+            defaultMessage="Search for Media to Merge"
             description="Dialog title for merging items."
             id="mediaSimilarityBarAdd.mergeItemsTitle"
             tagName="h6"
           />
         }
+        onAdd={handleAdd}
         onDismiss={() => { setShowDialog(false); }}
         onSelect={handleSubmit}
       />
@@ -171,13 +225,15 @@ const MediaSimilarityBarAdd = ({
 };
 
 MediaSimilarityBarAdd.defaultProps = {
-  canMerge: true,
+  canExport: true,
+  canImport: true,
 };
 
 MediaSimilarityBarAdd.propTypes = {
-  projectMediaId: PropTypes.string.isRequired,
+  canExport: PropTypes.bool,
+  canImport: PropTypes.bool,
   projectMediaDbid: PropTypes.number.isRequired,
-  canMerge: PropTypes.bool,
+  projectMediaId: PropTypes.string.isRequired,
 };
 
 export default withSetFlashMessage(MediaSimilarityBarAdd);

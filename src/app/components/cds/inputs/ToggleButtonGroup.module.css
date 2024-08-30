@@ -2,7 +2,7 @@
   @mixin typography-button;
   background-color: transparent;
   border: 2px solid var(--color-gray-88);
-  border-radius: 8px !important;
+  border-radius: var(--border-radius-default) !important;
   height: 42px;
   overflow: hidden;
   width: min-content;
@@ -42,7 +42,12 @@
     height: 42px;
 
     :global(.MuiToggleButtonGroup-grouped) {
-      padding: 0 15px;
+      padding: 0;
+
+      :global(.MuiToggleButton-label) {
+        height: 100%;
+        padding: 0 15px;
+      }
     }
   }
 

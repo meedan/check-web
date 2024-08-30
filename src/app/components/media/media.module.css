@@ -307,6 +307,7 @@
       display: flex;
       flex: 1 1 auto;
       flex-direction: column;
+      gap: 8px;
       overflow-y: scroll;
       padding: 16px;
 
