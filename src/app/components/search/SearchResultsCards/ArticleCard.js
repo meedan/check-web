@@ -28,6 +28,7 @@ const ArticleCard = ({
   tags,
   teamAvatar,
   teamName,
+  teamSlug,
   title,
   url,
   variant,
@@ -63,6 +64,7 @@ const ArticleCard = ({
           languageCode={languageCode}
           tagOptions={tagOptions}
           tags={tags}
+          teamSlug={teamSlug}
           onChangeTags={onChangeTags}
         />
       </div>

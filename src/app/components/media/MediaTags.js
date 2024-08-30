@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router';
 import mergeWith from 'lodash.mergewith';
 import { can } from '../Can';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
-import TagList from '../cds/menus-lists-dialogs/TagList';
+import MediaAndArticleTagList from '../cds/menus-lists-dialogs/MediaAndArticleTagList';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
@@ -127,14 +127,14 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
   };
 
   const selected = projectMedia.tags.edges.map(t => t.node.tag_text);
-  const options = projectMedia.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
+  // const options = projectMedia.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
 
   return (
-    <TagList
-      options={options}
+    <MediaAndArticleTagList
       readOnly={readOnly}
       setTags={handleSetTags}
       tags={selected}
+      teamSlug={projectMedia.team.slug}
       onClickTag={handleTagViewClick}
     />
   );
@@ -173,13 +173,6 @@ const MediaTags = parentProps => (
           permissions
           team {
             slug
-            tag_texts(last: 100) {
-              edges {
-                node {
-                  text
-                }
-              }
-            }
           }
           tags(last: 100) {
             edges {

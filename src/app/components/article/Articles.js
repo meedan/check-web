@@ -40,7 +40,6 @@ const ArticlesComponent = ({
   sortType,
   statuses,
   team,
-  teamTags,
   title,
   type,
   updateMutation,
@@ -212,8 +211,8 @@ const ArticlesComponent = ({
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
                 summary={article.description || article.summary}
-                tagOptions={teamTags}
                 tags={article.tags}
+                teamSlug={team.slug}
                 title={article.title || article.claim_description?.description}
                 url={article.url}
                 variant={type}
@@ -256,7 +255,6 @@ ArticlesComponent.defaultProps = {
   filters: {},
   defaultFilters: {},
   statuses: {},
-  teamTags: null,
   articles: [],
   articlesCount: 0,
 };
@@ -282,7 +280,6 @@ ArticlesComponent.propTypes = {
     label: PropTypes.string.isRequired, // Localizable string
   })),
   statuses: PropTypes.object,
-  teamTags: PropTypes.arrayOf(PropTypes.string),
   articlesCount: PropTypes.number,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -364,13 +361,6 @@ const Articles = ({
               slug
               totalArticlesCount: articles_count
               verification_statuses
-              tag_texts(first: 100) {
-                edges {
-                  node {
-                    text
-                  }
-                }
-              }
               articles_count(
                 article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language,
                 publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported
@@ -435,7 +425,6 @@ const Articles = ({
                 sortType={sortType}
                 statuses={props.team.verification_statuses}
                 team={props.team}
-                teamTags={props.team.tag_texts.edges.length > 0 ? props.team.tag_texts.edges.map(tag => tag.node.text) : null}
                 title={title}
                 type={type}
                 updateMutation={updateMutation}

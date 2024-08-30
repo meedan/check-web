@@ -8,7 +8,7 @@ import Slideout from '../cds/slideout/Slideout';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconReport from '../../icons/fact_check.svg';
 import IconUnpublishedReport from '../../icons/unpublished_report.svg';
-import TagList from '../cds/menus-lists-dialogs/TagList';
+import MediaAndArticleTagList from '../cds/menus-lists-dialogs/MediaAndArticleTagList';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
@@ -41,7 +41,6 @@ const ArticleForm = ({
 
   const [claimDescription, setClaimDescription] = React.useState(article.claim_description?.description || '');
   const [claimContext, setClaimContext] = React.useState(article.claim_description?.context || '');
-  const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text }));
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
@@ -206,10 +205,10 @@ const ArticleForm = ({
                 }
               </div>
               <div className={inputStyles['form-fieldset']} id="article_form_tags">
-                <TagList
-                  options={options}
+                <MediaAndArticleTagList
                   setTags={handleTagChange}
                   tags={tags}
+                  teamSlug={team.slug}
                 />
               </div>
             </div>
@@ -572,13 +571,7 @@ export default createFragmentContainer(ArticleForm, graphql`
   fragment ArticleForm_team on Team {
     verification_statuses
     get_languages
-    tag_texts(first: 100) {
-      edges {
-        node {
-          text
-        }
-      }
-    }
+    slug
   }
   fragment ArticleForm_article on Node {
     ... on FactCheck {

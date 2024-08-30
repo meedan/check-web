@@ -11,7 +11,7 @@ import MediaCount from '../../cds/media-cards/MediaCount';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import Language from '../../cds/media-cards/Language';
-import TagList from '../../cds/menus-lists-dialogs/TagList';
+import MediaAndArticleTagList from '../../cds/menus-lists-dialogs/MediaAndArticleTagList';
 import styles from './ItemCard.module.css';
 
 const SharedItemCardFooter = ({
@@ -24,8 +24,8 @@ const SharedItemCardFooter = ({
   onSeeMore,
   requestsCount,
   suggestionsCount,
-  tagOptions,
   tags,
+  teamSlug,
 }) => (
   <BulletSeparator
     className={styles.bulletSeparator}
@@ -35,11 +35,11 @@ const SharedItemCardFooter = ({
         <Language languageCode={languageCode} />
       ),
       tags && onChangeTags && (
-        <TagList
+        <MediaAndArticleTagList
           maxTags={5}
-          options={tagOptions ? tagOptions.map(tag => ({ label: tag, value: tag })) : null}
           setTags={onChangeTags}
           tags={tags}
+          teamSlug={teamSlug}
         />
       ),
       mediaCount !== null && (
@@ -85,7 +85,6 @@ SharedItemCardFooter.defaultProps = {
   languageCode: null,
   lastRequestDate: null,
   tags: null,
-  tagOptions: null,
   onChangeTags: null,
   channels: null,
   onSeeMore: null,
@@ -99,7 +98,6 @@ SharedItemCardFooter.propTypes = {
   languageCode: PropTypes.string,
   lastRequestDate: PropTypes.instanceOf(Date),
   tags: PropTypes.arrayOf(PropTypes.string),
-  tagOptions: PropTypes.arrayOf(PropTypes.string),
   onChangeTags: PropTypes.func,
   channels: PropTypes.exact({
     main: PropTypes.number,
