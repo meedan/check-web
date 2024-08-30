@@ -70,9 +70,6 @@ const SmoochBotConfig = (props) => {
     }
   }
 
-  // const menuActions = state => props.schema.properties.smooch_workflows.items.properties[state]
-  //   .properties.smooch_menu_options.items.properties.smooch_menu_option_value.enum;
-
   const settings = Object.assign({}, value);
   delete settings.smooch_workflows;
   const settingsSchema = Object.assign({}, props.schema.properties);
@@ -88,12 +85,6 @@ const SmoochBotConfig = (props) => {
     }
     setCurrentTab(newTab);
   };
-
-  // const handleChangeTextField = (newValue) => {
-  //   const updatedValue = JSON.parse(JSON.stringify(value));
-  //   updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = newValue;
-  //   setValue(updatedValue);
-  // };
 
   const handleChangeImage = (file) => {
     const updatedValue = Object.assign({}, value);
@@ -120,15 +111,6 @@ const SmoochBotConfig = (props) => {
     updatedValue.smooch_workflows[currentWorkflowIndex][option].smooch_menu_message = newValue;
     setValue(updatedValue);
   };
-
-  // const handleChangeMultiTextField = (subKey, newValue) => {
-  //   const updatedValue = JSON.parse(JSON.stringify(value));
-  //   if (!updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]) {
-  //     updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = {};
-  //   }
-  //   updatedValue.smooch_workflows[currentWorkflowIndex][currentOption][subKey] = newValue;
-  //   setValue(updatedValue);
-  // };
 
   const handleChangeMenu = (newValue, menuOption) => {
     let menu = menuOption;
@@ -196,40 +178,6 @@ const SmoochBotConfig = (props) => {
               />
             </div>
             <div className={styles['bot-designer-content']}>
-              {/* { currentOption === 'smooch_message_smooch_bot_tos' ?
-                <SmoochBotMultiTextEditor
-                  currentLanguage={currentLanguage}
-                  field={currentOption}
-                  subSchema={
-                    props.schema.properties.smooch_workflows.items.properties[currentOption]
-                  }
-                  value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
-                  onChange={handleChangeMultiTextField}
-                /> : null } */}
-              {/* { /^smooch_message_smooch_bot_/.test(currentOption) && currentOption !== 'smooch_message_smooch_bot_tos' && currentOption !== 'smooch_message_smooch_bot_no_action' ?
-                <SmoochBotTextEditor
-                  field={currentOption}
-                  value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
-                  onChange={handleChangeTextField}
-                /> : null } */}
-              {/* { /^smooch_state_/.test(currentOption) ?
-                <SmoochBotMenuEditor
-                  currentLanguage={currentLanguage}
-                  field={currentOption}
-                  languages={languages}
-                  menuActions={menuActions(currentOption)}
-                  resources={resources}
-                  textHeader={
-                    currentOption === 'smooch_state_subscription' ?
-                      <FormattedMessage
-                        defaultMessage="You are currently {subscription_status} to our newsletter."
-                        description="Status message for the user to know if they are subscribed or not to the newsletter"
-                        id="smoochBotConfig.subscriptionHeader"
-                      /> : null
-                  }
-                  value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
-                  onChange={handleChangeMenu}
-                /> : null } */}
               { currentResource ?
                 <SmoochBotResourceEditor
                   environment={environment}
