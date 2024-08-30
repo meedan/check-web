@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -11,7 +10,8 @@ import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const MediaSimilarityBarAdd = ({
-  canMerge,
+  canExport,
+  canImport,
   projectMediaDbid,
   projectMediaId,
   setFlashMessage,
@@ -19,13 +19,15 @@ const MediaSimilarityBarAdd = ({
   const [showDialog, setShowDialog] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
 
+  const canMerge = canExport || canImport;
+
   // Accepts a JS Error object
   const handleError = (error) => {
     setSubmitting(false);
     setFlashMessage(error.message, 'error');
   };
 
-  const handleSuccess = (response) => {
+  const handleSuccess = (mainItemDbid) => {
     setSubmitting(false);
     setFlashMessage((
       <FormattedMessage
@@ -36,9 +38,39 @@ const MediaSimilarityBarAdd = ({
     ), 'success');
     setShowDialog(false);
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-    const mainItemDbid = response.createRelationship.relationshipEdge.node.source_id;
     const mediaUrl = `/${teamSlug}/media/${mainItemDbid}`;
     browserHistory.push(mediaUrl);
+  };
+
+  const handleAdd = (projectMedia) => {
+    setSubmitting(true);
+    commitMutation(Store, {
+      mutation: graphql`
+        mutation MediaSimilarityBarAddReplaceProjectMediaMutation($input: ReplaceProjectMediaInput!) {
+          replaceProjectMedia(input: $input) {
+            new_project_media {
+              dbid
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {
+          project_media_to_be_replaced_id: projectMedia.id,
+          new_project_media_id: projectMediaId,
+        },
+      },
+      onCompleted: (response, error) => {
+        if (error) {
+          handleError(error);
+        } else {
+          handleSuccess(response.replaceProjectMedia.new_project_media.dbid);
+        }
+      },
+      onError: (error) => {
+        handleError(error);
+      },
+    });
   };
 
   const handleSubmit = (selectedProjectMedia, reverse) => {
@@ -122,7 +154,7 @@ const MediaSimilarityBarAdd = ({
             handleError(errors[i]);
           }
         } else {
-          handleSuccess(response);
+          handleSuccess(response.createRelationship.relationshipEdge.node.source_id);
         }
       },
       onError: (error) => {
@@ -161,18 +193,19 @@ const MediaSimilarityBarAdd = ({
         </span>
       </Tooltip>
       <CreateRelatedMediaDialog
+        canExport={canExport}
+        canImport={canImport}
         disablePublished
         hideNew
         isSubmitting={submitting}
         media={{ dbid: projectMediaDbid }}
         open={showDialog}
         showFilters
-        submitButtonLabel={count => (
+        submitButtonLabel={() => (
           <FormattedMessage
-            defaultMessage="{count, plural, one {Merge Selected Item} other {Merge # Selected Items}}"
+            defaultMessage="Merge Selected Items"
             description="Button label to commit action of merging items."
             id="mediaSimilarityBarAdd.mergeItemsButton"
-            values={{ count }}
           />
         )}
         title={
@@ -183,6 +216,7 @@ const MediaSimilarityBarAdd = ({
             tagName="h6"
           />
         }
+        onAdd={handleAdd}
         onDismiss={() => { setShowDialog(false); }}
         onSelect={handleSubmit}
       />
@@ -191,13 +225,15 @@ const MediaSimilarityBarAdd = ({
 };
 
 MediaSimilarityBarAdd.defaultProps = {
-  canMerge: true,
+  canExport: true,
+  canImport: true,
 };
 
 MediaSimilarityBarAdd.propTypes = {
-  projectMediaId: PropTypes.string.isRequired,
+  canExport: PropTypes.bool,
+  canImport: PropTypes.bool,
   projectMediaDbid: PropTypes.number.isRequired,
-  canMerge: PropTypes.bool,
+  projectMediaId: PropTypes.string.isRequired,
 };
 
 export default withSetFlashMessage(MediaSimilarityBarAdd);

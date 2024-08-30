@@ -10,6 +10,7 @@ import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import CloseIcon from '../../icons/clear.svg';
 import ExportToMediaIcon from '../../icons/export_to_media.svg';
+import AddToImportedIcon from '../../icons/playlist_add_check.svg';
 import ImportToMediaIcon from '../../icons/import_to_media.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -27,12 +28,25 @@ class CreateRelatedMediaDialog extends React.Component {
       mode: 'existing',
       selectedItem: null, // Used when action = addThisToSimilar
       selectedItems: [], // Used when action = addSimilarToThis
+      typesToShow: props.typesToShow, // When null, shows all non-blank types
     };
   }
 
   handleActionChange = (event, action) => {
-    if (action !== null) {
-      this.setState({ action, selectedItem: null, selectedItems: [] });
+    if (action === 'addToImported') {
+      this.setState({
+        action,
+        selectedItem: null,
+        selectedItems: [],
+        typesToShow: ['blank'],
+      });
+    } else if (action !== null) {
+      this.setState({
+        action,
+        selectedItem: null,
+        selectedItems: [],
+        typesToShow: null,
+      });
     }
   };
 
@@ -67,6 +81,9 @@ class CreateRelatedMediaDialog extends React.Component {
           this.props.onSelect(item, false);
         });
         this.setState({ selectedItems: [] });
+      } else if (this.state.action === 'addToImported' && this.state.selectedItem) {
+        this.props.onAdd(this.state.selectedItem, true);
+        this.setState({ selectedItem: null });
       }
     }
   }
@@ -78,7 +95,6 @@ class CreateRelatedMediaDialog extends React.Component {
     const {
       hideNew,
       media,
-      typesToShow,
     } = this.props;
     const formId = 'create-related-media-dialog-form';
 
@@ -94,52 +110,91 @@ class CreateRelatedMediaDialog extends React.Component {
                 variant="contained"
                 onChange={this.handleActionChange}
               >
-                <Tooltip
-                  arrow
-                  title={<FormattedMessage defaultMessage="DISABLED IMPORT" description="Tooltip text for when importing media into this item is not allowed" id="createMedia.importTooltip" />}
-                >
-                  <span>
-                    <ButtonMain
-                      disabled
-                      iconLeft={<ImportToMediaIcon />}
-                      label={<FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />}
-                      size="default"
-                      theme="text"
-                      variant="text"
-                    />
-                  </span>
-                </Tooltip>
-                <ToggleButton
-                  className={dialogStyles['dialog-title-choice-option']}
-                  key="1"
-                  value="addSimilarToThis"
-                >
-                  <ImportToMediaIcon />
-                  <FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />
-                </ToggleButton>
-                <Tooltip
-                  arrow
-                  title={<FormattedMessage defaultMessage="DISABLED EXPOR" description="Tooltip text for when exporting media from this item is not allowed" id="createMedia.exportTooltip" />}
-                >
-                  <span>
-                    <ButtonMain
-                      disabled
-                      iconRight={<ExportToMediaIcon />}
-                      label={<FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />}
-                      size="default"
-                      theme="text"
-                      variant="text"
-                    />
-                  </span>
-                </Tooltip>
-                <ToggleButton
-                  className={dialogStyles['dialog-title-choice-option']}
-                  key="2"
-                  value="addThisToSimilar"
-                >
-                  <FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />
-                  <ExportToMediaIcon />
-                </ToggleButton>
+                { !this.props.canImport && (
+                  <Tooltip
+                    arrow
+                    title={<FormattedMessage defaultMessage="DISABLED IMPORT" description="Tooltip text for when importing media into this item is not allowed" id="createMedia.importTooltip" />}
+                  >
+                    <span>
+                      <ButtonMain
+                        disabled
+                        iconLeft={<ImportToMediaIcon />}
+                        label={<FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />}
+                        size="default"
+                        theme="text"
+                        variant="text"
+                      />
+                    </span>
+                  </Tooltip>
+                )}
+
+                { this.props.canImport && (
+                  <ToggleButton
+                    className={dialogStyles['dialog-title-choice-option']}
+                    key="1"
+                    value="addSimilarToThis"
+                  >
+                    <ImportToMediaIcon />
+                    <FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />
+                  </ToggleButton>
+                )}
+
+                { !this.props.canExport && (
+                  <>
+                    <Tooltip
+                      arrow
+                      title={<FormattedMessage defaultMessage="DISABLED EXPORT" description="Tooltip text for when exporting media from this item is not allowed" id="createMedia.exportTooltip" />}
+                    >
+                      <span>
+                        <ButtonMain
+                          disabled
+                          iconRight={<ExportToMediaIcon />}
+                          label={<FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />}
+                          size="default"
+                          theme="text"
+                          variant="text"
+                        />
+                      </span>
+                    </Tooltip>
+                    <Tooltip
+                      arrow
+                      title={<FormattedMessage defaultMessage="DISABLED ADD" description="Tooltip text for when adding media from this item is not allowed" id="createMedia.addTooltip" />}
+                    >
+                      <span>
+                        <ButtonMain
+                          disabled
+                          iconRight={<ExportToMediaIcon />}
+                          label={<FormattedMessage defaultMessage="Add to Imported Fact-Check" description="Tab text for adding media to imported fact-check" id="createMedia.add" />}
+                          size="default"
+                          theme="text"
+                          variant="text"
+                        />
+                      </span>
+                    </Tooltip>
+                  </>
+                )}
+
+                { this.props.canExport && (
+                  <ToggleButton
+                    className={dialogStyles['dialog-title-choice-option']}
+                    key="2"
+                    value="addThisToSimilar"
+                  >
+                    <FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />
+                    <ExportToMediaIcon />
+                  </ToggleButton>
+                )}
+
+                { this.props.canExport && (
+                  <ToggleButton
+                    className={dialogStyles['dialog-title-choice-option']}
+                    key="3"
+                    value="addToImported"
+                  >
+                    <FormattedMessage defaultMessage="Add to Imported Fact-Check" description="Tab text for adding media to imported fact-check" id="createMedia.add" />
+                    <AddToImportedIcon />
+                  </ToggleButton>
+                )}
               </ToggleButtonGroup>
             </div> :
             <Tabs
@@ -190,10 +245,11 @@ class CreateRelatedMediaDialog extends React.Component {
                 customFilter={this.props.customFilter}
                 dbid={media ? media.dbid : null}
                 disablePublished={Boolean(this.props.disablePublished)}
+                key={action}
                 media={media}
                 multiple={action === 'addSimilarToThis'}
                 showFilters={Boolean(this.props.showFilters)}
-                typesToShow={typesToShow}
+                typesToShow={this.state.typesToShow}
                 onSelect={this.handleSelectExisting}
               />
             </>
