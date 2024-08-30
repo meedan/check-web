@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import cx from 'classnames/bind';
 import ArticleFilters from './ArticleFilters';
 import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
 import { ExplainerFormQueryRenderer } from './ExplainerForm';
@@ -24,7 +23,6 @@ import {
 } from '../../urlHelpers';
 import MediasLoading from '../media/MediasLoading';
 import PageTitle from '../PageTitle';
-import styles from './Articles.module.css';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
@@ -138,22 +136,24 @@ const ArticlesComponent = ({
   return (
     <PageTitle prefix={title} teamName={team.name}>
       <div className={searchResultsStyles['search-results-header']}>
-        <div className={searchResultsStyles.searchResultsTitleWrapper}>
-          <div className={searchResultsStyles.searchHeaderSubtitle}>
-            &nbsp;
-          </div>
-          <div className={cx(searchResultsStyles.searchHeaderTitle, styles.articlesHeader)}>
-            <h6>
-              {icon}
-              {title}
-            </h6>
-            <div>
-              <SearchField
-                handleClear={() => { handleChangeFilters({ ...filters, text: null }); }}
-                searchText={filters.text}
-                setParentSearchText={(text) => { handleChangeFilters({ ...filters, text }); }}
-              />
+        <div className="search__list-header-filter-row">
+          <div className={searchResultsStyles.searchResultsTitleWrapper}>
+            <div className={searchResultsStyles.searchHeaderSubtitle}>
+              &nbsp;
             </div>
+            <div className={searchResultsStyles.searchHeaderTitle}>
+              <h6>
+                {icon}
+                {title}
+              </h6>
+            </div>
+          </div>
+          <div className={searchStyles['search-form']}>
+            <SearchField
+              handleClear={() => { handleChangeFilters({ ...filters, text: null }); }}
+              searchText={filters.text}
+              setParentSearchText={(text) => { handleChangeFilters({ ...filters, text }); }}
+            />
           </div>
         </div>
       </div>
