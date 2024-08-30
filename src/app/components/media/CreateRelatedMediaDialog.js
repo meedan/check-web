@@ -113,7 +113,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 { !this.props.canImport && (
                   <Tooltip
                     arrow
-                    title={<FormattedMessage defaultMessage="DISABLED IMPORT" description="Tooltip text for when importing media into this item is not allowed" id="createMedia.importTooltip" />}
+                    title={<FormattedMessage defaultMessage="This media item has already been merged." description="Tooltip text for when importing media into this item is not allowed" id="createMedia.importTooltip" />}
                   >
                     <span>
                       <ButtonMain
@@ -143,7 +143,7 @@ class CreateRelatedMediaDialog extends React.Component {
                   <>
                     <Tooltip
                       arrow
-                      title={<FormattedMessage defaultMessage="DISABLED EXPORT" description="Tooltip text for when exporting media from this item is not allowed" id="createMedia.exportTooltip" />}
+                      title={<FormattedMessage defaultMessage="This media contains a published fact-check. Unpublish or remove the fact-check to export to another media." description="Tooltip text for when exporting media from this item is not allowed" id="createMedia.exportTooltip" />}
                     >
                       <span>
                         <ButtonMain
@@ -158,7 +158,7 @@ class CreateRelatedMediaDialog extends React.Component {
                     </Tooltip>
                     <Tooltip
                       arrow
-                      title={<FormattedMessage defaultMessage="DISABLED ADD" description="Tooltip text for when adding media from this item is not allowed" id="createMedia.addTooltip" />}
+                      title={<FormattedMessage defaultMessage="This media contains a published fact-check. Remove the fact-check to add to an existing imported fact-check." description="Tooltip text for when adding media from this item is not allowed" id="createMedia.addTooltip" />}
                     >
                       <span>
                         <ButtonMain

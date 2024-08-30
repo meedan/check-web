@@ -2,7 +2,7 @@
   {
     "id": "createMedia.importTooltip",
     "description": "Tooltip text for when importing media into this item is not allowed",
-    "defaultMessage": "DISABLED IMPORT"
+    "defaultMessage": "This media item has already been merged."
   },
   {
     "id": "createMedia.import",
@@ -12,7 +12,7 @@
   {
     "id": "createMedia.exportTooltip",
     "description": "Tooltip text for when exporting media from this item is not allowed",
-    "defaultMessage": "DISABLED EXPORT"
+    "defaultMessage": "This media contains a published fact-check. Unpublish or remove the fact-check to export to another media."
   },
   {
     "id": "createMedia.export",
@@ -22,7 +22,7 @@
   {
     "id": "createMedia.addTooltip",
     "description": "Tooltip text for when adding media from this item is not allowed",
-    "defaultMessage": "DISABLED ADD"
+    "defaultMessage": "This media contains a published fact-check. Remove the fact-check to add to an existing imported fact-check."
   },
   {
     "id": "createMedia.add",
