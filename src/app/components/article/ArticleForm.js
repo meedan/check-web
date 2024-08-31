@@ -44,11 +44,11 @@ const ArticleForm = ({
   const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text }));
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
-  const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
+  const defaultArticleLanguage = team.get_language || 'en';
   const [articleTitle, setArticleTitle] = React.useState(article.title || '');
   const [summary, setSummary] = React.useState(article.summary || article.description || '');
   const [url, setUrl] = React.useState(article.url || '');
-  const [language, setLanguage] = React.useState(article.language || null);
+  const [language, setLanguage] = React.useState(article.language || defaultArticleLanguage);
   const [tags, setTags] = React.useState(article.tags || []);
   const [status, setStatus] = React.useState(article.claim_description?.project_media?.status || article.rating || '');
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
@@ -609,6 +609,7 @@ ArticleForm.propTypes = {
 export default createFragmentContainer(ArticleForm, graphql`
   fragment ArticleForm_team on Team {
     verification_statuses
+    get_language
     get_languages
     tag_texts(first: 100) {
       edges {
