@@ -55,6 +55,16 @@
     "defaultMessage": "Assign this Fact Check to a media item to be able to edit and publish a report"
   },
   {
+    "id": "articleForm.reportDesignerTooltipTwo",
+    "description": "Tooltip for the report designer button",
+    "defaultMessage": "Fact-Check Title, Summary, and Language are required in order to to publish a Fact-Check report"
+  },
+  {
+    "id": "articleForm.reportDesignerTooltipThree",
+    "description": "Tooltip for the report designer button",
+    "defaultMessage": "Go to Fact-Check report editor"
+  },
+  {
     "id": "articleForm.publishedReport",
     "description": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state.",
     "defaultMessage": "Published report"
