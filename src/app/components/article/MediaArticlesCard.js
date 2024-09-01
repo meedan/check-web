@@ -81,10 +81,11 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
           { article.nodeType === 'Explainer' && <FormattedMessage defaultMessage="Explainer" description="Type description of an explainer article card." id="mediaArticlesCard.explainer" tagName="small" /> }
         </div>
         <h6 className={styles.articlesSidebarCardTitle}>
-          {article.title}
+          { article.nodeType === 'Explainer' && article.title }
+          { article.nodeType === 'FactCheck' && article.title && article.title !== '-' ? article.title : article.claim_description?.description }
         </h6>
         { article.nodeType === 'Explainer' && article.description && <div className={styles.articlesSidebarCardDescription}>{article.description}</div> }
-        { article.nodeType === 'FactCheck' && article.summary && <div className={styles.articlesSidebarCardDescription}>{article.summary}</div> }
+        { article.nodeType === 'FactCheck' && <div className={styles.articlesSidebarCardDescription}>{article.summary && article.summary !== '-' ? article.summary : article.claim_description?.context}</div> }
         { ratingLabel && ratingColor && <div className={cx('typography-caption', styles.articlesSidebarCardCaption)}><EllipseIcon style={{ color: ratingColor }} /> {ratingLabel}</div> }
       </div>
     </Tooltip>
@@ -108,6 +109,8 @@ MediaArticlesCard.propTypes = {
     rating: PropTypes.string,
     claim_description: PropTypes.shape({
       id: PropTypes.string,
+      context: PropTypes.string,
+      description: PropTypes.string,
       project_media: PropTypes.shape({
         id: PropTypes.string,
         type: PropTypes.string,
@@ -141,6 +144,8 @@ export default createFragmentContainer(MediaArticlesCard, graphql`
       rating
       claim_description {
         id
+        description
+        context
         project_media {
           id
           type

@@ -38,8 +38,8 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
           removeDisabled={projectMedia.type === 'Blank'}
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
-          summary={factCheck.summary || factCheck.claim_description.context}
-          title={factCheck.title || factCheck.claim_description.description}
+          summary={factCheck.summary && factCheck.summary !== '-' ? factCheck.summary : factCheck.claim_description.context}
+          title={factCheck.title && factCheck.title !== '-' ? factCheck.title : factCheck.claim_description.description}
           url={factCheck.url}
           variant="fact-check"
           onClick={() => { setArticleToEdit(factCheck); }}

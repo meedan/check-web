@@ -210,6 +210,8 @@ const ArticlesComponent = ({
               currentStatus = getStatus(statuses, article.rating);
             }
 
+            const summary = article.description || article.summary;
+
             return (
               <ArticleCard
                 date={article.updated_at}
@@ -221,10 +223,10 @@ const ArticlesComponent = ({
                 publishedAt={article.claim_description?.project_media?.fact_check_published_on ? parseInt(article.claim_description?.project_media?.fact_check_published_on, 10) : null}
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
-                summary={article.description || article.summary}
+                summary={summary && summary !== '-' ? summary : article.claim_description?.context}
                 tagOptions={teamTags}
                 tags={article.tags}
-                title={article.title || article.claim_description?.description}
+                title={article.title && article.title !== '-' ? article.title : article.claim_description?.description}
                 url={article.url}
                 variant={type}
                 onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
@@ -412,6 +414,7 @@ const Articles = ({
                       tags
                       claim_description { # There will be no N + 1 problem here because the backend uses eager loading
                         id
+                        context
                         description
                         project_media {
                           dbid
