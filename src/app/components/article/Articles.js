@@ -14,7 +14,7 @@ import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import SearchField from '../search/SearchField';
 import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
-import { getStatus } from '../../helpers';
+import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import {
   getQueryStringValue,
   pushQueryStringValue,
@@ -210,6 +210,8 @@ const ArticlesComponent = ({
               currentStatus = getStatus(statuses, article.rating);
             }
 
+            const summary = article.description || article.summary;
+
             return (
               <ArticleCard
                 date={article.updated_at}
@@ -221,10 +223,10 @@ const ArticlesComponent = ({
                 publishedAt={article.claim_description?.project_media?.fact_check_published_on ? parseInt(article.claim_description?.project_media?.fact_check_published_on, 10) : null}
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
-                summary={article.description || article.summary}
+                summary={isFactCheckValueBlank(summary) ? article.claim_description?.context : summary}
                 tagOptions={teamTags}
                 tags={article.tags}
-                title={article.title || article.claim_description?.description}
+                title={isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title}
                 url={article.url}
                 variant={type}
                 onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
@@ -412,6 +414,7 @@ const Articles = ({
                       tags
                       claim_description { # There will be no N + 1 problem here because the backend uses eager loading
                         id
+                        context
                         description
                         project_media {
                           dbid
