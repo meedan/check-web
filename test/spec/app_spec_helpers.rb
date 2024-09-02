@@ -151,10 +151,11 @@ module AppSpecHelpers
     wait_for_selector('#side-navigation__tipline-toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('#create-media__add-item').click
+    wait_for_selector('#create-media-button__open-button').click
     fill_field('#create-media-input', url)
-    press_button('#create-media-dialog__submit-button')
+    press_button('#create-media-button__submit-button')
     wait_for_selector_none('#create-media-input', :css, 1)
+    wait_for_selector('#side-navigation__tipline-toggle').click
     wait_for_selector('.cluster-card a') if wait_for_creation
   end
 
@@ -163,12 +164,13 @@ module AppSpecHelpers
     wait_for_selector('#side-navigation__tipline-toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('#create-media__add-item').click
+    wait_for_selector('#create-media-button__open-button').click
     wait_for_selector('#create-media-dialog-form .int-uploadfile__dropzone-without-file')
     wait_for_selector('#create-media-dialog-form input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))
     wait_for_selector('#create-media-dialog-form .int-uploadfile__dropzone-with-file')
-    wait_for_selector('#create-media-dialog__submit-button').click
+    wait_for_selector('#create-media-button__submit-button').click
     wait_for_selector_none('#create-media-dialog-form .int-uploadfile__dropzone-with-file')
+    wait_for_selector('#side-navigation__tipline-toggle').click
   end
 
   def team_url(path)
