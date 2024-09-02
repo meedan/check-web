@@ -207,7 +207,7 @@ const ArticleForm = ({
                       title={
                         <>
                           {!article.claim_description?.project_media?.dbid && <FormattedMessage defaultMessage="Assign this Fact Check to a media item to be able to edit and publish a report" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltip" />}
-                          {factCheckFieldsMissing && <FormattedMessage defaultMessage="Fact-Check Title, Summary, and Language are required in order to to publish a Fact-Check report" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltipTwo" />}
+                          {article.claim_description?.project_media?.dbid && factCheckFieldsMissing && <FormattedMessage defaultMessage="Fact-Check Title, Summary, and Language are required in order to to publish a Fact-Check report" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltipTwo" />}
                           {article.claim_description?.project_media?.dbid && !factCheckFieldsMissing && <FormattedMessage defaultMessage="Go to Fact-Check report editor" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltipThree" />}
                         </>
                       }
