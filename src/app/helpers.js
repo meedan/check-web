@@ -397,6 +397,13 @@ function getSeparatedNumber(locale, number) {
   return new Intl.NumberFormat(locale, {}).format(number);
 }
 
+/**
+ * Return whether a fact-check field is blank
+ */
+function isFactCheckValueBlank(value) {
+  return !value || value === '-';
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -425,4 +432,5 @@ export { // eslint-disable-line import/no-unused-modules
   getSuperAdminMask,
   getCompactNumber,
   getSeparatedNumber,
+  isFactCheckValueBlank,
 };

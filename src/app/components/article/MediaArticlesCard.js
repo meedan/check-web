@@ -10,7 +10,7 @@ import BookIcon from '../../icons/book.svg';
 import UnavilableIcon from '../../icons/do_not_disturb.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import EllipseIcon from '../../icons/ellipse.svg';
-import { getStatus, getStatusStyle } from '../../helpers';
+import { getStatus, getStatusStyle, isFactCheckValueBlank } from '../../helpers';
 import styles from './Articles.module.css';
 
 const MediaArticlesCard = ({ article, onAdd, team }) => {
@@ -81,10 +81,11 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
           { article.nodeType === 'Explainer' && <FormattedMessage defaultMessage="Explainer" description="Type description of an explainer article card." id="mediaArticlesCard.explainer" tagName="small" /> }
         </div>
         <h6 className={styles.articlesSidebarCardTitle}>
-          {article.title}
+          { article.nodeType === 'Explainer' && article.title }
+          { article.nodeType === 'FactCheck' && isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title }
         </h6>
         { article.nodeType === 'Explainer' && article.description && <div className={styles.articlesSidebarCardDescription}>{article.description}</div> }
-        { article.nodeType === 'FactCheck' && article.summary && <div className={styles.articlesSidebarCardDescription}>{article.summary}</div> }
+        { article.nodeType === 'FactCheck' && <div className={styles.articlesSidebarCardDescription}>{isFactCheckValueBlank(article.summary) ? article.claim_description?.context : article.summary}</div> }
         { ratingLabel && ratingColor && <div className={cx('typography-caption', styles.articlesSidebarCardCaption)}><EllipseIcon style={{ color: ratingColor }} /> {ratingLabel}</div> }
       </div>
     </Tooltip>
@@ -108,6 +109,8 @@ MediaArticlesCard.propTypes = {
     rating: PropTypes.string,
     claim_description: PropTypes.shape({
       id: PropTypes.string,
+      context: PropTypes.string,
+      description: PropTypes.string,
       project_media: PropTypes.shape({
         id: PropTypes.string,
         type: PropTypes.string,
@@ -141,6 +144,8 @@ export default createFragmentContainer(MediaArticlesCard, graphql`
       rating
       claim_description {
         id
+        description
+        context
         project_media {
           id
           type
