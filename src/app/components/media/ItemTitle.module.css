@@ -1,5 +1,5 @@
 .itemTitleMenuButton {
-  margin: 5px 0 0;
+  margin: 3px 0 0;
 }
 
 .itemTitleOption {
@@ -71,7 +71,7 @@
 
     .itemTitleStatic {
       background-color: var(--color-gray-96);
-      border: solid 2px var(--color-gray-88);
+      border: solid 2px var(--color-gray-96);
       border-radius: var(--border-radius-default);
       display: flex;
       gap: 3px;

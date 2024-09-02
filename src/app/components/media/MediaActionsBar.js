@@ -28,9 +28,6 @@ import dialogStyles from '../../styles/css/dialog.module.css';
 import styles from './media.module.css';
 
 const Styles = theme => ({
-  spacedButton: {
-    marginRight: theme.spacing(1),
-  },
   inputRoot: {
     flex: '1 0 auto',
     margin: theme.spacing(1),
@@ -283,7 +280,6 @@ class MediaActionsBarComponent extends Component {
     if (media.archived === CheckArchivedFlags.TRASHED || media.archived === CheckArchivedFlags.SPAM) {
       restoreProjectMedia = (
         <RestoreProjectMedia
-          className={classes.spacedButton}
           context={context}
           projectMedia={this.props.media}
           team={this.props.media.team}
@@ -296,33 +292,36 @@ class MediaActionsBarComponent extends Component {
         <ItemThumbnail maskContent={media.show_warning_cover} picture={media.media?.picture} type={media.media?.type} url={media.media?.url} />
         <div className={styles['media-actions-title']}>
           <ItemTitle projectMediaId={this.props.media?.dbid} />
-          <MediaTags projectMediaId={this.props.media?.dbid} />
+          <div className={styles['media-actions-context']}>
+            <div className={styles['media-actions-tags']}>
+              <MediaTags projectMediaId={this.props.media?.dbid} />
+            </div>
+            { restoreProjectMedia ? <> {restoreProjectMedia} </> : null }
+            <div className={styles['media-actions']}>
+              {isParent ?
+                <MediaStatus
+                  media={media}
+                  readonly={(
+                    (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
+                    media.last_status_obj?.locked ||
+                    published
+                  )}
+                /> : null
+              }
+              <MediaActionsMenuButton
+                handleAssign={this.handleAssign.bind(this)}
+                handleItemHistory={this.handleItemHistory}
+                handleRefresh={this.handleRefresh.bind(this)}
+                handleSendToSpam={this.handleSendToSpam.bind(this)}
+                handleSendToTrash={this.handleSendToTrash.bind(this)}
+                handleStatusLock={this.handleStatusLock.bind(this)}
+                isParent={isParent}
+                key={media.id /* close menu if we navigate to a different projectMedia */}
+                projectMedia={media}
+              />
+            </div>
+          </div>
         </div>
-        { restoreProjectMedia ? <div className={styles['media-actions']}> {restoreProjectMedia} </div> : null }
-        <div className={styles['media-actions']}>
-          {isParent ?
-            <MediaStatus
-              media={media}
-              readonly={(
-                (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
-                media.last_status_obj?.locked ||
-                published
-              )}
-            /> : null
-          }
-          <MediaActionsMenuButton
-            handleAssign={this.handleAssign.bind(this)}
-            handleItemHistory={this.handleItemHistory}
-            handleRefresh={this.handleRefresh.bind(this)}
-            handleSendToSpam={this.handleSendToSpam.bind(this)}
-            handleSendToTrash={this.handleSendToTrash.bind(this)}
-            handleStatusLock={this.handleStatusLock.bind(this)}
-            isParent={isParent}
-            key={media.id /* close menu if we navigate to a different projectMedia */}
-            projectMedia={media}
-          />
-        </div>
-
         <ItemHistoryDialog
           open={this.state.itemHistoryDialogOpen}
           projectMedia={media}
