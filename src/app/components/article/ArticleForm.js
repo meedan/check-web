@@ -82,6 +82,8 @@ const ArticleForm = ({
     }
     if (articleType === 'fact-check' && claimDescription && articleTitle && summary && language) {
       setCanPublish(true);
+    } else if (articleType === 'fact-check') {
+      setCanPublish(false);
     }
   }, [articleTitle, summary, claimDescription, language]);
 
