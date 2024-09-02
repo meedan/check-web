@@ -11,6 +11,7 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import BlankState from '../layout/BlankState';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
+import ExportList from '../ExportList';
 import SearchField from '../search/SearchField';
 import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
@@ -25,6 +26,31 @@ import MediasLoading from '../media/MediasLoading';
 import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
+
+const adjustFilters = (filters) => {
+  const newFilters = { ...filters };
+
+  // Date
+  if (filters.range?.updated_at) {
+    newFilters.updated_at = JSON.stringify(filters.range.updated_at);
+  } else {
+    delete newFilters.updated_at;
+  }
+
+  // Language
+  if (filters.language_filter?.report_language) {
+    newFilters.language = filters.language_filter.report_language;
+  } else {
+    delete newFilters.language;
+  }
+
+  // Some aliases
+  newFilters.user_ids = filters.users;
+  newFilters.publisher_ids = filters.published_by;
+  newFilters.rating = filters.verification_status;
+
+  return newFilters;
+};
 
 const ArticlesComponent = ({
   articles,
@@ -181,13 +207,16 @@ const ArticlesComponent = ({
         { articles.length > 0 ?
           <div className={searchResultsStyles['search-results-toolbar']}>
             <div />
-            <Paginator
-              numberOfPageResults={articles.length}
-              numberOfTotalResults={articlesCount}
-              page={page}
-              pageSize={pageSize}
-              onChangePage={handleChangePage}
-            />
+            <div className={searchResultsStyles['search-actions']}>
+              <Paginator
+                numberOfPageResults={articles.length}
+                numberOfTotalResults={articlesCount}
+                page={page}
+                pageSize={pageSize}
+                onChangePage={handleChangePage}
+              />
+              <ExportList filters={adjustFilters(filters)} type={type.replace('-', '_')} />
+            </div>
           </div>
           : null
         }
@@ -333,26 +362,17 @@ const Articles = ({
     filters: { ...defaultFilters },
   });
   const {
-    filters,
     page,
     sort,
     sortType,
   } = searchParams;
+  let { filters } = searchParams;
 
   const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType, filters } - a single state for a single query/render
     setSearchParams(Object.assign({}, searchParams, newSearchParams));
   };
-  // Adjust some filters
-  if (filters.range?.updated_at) {
-    filters.updatedAt = JSON.stringify(filters.range.updated_at);
-  } else {
-    delete filters.updatedAt;
-  }
-  if (filters.language_filter?.report_language) {
-    filters.language = filters.language_filter.report_language;
-  } else {
-    delete filters.language;
-  }
+
+  filters = adjustFilters(filters);
 
   return (
     <ErrorBoundary component="Articles">
@@ -363,7 +383,7 @@ const Articles = ({
         query={graphql`
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
-            $users: [Int], $updatedAt: String, $tags: [String], $language: [String], $published_by: [Int],
+            $users: [Int], $updated_at: String, $tags: [String], $language: [String], $published_by: [Int],
             $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String,
           ) {
             team(slug: $slug) {
@@ -379,12 +399,12 @@ const Articles = ({
                 }
               }
               articles_count(
-                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language, text: $text,
+                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, text: $text,
                 publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported
               )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
-                user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language, publisher_ids: $published_by,
+                user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by,
                 report_status: $report_status, rating: $verification_status, imported: $imported, text: $text,
               ) {
                 edges {
