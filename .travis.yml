@@ -16,7 +16,8 @@ before_install:
 - ngrok -v
 - ls
 - cd ..
-- cat /home/travis/.config/ngrok/ngrok.yml
+- ls
+# - cat /home/travis/.config/ngrok/ngrok.yml
 - export TRAVIS_TAG=0.0.0
 # Docker
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
