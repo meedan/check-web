@@ -13,7 +13,7 @@ import TextField from '../cds/inputs/TextField';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import inputStyles from '../../styles/css/inputs.module.css';
-import { safelyParseJSON, truncateLength } from '../../helpers';
+import { safelyParseJSON, truncateLength, isFactCheckValueBlank } from '../../helpers';
 import RatingSelector from '../cds/inputs/RatingSelector';
 import Alert from '../cds/alerts-and-prompts/Alert.js';
 import ExternalLink from '../ExternalLink';
@@ -44,11 +44,11 @@ const ArticleForm = ({
   const options = team?.tag_texts?.edges.map(edge => ({ label: edge.node.text, value: edge.node.text }));
 
   const languages = safelyParseJSON(team.get_languages) || ['en'];
-  const defaultArticleLanguage = languages && languages.length === 1 ? languages[0] : null;
+  const defaultArticleLanguage = team.get_language || 'en';
   const [articleTitle, setArticleTitle] = React.useState(article.title || '');
   const [summary, setSummary] = React.useState(article.summary || article.description || '');
   const [url, setUrl] = React.useState(article.url || '');
-  const [language, setLanguage] = React.useState(article.language || null);
+  const [language, setLanguage] = React.useState(article.language || defaultArticleLanguage);
   const [tags, setTags] = React.useState(article.tags || []);
   const [status, setStatus] = React.useState(article.claim_description?.project_media?.status || article.rating || '');
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
@@ -59,11 +59,14 @@ const ArticleForm = ({
   const [claimDescriptionError, setClaimDescriptionError] = React.useState(false);
 
   const [isValid, setIsValid] = React.useState(false);
+  const [canPublish, setCanPublish] = React.useState(false);
+  const createAndPublish = createFromMediaPage && canPublish;
 
   const isPublished = article.report_status === 'published';
   const readOnly = isPublished;
   const publishedAt = isPublished ? article.updated_at : null;
   const isStatusLocked = article.claim_description?.project_media?.last_status_obj?.locked || false;
+  const factCheckFieldsMissing = (articleType === 'fact-check' && (isFactCheckValueBlank(articleTitle) || isFactCheckValueBlank(summary) || !language));
 
   React.useEffect(() => {
     setLanguage(language || defaultArticleLanguage);
@@ -72,10 +75,15 @@ const ArticleForm = ({
   useEffect(() => {
     if (articleType === 'explainer' && articleTitle?.length && summary?.length && language?.length) {
       setIsValid(true);
-    } else if (articleType === 'fact-check' && articleTitle?.length && summary?.length && language?.length) {
+    } else if (articleType === 'fact-check' && claimDescription) {
       setIsValid(true);
     } else {
       setIsValid(false);
+    }
+    if (articleType === 'fact-check' && claimDescription && articleTitle && summary && language) {
+      setCanPublish(true);
+    } else if (articleType === 'fact-check') {
+      setCanPublish(false);
     }
   }, [articleTitle, summary, claimDescription, language]);
 
@@ -117,7 +125,7 @@ const ArticleForm = ({
     />
   );
 
-  const mainActionButtonLabelFactCheck = createFromMediaPage ? (
+  const mainActionButtonLabelFactCheck = createAndPublish ? (
     <FormattedMessage
       defaultMessage="Create & Publish"
       description="Button that saves the form data as a new fact-check article and redirects to publish report page"
@@ -197,15 +205,17 @@ const ArticleForm = ({
                     <Tooltip
                       arrow
                       title={
-                        article.claim_description?.project_media?.dbid ?
-                          null :
-                          <FormattedMessage defaultMessage="Assign this Fact Check to a media item to be able to edit and publish a report" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltip" />
+                        <>
+                          {!article.claim_description?.project_media?.dbid && <FormattedMessage defaultMessage="Assign this Fact Check to a media item to be able to edit and publish a report" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltip" />}
+                          {article.claim_description?.project_media?.dbid && factCheckFieldsMissing && <FormattedMessage defaultMessage="Fact-Check Title, Summary, and Language are required in order to to publish a Fact-Check report" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltipTwo" />}
+                          {article.claim_description?.project_media?.dbid && !factCheckFieldsMissing && <FormattedMessage defaultMessage="Go to Fact-Check report editor" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltipThree" />}
+                        </>
                       }
                     >
                       <span>
                         <ButtonMain
                           className="media-fact-check__report-designer"
-                          disabled={claimDescriptionMissing || !article.claim_description?.project_media?.dbid}
+                          disabled={claimDescriptionMissing || !article.claim_description?.project_media?.dbid || factCheckFieldsMissing}
                           iconLeft={isPublished ? <IconReport /> : <IconUnpublishedReport />}
                           label={isPublished ?
                             <FormattedMessage
@@ -392,22 +402,18 @@ const ArticleForm = ({
                         componentProps={{
                           id: 'article-form__title',
                         }}
-                        defaultValue={articleTitle}
+                        defaultValue={isFactCheckValueBlank(articleTitle) ? null : articleTitle}
                         disabled={readOnly}
                         error={titleError}
                         label={<FormattedMessage defaultMessage="Title" description="Label for fact-check title field" id="articleForm.factCheckTitle" />}
                         maxHeight="266px"
                         name="title"
                         placeholder={placeholder}
-                        required
                         rows="1"
                         onBlur={(e) => {
                           const newValue = e.target.value.trim();
                           if (newValue.length) {
-                            setTitleError(false);
                             handleBlur('title', newValue);
-                          } else {
-                            setTitleError(true);
                           }
                           setArticleTitle(newValue);
                         }}
@@ -468,16 +474,13 @@ const ArticleForm = ({
                           maxChars={900 - articleTitle.length - url.length}
                           name="summary"
                           placeholder={placeholder}
-                          required
+                          required={false}
                           rows="1"
-                          value={truncateLength(summary, 900 - articleTitle.length - url.length - 3)}
+                          value={isFactCheckValueBlank(summary) ? null : truncateLength(summary, 900 - articleTitle.length - url.length - 3)}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
-                              setSummaryError(false);
                               handleBlur('summary', newValue);
-                            } else {
-                              setSummaryError(true);
                             }
                             setSummary(newValue);
                           }}
@@ -550,7 +553,6 @@ const ArticleForm = ({
                       isDisabled={readOnly}
                       label={<FormattedMessage defaultMessage="Language" description="Label for input to select language" id="articleForm.selectLanguageLabel" />}
                       languages={languages}
-                      required
                       selectedLanguage={language}
                       onSubmit={handleLanguageSubmit}
                     />
@@ -567,10 +569,10 @@ const ArticleForm = ({
           buttonProps={{ id: 'article-form__save-button' }}
           disabled={!isValid || saving}
           label={mainActionButtonLabel}
-          onClick={() => handleSave({ publish: createFromMediaPage })}
+          onClick={() => handleSave({ publish: createAndPublish })}
         />
       ) : null}
-      secondaryActionButton={(articleType === 'fact-check') && createFromMediaPage ? (
+      secondaryActionButton={(articleType === 'fact-check') && createAndPublish ? (
         <ButtonMain
           buttonProps={{ id: 'article-form__save-unpublished-button' }}
           disabled={!isValid || saving}
@@ -609,6 +611,7 @@ ArticleForm.propTypes = {
 export default createFragmentContainer(ArticleForm, graphql`
   fragment ArticleForm_team on Team {
     verification_statuses
+    get_language
     get_languages
     tag_texts(first: 100) {
       edges {
