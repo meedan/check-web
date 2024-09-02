@@ -10,7 +10,7 @@ import BookIcon from '../../icons/book.svg';
 import UnavilableIcon from '../../icons/do_not_disturb.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import EllipseIcon from '../../icons/ellipse.svg';
-import { getStatus, getStatusStyle } from '../../helpers';
+import { getStatus, getStatusStyle, isFactCheckValueBlank } from '../../helpers';
 import styles from './Articles.module.css';
 
 const MediaArticlesCard = ({ article, onAdd, team }) => {
@@ -82,10 +82,10 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
         </div>
         <h6 className={styles.articlesSidebarCardTitle}>
           { article.nodeType === 'Explainer' && article.title }
-          { article.nodeType === 'FactCheck' && article.title && article.title !== '-' ? article.title : article.claim_description?.description }
+          { article.nodeType === 'FactCheck' && isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title }
         </h6>
         { article.nodeType === 'Explainer' && article.description && <div className={styles.articlesSidebarCardDescription}>{article.description}</div> }
-        { article.nodeType === 'FactCheck' && <div className={styles.articlesSidebarCardDescription}>{article.summary && article.summary !== '-' ? article.summary : article.claim_description?.context}</div> }
+        { article.nodeType === 'FactCheck' && <div className={styles.articlesSidebarCardDescription}>{isFactCheckValueBlank(article.summary) ? article.claim_description?.context : article.summary}</div> }
         { ratingLabel && ratingColor && <div className={cx('typography-caption', styles.articlesSidebarCardCaption)}><EllipseIcon style={{ color: ratingColor }} /> {ratingLabel}</div> }
       </div>
     </Tooltip>

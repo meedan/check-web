@@ -13,7 +13,7 @@ import TextField from '../cds/inputs/TextField';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import inputStyles from '../../styles/css/inputs.module.css';
-import { safelyParseJSON, truncateLength } from '../../helpers';
+import { safelyParseJSON, truncateLength, isFactCheckValueBlank } from '../../helpers';
 import RatingSelector from '../cds/inputs/RatingSelector';
 import Alert from '../cds/alerts-and-prompts/Alert.js';
 import ExternalLink from '../ExternalLink';
@@ -66,7 +66,7 @@ const ArticleForm = ({
   const readOnly = isPublished;
   const publishedAt = isPublished ? article.updated_at : null;
   const isStatusLocked = article.claim_description?.project_media?.last_status_obj?.locked || false;
-  const factCheckFieldsMissing = (articleType === 'fact-check' && (articleTitle === '-' || !articleTitle || summary === '-' || !summary || !language));
+  const factCheckFieldsMissing = (articleType === 'fact-check' && (isFactCheckValueBlank(articleTitle) || isFactCheckValueBlank(summary) || !language));
 
   React.useEffect(() => {
     setLanguage(language || defaultArticleLanguage);
@@ -400,7 +400,7 @@ const ArticleForm = ({
                         componentProps={{
                           id: 'article-form__title',
                         }}
-                        defaultValue={articleTitle && articleTitle !== '-' ? articleTitle : null}
+                        defaultValue={isFactCheckValueBlank(articleTitle) ? null : articleTitle}
                         disabled={readOnly}
                         error={titleError}
                         label={<FormattedMessage defaultMessage="Title" description="Label for fact-check title field" id="articleForm.factCheckTitle" />}
@@ -474,7 +474,7 @@ const ArticleForm = ({
                           placeholder={placeholder}
                           required={false}
                           rows="1"
-                          value={summary && summary !== '-' ? truncateLength(summary, 900 - articleTitle.length - url.length - 3) : null}
+                          value={isFactCheckValueBlank(summary) ? null : truncateLength(summary, 900 - articleTitle.length - url.length - 3)}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
