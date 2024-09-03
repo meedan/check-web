@@ -58,7 +58,7 @@ jobs:
       env:
         DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
       run: |
-        openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k $DECRYPTION_PASSWORD
+        openssl aes-256-cbc -K $DECRYPTION_PASSWORD -in test/google_credentials.json.enc -out test/google_credentials.json -d
 
     - name: Setup UTF-8 Capable locale
       run: | 
@@ -183,8 +183,7 @@ jobs:
 
     - name: Decrypt credentials for Alegre
       run: |
-        openssl aes-256-cbc -K $encrypted_e6af0c606e27_key -iv $encrypted_e6af0c606e27_iv
-        -in test/google_credentials.json.enc -out test/google_credentials.json -d
+        openssl aes-256-cbc -K $DECRYPTION_PASSWORD -in test/google_credentials.json.enc -out test/google_credentials.json -d
 
     - name: Setup UTF-8 Capable locale
       run: | 
@@ -305,7 +304,7 @@ jobs:
 
     - name: Decrypt credentials for Alegre
       run: |
-        openssl aes-256-cbc -K $encrypted_e6af0c606e27_key -iv $encrypted_e6af0c606e27_iv
+        openssl aes-256-cbc -K $DECRYPTION_PASSWORD 
         -in test/google_credentials.json.enc -out test/google_credentials.json -d
 
     - name: Setup UTF-8 Capable locale
