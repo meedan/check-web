@@ -136,6 +136,17 @@ const FeedClustersComponent = ({
               />
               <ExportList filters={{ feed_id: feed.dbid, team_ids: teamFilters, ...setFiltersForQuery(otherFilters) }} type="feed" />
             </div>
+            <div />
+            <div className={searchResultsStyles['search-actions']}>
+              <Paginator
+                numberOfPageResults={clusters.length}
+                numberOfTotalResults={feed.clusters_count}
+                page={page}
+                pageSize={pageSize}
+                onChangePage={handleChangePage}
+              />
+              <ExportList filters={{ feed_id: feed.dbid, ...setFiltersForQuery(otherFilters) }} type="feed" />
+            </div>
           </div>
           : null
         }
