@@ -171,7 +171,6 @@ const AutoCompleteMediaItem = (props, context) => {
                       id
                       dbid
                       title
-                      medias_count
                       search_id
                     }
                   }
