@@ -14,7 +14,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         project_mediaEdge,
         project_media
         project { id },
-        project_group { id, medias_count },
+        project_group { id },
         related_to {
           id
         }
@@ -123,7 +123,6 @@ class CreateProjectMediaMutation extends Relay.Mutation {
           },
           project_group {
             id
-            medias_count
           },
           check_search_team {
             id
