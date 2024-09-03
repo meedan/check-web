@@ -131,18 +131,18 @@ jobs:
     - name: Run Integration test
       run: | 
         docker ps
-        docker compose exec -T web bash -c "service nginx start"
-        docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
-        docker compose exec -T
-          -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
-          -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME
-          -e GITHUB_BRANCH=$GITHUB_BRANCH
-          -e AWS_ENDPOINT=$AWS_ENDPOINT
-          -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-          -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          -e ROLE_TO_ASSUME=${{ secrets.AWS_ROLE_TO_ASSUME }}
-          -e AWS_REGION=eu-west-1
-          -e TEST_RETRY_COUNT=3
+        docker compose exec web bash service nginx start
+        docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start 
+        docker compose exec -T \
+          -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID \
+          -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME \
+          -e GITHUB_BRANCH=$GITHUB_BRANCH \
+          -e AWS_ENDPOINT=$AWS_ENDPOINT \
+          -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+          -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+          -e ROLE_TO_ASSUME=${{ secrets.AWS_ROLE_TO_ASSUME }} \
+          -e AWS_REGION=eu-west-1 \
+          -e TEST_RETRY_COUNT=3 \
           web npm run tests
 
     - name: After integration tests
@@ -262,15 +262,15 @@ jobs:
       run: | 
         docker compose exec web service nginx start
         docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
-        docker compose exec
-            -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
-            -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME
-            -e GITHUB_BRANCH=$GITHUB_BRANCH
-            -e AWS_ENDPOINT=$AWS_ENDPOINT
-            -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-            -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-            -e AWS_REGION=$AWS_REGION
-            -e TEST_RETRY_COUNT=3
+        docker compose exec - T \
+            -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID \
+            -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME \
+            -e GITHUB_BRANCH=$GITHUB_BRANCH \
+            -e AWS_ENDPOINT=$AWS_ENDPOINT \
+            -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+            -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+            -e AWS_REGION=$AWS_REGION \
+            -e TEST_RETRY_COUNT=3 \
             web npm run tests
 
     - name: After Similarity tests
@@ -388,7 +388,7 @@ jobs:
 
     - name: Run Unit test
       run: | 
-       docker-compose exec -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME web npm run tests
+       docker-compose exec -T -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME web npm run tests
 
     - name: After Unit tests
       run: |
