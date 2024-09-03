@@ -130,10 +130,10 @@ jobs:
 
     - name: Run Integration test
       run: | 
-       docker ps
-       docker compose exec -T web service nginx start
-       docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
-       docker compose exec -T
+        docker ps
+        docker compose exec -T web bash -c "service nginx start"
+        docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
+        docker compose exec -T
           -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
           -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME
           -e GITHUB_BRANCH=$GITHUB_BRANCH
