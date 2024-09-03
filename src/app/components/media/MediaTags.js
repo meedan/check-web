@@ -2,17 +2,36 @@ import React from 'react';
 import xor from 'lodash.xor';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
+import { createRefetchContainer, graphql, commitMutation } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import mergeWith from 'lodash.mergewith';
 import { can } from '../Can';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
-import MediaAndArticleTagList from '../cds/menus-lists-dialogs/MediaAndArticleTagList';
-import { withSetFlashMessage } from '../FlashMessage';
+import TagList from '../cds/menus-lists-dialogs/TagList';
+import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
 
-const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
+const pageSize = 100;
+let lastTypedValue = '';
+
+const MediaTags = ({
+  projectMedia,
+  relay,
+}) => {
+  if (!projectMedia) return null;
+
+  const refetch = (keyword) => {
+    relay.refetch(
+      { ids: `${projectMedia.dbid},,`, pageSize, keyword: keyword || '' },
+      { ids: `${projectMedia.dbid},,`, pageSize, keyword: '' },
+      () => {},
+      { force: true },
+    );
+  };
+
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
+
   const searchTagUrl = (tagString) => {
     const tagQuery = {
       tags: [tagString],
@@ -52,16 +71,10 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
   const handleCreateTag = (value) => {
     commitMutation(Relay.Store, {
       mutation: graphql`
-        mutation MediaTagsCreateTagMutation($input: CreateTagInput!) {
+        mutation MediaTagsCreateTagMutation($input: CreateTagInput!, $pageSize: Int!, $keyword: String) {
           createTag(input: $input) {
             project_media {
-              tags(first: 100) {
-                edges {
-                  node {
-                    tag_text
-                  }
-                }
-              }
+              ...MediaTags_projectMedia @arguments(pageSize: $pageSize, keyword: $keyword)
             }
           }
         }
@@ -72,10 +85,14 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
           annotated_type: 'ProjectMedia',
           tag: value,
         },
+        pageSize,
+        keyword: '',
       },
       onCompleted: ({ error }) => {
         if (error) {
           onFailure(error);
+        } else {
+          refetch();
         }
       },
       onError: onFailure,
@@ -127,20 +144,46 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
   };
 
   const selected = projectMedia.tags.edges.map(t => t.node.tag_text);
-  // const options = projectMedia.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
+  const options = projectMedia.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
+
+  console.log('options', options); // eslint-disable-line no-console
+
+
+  const handleType = (keyword) => {
+    lastTypedValue = keyword;
+    setTimeout(() => {
+      if (keyword === lastTypedValue) {
+        refetch(keyword);
+      }
+    }, 1500);
+  };
 
   return (
-    <MediaAndArticleTagList
+    <TagList
+      options={options}
       readOnly={readOnly}
+      setSearchTerm={handleType}
       setTags={handleSetTags}
       tags={selected}
-      teamSlug={projectMedia.team.slug}
       onClickTag={handleTagViewClick}
     />
   );
 };
 
-MediaTagsComponent.propTypes = {
+MediaTags.defaultProps = {
+  projectMedia: {
+    tags: {
+      edges: [],
+    },
+    team: {
+      tag_texts: {
+        edges: [],
+      },
+    },
+  },
+};
+
+MediaTags.propTypes = {
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number,
     team: PropTypes.shape({
@@ -158,45 +201,46 @@ MediaTagsComponent.propTypes = {
         }),
       }).isRequired).isRequired,
     }).isRequired,
-  }).isRequired,
+  }),
 };
 
-export { MediaTagsComponent }; // eslint-disable-line import/no-unused-modules
+export { MediaTags }; // eslint-disable-line import/no-unused-modules
 
-const MediaTags = parentProps => (
-  <QueryRenderer
-    environment={Relay.Store}
-    query={graphql`
-      query MediaTagsQuery($ids: String!) {
-        project_media(ids: $ids) {
-          dbid
-          permissions
-          team {
-            slug
-          }
-          tags(last: 100) {
+export default createRefetchContainer(MediaTags,
+  {
+    projectMedia: graphql`
+      fragment MediaTags_projectMedia on ProjectMedia
+      @argumentDefinitions(keyword: {type: "String", defaultValue: ""}, pageSize: {type: "Int!", defaultValue: 100}) {
+        dbid
+        permissions
+        team {
+          slug
+          tag_texts(first: $pageSize, keyword: $keyword) {
             edges {
               node {
-                id
-                tag_text
+                text
               }
             }
           }
         }
+        tags(last: $pageSize) {
+          edges {
+            node {
+              id
+              tag_text
+            }
+          }
+        }
       }
-    `}
-    render={({ error, props }) => {
-      if (!error && props) {
-        return (<MediaTagsComponent {...parentProps} projectMedia={props.project_media} />);
+    `,
+  },
+  {
+    projectMedia: graphql`
+      query MediaTagsRefetchQuery($ids: String!, $pageSize: Int!, $keyword: String) {
+        project_media(ids: $ids) {
+          ...MediaTags_projectMedia @arguments(pageSize: $pageSize, keyword: $keyword)
+        }
       }
-
-      // TODO: We need a better error handling in the future, standardized with other components
-      return null;
-    }}
-    variables={{
-      ids: `${parentProps.projectMediaId},,`,
-    }}
-  />
+    `,
+  },
 );
-
-export default withSetFlashMessage(MediaTags);

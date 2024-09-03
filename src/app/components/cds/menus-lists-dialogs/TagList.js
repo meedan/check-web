@@ -20,12 +20,12 @@ const TagList = ({
   options: teamTags,
   readOnly,
   saving,
+  setSearchTerm,
   setTags,
   tags,
 }) => {
-  const [menuOpen, setMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [searchValue, setSearchValue] = React.useState('');
+  const [searchValue, setSearchValue] = React.useState();
 
   const deleteTag = (deletedTag) => {
     const deleteIndex = tags.findIndex(tag => tag === deletedTag);
@@ -35,16 +35,20 @@ const TagList = ({
   };
 
   const handleOpenMenu = (e) => {
-    setMenuOpen(true);
     setAnchorEl(e.currentTarget);
   };
 
   const handleCloseMenu = () => {
-    setMenuOpen(false);
     setAnchorEl(null);
   };
 
-  const handleSearchChange = value => setSearchValue(value);
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
+    if (setSearchTerm) {
+      setSearchTerm(value);
+    }
+  };
+
   const handleSubmit = (newSelectedItems) => {
     setTags(newSelectedItems);
     handleCloseMenu();
@@ -90,7 +94,7 @@ const TagList = ({
       <Popover
         anchorEl={anchorEl}
         className={styles['tag-list-manager']}
-        open={menuOpen}
+        open={Boolean(anchorEl)}
         onClose={handleCloseMenu}
       >
         <FormattedMessage defaultMessage="Search…" description="The placeholder text in a search box." id="multiSelector.search">
@@ -162,30 +166,29 @@ const TagList = ({
           </em>
         )
       }
-      { !readOnly &&
-        <Tooltip
-          arrow
-          placement="top"
-          title={
-            <FormattedMessage
-              defaultMessage="Manage Tags"
-              description="Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
-              id="taglist.tooltipManage"
-            />
-          }
-        >
-          <div>
-            <ButtonMain
-              className="int-tag-list__button--manage"
-              iconCenter={<TagMoreIcon />}
-              size="small"
-              theme="lightText"
-              variant="contained"
-              onClick={handleOpenMenu}
-            />
-          </div>
-        </Tooltip>
-      }
+      <Tooltip
+        arrow
+        placement="top"
+        title={
+          <FormattedMessage
+            defaultMessage="Manage Tags"
+            description="Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
+            id="taglist.tooltipManage"
+          />
+        }
+      >
+        <div>
+          <ButtonMain
+            className="int-tag-list__button--manage"
+            disabled={readOnly}
+            iconCenter={<TagMoreIcon />}
+            size="small"
+            theme="lightText"
+            variant="contained"
+            onClick={handleOpenMenu}
+          />
+        </div>
+      </Tooltip>
       { saving && <MediasLoading size="icon" theme="grey" variant="icon" /> }
     </div>
   );

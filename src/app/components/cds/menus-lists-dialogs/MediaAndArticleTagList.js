@@ -220,9 +220,20 @@ MediaAndArticleTagListComponent.propTypes = {
 
 export { MediaAndArticleTagListComponent }; // eslint-disable-line import/no-unused-modules
 
+let lastTypedValue = '';
+
 const MediaAndArticleTagList = (parentProps) => {
   const pageSize = 100;
   const [searchTerm, setSearchTerm] = React.useState('');
+
+  const handleType = (value) => {
+    lastTypedValue = value;
+    setTimeout(() => {
+      if (value === lastTypedValue) {
+        setSearchTerm(value);
+      }
+    }, 1500);
+  };
 
   return (<QueryRenderer
     environment={Relay.Store}
@@ -247,7 +258,7 @@ const MediaAndArticleTagList = (parentProps) => {
             options={props.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }))}
             pageSize={pageSize}
             searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
+            setSearchTerm={handleType}
           />
         );
       }

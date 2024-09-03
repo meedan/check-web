@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import ItemHistoryDialog from './ItemHistoryDialog';
-import MediaTags from './MediaTags';
+import MediaTagsQueryRenderer from './MediaTagsQueryRenderer';
 import MediaStatus from './MediaStatus';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
 import RestoreProjectMedia from './RestoreProjectMedia';
@@ -296,7 +296,7 @@ class MediaActionsBarComponent extends Component {
         <ItemThumbnail maskContent={media.show_warning_cover} picture={media.media?.picture} type={media.media?.type} url={media.media?.url} />
         <div className={styles['media-actions-title']}>
           <ItemTitle projectMediaId={this.props.media?.dbid} />
-          <MediaTags projectMediaId={this.props.media?.dbid} />
+          <MediaTagsQueryRenderer projectMediaId={this.props.media?.dbid} />
         </div>
         { restoreProjectMedia ? <div className={styles['media-actions']}> {restoreProjectMedia} </div> : null }
         <div className={styles['media-actions']}>
