@@ -14,6 +14,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
+import ExportList from '../ExportList';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import BulkActionsMenu from '../media/BulkActionsMenu';
@@ -542,51 +543,54 @@ function SearchResultsComponent({
                   /> : null
                 }
               </div>
-              <span className={styles['search-pagination']}>
-                <Tooltip title={
-                  <FormattedMessage defaultMessage="Previous page" description="Pagination button to go to previous page" id="search.previousPage" />
-                }
-                >
-                  {getPreviousPageLocation() ? (
-                    <Link
-                      className={cx('search__previous-page', styles['search-nav'])}
-                      to={getPreviousPageLocation()}
-                    >
-                      <PrevIcon />
-                    </Link>
-                  ) : (
-                    <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
-                      <PrevIcon />
-                    </span>
-                  )}
-                </Tooltip>
-                <span className="typography-button">
-                  <FormattedMessage
-                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                    description="Pagination count of items returned"
-                    id="searchResults.itemsCount"
-                    values={{
-                      from: getBeginIndex() + 1,
-                      to: getEndIndex(),
-                      count,
-                    }}
-                  />
+              <div className={styles['search-actions']}>
+                <span className={styles['search-pagination']}>
+                  <Tooltip title={
+                    <FormattedMessage defaultMessage="Previous page" description="Pagination button to go to previous page" id="search.previousPage" />
+                  }
+                  >
+                    {getPreviousPageLocation() ? (
+                      <Link
+                        className={cx('search__previous-page', styles['search-nav'])}
+                        to={getPreviousPageLocation()}
+                      >
+                        <PrevIcon />
+                      </Link>
+                    ) : (
+                      <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
+                        <PrevIcon />
+                      </span>
+                    )}
+                  </Tooltip>
+                  <span className="typography-button">
+                    <FormattedMessage
+                      defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                      description="Pagination count of items returned"
+                      id="searchResults.itemsCount"
+                      values={{
+                        from: getBeginIndex() + 1,
+                        to: getEndIndex(),
+                        count,
+                      }}
+                    />
+                  </span>
+                  <Tooltip title={
+                    <FormattedMessage defaultMessage="Next page" description="Pagination button to go to next page" id="search.nextPage" />
+                  }
+                  >
+                    {getNextPageLocation() ? (
+                      <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
+                        <NextIcon />
+                      </span>
+                    ) : (
+                      <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
+                        <NextIcon />
+                      </span>
+                    )}
+                  </Tooltip>
                 </span>
-                <Tooltip title={
-                  <FormattedMessage defaultMessage="Next page" description="Pagination button to go to next page" id="search.nextPage" />
-                }
-                >
-                  {getNextPageLocation() ? (
-                    <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
-                      <NextIcon />
-                    </span>
-                  ) : (
-                    <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
-                      <NextIcon />
-                    </span>
-                  )}
-                </Tooltip>
-              </span>
+                <ExportList filters={appliedQuery} type="media" />
+              </div>
             </span>
           </div> : null
         }
