@@ -32,6 +32,9 @@ jobs:
         && !contains(github.event.head_commit.message, '[full ci]') && !contains(github.event.head_commit.message,
         '[smoke tests]') && !contains(github.event.head_commit.message, '[similarity tests]')
     runs-on: ubuntu-latest
+    resources:
+      limits:
+        memory: 14GB 
 
     steps:
     - uses: actions/checkout@v4
@@ -128,11 +131,12 @@ jobs:
         MAX_WEB_CURL: 3000
         WEB_CURL_COUNT: 0
       run: | 
-       gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
-        MAX_WEB_CURL=$MAX_WEB_CURL;
-        WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
-       docker compose exec web npm run linter
-       docker compose exec web npm run test:integration:lint
+        gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
+          MAX_WEB_CURL=$MAX_WEB_CURL;
+          WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
+        docker ps 
+        docker compose exec web npm run linter
+        docker compose exec web npm run test:integration:lint
 
     - name: Run Integration test
       run: | 
@@ -256,6 +260,7 @@ jobs:
         gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
         MAX_WEB_CURL=$MAX_WEB_CURL;
         WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
+        docker ps
         docker compose exec web npm run linter
         docker compose exec web npm run test:integration:lint
 
@@ -375,11 +380,12 @@ jobs:
         MAX_WEB_CURL: 3000
         WEB_CURL_COUNT: 0
       run: | 
-       gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
+        gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
         MAX_WEB_CURL=$MAX_WEB_CURL;
         WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
-       docker compose exec web npm run linter
-       docker compose exec web npm run test:integration:lint
+        docker ps 
+        docker compose exec web npm run linter
+        docker compose exec web npm run test:integration:lint
 
     - name: Run Unit test
       run: | 
