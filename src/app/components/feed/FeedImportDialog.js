@@ -114,7 +114,7 @@ const FeedImportDialog = ({
         open
       >
         <div className={dialogStyles['dialog-title']}>
-          <div>
+          <div className={dialogStyles['dialog-title-choice']}>
             <FormattedMessage
               defaultMessage="{mediaCount, plural, one {Import # media into your workspace} other {Import # media into your workspace}}"
               description="Title for the import media dialog on the feed item page."

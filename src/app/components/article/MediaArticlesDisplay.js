@@ -5,7 +5,7 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import MediaArticleCard from './MediaArticleCard';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
-import { getStatus } from '../../helpers';
+import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import styles from './MediaArticlesDisplay.module.css';
 
@@ -38,7 +38,8 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
           removeDisabled={projectMedia.type === 'Blank'}
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
-          title={factCheck.title || factCheck.claim_description.description}
+          summary={isFactCheckValueBlank(factCheck.summary) ? factCheck.claim_description.context : factCheck.summary}
+          title={isFactCheckValueBlank(factCheck.title) ? factCheck.claim_description.description : factCheck.title}
           url={factCheck.url}
           variant="fact-check"
           onClick={() => { setArticleToEdit(factCheck); }}
@@ -81,6 +82,7 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
               id={explainerItem.id}
               languageCode={explainer.language !== 'und' ? explainer.language : null}
               removeDisabled={projectMedia.type === 'Blank'}
+              summary={explainer.description}
               title={explainer.title}
               url={explainer.url}
               variant="explainer"
@@ -122,6 +124,7 @@ MediaArticlesDisplay.propTypes = {
     }).isRequired,
     fact_check: PropTypes.shape({
       title: PropTypes.string,
+      summary: PropTypes.string,
       language: PropTypes.string,
       updated_at: PropTypes.string,
       url: PropTypes.string,
@@ -131,6 +134,7 @@ MediaArticlesDisplay.propTypes = {
       claim_description: PropTypes.shape({
         id: PropTypes.string,
         description: PropTypes.string,
+        context: PropTypes.string,
       }).isRequired,
     }).isRequired,
     explainer_items: PropTypes.shape({
@@ -140,6 +144,7 @@ MediaArticlesDisplay.propTypes = {
           explainer: PropTypes.shape({
             language: PropTypes.string,
             title: PropTypes.string,
+            description: PropTypes.string,
             url: PropTypes.string,
             updated_at: PropTypes.string,
             nodeType: PropTypes.oneOf(['Explainer', 'FactCheck']),
@@ -163,6 +168,7 @@ export default createFragmentContainer(MediaArticlesDisplay, graphql`
     fact_check {
       id
       title
+      summary
       language
       updated_at
       url
@@ -171,6 +177,7 @@ export default createFragmentContainer(MediaArticlesDisplay, graphql`
       claim_description {
         id
         description
+        context
       }
       nodeType: __typename
       ...ClaimFactCheckForm_article
@@ -182,6 +189,7 @@ export default createFragmentContainer(MediaArticlesDisplay, graphql`
           explainer {
             language
             title
+            description
             url
             updated_at
             nodeType: __typename

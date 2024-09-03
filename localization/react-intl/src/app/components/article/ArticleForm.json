@@ -20,6 +20,21 @@
     "defaultMessage": "Edit Claim & Fact-Check Article"
   },
   {
+    "id": "articleForm.saveArticleButton",
+    "description": "Button that saves the form data as a new article",
+    "defaultMessage": "Create Article"
+  },
+  {
+    "id": "articleForm.saveUnpublishedButton",
+    "description": "Button that saves the form data as a new fact-check article, without proceeding to publish it",
+    "defaultMessage": "Create Unpublished"
+  },
+  {
+    "id": "articleForm.saveAndPublishButton",
+    "description": "Button that saves the form data as a new fact-check article and redirects to publish report page",
+    "defaultMessage": "Create & Publish"
+  },
+  {
     "id": "articleForm.editedByLabel",
     "description": "Label to convey when the item was last edited",
     "defaultMessage": "Edited by:"
@@ -30,9 +45,24 @@
     "defaultMessage": "Last Published:"
   },
   {
+    "id": "articleForm.mediaCluster",
+    "description": "Label for the link to the media cluster that this fact-check is applied to.",
+    "defaultMessage": "Media Cluster:"
+  },
+  {
     "id": "articleForm.reportDesignerTooltip",
     "description": "Tooltip for the report designer button",
     "defaultMessage": "Assign this Fact Check to a media item to be able to edit and publish a report"
+  },
+  {
+    "id": "articleForm.reportDesignerTooltipTwo",
+    "description": "Tooltip for the report designer button",
+    "defaultMessage": "Fact-Check Title, Summary, and Language are required in order to to publish a Fact-Check report"
+  },
+  {
+    "id": "articleForm.reportDesignerTooltipThree",
+    "description": "Tooltip for the report designer button",
+    "defaultMessage": "Go to Fact-Check report editor"
   },
   {
     "id": "articleForm.publishedReport",
@@ -80,9 +110,9 @@
     "defaultMessage": "Fact-check"
   },
   {
-    "id": "articleForm.reportPublishedTitle",
-    "description": "Title of alert box in article form.",
-    "defaultMessage": "Report is published"
+    "id": "articleForm.reportPublishedLabel",
+    "description": "Label of alert button in article form.",
+    "defaultMessage": "Update Report"
   },
   {
     "id": "articleForm.reportPublishedBody",
@@ -90,9 +120,9 @@
     "defaultMessage": "To make edits, pause this report. This will stop the report from being sent out to users until it is published again"
   },
   {
-    "id": "articleForm.reportPublishedLabel",
-    "description": "Label of alert button in article form.",
-    "defaultMessage": "Update Report"
+    "id": "articleForm.reportPublishedTitle",
+    "description": "Title of alert box in article form.",
+    "defaultMessage": "Report is published"
   },
   {
     "id": "articleForm.explainerTitleInputPlaceholder",
@@ -158,10 +188,5 @@
     "id": "articleForm.selectLanguageLabel",
     "description": "Label for input to select language",
     "defaultMessage": "Language"
-  },
-  {
-    "id": "articleForm.formSaveButton",
-    "description": "the save button for the article forom",
-    "defaultMessage": "Create content"
   }
 ]

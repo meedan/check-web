@@ -28,6 +28,7 @@ const MediaArticleCard = ({
   removeDisabled,
   statusColor,
   statusLabel,
+  summary,
   title,
   url,
   variant,
@@ -57,9 +58,8 @@ const MediaArticleCard = ({
                 { variant === 'fact-check' && <FactCheckIcon /> }
                 { variant === 'explainer' && <BookIcon /> }
               </div>
-              { variant === 'fact-check' && <FormattedMessage defaultMessage="Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
+              { variant === 'fact-check' && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
               { variant === 'explainer' && <FormattedMessage defaultMessage="Explainer" description="Title in an article card on item page." id="mediaArticleCard.explainer" /> }
-              { statusLabel && ': ' }
             </div>
             { statusLabel && <div><EllipseIcon style={{ color: statusColor }} /> {statusLabel}</div> }
           </div>
@@ -70,13 +70,18 @@ const MediaArticleCard = ({
             )}
           >
             <div className={cardStyles.cardSummaryContent}>
-              { url ?
-                <ArticleUrl linkText={title} showIcon={false} title={title} url={url} variant={variant} />
-                :
-                <span className={cx(cardStyles.cardDescription)}>
-                  {title}
-                </span>
-              }
+              <h6 className={cx(cardStyles.cardTitle)}>
+                { url ?
+                  <ArticleUrl linkText={title} showIcon={false} title={title} url={url} variant={variant} />
+                  :
+                  <>
+                    {title}
+                  </>
+                }
+              </h6>
+              <div className={cardStyles.cardDescription}>
+                {summary}
+              </div>
             </div>
           </div>
         </div>
@@ -88,11 +93,11 @@ const MediaArticleCard = ({
         className={styles.mediaArticleCardFooter}
         details={[
           variant === 'fact-check' && (<ItemReportStatus
+            displayLabel
             isPublished={Boolean(publishedAt)}
             publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
             theme="lightText"
             tooltip={false}
-            variant="text"
           />),
           languageCode && (
             <Language
@@ -139,6 +144,7 @@ MediaArticleCard.defaultProps = {
   variant: 'explainer',
   statusLabel: null,
   statusColor: null,
+  summary: null,
   publishedAt: null,
   onClick: () => {},
   onRemove: () => {},
@@ -152,6 +158,7 @@ MediaArticleCard.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,
   statusLabel: PropTypes.string,
   statusColor: PropTypes.string,
+  summary: PropTypes.string,
   languageCode: PropTypes.string,
   publishedAt: PropTypes.number, // Timestamp
   variant: PropTypes.oneOf(['explainer', 'fact-check']),

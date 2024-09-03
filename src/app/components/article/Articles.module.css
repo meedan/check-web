@@ -93,7 +93,8 @@
       }
     }
 
-    .articlesSidebarCardTitle {
+    .articlesSidebarCardTitle,
+    .articlesSidebarCardDescription {
       -webkit-box-orient: vertical;
       color: var(--color-gray-15);
       display: -webkit-box; /* stylelint-disable-line */
@@ -102,9 +103,18 @@
       text-overflow: ellipsis;
     }
 
+    .articlesSidebarCardTitle {
+      @mixin typography-button;
+    }
+
+    .articlesSidebarCardDescription {
+      @mixin typography-body2;
+    }
+
     .articlesSidebarCardCaption {
       align-items: center;
       display: flex;
+      margin: 3px 0 0;
 
       svg {
         font-size: var(--font-size-base);
@@ -119,6 +129,14 @@
       .articlesSidebarCardIcon {
         color: var(--color-blue-54);
         font-weight: bold;
+      }
+    }
+
+    &.articlesSidebarCardUnavailable {
+      opacity: .45;
+
+      &:hover {
+        opacity: 1;
       }
     }
   }

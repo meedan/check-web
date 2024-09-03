@@ -5,18 +5,23 @@
     "defaultMessage": "Items merged successfully."
   },
   {
+    "id": "mediaSimilarityBarAdd.mergeItemsTooltip",
+    "description": "Tooltip message for when merging media is not allowed from this item",
+    "defaultMessage": "This media item has already been merged."
+  },
+  {
     "id": "mediaSimilarityBarAdd.mergeItems",
     "description": "Label for the Merge Items button.",
     "defaultMessage": "Merge Items"
   },
   {
-    "id": "mediaSimilarityBarAdd.mergeItemsTitle",
-    "description": "Dialog title for merging items.",
-    "defaultMessage": "Find other media to merge with this item"
-  },
-  {
     "id": "mediaSimilarityBarAdd.mergeItemsButton",
     "description": "Button label to commit action of merging items.",
-    "defaultMessage": "{count, plural, one {Merge Selected Item} other {Merge # Selected Items}}"
+    "defaultMessage": "Merge Selected Items"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.mergeItemsTitle",
+    "description": "Dialog title for merging items.",
+    "defaultMessage": "Search for Media to Merge"
   }
 ]

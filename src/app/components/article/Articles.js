@@ -11,9 +11,10 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import BlankState from '../layout/BlankState';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
+import SearchField from '../search/SearchField';
 import Paginator from '../cds/inputs/Paginator';
 import ListSort from '../cds/inputs/ListSort';
-import { getStatus } from '../../helpers';
+import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import {
   getQueryStringValue,
   pushQueryStringValue,
@@ -135,15 +136,24 @@ const ArticlesComponent = ({
   return (
     <PageTitle prefix={title} teamName={team.name}>
       <div className={searchResultsStyles['search-results-header']}>
-        <div className={searchResultsStyles.searchResultsTitleWrapper}>
-          <div className={searchResultsStyles.searchHeaderSubtitle}>
-            &nbsp;
+        <div className="search__list-header-filter-row">
+          <div className={searchResultsStyles.searchResultsTitleWrapper}>
+            <div className={searchResultsStyles.searchHeaderSubtitle}>
+              &nbsp;
+            </div>
+            <div className={searchResultsStyles.searchHeaderTitle}>
+              <h6>
+                {icon}
+                {title}
+              </h6>
+            </div>
           </div>
-          <div className={searchResultsStyles.searchHeaderTitle}>
-            <h6>
-              {icon}
-              {title}
-            </h6>
+          <div className={searchStyles['search-form']}>
+            <SearchField
+              handleClear={() => { handleChangeFilters({ ...filters, text: null }); }}
+              searchText={filters.text}
+              setParentSearchText={(text) => { handleChangeFilters({ ...filters, text }); }}
+            />
           </div>
         </div>
       </div>
@@ -200,6 +210,8 @@ const ArticlesComponent = ({
               currentStatus = getStatus(statuses, article.rating);
             }
 
+            const summary = article.description || article.summary;
+
             return (
               <ArticleCard
                 date={article.updated_at}
@@ -211,10 +223,10 @@ const ArticlesComponent = ({
                 publishedAt={article.claim_description?.project_media?.fact_check_published_on ? parseInt(article.claim_description?.project_media?.fact_check_published_on, 10) : null}
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
-                summary={article.description || article.summary}
+                summary={isFactCheckValueBlank(summary) ? article.claim_description?.context : summary}
                 tagOptions={teamTags}
                 tags={article.tags}
-                title={article.title || article.claim_description?.description}
+                title={isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title}
                 url={article.url}
                 variant={type}
                 onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
@@ -224,9 +236,6 @@ const ArticlesComponent = ({
         </div>
 
         <>
-          {/* NOTE: If we happen to edit articles from multiple places we're probably better off
-              having each form type be its own QueryRenderer instead of doing lots of prop passing repeatedly
-          */}
           {selectedArticleDbid && type === 'fact-check' && (
             <ClaimFactCheckFormQueryRenderer
               factCheckId={selectedArticleDbid}
@@ -357,7 +366,7 @@ const Articles = ({
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
             $users: [Int], $updatedAt: String, $tags: [String], $language: [String], $published_by: [Int],
-            $report_status: [String], $verification_status: [String], $imported: Boolean,
+            $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String,
           ) {
             team(slug: $slug) {
               name
@@ -372,13 +381,13 @@ const Articles = ({
                 }
               }
               articles_count(
-                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language,
+                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language, text: $text,
                 publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported
               )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
                 user_ids: $users, tags: $tags, updated_at: $updatedAt, language: $language, publisher_ids: $published_by,
-                report_status: $report_status, rating: $verification_status, imported: $imported,
+                report_status: $report_status, rating: $verification_status, imported: $imported, text: $text,
               ) {
                 edges {
                   node {
@@ -405,6 +414,7 @@ const Articles = ({
                       tags
                       claim_description { # There will be no N + 1 problem here because the backend uses eager loading
                         id
+                        context
                         description
                         project_media {
                           dbid

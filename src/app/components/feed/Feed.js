@@ -103,6 +103,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
                 ...safelyParseJSON(routeParams.query, {}),
                 feed_team_ids: teamFilters,
                 feed_id: feed.dbid,
+                show: ['claims', 'links', 'twitter', 'youtube', 'tiktok', 'instagram', 'facebook', 'telegram', 'weblink', 'images', 'videos', 'audios', 'blank'],
                 ...feed.filters,
               }}
               resultType={teamFilters.length === 0 ? 'emptyFeed' : 'factCheck'}

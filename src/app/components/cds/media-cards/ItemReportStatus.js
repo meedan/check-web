@@ -8,15 +8,14 @@ import FactCheckIcon from '../../../icons/fact_check.svg';
 
 const ItemReportStatus = ({
   className,
+  displayLabel,
   isPublished,
   projectMediaDbid,
   publishedAt,
-  theme,
   useTooltip,
-  variant,
 }) => {
   const formatTooltip = () => {
-    const label = isPublished ? (
+    const tooltipLabel = isPublished ? (
       <FormattedMessage
         defaultMessage="Published Fact-Check"
         description="Tooltip of a report status icon when the report is published"
@@ -32,7 +31,7 @@ const ItemReportStatus = ({
 
     return (
       <>
-        <span>{label}</span>
+        <span>{tooltipLabel}</span>
         { isPublished && publishedAt && (
           <ul>
             <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(publishedAt)}</li>
@@ -56,12 +55,25 @@ const ItemReportStatus = ({
         buttonProps={{
           type: null,
         }}
-        customStyle={{ color: isPublished ? 'var(--color-green-35)' : 'var(--color-gray-59)' }}
         disabled={!projectMediaDbid}
-        iconCenter={<FactCheckIcon />}
+        iconCenter={!displayLabel && <FactCheckIcon />}
+        iconLeft={displayLabel && <FactCheckIcon />}
+        label={isPublished && displayLabel ?
+          <FormattedMessage
+            defaultMessage="Published"
+            description="Label of a report status icon when the report is published"
+            id="itemReportStatus.labelPublished"
+          />
+          :
+          <FormattedMessage
+            defaultMessage="Unpublished"
+            description="Label of a report status icon when the report is not published"
+            id="itemReportStatus.labelUnpublished"
+          />
+        }
         size="small"
-        theme={theme}
-        variant={variant}
+        theme={isPublished ? 'lightValidation' : 'lightText'}
+        variant={displayLabel ? 'text' : 'contained'}
         onClick={handleGoToReport}
       />
     </div>
@@ -80,19 +92,17 @@ const ItemReportStatus = ({
 
 ItemReportStatus.defaultProps = {
   className: null,
+  displayLabel: false,
   isPublished: false,
   publishedAt: null,
-  variant: 'contained',
-  theme: 'text',
   useTooltip: true,
 };
 
 ItemReportStatus.propTypes = {
   className: PropTypes.string,
+  displayLabel: PropTypes.bool,
   isPublished: PropTypes.bool,
   publishedAt: PropTypes.instanceOf(Date), // Timestamp
-  theme: PropTypes.string,
-  variant: PropTypes.string,
   useTooltip: PropTypes.bool,
 };
 

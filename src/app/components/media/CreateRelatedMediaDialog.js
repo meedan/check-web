@@ -6,6 +6,12 @@ import Tab from '@material-ui/core/Tab';
 import cx from 'classnames/bind';
 import AutoCompleteMediaItem from './AutoCompleteMediaItem';
 import CreateMediaInput from './CreateMediaInput';
+import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import CloseIcon from '../../icons/clear.svg';
+import ExportToMediaIcon from '../../icons/export_to_media.svg';
+import AddToImportedIcon from '../../icons/playlist_add_check.svg';
+import ImportToMediaIcon from '../../icons/import_to_media.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import dialogStyles from '../../styles/css/dialog.module.css';
@@ -18,18 +24,38 @@ class CreateRelatedMediaDialog extends React.Component {
     this.formRef = React.createRef(null);
 
     this.state = {
+      action: props.canExport ? 'addThisToSimilar' : 'addSimilarToThis',
       mode: 'existing',
-      selectedItem: null, // Used when props.multiple = false
-      selectedItems: [], // Used when props.multiple = true
+      selectedItem: null, // Used when action = addThisToSimilar
+      selectedItems: [], // Used when action = addSimilarToThis
+      typesToShow: props.typesToShow, // When null, shows all non-blank types
     };
   }
+
+  handleActionChange = (event, action) => {
+    if (action === 'addToImported') {
+      this.setState({
+        action,
+        selectedItem: null,
+        selectedItems: [],
+        typesToShow: ['blank'],
+      });
+    } else if (action !== null) {
+      this.setState({
+        action,
+        selectedItem: null,
+        selectedItems: [],
+        typesToShow: null,
+      });
+    }
+  };
 
   handleChange = (event, mode) => {
     this.setState({ mode, selectedItem: null, selectedItems: [] });
   };
 
   handleSelectExisting = (selectedItem, selected) => {
-    if (this.props.multiple) {
+    if (this.state.action === 'addSimilarToThis') {
       const selectedItems = this.state.selectedItems.slice();
       const i = selectedItems.findIndex(item => item.dbid === selectedItem.dbid);
       if (selected) {
@@ -47,14 +73,17 @@ class CreateRelatedMediaDialog extends React.Component {
 
   handleSubmitExisting = () => {
     if (this.props.onSelect) {
-      if (!this.props.multiple && this.state.selectedItem) {
-        this.props.onSelect(this.state.selectedItem);
+      if (this.state.action === 'addThisToSimilar' && this.state.selectedItem) {
+        this.props.onSelect(this.state.selectedItem, true);
         this.setState({ selectedItem: null });
-      } else if (this.props.multiple && this.state.selectedItems.length > 0) {
+      } else if (this.state.action === 'addSimilarToThis' && this.state.selectedItems.length > 0) {
         this.state.selectedItems.forEach((item) => {
-          this.props.onSelect(item);
+          this.props.onSelect(item, false);
         });
         this.setState({ selectedItems: [] });
+      } else if (this.state.action === 'addToImported' && this.state.selectedItem) {
+        this.props.onAdd(this.state.selectedItem, true);
+        this.setState({ selectedItem: null });
       }
     }
   }
@@ -62,11 +91,10 @@ class CreateRelatedMediaDialog extends React.Component {
   submitExistingDisabled = () => (!this.state.selectedItem && !this.state.selectedItems.length);
 
   render() {
-    const { mode } = this.state;
+    const { action, mode } = this.state;
     const {
       hideNew,
       media,
-      typesToShow,
     } = this.props;
     const formId = 'create-related-media-dialog-form';
 
@@ -74,7 +102,101 @@ class CreateRelatedMediaDialog extends React.Component {
       <Dialog className={dialogStyles['dialog-window']} fullWidth maxWidth="md" open={this.props.open}>
         <div className={dialogStyles['dialog-title']}>
           { hideNew ?
-            this.props.title :
+            <div className={dialogStyles['dialog-title-choice']}>
+              {this.props.title}
+              <ToggleButtonGroup
+                exclusive
+                value={this.state.action}
+                variant="contained"
+                onChange={this.handleActionChange}
+              >
+                { !this.props.canImport && (
+                  <Tooltip
+                    arrow
+                    title={<FormattedMessage defaultMessage="This media item has already been merged." description="Tooltip text for when importing media into this item is not allowed" id="createMedia.importTooltip" />}
+                  >
+                    <span>
+                      <ButtonMain
+                        disabled
+                        iconLeft={<ImportToMediaIcon />}
+                        label={<FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />}
+                        size="default"
+                        theme="text"
+                        variant="text"
+                      />
+                    </span>
+                  </Tooltip>
+                )}
+
+                { this.props.canImport && (
+                  <ToggleButton
+                    className={dialogStyles['dialog-title-choice-option']}
+                    key="1"
+                    value="addSimilarToThis"
+                  >
+                    <ImportToMediaIcon />
+                    <FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />
+                  </ToggleButton>
+                )}
+
+                { !this.props.canExport && (
+                  <>
+                    <Tooltip
+                      arrow
+                      title={<FormattedMessage defaultMessage="This media contains a published fact-check. Unpublish or remove the fact-check to export to another media." description="Tooltip text for when exporting media from this item is not allowed" id="createMedia.exportTooltip" />}
+                    >
+                      <span>
+                        <ButtonMain
+                          disabled
+                          iconRight={<ExportToMediaIcon />}
+                          label={<FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />}
+                          size="default"
+                          theme="text"
+                          variant="text"
+                        />
+                      </span>
+                    </Tooltip>
+                    <Tooltip
+                      arrow
+                      title={<FormattedMessage defaultMessage="This media contains a published fact-check. Remove the fact-check to add to an existing imported fact-check." description="Tooltip text for when adding media from this item is not allowed" id="createMedia.addTooltip" />}
+                    >
+                      <span>
+                        <ButtonMain
+                          disabled
+                          iconRight={<ExportToMediaIcon />}
+                          label={<FormattedMessage defaultMessage="Add to Imported Fact-Check" description="Tab text for adding media to imported fact-check" id="createMedia.add" />}
+                          size="default"
+                          theme="text"
+                          variant="text"
+                        />
+                      </span>
+                    </Tooltip>
+                  </>
+                )}
+
+                { this.props.canExport && (
+                  <ToggleButton
+                    className={dialogStyles['dialog-title-choice-option']}
+                    key="2"
+                    value="addThisToSimilar"
+                  >
+                    <FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />
+                    <ExportToMediaIcon />
+                  </ToggleButton>
+                )}
+
+                { this.props.canExport && (
+                  <ToggleButton
+                    className={dialogStyles['dialog-title-choice-option']}
+                    key="3"
+                    value="addToImported"
+                  >
+                    <FormattedMessage defaultMessage="Add to Imported Fact-Check" description="Tab text for adding media to imported fact-check" id="createMedia.add" />
+                    <AddToImportedIcon />
+                  </ToggleButton>
+                )}
+              </ToggleButtonGroup>
+            </div> :
             <Tabs
               indicatorColor="primary"
               textColor="primary"
@@ -97,6 +219,14 @@ class CreateRelatedMediaDialog extends React.Component {
               />
             </Tabs>
           }
+          <ButtonMain
+            className={dialogStyles['dialog-close-button']}
+            iconCenter={<CloseIcon />}
+            size="small"
+            theme="text"
+            variant="text"
+            onClick={this.props.onDismiss}
+          />
         </div>
         <div className={cx(dialogStyles['dialog-content'], mediaStyles['media-item-autocomplete-wrapper'])}>
           { mode === 'new' &&
@@ -115,10 +245,11 @@ class CreateRelatedMediaDialog extends React.Component {
                 customFilter={this.props.customFilter}
                 dbid={media ? media.dbid : null}
                 disablePublished={Boolean(this.props.disablePublished)}
+                key={action}
                 media={media}
-                multiple={Boolean(this.props.multiple)}
+                multiple={action === 'addSimilarToThis'}
                 showFilters={Boolean(this.props.showFilters)}
-                typesToShow={typesToShow}
+                typesToShow={this.state.typesToShow}
                 onSelect={this.handleSelectExisting}
               />
             </>
@@ -147,7 +278,7 @@ class CreateRelatedMediaDialog extends React.Component {
               disabled={this.props.isSubmitting}
               label={this.props.isSubmitting ?
                 <FormattedMessage defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" id="global.submitting" /> :
-                this.props.submitButtonLabel(this.state.selectedItems.length)
+                this.props.submitButtonLabel(this.state.selectedItem ? 2 : this.state.selectedItems.length)
               }
               size="default"
               theme="info"
@@ -162,7 +293,7 @@ class CreateRelatedMediaDialog extends React.Component {
               disabled={this.submitExistingDisabled() || this.props.isSubmitting}
               label={this.props.isSubmitting ?
                 <FormattedMessage defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" id="global.submitting" /> :
-                this.props.submitButtonLabel(this.state.selectedItems.length)
+                this.props.submitButtonLabel(this.state.selectedItem ? 2 : this.state.selectedItems.length)
               }
               size="default"
               theme="info"
