@@ -20,6 +20,10 @@ env:
 
 jobs:
   integration-and-unit-tests:
+    if: >
+      github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' 
+      || contains(github.event.head_commit.message, '[full ci]') 
+      || contains(github.event.head_commit.message, '[smoke tests]')
     runs-on: ubuntu-latest
  
     steps:
@@ -55,10 +59,10 @@ jobs:
         export LANG=C.UTF-8
         export LANGUAGE=C.UTF-8
 
-    - name: Ngrok
-      run: |
-        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-        export GITHUB_TAG=0.0.0
+    # - name: Ngrok
+    #   run: |
+    #     curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
+    #     export GITHUB_TAG=0.0.0
     
     - name: Setup Pender 
       env:
@@ -148,6 +152,10 @@ jobs:
         kill -9 $(pgrep ngrok)
 
   similarity-tests:
+    if: >
+      github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' 
+      || contains(github.event.head_commit.message, '[full ci]') 
+      || contains(github.event.head_commit.message, '[similarity tests]')
     runs-on: ubuntu-latest
 
     steps:
@@ -272,6 +280,10 @@ jobs:
         kill -9 $(pgrep ngrok)
 
   unit-tests:
+    if: > 
+        github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/master' 
+        && !contains(github.event.head_commit.message, '[full ci]') && !contains(github.event.head_commit.message,
+        '[smoke tests]') && !contains(github.event.head_commit.message, '[similarity tests]')
     runs-on: ubuntu-latest
 
     steps:
@@ -306,10 +318,11 @@ jobs:
         export LC_ALL=C.UTF-8
         export LANG=C.UTF-8
         export LANGUAGE=C.UTF-8
-    - name: Ngrok
-      run: |
-        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-        export GITHUB_TAG=0.0.0
+
+    # - name: Ngrok
+    #   run: |
+    #     curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
+    #     export GITHUB_TAG=0.0.0
     
     - name: Setup Pender 
       run: | 
