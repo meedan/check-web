@@ -441,7 +441,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           title
           search_id
           search { id, number_of_results }
-          medias_count
         }
         media {
           type

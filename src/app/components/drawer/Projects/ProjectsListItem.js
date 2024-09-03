@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
-import ProjectsListCounter from './ProjectsListCounter';
 import styles from './Projects.module.css';
 
 const ProjectsListItem = ({
@@ -56,7 +55,6 @@ const ProjectsListItem = ({
             {project.title || project.name}
           </span>
         </div>
-        <ProjectsListCounter numberOfItems={project.medias_count} />
       </li>
     </Link>
   );
@@ -83,7 +81,6 @@ ProjectsListItem.propTypes = {
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string,
     name: PropTypes.string,
-    medias_count: PropTypes.number,
     project_group_id: PropTypes.number,
   }).isRequired,
   onClick: PropTypes.func,

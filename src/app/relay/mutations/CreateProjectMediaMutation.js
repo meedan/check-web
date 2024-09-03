@@ -13,7 +13,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       fragment on CreateProjectMediaPayload {
         project_mediaEdge,
         project_media
-        project { id, medias_count },
+        project { id },
         project_group { id, medias_count },
         related_to {
           id
@@ -116,7 +116,6 @@ class CreateProjectMediaMutation extends Relay.Mutation {
           },
           project {
             id
-            medias_count
             team {
               id
               medias_count

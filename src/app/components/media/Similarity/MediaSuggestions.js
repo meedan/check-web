@@ -33,7 +33,6 @@ const mediaSuggestionsQuery = graphql`
       }
       project {
         id
-        medias_count
         search_id
       }
     }
