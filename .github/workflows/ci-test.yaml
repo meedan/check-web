@@ -134,7 +134,7 @@ jobs:
        docker compose exec web npm run linter
        docker compose exec web npm run test:integration:lint
 
-    - name: Check Docker Running Containers
+    - name: Run Integration test
       run: | 
        docker ps
        docker compose exec web service nginx start
@@ -259,7 +259,7 @@ jobs:
         docker compose exec web npm run linter
         docker compose exec web npm run test:integration:lint
 
-    - name: Run test
+    - name: Run Similarity test
       run: | 
         docker compose exec web service nginx start
         docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
@@ -381,11 +381,11 @@ jobs:
        docker compose exec web npm run linter
        docker compose exec web npm run test:integration:lint
 
-    - name: Run test
+    - name: Run Unit test
       run: | 
        docker-compose exec -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME web npm run tests
 
-    - name: After Similarity tests
+    - name: After Unit tests
       run: |
         docker compose exec web bash -c "python -m json.tool test/file.json"
         size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
