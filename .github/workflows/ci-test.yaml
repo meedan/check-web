@@ -21,10 +21,7 @@ env:
 jobs:
   integration-and-unit-tests:
     runs-on: ubuntu-latest
-    resources:
-      limits:
-        memory: 14GB 
-
+ 
     steps:
     - uses: actions/checkout@v4
 
