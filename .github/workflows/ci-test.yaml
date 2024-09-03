@@ -32,10 +32,7 @@ jobs:
         && !contains(github.event.head_commit.message, '[full ci]') && !contains(github.event.head_commit.message,
         '[smoke tests]') && !contains(github.event.head_commit.message, '[similarity tests]')
     runs-on: ubuntu-latest
-    resources:
-      limits:
-        memory: 14GB 
-
+ 
     steps:
     - uses: actions/checkout@v4
 
