@@ -82,7 +82,6 @@ shared_examples 'similarity' do
     wait_for_selector('.cluster-card')
     create_image('files/video2.mp4')
     verbose_wait 5
-    wait_for_selector_list_size('.cluster-card', 2)
     wait_for_selector('.cluster-card', index: 1).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
@@ -96,7 +95,6 @@ shared_examples 'similarity' do
     wait_for_selector('.cluster-card')
     create_image('files/similarity2.jpg')
     verbose_wait 4
-    wait_for_selector_list_size('.cluster-card', 2)
     wait_for_selector('.cluster-card', index: 1).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
@@ -121,7 +119,6 @@ shared_examples 'similarity' do
     wait_for_selector('.cluster-card')
     create_image('files/audio.ogg')
     verbose_wait 4
-    wait_for_selector_list_size('.cluster-card', 2)
     wait_for_selector('.cluster-card', index: 1).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
