@@ -10,6 +10,7 @@ import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
+import ExportList from '../ExportList';
 import Paginator from '../cds/inputs/Paginator';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import NextIcon from '../../icons/chevron_right.svg';
@@ -19,6 +20,28 @@ import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
 const pageSize = 50;
+
+const setFiltersForQuery = (otherFilters) => {
+  const filters = {};
+  if (otherFilters.channels) {
+    filters.channels = otherFilters.channels.map(channel => parseInt(channel, 10));
+  }
+  if (otherFilters.show) {
+    filters.media_type = otherFilters.show;
+  }
+  if (otherFilters.range?.request_created_at) {
+    filters.last_request_date = JSON.stringify(otherFilters.range.request_created_at);
+  }
+  if (otherFilters.linked_items_count) {
+    filters.medias_count_min = otherFilters.linked_items_count.min;
+    filters.medias_count_max = otherFilters.linked_items_count.max;
+  }
+  if (otherFilters.demand) {
+    filters.requests_count_min = otherFilters.demand.min;
+    filters.requests_count_max = otherFilters.demand.max;
+  }
+  return filters;
+};
 
 const FeedClustersComponent = ({
   feed,
@@ -102,13 +125,17 @@ const FeedClustersComponent = ({
       <div className={searchResultsStyles['search-results-wrapper']}>
         { clusters.length > 0 ?
           <div className={searchResultsStyles['search-results-toolbar']}>
-            <Paginator
-              numberOfPageResults={clusters.length}
-              numberOfTotalResults={feed.clusters_count}
-              page={page}
-              pageSize={pageSize}
-              onChangePage={handleChangePage}
-            />
+            <div />
+            <div className={searchResultsStyles['search-actions']}>
+              <Paginator
+                numberOfPageResults={clusters.length}
+                numberOfTotalResults={feed.clusters_count}
+                page={page}
+                pageSize={pageSize}
+                onChangePage={handleChangePage}
+              />
+              <ExportList filters={{ feed_id: feed.dbid, ...setFiltersForQuery(otherFilters) }} type="feed" />
+            </div>
           </div>
           : null
         }
@@ -249,31 +276,14 @@ const FeedClusters = ({ feedId, teamSlug }) => {
   };
 
   // Set filters for the query
-  const filters = {};
-  if (otherFilters.channels) {
-    filters.channels = otherFilters.channels.map(channel => parseInt(channel, 10));
-  }
-  if (otherFilters.show) {
-    filters.mediaType = otherFilters.show;
-  }
-  if (otherFilters.range?.request_created_at) {
-    filters.date = JSON.stringify(otherFilters.range.request_created_at);
-  }
-  if (otherFilters.linked_items_count) {
-    filters.mediasCountMin = otherFilters.linked_items_count.min;
-    filters.mediasCountMax = otherFilters.linked_items_count.max;
-  }
-  if (otherFilters.demand) {
-    filters.requestsCountMin = otherFilters.demand.min;
-    filters.requestsCountMax = otherFilters.demand.max;
-  }
+  const filters = setFiltersForQuery(otherFilters);
 
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
         query FeedClustersQuery($slug: String!, $feedId: Int!, $pageSize: Int!, $offset: Int!, $sort: String, $sortType: String, $teamFilters: [Int], $channels: [Int],
-                                $mediaType: [String], $date: String, $mediasCountMin: Int, $mediasCountMax: Int, $requestsCountMin: Int, $requestsCountMax: Int) {
+                                $media_type: [String], $last_request_date: String, $medias_count_min: Int, $medias_count_max: Int, $requests_count_min: Int, $requests_count_max: Int) {
           team(slug: $slug) {
             slug
             ...FeedTopBar_team
@@ -294,10 +304,10 @@ const FeedClusters = ({ feedId, teamSlug }) => {
                   }
                 }
               }
-              clusters_count(team_ids: $teamFilters, channels: $channels, media_type: $mediaType, last_request_date: $date,
-                             medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax, requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax)
-              clusters(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, team_ids: $teamFilters, channels: $channels, media_type: $mediaType, last_request_date: $date,
-                       medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax, requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax) {
+              clusters_count(team_ids: $teamFilters, channels: $channels, media_type: $media_type, last_request_date: $last_request_date,
+                             medias_count_min: $medias_count_min, medias_count_max: $medias_count_max, requests_count_min: $requests_count_min, requests_count_max: $requests_count_max)
+              clusters(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, team_ids: $teamFilters, channels: $channels, media_type: $media_type, last_request_date: $last_request_date,
+                       medias_count_min: $medias_count_min, medias_count_max: $medias_count_max, requests_count_min: $requests_count_min, requests_count_max: $requests_count_max) {
                 edges {
                   node {
                     id

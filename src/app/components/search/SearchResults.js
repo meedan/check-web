@@ -14,6 +14,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
+import ExportList from '../ExportList';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import BulkActionsMenu from '../media/BulkActionsMenu';
@@ -21,8 +22,6 @@ import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import SearchRoute from '../../relay/SearchRoute';
-import CreateMedia from '../media/CreateMedia';
-import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import styles from './SearchResults.module.css';
@@ -353,12 +352,6 @@ function SearchResultsComponent({
           description="Empty message that is displayed when search results are zero"
           id="projectBlankState.blank"
         />
-        { page === 'all-items' ?
-          <Can permission="create ProjectMedia" permissions={team.permissions}>
-            <div className={styles['no-search-results-add']}>
-              <CreateMedia search={search} team={team} />
-            </div>
-          </Can> : null }
       </BlankState>
     );
     if (feed && (resultType === 'factCheck' || resultType === 'emptyFeed')) {
@@ -421,8 +414,6 @@ function SearchResultsComponent({
   }
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
-
-  const perms = { permissions: team?.permissions, permission: 'create ProjectMedia' };
 
   return (
     <React.Fragment>
@@ -552,58 +543,54 @@ function SearchResultsComponent({
                   /> : null
                 }
               </div>
-              { page === 'all-items' ? (
-                <Can {...perms}>
-                  <div className={styles['search-results-add-item']}>
-                    <CreateMedia search={search} team={team} />
-                  </div>
-                </Can>
-              ) : null}
-              <span className={styles['search-pagination']}>
-                <Tooltip title={
-                  <FormattedMessage defaultMessage="Previous page" description="Pagination button to go to previous page" id="search.previousPage" />
-                }
-                >
-                  {getPreviousPageLocation() ? (
-                    <Link
-                      className={cx('search__previous-page', styles['search-nav'])}
-                      to={getPreviousPageLocation()}
-                    >
-                      <PrevIcon />
-                    </Link>
-                  ) : (
-                    <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
-                      <PrevIcon />
-                    </span>
-                  )}
-                </Tooltip>
-                <span className="typography-button">
-                  <FormattedMessage
-                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                    description="Pagination count of items returned"
-                    id="searchResults.itemsCount"
-                    values={{
-                      from: getBeginIndex() + 1,
-                      to: getEndIndex(),
-                      count,
-                    }}
-                  />
+              <div className={styles['search-actions']}>
+                <span className={styles['search-pagination']}>
+                  <Tooltip title={
+                    <FormattedMessage defaultMessage="Previous page" description="Pagination button to go to previous page" id="search.previousPage" />
+                  }
+                  >
+                    {getPreviousPageLocation() ? (
+                      <Link
+                        className={cx('search__previous-page', styles['search-nav'])}
+                        to={getPreviousPageLocation()}
+                      >
+                        <PrevIcon />
+                      </Link>
+                    ) : (
+                      <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
+                        <PrevIcon />
+                      </span>
+                    )}
+                  </Tooltip>
+                  <span className="typography-button">
+                    <FormattedMessage
+                      defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                      description="Pagination count of items returned"
+                      id="searchResults.itemsCount"
+                      values={{
+                        from: getBeginIndex() + 1,
+                        to: getEndIndex(),
+                        count,
+                      }}
+                    />
+                  </span>
+                  <Tooltip title={
+                    <FormattedMessage defaultMessage="Next page" description="Pagination button to go to next page" id="search.nextPage" />
+                  }
+                  >
+                    {getNextPageLocation() ? (
+                      <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
+                        <NextIcon />
+                      </span>
+                    ) : (
+                      <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
+                        <NextIcon />
+                      </span>
+                    )}
+                  </Tooltip>
                 </span>
-                <Tooltip title={
-                  <FormattedMessage defaultMessage="Next page" description="Pagination button to go to next page" id="search.nextPage" />
-                }
-                >
-                  {getNextPageLocation() ? (
-                    <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
-                      <NextIcon />
-                    </span>
-                  ) : (
-                    <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
-                      <NextIcon />
-                    </span>
-                  )}
-                </Tooltip>
-              </span>
+                <ExportList filters={appliedQuery} type="media" />
+              </div>
             </span>
           </div> : null
         }

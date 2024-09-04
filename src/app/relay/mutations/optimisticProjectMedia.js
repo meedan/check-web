@@ -71,7 +71,6 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
         project: project ? {
           id: project.id,
           dbid: project.dbid,
-          medias_count: project.medias_count + 1,
           team: {
             slug: team.slug,
             id: team.id || 'VGVhbS8w\n',

@@ -54,7 +54,6 @@ const TeamTasks = ({ team }) => {
                   title,
                   dbid,
                   id,
-                  medias_count,
                 }
               }
             }

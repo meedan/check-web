@@ -273,3 +273,9 @@
 .noBottomBorder {
   border-bottom: none !important;
 }
+
+.search-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
