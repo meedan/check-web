@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import ReportDesignerImagePreview from './ReportDesignerImagePreview';
 import { formatDate } from './reportDesignerHelpers';
+import { getStatus } from '../../../helpers';
 import WarningIcon from '../../../icons/report_problem.svg';
 import ParsedText from '../../ParsedText';
 
@@ -73,7 +74,18 @@ function previewIntroduction(data, media, defaultReport) {
     } else {
       introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(), data.language));
     }
-    introduction = introduction.replace(/{{status}}/g, data.status_label);
+    let status = null;
+    try {
+      status = getStatus(
+        media.team.verification_statuses,
+        media.last_status,
+        data.language,
+        media.team.language,
+      ).label;
+    } catch {
+      status = data.status_label;
+    }
+    introduction = introduction.replace(/{{status}}/g, status);
   }
   return introduction;
 }
