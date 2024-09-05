@@ -156,7 +156,7 @@ const ClaimFactCheckForm = ({
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
   const emptyCharacter = '-';
-  const [factCheck, setFactCheck] = React.useState({ title: emptyCharacter, summary: emptyCharacter, language: team.get_language });
+  const [factCheck, setFactCheck] = React.useState(type === 'create' ? { title: emptyCharacter, summary: emptyCharacter, language: team.get_language } : {});
   const [claim, setClaim] = React.useState({});
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 

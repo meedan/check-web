@@ -33,7 +33,7 @@ const ExportList = ({ filters, type }) => {
   const onError = () => {
     setFlashMessage(
       <FormattedMessage
-        defaultMessage="Export failed. Please try again later or contact our support if the error persists."
+        defaultMessage="Export failed. Please ensure you have the necessary permissions to perform this operation and that the number of results is fewer than 10,000."
         description="Message displayed when list export fails."
         id="exportList.error"
       />,
