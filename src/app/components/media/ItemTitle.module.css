@@ -75,6 +75,7 @@
       border-radius: var(--border-radius-default);
       display: flex;
       gap: 3px;
+      min-height: 48px;
       padding: .75rem .625rem .625rem;
       position: relative;
 

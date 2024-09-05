@@ -13,6 +13,7 @@ import TextArea from '../cds/inputs/TextArea';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import EditIcon from '../../icons/edit.svg';
 import TextFieldsIcon from '../../icons/text_fields.svg';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import PermMediaIcon from '../../icons/perm_media.svg';
 import NoteAltIcon from '../../icons/note_alt.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
@@ -197,19 +198,30 @@ const ItemTitleComponent = ({
         />
       </div>
       { canChange ?
-        <>
-          <ButtonMain
-            className={cx(styles.itemTitleMenuButton, 'int-item-title__button--menu')}
-            disabled={saving}
-            iconCenter={<EditIcon />}
-            theme="text"
-            variant="outlined"
-            onClick={(e) => {
-              setError(false);
-              setAnchorEl(e.currentTarget);
-            }}
-          />
-        </> : null
+        <Tooltip
+          arrow
+          title={
+            <FormattedMessage
+              defaultMessage="Customize the title for this Media"
+              description="Tooltip for choosing the title for this media item"
+              id="itemTitle.customizeTitleTooltip"
+            />
+          }
+        >
+          <span>
+            <ButtonMain
+              className={cx(styles.itemTitleMenuButton, 'int-item-title__button--menu')}
+              disabled={saving}
+              iconCenter={<EditIcon />}
+              theme="text"
+              variant="outlined"
+              onClick={(e) => {
+                setError(false);
+                setAnchorEl(e.currentTarget);
+              }}
+            />
+          </span>
+        </Tooltip> : null
       }
       <Menu
         anchorEl={anchorEl}
