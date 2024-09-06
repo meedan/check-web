@@ -706,6 +706,11 @@ const SearchFields = ({
     { value: 'recent_activity', label: intl.formatMessage(sortLabels.sortUpdated) },
   ];
 
+  // if searching for a keyword, default sort by score but only show option when searching
+  if (stateQuery.keyword && stateQuery.keyword.length > 0) {
+    listSortOptions.unshift({ value: 'score', label: intl.formatMessage(sortLabels.sortScore) });
+  }
+
   return (
     <div className={styles['filters-wrapper']}>
       <ListSort
