@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -9,6 +8,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import cx from 'classnames/bind';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import TextField from '../cds/inputs/TextField';
@@ -333,7 +333,7 @@ const SaveList = ({
                       { operation === 'CREATE' ?
                         <TextField
                           autoFocus
-                          className="new-list__title"
+                          className={cx('new-list__title', styles['save-new-list-title'])}
                           disabled={operation === 'UPDATE'}
                           placeholder={intl.formatMessage(messages.saveList)}
                           onChange={(e) => { setTitle(e.target.value); }}
@@ -366,26 +366,26 @@ SaveList.defaultProps = {
 };
 
 SaveList.propTypes = {
-  intl: intlShape.isRequired,
-  team: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
-    slug: PropTypes.string.isRequired,
-    permissions: PropTypes.string.isRequired,
-  }).isRequired,
-  page: PropTypes.oneOf(['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
-  query: PropTypes.object.isRequired,
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
     feedFilters: PropTypes.object,
     shared: PropTypes.bool,
   }), // may be null
+  intl: intlShape.isRequired,
+  page: PropTypes.oneOf(['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
+  query: PropTypes.object.isRequired,
   savedSearch: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     filters: PropTypes.string.isRequired,
   }),
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+    permissions: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default withSetFlashMessage(injectIntl(SaveList));
