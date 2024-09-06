@@ -77,6 +77,7 @@
           margin-top: 1px;
           max-height: inherit;
           overflow-wrap: anywhere;
+          padding: .75rem .625rem .625rem;
 
           /* Hidden from view, clicks, and screen readers */
           visibility: hidden;
@@ -91,9 +92,18 @@
           /* Firefox shows scrollbar on growth, you can hide like this. */
           overflow: hidden;
           overflow-wrap: anywhere;
+          padding: .75rem .625rem .625rem;
 
           /* You could leave this, but after a user resizes, then it ruins the auto sizing */
           resize: none;
+
+          &.input-icon-left {
+            padding-left: 38px;
+          }
+
+          &.input-icon-right {
+            padding-right: 34px;
+          }
         }
 
         > textarea,
@@ -105,7 +115,6 @@
           letter-spacing: .15px;
           line-height: 20px;
           margin: 1px 0;
-          padding: .75rem .625rem .625rem;
         }
       }
 

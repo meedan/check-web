@@ -5,6 +5,11 @@
     "defaultMessage": "Could not update the title. Please try again and contact the support if the error persists"
   },
   {
+    "id": "itemTitle.customizeTitleTooltip",
+    "description": "Tooltip for choosing the title for this media item",
+    "defaultMessage": "Customize the title for this Media"
+  },
+  {
     "id": "itemTitle.menuHeader",
     "description": "Header for a menu containing content options for item title",
     "defaultMessage": "Select Item Name"
