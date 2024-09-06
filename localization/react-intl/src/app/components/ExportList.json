@@ -2,7 +2,7 @@
   {
     "id": "exportList.error",
     "description": "Message displayed when list export fails.",
-    "defaultMessage": "Export failed. Please try again later or contact our support if the error persists."
+    "defaultMessage": "Export failed. Please ensure you have the necessary permissions to perform this operation and that the number of results is fewer than 10,000."
   },
   {
     "id": "exportList.success",
