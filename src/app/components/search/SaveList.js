@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -334,7 +333,7 @@ const SaveList = ({
                       { operation === 'CREATE' ?
                         <TextField
                           autoFocus
-                          className={cx('new-list__title'), styles['save-new-list-title']}
+                          className={cx('new-list__title', styles['save-new-list-title'])}
                           disabled={operation === 'UPDATE'}
                           placeholder={intl.formatMessage(messages.saveList)}
                           onChange={(e) => { setTitle(e.target.value); }}
@@ -367,26 +366,26 @@ SaveList.defaultProps = {
 };
 
 SaveList.propTypes = {
-  intl: intlShape.isRequired,
-  team: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
-    slug: PropTypes.string.isRequired,
-    permissions: PropTypes.string.isRequired,
-  }).isRequired,
-  page: PropTypes.oneOf(['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
-  query: PropTypes.object.isRequired,
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
     feedFilters: PropTypes.object,
     shared: PropTypes.bool,
   }), // may be null
+  intl: intlShape.isRequired,
+  page: PropTypes.oneOf(['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
+  query: PropTypes.object.isRequired,
   savedSearch: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     filters: PropTypes.string.isRequired,
   }),
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+    permissions: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default withSetFlashMessage(injectIntl(SaveList));
