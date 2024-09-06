@@ -50,6 +50,11 @@ const sortLabels = defineMessages({
     defaultMessage: 'Report (status)',
     description: 'Label for sort criteria option displayed in a drop-down in listing pages',
   },
+  sortScore: {
+    id: 'searchResults.sortScore',
+    defaultMessage: 'Search: Best Match',
+    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
+  },
   sortSubmitted: {
     id: 'searchResults.sortSubmitted',
     defaultMessage: 'Submitted (date)',
