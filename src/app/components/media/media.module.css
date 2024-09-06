@@ -408,6 +408,15 @@
   }
 }
 
+.assign-media-dialog-content {
+  display: flex;
+  gap: 16px;
+
+  .assign-media-dialog-note {
+    flex: 1 1 auto;
+  }
+}
+
 body[dir='rtl'] {
   .media-timeline-item {
     &::before {
