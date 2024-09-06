@@ -7,9 +7,7 @@ import { safelyParseJSON } from '../../helpers';
 import CategoryIcon from '../../icons/category.svg';
 
 export default function AllItems({ routeParams }) {
-  // Adding sort key to defaultQuery breaks optimisticUpdate and appending new item to list
-  // const defaultQuery = { sort: 'recent_activity' };
-  const defaultQuery = {};
+  const defaultQuery = { sort: 'recent_activity' };
   return (
     <ErrorBoundary component="AllItems">
       <Search
