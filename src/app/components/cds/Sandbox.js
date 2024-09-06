@@ -743,6 +743,26 @@ const SandboxComponent = ({ admin }) => {
               <ButtonMain disabled={buttonDisabled} iconLeft={<AddIcon />} label="Left" size={buttonSize} theme={buttonTheme} variant={buttonVariant} />
               <ButtonMain disabled={buttonDisabled} iconRight={<AddIcon />} label="Right" size={buttonSize} theme={buttonTheme} variant={buttonVariant} />
               <ButtonMain disabled={buttonDisabled} iconCenter={<AddIcon />} label="Center" size={buttonSize} theme={buttonTheme} variant={buttonVariant} />
+              <ButtonMain
+                buttonProps={{
+                  type: 'submit',
+                }}
+                disabled={buttonDisabled}
+                label="Submit Button"
+                size={buttonSize}
+                theme={buttonTheme}
+                variant={buttonVariant}
+              />
+              <ButtonMain
+                buttonProps={{
+                  type: null,
+                }}
+                disabled
+                label="Disabled Type Null Button"
+                size={buttonSize}
+                theme={buttonTheme}
+                variant={buttonVariant}
+              />
             </div>
           </div>
           <div className={styles.componentWrapper}>
