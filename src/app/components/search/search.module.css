@@ -239,5 +239,12 @@
 }
 
 .save-new-list {
-  border: solid 2px;
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+
+  .save-new-list-title {
+    flex: 1 1 auto;
+  }
 }
