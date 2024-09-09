@@ -3,8 +3,8 @@ dist: jammy
 sudo: required
 install:
 - sudo apt-get install -y ccrypt
-- echo $UNKNOWN_SECRET > info.txt
-- ccencrypt info.txt -K 12345
+- echo $AWS_ENDPOINT > info.txt
+- ccencrypt info.txt -K $MY_ENCRYPTION_KEY
 - cat info.txt.cpt | base64
 before_install:
 # Decrypt credentials for Alegre
