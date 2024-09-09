@@ -6,31 +6,31 @@ import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGr
 const NewsletterNumberOfArticles = ({
   disabled,
   number,
-  options,
   onChangeNumber,
+  options,
 }) => (
   <ToggleButtonGroup
-    label={
-      <FormattedMessage
-        id="newsletterNumberOfArticles.label"
-        defaultMessage="Number of articles"
-        description="Label on an input where the user selects the number of articles to display in their newsletter"
-      />
-    }
+    exclusive
     helpContent={
       <FormattedMessage
-        id="newsletterNumberOfArticles.helpContent"
         defaultMessage="Choose the number of articles that will be published in your newsletter"
         description="Help context description on an input where the user selects the number of articles to display in their newsletter"
+        id="newsletterNumberOfArticles.helpContent"
       />
     }
-    variant="contained"
+    label={
+      <FormattedMessage
+        defaultMessage="Number of articles"
+        description="Label on an input where the user selects the number of articles to display in their newsletter"
+        id="newsletterNumberOfArticles.label"
+      />
+    }
     value={number}
+    variant="contained"
     onChange={(e, newValue) => { onChangeNumber(newValue); }}
-    exclusive
   >
     {options.map(option => (
-      <ToggleButton value={option} key={option} disabled={disabled}>
+      <ToggleButton disabled={disabled} key={option} value={option}>
         {option}
       </ToggleButton>
     ))}

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -7,26 +8,26 @@ import NextPreviousLinks from './NextPreviousLinks';
 import styles from './media.module.css';
 
 export default function MediaPageLayout({
-  listUrl, buildSiblingUrl, listQuery, listIndex, projectMediaId, view, mediaNavList, count,
+  buildSiblingUrl, count, listIndex, listQuery, listUrl, mediaNavList, projectMediaId, view,
 }) {
   return (
     <div className={styles['media-item-wrapper']}>
       {buildSiblingUrl ? (
         <NextPreviousLinks
           buildSiblingUrl={buildSiblingUrl}
-          listQuery={listQuery}
-          listIndex={listIndex}
-          objectType="media"
-          mediaNavList={mediaNavList}
           count={count}
+          listIndex={listIndex}
+          listQuery={listQuery}
+          mediaNavList={mediaNavList}
+          objectType="media"
         />
       ) : null}
       <div className={styles['media-actions-bar']}>
         <MediaActionsBar
           key={`${listUrl}-${projectMediaId}` /* TODO test MediaActionsBar is sane, then nix key */}
-          listUrl={listUrl}
-          listQuery={listQuery}
           listIndex={listIndex}
+          listQuery={listQuery}
+          listUrl={listUrl}
           projectMediaId={projectMediaId}
         />
       </div>

@@ -5,17 +5,21 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const MediaSimilarityBarAdd = ({
-  projectMediaId,
+  canExport,
+  canImport,
   projectMediaDbid,
-  canMerge,
+  projectMediaId,
   setFlashMessage,
 }) => {
   const [showDialog, setShowDialog] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
+
+  const canMerge = canExport || canImport;
 
   // Accepts a JS Error object
   const handleError = (error) => {
@@ -23,28 +27,62 @@ const MediaSimilarityBarAdd = ({
     setFlashMessage(error.message, 'error');
   };
 
-  const handleSuccess = (response) => {
+  const handleSuccess = (mainItemDbid) => {
     setSubmitting(false);
     setFlashMessage((
       <FormattedMessage
-        id="mediaSimilarityBarAdd.mergedSuccessfully"
         defaultMessage="Items merged successfully."
         description="Banner displayed when items are merged successfully."
+        id="mediaSimilarityBarAdd.mergedSuccessfully"
       />
     ), 'success');
     setShowDialog(false);
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-    const mainItemDbid = response.createRelationship.relationshipEdge.node.source_id;
     const mediaUrl = `/${teamSlug}/media/${mainItemDbid}`;
     browserHistory.push(mediaUrl);
   };
 
-  const handleSubmit = (selectedProjectMedia) => {
+  const handleAdd = (projectMedia) => {
+    setSubmitting(true);
+    commitMutation(Store, {
+      mutation: graphql`
+        mutation MediaSimilarityBarAddReplaceProjectMediaMutation($input: ReplaceProjectMediaInput!) {
+          replaceProjectMedia(input: $input) {
+            new_project_media {
+              dbid
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {
+          project_media_to_be_replaced_id: projectMedia.id,
+          new_project_media_id: projectMediaId,
+        },
+      },
+      onCompleted: (response, error) => {
+        if (error) {
+          handleError(error);
+        } else {
+          handleSuccess(response.replaceProjectMedia.new_project_media.dbid);
+        }
+      },
+      onError: (error) => {
+        handleError(error);
+      },
+    });
+  };
+
+  const handleSubmit = (selectedProjectMedia, reverse) => {
     setSubmitting(true);
 
     const relationship_type = 'confirmed_sibling';
-    const source_id = projectMediaDbid;
-    const target_id = selectedProjectMedia.dbid;
+    let source_id = projectMediaDbid;
+    let target_id = selectedProjectMedia.dbid;
+    if (reverse) {
+      source_id = selectedProjectMedia.dbid;
+      target_id = projectMediaDbid;
+    }
 
     const mutation = graphql`
       mutation MediaSimilarityBarAddCreateRelationshipMutation($input: CreateRelationshipInput!) {
@@ -116,7 +154,7 @@ const MediaSimilarityBarAdd = ({
             handleError(errors[i]);
           }
         } else {
-          handleSuccess(response);
+          handleSuccess(response.createRelationship.relationshipEdge.node.source_id);
         }
       },
       onError: (error) => {
@@ -127,56 +165,75 @@ const MediaSimilarityBarAdd = ({
 
   return (
     <React.Fragment>
-      <ButtonMain
-        label={<FormattedMessage id="mediaSimilarityBarAdd.mergeItems" defaultMessage="Merge Items" description="Label for the Merge Items button." />}
-        variant="contained"
-        size="default"
-        theme="brand"
-        onClick={() => { setShowDialog(true); }}
-        disabled={!canMerge}
-        buttonProps={{
-          id: 'media-similarity__add-button',
-        }}
-      />
-      <CreateRelatedMediaDialog
+      <Tooltip
+        arrow
+        disableFocusListener
+        disableHoverListener={canMerge}
+        disableTouchListener
         title={
           <FormattedMessage
-            tagName="h6"
-            id="mediaSimilarityBarAdd.mergeItemsTitle"
-            defaultMessage="Find other media to merge with this item"
-            description="Dialog title for merging items."
+            defaultMessage="This media item has already been merged."
+            description="Tooltip message for when merging media is not allowed from this item"
+            id="mediaSimilarityBarAdd.mergeItemsTooltip"
           />
         }
-        open={showDialog}
-        onDismiss={() => { setShowDialog(false); }}
-        onSelect={handleSubmit}
-        media={{ dbid: projectMediaDbid }}
+      >
+        <span>
+          <ButtonMain
+            buttonProps={{
+              id: 'media-similarity__add-button',
+            }}
+            disabled={!canMerge}
+            label={<FormattedMessage defaultMessage="Merge Items" description="Label for the Merge Items button." id="mediaSimilarityBarAdd.mergeItems" />}
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={() => { setShowDialog(true); }}
+          />
+        </span>
+      </Tooltip>
+      <CreateRelatedMediaDialog
+        canExport={canExport}
+        canImport={canImport}
+        disablePublished
+        hideNew
         isSubmitting={submitting}
-        submitButtonLabel={count => (
+        media={{ dbid: projectMediaDbid }}
+        open={showDialog}
+        showFilters
+        submitButtonLabel={() => (
           <FormattedMessage
-            id="mediaSimilarityBarAdd.mergeItemsButton"
-            defaultMessage="{count, plural, one {Merge Selected Item} other {Merge # Selected Items}}"
-            values={{ count }}
+            defaultMessage="Merge Selected Items"
             description="Button label to commit action of merging items."
+            id="mediaSimilarityBarAdd.mergeItemsButton"
           />
         )}
-        multiple
-        hideNew
-        showFilters
-        disablePublished
+        title={
+          <FormattedMessage
+            defaultMessage="Search for Media to Merge"
+            description="Dialog title for merging items."
+            id="mediaSimilarityBarAdd.mergeItemsTitle"
+            tagName="h6"
+          />
+        }
+        onAdd={handleAdd}
+        onDismiss={() => { setShowDialog(false); }}
+        onSelect={handleSubmit}
       />
     </React.Fragment>
   );
 };
 
 MediaSimilarityBarAdd.defaultProps = {
-  canMerge: true,
+  canExport: true,
+  canImport: true,
 };
 
 MediaSimilarityBarAdd.propTypes = {
-  projectMediaId: PropTypes.string.isRequired,
+  canExport: PropTypes.bool,
+  canImport: PropTypes.bool,
   projectMediaDbid: PropTypes.number.isRequired,
-  canMerge: PropTypes.bool,
+  projectMediaId: PropTypes.string.isRequired,
 };
 
 export default withSetFlashMessage(MediaSimilarityBarAdd);

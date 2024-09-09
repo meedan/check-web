@@ -1,34 +1,58 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
-import ClusterCard from '../search/SearchResultsCards/ClusterCard';
-import searchResultsStyles from '../search/SearchResults.module.css';
-import Paginator from '../cds/inputs/Paginator';
-import SharedFeedIcon from '../../icons/dynamic_feed.svg';
-import NextIcon from '../../icons/chevron_right.svg';
-import CheckChannels from '../../CheckChannels';
 import FeedHeader from './FeedHeader';
 import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
-import searchStyles from '../search/search.module.css';
+import ClusterCard from '../search/SearchResultsCards/ClusterCard';
+import ExportList from '../ExportList';
+import Paginator from '../cds/inputs/Paginator';
+import SharedFeedIcon from '../../icons/dynamic_feed.svg';
+import NextIcon from '../../icons/chevron_right.svg';
+import CheckChannels from '../../CheckChannels';
 import MediasLoading from '../media/MediasLoading';
+import searchStyles from '../search/search.module.css';
+import searchResultsStyles from '../search/SearchResults.module.css';
 
 const pageSize = 50;
 
+const setFiltersForQuery = (otherFilters) => {
+  const filters = {};
+  if (otherFilters.channels) {
+    filters.channels = otherFilters.channels.map(channel => parseInt(channel, 10));
+  }
+  if (otherFilters.show) {
+    filters.media_type = otherFilters.show;
+  }
+  if (otherFilters.range?.request_created_at) {
+    filters.last_request_date = JSON.stringify(otherFilters.range.request_created_at);
+  }
+  if (otherFilters.linked_items_count) {
+    filters.medias_count_min = otherFilters.linked_items_count.min;
+    filters.medias_count_max = otherFilters.linked_items_count.max;
+  }
+  if (otherFilters.demand) {
+    filters.requests_count_min = otherFilters.demand.min;
+    filters.requests_count_max = otherFilters.demand.max;
+  }
+  return filters;
+};
+
 const FeedClustersComponent = ({
-  team,
   feed,
   feedTeam,
+  onChangeSearchParams,
+  otherFilters,
   page,
   sort,
   sortType,
+  team,
   teamFilters,
-  otherFilters,
-  onChangeSearchParams,
 }) => {
   const clusters = feed.clusters.edges.map(edge => edge.node);
 
@@ -63,7 +87,7 @@ const FeedClustersComponent = ({
       <div className={searchResultsStyles['search-results-header']}>
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
-            <FormattedMessage id="global.sharedFeed" defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" />
+            <FormattedMessage defaultMessage="Shared Feed" description="Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place" id="global.sharedFeed" />
             <NextIcon />
             <FeedLastClusterizedAt feed={feed} />
           </div>
@@ -80,43 +104,47 @@ const FeedClustersComponent = ({
       </div>
       <div className={searchResultsStyles['search-results-top']}>
         <FeedTopBar
-          team={team}
           feed={feed}
-          teamFilters={teamFilters}
           setTeamFilters={handleChangeTeamFilters}
+          team={team}
+          teamFilters={teamFilters}
         />
         <FeedFilters
+          className={searchStyles['filters-wrapper']}
+          currentFilters={otherFilters}
+          disableSave
           feed={feed}
+          feedTeam={{ id: feedTeam.id }}
+          filterOptions={['channels', 'range', 'linked_items_count', 'show', 'demand']}
           sort={sort}
           sortType={sortType}
           onChangeSort={handleChangeSort}
           onSubmit={handleChangeFilters}
-          filterOptions={['channels', 'range', 'linked_items_count', 'show', 'demand']}
-          currentFilters={otherFilters}
-          feedTeam={{ id: feedTeam.id }}
-          className={searchStyles['filters-wrapper']}
-          disableSave
         />
       </div>
       <div className={searchResultsStyles['search-results-wrapper']}>
         { clusters.length > 0 ?
           <div className={searchResultsStyles['search-results-toolbar']}>
-            <Paginator
-              page={page}
-              pageSize={pageSize}
-              numberOfPageResults={clusters.length}
-              numberOfTotalResults={feed.clusters_count}
-              onChangePage={handleChangePage}
-            />
+            <div />
+            <div className={searchResultsStyles['search-actions']}>
+              <Paginator
+                numberOfPageResults={clusters.length}
+                numberOfTotalResults={feed.clusters_count}
+                page={page}
+                pageSize={pageSize}
+                onChangePage={handleChangePage}
+              />
+              <ExportList filters={{ feed_id: feed.dbid, ...setFiltersForQuery(otherFilters) }} type="feed" />
+            </div>
           </div>
           : null
         }
 
         { clusters.length === 0 ?
           <FeedBlankState
-            teamSlug={team.slug}
             feedDbid={feed.dbid}
             listDbid={feedTeam.saved_search_id || feed.saved_search_id}
+            teamSlug={team.slug}
           />
           : null
         }
@@ -127,25 +155,25 @@ const FeedClustersComponent = ({
             const channels = cluster.channels.filter(channel => Object.values(CheckChannels.TIPLINE).includes(channel.toString()));
 
             return (
-              <div key={cluster.id} className="feed-clusters__card">
+              <div className="feed-clusters__card" key={cluster.id}>
                 <ClusterCard
+                  cardUrl={`/${team.slug}/feed/${feed.dbid}/item/${cluster.center.dbid}`}
+                  channels={channels.length > 0 && { main: channels[0], others: channels }}
+                  dataPoints={feed.data_points}
+                  date={cluster.last_fact_check_date && new Date(parseInt(cluster.last_fact_check_date, 10) * 1000)}
+                  description={cluster.center.description}
+                  factCheckCount={cluster.fact_checks_count}
+                  lastRequestDate={cluster.last_request_date && new Date(parseInt(cluster.last_request_date, 10) * 1000)}
+                  mediaCount={cluster.media_count}
+                  mediaThumbnail={{ media: { url: media.url, picture: media.picture, type: media.type } }}
+                  requestsCount={cluster.requests_count}
                   title={
                     cluster.title ||
                     cluster.center.title ||
                     cluster.center.media_slug ||
-                    <FormattedMessage id="feedClusters.noTitle" description="No title available" defaultMessage="(no title)" />
+                    <FormattedMessage defaultMessage="(no title)" description="No title available" id="feedClusters.noTitle" />
                   }
-                  description={cluster.center.description}
-                  mediaThumbnail={{ media: { url: media.url, picture: media.picture, type: media.type } }}
                   workspaces={cluster.teams.edges.map(edge => ({ name: edge.node.name, url: edge.node.avatar }))}
-                  date={cluster.last_fact_check_date && new Date(parseInt(cluster.last_fact_check_date, 10) * 1000)}
-                  dataPoints={feed.data_points}
-                  mediaCount={cluster.media_count}
-                  requestsCount={cluster.requests_count}
-                  lastRequestDate={cluster.last_request_date && new Date(parseInt(cluster.last_request_date, 10) * 1000)}
-                  factCheckCount={cluster.fact_checks_count}
-                  channels={channels.length > 0 && { main: channels[0], others: channels }}
-                  cardUrl={`/${team.slug}/feed/${feed.dbid}/item/${cluster.center.dbid}`}
                 />
               </div>
             );
@@ -227,7 +255,7 @@ FeedClustersComponent.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { FeedClustersComponent };
 
-const FeedClusters = ({ teamSlug, feedId }) => {
+const FeedClusters = ({ feedId, teamSlug }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
     sort: 'requests_count',
@@ -236,11 +264,11 @@ const FeedClusters = ({ teamSlug, feedId }) => {
     otherFilters: {},
   });
   const {
+    otherFilters,
     page,
     sort,
     sortType,
     teamFilters,
-    otherFilters,
   } = searchParams;
 
   const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType, teamFilters, ...otherFilters } - a single state for a single query/render
@@ -248,31 +276,14 @@ const FeedClusters = ({ teamSlug, feedId }) => {
   };
 
   // Set filters for the query
-  const filters = {};
-  if (otherFilters.channels) {
-    filters.channels = otherFilters.channels.map(channel => parseInt(channel, 10));
-  }
-  if (otherFilters.show) {
-    filters.mediaType = otherFilters.show;
-  }
-  if (otherFilters.range?.request_created_at) {
-    filters.date = JSON.stringify(otherFilters.range.request_created_at);
-  }
-  if (otherFilters.linked_items_count) {
-    filters.mediasCountMin = otherFilters.linked_items_count.min;
-    filters.mediasCountMax = otherFilters.linked_items_count.max;
-  }
-  if (otherFilters.demand) {
-    filters.requestsCountMin = otherFilters.demand.min;
-    filters.requestsCountMax = otherFilters.demand.max;
-  }
+  const filters = setFiltersForQuery(otherFilters);
 
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
         query FeedClustersQuery($slug: String!, $feedId: Int!, $pageSize: Int!, $offset: Int!, $sort: String, $sortType: String, $teamFilters: [Int], $channels: [Int],
-                                $mediaType: [String], $date: String, $mediasCountMin: Int, $mediasCountMax: Int, $requestsCountMin: Int, $requestsCountMax: Int) {
+                                $media_type: [String], $last_request_date: String, $medias_count_min: Int, $medias_count_max: Int, $requests_count_min: Int, $requests_count_max: Int) {
           team(slug: $slug) {
             slug
             ...FeedTopBar_team
@@ -293,10 +304,10 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                   }
                 }
               }
-              clusters_count(team_ids: $teamFilters, channels: $channels, media_type: $mediaType, last_request_date: $date,
-                             medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax, requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax)
-              clusters(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, team_ids: $teamFilters, channels: $channels, media_type: $mediaType, last_request_date: $date,
-                       medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax, requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax) {
+              clusters_count(team_ids: $teamFilters, channels: $channels, media_type: $media_type, last_request_date: $last_request_date,
+                             medias_count_min: $medias_count_min, medias_count_max: $medias_count_max, requests_count_min: $requests_count_min, requests_count_max: $requests_count_max)
+              clusters(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, team_ids: $teamFilters, channels: $channels, media_type: $media_type, last_request_date: $last_request_date,
+                       medias_count_min: $medias_count_min, medias_count_max: $medias_count_max, requests_count_min: $requests_count_min, requests_count_max: $requests_count_max) {
                 edges {
                   node {
                     id
@@ -336,6 +347,24 @@ const FeedClusters = ({ teamSlug, feedId }) => {
           }
         }
       `}
+      render={({ error, props }) => {
+        if (!error && props) {
+          return (
+            <FeedClustersComponent
+              feed={props.team.feed}
+              feedTeam={props.team.feed.current_feed_team}
+              otherFilters={otherFilters}
+              page={page}
+              sort={sort}
+              sortType={sortType}
+              team={props.team}
+              teamFilters={teamFilters || props.team.feed.teams.edges.map(team => team.node.dbid)}
+              onChangeSearchParams={handleChangeSearchParams}
+            />
+          );
+        }
+        return <MediasLoading size="large" theme="white" variant="page" />;
+      }}
       variables={{
         slug: teamSlug,
         feedId,
@@ -345,24 +374,6 @@ const FeedClusters = ({ teamSlug, feedId }) => {
         offset: pageSize * (page - 1),
         teamFilters,
         ...filters,
-      }}
-      render={({ error, props }) => {
-        if (!error && props) {
-          return (
-            <FeedClustersComponent
-              team={props.team}
-              feed={props.team.feed}
-              feedTeam={props.team.feed.current_feed_team}
-              page={page}
-              sort={sort}
-              sortType={sortType}
-              teamFilters={teamFilters || props.team.feed.teams.edges.map(team => team.node.dbid)}
-              otherFilters={otherFilters}
-              onChangeSearchParams={handleChangeSearchParams}
-            />
-          );
-        }
-        return <MediasLoading theme="white" variant="page" size="large" />;
       }}
     />
   );

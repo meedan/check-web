@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import ChatHistory from './ChatHistory';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('ChatHistory component', () => {
   const mockTiplineMessage = {
@@ -78,11 +78,11 @@ describe('ChatHistory component', () => {
   it('should parse message from capi structure', () => {
     const wrapper = mountWithIntl(
       <ChatHistory
-        title="Chat History"
-        history={[mockTiplineMessage]}
-        handleClose={() => {}}
-        intl={{}}
         dateTime="1701714951"
+        handleClose={() => {}}
+        history={[mockTiplineMessage]}
+        intl={{}}
+        title="Chat History"
       />,
     );
 

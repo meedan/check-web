@@ -32,17 +32,12 @@
   {
     "id": "mediaActionsBar.assignmentTitle",
     "description": "Assignment dialog title",
-    "defaultMessage": "Assign item to collaborators"
+    "defaultMessage": "Assign Item"
   },
   {
     "id": "multiSelector.search",
     "description": "Search box placeholder",
     "defaultMessage": "Search…"
-  },
-  {
-    "id": "MultiSelector.all",
-    "description": "Checkbox label for toggling select/unselect all",
-    "defaultMessage": "All"
   },
   {
     "id": "global.cancel",
@@ -55,8 +50,18 @@
     "defaultMessage": "Update"
   },
   {
+    "id": "MultiSelector.all",
+    "description": "Checkbox label for toggling select/unselect all",
+    "defaultMessage": "All"
+  },
+  {
+    "id": "mediaActionsBar.assignmentNotesPlaceholder",
+    "description": "Placeholder text to field for adding details about the assignment",
+    "defaultMessage": "Include an optional note in the email sent to assigned workspace members"
+  },
+  {
     "id": "mediaActionsBar.assignmentNotesTitle",
-    "description": "Helper text to field for adding details about the assignment",
-    "defaultMessage": "Add a note to the email"
+    "description": "Title text for field for adding details about the assignment",
+    "defaultMessage": "Add a Note"
   }
 ]

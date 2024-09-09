@@ -46,15 +46,15 @@ const messages = defineMessages({
 });
 
 const TiplineContentTranslation = ({
-  intl,
-  identifier,
-  title,
-  description,
   defaultValue,
-  onUpdate,
-  value,
+  description,
   error,
   extra,
+  identifier,
+  intl,
+  onUpdate,
+  title,
+  value,
 }) => {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -67,23 +67,23 @@ const TiplineContentTranslation = ({
         >
           <span className={styles['setting-content-container-title-expand']}>
             <ButtonMain
-              variant="contained"
+              iconCenter={expanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
               size="small"
               theme="lightText"
+              variant="contained"
               onClick={() => { setExpanded(!expanded); }}
-              iconCenter={expanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
             />
           </span>
         </Tooltip>
         <strong>{title}</strong>
         { value &&
           <ButtonMain
-            onClick={() => { setExpanded(!expanded); }}
-            variant="text"
-            size="small"
-            theme="validation"
             iconLeft={<DoneIcon />}
             label={intl.formatMessage(messages.customized)}
+            size="small"
+            theme="validation"
+            variant="text"
+            onClick={() => { setExpanded(!expanded); }}
           />
         }
         <div className={styles['setting-content-container-actions']}>
@@ -93,11 +93,11 @@ const TiplineContentTranslation = ({
           >
             <span>
               <ButtonMain
-                onClick={() => { setExpanded(!expanded); }}
-                variant="contained"
+                iconCenter={<HelpIcon />}
                 size="small"
                 theme="text"
-                iconCenter={<HelpIcon />}
+                variant="contained"
+                onClick={() => { setExpanded(!expanded); }}
               />
             </span>
           </Tooltip>
@@ -107,23 +107,23 @@ const TiplineContentTranslation = ({
         { !value &&
           <Alert
             className={styles['content-translation-details-default']}
-            icon={false}
             contained
-            title={intl.formatMessage(messages.defaultText)}
             content={defaultValue}
+            icon={false}
+            title={intl.formatMessage(messages.defaultText)}
             variant="info"
           />
         }
         <TextArea
+          defaultValue={value}
+          error={Boolean(error)}
+          helpContent={error}
           key={identifier}
           label={value ? intl.formatMessage(messages.textFieldTitleCustomized) : intl.formatMessage(messages.textFieldTitleDefault)}
           placeholder={intl.formatMessage(messages.placeholder)}
-          rowsMax={Infinity}
           rows={1}
-          defaultValue={value}
+          rowsMax={Infinity}
           onBlur={(e) => { onUpdate(e.target.value); }}
-          error={Boolean(error)}
-          helpContent={error}
         />
         {extra}
       </div>
@@ -132,21 +132,21 @@ const TiplineContentTranslation = ({
 };
 
 TiplineContentTranslation.defaultProps = {
-  value: null, // Custom value
   error: null,
   extra: null,
+  value: null, // Custom value
 };
 
 TiplineContentTranslation.propTypes = {
-  intl: intlShape.isRequired,
-  identifier: PropTypes.string.isRequired,
-  title: PropTypes.node.isRequired,
-  description: PropTypes.node.isRequired,
   defaultValue: PropTypes.node.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  value: PropTypes.string,
+  description: PropTypes.node.isRequired,
   error: PropTypes.node,
   extra: PropTypes.node,
+  identifier: PropTypes.string.isRequired,
+  intl: intlShape.isRequired,
+  title: PropTypes.node.isRequired,
+  value: PropTypes.string,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default injectIntl(TiplineContentTranslation);

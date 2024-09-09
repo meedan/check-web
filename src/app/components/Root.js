@@ -60,7 +60,7 @@ class Root extends Component {
   }
 
   render() {
-    const { store, translations, locale } = this.props;
+    const { locale, store, translations } = this.props;
     window.Check = { store };
 
     return (
@@ -70,56 +70,56 @@ class Root extends Component {
           <ErrorBoundary component="Root">
             <Provider store={store}>
               <Router history={browserHistory} onUpdate={Root.logPageView}>
-                <Route path="/" component={Home}>
+                <Route component={Home} path="/">
                   <IndexRoute component={Team} />
-                  <Route path="check/user/confirm/:confirmType" component={UserConfirmPage} public />
-                  <Route path="check/user/password-reset" component={UserPasswordReset} public />
-                  <Route path="check/user/password-change" component={UserPasswordChange} public />
-                  <Route path="check/not-found" component={NotFound} public />
-                  <Route path="check/me/edit" isEditing component={Me} />
-                  <Route path="check/me/ui-sandbox" component={Sandbox} />
-                  <Route path="check/me/ui-sandbox/crash" component={SandboxCrash} />
-                  <Route path="check/me(/:tab)" component={Me} />
-                  <Route path="check/feed/:feedId/invitation" component={FeedInvitation} splash />
-                  <Route path=":team" component={Team} />
-                  <Route path=":team/settings(/:tab)" component={Team} />
-                  <Route path=":team/media/:mediaId" component={MediaPage} />
+                  <Route component={UserConfirmPage} path="check/user/confirm/:confirmType" public />
+                  <Route component={UserPasswordReset} path="check/user/password-reset" public />
+                  <Route component={UserPasswordChange} path="check/user/password-change" public />
+                  <Route component={NotFound} path="check/not-found" public />
+                  <Route component={Me} isEditing path="check/me/edit" />
+                  <Route component={Sandbox} path="check/me/ui-sandbox" />
+                  <Route component={SandboxCrash} path="check/me/ui-sandbox/crash" />
+                  <Route component={Me} path="check/me(/:tab)" />
+                  <Route component={FeedInvitation} path="check/feed/:feedId/invitation" splash />
+                  <Route component={Team} path=":team" />
+                  <Route component={Team} path=":team/settings(/:tab)" />
+                  <Route component={MediaPage} path=":team/media/:mediaId" />
                   <Redirect from=":team/project/:projectId/media/:mediaId" to=":team/media/:mediaId" />
-                  <Route path=":team/list/:listId/media/:mediaId" component={MediaPage} />
-                  <Route path=":team/media/:mediaId/similar-media" component={MediaPage} view="similarMedia" />
+                  <Route component={MediaPage} path=":team/list/:listId/media/:mediaId" />
+                  <Route component={MediaPage} path=":team/media/:mediaId/similar-media" view="similarMedia" />
                   <Redirect from=":team/project/:projectId/media/:mediaId/similar-media" to=":team/media/:mediaId/similar-media" />
-                  <Route path=":team/list/:listId/media/:mediaId/similar-media" component={MediaPage} view="similarMedia" />
-                  <Route path=":team/media/:mediaId/report" component={ReportDesigner} />
-                  <Route path=":team/media/:mediaId/tasks" component={MediaTasks} />
-                  <Route path=":team/media/:mediaId/metadata" component={MediaTasks} />
-                  <Route path=":team/media/:mediaId/source" component={MediaSource} />
+                  <Route component={MediaPage} path=":team/list/:listId/media/:mediaId/similar-media" view="similarMedia" />
+                  <Route component={ReportDesigner} path=":team/media/:mediaId/report" />
+                  <Route component={MediaTasks} path=":team/media/:mediaId/tasks" />
+                  <Route component={MediaTasks} path=":team/media/:mediaId/metadata" />
+                  <Route component={MediaSource} path=":team/media/:mediaId/source" />
                   <Redirect from=":team/project/:projectId/media/:mediaId/report" to=":team/media/:mediaId/report" />
                   <Redirect from=":team/project/:projectId/media/:mediaId/tasks" to=":team/media/:mediaId/tasks" />
                   <Redirect from=":team/project/:projectId/media/:mediaId/metadata" to=":team/media/:mediaId/metadata" />
                   <Redirect from=":team/project/:projectId/media/:mediaId/source" to=":team/media/:mediaId/source" />
-                  <Route path=":team/list/:listId/media/:mediaId/report" component={ReportDesigner} />
-                  <Route path=":team/list/:listId/media/:mediaId/tasks" component={MediaTasks} />
-                  <Route path=":team/list/:listId/media/:mediaId/metadata" component={MediaTasks} />
-                  <Route path=":team/list/:listId/media/:mediaId/source" component={MediaSource} />
-                  <Route path=":team/list/:savedSearchId(/:query)" component={SavedSearch} />
-                  <Route path=":team/all-items(/:query)" component={AllItems} />
-                  <Route path=":team/assigned-to-me(/:query)" component={AssignedToMe} />
-                  <Route path=":team/tipline-inbox(/:query)" component={TiplineInbox} />
-                  <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
-                  <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
-                  <Route path=":team/feed/create" component={CreateFeed} />
-                  <Route path=":team/feeds" component={FeedPage} />
-                  <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
-                  <Route path=":team/feed/:feedId/invitation" component={FeedInvitationRespond} />
-                  <Route path=":team/feed/:feedId/item/:projectMediaId" component={FeedItem} />
-                  <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />
-                  <Route path=":team/spam(/:query)" component={Spam} />
-                  <Route path=":team/trash(/:query)" component={Trash} />
-                  <Route path=":team/articles/explainers" component={Explainers} />
-                  <Route path=":team/articles/fact-checks" component={FactChecks} />
-                  <Route path=":team/articles/imported-fact-checks" component={ImportedArticles} />
-                  <Route path=":team/articles/published" component={PublishedArticles} />
-                  <Route path="*" component={NotFound} public />
+                  <Route component={ReportDesigner} path=":team/list/:listId/media/:mediaId/report" />
+                  <Route component={MediaTasks} path=":team/list/:listId/media/:mediaId/tasks" />
+                  <Route component={MediaTasks} path=":team/list/:listId/media/:mediaId/metadata" />
+                  <Route component={MediaSource} path=":team/list/:listId/media/:mediaId/source" />
+                  <Route component={SavedSearch} path=":team/list/:savedSearchId(/:query)" />
+                  <Route component={AllItems} path=":team/all-items(/:query)" />
+                  <Route component={AssignedToMe} path=":team/assigned-to-me(/:query)" />
+                  <Route component={TiplineInbox} path=":team/tipline-inbox(/:query)" />
+                  <Route component={SuggestedMatches} path=":team/suggested-matches(/:query)" />
+                  <Route component={UnmatchedMedia} path=":team/unmatched-media(/:query)" />
+                  <Route component={CreateFeed} path=":team/feed/create" />
+                  <Route component={FeedPage} path=":team/feeds" />
+                  <Route component={EditFeedTeam} path=":team/feed/:feedId/edit" />
+                  <Route component={FeedInvitationRespond} path=":team/feed/:feedId/invitation" />
+                  <Route component={FeedItem} path=":team/feed/:feedId/item/:projectMediaId" />
+                  <Route component={Feed} path=":team/feed/:feedId(/:tab(/:query))" />
+                  <Route component={Spam} path=":team/spam(/:query)" />
+                  <Route component={Trash} path=":team/trash(/:query)" />
+                  <Route component={Explainers} path=":team/articles/explainers" />
+                  <Route component={FactChecks} path=":team/articles/fact-checks" />
+                  <Route component={ImportedArticles} path=":team/articles/imported-fact-checks" />
+                  <Route component={PublishedArticles} path=":team/articles/published" />
+                  <Route component={NotFound} path="*" public />
                 </Route>
               </Router>
             </Provider>

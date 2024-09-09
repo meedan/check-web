@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const SmoochBotSetting = (props) => {
   const classes = useStyles();
-  const { value, schema, field } = props;
+  const { field, schema, value } = props;
 
   const handleChange = (key, newValue) => {
     props.onChange(key, newValue);
@@ -56,22 +57,22 @@ const SmoochBotSetting = (props) => {
       });
     }
     return (
-      <FormControl key={`${field}-${value}`} variant="outlined" fullWidth>
+      <FormControl fullWidth key={`${field}-${value}`} variant="outlined">
         <InputLabel>{schema.title}</InputLabel>
         <Select
+          fullWidth
           label={schema.title}
-          value={value || []}
-          onChange={(event) => { handleChange(field, event.target.value); }}
+          multiple
           renderValue={selectedValues => (
             <div>
               { selectedValues.map(selectedValue => (
-                <Chip key={selectedValue} label={selectedValue} className={classes.chip} />
+                <Chip className={classes.chip} key={selectedValue} label={selectedValue} />
               ))}
             </div>
           )}
+          value={value || []}
           variant="outlined"
-          multiple
-          fullWidth
+          onChange={(event) => { handleChange(field, event.target.value); }}
         >
           {options.map(option => (
             <MenuItem key={option} value={option}>
@@ -107,10 +108,13 @@ const SmoochBotSetting = (props) => {
 
   return (
     <TextField
+      className={classes.field}
+      componentProps={inputProps}
+      defaultValue={value || schema.default}
+      helpContent={schema.description}
       key={`${field}-${value}`}
       label={schema.title.replace('Smooch', 'Sunshine')}
-      defaultValue={value || schema.default}
-      className={classes.field}
+      variant="contained"
       onBlur={(event) => {
         let newValue = event.target.value.trim();
         if (schema.type === 'number') {
@@ -118,9 +122,6 @@ const SmoochBotSetting = (props) => {
         }
         handleChange(field, newValue);
       }}
-      helpContent={schema.description}
-      variant="contained"
-      componentProps={inputProps}
       {...otherProps}
     />
   );

@@ -1,7 +1,7 @@
 import React from 'react';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import Projects from './index';
 
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<Projects />', () => {
   const team = {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import DateRangeFilter, { getUTCOffset } from './DateRangeFilter';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<DateRangeFilter />', () => {
   it('should render basic filter', () => {

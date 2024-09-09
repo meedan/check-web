@@ -9,10 +9,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import TextField from '../cds/inputs/TextField';
+import TextArea from '../cds/inputs/TextArea';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import EditIcon from '../../icons/edit.svg';
 import TextFieldsIcon from '../../icons/text_fields.svg';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import PermMediaIcon from '../../icons/perm_media.svg';
 import NoteAltIcon from '../../icons/note_alt.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
@@ -120,20 +121,20 @@ const ItemTitleComponent = ({
   };
 
   const ItemTitleOption = ({
-    fieldName,
-    optionIcon,
     disabled,
-    label,
+    fieldName,
     helperText,
+    label,
+    optionIcon,
   }) => (
     <MenuItem
-      key={fieldName}
       className={cx(
         `int-item-title__menu-item--${fieldName.replace('_', '-')}`,
         styles.itemTitleOption,
         titleField === fieldName ? styles.itemTitleOptionSelected : styles.itemTitleOptionNotSelected,
       )}
       disabled={Boolean(disabled) || false}
+      key={fieldName}
       onClick={() => handleUpdateTitleField(fieldName)}
     >
       <ListItemIcon className={styles.itemTitleOptionIcon}>
@@ -153,35 +154,74 @@ const ItemTitleComponent = ({
 
   return (
     <div className={styles.itemTitle}>
-      <TextField
-        key={`${titleField}-${title}-${saving}`}
-        className={cx(styles.itemTitleInputField, 'int-item-title__textfield--title')}
-        defaultValue={title}
-        variant="outlined"
-        disabled={titleField !== 'custom_title' || saving || !canChange}
-        iconLeft={icon}
-        error={error}
-        helpContent={
-          error ?
-            <FormattedMessage
-              id="itemTitle.itemTitleError"
-              defaultMessage="Could not update the title. Please try again and contact the support if the error persists"
-              description="Error message displayed underneath the text field when an item title settings cannot be saved."
-            /> : null
+      <div
+        className={cx(
+          styles.itemTitleWrapper,
+          {
+            [styles.itemTitleCustom]: titleField === 'custom_title',
+          })
         }
-        onBlur={e => handleUpdateCustomTitle(e.target.value)}
-      />
-      { canChange ?
-        <ButtonMain
-          iconCenter={<EditIcon />}
+      >
+        <div
+          className={cx(
+            styles.itemTitleStatic,
+            {
+              [styles.itemTitleStaticIcon]: icon,
+            })
+          }
+          title={title}
+        >
+          {icon}
+          <span>
+            {title}
+          </span>
+        </div>
+        <TextArea
+          autoGrow
+          className={cx(styles.itemTitleInputField, 'int-item-title__textfield--title')}
+          defaultValue={title}
+          disabled={titleField !== 'custom_title' || saving || !canChange}
+          error={error}
+          helpContent={
+            error ?
+              <FormattedMessage
+                defaultMessage="Could not update the title. Please try again and contact the support if the error persists"
+                description="Error message displayed underneath the text field when an item title settings cannot be saved."
+                id="itemTitle.itemTitleError"
+              /> : null
+          }
+          iconLeft={icon}
+          key={`${titleField}-${title}-${saving}`}
+          maxHeight="60px"
           variant="outlined"
-          theme="text"
-          disabled={saving}
-          onClick={(e) => {
-            setError(false);
-            setAnchorEl(e.currentTarget);
-          }}
-        /> : null
+          onBlur={e => handleUpdateCustomTitle(e.target.value)}
+        />
+      </div>
+      { canChange ?
+        <Tooltip
+          arrow
+          title={
+            <FormattedMessage
+              defaultMessage="Customize the title for this Media"
+              description="Tooltip for choosing the title for this media item"
+              id="itemTitle.customizeTitleTooltip"
+            />
+          }
+        >
+          <span>
+            <ButtonMain
+              className={cx(styles.itemTitleMenuButton, 'int-item-title__button--menu')}
+              disabled={saving}
+              iconCenter={<EditIcon />}
+              theme="text"
+              variant="outlined"
+              onClick={(e) => {
+                setError(false);
+                setAnchorEl(e.currentTarget);
+              }}
+            />
+          </span>
+        </Tooltip> : null
       }
       <Menu
         anchorEl={anchorEl}
@@ -191,79 +231,79 @@ const ItemTitleComponent = ({
         <ListSubheader>
           <span className={cx('typography-body1-bold', styles.itemTitleMenuHeader)}>
             <FormattedMessage
-              id="itemTitle.menuHeader"
               defaultMessage="Select Item Name"
               description="Header for a menu containing content options for item title"
+              id="itemTitle.menuHeader"
             />
           </span>
         </ListSubheader>
         <ItemTitleOption
           fieldName="custom_title"
-          optionIcon={<TextFieldsIcon />}
           label={
             <FormattedMessage
-              id="itemTitle.customTitle"
               defaultMessage="Custom Title"
               description="Label for a menu item that selects Custom Title as the title field for an item."
+              id="itemTitle.customTitle"
             />
           }
+          optionIcon={<TextFieldsIcon />}
         />
         <ItemTitleOption
-          fieldName="pinned_media_id"
-          optionIcon={<PermMediaIcon />}
           disabled={!pinnedMediaId}
-          label={
-            <FormattedMessage
-              id="itemTitle.pinnedMediaId"
-              defaultMessage="Pinned Media Title"
-              description="Label for a menu item that selects Pinned Media Title as the title field for an item."
-            />
-          }
+          fieldName="pinned_media_id"
           helperText={
             <FormattedMessage
-              id="itemTitle.pinnedMediaIdHelper"
               defaultMessage="(Add a media to enable)"
               description="Helper text displayed under the Pinned Media Title option for an item title when the item has no media."
+              id="itemTitle.pinnedMediaIdHelper"
             />
           }
-        />
-        <ItemTitleOption
-          fieldName="claim_title"
-          optionIcon={<NoteAltIcon />}
-          disabled={!claimTitle}
           label={
             <FormattedMessage
-              id="itemTitle.claimTitle"
-              defaultMessage="Claim Title"
-              description="Label for a menu item that selects Claim Title as the title field for an item."
+              defaultMessage="Pinned Media Title"
+              description="Label for a menu item that selects Pinned Media Title as the title field for an item."
+              id="itemTitle.pinnedMediaId"
             />
           }
+          optionIcon={<PermMediaIcon />}
+        />
+        <ItemTitleOption
+          disabled={!claimTitle}
+          fieldName="claim_title"
           helperText={
             <FormattedMessage
-              id="itemTitle.claimTitleHelper"
               defaultMessage="(Add a claim to enable)"
               description="Helper text displayed under the Claim Title option for an item title when the item has no claim."
+              id="itemTitle.claimTitleHelper"
             />
           }
-        />
-        <ItemTitleOption
-          fieldName="fact_check_title"
-          optionIcon={<FactCheckIcon />}
-          disabled={!factCheckTitle}
           label={
             <FormattedMessage
-              id="itemTitle.factCheckTitle"
-              defaultMessage="Fact-Check Title"
-              description="Label for a menu item that selects Fact-Check Title as the title field for an item."
+              defaultMessage="Claim Title"
+              description="Label for a menu item that selects Claim Title as the title field for an item."
+              id="itemTitle.claimTitle"
             />
           }
+          optionIcon={<NoteAltIcon />}
+        />
+        <ItemTitleOption
+          disabled={!factCheckTitle}
+          fieldName="fact_check_title"
           helperText={
             <FormattedMessage
-              id="itemTitle.factCheckTitleHelper"
               defaultMessage="(Add a fact-check to enable)"
               description="Helper text displayed under the Fact-Check Title option for an item title when the item has no fact-check."
+              id="itemTitle.factCheckTitleHelper"
             />
           }
+          label={
+            <FormattedMessage
+              defaultMessage="Fact-Check Title"
+              description="Label for a menu item that selects Fact-Check Title as the title field for an item."
+              id="itemTitle.factCheckTitle"
+            />
+          }
+          optionIcon={<FactCheckIcon />}
         />
       </Menu>
     </div>
@@ -316,14 +356,14 @@ const ItemTitle = ({ projectMediaId }) => (
         }
       }
     `}
-    variables={{
-      id: `${projectMediaId},,`,
-    }}
     render={({ error, props }) => {
       if (!error && props) {
         return (<ItemTitleComponent projectMedia={props.projectMedia} />);
       }
       return null;
+    }}
+    variables={{
+      id: `${projectMediaId},,`,
     }}
   />
 );

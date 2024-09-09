@@ -37,9 +37,9 @@ const messages = defineMessages({
 });
 
 const UserSettingsComponent = ({
+  intl,
   me,
   params,
-  intl,
 }) => {
   const { tab } = params;
   const isUserSelf = (me.id === window.Check.store.getState().app.context.currentUser.id);
@@ -53,21 +53,21 @@ const UserSettingsComponent = ({
         <ul className={styles.listWrapper}>
           { isUserSelf ?
             <>
-              <Link className={cx('user-settings__profile-tab', styles.linkList)} to="/check/me/profile" title={intl.formatMessage(messages.profile)}>
+              <Link className={cx('user-settings__profile-tab', styles.linkList)} title={intl.formatMessage(messages.profile)} to="/check/me/profile">
                 <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'profile' })}>
                   <div className={styles.listLabel}>
                     {intl.formatMessage(messages.profile)}
                   </div>
                 </li>
               </Link>
-              <Link className={cx('user-settings__privacy-tab', styles.linkList)} to="/check/me/privacy" title={intl.formatMessage(messages.privacy)}>
+              <Link className={cx('user-settings__privacy-tab', styles.linkList)} title={intl.formatMessage(messages.privacy)} to="/check/me/privacy">
                 <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'privacy' })}>
                   <div className={styles.listLabel}>
                     {intl.formatMessage(messages.privacy)}
                   </div>
                 </li>
               </Link>
-              <Link className={cx('user-settings__security-tab', styles.linkList)} to="/check/me/security" title={intl.formatMessage(messages.security)}>
+              <Link className={cx('user-settings__security-tab', styles.linkList)} title={intl.formatMessage(messages.security)} to="/check/me/security">
                 <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'security' })}>
                   <div className={styles.listLabel}>
                     {intl.formatMessage(messages.security)}
@@ -76,7 +76,7 @@ const UserSettingsComponent = ({
               </Link>
             </> : null
           }
-          <Link className={cx('user-settings__workspaces-tab', styles.linkList)} to="/check/me/workspaces" title={intl.formatMessage(messages.workspaces)}>
+          <Link className={cx('user-settings__workspaces-tab', styles.linkList)} title={intl.formatMessage(messages.workspaces)} to="/check/me/workspaces">
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'workspaces' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.workspaces)}
@@ -94,9 +94,9 @@ const UserSettingsComponent = ({
             <LogoutIcon className={styles.listIcon} />
             <div className={styles.listLabel}>
               <FormattedMessage
-                id="UserMenu.signOut"
                 defaultMessage="Sign Out"
                 description="This is the sign out button on the user profile page"
+                id="UserMenu.signOut"
               />
             </div>
           </button>

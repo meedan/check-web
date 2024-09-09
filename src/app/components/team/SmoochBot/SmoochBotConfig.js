@@ -1,15 +1,13 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmoochBotSidebar from './SmoochBotSidebar';
-import SmoochBotTextEditor from './SmoochBotTextEditor';
-import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
-import SmoochBotMenuEditor from './SmoochBotMenuEditor';
 import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../../icons/add.svg';
 import createEnvironment from '../../../relay/EnvironmentModern';
 import styles from '../Settings.module.css';
@@ -17,14 +15,14 @@ import styles from '../Settings.module.css';
 const SmoochBotConfig = (props) => {
   const {
     currentLanguage,
+    hasUnsavedChanges,
     languages,
+    onEditingResource,
+    resources,
     userRole,
     value,
-    resources,
-    hasUnsavedChanges,
-    onEditingResource,
   } = props;
-  const defaultOption = value.smooch_version === 'v2' ? 'smooch_content' : 'smooch_message_smooch_bot_greetings';
+  const defaultOption = 'smooch_content';
   const [currentOption, setCurrentOption] = React.useState(defaultOption);
   const team = props?.currentUser?.current_team;
   const environment = createEnvironment(props?.currentUser?.token, team.slug);
@@ -67,9 +65,6 @@ const SmoochBotConfig = (props) => {
     }
   }
 
-  const menuActions = state => props.schema.properties.smooch_workflows.items.properties[state]
-    .properties.smooch_menu_options.items.properties.smooch_menu_option_value.enum;
-
   const settings = Object.assign({}, value);
   delete settings.smooch_workflows;
   const settingsSchema = Object.assign({}, props.schema.properties);
@@ -77,12 +72,6 @@ const SmoochBotConfig = (props) => {
 
   const setValue = (newValue) => {
     props.onChange(newValue);
-  };
-
-  const handleChangeTextField = (newValue) => {
-    const updatedValue = JSON.parse(JSON.stringify(value));
-    updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = newValue;
-    setValue(updatedValue);
   };
 
   const handleChangeImage = (file) => {
@@ -111,15 +100,6 @@ const SmoochBotConfig = (props) => {
     setValue(updatedValue);
   };
 
-  const handleChangeMultiTextField = (subKey, newValue) => {
-    const updatedValue = JSON.parse(JSON.stringify(value));
-    if (!updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]) {
-      updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = {};
-    }
-    updatedValue.smooch_workflows[currentWorkflowIndex][currentOption][subKey] = newValue;
-    setValue(updatedValue);
-  };
-
   const handleChangeMenu = (newValue, menuOption) => {
     let menu = menuOption;
     if (!menuOption) {
@@ -145,71 +125,37 @@ const SmoochBotConfig = (props) => {
         <div className={styles['bot-designer']}>
           <div className={styles['bot-designer-menu']}>
             <SmoochBotSidebar
-              userRole={userRole}
               currentOption={currentOption}
               resources={resources}
+              userRole={userRole}
               onClick={handleSelectOption}
             />
             <ButtonMain
               iconLeft={<AddIcon />}
-              theme="text"
+              label={
+                <FormattedMessage
+                  defaultMessage="Resource"
+                  description="Button label to add a resource to this bot"
+                  id="smoochBot.addResource"
+                />
+              }
               size="default"
+              theme="text"
               variant="contained"
               onClick={() => {
                 handleSelectOption('resource_new');
               }}
-              label={
-                <FormattedMessage
-                  id="smoochBot.addResource"
-                  defaultMessage="Resource"
-                  description="Button label to add a resource to this bot"
-                />
-              }
             />
           </div>
           <div className={styles['bot-designer-content']}>
-            { currentOption === 'smooch_message_smooch_bot_tos' ?
-              <SmoochBotMultiTextEditor
-                value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
-                onChange={handleChangeMultiTextField}
-                subSchema={
-                  props.schema.properties.smooch_workflows.items.properties[currentOption]
-                }
-                field={currentOption}
-                currentLanguage={currentLanguage}
-              /> : null }
-            { /^smooch_message_smooch_bot_/.test(currentOption) && currentOption !== 'smooch_message_smooch_bot_tos' && currentOption !== 'smooch_message_smooch_bot_no_action' ?
-              <SmoochBotTextEditor
-                value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
-                onChange={handleChangeTextField}
-                field={currentOption}
-              /> : null }
-            { /^smooch_state_/.test(currentOption) ?
-              <SmoochBotMenuEditor
-                languages={languages}
-                field={currentOption}
-                value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
-                resources={resources}
-                menuActions={menuActions(currentOption)}
-                onChange={handleChangeMenu}
-                currentLanguage={currentLanguage}
-                textHeader={
-                  currentOption === 'smooch_state_subscription' ?
-                    <FormattedMessage
-                      id="smoochBotConfig.subscriptionHeader"
-                      defaultMessage="You are currently {subscription_status} to our newsletter."
-                      description="Status message for the user to know if they are subscribed or not to the newsletter"
-                    /> : null
-                }
-              /> : null }
             { currentResource ?
               <SmoochBotResourceEditor
-                key={currentResource.id}
                 environment={environment}
-                resource={currentResource}
+                key={currentResource.id}
                 language={currentLanguage}
-                onDelete={() => { handleSelectOption(defaultOption); }}
+                resource={currentResource}
                 onCreate={(newResource) => { handleSelectOption(`resource_${newResource.dbid}`); }}
+                onDelete={() => { handleSelectOption(defaultOption); }}
               /> : null }
             { currentOption === 'smooch_content' ?
               <SmoochBotContentAndTranslation
@@ -221,24 +167,24 @@ const SmoochBotConfig = (props) => {
               /> : null }
             { currentOption === 'smooch_main_menu' ?
               <SmoochBotMainMenu
+                currentLanguage={currentLanguage}
+                currentUser={props.currentUser}
+                enabledIntegrations={props.enabledIntegrations}
+                hasUnsavedChanges={hasUnsavedChanges}
                 key={currentLanguage}
                 languages={languages.filter(f => f !== currentLanguage)}
-                currentLanguage={currentLanguage}
-                value={value.smooch_workflows[currentWorkflowIndex]}
-                enabledIntegrations={props.enabledIntegrations}
-                onChange={handleChangeMenu}
                 resources={resources}
-                currentUser={props.currentUser}
-                hasUnsavedChanges={hasUnsavedChanges}
+                value={value.smooch_workflows[currentWorkflowIndex]}
+                onChange={handleChangeMenu}
               /> : null }
             { currentOption === 'smooch_settings' ?
               <SmoochBotSettings
-                settings={settings}
-                schema={settingsSchema}
                 currentUser={props.currentUser}
-                onChange={handleUpdateSetting}
                 enabledIntegrations={props.enabledIntegrations}
                 installationId={props.installationId}
+                schema={settingsSchema}
+                settings={settings}
+                onChange={handleUpdateSetting}
               /> : null }
           </div>
         </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=34-5720&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -8,8 +9,8 @@ import ClearIcon from '../../../icons/clear.svg';
 import ErrorIcon from '../../../icons/error.svg';
 import ChevronDownIcon from '../../../icons/chevron_down.svg';
 import inputStyles from '../../../styles/css/inputs.module.css';
-import styles from './Select.module.css';
 import Tooltip from '../alerts-and-prompts/Tooltip';
+import styles from './Select.module.css';
 
 const Select = ({
   children,
@@ -49,7 +50,7 @@ const Select = ({
           }
         >
           { label && <label htmlFor="name">{label}</label> }
-          { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
+          { required && <span className={inputStyles.required}>*<FormattedMessage defaultMessage="Required" description="A label to indicate that a form field must be filled out" id="textfield.required" /></span>}
         </div>
       )}
       <div className={styles['select-wrapper']}>
@@ -60,7 +61,6 @@ const Select = ({
             </div>
           )}
           <select
-            id="check-select__input"
             className={cx(
               'cds-input-select',
               styles.input,
@@ -72,6 +72,7 @@ const Select = ({
               })
             }
             disabled={disabled}
+            id="check-select__input"
             ref={inputRef}
             {...inputProps}
           >
@@ -82,14 +83,14 @@ const Select = ({
           </div>
         </div>
         { onRemove ?
-          <Tooltip arrow title={<FormattedMessage id="select.removeSelection" defaultMessage="Undo selection" description="Tooltip for button on Select component to remove current selection" />}>
+          <Tooltip arrow title={<FormattedMessage defaultMessage="Undo selection" description="Tooltip for button on Select component to remove current selection" id="select.removeSelection" />}>
             <span>
               <ButtonMain
+                className="select__clear-button"
                 iconCenter={<ClearIcon />}
-                variant="contained"
                 size="default"
                 theme="lightText"
-                className="select__clear-button"
+                variant="contained"
                 onClick={() => {
                   inputRef.current.value = null;
                   inputRef.current.selectedIndex = 0;

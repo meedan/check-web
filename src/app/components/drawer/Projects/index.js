@@ -5,12 +5,12 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import ProjectsComponent from './ProjectsComponent';
 import FeedsComponent from './FeedsComponent';
-import NewArticleButton from '../../article/NewArticleButton'; // eslint-disable-line no-unused-vars
-import ArticlesComponent from '../../article/ArticlesComponent';
 import SettingsComponent from './SettingsComponent';
 import UserSettingsComponent from './UserSettingsComponent';
+import NewArticleButton from '../../article/NewArticleButton'; // eslint-disable-line no-unused-vars
+import ArticlesComponent from '../../article/ArticlesComponent';
 
-const renderQuery = ({ error, props, drawerType }) => {
+const renderQuery = ({ drawerType, error, props }) => {
   if (!error && props) {
     const feedsCreated = props.team.feeds.edges.map(f => f.node).filter(f => f.team_id === props.team.dbid);
     const feedsJoined = props.team.feed_teams.edges.map(ft => ft.node).filter(ft => !feedsCreated.find(f => f.dbid === ft.feed_id));
@@ -20,22 +20,22 @@ const renderQuery = ({ error, props, drawerType }) => {
       return (
         <ProjectsComponent
           currentUser={props.me}
-          team={props.team}
           savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
+          team={props.team}
         />
       );
     } else if (drawerType === 'feed') {
       return (
         <FeedsComponent
-          team={props.team}
           feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
+          team={props.team}
         />
       );
     } else if (drawerType === 'settings') {
       return (
         <SettingsComponent
-          team={props.team}
           params={props.params}
+          team={props.team}
         />
       );
     } else if (drawerType === 'user') {
@@ -49,8 +49,8 @@ const renderQuery = ({ error, props, drawerType }) => {
       return (
         <ArticlesComponent
           me={props.me}
-          team={props.team}
           params={props.params}
+          team={props.team}
         />
       );
     }
@@ -158,10 +158,10 @@ const Projects = ({ drawerType }) => {
           }
         }
       `}
+      render={({ error, props }) => renderQuery({ error, props, drawerType })}
       variables={{
         teamSlug,
       }}
-      render={({ error, props }) => renderQuery({ error, props, drawerType })}
     />
   );
 };

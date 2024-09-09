@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -14,17 +15,17 @@ import TagList from '../../cds/menus-lists-dialogs/TagList';
 import styles from './ItemCard.module.css';
 
 const SharedItemCardFooter = ({
-  mediaCount,
-  mediaType,
-  requestsCount,
-  suggestionsCount,
+  channels,
   languageCode,
   lastRequestDate,
-  tags,
-  tagOptions,
+  mediaCount,
+  mediaType,
   onChangeTags,
-  channels,
   onSeeMore,
+  requestsCount,
+  suggestionsCount,
+  tagOptions,
+  tags,
 }) => (
   <BulletSeparator
     className={styles.bulletSeparator}
@@ -35,10 +36,10 @@ const SharedItemCardFooter = ({
       ),
       tags && onChangeTags && (
         <TagList
-          tags={tags}
-          setTags={onChangeTags}
           maxTags={5}
           options={tagOptions ? tagOptions.map(tag => ({ label: tag, value: tag })) : null}
+          setTags={onChangeTags}
+          tags={tags}
         />
       ),
       mediaCount !== null && (
@@ -65,11 +66,11 @@ const SharedItemCardFooter = ({
       channels && <ItemChannels channels={channels} sortMainFirst />,
       onSeeMore && (
         <ButtonMain
+          iconLeft={<OpenInNewIcon />}
+          label={<FormattedMessage defaultMessage="more" description="Label of the a button that opens more details about a feed item" id="sharedItemCardFooter.more" />}
           size="small"
           theme="text"
-          iconLeft={<OpenInNewIcon />}
           variant="contained"
-          label={<FormattedMessage id="sharedItemCardFooter.more" defaultMessage="more" description="Label of the a button that opens more details about a feed item" />}
           onClick={onSeeMore}
         />),
     ]}

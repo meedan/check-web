@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import MediaPageLayout from './MediaPageLayout';
@@ -5,12 +6,12 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import { getListUrlQueryAndIndex } from '../../urlHelpers';
 import NotFound from '../NotFound';
 
-export default function MediaPage({ route, routeParams, location }) {
+export default function MediaPage({ location, route, routeParams }) {
   const {
-    listUrl,
-    listQuery,
-    listIndex,
     buildSiblingUrl,
+    listIndex,
+    listQuery,
+    listUrl,
   } = getListUrlQueryAndIndex(routeParams, location.query);
 
   const teamSlug = routeParams.team;
@@ -28,16 +29,16 @@ export default function MediaPage({ route, routeParams, location }) {
   return (
     <ErrorBoundary component="MediaPage">
       <MediaPageLayout
-        listUrl={listUrl}
-        listQuery={listQuery}
-        listIndex={listIndex}
         buildSiblingUrl={buildSiblingUrl}
-        teamSlug={teamSlug}
-        listId={listId}
-        projectMediaId={projectMediaId}
-        view={currentView}
-        mediaNavList={location?.state?.mediaNavList}
         count={location?.state?.count}
+        listId={listId}
+        listIndex={listIndex}
+        listQuery={listQuery}
+        listUrl={listUrl}
+        mediaNavList={location?.state?.mediaNavList}
+        projectMediaId={projectMediaId}
+        teamSlug={teamSlug}
+        view={currentView}
       />
     </ErrorBoundary>
   );

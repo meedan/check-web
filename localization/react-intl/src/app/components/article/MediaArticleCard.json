@@ -7,7 +7,7 @@
   {
     "id": "mediaArticleCard.factCheck",
     "description": "Title in an article card on item page.",
-    "defaultMessage": "Fact-Check"
+    "defaultMessage": "Claim & Fact-Check"
   },
   {
     "id": "mediaArticleCard.explainer",

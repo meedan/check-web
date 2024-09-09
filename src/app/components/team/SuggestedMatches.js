@@ -23,22 +23,22 @@ const SuggestedMatches = ({ routeParams }) => {
   return (
     <ErrorBoundary component="SuggestedMatches">
       <Search
-        searchUrlPrefix={`/${routeParams.team}/suggested-matches`}
-        mediaUrlPrefix={`/${routeParams.team}/media`}
-        title={
-          <FormattedMessage
-            id="suggestedMatches.title"
-            defaultMessage="Suggestions"
-            description="Header for suggested media page"
-          />
-        }
-        icon={<LightbulbIcon />}
-        teamSlug={routeParams.team}
-        query={query}
         defaultQuery={defaultQuery}
         hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
-        readOnlyFields={['suggestions_count']}
+        icon={<LightbulbIcon />}
+        mediaUrlPrefix={`/${routeParams.team}/media`}
         page="suggested-matches"
+        query={query}
+        readOnlyFields={['suggestions_count']}
+        searchUrlPrefix={`/${routeParams.team}/suggested-matches`}
+        teamSlug={routeParams.team}
+        title={
+          <FormattedMessage
+            defaultMessage="Suggestions"
+            description="Header for suggested media page"
+            id="suggestedMatches.title"
+          />
+        }
       />
     </ErrorBoundary>
   );

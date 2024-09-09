@@ -63,22 +63,23 @@ const MediaSimilarityBar = ({ projectMedia }) => {
           }
         }
       `}
-      variables={{
-        ids,
-      }}
       render={({ props }) => {
         if (props) {
           return (
             <MediaSimilarityBarComponent
-              projectMediaDbid={props.project_media.dbid}
+              canAdd={can(props.project_media.permissions, 'update ProjectMedia') && props.project_media.type !== 'Blank'}
+              confirmedMainItemId={props.project_media.confirmedMainItem.id}
               confirmedSimilarCount={props.project_media.confirmedSimilarCount}
               hasMain={props.project_media.hasMain}
-              confirmedMainItemId={props.project_media.confirmedMainItem.id}
-              canAdd={can(props.project_media.permissions, 'update ProjectMedia')}
+              isPublished={props.project_media.report_status === 'published'}
+              projectMediaDbid={props.project_media.dbid}
             />
           );
         }
         return null;
+      }}
+      variables={{
+        ids,
       }}
     />
   );

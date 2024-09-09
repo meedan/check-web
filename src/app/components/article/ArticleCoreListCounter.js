@@ -1,10 +1,11 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import ProjectsListCounter from '../drawer/Projects/ProjectsListCounter';
 
-const ArticlesListCounter = ({ teamSlug, type, defaultFilters }) => (
+const ArticlesListCounter = ({ defaultFilters, teamSlug, type }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
@@ -16,11 +17,6 @@ const ArticlesListCounter = ({ teamSlug, type, defaultFilters }) => (
         }
       }
     `}
-    variables={{
-      slug: teamSlug,
-      type,
-      ...defaultFilters,
-    }}
     render={({ props }) => {
       if (props) {
         let count = props.team.articles_count;
@@ -35,6 +31,11 @@ const ArticlesListCounter = ({ teamSlug, type, defaultFilters }) => (
         return (<ProjectsListCounter key={count} numberOfItems={count} />);
       }
       return null;
+    }}
+    variables={{
+      slug: teamSlug,
+      type,
+      ...defaultFilters,
     }}
   />
 );

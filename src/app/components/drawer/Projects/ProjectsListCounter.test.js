@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ProjectsListCounter from './ProjectsListCounter';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ProjectsListCounter />', () => {
   it('renders nothing if numberOfItems is not a number', () => {

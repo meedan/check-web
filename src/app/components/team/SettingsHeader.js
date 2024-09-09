@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -6,13 +7,13 @@ import HelpIcon from '../../icons/help.svg';
 import styles from './SettingsHeader.module.css';
 
 const SettingsHeader = ({
-  title,
-  context,
-  helpUrl,
   actionButton,
-  extra,
   className,
+  context,
+  extra,
+  helpUrl,
   style,
+  title,
 }) => {
   const handleHelp = () => {
     window.open(helpUrl);
@@ -34,7 +35,7 @@ const SettingsHeader = ({
           <h6 className="component__settings-header">
             {title}
             { helpUrl &&
-              <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
+              <ButtonMain iconCenter={<HelpIcon />} size="default" theme="lightText" variant="text" onClick={handleHelp} />
             }
           </h6>
           { extra &&

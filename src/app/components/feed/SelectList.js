@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -9,10 +10,10 @@ import Select from '../cds/inputs/Select';
 import styles from './SelectList.module.css';
 
 const SelectListQueryRenderer = ({
-  required,
   label,
   onChange,
   onRemove,
+  required,
   value,
 }) => (
   <QueryRenderer
@@ -31,36 +32,33 @@ const SelectListQueryRenderer = ({
         }
       }
     `}
-    variables={{
-      slug: window.location.pathname.match(/^\/([^/]+)/)[1],
-    }}
     render={({ error, props }) => {
       if (!error && props) {
         if (required && props.team.saved_searches.edges.length === 0) {
           return (
             <Alert
-              variant="warning"
-              title={
+              buttonLabel={
                 <FormattedMessage
-                  id="selectList.noListTitle"
-                  defaultMessage="Your workspace needs a Custom Filtered List to contribute."
-                  description="Title of a warning displayed on edit feed page when the workspace has no lists."
+                  defaultMessage="How to create lists"
+                  description="Helper link in a warning displayed on edit feed page when the workspace has no lists."
+                  id="selectList.noListButtonLabel"
                 />
               }
               content={
                 <FormattedMessage
-                  id="selectList.noListDescription"
                   defaultMessage="Create a list and set up filters in order to select the fact-checks you would like to contribute to this shared feed."
                   description="Content of a warning displayed on edit feed page when the workspace has no lists."
+                  id="selectList.noListDescription"
                 />
               }
-              buttonLabel={
+              title={
                 <FormattedMessage
-                  id="selectList.noListButtonLabel"
-                  defaultMessage="How to create lists"
-                  description="Helper link in a warning displayed on edit feed page when the workspace has no lists."
+                  defaultMessage="Your workspace needs a Custom Filtered List to contribute."
+                  description="Title of a warning displayed on edit feed page when the workspace has no lists."
+                  id="selectList.noListTitle"
                 />
               }
+              variant="warning"
               onButtonClick={() => { window.open('https://help.checkmedia.org/en/articles/8720927-custom-lists'); }}
             />
           );
@@ -70,24 +68,24 @@ const SelectListQueryRenderer = ({
             { (required && !value) ?
               <div>
                 <Alert
-                  variant="warning"
                   title={
                     <FormattedMessage
-                      id="saveFeed.noListSelected"
                       defaultMessage="Your workspace is not contributing to this shared feed. Select a list below to contribute."
                       description="Warning displayed on edit feed page when no list is selected."
+                      id="saveFeed.noListSelected"
                     />
                   }
+                  variant="warning"
                 />
               </div> : null }
-            <FormattedMessage id="selectList.select" defaultMessage="Select list…" description="Label for list selector">
+            <FormattedMessage defaultMessage="Select list…" description="Label for list selector" id="selectList.select">
               { selectLabel => (
                 <Select
                   iconLeft={<ListIcon />}
+                  label={label}
                   value={value}
                   onChange={onChange}
                   onRemove={onRemove}
-                  label={label}
                 >
                   <option value={null}>{selectLabel}</option>
                   {
@@ -106,6 +104,9 @@ const SelectListQueryRenderer = ({
       }
 
       return null;
+    }}
+    variables={{
+      slug: window.location.pathname.match(/^\/([^/]+)/)[1],
     }}
   />
 );

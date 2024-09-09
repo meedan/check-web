@@ -76,8 +76,8 @@ const MediaControls = ({
   const PlayButton = () => (
     <IconButton
       className={classes.icon}
-      onPointerUp={togglePlay}
       size="small"
+      onPointerUp={togglePlay}
     >
       { isPlaying ? <PauseIcon /> : <PlayArrowIcon /> }
     </IconButton>
@@ -103,37 +103,37 @@ const MediaControls = ({
 
   return (
     <>
-      <div className={classes.overlay} onPointerUp={togglePlay} onKeyUp={togglePlay} />
+      <div className={classes.overlay} onKeyUp={togglePlay} onPointerUp={togglePlay} />
       <Grid
-        container
-        className={classes.root}
-        display="flex"
         alignItems="center"
+        className={classes.root}
+        container
+        display="flex"
       >
         <Grid
+          alignItems="center"
           container
           item
-          alignItems="center"
           xs={6}
         >
           <PlayButton />
           <TimeDisplay />
         </Grid>
         <Grid
+          alignItems="center"
           container
           item
-          alignItems="center"
           justify="flex-end"
           xs={6}
         >
-          <Grid item container xs={6} justify="flex-end">
+          <Grid container item justify="flex-end" xs={6}>
             <MediaVolume
-              volume={volume}
               setVolume={setVolume}
               videoRef={videoRef}
+              volume={volume}
             />
           </Grid>
-          <Box display="flex" alignItems="center">
+          <Box alignItems="center" display="flex">
             <MediaPlaybackSpeed
               playbackSpeed={playbackSpeed}
               setPlaybackSpeed={setPlaybackSpeed}
@@ -143,8 +143,8 @@ const MediaControls = ({
         </Grid>
         <MediaTimeline
           currentTime={currentTime}
-          setCurrentTime={setCurrentTime}
           duration={duration}
+          setCurrentTime={setCurrentTime}
           videoRef={videoRef}
         />
       </Grid>

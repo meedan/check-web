@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
-import UserWorkspaces from '../user/UserWorkspaces';
 import UserProfile from './UserProfile';
 import UserPrivacy from './UserPrivacy';
 import UserSecurity from './UserSecurity';
 import PageTitle from '../PageTitle';
+import UserWorkspaces from '../user/UserWorkspaces';
 import styles from './user.module.css';
 
 class MeComponent extends React.Component {

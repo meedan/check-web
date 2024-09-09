@@ -53,15 +53,15 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
           persist,
           anchorOrigin,
           content: key => (
-            <div key={key} className="int-flash-message__toast">
+            <div className="int-flash-message__toast" key={key}>
               <Alert
                 className={cx(
                   {
                     [styles['persist-alert-flash-message']]: persist,
                   })
                 }
-                floating
                 content={msg}
+                floating
                 variant={variant}
                 onClose={persist ? () => {
                   closeSnackbar(key);
@@ -78,16 +78,16 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
           persist,
           anchorOrigin,
           content: key => (
-            <div key={key} className="int-flash-message__toast">
+            <div className="int-flash-message__toast" key={key}>
               <Alert
                 className={cx(
                   {
                     [styles['persist-alert-flash-message']]: persist,
                   })
                 }
+                content={<>{createFriendlyErrorMessage(msg)}</>}
                 floating
                 title={<>{createFriendlyErrorMessageTitle(msg)}</>}
-                content={<>{createFriendlyErrorMessage(msg)}</>}
                 variant={variant}
                 onClose={persist ? () => {
                   closeSnackbar(key);
@@ -104,15 +104,15 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
         persist,
         anchorOrigin,
         content: key => (
-          <div key={key} className="int-flash-message__toast">
+          <div className="int-flash-message__toast" key={key}>
             <Alert
               className={cx(
                 {
                   [styles['persist-alert-flash-message']]: persist,
                 })
               }
-              floating
               content={message}
+              floating
               variant={variant}
               onClose={persist ? () => {
                 closeSnackbar(key);
@@ -181,7 +181,7 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
           const label = match.match(/\[(.*)\]/)[1];
           const url = match.match(/\((.*)\)/)[1];
           return (
-            <a href={url} target="_blank" rel="noopener noreferrer" key={i} title={label}>
+            <a href={url} key={i} rel="noopener noreferrer" target="_blank" title={label}>
               {label}
             </a>
           );
@@ -194,11 +194,11 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
   if (message) {
     return (
       <Alert
+        banner
+        className={cx('home__message', styles['alert-flash-home-message'])}
         content={message}
         variant="info"
-        banner
         onClose={resetMessage}
-        className={cx('home__message', styles['alert-flash-home-message'])}
       />
     );
   }

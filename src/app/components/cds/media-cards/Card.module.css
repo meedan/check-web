@@ -9,6 +9,7 @@
   svg {
     flex: 0 0 var(--iconSizeTiny);
     font-size: var(--iconSizeTiny);
+    margin: 0 0 -2px;
   }
 
   a {
@@ -48,19 +49,32 @@
     white-space: nowrap;
     width: 100%;
 
-    .cardTitle {
-      -webkit-box-orient: vertical;
-      display: -webkit-box; /* stylelint-disable-line */
-      margin: 0;
-      white-space: normal;
-    }
-
     .cardDescription {
       -webkit-box-orient: vertical;
       color: var(--color-gray-37);
       display: -webkit-box; /* stylelint-disable-line */
       font-size: var(--font-size-body-2);
       white-space: pre-line;
+
+      + .articleLink {
+        margin: 3px 0 0;
+      }
+    }
+
+    .cardTitle {
+      @mixin typography-button;
+      -webkit-box-orient: vertical;
+      display: -webkit-box; /* stylelint-disable-line */
+      margin: 0;
+      white-space: normal;
+
+      .articleLink {
+        @mixin typography-button;
+      }
+
+      + .cardDescription {
+        margin: 2px 0 0;
+      }
     }
 
     .cardSummaryContent {

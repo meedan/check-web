@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -7,6 +8,7 @@ import cx from 'classnames/bind';
 import ChooseExistingArticleButton from './ChooseExistingArticleButton';
 import NewArticleButton from './NewArticleButton';
 import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
+import MediaArticlesDisplay from './MediaArticlesDisplay';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -15,7 +17,6 @@ import DescriptionIcon from '../../icons/description.svg';
 import { getErrorMessage } from '../../helpers';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import styles from './Articles.module.css';
-import MediaArticlesDisplay from './MediaArticlesDisplay';
 
 const addExplainerMutation = graphql`
   mutation MediaArticlesCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
@@ -47,9 +48,9 @@ const addFactCheckMutation = graphql`
 `;
 
 const MediaArticlesComponent = ({
-  team,
-  projectMedia,
   onUpdate,
+  projectMedia,
+  team,
 }) => {
   const [adding, setAdding] = React.useState(false);
   const [confirmReplaceFactCheck, setConfirmReplaceFactCheck] = React.useState(null);
@@ -57,15 +58,15 @@ const MediaArticlesComponent = ({
   const hasArticle = projectMedia.articles_count > 0;
 
   if (adding) {
-    return <MediasLoading theme="white" variant="inline" size="large" />;
+    return <MediasLoading size="large" theme="white" variant="inline" />;
   }
 
   const onCompleted = () => {
     setFlashMessage(
       <FormattedMessage
-        id="mediaArticles.success"
         defaultMessage="Article added successfully!"
         description="Banner displayed after an article is successfully added to an item."
+        id="mediaArticles.success"
       />,
       'success');
     setAdding(false);
@@ -134,19 +135,19 @@ const MediaArticlesComponent = ({
   };
 
   return (
-    <div id="articles-sidebar" className={styles.articlesSidebar}>
+    <div className={styles.articlesSidebar} id="articles-sidebar">
       <div className={styles.articlesSidebarTopBar}>
         <ChooseExistingArticleButton
           disabled={projectMedia.type === 'Blank'}
-          teamSlug={team.slug}
           projectMediaDbid={projectMedia.dbid}
+          teamSlug={team.slug}
           onAdd={handleConfirmAdd}
         />
         <NewArticleButton
-          team={team}
           buttonMainProps={{ size: 'small', theme: 'text' }}
           disabled={projectMedia.type === 'Blank'}
           projectMedia={projectMedia}
+          team={team}
           onCreate={onUpdate}
         />
       </div>
@@ -158,17 +159,17 @@ const MediaArticlesComponent = ({
             <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
             <div>
               <FormattedMessage
-                id="mediaArticles.noArticlesAddedToItem"
                 defaultMessage="No articles are being delivered to Tipline users who send requests that match this Media."
                 description="Message displayed on articles sidebar when an item has no articles."
+                id="mediaArticles.noArticlesAddedToItem"
               />
             </div>
           </div>
           <div className="typography-subtitle2">
             <FormattedMessage
-              id="mediaArticles.chooseRecentArticle"
               defaultMessage="Choose a recent article to add to this media:"
               description="Message displayed on articles sidebar when an item has no articles."
+              id="mediaArticles.chooseRecentArticle"
             />
           </div>
           <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
@@ -177,37 +178,37 @@ const MediaArticlesComponent = ({
 
       {/* Confirm dialog for replacing fact-check */}
       <ConfirmProceedDialog
-        open={Boolean(confirmReplaceFactCheck)}
-        title={
-          <FormattedMessage
-            id="mediaArticles.confirmReplaceFactCheckTitle"
-            defaultMessage="Replace claim & fact-check?"
-            description="'Replace' here is an infinitive verb."
-          />
-        }
         body={
           <FormattedMessage
-            id="mediaArticles.confirmReplaceFactCheckBody"
             defaultMessage="Are you sure you would like to replace the current claim & fact-check?"
             description="Confirmation dialog message when replacing a fact-check."
+            id="mediaArticles.confirmReplaceFactCheckBody"
           />
         }
-        proceedLabel={
-          <FormattedMessage
-            id="mediaArticles.confirmReplaceFactCheckButton"
-            defaultMessage="Replace claim & fact-check"
-            description="'Replace' here is an infinitive verb"
-          />
-        }
-        onProceed={handleReplace}
         cancelLabel={
           <FormattedMessage
-            id="global.cancel"
             defaultMessage="Cancel"
             description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+            id="global.cancel"
+          />
+        }
+        open={Boolean(confirmReplaceFactCheck)}
+        proceedLabel={
+          <FormattedMessage
+            defaultMessage="Replace claim & fact-check"
+            description="'Replace' here is an infinitive verb"
+            id="mediaArticles.confirmReplaceFactCheckButton"
+          />
+        }
+        title={
+          <FormattedMessage
+            defaultMessage="Replace claim & fact-check?"
+            description="'Replace' here is an infinitive verb."
+            id="mediaArticles.confirmReplaceFactCheckTitle"
           />
         }
         onCancel={() => { setConfirmReplaceFactCheck(null); }}
+        onProceed={handleReplace}
       />
     </div>
   );
@@ -228,7 +229,7 @@ MediaArticlesComponent.propTypes = {
   onUpdate: PropTypes.func.isRequired,
 };
 
-const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
+const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
   const [updateCount, setUpdateCount] = React.useState(0);
 
   // FIXME: Shouldn't be needed if Relay works as expected
@@ -258,22 +259,22 @@ const MediaArticles = ({ teamSlug, projectMediaDbid }) => {
             }
           }
         `}
-        variables={{
-          slug: teamSlug,
-          ids: `${projectMediaDbid},,`,
-          updateCount, // Used to force a refresh
-        }}
         render={({ error, props }) => {
           if (!error && props) {
             return (
               <MediaArticlesComponent
-                team={props.team}
                 projectMedia={props.project_media}
+                team={props.team}
                 onUpdate={handleUpdate}
               />
             );
           }
-          return <MediasLoading theme="white" variant="inline" size="large" />;
+          return <MediasLoading size="large" theme="white" variant="inline" />;
+        }}
+        variables={{
+          slug: teamSlug,
+          ids: `${projectMediaDbid},,`,
+          updateCount, // Used to force a refresh
         }}
       />
     </ErrorBoundary>

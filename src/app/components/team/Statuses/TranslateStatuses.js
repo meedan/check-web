@@ -1,22 +1,23 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import StatusLabel from './StatusLabel';
+import StatusMessage from './StatusMessage';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { languageLabel } from '../../../LanguageRegistry';
 import { FormattedGlobalMessage } from '../../MappedMessage';
-import StatusLabel from './StatusLabel';
-import StatusMessage from './StatusMessage';
 import styles from './Statuses.module.css';
 import settingsStyles from '../Settings.module.css';
 
 const TranslateStatuses = ({
-  statuses,
-  defaultLanguage,
   currentLanguage,
+  defaultLanguage,
   onSubmit,
+  statuses,
 }) => {
   const [translations, setTranslations] = React.useState({});
   const [messages, setMessages] = React.useState({});
@@ -105,13 +106,13 @@ const TranslateStatuses = ({
           </span>
           <ButtonMain
             className="translate-statuses__save"
-            variant="contained"
-            theme="brand"
-            size="default"
-            onClick={handleSave}
             label={
               <FormattedGlobalMessage messageKey="save" />
             }
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={handleSave}
           />
         </div>
       </div>
@@ -138,78 +139,78 @@ const TranslateStatuses = ({
           <div>
             <TextField
               className="translate-statuses__input"
-              label={
-                <FormattedMessage
-                  id="translateStatuses.status"
-                  defaultMessage="Status"
-                  description="Label for TextField for the status translation"
-                />
-              }
               defaultValue={
                 s.locales[currentLanguage] ?
                   s.locales[currentLanguage].label : ''
               }
               id={`translate-statuses__input-${s.id}`}
-              onChange={e => (handleTextChange(s.id, e.target.value))}
+              label={
+                <FormattedMessage
+                  defaultMessage="Status"
+                  description="Label for TextField for the status translation"
+                  id="translateStatuses.status"
+                />
+              }
               variant="outlined"
+              onChange={e => (handleTextChange(s.id, e.target.value))}
             />
             { s.should_send_message && s.locales[defaultLanguage] && s.locales[defaultLanguage].message ?
               <TextField
                 className="translate-statuses__message"
-                label={
-                  <FormattedMessage
-                    id="translateStatuses.message"
-                    defaultMessage="Message"
-                    description="Label for the textarea where user can provide a translation for the automated message"
-                  />
-                }
                 defaultValue={
                   s.locales[currentLanguage] ?
                     s.locales[currentLanguage].message : ''
                 }
                 id={`translate-statuses__message-${s.id}`}
+                label={
+                  <FormattedMessage
+                    defaultMessage="Message"
+                    description="Label for the textarea where user can provide a translation for the automated message"
+                    id="translateStatuses.message"
+                  />
+                }
                 rows={3}
                 rowsMax={Infinity}
-                onChange={e => (handleMessageChange(s.id, e.target.value))}
                 variant="outlined"
+                onChange={e => (handleMessageChange(s.id, e.target.value))}
               /> : null }
           </div>
         </div>
       ))}
       <ConfirmProceedDialog
-        open={showWarning}
-        title={
-          <FormattedMessage
-            id="translateStatuses.missingTranslations"
-            defaultMessage="Missing translations"
-            description="Modal Title informing the user that there are missing translations"
-          />
-        }
         body={
           <div>
             <FormattedMessage
-              tagName="p"
-              id="translateStatuses.missingTranslationsBody"
               defaultMessage="Some statuses are missing translations. Users may not be able to read untranslated statuses."
               description="Modal paragraph description informing the user that there are missing translations"
+              id="translateStatuses.missingTranslationsBody"
+              tagName="p"
             />
             <FormattedMessage
-              tagName="p"
-              id="translateStatuses.missingTranslationsBody2"
               defaultMessage="If the message for a status is not translated in a language, any requester using that language will not receive the message."
               description="Description paragraph telling the user what will happen is a translation is missing"
+              id="translateStatuses.missingTranslationsBody2"
+              tagName="p"
             />
           </div>
         }
-        onCancel={handleDialogCancel}
-        onProceed={handleSubmit}
+        open={showWarning}
         proceedLabel={
           <FormattedMessage
-            id="translateStatuses.continueAndSave"
             defaultMessage="Continue and save"
             description="Label for confirmation to save the updated status translations"
+            id="translateStatuses.continueAndSave"
           />
         }
+        title={
+          <FormattedMessage
+            defaultMessage="Missing translations"
+            description="Modal Title informing the user that there are missing translations"
+            id="translateStatuses.missingTranslations"
+          />
+        }
+        onCancel={handleDialogCancel}
+        onProceed={handleSubmit}
       />
     </div>
   );

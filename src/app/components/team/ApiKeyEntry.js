@@ -4,6 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import cx from 'classnames/bind';
+import ApiKeyDelete from './ApiKeyDelete';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
@@ -11,7 +12,6 @@ import BulletSeparator from '../layout/BulletSeparator';
 import ContentCopyIcon from '../../icons/content_copy.svg';
 import ErrorOutlineIcon from '../../icons/error_outline.svg';
 import styles from './ApiKeys.module.css';
-import ApiKeyDelete from './ApiKeyDelete';
 
 const ApiKeyEntry = ({ apiKey }) => {
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
@@ -19,9 +19,9 @@ const ApiKeyEntry = ({ apiKey }) => {
   const handleCopyToClipboard = () => {
     setFlashMessage((
       <FormattedMessage
-        id="apiKeyEntry.copiedToClipboard"
         defaultMessage="The API Key has been copied to the clipboard"
         description="success message fro when an API Key has been copied to the clipboard"
+        id="apiKeyEntry.copiedToClipboard"
       />
     ), 'success');
   };
@@ -35,9 +35,9 @@ const ApiKeyEntry = ({ apiKey }) => {
         { expired && (
           <span className={styles['key-expired']}>
             <FormattedMessage
-              id="apiKeyEntry.expiredTitle"
               defaultMessage="Expired:"
               description="Prefix to the name of an expired API key"
+              id="apiKeyEntry.expiredTitle"
             />
           </span>
         )}
@@ -49,32 +49,32 @@ const ApiKeyEntry = ({ apiKey }) => {
       <div className={styles['key-row']}>
         <TextField
           className={cx('api-key__textfield', styles['key-textfield'])}
+          disabled={expired}
           label={
             <FormattedMessage
-              id="apiKeyEntry.apiKeyTitle"
               defaultMessage="API Key"
               description="Label for Text field that shows the API key token"
+              id="apiKeyEntry.apiKeyTitle"
             />
           }
-          value={apiKey.access_token}
-          disabled={expired}
           readOnly
+          value={apiKey.access_token}
         />
         <div className={styles['key-row__buttons']}>
           <CopyToClipboard text={apiKey.access_token} onCopy={handleCopyToClipboard}>
             <ButtonMain
               className="api-key__copy-button"
-              theme="text"
-              variant="outlined"
+              disabled={expired}
               iconLeft={<ContentCopyIcon />}
               label={
                 <FormattedMessage
-                  id="apiKeyEntry.copy"
                   defaultMessage="Copy"
                   description="Label for button that will copy the API key token to the clipboard"
+                  id="apiKeyEntry.copy"
                 />
               }
-              disabled={expired}
+              theme="text"
+              variant="outlined"
             />
           </CopyToClipboard>
           <ApiKeyDelete keyId={apiKey.id} />
@@ -84,39 +84,39 @@ const ApiKeyEntry = ({ apiKey }) => {
         caption
         details={[
           <FormattedMessage
-            id="apiKeyEntry.addedBy"
             defaultMessage="Added on {date} by {user}"
             description="Details when API key was created and by which user"
+            id="apiKeyEntry.addedBy"
             values={{
-              date: <FormattedDate value={apiKey.created_at * 1000} day="numeric" month="short" year="numeric" />,
+              date: <FormattedDate day="numeric" month="short" value={apiKey.created_at * 1000} year="numeric" />,
               user: apiKey.user?.name,
             }}
           />,
           expired ? (
             <span className={styles['key-expired']}>
               <FormattedMessage
-                id="apiKeyEntry.expiredDate"
                 defaultMessage="Expired: {date}"
                 description="Expiry date of the API key"
+                id="apiKeyEntry.expiredDate"
                 values={{
-                  date: <FormattedDate value={apiKey.expire_at} day="numeric" month="short" year="numeric" />,
+                  date: <FormattedDate day="numeric" month="short" value={apiKey.expire_at} year="numeric" />,
                 }}
               />
             </span>
           ) : (
             <FormattedMessage
-              id="apiKeyEntry.expiryDate"
               defaultMessage="Expires: {date}"
               description="Expiry date of the API key"
+              id="apiKeyEntry.expiryDate"
               values={{
-                date: <FormattedDate value={apiKey.expire_at} day="numeric" month="short" year="numeric" />,
+                date: <FormattedDate day="numeric" month="short" value={apiKey.expire_at} year="numeric" />,
               }}
             />
           ),
           <FormattedMessage
+            defaultMessage="Role: Editor"
+            description="Details role (access level) of the API key" // There's no role field to ApiKeyType yet
             id="apiKeyEntry.role"
-            defaultMessage="Role: Editor" // There's no role field to ApiKeyType yet
-            description="Details role (access level) of the API key"
           />,
         ]}
       />

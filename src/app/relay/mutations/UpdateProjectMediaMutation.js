@@ -313,7 +313,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         id
         dbid
         search_id
-        medias_count
       }
     `,
     dstProj: () => Relay.QL`
@@ -321,7 +320,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         id
         dbid
         search_id
-        medias_count
       }
     `,
   };

@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import FeedDataPoints from './FeedDataPoints';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 
 describe('<FeedDataPoints />', () => {

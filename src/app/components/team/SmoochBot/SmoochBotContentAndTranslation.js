@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -6,10 +7,10 @@ import UploadFile from '../../UploadFile';
 import settingsStyles from '../Settings.module.css';
 
 const SmoochBotContentAndTranslation = ({
-  value,
+  onChangeImage,
   onChangeMessage,
   onChangeStateMessage,
-  onChangeImage,
+  value,
 }) => {
   let greetingImage = value.smooch_greeting_image;
   if (typeof greetingImage === 'string') {
@@ -23,110 +24,99 @@ const SmoochBotContentAndTranslation = ({
   const strings = [
     {
       key: 'smooch_message_smooch_bot_greetings',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.greetingsTitle" defaultMessage="Greetings" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.greetingsDescription" defaultMessage="The first message that is sent to the user. It introduces your organization and the service you provide through this bot." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.greetingsDefault" defaultMessage="Welcome to our fact-checking bot. Use the main menu to navigate." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Greetings" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.greetingsTitle" />,
+      description: <FormattedMessage defaultMessage="The first message that is sent to the user. It introduces your organization and the service you provide through this bot." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.greetingsDescription" />,
+      default: <FormattedMessage defaultMessage="Welcome to our fact-checking bot. Use the main menu to navigate." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.greetingsDefault" />,
     },
     {
       key: 'submission_prompt',
       state: 'query',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.submissionPromptTitle" defaultMessage="Content prompt" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.submissionPromptDescription" defaultMessage="This message prompts the user to submit content for a fact-check." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.submissionPromptDefault" defaultMessage="Please enter the question, link, picture, or video that you want to be fact-checked." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Content prompt" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.submissionPromptTitle" />,
+      description: <FormattedMessage defaultMessage="This message prompts the user to submit content for a fact-check." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.submissionPromptDescription" />,
+      default: <FormattedMessage defaultMessage="Please enter the question, link, picture, or video that you want to be fact-checked." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.submissionPromptDefault" />,
     },
     {
       key: 'add_more_details_state',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.moreContentPromptTitle" defaultMessage="Add more content" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.moreContentPromptDescription" defaultMessage="This message is sent when user selects the option to add more content." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.moreContentPromptDefault" defaultMessage="Please add more content." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Add more content" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.moreContentPromptTitle" />,
+      description: <FormattedMessage defaultMessage="This message is sent when user selects the option to add more content." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.moreContentPromptDescription" />,
+      default: <FormattedMessage defaultMessage="Please add more content." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.moreContentPromptDefault" />,
     },
     {
       key: 'ask_if_ready_state',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.addMoreInformationTitle" defaultMessage="Submission prompt" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.addMoreInformationDescription" defaultMessage="This message is sent to user after they send content, to make sure all the information they want to submit has been provided." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.addMoreInformationDefault" defaultMessage="Are you ready to submit?" description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Submission prompt" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.addMoreInformationTitle" />,
+      description: <FormattedMessage defaultMessage="This message is sent to user after they send content, to make sure all the information they want to submit has been provided." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.addMoreInformationDescription" />,
+      default: <FormattedMessage defaultMessage="Are you ready to submit?" description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.addMoreInformationDefault" />,
     },
     {
       key: 'search_state',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.submissionReceivedTitle" defaultMessage="Submission received" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.submissionReceivedDescription" defaultMessage="The confirmation sent to the user after the content is submitted." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.submissionReceivedDefault" defaultMessage="Thank you! Looking for fact-checks, it may take a minute." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Submission received" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.submissionReceivedTitle" />,
+      description: <FormattedMessage defaultMessage="The confirmation sent to the user after the content is submitted." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.submissionReceivedDescription" />,
+      default: <FormattedMessage defaultMessage="Thank you! Looking for fact-checks, it may take a minute." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.submissionReceivedDefault" />,
     },
     {
       key: 'search_no_results',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.noSearchResultTitle" defaultMessage="No search result" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.noSearchResultDescription" defaultMessage="If the bot doesn't find any relevant fact-checks in your database, it informs users that the content has been sent to journalists." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.noSearchResultDefault" defaultMessage="No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="No search result" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.noSearchResultTitle" />,
+      description: <FormattedMessage defaultMessage="If the bot doesn't find any relevant fact-checks in your database, it informs users that the content has been sent to journalists." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.noSearchResultDescription" />,
+      default: <FormattedMessage defaultMessage="No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.noSearchResultDefault" />,
     },
     {
       key: 'search_result_state',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.feedbackTitle" defaultMessage="Feedback prompt" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.feedbackDescription" defaultMessage="After fact-checks are returned to the user, the bot automatically follows up to ask if the results are satisfactory." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.feedbackDefault" defaultMessage="Are these fact-checks answering your question?" description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Feedback prompt" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.feedbackTitle" />,
+      description: <FormattedMessage defaultMessage="After fact-checks are returned to the user, the bot automatically follows up to ask if the results are satisfactory." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.feedbackDescription" />,
+      default: <FormattedMessage defaultMessage="Are these fact-checks answering your question?" description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.feedbackDefault" />,
     },
     {
       key: 'search_result_is_relevant',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.positiveFeedbackTitle" defaultMessage="Positive feedback" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.positiveFeedbackDescription" defaultMessage="If the user is satisfied, this message's purpose is to thank them for their feedback." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.positiveFeedbackDefault" defaultMessage="Thank you! Spread the word about this tipline to help us fight misinformation! *insert_entry_point_link*" description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Positive feedback" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.positiveFeedbackTitle" />,
+      description: <FormattedMessage defaultMessage="If the user is satisfied, this message's purpose is to thank them for their feedback." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.positiveFeedbackDescription" />,
+      default: <FormattedMessage defaultMessage="Thank you! Spread the word about this tipline to help us fight misinformation! *insert_entry_point_link*" description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.positiveFeedbackDefault" />,
     },
     {
       key: 'search_submit',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.negativeFeedbackTitle" defaultMessage="Negative feedback" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.negativeFeedbackDescription" defaultMessage="If the user is not satisfied, this message informs the user that the content has been sent to journalists." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.negativeFeedbackDefault" defaultMessage="Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if a new fact-check is published." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Negative feedback" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.negativeFeedbackTitle" />,
+      description: <FormattedMessage defaultMessage="If the user is not satisfied, this message informs the user that the content has been sent to journalists." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.negativeFeedbackDescription" />,
+      default: <FormattedMessage defaultMessage="Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if a new fact-check is published." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.negativeFeedbackDefault" />,
     },
     {
       key: 'newsletter_optin_optout',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.newsletterTitle" defaultMessage="Newsletter opt-in and opt-out" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.newsletterDescription" defaultMessage="This message informs user about their subscription status. You must keep the placeholders as is (do not translate content within brackets)." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.newsletterDefault" defaultMessage="Subscribe now to get the most important facts delivered directly on WhatsApp, every week. {subscription_status}." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Newsletter opt-in and opt-out" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.newsletterTitle" />,
+      description: <FormattedMessage defaultMessage="This message informs user about their subscription status. You must keep the placeholders as is (do not translate content within brackets)." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.newsletterDescription" />,
+      default: <FormattedMessage defaultMessage="Subscribe now to get the most important facts delivered directly on WhatsApp, every week. {subscription_status}." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.newsletterDefault" />,
     },
     {
       key: 'option_not_available',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.optionNotAvailableTitle" defaultMessage="Option not available" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.optionNotAvailableDescription" defaultMessage="The message sent if the user response is not a valid option." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.optionNotAvailableDefault" defaultMessage="I'm sorry, I didn't understand your message." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Option not available" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.optionNotAvailableTitle" />,
+      description: <FormattedMessage defaultMessage="The message sent if the user response is not a valid option." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.optionNotAvailableDescription" />,
+      default: <FormattedMessage defaultMessage="I'm sorry, I didn't understand your message." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.optionNotAvailableDefault" />,
     },
     {
       key: 'timeout',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.timeoutTitle" defaultMessage="Conversation time out" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.timeoutDescription" defaultMessage="After 15 minutes of inactivity, this message is sent to users to close the conversation." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.timeoutDefault" defaultMessage="Thank you for reaching out to us! Type any key to start a new conversation." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Conversation time out" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.timeoutTitle" />,
+      description: <FormattedMessage defaultMessage="After 15 minutes of inactivity, this message is sent to users to close the conversation." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.timeoutDescription" />,
+      default: <FormattedMessage defaultMessage="Thank you for reaching out to us! Type any key to start a new conversation." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.timeoutDefault" />,
     },
     {
       key: 'smooch_message_smooch_bot_disabled',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.noticeOfInactivityTitle" defaultMessage="Inactive bot" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.noticeOfInactivityDescription" defaultMessage="If the tipline is set to inactive, this message is sent in response to any user message." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.noticeOfInactivityDefault" defaultMessage="Our bot is currently inactive. Please visit *insert URL* to read the latest fact-checks." description="Default value for a customizable string of the tipline bot." />,
+      title: <FormattedMessage defaultMessage="Inactive bot" description="Title of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.noticeOfInactivityTitle" />,
+      description: <FormattedMessage defaultMessage="If the tipline is set to inactive, this message is sent in response to any user message." description="Description of a customizable string of the tipline bot." id="smoochBotContentAndTranslation.noticeOfInactivityDescription" />,
+      default: <FormattedMessage defaultMessage="Our bot is currently inactive. Please visit *insert URL* to read the latest fact-checks." description="Default value for a customizable string of the tipline bot." id="smoochBotContentAndTranslation.noticeOfInactivityDefault" />,
     },
   ];
 
   return (
     <>
       <div className={settingsStyles['setting-content-container-title']}>
-        <FormattedMessage id="smoochBotContentAndTranslation.pageTitle" defaultMessage="Bot Content & Translations" description="Page title where users can customize the content that the tipline bot will respond with" />
+        <FormattedMessage defaultMessage="Bot Content & Translations" description="Page title where users can customize the content that the tipline bot will respond with" id="smoochBotContentAndTranslation.pageTitle" />
       </div>
       { strings.map(string => (
         <TiplineContentTranslation
-          key={string.key}
-          identifier={string.key}
-          title={string.title}
-          description={string.description}
           defaultValue={string.default}
-          value={string.state ? value[`smooch_state_${string.state}`].smooch_menu_message : value[string.key]}
+          description={string.description}
           error={
             string.key === 'newsletter_optin_optout' && value[string.key] && !/{subscription_status}/.test(value[string.key]) ?
-              <FormattedMessage id="smoochBotContentAndTranslation.error" defaultMessage="The placeholder {subscription_status} is missing from your custom content or translation" description="Error message displayed on the tipline settings page when the placeholder is not present" />
+              <FormattedMessage defaultMessage="The placeholder {subscription_status} is missing from your custom content or translation" description="Error message displayed on the tipline settings page when the placeholder is not present" id="smoochBotContentAndTranslation.error" />
               : null
           }
-          onUpdate={(newValue) => {
-            if (string.state) {
-              onChangeStateMessage(string.state, newValue);
-            } else {
-              onChangeMessage(string.key, newValue);
-            }
-          }}
           extra={
             string.key === 'smooch_message_smooch_bot_greetings' ?
               <UploadFile
@@ -137,6 +127,17 @@ const SmoochBotContentAndTranslation = ({
               />
               : null
           }
+          identifier={string.key}
+          key={string.key}
+          title={string.title}
+          value={string.state ? value[`smooch_state_${string.state}`].smooch_menu_message : value[string.key]}
+          onUpdate={(newValue) => {
+            if (string.state) {
+              onChangeStateMessage(string.state, newValue);
+            } else {
+              onChangeMessage(string.key, newValue);
+            }
+          }}
         />
       ))}
     </>

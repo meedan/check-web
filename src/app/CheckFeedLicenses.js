@@ -28,7 +28,7 @@ export const getLicenseIcon = licenseName => ({
 }[licenseName]);
 
 export const getLicenseTranslatedName = licenseName => ({
-  ACADEMIC: <FormattedMessage id="checkFeedLicenses.licenseNameAcademic" defaultMessage="Academic" description="Feed license" />,
-  COMMERCIAL: <FormattedMessage id="checkFeedLicenses.licenseNameCommercial" defaultMessage="Commercial" description="Feed license" />,
-  OPEN_SOURCE: <FormattedMessage id="checkFeedLicenses.licenseNameOpenSource" defaultMessage="Open Source" description="Feed license" />,
+  ACADEMIC: <FormattedMessage defaultMessage="Academic" description="Feed license" id="checkFeedLicenses.licenseNameAcademic" />,
+  COMMERCIAL: <FormattedMessage defaultMessage="Commercial" description="Feed license" id="checkFeedLicenses.licenseNameCommercial" />,
+  OPEN_SOURCE: <FormattedMessage defaultMessage="Open Source" description="Feed license" id="checkFeedLicenses.licenseNameOpenSource" />,
 }[licenseName]);

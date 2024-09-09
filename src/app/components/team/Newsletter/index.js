@@ -1,8 +1,8 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { safelyParseJSON } from '../../../helpers';
 import NewsletterComponent from './NewsletterComponent';
+import { safelyParseJSON } from '../../../helpers';
 import createEnvironment from '../../../relay/EnvironmentModern';
 
 const Newsletter = () => {
@@ -24,7 +24,6 @@ const Newsletter = () => {
           }
         }
       `}
-      variables={{ language }}
       render={({ props }) => {
         const environment = createEnvironment(props?.me?.token, props?.team?.slug);
 
@@ -32,16 +31,17 @@ const Newsletter = () => {
           const languages = safelyParseJSON(props.team.get_languages, []);
           return (
             <NewsletterComponent
-              team={props.team}
               environment={environment}
               language={language || props.team.get_language || languages[0] || 'en'}
               languages={languages}
+              team={props.team}
               onChangeLanguage={setLanguage}
             />
           );
         }
         return null;
       }}
+      variables={{ language }}
     />
   );
 };

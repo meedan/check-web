@@ -19,16 +19,16 @@ const Similarity = ({ teamSlug }) => (
         }
       }
     `}
-    variables={{
-      teamSlug,
-    }}
     render={({ error, props }) => {
       if (!error && props) {
-        return <SimilarityComponent user={props.me} team={props.team} />;
+        return <SimilarityComponent team={props.team} user={props.me} />;
       }
 
       // TODO: We need a better error handling in the future, standardized with other components
       return null;
+    }}
+    variables={{
+      teamSlug,
     }}
   />
 );

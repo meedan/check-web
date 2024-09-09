@@ -145,26 +145,35 @@ const updateFactCheckMutation = graphql`
 
 const ClaimFactCheckForm = ({
   article,
-  team,
-  projectMedia,
   onClose,
   onCreate,
+  projectMedia,
+  team,
 }) => {
   const type = article?.id ? 'edit' : 'create';
+  const createFromMediaPage = (type === 'create') && projectMedia;
+
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [factCheck, setFactCheck] = React.useState({});
+  const emptyCharacter = '-';
+  const [factCheck, setFactCheck] = React.useState(type === 'create' ? { title: emptyCharacter, summary: emptyCharacter, language: team.get_language } : {});
   const [claim, setClaim] = React.useState({});
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
-  const onSuccess = () => {
+  const onSuccess = (createAndPublish) => {
+    if (createAndPublish?.publish) {
+      const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+      // FIXME: use browserHistory.push instead of window.location.assign
+      window.location.assign(`/${teamSlug}/media/${projectMedia.dbid}/report`);
+    }
+
     setSaving(false);
     setError(false);
     onClose(false);
     setFlashMessage(<FormattedMessage
-      id="claimFactCheckForm.saveSuccess"
-      defaultMessage="Article created successfully!"
+      defaultMessage="Article created successfully! This new article may take a while to appear up everywhere."
       description="Save item action success message"
+      id="claimFactCheckForm.saveSuccess"
     />, 'success');
   };
 
@@ -174,7 +183,7 @@ const ClaimFactCheckForm = ({
     setFlashMessage(errorMessage, 'error');
   };
 
-  const handleSaveFactCheck = (response) => {
+  const handleSaveFactCheck = (response, createAndPublish) => {
     setSaving(true);
     commitMutation(Relay.Store, {
       mutation: createFactCheckMutation,
@@ -201,7 +210,7 @@ const ClaimFactCheckForm = ({
       */
       onCompleted: () => {
         setSaving(false);
-        onSuccess();
+        onSuccess(createAndPublish);
         onCreate();
       },
       onError: (err) => {
@@ -211,7 +220,7 @@ const ClaimFactCheckForm = ({
     });
   };
 
-  const handleSave = () => {
+  const handleSave = (createAndPublish) => {
     setSaving(true);
     const input = { ...claim };
     if (projectMedia) {
@@ -227,7 +236,7 @@ const ClaimFactCheckForm = ({
           onFailure(err);
         } else {
           // claim has to exist before creating fact check
-          handleSaveFactCheck(response);
+          handleSaveFactCheck(response, createAndPublish);
         }
       },
       onError: (err) => {
@@ -300,15 +309,16 @@ const ClaimFactCheckForm = ({
 
   return (
     <ArticleForm
-      handleSave={handleSave}
-      onClose={onClose}
-      handleBlur={handleBlur}
-      articleType="fact-check"
-      mode={type}
       article={article}
-      team={team}
-      saving={saving}
+      articleType="fact-check"
+      createFromMediaPage={createFromMediaPage}
       error={error}
+      handleBlur={handleBlur}
+      handleSave={handleSave}
+      mode={type}
+      saving={saving}
+      team={team}
+      onClose={onClose}
     />
   );
 };
@@ -320,15 +330,17 @@ ClaimFactCheckForm.defaultProps = {
 };
 
 ClaimFactCheckForm.propTypes = {
-  team: PropTypes.object.isRequired,
   article: PropTypes.object,
   projectMedia: PropTypes.object,
+  team: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   onCreate: PropTypes.func,
 };
+
 const ClaimFactCheckFormContainer = createFragmentContainer(ClaimFactCheckForm, graphql`
   fragment ClaimFactCheckForm_team on Team {
     id
+    get_language
     ...ArticleForm_team
   }
   fragment ClaimFactCheckForm_article on FactCheck {
@@ -344,9 +356,9 @@ const ClaimFactCheckFormContainer = createFragmentContainer(ClaimFactCheckForm, 
 `);
 
 const ClaimFactCheckFormQueryRenderer = ({
-  teamSlug,
   factCheckId,
   onClose,
+  teamSlug,
 }) => (
   <QueryRenderer
     environment={Relay.Store}
@@ -360,15 +372,15 @@ const ClaimFactCheckFormQueryRenderer = ({
         }
       }
     `}
-    variables={{
-      teamSlug,
-      factCheckId,
-    }}
     render={({ error, props }) => {
       if (props && !error) {
         return <ClaimFactCheckFormContainer article={props.fact_check} team={props.team} onClose={onClose} />;
       }
       return null;
+    }}
+    variables={{
+      teamSlug,
+      factCheckId,
     }}
   />
 );

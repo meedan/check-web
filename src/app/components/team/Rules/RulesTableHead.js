@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -7,18 +8,18 @@ import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 const headCells = [
-  { id: 'name', label: <FormattedMessage id="rulesTableHead.name" defaultMessage="Name" description="Table header for rule names" /> },
-  { id: 'updated_at', label: <FormattedMessage id="rulesTableHead.updated" defaultMessage="Updated" description="Table header for rule update dates" /> },
+  { id: 'name', label: <FormattedMessage defaultMessage="Name" description="Table header for rule names" id="rulesTableHead.name" /> },
+  { id: 'updated_at', label: <FormattedMessage defaultMessage="Updated" description="Table header for rule update dates" id="rulesTableHead.updated" /> },
 ];
 
-const RulesTableHead = ({ orderBy, order, onSort }) => (
+const RulesTableHead = ({ onSort, order, orderBy }) => (
   <TableHead className="rulesTableHead">
     <TableRow>
       <TableCell padding="checkbox" />
       {headCells.map(headCell => (
         <TableCell
-          key={headCell.id}
           align="left"
+          key={headCell.id}
           padding="default"
           sortDirection={orderBy === headCell.id ? order : false}
         >

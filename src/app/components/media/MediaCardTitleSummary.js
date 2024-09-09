@@ -2,9 +2,9 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 
 const MediaCardTitleSummary = ({
-  title,
-  summary,
   style,
+  summary,
+  title,
 }) => (
   <>
     <Box p={2} style={style}>

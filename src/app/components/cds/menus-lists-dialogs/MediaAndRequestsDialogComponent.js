@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -13,33 +14,33 @@ import dialogStyles from '../../../styles/css/dialog.module.css';
 import styles from './MediaAndRequestsDialog.module.css';
 
 const MediaAndRequestsDialogComponent = ({
-  mediaSlug,
-  mediaHeader,
-  projectMediaId,
-  projectMediaImportedId,
   feedId,
+  mediaHeader,
+  mediaSlug,
   onClick,
   onClose,
+  projectMediaId,
+  projectMediaImportedId,
 }) => {
   const [context, setContext] = React.useState(projectMediaId ? 'workspace' : 'feed');
 
   return (
     <Dialog
       className={dialogStyles['dialog-window']}
+      fullWidth
+      maxWidth="md"
       open={projectMediaId || projectMediaImportedId}
       onClick={onClick}
       onClose={onClose}
-      maxWidth="md"
-      fullWidth
     >
       <div className={dialogStyles['dialog-title']}>
         {mediaSlug}
         <ButtonMain
           className={dialogStyles['dialog-close-button']}
-          variant="text"
+          iconCenter={<IconClose />}
           size="small"
           theme="text"
-          iconCenter={<IconClose />}
+          variant="text"
           onClick={onClose}
         />
       </div>
@@ -53,18 +54,18 @@ const MediaAndRequestsDialogComponent = ({
                 { projectMediaId && projectMediaImportedId && ( // Show the toggle if we have two values to switch between
                   <div className={styles.toggle}>
                     <ToggleButtonGroup
+                      exclusive
+                      fullWidth
+                      size="small"
                       value={context}
                       variant="contained"
                       onChange={(e, newValue) => setContext(newValue)}
-                      size="small"
-                      exclusive
-                      fullWidth
                     >
-                      <ToggleButton value="workspace" key="1">
-                        <FormattedMessage id="mediaAndRequestsDialogComponent.contextWorkspace" defaultMessage="Tipline Requests" description="Tab for choosing which requests to list in imported media dialog." />
+                      <ToggleButton key="1" value="workspace">
+                        <FormattedMessage defaultMessage="Tipline Requests" description="Tab for choosing which requests to list in imported media dialog." id="mediaAndRequestsDialogComponent.contextWorkspace" />
                       </ToggleButton>
-                      <ToggleButton value="feed" key="2">
-                        <FormattedMessage id="mediaAndRequestsDialogComponent.contextFeed" defaultMessage="Imported Requests" description="Tab for choosing which requests to list in imported media dialog." />
+                      <ToggleButton key="2" value="feed">
+                        <FormattedMessage defaultMessage="Imported Requests" description="Tab for choosing which requests to list in imported media dialog." id="mediaAndRequestsDialogComponent.contextFeed" />
                       </ToggleButton>
                     </ToggleButtonGroup>
                   </div>
@@ -75,7 +76,7 @@ const MediaAndRequestsDialogComponent = ({
             null
           }
           { context === 'feed' ?
-            <FeedItemMediaDialog itemDbid={projectMediaImportedId} feedDbid={feedId} /> :
+            <FeedItemMediaDialog feedDbid={feedId} itemDbid={projectMediaImportedId} /> :
             null
           }
         </div>

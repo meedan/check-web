@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import cx from 'classnames/bind';
+import Select from './Select';
 import ArrowDropUpIcon from '../../../icons/arrow_upward.svg';
 import ArrowDropDownIcon from '../../../icons/arrow_downward.svg';
 import Tooltip from '../alerts-and-prompts/Tooltip';
-import Select from './Select';
 import styles from './ListSort.module.css';
 
 const sortLabels = defineMessages({
@@ -50,6 +50,11 @@ const sortLabels = defineMessages({
     defaultMessage: 'Report (status)',
     description: 'Label for sort criteria option displayed in a drop-down in listing pages',
   },
+  sortScore: {
+    id: 'searchResults.sortScore',
+    defaultMessage: 'Search: Best Match',
+    description: 'Label for sort criteria option displayed in a drop-down in listing pages',
+  },
   sortSubmitted: {
     id: 'searchResults.sortSubmitted',
     defaultMessage: 'Submitted (date)',
@@ -69,10 +74,10 @@ const sortLabels = defineMessages({
 
 const ListSort = ({
   className,
+  onChange,
   options,
   sort,
   sortType,
-  onChange,
 }) => {
   const handleChangeSortCriteria = (e) => {
     onChange({ sort: e.target.value, sortType });
@@ -92,8 +97,8 @@ const ListSort = ({
         })
       }
     >
-      <FormattedMessage id="listSort.sort" defaultMessage="Sort" description="Label for sort criteria drop-down field displayed on listing pages" />
-      <Select className={styles.listSortSelect} onChange={handleChangeSortCriteria} value={sort}>
+      <FormattedMessage defaultMessage="Sort" description="Label for sort criteria drop-down field displayed on listing pages" id="listSort.sort" />
+      <Select className={styles.listSortSelect} value={sort} onChange={handleChangeSortCriteria}>
         {options.map(({ label, value }) => (
           <option key={value} value={value}>{label}</option>
         ))}
@@ -101,10 +106,10 @@ const ListSort = ({
       <Tooltip
         arrow
         title={
-          <FormattedMessage id="listSort.changeDirection" defaultMessage="Change list sorting direction" description="Tooltip to tell the user they can change the direction of the list sort" />
+          <FormattedMessage defaultMessage="Change list sorting direction" description="Tooltip to tell the user they can change the direction of the list sort" id="listSort.changeDirection" />
         }
       >
-        <button type="button" onClick={handleChangeSortDirection} className={`${styles.listSortDirectionButton} ${sortType === 'ASC' ? 'list-sort-asc' : 'list-sort-desc'}`}>
+        <button className={`${styles.listSortDirectionButton} ${sortType === 'ASC' ? 'list-sort-asc' : 'list-sort-desc'}`} type="button" onClick={handleChangeSortDirection}>
           {sortType === 'ASC' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
         </button>
       </Tooltip>

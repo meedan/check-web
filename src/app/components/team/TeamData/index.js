@@ -10,9 +10,9 @@ const renderQuery = ({ error, props }) => {
     const { team } = props;
     return (
       <TeamDataComponent
-        slug={team.slug}
         data={team.data_report}
         defaultLanguage={team.get_language}
+        slug={team.slug}
       />
     );
   }
@@ -34,10 +34,10 @@ const TeamData = props => (
         }
       }
     `}
+    render={renderQuery}
     variables={{
       teamSlug: props.teamSlug,
     }}
-    render={renderQuery}
   />
 );
 

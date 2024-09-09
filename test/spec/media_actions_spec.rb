@@ -54,9 +54,9 @@ shared_examples 'media actions' do
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('.search__results')
     wait_for_selector('.cluster-card')
-    wait_for_selector('#create-media__add-item').click
+    wait_for_selector('#create-media-button__open-button').click
     fill_field('#create-media-input', @media_url)
-    wait_for_selector('#create-media-dialog__submit-button').click
+    wait_for_selector('#create-media-button__submit-button').click
     wait_for_selector('.media-card-large')
     id2 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1 == id2).to be(true)

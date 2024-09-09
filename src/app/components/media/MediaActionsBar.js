@@ -4,50 +4,26 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Dialog from '@material-ui/core/Dialog';
-import Box from '@material-ui/core/Box';
-import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
-import TextArea from '../cds/inputs/TextArea.js';
-import MultiSelector from '../layout/MultiSelector';
 import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaTags from './MediaTags';
 import MediaStatus from './MediaStatus';
-import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
+import RestoreProjectMedia from './RestoreProjectMedia';
+import ItemTitle from './ItemTitle';
+import TextArea from '../cds/inputs/TextArea.js';
+import MultiSelector from '../layout/MultiSelector';
+import MediaRoute from '../../relay/MediaRoute';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
-import RestoreProjectMedia from './RestoreProjectMedia';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
-import styles from './media.module.css';
 import ItemThumbnail from '../cds/media-cards/ItemThumbnail';
-import ItemTitle from './ItemTitle';
 import dialogStyles from '../../styles/css/dialog.module.css';
-
-const Styles = theme => ({
-  spacedButton: {
-    marginRight: theme.spacing(1),
-  },
-  inputRoot: {
-    flex: '1 0 auto',
-    margin: theme.spacing(1),
-  },
-  spaced: {
-    margin: theme.spacing(1),
-  },
-  title: {
-    margin: theme.spacing(2),
-    outline: 0,
-  },
-  textField: {
-    margin: theme.spacing(1),
-    maxWidth: '14em',
-    width: '100%',
-  },
-});
+import styles from './media.module.css';
 
 class MediaActionsBarComponent extends Component {
   static handleReportDesigner() {
@@ -76,9 +52,9 @@ class MediaActionsBarComponent extends Component {
   fail(transaction) {
     const fallbackMessage = (
       <FormattedMessage
-        id="global.unknownError"
         defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
         description="Message displayed in error notification when an operation fails unexpectedly"
+        id="global.unknownError"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
@@ -87,7 +63,7 @@ class MediaActionsBarComponent extends Component {
   }
 
   canSubmit = () => {
-    const { title, description } = this.state;
+    const { description, title } = this.state;
     const permissions = JSON.parse(this.props.media.permissions);
     return (permissions['update Dynamic'] !== false && (typeof title === 'string' || typeof description === 'string'));
   };
@@ -105,17 +81,17 @@ class MediaActionsBarComponent extends Component {
       const pm = response.updateProjectMedia.project_media;
       const message = archived === CheckArchivedFlags.TRASHED ? (
         <FormattedMessage
-          id="mediaActionsBar.movedToTrash"
           defaultMessage="The item was moved to {trash}"
           description="Delete item action success message"
+          id="mediaActionsBar.movedToTrash"
           values={{
             trash: (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
               <a id="int-media-actions-toast__link--trash" onClick={() => browserHistory.push(`/${pm.team.slug}/trash`)}>
                 <FormattedMessage
-                  id="mediaDetail.trash"
                   defaultMessage="Trash"
                   description="Label used inside delete action success message. Links to the Trash page"
+                  id="mediaDetail.trash"
                 />
               </a>
             ),
@@ -123,17 +99,17 @@ class MediaActionsBarComponent extends Component {
         />
       ) : (
         <FormattedMessage
-          id="mediaActionsBar.movedToSpam"
           defaultMessage="The item was moved to {spam}"
           description="Send item to spam action success message"
+          id="mediaActionsBar.movedToSpam"
           values={{
             spam: (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
               <a id="int-media-actions-toast__link--spam" onClick={() => browserHistory.push(`/${pm.team.slug}/spam`)}>
                 <FormattedMessage
-                  id="mediaDetail.spam"
                   defaultMessage="Spam"
                   description="Label used inside 'send to spam' action success message. Links to the Spam page"
+                  id="mediaDetail.spam"
                 />
               </a>
             ),
@@ -219,9 +195,9 @@ class MediaActionsBarComponent extends Component {
     const onSuccess = () => {
       const message = (
         <FormattedMessage
-          id="mediaActionsBar.assignmentsUpdated"
           defaultMessage="Assignments updated successfully"
           description="Success message displayed when assigned user is updated"
+          id="mediaActionsBar.assignmentsUpdated"
         />
       );
       this.props.setFlashMessage(message, 'success');
@@ -252,7 +228,7 @@ class MediaActionsBarComponent extends Component {
   };
 
   render() {
-    const { classes, media } = this.props;
+    const { media } = this.props;
 
     // This is to safeguard agains a null media object that can happen when the component is rendered before the data is fetched
     if (!media) return null;
@@ -283,113 +259,123 @@ class MediaActionsBarComponent extends Component {
     if (media.archived === CheckArchivedFlags.TRASHED || media.archived === CheckArchivedFlags.SPAM) {
       restoreProjectMedia = (
         <RestoreProjectMedia
-          team={this.props.media.team}
-          projectMedia={this.props.media}
           context={context}
-          className={classes.spacedButton}
+          projectMedia={this.props.media}
+          team={this.props.media.team}
         />
       );
     }
 
     return (
       <div className={cx('media-actions-bar', styles['media-actions-wrapper'])}>
-        <ItemThumbnail picture={media.media?.picture} maskContent={media.show_warning_cover} type={media.media?.type} url={media.media?.url} />
+        <ItemThumbnail maskContent={media.show_warning_cover} picture={media.media?.picture} type={media.media?.type} url={media.media?.url} />
         <div className={styles['media-actions-title']}>
           <ItemTitle projectMediaId={this.props.media?.dbid} />
-          <MediaTags projectMediaId={this.props.media?.dbid} />
+          <div className={styles['media-actions-context']}>
+            <div className={styles['media-actions-tags']}>
+              <MediaTags projectMediaId={this.props.media?.dbid} />
+            </div>
+            { restoreProjectMedia ? <> {restoreProjectMedia} </> : null }
+            <div className={styles['media-actions']}>
+              {isParent ?
+                <MediaStatus
+                  media={media}
+                  readonly={(
+                    (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
+                    media.last_status_obj?.locked ||
+                    published
+                  )}
+                /> : null
+              }
+              <MediaActionsMenuButton
+                handleAssign={this.handleAssign.bind(this)}
+                handleItemHistory={this.handleItemHistory}
+                handleRefresh={this.handleRefresh.bind(this)}
+                handleSendToSpam={this.handleSendToSpam.bind(this)}
+                handleSendToTrash={this.handleSendToTrash.bind(this)}
+                handleStatusLock={this.handleStatusLock.bind(this)}
+                isParent={isParent}
+                key={media.id /* close menu if we navigate to a different projectMedia */}
+                projectMedia={media}
+              />
+            </div>
+          </div>
         </div>
-        { restoreProjectMedia ? <div className={styles['media-actions']}> {restoreProjectMedia} </div> : null }
-        <div className={styles['media-actions']}>
-          {isParent ?
-            <MediaStatus
-              media={media}
-              readonly={(
-                (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
-                media.last_status_obj?.locked ||
-                published
-              )}
-            /> : null
-          }
-          <MediaActionsMenuButton
-            key={media.id /* close menu if we navigate to a different projectMedia */}
-            projectMedia={media}
-            isParent={isParent}
-            handleRefresh={this.handleRefresh.bind(this)}
-            handleSendToTrash={this.handleSendToTrash.bind(this)}
-            handleSendToSpam={this.handleSendToSpam.bind(this)}
-            handleAssign={this.handleAssign.bind(this)}
-            handleStatusLock={this.handleStatusLock.bind(this)}
-            handleItemHistory={this.handleItemHistory}
-          />
-        </div>
-
         <ItemHistoryDialog
           open={this.state.itemHistoryDialogOpen}
-          onClose={this.handleCloseDialogs.bind(this)}
           projectMedia={media}
           team={media.team}
+          onClose={this.handleCloseDialogs.bind(this)}
         />
 
         {/* FIXME Extract to dedicated AssignmentDialog component */}
         <Dialog
           className={cx('project__assignment-menu', dialogStyles['dialog-window'])}
+          fullWidth
           open={this.state.assignmentDialogOpened}
           onClose={this.handleCloseDialogs.bind(this)}
         >
           <div className={dialogStyles['dialog-title']}>
             <FormattedMessage
-              tagName="h6"
-              id="mediaActionsBar.assignmentTitle"
-              defaultMessage="Assign item to collaborators"
+              defaultMessage="Assign Item"
               description="Assignment dialog title"
+              id="mediaActionsBar.assignmentTitle"
+              tagName="h6"
             />
           </div>
-          <div className={dialogStyles['dialog-content']}>
-            <Box display="flex" style={{ outline: 0 }}>
+          <div className={cx(dialogStyles['dialog-content'], styles['assign-media-dialog-content'])}>
+            <FormattedMessage
+              defaultMessage="Search…"
+              description="Search box placeholder"
+              id="multiSelector.search"
+            >
+              {placeholder => (
+                <MultiSelector
+                  allowSearch
+                  allowToggleAll
+                  cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+                  inputPlaceholder={placeholder}
+                  options={options}
+                  selected={selected}
+                  submitLabel={<FormattedMessage defaultMessage="Update" description="Generic label for a button or link for a user to press when they wish to update an action" id="global.update" />}
+                  toggleAllLabel={
+                    <FormattedMessage
+                      defaultMessage="All"
+                      description="Checkbox label for toggling select/unselect all"
+                      id="MultiSelector.all"
+                    />
+                  }
+                  onDismiss={this.handleCloseDialogs.bind(this)}
+                  onSubmit={this.handleAssignProjectMedia.bind(this)}
+                />
+              )}
+            </FormattedMessage>
+            <div className={styles['assign-media-dialog-note']}>
               <FormattedMessage
-                id="multiSelector.search"
-                defaultMessage="Search…"
-                description="Search box placeholder"
+                defaultMessage="Include an optional note in the email sent to assigned workspace members"
+                description="Placeholder text to field for adding details about the assignment"
+                id="mediaActionsBar.assignmentNotesPlaceholder"
               >
                 {placeholder => (
-                  <MultiSelector
-                    allowToggleAll
-                    allowSearch
-                    inputPlaceholder={placeholder}
-                    toggleAllLabel={
+                  <TextArea
+                    label={
                       <FormattedMessage
-                        id="MultiSelector.all"
-                        defaultMessage="All"
-                        description="Checkbox label for toggling select/unselect all"
+                        defaultMessage="Add a Note"
+                        description="Title text for field for adding details about the assignment"
+                        id="mediaActionsBar.assignmentNotesTitle"
                       />
                     }
-                    cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
-                    submitLabel={<FormattedMessage id="global.update" defaultMessage="Update" description="Generic label for a button or link for a user to press when they wish to update an action" />}
-                    options={options}
-                    selected={selected}
-                    onDismiss={this.handleCloseDialogs.bind(this)}
-                    onSubmit={this.handleAssignProjectMedia.bind(this)}
+                    placeholder={placeholder}
+                    ref={(element) => {
+                      this.assignmentMessageRef = element;
+                      return element;
+                    }}
+                    rows="21"
+                    variant="outlined"
                   />
                 )}
               </FormattedMessage>
-              <div className={classes.textField}>
-                <div className={cx('typography-body1', classes.spaced)}>
-                  <FormattedMessage
-                    id="mediaActionsBar.assignmentNotesTitle"
-                    defaultMessage="Add a note to the email"
-                    description="Helper text to field for adding details about the assignment"
-                  />
-                </div>
-                <TextArea
-                  variant="outlined"
-                  ref={(element) => {
-                    this.assignmentMessageRef = element;
-                    return element;
-                  }}
-                  rows="21"
-                />
-              </div>
-            </Box>
+            </div>
           </div>
         </Dialog>
       </div>
@@ -406,7 +392,7 @@ MediaActionsBarComponent.contextTypes = {
 };
 
 const ConnectedMediaActionsBarComponent =
-  withStyles(Styles)(withSetFlashMessage(MediaActionsBarComponent));
+  withSetFlashMessage(MediaActionsBarComponent);
 
 const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarComponent, {
   initialVariables: {
@@ -441,7 +427,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           title
           search_id
           search { id, number_of_results }
-          medias_count
         }
         media {
           type

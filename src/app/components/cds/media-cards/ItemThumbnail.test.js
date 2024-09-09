@@ -1,16 +1,16 @@
 import React from 'react';
+import ItemThumbnail from './ItemThumbnail';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import EmptyMediaIcon from '../../../icons/empty_media.svg';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
-import ItemThumbnail from './ItemThumbnail';
 import MediaTypeDisplayIcon from '../../media/MediaTypeDisplayIcon';
 
 describe('<ItemThumbnail />', () => {
   it('should render picture even when there is no media type', () => {
     const wrapper = mountWithIntl(
       <ItemThumbnail
-        picture="test.jpg"
         maskContent={false}
+        picture="test.jpg"
         url="http://test.com"
       />);
     expect(wrapper.find('img').length).toEqual(1);

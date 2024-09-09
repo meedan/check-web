@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import ScheduleSendIcon from '../../icons/schedule.svg';
-import styles from './FeedLastClusterizedAt.module.css';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import styles from './FeedLastClusterizedAt.module.css';
 
 const FeedLastClusterizedAt = ({ feed }) => {
   const message = feed.last_clusterized_at ? (
     <FormattedDate
-      value={feed.last_clusterized_at}
-      month="short"
       day="2-digit"
       hour="2-digit"
       minute="2-digit"
+      month="short"
+      value={feed.last_clusterized_at}
     />
   ) : (
     <FormattedMessage
-      id="feedLastClusterizedAt.feedClusterizedTimePendingInitialUpdate"
       defaultMessage="pending initial update"
       description="Informs that the feed is pending initial update"
+      id="feedLastClusterizedAt.feedClusterizedTimePendingInitialUpdate"
     />
   );
 
@@ -32,9 +32,9 @@ const FeedLastClusterizedAt = ({ feed }) => {
         arrow
         title={
           <FormattedMessage
-            id="feedLastClusterizedAt.tooltip"
             defaultMessage="Shared Feed data is updated hourly. Data is accurate from the date and time noted"
             description="Tooltip message displayed for letting user know when the feed was last updated"
+            id="feedLastClusterizedAt.tooltip"
           />
         }
       >

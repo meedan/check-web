@@ -45,29 +45,9 @@
     "defaultMessage": "Reports sent"
   },
   {
-    "id": "reportDesigner.publish",
-    "description": "Label for publish report button",
-    "defaultMessage": "Publish"
-  },
-  {
-    "id": "reportDesigner.cantPublishTitle",
-    "description": "Helper message to publishing report action",
-    "defaultMessage": "Your report is not ready to be published"
-  },
-  {
-    "id": "reportDesigner.confirmPublishTitle",
-    "description": "Helper message to publishing report action",
-    "defaultMessage": "Ready to publish your report?"
-  },
-  {
-    "id": "reportDesigner.confirmRepublishResendTitle",
-    "description": "Helper message to publishing report action",
-    "defaultMessage": "Ready to publish your changes?"
-  },
-  {
-    "id": "reportDesigner.confirmRepublishTitle",
-    "description": "Helper message to publishing report action",
-    "defaultMessage": "Ready to publish your changes?"
+    "id": "reportDesigner.cancelPublish",
+    "description": "Cancel action button label",
+    "defaultMessage": "Go back"
   },
   {
     "id": "reportDesigner.confirmPublishText",
@@ -100,9 +80,9 @@
     "defaultMessage": "{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
   },
   {
-    "id": "reportDesigner.cancelPublish",
-    "description": "Cancel action button label",
-    "defaultMessage": "Go back"
+    "id": "reportDesigner.publish",
+    "description": "Label for publish report button",
+    "defaultMessage": "Publish"
   },
   {
     "id": "reportDesigner.cantPublish",
@@ -125,19 +105,24 @@
     "defaultMessage": "Publish changes and send correction"
   },
   {
-    "id": "reportDesigner.pause",
-    "description": "Pause report publication action button label",
-    "defaultMessage": "Pause"
+    "id": "reportDesigner.cantPublishTitle",
+    "description": "Helper message to publishing report action",
+    "defaultMessage": "Your report is not ready to be published"
   },
   {
-    "id": "reportDesigner.confirmPauseTitle",
-    "description": "Pause report publication dialog title",
-    "defaultMessage": "Do you want to pause the report?"
+    "id": "reportDesigner.confirmPublishTitle",
+    "description": "Helper message to publishing report action",
+    "defaultMessage": "Ready to publish your report?"
   },
   {
-    "id": "reportDesigner.confirmPauseText",
-    "description": "Pause report publication action helper text",
-    "defaultMessage": "This will stop the report from being sent out to users until it is published again."
+    "id": "reportDesigner.confirmRepublishResendTitle",
+    "description": "Helper message to publishing report action",
+    "defaultMessage": "Ready to publish your changes?"
+  },
+  {
+    "id": "reportDesigner.confirmRepublishTitle",
+    "description": "Helper message to publishing report action",
+    "defaultMessage": "Ready to publish your changes?"
   },
   {
     "id": "reportDesigner.cancelPause",
@@ -145,8 +130,23 @@
     "defaultMessage": "Go back"
   },
   {
+    "id": "reportDesigner.confirmPauseText",
+    "description": "Pause report publication action helper text",
+    "defaultMessage": "This will stop the report from being sent out to users until it is published again."
+  },
+  {
+    "id": "reportDesigner.pause",
+    "description": "Pause report publication action button label",
+    "defaultMessage": "Pause"
+  },
+  {
     "id": "reportDesigner.confirmPause",
     "description": "Confirm pause report publication action button label",
     "defaultMessage": "Pause report"
+  },
+  {
+    "id": "reportDesigner.confirmPauseTitle",
+    "description": "Pause report publication dialog title",
+    "defaultMessage": "Do you want to pause the report?"
   }
 ]

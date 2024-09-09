@@ -5,11 +5,11 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import TeamTaskCardForm from './TeamTaskCardForm'; // eslint-disable-line no-unused-vars
 import TeamMetadataRender from './TeamMetadataRender';
 
-const TeamTasksComponent = ({ team, about }) => (
+const TeamTasksComponent = ({ about, team }) => (
   <div className="team-tasks">
     <TeamMetadataRender
-      team={team}
       about={about}
+      team={team}
     />
   </div>
 );
@@ -54,16 +54,12 @@ const TeamTasks = ({ team }) => {
                   title,
                   dbid,
                   id,
-                  medias_count,
                 }
               }
             }
           }
         }
       `}
-      variables={{
-        slug,
-      }}
       render={({ error, props }) => {
         if (!error && props) {
           return <TeamTasksComponent about={props.about} team={props.team} />;
@@ -71,6 +67,9 @@ const TeamTasks = ({ team }) => {
 
         // TODO: We need a better error handling in the future, standardized with other components
         return null;
+      }}
+      variables={{
+        slug,
       }}
     />
   );

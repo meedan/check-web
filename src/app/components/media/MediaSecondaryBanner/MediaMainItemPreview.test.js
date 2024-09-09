@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import { MediaMainItemPreview } from './MediaMainItemPreview';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 const projectMedia = {
   title: 'Foo bar',

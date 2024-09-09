@@ -1,16 +1,17 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
+import ArticleUrl from './ArticleUrl';
 import UnfoldLessIcon from '../../../icons/unfold_less.svg';
 import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
-import ArticleUrl from './ArticleUrl';
 import styles from './Card.module.css';
 
 const ItemDescription = ({
   className,
   description,
-  title,
   showCollapseButton,
+  title,
   url,
   variant,
 }) => {
@@ -58,7 +59,7 @@ const ItemDescription = ({
       }
     >
       <div className={styles.cardSummaryContent}>
-        <h6 className={cx('typography-button', styles.cardTitle)}>{title}</h6>
+        <h6 className={styles.cardTitle}>{title}</h6>
         { description ?
           <span className={cx('description-text', styles.cardDescription)} ref={descriptionRef}>
             {description}
@@ -69,8 +70,6 @@ const ItemDescription = ({
           : null }
       </div>
       <button
-        type="button"
-        onClick={toggleCollapse}
         className={cx(
           [styles.toggleCollapse],
           {
@@ -78,6 +77,8 @@ const ItemDescription = ({
             [[styles.toggleCollapseHidden]]: !shouldShowButton,
           })
         }
+        type="button"
+        onClick={toggleCollapse}
       >
         { isCollapsed ? <UnfoldMoreIcon /> : <UnfoldLessIcon /> }
       </button>

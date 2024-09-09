@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl, mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { FeedCollaboration } from './FeedCollaboration';
+import { shallowWithIntl, mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 const feed = {
   dbid: 1,
@@ -59,7 +59,7 @@ describe('<FeedCollaboration />', () => {
   });
 
   it('should invite emails as feed creator', () => {
-    const wrapper = shallowWithIntl(<FeedCollaboration collaboratorId={123} feed={feed} intl={mockIntl} onChange={() => {}} permissions={{ 'create FeedInvitation': true }} />);
+    const wrapper = shallowWithIntl(<FeedCollaboration collaboratorId={123} feed={feed} intl={mockIntl} permissions={{ 'create FeedInvitation': true }} onChange={() => {}} />);
     const input = wrapper.find('.int-feed-collab__text-field');
     input.simulate('change', { target: { value: 'bar@foo.com' } });
     wrapper.find('.int-feed-collab__add-button').simulate('click');
@@ -72,7 +72,7 @@ describe('<FeedCollaboration />', () => {
       'create FeedInvitation': true,
     };
 
-    const wrapper = mountWithIntl(<FeedCollaboration feed={feed} onChange={() => {}} permissions={permissions} intl={mockIntl} />);
+    const wrapper = mountWithIntl(<FeedCollaboration feed={feed} intl={mockIntl} permissions={permissions} onChange={() => {}} />);
     expect(wrapper.html()).not.toMatch('Contact your workspace admin to manage Collaborating organizations.');
   });
 
@@ -81,7 +81,7 @@ describe('<FeedCollaboration />', () => {
       'create FeedInvitation': false,
     };
 
-    const wrapper = mountWithIntl(<FeedCollaboration feed={feed} onChange={() => {}} permissions={permissions} intl={mockIntl} readOnly />);
+    const wrapper = mountWithIntl(<FeedCollaboration feed={feed} intl={mockIntl} permissions={permissions} readOnly onChange={() => {}} />);
     expect(wrapper.html()).toMatch('Contact your workspace admin to manage Collaborating organizations.');
   });
 });

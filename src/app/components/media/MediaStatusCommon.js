@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -55,9 +56,9 @@ class MediaStatusCommon extends Component {
   fail = (transaction) => {
     const fallbackMessage = (
       <FormattedMessage
-        id="mediaStatus.error"
         defaultMessage="Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists."
         description="Error message displayed when a status change fails"
+        id="mediaStatus.error"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
@@ -80,29 +81,29 @@ class MediaStatusCommon extends Component {
         <ButtonMain
           className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status || this.props.currentStatus)}`}
           customStyle={{ borderColor: currentStatus?.style?.color }}
-          variant="outlined"
-          theme="text"
-          size="default"
-          onClick={e => this.setState({ anchorEl: e.currentTarget })}
           disabled={!this.canUpdate()}
           iconLeft={currentStatus.should_send_message ? <ChatBubbleFilledIcon style={{ color: currentStatus?.style?.color }} /> : <EllipseIcon style={{ color: currentStatus?.style?.color }} />}
           iconRight={this.canUpdate() ? <ChevronDownIcon /> : <LockIcon style={{ color: currentStatus?.style?.color }} />}
           label={currentStatus.label}
+          size="default"
+          theme="text"
+          variant="outlined"
+          onClick={e => this.setState({ anchorEl: e.currentTarget })}
         />
         <Popover
           anchorEl={this.state.anchorEl}
+          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
           open={Boolean(this.state.anchorEl)}
           onClose={this.handleCloseMenu}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         >
           {statuses.map(status => (
             <MenuItem
-              key={status.id}
               className={`${bemClass(
                 'media-status__menu-item',
                 media.last_status === status.id || this.props.currentStatus === status.id,
                 '--current',
               )} media-status__menu-item--${status.id.replace('_', '-')}`}
+              key={status.id}
               onClick={() => this.handleStatusClick(status.id)}
             >
               <StatusLabel color={status.style.color}>

@@ -28,9 +28,9 @@ class UserTosForm extends Component {
   render() {
     const tosLink = (
       <a
-        target="_blank"
-        rel="noopener noreferrer"
         href={stringHelper('TOS_URL')}
+        rel="noopener noreferrer"
+        target="_blank"
         title={this.props.intl.formatMessage(messages.tos)}
       >
         {this.props.intl.formatMessage(messages.tos)}
@@ -39,9 +39,9 @@ class UserTosForm extends Component {
 
     const ppLink = (
       <a
-        target="_blank"
-        rel="noopener noreferrer"
         href={stringHelper('PP_URL')}
+        rel="noopener noreferrer"
+        target="_blank"
         title={this.props.intl.formatMessage(messages.pp)}
       >
         {this.props.intl.formatMessage(messages.pp)}
@@ -57,10 +57,10 @@ class UserTosForm extends Component {
             { this.props.showTitle ?
               <div className={dialogStyles['dialog-title']}>
                 <FormattedMessage
-                  tagName="h6"
-                  id="userTos.title"
                   defaultMessage="Terms of Service and Privacy Policy"
                   description="Page title for the terms of service"
+                  id="userTos.title"
+                  tagName="h6"
                 />
               </div> : null
             }
@@ -68,10 +68,10 @@ class UserTosForm extends Component {
           :
           <div className={dialogStyles['dialog-title']}>
             <FormattedMessage
-              tagName="h6"
-              id="userTos.titleUpdated"
               defaultMessage="Updated Terms and Privacy Policy"
               description="Page title for the updated terms of service and privacy policy messages"
+              id="userTos.titleUpdated"
+              tagName="h6"
             />
           </div>
         }
@@ -80,20 +80,20 @@ class UserTosForm extends Component {
             <>
               { termsLastUpdatedAt ?
                 <FormattedMessage
-                  tagName="p"
-                  id="userTos.termsLastUpdatedAt"
                   defaultMessage="Last updated {lastUpdated}"
                   description="Date of the last terms of service update"
+                  id="userTos.termsLastUpdatedAt"
+                  tagName="p"
                   values={{
-                    lastUpdated: <FormattedDate value={termsLastUpdatedAt * 1000} day="numeric" month="long" year="numeric" />,
+                    lastUpdated: <FormattedDate day="numeric" month="long" value={termsLastUpdatedAt * 1000} year="numeric" />,
                   }}
                 /> : null
               }
               <FormattedMessage
-                tagName="p"
-                id="userTos.disclaimer"
                 defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"
                 description="Message for the user to review the terms of service and privacy policy"
+                id="userTos.disclaimer"
+                tagName="p"
                 values={{
                   tosLink,
                   ppLink,
@@ -102,10 +102,10 @@ class UserTosForm extends Component {
             </>
             :
             <FormattedMessage
-              tagName="p"
-              id="userTos.disclaimerUpdate"
               defaultMessage="We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:"
               description="Message to the user that the terms of service and privacy policy have been updated"
+              id="userTos.disclaimerUpdate"
+              tagName="p"
               values={{
                 tosLink,
                 ppLink,
@@ -115,16 +115,16 @@ class UserTosForm extends Component {
           <FormControlLabel
             control={
               <Checkbox
+                checked={this.props.checkedTos}
                 id="tos__tos-agree"
                 onChange={this.props.handleCheckTos}
-                checked={this.props.checkedTos}
               />
             }
             label={
               <FormattedMessage
-                id="userTos.agreeTos"
                 defaultMessage="I agree to the Terms of Service."
                 description="Checkbox label for the user to agree to the terms of service"
+                id="userTos.agreeTos"
               />
             }
           />

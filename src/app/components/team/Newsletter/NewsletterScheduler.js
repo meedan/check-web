@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
@@ -31,21 +32,21 @@ const getWeekDays = (locale) => {
 export { getWeekDays }; // For unit test
 
 const NewsletterScheduler = ({
-  type,
-  timezone,
-  onUpdate,
-  sendEvery,
-  sendOn,
-  time,
-  parentErrors,
-  subscribersCount,
-  lastDeliveryError,
-  lastSentAt,
-  lastScheduledAt,
-  lastScheduledBy,
-  scheduled,
   disabled,
   intl,
+  lastDeliveryError,
+  lastScheduledAt,
+  lastScheduledBy,
+  lastSentAt,
+  onUpdate,
+  parentErrors,
+  scheduled,
+  sendEvery,
+  sendOn,
+  subscribersCount,
+  time,
+  timezone,
+  type,
 }) => {
   const weekDays = getWeekDays(intl.locale);
   const weekDaysLabels = weekDays.labels;
@@ -55,29 +56,29 @@ const NewsletterScheduler = ({
     <div className={`${styles['newsletter-scheduler']} ${scheduled ? styles['newsletter-scheduled'] : styles['newsletter-paused']}`}>
       <div className={cx(settingsStyles['setting-content-container-title'], styles['newsletter-scheduler-title'])}>
         { type === 'static' ?
-          <FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on" description="Label on a input where the user selects a date to send a newsletter" />
+          <FormattedMessage defaultMessage="Send on" description="Label on a input where the user selects a date to send a newsletter" id="newsletterScheduler.sendOn" />
           : null
         }
         { type === 'rss' ?
-          <FormattedMessage id="newsletterScheduler.sendEvery" defaultMessage="Send every" description="Label on an input where the user selects in which days of the week to send an RSS newsletter" />
+          <FormattedMessage defaultMessage="Send every" description="Label on an input where the user selects in which days of the week to send an RSS newsletter" id="newsletterScheduler.sendEvery" />
           : null
         }
         {' '}
         { (scheduled && lastScheduledBy && lastScheduledAt) ?
           <Tooltip
+            arrow
             placement="right"
             title={
               <FormattedMessage
-                id="newsletterScheduler.tooltipScheduled"
                 defaultMessage="Scheduled by {name} on {date}"
+                description="Tooltip message displayed on newsletter scheduler."
+                id="newsletterScheduler.tooltipScheduled"
                 values={{
                   name: lastScheduledBy,
-                  date: <FormattedDate value={lastScheduledAt * 1000} year="numeric" month="long" day="numeric" />,
+                  date: <FormattedDate day="numeric" month="long" value={lastScheduledAt * 1000} year="numeric" />,
                 }}
-                description="Tooltip message displayed on newsletter scheduler."
               />
             }
-            arrow
           >
             <span className={settingsStyles['tooltip-icon']}>
               <InfoOutlinedIcon />
@@ -87,19 +88,19 @@ const NewsletterScheduler = ({
         }
         { (!scheduled && lastSentAt) ?
           <Tooltip
+            arrow
             placement="right"
             title={
               <FormattedMessage
-                id="newsletterScheduler.tooltipSent"
                 defaultMessage="Last sent on {date}"
+                description="Tooltip message displayed on newsletter scheduler."
+                id="newsletterScheduler.tooltipSent"
                 values={{
                   name: lastSentAt,
-                  date: <FormattedDate value={lastSentAt * 1000} year="numeric" month="long" day="numeric" />,
+                  date: <FormattedDate day="numeric" month="long" value={lastSentAt * 1000} year="numeric" />,
                 }}
-                description="Tooltip message displayed on newsletter scheduler."
               />
             }
-            arrow
           >
             <span className={settingsStyles['tooltip-icon']}>
               <InfoOutlinedIcon />
@@ -112,40 +113,40 @@ const NewsletterScheduler = ({
       { lastDeliveryError === 'CONTENT_HASNT_CHANGED' ?
         <Alert
           contained
-          variant="error"
           title={
             <FormattedMessage
-              id="newsletterScheduler.errorContentHasntChanged"
               defaultMessage="The newsletter was not sent because its content has not been updated since the last successful delivery."
               description="Text displayed in an error box on newsletter settings page when RSS content has not changed"
+              id="newsletterScheduler.errorContentHasntChanged"
             />
           }
+          variant="error"
         /> : null
       }
 
       { lastDeliveryError === 'RSS_ERROR' ?
         <Alert
           contained
-          variant="error"
           title={
             <FormattedMessage
-              id="newsletterScheduler.errorRss"
               defaultMessage="The newsletter was not sent because no content could be retrieved from the RSS feed."
               description="Text displayed in an error box on newsletter settings page when RSS feed could not be loaded"
+              id="newsletterScheduler.errorRss"
             />
           }
+          variant="error"
         /> : null
       }
 
       <div className={styles['newsletter-scheduler-schedule']}>
         { type === 'rss' ?
           <ToggleButtonGroup
-            variant="contained"
             value={sendEvery}
+            variant="contained"
             onChange={(e, newValue) => { onUpdate('sendEvery', newValue); }}
           >
             {weekDaysValues.map((value, index) => (
-              <ToggleButton value={value} key={value} disabled={scheduled}>
+              <ToggleButton disabled={scheduled} key={value} value={value}>
                 {weekDaysLabels[index]}
               </ToggleButton>
             ))}
@@ -155,36 +156,36 @@ const NewsletterScheduler = ({
 
         { type === 'static' ?
           <DatePicker
-            value={sendOn}
-            onChange={(e) => { onUpdate('sendOn', e.target.value); }}
             disabled={scheduled}
             error={parentErrors.send_on}
             helpContent={parentErrors.send_on && parentErrors.send_on}
             required
+            value={sendOn}
+            onChange={(e) => { onUpdate('sendOn', e.target.value); }}
           />
           : null
         }
 
         <div className={styles['newsletter-scheduler-time']}>
           <span className="typography-caption">
-            <FormattedMessage id="newsletterScheduler.at" defaultMessage="at" description="This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'" />
+            <FormattedMessage defaultMessage="at" description="This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'" id="newsletterScheduler.at" />
           </span>
           <Time
-            value={time}
-            onChange={(e) => { onUpdate('time', e.target.value); }}
             disabled={scheduled}
             error={parentErrors.time}
             helpContent={parentErrors.time && parentErrors.time}
             required
+            value={time}
+            onChange={(e) => { onUpdate('time', e.target.value); }}
           />
           <Select
             className={styles.select}
             // We check for both code ('Europe/London') and value ('Europe/London (GMT+1:00)') because default values in the browser will only guarantee the first, but if it's saved, the timezone is returned from the API with the offset appended. Doing it this way means we don't have to recalculate the offset in the parent NewsletterComponent)
-            value={timezones.find(item => item.code === timezone || item.value === timezone)?.value}
-            onChange={(e) => { onUpdate('timezone', e.target.value); }}
+            disabled={scheduled}
             error={parentErrors.timezone}
             helpContent={parentErrors.timezone && parentErrors.timezone}
-            disabled={scheduled}
+            value={timezones.find(item => item.code === timezone || item.value === timezone)?.value}
+            onChange={(e) => { onUpdate('timezone', e.target.value); }}
           >
             <option value="" />
             { timezones.map(tz => <option key={tz.code} value={tz.value}>{tz.label}</option>) }
@@ -201,32 +202,32 @@ const NewsletterScheduler = ({
       <div className={styles['newsletter-schedule-actions']}>
         { scheduled ?
           <ButtonMain
-            variant="contained"
-            theme="alert"
-            size="default"
-            onClick={() => { onUpdate('scheduled', false); }}
-            iconLeft={<PauseIcon />}
             disabled={disabled}
+            iconLeft={<PauseIcon />}
             label={
-              <FormattedMessage id="newsletterScheduler.pause" defaultMessage="Pause" description="Label for a button to pause a newsletter" />
+              <FormattedMessage defaultMessage="Pause" description="Label for a button to pause a newsletter" id="newsletterScheduler.pause" />
             }
+            size="default"
+            theme="alert"
+            variant="contained"
+            onClick={() => { onUpdate('scheduled', false); }}
           /> :
           <ButtonMain
-            variant="contained"
-            theme="validation"
-            size="default"
-            onClick={() => { onUpdate('scheduled', true); }}
-            iconLeft={<PlayArrowIcon />}
             disabled={disabled}
+            iconLeft={<PlayArrowIcon />}
             label={
-              <FormattedMessage id="newsletterScheduler.schedule" defaultMessage="Schedule" description="Label for a button to schedule a newsletter" />
+              <FormattedMessage defaultMessage="Schedule" description="Label for a button to schedule a newsletter" id="newsletterScheduler.schedule" />
             }
+            size="default"
+            theme="validation"
+            variant="contained"
+            onClick={() => { onUpdate('scheduled', true); }}
           />
         }
         { subscribersCount !== null &&
           <div className={styles['newsletter-schedule-meta']}>
             <small className={styles['newsletter-scheduler-subscribers']}>
-              <FormattedMessage id="newsletterScheduler.subscribers" defaultMessage="Subscribers:" description="Label related to the number of subscribers of a newsletter" />
+              <FormattedMessage defaultMessage="Subscribers:" description="Label related to the number of subscribers of a newsletter" id="newsletterScheduler.subscribers" />
               &nbsp;
               <strong>
                 {subscribersCount}

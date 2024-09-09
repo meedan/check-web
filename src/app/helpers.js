@@ -182,39 +182,39 @@ function createFriendlyErrorMessage(error) {
   return (
     <>
       <FormattedMessage
-        tagName="p"
-        id="check.helpers.report_please"
         defaultMessage="Please report this issue to Meedan to help us fix it."
         description="Paragraph asking the user to report the issue that happened to Meedan."
+        id="check.helpers.report_please"
+        tagName="p"
       />
       <FormattedMessage
-        tagName="p"
-        id="check.helpers.intercom_help"
         defaultMessage="Click the 'send' arrow to the right to send the report."
         description="This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
+        id="check.helpers.intercom_help"
+        tagName="p"
       >
         {help_text => (
           <ButtonMain
-            size="default"
-            theme="error"
-            variant="contained"
-            onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
             label={
               <FormattedMessage
-                id="check.helpers.report_issue"
                 defaultMessage="Report issue"
                 description="This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+                id="check.helpers.report_issue"
               />
             }
+            size="default"
+            theme="lightError"
+            variant="contained"
+            onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
           />
         )}
       </FormattedMessage>
       <details>
         <FormattedMessage
-          tagName="summary"
-          id="check.helpers.more_info"
           defaultMessage="More info…"
           description="This is a label on a button that users press in order to get more info related to an error message."
+          id="check.helpers.more_info"
+          tagName="summary"
         />
         <textarea id="error-message" name="error-message" rows="5">
           {error.message}
@@ -397,6 +397,13 @@ function getSeparatedNumber(locale, number) {
   return new Intl.NumberFormat(locale, {}).format(number);
 }
 
+/**
+ * Return whether a fact-check field is blank
+ */
+function isFactCheckValueBlank(value) {
+  return !value || value === '-';
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -425,4 +432,5 @@ export { // eslint-disable-line import/no-unused-modules
   getSuperAdminMask,
   getCompactNumber,
   getSeparatedNumber,
+  isFactCheckValueBlank,
 };

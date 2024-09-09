@@ -38,13 +38,13 @@ describe('<DrawerNavigationComponent />', () => {
     getStore().dispatch = () => {};
     const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
     const header = mountWithIntl(<DrawerNavigationComponent
+      clientSessionId="checkClientSessionId"
+      currentUserIsMember
       inTeamContext
       loggedIn
-      currentUserIsMember
-      team={privateTeam}
-      pusher={pusher}
-      clientSessionId="checkClientSessionId"
       params={params}
+      pusher={pusher}
+      team={privateTeam}
     />);
     expect(header.find(DrawerProjects)).toHaveLength(1);
   });
@@ -62,13 +62,13 @@ describe('<DrawerNavigationComponent />', () => {
     getStore().team = publicTeam;
     getStore().dispatch = () => {};
     const header = mountWithIntl(<DrawerNavigationComponent
+      clientSessionId="checkClientSessionId"
+      currentUserIsMember={false}
       inTeamContext
       loggedIn={false}
-      currentUserIsMember={false}
-      team={publicTeam}
-      pusher={pusher}
-      clientSessionId="checkClientSessionId"
       params={params}
+      pusher={pusher}
+      team={publicTeam}
     />);
 
     expect(header.find(DrawerProjects)).toHaveLength(1);

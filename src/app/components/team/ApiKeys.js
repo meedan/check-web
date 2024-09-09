@@ -6,14 +6,14 @@ import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
 import ApiKeyCreate from './ApiKeyCreate';
 import ApiKeyEntry from './ApiKeyEntry';
-import styles from './ApiKeys.module.css';
-import settingsStyles from './Settings.module.css';
 import BlankState from '../layout/BlankState';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import SettingsIcon from '../../icons/settings.svg';
 import HelpIcon from '../../icons/help.svg';
 import ExternalLink from '../ExternalLink';
+import settingsStyles from './Settings.module.css';
+import styles from './ApiKeys.module.css';
 
 const ApiKeys = ({ team }) => {
   const apiKeys = team.api_keys;
@@ -24,46 +24,46 @@ const ApiKeys = ({ team }) => {
     <div className={cx('api-keys', settingsStyles['setting-content-container'])}>
       <div className={settingsStyles['setting-content-container-title']}>
         <FormattedMessage
-          id="apiKeys.title"
           defaultMessage="API Access"
           description="Title of the API key creation widget"
+          id="apiKeys.title"
           values={{ count: apiKeys.edges.length }}
         />
         <div className={settingsStyles['setting-content-container-actions']}>
           <ButtonMain
-            variant="text"
-            size="default"
-            theme="text"
-            onClick={() => setExpandKeys(!expandKeys)}
             className="api-keys__settings-icon"
             disabled={!toggleChecked}
             iconCenter={<SettingsIcon />}
+            size="default"
+            theme="text"
+            variant="text"
+            onClick={() => setExpandKeys(!expandKeys)}
           />
         </div>
       </div>
       <SwitchComponent
+        checked={toggleChecked}
         className="api-keys__toggle-switch"
         label={
           <FormattedMessage
-            id="apiKeys.toggleLabel"
             defaultMessage="Query and manage workspace content with the Check API and workspace access tokens. API keys have the same access rights as Check Editors and are enabled immediately."
             description="Title of the API key creation widget"
+            id="apiKeys.toggleLabel"
           />
         }
         labelPlacement="end"
-        checked={toggleChecked}
         onChange={() => {
           setToggleChecked(!toggleChecked);
           setExpandKeys(!toggleChecked);
         }}
       />
-      <Collapse in={toggleChecked && expandKeys} timeout="auto" className={styles['integration-details']}>
+      <Collapse className={styles['integration-details']} in={toggleChecked && expandKeys} timeout="auto">
         <div>
           <div className={`typography-subtitle2 ${styles['api-keys-heading']}`}>
             <FormattedMessage
-              id="apiKeys.countHeader"
               defaultMessage="API Keys [{count}]"
               description="Title of the API key creation widget"
+              id="apiKeys.countHeader"
               values={{ count: apiKeys.edges.length }}
             />
             <ApiKeyCreate />
@@ -73,29 +73,29 @@ const ApiKeys = ({ team }) => {
               <div className={styles['apikey-entry-root']}>
                 <BlankState noMargin>
                   <FormattedMessage
-                    id="apiKeys.empty"
                     defaultMessage="No API Keys"
                     description="Label for initial state when there are no API keys created for the current workspace"
+                    id="apiKeys.empty"
                   />
                 </BlankState>
                 <div className={styles['api-keys-empty-blurb']}>
                   <FormattedMessage
-                    id="apiKeys.emptyBlurb"
                     defaultMessage="Add a new key to connect to the Check API"
                     description="Subtitle for initial state when there are no API keys created for the current workspace"
+                    id="apiKeys.emptyBlurb"
                   />
                 </div>
               </div>
             }
-            {apiKeys.edges.map(ak => (<ApiKeyEntry key={ak.node.dbid} apiKey={ak.node} />))}
+            {apiKeys.edges.map(ak => (<ApiKeyEntry apiKey={ak.node} key={ak.node.dbid} />))}
           </div>
           <div className={`typography-caption ${styles['api-keys-footer']}`}>
             <HelpIcon />
             <div>
               <FormattedMessage
-                id="apiKeys.footer"
                 defaultMessage="Check out our guide to using the {checkApi} or to troubleshoot common issues."
                 description="Footer text in API key creation widget"
+                id="apiKeys.footer"
                 values={{
                   checkApi: <ExternalLink className="api-keys__api-doc-link" url="https://help.checkmedia.org/en/articles/8773856-check-api-introduction">Check API</ExternalLink>,
                 }}
@@ -105,9 +105,9 @@ const ApiKeys = ({ team }) => {
               { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a className="api-keys__intercom-link" href="#" onClick={(e) => { if (Intercom) { Intercom('showNewMessage'); e.preventDefault(); } }}>
                 <FormattedMessage
-                  id="apiKeys.footerSupport"
                   defaultMessage="Connect with us directly for support."
                   description="Footer text in API key creation widget"
+                  id="apiKeys.footerSupport"
                 />
               </a>
             </div>
