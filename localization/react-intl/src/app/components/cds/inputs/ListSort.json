@@ -40,6 +40,11 @@
     "defaultMessage": "Report (status)"
   },
   {
+    "id": "searchResults.sortScore",
+    "description": "Label for sort criteria option displayed in a drop-down in listing pages",
+    "defaultMessage": "Search: Best Match"
+  },
+  {
     "id": "searchResults.sortSubmitted",
     "description": "Label for sort criteria option displayed in a drop-down in listing pages",
     "defaultMessage": "Submitted (date)"

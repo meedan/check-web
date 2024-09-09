@@ -34,9 +34,14 @@ const CreateMediaButton = ({
   `;
 
   const handleError = (err) => {
+    setOpen(false);
     const errorMessage = getErrorMessageForRelayModernProblem(err) || <GenericUnknownErrorMessage />;
     setSaving(false);
     setFlashMessage(errorMessage, 'error');
+    // if there's an existing media item, redirect to its media page
+    if (err[0].data?.url?.length) {
+      browserHistory.push(err[0].data.url);
+    }
   };
 
   const navigateToMedia = (mediaId) => {

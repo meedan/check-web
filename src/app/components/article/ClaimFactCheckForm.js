@@ -155,7 +155,8 @@ const ClaimFactCheckForm = ({
 
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [factCheck, setFactCheck] = React.useState({});
+  const emptyCharacter = '-';
+  const [factCheck, setFactCheck] = React.useState(type === 'create' ? { title: emptyCharacter, summary: emptyCharacter, language: team.get_language } : {});
   const [claim, setClaim] = React.useState({});
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -339,6 +340,7 @@ ClaimFactCheckForm.propTypes = {
 const ClaimFactCheckFormContainer = createFragmentContainer(ClaimFactCheckForm, graphql`
   fragment ClaimFactCheckForm_team on Team {
     id
+    get_language
     ...ArticleForm_team
   }
   fragment ClaimFactCheckForm_article on FactCheck {

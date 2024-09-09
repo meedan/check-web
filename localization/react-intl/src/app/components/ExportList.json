@@ -1,0 +1,32 @@
+[
+  {
+    "id": "exportList.error",
+    "description": "Message displayed when list export fails.",
+    "defaultMessage": "Export failed. Please ensure you have the necessary permissions to perform this operation and that the number of results is fewer than 10,000."
+  },
+  {
+    "id": "exportList.success",
+    "description": "Message displayed when list is exported successfully.",
+    "defaultMessage": "Export started. You'll receive an email when it's ready."
+  },
+  {
+    "id": "exportList.tooltip",
+    "description": "Tooltip for the export list button",
+    "defaultMessage": "Export List Contents"
+  },
+  {
+    "id": "exportList.confirmationMessage",
+    "description": "Confirmation message displayed on the export list modal.",
+    "defaultMessage": "To generate a spreadsheet (.csv) export of the contents of this list, select <b>Start Export</b> below.<br /><br />When your export is ready for download, you will receive an email confirmation at:<br /><b>{email}</b>"
+  },
+  {
+    "id": "exportList.confirmationButtonLabel",
+    "description": "Label of the export list confirmation button.",
+    "defaultMessage": "Start Export"
+  },
+  {
+    "id": "exportList.confirmationTitle",
+    "description": "Title of the export list confirmation dialog.",
+    "defaultMessage": "Export List Contents?"
+  }
+]

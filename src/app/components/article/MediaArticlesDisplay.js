@@ -5,7 +5,7 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import MediaArticleCard from './MediaArticleCard';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
-import { getStatus } from '../../helpers';
+import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import styles from './MediaArticlesDisplay.module.css';
 
@@ -38,8 +38,8 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
           removeDisabled={projectMedia.type === 'Blank'}
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
-          summary={factCheck.summary || factCheck.claim_description.context}
-          title={factCheck.title || factCheck.claim_description.description}
+          summary={isFactCheckValueBlank(factCheck.summary) ? factCheck.claim_description.context : factCheck.summary}
+          title={isFactCheckValueBlank(factCheck.title) ? factCheck.claim_description.description : factCheck.title}
           url={factCheck.url}
           variant="fact-check"
           onClick={() => { setArticleToEdit(factCheck); }}

@@ -9,6 +9,25 @@
   .dialog-title {
     border-bottom: solid 1px var(--color-gray-88);
     padding: 16px 48px 16px 24px;
+
+    .dialog-title-choice {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .dialog-title-choice-option {
+        :global(.MuiToggleButton-label) {
+          display: flex;
+          flex-direction: row;
+          gap: 3px;
+
+          :global(.check-icon) {
+            font-size: var(--iconSizeDefault);
+            margin: -4px 0 0;
+          }
+        }
+      }
+    }
   }
 
   .dialog-close-button {

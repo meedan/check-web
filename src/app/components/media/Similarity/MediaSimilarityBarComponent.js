@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -10,6 +9,7 @@ const MediaSimilarityBarComponent = ({
   confirmedMainItemId,
   confirmedSimilarCount,
   hasMain,
+  isPublished,
   projectMediaDbid,
 }) => (
   <div className={styles['similar-matched-media-bar']}>
@@ -23,7 +23,8 @@ const MediaSimilarityBarComponent = ({
     </div>
     { canAdd ?
       <MediaSimilarityBarAdd
-        canMerge={!hasMain}
+        canExport={!hasMain && !isPublished}
+        canImport={!hasMain}
         projectMediaDbid={projectMediaDbid}
         projectMediaId={confirmedMainItemId}
       /> : null }
@@ -31,17 +32,19 @@ const MediaSimilarityBarComponent = ({
 );
 
 MediaSimilarityBarComponent.defaultProps = {
+  canAdd: false,
   confirmedMainItemId: null,
   hasMain: false,
-  canAdd: false,
+  isPublished: false,
 };
 
 MediaSimilarityBarComponent.propTypes = {
-  projectMediaDbid: PropTypes.number.isRequired,
+  canAdd: PropTypes.bool,
+  confirmedMainItemId: PropTypes.string, // GraphQL base64 ID
   confirmedSimilarCount: PropTypes.number.isRequired,
   hasMain: PropTypes.bool,
-  confirmedMainItemId: PropTypes.string, // GraphQL base64 ID
-  canAdd: PropTypes.bool,
+  isPublished: PropTypes.bool,
+  projectMediaDbid: PropTypes.number.isRequired,
 };
 
 export default MediaSimilarityBarComponent;
