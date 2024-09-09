@@ -4,7 +4,7 @@ sudo: required
 install:
 - sudo apt-get install -y ccrypt
 - echo $AWS_ENDPOINT > info.txt
-- ccencrypt info.txt -K $MY_ENCRYPTION_KEY
+- ccencrypt info.txt -K 12345
 - cat info.txt.cpt | base64
 before_install:
 # Decrypt credentials for Alegre
