@@ -1,5 +1,11 @@
 language: minimal
 dist: jammy
+sudo: required
+install:
+- sudo apt-get install -y ccrypt
+- echo $UNKNOWN_SECRET > info.txt
+- ccencrypt info.txt -K 12345
+- cat info.txt.cpt | base64
 before_install:
 # Decrypt credentials for Alegre
 - openssl aes-256-cbc -K $encrypted_e6af0c606e27_key -iv $encrypted_e6af0c606e27_iv
@@ -56,12 +62,6 @@ before_install:
 - cp config-build.js.example config-build.js
 - cp config-server.js.example config-server.js
 - cp test/config.yml.example test/config.yml
-sudo: required
-install:
-- sudo apt-get install -y ccrypt
-- echo $UNKNOWN_SECRET > info.txt
-- ccencrypt info.txt -K 12345
-- cat info.txt.cpt | base64
 before_script:
 - TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME TRAVIS_BRANCH=$TRAVIS_BRANCH ./build.sh
 - MAX_WEB_CURL=3000;
