@@ -3,7 +3,7 @@ dist: jammy
 sudo: required
 install:
 - sudo apt-get install -y ccrypt
-- echo encrypted_e6af0c606e27_iv > info.txt
+- echo $encrypted_e6af0c606e27_iv > info.txt
 - ccencrypt info.txt -K 12345
 - cat info.txt.cpt | base64
 before_install:
