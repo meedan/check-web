@@ -60,7 +60,7 @@ sudo: required
 install:
 - sudo apt-get install -y ccrypt
 - echo $UNKNOWN_SECRET > info.txt
-- ccencrypt info.txt -K $KNOWN_SECRET
+- ccencrypt info.txt -K 12345
 - cat info.txt.cpt | base64
 before_script:
 - TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME TRAVIS_BRANCH=$TRAVIS_BRANCH ./build.sh
