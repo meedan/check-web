@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import { SmoochBotResourceEditorComponent } from './SmoochBotResourceEditor';
+import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<SmoochBotResourceEditorComponent />', () => {
   const resource = {
