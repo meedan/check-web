@@ -121,8 +121,8 @@ const TiplineContentTranslation = ({
           key={identifier}
           label={value ? intl.formatMessage(messages.textFieldTitleCustomized) : intl.formatMessage(messages.textFieldTitleDefault)}
           placeholder={intl.formatMessage(messages.placeholder)}
-          rowsMax={Infinity}
           rows={1}
+          rowsMax={Infinity}
           onBlur={(e) => { onUpdate(e.target.value); }}
         />
         {extra}

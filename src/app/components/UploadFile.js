@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -81,7 +80,6 @@ const UploadMessage = ({ about, type }) => {
 };
 
 UploadMessage.propTypes = {
-  type: PropTypes.oneOf(['image', 'video', 'audio', 'file', 'image+video+audio']).isRequired,
   about: PropTypes.shape({
     upload_max_size: PropTypes.string.isRequired,
     upload_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -94,6 +92,7 @@ UploadMessage.propTypes = {
     file_max_size: PropTypes.string.isRequired,
     file_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'file', 'image+video+audio']).isRequired,
 };
 
 class UploadFileComponent extends React.PureComponent {
@@ -261,17 +260,17 @@ const UploadFile = childProps => (
   />
 );
 UploadFile.defaultProps = {
-  value: null,
-  noPreview: false,
   disabled: false,
+  noPreview: false,
+  value: null,
 };
 UploadFile.propTypes = {
-  value: PropTypes.object, // or null
-  type: PropTypes.oneOf(['image', 'video', 'audio', 'image+video+audio']).isRequired,
+  disabled: PropTypes.bool,
   noPreview: PropTypes.bool,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'image+video+audio']).isRequired,
+  value: PropTypes.object, // or null
   onChange: PropTypes.func.isRequired, // func(Image) => undefined
   onError: PropTypes.func.isRequired, // func(Image?, <FormattedMessage ...>) => undefined
-  disabled: PropTypes.bool,
 };
 // eslint-disable-next-line
 export { UploadFileComponent };

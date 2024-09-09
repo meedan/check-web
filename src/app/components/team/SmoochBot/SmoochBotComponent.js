@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
@@ -287,10 +286,10 @@ const SmoochBotComponent = ({
 
 SmoochBotComponent.propTypes = {
   currentUser: PropTypes.object.isRequired, // FIXME: List the fields needed
-  team: PropTypes.object.isRequired, // FIXME: List the fields needed
-  smoochBotDbid: PropTypes.number.isRequired,
   intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
+  smoochBotDbid: PropTypes.number.isRequired,
+  team: PropTypes.object.isRequired, // FIXME: List the fields needed
 };
 
 export default injectIntl(withSetFlashMessage(SmoochBotComponent));

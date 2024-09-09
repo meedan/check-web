@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -358,9 +357,9 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
 };
 
 SmoochBotIntegrations.propTypes = {
-  settings: PropTypes.object.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   installationId: PropTypes.string.isRequired,
+  settings: PropTypes.object.isRequired,
 };
 
 export default SmoochBotIntegrations;

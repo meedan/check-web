@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -150,9 +149,9 @@ SmoochBotContentAndTranslation.defaultProps = {
 
 SmoochBotContentAndTranslation.propTypes = {
   value: PropTypes.object,
+  onChangeImage: PropTypes.func.isRequired,
   onChangeMessage: PropTypes.func.isRequired,
   onChangeStateMessage: PropTypes.func.isRequired,
-  onChangeImage: PropTypes.func.isRequired,
 };
 
 export default SmoochBotContentAndTranslation;

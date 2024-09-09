@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
@@ -508,9 +507,6 @@ SmoochBotResourceEditorComponent.defaultProps = {
 
 SmoochBotResourceEditorComponent.propTypes = {
   environment: PropTypes.object.isRequired, // Relay Modern environment to support file uploads
-  team: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
   language: PropTypes.string.isRequired,
   resource: PropTypes.shape({
     id: PropTypes.string,
@@ -520,6 +516,9 @@ SmoochBotResourceEditorComponent.propTypes = {
     header_file_url: PropTypes.string,
     header_type: PropTypes.string,
   }),
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
   onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };

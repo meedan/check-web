@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -198,16 +197,16 @@ SmoochBotConfig.defaultProps = {
 };
 
 SmoochBotConfig.propTypes = {
+  currentUser: PropTypes.object.isRequired,
+  enabledIntegrations: PropTypes.object.isRequired,
+  hasUnsavedChanges: PropTypes.bool.isRequired,
   installationId: PropTypes.string.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.object),
+  schema: PropTypes.object.isRequired,
+  userRole: PropTypes.string.isRequired,
   value: PropTypes.object.isRequired, // saved settings for the Smooch Bot
   onChange: PropTypes.func.isRequired, // called after "save" is clicked
-  schema: PropTypes.object.isRequired,
-  currentUser: PropTypes.object.isRequired,
-  userRole: PropTypes.string.isRequired,
-  enabledIntegrations: PropTypes.object.isRequired,
-  resources: PropTypes.arrayOf(PropTypes.object),
   onEditingResource: PropTypes.func.isRequired,
-  hasUnsavedChanges: PropTypes.bool.isRequired,
 };
 
 export default SmoochBotConfig;

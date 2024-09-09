@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
@@ -155,21 +154,21 @@ const SmoochBotMainMenu = ({
 };
 
 SmoochBotMainMenu.defaultProps = {
-  value: {},
   languages: [],
   resources: [],
+  value: {},
 };
 
 SmoochBotMainMenu.propTypes = {
-  value: PropTypes.object,
-  languages: PropTypes.arrayOf(PropTypes.string),
   currentLanguage: PropTypes.string.isRequired,
-  intl: intlShape.isRequired,
-  enabledIntegrations: PropTypes.object.isRequired,
   currentUser: PropTypes.shape({ is_admin: PropTypes.bool.isRequired }).isRequired,
+  enabledIntegrations: PropTypes.object.isRequired,
   hasUnsavedChanges: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
+  languages: PropTypes.arrayOf(PropTypes.string),
   resources: PropTypes.arrayOf(PropTypes.object),
+  value: PropTypes.object,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default injectIntl(SmoochBotMainMenu);
