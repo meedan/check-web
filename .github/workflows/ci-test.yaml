@@ -6,6 +6,9 @@ on:
   push:
     branches:
     - CV2-5258-run-linter-Check-web-github-actions
+  pull_request:
+    branches:
+    - epic*
 
 env:
   GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
