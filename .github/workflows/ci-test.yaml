@@ -1,0 +1,79 @@
+name: Build and Run Tests
+
+on:
+#   # schedule:
+#     # - cron: '0 5 * * *'  #Runs  daily at 5 AM UTC
+  push:
+    branches:
+    - CV2-5258-run-linter-Check-web-github-actions
+#   #   - master
+#   #   - develop
+  pull_request:
+    branches:
+    - develop
+
+env:
+  GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
+  GITHUB_JOB_NAME: ${{ github.job }}
+  GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+  NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
+  AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}  
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+  AWS_REGION: eu-west-1
+  MAX_WEB_CURL: 3000
+  WEB_CURL_COUNT: 0
+
+
+jobs:
+  unit-tests:
+    if: > 
+        github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/master' 
+        && !contains(github.event.head_commit.message, '[full ci]') && !contains(github.event.head_commit.message,
+        '[smoke tests]') && !contains(github.event.head_commit.message, '[similarity tests]')
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        aws-region: eu-west-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Setup UTF-8 Capable locale
+      run: | 
+        export LC_ALL=C.UTF-8
+        export LANG=C.UTF-8
+        export LANGUAGE=C.UTF-8
+
+    - name: Before Script
+      env: 
+        MAX_WEB_CURL: 3000
+        WEB_CURL_COUNT: 0
+      run: | 
+        gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
+        MAX_WEB_CURL=$MAX_WEB_CURL;
+        WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
+        docker ps 
+
+    - name: Run linter
+      run:
+        docker compose exec web npm run linter
+        docker compose exec web npm run test:integration:lint
+
+
+    
