@@ -137,7 +137,7 @@ jobs:
           -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID \
           -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME \
           -e GITHUB_BRANCH=$GITHUB_BRANCH \
-          -e AWS_ENDPOINT=$AWS_ENDPOINT \
+          -e AWS_ENDPOINT=${{ secrets.AWS_ENDPOINT }}  \
           -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
           -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
           -e ROLE_TO_ASSUME=${{ secrets.AWS_ROLE_TO_ASSUME }} \
