@@ -5,6 +5,12 @@ on:
 #     # - cron: '0 5 * * *'  #Runs  daily at 5 AM UTC
   push:
     branches:
+    - CV2-4797-identify-workflows-CI-migration
+  #   - master
+  #   - develop
+  # pull_request:
+  #   branches:
+  #   - develop
     - CV2-5258-run-linter-Check-web-github-actions
 #   #   - master
 #   #   - develop
