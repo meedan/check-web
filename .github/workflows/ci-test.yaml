@@ -17,12 +17,6 @@ env:
   GITHUB_JOB_NAME: ${{ github.job }}
   GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
   NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
-  AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}  
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-  AWS_REGION: eu-west-1
-  MAX_WEB_CURL: 3000
-  WEB_CURL_COUNT: 0
 
 
 jobs:
@@ -66,10 +60,10 @@ jobs:
         export LANG=C.UTF-8
         export LANGUAGE=C.UTF-8
 
-    # - name: Ngrok
-    #   run: |
-    #     curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-    #     export GITHUB_TAG=0.0.0
+    - name: Ngrok
+      run: |
+        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
+        export GITHUB_TAG=0.0.0
     
     - name: Setup Pender 
       env:
@@ -127,6 +121,7 @@ jobs:
       env: 
         MAX_WEB_CURL: 3000
         WEB_CURL_COUNT: 0
+        NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
       run: | 
         gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
           MAX_WEB_CURL=$MAX_WEB_CURL;
@@ -327,6 +322,8 @@ jobs:
         export LANGUAGE=C.UTF-8
 
     - name: Ngrok
+      env:
+        NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
       run: |
         curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
         export GITHUB_TAG=0.0.0
