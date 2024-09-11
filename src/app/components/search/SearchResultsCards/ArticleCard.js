@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -24,7 +23,6 @@ const ArticleCard = ({
   statusColor,
   statusLabel,
   summary,
-  tagOptions,
   tags,
   teamAvatar,
   teamName,
@@ -62,7 +60,6 @@ const ArticleCard = ({
         ) : null }
         <SharedItemCardFooter
           languageCode={languageCode}
-          tagOptions={tagOptions}
           tags={tags}
           teamSlug={teamSlug}
           onChangeTags={onChangeTags}
@@ -101,7 +98,6 @@ ArticleCard.defaultProps = {
   teamName: null,
   languageCode: null,
   tags: [],
-  tagOptions: null,
   onChangeTags: null,
   variant: 'explainer',
   statusLabel: null,
@@ -110,25 +106,24 @@ ArticleCard.defaultProps = {
 };
 
 ArticleCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  summary: PropTypes.string,
-  url: PropTypes.string,
   date: PropTypes.oneOfType([
     PropTypes.string, // article.updated_at (Articles.js)
     PropTypes.number, // projectMedia.feed_columns_values.updated_at_timestamp (SearchResultsCards/index.js)
   ]).isRequired, // Timestamp
-  statusLabel: PropTypes.string,
-  statusColor: PropTypes.string,
-  teamAvatar: PropTypes.string, // URL
-  teamName: PropTypes.string,
+  handleClick: PropTypes.func.isRequired,
   languageCode: PropTypes.string,
-  tags: PropTypes.arrayOf(PropTypes.string),
-  tagOptions: PropTypes.arrayOf(PropTypes.string),
   projectMediaDbid: PropTypes.number,
   publishedAt: PropTypes.number, // Timestamp
-  onChangeTags: PropTypes.func,
+  statusColor: PropTypes.string,
+  statusLabel: PropTypes.string,
+  summary: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  teamAvatar: PropTypes.string, // URL
+  teamName: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string,
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
-  handleClick: PropTypes.func.isRequired,
+  onChangeTags: PropTypes.func,
 };
 
 export default ArticleCard;

@@ -20,8 +20,6 @@ describe('TagList', () => {
     expect(wrapper.find('Chip')).toHaveLength(6);
     expect(wrapper.find('#empty-list')).toHaveLength(0);
     expect(wrapper.find('#hidden-tags')).toHaveLength(0);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--manage')).toHaveLength(1);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--manage').prop('onClick')).toBeInstanceOf(Function);
   });
 
   it('renders empty tag list', () => {

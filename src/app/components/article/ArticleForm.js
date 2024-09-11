@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
+import TagList from '../cds/menus-lists-dialogs/TagList.js';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Slideout from '../cds/slideout/Slideout';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconReport from '../../icons/fact_check.svg';
 import IconUnpublishedReport from '../../icons/unpublished_report.svg';
-import MediaAndArticleTagList from '../cds/menus-lists-dialogs/MediaAndArticleTagList';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
@@ -241,7 +241,7 @@ const ArticleForm = ({
                 }
               </div>
               <div className={inputStyles['form-fieldset']} id="article_form_tags">
-                <MediaAndArticleTagList
+                <TagList
                   setTags={handleTagChange}
                   tags={tags}
                   teamSlug={team.slug}

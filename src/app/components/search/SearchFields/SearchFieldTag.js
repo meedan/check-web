@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -109,12 +108,12 @@ SearchFieldTag.defaultProps = {
 };
 
 SearchFieldTag.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
+  operator: PropTypes.string,
   query: PropTypes.object.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+  teamSlug: PropTypes.string.isRequired,
   onRemove: PropTypes.func.isRequired,
   onToggleOperator: PropTypes.func.isRequired,
-  operator: PropTypes.string,
-  readOnly: PropTypes.bool.isRequired,
 };
 
 export default SearchFieldTag;

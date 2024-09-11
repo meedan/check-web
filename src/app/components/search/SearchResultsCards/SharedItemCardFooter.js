@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -11,7 +10,7 @@ import MediaCount from '../../cds/media-cards/MediaCount';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import Language from '../../cds/media-cards/Language';
-import MediaAndArticleTagList from '../../cds/menus-lists-dialogs/MediaAndArticleTagList';
+import TagList from '../../cds/menus-lists-dialogs/TagList';
 import styles from './ItemCard.module.css';
 
 const SharedItemCardFooter = ({
@@ -35,7 +34,7 @@ const SharedItemCardFooter = ({
         <Language languageCode={languageCode} />
       ),
       tags && onChangeTags && (
-        <MediaAndArticleTagList
+        <TagList
           maxTags={5}
           setTags={onChangeTags}
           tags={tags}
@@ -91,18 +90,18 @@ SharedItemCardFooter.defaultProps = {
 };
 
 SharedItemCardFooter.propTypes = {
-  mediaCount: PropTypes.number,
-  mediaType: PropTypes.string,
-  requestsCount: PropTypes.number,
-  suggestionsCount: PropTypes.number,
-  languageCode: PropTypes.string,
-  lastRequestDate: PropTypes.instanceOf(Date),
-  tags: PropTypes.arrayOf(PropTypes.string),
-  onChangeTags: PropTypes.func,
   channels: PropTypes.exact({
     main: PropTypes.number,
     others: PropTypes.arrayOf(PropTypes.number),
   }),
+  languageCode: PropTypes.string,
+  lastRequestDate: PropTypes.instanceOf(Date),
+  mediaCount: PropTypes.number,
+  mediaType: PropTypes.string,
+  requestsCount: PropTypes.number,
+  suggestionsCount: PropTypes.number,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  onChangeTags: PropTypes.func,
   onSeeMore: PropTypes.func,
 };
 

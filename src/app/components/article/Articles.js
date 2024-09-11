@@ -252,7 +252,6 @@ const ArticlesComponent = ({
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
                 summary={isFactCheckValueBlank(summary) ? article.claim_description?.context : summary}
-                tagOptions={teamTags}
                 tags={article.tags}
                 title={isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title}
                 url={article.url}

@@ -6,8 +6,8 @@ import { browserHistory } from 'react-router';
 import Dialog from '@material-ui/core/Dialog';
 import cx from 'classnames/bind';
 import ItemHistoryDialog from './ItemHistoryDialog';
-import MediaTagsQueryRenderer from './MediaTagsQueryRenderer';
 import MediaStatus from './MediaStatus';
+import MediaTags from './MediaTags.js';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
 import RestoreProjectMedia from './RestoreProjectMedia';
 import ItemTitle from './ItemTitle';
@@ -273,7 +273,7 @@ class MediaActionsBarComponent extends Component {
           <ItemTitle projectMediaId={this.props.media?.dbid} />
           <div className={styles['media-actions-context']}>
             <div className={styles['media-actions-tags']}>
-              <MediaTags projectMediaId={this.props.media?.dbid} />
+              <MediaTags projectMedia={this.props.media} />
             </div>
             { restoreProjectMedia ? <> {restoreProjectMedia} </> : null }
             <div className={styles['media-actions']}>
@@ -405,6 +405,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         id
         ${MediaActionsMenuButton.getFragment('projectMedia')}
         ${RestoreProjectMedia.getFragment('projectMedia')}
+        ${MediaTags.getFragment('projectMedia')}
         dbid
         project_id
         title

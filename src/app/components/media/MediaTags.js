@@ -2,7 +2,7 @@ import React from 'react';
 import xor from 'lodash.xor';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { createRefetchContainer, graphql, commitMutation } from 'react-relay/compat';
+import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import mergeWith from 'lodash.mergewith';
 import { can } from '../Can';
@@ -12,23 +12,10 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
 
-const pageSize = 100;
-let lastTypedValue = '';
-
-const MediaTags = ({
-  projectMedia,
-  relay,
-}) => {
+const MediaTags = ({ projectMedia }) => {
   if (!projectMedia) return null;
 
-  const refetch = (keyword) => {
-    relay.refetch(
-      { ids: `${projectMedia.dbid},,`, pageSize, keyword: keyword || '' },
-      { ids: `${projectMedia.dbid},,`, pageSize, keyword: '' },
-      () => {},
-      { force: true },
-    );
-  };
+  const readOnly = !can(projectMedia.permissions, 'update ProjectMedia');
 
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -61,8 +48,6 @@ const MediaTags = ({
     }
   };
 
-  const readOnly = !can(projectMedia.permissions, 'update ProjectMedia');
-
   const onFailure = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
     setFlashMessage(message);
@@ -71,10 +56,10 @@ const MediaTags = ({
   const handleCreateTag = (value) => {
     commitMutation(Relay.Store, {
       mutation: graphql`
-        mutation MediaTagsCreateTagMutation($input: CreateTagInput!, $pageSize: Int!, $keyword: String) {
+        mutation MediaTagsCreateTagMutation($input: CreateTagInput!) {
           createTag(input: $input) {
             project_media {
-              ...MediaTags_projectMedia @arguments(pageSize: $pageSize, keyword: $keyword)
+              ...MediaTags_projectMedia
             }
           }
         }
@@ -85,14 +70,10 @@ const MediaTags = ({
           annotated_type: 'ProjectMedia',
           tag: value,
         },
-        pageSize,
-        keyword: '',
       },
       onCompleted: ({ error }) => {
         if (error) {
           onFailure(error);
-        } else {
-          refetch();
         }
       },
       onError: onFailure,
@@ -107,13 +88,7 @@ const MediaTags = ({
           mutation MediaTagsDeleteTagMutation($input: DestroyTagInput!) {
             destroyTag(input: $input) {
               project_media {
-                tags(first: 100) {
-                  edges {
-                    node {
-                      tag_text
-                    }
-                  }
-                }
+                ...MediaTags_projectMedia
               }
             }
           }
@@ -144,43 +119,20 @@ const MediaTags = ({
   };
 
   const selected = projectMedia.tags.edges.map(t => t.node.tag_text);
-  const options = projectMedia.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
-
-  console.log('options', options); // eslint-disable-line no-console
-
-
-  const handleType = (keyword) => {
-    lastTypedValue = keyword;
-    setTimeout(() => {
-      if (keyword === lastTypedValue) {
-        refetch(keyword);
-      }
-    }, 1500);
-  };
 
   return (
     <TagList
-      options={options}
       readOnly={readOnly}
-      setSearchTerm={handleType}
       setTags={handleSetTags}
       tags={selected}
+      teamSlug={projectMedia.team.slug}
       onClickTag={handleTagViewClick}
     />
   );
 };
 
 MediaTags.defaultProps = {
-  projectMedia: {
-    tags: {
-      edges: [],
-    },
-    team: {
-      tag_texts: {
-        edges: [],
-      },
-    },
-  },
+  projectMedia: null,
 };
 
 MediaTags.propTypes = {
@@ -189,10 +141,6 @@ MediaTags.propTypes = {
     team: PropTypes.shape({
       slug: PropTypes.string.isRequired,
     }).isRequired,
-    suggested_main_item: PropTypes.shape({
-      dbid: PropTypes.number,
-    }),
-    is_secondary: PropTypes.bool,
     tags: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
@@ -206,41 +154,22 @@ MediaTags.propTypes = {
 
 export { MediaTags }; // eslint-disable-line import/no-unused-modules
 
-export default createRefetchContainer(MediaTags,
-  {
-    projectMedia: graphql`
-      fragment MediaTags_projectMedia on ProjectMedia
-      @argumentDefinitions(keyword: {type: "String", defaultValue: ""}, pageSize: {type: "Int!", defaultValue: 100}) {
-        dbid
-        permissions
-        team {
-          slug
-          tag_texts(first: $pageSize, keyword: $keyword) {
-            edges {
-              node {
-                text
-              }
-            }
-          }
-        }
-        tags(last: $pageSize) {
-          edges {
-            node {
-              id
-              tag_text
-            }
+export default createFragmentContainer(MediaTags,
+  graphql`
+    fragment MediaTags_projectMedia on ProjectMedia {
+      dbid
+      permissions
+      team {
+        slug
+      }
+      tags(last: 100) {
+        edges {
+          node {
+            id
+            tag_text
           }
         }
       }
-    `,
-  },
-  {
-    projectMedia: graphql`
-      query MediaTagsRefetchQuery($ids: String!, $pageSize: Int!, $keyword: String) {
-        project_media(ids: $ids) {
-          ...MediaTags_projectMedia @arguments(pageSize: $pageSize, keyword: $keyword)
-        }
-      }
-    `,
-  },
+    }
+  `,
 );
