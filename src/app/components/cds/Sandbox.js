@@ -8,6 +8,7 @@ import Chip from './buttons-checkboxes-chips/Chip';
 import TagList from './menus-lists-dialogs/TagList';
 import TextField from './inputs/TextField';
 import ListSort from './inputs/ListSort';
+import NumberWidget from './charts/NumberWidget'; // eslint-disable-line no-unused-vars
 import TextArea from './inputs/TextArea';
 import DatePicker from './inputs/DatePicker';
 import LanguagePickerSelect from './inputs/LanguagePickerSelect';
@@ -421,6 +422,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <ButtonMain label="Errors" size="small" theme={selectedCategory === 'errors' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('errors')} />
+        </li>
+        <li>
+          <ButtonMain label="Charts" size="small" theme={selectedCategory === 'charts' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('charts')} />
         </li>
       </ul>
       { (!selectedCategory || selectedCategory === 'cards') &&
@@ -1895,6 +1899,14 @@ const SandboxComponent = ({ admin }) => {
               <ButtonMain disabled={buttonDisabled} label="Trigger Sentry" size={buttonSize} theme={buttonTheme} variant={buttonVariant} onClick={generateUncaughtError} />
               <ButtonMain disabled={buttonDisabled} label="Sentry manual error" size={buttonSize} theme={buttonTheme} variant={buttonVariant} onClick={generateManualError} />
             </div>
+          </div>
+        </section>
+      }
+      { (!selectedCategory || selectedCategory === 'charts') &&
+        <section>
+          <h6>Charts: Number Widget</h6>
+          <div className={styles.componentWrapper}>
+            <NumberWidget contextText="This is a text giviing some context" itemCount="2024" title="A Title" unit="unit" />
           </div>
         </section>
       }
