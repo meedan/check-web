@@ -5,10 +5,12 @@ on:
 #     # - cron: '0 5 * * *'  #Runs  daily at 5 AM UTC
   push:
     branches:
-    - CV2-5258-run-linter-Check-web-github-actions
+    - CV2-4797-identify-workflows-CI-migration
+#   #   - master
+#   #   - develop
   pull_request:
     branches:
-    - epic*
+    - develop
 
 env:
   GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
@@ -19,10 +21,271 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} 
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
   AWS_REGION: eu-west-1
-  MAX_WEB_CURL: 3000
-  WEB_CURL_COUNT: 0
+
 
 jobs:
+  integration-and-unit-tests:
+    if: >
+      github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' 
+      || contains(github.event.head_commit.message, '[full ci]') 
+      || contains(github.event.head_commit.message, '[smoke tests]')
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        aws-region: eu-west-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Decrypt credentials for Alegre
+      env:
+        DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
+      run: |
+        openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k $DECRYPTION_PASSWORD
+
+    - name: Setup UTF-8 Capable locale
+      run: | 
+        export LC_ALL=C.UTF-8
+        export LANG=C.UTF-8
+        export LANGUAGE=C.UTF-8
+
+    - name: Ngrok
+      run: |
+        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
+        export GITHUB_TAG=0.0.0
+    
+    - name: Setup Pender 
+      env:
+        GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
+      run: | 
+        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'develop')
+        echo "Using branch $PENDER_BRANCH for Pender"
+        git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
+        cd pender
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cd -
+
+    -  name: Setup Check API
+       run: | 
+        export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
+        echo "Using branch $CHECK_API_BRANCH for Check API"
+        git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
+        cd check-api
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cd -
+      
+    - name: Setup Alegre
+      run: | 
+       export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
+       echo "Using branch $ALEGRE_BRANCH for Alegre"
+       git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
+       cd alegre
+       cp .env_file.test .env_file
+       cp ../test/google_credentials.json google_credentials.json
+       cd -
+
+    - name: Setup Presto
+      run: |
+        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
+        echo "Using branch $PRESTO_BRANCH for Presto"
+        git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
+        cd presto
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
+
+    - name: Setup Configuration Files
+      run: |
+        cp config.js.example config.js
+        cp config.js.example test/config.js
+        cp config-build.js.example config-build.js
+        cp config-server.js.example config-server.js
+        cp test/config.yml.example test/config.yml
+
+    - name: Before Script
+      env: 
+        MAX_WEB_CURL: 3000
+        WEB_CURL_COUNT: 0
+        NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
+      run: | 
+        gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
+          MAX_WEB_CURL=$MAX_WEB_CURL;
+          WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
+        docker ps 
+        docker compose exec web npm run linter
+        docker compose exec web npm run test:integration:lint
+
+    - name: Run Integration test
+      run: | 
+        docker ps
+        docker compose exec web bash service nginx start
+        docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start 
+        docker compose exec -T \
+          -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID \
+          -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME \
+          -e GITHUB_BRANCH=$GITHUB_BRANCH \
+          -e AWS_ENDPOINT=${{ secrets.AWS_ENDPOINT }}  \
+          -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+          -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+          -e ROLE_TO_ASSUME=${{ secrets.AWS_ROLE_TO_ASSUME }} \
+          -e AWS_REGION=eu-west-1 \
+          -e TEST_RETRY_COUNT=3 \
+          web npm run tests
+
+    - name: After integration tests
+      run: |
+       docker compose exec web bash -c "python -m json.tool test/file.json"
+        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
+        kill -9 $(pgrep ngrok)
+
+  similarity-tests:
+    if: >
+      github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' 
+      || contains(github.event.head_commit.message, '[full ci]') 
+      || contains(github.event.head_commit.message, '[similarity tests]')
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        aws-region: eu-west-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Decrypt credentials for Alegre
+      env:
+        DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
+      run: |
+        openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k $DECRYPTION_PASSWORD
+
+    - name: Setup UTF-8 Capable locale
+      run: | 
+        export LC_ALL=C.UTF-8
+        export LANG=C.UTF-8
+        export LANGUAGE=C.UTF-8
+
+    - name: Ngrok
+      run: |
+        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
+        export GITHUB_TAG=0.0.0
+    
+    - name: Setup Pender 
+      run: | 
+        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
+        echo "Using branch $PENDER_BRANCH for Pender"
+        git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
+        cd pender
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cd -
+
+    -  name: Setup Check API
+       run: | 
+        export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
+        echo "Using branch $CHECK_API_BRANCH for Check API"
+        git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
+        cd check-api
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cd -
+      
+    - name: Setup Alegre
+      run: | 
+        export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
+        echo "Using branch $ALEGRE_BRANCH for Alegre"
+        git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
+        cd alegre
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
+
+    - name: Setup Presto
+      run: |
+        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
+        echo "Using branch $PRESTO_BRANCH for Presto"
+        git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
+        cd presto
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
+
+    - name: Setup Configuration Files
+      run: |
+        cp config.js.example config.js
+        cp config.js.example test/config.js
+        cp config-build.js.example config-build.js
+        cp config-server.js.example config-server.js
+        cp test/config.yml.example test/config.yml
+
+    - name: Before Script
+      env: 
+        MAX_WEB_CURL: 3000
+        WEB_CURL_COUNT: 0
+      run: | 
+        gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
+        MAX_WEB_CURL=$MAX_WEB_CURL;
+        WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
+        docker ps
+        docker compose exec web npm run linter
+        docker compose exec web npm run test:integration:lint
+
+    - name: Run Similarity test
+      run: | 
+        docker compose exec web service nginx start
+        docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
+        docker compose exec - T \
+            -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID \
+            -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME \
+            -e GITHUB_BRANCH=$GITHUB_BRANCH \
+            -e AWS_ENDPOINT=${{ secrets.AWS_ENDPOINT }}  \
+            -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+            -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+            -e ROLE_TO_ASSUME=${{ secrets.AWS_ROLE_TO_ASSUME }} \
+            -e AWS_REGION=eu-west-1 \
+            -e TEST_RETRY_COUNT=3 \
+            web npm run tests
+
+    - name: After Similarity tests
+      run: |
+        docker compose exec web bash -c "python -m json.tool test/file.json"
+        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
+        kill -9 $(pgrep ngrok)
+
   unit-tests:
     if: > 
         github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/master' 
@@ -63,19 +326,13 @@ jobs:
         export LANG=C.UTF-8
         export LANGUAGE=C.UTF-8
 
-    - name: Setup Configuration Files
-      run: |
-        cp config.js.example config.js
-        cp config.js.example test/config.js
-        cp config-build.js.example config-build.js
-        cp config-server.js.example config-server.js
-        cp test/config.yml.example test/config.yml
-  
     - name: Ngrok
+      env:
+        NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
       run: |
         curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
         export GITHUB_TAG=0.0.0
-      
+    
     - name: Setup Pender 
       run: | 
         export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
@@ -86,9 +343,9 @@ jobs:
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
         cd -
-  
-    - name: Setup Check API
-      run: | 
+
+    -  name: Setup Check API
+       run: | 
         export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
         echo "Using branch $CHECK_API_BRANCH for Check API"
         git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
@@ -96,8 +353,8 @@ jobs:
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
-        cd -    
-        
+        cd -
+      
     - name: Setup Alegre
       run: | 
         export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
@@ -107,7 +364,6 @@ jobs:
         cp .env_file.test .env_file
         cp ../test/google_credentials.json google_credentials.json
         cd -
-  
     - name: Setup Presto
       run: |
         export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
@@ -127,13 +383,25 @@ jobs:
         cp test/config.yml.example test/config.yml
 
     - name: Before Script
+      env: 
+        MAX_WEB_CURL: 3000
+        WEB_CURL_COUNT: 0
       run: | 
-        GITHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
+        gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
         MAX_WEB_CURL=$MAX_WEB_CURL;
         WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
         docker ps 
-
-    - name: Run linter
-      run: |
         docker compose exec web npm run linter
         docker compose exec web npm run test:integration:lint
+
+    - name: Run Unit test
+      run: | 
+       docker-compose exec -T -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME web npm run tests
+
+    - name: After Unit tests
+      run: |
+        docker compose exec web bash -c "python -m json.tool test/file.json"
+        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
+        kill -9 $(pgrep ngrok)
+
+    
