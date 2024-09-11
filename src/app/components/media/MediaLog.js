@@ -75,7 +75,7 @@ const pageSize = 30;
 const eventTypes = [
   'create_projectmedia', 'update_projectmedia', 'create_relationship', 'update_relationship', 'destroy_relationship', 'create_dynamicannotationfield',
   'update_dynamicannotationfield', 'create_tag', 'create_dynamic', 'update_dynamic', 'create_claimdescription', 'update_claimdescription',
-  'create_factcheck', 'update_factcheck', 'create_assignment', 'destroy_assignment', 'create_explaineritem', 'destroy_explaineritem',
+  'create_factcheck', 'update_factcheck', 'create_assignment', 'destroy_assignment', 'create_explaineritem', 'destroy_explaineritem', 'replace_projectmedia',
 ];
 
 const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
