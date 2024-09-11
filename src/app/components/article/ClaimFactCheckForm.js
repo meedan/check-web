@@ -15,6 +15,7 @@ const updateClaimMutation = graphql`
         id
         dbid
         updated_at
+        context
         description
         user {
           name
@@ -77,6 +78,8 @@ const createFactCheckMutation = graphql`
         totalArticlesCount: articles_count
       }
       claim_description {
+        description
+        context
         project_media {
           title
           title_field
@@ -126,6 +129,8 @@ const updateFactCheckMutation = graphql`
           name
         }
         claim_description {
+          description
+          context
           project_media {
             title
             title_field
