@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e 
 # Running only unit tests
 if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ \[full\ ci\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[text\ similarity\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[media\ similarity\ tests\] ]]
 then
