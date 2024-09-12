@@ -154,6 +154,7 @@ TagPicker.defaultProps = {
   options: null,
   readOnly: false,
   saving: false,
+  searchTerm: '',
   setSearchTerm: null,
 };
 
@@ -164,6 +165,7 @@ TagPicker.propTypes = {
   options: PropTypes.array,
   readOnly: PropTypes.bool,
   saving: PropTypes.bool,
+  searchTerm: PropTypes.string,
   setSearchTerm: PropTypes.func,
   setTags: PropTypes.func.isRequired,
   tags: PropTypes.array.isRequired,
