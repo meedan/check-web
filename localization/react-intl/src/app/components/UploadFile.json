@@ -35,8 +35,13 @@
     "defaultMessage": "The file size should be less than {size}. Please try with a smaller file."
   },
   {
+    "id": "uploadFile.removeFileButton",
+    "description": "Label for the remove uploaded file button",
+    "defaultMessage": "Remove"
+  },
+  {
     "id": "uploadFile.changeFile",
     "description": "Output of the uploaded filename and how to change the file",
-    "defaultMessage": "{filename} (click or drop to change)"
+    "defaultMessage": "<strong>{filename}</strong>(click or drop to change)"
   }
 ]

@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import MediasLoading from './media/MediasLoading';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import ClearIcon from '../icons/clear.svg';
+import FilePresentIcon from '../icons/file_present.svg';
 import { unhumanizeSize } from '../helpers';
 import styles from './UploadFile.module.css';
 
@@ -161,9 +162,11 @@ class UploadFileComponent extends React.PureComponent {
 
     if (value) {
       return (
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className={styles.PreviewWrapper}>
           {noPreview ?
-            <span className={styles.NoPreview} />
+            <div className={styles.NoPreview}>
+              <FilePresentIcon />
+            </div>
             :
             <div
               className={styles.Preview}
@@ -176,14 +179,21 @@ class UploadFileComponent extends React.PureComponent {
               }}
             />
           }
-          <span className="no-preview" />
           <ButtonMain
             buttonProps={{
               id: 'remove-image',
             }}
-            iconCenter={<ClearIcon />}
+            className="int-remove-upload__button--preview"
+            iconLeft={<ClearIcon />}
+            label={
+              <FormattedMessage
+                defaultMessage="Remove"
+                description="Label for the remove uploaded file button"
+                id="uploadFile.removeFileButton"
+              />
+            }
             size="small"
-            theme="text"
+            theme="lightBeige"
             variant="contained"
             onClick={this.onDelete}
           />
@@ -212,18 +222,16 @@ class UploadFileComponent extends React.PureComponent {
           multiple={false}
           onDrop={this.onDrop}
         >
-          <>
-            {value ? (
-              <FormattedMessage
-                defaultMessage="{filename} (click or drop to change)"
-                description="Output of the uploaded filename and how to change the file"
-                id="uploadFile.changeFile"
-                values={{ filename: value.name }}
-              />
-            ) : (
-              <UploadMessage about={about} type={type} />
-            )}
-          </>
+          {value ? (
+            <FormattedHTMLMessage
+              defaultMessage="<strong>{filename}</strong>(click or drop to change)"
+              description="Output of the uploaded filename and how to change the file"
+              id="uploadFile.changeFile"
+              values={{ filename: value.name }}
+            />
+          ) : (
+            <UploadMessage about={about} type={type} />
+          )}
         </Dropzone>
       </div>
     );
