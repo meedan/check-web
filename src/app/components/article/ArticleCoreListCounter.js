@@ -41,7 +41,7 @@ const ArticlesListCounter = ({ defaultFilters, teamSlug, type }) => (
 );
 
 ArticlesListCounter.defaultProps = {
-  // defaultFilters: {},
+  defaultFilters: {},
 };
 
 ArticlesListCounter.propTypes = {
