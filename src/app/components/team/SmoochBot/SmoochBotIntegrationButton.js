@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   smoochBotIntegrationButton: {
     margin: theme.spacing(1),
     background: 'var(--color-gray-88)',
-    minWidth: 262,
+    minWidth: 255,
     justifyContent: 'space-between',
     '&:hover': {
       background: 'var(--color-gray-88)',
