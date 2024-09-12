@@ -1,0 +1,32 @@
+[
+  {
+    "id": "tagList.create",
+    "description": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results.",
+    "defaultMessage": "+ Create search tags"
+  },
+  {
+    "id": "multiSelector.search",
+    "description": "The placeholder text in a search box.",
+    "defaultMessage": "Search…"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tagList.notFound",
+    "description": "A message that appears when a user has searched for tag text but no matches have been found.",
+    "defaultMessage": "No tags found"
+  },
+  {
+    "id": "tagList.submit",
+    "description": "Verb, infinitive form. Button to commit action of tagging an item",
+    "defaultMessage": "Tag"
+  },
+  {
+    "id": "taglist.tooltipManage",
+    "description": "Tooltip message displayed on a tag item to let the user know they can manage the tags in the list",
+    "defaultMessage": "Manage Tags"
+  }
+]

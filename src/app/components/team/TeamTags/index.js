@@ -3,7 +3,8 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import PaginatedTeamTags from './PaginatedTeamTags';
+import TeamTagsComponent from './TeamTagsComponent';
+import { parseStringUnixTimestamp } from '../../../helpers';
 
 const TeamTags = (props) => {
   const pageSize = 100;
@@ -12,28 +13,45 @@ const TeamTags = (props) => {
   return (<QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query TeamTagsQuery($teamSlug: String!, $pageSize: Int!, $after: String, $keyword: String) {
+      query TeamTagsQuery($teamSlug: String!, $pageSize: Int!, $keyword: String) {
         team(slug: $teamSlug) {
           id
           dbid
           permissions
           get_rules
           rules_json_schema
-          ...PaginatedTeamTags_root
+          tag_texts_count
+          tag_texts(first: $pageSize, keyword: $keyword) {
+            edges {
+              node {
+                id
+                text
+                tags_count
+                updated_at
+              }
+            }
+            totalCount
+          }
         }
       }
     `}
     render={({ error, props: innerProps }) => {
       if (!error && innerProps) {
-        const { team } = innerProps;
-
         return (
-          <PaginatedTeamTags
+          <TeamTagsComponent
             pageSize={pageSize}
-            parentProps={innerProps}
-            root={team}
+            permissions={innerProps.team.permissions}
+            relay={innerProps.relay}
+            rules={innerProps.team.get_rules}
+            rulesSchema={JSON.parse(innerProps.team.rules_json_schema)}
             searchTerm={searchTerm}
+            // total of ALL tags
             setSearchTerm={setSearchTerm}
+            // total number of search results
+            tags={innerProps.team.tag_texts ? innerProps.team.tag_texts.edges.map(({ node }) => ({ ...node, updated_at: parseStringUnixTimestamp(node.updated_at) })) : []}
+            teamDbid={innerProps.team.dbid}
+            teamId={innerProps.team.id}
+            totalTags={innerProps.team.tag_texts_count}
           />
         );
       }
