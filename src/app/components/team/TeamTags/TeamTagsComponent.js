@@ -12,13 +12,9 @@ import SaveTag from './SaveTag';
 import TeamTagsActions from './TeamTagsActions';
 import BlankState from '../../layout/BlankState';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
-import NextIcon from '../../../icons/chevron_right.svg';
-import PrevIcon from '../../../icons/chevron_left.svg';
 import SearchField from '../../search/SearchField';
 import TimeBefore from '../../TimeBefore';
 import SettingsHeader from '../SettingsHeader';
-import MediasLoading from '../../media/MediasLoading';
 import Can from '../../Can';
 import styles from './TeamTagsComponent.module.css';
 import settingsStyles from '../Settings.module.css';
@@ -34,13 +30,10 @@ const TeamTagsComponent = ({
   tags,
   teamDbid,
   teamId,
-  totalCount,
   totalTags,
 }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [showCreateTag, setShowCreateTag] = React.useState(false);
-  const [cursor, setCursor] = React.useState(0);
-  const [isPaginationLoading, setIsPaginationLoading] = React.useState(false);
 
   const handleSearchFieldClear = () => {
     setSearchTerm('');
@@ -95,69 +88,6 @@ const TeamTagsComponent = ({
           />
         }
       />
-      { totalTags > pageSize && // only display paginator if there are more than pageSize worth of tags overall in the database
-        <div className={styles['tags-wrapper']}>
-          <Tooltip
-            arrow
-            title={
-              <FormattedMessage defaultMessage="Previous page" description="Pagination button to go to previous page" id="search.previousPage" />
-            }
-          >
-            <span>
-              <ButtonMain
-                disabled={isPaginationLoading || cursor - pageSize < 0}
-                iconCenter={<PrevIcon />}
-                size="default"
-                theme="info"
-                variant="text"
-                onClick={() => {
-                  if (cursor - pageSize >= 0) {
-                    setCursor(cursor - pageSize);
-                  }
-                }}
-              />
-            </span>
-          </Tooltip>
-          <span className={cx('typography-button', styles['tags-header-count'])}>
-            <FormattedMessage
-              defaultMessage="{totalCount, plural, one {1 / 1} other {{from} - {to} / #}}"
-              description="Pagination count of items returned"
-              id="searchResults.itemsCount"
-              values={{
-                from: cursor + 1,
-                to: Math.min(cursor + pageSize, totalCount),
-                totalCount,
-              }}
-            />
-          </span>
-          <Tooltip
-            title={
-              <FormattedMessage defaultMessage="Next page" description="Pagination button to go to next page" id="search.nextPage" />
-            }
-          >
-            <span>
-              <ButtonMain
-                disabled={isPaginationLoading || cursor + pageSize >= totalCount}
-                iconCenter={<NextIcon />}
-                size="default"
-                theme="info"
-                variant="text"
-                onClick={() => {
-                  if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= tags.length)) {
-                    setIsPaginationLoading(true);
-                    relay.loadMore(pageSize, () => {
-                      setCursor(cursor + pageSize);
-                      setIsPaginationLoading(false);
-                    });
-                  } else if (cursor + pageSize < tags.length) {
-                    setCursor(cursor + pageSize);
-                  }
-                }}
-              />
-            </span>
-          </Tooltip>
-        </div>
-      }
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
         {totalTags === 0 ?
           <BlankState>
@@ -196,9 +126,8 @@ const TeamTagsComponent = ({
                   <TableCell className={styles['table-col-head-action']} padding="checkbox" />
                 </TableRow>
               </TableHead>
-              { isPaginationLoading && <MediasLoading size="medium" theme="grey" variant="inline" /> }
-              <TableBody className={isPaginationLoading && styles['tags-hide']}>
-                { tags.slice(cursor, cursor + pageSize).map(tag => (
+              <TableBody>
+                { tags.map(tag => (
                   <TableRow className="team-tags__row" key={tag.id}>
                     <TableCell>
                       {tag.text}
