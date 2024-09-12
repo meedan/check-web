@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './NumberWidget.module.css';
 
 const NumberWidget = ({
   contextText,
@@ -7,14 +8,14 @@ const NumberWidget = ({
   title,
   unit,
 }) => (
-  <div>
-    <div>
+  <div className={styles.numberWidgetWrapper}>
+    <div className="typography-subtitle2">
       {title}
     </div>
-    <div>
-      {itemCount} {!itemCount || itemCount === '-' ? null : unit}
+    <div className={styles.numberWidgetItemCount}>
+      {itemCount} <span className={styles.numberWidgetUnit}>{!itemCount || itemCount === '-' ? null : unit} </span>
     </div>
-    <div>
+    <div className={styles.numberWidgetContextText}>
       {contextText}
     </div>
   </div>

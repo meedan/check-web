@@ -1905,9 +1905,13 @@ const SandboxComponent = ({ admin }) => {
       { (!selectedCategory || selectedCategory === 'charts') &&
         <section>
           <h6>Charts: Number Widget</h6>
-          <div className={styles.componentWrapper}>
-            <NumberWidget contextText="This is a text giviing some context" itemCount="2024" title="A Title" unit="unit" />
-            <NumberWidget contextText="This is a text giviing some context" title="A Title" unit="unit" />
+          <div>
+            <div className={styles.componentWrapper}>
+              <NumberWidget contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" unit="unit" />
+            </div>
+            <div className={styles.componentWrapper}>
+              <NumberWidget contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." title="A Title" unit="unit" />
+            </div>
           </div>
         </section>
       }
