@@ -1,14 +1,14 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import MediasLoading from './media/MediasLoading';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import ClearIcon from '../icons/clear.svg';
+import FilePresentIcon from '../icons/file_present.svg';
 import { unhumanizeSize } from '../helpers';
 import styles from './UploadFile.module.css';
 
@@ -81,7 +81,6 @@ const UploadMessage = ({ about, type }) => {
 };
 
 UploadMessage.propTypes = {
-  type: PropTypes.oneOf(['image', 'video', 'audio', 'file', 'image+video+audio']).isRequired,
   about: PropTypes.shape({
     upload_max_size: PropTypes.string.isRequired,
     upload_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -94,6 +93,7 @@ UploadMessage.propTypes = {
     file_max_size: PropTypes.string.isRequired,
     file_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'file', 'image+video+audio']).isRequired,
 };
 
 class UploadFileComponent extends React.PureComponent {
@@ -162,16 +162,38 @@ class UploadFileComponent extends React.PureComponent {
 
     if (value) {
       return (
-        <div style={{ display: 'flex' }}>
-          {noPreview ? <span className={styles.NoPreview} /> : <span className={styles.Preview} image={value.preview} styles={{ backgroundImage: `url(${props => props.image})` }} />}
-          <span className="no-preview" />
+        <div className={styles.PreviewWrapper}>
+          {noPreview ?
+            <div className={styles.NoPreview}>
+              <FilePresentIcon />
+            </div>
+            :
+            <div
+              className={styles.Preview}
+              image={value.preview}
+              style={{
+                backgroundImage: `url(${value.preview})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          }
           <ButtonMain
             buttonProps={{
               id: 'remove-image',
             }}
-            iconCenter={<ClearIcon />}
+            className="int-remove-upload__button--preview"
+            iconLeft={<ClearIcon />}
+            label={
+              <FormattedMessage
+                defaultMessage="Remove"
+                description="Label for the remove uploaded file button"
+                id="uploadFile.removeFileButton"
+              />
+            }
             size="small"
-            theme="text"
+            theme="lightBeige"
             variant="contained"
             onClick={this.onDelete}
           />
@@ -200,20 +222,17 @@ class UploadFileComponent extends React.PureComponent {
           multiple={false}
           onDrop={this.onDrop}
         >
-          <div>
-            {value ? (
-              <FormattedMessage
-                defaultMessage="{filename} (click or drop to change)"
-                description="Output of the uploaded filename and how to change the file"
-                id="uploadFile.changeFile"
-                values={{ filename: value.name }}
-              />
-            ) : (
-              <UploadMessage about={about} type={type} />
-            )}
-          </div>
+          {value ? (
+            <FormattedHTMLMessage
+              defaultMessage="<strong>{filename}</strong>(click or drop to change)"
+              description="Output of the uploaded filename and how to change the file"
+              id="uploadFile.changeFile"
+              values={{ filename: value.name }}
+            />
+          ) : (
+            <UploadMessage about={about} type={type} />
+          )}
         </Dropzone>
-        <br />
       </div>
     );
   }
@@ -254,12 +273,12 @@ UploadFile.defaultProps = {
   disabled: false,
 };
 UploadFile.propTypes = {
-  value: PropTypes.object, // or null
-  type: PropTypes.oneOf(['image', 'video', 'audio', 'image+video+audio']).isRequired,
+  disabled: PropTypes.bool,
   noPreview: PropTypes.bool,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'image+video+audio']).isRequired,
+  value: PropTypes.object, // or null
   onChange: PropTypes.func.isRequired, // func(Image) => undefined
   onError: PropTypes.func.isRequired, // func(Image?, <FormattedMessage ...>) => undefined
-  disabled: PropTypes.bool,
 };
 // eslint-disable-next-line
 export { UploadFileComponent };
