@@ -180,6 +180,7 @@ class UploadFileComponent extends React.PureComponent {
             />
           }
           <ButtonMain
+            className="int-remove-upload__button--preview"
             buttonProps={{
               id: 'remove-image',
             }}
