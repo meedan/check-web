@@ -13,6 +13,7 @@ env:
   GITHUB_JOB_NAME: ${{ github.job }}
   GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
   NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
+  AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}  
 
 jobs:
   unit-tests:
