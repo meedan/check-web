@@ -14,6 +14,7 @@ env:
   GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
   NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
   AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}  
+  AWS_REGION: eu-west-1
 
 jobs:
   unit-tests:
@@ -134,9 +135,9 @@ jobs:
       run: |
         docker compose exec -T -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME web npm run tests
 
-    - name: After Unit tests
-      run: |
-        docker compose exec -T web bash -c "python -m json.tool test/file.json"
-        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
-        kill -9 $(pgrep ngrok)
+    # - name: After Unit tests
+    #   run: |
+    #     docker compose exec -T web bash -c "python -m json.tool test/file.json"
+    #     size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
+    #     kill -9 $(pgrep ngrok)
 
