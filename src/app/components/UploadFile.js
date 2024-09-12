@@ -180,10 +180,10 @@ class UploadFileComponent extends React.PureComponent {
             />
           }
           <ButtonMain
-            className="int-remove-upload__button--preview"
             buttonProps={{
               id: 'remove-image',
             }}
+            className="int-remove-upload__button--preview"
             iconLeft={<ClearIcon />}
             label={
               <FormattedMessage
