@@ -3,7 +3,7 @@ name: Build and Run Tests
 on:
   push:
     branches:
-    - CV2-5258-run-linter-Check-web-github-actions
+    - CV2-5258-Run-unit-tests-check-web
   pull_request:
     branches:
     - Epic-4798/migraton-of-check-web-ci
