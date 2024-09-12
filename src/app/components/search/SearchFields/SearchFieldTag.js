@@ -73,6 +73,7 @@ const SearchFieldTag = ({
         plainTagsTexts = [...new Set(queryTags.concat(plainTagsTexts))];
 
         const hasMore = total > pageSize;
+
         return (
           <MultiSelectFilter
             className="int-search-field-tag__multi-select-filter--select-tag"

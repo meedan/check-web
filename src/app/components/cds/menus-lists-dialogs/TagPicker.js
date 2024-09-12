@@ -12,6 +12,8 @@ import styles from './TagList.module.css';
 
 const TagPicker = ({
   customCreateLabel,
+  hasMore,
+  loadMore,
   options: teamTags,
   readOnly,
   saving,
@@ -36,6 +38,8 @@ const TagPicker = ({
       setSearchTerm(value);
     }
   };
+
+  const handleLoadMore = () => loadMore();
 
   const handleSubmit = (newSelectedItems) => {
     setTags(newSelectedItems);
@@ -89,6 +93,7 @@ const TagPicker = ({
                   id="global.cancel"
                 />
               }
+              hasMore={hasMore}
               inputPlaceholder={placeholder}
               notFoundLabel={
                 <FormattedMessage
@@ -107,6 +112,7 @@ const TagPicker = ({
                 />
               }
               onDismiss={handleCloseMenu}
+              onScrollBottom={handleLoadMore}
               onSearchChange={handleSearchChange}
               onSubmit={handleSubmit}
             />
@@ -143,6 +149,8 @@ const TagPicker = ({
 
 TagPicker.defaultProps = {
   customCreateLabel: null,
+  hasMore: false,
+  loadMore: () => {},
   options: null,
   readOnly: false,
   saving: false,
@@ -151,6 +159,8 @@ TagPicker.defaultProps = {
 
 TagPicker.propTypes = {
   customCreateLabel: PropTypes.node,
+  hasMore: PropTypes.bool,
+  loadMore: PropTypes.func,
   options: PropTypes.array,
   readOnly: PropTypes.bool,
   saving: PropTypes.bool,
