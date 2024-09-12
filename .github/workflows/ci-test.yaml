@@ -42,67 +42,11 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Decrypt credentials for Alegre
-      env:
-        DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
-      run: |
-        openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k $DECRYPTION_PASSWORD
-    
     - name: Setup UTF-8 Capable locale
       run: | 
         export LC_ALL=C.UTF-8
         export LANG=C.UTF-8
         export LANGUAGE=C.UTF-8
-    
-    - name: Setup Configuration Files
-      run: |
-        cp config.js.example config.js
-        cp config.js.example test/config.js
-        cp config-build.js.example config-build.js
-        cp config-server.js.example config-server.js
-        cp test/config.yml.example test/config.yml
-      
-    - name: Setup Pender 
-      run: | 
-        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
-        echo "Using branch $PENDER_BRANCH for Pender"
-        git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
-        cd pender
-        cp config/config.yml.example config/config.yml
-        cp config/database.yml.example config/database.yml
-        cp config/sidekiq.yml.example config/sidekiq.yml
-        cd -
-  
-    - name: Setup Check API
-      run: | 
-        export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
-        echo "Using branch $CHECK_API_BRANCH for Check API"
-        git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
-        cd check-api
-        cp config/config.yml.example config/config.yml
-        cp config/database.yml.example config/database.yml
-        cp config/sidekiq.yml.example config/sidekiq.yml
-        cd -    
-        
-    - name: Setup Alegre
-      run: | 
-        export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
-        echo "Using branch $ALEGRE_BRANCH for Alegre"
-        git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
-        cd alegre
-        cp .env_file.test .env_file
-        cp ../test/google_credentials.json google_credentials.json
-        cd -
-  
-    - name: Setup Presto
-      run: |
-        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
-        echo "Using branch $PRESTO_BRANCH for Presto"
-        git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
-        cd presto
-        cp .env_file.test .env_file
-        cp ../test/google_credentials.json google_credentials.json
-        cd -
     
     - name: Setup Configuration Files
       run: |
