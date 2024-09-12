@@ -133,7 +133,7 @@ const SmoochBotConfig = (props) => {
               iconLeft={<AddIcon />}
               label={
                 <FormattedMessage
-                  defaultMessage="Resource"
+                  defaultMessage="New Tipline Resource"
                   description="Button label to add a resource to this bot"
                   id="smoochBot.addResource"
                 />

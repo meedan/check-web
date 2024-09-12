@@ -10,11 +10,6 @@
     "defaultMessage": "Title - 24 characters limit"
   },
   {
-    "id": "smoochBotMainMenuSection.newOption",
-    "description": "Button label to create a new main menu option on tipline bot settings.",
-    "defaultMessage": "New option"
-  },
-  {
     "id": "smoochBotMainMenuSection.noOptions",
     "description": "Message displayed when there is no menu option on tipline bot settings.",
     "defaultMessage": "There is currently no option in this section."
@@ -23,6 +18,11 @@
     "id": "smoochBotMainMenuSection.optionNoDescription",
     "description": "Displayed when a tipline bot menu option doesn't have a description.",
     "defaultMessage": "no description"
+  },
+  {
+    "id": "smoochBotMainMenuSection.newOption",
+    "description": "Button label to create a new main menu option on tipline bot settings.",
+    "defaultMessage": "New option"
   },
   {
     "id": "smoochBotMainMenuSection.maxOptionsReachedDescription",

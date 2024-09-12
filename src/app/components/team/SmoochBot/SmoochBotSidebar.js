@@ -14,13 +14,15 @@ const SmoochBotSidebar = ({
     onClick(option);
   };
 
-  const Option = ({ id, label }) => {
+  const Option = ({ className, id, label }) => {
     if (id === 'smooch_settings' && userRole !== 'admin') {
       return null;
     }
 
     return (
-      <li>
+      <li
+        className={className}
+      >
         <ButtonMain
           className={smoochBotStyles.smoochBotMenuButton}
           key={id}
@@ -46,6 +48,7 @@ const SmoochBotSidebar = ({
         const label = resource.title;
         return (
           <Option
+            className={smoochBotStyles.smoochBotMenuResource}
             id={`resource_${resource.dbid}`}
             key={resource.uuid}
             label={label}

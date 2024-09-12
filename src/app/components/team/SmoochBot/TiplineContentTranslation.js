@@ -35,7 +35,7 @@ const messages = defineMessages({
   },
   defaultText: {
     id: 'smoochBotContentAndTranslation.defaultTextTitle',
-    defaultMessage: 'Default Bot Response:',
+    defaultMessage: 'Current Default Bot Response:',
     description: 'Title for the area to show users what the default text value is for this bot response',
   },
   placeholder: {
