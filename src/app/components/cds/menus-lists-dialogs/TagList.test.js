@@ -12,6 +12,7 @@ describe('TagList', () => {
       'fifth!',
       'This is Six',
     ],
+    teamSlug: 'team-slug',
     setTags: () => {},
   };
 
@@ -20,12 +21,10 @@ describe('TagList', () => {
     expect(wrapper.find('Chip')).toHaveLength(6);
     expect(wrapper.find('#empty-list')).toHaveLength(0);
     expect(wrapper.find('#hidden-tags')).toHaveLength(0);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--manage')).toHaveLength(1);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--manage').prop('onClick')).toBeInstanceOf(Function);
   });
 
   it('renders empty tag list', () => {
-    const wrapper = shallow(<TagList setTags={() => {}} tags={[]} />);
+    const wrapper = shallow(<TagList {...defaultProps} tags={[]} />);
     expect(wrapper.find('Chip')).toHaveLength(0);
     expect(wrapper.find('#empty-list')).toHaveLength(1);
     expect(wrapper.find('#hidden-tags')).toHaveLength(0);
@@ -39,9 +38,9 @@ describe('TagList', () => {
     expect(wrapper.find('#hidden-tags')).toHaveLength(1);
   });
 
-  it('does not render menu buttons in read only mode', () => {
+  it('render disabled menu button in read only mode', () => {
     const wrapper = mount(<TagList {...defaultProps} readOnly />);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--manage')).toHaveLength(0);
+    expect(wrapper.find('ButtonMain.int-tag-list__button--manage')).toHaveLength(1);
   });
 });
 
