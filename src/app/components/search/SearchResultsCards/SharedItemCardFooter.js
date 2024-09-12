@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -24,8 +23,8 @@ const SharedItemCardFooter = ({
   onSeeMore,
   requestsCount,
   suggestionsCount,
-  tagOptions,
   tags,
+  teamSlug,
 }) => (
   <BulletSeparator
     className={styles.bulletSeparator}
@@ -37,9 +36,9 @@ const SharedItemCardFooter = ({
       tags && onChangeTags && (
         <TagList
           maxTags={5}
-          options={tagOptions ? tagOptions.map(tag => ({ label: tag, value: tag })) : null}
           setTags={onChangeTags}
           tags={tags}
+          teamSlug={teamSlug}
         />
       ),
       mediaCount !== null && (
@@ -85,26 +84,24 @@ SharedItemCardFooter.defaultProps = {
   languageCode: null,
   lastRequestDate: null,
   tags: null,
-  tagOptions: null,
   onChangeTags: null,
   channels: null,
   onSeeMore: null,
 };
 
 SharedItemCardFooter.propTypes = {
-  mediaCount: PropTypes.number,
-  mediaType: PropTypes.string,
-  requestsCount: PropTypes.number,
-  suggestionsCount: PropTypes.number,
-  languageCode: PropTypes.string,
-  lastRequestDate: PropTypes.instanceOf(Date),
-  tags: PropTypes.arrayOf(PropTypes.string),
-  tagOptions: PropTypes.arrayOf(PropTypes.string),
-  onChangeTags: PropTypes.func,
   channels: PropTypes.exact({
     main: PropTypes.number,
     others: PropTypes.arrayOf(PropTypes.number),
   }),
+  languageCode: PropTypes.string,
+  lastRequestDate: PropTypes.instanceOf(Date),
+  mediaCount: PropTypes.number,
+  mediaType: PropTypes.string,
+  requestsCount: PropTypes.number,
+  suggestionsCount: PropTypes.number,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  onChangeTags: PropTypes.func,
   onSeeMore: PropTypes.func,
 };
 
