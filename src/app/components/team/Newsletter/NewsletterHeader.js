@@ -5,6 +5,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import Select from '../../cds/inputs/Select';
 import LimitedTextField from '../../layout/inputs/LimitedTextField';
 import Upload from '../../cds/inputs/Upload';
+import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './NewsletterComponent.module.css';
 
 const messages = defineMessages({
@@ -58,7 +59,7 @@ const NewsletterHeader = ({
   setFile,
   setFileName,
 }) => (
-  <div>
+  <div className={inputStyles['form-fieldset-field']}>
     <Select
       className={styles.select}
       disabled={disabled}
