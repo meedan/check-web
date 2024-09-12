@@ -56,15 +56,15 @@ jobs:
         cp config-server.js.example config-server.js
         cp test/config.yml.example test/config.yml
     
-    - name: Before Script
-      env:
-        MAX_WEB_CURL: 3000
-        WEB_CURL_COUNT: 0
-      run: | 
-        GITHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
-        MAX_WEB_CURL=$MAX_WEB_CURL;
-        WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
-        docker ps 
+    # - name: Before Script
+    #   env:
+    #     MAX_WEB_CURL: 3000
+    #     WEB_CURL_COUNT: 0
+    #   run: | 
+    #     GITHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
+    #     MAX_WEB_CURL=$MAX_WEB_CURL;
+    #     WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
+    #     docker ps 
     
     - name: Run linter
       run: |
