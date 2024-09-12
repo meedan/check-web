@@ -12,7 +12,7 @@ const NumberWidget = ({
       {title}
     </div>
     <div>
-      {itemCount} {unit}
+      {itemCount} {!itemCount || itemCount === '-' ? null : unit}
     </div>
     <div>
       {contextText}
