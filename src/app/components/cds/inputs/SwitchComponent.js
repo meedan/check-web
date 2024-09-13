@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -81,13 +80,13 @@ SwitchComponent.defaultProps = {
 
 SwitchComponent.propTypes = {
   checked: PropTypes.bool,
-  disabled: PropTypes.bool,
-  label: PropTypes.node,
   className: PropTypes.string,
-  labelPlacement: PropTypes.oneOf(['bottom', 'end', 'start', 'top']),
+  disabled: PropTypes.bool,
   helperContent: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  onChange: PropTypes.func,
   inputProps: PropTypes.object,
+  label: PropTypes.node,
+  labelPlacement: PropTypes.oneOf(['bottom', 'end', 'start', 'top']),
+  onChange: PropTypes.func,
 };
 
 export default SwitchComponent;
