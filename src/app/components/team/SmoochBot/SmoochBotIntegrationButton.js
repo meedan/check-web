@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -424,24 +423,24 @@ SmoochBotIntegrationButton.defaultProps = {
 };
 
 SmoochBotIntegrationButton.propTypes = {
+  deprecationNotice: PropTypes.node, // or null
+  disabled: PropTypes.bool.isRequired,
+  helpUrl: PropTypes.string.isRequired,
+  icon: PropTypes.node.isRequired,
+  info: PropTypes.node, // or null
   installationId: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  intl: intlShape.isRequired,
   label: PropTypes.string.isRequired,
-  url: PropTypes.string, // if null, "params" must be provided
-  skipUrlConfirmation: PropTypes.bool,
+  online: PropTypes.bool.isRequired,
   params: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.object, // <FormattedMessage />
     key: PropTypes.string,
   })), // if null, "url" must be provided
-  online: PropTypes.bool.isRequired,
-  info: PropTypes.node, // or null
-  deprecationNotice: PropTypes.node, // or null
-  disabled: PropTypes.bool.isRequired,
-  icon: PropTypes.node.isRequired,
   permanentDisconnection: PropTypes.bool,
-  helpUrl: PropTypes.string.isRequired,
-  intl: intlShape.isRequired,
   readOnly: PropTypes.bool,
+  skipUrlConfirmation: PropTypes.bool,
+  type: PropTypes.string.isRequired,
+  url: PropTypes.string, // if null, "params" must be provided
 };
 
 export default withSetFlashMessage(injectIntl(SmoochBotIntegrationButton));
