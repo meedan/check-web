@@ -244,11 +244,6 @@ const SandboxComponent = ({ admin }) => {
   const [slideoutSecondaryAction, setSlideoutSecondaryAction] = React.useState(Boolean(false));
   const [slideoutOptionalNode, setSlideoutOptionalNode] = React.useState(Boolean(false));
 
-  const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
-  const onChangeSwitchLabelPlacement = (event) => {
-    setSwitchLabelPlacement(event.target.value);
-  };
-
   const [loadingTheme, setLoadingTheme] = React.useState('grey');
   const onChangeLoadingTheme = (event) => {
     setLoadingTheme(event.target.value);
@@ -919,6 +914,74 @@ const SandboxComponent = ({ admin }) => {
           <div className={styles.componentWrapper}>
             <div className={styles.componentControls}>
               <div className={cx('typography-subtitle2', [styles.componentName])}>
+                Switch
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <SwitchComponent
+                    checked={switchesDisabled}
+                    label="Disabled"
+                    labelPlacement="top"
+                    onChange={() => setSwitchesDisabled(!switchesDisabled)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={switchesHelp}
+                    label="Show Help"
+                    labelPlacement="top"
+                    onChange={() => setSwitchesHelp(!switchesHelp)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <SwitchComponent
+                checked={switched}
+                disabled={switchesDisabled}
+                helperContent={switchesHelp ? 'I can help switches' : null}
+                label="I am a switch label on top"
+                labelPlacement="top"
+                onChange={() => setSwitchExample(!switched)}
+              />
+              <SwitchComponent
+                checked={switched}
+                disabled={switchesDisabled}
+                helperContent={switchesHelp ? 'I can help switches' : null}
+                label="I am a switch label on the bottom"
+                labelPlacement="bottom"
+                onChange={() => setSwitchExample(!switched)}
+              />
+              <SwitchComponent
+                checked={switched}
+                disabled={switchesDisabled}
+                helperContent={switchesHelp ? 'I can help switches' : null}
+                label="I am a switch label at the start"
+                labelPlacement="start"
+                onChange={() => setSwitchExample(!switched)}
+              />
+              <SwitchComponent
+                checked={switched}
+                disabled={switchesDisabled}
+                helperContent={switchesHelp ? 'I can help switches' : null}
+                label="I am a switch label at the end"
+                labelPlacement="end"
+                onChange={() => setSwitchExample(!switched)}
+              />
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
                 TextField
                 <a
                   className={styles.figmaLink}
@@ -1231,62 +1294,6 @@ const SandboxComponent = ({ admin }) => {
                   rows={textareaRows === 'none' ? undefined : textareaRows}
                 />
               }
-            </div>
-          </div>
-          <div className={styles.componentWrapper}>
-            <div className={styles.componentControls}>
-              <div className={cx('typography-subtitle2', [styles.componentName])}>
-                Switch
-                <a
-                  className={styles.figmaLink}
-                  href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  title="Figma Designs"
-                >
-                  <FigmaColorLogo />
-                </a>
-              </div>
-              <ul>
-                <li>
-                  <Select
-                    label="Label Placement"
-                    value={switchLabelPlacement}
-                    onChange={onChangeSwitchLabelPlacement}
-                  >
-                    <option value="top">top (default)</option>
-                    <option value="bottom">bottom</option>
-                    <option value="start">start</option>
-                    <option value="end">end</option>
-                  </Select>
-                </li>
-                <li>
-                  <SwitchComponent
-                    checked={switchesDisabled}
-                    label="Disabled"
-                    labelPlacement="top"
-                    onChange={() => setSwitchesDisabled(!switchesDisabled)}
-                  />
-                </li>
-                <li>
-                  <SwitchComponent
-                    checked={switchesHelp}
-                    label="Show Help"
-                    labelPlacement="top"
-                    onChange={() => setSwitchesHelp(!switchesHelp)}
-                  />
-                </li>
-              </ul>
-            </div>
-            <div className={styles.componentInlineVariants}>
-              <SwitchComponent
-                checked={switched}
-                disabled={switchesDisabled}
-                helperContent={switchesHelp ? 'I can help switches' : null}
-                label="I am a switch label"
-                labelPlacement={switchLabelPlacement}
-                onChange={() => setSwitchExample(!switched)}
-              />
             </div>
           </div>
           <div className={styles.componentWrapper}>
