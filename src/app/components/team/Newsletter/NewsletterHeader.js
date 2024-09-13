@@ -1,10 +1,10 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Select from '../../cds/inputs/Select';
 import LimitedTextField from '../../layout/inputs/LimitedTextField';
 import Upload from '../../cds/inputs/Upload';
+import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './NewsletterComponent.module.css';
 
 const messages = defineMessages({
@@ -58,7 +58,7 @@ const NewsletterHeader = ({
   setFile,
   setFileName,
 }) => (
-  <div>
+  <div className={inputStyles['form-fieldset-field']}>
     <Select
       className={styles.select}
       disabled={disabled}
@@ -134,16 +134,16 @@ NewsletterHeader.defaultProps = {
 };
 
 NewsletterHeader.propTypes = {
-  disabled: PropTypes.bool,
   availableHeaderTypes: PropTypes.arrayOf(PropTypes.string),
+  disabled: PropTypes.bool,
+  error: PropTypes.bool,
+  fileName: PropTypes.string,
   headerType: PropTypes.oneOf(['', 'none', 'link_preview', 'image', 'video', 'audio']),
+  intl: intlShape.isRequired,
+  overlayText: PropTypes.string,
   setFile: PropTypes.func.isRequired,
   setFileName: PropTypes.func.isRequired,
-  fileName: PropTypes.string,
-  overlayText: PropTypes.string,
   onUpdateField: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
-  error: PropTypes.bool,
 };
 
 export default injectIntl(NewsletterHeader);
