@@ -135,9 +135,4 @@ jobs:
       run: |
         docker compose exec -T -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME web npm run tests
 
-    - name: After Unit tests
-      run: |
-        docker compose exec -T web bash -c "python -m json.tool test/file.json"
-        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
-        kill -9 $(pgrep ngrok)
 
