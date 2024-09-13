@@ -93,6 +93,10 @@
   gap: 8px;
   justify-content: flex-end;
 
+  .form-footer-actions-secondary {
+    flex: 1 1 auto;
+  }
+
   .form-footer-actions-context {
     @mixin typography-caption;
     color: var(--color-gray-37);
@@ -161,5 +165,9 @@
     &:last-of-type {
       margin: 0;
     }
+  }
+
+  + .form-fieldset {
+    margin: 16px 0 0;
   }
 }

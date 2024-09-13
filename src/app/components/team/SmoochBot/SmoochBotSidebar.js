@@ -1,46 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames/bind';
 import { labels } from './localizables';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from '../Settings.module.css';
+import smoochBotStyles from './SmoochBot.module.css';
 
 const SmoochBotSidebar = ({
   currentOption,
   onClick,
   resources,
+  userRole,
 }) => {
   const handleClick = (option) => {
     onClick(option);
   };
 
-  const Option = ({ id, label }) => (
-    <li>
-      <ButtonMain
-        key={id}
-        label={label}
-        size="default"
-        theme={currentOption === id ? 'lightInfo' : 'lightText'}
-        variant={currentOption === id ? 'contained' : 'text'}
-        onClick={() => { handleClick(id); }}
-      />
-    </li>
-  );
+  const Option = ({ className, id, label }) => {
+    if (id === 'smooch_settings' && userRole !== 'admin') {
+      return null;
+    }
+
+    return (
+      <li
+        className={className}
+      >
+        <ButtonMain
+          className={smoochBotStyles.smoochBotMenuButton}
+          key={id}
+          label={label}
+          size="default"
+          theme="black"
+          variant={currentOption === id ? 'contained' : 'text'}
+          onClick={() => { handleClick(id); }}
+        />
+      </li>
+    );
+  };
 
   return (
-    <ul className={styles.smoochBotMenu}>
-      <li className={cx('typography-overline', styles.smoochBotMenuSection)}>Menu Options</li>
+    <ul className={smoochBotStyles.smoochBotMenu}>
       {/* Menu options */}
       { Object.keys(labels).map((key) => {
         const label = labels[key];
         return <Option id={key} key={key} label={label} />;
       })}
-      <li className={cx('typography-overline', styles.smoochBotMenuSection)}>Resources</li>
       {/* Resources */}
       { resources.sort((a, b) => a.title.localeCompare(b.title)).map((resource) => {
         const label = resource.title;
         return (
           <Option
+            className={smoochBotStyles.smoochBotMenuResource}
             id={`resource_${resource.dbid}`}
             key={resource.uuid}
             label={label}
@@ -58,6 +66,7 @@ SmoochBotSidebar.defaultProps = {
 SmoochBotSidebar.propTypes = {
   currentOption: PropTypes.string.isRequired,
   resources: PropTypes.arrayOf(PropTypes.object),
+  userRole: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
