@@ -39,7 +39,7 @@ import Explainers from './article/Explainers';
 import FactChecks from './article/FactChecks';
 import ImportedArticles from './article/ImportedArticles';
 import PublishedArticles from './article/PublishedArticles';
-import TiplineDashboard from './drawer/Projects/TiplineDashboard';
+import TeamData from './dashboard';
 
 class Root extends Component {
   static logPageView() {
@@ -108,7 +108,7 @@ class Root extends Component {
                   <Route component={TiplineInbox} path=":team/tipline-inbox(/:query)" />
                   <Route component={SuggestedMatches} path=":team/suggested-matches(/:query)" />
                   <Route component={UnmatchedMedia} path=":team/unmatched-media(/:query)" />
-                  <Route component={TiplineDashboard} path=":team/dashboard" />
+                  <Route component={TeamData} path=":team/dashboard" />
                   <Route component={CreateFeed} path=":team/feed/create" />
                   <Route component={FeedPage} path=":team/feeds" />
                   <Route component={EditFeedTeam} path=":team/feed/:feedId/edit" />

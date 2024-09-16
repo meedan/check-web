@@ -9,14 +9,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import cx from 'classnames/bind';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import HelpIcon from '../../../icons/help.svg';
-import GetAppIcon from '../../../icons/file_download.svg';
-import SettingsHeader from '../SettingsHeader';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
-import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
-import Select from '../../cds/inputs/Select';
-import settingsStyles from '../Settings.module.css';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import HelpIcon from '../../icons/help.svg';
+import GetAppIcon from '../../icons/file_download.svg';
+import SettingsHeader from '../team/SettingsHeader';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
+import Select from '../cds/inputs/Select';
+import settingsStyles from '../team/Settings.module.css';
 
 const messagesDescription = 'Explanation on table header, when hovering the "help" icon, on data settings page';
 const messages = defineMessages({
@@ -159,7 +159,7 @@ function formatValue(header, value) {
   return formattedValue;
 }
 
-const TeamDataComponent = ({
+const TiplineDataComponent = ({
   data,
   defaultLanguage,
   intl,
@@ -384,16 +384,16 @@ const TeamDataComponent = ({
   );
 };
 
-TeamDataComponent.defaultProps = {
+TiplineDataComponent.defaultProps = {
   data: null,
   defaultLanguage: null,
 };
 
-TeamDataComponent.propTypes = {
+TiplineDataComponent.propTypes = {
   slug: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.object), // or null
   defaultLanguage: PropTypes.string, // or null
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(TeamDataComponent);
+export default injectIntl(TiplineDataComponent);
