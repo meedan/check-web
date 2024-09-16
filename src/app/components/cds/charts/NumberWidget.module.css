@@ -1,6 +1,5 @@
 .numberWidgetWrapper {
   align-items: flex-start;
-  background-color: var(--color-blue-90);
   border-radius: var(--border-radius-large);
   display: flex;
   flex-direction: column;

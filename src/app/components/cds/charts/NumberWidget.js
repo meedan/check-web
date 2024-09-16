@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import styles from './NumberWidget.module.css';
 
 const NumberWidget = ({
+  color,
   contextText,
   itemCount,
   title,
   unit,
 }) => (
-  <div className={styles.numberWidgetWrapper}>
+  <div className={styles.numberWidgetWrapper} style={{ backgroundColor: color }}>
     <div className="typography-subtitle2">
       {title}
     </div>
@@ -22,6 +23,7 @@ const NumberWidget = ({
 );
 
 NumberWidget.defaultProps = {
+  color: 'var(--color-blue-90)',
   contextText: null,
   itemCount: '-',
   title: null,
@@ -29,6 +31,7 @@ NumberWidget.defaultProps = {
 };
 
 NumberWidget.propTypes = {
+  color: PropTypes.string,
   contextText: PropTypes.string,
   itemCount: PropTypes.string,
   title: PropTypes.string,

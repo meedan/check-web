@@ -4,6 +4,7 @@ import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<NumberWidget />', () => {
   const props = {
+    color: 'var(--color-purple-92)',
     contextText: 'A brief text giving some context.',
     itemCount: '2024',
     title: 'Title',
@@ -15,6 +16,7 @@ describe('<NumberWidget />', () => {
   });
 
   const nullProps = {
+    color: null,
     contextText: null,
     itemCount: null,
     title: null,
