@@ -3,7 +3,7 @@ name: Build and Run Tests
 on:
   push:
     branches:
-    - CV2-5258-run-linter-Check-web-github-actions
+    - CV2-5258-Run-unit-tests-check-web
   pull_request:
     branches:
     - Epic-4798/migraton-of-check-web-ci
@@ -11,7 +11,9 @@ on:
 env:
   GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
   GITHUB_JOB_NAME: ${{ github.job }}
-  GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}  
+  GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+  AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}  
+  AWS_REGION: eu-west-1
 
 jobs:
   unit-tests:
@@ -54,11 +56,6 @@ jobs:
         export LC_ALL=C.UTF-8
         export LANG=C.UTF-8
         export LANGUAGE=C.UTF-8
-
-    - name: Ngrok
-      run: |
-        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-        export GITHUB_TAG=0.0.0
     
     - name: Setup Pender 
       env:
@@ -127,3 +124,9 @@ jobs:
       run: |
         docker compose exec web npm run linter
         docker compose exec web npm run test:integration:lint
+    
+    - name: Run Unit Tests
+      run: |
+        docker compose exec -T -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME web npm run tests
+
+
