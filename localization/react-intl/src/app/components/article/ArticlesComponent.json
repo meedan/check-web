@@ -5,6 +5,11 @@
     "defaultMessage": "Articles"
   },
   {
+    "id": "articlesComponent.dashboard",
+    "description": "Label for the dashboard displayed on the left sidebar",
+    "defaultMessage": "Dashboard"
+  },
+  {
     "id": "articlesComponent.claimAndFactChecks",
     "description": "Label for a list displayed on the left sidebar that includes items that have claim & fact-checks",
     "defaultMessage": "Claim & Fact-Checks"
