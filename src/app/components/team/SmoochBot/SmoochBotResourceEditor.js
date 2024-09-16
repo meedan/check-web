@@ -1,11 +1,11 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer, commitMutation as commitMutationCompat } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
 import { Store } from 'react-relay/classic';
 import cx from 'classnames/bind';
+import DeleteIcon from '../../../icons/delete.svg';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
@@ -14,9 +14,37 @@ import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import NewsletterHeader from '../Newsletter/NewsletterHeader';
 import NewsletterRssFeed from '../Newsletter/NewsletterRssFeed';
 import { withSetFlashMessage } from '../../FlashMessage';
+import inputStyles from '../../../styles/css/inputs.module.css';
 import newsletterStyles from '../Newsletter/NewsletterComponent.module.css';
 import settingsStyles from '../Settings.module.css';
-import styles from './SmoochBotResourceEditor.module.css';
+
+const messages = defineMessages({
+  newResource: {
+    id: 'smoochBotResourceEditor.newResource',
+    defaultMessage: 'Create New Resource',
+    description: 'Page title for creating a new resource for the tipline bot to deliver',
+  },
+  editResource: {
+    id: 'smoochBotResourceEditor.editResource',
+    defaultMessage: 'Edit Resource',
+    description: 'Page title for editing an existing resource for the tipline bot to deliver',
+  },
+  newResourceDescription: {
+    id: 'smoochBotResourceEditor.newResourceDescription',
+    defaultMessage: 'Add multimedia content as a response to a Tipline Menu option by adding a new resource.',
+    description: 'Page description for adding a new tipline resource',
+  },
+  saveResource: {
+    id: 'smoochBotResourceEditor.save',
+    defaultMessage: 'Save',
+    description: 'Label for action button to save a tipline resource.',
+  },
+  createResource: {
+    id: 'smoochBotResourceEditor.create',
+    defaultMessage: 'Create Resource',
+    description: 'Label for action button to create a new tipline resource.',
+  },
+});
 
 // Mutations
 
@@ -70,6 +98,7 @@ const deleteMutation = graphql`
 const SmoochBotResourceEditorComponent = (props) => {
   const {
     environment,
+    intl,
     language,
     onCreate,
     onDelete,
@@ -310,140 +339,141 @@ const SmoochBotResourceEditorComponent = (props) => {
   }, [file]);
 
   return (
-    <div className={styles.resourceEditor} id={`resource-${resource.dbid}`}>
-      <TextField
-        defaultValue={resource.title}
-        error={Boolean(errors.title)}
-        fullWidth
-        helpContent={errors.title}
-        id="resource__title"
-        label={
-          <FormattedMessage
-            defaultMessage="Title"
-            description="Label for tipline resource title field"
-            id="smoochBotResourceEditor.title"
-          />
-        }
-        margin="normal"
-        required
-        variant="outlined"
-        onChange={e => updateResource({ title: e.target.value })}
-      />
-
-      <div className={cx(newsletterStyles.settings, styles.settings)}>
-        <div className={settingsStyles['setting-content-container-title']}>
-          <FormattedMessage defaultMessage="Content" description="Title for the resource content section on a tipline resource settings page" id="smoochBotResourceEditor.content" />
-        </div>
-        <NewsletterHeader
-          availableHeaderTypes={['audio', 'video', 'image', 'none', 'link_preview']}
-          className="resource-component-header"
-          file={file}
-          fileName={fileName}
-          handleFileChange={handleFileChange}
-          headerType={resource.header_type || 'link_preview'}
-          key={`resource-header-${resource.id}`}
-          overlayText={resource.header_overlay_text || ''}
-          parentErrors={errors}
-          setFile={setFile}
-          setFileName={setFileName}
-          onUpdateField={(fieldName, value) => {
-            if (fieldName === 'headerType') {
-              updateResource({ header_type: value });
-            } else if (fieldName === 'overlayText') {
-              updateResource({ header_overlay_text: value });
-            }
-          }}
-        />
-        <LimitedTextArea
-          error={errors.content}
-          helpContent={errors.content}
-          key={resource.content_type}
-          label={
-            resource.content_type === 'rss' ?
-              <FormattedMessage
-                defaultMessage="Introduction"
-                description="Label for a field where the user inputs text for an introduction to a tipline resource that has an RSS feed"
-                id="smoochBotResourceEditor.introduction"
-              /> :
-              <FormattedMessage
-                defaultMessage="Text"
-                description="Label for a field where the user inputs text for the contents of a static tipline resource"
-                id="smoochBotResourceEditor.text"
-              />
-          }
-          maxChars={resource.content_type === 'rss' ? 180 : 720}
-          maxHeight="200px"
-          required={false}
-          value={resource.content}
-          onChange={e => updateResource({ content: e.target.value })}
-          onErrorTooLong={(error) => {
-            setDisableSaveTextTooLong(error);
-          }}
-        />
-
-        <div className={newsletterStyles['newsletter-body']}>
-          <div className={newsletterStyles.switcher}>
-            <SwitchComponent
-              checked={resource.content_type === 'rss'}
-              helperContent={<FormattedMessage defaultMessage="Use an RSS feed to automatically load new content for your resource." description="Message on tipline resource settings page that explains how RSS feeds work there." id="smoochBotResourceEditor.rssFeed" />}
-              key={`resource-rss-feed-enabled-${resource.id}`}
-              label={<FormattedMessage
-                defaultMessage="RSS"
-                description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
-                id="smoochBotResourceEditor.rss"
-              />}
-              onChange={(checked) => {
-                if (checked) {
-                  updateResource({ content_type: 'rss', number_of_articles: 3 });
-                } else {
-                  updateResource({ content_type: 'static' });
-                }
-              }}
-            />
-          </div>
-          { resource.content_type === 'rss' ?
-            <NewsletterRssFeed
-              helpContent={errors.rss_feed_url}
-              numberOfArticles={resource.number_of_articles}
-              parentErrors={errors}
-              rssFeedUrl={resource.rss_feed_url}
-              onUpdateNumberOfArticles={(value) => { updateResource({ number_of_articles: value }); }}
-              onUpdateUrl={(value) => { updateResource({ rss_feed_url: value }); }}
-            /> : null }
-        </div>
+    <div id={`resource-${resource.dbid}`}>
+      <div className={settingsStyles['setting-content-container-title']}>
+        <span>{resource.id ? intl.formatMessage(messages.editResource) : intl.formatMessage(messages.newResource)}</span>
       </div>
-
-      <div className={styles.resourceEditorActions}>
-        <ButtonMain
-          disabled={disableSaveNoFile || disableSaveTextTooLong || saving}
-          label={
-            <FormattedMessage
-              defaultMessage="Save"
-              description="Label for action button to save a tipline resource."
-              id="smoochBotResourceEditor.save"
-            />
-          }
-          size="default"
-          theme="info"
-          variant="contained"
-          onClick={handleSave}
-        />
-
-        { resource.id ?
-          <ButtonMain
-            className="resource-delete"
+      <p>{resource.id ? null : intl.formatMessage(messages.newResourceDescription)}</p>
+      <div className={settingsStyles['setting-content-container-inner']}>
+        <div className={inputStyles['form-fieldset']}>
+          <TextField
+            className={inputStyles['form-fieldset-field']}
+            defaultValue={resource.title}
+            error={Boolean(errors.title)}
+            helpContent={errors.title}
+            id="resource__title"
             label={
               <FormattedMessage
-                defaultMessage="Delete"
-                description="Label for action button to delete a tipline resource."
-                id="smoochBotResourceEditor.delete"
+                defaultMessage="Title"
+                description="Label for tipline resource title field"
+                id="smoochBotResourceEditor.title"
               />
             }
+            required
+            onChange={e => updateResource({ title: e.target.value })}
+          />
+        </div>
+        <div className={cx(settingsStyles['setting-content-container-inner-accent'], inputStyles['form-fieldset'])}>
+          <div className={inputStyles['form-fieldset-title']}>
+            <FormattedMessage defaultMessage="Content" description="Title for the resource content section on a tipline resource settings page" id="smoochBotResourceEditor.content" />
+          </div>
+          <NewsletterHeader
+            availableHeaderTypes={['audio', 'video', 'image', 'none', 'link_preview']}
+            file={file}
+            fileName={fileName}
+            handleFileChange={handleFileChange}
+            headerType={resource.header_type || 'link_preview'}
+            key={`resource-header-${resource.id}`}
+            overlayText={resource.header_overlay_text || ''}
+            parentErrors={errors}
+            setFile={setFile}
+            setFileName={setFileName}
+            onUpdateField={(fieldName, value) => {
+              if (fieldName === 'headerType') {
+                updateResource({ header_type: value });
+              } else if (fieldName === 'overlayText') {
+                updateResource({ header_overlay_text: value });
+              }
+            }}
+          />
+          <LimitedTextArea
+            className={inputStyles['form-fieldset-field']}
+            error={errors.content}
+            helpContent={errors.content}
+            key={resource.content_type}
+            label={
+              resource.content_type === 'rss' ?
+                <FormattedMessage
+                  defaultMessage="Introduction"
+                  description="Label for a field where the user inputs text for an introduction to a tipline resource that has an RSS feed"
+                  id="smoochBotResourceEditor.introduction"
+                /> :
+                <FormattedMessage
+                  defaultMessage="Text"
+                  description="Label for a field where the user inputs text for the contents of a static tipline resource"
+                  id="smoochBotResourceEditor.text"
+                />
+            }
+            maxChars={resource.content_type === 'rss' ? 180 : 720}
+            maxHeight="200px"
+            required={false}
+            value={resource.content}
+            onChange={e => updateResource({ content: e.target.value })}
+            onErrorTooLong={(error) => {
+              setDisableSaveTextTooLong(error);
+            }}
+          />
+          <div className={cx(newsletterStyles['newsletter-body'], inputStyles['form-fieldset-field'])}>
+            <div className={newsletterStyles.switcher}>
+              <SwitchComponent
+                checked={resource.content_type === 'rss'}
+                helperContent={<FormattedMessage defaultMessage="Use an RSS feed to automatically load new content for your resource." description="Message on tipline resource settings page that explains how RSS feeds work there." id="smoochBotResourceEditor.rssFeed" />}
+                key={`resource-rss-feed-enabled-${resource.id}`}
+                label={<FormattedMessage
+                  defaultMessage="RSS"
+                  description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
+                  id="smoochBotResourceEditor.rss"
+                />}
+                onChange={(checked) => {
+                  if (checked) {
+                    updateResource({ content_type: 'rss', number_of_articles: 3 });
+                  } else {
+                    updateResource({ content_type: 'static' });
+                  }
+                }}
+              />
+            </div>
+            { resource.content_type === 'rss' ?
+              <NewsletterRssFeed
+                helpContent={errors.rss_feed_url}
+                numberOfArticles={resource.number_of_articles}
+                parentErrors={errors}
+                rssFeedUrl={resource.rss_feed_url}
+                onUpdateNumberOfArticles={(value) => { updateResource({ number_of_articles: value }); }}
+                onUpdateUrl={(value) => { updateResource({ rss_feed_url: value }); }}
+              /> : null }
+          </div>
+        </div>
+        <br />
+        <div className={inputStyles['form-footer-actions']}>
+          { resource.id ?
+            <div className={inputStyles['form-footer-actions-secondary']}>
+              <ButtonMain
+                className="int-resource__delete-button"
+                iconLeft={<DeleteIcon />}
+                label={
+                  <FormattedMessage
+                    defaultMessage="Delete"
+                    description="Label for action button to delete a tipline resource."
+                    id="smoochBotResourceEditor.delete"
+                  />
+                }
+                size="default"
+                theme="lightError"
+                variant="contained"
+                onClick={handleConfirmDelete}
+              />
+            </div>
+            : null }
+          <ButtonMain
+            disabled={disableSaveNoFile || disableSaveTextTooLong || saving}
+            label={resource.id ? intl.formatMessage(messages.saveResource) : intl.formatMessage(messages.createResource)}
             size="default"
-            theme="text"
-            variant="outlined"
-            onClick={handleConfirmDelete}
-          /> : null }
+            theme="info"
+            variant="contained"
+            onClick={handleSave}
+          />
+        </div>
       </div>
 
       <ConfirmProceedDialog
@@ -477,9 +507,6 @@ SmoochBotResourceEditorComponent.defaultProps = {
 
 SmoochBotResourceEditorComponent.propTypes = {
   environment: PropTypes.object.isRequired, // Relay Modern environment to support file uploads
-  team: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
   language: PropTypes.string.isRequired,
   resource: PropTypes.shape({
     id: PropTypes.string,
@@ -489,6 +516,9 @@ SmoochBotResourceEditorComponent.propTypes = {
     header_file_url: PropTypes.string,
     header_type: PropTypes.string,
   }),
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
   onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
@@ -513,4 +543,4 @@ const SmoochBotResourceEditor = createFragmentContainer(withSetFlashMessage(Smoo
   }
 `);
 
-export default SmoochBotResourceEditor;
+export default injectIntl(SmoochBotResourceEditor);
