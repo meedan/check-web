@@ -29,10 +29,10 @@ NumberWidget.defaultProps = {
 };
 
 NumberWidget.propTypes = {
-  contextText: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  itemCount: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  unit: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  contextText: PropTypes.string,
+  itemCount: PropTypes.string,
+  title: PropTypes.string,
+  unit: PropTypes.string,
 };
 
 export default NumberWidget;
