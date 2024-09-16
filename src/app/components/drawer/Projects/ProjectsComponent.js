@@ -12,6 +12,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateMedia from '../../media/CreateMedia';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import AddIcon from '../../../icons/add_filled.svg';
+import BarChartIcon from '../../../icons/bar_chart.svg';
 import CategoryIcon from '../../../icons/category.svg';
 import ExpandLessIcon from '../../../icons/chevron_down.svg';
 import ExpandMoreIcon from '../../../icons/chevron_right.svg';
@@ -95,6 +96,28 @@ const ProjectsComponent = ({
       </Can>
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper, 'projects-list')}>
+          {/* Dashboard */}
+          <Link
+            className={styles.linkList}
+            to={`/${team.slug}/dashboard`}
+            onClick={() => { handleSpecialLists('dashboard'); }}
+          >
+            <li
+              className={cx(
+                'projects-list__dashboard',
+                styles.listItem,
+                styles.listItem_containsCount,
+                {
+                  [styles.listItem_active]: activeItem.type === 'dashboard',
+                })
+              }
+            >
+              <BarChartIcon className={styles.listIcon} />
+              <div className={styles.listLabel}>
+                <FormattedMessage defaultMessage="Dashboard" description="Label for the dashboard displayed on the left sidebar" id="articlesComponent.dashboard" tagName="span" />
+              </div>
+            </li>
+          </Link>
           {/* All items */}
           <Link
             className={styles.linkList}
