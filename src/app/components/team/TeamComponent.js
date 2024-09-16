@@ -17,7 +17,7 @@ import TeamMembers from './TeamMembers';
 import TeamIntegrations from './TeamIntegrations';
 import TeamSimilarity from './Similarity';
 import Newsletter from './Newsletter';
-import TeamData from '../dashboard';
+import TeamData from '../Dashboard';
 import PageTitle from '../PageTitle';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';

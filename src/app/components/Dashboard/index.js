@@ -25,7 +25,7 @@ const TeamData = props => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query DashboardTeamDataQuery($teamSlug: String!) {
+      query DashboardQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           id
           slug

@@ -39,7 +39,7 @@ import Explainers from './article/Explainers';
 import FactChecks from './article/FactChecks';
 import ImportedArticles from './article/ImportedArticles';
 import PublishedArticles from './article/PublishedArticles';
-import TeamData from './dashboard';
+import TeamData from './Dashboard';
 
 class Root extends Component {
   static logPageView() {
