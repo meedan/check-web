@@ -8,6 +8,7 @@ import Chip from './buttons-checkboxes-chips/Chip';
 import TagList from './menus-lists-dialogs/TagList';
 import TextField from './inputs/TextField';
 import ListSort from './inputs/ListSort';
+import ListWidget from './charts/ListWidget';
 import NumberWidget from './charts/NumberWidget';
 import TextArea from './inputs/TextArea';
 import DatePicker from './inputs/DatePicker';
@@ -1917,6 +1918,14 @@ const SandboxComponent = ({ admin }) => {
             </div>
             <div className={styles.componentWrapper}>
               <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              List Widget
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <ListWidget />
             </div>
           </div>
         </section>
