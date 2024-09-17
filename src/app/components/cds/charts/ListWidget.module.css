@@ -1,0 +1,14 @@
+.listWidgetWrapper {
+  align-items: flex-start;
+  border-radius: var(--border-radius-large);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  width: 100%;
+
+  .listWidgetTypography {
+    @mixin typography-subtitle2;
+    color: var(--color-gray-15);
+  }
+}

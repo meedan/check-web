@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListWidgetItem from './ListWidgetItem';
+import styles from './ListWidget.module.css';
 
 const ListWidget = ({
   color,
   items,
   title,
 }) => (
-  <div>
-    {color}
-    {title}
+  <div className={styles.listWidgetWrapper} style={{ backgroundColor: color }}>
+    <div className={styles.listWidgetTypography}>
+      {title}
+    </div>
     <ul>
       { Object.values(items).map(i => (
         <ListWidgetItem

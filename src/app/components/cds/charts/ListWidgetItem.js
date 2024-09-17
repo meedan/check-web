@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './ListWidget.module.css';
 
 const ListWidgetItem = ({
   id,
   itemCount,
   itemText,
 }) => (
-  <div>
+  <div className={styles.listWidgetTypography}>
     {id}
     {itemCount}
     {itemText}
