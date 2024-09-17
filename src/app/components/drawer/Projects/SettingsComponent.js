@@ -15,12 +15,6 @@ const messages = defineMessages({
     defaultMessage: 'Annotations',
     description: 'Label for the Annotations settings navigation menu item',
   },
-  // to be deleted
-  data: {
-    id: 'teamSettingsNavigation.data',
-    defaultMessage: 'Data',
-    description: 'Label for the Data settings navigation menu item',
-  },
   integrations: {
     id: 'teamSettingsNavigation.integrations',
     defaultMessage: 'Integrations',
@@ -113,16 +107,6 @@ const SettingsComponent = ({
               <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'annotation' })}>
                 <div className={styles.listLabel}>
                   {intl.formatMessage(messages.annotations)}
-                </div>
-              </li>
-            </Link> : null
-          }
-          {/* to be deleted */}
-          { isAdminOrEditor && Boolean(team.smooch_bot) ?
-            <Link className={cx('team-settings__data-tab', styles.linkList)} title={intl.formatMessage(messages.data)} to={`/${team.slug}/settings/data`}>
-              <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'data' })}>
-                <div className={styles.listLabel}>
-                  {intl.formatMessage(messages.data)}
                 </div>
               </li>
             </Link> : null
