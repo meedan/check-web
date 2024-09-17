@@ -1925,7 +1925,10 @@ const SandboxComponent = ({ admin }) => {
               List Widget
             </div>
             <div className={styles.componentInlineVariants}>
-              <ListWidget />
+              <ListWidget
+                items={{ item1: { itemCount: '2024', itemText: 'a random text', id: 'item1' }, item2: { itemCount: '100000000000', itemText: 'another random text', id: 'item2' } }}
+                title="A List"
+              />
             </div>
           </div>
         </section>
