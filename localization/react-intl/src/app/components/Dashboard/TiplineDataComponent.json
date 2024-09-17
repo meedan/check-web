@@ -97,7 +97,7 @@
   {
     "id": "teamDataComponent.download",
     "description": "Label for action button displayed on workspace data report page.",
-    "defaultMessage": "Download CSV"
+    "defaultMessage": "Export"
   },
   {
     "id": "teamDataComponent.helpContext",

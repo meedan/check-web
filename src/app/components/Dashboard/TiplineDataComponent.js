@@ -11,7 +11,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import HelpIcon from '../../icons/help.svg';
-import GetAppIcon from '../../icons/file_download.svg';
+import IosShareIcon from '../../icons/ios_share.svg';
 import SettingsHeader from '../team/SettingsHeader';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
@@ -251,10 +251,10 @@ const TiplineDataComponent = ({
       <SettingsHeader
         actionButton={
           <ButtonMain
-            iconLeft={<GetAppIcon />}
+            iconLeft={<IosShareIcon />}
             label={
               <FormattedMessage
-                defaultMessage="Download CSV"
+                defaultMessage="Export"
                 description="Label for action button displayed on workspace data report page."
                 id="teamDataComponent.download"
               />
