@@ -39,7 +39,7 @@ import Explainers from './article/Explainers';
 import FactChecks from './article/FactChecks';
 import ImportedArticles from './article/ImportedArticles';
 import PublishedArticles from './article/PublishedArticles';
-import ArticleDashboard from './article/ArticleDashboard';
+import ArticleDashboard from './Dashboard/ArticleDashboard';
 
 
 class Root extends Component {
