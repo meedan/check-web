@@ -1927,32 +1927,34 @@ const SandboxComponent = ({ admin }) => {
             <div className={styles.componentInlineVariants}>
               <ListWidget
                 items={
-                  {
-                    item1: {
+                  [
+                    {
                       itemCount: '2024',
                       itemText: 'Media Tag',
                       id: 'item1',
                     },
-                    item2: {
+                    {
                       itemCount: '94607',
                       itemText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
                       id: 'item2',
                     },
-                    item3: {
+                    {
                       itemCount: '120',
+                      itemLink: 'https://maze.toys/mazes/mini/daily/',
                       itemText: 'Media Tag',
                       id: 'item3',
                     },
-                    item4: {
+                    {
                       itemCount: '9423125367',
-                      itemText: 'https://www.lipsum.com/feed/html',
+                      itemLink: 'https://www.lipsum.com/feed/html',
+                      itemText: 'Lorem Ipsum URL',
                       id: 'item4',
                     },
-                    item5: {
+                    {
                       itemText: 'Lorem ipsum dolor sit amet',
                       id: 'item5',
                     },
-                  }
+                  ]
                 }
                 title="A List"
               />

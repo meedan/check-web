@@ -5,10 +5,16 @@ import styles from './ListWidget.module.css';
 const ListWidgetItem = ({
   id,
   itemCount,
+  itemLink,
   itemText,
 }) => (
   <li className={styles.listWidgetItemWrapper} key={id}>
-    <div className={styles.listWidgetItemText}>{itemText}</div>
+    {
+      itemLink ?
+        <div><a href={itemLink}>{itemText}</a></div>
+        :
+        <div className={styles.listWidgetItemText}>{itemText}</div>
+    }
     <div>{itemCount}</div>
   </li>
 );
@@ -16,12 +22,14 @@ const ListWidgetItem = ({
 ListWidgetItem.defaultProps = {
   id: null,
   itemCount: '-',
+  itemLink: null,
   itemText: null,
 };
 
 ListWidgetItem.propTypes = {
   id: PropTypes.string,
   itemCount: PropTypes.string,
+  itemLink: PropTypes.string,
   itemText: PropTypes.string,
 };
 

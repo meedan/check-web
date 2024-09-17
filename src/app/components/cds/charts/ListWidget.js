@@ -13,9 +13,10 @@ const ListWidget = ({
       {title}
     </div>
     <ul>
-      { Object.values(items).map(i => (
+      { items.map(i => (
         <ListWidgetItem
           itemCount={i.itemCount}
+          itemLink={i.itemLink}
           itemText={i.itemText}
           key={i.id}
         />
