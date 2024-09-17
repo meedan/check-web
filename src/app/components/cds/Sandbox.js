@@ -1926,7 +1926,34 @@ const SandboxComponent = ({ admin }) => {
             </div>
             <div className={styles.componentInlineVariants}>
               <ListWidget
-                items={{ item1: { itemCount: '2024', itemText: 'a random text', id: 'item1' }, item2: { itemCount: '100000000000', itemText: 'another random text', id: 'item2' } }}
+                items={
+                  {
+                    item1: {
+                      itemCount: '2024',
+                      itemText: 'Media Tag',
+                      id: 'item1',
+                    },
+                    item2: {
+                      itemCount: '94607',
+                      itemText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      id: 'item2',
+                    },
+                    item3: {
+                      itemCount: '120',
+                      itemText: 'Media Tag',
+                      id: 'item3',
+                    },
+                    item4: {
+                      itemCount: '9423125367',
+                      itemText: 'https://www.lipsum.com/feed/html',
+                      id: 'item4',
+                    },
+                    item5: {
+                      itemText: 'Lorem ipsum dolor sit amet',
+                      id: 'item5',
+                    },
+                  }
+                }
                 title="A List"
               />
             </div>

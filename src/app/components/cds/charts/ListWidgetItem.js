@@ -7,11 +7,10 @@ const ListWidgetItem = ({
   itemCount,
   itemText,
 }) => (
-  <div className={styles.listWidgetTypography}>
-    {id}
-    {itemCount}
-    {itemText}
-  </div>
+  <li className={styles.listWidgetTypography} key={id}>
+    <div>{itemText}</div>
+    <div>{itemCount}</div>
+  </li>
 );
 
 ListWidgetItem.defaultProps = {
