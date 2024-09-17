@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
+import ArticleTrash from './ArticleTrash.js';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Slideout from '../cds/slideout/Slideout';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -563,7 +564,7 @@ const ArticleForm = ({
           </div>
         </>
       }
-      footer={mode === 'create'}
+      footer
       mainActionButton={mode === 'create' ? (
         <ButtonMain
           buttonProps={{ id: 'article-form__save-button' }}
@@ -571,7 +572,13 @@ const ArticleForm = ({
           label={mainActionButtonLabel}
           onClick={() => handleSave({ publish: createAndPublish })}
         />
-      ) : null}
+      ) : (
+        <ArticleTrash
+          article={article}
+          type={articleType}
+          onClose={onClose}
+        />
+      )}
       secondaryActionButton={(articleType === 'fact-check') && createAndPublish ? (
         <ButtonMain
           buttonProps={{ id: 'article-form__save-unpublished-button' }}
@@ -659,5 +666,6 @@ export default createFragmentContainer(ArticleForm, graphql`
         name
       }
     }
+    ...ArticleTrash_article
   }
 `);
