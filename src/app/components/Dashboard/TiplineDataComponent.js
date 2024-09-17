@@ -248,6 +248,7 @@ const TiplineDataComponent = ({
 
   return (
     <>
+      <hr style={{ marginTop: '16px', marginBottom: '16px' }} />
       <SettingsHeader
         actionButton={
           <ButtonMain
@@ -295,7 +296,7 @@ const TiplineDataComponent = ({
         }
         title={
           <FormattedMessage
-            defaultMessage="Tipline engagement data"
+            defaultMessage="All Data:"
             description="Header for the stored data page of the current team"
             id="teamDataComponent.title"
           />
