@@ -9,7 +9,7 @@ const ListWidget = ({
   title,
 }) => (
   <div className={styles.listWidgetWrapper} style={{ backgroundColor: color }}>
-    <div className={styles.listWidgetTypography}>
+    <div>
       {title}
     </div>
     <ul>
