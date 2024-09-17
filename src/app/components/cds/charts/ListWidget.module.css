@@ -9,26 +9,32 @@
   min-width: 180px;
   padding: 16px;
   width: 100%;
-}
 
-.listWidgetItemWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  justify-content: space-between;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-
-  .listWidgetItemText {
+  .listWidgetItemWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-}
+    white-space: nowrap;
+    width: 100%;
 
-ul {
-  max-width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
+    .listWidgetItemText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  a,
+  a:visited,
+  a:hover {
+    color: var(--color-gray-15);
+  }
+
+  ul {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+  }
 }
