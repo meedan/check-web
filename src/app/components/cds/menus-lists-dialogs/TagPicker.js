@@ -30,7 +30,10 @@ const TagPicker = ({
 
   const swallowClick = e => e.stopPropagation();
   const handleOpenMenu = e => setAnchorEl(e.currentTarget);
-  const handleCloseMenu = () => setAnchorEl(null);
+  const handleCloseMenu = () => {
+    setSearchTerm('');
+    setAnchorEl(null);
+  };
 
   const handleSearchChange = (value) => {
     setSearchValue(value);
