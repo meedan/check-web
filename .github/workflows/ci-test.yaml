@@ -16,7 +16,7 @@ env:
   AWS_REGION: eu-west-1
 
 jobs:
-  integration-and-unit-tests:
+  integration-and-smoke-tests:
     if: >
       github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' 
       || contains(github.event.head_commit.message, '[full ci]') 
@@ -90,15 +90,15 @@ jobs:
     #    cp ../test/google_credentials.json google_credentials.json
     #    cd -
 
-    # - name: Setup Presto
-    #   run: |
-    #     export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
-    #     echo "Using branch $PRESTO_BRANCH for Presto"
-    #     git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
-    #     cd presto
-    #     cp .env_file.test .env_file
-    #     cp ../test/google_credentials.json google_credentials.json
-    #     cd -
+    - name: Setup Presto
+      run: |
+        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
+        echo "Using branch $PRESTO_BRANCH for Presto"
+        git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
+        cd presto
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
 
     - name: Setup Configuration Files
       run: |
