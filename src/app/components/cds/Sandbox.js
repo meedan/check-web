@@ -1905,19 +1905,23 @@ const SandboxComponent = ({ admin }) => {
       }
       { (!selectedCategory || selectedCategory === 'charts') &&
         <section>
-          <h6>Charts: Number Widget</h6>
-          <div>
-            <div className={styles.componentWrapper}>
-              <NumberWidget contextText="Lorem ipsum dolor sit amet." itemCount="2024" title="A Title" unit="unit" />
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Number Widget
             </div>
-            <div className={styles.componentWrapper}>
-              <NumberWidget color="var(--color-yellow-79)" title="A Title" unit="unit" />
-            </div>
-            <div className={styles.componentWrapper}>
-              <NumberWidget color="var(--color-purple-92)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" />
-            </div>
-            <div className={styles.componentWrapper}>
-              <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
+            <div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget contextText="Lorem ipsum dolor sit amet." itemCount="2024" title="A Title" unit="unit" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-yellow-79)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." title="A Title" unit="unit" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-purple-92)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
+              </div>
             </div>
           </div>
           <div className={styles.componentWrapper}>
