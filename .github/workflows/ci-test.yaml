@@ -140,6 +140,7 @@ jobs:
           -e TEST_RETRY_COUNT=3 \
           web npm run tests
 
+        
     - name: After integration tests
       run: |
        docker compose exec web bash -c "python -m json.tool test/file.json"
