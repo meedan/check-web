@@ -17,7 +17,7 @@ env:
   IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
 
 jobs:
-  integration-and-smoke-tests:
+  iintegration-and-unit-tests:
     if: >
       github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' 
       || contains(github.event.head_commit.message, '[full ci]') 
