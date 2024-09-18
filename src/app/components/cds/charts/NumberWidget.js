@@ -31,10 +31,10 @@ NumberWidget.defaultProps = {
 
 NumberWidget.propTypes = {
   color: PropTypes.string,
-  contextText: PropTypes.string,
+  contextText: PropTypes.node,
   itemCount: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  unit: PropTypes.string,
+  title: PropTypes.node.isRequired,
+  unit: PropTypes.node,
 };
 
 export default NumberWidget;
