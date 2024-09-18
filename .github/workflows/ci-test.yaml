@@ -118,7 +118,7 @@ jobs:
       env: 
         MAX_WEB_CURL: 3000
         WEB_CURL_COUNT: 0
-        NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
+        # NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
       run: | 
         gitHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
           MAX_WEB_CURL=$MAX_WEB_CURL;
