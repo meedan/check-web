@@ -15,9 +15,9 @@ const ListWidget = ({
     <ul>
       { items.map(i => (
         <ListWidgetItem
-          itemCount={i.itemCount}
           itemLink={i.itemLink}
           itemText={i.itemText}
+          itemValue={i.itemValue}
           key={i.id}
         />
       ))}
