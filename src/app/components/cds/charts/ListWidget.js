@@ -27,12 +27,11 @@ const ListWidget = ({
 
 ListWidget.defaultProps = {
   color: 'var(--color-pink-93)',
-  items: null,
 };
 
 ListWidget.propTypes = {
   color: PropTypes.string,
-  items: PropTypes.object,
+  items: PropTypes.array.isRequired,
   title: PropTypes.node.isRequired,
 };
 
