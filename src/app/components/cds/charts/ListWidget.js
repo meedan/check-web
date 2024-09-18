@@ -34,7 +34,7 @@ ListWidget.defaultProps = {
 ListWidget.propTypes = {
   color: PropTypes.string,
   items: PropTypes.object,
-  title: PropTypes.string,
+  title: PropTypes.node,
 };
 
 export default ListWidget;

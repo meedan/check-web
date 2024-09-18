@@ -29,7 +29,7 @@ ListWidgetItem.defaultProps = {
 ListWidgetItem.propTypes = {
   id: PropTypes.string,
   itemLink: PropTypes.string,
-  itemText: PropTypes.string,
+  itemText: PropTypes.node,
   itemValue: PropTypes.string,
 };
 
