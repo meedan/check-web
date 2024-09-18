@@ -1924,28 +1924,28 @@ const SandboxComponent = ({ admin }) => {
             <div className={cx('typography-subtitle2', [styles.componentName])}>
               List Widget
             </div>
-            <div className={styles.componentInlineVariants}>
+            <div className={styles.componentWrapper}>
               <ListWidget
                 items={
                   [
                     {
-                      itemCount: '2024',
+                      itemValue: '2024',
                       itemText: 'Media Tag',
                       id: 'item1',
                     },
                     {
-                      itemCount: '94607',
+                      itemValue: '94607',
                       itemText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
                       id: 'item2',
                     },
                     {
-                      itemCount: '120',
+                      itemValue: '120',
                       itemLink: 'https://maze.toys/mazes/mini/daily/',
                       itemText: 'Media Tag',
                       id: 'item3',
                     },
                     {
-                      itemCount: '9423125367',
+                      itemValue: '9423125367',
                       itemLink: 'https://www.lipsum.com/feed/html',
                       itemText: 'Lorem Ipsum URL',
                       id: 'item4',
@@ -1956,7 +1956,43 @@ const SandboxComponent = ({ admin }) => {
                     },
                   ]
                 }
-                title="A List"
+                title="List Title"
+              />
+            </div>
+            <div className={styles.componentWrapper}>
+              <ListWidget
+                color="var(--color-purple-92)"
+                items={
+                  [
+                    {
+                      itemValue: '2024',
+                      itemText: 'Media Tag',
+                      id: 'item1',
+                    },
+                    {
+                      itemValue: '94607',
+                      itemText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      id: 'item2',
+                    },
+                    {
+                      itemValue: '120',
+                      itemLink: 'https://maze.toys/mazes/mini/daily/',
+                      itemText: 'Media Tag',
+                      id: 'item3',
+                    },
+                    {
+                      itemValue: '9423125367',
+                      itemLink: 'https://www.lipsum.com/feed/html',
+                      itemText: 'Lorem Ipsum URL',
+                      id: 'item4',
+                    },
+                    {
+                      itemText: 'Lorem ipsum dolor sit amet',
+                      id: 'item5',
+                    },
+                  ]
+                }
+                title="List Title"
               />
             </div>
           </div>
