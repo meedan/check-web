@@ -29,12 +29,12 @@ const items = [
     itemText: 'Lorem ipsum dolor sit amet',
     id: 'item5',
   },
-]
+];
 
 describe('<ListWidget />', () => {
   const props = {
     color: 'var(--color-purple-92)',
-    items: items,
+    items,
     title: 'Title',
   };
 
@@ -44,7 +44,7 @@ describe('<ListWidget />', () => {
 
   const colorNullProps = {
     color: null,
-    items: items,
+    items,
     title: 'Title',
   };
 
