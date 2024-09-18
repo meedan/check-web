@@ -15,6 +15,7 @@ env:
   AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}  
   AWS_REGION: eu-west-1
 
+
 jobs:
   integration-and-unit-tests:
     if: >
@@ -33,6 +34,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         aws-region: eu-west-1
+        IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
 
     - name: Login to Amazon ECR
       id: login-ecr
