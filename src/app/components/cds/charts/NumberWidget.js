@@ -26,7 +26,6 @@ NumberWidget.defaultProps = {
   color: 'var(--color-blue-90)',
   contextText: null,
   itemCount: '-',
-  title: null,
   unit: null,
 };
 
@@ -34,7 +33,7 @@ NumberWidget.propTypes = {
   color: PropTypes.string,
   contextText: PropTypes.string,
   itemCount: PropTypes.string,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   unit: PropTypes.string,
 };
 

@@ -19,11 +19,11 @@ describe('<NumberWidget />', () => {
     color: null,
     contextText: null,
     itemCount: null,
-    title: null,
+    title: 'Title is required',
     unit: null,
   };
 
-  it('renders without crashing if languages is null', () => {
+  it('renders without crashing if not required are null', () => {
     mountWithIntl(<NumberWidget {...nullProps} />);
   });
 });

@@ -1916,7 +1916,7 @@ const SandboxComponent = ({ admin }) => {
               <NumberWidget color="var(--color-purple-92)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" />
             </div>
             <div className={styles.componentWrapper}>
-              <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" unit="unit" />
+              <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
             </div>
           </div>
         </section>
