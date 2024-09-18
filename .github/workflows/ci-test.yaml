@@ -85,15 +85,15 @@ jobs:
         cp config/sidekiq.yml.example config/sidekiq.yml
         cd -
       
-    # - name: Setup Alegre
-    #   run: | 
-    #    export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
-    #    echo "Using branch $ALEGRE_BRANCH for Alegre"
-    #    git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
-    #    cd alegre
-    #    cp .env_file.test .env_file
-    #    cp ../test/google_credentials.json google_credentials.json
-    #    cd -
+    - name: Setup Alegre
+      run: | 
+       export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
+       echo "Using branch $ALEGRE_BRANCH for Alegre"
+       git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
+       cd alegre
+       cp .env_file.test .env_file
+       cp ../test/google_credentials.json google_credentials.json
+       cd -
 
     - name: Setup Presto
       run: |
