@@ -31,7 +31,7 @@ ListWidget.defaultProps = {
 
 ListWidget.propTypes = {
   color: PropTypes.string,
-  items: PropTypes.array.isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({ link: PropTypes.string, text: PropTypes.string, value: PropTypes.string })).isRequired,
   title: PropTypes.node.isRequired,
 };
 
