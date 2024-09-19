@@ -74,6 +74,7 @@ const SmoochBotMainMenu = ({
     <React.Fragment>
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
         <Alert
+          contained
           content={
             <FormattedMessage
               defaultMessage="Please note that some messaging services have different menu display options than others."
