@@ -5,10 +5,11 @@ import cx from 'classnames/bind';
 import * as Sentry from '@sentry/react';
 import Alert from './alerts-and-prompts/Alert';
 import Chip from './buttons-checkboxes-chips/Chip';
+import NumberWidget from './charts/NumberWidget';
+import VerticalBarChartWidget from './charts/VerticalBarChartWidget';
 import TagList from './menus-lists-dialogs/TagList';
 import TextField from './inputs/TextField';
 import ListSort from './inputs/ListSort';
-import NumberWidget from './charts/NumberWidget';
 import TextArea from './inputs/TextArea';
 import DatePicker from './inputs/DatePicker';
 import LanguagePickerSelect from './inputs/LanguagePickerSelect';
@@ -323,6 +324,26 @@ const SandboxComponent = ({ admin }) => {
   const [reorderTheme, setReorderTheme] = React.useState('gray');
   const onChangeReorderTheme = (event) => {
     setReorderTheme(event.target.value);
+  };
+
+  const [sampleDataSet, setSampleDataSet] = React.useState('design');
+
+  const verticalBarChartData = {
+    design: [
+      { name: 'Text', value: 6000 },
+      { name: 'Video', value: 5000 },
+      { name: 'Image', value: 4000 },
+      { name: 'Link', value: 3000 },
+      { name: 'Audio', value: 2000 },
+      { name: 'Social Media', value: 1000 },
+    ],
+    statuses: [
+      { name: 'Unstarted', value: 3000, color: '#518FFF' },
+      { name: 'Inconclusive', value: 5000, color: '#9e9e9e' },
+      { name: 'In Progress', value: 2000, color: '#efac51' },
+      { name: 'False', value: 6000, color: '#f04747' },
+      { name: 'Verified', value: 4000, color: '#5cae73' },
+    ],
   };
 
   const generateUncaughtError = () => {
@@ -1904,6 +1925,43 @@ const SandboxComponent = ({ admin }) => {
       }
       { (!selectedCategory || selectedCategory === 'charts') &&
         <section>
+          <h6>Charts</h6>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                VerticalBarChartWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/82Go6q0krKApn1L8EQ2joj/Dashboard?node-id=186-5696&node-type=symbol"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <Select
+                    label="Sample Dataset"
+                    value={sampleDataSet}
+                    onChange={e => setSampleDataSet(e.target.value)}
+                  >
+                    <option value="design">Design</option>
+                    <option value="statuses">Statuses</option>
+                  </Select>
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--color-gray-15)' : null }}>
+              <VerticalBarChartWidget
+                data={verticalBarChartData[sampleDataSet]}
+                title="Media Received"
+                width="100%"
+              />
+            </div>
+          </div>
+
           <h6>Charts: Number Widget</h6>
           <div>
             <div className={styles.componentWrapper}>
