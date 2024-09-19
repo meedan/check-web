@@ -12,7 +12,7 @@
   {
     "id": "smoochBotMainMenuSection.noOptions",
     "description": "Message displayed when there is no menu option on tipline bot settings.",
-    "defaultMessage": "There is currently no option in this section."
+    "defaultMessage": "There are currently no menu options in this section."
   },
   {
     "id": "smoochBotMainMenuSection.optionNoDescription",
@@ -20,13 +20,23 @@
     "defaultMessage": "no description"
   },
   {
+    "id": "smoochBotMainMenuSection.editMenuOptionReadOnly",
+    "description": "Tooltip for the edit menu read only option",
+    "defaultMessage": "This menu option cannot be edited"
+  },
+  {
     "id": "smoochBotMainMenuSection.editMenuOption",
-    "description": "Tooltip for the edit menu opion",
+    "description": "Tooltip for the edit menu option",
     "defaultMessage": "Edit Menu Option"
   },
   {
+    "id": "smoochBotMainMenuSection.removeMenuOptionReadOnly",
+    "description": "Tooltip for the remove menu read only option",
+    "defaultMessage": "This menu option cannot be removed"
+  },
+  {
     "id": "smoochBotMainMenuSection.removeMenuOption",
-    "description": "Tooltip for the remove menu opion",
+    "description": "Tooltip for the remove menu option",
     "defaultMessage": "Remove Menu Option"
   },
   {
