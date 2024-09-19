@@ -21,7 +21,7 @@ const SmoochBotConfig = (props) => {
     userRole,
     value,
   } = props;
-  const defaultOption = 'smooch_main_menu'; // BRIAN CHANGE THIS BEFORE PR
+  const defaultOption = 'smooch_content';
   const [currentOption, setCurrentOption] = React.useState(defaultOption);
   const team = props?.currentUser?.current_team;
   const environment = createEnvironment(props?.currentUser?.token, team.slug);
