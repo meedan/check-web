@@ -24,6 +24,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
+    .listWidgetItemValue {
+      min-width: 7ch;
+      text-align: right;
+    }
   }
 
   a,

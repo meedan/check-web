@@ -1951,7 +1951,7 @@ const SandboxComponent = ({ admin }) => {
                       id: 'item3',
                     },
                     {
-                      itemValue: '9423125367',
+                      itemValue: '9423125',
                       itemLink: 'https://www.lipsum.com/feed/html',
                       itemText: 'Lorem Ipsum URL',
                       id: 'item4',
@@ -1989,7 +1989,7 @@ const SandboxComponent = ({ admin }) => {
                       id: 'item3',
                     },
                     {
-                      itemValue: '9423125367',
+                      itemValue: '9423125',
                       itemLink: 'https://www.lipsum.com/feed/html',
                       itemText: 'Lorem Ipsum URL',
                       id: 'item4',

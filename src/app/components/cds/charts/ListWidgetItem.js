@@ -12,11 +12,11 @@ const ListWidgetItem = ({
   <li className={styles.listWidgetItemWrapper} key={id}>
     {
       isValidURL(itemLink) ?
-        <div><a href={itemLink}>{itemText}</a></div>
+        <div className={styles.listWidgetItemText}><a href={itemLink}>{itemText}</a></div>
         :
         <div className={styles.listWidgetItemText}>{itemText}</div>
     }
-    <div>{itemValue}</div>
+    <div className={styles.listWidgetItemValue}>{itemValue}</div>
   </li>
 );
 
