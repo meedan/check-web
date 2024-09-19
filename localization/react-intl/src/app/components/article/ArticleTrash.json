@@ -2,7 +2,7 @@
   {
     "id": "articleTrash.restoreButton",
     "description": "Button label for restoring an article",
-    "defaultMessage": "Restore article"
+    "defaultMessage": "Restore from Trash"
   },
   {
     "id": "articleTrash.trashButton",
@@ -47,7 +47,7 @@
   {
     "id": "articleTrash.successRestored",
     "description": "Success message displayed when an article is moved from the trash",
-    "defaultMessage": "Restored article from trash"
+    "defaultMessage": "Article restored from trash"
   },
   {
     "id": "articleTrash.proceedLabel",

@@ -11,11 +11,13 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import TrashIcon from '../../icons/delete.svg';
+import UndoIcon from '../../icons/undo.svg';
 
 const updateExplainer = graphql`
   mutation ArticleTrashExplainerMutation($input: UpdateExplainerInput!) {
     updateExplainer(input: $input) {
       explainer {
+        id
         trashed
       }
     }
@@ -26,6 +28,7 @@ const updateFactCheck = graphql`
   mutation ArticleTrashFactCheckMutation($input: UpdateFactCheckInput!) {
     updateFactCheck(input: $input) {
       fact_check {
+        id
         trashed
       }
     }
@@ -43,7 +46,7 @@ const ArticleTrash = ({
 
   const buttonLabel = article.trashed ? (
     <FormattedMessage
-      defaultMessage="Restore article"
+      defaultMessage="Restore from Trash"
       description="Button label for restoring an article"
       id="articleTrash.restoreButton"
     />
@@ -132,12 +135,16 @@ const ArticleTrash = ({
       />
     ) : (
       <FormattedMessage
-        defaultMessage="Restored article from trash"
+        defaultMessage="Article moved from trash"
         description="Success message displayed when an article is moved from the trash"
         id="articleTrash.successRestored"
       />
     );
     setFlashMessage(message, 'success');
+    onClose();
+    handleDialogClose();
+    // FIXME: Replace this reload with a NODE_DELETE, RANGE_DELETE relay config 
+    window.location.reload();
   };
 
   const handleProceed = () => {
@@ -157,8 +164,6 @@ const ArticleTrash = ({
             onFailure(err);
           } else {
             onSuccess(response.updateExplainer.explainer.trashed);
-            onClose();
-            handleDialogClose();
           }
         },
         onError: (err) => {
@@ -180,8 +185,6 @@ const ArticleTrash = ({
             onFailure(err);
           } else {
             onSuccess(response.updateFactCheck.fact_check.trashed);
-            onClose();
-            handleDialogClose();
           }
         },
         onError: (err) => {
@@ -203,9 +206,11 @@ const ArticleTrash = ({
   return (
     <>
       <ButtonMain
-        className="article-trash"
+        buttonProps={{
+          id: 'article-trash-button',
+        }}
         disabled={saving}
-        iconLeft={<TrashIcon />}
+        iconLeft={article.trashed ? <UndoIcon /> : <TrashIcon />}
         label={buttonLabel}
         theme={article.trashed ? 'info' : 'error'}
         onClick={handleTrashClick}
