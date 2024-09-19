@@ -11,7 +11,10 @@ describe('<ListWidgetItem />', () => {
   };
 
   it('renders without crashing', () => {
-    mountWithIntl(<ListWidgetItem {...props} />);
+    const item = mountWithIntl(<ListWidgetItem {...props} />);
+    expect(item.text()).toContain('Lorem ipsum dolor sit amet');
+    expect(item.text()).toContain('2024');
+    expect(item.html()).toContain('https://www.example.com/');
   });
 
   const nullProps = {
