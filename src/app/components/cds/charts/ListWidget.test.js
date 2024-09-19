@@ -53,5 +53,6 @@ describe('<ListWidget />', () => {
   it('renders as many items as there are in the items prop without crashing if color is null', () => {
     const listWidget = mountWithIntl(<ListWidget {...colorNullProps} />);
     expect(listWidget.find('ListWidgetItem')).toHaveLength(5);
-    expect(listWidget.text()).toContain('Title');  });
+    expect(listWidget.text()).toContain('Title');
+  });
 });
