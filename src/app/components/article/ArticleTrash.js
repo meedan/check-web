@@ -143,7 +143,7 @@ const ArticleTrash = ({
     setFlashMessage(message, 'success');
     onClose();
     handleDialogClose();
-    // FIXME: Replace this reload with a NODE_DELETE, RANGE_DELETE relay config 
+    // FIXME: Replace this reload with a NODE_DELETE, RANGE_DELETE relay config
     window.location.reload();
   };
 
