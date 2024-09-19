@@ -280,23 +280,25 @@ const SmoochBotMainMenuSection = ({
       ))}
 
       {/* Add a new menu option */}
-      <div className={styles['setting-content-container-actions']}>
-        <ButtonMain
-          disabled={readOnly}
-          iconLeft={<AddIcon />}
-          label={
-            <FormattedMessage
-              defaultMessage="New Menu Option"
-              description="Button label to create a new main menu option on tipline bot settings."
-              id="smoochBotMainMenuSection.newOption"
-            />
-          }
-          size="default"
-          theme="info"
-          variant="contained"
-          onClick={handleAddNewOption}
-        />
-      </div>
+      { !readOnly &&
+        <div className={styles['setting-content-container-actions']}>
+          <ButtonMain
+            disabled={readOnly}
+            iconLeft={<AddIcon />}
+            label={
+              <FormattedMessage
+                defaultMessage="New Menu Option"
+                description="Button label to create a new main menu option on tipline bot settings."
+                id="smoochBotMainMenuSection.newOption"
+              />
+            }
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={handleAddNewOption}
+          />
+        </div>
+      }
 
       {/* Dialog: Add new option */}
       { showNewOptionDialog ?
