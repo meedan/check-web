@@ -248,7 +248,6 @@ const TiplineDataComponent = ({
 
   return (
     <>
-      <hr style={{ marginTop: '16px', marginBottom: '16px' }} />
       <SettingsHeader
         actionButton={
           <ButtonMain
