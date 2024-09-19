@@ -246,10 +246,17 @@ const TiplineDataComponent = ({
     pom.click();
   };
 
-  const monthValues = [];
+  const dates = [];
   rows.forEach((row) => {
-    monthValues.push(formatValue('Month', row.Month));
+    dates.push(formatValue('Month', row.Month));
   });
+  // const dates = ['Sep 2024', 'Jan 2023', 'Dec 2023', 'Feb 2024'];
+  const parseMonthYear = (value) => {
+    const [month, year] = value.split(' ');
+    const monthIndex = new Date(`${month} 1`).getMonth();
+    return new Date(year, monthIndex);
+  };
+  dates.sort((a, b) => parseMonthYear(a) - parseMonthYear(b));
 
   return (
     <>
@@ -278,6 +285,7 @@ const TiplineDataComponent = ({
             values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data' }}
           />
         }
+        dates={dates}
         extra={(platforms.length > 1 || languages.length > 1) &&
           <>
             { platforms.length > 1 ?
@@ -298,7 +306,6 @@ const TiplineDataComponent = ({
             }
           </>
         }
-        monthValues={monthValues}
         title={
           <FormattedMessage
             defaultMessage="All Data:"

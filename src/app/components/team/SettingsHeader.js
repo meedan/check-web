@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -10,8 +9,9 @@ const SettingsHeader = ({
   actionButton,
   className,
   context,
+  dates,
+  extra,
   helpUrl,
-  monthValues,
   style,
   title,
 }) => {
@@ -19,8 +19,8 @@ const SettingsHeader = ({
     window.open(helpUrl);
   };
 
-  const [firstValue, ...rest] = monthValues;
-  const lastValue = rest.length > 0 ? rest[rest.length - 1] : firstValue;
+  const [firstValue, ...rest] = dates;
+  const lastValue = rest?.length > 0 ? rest[rest.length - 1] : firstValue;
 
   return (
     <div
@@ -42,8 +42,13 @@ const SettingsHeader = ({
             }
           </h5>
         </div>
+        { extra &&
+        <div className={styles['extra-wrapper']}>
+          {extra}
+        </div>
+        }
         <div className={styles['actions-container']}>
-          { monthValues &&
+          { dates &&
             <div className={cx(styles['data-wrapper'], 'typography-h5')} >
               {firstValue} - {lastValue}
             </div>
@@ -69,16 +74,20 @@ SettingsHeader.defaultProps = {
   actionButton: null,
   helpUrl: null,
   className: '',
+  extra: null,
+  dates: [],
   style: {},
 };
 
 SettingsHeader.propTypes = {
-  title: PropTypes.node.isRequired,
-  context: PropTypes.element,
-  helpUrl: PropTypes.string,
   actionButton: PropTypes.node,
   className: PropTypes.string,
+  context: PropTypes.element,
+  dates: PropTypes.arrayOf(PropTypes.string),
+  extra: PropTypes.node,
+  helpUrl: PropTypes.string,
   style: PropTypes.object,
+  title: PropTypes.node.isRequired,
 };
 
 export default SettingsHeader;
