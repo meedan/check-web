@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isValidURL } from '../../../helpers';
 import styles from './ListWidget.module.css';
 
 const ListWidgetItem = ({
@@ -10,7 +11,7 @@ const ListWidgetItem = ({
 }) => (
   <li className={styles.listWidgetItemWrapper} key={id}>
     {
-      itemLink ?
+      isValidURL(itemLink) ?
         <div><a href={itemLink}>{itemText}</a></div>
         :
         <div className={styles.listWidgetItemText}>{itemText}</div>

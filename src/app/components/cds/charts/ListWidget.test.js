@@ -15,7 +15,7 @@ const items = [
   },
   {
     itemValue: '120',
-    itemLink: 'https://maze.toys/mazes/mini/daily/',
+    itemLink: 'is.not/a/working/url/',
     itemText: 'Media Tag',
     id: 'item3',
   },

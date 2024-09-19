@@ -1934,18 +1934,20 @@ const SandboxComponent = ({ admin }) => {
                   [
                     {
                       itemValue: '2024',
-                      itemText: 'Media Tag',
+                      itemLink: null,
+                      itemText: 'Not-Linked Tag',
                       id: 'item1',
                     },
                     {
                       itemValue: '94607',
-                      itemText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      itemLink: 'e.not/a/working/url/',
+                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
                       id: 'item2',
                     },
                     {
                       itemValue: '120',
                       itemLink: 'https://maze.toys/mazes/mini/daily/',
-                      itemText: 'Media Tag',
+                      itemText: 'Linked Tag',
                       id: 'item3',
                     },
                     {
@@ -1970,18 +1972,20 @@ const SandboxComponent = ({ admin }) => {
                   [
                     {
                       itemValue: '2024',
-                      itemText: 'Media Tag',
+                      itemLink: null,
+                      itemText: 'Not-Linked Tag',
                       id: 'item1',
                     },
                     {
                       itemValue: '94607',
-                      itemText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      itemLink: 'e.not/a/working/url/',
+                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
                       id: 'item2',
                     },
                     {
                       itemValue: '120',
                       itemLink: 'https://maze.toys/mazes/mini/daily/',
-                      itemText: 'Media Tag',
+                      itemText: 'Linked Tag',
                       id: 'item3',
                     },
                     {
