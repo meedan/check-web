@@ -752,6 +752,20 @@ class Annotation extends Component {
       );
       break;
     }
+    case 'replace_projectmedia':
+      contentTemplate = (
+        <span className="annotation__replace-projectmedia">
+          <FormattedMessage
+            defaultMessage="Media cluster added to imported fact-check and inherited rating by {author}"
+            description="Log entry indicating media cluster added to imported fact-check"
+            id="annotation.replaceProjectMedia"
+            values={{
+              author: authorName,
+            }}
+          />
+        </span>
+      );
+      break;
     default:
       contentTemplate = null;
       break;
