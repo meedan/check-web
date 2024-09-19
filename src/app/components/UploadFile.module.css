@@ -22,6 +22,16 @@
     strong {
       display: block;
       margin: 0 0 8px;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .UploadFile-without-file {
+    color: var(--color-gray-15);
+    text-align: left;
+
+    p:last-of-type {
+      margin: 0;
     }
   }
 
@@ -30,6 +40,7 @@
     background-color: var(--color-beige-93);
     border-radius: var(--border-radius-default);
     display: flex;
+    flex: 0 0 96px;
     flex-direction: column;
     gap: 8px;
     padding: 8px;
