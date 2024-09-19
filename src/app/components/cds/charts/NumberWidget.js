@@ -10,7 +10,7 @@ const NumberWidget = ({
   unit,
 }) => (
   <div className={styles.numberWidgetWrapper} style={{ backgroundColor: color }}>
-    <div className="typography-subtitle2">
+    <div className={styles.numberWidgetTitle}>
       {title}
     </div>
     { itemCount && itemCount !== '-' &&
