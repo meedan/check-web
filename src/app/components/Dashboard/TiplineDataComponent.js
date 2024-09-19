@@ -246,6 +246,11 @@ const TiplineDataComponent = ({
     pom.click();
   };
 
+  const monthValues = [];
+  rows.forEach((row) => {
+    monthValues.push(formatValue('Month', row.Month));
+  });
+
   return (
     <>
       <SettingsHeader
@@ -293,6 +298,7 @@ const TiplineDataComponent = ({
             }
           </>
         }
+        monthValues={monthValues}
         title={
           <FormattedMessage
             defaultMessage="All Data:"
@@ -343,6 +349,7 @@ const TiplineDataComponent = ({
                       }
                       key={`${row.ID}-${header}`}
                     >
+                      {/* {header === 'Month' && console.log(row[header])} */}
                       {formatValue(header, row[header])}
                     </TableCell>
                   ))}

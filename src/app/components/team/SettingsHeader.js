@@ -10,14 +10,17 @@ const SettingsHeader = ({
   actionButton,
   className,
   context,
-  extra,
   helpUrl,
+  monthValues,
   style,
   title,
 }) => {
   const handleHelp = () => {
     window.open(helpUrl);
   };
+
+  const [firstValue, ...rest] = monthValues;
+  const lastValue = rest.length > 0 ? rest[rest.length - 1] : firstValue;
 
   return (
     <div
@@ -32,23 +35,25 @@ const SettingsHeader = ({
     >
       <div className={styles['title-actions-wrapper']}>
         <div className={styles['title-wrapper']}>
-          <h6 className="component__settings-header">
+          <h5 className="component__settings-header">
             {title}
             { helpUrl &&
               <ButtonMain iconCenter={<HelpIcon />} size="default" theme="lightText" variant="text" onClick={handleHelp} />
             }
-          </h6>
-          { extra &&
-            <div className={styles['extra-wrapper']}>
-              {extra}
+          </h5>
+        </div>
+        <div className={styles['actions-container']}>
+          { monthValues &&
+            <div className={cx(styles['data-wrapper'], 'typography-h5')} >
+              {firstValue} - {lastValue}
+            </div>
+          }
+          { actionButton &&
+            <div className={styles['buttons-wrapper']}>
+              {actionButton}
             </div>
           }
         </div>
-        { actionButton &&
-          <div className={styles['buttons-wrapper']}>
-            {actionButton}
-          </div>
-        }
       </div>
       { context &&
         <div className={styles['settings-header-context']}>
@@ -62,7 +67,6 @@ const SettingsHeader = ({
 SettingsHeader.defaultProps = {
   context: null,
   actionButton: null,
-  extra: null,
   helpUrl: null,
   className: '',
   style: {},
@@ -73,7 +77,6 @@ SettingsHeader.propTypes = {
   context: PropTypes.element,
   helpUrl: PropTypes.string,
   actionButton: PropTypes.node,
-  extra: PropTypes.node,
   className: PropTypes.string,
   style: PropTypes.object,
 };
