@@ -370,3 +370,10 @@
     }
   }
 }
+
+.install-bot-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 240px 0;
+}

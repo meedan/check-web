@@ -2,7 +2,6 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
 import SmoochBotConfig from './SmoochBotConfig';
 import { placeholders } from './localizables';
@@ -226,7 +225,7 @@ const SmoochBotComponent = ({
               onChange={updateSettings}
               onEditingResource={handleEditingResource}
             /> :
-            <Box alignItems="center" display="flex" justifyContent="center" mb={30} mt={30}>
+            <div className={settingsStyles['install-bot-wrapper']}>
               { currentUser.is_admin ?
                 <ButtonMain
                   disable={saving}
@@ -256,7 +255,7 @@ const SmoochBotComponent = ({
                   variant="contained"
                   onClick={handleOpenForm}
                 /> }
-            </Box>
+            </div>
           }
           <ConfirmProceedDialog
             body={(
