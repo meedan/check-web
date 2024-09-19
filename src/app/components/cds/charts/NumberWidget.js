@@ -13,9 +13,16 @@ const NumberWidget = ({
     <div className="typography-subtitle2">
       {title}
     </div>
-    <div className={styles.numberWidgetItemCount}>
-      {itemCount} <span className={styles.numberWidgetUnit}>{!itemCount || itemCount === '-' ? null : unit} </span>
-    </div>
+    { itemCount && itemCount !== '-' &&
+      <div className={styles.numberWidgetItemCount}>
+        {itemCount} { unit && <span className={styles.numberWidgetUnit}>{unit}</span> }
+      </div>
+    }
+    { itemCount === '-' &&
+      <div className={styles.numberWidgetItemCount}>
+        {itemCount}
+      </div>
+    }
     { contextText &&
       <div className={styles.numberWidgetContextText}>
         {contextText}
