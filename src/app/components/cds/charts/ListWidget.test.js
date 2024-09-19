@@ -38,8 +38,10 @@ describe('<ListWidget />', () => {
     title: 'Title',
   };
 
-  it('renders without crashing', () => {
-    mountWithIntl(<ListWidget {...props} />);
+  it('renders as many items as there are in the items prop without crashing', () => {
+    const listWidget = mountWithIntl(<ListWidget {...props} />);
+    expect(listWidget.find('ListWidgetItem')).toHaveLength(5);
+    expect(listWidget.text()).toContain('Title');
   });
 
   const colorNullProps = {
@@ -48,7 +50,8 @@ describe('<ListWidget />', () => {
     title: 'Title',
   };
 
-  it('renders without crashing if color is null', () => {
-    mountWithIntl(<ListWidget {...colorNullProps} />);
-  });
+  it('renders as many items as there are in the items prop without crashing if color is null', () => {
+    const listWidget = mountWithIntl(<ListWidget {...colorNullProps} />);
+    expect(listWidget.find('ListWidgetItem')).toHaveLength(5);
+    expect(listWidget.text()).toContain('Title');  });
 });
