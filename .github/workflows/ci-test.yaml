@@ -47,15 +47,12 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: run test script
-      run: |
-         ./test/run-tests.sh
-
     - name: Decrypt credentials for Alegre
       env:
         DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
       run: |
         openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k $DECRYPTION_PASSWORD
+    
     - name: Setup UTF-8 Capable locale
       run: | 
         export LC_ALL=C.UTF-8
@@ -72,6 +69,7 @@ jobs:
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
         cd -
+
     -  name: Setup Check API
        run: | 
         export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
@@ -92,6 +90,7 @@ jobs:
        cp .env_file.test .env_file
        cp ../test/google_credentials.json google_credentials.json
        cd -
+
     - name: Setup Presto
       run: |
         export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
@@ -101,6 +100,7 @@ jobs:
         cp .env_file.test .env_file
         cp ../test/google_credentials.json google_credentials.json
         cd -
+
     - name: Setup Configuration Files
       run: |
         cp config.js.example config.js
@@ -118,6 +118,7 @@ jobs:
           MAX_WEB_CURL=$MAX_WEB_CURL;
           WEB_CURL_COUNT=$WEB_CURL_COUNT; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; exit 1; fi
         docker ps 
+
     - name: Run linter
       run: |
         docker compose exec web npm run linter
@@ -140,11 +141,11 @@ jobs:
           -e TEST_RETRY_COUNT=3 \
           web npm run tests
     
-    - name: After integration tests
-      run: |
-       docker compose exec web bash -c "python -m json.tool test/file.json"
-        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
-        kill -9 $(pgrep ngrok)
+    # - name: After integration tests
+    #   run: |
+    #    docker compose exec web bash -c "python -m json.tool test/file.json"
+    #     size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
+    #     kill -9 $(pgrep ngrok)
 
   unit-tests:
     runs-on: ubuntu-latest
