@@ -173,28 +173,28 @@ jobs:
         export LANG=C.UTF-8
         export LANGUAGE=C.UTF-8
     
-    # - name: Setup Pender 
-    #   env:
-    #     GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
-    #   run: | 
-    #     export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'develop')
-    #     echo "Using branch $PENDER_BRANCH for Pender"
-    #     git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
-    #     cd pender
-    #     cp config/config.yml.example config/config.yml
-    #     cp config/database.yml.example config/database.yml
-    #     cp config/sidekiq.yml.example config/sidekiq.yml
-    #     cd -
-    # -  name: Setup Check API
-    #    run: | 
-    #     export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
-    #     echo "Using branch $CHECK_API_BRANCH for Check API"
-    #     git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
-    #     cd check-api
-    #     cp config/config.yml.example config/config.yml
-    #     cp config/database.yml.example config/database.yml
-    #     cp config/sidekiq.yml.example config/sidekiq.yml
-    #     cd -
+    - name: Setup Pender 
+      env:
+        GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
+      run: | 
+        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'develop')
+        echo "Using branch $PENDER_BRANCH for Pender"
+        git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
+        cd pender
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cd -
+    -  name: Setup Check API
+       run: | 
+        export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
+        echo "Using branch $CHECK_API_BRANCH for Check API"
+        git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
+        cd check-api
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cd -
     
     - name: Setup Alegre
       run: | 
