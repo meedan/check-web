@@ -17,7 +17,7 @@ env:
 
 
 jobs:
-  integration-and-smoke-tests:
+  integration-and-unit-tests:
     runs-on: ubuntu-latest
     if: >
       github.ref == 'refs/heads/develop' || 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $GITHUB_JOB_NAME == 'integration-and-smoke-tests' ]]
+if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
 then
   npm run test:unit || exit 1
   ./../scripts/uncovered-files
