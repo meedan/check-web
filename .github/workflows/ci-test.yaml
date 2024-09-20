@@ -18,7 +18,7 @@ env:
 
 jobs:
   integration-and-smoke-tests:
-    if: contains(github.event.head_commit.message, '[smoke tests]')
+    # if: contains(github.event.head_commit.message, '[smoke tests]')
     runs-on: ubuntu-latest
  
     steps:
@@ -42,6 +42,10 @@ jobs:
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
+
+    - name: run test script
+      run: |
+         ./test/run-tests.sh
 
     - name: Decrypt credentials for Alegre
       env:
@@ -100,6 +104,7 @@ jobs:
         cp config-build.js.example config-build.js
         cp config-server.js.example config-server.js
         cp test/config.yml.example test/config.yml
+
     - name: Before Script
       env: 
         MAX_WEB_CURL: 3000
