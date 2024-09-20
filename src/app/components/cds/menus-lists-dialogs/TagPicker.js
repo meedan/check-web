@@ -99,7 +99,7 @@ const TagPicker = ({
               }
               hasMore={hasMore}
               inputPlaceholder={placeholder}
-              loadingIcon={loading && <MediasLoading size="small" theme="white" variant="inline" />}
+              loadingIcon={loading && <MediasLoading size="small" theme="grey" variant="inline" />}
               notFoundLabel={
                 <FormattedMessage
                   defaultMessage="No tags found"

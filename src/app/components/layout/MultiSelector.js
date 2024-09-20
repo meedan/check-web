@@ -209,6 +209,11 @@ class MultiSelector extends React.Component {
             </div>
           }
         </div>
+        { this.props.loadingIcon &&
+          <div className={styles['multiselector-scroller-loader']}>
+            { this.props.loadingIcon }
+          </div>
+        }
         <div className={styles['multiselector-scroller']}>
           <InfiniteScroll
             hasMore={hasMore}
@@ -265,7 +270,6 @@ class MultiSelector extends React.Component {
                 </div>
               }
             </FormGroup>
-            { this.props.loadingIcon }
           </InfiniteScroll>
         </div>
         { this.props.children }

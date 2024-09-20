@@ -252,7 +252,7 @@ const CustomSelectDropdown = ({
               allowSearch={allowSearch}
               hasMore={hasMore}
               inputPlaceholder={inputPlaceholder || placeholder}
-              loadingIcon={loading && <MediasLoading size="small" theme="white" variant="inline" />}
+              loadingIcon={loading && <MediasLoading size="small" theme="grey" variant="inline" />}
               notFoundLabel={!loading && inputPlaceholder ? (
                 <FormattedMessage
                   defaultMessage="No results matching {keyword}."
