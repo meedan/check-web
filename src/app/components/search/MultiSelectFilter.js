@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -300,31 +299,31 @@ MultiSelectFilter.defaultProps = {
 };
 
 MultiSelectFilter.propTypes = {
+  allowSearch: PropTypes.bool,
   error: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
   ])),
-  allowSearch: PropTypes.bool,
   extraInputs: PropTypes.node,
+  icon: PropTypes.element.isRequired,
+  inputPlaceholder: PropTypes.string,
+  label: PropTypes.node.isRequired,
+  loading: PropTypes.bool,
+  oneOption: PropTypes.bool,
   options: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
   ])).isRequired,
-  label: PropTypes.node.isRequired,
-  icon: PropTypes.element.isRequired,
-  loading: PropTypes.bool,
-  onChange: PropTypes.func,
-  onRemove: PropTypes.func,
+  readOnly: PropTypes.bool,
   selected: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string,
   ]),
+  onChange: PropTypes.func,
+  onRemove: PropTypes.func,
   onScrollBottom: PropTypes.func,
   onToggleOperator: PropTypes.func,
-  readOnly: PropTypes.bool,
   onType: PropTypes.func,
-  inputPlaceholder: PropTypes.string,
-  oneOption: PropTypes.bool,
 };
 
 export default MultiSelectFilter;
