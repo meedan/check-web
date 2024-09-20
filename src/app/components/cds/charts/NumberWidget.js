@@ -10,15 +10,19 @@ const NumberWidget = ({
   unit,
 }) => (
   <div className={styles.numberWidgetWrapper} style={{ backgroundColor: color }}>
-    <div className="typography-subtitle2">
+    <div className={styles.numberWidgetTitle}>
       {title}
     </div>
-    <div className={styles.numberWidgetItemCount}>
-      {itemCount} <span className={styles.numberWidgetUnit}>{!itemCount || itemCount === '-' ? null : unit} </span>
-    </div>
-    <div className={styles.numberWidgetContextText}>
-      {contextText}
-    </div>
+    { itemCount &&
+      <div className={styles.numberWidgetItemCount}>
+        {itemCount} { unit && itemCount !== '-' && <span className={styles.numberWidgetUnit}>{unit}</span> }
+      </div>
+    }
+    { contextText &&
+      <div className={styles.numberWidgetContextText}>
+        {contextText}
+      </div>
+    }
   </div>
 );
 
