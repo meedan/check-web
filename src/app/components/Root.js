@@ -6,7 +6,6 @@ import ReactGA from 'react-ga';
 import { IntlProvider } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Home from './Home';
-import OtherSandbox from './OtherSandbox';
 import RootLocale from './RootLocale';
 import NotFound from './NotFound';
 import UserConfirmPage from './UserConfirmPage';
@@ -79,7 +78,6 @@ class Root extends Component {
                   <Route component={NotFound} path="check/not-found" public />
                   <Route component={Me} isEditing path="check/me/edit" />
                   <Route component={Sandbox} path="check/me/ui-sandbox" />
-                  <Route component={OtherSandbox} path="check/me/other-sandbox" public />
                   <Route component={SandboxCrash} path="check/me/ui-sandbox/crash" />
                   <Route component={Me} path="check/me(/:tab)" />
                   <Route component={FeedInvitation} path="check/feed/:feedId/invitation" splash />
