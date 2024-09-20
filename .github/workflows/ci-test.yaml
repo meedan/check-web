@@ -54,8 +54,6 @@ jobs:
         export LANGUAGE=C.UTF-8
 
     - name: Setup Pender 
-      env:
-        GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
       run: | 
         export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'develop')
         echo "Using branch $PENDER_BRANCH for Pender"
@@ -138,10 +136,6 @@ jobs:
         kill -9 $(pgrep ngrok)
 
   unit-tests:
-    if: > 
-        github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/master' 
-        && !contains(github.event.head_commit.message, '[full ci]') && !contains(github.event.head_commit.message,
-        '[smoke tests]') && !contains(github.event.head_commit.message, '[similarity tests]')
     runs-on: ubuntu-latest
 
     steps:
