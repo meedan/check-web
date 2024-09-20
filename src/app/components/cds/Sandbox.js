@@ -5,6 +5,7 @@ import cx from 'classnames/bind';
 import * as Sentry from '@sentry/react';
 import Alert from './alerts-and-prompts/Alert';
 import Chip from './buttons-checkboxes-chips/Chip';
+import ListWidget from './charts/ListWidget';
 import NumberWidget from './charts/NumberWidget';
 import VerticalBarChartWidget from './charts/VerticalBarChartWidget';
 import TagList from './menus-lists-dialogs/TagList';
@@ -1962,19 +1963,104 @@ const SandboxComponent = ({ admin }) => {
             </div>
           </div>
 
-          <h6>Charts: Number Widget</h6>
-          <div>
-            <div className={styles.componentWrapper}>
-              <NumberWidget contextText="Lorem ipsum dolor sit amet." itemCount="2024" title="A Title" unit="unit" />
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Number Widget
+            </div>
+            <div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget contextText="Lorem ipsum dolor sit amet." itemCount="2024" title="A Title" unit="unit" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-yellow-79)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." title="A Title" unit="unit" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-purple-92)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              List Widget
             </div>
             <div className={styles.componentWrapper}>
-              <NumberWidget color="var(--color-yellow-79)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." title="A Title" unit="unit" />
+              <ListWidget
+                items={
+                  [
+                    {
+                      itemValue: '2024',
+                      itemLink: null,
+                      itemText: 'Not-Linked Tag',
+                      id: 'item1',
+                    },
+                    {
+                      itemValue: '94607',
+                      itemLink: 'e.not/a/working/url/',
+                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      id: 'item2',
+                    },
+                    {
+                      itemValue: '120',
+                      itemLink: 'https://maze.toys/mazes/mini/daily/',
+                      itemText: 'Linked Tag',
+                      id: 'item3',
+                    },
+                    {
+                      itemValue: '9423125',
+                      itemLink: 'https://www.lipsum.com/feed/html',
+                      itemText: 'Lorem Ipsum URL',
+                      id: 'item4',
+                    },
+                    {
+                      itemText: 'Lorem ipsum dolor sit amet',
+                      id: 'item5',
+                    },
+                  ]
+                }
+                title="List Title"
+              />
             </div>
             <div className={styles.componentWrapper}>
-              <NumberWidget color="var(--color-purple-92)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" />
-            </div>
-            <div className={styles.componentWrapper}>
-              <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
+              <ListWidget
+                color="var(--color-purple-92)"
+                items={
+                  [
+                    {
+                      itemValue: '2024',
+                      itemLink: null,
+                      itemText: 'Not-Linked Tag',
+                      id: 'item1',
+                    },
+                    {
+                      itemValue: '94607',
+                      itemLink: 'e.not/a/working/url/',
+                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      id: 'item2',
+                    },
+                    {
+                      itemValue: '120',
+                      itemLink: 'https://maze.toys/mazes/mini/daily/',
+                      itemText: 'Linked Tag',
+                      id: 'item3',
+                    },
+                    {
+                      itemValue: '9423125',
+                      itemLink: 'https://www.lipsum.com/feed/html',
+                      itemText: 'Lorem Ipsum URL',
+                      id: 'item4',
+                    },
+                    {
+                      itemText: 'Lorem ipsum dolor sit amet',
+                      id: 'item5',
+                    },
+                  ]
+                }
+                title="List Title"
+              />
             </div>
           </div>
         </section>
