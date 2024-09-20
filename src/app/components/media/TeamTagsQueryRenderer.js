@@ -52,6 +52,8 @@ const TeamTagsQueryRenderer = ({
       render={({ error, props }) => {
         if (error) return null;
 
+        const loading = Boolean(!error && !props);
+
         // TODO: This "merge selected tags with plainTagsTexts" logic is identical
         // to `SearchFieldTag` component. Evaluate reusing TeamTagsQueryRenderer there.
 
@@ -75,6 +77,7 @@ const TeamTagsQueryRenderer = ({
           <TagPicker
             hasMore={hasMore}
             loadMore={handleLoadMore}
+            loading={loading}
             options={plainTagsTexts.map(t => ({ label: t, value: t }))}
             readOnly={readOnly}
             searchTerm={keyword}

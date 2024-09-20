@@ -115,6 +115,8 @@
 
   --grayShadow: rgb(0 0 0 / .15);
 
+  --overlayWhite: rgb(255 255 255 / .7);
+
   --overlayLight: rgb(34 34 34 / .7);
 
   /* https://facebookbrand.com/facebookapp/advertisers-and-partners/ */
