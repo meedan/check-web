@@ -40,25 +40,21 @@ const VerticalBarChartWidget = ({
   // - White background container, padding 16px
   // - Min width 250px
 
-  const CustomTick = ({ payload, x, y }) => {
-    console.log('payload', payload); // eslint-disable-line no-console
-
-    return (
-      <g transform={`translate(${x},${y})`}>
-        <text
-          dy={6}
-          fill="var(--color-gray-15)"
-          fontSize="14px"
-          textAnchor="end"
-          x={0}
-          y={0}
-        >
-          <tspan font-weight="bold">{data[payload.index].value}</tspan>
-          {` ${payload.value}`}
-        </text>
-      </g>
-    );
-  };
+  const CustomTick = ({ payload, x, y }) => (
+    <g transform={`translate(${x},${y})`}>
+      <text
+        dy={6}
+        fill="var(--color-gray-15)"
+        fontSize="14px"
+        textAnchor="end"
+        x={0}
+        y={0}
+      >
+        <tspan fontWeight="bold">{data[payload.index].value}</tspan>
+        {` ${payload.value}`}
+      </text>
+    </g>
+  );
 
   return (
     <div
