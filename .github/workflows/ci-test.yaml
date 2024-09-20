@@ -18,7 +18,6 @@ env:
 
 jobs:
   integration-and-smoke-tests:
-    if: github.job == 'integration-and-smoke-tests'
     runs-on: ubuntu-latest
  
     steps:
@@ -138,7 +137,6 @@ jobs:
         kill -9 $(pgrep ngrok)
 
   unit-tests:
-    if: github.job == 'unit-tests' 
     runs-on: ubuntu-latest
 
     steps:

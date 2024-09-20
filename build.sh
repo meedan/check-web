@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e 
 # Running only unit tests
-if [[ $GITHUB_BRANCH != 'develop' && $GITHUB_BRANCH != 'master' && ! $GITHUB_COMMIT_MESSAGE =~ \[full\ ci\] && ! $GITHUB_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[similarity\ tests\] ]]
+if [[ $GITHUB_JOB_NAME == 'unit-tests' && $GITHUB_BRANCH != 'develop' && $GITHUB_BRANCH != 'master' && ! $GITHUB_COMMIT_MESSAGE =~ \[full\ ci\] && ! $GITHUB_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[similarity\ tests\] ]]
 then
   echo "Running only unit tests"
   docker compose build web
