@@ -1,0 +1,45 @@
+.listWidgetWrapper {
+  @mixin typography-subtitle2;
+  align-items: flex-start;
+  border-radius: var(--border-radius-large);
+  color: var(--color-gray-15);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 180px;
+  padding: 16px;
+  width: 100%;
+
+  .listWidgetItemWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+
+    .listWidgetItemText {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .listWidgetItemValue {
+      min-width: 7ch;
+      text-align: right;
+    }
+  }
+
+  a,
+  a:visited,
+  a:hover {
+    color: var(--color-gray-15);
+  }
+
+  ul {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+  }
+}
