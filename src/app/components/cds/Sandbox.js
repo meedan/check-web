@@ -338,11 +338,11 @@ const SandboxComponent = ({ admin }) => {
       { name: 'Social Media', value: 1000 },
     ],
     statuses: [
-      { name: 'Unstarted', value: 3000, color: '#518FFF' },
-      { name: 'Inconclusive', value: 5000, color: '#9e9e9e' },
-      { name: 'In Progress', value: 2000, color: '#efac51' },
-      { name: 'False', value: 6000, color: '#f04747' },
-      { name: 'Verified', value: 4000, color: '#5cae73' },
+      { name: 'Unstarted', value: 2999, color: '#518FFF' },
+      { name: 'Inconclusive', value: 4987, color: '#9e9e9e' },
+      { name: 'In Progress', value: 1890, color: '#efac51' },
+      { name: 'False', value: 6005, color: '#f04747' },
+      { name: 'Verified', value: 3021, color: '#5cae73' },
     ],
   };
 
