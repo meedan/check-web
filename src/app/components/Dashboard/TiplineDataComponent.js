@@ -356,7 +356,6 @@ const TiplineDataComponent = ({
                       }
                       key={`${row.ID}-${header}`}
                     >
-                      {/* {header === 'Month' && console.log(row[header])} */}
                       {formatValue(header, row[header])}
                     </TableCell>
                   ))}
