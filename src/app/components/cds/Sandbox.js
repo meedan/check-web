@@ -8,6 +8,8 @@ import Chip from './buttons-checkboxes-chips/Chip';
 import TagList from './menus-lists-dialogs/TagList';
 import TextField from './inputs/TextField';
 import ListSort from './inputs/ListSort';
+import ListWidget from './charts/ListWidget';
+import NumberWidget from './charts/NumberWidget';
 import TextArea from './inputs/TextArea';
 import DatePicker from './inputs/DatePicker';
 import LanguagePickerSelect from './inputs/LanguagePickerSelect';
@@ -421,6 +423,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <ButtonMain label="Errors" size="small" theme={selectedCategory === 'errors' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('errors')} />
+        </li>
+        <li>
+          <ButtonMain label="Charts" size="small" theme={selectedCategory === 'charts' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('charts')} />
         </li>
       </ul>
       { (!selectedCategory || selectedCategory === 'cards') &&
@@ -1894,6 +1899,109 @@ const SandboxComponent = ({ admin }) => {
             <div className={styles.componentInlineVariants}>
               <ButtonMain disabled={buttonDisabled} label="Trigger Sentry" size={buttonSize} theme={buttonTheme} variant={buttonVariant} onClick={generateUncaughtError} />
               <ButtonMain disabled={buttonDisabled} label="Sentry manual error" size={buttonSize} theme={buttonTheme} variant={buttonVariant} onClick={generateManualError} />
+            </div>
+          </div>
+        </section>
+      }
+      { (!selectedCategory || selectedCategory === 'charts') &&
+        <section>
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Number Widget
+            </div>
+            <div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget contextText="Lorem ipsum dolor sit amet." itemCount="2024" title="A Title" unit="unit" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-yellow-79)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." title="A Title" unit="unit" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-purple-92)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
+              </div>
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              List Widget
+            </div>
+            <div className={styles.componentWrapper}>
+              <ListWidget
+                items={
+                  [
+                    {
+                      itemValue: '2024',
+                      itemLink: null,
+                      itemText: 'Not-Linked Tag',
+                      id: 'item1',
+                    },
+                    {
+                      itemValue: '94607',
+                      itemLink: 'e.not/a/working/url/',
+                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      id: 'item2',
+                    },
+                    {
+                      itemValue: '120',
+                      itemLink: 'https://maze.toys/mazes/mini/daily/',
+                      itemText: 'Linked Tag',
+                      id: 'item3',
+                    },
+                    {
+                      itemValue: '9423125',
+                      itemLink: 'https://www.lipsum.com/feed/html',
+                      itemText: 'Lorem Ipsum URL',
+                      id: 'item4',
+                    },
+                    {
+                      itemText: 'Lorem ipsum dolor sit amet',
+                      id: 'item5',
+                    },
+                  ]
+                }
+                title="List Title"
+              />
+            </div>
+            <div className={styles.componentWrapper}>
+              <ListWidget
+                color="var(--color-purple-92)"
+                items={
+                  [
+                    {
+                      itemValue: '2024',
+                      itemLink: null,
+                      itemText: 'Not-Linked Tag',
+                      id: 'item1',
+                    },
+                    {
+                      itemValue: '94607',
+                      itemLink: 'e.not/a/working/url/',
+                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      id: 'item2',
+                    },
+                    {
+                      itemValue: '120',
+                      itemLink: 'https://maze.toys/mazes/mini/daily/',
+                      itemText: 'Linked Tag',
+                      id: 'item3',
+                    },
+                    {
+                      itemValue: '9423125',
+                      itemLink: 'https://www.lipsum.com/feed/html',
+                      itemText: 'Lorem Ipsum URL',
+                      id: 'item4',
+                    },
+                    {
+                      itemText: 'Lorem ipsum dolor sit amet',
+                      id: 'item5',
+                    },
+                  ]
+                }
+                title="List Title"
+              />
             </div>
           </div>
         </section>

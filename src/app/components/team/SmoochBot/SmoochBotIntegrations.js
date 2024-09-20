@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -9,18 +8,16 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
 import TextField from '../../cds/inputs/TextField';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import GetAppIcon from '../../../icons/file_download.svg';
 import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
 import FacebookIcon from '../../../icons/facebook.svg';
 import LineIcon from '../../../icons/line.svg';
-import HelpIcon from '../../../icons/help.svg';
 import TelegramIcon from '../../../icons/telegram.svg';
 import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
-import styles from '../Settings.module.css';
+import smoochBotStyles from './SmoochBot.module.css';
 
 const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }) => {
   const [copied, setCopied] = React.useState(null);
@@ -41,24 +38,8 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
     link.click();
   };
 
-  const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot', '_blank');
-  };
-
   return (
     <React.Fragment>
-      <div className={styles['setting-content-container-title']}>
-        <FormattedMessage defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" id="smoochBotIntegrations.title" />
-        <div className={styles['setting-content-container-actions']}>
-          <ButtonMain
-            iconCenter={<HelpIcon />}
-            size="small"
-            theme="text"
-            variant="text"
-            onClick={handleHelp}
-          />
-        </div>
-      </div>
       <Box display="flex" flexWrap="wrap" justifyContent="space-between">
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
@@ -96,11 +77,11 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                   </Box>
                   <Box alignItems="center" display="flex">
                     <TextField
-                      InputProps={{
+                      className={smoochBotStyles['smoochbot-component-input']}
+                      defaultValue={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`}
+                      inputProps={{
                         readOnly: true,
                       }}
-                      className={styles['smoochbot-component-input']}
-                      defaultValue={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`}
                       variant="outlined"
                     />
                     <Tooltip
@@ -151,7 +132,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                   <Box>
                     <Box alignItems="flex-start" display="flex">
                       <TextField
-                        className={styles['smoochbot-component-input']}
+                        className={smoochBotStyles['smoochbot-component-input']}
                         defaultValue={`<img src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}" />`}
                         disabled
                         variant="outlined"
@@ -376,9 +357,9 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
 };
 
 SmoochBotIntegrations.propTypes = {
-  settings: PropTypes.object.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   installationId: PropTypes.string.isRequired,
+  settings: PropTypes.object.isRequired,
 };
 
 export default SmoochBotIntegrations;
