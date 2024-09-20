@@ -30,15 +30,10 @@ const VerticalBarChartWidget = ({
     fill: d.color || colors[i % colors.length],
   }));
 
-  const dataHeight = data.length * 36;
   const spacingHeight = 48;
 
+  const dataHeight = data.length * 36;
   const dataSum = data.reduce((acc, d) => acc + d.value, 0);
-
-  // TODO:
-  // - Customize and style Y-axis labels (number [body-2 bold], name [body-2 regular])
-  // - White background container, padding 16px
-  // - Min width 250px
 
   const CustomTick = ({ payload, x, y }) => (
     <g transform={`translate(${x},${y})`}>
@@ -83,10 +78,8 @@ const VerticalBarChartWidget = ({
             axisLine={false}
             dataKey="name"
             tick={<CustomTick />}
-            // tickFormatter={(value, index) => `${data[index].value} ${data[index].name}`}
             tickLine={false}
             type="category"
-            // width={100}
           />
         </BarChart>
       </ResponsiveContainer>
