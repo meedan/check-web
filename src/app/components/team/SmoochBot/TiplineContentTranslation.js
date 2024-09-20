@@ -23,6 +23,11 @@ const messages = defineMessages({
     defaultMessage: 'Customized',
     description: 'Label to indicate that a bot response has been customized and is different than the default message',
   },
+  viewDefault: {
+    id: 'smoochBotContentAndTranslation.viewDefault',
+    defaultMessage: 'Default Bot Response',
+    description: 'Label for button to allow users to show or hide the default bot response, when a custom response is currently in use.',
+  },
   textFieldTitleCustomized: {
     id: 'smoochBotContentAndTranslation.textFieldTitleCustomized',
     defaultMessage: 'Custom Bot Response',
@@ -35,7 +40,7 @@ const messages = defineMessages({
   },
   defaultText: {
     id: 'smoochBotContentAndTranslation.defaultTextTitle',
-    defaultMessage: 'Current Default Bot Response:',
+    defaultMessage: 'Default Bot Response:',
     description: 'Title for the area to show users what the default text value is for this bot response',
   },
   placeholder: {
@@ -57,6 +62,7 @@ const TiplineContentTranslation = ({
   value,
 }) => {
   const [expanded, setExpanded] = React.useState(false);
+  const [defaultExpanded, setDefaultExpanded] = React.useState(false);
 
   return (
     <div className={cx(styles['content-translation-wrapper'], expanded ? styles['content-translation-wrapper-expanded'] : styles['content-translation-wrapper-collapsed'])}>
@@ -126,6 +132,26 @@ const TiplineContentTranslation = ({
           onBlur={(e) => { onUpdate(e.target.value); }}
         />
         {extra}
+        { value &&
+          <div className={cx(styles['default-bot-response'], defaultExpanded ? styles['default-bot-response-expanded'] : styles['default-bot-response-collapsed'])}>
+            <ButtonMain
+              iconLeft={defaultExpanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
+              label={intl.formatMessage(messages.viewDefault)}
+              size="small"
+              theme="lightText"
+              variant="text"
+              onClick={() => { setDefaultExpanded(!defaultExpanded); }}
+            />
+            <Alert
+              className={styles['default-bot-response-content']}
+              contained
+              content={defaultValue}
+              icon={false}
+              title={intl.formatMessage(messages.defaultText)}
+              variant="info"
+            />
+          </div>
+        }
       </div>
     </div>
   );

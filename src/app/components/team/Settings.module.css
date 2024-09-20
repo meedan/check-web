@@ -126,6 +126,24 @@
             display: none;
           }
         }
+
+        .default-bot-response {
+          align-items: flex-start;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          padding: 8px 0 0;
+
+          .default-bot-response-content {
+            display: none;
+          }
+
+          &.default-bot-response-expanded {
+            .default-bot-response-content {
+              display: block;
+            }
+          }
+        }
       }
 
       .setting-content-container {
