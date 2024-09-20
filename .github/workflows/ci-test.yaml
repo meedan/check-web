@@ -160,11 +160,11 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
     
-    # - name: Decrypt credentials for Alegre
-    #   env:
-    #     DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
-    #   run: |
-    #     openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k $DECRYPTION_PASSWORD
+    - name: Decrypt credentials for Alegre
+      env:
+        DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
+      run: |
+        openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k $DECRYPTION_PASSWORD
     
     - name: Setup UTF-8 Capable locale
       run: | 
