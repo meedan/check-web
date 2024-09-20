@@ -35,6 +35,27 @@ const updateFactCheck = graphql`
   }
 `;
 
+const deletionWarning = (<FormattedMessage
+  defaultMessage="It can be removed from the Trash later, but it will be deleted permanently after 30 days."
+  description="Warning message indicating the article will be deleted permanently after 30 days"
+  id="articleTrash.deletionWarning"
+  tagName="p"
+/>);
+
+const associationWarning = (<FormattedMessage
+  defaultMessage="Are you sure? If you send this article to the trash it will no longer be available to be associated with media responses."
+  description="Warning message confirming the article will no longer be able to be associated with media items"
+  id="articleTrash.associationWarning"
+  tagName="p"
+/>);
+
+const deletionWarningExplainer = (<FormattedMessage
+  defaultMessage="It can be linked again if the article is removed from the Trash. After 30 days, this article will be permanently deleted."
+  description="Warning message indicating the explainer article will be deleted permanently after 30 days"
+  id="articleTrash.deletionWarningExplainer"
+  tagName="p"
+/>);
+
 const ArticleTrash = ({
   article,
   onClose,
@@ -73,12 +94,9 @@ const ArticleTrash = ({
   );
 
   const factCheckBody = type === 'fact-check' && article.claim_description?.project_media ? (
-    <>
-      <FormattedMessage
-        defaultMessage="Are you sure? If you send this article to the trash it will no longer be available to be associated with media responses. It can be removed from the Trash later, but it will be deleted permanently after 30 days."
-        description="Body message for deleting a fact-check not associated with a media item"
-        id="articleTrash.factCheckBodyNoMedia"
-      />
+    <div>
+      {associationWarning}
+      {deletionWarning}
       <Alert
         content={
           <ul>
@@ -94,25 +112,29 @@ const ArticleTrash = ({
         title={<FormattedMessage
           defaultMessage="Sending this article to the trash will unlink from the following media:"
           description="Title for the warning alert when deleting a fact-check not associated with a media item"
-          id="articleTrash.noMediaAssociatedTitle"
+          id="articleTrash.associatedMediaWarning"
         />}
         variant="warning"
       />
-    </>
+    </div>
   ) : (
-    <FormattedMessage
-      defaultMessage="Are you sure? This article is currently associated with media, and being sent as a response to user requests. If you send this article to the trash, the link between the media and article will be removed. It can be linked again if the article is removed from the Trash. After 30 days, this article will be permanently deleted."
-      description="Body message for deleting a fact-check associated with a media item"
-      id="articleTrash.factCheckBody"
-    />
+    <div>
+      {associationWarning}
+      {deletionWarning}
+    </div>
   );
 
   const explainerBody = type === 'explainer' ? (
-    <FormattedMessage
-      defaultMessage="Are you sure? If you send this article to the trash it will no longer be available to be associated with media responses. If this article is currently associated with media, the link between the media and article will be removed. It can be linked again if the article is removed from the Trash. After 30 days, this article will be permanently deleted."
-      description="Body message for deleting an explainer article"
-      id="articleTrash.explainerBody"
-    />
+    <div>
+      {associationWarning}
+      <FormattedMessage
+        defaultMessage="If this article is currently associated with media, the link between the media and article will be removed."
+        description="Body message for deleting an explainer article"
+        id="articleTrash.explainerBody"
+        tagName="p"
+      />
+      {deletionWarningExplainer}
+    </div>
   ) : null;
 
   const dialogBody = type === 'explainer' ? explainerBody : factCheckBody;
