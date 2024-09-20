@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -209,6 +208,11 @@ class MultiSelector extends React.Component {
             </div>
           }
         </div>
+        { this.props.loadingIcon &&
+          <div className={styles['multiselector-scroller-loader']}>
+            { this.props.loadingIcon }
+          </div>
+        }
         <div className={styles['multiselector-scroller']}>
           <InfiniteScroll
             hasMore={hasMore}
@@ -265,7 +269,6 @@ class MultiSelector extends React.Component {
                 </div>
               }
             </FormGroup>
-            { this.props.loadingIcon }
           </InfiniteScroll>
         </div>
         { this.props.children }
@@ -332,15 +335,15 @@ MultiSelector.propTypes = {
     color: PropTypes.string,
     parent: PropTypes.string,
   })).isRequired,
+  resetLabel: PropTypes.node,
   selected: PropTypes.arrayOf(PropTypes.string).isRequired,
   submitLabel: PropTypes.node.isRequired,
+  toggleAllLabel: PropTypes.node,
   onDismiss: PropTypes.func,
   onScrollBottom: PropTypes.func,
   onSearchChange: PropTypes.func,
   onSelectChange: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
-  toggleAllLabel: PropTypes.node,
-  resetLabel: PropTypes.node,
 };
 
 export default MultiSelector;
