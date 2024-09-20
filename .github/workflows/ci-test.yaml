@@ -56,11 +56,7 @@ jobs:
         export LC_ALL=C.UTF-8
         export LANG=C.UTF-8
         export LANGUAGE=C.UTF-8
-  
-    - name: Ngrok
-      run: |
-        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-        export GITHUB_TAG=0.0.0
+
     - name: Setup Pender 
       env:
         GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
@@ -113,7 +109,6 @@ jobs:
       env: 
         MAX_WEB_CURL: 3000
         WEB_CURL_COUNT: 0
-        NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
       run: | 
         GITHUB_JOB_NAME=$GITHUB_JOB_NAME GITHUB_BRANCH=$GITHUB_BRANCH ./build.sh
           MAX_WEB_CURL=$MAX_WEB_CURL;
