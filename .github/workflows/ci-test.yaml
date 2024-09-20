@@ -83,15 +83,15 @@ jobs:
     #    cp .env_file.test .env_file
     #    cp ../test/google_credentials.json google_credentials.json
     #    cd -
-    # - name: Setup Presto
-    #   run: |
-    #     export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
-    #     echo "Using branch $PRESTO_BRANCH for Presto"
-    #     git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
-    #     cd presto
-    #     cp .env_file.test .env_file
-    #     cp ../test/google_credentials.json google_credentials.json
-        # cd -
+    - name: Setup Presto
+      run: |
+        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
+        echo "Using branch $PRESTO_BRANCH for Presto"
+        git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
+        cd presto
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
     - name: Setup Configuration Files
       run: |
         cp config.js.example config.js
@@ -204,15 +204,16 @@ jobs:
     #     cp .env_file.test .env_file
     #     cp ../test/google_credentials.json google_credentials.json
     #     cd -
-    # - name: Setup Presto
-    #   run: |
-    #     export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
-    #     echo "Using branch $PRESTO_BRANCH for Presto"
-    #     git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
-    #     cd presto
-    #     cp .env_file.test .env_file
-    #     cp ../test/google_credentials.json google_credentials.json
-        # cd -
+    - name: Setup Presto
+      run: |
+        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
+        echo "Using branch $PRESTO_BRANCH for Presto"
+        git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
+        cd presto
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
+          
     - name: Setup Configuration Files
       run: |
         cp config.js.example config.js
