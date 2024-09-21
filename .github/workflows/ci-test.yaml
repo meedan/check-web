@@ -15,7 +15,6 @@ env:
   AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}  
   AWS_REGION: eu-west-1
 
-
 jobs:
   integration-and-unit-tests:
     runs-on: ubuntu-latest
@@ -125,6 +124,8 @@ jobs:
         docker compose exec web npm run test:integration:lint
 
     - name: Run Integration test
+      env:
+        IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
       run: | 
         docker ps
         docker compose exec web bash service nginx start
@@ -221,6 +222,7 @@ jobs:
         cp .env_file.test .env_file
         cp ../test/google_credentials.json google_credentials.json
         cd -
+    
     - name: Setup Presto
       run: |
         export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'master')
@@ -238,6 +240,7 @@ jobs:
         cp config-build.js.example config-build.js
         cp config-server.js.example config-server.js
         cp test/config.yml.example test/config.yml
+
     - name: Before Script
       env: 
         MAX_WEB_CURL: 3000
