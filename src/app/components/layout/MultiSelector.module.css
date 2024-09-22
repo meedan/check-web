@@ -20,6 +20,16 @@
     }
   }
 
+  .multiselector-scroller-loader {
+    background-color: var(--overlayWhite);
+    height: 100%;
+    left: 0;
+    max-height: 320px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+  }
+
   .multiselector-scroller {
     background-color: var(--color-gray-96);
     height: 320px;

@@ -192,5 +192,10 @@
     "id": "annotation.remove_explaineritem",
     "description": "Log entry indicating Explainer has been removed",
     "defaultMessage": "Explainer removed by {author}: {value}"
+  },
+  {
+    "id": "annotation.replaceProjectMedia",
+    "description": "Log entry indicating media cluster added to imported fact-check",
+    "defaultMessage": "Media cluster added to imported fact-check and inherited rating by {author}"
   }
 ]
