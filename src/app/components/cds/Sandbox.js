@@ -8,6 +8,7 @@ import Chip from './buttons-checkboxes-chips/Chip';
 import ListWidget from './charts/ListWidget';
 import NumberWidget from './charts/NumberWidget';
 import VerticalBarChartWidget from './charts/VerticalBarChartWidget';
+import TimelineWidget from './charts/TimelineWidget';
 import TagList from './menus-lists-dialogs/TagList';
 import TextField from './inputs/TextField';
 import ListSort from './inputs/ListSort';
@@ -1927,6 +1928,45 @@ const SandboxComponent = ({ admin }) => {
       { (!selectedCategory || selectedCategory === 'charts') &&
         <section>
           <h6>Charts</h6>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                TimelineWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/82Go6q0krKApn1L8EQ2joj/Dashboard?node-id=186-5696&node-type=symbol"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <TimelineWidget
+                data={[
+                  { value: 20, label: 'Jun 3' },
+                  { value: 40, label: 'Jun 5' },
+                  { value: 30, label: 'Jun 7' },
+                  { value: 35, label: 'Jun 9' },
+                  { value: 50, label: 'Jun 11' },
+                  { value: 16, label: 'Jun 13' },
+                  { value: 64, label: 'Jun 15' },
+                  { value: 20, label: 'Jun 17' },
+                  { value: 37, label: 'Jun 19' },
+                  { value: 29, label: 'Jun 21' },
+                  { value: 18, label: 'Jun 23' },
+                  { value: 27, label: 'Jun 25' },
+                  { value: 35, label: 'Jun 27' },
+                  { value: 10, label: 'Jun 29' },
+                ]}
+                title="Title Goes Here"
+                tooltipFormatter={value => [`• ${value} conversations`]}
+                width="100%"
+              />
+            </div>
+          </div>
           <div className={styles.componentWrapper}>
             <div className={styles.componentControls}>
               <div className={cx('typography-subtitle2', [styles.componentName])}>
