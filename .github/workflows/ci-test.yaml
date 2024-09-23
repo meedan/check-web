@@ -142,11 +142,10 @@ jobs:
           -e TEST_RETRY_COUNT=3 \
           web npm run tests
     
-    # - name: After integration tests
-    #   run: |
-    #    docker compose exec web bash -c "python -m json.tool test/file.json"
-    #     size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
-    #     kill -9 $(pgrep ngrok)
+    - name: After integration tests
+      run: |
+       docker compose exec web bash -c "python -m json.tool test/file.json"
+        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 
   unit-tests:
     runs-on: ubuntu-latest
