@@ -162,7 +162,7 @@ jobs:
       contains(github.event.pull_request.title, '[full ci]') &&
       contains(github.event.pull_request.title, '[smoke tests]') &&
       contains(github.event.pull_request.title, '[similarity tests]')
-      
+
     steps:
     - uses: actions/checkout@v4
 
