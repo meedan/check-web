@@ -117,14 +117,14 @@ shared_examples 'app' do |webdriver_url|
       @driver.navigate.to @config['self_url']
       wait_for_selector('.login__form')
       wait_for_selector('.login__icon')
-      expect(@driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
+      expect(@driver.find_element(:css, '.login__heading span').text == 'CV2-5260 - Connexion').to be(true)
 
       @driver.quit
       @driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'pt' })
       @driver.navigate.to @config['self_url']
       wait_for_selector('.login__form')
       wait_for_selector('.login__icon')
-      expect(@driver.find_element(:css, '.login__heading span').text == 'Iniciar sessão').to be(true)
+      expect(@driver.find_element(:css, '.login__heading span').text == 'CV2-5260 - Iniciar sessão').to be(true)
     end
 
     it 'should access user confirmed page', bin1: true do
