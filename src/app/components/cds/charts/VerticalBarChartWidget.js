@@ -1,4 +1,5 @@
 import React from 'react';
+import { injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import {
   BarChart,
@@ -12,9 +13,12 @@ import styles from './VerticalBarChartWidget.module.css';
 const VerticalBarChartWidget = ({
   data,
   height,
+  intl,
   title,
   width,
 }) => {
+  if (!data) return null;
+
   const colors = [
     'var(--color-blue-54)',
     'var(--color-orange-54)',
@@ -33,7 +37,9 @@ const VerticalBarChartWidget = ({
   const spacingHeight = 48;
 
   const dataHeight = data.length * 36;
-  const dataSum = data.reduce((acc, d) => acc + d.value, 0);
+
+  let dataSum = data.reduce((acc, d) => acc + d.value, 0);
+  dataSum = intl ? intl.formatNumber(dataSum) : dataSum;
 
   const CustomTick = ({ payload, x, y }) => (
     <g transform={`translate(${x},${y})`}>
@@ -88,6 +94,7 @@ const VerticalBarChartWidget = ({
 };
 
 VerticalBarChartWidget.defaultProps = {
+  data: [],
   height: null,
   width: '100%',
 };
@@ -96,9 +103,12 @@ VerticalBarChartWidget.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     value: PropTypes.number,
-  })).isRequired,
+  })),
   height: PropTypes.number,
+  title: PropTypes.string.isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
-export default VerticalBarChartWidget;
+export { VerticalBarChartWidget }; // eslintint-disable-line import/no-unused-modules
+
+export default injectIntl(VerticalBarChartWidget);
