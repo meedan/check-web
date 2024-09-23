@@ -27,7 +27,6 @@ jobs:
       (!contains(github.event.pull_request.title, '[full ci]') || 
       !contains(github.event.pull_request.title, '[smoke tests]')))
 
- 
     steps:
     - uses: actions/checkout@v4
 
