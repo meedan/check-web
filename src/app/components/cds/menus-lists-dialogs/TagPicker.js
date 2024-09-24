@@ -14,6 +14,7 @@ const TagPicker = ({
   customCreateLabel,
   hasMore,
   loadMore,
+  loading,
   options: teamTags,
   readOnly,
   saving,
@@ -98,6 +99,7 @@ const TagPicker = ({
               }
               hasMore={hasMore}
               inputPlaceholder={placeholder}
+              loadingIcon={loading && <MediasLoading size="small" theme="grey" variant="inline" />}
               notFoundLabel={
                 <FormattedMessage
                   defaultMessage="No tags found"

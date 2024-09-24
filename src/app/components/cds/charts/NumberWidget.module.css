@@ -1,0 +1,30 @@
+.numberWidgetWrapper {
+  align-items: flex-start;
+  border-radius: var(--border-radius-large);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 180px;
+  padding: 16px;
+  width: 100%;
+
+  .numberWidgetTitle {
+    @mixin typography-subtitle2;
+    color: var(--color-gray-15);
+  }
+
+  .numberWidgetItemCount {
+    @mixin typography-h6;
+    color: var(--color-gray-15);
+  }
+
+  .numberWidgetUnit {
+    @mixin typography-subtitle2;
+    color: var(--color-gray-15);
+  }
+
+  .numberWidgetContextText {
+    @mixin typography-subtitle2;
+    color: var(--color-gray-42);
+  }
+}

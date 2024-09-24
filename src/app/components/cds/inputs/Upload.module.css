@@ -43,6 +43,11 @@ a.link-text {
   .file-name-added {
     align-items: center;
     display: flex;
+    gap: 8px;
+  }
+
+  .file-name-output {
+    word-break: break-all;
   }
 }
 
@@ -76,10 +81,4 @@ a.link-text {
   font-size: var(--iconSizeSmall);
   padding: 5px;
   pointer-events: none; /* suppress drag and drop events, default to parent */
-}
-
-.delete-button {
-  color: var(--color-blue-38) !important;
-  font-size: var(--iconSizeSmall) !important;
-  padding: 0 !important;
 }
