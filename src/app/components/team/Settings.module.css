@@ -348,6 +348,20 @@
   }
 }
 
+.tipline-settings-toggle {
+  background-color: var(--color-beige-93);
+  border-radius: var(--border-radius-medium);
+  display: flex;
+  justify-content: center;
+  margin: 0 0 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.tipline-settings-menu-count-alert {
+  margin: 0 0 16px;
+}
+
 .similarity-component-input {
   display: inline-block;
   max-width: 100px;
@@ -369,17 +383,33 @@
     margin: 0;
   }
 
-  .tipline-menu-option {
-    align-items: center;
+  .tipline-menu-options {
     display: flex;
-    justify-content: space-between;
-    margin: 8px 0;
+    flex-direction: column;
+    gap: 16px;
 
-    .tipline-menu-option-content,
-    .tipline-menu-option-actions {
+    .tipline-settings-menu-title {
+      width: 100%;
+    }
+
+    .tipline-menu-option {
       align-items: center;
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
+
+      .tipline-menu-option-content,
+      .tipline-menu-option-actions {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+      }
     }
   }
+}
+
+.install-bot-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 240px 0;
 }

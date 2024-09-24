@@ -73,13 +73,17 @@ const SmoochBotMainMenu = ({
   return (
     <React.Fragment>
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
-        <FormattedMessage
-          defaultMessage="Please note that some messaging services have different menu display options than others."
-          description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
-          id="smoochBotMainMenu.subtitle2"
-          tagName="p"
-        />
-        : null
+        <Alert
+          contained
+          content={
+            <FormattedMessage
+              defaultMessage="Please note that some messaging services have different menu display options than others."
+              description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
+              id="smoochBotMainMenu.subtitle2"
+            />
+          }
+          variant="info"
+        /> : null
       }
       <div className={settingsStyles['setting-content-container-title']}>
         <FormattedMessage
@@ -94,6 +98,8 @@ const SmoochBotMainMenu = ({
       </div>
       { collapseLanguages ?
         <Alert
+          className={settingsStyles['tipline-settings-menu-count-alert']}
+          contained
           content={
             <FormattedMessage
               defaultMessage="There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option."
