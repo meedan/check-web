@@ -1945,22 +1945,24 @@ const SandboxComponent = ({ admin }) => {
             </div>
             <div className={styles.componentInlineVariants}>
               <TimelineWidget
+                areaColor="red"
                 data={[
-                  { value: 20, label: 'Jun 3' },
-                  { value: 40, label: 'Jun 5' },
-                  { value: 30, label: 'Jun 7' },
-                  { value: 35, label: 'Jun 9' },
-                  { value: 50, label: 'Jun 11' },
-                  { value: 16, label: 'Jun 13' },
-                  { value: 64, label: 'Jun 15' },
-                  { value: 20, label: 'Jun 17' },
-                  { value: 37, label: 'Jun 19' },
-                  { value: 29, label: 'Jun 21' },
-                  { value: 18, label: 'Jun 23' },
-                  { value: 27, label: 'Jun 25' },
-                  { value: 35, label: 'Jun 27' },
-                  { value: 10, label: 'Jun 29' },
+                  { value: 20, date: '2024-06-03' },
+                  { value: 40, date: '2024-06-05' },
+                  { value: 30, date: '2024-06-07' },
+                  { value: 35, date: '2024-06-09' },
+                  { value: 50, date: '2024-06-11' },
+                  { value: 16, date: '2024-06-13' },
+                  { value: 64, date: '2024-06-15' },
+                  { value: 20, date: '2024-06-17' },
+                  { value: 37, date: '2024-06-19' },
+                  { value: 29, date: '2024-06-21' },
+                  { value: 18, date: '2024-06-23' },
+                  { value: 27, date: '2024-06-25' },
+                  { value: 35, date: '2024-06-27' },
+                  { value: 10, date: '2024-06-29' },
                 ]}
+                lineColor="purple"
                 title="Title Goes Here"
                 tooltipFormatter={value => [`• ${value} conversations`]}
                 width="100%"
