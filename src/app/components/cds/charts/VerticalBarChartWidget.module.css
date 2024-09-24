@@ -1,0 +1,15 @@
+.verticalBarChartWidgetWrapper {
+  background-color: var(--color-white-100);
+  border-radius: var(--border-radius-large);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 250px;
+  padding: 16px;
+  width: 100%;
+
+  .verticalBarChartWidgetTitle {
+    @mixin typography-subtitle2;
+    color: var(--color-gray-15);
+  }
+}
