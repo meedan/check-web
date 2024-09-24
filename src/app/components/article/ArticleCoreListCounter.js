@@ -9,9 +9,9 @@ const ArticlesListCounter = ({ defaultFilters, teamSlug, type }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query ArticleCoreListCounterQuery($slug: String!, $type: String!, $imported: Boolean, $report_status: [String]) {
+      query ArticleCoreListCounterQuery($slug: String!, $type: String!, $imported: Boolean, $report_status: [String], $trashed: Boolean) {
         team(slug: $slug) {
-          articles_count(article_type: $type, imported: $imported, report_status: $report_status)
+          articles_count(article_type: $type, imported: $imported, report_status: $report_status, trashed: $trashed)
           factChecksCount: articles_count(article_type: "fact-check")
           explainersCount: articles_count(article_type: "explainer")
         }
@@ -26,6 +26,8 @@ const ArticlesListCounter = ({ defaultFilters, teamSlug, type }) => (
             count = props.team.factChecksCount;
           } else if (type === 'explainer') {
             count = props.team.explainersCount;
+          } else {
+            count = props.team.articles_count;
           }
         }
         return (<ProjectsListCounter key={count} numberOfItems={count} />);
@@ -42,11 +44,12 @@ const ArticlesListCounter = ({ defaultFilters, teamSlug, type }) => (
 
 ArticlesListCounter.defaultProps = {
   defaultFilters: {},
+  type: null,
 };
 
 ArticlesListCounter.propTypes = {
   teamSlug: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
+  type: PropTypes.oneOf(['explainer', 'fact-check']),
   defaultFilters: PropTypes.object,
 };
 

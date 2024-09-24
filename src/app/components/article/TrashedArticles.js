@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Articles from './Articles';
-import PublishedIcon from '../../icons/playlist_add_check.svg';
+import TrashIcon from '../../icons/delete.svg';
 
 const messages = defineMessages({
   sortTitle: {
@@ -33,10 +33,12 @@ const TrashedArticles = ({ intl, routeParams }) => {
     <Articles
       defaultFilters={{ trashed: true }}
       filterOptions={['users', 'tags', 'range']}
-      icon={<PublishedIcon />}
+      icon={<TrashIcon />}
       sortOptions={sortOptions}
       teamSlug={routeParams.team}
       title={<FormattedMessage defaultMessage="Trash" description="Title of the trashed articles page." id="trashedArticles.title" />}
+      type="fact-check"
+      updateMutation={() => {}}
     />
   );
 };

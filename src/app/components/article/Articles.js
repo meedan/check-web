@@ -382,7 +382,7 @@ const Articles = ({
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
             $users: [Int], $updated_at: String, $tags: [String], $language: [String], $published_by: [Int],
-            $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String,
+            $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean,
           ) {
             team(slug: $slug) {
               name
@@ -391,11 +391,11 @@ const Articles = ({
               verification_statuses
               articles_count(
                 article_type: $type, user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, text: $text,
-                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported
+                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported, trashed: $trashed,
               )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
-                user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by,
+                user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by, trashed: $trashed,
                 report_status: $report_status, rating: $verification_status, imported: $imported, text: $text,
               ) {
                 edges {
