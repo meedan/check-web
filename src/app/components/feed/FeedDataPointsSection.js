@@ -3,8 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import ChevronUpIcon from '../../icons/chevron_up.svg';
 import ChevronDownIcon from '../../icons/chevron_down.svg';
+import ChevronRightIcon from '../../icons/chevron_right.svg';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import styles from './SaveFeed.module.css';
 
@@ -21,7 +21,7 @@ const FeedDataPointsSection = ({
     <div className={styles.dataPointsSection}>
       <div className={styles.dataPointsSectionHeader}>
         <ButtonMain
-          iconCenter={expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
+          iconCenter={expanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
           size="small"
           theme="lightText"
           variant="contained"
