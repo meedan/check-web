@@ -85,19 +85,18 @@ const NewsletterHeader = ({
     </Select>
 
     { (headerType === 'image' || headerType === 'video' || headerType === 'audio') ?
-      <div className={styles.uploader}>
-        <Upload
-          disabled={disabled}
-          error={parentErrors.header_file || parentErrors.base}
-          fileName={fileName}
-          handleFileChange={handleFileChange}
-          helpContent={parentErrors.header_file || parentErrors.base}
-          setFile={setFile}
-          setFileName={setFileName}
-          type="image+video+audio"
-          value={file}
-        />
-      </div> : null
+      <Upload
+        className={styles.uploader}
+        disabled={disabled}
+        error={parentErrors.header_file || parentErrors.base}
+        fileName={fileName}
+        handleFileChange={handleFileChange}
+        helpContent={parentErrors.header_file || parentErrors.base}
+        setFile={setFile}
+        setFileName={setFileName}
+        type="image+video+audio"
+        value={file}
+      /> : null
     }
     { headerType === 'image' ?
       <FormattedMessage
