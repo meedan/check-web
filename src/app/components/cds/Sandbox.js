@@ -7,6 +7,7 @@ import Alert from './alerts-and-prompts/Alert';
 import Chip from './buttons-checkboxes-chips/Chip';
 import ListWidget from './charts/ListWidget';
 import NumberWidget from './charts/NumberWidget';
+import StackedBarChartWidget from './charts/StackedBarChartWidget';
 import VerticalBarChartWidget from './charts/VerticalBarChartWidget';
 import TimelineWidget from './charts/TimelineWidget';
 import TagList from './menus-lists-dialogs/TagList';
@@ -329,6 +330,7 @@ const SandboxComponent = ({ admin }) => {
   };
 
   const [sampleDataSet, setSampleDataSet] = React.useState('design');
+  const [stackedBarChartEmptySection, setStackedBarChartEmptySection] = React.useState(true);
 
   const verticalBarChartData = {
     design: [
@@ -347,6 +349,19 @@ const SandboxComponent = ({ admin }) => {
       { name: 'Verified', value: 3021, color: '#5cae73' },
     ],
   };
+
+  const stackedBarChartData = stackedBarChartEmptySection ? [
+    { name: 'Audio', value: 500 },
+    { name: 'Video', value: 400 },
+    { name: 'Text', value: 300 },
+    { name: 'Image', value: 200 },
+    { name: 'empty', value: 600 },
+  ] : [
+    { name: 'Audio', value: 500 },
+    { name: 'Video', value: 400 },
+    { name: 'Text', value: 300 },
+    { name: 'Image', value: 200 },
+  ];
 
   const generateUncaughtError = () => {
     // eslint-disable-next-line
@@ -1928,6 +1943,38 @@ const SandboxComponent = ({ admin }) => {
       { (!selectedCategory || selectedCategory === 'charts') &&
         <section>
           <h6>Charts</h6>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                StackedBarChartWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/82Go6q0krKApn1L8EQ2joj/Dashboard?node-id=186-5696&node-type=symbol"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+                <ul>
+                  <li>
+                    <SwitchComponent
+                      checked={stackedBarChartEmptySection}
+                      label="Empty section"
+                      labelPlacement="top"
+                      onChange={() => setStackedBarChartEmptySection(!stackedBarChartEmptySection)}
+                    />
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <StackedBarChartWidget
+                data={stackedBarChartData}
+                title="Stacked Bar Chart"
+              />
+            </div>
+          </div>
           <div className={styles.componentWrapper}>
             <div className={styles.componentControls}>
               <div className={cx('typography-subtitle2', [styles.componentName])}>
