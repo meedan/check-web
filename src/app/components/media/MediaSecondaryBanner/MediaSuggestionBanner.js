@@ -103,7 +103,7 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
 
   return (
     <>
-      { projectMedia.is_suggested && (
+      { projectMedia.is_suggested && projectMedia.suggested_main_item && (
         <Alert
           content={
             <div className={styles.mediaSuggestionsBanner}>
