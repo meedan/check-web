@@ -1,12 +1,12 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
 import TextField from '../../cds/inputs/TextField';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import CancelIcon from '../../../icons/cancel.svg';
 import EditIcon from '../../../icons/edit.svg';
-import LockIcon from '../../../icons/lock.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import Reorder from '../../layout/Reorder';
@@ -134,7 +134,7 @@ const SmoochBotMainMenuSection = ({
   };
 
   return (
-    <div className={styles['setting-content-container-inner']}>
+    <div className={cx(styles['setting-content-container-inner'], styles['tipline-menu-options'])}>
       <div className={styles['setting-content-container-title']}>
         {/* Title */}
         { readOnly ? value.smooch_menu_title : null }
@@ -146,6 +146,7 @@ const SmoochBotMainMenuSection = ({
           /> : null}
         { !readOnly && !noTitleNoDescription ?
           <TextField
+            className={styles['tipline-settings-menu-title']}
             componentProps={{
               size: 24,
               minLength: 1,
@@ -157,7 +158,7 @@ const SmoochBotMainMenuSection = ({
             key={`title-${number}`}
             label={
               <FormattedMessage
-                defaultMessage="Title - 24 characters limit"
+                defaultMessage="Menu Title - 24 characters limit"
                 description="Label for a main menu section title field on tipline bot settings."
                 id="smoochBotMainMenuSection.sectionTitle"
               />
@@ -166,35 +167,15 @@ const SmoochBotMainMenuSection = ({
             variant="contained"
             onBlur={(e) => { onChangeTitle(e.target.value); }}
           /> : null }
-        {/* Add a new menu option */}
-        <div className={styles['setting-content-container-actions']}>
-          <ButtonMain
-            disabled={readOnly}
-            iconLeft={<AddIcon />}
-            label={
-              <FormattedMessage
-                defaultMessage="New option"
-                description="Button label to create a new main menu option on tipline bot settings."
-                id="smoochBotMainMenuSection.newOption"
-              />
-            }
-            size="default"
-            theme="info"
-            variant="text"
-            onClick={handleAddNewOption}
-          />
-        </div>
       </div>
-
-      <hr />
 
       {/* No options */}
       { options.length === 0 ?
         <FormattedMessage
-          defaultMessage="There is currently no option in this section."
+          defaultMessage="There are currently no menu options in this section."
           description="Message displayed when there is no menu option on tipline bot settings."
           id="smoochBotMainMenuSection.noOptions"
-          tagName="p"
+          tagName="em"
         /> : null }
 
       {/* Each menu option */}
@@ -203,7 +184,7 @@ const SmoochBotMainMenuSection = ({
 
           {/* Menu option label and reordering */}
           <div className={styles['tipline-menu-option-content']}>
-            { !readOnly &&
+            { !readOnly && options.length > 1 &&
               <Reorder
                 disableDown={i === options.length - 1}
                 disableUp={i === 0}
@@ -220,13 +201,12 @@ const SmoochBotMainMenuSection = ({
               {/* Menu option description */}
               { !readOnly && !option.smooch_menu_option_description &&
                 <div className="typography-caption">
-                  <em>
-                    <FormattedMessage
-                      defaultMessage="no description"
-                      description="Displayed when a tipline bot menu option doesn't have a description."
-                      id="smoochBotMainMenuSection.optionNoDescription"
-                    />
-                  </em>
+                  <FormattedMessage
+                    defaultMessage="no description"
+                    description="Displayed when a tipline bot menu option doesn't have a description."
+                    id="smoochBotMainMenuSection.optionNoDescription"
+                    tagName="em"
+                  />
                 </div>
               }
               { !readOnly && option.smooch_menu_option_description &&
@@ -239,39 +219,86 @@ const SmoochBotMainMenuSection = ({
 
           {/* Menu option buttons: edit and delete */}
           <div className={styles['tipline-menu-option-actions']}>
-            { readOnly ?
-              null :
-              <ButtonMain
-                disabled={readOnly}
-                iconCenter={<EditIcon />}
-                size="default"
-                theme="lightInfo"
-                variant="contained"
-                onClick={() => { handleEditOption(i); }}
-              />
-            }
-            { readOnly || (!optional && options.length === 1) ?
-              null :
-              <ButtonMain
-                iconCenter={<CancelIcon />}
-                size="default"
-                theme="lightInfo"
-                variant="contained"
-                onClick={() => { handleDeleteOption(i); }}
-              />
-            }
-            { readOnly || (!optional && options.length === 1) ?
-              <ButtonMain
-                disabled
-                iconCenter={<LockIcon />}
-                size="default"
-                theme="lightText"
-                variant="text"
-              />
-              : null }
+            <Tooltip
+              arrow
+              title={
+                readOnly ?
+                  <FormattedMessage
+                    defaultMessage="This menu option cannot be edited"
+                    description="Tooltip for the edit menu read only option"
+                    id="smoochBotMainMenuSection.editMenuOptionReadOnly"
+                  />
+                  :
+                  <FormattedMessage
+                    defaultMessage="Edit Menu Option"
+                    description="Tooltip for the edit menu option"
+                    id="smoochBotMainMenuSection.editMenuOption"
+                  />
+              }
+            >
+              <span>
+                <ButtonMain
+                  disabled={readOnly}
+                  iconCenter={<EditIcon />}
+                  size="default"
+                  theme="lightInfo"
+                  variant="contained"
+                  onClick={() => { handleEditOption(i); }}
+                />
+              </span>
+            </Tooltip>
+            <Tooltip
+              arrow
+              title={
+                readOnly || (!optional && options.length === 1) ?
+                  <FormattedMessage
+                    defaultMessage="This menu option cannot be removed"
+                    description="Tooltip for the remove menu read only option"
+                    id="smoochBotMainMenuSection.removeMenuOptionReadOnly"
+                  />
+                  :
+                  <FormattedMessage
+                    defaultMessage="Remove Menu Option"
+                    description="Tooltip for the remove menu option"
+                    id="smoochBotMainMenuSection.removeMenuOption"
+                  />
+              }
+            >
+              <span>
+                <ButtonMain
+                  disabled={readOnly || (!optional && options.length === 1)}
+                  iconCenter={<CancelIcon />}
+                  size="default"
+                  theme="lightInfo"
+                  variant="contained"
+                  onClick={() => { handleDeleteOption(i); }}
+                />
+              </span>
+            </Tooltip>
           </div>
         </div>
       ))}
+
+      {/* Add a new menu option */}
+      { !readOnly &&
+        <div className={styles['setting-content-container-actions']}>
+          <ButtonMain
+            disabled={readOnly}
+            iconLeft={<AddIcon />}
+            label={
+              <FormattedMessage
+                defaultMessage="New Menu Option"
+                description="Button label to create a new main menu option on tipline bot settings."
+                id="smoochBotMainMenuSection.newOption"
+              />
+            }
+            size="default"
+            theme="info"
+            variant="contained"
+            onClick={handleAddNewOption}
+          />
+        </div>
+      }
 
       {/* Dialog: Add new option */}
       { showNewOptionDialog ?
@@ -303,15 +330,12 @@ const SmoochBotMainMenuSection = ({
       {/* Dialog: Can't add more menu options */}
       <ConfirmProceedDialog
         body={
-          <div>
-            <p className="typography-body1">
-              <FormattedMessage
-                defaultMessage="The maximum number of options in the main menu is 10."
-                description="Text of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
-                id="smoochBotMainMenuSection.maxOptionsReachedDescription"
-              />
-            </p>
-          </div>
+          <FormattedMessage
+            defaultMessage="The maximum number of options in the main menu is 10."
+            description="Text of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
+            id="smoochBotMainMenuSection.maxOptionsReachedDescription"
+            tagName="p"
+          />
         }
         open={showErrorDialog}
         proceedLabel={
@@ -346,18 +370,18 @@ SmoochBotMainMenuSection.defaultProps = {
 };
 
 SmoochBotMainMenuSection.propTypes = {
-  number: PropTypes.number.isRequired,
-  value: PropTypes.object,
-  resources: PropTypes.arrayOf(PropTypes.object),
-  readOnly: PropTypes.bool,
-  optional: PropTypes.bool,
-  noTitleNoDescription: PropTypes.bool,
   canCreate: PropTypes.bool,
-  currentUser: PropTypes.shape({ is_admin: PropTypes.bool.isRequired }).isRequired,
   currentLanguage: PropTypes.string.isRequired,
+  currentUser: PropTypes.shape({ is_admin: PropTypes.bool.isRequired }).isRequired,
   hasUnsavedChanges: PropTypes.bool,
-  onChangeTitle: PropTypes.func.isRequired,
+  noTitleNoDescription: PropTypes.bool,
+  number: PropTypes.number.isRequired,
+  optional: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  resources: PropTypes.arrayOf(PropTypes.object),
+  value: PropTypes.object,
   onChangeMenuOptions: PropTypes.func.isRequired,
+  onChangeTitle: PropTypes.func.isRequired,
 };
 
 export default SmoochBotMainMenuSection;
