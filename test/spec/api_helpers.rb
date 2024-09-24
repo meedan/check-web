@@ -18,7 +18,6 @@ module ApiHelpers
     rescue Net::ReadTimeout
       if attempts < 5
         print "Timeout when calling #{path} with params '#{params.inspect}', retrying in 3 seconds..."
-        sleep 3
         ret = request_api(path, params, attempts + 1)
       end
     rescue StandardError
