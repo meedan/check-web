@@ -1,8 +1,8 @@
-/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=531-31202&mode=design&t=G3fBIdgR6AWtOlNu-4
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
@@ -11,6 +11,7 @@ import CancelIcon from '../../../icons/cancel.svg';
 import styles from './Upload.module.css';
 
 function Upload({
+  className,
   error,
   fileName,
   handleFileChange,
@@ -83,7 +84,7 @@ function Upload({
   const RenderDropZone = () => {
     if (dropping) {
       return (
-        <div className={`typography-button ${styles['drop-text']} ${styles.red}`}>
+        <div className={cx('typography-button', styles['drop-text'], styles.red)}>
           <FormattedMessage defaultMessage="Drop file here" description="A label that appears when a user drags a file over a valid file drop area" id="upload.dropFile" />
         </div>
       );
@@ -91,13 +92,13 @@ function Upload({
     return (
       <div>
         <form>
-          <input className={`upload-input ${styles.input}`} type="file" onChange={handleFileChange} />
+          <input className={cx('upload-input', styles.input)} type="file" onChange={handleFileChange} />
         </form>
         <span className={`typography-button ${styles['drag-text']}`}>
           <FormattedMessage defaultMessage="Drag a file here or" description="A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'." id="upload.dragMessage" />
         </span>
         &nbsp;
-        <a className={`typography-button ${styles['link-text']}`} href="#!" onClick={handleClick}>
+        <a className={cx('typography-button', styles['link-text'])} href="#!" onClick={handleClick}>
           <FormattedMessage defaultMessage="select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." id="upload.selectFile" />
         </a>.
       </div>
@@ -105,8 +106,17 @@ function Upload({
   };
 
   const RenderFile = () => (
-    <div className={`typography-button ${styles['file-name']} ${styles['file-name-grid']}`}>
-      <div className={styles['file-name-added']}><CheckCircleIcon className={styles['icon-label']} />&nbsp;{fileName}</div>
+    <div
+      className={cx(
+        'typography-button',
+        styles['file-name'],
+        styles['file-name-grid'],
+      )}
+    >
+      <div className={styles['file-name-added']}>
+        <CheckCircleIcon className={styles['icon-label']} />
+        <span className={styles['file-name-output']}>{fileName}</span>
+      </div>
       <Tooltip
         arrow
         placement="right"
@@ -120,7 +130,6 @@ function Upload({
       >
         <span>
           <ButtonMain
-            className={styles['delete-button']}
             iconCenter={<CancelIcon />}
             size="large"
             theme="info"
@@ -133,7 +142,7 @@ function Upload({
   );
 
   const RenderError = () => (
-    <div className={`${styles.error}`}>
+    <div className={styles.error}>
       <div><ErrorOutlineIcon className={styles['error-icon']} />&nbsp;<span>{fileName}</span></div>
       <div className="typography-caption">{ errorInternal || helpContent }</div>
     </div>
@@ -141,7 +150,15 @@ function Upload({
 
   return (
     <div
-      className={`${styles.container} ${(dropping && !fileName) && styles.dropping} ${fileName && styles['file-name-container']} ${errorInternal && styles['container-error']}`}
+      className={cx(
+        [styles.container],
+        {
+          [className]: true,
+          [styles.dropping]: dropping && !fileName,
+          [styles['file-name-container']]: fileName,
+          [styles['container-error']]: errorInternal,
+        })
+      }
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
@@ -154,12 +171,14 @@ function Upload({
 }
 
 Upload.defaultProps = {
+  className: null,
   fileName: '',
 };
 
 Upload.propTypes = {
-  handleFileChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
   fileName: PropTypes.string,
+  handleFileChange: PropTypes.func.isRequired,
 };
 
 export default Upload;
