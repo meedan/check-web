@@ -66,7 +66,11 @@ const TiplineContentTranslation = ({
 
   return (
     <div className={cx(styles['content-translation-wrapper'], expanded ? styles['content-translation-wrapper-expanded'] : styles['content-translation-wrapper-collapsed'])}>
-      <div className={styles['content-translation-title']}>
+      <div
+        className={styles['content-translation-title']}
+        onClick={() => { setExpanded(!expanded); }}
+        onKeyDown={() => { setExpanded(!expanded); }}
+      >
         <Tooltip
           arrow
           title={intl.formatMessage(messages.expandCollapse)}

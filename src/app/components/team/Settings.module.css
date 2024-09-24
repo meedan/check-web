@@ -97,6 +97,7 @@
 
         .content-translation-title {
           align-items: center;
+          cursor: pointer;
           display: flex;
           gap: 8px;
           justify-content: flex-start;
