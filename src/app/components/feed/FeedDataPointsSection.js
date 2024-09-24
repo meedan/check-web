@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -51,10 +50,10 @@ FeedDataPointsSection.defaultProps = {
 };
 
 FeedDataPointsSection.propTypes = {
-  readOnly: PropTypes.bool,
-  enabled: PropTypes.bool,
-  title: PropTypes.node.isRequired, // <FormattedMessage />, <FormattedHTMLMessage />, <Element>String</Element>, etc.
   content: PropTypes.node.isRequired,
+  enabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  title: PropTypes.node.isRequired, // <FormattedMessage />, <FormattedHTMLMessage />, <Element>String</Element>, etc.
   onToggle: PropTypes.func,
 };
 
