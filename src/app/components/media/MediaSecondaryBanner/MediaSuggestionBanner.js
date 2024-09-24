@@ -43,7 +43,6 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
       />,
       'success');
     setSaving(false);
-    window.location.reload();
   };
 
   const onError = () => {
@@ -73,6 +72,8 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
           onError(error);
         } else {
           onSuccess();
+          // FIXME: use browserHistory.push instead of window.location.assign (once Relay issues are fixed)
+          window.location.assign(`/${projectMedia.suggested_main_item.team.slug}/media/${projectMedia.suggested_main_item.dbid}`);
         }
       },
       onError,
@@ -93,6 +94,7 @@ const MediaSuggestionBanner = ({ projectMedia }) => {
           onError(error);
         } else {
           onSuccess();
+          window.location.reload();
         }
       },
       onError,
@@ -157,6 +159,10 @@ export default createFragmentContainer(MediaSuggestionBanner, graphql`
       id
     }
     suggested_main_item {
+      dbid
+      team {
+        slug
+      }
       ...MediaMainItemPreview_projectMedia
     }
   }
