@@ -65,7 +65,7 @@ shared_examples 'similarity' do
   #
   it 'should identify texts as similar', bin7: true do
     puts 'Running text similarity test...'
-    data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
+    api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     verbose_wait 5
     # pm1 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
     # verbose_wait 10
