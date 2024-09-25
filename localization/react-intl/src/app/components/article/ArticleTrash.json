@@ -1,0 +1,62 @@
+[
+  {
+    "id": "articleTrash.deletionWarning",
+    "description": "Warning message indicating the article will be deleted permanently after 30 days",
+    "defaultMessage": "It can be removed from the Trash later, but it will be deleted permanently after 30 days."
+  },
+  {
+    "id": "articleTrash.associationWarning",
+    "description": "Warning message confirming the article will no longer be able to be associated with media items",
+    "defaultMessage": "Are you sure? If you send this article to the trash it will no longer be available to be associated with media responses."
+  },
+  {
+    "id": "articleTrash.deletionWarningExplainer",
+    "description": "Warning message indicating the explainer article will be deleted permanently after 30 days",
+    "defaultMessage": "It can be linked again if the article is removed from the Trash. After 30 days, this article will be permanently deleted."
+  },
+  {
+    "id": "articleTrash.restoreButton",
+    "description": "Button label for restoring an article",
+    "defaultMessage": "Restore from Trash"
+  },
+  {
+    "id": "articleTrash.trashButton",
+    "description": "Button label for trashing an article",
+    "defaultMessage": "Move to Trash"
+  },
+  {
+    "id": "articleForm.explainerTrashTitle",
+    "description": "Title for the trash dialog for explainer articles",
+    "defaultMessage": "Send Explainer to Trash?"
+  },
+  {
+    "id": "articleForm.factCheckTrashTitle",
+    "description": "Title for the trash dialog for fact-check articles",
+    "defaultMessage": "Send Claim & Fact-Check to Trash?"
+  },
+  {
+    "id": "articleTrash.associatedMediaWarning",
+    "description": "Title for the warning alert when deleting a fact-check not associated with a media item",
+    "defaultMessage": "Sending this article to the trash will unlink from the following media:"
+  },
+  {
+    "id": "articleTrash.explainerBody",
+    "description": "Body message for deleting an explainer article",
+    "defaultMessage": "If this article is currently associated with media, the link between the media and article will be removed."
+  },
+  {
+    "id": "articleTrash.successTrashed",
+    "description": "Success message displayed when an article is moved to trash",
+    "defaultMessage": "Moved article to trash"
+  },
+  {
+    "id": "articleTrash.successRestored",
+    "description": "Success message displayed when an article is moved from the trash",
+    "defaultMessage": "Article moved from trash"
+  },
+  {
+    "id": "articleTrash.proceedLabel",
+    "description": "Label for the proceed button in the trash dialog",
+    "defaultMessage": "Move to Trash"
+  }
+]
