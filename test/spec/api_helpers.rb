@@ -7,7 +7,7 @@ module ApiHelpers
     "#{@config['api_path']}/test/"
   end
 
-  def request_api(path, params, attempts = 0)
+  def request_api(path, params)
     require 'net/http'
     uri = URI(api_path + path)
     uri.query = URI.encode_www_form(params)
@@ -16,12 +16,9 @@ module ApiHelpers
     begin
       ret = OpenStruct.new JSON.parse(response.body)['data']
     rescue Net::ReadTimeout
-      if attempts < 5
-        print "Timeout when calling #{path} with params '#{params.inspect}', retrying..."
-        ret = request_api(path, params, attempts + 1)
-      end
+      print "Timeout when calling #{path} with params '#{params.inspect}'"
     rescue StandardError
-      print "Failed to parse body of response for endpoint `#{path}`:\n#{response.inspect}\n" unless response.class <= Net::HTTPSuccess
+      print "Failed to parse body of response for endpoint #{path}: Response: #{response.inspect} Body: #{response.body}" unless response.class <= Net::HTTPSuccess
     end
     ret
   end
