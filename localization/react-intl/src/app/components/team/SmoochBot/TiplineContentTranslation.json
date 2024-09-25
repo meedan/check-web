@@ -2,7 +2,7 @@
   {
     "id": "smoochBotContentAndTranslation.expandCollapse",
     "description": "Tooltip for the button to show or hide a content details in the list",
-    "defaultMessage": "Expand/Collapase content details"
+    "defaultMessage": "Expand/Collapse content details"
   },
   {
     "id": "smoochBotContentAndTranslation.customized",

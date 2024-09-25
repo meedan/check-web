@@ -15,7 +15,7 @@ import styles from '../../team/Settings.module.css';
 const messages = defineMessages({
   expandCollapse: {
     id: 'smoochBotContentAndTranslation.expandCollapse',
-    defaultMessage: 'Expand/Collapase content details',
+    defaultMessage: 'Expand/Collapse content details',
     description: 'Tooltip for the button to show or hide a content details in the list',
   },
   customized: {
