@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Articles from './Articles';
@@ -29,6 +30,17 @@ const TrashedArticles = ({ intl, routeParams }) => {
     { value: 'updated_at', label: intl.formatMessage(messages.sortDate) },
   ];
 
+  const updateMutation = graphql`
+    mutation TrashedArticlesUpdateExplainerMutation($input: UpdateExplainerInput!) {
+      updateExplainer(input: $input) {
+        explainer {
+          id
+          tags
+        }
+      }
+    }
+  `;
+
   return (
     <Articles
       defaultFilters={{ trashed: true }}
@@ -38,7 +50,7 @@ const TrashedArticles = ({ intl, routeParams }) => {
       teamSlug={routeParams.team}
       title={<FormattedMessage defaultMessage="Trash" description="Title of the trashed articles page." id="trashedArticles.title" />}
       type="fact-check"
-      updateMutation={() => {}}
+      updateMutation={updateMutation}
     />
   );
 };

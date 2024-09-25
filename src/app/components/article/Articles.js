@@ -75,8 +75,10 @@ const ArticlesComponent = ({
 
   if (type === 'fact-check') articleDbidFromUrl = getQueryStringValue('factCheckId');
   if (type === 'explainer') articleDbidFromUrl = getQueryStringValue('explainerId');
+  if (!type) articleDbidFromUrl = getQueryStringValue('factCheckId') || getQueryStringValue('explainerId');
 
   const [selectedArticleDbid, setSelectedArticleDbid] = React.useState(articleDbidFromUrl);
+  const [selectedArticleType, setSelectedArticleType] = React.useState(type);
 
   // Track when number of articles increases: When it happens, it's because a new article was created, so refresh the list
   const [totalArticlesCount, setTotalArticlesCount] = React.useState(team.totalArticlesCount);
@@ -111,7 +113,8 @@ const ArticlesComponent = ({
 
   const handleCloseSlideout = () => {
     setSelectedArticleDbid(null);
-    deleteQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId');
+    deleteQueryStringValue(selectedArticleType === 'explainer' ? 'explainerId' : 'factCheckId');
+    setSelectedArticleType(null);
   };
 
   const onCompleted = () => {
@@ -151,9 +154,12 @@ const ArticlesComponent = ({
   const handleClick = (article) => {
     if (article.dbid !== selectedArticleDbid) {
       setSelectedArticleDbid(null);
+      setSelectedArticleType(null);
       setTimeout(() => {
+        const articleType = article.report_status ? 'fact-check' : 'explainer';
         setSelectedArticleDbid(article.dbid);
-        pushQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
+        setSelectedArticleType(articleType);
+        pushQueryStringValue(articleType === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
       }, 10);
     }
   };
@@ -192,12 +198,12 @@ const ArticlesComponent = ({
             onChange={handleChangeSort}
           />
           <ArticleFilters
-            currentFilters={{ ...filters, article_type: type }}
-            defaultFilters={{ ...defaultFilters, article_type: type }}
+            currentFilters={type ? { ...filters, article_type: type } : { ...filters }}
+            defaultFilters={type ? { ...defaultFilters, article_type: type } : { ...defaultFilters }}
             filterOptions={filterOptions}
             statuses={statuses.statuses}
             teamSlug={team.slug}
-            type={type}
+            type={null}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -255,7 +261,7 @@ const ArticlesComponent = ({
                 tags={article.tags}
                 title={isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title}
                 url={article.url}
-                variant={type}
+                variant={article.report_status ? 'fact-check' : 'explainer'}
                 onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
               />
             );
@@ -294,10 +300,11 @@ ArticlesComponent.defaultProps = {
   statuses: {},
   articles: [],
   articlesCount: 0,
+  type: null,
 };
 
 ArticlesComponent.propTypes = {
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
+  type: PropTypes.oneOf(['explainer', 'fact-check']),
   title: PropTypes.node.isRequired, // <FormattedMessage />
   icon: PropTypes.node.isRequired,
   page: PropTypes.number,
@@ -483,10 +490,11 @@ Articles.defaultProps = {
   sortOptions: [],
   filterOptions: [],
   defaultFilters: {},
+  type: null,
 };
 
 Articles.propTypes = {
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
+  type: PropTypes.oneOf(['explainer', 'fact-check']),
   title: PropTypes.node.isRequired, // <FormattedMessage />
   icon: PropTypes.node.isRequired,
   teamSlug: PropTypes.string.isRequired,
