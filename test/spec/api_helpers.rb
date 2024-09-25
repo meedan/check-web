@@ -11,9 +11,14 @@ module ApiHelpers
     require 'net/http'
     uri = URI(api_path + path)
     uri.query = URI.encode_www_form(params)
-    response = Net::HTTP.get_response(uri)
     ret = nil
     begin
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = (uri.scheme == 'https')
+      http.open_timeout = 300 # Time to open the connection
+      http.read_timeout = 300 # Time to wait for the response
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
       ret = OpenStruct.new JSON.parse(response.body)['data']
     rescue Net::ReadTimeout
       print "Timeout when calling #{path} with params '#{params.inspect}'"
