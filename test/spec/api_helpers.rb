@@ -17,7 +17,7 @@ module ApiHelpers
       ret = OpenStruct.new JSON.parse(response.body)['data']
     rescue Net::ReadTimeout
       if attempts < 5
-        print "Timeout when calling #{path} with params '#{params.inspect}', retrying in 3 seconds..."
+        print "Timeout when calling #{path} with params '#{params.inspect}', retrying..."
         ret = request_api(path, params, attempts + 1)
       end
     rescue StandardError
