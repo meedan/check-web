@@ -28,8 +28,6 @@ const Feeds = ({
   team,
 }) => {
   // Get/set which list item should be highlighted
-  // eslint-disable-next-line
-  console.log("location ",location);
   const pathParts = window.location.pathname.split('/');
   const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
   React.useEffect(() => {
