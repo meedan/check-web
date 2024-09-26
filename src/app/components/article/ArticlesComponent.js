@@ -149,11 +149,6 @@ const ArticlesComponent = () => {
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
 
-  // Not in a team context
-  if (!teamSlug) {
-    return null;
-  }
-
   return (
     <QueryRenderer
       environment={Relay.Store}
