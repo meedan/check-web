@@ -1,0 +1,37 @@
+[
+  {
+    "id": "smoochBotContentAndTranslation.expandCollapse",
+    "description": "Tooltip for the button to show or hide a content details in the list",
+    "defaultMessage": "Expand/Collapse content details"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.customized",
+    "description": "Label to indicate that a bot response has been customized and is different than the default message",
+    "defaultMessage": "Customized"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.viewDefault",
+    "description": "Label for button to allow users to show or hide the default bot response, when a custom response is currently in use.",
+    "defaultMessage": "Default Bot Response"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.textFieldTitleCustomized",
+    "description": "Title for the textfield where users have enter custom text for a bot response",
+    "defaultMessage": "Custom Bot Response"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.textFieldTitleDefault",
+    "description": "Title for the textfield where users can enter custom text for a bot response",
+    "defaultMessage": "Customize Bot Response"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.defaultTextTitle",
+    "description": "Title for the area to show users what the default text value is for this bot response",
+    "defaultMessage": "Default Bot Response:"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.placeholder",
+    "description": "Placeholder used in all fields under tipline content and translation settings.",
+    "defaultMessage": "Type custom content or translation here."
+  }
+]

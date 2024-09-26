@@ -1,13 +1,10 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
-import HelpIcon from '../../../icons/help.svg';
 import { languageLabel } from '../../../LanguageRegistry';
 import Alert from '../../cds/alerts-and-prompts/Alert';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from '../Settings.module.css';
+import settingsStyles from '../Settings.module.css';
 
 const messages = defineMessages({
   privacyStatement: {
@@ -73,37 +70,22 @@ const SmoochBotMainMenu = ({
 
   const whatsAppEnabled = (enabledIntegrations.whatsapp && enabledIntegrations.whatsapp.status === 'active');
 
-  const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot');
-  };
-
   return (
     <React.Fragment>
-      <div className={styles['setting-content-container-title']}>
-        <FormattedMessage defaultMessage="Main menu" description="Title of the tipline bot main menu settings page." id="smoochBotMainMenu.mainMenu" />
-        { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
-          <div className={styles['setting-content-container-actions']}>
-            <ButtonMain
-              iconCenter={<HelpIcon />}
-              size="small"
-              theme="text"
-              variant="text"
-              onClick={handleHelp}
-            />
-          </div>
-          : null
-        }
-      </div>
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
-        <FormattedMessage
-          defaultMessage="Please note that some messaging services have different menu display options than others."
-          description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
-          id="smoochBotMainMenu.subtitle2"
-          tagName="p"
-        />
-        : null
+        <Alert
+          contained
+          content={
+            <FormattedMessage
+              defaultMessage="Please note that some messaging services have different menu display options than others."
+              description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
+              id="smoochBotMainMenu.subtitle2"
+            />
+          }
+          variant="info"
+        /> : null
       }
-      <div className="typography-subtitle2">
+      <div className={settingsStyles['setting-content-container-title']}>
         <FormattedMessage
           defaultMessage="{available}/{total} main menu options available"
           description="Counter that is displayed on tipline settings page in order to inform the user how many options they can still add to the bot main menu."
@@ -114,9 +96,10 @@ const SmoochBotMainMenu = ({
           }}
         />
       </div>
-      <br />
       { collapseLanguages ?
         <Alert
+          className={settingsStyles['tipline-settings-menu-count-alert']}
+          contained
           content={
             <FormattedMessage
               defaultMessage="There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option."
@@ -177,21 +160,21 @@ const SmoochBotMainMenu = ({
 };
 
 SmoochBotMainMenu.defaultProps = {
-  value: {},
   languages: [],
   resources: [],
+  value: {},
 };
 
 SmoochBotMainMenu.propTypes = {
-  value: PropTypes.object,
-  languages: PropTypes.arrayOf(PropTypes.string),
   currentLanguage: PropTypes.string.isRequired,
-  intl: intlShape.isRequired,
-  enabledIntegrations: PropTypes.object.isRequired,
   currentUser: PropTypes.shape({ is_admin: PropTypes.bool.isRequired }).isRequired,
+  enabledIntegrations: PropTypes.object.isRequired,
   hasUnsavedChanges: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
+  languages: PropTypes.arrayOf(PropTypes.string),
   resources: PropTypes.arrayOf(PropTypes.object),
+  value: PropTypes.object,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default injectIntl(SmoochBotMainMenu);
