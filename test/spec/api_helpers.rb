@@ -16,8 +16,8 @@ module ApiHelpers
     begin
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = (uri.scheme == 'https')
-      http.open_timeout = 300 # Time to open the connection
-      http.read_timeout = 300 # Time to wait for the response
+      http.open_timeout = 120 # Time to open the connection
+      http.read_timeout = 120 # Time to wait for the response
       request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
       ret = OpenStruct.new JSON.parse(response.body)['data']
