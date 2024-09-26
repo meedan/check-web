@@ -11,6 +11,6 @@ describe('<TiplineContentTranslation />', () => {
       title={<span>Foo</span>}
       onUpdate={() => {}}
     />);
-    expect(wrapper.find('textarea').hostNodes()).toHaveLength(2);
+    expect(wrapper.find('textarea').hostNodes()).toHaveLength(1);
   });
 });

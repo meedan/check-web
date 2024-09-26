@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -129,8 +128,8 @@ const SmoochBotSetting = (props) => {
 
 SmoochBotSetting.propTypes = {
   field: PropTypes.object.isRequired,
-  value: PropTypes.any.isRequired,
   schema: PropTypes.object.isRequired,
+  value: PropTypes.any.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
