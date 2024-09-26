@@ -12,9 +12,9 @@ import ArticlesComponent from '../../article/ArticlesComponent';
 
 const renderQuery = ({ drawerType, error, props }) => {
   if (!error && props) {
-    const feedsCreated = props.team.feeds.edges.map(f => f.node).filter(f => f.team_id === props.team.dbid);
-    const feedsJoined = props.team.feed_teams.edges.map(ft => ft.node).filter(ft => !feedsCreated.find(f => f.dbid === ft.feed_id));
-    const feedsInvited = props.me.feed_invitations.edges.map(f => f.node).filter(fi => fi.state === 'invited');
+    const feedsCreated = props.team.feeds?.edges.map(f => f.node).filter(f => f.team_id === props.team.dbid);
+    const feedsJoined = props.team.feed_teams?.edges.map(ft => ft.node).filter(ft => !feedsCreated?.find(f => f.dbid === ft.feed_id));
+    const feedsInvited = props.me.feed_invitations?.edges.map(f => f.node).filter(fi => fi.state === 'invited');
     const feeds = [].concat(feedsCreated, feedsJoined, feedsInvited);
     if (drawerType === 'tipline') {
       return (
@@ -48,7 +48,6 @@ const renderQuery = ({ drawerType, error, props }) => {
     } else if (drawerType === 'articles') {
       return (
         <ArticlesComponent
-          me={props.me}
           params={props.params}
           team={props.team}
         />
@@ -73,7 +72,9 @@ const Projects = ({ drawerType }) => {
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query ProjectsQuery($teamSlug: String!) {
+        query ProjectsQuery(
+          $teamSlug: String!,
+        ) {
           me {
             id
             dbid

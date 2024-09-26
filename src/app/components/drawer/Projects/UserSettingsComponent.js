@@ -1,4 +1,6 @@
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import { withRouter, Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
@@ -36,7 +38,7 @@ const messages = defineMessages({
   },
 });
 
-const UserSettingsComponent = ({
+const UserSettings = ({
   intl,
   me,
   params,
@@ -105,6 +107,32 @@ const UserSettingsComponent = ({
     </React.Fragment>
   );
 };
+
+const renderQuery = ({
+  intl, params, props,
+}) => {
+  if (!props) {
+    return null;
+  }
+
+  return <UserSettings intl={intl} me={props.me} params={params} />;
+};
+
+const UserSettingsComponent = ({ intl, params }) => (
+  <QueryRenderer
+    environment={Relay.Store}
+    query={graphql`
+      query UserSettingsComponentQuery {
+        me {
+          id
+        }
+      }
+    `}
+    render={({ error, props }) => renderQuery({
+      error, props, params, intl,
+    })}
+  />
+);
 
 UserSettingsComponent.propTypes = {
   params: PropTypes.shape({
