@@ -5,6 +5,7 @@ import {
   BarChart,
   Bar,
   ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -49,6 +50,26 @@ const StackedBarChartWidget = ({
     return [0, 0, 0, 0];
   };
 
+  const [mouseOverBar, setMouseOverBar] = React.useState(null);
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (
+      mouseOverBar === 'empty' ||
+      !mouseOverBar ||
+      !active ||
+      !payload ||
+      !payload.length
+    ) return null;
+
+    const value = payload[0].payload[mouseOverBar];
+
+    return (
+      <div style={styles.tooltip}>
+        <strong>{intl?.formatNumber(value) || value}</strong>{` ${mouseOverBar}`}
+      </div>
+    );
+  };
+
   return (
     <div
       className={styles.stackedBarChartWidgetWrapper}
@@ -70,10 +91,17 @@ const StackedBarChartWidget = ({
               key={d.name}
               radius={getBarRadius(i, coloredData.length)}
               stackId={1}
+              onMouseEnter={() => setMouseOverBar(d.name)}
+              onMouseLeave={() => setMouseOverBar(null)}
             />
           ))}
           <XAxis hide type="number" />
           <YAxis dataKey="name" hide type="category" />
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={false}
+            isAnimationActive={false}
+          />
         </BarChart>
         <div className={styles.legend}>
           { coloredData.filter(d => d.name !== 'empty').map(d => (
