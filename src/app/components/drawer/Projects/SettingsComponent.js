@@ -273,6 +273,6 @@ const SettingsComponent = ({ intl, params }) => {
   );
 };
 
-export { SettingsComponent }; // eslint-disable-line import/no-unused-modules
+export { Settings }; // eslint-disable-line import/no-unused-modules
 
 export default withSetFlashMessage(withRouter(injectIntl(SettingsComponent)));
