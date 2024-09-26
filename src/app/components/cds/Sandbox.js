@@ -1963,17 +1963,17 @@ const SandboxComponent = ({ admin }) => {
                 >
                   <FigmaColorLogo />
                 </a>
-                <ul>
-                  <li>
-                    <SwitchComponent
-                      checked={stackedBarChartEmptySection}
-                      label="Empty section"
-                      labelPlacement="top"
-                      onChange={() => setStackedBarChartEmptySection(!stackedBarChartEmptySection)}
-                    />
-                  </li>
-                </ul>
               </div>
+              <ul>
+                <li>
+                  <SwitchComponent
+                    checked={stackedBarChartEmptySection}
+                    label="Empty section"
+                    labelPlacement="top"
+                    onChange={() => setStackedBarChartEmptySection(!stackedBarChartEmptySection)}
+                  />
+                </li>
+              </ul>
             </div>
             <div className={styles.componentInlineVariants}>
               <StackedBarChartWidget

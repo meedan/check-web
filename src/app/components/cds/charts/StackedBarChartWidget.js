@@ -64,7 +64,15 @@ const StackedBarChartWidget = ({
     const value = payload[0].payload[mouseOverBar];
 
     return (
-      <div style={styles.tooltip}>
+      <div
+        style={{
+          backgroundColor: 'var(--color-white-100)',
+          border: 'solid 1px var(--color-purple-61)',
+          borderRadius: '4px',
+          color: 'var(--color-gray-15)',
+          padding: '4px 8px',
+        }}
+      >
         <strong>{intl?.formatNumber(value) || value}</strong>{` ${mouseOverBar}`}
       </div>
     );

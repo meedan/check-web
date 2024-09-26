@@ -23,16 +23,4 @@
   .legendItem {
     flex-wrap: wrap;
   }
-
-  .tooltip {
-    @mixin typography-body2;
-    background-color: var(--color-white-100);
-    border: 1px solid var(--color-purple-61);
-    border-radius: var(--border-radius-medium);
-    box-shadow: var(--shadow-medium);
-    color: var(--color-gray-15);
-    padding: 4px 8px;
-    position: absolute;
-    z-index: 1;
-  }
 }
