@@ -435,12 +435,13 @@ const ArticleForm = ({
                           }}
                           error={summaryError}
                           label={<FormattedMessage defaultMessage="Summary" description="Label for article summary field" id="articleForm.explainerSummary" />}
-                          maxChars={900 - articleTitle.length - url.length}
+                          maxChars={4096 - articleTitle.length - url.length}
+                          maxHeight="350px"
                           name="summary"
                           placeholder={placeholder}
                           required
                           rows="1"
-                          value={truncateLength(summary, 900 - articleTitle.length - url.length - 3)}
+                          value={truncateLength(summary, 4096 - articleTitle.length - url.length - 3)}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
