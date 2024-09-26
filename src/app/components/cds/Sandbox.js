@@ -351,16 +351,16 @@ const SandboxComponent = ({ admin }) => {
   };
 
   const stackedBarChartData = stackedBarChartEmptySection ? [
-    { name: 'Audio', value: 500 },
-    { name: 'Video', value: 400 },
-    { name: 'Text', value: 300 },
-    { name: 'Image', value: 200 },
-    { name: 'empty', value: 600 },
+    { name: 'Audio', value: 5000 },
+    { name: 'Video', value: 4000 },
+    { name: 'Text', value: 3000 },
+    { name: 'Image', value: 2000 },
+    { name: 'empty', value: 6000 },
   ] : [
-    { name: 'Audio', value: 500 },
-    { name: 'Video', value: 400 },
-    { name: 'Text', value: 300 },
-    { name: 'Image', value: 200 },
+    { name: 'Audio', value: 5000 },
+    { name: 'Video', value: 4000 },
+    { name: 'Text', value: 3000 },
+    { name: 'Image', value: 2000 },
   ];
 
   const generateUncaughtError = () => {

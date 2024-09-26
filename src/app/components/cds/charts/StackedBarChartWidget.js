@@ -5,7 +5,6 @@ import {
   BarChart,
   Bar,
   ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -14,6 +13,7 @@ import styles from './StackedBarChartWidget.module.css';
 const StackedBarChartWidget = ({
   data,
   height,
+  intl,
   title,
   width,
 }) => {
@@ -55,10 +55,13 @@ const StackedBarChartWidget = ({
       style={{ height, width }}
     >
       <div className={styles.stackedBarChartWidgetTitle}>
-        {`${title} [${dataSum}]`}
+        {`${title} [${intl?.formatNumber(dataSum) || dataSum}]`}
       </div>
-      <ResponsiveContainer>
-        <BarChart data={[barChartData]} layout="vertical">
+      <ResponsiveContainer height={48}>
+        <BarChart
+          data={[barChartData]}
+          layout="vertical"
+        >
           { coloredData.map((d, i) => (
             <Bar
               barSize={16}
@@ -71,18 +74,14 @@ const StackedBarChartWidget = ({
           ))}
           <XAxis hide type="number" />
           <YAxis dataKey="name" hide type="category" />
-          <Tooltip
-            allowEscapeViewBox={{ y: true }}
-            contentStyle={{
-              backgroundColor: 'var(--color-white-100)',
-              border: 'solid 1px var(--color-purple-61)',
-              borderRadius: '4px',
-              padding: '4px 8px',
-            }}
-            cursor={false}
-            itemStyle={{ color: 'var(--color-gray-15)' }}
-          />
         </BarChart>
+        <div className={styles.legend}>
+          { coloredData.filter(d => d.name !== 'empty').map(d => (
+            <div className={styles.legendItem} key={d.name}>
+              <strong>{intl?.formatNumber(d.value) || d.value}</strong>{` ${d.name}`}
+            </div>
+          ))}
+        </div>
       </ResponsiveContainer>
     </div>
   );
@@ -90,7 +89,7 @@ const StackedBarChartWidget = ({
 
 StackedBarChartWidget.defaultProps = {
   data: [],
-  height: 150,
+  height: 144,
   width: '100%',
 };
 
