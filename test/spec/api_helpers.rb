@@ -12,6 +12,7 @@ module ApiHelpers
     uri = URI(api_path + path)
     uri.query = URI.encode_www_form(params)
     ret = nil
+    response = nil
     begin
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = (uri.scheme == 'https')
@@ -20,10 +21,11 @@ module ApiHelpers
       request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
       ret = OpenStruct.new JSON.parse(response.body)['data']
+      puts "Successful response when calling #{path} with params '#{params.inspect}': #{response.body}"
     rescue Net::ReadTimeout
-      print "Timeout when calling #{path} with params '#{params.inspect}'"
+      puts "Timeout when calling #{path} with params '#{params.inspect}'"
     rescue StandardError
-      print "Failed to parse body of response for endpoint #{path}: Response: #{response.inspect} Body: #{response.body}" unless response.class <= Net::HTTPSuccess
+      puts "Failed to parse body of response for endpoint #{path}: Response: #{response.inspect} Body: #{response.body}" unless response.class <= Net::HTTPSuccess
     end
     ret
   end
