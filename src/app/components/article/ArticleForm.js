@@ -436,7 +436,7 @@ const ArticleForm = ({
                           error={summaryError}
                           label={<FormattedMessage defaultMessage="Summary" description="Label for article summary field" id="articleForm.explainerSummary" />}
                           maxChars={4096 - articleTitle.length - url.length}
-                          maxHeight="350px"
+                          maxHeight="500px"
                           name="summary"
                           placeholder={placeholder}
                           required
