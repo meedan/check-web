@@ -1,4 +1,5 @@
-/* eslint-disable react/sort-prop-types */
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -32,7 +33,7 @@ import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
 import styles from './Projects.module.css';
 
 
-const ProjectsComponent = ({
+const Projects = ({
   currentUser,
   location,
   savedSearches,
@@ -344,16 +345,9 @@ const ProjectsComponent = ({
   );
 };
 
-ProjectsComponent.propTypes = {
+Projects.propTypes = {
   currentUser: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
-  }).isRequired,
-  team: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-    slug: PropTypes.string.isRequired,
-    medias_count: PropTypes.number.isRequired,
-    permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
-    verification_statuses: PropTypes.object.isRequired,
   }).isRequired,
   savedSearches: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -361,6 +355,84 @@ ProjectsComponent.propTypes = {
     title: PropTypes.string.isRequired,
     filters: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  team: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+    medias_count: PropTypes.number.isRequired,
+    permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
+    verification_statuses: PropTypes.object.isRequired,
+  }).isRequired,
 };
+
+
+const renderQuery = ({
+  props,
+}) => {
+  if (!props || !props.team) {
+    return null;
+  }
+
+  const { location } = window;
+
+  return (
+    <Projects
+      currentUser={props.me}
+      location={location}
+      savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
+      team={props.team}
+    />
+  );
+};
+
+const ProjectsComponent = () => {
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
+
+  // Not in a team context
+  if (!teamSlug) {
+    return null;
+  }
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query ProjectsComponentQuery($teamSlug: String!) {
+          me {
+            id
+            dbid
+          }
+          team(slug: $teamSlug) {
+            dbid
+            slug
+            permissions
+            medias_count
+            verification_statuses
+            saved_searches(first: 10000) {
+              edges {
+                node {
+                  id
+                  dbid
+                  title
+                  is_part_of_feeds
+                  medias_count: items_count
+                }
+              }
+            }
+            trash_count
+            spam_count
+          }
+        }
+      `}
+      render={({ error, props }) => renderQuery({
+        error, props,
+      })}
+      variables={{
+        teamSlug,
+      }}
+    />
+  );
+};
+
 
 export default withSetFlashMessage(withRouter(injectIntl(ProjectsComponent)));

@@ -1,4 +1,6 @@
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
@@ -9,7 +11,7 @@ import PublishedIcon from '../../icons/fact_check.svg';
 import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
 
-const ArticlesComponent = ({ team }) => {
+const Articles = ({ team }) => {
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
   const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
@@ -130,6 +132,46 @@ const ArticlesComponent = ({ team }) => {
         </ul>
       </div>
     </React.Fragment>
+  );
+};
+
+const renderQuery = ({
+  props,
+}) => {
+  if (!props) {
+    return null;
+  }
+
+  return <Articles team={props.team} />;
+};
+
+const ArticlesComponent = () => {
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
+
+  // Not in a team context
+  if (!teamSlug) {
+    return null;
+  }
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query ArticlesComponentQuery($teamSlug: String!) {
+          team(slug: $teamSlug) {
+            slug
+            ...NewArticleButton_team
+          }
+        }
+      `}
+      render={({ error, props }) => renderQuery({
+        error, props,
+      })}
+      variables={{
+        teamSlug,
+      }}
+    />
   );
 };
 

@@ -108,6 +108,12 @@ const UserSettings = ({
   );
 };
 
+UserSettings.propTypes = {
+  params: PropTypes.shape({
+    tab: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 const renderQuery = ({
   intl, params, props,
 }) => {
@@ -133,12 +139,6 @@ const UserSettingsComponent = ({ intl, params }) => (
     })}
   />
 );
-
-UserSettingsComponent.propTypes = {
-  params: PropTypes.shape({
-    tab: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export { UserSettingsComponent }; // eslint-disable-line import/no-unused-modules
 

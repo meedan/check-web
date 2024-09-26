@@ -1,5 +1,7 @@
-/* eslint-disable react/sort-prop-types */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import { withRouter, Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
@@ -82,7 +84,7 @@ const messages = defineMessages({
   },
 });
 
-const SettingsComponent = ({
+const Settings = ({
   intl,
   params,
   team,
@@ -91,7 +93,7 @@ const SettingsComponent = ({
   const userRole = UserUtil.myRole(window.Check.store.getState().app.context.currentUser, team.slug);
   const isAdmin = userRole === 'admin';
   const isAdminOrEditor = userRole === 'admin' || userRole === 'editor';
-  const isAlegreBotInstalled = Boolean(team.alegre_bot);
+  const isAlegreBotInstalled = Boolean(team.alegre_bot?.id);
 
   return (
     <React.Fragment>
@@ -116,7 +118,7 @@ const SettingsComponent = ({
               </li>
             </Link> : null
           }
-          { isAdminOrEditor && Boolean(team.smooch_bot) ?
+          { isAdminOrEditor && Boolean(team.smooch_bot?.id) ?
             <Link className={cx('team-settings__data-tab', styles.linkList)} title={intl.formatMessage(messages.data)} to={`/${team.slug}/settings/data`}>
               <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'data' })}>
                 <div className={styles.listLabel}>
@@ -219,13 +221,61 @@ const SettingsComponent = ({
   );
 };
 
-SettingsComponent.propTypes = {
-  team: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
+Settings.propTypes = {
   params: PropTypes.shape({
     tab: PropTypes.string.isRequired,
   }).isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+const renderQuery = ({
+  intl, params, props,
+}) => {
+  if (!props) {
+    return null;
+  }
+
+  return <Settings intl={intl} params={params} team={props.team} />;
+};
+
+const SettingsComponent = ({ intl, params }) => {
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
+
+  // Not in a team context
+  if (!teamSlug) {
+    return null;
+  }
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+      query SettingsComponentQuery( $teamSlug: String!,
+    ) {
+        team(slug: $teamSlug) {
+          slug
+          permissions
+          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+            id
+            alegre_settings
+          }
+          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+            id
+          }
+        }
+      }
+    `}
+      render={({ error, props }) => renderQuery({
+        error, props, params, intl,
+      })}
+      variables={{
+        teamSlug,
+      }}
+    />
+  );
 };
 
 export { SettingsComponent }; // eslint-disable-line import/no-unused-modules
