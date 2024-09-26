@@ -1,10 +1,8 @@
-/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { Switch } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './Switch.module.css';
 
@@ -29,6 +27,7 @@ const SwitchComponent = ({
       className={cx(
         styles.switchWrapper,
         inputStyles['input-wrapper'],
+        styles[`label-placement-${labelPlacement}`],
         {
           [className]: true,
           [inputStyles.disabled]: disabled,
@@ -36,34 +35,41 @@ const SwitchComponent = ({
         })
       }
     >
-      <FormControlLabel
-        control={
-          <div className={styles.switch}>
-            <Switch
-              checked={checked}
-              classes={{
-                root: styles.switchRoot,
-                switchBase: styles.switchBase,
-                thumb: styles.thumb,
-                track: styles.track,
-                checked: styles.checked,
-              }}
-              disabled={disabled}
-              name="checked"
-              onChange={handleChange}
-              {...inputProps}
-            />
+      <label>
+        { label && (
+          <div className={cx(
+            [inputStyles['label-container']],
+            styles.switchLabel,
+            {
+              [inputStyles['label-container-label']]: label,
+            })
+          }
+          >
+            {label}
           </div>
-        }
-        label={label}
-        labelPlacement={labelPlacement}
-        value={labelPlacement}
-      />
-      { helperContent ?
+        )}
+        <div className={styles.switch}>
+          <Switch
+            checked={checked}
+            classes={{
+              root: styles.switchRoot,
+              switchBase: styles.switchBase,
+              thumb: styles.thumb,
+              track: styles.track,
+              checked: styles.checked,
+            }}
+            disabled={disabled}
+            name="checked"
+            onChange={handleChange}
+            {...inputProps}
+          />
+        </div>
+      </label>
+      { helperContent &&
         <div className={cx([inputStyles['help-container'], styles['switch-help-container']])}>
           {helperContent}
         </div>
-        : null }
+      }
     </div>
   );
 };
@@ -81,13 +87,13 @@ SwitchComponent.defaultProps = {
 
 SwitchComponent.propTypes = {
   checked: PropTypes.bool,
-  disabled: PropTypes.bool,
-  label: PropTypes.node,
   className: PropTypes.string,
-  labelPlacement: PropTypes.oneOf(['bottom', 'end', 'start', 'top']),
+  disabled: PropTypes.bool,
   helperContent: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  onChange: PropTypes.func,
   inputProps: PropTypes.object,
+  label: PropTypes.node,
+  labelPlacement: PropTypes.oneOf(['bottom', 'end', 'start', 'top']),
+  onChange: PropTypes.func,
 };
 
 export default SwitchComponent;
