@@ -188,9 +188,7 @@ const FeedsComponent = ({ intl, params }) => {
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query FeedsComponentQuery( 
-        $teamSlug: String!,
-        ) {
+        query DrawerFeedsQuery($teamSlug: String!) {
           me {
               id
               dbid

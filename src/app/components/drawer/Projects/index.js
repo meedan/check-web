@@ -1,30 +1,26 @@
 import React from 'react';
-import ProjectsComponent from './ProjectsComponent';
-import FeedsComponent from './FeedsComponent';
-import SettingsComponent from './SettingsComponent';
-import UserSettingsComponent from './UserSettingsComponent';
-import ArticlesComponent from '../../article/ArticlesComponent';
+import DrawerArticles from './DrawerArticles';
+import DrawerFeeds from './DrawerFeeds';
+import DrawerTeamSettings from './DrawerTeamSettings';
+import DrawerTipline from './DrawerTipline';
+import DrawerUserSettings from './DrawerUserSettings';
 
 const Projects = ({ drawerType }) => {
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
-
-  // Not in a team context
-  if (!teamSlug) {
-    return null;
-  }
+  if (!teamSlug) return null; // Not in a team context
 
   switch (drawerType) {
-  case 'tipline':
-    return <ProjectsComponent />;
-  case 'feed':
-    return <FeedsComponent />;
-  case 'settings':
-    return <SettingsComponent />;
-  case 'user':
-    return <UserSettingsComponent />;
   case 'articles':
-    return <ArticlesComponent />;
+    return <DrawerArticles />;
+  case 'feed':
+    return <DrawerFeeds />;
+  case 'tipline':
+    return <DrawerTipline />;
+  case 'settings':
+    return <DrawerTeamSettings />;
+  case 'user':
+    return <DrawerUserSettings />;
   default:
     return null;
   }

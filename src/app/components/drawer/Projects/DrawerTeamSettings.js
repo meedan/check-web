@@ -248,8 +248,7 @@ const SettingsComponent = ({ intl, params }) => {
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-      query SettingsComponentQuery( $teamSlug: String!,
-    ) {
+      query DrawerTeamSettingsQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           slug
           permissions

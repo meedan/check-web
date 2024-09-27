@@ -4,14 +4,14 @@ import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import styles from './../drawer/Projects/Projects.module.css';
-import ArticleCoreListCounter from './ArticleCoreListCounter';
-import NewArticleButton from './NewArticleButton';
-import PublishedIcon from '../../icons/fact_check.svg';
-import FileDownloadIcon from '../../icons/file_download.svg';
-import BookIcon from '../../icons/book.svg';
+import ArticleCoreListCounter from '../../article/ArticleCoreListCounter';
+import NewArticleButton from '../../article/NewArticleButton';
+import PublishedIcon from '../../../icons/fact_check.svg';
+import FileDownloadIcon from '../../../icons/file_download.svg';
+import BookIcon from '../../../icons/book.svg';
+import styles from './Projects.module.css';
 
-const Articles = ({ team }) => {
+const DrawerArticlesComponent = ({ team }) => {
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
   const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
@@ -23,9 +23,7 @@ const Articles = ({ team }) => {
     }
   }, [window.location.pathname]);
 
-  const handleSpecialLists = (listId) => {
-    setActiveItem({ type: listId, id: null });
-  };
+  const handleSpecialLists = listId => setActiveItem({ type: listId, id: null });
 
   return (
     <React.Fragment>
@@ -135,17 +133,7 @@ const Articles = ({ team }) => {
   );
 };
 
-const renderQuery = ({
-  props,
-}) => {
-  if (!props) {
-    return null;
-  }
-
-  return <Articles team={props.team} />;
-};
-
-const ArticlesComponent = () => {
+const DrawerArticles = () => {
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
 
@@ -153,21 +141,21 @@ const ArticlesComponent = () => {
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query ArticlesComponentQuery($teamSlug: String!) {
+        query DrawerArticlesQuery($teamSlug: String!) {
           team(slug: $teamSlug) {
             slug
             ...NewArticleButton_team
           }
         }
       `}
-      render={({ error, props }) => renderQuery({
-        error, props,
-      })}
-      variables={{
-        teamSlug,
+      render={({ error, props }) => {
+        if (!props || error) return null;
+
+        return <DrawerArticlesComponent team={props.team} />;
       }}
+      variables={{ teamSlug }}
     />
   );
 };
 
-export default ArticlesComponent;
+export default DrawerArticles;

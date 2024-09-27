@@ -392,7 +392,7 @@ const ProjectsComponent = () => {
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query ProjectsComponentQuery($teamSlug: String!) {
+        query DrawerTiplineQuery($teamSlug: String!) {
           me {
             id
             dbid

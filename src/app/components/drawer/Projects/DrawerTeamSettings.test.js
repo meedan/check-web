@@ -1,8 +1,8 @@
 import React from 'react';
-import { Settings } from './SettingsComponent';
+import { DrawerTeamSettingsComponent } from './DrawerTeamSettings';
 import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
-describe('<SettingsComponent />', () => {
+describe('<DrawerTeamSettings />', () => {
   const permissions = JSON.stringify({ 'update Team': true, 'read Team': true });
 
   const currentUser = {
@@ -41,7 +41,7 @@ describe('<SettingsComponent />', () => {
   }));
 
   it('should not render report tab or data tab when smooch is not installed on the team', () => {
-    const wrapper = shallowWithIntl(<Settings
+    const wrapper = shallowWithIntl(<DrawerTeamSettingsComponent
       params={{ tab: '' }}
       team={team}
     />);
@@ -50,7 +50,7 @@ describe('<SettingsComponent />', () => {
   });
 
   it('should render report tab and data tab when smooch is installed on the team', () => {
-    const wrapper = shallowWithIntl(<Settings
+    const wrapper = shallowWithIntl(<DrawerTeamSettingsComponent
       params={{ tab: 'report' }}
       team={team2}
     />);

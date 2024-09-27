@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import { logout } from '../../../redux/actions.js';
-import { withSetFlashMessage } from '../../FlashMessage';
+import { withSetFlashMessage } from '../../FlashMessage.js';
 import LogoutIcon from '../../../icons/logout.svg';
 import styles from './Projects.module.css';
 
@@ -110,7 +110,7 @@ const UserSettings = ({
 
 UserSettings.propTypes = {
   params: PropTypes.shape({
-    tab: PropTypes.string.isRequired,
+    tab: PropTypes.string,
   }).isRequired,
 };
 
@@ -128,7 +128,7 @@ const UserSettingsComponent = ({ intl, params }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query UserSettingsComponentQuery {
+      query DrawerUserSettingsQuery {
         me {
           id
         }
