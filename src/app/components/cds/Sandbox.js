@@ -7,7 +7,9 @@ import Alert from './alerts-and-prompts/Alert';
 import Chip from './buttons-checkboxes-chips/Chip';
 import ListWidget from './charts/ListWidget';
 import NumberWidget from './charts/NumberWidget';
+import StackedBarChartWidget from './charts/StackedBarChartWidget';
 import VerticalBarChartWidget from './charts/VerticalBarChartWidget';
+import TimelineWidget from './charts/TimelineWidget';
 import TagList from './menus-lists-dialogs/TagList';
 import TextField from './inputs/TextField';
 import ListSort from './inputs/ListSort';
@@ -323,6 +325,7 @@ const SandboxComponent = ({ admin }) => {
   };
 
   const [sampleDataSet, setSampleDataSet] = React.useState('design');
+  const [stackedBarChartEmptySection, setStackedBarChartEmptySection] = React.useState(true);
 
   const verticalBarChartData = {
     design: [
@@ -341,6 +344,19 @@ const SandboxComponent = ({ admin }) => {
       { name: 'Verified', value: 3021, color: '#5cae73' },
     ],
   };
+
+  const stackedBarChartData = stackedBarChartEmptySection ? [
+    { name: 'Audio', value: 5000 },
+    { name: 'Video', value: 4000 },
+    { name: 'Text', value: 3000 },
+    { name: 'Image', value: 2000 },
+    { name: 'empty', value: 6000 },
+  ] : [
+    { name: 'Audio', value: 5000 },
+    { name: 'Video', value: 4000 },
+    { name: 'Text', value: 3000 },
+    { name: 'Image', value: 2000 },
+  ];
 
   const generateUncaughtError = () => {
     // eslint-disable-next-line
@@ -1934,6 +1950,79 @@ const SandboxComponent = ({ admin }) => {
       { (!selectedCategory || selectedCategory === 'charts') &&
         <section>
           <h6>Charts</h6>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                StackedBarChartWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/82Go6q0krKApn1L8EQ2joj/Dashboard?node-id=186-5696&node-type=symbol"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <SwitchComponent
+                    checked={stackedBarChartEmptySection}
+                    label="Empty section"
+                    labelPlacement="top"
+                    onChange={() => setStackedBarChartEmptySection(!stackedBarChartEmptySection)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <StackedBarChartWidget
+                data={stackedBarChartData}
+                title="Stacked Bar Chart"
+              />
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                TimelineWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/82Go6q0krKApn1L8EQ2joj/Dashboard?node-id=186-5696&node-type=symbol"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <TimelineWidget
+                areaColor="red"
+                data={[
+                  { value: 20, date: '2024-06-03' },
+                  { value: 40, date: '2024-06-05' },
+                  { value: 30, date: '2024-06-07' },
+                  { value: 35, date: '2024-06-09' },
+                  { value: 50, date: '2024-06-11' },
+                  { value: 16, date: '2024-06-13' },
+                  { value: 64, date: '2024-06-15' },
+                  { value: 20, date: '2024-06-17' },
+                  { value: 37, date: '2024-06-19' },
+                  { value: 29, date: '2024-06-21' },
+                  { value: 18, date: '2024-06-23' },
+                  { value: 27, date: '2024-06-25' },
+                  { value: 35, date: '2024-06-27' },
+                  { value: 10, date: '2024-06-29' },
+                ]}
+                lineColor="purple"
+                title="Title Goes Here"
+                tooltipFormatter={value => [`• ${value} conversations`]}
+                width="100%"
+              />
+            </div>
+          </div>
           <div className={styles.componentWrapper}>
             <div className={styles.componentControls}>
               <div className={cx('typography-subtitle2', [styles.componentName])}>
