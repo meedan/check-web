@@ -7,6 +7,7 @@ import cx from 'classnames/bind';
 import ArticleCoreListCounter from '../article/ArticleCoreListCounter';
 import NewArticleButton from '../article/NewArticleButton';
 import PublishedIcon from '../../icons/fact_check.svg';
+import TrashIcon from '../../icons/delete.svg';
 import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
 import styles from './Projects/Projects.module.css';
@@ -129,6 +130,30 @@ const DrawerArticlesComponent = ({ team }) => {
           </Link>
         </ul>
       </div>
+      <ul className={cx(styles.listWrapper, styles.listFooter)}>
+        <Link
+          className={styles.linkList}
+          to={`/${team.slug}/articles/trash`}
+          onClick={() => { handleSpecialLists('trash'); }}
+        >
+          <li
+            className={cx(
+              'projects-list__trash',
+              styles.listItem,
+              styles.listItem_containsCount,
+              {
+                [styles.listItem_active]: activeItem.type === 'trash',
+              })
+            }
+          >
+            <TrashIcon className={styles.listIcon} />
+            <div className={styles.listLabel}>
+              <FormattedMessage defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items that have been marked as Trashed" id="projectsComponent.trash" tagName="span" />
+            </div>
+            <ArticleCoreListCounter defaultFilters={{ trashed: true }} teamSlug={team.slug} />
+          </li>
+        </Link>
+      </ul>
     </React.Fragment>
   );
 };
