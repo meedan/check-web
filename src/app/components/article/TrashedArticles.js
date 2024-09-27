@@ -46,7 +46,7 @@ const updateMutationFactCheck = graphql`
 `;
 
 const TrashedArticles = ({ intl, routeParams }) => {
-  const [type, setTags] = React.useState('fact-check');
+  const [type, setType] = React.useState('fact-check');
   const [updateMutation, setUpdateMutation] = React.useState(updateMutationFactCheck);
 
   const sortOptions = [
@@ -57,13 +57,13 @@ const TrashedArticles = ({ intl, routeParams }) => {
 
   const handleChangeArticleType = (newType) => {
     if (newType === 'explainer') {
-      setTags(newType);
+      setType(newType);
       setUpdateMutation(updateMutationExplainer);
     } else if (newType === 'fact-check') {
-      setTags('fact-check');
+      setType('fact-check');
       setUpdateMutation(updateMutationFactCheck);
     } else {
-      setTags(null);
+      setType(null);
     }
   };
 
