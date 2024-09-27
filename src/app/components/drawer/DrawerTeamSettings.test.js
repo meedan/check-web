@@ -1,8 +1,8 @@
 import React from 'react';
-import { SettingsComponent } from './SettingsComponent';
-import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
+import { DrawerTeamSettingsComponent } from './DrawerTeamSettings';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
-describe('<SettingsComponent />', () => {
+describe('<DrawerTeamSettings />', () => {
   const permissions = JSON.stringify({ 'update Team': true, 'read Team': true });
 
   const currentUser = {
@@ -34,19 +34,22 @@ describe('<SettingsComponent />', () => {
       store: {
         getState: () => ({ app: { context: { currentUser } } }),
       },
+      location: {
+        pathname: '/settings/workspace/',
+      },
     },
   }));
 
-  it('should not render report tab when smooch is not installed on the team', () => {
-    const wrapper = shallowWithIntl(<SettingsComponent
+  it('should not render report tab or data tab when smooch is not installed on the team', () => {
+    const wrapper = shallowWithIntl(<DrawerTeamSettingsComponent
       params={{ tab: '' }}
       team={team}
     />);
     expect(wrapper.find('.team-settings__report-tab')).toHaveLength(0);
   });
 
-  it('should render report tab when smooch is installed on the team', () => {
-    const wrapper = shallowWithIntl(<SettingsComponent
+  it('should render report tab and data tab when smooch is installed on the team', () => {
+    const wrapper = shallowWithIntl(<DrawerTeamSettingsComponent
       params={{ tab: 'report' }}
       team={team2}
     />);

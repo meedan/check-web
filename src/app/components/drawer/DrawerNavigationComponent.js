@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
-import DrawerProjects from './Projects';
 import { withPusher, pusherShape } from '../../pusher';
 import CheckContext from '../../CheckContext';
+import DrawerContent from './index';
 import styles from './Drawer.module.css';
 
 // TODO Fix a11y issues
@@ -92,7 +92,7 @@ class DrawerNavigationComponent extends Component {
       >
         <React.Fragment>
           {!!team && (currentUserIsMember || !team.private) ? (
-            <DrawerProjects drawerType={drawerType} team={team.slug} />
+            <DrawerContent drawerType={drawerType} team={team.slug} />
           ) : null }
         </React.Fragment>
       </Drawer>

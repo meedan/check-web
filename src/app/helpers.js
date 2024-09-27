@@ -130,6 +130,14 @@ function validateURL(value) {
   return (Array.isArray(url) && url[0] && url[0].url);
 }
 
+function isValidURL(value) {
+  if (typeof value !== 'string') {
+    return false;
+  }
+  const linkify = new LinkifyIt();
+  return linkify.test(value);
+}
+
 /**
  * Extract filter values from the current URL path.
  */
@@ -416,6 +424,7 @@ export { // eslint-disable-line import/no-unused-modules
   convertNumbers2English,
   encodeSvgDataUri,
   validateURL, // TODO: Verify if it is worthy using this for all URL validations across the app
+  isValidURL,
   getFilters,
   getErrorMessage,
   getErrorMessageForRelayModernProblem,

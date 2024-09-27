@@ -1,0 +1,82 @@
+[
+  {
+    "id": "projectsComponent.tiplineNavHeader",
+    "description": "The navigation name of the tipline section",
+    "defaultMessage": "Tipline"
+  },
+  {
+    "id": "articlesComponent.dashboard",
+    "description": "Label for the dashboard displayed on the left sidebar",
+    "defaultMessage": "Dashboard"
+  },
+  {
+    "id": "projectsComponent.allItems",
+    "description": "Label for the 'All media' list displayed on the left sidebar",
+    "defaultMessage": "All Media"
+  },
+  {
+    "id": "projectsComponent.assignedToMe",
+    "description": "Label for a list displayed on the left sidebar that includes items that are assigned to the current user",
+    "defaultMessage": "Assigned to me"
+  },
+  {
+    "id": "projectsComponent.tiplineInbox",
+    "description": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted",
+    "defaultMessage": "Inbox"
+  },
+  {
+    "id": "projectsComponent.suggestedMatches",
+    "description": "Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1",
+    "defaultMessage": "Suggestions"
+  },
+  {
+    "id": "projectsComponent.unmatchedMedia",
+    "description": "Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)",
+    "defaultMessage": "Unmatched media"
+  },
+  {
+    "id": "projectsComponent.lists",
+    "description": "List of items with some filters applied",
+    "defaultMessage": "Custom Lists"
+  },
+  {
+    "id": "projectsComponent.newListButton",
+    "description": "Tooltip for button that opens list creation dialog",
+    "defaultMessage": "New list"
+  },
+  {
+    "id": "projectsComponent.noCustomLists",
+    "description": "Displayed under the custom list header when there are no lists in it",
+    "defaultMessage": "No custom lists"
+  },
+  {
+    "id": "projectsComponent.spam",
+    "description": "Label for a list displayed on the left sidebar that includes items that have been trashed",
+    "defaultMessage": "Spam"
+  },
+  {
+    "id": "projectsComponent.trash",
+    "description": "Label for a list displayed on the left sidebar that includes items marked as spam",
+    "defaultMessage": "Trash"
+  },
+  {
+    "id": "projectsComponent.createList",
+    "description": "Label for a button to create a new list displayed on the left sidebar.",
+    "defaultMessage": "Create List"
+  },
+  {
+    "id": "projectsComponent.newListErrorMessage",
+    "description": "Error message when creating new list fails",
+    "defaultMessage": "Could not create list, please try again"
+  },
+  {
+    "id": "projectsComponent.newListSuccessMessage",
+    "description": "Success message when new list is created",
+    "defaultMessage": "List created successfully"
+  },
+  {
+    "id": "projectsComponent.newList",
+    "description": "Title for a dialog to create a new list displayed on the left sidebar.",
+    "defaultMessage": "New List"
+  }
+]

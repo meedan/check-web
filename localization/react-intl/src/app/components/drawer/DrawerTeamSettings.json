@@ -1,0 +1,67 @@
+[
+  {
+    "id": "teamSettingsNavigation.annotations",
+    "description": "Label for the Annotations settings navigation menu item",
+    "defaultMessage": "Annotations"
+  },
+  {
+    "id": "teamSettingsNavigation.integrations",
+    "description": "Label for the Integrations settings navigation menu item",
+    "defaultMessage": "Integrations"
+  },
+  {
+    "id": "teamSettingsNavigation.languages",
+    "description": "Label for the Languages settings navigation menu item",
+    "defaultMessage": "Languages"
+  },
+  {
+    "id": "teamSettingsNavigation.members",
+    "description": "Label for the Members settings navigation menu item",
+    "defaultMessage": "Members"
+  },
+  {
+    "id": "teamSettingsNavigation.newsletter",
+    "description": "Label for the Newsletter settings navigation menu item",
+    "defaultMessage": "Newsletter"
+  },
+  {
+    "id": "teamSettingsNavigation.reports",
+    "description": "Label for the Reports settings navigation menu item",
+    "defaultMessage": "Reports"
+  },
+  {
+    "id": "teamSettingsNavigation.rules",
+    "description": "Label for the Rules settings navigation menu item",
+    "defaultMessage": "Rules"
+  },
+  {
+    "id": "teamSettingsNavigation.settings",
+    "description": "Header for the settings navigation menu items",
+    "defaultMessage": "Settings"
+  },
+  {
+    "id": "teamSettingsNavigation.similarity",
+    "description": "Label for the Similarity settings navigation menu item",
+    "defaultMessage": "Similarity"
+  },
+  {
+    "id": "teamSettingsNavigation.statuses",
+    "description": "Label for the Statuses settings navigation menu item",
+    "defaultMessage": "Statuses"
+  },
+  {
+    "id": "teamSettingsNavigation.tags",
+    "description": "Label for the Tags settings navigation menu item",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "teamSettingsNavigation.tipline",
+    "description": "Label for the Tipline settings navigation menu item",
+    "defaultMessage": "Tipline"
+  },
+  {
+    "id": "teamSettingsNavigation.workspace",
+    "description": "Label for the Workspace settings navigation menu item",
+    "defaultMessage": "Workspace"
+  }
+]

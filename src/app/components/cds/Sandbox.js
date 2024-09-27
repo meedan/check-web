@@ -5,6 +5,11 @@ import cx from 'classnames/bind';
 import * as Sentry from '@sentry/react';
 import Alert from './alerts-and-prompts/Alert';
 import Chip from './buttons-checkboxes-chips/Chip';
+import ListWidget from './charts/ListWidget';
+import NumberWidget from './charts/NumberWidget';
+import StackedBarChartWidget from './charts/StackedBarChartWidget';
+import VerticalBarChartWidget from './charts/VerticalBarChartWidget';
+import TimelineWidget from './charts/TimelineWidget';
 import TagList from './menus-lists-dialogs/TagList';
 import TextField from './inputs/TextField';
 import ListSort from './inputs/ListSort';
@@ -244,11 +249,6 @@ const SandboxComponent = ({ admin }) => {
   const [slideoutSecondaryAction, setSlideoutSecondaryAction] = React.useState(Boolean(false));
   const [slideoutOptionalNode, setSlideoutOptionalNode] = React.useState(Boolean(false));
 
-  const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
-  const onChangeSwitchLabelPlacement = (event) => {
-    setSwitchLabelPlacement(event.target.value);
-  };
-
   const [loadingTheme, setLoadingTheme] = React.useState('grey');
   const onChangeLoadingTheme = (event) => {
     setLoadingTheme(event.target.value);
@@ -323,6 +323,40 @@ const SandboxComponent = ({ admin }) => {
   const onChangeReorderTheme = (event) => {
     setReorderTheme(event.target.value);
   };
+
+  const [sampleDataSet, setSampleDataSet] = React.useState('design');
+  const [stackedBarChartEmptySection, setStackedBarChartEmptySection] = React.useState(true);
+
+  const verticalBarChartData = {
+    design: [
+      { name: 'Text', value: 6000 },
+      { name: 'Video', value: 5000 },
+      { name: 'Image', value: 4000 },
+      { name: 'Link', value: 3000 },
+      { name: 'Audio', value: 2000 },
+      { name: 'Social Media', value: 1000 },
+    ],
+    statuses: [
+      { name: 'Unstarted', value: 2999, color: '#518FFF' },
+      { name: 'Inconclusive', value: 4987, color: '#9e9e9e' },
+      { name: 'In Progress', value: 1890, color: '#efac51' },
+      { name: 'False', value: 6005, color: '#f04747' },
+      { name: 'Verified', value: 3021, color: '#5cae73' },
+    ],
+  };
+
+  const stackedBarChartData = stackedBarChartEmptySection ? [
+    { name: 'Audio', value: 5000 },
+    { name: 'Video', value: 4000 },
+    { name: 'Text', value: 3000 },
+    { name: 'Image', value: 2000 },
+    { name: 'empty', value: 6000 },
+  ] : [
+    { name: 'Audio', value: 5000 },
+    { name: 'Video', value: 4000 },
+    { name: 'Text', value: 3000 },
+    { name: 'Image', value: 2000 },
+  ];
 
   const generateUncaughtError = () => {
     // eslint-disable-next-line
@@ -421,6 +455,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <ButtonMain label="Errors" size="small" theme={selectedCategory === 'errors' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('errors')} />
+        </li>
+        <li>
+          <ButtonMain label="Charts" size="small" theme={selectedCategory === 'charts' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('charts')} />
         </li>
       </ul>
       { (!selectedCategory || selectedCategory === 'cards') &&
@@ -919,6 +956,74 @@ const SandboxComponent = ({ admin }) => {
           <div className={styles.componentWrapper}>
             <div className={styles.componentControls}>
               <div className={cx('typography-subtitle2', [styles.componentName])}>
+                Switch
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <SwitchComponent
+                    checked={switchesDisabled}
+                    label="Disabled"
+                    labelPlacement="top"
+                    onChange={() => setSwitchesDisabled(!switchesDisabled)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={switchesHelp}
+                    label="Show Help"
+                    labelPlacement="top"
+                    onChange={() => setSwitchesHelp(!switchesHelp)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <SwitchComponent
+                checked={switched}
+                disabled={switchesDisabled}
+                helperContent={switchesHelp ? 'I can help switches' : null}
+                label="I am a switch label on top"
+                labelPlacement="top"
+                onChange={() => setSwitchExample(!switched)}
+              />
+              <SwitchComponent
+                checked={switched}
+                disabled={switchesDisabled}
+                helperContent={switchesHelp ? 'I can help switches' : null}
+                label="I am a switch label on the bottom"
+                labelPlacement="bottom"
+                onChange={() => setSwitchExample(!switched)}
+              />
+              <SwitchComponent
+                checked={switched}
+                disabled={switchesDisabled}
+                helperContent={switchesHelp ? 'I can help switches' : null}
+                label="I am a switch label at the start"
+                labelPlacement="start"
+                onChange={() => setSwitchExample(!switched)}
+              />
+              <SwitchComponent
+                checked={switched}
+                disabled={switchesDisabled}
+                helperContent={switchesHelp ? 'I can help switches' : null}
+                label="I am a switch label at the end"
+                labelPlacement="end"
+                onChange={() => setSwitchExample(!switched)}
+              />
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
                 TextField
                 <a
                   className={styles.figmaLink}
@@ -1231,62 +1336,6 @@ const SandboxComponent = ({ admin }) => {
                   rows={textareaRows === 'none' ? undefined : textareaRows}
                 />
               }
-            </div>
-          </div>
-          <div className={styles.componentWrapper}>
-            <div className={styles.componentControls}>
-              <div className={cx('typography-subtitle2', [styles.componentName])}>
-                Switch
-                <a
-                  className={styles.figmaLink}
-                  href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  title="Figma Designs"
-                >
-                  <FigmaColorLogo />
-                </a>
-              </div>
-              <ul>
-                <li>
-                  <Select
-                    label="Label Placement"
-                    value={switchLabelPlacement}
-                    onChange={onChangeSwitchLabelPlacement}
-                  >
-                    <option value="top">top (default)</option>
-                    <option value="bottom">bottom</option>
-                    <option value="start">start</option>
-                    <option value="end">end</option>
-                  </Select>
-                </li>
-                <li>
-                  <SwitchComponent
-                    checked={switchesDisabled}
-                    label="Disabled"
-                    labelPlacement="top"
-                    onChange={() => setSwitchesDisabled(!switchesDisabled)}
-                  />
-                </li>
-                <li>
-                  <SwitchComponent
-                    checked={switchesHelp}
-                    label="Show Help"
-                    labelPlacement="top"
-                    onChange={() => setSwitchesHelp(!switchesHelp)}
-                  />
-                </li>
-              </ul>
-            </div>
-            <div className={styles.componentInlineVariants}>
-              <SwitchComponent
-                checked={switched}
-                disabled={switchesDisabled}
-                helperContent={switchesHelp ? 'I can help switches' : null}
-                label="I am a switch label"
-                labelPlacement={switchLabelPlacement}
-                onChange={() => setSwitchExample(!switched)}
-              />
             </div>
           </div>
           <div className={styles.componentWrapper}>
@@ -1894,6 +1943,220 @@ const SandboxComponent = ({ admin }) => {
             <div className={styles.componentInlineVariants}>
               <ButtonMain disabled={buttonDisabled} label="Trigger Sentry" size={buttonSize} theme={buttonTheme} variant={buttonVariant} onClick={generateUncaughtError} />
               <ButtonMain disabled={buttonDisabled} label="Sentry manual error" size={buttonSize} theme={buttonTheme} variant={buttonVariant} onClick={generateManualError} />
+            </div>
+          </div>
+        </section>
+      }
+      { (!selectedCategory || selectedCategory === 'charts') &&
+        <section>
+          <h6>Charts</h6>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                StackedBarChartWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/82Go6q0krKApn1L8EQ2joj/Dashboard?node-id=186-5696&node-type=symbol"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <SwitchComponent
+                    checked={stackedBarChartEmptySection}
+                    label="Empty section"
+                    labelPlacement="top"
+                    onChange={() => setStackedBarChartEmptySection(!stackedBarChartEmptySection)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <StackedBarChartWidget
+                data={stackedBarChartData}
+                title="Stacked Bar Chart"
+              />
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                TimelineWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/82Go6q0krKApn1L8EQ2joj/Dashboard?node-id=186-5696&node-type=symbol"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <TimelineWidget
+                areaColor="red"
+                data={[
+                  { value: 20, date: '2024-06-03' },
+                  { value: 40, date: '2024-06-05' },
+                  { value: 30, date: '2024-06-07' },
+                  { value: 35, date: '2024-06-09' },
+                  { value: 50, date: '2024-06-11' },
+                  { value: 16, date: '2024-06-13' },
+                  { value: 64, date: '2024-06-15' },
+                  { value: 20, date: '2024-06-17' },
+                  { value: 37, date: '2024-06-19' },
+                  { value: 29, date: '2024-06-21' },
+                  { value: 18, date: '2024-06-23' },
+                  { value: 27, date: '2024-06-25' },
+                  { value: 35, date: '2024-06-27' },
+                  { value: 10, date: '2024-06-29' },
+                ]}
+                lineColor="purple"
+                title="Title Goes Here"
+                tooltipFormatter={value => [`• ${value} conversations`]}
+                width="100%"
+              />
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                VerticalBarChartWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/82Go6q0krKApn1L8EQ2joj/Dashboard?node-id=186-5696&node-type=symbol"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <Select
+                    label="Sample Dataset"
+                    value={sampleDataSet}
+                    onChange={e => setSampleDataSet(e.target.value)}
+                  >
+                    <option value="design">Design</option>
+                    <option value="statuses">Statuses</option>
+                  </Select>
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--color-gray-15)' : null }}>
+              <VerticalBarChartWidget
+                data={verticalBarChartData[sampleDataSet]}
+                title="Media Received"
+                width="100%"
+              />
+            </div>
+          </div>
+
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Number Widget
+            </div>
+            <div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget contextText="Lorem ipsum dolor sit amet." itemCount="2024" title="A Title" unit="unit" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-yellow-79)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." title="A Title" unit="unit" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-purple-92)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" />
+              </div>
+              <div className={styles.componentWrapper}>
+                <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              List Widget
+            </div>
+            <div className={styles.componentWrapper}>
+              <ListWidget
+                items={
+                  [
+                    {
+                      itemValue: '2024',
+                      itemLink: null,
+                      itemText: 'Not-Linked Tag',
+                      id: 'item1',
+                    },
+                    {
+                      itemValue: '94607',
+                      itemLink: 'e.not/a/working/url/',
+                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      id: 'item2',
+                    },
+                    {
+                      itemValue: '120',
+                      itemLink: 'https://maze.toys/mazes/mini/daily/',
+                      itemText: 'Linked Tag',
+                      id: 'item3',
+                    },
+                    {
+                      itemValue: '9423125',
+                      itemLink: 'https://www.lipsum.com/feed/html',
+                      itemText: 'Lorem Ipsum URL',
+                      id: 'item4',
+                    },
+                    {
+                      itemText: 'Lorem ipsum dolor sit amet',
+                      id: 'item5',
+                    },
+                  ]
+                }
+                title="List Title"
+              />
+            </div>
+            <div className={styles.componentWrapper}>
+              <ListWidget
+                color="var(--color-purple-92)"
+                items={
+                  [
+                    {
+                      itemValue: '2024',
+                      itemLink: null,
+                      itemText: 'Not-Linked Tag',
+                      id: 'item1',
+                    },
+                    {
+                      itemValue: '94607',
+                      itemLink: 'e.not/a/working/url/',
+                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
+                      id: 'item2',
+                    },
+                    {
+                      itemValue: '120',
+                      itemLink: 'https://maze.toys/mazes/mini/daily/',
+                      itemText: 'Linked Tag',
+                      id: 'item3',
+                    },
+                    {
+                      itemValue: '9423125',
+                      itemLink: 'https://www.lipsum.com/feed/html',
+                      itemText: 'Lorem Ipsum URL',
+                      id: 'item4',
+                    },
+                    {
+                      itemText: 'Lorem ipsum dolor sit amet',
+                      id: 'item5',
+                    },
+                  ]
+                }
+                title="List Title"
+              />
             </div>
           </div>
         </section>
