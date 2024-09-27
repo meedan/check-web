@@ -19,13 +19,14 @@ jobs:
   integration-and-unit-tests:
     runs-on: ubuntu-latest
     if: >
-      (github.ref != 'refs/heads/develop' && 
-      github.ref != 'refs/heads/master') || 
-      contains(github.event.head_commit.message, '[full ci]') || 
-      contains(github.event.head_commit.message, '[smoke tests]') ||
+      (github.event_name == 'push' &&
+      contains(github.event.head_commit.message, '[full ci]') &&
+      contains(github.event.head_commit.message, '[smoke tests]'))
+      ||
       (github.event_name == 'pull_request' &&
-      (!contains(github.event.pull_request.title, '[full ci]') || 
-      !contains(github.event.pull_request.title, '[smoke tests]')))
+      contains(github.event.pull_request.title, '[full ci]') &&
+      contains(github.event.pull_request.title, '[smoke tests]'))
+
 
     steps:
     - uses: actions/checkout@v4
@@ -153,15 +154,15 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     if: >
-      github.event_name == 'push' &&
+      (github.event_name == 'push' &&
       !contains(github.event.head_commit.message, '[full ci]') &&
       !contains(github.event.head_commit.message, '[smoke tests]') &&
-      !contains(github.event.head_commit.message, '[similarity tests]')
+      !contains(github.event.head_commit.message, '[similarity tests]'))
       ||
-      github.event_name == 'pull_request' &&
+      (github.event_name == 'pull_request' &&
       !contains(github.event.pull_request.title, '[full ci]') &&
       !contains(github.event.pull_request.title, '[smoke tests]') &&
-      !contains(github.event.pull_request.title, '[similarity tests]')
+      !contains(github.event.pull_request.title, '[similarity tests]'))
 
     steps:
     - uses: actions/checkout@v4
