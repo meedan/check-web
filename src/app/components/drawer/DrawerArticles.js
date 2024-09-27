@@ -1,16 +1,18 @@
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import styles from './../drawer/Projects/Projects.module.css';
-import ArticleCoreListCounter from './ArticleCoreListCounter';
-import NewArticleButton from './NewArticleButton';
+import ArticleCoreListCounter from '../article/ArticleCoreListCounter';
+import NewArticleButton from '../article/NewArticleButton';
 import PublishedIcon from '../../icons/fact_check.svg';
 import TrashIcon from '../../icons/delete.svg';
 import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
+import styles from './Projects/Projects.module.css';
 
-const ArticlesComponent = ({ team }) => {
+const DrawerArticlesComponent = ({ team }) => {
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
   const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
@@ -22,9 +24,7 @@ const ArticlesComponent = ({ team }) => {
     }
   }, [window.location.pathname]);
 
-  const handleSpecialLists = (listId) => {
-    setActiveItem({ type: listId, id: null });
-  };
+  const handleSpecialLists = listId => setActiveItem({ type: listId, id: null });
 
   return (
     <React.Fragment>
@@ -158,4 +158,29 @@ const ArticlesComponent = ({ team }) => {
   );
 };
 
-export default ArticlesComponent;
+const DrawerArticles = () => {
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query DrawerArticlesQuery($teamSlug: String!) {
+          team(slug: $teamSlug) {
+            slug
+            ...NewArticleButton_team
+          }
+        }
+      `}
+      render={({ error, props }) => {
+        if (!props || error) return null;
+
+        return <DrawerArticlesComponent team={props.team} />;
+      }}
+      variables={{ teamSlug }}
+    />
+  );
+};
+
+export default DrawerArticles;

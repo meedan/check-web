@@ -109,6 +109,6 @@ VerticalBarChartWidget.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
-export { VerticalBarChartWidget }; // eslintint-disable-line import/no-unused-modules
+export { VerticalBarChartWidget }; // eslint-disable-line import/no-unused-modules
 
 export default injectIntl(VerticalBarChartWidget);
