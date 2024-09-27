@@ -33,7 +33,7 @@ import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
 import styles from './Projects.module.css';
 
 
-const Projects = ({
+const DrawerTiplineComponent = ({
   currentUser,
   location,
   savedSearches,
@@ -345,7 +345,7 @@ const Projects = ({
   );
 };
 
-Projects.propTypes = {
+DrawerTiplineComponent.propTypes = {
   currentUser: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }).isRequired,
@@ -365,26 +365,7 @@ Projects.propTypes = {
 };
 
 
-const renderQuery = ({
-  props,
-}) => {
-  if (!props || !props.team) {
-    return null;
-  }
-
-  const { location } = window;
-
-  return (
-    <Projects
-      currentUser={props.me}
-      location={location}
-      savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
-      team={props.team}
-    />
-  );
-};
-
-const ProjectsComponent = () => {
+const DrawerTipline = () => {
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
 
@@ -419,15 +400,24 @@ const ProjectsComponent = () => {
           }
         }
       `}
-      render={({ error, props }) => renderQuery({
-        error, props,
-      })}
-      variables={{
-        teamSlug,
+      render={({ error, props }) => {
+        if (!props || error) return null;
+
+        const { location } = window;
+
+        return (
+          <DrawerTiplineComponent
+            currentUser={props.me}
+            location={location}
+            savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
+            team={props.team}
+          />
+        );
       }}
+      variables={{ teamSlug }}
     />
   );
 };
 
 
-export default withSetFlashMessage(withRouter(injectIntl(ProjectsComponent)));
+export default withSetFlashMessage(withRouter(injectIntl(DrawerTipline)));

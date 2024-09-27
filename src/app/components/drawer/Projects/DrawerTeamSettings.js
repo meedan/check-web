@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -84,7 +83,7 @@ const messages = defineMessages({
   },
 });
 
-const Settings = ({
+const DrawerTeamSettingsComponent = ({
   intl,
   params,
   team,
@@ -221,7 +220,7 @@ const Settings = ({
   );
 };
 
-Settings.propTypes = {
+DrawerTeamSettingsComponent.propTypes = {
   params: PropTypes.shape({
     tab: PropTypes.string.isRequired,
   }).isRequired,
@@ -230,17 +229,7 @@ Settings.propTypes = {
   }).isRequired,
 };
 
-const renderQuery = ({
-  intl, params, props,
-}) => {
-  if (!props) {
-    return null;
-  }
-
-  return <Settings intl={intl} params={params} team={props.team} />;
-};
-
-const SettingsComponent = ({ intl, params }) => {
+const DrawerTeamSettings = ({ intl, params }) => {
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
 
@@ -254,7 +243,6 @@ const SettingsComponent = ({ intl, params }) => {
           permissions
           alegre_bot: team_bot_installation(bot_identifier: "alegre") {
             id
-            alegre_settings
           }
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
             id
@@ -262,16 +250,16 @@ const SettingsComponent = ({ intl, params }) => {
         }
       }
     `}
-      render={({ error, props }) => renderQuery({
-        error, props, params, intl,
-      })}
-      variables={{
-        teamSlug,
+      render={({ error, props }) => {
+        if (!props || error) return null;
+
+        return <DrawerTeamSettingsComponent intl={intl} params={params} team={props.team} />;
       }}
+      variables={{ teamSlug }}
     />
   );
 };
 
-export { Settings }; // eslint-disable-line import/no-unused-modules
+export { DrawerTeamSettingsComponent }; // eslint-disable-line import/no-unused-modules
 
-export default withSetFlashMessage(withRouter(injectIntl(SettingsComponent)));
+export default withSetFlashMessage(withRouter(injectIntl(DrawerTeamSettings)));

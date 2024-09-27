@@ -38,7 +38,7 @@ const messages = defineMessages({
   },
 });
 
-const UserSettings = ({
+const DrawerUserSettingsComponent = ({
   intl,
   me,
   params,
@@ -108,23 +108,13 @@ const UserSettings = ({
   );
 };
 
-UserSettings.propTypes = {
+DrawerUserSettingsComponent.propTypes = {
   params: PropTypes.shape({
     tab: PropTypes.string,
   }).isRequired,
 };
 
-const renderQuery = ({
-  intl, params, props,
-}) => {
-  if (!props) {
-    return null;
-  }
-
-  return <UserSettings intl={intl} me={props.me} params={params} />;
-};
-
-const UserSettingsComponent = ({ intl, params }) => (
+const DrawerUserSettings = ({ intl, params }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
@@ -134,12 +124,14 @@ const UserSettingsComponent = ({ intl, params }) => (
         }
       }
     `}
-    render={({ error, props }) => renderQuery({
-      error, props, params, intl,
-    })}
+    render={({ error, props }) => {
+      if (!props || error) return null;
+
+      return <DrawerUserSettingsComponent intl={intl} me={props.me} params={params} />;
+    }}
   />
 );
 
-export { UserSettingsComponent }; // eslint-disable-line import/no-unused-modules
+export { DrawerUserSettings }; // eslint-disable-line import/no-unused-modules
 
-export default withSetFlashMessage(withRouter(injectIntl(UserSettingsComponent)));
+export default withSetFlashMessage(withRouter(injectIntl(DrawerUserSettings)));

@@ -21,7 +21,7 @@ const messages = defineMessages({
   },
 });
 
-const Feeds = ({
+const DrawerFeedsComponent = ({
   feeds,
   intl,
   location,
@@ -143,7 +143,7 @@ const Feeds = ({
   );
 };
 
-Feeds.propTypes = {
+DrawerFeedsComponent.propTypes = {
   feeds: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
@@ -158,29 +158,7 @@ Feeds.propTypes = {
   }).isRequired,
 };
 
-const renderQuery = ({
-  intl, params, props,
-}) => {
-  if (!props) {
-    return null;
-  }
-
-  const feedsCreated = props.team.feeds?.edges.map(f => f.node).filter(f => f.team_id === props.team.dbid);
-  const feedsJoined = props.team.feed_teams?.edges.map(ft => ft.node).filter(ft => !feedsCreated?.find(f => f.dbid === ft.feed_id));
-  const feedsInvited = props.me.feed_invitations?.edges.map(f => f.node).filter(fi => fi.state === 'invited');
-  const feeds = [].concat(feedsCreated, feedsJoined, feedsInvited);
-  const { location } = window;
-
-  return (<Feeds
-    feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
-    intl={intl}
-    location={location}
-    params={params}
-    team={props.team}
-  />);
-};
-
-const FeedsComponent = ({ intl, params }) => {
+const DrawerFeeds = ({ intl, params }) => {
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
 
@@ -238,14 +216,26 @@ const FeedsComponent = ({ intl, params }) => {
             }
           }
       `}
-      render={({ error, props }) => renderQuery({
-        error, props, params, intl,
-      })}
-      variables={{
-        teamSlug,
+      render={({ error, props }) => {
+        if (!props || error) return null;
+
+        const feedsCreated = props.team.feeds?.edges.map(f => f.node).filter(f => f.team_id === props.team.dbid);
+        const feedsJoined = props.team.feed_teams?.edges.map(ft => ft.node).filter(ft => !feedsCreated?.find(f => f.dbid === ft.feed_id));
+        const feedsInvited = props.me.feed_invitations?.edges.map(f => f.node).filter(fi => fi.state === 'invited');
+        const feeds = [].concat(feedsCreated, feedsJoined, feedsInvited);
+        const { location } = window;
+
+        return (<DrawerFeedsComponent
+          feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
+          intl={intl}
+          location={location}
+          params={params}
+          team={props.team}
+        />);
       }}
+      variables={{ teamSlug }}
     />
   );
 };
 
-export default withSetFlashMessage(withRouter(injectIntl(FeedsComponent)));
+export default withSetFlashMessage(withRouter(injectIntl(DrawerFeeds)));
