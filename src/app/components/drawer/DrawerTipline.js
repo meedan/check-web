@@ -1,38 +1,38 @@
-/* eslint-disable react/sort-prop-types */
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter, Link } from 'react-router';
 import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
-import ProjectsListItem from './ProjectsListItem';
-import NewProject from './NewProject';
-import ProjectsCoreListCounter from './ProjectsCoreListCounter';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import CreateMedia from '../../media/CreateMedia';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
-import AddIcon from '../../../icons/add_filled.svg';
-import CategoryIcon from '../../../icons/category.svg';
-import ExpandLessIcon from '../../../icons/chevron_down.svg';
-import ExpandMoreIcon from '../../../icons/chevron_right.svg';
-import SharedFeedIcon from '../../../icons/dynamic_feed.svg';
-import InboxIcon from '../../../icons/inbox.svg';
-import LightbulbIcon from '../../../icons/lightbulb.svg';
-import ListIcon from '../../../icons/list.svg';
-import PersonIcon from '../../../icons/person.svg';
-import UnmatchedIcon from '../../../icons/unmatched.svg';
-import Can from '../../Can';
-import DeleteIcon from '../../../icons/delete.svg';
-import ReportIcon from '../../../icons/report.svg';
-import { withSetFlashMessage } from '../../FlashMessage';
-import { assignedToMeDefaultQuery } from '../../team/AssignedToMe';
-import { suggestedMatchesDefaultQuery } from '../../team/SuggestedMatches';
-import { unmatchedMediaDefaultQuery } from '../../team/UnmatchedMedia';
-import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
-import styles from './Projects.module.css';
+import ProjectsListItem from './Projects/ProjectsListItem';
+import NewProject from './Projects/NewProject';
+import ProjectsCoreListCounter from './Projects/ProjectsCoreListCounter';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import CreateMedia from '../media/CreateMedia';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import AddIcon from '../../icons/add_filled.svg';
+import CategoryIcon from '../../icons/category.svg';
+import ExpandLessIcon from '../../icons/chevron_down.svg';
+import ExpandMoreIcon from '../../icons/chevron_right.svg';
+import SharedFeedIcon from '../../icons/dynamic_feed.svg';
+import InboxIcon from '../../icons/inbox.svg';
+import LightbulbIcon from '../../icons/lightbulb.svg';
+import ListIcon from '../../icons/list.svg';
+import PersonIcon from '../../icons/person.svg';
+import UnmatchedIcon from '../../icons/unmatched.svg';
+import Can from '../Can';
+import DeleteIcon from '../../icons/delete.svg';
+import ReportIcon from '../../icons/report.svg';
+import { withSetFlashMessage } from '../FlashMessage';
+import { assignedToMeDefaultQuery } from '../team/AssignedToMe';
+import { suggestedMatchesDefaultQuery } from '../team/SuggestedMatches';
+import { unmatchedMediaDefaultQuery } from '../team/UnmatchedMedia';
+import { tiplineInboxDefaultQuery } from '../team/TiplineInbox';
+import styles from './Projects/Projects.module.css';
 
-
-const ProjectsComponent = ({
+const DrawerTiplineComponent = ({
   currentUser,
   location,
   savedSearches,
@@ -344,16 +344,9 @@ const ProjectsComponent = ({
   );
 };
 
-ProjectsComponent.propTypes = {
+DrawerTiplineComponent.propTypes = {
   currentUser: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
-  }).isRequired,
-  team: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-    slug: PropTypes.string.isRequired,
-    medias_count: PropTypes.number.isRequired,
-    permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
-    verification_statuses: PropTypes.object.isRequired,
   }).isRequired,
   savedSearches: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -361,6 +354,69 @@ ProjectsComponent.propTypes = {
     title: PropTypes.string.isRequired,
     filters: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  team: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+    medias_count: PropTypes.number.isRequired,
+    permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
+    verification_statuses: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
-export default withSetFlashMessage(withRouter(injectIntl(ProjectsComponent)));
+
+const DrawerTipline = () => {
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query DrawerTiplineQuery($teamSlug: String!) {
+          me {
+            id
+            dbid
+          }
+          team(slug: $teamSlug) {
+            dbid
+            slug
+            permissions
+            medias_count
+            verification_statuses
+            saved_searches(first: 10000) {
+              edges {
+                node {
+                  id
+                  dbid
+                  title
+                  is_part_of_feeds
+                  medias_count: items_count
+                }
+              }
+            }
+            trash_count
+            spam_count
+          }
+        }
+      `}
+      render={({ error, props }) => {
+        if (!props || error) return null;
+
+        const { location } = window;
+
+        return (
+          <DrawerTiplineComponent
+            currentUser={props.me}
+            location={location}
+            savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
+            team={props.team}
+          />
+        );
+      }}
+      variables={{ teamSlug }}
+    />
+  );
+};
+
+
+export default withSetFlashMessage(withRouter(injectIntl(DrawerTipline)));

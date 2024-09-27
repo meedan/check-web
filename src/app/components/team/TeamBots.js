@@ -27,7 +27,7 @@ class TeamBots extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const settings = {};
     this.props.root.team_bots_listed.edges.forEach((bot) => {
       const installation = this.getInstallation(bot.node.id);
