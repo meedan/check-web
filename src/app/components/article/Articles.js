@@ -53,12 +53,14 @@ const adjustFilters = (filters) => {
 };
 
 const ArticlesComponent = ({
+  articleTypeReadOnly,
   articles,
   articlesCount,
   defaultFilters,
   filterOptions,
   filters,
   icon,
+  onChangeArticleType,
   onChangeSearchParams,
   page,
   reloadData,
@@ -75,10 +77,8 @@ const ArticlesComponent = ({
 
   if (type === 'fact-check') articleDbidFromUrl = getQueryStringValue('factCheckId');
   if (type === 'explainer') articleDbidFromUrl = getQueryStringValue('explainerId');
-  if (!type) articleDbidFromUrl = getQueryStringValue('factCheckId') || getQueryStringValue('explainerId');
 
   const [selectedArticleDbid, setSelectedArticleDbid] = React.useState(articleDbidFromUrl);
-  const [selectedArticleType, setSelectedArticleType] = React.useState(type);
 
   // Track when number of articles increases: When it happens, it's because a new article was created, so refresh the list
   const [totalArticlesCount, setTotalArticlesCount] = React.useState(team.totalArticlesCount);
@@ -113,8 +113,7 @@ const ArticlesComponent = ({
 
   const handleCloseSlideout = () => {
     setSelectedArticleDbid(null);
-    deleteQueryStringValue(selectedArticleType === 'explainer' ? 'explainerId' : 'factCheckId');
-    setSelectedArticleType(null);
+    deleteQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId');
   };
 
   const onCompleted = () => {
@@ -154,12 +153,9 @@ const ArticlesComponent = ({
   const handleClick = (article) => {
     if (article.dbid !== selectedArticleDbid) {
       setSelectedArticleDbid(null);
-      setSelectedArticleType(null);
       setTimeout(() => {
-        const articleType = article.report_status ? 'fact-check' : 'explainer';
         setSelectedArticleDbid(article.dbid);
-        setSelectedArticleType(articleType);
-        pushQueryStringValue(articleType === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
+        pushQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
       }, 10);
     }
   };
@@ -198,12 +194,14 @@ const ArticlesComponent = ({
             onChange={handleChangeSort}
           />
           <ArticleFilters
-            currentFilters={type ? { ...filters, article_type: type } : { ...filters }}
-            defaultFilters={type ? { ...defaultFilters, article_type: type } : { ...defaultFilters }}
+            articleTypeReadOnly={articleTypeReadOnly}
+            currentFilters={{ ...filters, article_type: type }}
+            defaultFilters={{ ...defaultFilters, article_type: type }}
             filterOptions={filterOptions}
             statuses={statuses.statuses}
             teamSlug={team.slug}
-            type={null}
+            type={type}
+            onChangeArticleType={onChangeArticleType}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -261,7 +259,7 @@ const ArticlesComponent = ({
                 tags={article.tags}
                 title={isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title}
                 url={article.url}
-                variant={article.report_status ? 'fact-check' : 'explainer'}
+                variant={type}
                 onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
               />
             );
@@ -300,11 +298,11 @@ ArticlesComponent.defaultProps = {
   statuses: {},
   articles: [],
   articlesCount: 0,
-  type: null,
+  onChangeArticleType: null,
 };
 
 ArticlesComponent.propTypes = {
-  type: PropTypes.oneOf(['explainer', 'fact-check']),
+  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
   icon: PropTypes.node.isRequired,
   page: PropTypes.number,
@@ -317,6 +315,7 @@ ArticlesComponent.propTypes = {
     slug: PropTypes.string.isRequired,
   }).isRequired,
   onChangeSearchParams: PropTypes.func.isRequired,
+  onChangeArticleType: PropTypes.func,
   updateMutation: PropTypes.object.isRequired,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   sortOptions: PropTypes.arrayOf(PropTypes.exact({
@@ -351,9 +350,11 @@ ArticlesComponent.propTypes = {
 export { ArticlesComponent };
 
 const Articles = ({
+  articleTypeReadOnly,
   defaultFilters,
   filterOptions,
   icon,
+  onChangeArticleType,
   sortOptions,
   teamSlug,
   title,
@@ -402,8 +403,8 @@ const Articles = ({
               )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
-                user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by, trashed: $trashed,
-                report_status: $report_status, rating: $verification_status, imported: $imported, text: $text,
+                user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by,
+                report_status: $report_status, rating: $verification_status, imported: $imported, text: $text, trashed: $trashed,
               ) {
                 edges {
                   node {
@@ -448,6 +449,7 @@ const Articles = ({
           if (!error && props) {
             return (
               <ArticlesComponent
+                articleTypeReadOnly={articleTypeReadOnly}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
                 defaultFilters={defaultFilters}
@@ -464,6 +466,7 @@ const Articles = ({
                 title={title}
                 type={type}
                 updateMutation={updateMutation}
+                onChangeArticleType={onChangeArticleType}
                 onChangeSearchParams={handleChangeSearchParams}
               />
             );
@@ -487,14 +490,16 @@ const Articles = ({
 };
 
 Articles.defaultProps = {
+  articleTypeReadOnly: true,
   sortOptions: [],
   filterOptions: [],
   defaultFilters: {},
-  type: null,
+  onChangeArticleType: null,
 };
 
 Articles.propTypes = {
-  type: PropTypes.oneOf(['explainer', 'fact-check']),
+  articleTypeReadOnly: PropTypes.bool,
+  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
   icon: PropTypes.node.isRequired,
   teamSlug: PropTypes.string.isRequired,
@@ -505,6 +510,7 @@ Articles.propTypes = {
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired, // Localizable string
   })),
+  onChangeArticleType: PropTypes.func,
 };
 
 export default Articles;

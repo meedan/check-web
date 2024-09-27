@@ -23,34 +23,62 @@ const messages = defineMessages({
   },
 });
 
+const updateMutationExplainer = graphql`
+  mutation TrashedArticlesUpdateExplainerMutation($input: UpdateExplainerInput!) {
+    updateExplainer(input: $input) {
+      explainer {
+        id
+        tags
+      }
+    }
+  }
+`;
+
+const updateMutationFactCheck = graphql`
+  mutation TrashedArticlesUpdateFactCheckMutation($input: UpdateFactCheckInput!) {
+    updateFactCheck(input: $input) {
+      fact_check {
+        id
+        tags
+      }
+    }
+  }
+`;
+
 const TrashedArticles = ({ intl, routeParams }) => {
+  const [type, setTags] = React.useState('fact-check');
+  const [updateMutation, setUpdateMutation] = React.useState(updateMutationFactCheck);
+
   const sortOptions = [
     { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'language', label: intl.formatMessage(messages.sortLanguage) },
     { value: 'updated_at', label: intl.formatMessage(messages.sortDate) },
   ];
 
-  const updateMutation = graphql`
-    mutation TrashedArticlesUpdateExplainerMutation($input: UpdateExplainerInput!) {
-      updateExplainer(input: $input) {
-        explainer {
-          id
-          tags
-        }
-      }
+  const handleChangeArticleType = (newType) => {
+    if (newType === 'explainer') {
+      setTags(newType);
+      setUpdateMutation(updateMutationExplainer);
+    } else if (newType === 'fact-check') {
+      setTags('fact-check');
+      setUpdateMutation(updateMutationFactCheck);
+    } else {
+      setTags(null);
     }
-  `;
+  };
 
   return (
     <Articles
+      articleTypeReadOnly={false}
       defaultFilters={{ trashed: true }}
       filterOptions={['users', 'tags', 'range']}
       icon={<TrashIcon />}
       sortOptions={sortOptions}
       teamSlug={routeParams.team}
       title={<FormattedMessage defaultMessage="Trash" description="Title of the trashed articles page." id="trashedArticles.title" />}
-      type="fact-check"
+      type={type}
       updateMutation={updateMutation}
+      onChangeArticleType={handleChangeArticleType}
     />
   );
 };
