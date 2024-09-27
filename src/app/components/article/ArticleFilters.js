@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -33,17 +32,30 @@ const messages = defineMessages({
 });
 
 const ArticleFilters = ({
+  articleTypeReadOnly,
   currentFilters,
   defaultFilters,
   extra,
   filterOptions,
   intl,
+  onChangeArticleType,
   onSubmit,
   statuses,
   teamSlug,
   type,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
+
+  const [typeFilter, setTypeFilter] = React.useState([type]);
+
+  // handling the setting here before sending it up to the page to prevent the page from re-rendering with an empty article_type.
+  const handleTypeFilter = (value) => {
+    if (!value.length) {
+      setTypeFilter([]);
+    } else {
+      onChangeArticleType(value);
+    }
+  };
 
   const handleAddFilter = (filter) => {
     const newFilters = { ...filters };
@@ -183,8 +195,10 @@ const ArticleFilters = ({
                     { value: 'explainer', label: intl.formatMessage(messages.explainer) },
                     { value: 'fact-check', label: intl.formatMessage(messages.factCheck) },
                   ]}
-                  readOnly
-                  selected={[type]}
+                  readOnly={articleTypeReadOnly}
+                  selected={typeFilter}
+                  single
+                  onChange={(newValue) => { handleTypeFilter(newValue); }}
                 />
               </React.Fragment>
             );
@@ -321,25 +335,29 @@ const ArticleFilters = ({
 };
 
 ArticleFilters.defaultProps = {
-  filterOptions: [],
+  articleTypeReadOnly: true,
   currentFilters: {},
   defaultFilters: {},
   extra: null,
+  filterOptions: [],
+  onChangeArticleType: null,
 };
 
 ArticleFilters.propTypes = {
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
-  filterOptions: PropTypes.arrayOf(PropTypes.string.isRequired),
+  articleTypeReadOnly: PropTypes.bool,
   currentFilters: PropTypes.object,
   defaultFilters: PropTypes.object,
-  onSubmit: PropTypes.func.isRequired,
-  teamSlug: PropTypes.string.isRequired,
+  extra: PropTypes.node,
+  filterOptions: PropTypes.arrayOf(PropTypes.string.isRequired),
+  intl: intlShape.isRequired,
   statuses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  extra: PropTypes.node,
-  intl: intlShape.isRequired,
+  teamSlug: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
+  onChangeArticleType: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default injectIntl(ArticleFilters);
