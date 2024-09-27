@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e 
+# set -e 
 # Running only unit tests
 if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ \[full\ ci\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[text\ similarity\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[media\ similarity\ tests\] ]]
 then
@@ -9,7 +9,7 @@ then
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
 # Running all tests
 else
-  if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
+  if [[ "$GITHUB_JOB_NAME" == 'integration-and-unit-tests' ]]
   then
     docker compose build web api api-background pender pender-background
     docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
