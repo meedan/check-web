@@ -23,8 +23,8 @@ jobs:
       contains(github.event.head_commit.message, '[full ci]') &&
       contains(github.event.head_commit.message, '[smoke tests]'))
       ||
-      (github.event_name == 'pull_request' &&
-      contains(github.event.head_commit.message, '[full ci]') &&
+      (github.event_name == 'pull_request' ||
+      contains(github.event.head_commit.message, '[full ci]') ||
       contains(github.event.head_commit.message, '[smoke tests]'))
 
     steps:
