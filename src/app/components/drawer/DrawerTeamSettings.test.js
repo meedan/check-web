@@ -40,7 +40,7 @@ describe('<DrawerTeamSettings />', () => {
     },
   }));
 
-  it('should not render report tab or data tab when smooch is not installed on the team', () => {
+  it('should not render report tab when smooch is not installed on the team', () => {
     const wrapper = shallowWithIntl(<DrawerTeamSettingsComponent
       params={{ tab: '' }}
       team={team}
@@ -48,7 +48,7 @@ describe('<DrawerTeamSettings />', () => {
     expect(wrapper.find('.team-settings__report-tab')).toHaveLength(0);
   });
 
-  it('should render report tab and data tab when smooch is installed on the team', () => {
+  it('should render report tab when smooch is installed on the team', () => {
     const wrapper = shallowWithIntl(<DrawerTeamSettingsComponent
       params={{ tab: 'report' }}
       team={team2}

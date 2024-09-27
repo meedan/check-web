@@ -112,15 +112,6 @@ const DrawerTeamSettingsComponent = ({
               </li>
             </Link> : null
           }
-          { isAdminOrEditor && Boolean(team.smooch_bot?.id) ?
-            <Link className={cx('team-settings__data-tab', styles.linkList)} title={intl.formatMessage(messages.data)} to={`/${team.slug}/settings/data`}>
-              <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'data' })}>
-                <div className={styles.listLabel}>
-                  {intl.formatMessage(messages.data)}
-                </div>
-              </li>
-            </Link> : null
-          }
           { isAdmin ?
             <Link className={cx('team-settings__integrations-tab', styles.linkList)} title={intl.formatMessage(messages.integrations)} to={`/${team.slug}/settings/integrations`}>
               <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'integrations' })}>
