@@ -6,6 +6,7 @@ import styles from './../drawer/Projects/Projects.module.css';
 import ArticleCoreListCounter from './ArticleCoreListCounter';
 import NewArticleButton from './NewArticleButton';
 import PublishedIcon from '../../icons/fact_check.svg';
+import TrashIcon from '../../icons/delete.svg';
 import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
 
@@ -145,7 +146,7 @@ const ArticlesComponent = ({ team }) => {
               })
             }
           >
-            <PublishedIcon className={styles.listIcon} />
+            <TrashIcon className={styles.listIcon} />
             <div className={styles.listLabel}>
               <FormattedMessage defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items that have been marked as Trashed" id="projectsComponent.trash" tagName="span" />
             </div>
