@@ -45,6 +45,7 @@ const DrawerTiplineComponent = ({
     return (inStore === 'true');
   };
 
+
   const [listsExpanded, setListsExpanded] =
     React.useState(getBooleanPref('drawer.listsExpanded', true));
 
@@ -145,7 +146,7 @@ const DrawerTiplineComponent = ({
               <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
             </li>
           </Link>
-          { team.smooch_bot &&
+          { team.smooch_bot?.id &&
             <Link
               className={styles.linkList}
               to={`/${team.slug}/tipline-inbox`}
@@ -383,6 +384,13 @@ const DrawerTipline = () => {
             permissions
             medias_count
             verification_statuses
+            alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+              id
+              alegre_settings
+            }
+            smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+              id
+            }
             saved_searches(first: 10000) {
               edges {
                 node {
