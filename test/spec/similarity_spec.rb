@@ -68,7 +68,7 @@ shared_examples 'similarity' do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     puts 'Created team and bot...'
     api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
-    # puts 'Created first claim...'
+    puts 'Created first claim...'
     # verbose_wait 10
     # api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry!')
     # puts 'Created second claim...'
