@@ -4,9 +4,9 @@ on:
   push:
     branches:
     - CV2-5260-run-integration-tests
-  pull_request:
-    branches:
-    - Epic-4798/migraton-of-check-web-ci
+  # pull_request:
+  #   branches:
+  #   - Epic-4798/migraton-of-check-web-ci
 
 env:
   GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
@@ -19,13 +19,10 @@ jobs:
   integration-and-unit-tests:
     runs-on: ubuntu-latest
     if: >
-      (github.event_name == 'push' &&
-      contains(github.event.head_commit.message, '[full ci]') &&
-      contains(github.event.head_commit.message, '[smoke tests]'))
-      ||
-      (github.event_name == 'pull_request' ||
+      github.ref == 'refs/heads/develop' ||
+      github.ref == 'refs/heads/master' ||
       contains(github.event.head_commit.message, '[full ci]') ||
-      contains(github.event.head_commit.message, '[smoke tests]'))
+      contains(github.event.head_commit.message, '[smoke tests]')
 
     steps:
     - uses: actions/checkout@v4
@@ -153,15 +150,11 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     if: >
-      (github.event_name == 'push' &&
+      github.ref != 'refs/heads/develop' &&
+      github.ref != 'refs/heads/master' &&
       !contains(github.event.head_commit.message, '[full ci]') &&
       !contains(github.event.head_commit.message, '[smoke tests]') &&
-      !contains(github.event.head_commit.message, '[similarity tests]'))
-      ||
-      (github.event_name == 'pull_request' &&
-      !contains(github.event.pull_request.title, '[full ci]') &&
-      !contains(github.event.pull_request.title, '[smoke tests]') &&
-      !contains(github.event.pull_request.title, '[similarity tests]'))
+      !contains(github.event.head_commit.message, '[similarity tests]')
 
     steps:
     - uses: actions/checkout@v4
