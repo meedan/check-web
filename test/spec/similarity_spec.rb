@@ -73,8 +73,8 @@ shared_examples 'similarity' do
     api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry!')
     puts 'Created second claim...'
     verbose_wait 5
-    puts 'Opening page...'
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
+    # puts 'Opening page...'
+    # @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
     # wait_for_selector('.media__more-medias')
     # expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
