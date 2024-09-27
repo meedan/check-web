@@ -37,17 +37,22 @@
   {
     "id": "teamDetails.linkManagement",
     "description": "Title of the link management section in team details page",
-    "defaultMessage": "Link management"
+    "defaultMessage": "Link Management"
   },
   {
     "id": "teamDetails.linkManagementRss",
     "description": "Helper text for link management switcher when workspace has RSS newsletters configured",
-    "defaultMessage": "Link shortening makes URLs more readable and a predictable length. If you’re using an RSS feed, the link service cannot be disabled. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about link shortening</a>."
+    "defaultMessage": "<strong>Link engagement analytics:</strong> Link shortening is used to record the number of times the link was clicked by users when distributed through a report or a newsletter."
+  },
+  {
+    "id": "teamDetails.linkManagementLinkLength",
+    "description": "Additional helper text for link management describing link length",
+    "defaultMessage": "<strong>Link length and RSS:</strong> Link shortening makes URLs a predictable length. If you are using an RSS feed, the link service cannot be disabled. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about link shortening</a>."
   },
   {
     "id": "teamDetails.linkManagementSwitcher",
     "description": "Label for a switch where the user toggles link management in team details page",
-    "defaultMessage": "Enable link shortening and analytics"
+    "defaultMessage": "Enable link shortening and engagement analytics"
   },
   {
     "id": "teamDetails.utmCodePlaceholder",
