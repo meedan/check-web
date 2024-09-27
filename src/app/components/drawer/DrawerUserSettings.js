@@ -5,10 +5,10 @@ import { withRouter, Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import { logout } from '../../../redux/actions.js';
-import { withSetFlashMessage } from '../../FlashMessage.js';
-import LogoutIcon from '../../../icons/logout.svg';
-import styles from './Projects.module.css';
+import { logout } from '../../redux/actions.js';
+import { withSetFlashMessage } from '../FlashMessage.js';
+import LogoutIcon from '../../icons/logout.svg';
+import styles from './Projects/Projects.module.css';
 
 const messages = defineMessages({
   userSettings: {

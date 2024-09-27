@@ -5,7 +5,7 @@ import DrawerTeamSettings from './DrawerTeamSettings';
 import DrawerTipline from './DrawerTipline';
 import DrawerUserSettings from './DrawerUserSettings';
 
-const Projects = ({ drawerType }) => {
+const DrawerContent = ({ drawerType }) => {
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
   if (!teamSlug) return null; // Not in a team context
@@ -26,4 +26,4 @@ const Projects = ({ drawerType }) => {
   }
 };
 
-export default Projects;
+export default DrawerContent;

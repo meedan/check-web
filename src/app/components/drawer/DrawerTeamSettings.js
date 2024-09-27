@@ -5,10 +5,10 @@ import { withRouter, Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
-import { can } from '../../Can';
-import UserUtil from '../../user/UserUtil';
-import { withSetFlashMessage } from '../../FlashMessage';
-import styles from './Projects.module.css';
+import { can } from '../Can';
+import UserUtil from '../user/UserUtil';
+import { withSetFlashMessage } from '../FlashMessage';
+import styles from './Projects/Projects.module.css';
 
 const messages = defineMessages({
   annotations: {

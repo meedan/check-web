@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, defineMessages } from 'react-intl';
 import { browserHistory, withRouter } from 'react-router';
 import cx from 'classnames/bind';
-import ProjectsListItem from './ProjectsListItem';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import AddIcon from '../../../icons/add.svg';
-import Can from '../../Can';
-import ScheduleSendIcon from '../../../icons/schedule_send.svg';
-import { withSetFlashMessage } from '../../FlashMessage';
-import styles from './Projects.module.css';
+import ProjectsListItem from './Projects/ProjectsListItem';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import AddIcon from '../../icons/add.svg';
+import Can from '../Can';
+import ScheduleSendIcon from '../../icons/schedule_send.svg';
+import { withSetFlashMessage } from '../FlashMessage';
+import styles from './Projects/Projects.module.css';
 
 const messages = defineMessages({
   pendingInvitationFeedTooltip: {

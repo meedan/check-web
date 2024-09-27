@@ -1,6 +1,6 @@
 import React from 'react';
 import { DrawerTeamSettingsComponent } from './DrawerTeamSettings';
-import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<DrawerTeamSettings />', () => {
   const permissions = JSON.stringify({ 'update Team': true, 'read Team': true });
