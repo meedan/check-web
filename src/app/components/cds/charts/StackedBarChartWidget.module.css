@@ -1,0 +1,26 @@
+.stackedBarChartWidgetWrapper {
+  background-color: var(--color-white-100);
+  border-radius: var(--border-radius-large);
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  padding: 16px;
+  width: 100%;
+
+  .stackedBarChartWidgetTitle {
+    @mixin typography-subtitle2;
+    color: var(--color-gray-15);
+  }
+
+  .legend {
+    @mixin typography-body2;
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  .legendItem {
+    flex-wrap: wrap;
+  }
+}
