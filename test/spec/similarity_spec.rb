@@ -76,8 +76,8 @@ shared_examples 'similarity' do
     puts 'Opening page...'
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
     puts 'Page opened!'
-    # wait_for_selector('.media__more-medias')
-    # expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
+    wait_for_selector('.media__more-medias')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
   # it 'should identify videos as similar', bin7: true do
