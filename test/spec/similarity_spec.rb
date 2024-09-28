@@ -67,10 +67,10 @@ shared_examples 'similarity' do
     puts 'Running text similarity test...'
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     puts 'Created team and bot...'
-    api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
+    pm = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
     puts 'Created first claim...'
     verbose_wait 3
-    pm = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry!')
+    api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry!')
     puts 'Created second claim...'
     verbose_wait 3
     puts 'Opening page...'
