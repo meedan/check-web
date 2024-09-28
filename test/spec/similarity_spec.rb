@@ -69,10 +69,10 @@ shared_examples 'similarity' do
     puts 'Created team and bot...'
     api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
     puts 'Created first claim...'
-    verbose_wait 4
+    verbose_wait 3
     api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry!')
     puts 'Created second claim...'
-    verbose_wait 4
+    verbose_wait 3
     # puts 'Opening page...'
     # @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
     # wait_for_selector('.media__more-medias')
