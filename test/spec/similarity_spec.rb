@@ -5,14 +5,14 @@ shared_examples 'similarity' do
     wait_for_selector('.search__results-heading')
     wait_for_selector('.cluster-card').click
     wait_for_selector('#media-similarity__add-button').click
-  
+
     # Merge similar items
     add_related_item('Claim 0')
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     expect(@driver.page_source.include?('Media')).to be(true)
   end
-  
+
   it 'should pin and remove similarity items', bin4: true do
     data = api_create_team_and_bot
     pm1 = api_create_claim(data: data, quote: 'claim 1')
@@ -42,7 +42,7 @@ shared_examples 'similarity' do
     wait_for_selector('.test__media')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 0
   end
-  
+
   it 'should accept and reject suggested similarity', bin1: true do
     data = api_create_team_and_bot
     pm1 = api_create_claim(data: data, quote: 'claim 1')
@@ -62,20 +62,14 @@ shared_examples 'similarity' do
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
-  
+
   it 'should identify texts as similar', bin7: true do
-    puts 'Running text similarity test...'
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
-    puts 'Created team and bot...'
     pm = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
-    puts 'Created first claim...'
     verbose_wait 3
     api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry!')
-    puts 'Created second claim...'
     verbose_wait 3
-    puts 'Opening page...'
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
-    puts 'Page opened!'
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
@@ -92,7 +86,7 @@ shared_examples 'similarity' do
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
-  
+
   it 'should identify images as similar', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
@@ -105,7 +99,7 @@ shared_examples 'similarity' do
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
-  
+
   it 'should extract text from a image', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
@@ -116,7 +110,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Extracted text')).to be(true)
     expect(@driver.page_source.include?('Test')).to be(true)
   end
-  
+
   it 'should identify audios as similar', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
