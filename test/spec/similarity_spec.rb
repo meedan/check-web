@@ -75,7 +75,7 @@ shared_examples 'similarity' do
   end
 
   it 'should identify texts as similar with vector search', bin7: true do
-    data = api_create_team_and_bot(bot: 'alegre', score: {'master_similarity_enabled' => true, 'text_similarity_enabled' => true, 'text_elasticsearch_matching_threshold' => 0.9, 'text_elasticsearch_suggestion_threshold' => 0.7, 'text_vector_matching_threshold' => 0.95, 'text_vector_suggestion_threshold' => 0.75, 'text_similarity_model' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens'], 'alegre_model_in_use' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens'], 'min_es_score' => 100000})
+    data = api_create_team_and_bot(bot: 'alegre', score: { 'master_similarity_enabled' => true, 'text_similarity_enabled' => true, 'text_elasticsearch_matching_threshold' => 0.9, 'text_elasticsearch_suggestion_threshold' => 0.7, 'text_vector_matching_threshold' => 0.95, 'text_vector_suggestion_threshold' => 0.75, 'text_similarity_model' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens'], 'alegre_model_in_use' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens'], 'min_es_score' => 100000 })
     pm = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
     verbose_wait 3
     api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry!')
