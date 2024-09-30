@@ -41,6 +41,7 @@ import ImportedArticles from './article/ImportedArticles';
 import PublishedArticles from './article/PublishedArticles';
 import ArticleData from './Dashboard/ArticleDataComponent';
 
+import TrashedArticles from './article/TrashedArticles';
 
 class Root extends Component {
   static logPageView() {
@@ -122,6 +123,7 @@ class Root extends Component {
                   <Route component={ArticleData} path=":team/articles/dashboard" />
                   <Route component={ImportedArticles} path=":team/articles/imported-fact-checks" />
                   <Route component={PublishedArticles} path=":team/articles/published" />
+                  <Route component={TrashedArticles} path=":team/articles/trash" />
                   <Route component={NotFound} path="*" public />
                 </Route>
               </Router>
