@@ -26,6 +26,12 @@ jobs:
       contains(github.event.head_commit.message, '[similarity tests]')
 
     steps:
+    - name: free disk space
+      run: |
+        sudo apt clean
+        docker rmi $(docker image ls -aq)
+        df -h 
+
     - uses: actions/checkout@v4
 
     - name: Configure AWS Credentials
