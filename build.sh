@@ -17,7 +17,8 @@ else
     i=0
     NGROK_URL=""
     ngrok config add-authtoken $NGROK_AUTH
-    ngrok config upgrade 3
+    ngrok config upgrade 2
+    ngrok start --all
     while [ -z "$NGROK_URL" -a $i -lt 5 ]; do
       i=$(($i + 1))
       ngrok http 9000 >/dev/null &
