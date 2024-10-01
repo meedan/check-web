@@ -3,13 +3,13 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import TeamDataComponent from './TeamDataComponent';
+import TiplineDataComponent from './TiplineDataComponent';
 
 const renderQuery = ({ error, props }) => {
   if (!error && props) {
     const { team } = props;
     return (
-      <TeamDataComponent
+      <TiplineDataComponent
         data={team.data_report}
         defaultLanguage={team.get_language}
         slug={team.slug}
@@ -25,7 +25,7 @@ const TeamData = props => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query TeamDataQuery($teamSlug: String!) {
+      query DashboardQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           id
           slug
