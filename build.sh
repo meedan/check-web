@@ -42,10 +42,10 @@ else
     cat check-api/config/config.yml | grep similarity_media_file_url_host
     docker-compose build
     if [[ $TRAVIS_JOB_NAME == 'media-similarity-test' ]]
-        docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
     then
-        docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
+        docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
     else
+        docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
     fi
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
     until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
