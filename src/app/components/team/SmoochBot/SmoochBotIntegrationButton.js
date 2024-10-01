@@ -5,58 +5,20 @@ import { Store } from 'react-relay/classic';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../../cds/inputs/TextField';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
+import smoochBotStyles from './SmoochBot.module.css';
 
-const useStyles = makeStyles(theme => ({
-  smoochBotIntegrationButton: {
-    margin: theme.spacing(1),
-    background: 'var(--color-gray-88)',
-    minWidth: 255,
-    justifyContent: 'space-between',
-    '&:hover': {
-      background: 'var(--color-gray-88)',
-    },
-  },
-  smoochBotIntegrationButtonIcon: {
-    color: 'var(--color-white-100)',
-    padding: theme.spacing(0.5),
-    display: 'flex',
-    borderRadius: theme.spacing(1),
-  },
-  smoochBotIntegrationButtonLabel: {
-    textAlign: 'left',
-    width: '100%',
-    whiteSpace: 'nowrap',
-  },
-  smoochBotIntegrationButtonFlag: {
-    border: '1px solid transparent',
-    borderRadius: 3,
-    padding: theme.spacing(0.5),
-    fontSize: '10px !important',
-    fontWeight: 'bold',
-    minWidth: 80,
-  },
-  smoochBotIntegrationButtonConnected: {
-    color: 'var(--color-white-100)',
-    backgroundColor: 'var(--color-green-35)',
-  },
-  smoochBotIntegrationButtonDisconnected: {
-    color: 'var(--color-gray-15)',
-    borderColor: 'var(--color-gray-15)',
-  },
+const useStyles = makeStyles({
   smoochBotIntegrationButtonWarning: {
     color: 'var(--color-pink-53)',
   },
-  smoochBotIntegrationButtonHeader: {
-    marginBottom: 0,
-  },
-}));
+});
 
 const messages = defineMessages({
   confirmationMessage: {
@@ -232,46 +194,43 @@ const SmoochBotIntegrationButton = ({
 
   return (
     <React.Fragment>
-      <Button
-        className={classes.smoochBotIntegrationButton}
+      <ButtonMain
         disabled={disabled || (readOnly && !online)}
-        endIcon={
-          (!readOnly || online) ?
-            <span
-              className={cx(
-                'typography-caption',
-                classes.smoochBotIntegrationButtonFlag,
-                {
-                  [classes.smoochBotIntegrationButtonConnected]: online,
-                  [classes.smoochBotIntegrationButtonDisconnected]: !online,
-                })
-              }
-            >
-              { online ?
-                <FormattedMessage
-                  defaultMessage="Online"
-                  description="Status of bot when its online"
-                  id="smoochBotIntegrationButton.online"
-                /> :
-                <FormattedMessage
-                  defaultMessage="Connect"
-                  description="Status of bot when its not connected"
-                  id="smoochBotIntegrationButton.connect"
-                /> }
-            </span> : null
+        iconLeft={icon}
+        label={
+          <div className={smoochBotStyles['smoochbot-integration-button-label']}>
+            {label}
+            {
+              (!readOnly || online) ?
+                <div
+                  className={cx(
+                    smoochBotStyles['smoochbot-integration-button-status'],
+                    {
+                      [smoochBotStyles.smoochBotIntegrationButtonConnected]: online,
+                      [smoochBotStyles.smoochBotIntegrationButtonDisconnected]: !online,
+                    })
+                  }
+                >
+                  { online ?
+                    <FormattedMessage
+                      defaultMessage="Online"
+                      description="Status of bot when its online"
+                      id="smoochBotIntegrationButton.online"
+                    /> :
+                    <FormattedMessage
+                      defaultMessage="Connect"
+                      description="Status of bot when its not connected"
+                      id="smoochBotIntegrationButton.connect"
+                    /> }
+                </div> : null
+            }
+          </div>
         }
-        startIcon={
-          <Box className={classes.smoochBotIntegrationButtonIcon}>
-            {icon}
-          </Box>
-        }
+        size="default"
+        theme="lightText"
         variant="contained"
         onClick={handleClick}
-      >
-        <Box className={classes.smoochBotIntegrationButtonLabel}>
-          {label}
-        </Box>
-      </Button>
+      />
 
       <ConfirmProceedDialog
         body={(
@@ -293,7 +252,6 @@ const SmoochBotIntegrationButton = ({
         proceedLabel={<FormattedMessage defaultMessage="Disconnect from this account" description="Button label to disconnect a bot from an account" id="smoochBotIntegrationButton.disconnect" />}
         title={
           <SettingsHeader
-            className={classes.smoochBotIntegrationButtonHeader}
             helpUrl={helpUrl}
             title={
               <FormattedMessage
@@ -355,7 +313,6 @@ const SmoochBotIntegrationButton = ({
         }
         title={
           <SettingsHeader
-            className={classes.smoochBotIntegrationButtonHeader}
             helpUrl={helpUrl}
             title={
               <FormattedMessage
