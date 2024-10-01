@@ -59,6 +59,7 @@ const deletionWarningExplainer = (<FormattedMessage
 const ArticleTrash = ({
   article,
   onClose,
+  team,
   type,
 }) => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -166,7 +167,7 @@ const ArticleTrash = ({
     onClose();
     handleDialogClose();
     // FIXME: Replace this reload with a NODE_DELETE, RANGE_DELETE relay config
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleProceed = () => {
@@ -201,6 +202,18 @@ const ArticleTrash = ({
             trashed: !article.trashed,
           },
         },
+        config: [
+          {
+            type: 'NODE_DELETE',
+            deletedIDFieldName: 'fact_check.id',
+          },
+          {
+            type: 'RANGE_DELETE',
+            parentName: 'team',
+            parentId: team.id,
+            pathToConnection: ['team', 'articles'],
+          },
+        ],
         onCompleted: (response, err) => {
           setSaving(false);
           if (err) {

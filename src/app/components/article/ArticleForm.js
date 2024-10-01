@@ -575,6 +575,7 @@ const ArticleForm = ({
       ) : (
         <ArticleTrash
           article={article}
+          team={team}
           type={articleType}
           onClose={onClose}
         />
