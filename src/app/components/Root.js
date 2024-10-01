@@ -39,6 +39,9 @@ import Explainers from './article/Explainers';
 import FactChecks from './article/FactChecks';
 import ImportedArticles from './article/ImportedArticles';
 import PublishedArticles from './article/PublishedArticles';
+import TeamData from './Dashboard';
+import ArticleData from './Dashboard/ArticleDataComponent';
+
 import TrashedArticles from './article/TrashedArticles';
 
 class Root extends Component {
@@ -108,6 +111,7 @@ class Root extends Component {
                   <Route component={TiplineInbox} path=":team/tipline-inbox(/:query)" />
                   <Route component={SuggestedMatches} path=":team/suggested-matches(/:query)" />
                   <Route component={UnmatchedMedia} path=":team/unmatched-media(/:query)" />
+                  <Route component={TeamData} path=":team/dashboard" />
                   <Route component={CreateFeed} path=":team/feed/create" />
                   <Route component={FeedPage} path=":team/feeds" />
                   <Route component={EditFeedTeam} path=":team/feed/:feedId/edit" />
@@ -118,6 +122,7 @@ class Root extends Component {
                   <Route component={Trash} path=":team/trash(/:query)" />
                   <Route component={Explainers} path=":team/articles/explainers" />
                   <Route component={FactChecks} path=":team/articles/fact-checks" />
+                  <Route component={ArticleData} path=":team/articles/dashboard" />
                   <Route component={ImportedArticles} path=":team/articles/imported-fact-checks" />
                   <Route component={PublishedArticles} path=":team/articles/published" />
                   <Route component={TrashedArticles} path=":team/articles/trash" />
