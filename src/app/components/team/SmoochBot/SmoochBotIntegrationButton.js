@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -13,12 +12,6 @@ import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import smoochBotStyles from './SmoochBot.module.css';
-
-const useStyles = makeStyles({
-  smoochBotIntegrationButtonWarning: {
-    color: 'var(--color-pink-53)',
-  },
-});
 
 const messages = defineMessages({
   confirmationMessage: {
@@ -51,7 +44,6 @@ const SmoochBotIntegrationButton = ({
   type,
   url,
 }) => {
-  const classes = useStyles();
   const [openFormDialog, setOpenFormDialog] = React.useState(false);
   const [openInfoDialog, setOpenInfoDialog] = React.useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
@@ -331,7 +323,7 @@ const SmoochBotIntegrationButton = ({
       <ConfirmProceedDialog
         body={
           permanentDisconnection ?
-            <strong className={classes.smoochBotIntegrationButtonWarning}>
+            <strong className={smoochBotStyles.smoochBotIntegrationButtonWarning}>
               <FormattedMessage
                 defaultMessage="Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected."
                 description="Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."

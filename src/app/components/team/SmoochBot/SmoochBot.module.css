@@ -58,3 +58,7 @@
     }
   }
 }
+
+.smoochBotIntegrationButtonWarning {
+  color: var(--color-pink-53);
+}
