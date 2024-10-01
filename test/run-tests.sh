@@ -10,7 +10,10 @@ elif [[ $TRAVIS_JOB_NAME == 'unit-tests' ]]
 then
   npm run test:unit || exit 1
   ./../scripts/uncovered-files
-else
+elif [[ $TRAVIS_JOB_NAME == 'media-similarity-tests' ]]
+then
   ./parallel-media-similarity-test.sh
+elif [[ $TRAVIS_JOB_NAME == 'text-similarity-tests' ]]
+then
   ./parallel-text-similarity-test.sh
 fi
