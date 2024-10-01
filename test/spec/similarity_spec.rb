@@ -63,7 +63,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify texts as similar', bin7: true do
+  it 'should identify texts as similar', bin8: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     pm = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
     verbose_wait 3
@@ -74,7 +74,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify texts as similar with vector search', bin7: true do
+  it 'should identify texts as similar with vector search', bin8: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { 'master_similarity_enabled' => true, 'text_similarity_enabled' => true, 'text_elasticsearch_matching_threshold' => 0.9, 'text_elasticsearch_suggestion_threshold' => 0.7, 'text_vector_matching_threshold' => 0.95, 'text_vector_suggestion_threshold' => 0.75, 'text_similarity_model' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens'], 'alegre_model_in_use' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens'], 'min_es_score' => 100_000 })
     pm = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
     verbose_wait 3

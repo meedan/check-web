@@ -11,5 +11,6 @@ then
   npm run test:unit || exit 1
   ./../scripts/uncovered-files
 else
-  ./parallel-similarity-test.sh
+  ./parallel-media-similarity-test.sh
+  ./parallel-text-similarity-test.sh
 fi

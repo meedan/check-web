@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Running only unit tests
-if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ \[full\ ci\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[similarity\ tests\] ]]
+if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ \[full\ ci\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[text\ similarity\ tests\] ]] && ! $TRAVIS_COMMIT_MESSAGE =~ \[media\ similarity\ tests\] ]]
 then
   echo "Running only unit tests"
   docker-compose build web
@@ -41,7 +41,12 @@ else
     sed -i "s~similarity_media_file_url_host: ''~similarity_media_file_url_host: '$NGROK_URL'~g" check-api/config/config.yml
     cat check-api/config/config.yml | grep similarity_media_file_url_host
     docker-compose build
-    docker-compose -f docker-compose.yml -f docker-test.yml up -d
+    if [[ $TRAVIS_JOB_NAME == 'media-similarity-test' ]]
+        docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
+    then
+        docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
+    else
+    fi
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
     until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
   fi
