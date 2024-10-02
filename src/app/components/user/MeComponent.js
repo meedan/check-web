@@ -10,21 +10,17 @@ import UserWorkspaces from '../user/UserWorkspaces';
 import styles from './user.module.css';
 
 class MeComponent extends React.Component {
-  componentWillMount() {
-    const user = this.props.me;
-    if (!user.is_active) {
-      browserHistory.push('/check/not-found');
+  UNSAFE_componentWillMount() {
+    const { tab } = this.props.params;
+
+    if (!tab) {
+      browserHistory.push('/check/me/profile');
     }
   }
 
   render() {
     const user = this.props.me;
-    let { tab } = this.props.params;
-
-    if (!tab) {
-      tab = 'profile';
-      browserHistory.push(`/check/me/${tab}`);
-    }
+    const { tab } = this.props.params;
 
     return (
       <PageTitle prefix={user.name}>

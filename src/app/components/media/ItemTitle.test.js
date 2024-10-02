@@ -47,56 +47,56 @@ describe('<ItemTitle />', () => {
 
   it('should have default title', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: null }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Claim Title');
+    expect((wrapper.find('.int-item-title__textfield--title textarea').render().text())).toMatch('Claim Title');
   });
 
   it('should have custom title', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title' }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Custom Title');
+    expect((wrapper.find('.int-item-title__textfield--title textarea').render().text())).toMatch('Custom Title');
   });
 
   it('should have pinned media ID title', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'pinned_media_id' }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('test-text-1');
+    expect((wrapper.find('.int-item-title__textfield--title textarea').render().text())).toMatch('test-text-1');
   });
 
   it('should have claim title', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'claim_title' }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Claim Title');
+    expect((wrapper.find('.int-item-title__textfield--title textarea').render().text())).toMatch('Claim Title');
   });
 
   it('should have fact-check title', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'fact_check_title' }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Fact-Check Title');
+    expect((wrapper.find('.int-item-title__textfield--title textarea').render().text())).toMatch('Fact-Check Title');
   });
 
   it('should be disabled if title field is not custom title', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'fact_check_title' }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+    expect(wrapper.find('.int-item-title__textfield--title textarea').render().attr('disabled')).toBe('disabled');
   });
 
   it('should be disabled if title field is custom title but user has no permission', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title', permissions: JSON.stringify({ 'update ProjectMedia': false }) }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+    expect(wrapper.find('.int-item-title__textfield--title textarea').render().attr('disabled')).toBe('disabled');
   });
 
   it('should be disabled if title field is custom title but item is in the trash', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title', archived: 1 }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+    expect(wrapper.find('.int-item-title__textfield--title textarea').render().attr('disabled')).toBe('disabled');
   });
 
   it('should be disabled if title field is custom title but item is SPAM', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title', archived: 4 }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+    expect(wrapper.find('.int-item-title__textfield--title textarea').render().attr('disabled')).toBe('disabled');
   });
 
   it('should be disabled if title field is custom title but item is a suggestion', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title', is_suggested: true }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+    expect(wrapper.find('.int-item-title__textfield--title textarea').render().attr('disabled')).toBe('disabled');
   });
 
   it('should not be disabled if title field is custom title', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title' }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe(undefined);
+    expect(wrapper.find('.int-item-title__textfield--title textarea').render().attr('disabled')).toBe(undefined);
   });
 });

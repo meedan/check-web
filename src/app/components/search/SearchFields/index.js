@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields, react/sort-prop-types */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -706,6 +706,11 @@ const SearchFields = ({
     { value: 'recent_activity', label: intl.formatMessage(sortLabels.sortUpdated) },
   ];
 
+  // if searching for a keyword, default sort by score but only show option when searching
+  if (stateQuery.keyword && stateQuery.keyword.length > 0) {
+    listSortOptions.unshift({ value: 'score', label: intl.formatMessage(sortLabels.sortScore) });
+  }
+
   return (
     <div className={styles['filters-wrapper']}>
       <ListSort
@@ -796,31 +801,31 @@ SearchFields.defaultProps = {
 };
 
 SearchFields.propTypes = {
+  appliedQuery: PropTypes.object.isRequired,
+  defaultQuery: PropTypes.object.isRequired,
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
     feedFilters: PropTypes.object,
   }),
+  handleSubmit: PropTypes.func.isRequired,
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
+  readOnlyFields: PropTypes.arrayOf(PropTypes.string),
   savedSearch: PropTypes.shape({
+    filters: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    filters: PropTypes.string.isRequired,
   }),
-  stateQuery: PropTypes.object.isRequired,
-  appliedQuery: PropTypes.object.isRequired,
-  defaultQuery: PropTypes.object.isRequired,
   setStateQuery: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
+  stateQuery: PropTypes.object.isRequired,
   team: PropTypes.shape({
-    id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
-    slug: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
     verification_statuses: PropTypes.object.isRequired,
   }).isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  readOnlyFields: PropTypes.arrayOf(PropTypes.string),
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
+  onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
 };
 
 SearchFields.contextTypes = {

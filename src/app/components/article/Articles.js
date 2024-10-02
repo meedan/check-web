@@ -53,12 +53,14 @@ const adjustFilters = (filters) => {
 };
 
 const ArticlesComponent = ({
+  articleTypeReadOnly,
   articles,
   articlesCount,
   defaultFilters,
   filterOptions,
   filters,
   icon,
+  onChangeArticleType,
   onChangeSearchParams,
   page,
   reloadData,
@@ -67,7 +69,6 @@ const ArticlesComponent = ({
   sortType,
   statuses,
   team,
-  teamTags,
   title,
   type,
   updateMutation,
@@ -193,12 +194,14 @@ const ArticlesComponent = ({
             onChange={handleChangeSort}
           />
           <ArticleFilters
+            articleTypeReadOnly={articleTypeReadOnly}
             currentFilters={{ ...filters, article_type: type }}
             defaultFilters={{ ...defaultFilters, article_type: type }}
             filterOptions={filterOptions}
             statuses={statuses.statuses}
             teamSlug={team.slug}
             type={type}
+            onChangeArticleType={onChangeArticleType}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -253,7 +256,6 @@ const ArticlesComponent = ({
                 statusColor={currentStatus ? currentStatus.style?.color : null}
                 statusLabel={currentStatus ? currentStatus.label : null}
                 summary={isFactCheckValueBlank(summary) ? article.claim_description?.context : summary}
-                tagOptions={teamTags}
                 tags={article.tags}
                 title={isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title}
                 url={article.url}
@@ -294,9 +296,9 @@ ArticlesComponent.defaultProps = {
   filters: {},
   defaultFilters: {},
   statuses: {},
-  teamTags: null,
   articles: [],
   articlesCount: 0,
+  onChangeArticleType: null,
 };
 
 ArticlesComponent.propTypes = {
@@ -313,6 +315,7 @@ ArticlesComponent.propTypes = {
     slug: PropTypes.string.isRequired,
   }).isRequired,
   onChangeSearchParams: PropTypes.func.isRequired,
+  onChangeArticleType: PropTypes.func,
   updateMutation: PropTypes.object.isRequired,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   sortOptions: PropTypes.arrayOf(PropTypes.exact({
@@ -320,7 +323,6 @@ ArticlesComponent.propTypes = {
     label: PropTypes.string.isRequired, // Localizable string
   })),
   statuses: PropTypes.object,
-  teamTags: PropTypes.arrayOf(PropTypes.string),
   articlesCount: PropTypes.number,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -348,9 +350,11 @@ ArticlesComponent.propTypes = {
 export { ArticlesComponent };
 
 const Articles = ({
+  articleTypeReadOnly,
   defaultFilters,
   filterOptions,
   icon,
+  onChangeArticleType,
   sortOptions,
   teamSlug,
   title,
@@ -386,28 +390,21 @@ const Articles = ({
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
             $users: [Int], $updated_at: String, $tags: [String], $language: [String], $published_by: [Int],
-            $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String,
+            $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean,
           ) {
             team(slug: $slug) {
               name
               slug
               totalArticlesCount: articles_count
               verification_statuses
-              tag_texts(first: 100) {
-                edges {
-                  node {
-                    text
-                  }
-                }
-              }
               articles_count(
                 article_type: $type, user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, text: $text,
-                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported
+                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported, trashed: $trashed,
               )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
                 user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by,
-                report_status: $report_status, rating: $verification_status, imported: $imported, text: $text,
+                report_status: $report_status, rating: $verification_status, imported: $imported, text: $text, trashed: $trashed,
               ) {
                 edges {
                   node {
@@ -452,6 +449,7 @@ const Articles = ({
           if (!error && props) {
             return (
               <ArticlesComponent
+                articleTypeReadOnly={articleTypeReadOnly}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
                 defaultFilters={defaultFilters}
@@ -465,10 +463,10 @@ const Articles = ({
                 sortType={sortType}
                 statuses={props.team.verification_statuses}
                 team={props.team}
-                teamTags={props.team.tag_texts.edges.length > 0 ? props.team.tag_texts.edges.map(tag => tag.node.text) : null}
                 title={title}
                 type={type}
                 updateMutation={updateMutation}
+                onChangeArticleType={onChangeArticleType}
                 onChangeSearchParams={handleChangeSearchParams}
               />
             );
@@ -492,12 +490,15 @@ const Articles = ({
 };
 
 Articles.defaultProps = {
+  articleTypeReadOnly: true,
   sortOptions: [],
   filterOptions: [],
   defaultFilters: {},
+  onChangeArticleType: null,
 };
 
 Articles.propTypes = {
+  articleTypeReadOnly: PropTypes.bool,
   type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
   icon: PropTypes.node.isRequired,
@@ -509,6 +510,7 @@ Articles.propTypes = {
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired, // Localizable string
   })),
+  onChangeArticleType: PropTypes.func,
 };
 
 export default Articles;

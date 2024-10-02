@@ -23,5 +23,10 @@
     "id": "projectsComponent.published",
     "description": "Label for a list displayed on the left sidebar that includes items that have published reports",
     "defaultMessage": "Published"
+  },
+  {
+    "id": "projectsComponent.trash",
+    "description": "Label for a list displayed on the left sidebar that includes items that have been marked as Trashed",
+    "defaultMessage": "Trash"
   }
 ]

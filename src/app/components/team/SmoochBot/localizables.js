@@ -2,8 +2,9 @@ import React from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
 const labels = {
-  smooch_content: <FormattedMessage defaultMessage="Content & translation" description="Button label in tipline settings page" id="smoochBot.labelContent" />,
-  smooch_main_menu: <FormattedMessage defaultMessage="Main menu" description="Label for the bot Main menu content area" id="smoochBot.labelMainMenu" />,
+  smooch_settings: <FormattedMessage defaultMessage="Platforms" description="Label for the bot platform settings area" id="smoochBot.labelSettings" />,
+  smooch_main_menu: <FormattedMessage defaultMessage="Main Menu" description="Label for the bot Main menu content area" id="smoochBot.labelMainMenu" />,
+  smooch_content: <FormattedMessage defaultMessage="Content & Translation" description="Button label in tipline settings page" id="smoochBot.labelContent" />,
 };
 
 const placeholders = defineMessages({

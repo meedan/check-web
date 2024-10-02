@@ -1,0 +1,29 @@
+.smoochBotMenu {
+  margin: 0 0 32px;
+
+  li {
+    margin: 0 0 8px;
+
+    .smoochBotMenuButton {
+      border-radius: var(--border-radius-max);
+      justify-content: start;
+      width: 100%;
+    }
+  }
+
+  > .smoochBotMenuResource {
+    border-top: 1px solid var(--color-gray-88);
+    margin: 16px 0 8px;
+    padding: 16px 0 0;
+  }
+
+  .smoochBotMenuResource ~ .smoochBotMenuResource {
+    border: 0;
+    margin: 0 0 8px;
+    padding: 0;
+  }
+}
+
+.smoochbot-component-input {
+  min-width: 500px;
+}

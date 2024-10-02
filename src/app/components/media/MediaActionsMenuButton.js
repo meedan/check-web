@@ -141,7 +141,6 @@ class MediaActionsMenuButton extends React.PureComponent {
     ));
     return menuItems.length ? (
       <>
-        &nbsp;
         <ButtonMain
           buttonProps={{
             id: 'media-actions-menu-button__icon-button',

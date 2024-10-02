@@ -2,17 +2,23 @@ import React from 'react';
 import xor from 'lodash.xor';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
+import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import mergeWith from 'lodash.mergewith';
 import { can } from '../Can';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import TagList from '../cds/menus-lists-dialogs/TagList';
-import { withSetFlashMessage } from '../FlashMessage';
+import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
 
-const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
+const MediaTags = ({ projectMedia }) => {
+  if (!projectMedia) return null;
+
+  const readOnly = !can(projectMedia.permissions, 'update ProjectMedia');
+
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
+
   const searchTagUrl = (tagString) => {
     const tagQuery = {
       tags: [tagString],
@@ -42,8 +48,6 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
     }
   };
 
-  const readOnly = !can(projectMedia.permissions, 'update ProjectMedia');
-
   const onFailure = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
     setFlashMessage(message);
@@ -55,13 +59,7 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
         mutation MediaTagsCreateTagMutation($input: CreateTagInput!) {
           createTag(input: $input) {
             project_media {
-              tags(first: 100) {
-                edges {
-                  node {
-                    tag_text
-                  }
-                }
-              }
+              ...MediaTags_projectMedia
             }
           }
         }
@@ -90,13 +88,7 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
           mutation MediaTagsDeleteTagMutation($input: DestroyTagInput!) {
             destroyTag(input: $input) {
               project_media {
-                tags(first: 100) {
-                  edges {
-                    node {
-                      tag_text
-                    }
-                  }
-                }
+                ...MediaTags_projectMedia
               }
             }
           }
@@ -127,29 +119,28 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
   };
 
   const selected = projectMedia.tags.edges.map(t => t.node.tag_text);
-  const options = projectMedia.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
 
   return (
     <TagList
-      options={options}
       readOnly={readOnly}
       setTags={handleSetTags}
       tags={selected}
+      teamSlug={projectMedia.team.slug}
       onClickTag={handleTagViewClick}
     />
   );
 };
 
-MediaTagsComponent.propTypes = {
+MediaTags.defaultProps = {
+  projectMedia: null,
+};
+
+MediaTags.propTypes = {
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number,
     team: PropTypes.shape({
       slug: PropTypes.string.isRequired,
     }).isRequired,
-    suggested_main_item: PropTypes.shape({
-      dbid: PropTypes.number,
-    }),
-    is_secondary: PropTypes.bool,
     tags: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
@@ -158,52 +149,27 @@ MediaTagsComponent.propTypes = {
         }),
       }).isRequired).isRequired,
     }).isRequired,
-  }).isRequired,
+  }),
 };
 
-export { MediaTagsComponent }; // eslint-disable-line import/no-unused-modules
+export { MediaTags }; // eslint-disable-line import/no-unused-modules
 
-const MediaTags = parentProps => (
-  <QueryRenderer
-    environment={Relay.Store}
-    query={graphql`
-      query MediaTagsQuery($ids: String!) {
-        project_media(ids: $ids) {
-          dbid
-          permissions
-          team {
-            slug
-            tag_texts(last: 100) {
-              edges {
-                node {
-                  text
-                }
-              }
-            }
-          }
-          tags(last: 100) {
-            edges {
-              node {
-                id
-                tag_text
-              }
-            }
+export default createFragmentContainer(MediaTags,
+  graphql`
+    fragment MediaTags_projectMedia on ProjectMedia {
+      dbid
+      permissions
+      team {
+        slug
+      }
+      tags(last: 100) {
+        edges {
+          node {
+            id
+            tag_text
           }
         }
       }
-    `}
-    render={({ error, props }) => {
-      if (!error && props) {
-        return (<MediaTagsComponent {...parentProps} projectMedia={props.project_media} />);
-      }
-
-      // TODO: We need a better error handling in the future, standardized with other components
-      return null;
-    }}
-    variables={{
-      ids: `${parentProps.projectMediaId},,`,
-    }}
-  />
+    }
+  `,
 );
-
-export default withSetFlashMessage(MediaTags);

@@ -2,17 +2,17 @@
   {
     "id": "uploadFile.message",
     "description": "Message to the user describing the requirements for uploading an image",
-    "defaultMessage": "Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+    "defaultMessage": "<p>Drop an image file here, or click to upload a file</p><p>Max File Size: <strong>{upload_max_size}</strong></p><p>Allowed Extensions: <strong>{upload_extensions}</strong></p><p>Allowed Dimensions: <strong>{upload_min_dimensions} and {upload_max_dimensions} pixels</strong></p>"
   },
   {
     "id": "uploadFile.videoMessage",
     "description": "Message to the user describing the requirements for uploading a video",
-    "defaultMessage": "Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+    "defaultMessage": "<p>Drop a video file here, or click to upload a file</p><p>Max File Size: <strong>{video_max_size}</strong></p><p>Allowed Extensions: <strong>{video_extensions}</strong></p>"
   },
   {
     "id": "uploadFile.audioMessage",
     "description": "Message to the user describing the requirements for uploading an audio file",
-    "defaultMessage": "Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
+    "defaultMessage": "<p>Drop an audio file here, or click to upload a file</p><p>Max File Size: <strong>{audio_max_size}</strong></p><p>Allowed Extensions: <strong>{audio_extensions}</strong></p>"
   },
   {
     "id": "uploadFile.fileMessage",
@@ -22,7 +22,7 @@
   {
     "id": "uploadFile.imageVideoAudioMessage",
     "description": "Message to the user describing the requirements for uploading an image, video, or audio file using this component",
-    "defaultMessage": "Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+    "defaultMessage": "<p>Drop a file here, or click to upload a file</p><p>Max File Size: <strong>{file_max_size}</strong></p><p>Allowed Extensions: <strong>{file_extensions}</strong></p>"
   },
   {
     "id": "uploadFile.invalidExtension",
@@ -35,8 +35,13 @@
     "defaultMessage": "The file size should be less than {size}. Please try with a smaller file."
   },
   {
+    "id": "uploadFile.removeFileButton",
+    "description": "Label for the remove uploaded file button",
+    "defaultMessage": "Remove"
+  },
+  {
     "id": "uploadFile.changeFile",
     "description": "Output of the uploaded filename and how to change the file",
-    "defaultMessage": "{filename} (click or drop to change)"
+    "defaultMessage": "<strong>{filename}</strong>(click or drop to change)"
   }
 ]

@@ -1,24 +1,25 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import MediasLoading from './media/MediasLoading';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import ClearIcon from '../icons/clear.svg';
+import FilePresentIcon from '../icons/file_present.svg';
 import { unhumanizeSize } from '../helpers';
 import styles from './UploadFile.module.css';
 
 const UploadMessage = ({ about, type }) => {
   switch (type) {
   case 'image': return (
-    <FormattedMessage
-      defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+    <FormattedHTMLMessage
+      defaultMessage="<p>Drop an image file here, or click to upload a file</p><p>Max File Size: <strong>{upload_max_size}</strong></p><p>Allowed Extensions: <strong>{upload_extensions}</strong></p><p>Allowed Dimensions: <strong>{upload_min_dimensions} and {upload_max_dimensions} pixels</strong></p>"
       description="Message to the user describing the requirements for uploading an image"
       id="uploadFile.message"
+      tagName="div"
       values={{
         upload_max_size: about?.upload_max_size,
         upload_extensions: about?.upload_extensions?.join(', '),
@@ -28,10 +29,11 @@ const UploadMessage = ({ about, type }) => {
     />
   );
   case 'video': return (
-    <FormattedMessage
-      defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+    <FormattedHTMLMessage
+      defaultMessage="<p>Drop a video file here, or click to upload a file</p><p>Max File Size: <strong>{video_max_size}</strong></p><p>Allowed Extensions: <strong>{video_extensions}</strong></p>"
       description="Message to the user describing the requirements for uploading a video"
       id="uploadFile.videoMessage"
+      tagName="div"
       values={{
         video_max_size: about?.video_max_size,
         video_extensions: about?.video_extensions?.join(', '),
@@ -39,10 +41,11 @@ const UploadMessage = ({ about, type }) => {
     />
   );
   case 'audio': return (
-    <FormattedMessage
-      defaultMessage="Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
+    <FormattedHTMLMessage
+      defaultMessage="<p>Drop an audio file here, or click to upload a file</p><p>Max File Size: <strong>{audio_max_size}</strong></p><p>Allowed Extensions: <strong>{audio_extensions}</strong></p>"
       description="Message to the user describing the requirements for uploading an audio file"
       id="uploadFile.audioMessage"
+      tagName="div"
       values={{
         audio_max_size: about?.audio_max_size,
         audio_extensions: about?.audio_extensions?.join(', '),
@@ -55,6 +58,7 @@ const UploadMessage = ({ about, type }) => {
       defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
       description="Message to the user describing the requirements for uploading a file using this component"
       id="uploadFile.fileMessage"
+      tagName="div"
       values={{
         file_max_size: about?.file_max_size,
         file_extensions: about?.file_extensions?.join(', '),
@@ -63,10 +67,11 @@ const UploadMessage = ({ about, type }) => {
   );
 
   case 'image+video+audio': return (
-    <FormattedMessage
-      defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+    <FormattedHTMLMessage
+      defaultMessage="<p>Drop a file here, or click to upload a file</p><p>Max File Size: <strong>{file_max_size}</strong></p><p>Allowed Extensions: <strong>{file_extensions}</strong></p>"
       description="Message to the user describing the requirements for uploading an image, video, or audio file using this component"
       id="uploadFile.imageVideoAudioMessage"
+      tagName="div"
       values={{
         file_max_size: about?.file_max_size,
         file_extensions: about?.upload_extensions
@@ -81,7 +86,6 @@ const UploadMessage = ({ about, type }) => {
 };
 
 UploadMessage.propTypes = {
-  type: PropTypes.oneOf(['image', 'video', 'audio', 'file', 'image+video+audio']).isRequired,
   about: PropTypes.shape({
     upload_max_size: PropTypes.string.isRequired,
     upload_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -94,6 +98,7 @@ UploadMessage.propTypes = {
     file_max_size: PropTypes.string.isRequired,
     file_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'file', 'image+video+audio']).isRequired,
 };
 
 class UploadFileComponent extends React.PureComponent {
@@ -162,16 +167,38 @@ class UploadFileComponent extends React.PureComponent {
 
     if (value) {
       return (
-        <div style={{ display: 'flex' }}>
-          {noPreview ? <span className={styles.NoPreview} /> : <span className={styles.Preview} image={value.preview} styles={{ backgroundImage: `url(${props => props.image})` }} />}
-          <span className="no-preview" />
+        <div className={styles.PreviewWrapper}>
+          {noPreview ?
+            <div className={styles.NoPreview}>
+              <FilePresentIcon />
+            </div>
+            :
+            <div
+              className={styles.Preview}
+              image={value.preview}
+              style={{
+                backgroundImage: `url(${value.preview})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          }
           <ButtonMain
             buttonProps={{
               id: 'remove-image',
             }}
-            iconCenter={<ClearIcon />}
+            className="int-remove-upload__button--preview"
+            iconLeft={<ClearIcon />}
+            label={
+              <FormattedMessage
+                defaultMessage="Remove"
+                description="Label for the remove uploaded file button"
+                id="uploadFile.removeFileButton"
+              />
+            }
             size="small"
-            theme="text"
+            theme="lightBeige"
             variant="contained"
             onClick={this.onDelete}
           />
@@ -200,20 +227,17 @@ class UploadFileComponent extends React.PureComponent {
           multiple={false}
           onDrop={this.onDrop}
         >
-          <div>
-            {value ? (
-              <FormattedMessage
-                defaultMessage="{filename} (click or drop to change)"
-                description="Output of the uploaded filename and how to change the file"
-                id="uploadFile.changeFile"
-                values={{ filename: value.name }}
-              />
-            ) : (
-              <UploadMessage about={about} type={type} />
-            )}
-          </div>
+          {value ? (
+            <FormattedHTMLMessage
+              defaultMessage="<strong>{filename}</strong>(click or drop to change)"
+              description="Output of the uploaded filename and how to change the file"
+              id="uploadFile.changeFile"
+              values={{ filename: value.name }}
+            />
+          ) : (
+            <UploadMessage about={about} type={type} />
+          )}
         </Dropzone>
-        <br />
       </div>
     );
   }
@@ -254,12 +278,12 @@ UploadFile.defaultProps = {
   disabled: false,
 };
 UploadFile.propTypes = {
-  value: PropTypes.object, // or null
-  type: PropTypes.oneOf(['image', 'video', 'audio', 'image+video+audio']).isRequired,
+  disabled: PropTypes.bool,
   noPreview: PropTypes.bool,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'image+video+audio']).isRequired,
+  value: PropTypes.object, // or null
   onChange: PropTypes.func.isRequired, // func(Image) => undefined
   onError: PropTypes.func.isRequired, // func(Image?, <FormattedMessage ...>) => undefined
-  disabled: PropTypes.bool,
 };
 // eslint-disable-next-line
 export { UploadFileComponent };

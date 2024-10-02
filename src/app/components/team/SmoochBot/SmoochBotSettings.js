@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -11,6 +10,10 @@ const SmoochBotSettings = (props) => {
 
   return (
     <React.Fragment>
+      <div className={styles['setting-content-container-title']}>
+        <FormattedMessage defaultMessage="Messaging Platforms" description="Title of available messaging platforms that can be connected in the tipline settings page" id="smoochBotSettings.messagingPlatform" />
+      </div>
+
       <SmoochBotIntegrations
         enabledIntegrations={props.enabledIntegrations}
         installationId={props.installationId}
@@ -127,12 +130,12 @@ const SmoochBotSettings = (props) => {
 };
 
 SmoochBotSettings.propTypes = {
-  settings: PropTypes.object.isRequired,
-  schema: PropTypes.object.isRequired,
   currentUser: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   installationId: PropTypes.string.isRequired,
+  schema: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default SmoochBotSettings;
