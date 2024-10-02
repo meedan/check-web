@@ -16,7 +16,7 @@ const UploadMessage = ({ about, type }) => {
   switch (type) {
   case 'image': return (
     <FormattedHTMLMessage
-      defaultMessage="<p>Drop an image file here, or click to upload a file</p><p>Max File Size: <strong>{upload_max_size}</strong></p><p>Allowed Extensions: <strong>{upload_extensions}</strong></p><p>Allowed Dimensions: <strong>{upload_min_dimensions} and {upload_max_dimensions} pixels</strong></p>"
+      defaultMessage="<p>Click or drag an image here to upload.</p><p>Max File Size: <strong>{upload_max_size}</strong></p><p>Allowed Extensions: <strong>{upload_extensions}</strong></p><p>Allowed Dimensions: <strong>{upload_min_dimensions} and {upload_max_dimensions} pixels</strong></p>"
       description="Message to the user describing the requirements for uploading an image"
       id="uploadFile.message"
       tagName="div"
@@ -30,7 +30,7 @@ const UploadMessage = ({ about, type }) => {
   );
   case 'video': return (
     <FormattedHTMLMessage
-      defaultMessage="<p>Drop a video file here, or click to upload a file</p><p>Max File Size: <strong>{video_max_size}</strong></p><p>Allowed Extensions: <strong>{video_extensions}</strong></p>"
+      defaultMessage="<p>Click or drag a video file here to upload.</p><p>Max File Size: <strong>{video_max_size}</strong></p><p>Allowed Extensions: <strong>{video_extensions}</strong></p>"
       description="Message to the user describing the requirements for uploading a video"
       id="uploadFile.videoMessage"
       tagName="div"
@@ -42,7 +42,7 @@ const UploadMessage = ({ about, type }) => {
   );
   case 'audio': return (
     <FormattedHTMLMessage
-      defaultMessage="<p>Drop an audio file here, or click to upload a file</p><p>Max File Size: <strong>{audio_max_size}</strong></p><p>Allowed Extensions: <strong>{audio_extensions}</strong></p>"
+      defaultMessage="<p>Click or drag an audio file here to upload.</p><p>Max File Size: <strong>{audio_max_size}</strong></p><p>Allowed Extensions: <strong>{audio_extensions}</strong></p>"
       description="Message to the user describing the requirements for uploading an audio file"
       id="uploadFile.audioMessage"
       tagName="div"
@@ -55,7 +55,7 @@ const UploadMessage = ({ about, type }) => {
 
   case 'file': return (
     <FormattedMessage
-      defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+      defaultMessage="<>Click or drag a file here to upload.</><p><p>Max File Size: <strong>{file_max_size}</strong></p><p>Allowed Extensions: <strong>{file_extensions}</strong></p>"
       description="Message to the user describing the requirements for uploading a file using this component"
       id="uploadFile.fileMessage"
       tagName="div"
@@ -68,7 +68,7 @@ const UploadMessage = ({ about, type }) => {
 
   case 'image+video+audio': return (
     <FormattedHTMLMessage
-      defaultMessage="<p>Drop a file here, or click to upload a file</p><p>Max File Size: <strong>{file_max_size}</strong></p><p>Allowed Extensions: <strong>{file_extensions}</strong></p>"
+      defaultMessage="<p>Click or drag a file here to upload.</p><p>Max File Size: <strong>{file_max_size}</strong></p><p>Allowed Extensions: <strong>{file_extensions}</strong></p>"
       description="Message to the user describing the requirements for uploading an image, video, or audio file using this component"
       id="uploadFile.imageVideoAudioMessage"
       tagName="div"
