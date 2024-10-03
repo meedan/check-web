@@ -185,6 +185,11 @@
     "defaultMessage": "Article URL"
   },
   {
+    "id": "articleForm.characterCount",
+    "description": "Label for the character count remaining in the combined text fields",
+    "defaultMessage": "{count} characters remaining"
+  },
+  {
     "id": "articleForm.selectLanguageLabel",
     "description": "Label for input to select language",
     "defaultMessage": "Language"
