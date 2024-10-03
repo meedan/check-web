@@ -14,6 +14,9 @@ const ArticlesListCounter = ({ defaultFilters, teamSlug, type }) => (
           articles_count(article_type: $type, imported: $imported, report_status: $report_status, trashed: $trashed)
           factChecksCount: articles_count(article_type: "fact-check")
           explainersCount: articles_count(article_type: "explainer")
+          publishedCount: articles_count(article_type: "fact-check", report_status: "published")
+          importedCount: articles_count(article_type: "fact-check", imported: true)
+          trashCount: articles_count(trashed: true)
         }
       }
     `}
@@ -23,11 +26,17 @@ const ArticlesListCounter = ({ defaultFilters, teamSlug, type }) => (
         // Use values that can be updated by the mutations when articles are created
         if (Object.keys(defaultFilters).length === 0) {
           if (type === 'fact-check') {
-            count = props.team.factChecksCount;
+            if (defaultFilters.report_status === 'published') {
+              count = props.team.publishedCount;
+            } else if (defaultFilters.imported === true) {
+              count = props.team.importedCount;
+            } else {
+              count = props.team.factChecksCount;
+            }
           } else if (type === 'explainer') {
             count = props.team.explainersCount;
           } else {
-            count = props.team.articles_count;
+            count = props.team.trashCount;
           }
         }
         return (<ProjectsListCounter key={count} numberOfItems={count} />);
