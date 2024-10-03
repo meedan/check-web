@@ -138,7 +138,7 @@ class HomeComponent extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setContext();
   }
 
@@ -413,7 +413,7 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
 
 // eslint-disable-next-line react/no-multi-comp
 class Home extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const context = new CheckContext(this);
     const { clientSessionId, setFlashMessage } = this.props;
     context.startNetwork(null, clientSessionId, setFlashMessage);

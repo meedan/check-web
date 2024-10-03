@@ -1,9 +1,9 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
-import Projects from './index';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import DrawerContent from './index';
 
 
-describe('<Projects />', () => {
+describe('<DrawerContent />', () => {
   const team = {
     id: '1',
     name: 'teamName',
@@ -26,7 +26,7 @@ describe('<Projects />', () => {
         pathname: 'https://checkmedia.org/',
       },
     });
-    const wrapper = mountWithIntl(<Projects
+    const wrapper = mountWithIntl(<DrawerContent
       team={team}
     />);
     expect(wrapper.html()).toEqual(null);

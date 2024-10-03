@@ -1,13 +1,14 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import { withRouter, Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
-import { can } from '../../Can';
-import UserUtil from '../../user/UserUtil';
-import { withSetFlashMessage } from '../../FlashMessage';
-import styles from './Projects.module.css';
+import { can } from '../Can';
+import UserUtil from '../user/UserUtil';
+import { withSetFlashMessage } from '../FlashMessage';
+import styles from './Projects/Projects.module.css';
 
 const messages = defineMessages({
   annotations: {
@@ -82,7 +83,7 @@ const messages = defineMessages({
   },
 });
 
-const SettingsComponent = ({
+const DrawerTeamSettingsComponent = ({
   intl,
   params,
   team,
@@ -91,7 +92,7 @@ const SettingsComponent = ({
   const userRole = UserUtil.myRole(window.Check.store.getState().app.context.currentUser, team.slug);
   const isAdmin = userRole === 'admin';
   const isAdminOrEditor = userRole === 'admin' || userRole === 'editor';
-  const isAlegreBotInstalled = Boolean(team.alegre_bot);
+  const isAlegreBotInstalled = Boolean(team.alegre_bot?.id);
 
   return (
     <React.Fragment>
@@ -116,7 +117,7 @@ const SettingsComponent = ({
               </li>
             </Link> : null
           }
-          { isAdminOrEditor && Boolean(team.smooch_bot) ?
+          { isAdminOrEditor && Boolean(team.smooch_bot?.id) ?
             <Link className={cx('team-settings__data-tab', styles.linkList)} title={intl.formatMessage(messages.data)} to={`/${team.slug}/settings/data`}>
               <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'data' })}>
                 <div className={styles.listLabel}>
@@ -219,15 +220,46 @@ const SettingsComponent = ({
   );
 };
 
-SettingsComponent.propTypes = {
-  team: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
+DrawerTeamSettingsComponent.propTypes = {
   params: PropTypes.shape({
     tab: PropTypes.string.isRequired,
   }).isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export { SettingsComponent }; // eslint-disable-line import/no-unused-modules
+const DrawerTeamSettings = ({ intl, params }) => {
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
 
-export default withSetFlashMessage(withRouter(injectIntl(SettingsComponent)));
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+      query DrawerTeamSettingsQuery($teamSlug: String!) {
+        team(slug: $teamSlug) {
+          slug
+          permissions
+          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+            id
+          }
+          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+            id
+          }
+        }
+      }
+    `}
+      render={({ error, props }) => {
+        if (!props || error) return null;
+
+        return <DrawerTeamSettingsComponent intl={intl} params={params} team={props.team} />;
+      }}
+      variables={{ teamSlug }}
+    />
+  );
+};
+
+export { DrawerTeamSettingsComponent }; // eslint-disable-line import/no-unused-modules
+
+export default withSetFlashMessage(withRouter(injectIntl(DrawerTeamSettings)));

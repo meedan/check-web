@@ -1,10 +1,9 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import { FormattedMessage } from 'react-intl';
-import TiplineContentTranslation from '../../cds/settings-pages/TiplineContentTranslation';
+import TiplineContentTranslation from './TiplineContentTranslation';
 import UploadFile from '../../UploadFile';
+import settingsStyles from '../Settings.module.css';
 
 const SmoochBotContentAndTranslation = ({
   onChangeImage,
@@ -104,44 +103,43 @@ const SmoochBotContentAndTranslation = ({
   ];
 
   return (
-    <Box>
+    <>
+      <div className={settingsStyles['setting-content-container-title']}>
+        <FormattedMessage defaultMessage="Bot Content & Translations" description="Page title where users can customize the content that the tipline bot will respond with" id="smoochBotContentAndTranslation.pageTitle" />
+      </div>
       { strings.map(string => (
-        <Box key={string.key} mb={4}>
-          <TiplineContentTranslation
-            defaultValue={string.default}
-            description={string.description}
-            error={
-              string.key === 'newsletter_optin_optout' && value[string.key] && !/{subscription_status}/.test(value[string.key]) ?
-                <FormattedMessage defaultMessage="The placeholder {subscription_status} is missing from your custom content or translation" description="Error message displayed on the tipline settings page when the placeholder is not present" id="smoochBotContentAndTranslation.error" />
-                : null
+        <TiplineContentTranslation
+          defaultValue={string.default}
+          description={string.description}
+          error={
+            string.key === 'newsletter_optin_optout' && value[string.key] && !/{subscription_status}/.test(value[string.key]) ?
+              <FormattedMessage defaultMessage="The placeholder {subscription_status} is missing from your custom content or translation" description="Error message displayed on the tipline settings page when the placeholder is not present" id="smoochBotContentAndTranslation.error" />
+              : null
+          }
+          extra={
+            string.key === 'smooch_message_smooch_bot_greetings' ?
+              <UploadFile
+                type="image"
+                value={greetingImage}
+                onChange={onChangeImage}
+                onError={() => {}}
+              />
+              : null
+          }
+          identifier={string.key}
+          key={string.key}
+          title={string.title}
+          value={string.state ? value[`smooch_state_${string.state}`].smooch_menu_message : value[string.key]}
+          onUpdate={(newValue) => {
+            if (string.state) {
+              onChangeStateMessage(string.state, newValue);
+            } else {
+              onChangeMessage(string.key, newValue);
             }
-            extra={
-              string.key === 'smooch_message_smooch_bot_greetings' ?
-                <Box>
-                  <UploadFile
-                    type="image"
-                    value={greetingImage}
-                    onChange={onChangeImage}
-                    onError={() => {}}
-                  />
-                </Box>
-                : null
-            }
-            identifier={string.key}
-            key={string.key}
-            title={string.title}
-            value={string.state ? value[`smooch_state_${string.state}`].smooch_menu_message : value[string.key]}
-            onUpdate={(newValue) => {
-              if (string.state) {
-                onChangeStateMessage(string.state, newValue);
-              } else {
-                onChangeMessage(string.key, newValue);
-              }
-            }}
-          />
-        </Box>
+          }}
+        />
       ))}
-    </Box>
+    </>
   );
 };
 
@@ -151,9 +149,9 @@ SmoochBotContentAndTranslation.defaultProps = {
 
 SmoochBotContentAndTranslation.propTypes = {
   value: PropTypes.object,
+  onChangeImage: PropTypes.func.isRequired,
   onChangeMessage: PropTypes.func.isRequired,
   onChangeStateMessage: PropTypes.func.isRequired,
-  onChangeImage: PropTypes.func.isRequired,
 };
 
 export default SmoochBotContentAndTranslation;

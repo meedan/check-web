@@ -48,6 +48,10 @@ const setInitialTab = (projectMedia) => {
     initialTab = 'suggestedMedia';
   }
 
+  if (articlesCount === 0 && requestsCount >= 1 && suggestionsCount >= 1) {
+    initialTab = 'suggestedMedia';
+  }
+
   return initialTab;
 };
 

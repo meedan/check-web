@@ -187,7 +187,7 @@ const TeamDetails = ({
 
           <div className={settingsStyles['setting-content-container']}>
             <div className={settingsStyles['setting-content-container-title']}>
-              <FormattedMessage defaultMessage="Link management" description="Title of the link management section in team details page" id="teamDetails.linkManagement" />
+              <FormattedMessage defaultMessage="Link Management" description="Title of the link management section in team details page" id="teamDetails.linkManagement" />
             </div>
             <div className={inputStyles['form-fieldset']}>
               <SwitchComponent
@@ -195,69 +195,80 @@ const TeamDetails = ({
                 className={inputStyles['form-fieldset-field']}
                 disabled={hasRssNewsletters || hasScheduledNewsletters}
                 helperContent={
-                  <FormattedHTMLMessage
-                    defaultMessage='Link shortening makes URLs more readable and a predictable length. If you’re using an RSS feed, the link service cannot be disabled. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about link shortening</a>.'
-                    description="Helper text for link management switcher when workspace has RSS newsletters configured"
-                    id="teamDetails.linkManagementRss"
-                    values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_99c0776acf' }}
-                  />
+                  <>
+                    <FormattedHTMLMessage
+                      defaultMessage="<strong>Link engagement analytics:</strong> Link shortening is used to record the number of times the link was clicked by users when distributed through a report or a newsletter."
+                      description="Helper text for link management switcher when workspace has RSS newsletters configured"
+                      id="teamDetails.linkManagementRss"
+                      tagName="div"
+                    />
+                    <br />
+                    <FormattedHTMLMessage
+                      defaultMessage='<strong>Link length and RSS:</strong> Link shortening makes URLs a predictable length. If you are using an RSS feed, the link service cannot be disabled. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about link shortening</a>.'
+                      description="Additional helper text for link management describing link length"
+                      id="teamDetails.linkManagementLinkLength"
+                      tagName="div"
+                      values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_99c0776acf' }}
+                    />
+                  </>
                 }
                 label={<FormattedMessage
-                  defaultMessage="Enable link shortening and analytics"
+                  defaultMessage="Enable link shortening and engagement analytics"
                   description="Label for a switch where the user toggles link management in team details page"
                   id="teamDetails.linkManagementSwitcher"
                 />}
                 onChange={setShortenOutgoingUrls}
               />
               { shortenOutgoingUrls ?
-                <>
-
-                  <FormattedMessage
-                    defaultMessage="Leave blank to disable UTM codes."
-                    description="Placeholder for the optional UTM code text field"
-                    id="teamDetails.utmCodePlaceholder"
-                  >
-                    { placeholder => (
-                      <TextField
-                        className={inputStyles['form-fieldset-field']}
-                        defaultValue={utmCode}
-                        disabled={hasScheduledNewsletters}
-                        helpContent={
-                          <FormattedHTMLMessage
-                            defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
-                            description="Helper text for UTM code field"
-                            id="teamDetails.utmCodeHelp"
-                            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_9bfd0e654f' }}
-                          />
-                        }
-                        id="team-details__utm-code"
-                        label={
-                          <FormattedMessage
-                            defaultMessage="UTM code (optional)"
-                            description="Label for 'UTM code' field"
-                            id="teamDetails.utmCode"
-                          />
-                        }
-                        placeholder={placeholder}
-                        onChange={e => setUtmCode(e.target.value)}
-                      />
-                    )}
-                  </FormattedMessage>
-                  <Alert
-                    className={inputStyles['form-fieldset-field']}
-                    contained
-                    content={
-                      <FormattedHTMLMessage
-                        defaultMessage="<strong>Before:</strong> https://www.example.com/your-link<br /><strong>After:</strong> https://chck.media/x1y2z3w4/{code}"
-                        description="Text displayed in the content of a warning box on team details page when link shortening is on"
-                        id="teamDetails.warnContent"
-                        values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
-                      />
-                    }
-                    title={<FormattedMessage defaultMessage="All links sent via Check will be rewritten." description="Text displayed in the title of a warning box on team details page when link shortening is on" id="teamDetails.warnTitle" />}
-                    variant="warning"
-                  />
-                </>
+                <div className={styles['link-engagement-details']}>
+                  <div className={settingsStyles['setting-content-container-inner']}>
+                    <FormattedMessage
+                      defaultMessage="Leave blank to disable UTM codes."
+                      description="Placeholder for the optional UTM code text field"
+                      id="teamDetails.utmCodePlaceholder"
+                    >
+                      { placeholder => (
+                        <TextField
+                          className={inputStyles['form-fieldset-field']}
+                          defaultValue={utmCode}
+                          disabled={hasScheduledNewsletters}
+                          helpContent={
+                            <FormattedHTMLMessage
+                              defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
+                              description="Helper text for UTM code field"
+                              id="teamDetails.utmCodeHelp"
+                              values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_9bfd0e654f' }}
+                            />
+                          }
+                          id="team-details__utm-code"
+                          label={
+                            <FormattedMessage
+                              defaultMessage="UTM code (optional)"
+                              description="Label for 'UTM code' field"
+                              id="teamDetails.utmCode"
+                            />
+                          }
+                          placeholder={placeholder}
+                          onChange={e => setUtmCode(e.target.value)}
+                        />
+                      )}
+                    </FormattedMessage>
+                    <Alert
+                      className={inputStyles['form-fieldset-field']}
+                      contained
+                      content={
+                        <FormattedHTMLMessage
+                          defaultMessage="<strong>Before:</strong> https://www.example.com/your-link<br /><strong>After:</strong> https://chck.media/x1y2z3w4/{code}"
+                          description="Text displayed in the content of a warning box on team details page when link shortening is on"
+                          id="teamDetails.warnContent"
+                          values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
+                        />
+                      }
+                      title={<FormattedMessage defaultMessage="All links sent via Check will be rewritten." description="Text displayed in the title of a warning box on team details page when link shortening is on" id="teamDetails.warnTitle" />}
+                      variant="warning"
+                    />
+                  </div>
+                </div>
                 : null
               }
             </div>
