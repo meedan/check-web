@@ -1,11 +1,10 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import { getCompactNumber } from '../../../helpers';
 import styles from './Projects.module.css';
 
-const ProjectsListCounter = ({ intl, numberOfItems }) => (
+const DrawerListCounter = ({ intl, numberOfItems }) => (
   <div className={styles.listItemCount} title={numberOfItems}>
     <small>
       { !Number.isNaN(parseInt(numberOfItems, 10)) ?
@@ -14,9 +13,9 @@ const ProjectsListCounter = ({ intl, numberOfItems }) => (
   </div>
 );
 
-ProjectsListCounter.propTypes = {
-  numberOfItems: PropTypes.number.isRequired,
+DrawerListCounter.propTypes = {
   intl: intlShape.isRequired,
+  numberOfItems: PropTypes.number.isRequired,
 };
 
-export default injectIntl(ProjectsListCounter);
+export default injectIntl(DrawerListCounter);

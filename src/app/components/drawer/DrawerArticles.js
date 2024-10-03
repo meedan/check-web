@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import ArticleCoreListCounter from '../article/ArticleCoreListCounter';
+import DrawerListCounter from './Projects/DrawerListCounter';
 import NewArticleButton from '../article/NewArticleButton';
 import PublishedIcon from '../../icons/fact_check.svg';
 import TrashIcon from '../../icons/delete.svg';
@@ -59,7 +59,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim & fact-checks" id="articlesComponent.claimAndFactChecks" tagName="span" />
               </div>
-              <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" />
+              <DrawerListCounter key={team.factChecksCount} numberOfItems={team.factChecksCount} />
             </li>
           </Link>
           <Link
@@ -81,7 +81,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have explainers" id="articlesComponent.explainers" tagName="span" />
               </div>
-              <ArticleCoreListCounter teamSlug={team.slug} type="explainer" />
+              <DrawerListCounter key={team.explainersCount} numberOfItems={team.explainersCount} />
             </li>
           </Link>
           <Link
@@ -103,7 +103,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" id="projectsComponent.importedReports" tagName="span" />
               </div>
-              <ArticleCoreListCounter defaultFilters={{ imported: true }} teamSlug={team.slug} type="fact-check" />
+              <DrawerListCounter key={team.importedCount} numberOfItems={team.importedCount} />
             </li>
           </Link>
           <Link
@@ -125,7 +125,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" id="projectsComponent.published" tagName="span" />
               </div>
-              <ArticleCoreListCounter defaultFilters={{ report_status: 'published' }} teamSlug={team.slug} type="fact-check" />
+              <DrawerListCounter key={team.publishedCount} numberOfItems={team.publishedCount} />
             </li>
           </Link>
         </ul>
@@ -150,7 +150,7 @@ const DrawerArticlesComponent = ({ team }) => {
             <div className={styles.listLabel}>
               <FormattedMessage defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items that have been marked as Trashed" id="projectsComponent.trash" tagName="span" />
             </div>
-            <ArticleCoreListCounter defaultFilters={{ trashed: true }} teamSlug={team.slug} />
+            <DrawerListCounter key={team.trashCount} numberOfItems={team.trashCount} />
           </li>
         </Link>
       </ul>
@@ -169,6 +169,11 @@ const DrawerArticles = () => {
         query DrawerArticlesQuery($teamSlug: String!) {
           team(slug: $teamSlug) {
             slug
+            factChecksCount: articles_count(article_type: "fact-check")
+            explainersCount: articles_count(article_type: "explainer")
+            publishedCount: articles_count(article_type: "fact-check", report_status: "published")
+            importedCount: articles_count(article_type: "fact-check", imported: true)
+            trashCount: articles_count(trashed: true)
             ...NewArticleButton_team
           }
         }
