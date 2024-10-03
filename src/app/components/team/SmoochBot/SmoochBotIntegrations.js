@@ -40,7 +40,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
 
   return (
     <React.Fragment>
-      <Box display="flex" flexWrap="wrap" justifyContent="space-between">
+      <div className={smoochBotStyles['smoochbot-integration-buttons']}>
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ec472becaf"
@@ -351,7 +351,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           type="instagram"
           url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
         />
-      </Box>
+      </div>
     </React.Fragment>
   );
 };
