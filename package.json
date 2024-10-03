@@ -124,7 +124,7 @@
     "eslint-plugin-relay": "^1.8.3",
     "eslint-plugin-require-path-exists": "1.1.7",
     "eslint-plugin-sort-destructure-keys": "^2.0.0",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "file-loader": "^6.2.0",
     "graphql": "^14.6.0",
     "gulp": "^4.0.2",
