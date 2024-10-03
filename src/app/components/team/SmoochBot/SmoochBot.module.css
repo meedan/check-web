@@ -27,3 +27,38 @@
 .smoochbot-component-input {
   min-width: 500px;
 }
+
+.smoochbot-integration-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+  margin: 0 0 16px;
+}
+
+.smoochbot-integration-button-label {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+
+  .smoochbot-integration-button-status {
+    @mixin typography-caption;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-small);
+    font-weight: bold;
+    padding: 3px;
+
+    &.smoochBotIntegrationButtonConnected {
+      background-color: var(--color-green-35);
+      color: var(--color-white-100);
+    }
+
+    &.smoochBotIntegrationButtonDisconnected {
+      border-color: var(--color-gray-15);
+      color: var(--color-gray-15);
+    }
+  }
+}
+
+.smoochBotIntegrationButtonWarning {
+  color: var(--color-pink-53);
+}
