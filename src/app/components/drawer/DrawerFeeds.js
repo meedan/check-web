@@ -1,16 +1,17 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, defineMessages } from 'react-intl';
 import { browserHistory, withRouter } from 'react-router';
 import cx from 'classnames/bind';
-import ProjectsListItem from './ProjectsListItem';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import AddIcon from '../../../icons/add.svg';
-import Can from '../../Can';
-import ScheduleSendIcon from '../../../icons/schedule_send.svg';
-import { withSetFlashMessage } from '../../FlashMessage';
-import styles from './Projects.module.css';
+import ProjectsListItem from './Projects/ProjectsListItem';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import AddIcon from '../../icons/add.svg';
+import Can from '../Can';
+import ScheduleSendIcon from '../../icons/schedule_send.svg';
+import { withSetFlashMessage } from '../FlashMessage';
+import styles from './Projects/Projects.module.css';
 
 const messages = defineMessages({
   pendingInvitationFeedTooltip: {
@@ -20,7 +21,7 @@ const messages = defineMessages({
   },
 });
 
-const FeedsComponent = ({
+const DrawerFeedsComponent = ({
   feeds,
   intl,
   location,
@@ -142,19 +143,99 @@ const FeedsComponent = ({
   );
 };
 
-FeedsComponent.propTypes = {
-  team: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-    slug: PropTypes.string.isRequired,
-    medias_count: PropTypes.number.isRequired,
-    permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
-    verification_statuses: PropTypes.object.isRequired,
-  }).isRequired,
+DrawerFeedsComponent.propTypes = {
   feeds: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  location: PropTypes.object.isRequired,
+  team: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+    permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
+    verification_statuses: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
-export default withSetFlashMessage(withRouter(injectIntl(FeedsComponent)));
+const DrawerFeeds = ({ intl, params }) => {
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query DrawerFeedsQuery($teamSlug: String!) {
+          me {
+              id
+              dbid
+              feed_invitations(first: 10000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    state
+                    feed_id
+                    feed {
+                      name
+                    }
+                    type: __typename
+                  }
+                }
+              }
+            }
+          team(slug: $teamSlug) {
+              dbid
+              slug
+              permissions
+              feeds(first: 10000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    name
+                    team_id
+                    type: __typename
+                  }
+                }
+              }
+              feed_teams(first: 10000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    feed_id
+                    feed {
+                      name
+                    }
+                    type: __typename
+                  }
+                }
+              }
+            }
+          }
+      `}
+      render={({ error, props }) => {
+        if (!props || error) return null;
+
+        const feedsCreated = props.team.feeds?.edges.map(f => f.node).filter(f => f.team_id === props.team.dbid);
+        const feedsJoined = props.team.feed_teams?.edges.map(ft => ft.node).filter(ft => !feedsCreated?.find(f => f.dbid === ft.feed_id));
+        const feedsInvited = props.me.feed_invitations?.edges.map(f => f.node).filter(fi => fi.state === 'invited');
+        const feeds = [].concat(feedsCreated, feedsJoined, feedsInvited);
+        const { location } = window;
+
+        return (<DrawerFeedsComponent
+          feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
+          intl={intl}
+          location={location}
+          params={params}
+          team={props.team}
+        />);
+      }}
+      variables={{ teamSlug }}
+    />
+  );
+};
+
+export default withSetFlashMessage(withRouter(injectIntl(DrawerFeeds)));

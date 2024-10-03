@@ -1,15 +1,18 @@
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import styles from './../drawer/Projects/Projects.module.css';
-import ArticleCoreListCounter from './ArticleCoreListCounter';
-import NewArticleButton from './NewArticleButton';
+import ArticleCoreListCounter from '../article/ArticleCoreListCounter';
+import NewArticleButton from '../article/NewArticleButton';
 import PublishedIcon from '../../icons/fact_check.svg';
+import TrashIcon from '../../icons/delete.svg';
 import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
+import styles from './Projects/Projects.module.css';
 
-const ArticlesComponent = ({ team }) => {
+const DrawerArticlesComponent = ({ team }) => {
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
   const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
@@ -21,9 +24,7 @@ const ArticlesComponent = ({ team }) => {
     }
   }, [window.location.pathname]);
 
-  const handleSpecialLists = (listId) => {
-    setActiveItem({ type: listId, id: null });
-  };
+  const handleSpecialLists = listId => setActiveItem({ type: listId, id: null });
 
   return (
     <React.Fragment>
@@ -129,8 +130,57 @@ const ArticlesComponent = ({ team }) => {
           </Link>
         </ul>
       </div>
+      <ul className={cx(styles.listWrapper, styles.listFooter)}>
+        <Link
+          className={styles.linkList}
+          to={`/${team.slug}/articles/trash`}
+          onClick={() => { handleSpecialLists('trash'); }}
+        >
+          <li
+            className={cx(
+              'projects-list__trash',
+              styles.listItem,
+              styles.listItem_containsCount,
+              {
+                [styles.listItem_active]: activeItem.type === 'trash',
+              })
+            }
+          >
+            <TrashIcon className={styles.listIcon} />
+            <div className={styles.listLabel}>
+              <FormattedMessage defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items that have been marked as Trashed" id="projectsComponent.trash" tagName="span" />
+            </div>
+            <ArticleCoreListCounter defaultFilters={{ trashed: true }} teamSlug={team.slug} />
+          </li>
+        </Link>
+      </ul>
     </React.Fragment>
   );
 };
 
-export default ArticlesComponent;
+const DrawerArticles = () => {
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query DrawerArticlesQuery($teamSlug: String!) {
+          team(slug: $teamSlug) {
+            slug
+            ...NewArticleButton_team
+          }
+        }
+      `}
+      render={({ error, props }) => {
+        if (!props || error) return null;
+
+        return <DrawerArticlesComponent team={props.team} />;
+      }}
+      variables={{ teamSlug }}
+    />
+  );
+};
+
+export default DrawerArticles;

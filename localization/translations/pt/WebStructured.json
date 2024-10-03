@@ -35,10 +35,6 @@
 		"string": "Intervalo de números",
 		"developer_comment": "Label for custom field configuration to allow filtering number filed with numeric range option"
 	},
-	"ImportedReports.title": {
-		"string": "Verificações de fatos importadas",
-		"developer_comment": "Search label for searching fact-checks that were imported into the application"
-	},
 	"ItemHistoryDialog.title": {
 		"string": "Histórico do item",
 		"developer_comment": "Dialog window title for the item's history"
@@ -269,13 +265,17 @@
 		"string": "Fechar alerta",
 		"developer_comment": "Tooltip for close alert"
 	},
-	"alert.noClaimDescript": {
-		"string": "Adicione acima uma afirmação para acessar a verificação de fatos deste item",
-		"developer_comment": "Alert box information content to tell the user they must complete additional fields to unlock this area"
+	"alert.sharedFeedRealTimeAlertContent": {
+		"string": "O Check atualiza automaticamente todos os dados dos feeds compartilhados de hora em hora. Em cada página de feed compartilhado, você verá a hora e a data da última atualização. Se essa data for anterior à criação ou à realização de alterações no feed compartilhado, os dados que você verá serão precisamente os da última atualização.",
+		"developer_comment": "Alert box warning further explaining that shared feeds are updated hourly and recent content may not be visible"
 	},
-	"alert.noClaimTitle": {
-		"string": "É necessário adicionar uma afirmação",
-		"developer_comment": "Alert box information title to tell the user they must complete additional fields to unlock this area"
+	"alert.sharedFeedRealTimeAlertTitle": {
+		"string": "As atualizações de dados do feed compartilhado podem não ocorrer em tempo real",
+		"developer_comment": "Alert box warning title to tell the user the shared feed they are updating or creating may not have real time updates"
+	},
+	"annotation.addItem": {
+		"string": "Fact-check added by {author}",
+		"developer_comment": "Log entry indicating a claim has been added"
 	},
 	"annotation.addLanguage": {
 		"string": "Idioma {value} adicionado por {author}",
@@ -297,20 +297,20 @@
 		"developer_comment": "Log entry indicating a claim has been added"
 	},
 	"annotation.createFactCheck": {
-		"string": "Título da verificação de fatos adicionado por {author}: {value}",
+		"string": "Fact-check added by {author}: {value}",
 		"developer_comment": "Log entry indicating fact-check title has been added"
 	},
 	"annotation.createProjectMedia": {
 		"string": "Item criado por {author}",
 		"developer_comment": "Log entry indicating an item has been created"
 	},
+	"annotation.create_explaineritem": {
+		"string": "Explainer added by {author}: {value}",
+		"developer_comment": "Log entry indicating Explainer has been added"
+	},
 	"annotation.deletedUser": {
 		"string": "Usuário(a) excluído(a)",
 		"developer_comment": "Label for deleted user"
-	},
-	"annotation.editedBy": {
-		"string": "editado por",
-		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.markAsSpam": {
 		"string": "Enviado para a Lixeira por {author}",
@@ -352,24 +352,32 @@
 		"string": "Marcado como não sendo Spam por {author}",
 		"developer_comment": "Log entry indicating an item not spam"
 	},
-	"annotation.pausedBy": {
-		"string": "suspenso por",
-		"developer_comment": "Fact-check in paused state"
+	"annotation.removeItem": {
+		"string": "Fact-check removed by {author}",
+		"developer_comment": "Log entry indicating a claim has been removed"
 	},
-	"annotation.publishedBy": {
-		"string": "publicado por",
-		"developer_comment": "Fact-check in published state"
+	"annotation.remove_explaineritem": {
+		"string": "Explainer removed by {author}: {value}",
+		"developer_comment": "Log entry indicating Explainer has been removed"
 	},
-	"annotation.reportDesignState": {
-		"string": "Relatório da verificação de fatos {state} {author}",
-		"developer_comment": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
+	"annotation.replaceProjectMedia": {
+		"string": "Media cluster added to imported fact-check and inherited rating by {author}",
+		"developer_comment": "Log entry indicating media cluster added to imported fact-check"
+	},
+	"annotation.reportDesignPausedState": {
+		"string": "Fact-check paused by {author}",
+		"developer_comment": "Log entry indicating a report state has been paused"
+	},
+	"annotation.reportDesignPublishedState": {
+		"string": "Fact-check published by {author}",
+		"developer_comment": "Log entry indicating a report state has been published"
 	},
 	"annotation.restoreFromTrash": {
 		"string": "Restaurado da Lixeira por {author}",
 		"developer_comment": "Log entry indicating an item restored from trash"
 	},
 	"annotation.similarCreated": {
-		"string": "Correspondência confirmada por {author}: {title}",
+		"string": "Item merged by {author} with {title}",
 		"developer_comment": "Log entry indicating a similarity match was confirmed"
 	},
 	"annotation.similarDestroyed": {
@@ -424,6 +432,10 @@
 		"string": "Afirmação editada por {author}: {value}",
 		"developer_comment": "Log entry indicating a claim has been edited"
 	},
+	"annotation.updateFactCheck": {
+		"string": "Fact-check edited by {author}",
+		"developer_comment": "Log entry indicating fact-check has been updated"
+	},
 	"annotation.updateLanguage": {
 		"string": "Idioma {value} atualizado por {author}",
 		"developer_comment": "Log entry indicating an item language has been updated. {value} receives language name"
@@ -435,6 +447,390 @@
 	"annotations.loadMore": {
 		"string": "Carregar mais",
 		"developer_comment": "Button label to fetch additional annotations in this list"
+	},
+	"apiKeyCreate.descriptionBlurb": {
+		"string": "Para que você usará essa Chave de API? (opcional)",
+		"developer_comment": "Label displayed before the API Key description input"
+	},
+	"apiKeyCreate.descriptionPlaceholder": {
+		"string": "Uma breve descrição pode ajudar a lembrar o propósito de sua integração",
+		"developer_comment": "Placeholder text for api key description input field"
+	},
+	"apiKeyCreate.dialogTitle": {
+		"string": "Nova Chave de API",
+		"developer_comment": "Title of a dialog box to create API keys"
+	},
+	"apiKeyCreate.keyName": {
+		"string": "Nome da chave",
+		"developer_comment": "Label for key name input"
+	},
+	"apiKeyCreate.keyNameHelper": {
+		"string": "O Nome da Chave será exibido como o(a) autor(a) do conteúdo adicionado",
+		"developer_comment": "Label for key name input"
+	},
+	"apiKeyCreate.keyNamePlaceholder": {
+		"string": "Insira um nome para sua chave",
+		"developer_comment": "Placeholder text for api key name input field"
+	},
+	"apiKeyCreate.newButton": {
+		"string": "Nova Chave de API",
+		"developer_comment": "Button that opens the api key creation dialog"
+	},
+	"apiKeyCreate.submit": {
+		"string": "Gerar chave",
+		"developer_comment": "Label for button that creates a new API key"
+	},
+	"apiKeyDelete.body": {
+		"string": "Essa ação <strong>NÃO PODE</strong> ser desfeita. Isso excluirá permanentemente a chave de API e, se desejar, você precisará gerar uma chave substituta.",
+		"developer_comment": "Dialog body for API key deletion"
+	},
+	"apiKeyDelete.checkboxLabel": {
+		"string": "Sim, excluir a chave da API",
+		"developer_comment": "Dialog body for API key deletion"
+	},
+	"apiKeyDelete.submitLabel": {
+		"string": "Excluir chave de API",
+		"developer_comment": "Dialog submit button label for API key deletion"
+	},
+	"apiKeyDelete.title": {
+		"string": "Você deseja excluir a chave de API?",
+		"developer_comment": "Dialog title for API key deletion"
+	},
+	"apiKeyEntry.addedBy": {
+		"string": "Adicionada em {date} por {user}",
+		"developer_comment": "Details when API key was created and by which user"
+	},
+	"apiKeyEntry.apiKeyTitle": {
+		"string": "Chave de API",
+		"developer_comment": "Label for Text field that shows the API key token"
+	},
+	"apiKeyEntry.copiedToClipboard": {
+		"string": "A Chave de API foi copiada para a área de transferência",
+		"developer_comment": "success message fro when an API Key has been copied to the clipboard"
+	},
+	"apiKeyEntry.copy": {
+		"string": "Copiar",
+		"developer_comment": "Label for button that will copy the API key token to the clipboard"
+	},
+	"apiKeyEntry.expiredDate": {
+		"string": "Expirada: {date}",
+		"developer_comment": "Expiry date of the API key"
+	},
+	"apiKeyEntry.expiredTitle": {
+		"string": "Expirada:",
+		"developer_comment": "Prefix to the name of an expired API key"
+	},
+	"apiKeyEntry.expiryDate": {
+		"string": "Expira em: {date}",
+		"developer_comment": "Expiry date of the API key"
+	},
+	"apiKeyEntry.role": {
+		"string": "Função: Editor(a)",
+		"developer_comment": "Details role (access level) of the API key"
+	},
+	"apiKeys.countHeader": {
+		"string": "Chaves de API [{count}]",
+		"developer_comment": "Title of the API key creation widget"
+	},
+	"apiKeys.empty": {
+		"string": "Nenhuma Chave de API",
+		"developer_comment": "Label for initial state when there are no API keys created for the current workspace"
+	},
+	"apiKeys.emptyBlurb": {
+		"string": "Adicionar uma nova chave para se conectar à API do Check",
+		"developer_comment": "Subtitle for initial state when there are no API keys created for the current workspace"
+	},
+	"apiKeys.footer": {
+		"string": "Confira nosso guia para usar a {checkApi} ou para solucionar problemas comuns.",
+		"developer_comment": "Footer text in API key creation widget"
+	},
+	"apiKeys.footerSupport": {
+		"string": "Entre em contato conosco diretamente para obter suporte.",
+		"developer_comment": "Footer text in API key creation widget"
+	},
+	"apiKeys.title": {
+		"string": "Acesso à API",
+		"developer_comment": "Title of the API key creation widget"
+	},
+	"apiKeys.toggleLabel": {
+		"string": "Consulte e gerencie o conteúdo do espaço de trabalho com a API do Check e os tokens de acesso ao espaço de trabalho. As chaves de API têm os mesmos direitos de acesso que os(as) editores(as) do Check e são habilitadas imediatamente.",
+		"developer_comment": "Title of the API key creation widget"
+	},
+	"article-form-explainer-create-title": {
+		"string": "Criar Artigo Explicativo",
+		"developer_comment": "Title for the slideout create explainer form"
+	},
+	"article-form-explainer-edit-title": {
+		"string": "Editar Artigo Explicativo",
+		"developer_comment": "Title for the slideout edit explainer form"
+	},
+	"article-form-fact-check-create-title": {
+		"string": "Criar Novo Artigo de Afirmação & Verificação de Fatos",
+		"developer_comment": "Title for the slideout create fact-check form"
+	},
+	"article-form-fact-check-edit-title": {
+		"string": "Editar Artigo de Afirmação & Verificação de Fatos",
+		"developer_comment": "Title for the slideout edit fact-check form"
+	},
+	"articleFilters.applyFilters": {
+		"string": "Aplicar",
+		"developer_comment": "Button to perform query with specified filters"
+	},
+	"articleFilters.articleType": {
+		"string": "O tipo de artigo é",
+		"developer_comment": "Prefix label for field to filter by article type."
+	},
+	"articleFilters.createdBy": {
+		"string": "Criado por",
+		"developer_comment": "Prefix label for field to filter by item creator."
+	},
+	"articleFilters.explainer": {
+		"string": "Explicativo",
+		"developer_comment": "Describes the article type Explainer"
+	},
+	"articleFilters.factCheck": {
+		"string": "Verificação de Fatos",
+		"developer_comment": "Describes the article type Fact-Check"
+	},
+	"articleFilters.publishedBy": {
+		"string": "Publicado por",
+		"developer_comment": "Prefix label for field to filter by published by"
+	},
+	"articleFilters.reportStatus": {
+		"string": "Relatório (status) é",
+		"developer_comment": "Prefix label for field to filter by report status"
+	},
+	"articleFilters.reportStatusPaused": {
+		"string": "Suspenso",
+		"developer_comment": "Refers to a report status"
+	},
+	"articleFilters.reportStatusPublished": {
+		"string": "Publicado",
+		"developer_comment": "Refers to a report status"
+	},
+	"articleFilters.reportStatusUnpublished": {
+		"string": "Não publicado",
+		"developer_comment": "Refers to a report status"
+	},
+	"articleFilters.reset": {
+		"string": "Redefinir",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
+	"articleForm.claim": {
+		"string": "Afirmação",
+		"developer_comment": "Title of the claim section."
+	},
+	"articleForm.claimTitle": {
+		"string": "Título",
+		"developer_comment": "Title for the text input for claim title"
+	},
+	"articleForm.contextPlaceholder": {
+		"string": "Adicione contexto da afirmação",
+		"developer_comment": "Placeholder for claim context field."
+	},
+	"articleForm.contextTitle": {
+		"string": "Contexto adicional",
+		"developer_comment": "Title of claim additional context field."
+	},
+	"articleForm.editedByLabel": {
+		"string": "Editado por:",
+		"developer_comment": "Label to convey when the item was last edited"
+	},
+	"articleForm.explainerSummary": {
+		"string": "Resumo",
+		"developer_comment": "Label for article summary field"
+	},
+	"articleForm.explainerSummaryPlaceholder": {
+		"string": "Contextualize brevemente a narrativa deste explicativo",
+		"developer_comment": "Placeholder instructions for explainer summary field"
+	},
+	"articleForm.explainerTitle": {
+		"string": "Título",
+		"developer_comment": "Label for explainer title field"
+	},
+	"articleForm.explainerTitleInputPlaceholder": {
+		"string": "Um título descritivo para esse artigo explicativo",
+		"developer_comment": "Placeholder instructions for article title field"
+	},
+	"articleForm.explainerTrashTitle": {
+		"string": "Send Explainer to Trash?",
+		"developer_comment": "Title for the trash dialog for explainer articles"
+	},
+	"articleForm.explainerUrl": {
+		"string": "URL do artigo",
+		"developer_comment": "Label for article URL field"
+	},
+	"articleForm.explainerUrlPlaceholder": {
+		"string": "Adicione uma URL para este artigo explicativo",
+		"developer_comment": "Placeholder instructions for URL field"
+	},
+	"articleForm.factCheckSummaryPlaceholder": {
+		"string": "Contextualize brevemente a narrativa desta verificação de fatos",
+		"developer_comment": "Placeholder instructions for fact-check summary field"
+	},
+	"articleForm.factCheckTitle": {
+		"string": "Título",
+		"developer_comment": "Label for fact-check title field"
+	},
+	"articleForm.factCheckTitleInputPlaceholder": {
+		"string": "Um título descritivo para este artigo de verificação de fatos",
+		"developer_comment": "Placeholder instructions for article title field"
+	},
+	"articleForm.factCheckTrashTitle": {
+		"string": "Send Claim & Fact-Check to Trash?",
+		"developer_comment": "Title for the trash dialog for fact-check articles"
+	},
+	"articleForm.factCheckUrl": {
+		"string": "URL do artigo",
+		"developer_comment": "Label for article URL field"
+	},
+	"articleForm.factCheckUrlPlaceholder": {
+		"string": "Adicione uma URL para este artigo de verificação de fatos",
+		"developer_comment": "Placeholder instructions for URL field"
+	},
+	"articleForm.formSaveButton": {
+		"string": "Criar conteúdo",
+		"developer_comment": "the save button for the article forom"
+	},
+	"articleForm.mediaCluster": {
+		"string": "Media Cluster:",
+		"developer_comment": "Label for the link to the media cluster that this fact-check is applied to."
+	},
+	"articleForm.noClaimDescript": {
+		"string": "Comece adicionando informações sobre a Afirmação para esta Verificação de Fatos",
+		"developer_comment": "Message overlay to tell the user they must complete additional fields to unlock this area"
+	},
+	"articleForm.publishedAtDate": {
+		"string": "Última Publicação:",
+		"developer_comment": "Label to convey when the item was last published"
+	},
+	"articleForm.publishedReport": {
+		"string": "Relatório publicado",
+		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
+	},
+	"articleForm.reportDesignerTooltip": {
+		"string": "Atribue essa Verificação de Fatos a um item de mídia para poder editar e publicar um relatório",
+		"developer_comment": "Tooltip for the report designer button"
+	},
+	"articleForm.reportDesignerTooltipThree": {
+		"string": "Go to Fact-Check report editor",
+		"developer_comment": "Tooltip for the report designer button"
+	},
+	"articleForm.reportDesignerTooltipTwo": {
+		"string": "Fact-Check Title, Summary, and Language are required in order to to publish a Fact-Check report",
+		"developer_comment": "Tooltip for the report designer button"
+	},
+	"articleForm.reportPublishedBody": {
+		"string": "Para fazer edições, pause esse relatório. Isso fará com que o relatório deixe de ser enviado aos(às) usuários(as) até que seja publicado novamente",
+		"developer_comment": "Text of alert box in article form."
+	},
+	"articleForm.reportPublishedLabel": {
+		"string": "Atualizar Relatório",
+		"developer_comment": "Label of alert button in article form."
+	},
+	"articleForm.reportPublishedTitle": {
+		"string": "O relatório foi publicado",
+		"developer_comment": "Title of alert box in article form."
+	},
+	"articleForm.saveAndPublishButton": {
+		"string": "Create & Publish",
+		"developer_comment": "Button that saves the form data as a new fact-check article and redirects to publish report page"
+	},
+	"articleForm.saveArticleButton": {
+		"string": "Create Article",
+		"developer_comment": "Button that saves the form data as a new article"
+	},
+	"articleForm.saveUnpublishedButton": {
+		"string": "Create Unpublished",
+		"developer_comment": "Button that saves the form data as a new fact-check article, without proceeding to publish it"
+	},
+	"articleForm.selectLanguageLabel": {
+		"string": "Idioma",
+		"developer_comment": "Label for input to select language"
+	},
+	"articleForm.summary": {
+		"string": "Resumo",
+		"developer_comment": "Label for article summary field"
+	},
+	"articleForm.unpublishedReport": {
+		"string": "Relatório não publicado",
+		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
+	},
+	"articleFormDescription.placeholder": {
+		"string": "Por exemplo: A terra é plana",
+		"developer_comment": "Placeholder for claim description field."
+	},
+	"articleTrash.associatedMediaWarning": {
+		"string": "Sending this article to the trash will unlink from the following media:",
+		"developer_comment": "Title for the warning alert when deleting a fact-check not associated with a media item"
+	},
+	"articleTrash.associationWarning": {
+		"string": "Are you sure? If you send this article to the trash it will no longer be available to be associated with media responses.",
+		"developer_comment": "Warning message confirming the article will no longer be able to be associated with media items"
+	},
+	"articleTrash.deletionWarning": {
+		"string": "It can be removed from the Trash later, but it will be deleted permanently after 30 days.",
+		"developer_comment": "Warning message indicating the article will be deleted permanently after 30 days"
+	},
+	"articleTrash.deletionWarningExplainer": {
+		"string": "It can be linked again if the article is removed from the Trash. After 30 days, this article will be permanently deleted.",
+		"developer_comment": "Warning message indicating the explainer article will be deleted permanently after 30 days"
+	},
+	"articleTrash.explainerBody": {
+		"string": "If this article is currently associated with media, the link between the media and article will be removed.",
+		"developer_comment": "Body message for deleting an explainer article"
+	},
+	"articleTrash.proceedLabel": {
+		"string": "Mover para a Lixeira",
+		"developer_comment": "Label for the proceed button in the trash dialog"
+	},
+	"articleTrash.restoreButton": {
+		"string": "Restaurar da Lixeira",
+		"developer_comment": "Button label for restoring an article"
+	},
+	"articleTrash.successRestored": {
+		"string": "Article moved from trash",
+		"developer_comment": "Success message displayed when an article is moved from the trash"
+	},
+	"articleTrash.successTrashed": {
+		"string": "Moved article to trash",
+		"developer_comment": "Success message displayed when an article is moved to trash"
+	},
+	"articleTrash.trashButton": {
+		"string": "Mover para a Lixeira",
+		"developer_comment": "Button label for trashing an article"
+	},
+	"articles.blank": {
+		"string": "Não há artigos aqui.",
+		"developer_comment": "Empty message that is displayed when there are no articles to display."
+	},
+	"articles.updateTagsError": {
+		"string": "Could not update tags, please try again later or contact support if the error persists.",
+		"developer_comment": "Banner displayed when article tags can't be updated."
+	},
+	"articles.updateTagsSuccess": {
+		"string": "As tags foram atualizadas com sucesso.",
+		"developer_comment": "Banner displayed after article tags are updated successfully."
+	},
+	"articlesComponent.articles": {
+		"string": "Artigos",
+		"developer_comment": "The navigation name of the articles section"
+	},
+	"articlesComponent.claimAndFactCheck": {
+		"string": "Afirmação & Verificação de Fatos",
+		"developer_comment": "The navigation name of the articles section"
+	},
+	"articlesComponent.claimAndFactChecks": {
+		"string": "Afirmação & Verificações de Fatos",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that have claim & fact-checks"
+	},
+	"articlesComponent.exaplainer": {
+		"string": "Explicativo",
+		"developer_comment": "The navigation name of the articles section"
+	},
+	"articlesComponent.explainers": {
+		"string": "Explicativos",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that have explainers"
 	},
 	"assignedTo.title": {
 		"string": "Atribuído a mim",
@@ -561,7 +957,7 @@
 		"developer_comment": "Success message for bulk assignment action"
 	},
 	"bulkActionsMenu.action": {
-		"string": "Ação",
+		"string": "Modificação em Massa [{count}]",
 		"developer_comment": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
 	},
 	"bulkActionsMenu.addTag": {
@@ -736,6 +1132,10 @@
 		"string": "Relatar problema",
 		"developer_comment": "This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
 	},
+	"check.helpers.report_please": {
+		"string": "Informe esse problema ao Meedan para nos ajudar a corrigi-lo.",
+		"developer_comment": "Paragraph asking the user to report the issue that happened to Meedan."
+	},
 	"checkFeedLicenses.licenseNameAcademic": {
 		"string": "Acadêmica",
 		"developer_comment": "Feed license"
@@ -748,13 +1148,25 @@
 		"string": "Código Aberto",
 		"developer_comment": "Feed license"
 	},
-	"checkedByTeamsCell.noFactCheck": {
-		"string": "Sem verificação de fatos",
-		"developer_comment": "Table cell displayed on feed page when claim is not fact-checked yet"
-	},
 	"chip.tooltipRemove": {
 		"string": "Remove a tag",
 		"developer_comment": "Tooltip message displayed on a tag item to let the user know they can click to remove it."
+	},
+	"chooseExistingArticleButton.recentArticles": {
+		"string": "Artigos Recentes",
+		"developer_comment": "Label for the list of articles."
+	},
+	"chooseExistingArticleButton.search": {
+		"string": "Pesquisar por título de artigo ou resumo",
+		"developer_comment": "Label for the search field to find an article."
+	},
+	"chooseExistingArticleButton.title": {
+		"string": "Escolher um artigo existente",
+		"developer_comment": "Label for the button to find an article."
+	},
+	"claimFactCheckForm.saveSuccess": {
+		"string": "Article created successfully! This new article may take a while to appear up everywhere.",
+		"developer_comment": "Save item action success message"
 	},
 	"confirmProceedDialog.confirmationText": {
 		"string": "Digite \"{text}\" para confirmar.",
@@ -785,7 +1197,7 @@
 		"developer_comment": "Content warning type: Medical"
 	},
 	"contentScreen.superAdminMaskMessage": {
-		"string": "A tela do(a) super admin está ligada",
+		"string": "Proteção de conteúdo sensível aplicado",
 		"developer_comment": "Text to show that admin screen is on"
 	},
 	"contentScreen.viewContentButton": {
@@ -808,8 +1220,12 @@
 		"string": "Compartilhe feeds de dados com outras organizações para obter novos insights sobre públicos e idiomas.",
 		"developer_comment": "Description of the shared feed creation page"
 	},
+	"createMedia.add": {
+		"string": "Add to Imported Fact-Check",
+		"developer_comment": "Tab text for adding media to imported fact-check"
+	},
 	"createMedia.addItem": {
-		"string": "Adicionar item",
+		"string": "Adicionar Mídia",
 		"developer_comment": "Button label for adding an item"
 	},
 	"createMedia.addNew": {
@@ -817,8 +1233,12 @@
 		"developer_comment": "Tab text for adding a new item"
 	},
 	"createMedia.addNewItem": {
-		"string": "Adicionar item",
+		"string": "Adicionar Mídia",
 		"developer_comment": "Dialog title for adding a new item"
+	},
+	"createMedia.addTooltip": {
+		"string": "This media contains a published fact-check. Remove the fact-check to add to an existing imported fact-check.",
+		"developer_comment": "Tooltip text for when adding media from this item is not allowed"
 	},
 	"createMedia.error": {
 		"string": "Desculpe, ocorreu um erro ao enviar o item. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
@@ -828,25 +1248,21 @@
 		"string": "Adicionar item existente",
 		"developer_comment": "Tab text for adding an existing media item"
 	},
-	"createMedia.media.media": {
-		"string": "Mídia",
-		"developer_comment": "Header for the claim media area"
+	"createMedia.export": {
+		"string": "Export to another Media",
+		"developer_comment": "Tab text for exporting media out of this item"
 	},
-	"createMedia.mediaClaim": {
-		"string": "Por exemplo: A terra é plana",
-		"developer_comment": "Placeholder message for the claim text field"
+	"createMedia.exportTooltip": {
+		"string": "This media contains a published fact-check. Unpublish or remove the fact-check to export to another media.",
+		"developer_comment": "Tooltip text for when exporting media from this item is not allowed"
 	},
-	"createMedia.mediaClaimDescription": {
-		"string": "Afirmação",
-		"developer_comment": "Section title for the description of a claim"
+	"createMedia.import": {
+		"string": "Import into this Media",
+		"developer_comment": "Tab text for importing media into this item"
 	},
-	"createMedia.mediaClaimDescriptionSubtitle": {
-		"string": "Uma descrição da afirmação que precisa ser revisada.",
-		"developer_comment": "Subtitle for the claim's description that is under review"
-	},
-	"createMedia.mediaClaimLabel": {
-		"string": "Título",
-		"developer_comment": "Label for the text input for claim title"
+	"createMedia.importTooltip": {
+		"string": "This media item has already been merged.",
+		"developer_comment": "Tooltip text for when importing media into this item is not allowed"
 	},
 	"createMedia.mediaInput": {
 		"string": "Adicione uma URL a uma postagem ou página de mídia social, ou a um bloco de texto.",
@@ -867,6 +1283,14 @@
 	"createMedia.or": {
 		"string": "ou",
 		"developer_comment": "This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled."
+	},
+	"createMediaButton.addNewItem": {
+		"string": "Adicionar Mídia",
+		"developer_comment": "Dialog title for adding a new item"
+	},
+	"createMediaButton.newMediaItem": {
+		"string": "Adicionar Mídia",
+		"developer_comment": "Label of a button that opens a form to create a new media item."
 	},
 	"createMediaSource.createSource": {
 		"string": "Criar nova fonte",
@@ -980,6 +1404,10 @@
 		"string": "Confirmar exclusão do status",
 		"developer_comment": "Title displayed on a confirmation modal when a status being deleted is not in used by any item."
 	},
+	"drawerRail.articlesDescription": {
+		"string": "Artigos",
+		"developer_comment": "Tooltip for the Articles rail navigation"
+	},
 	"editStatusDialog.addButton": {
 		"string": "Adicionar status",
 		"developer_comment": "Button label to add a new status"
@@ -1028,9 +1456,65 @@
 		"string": "Olá, estou tendo problemas com o Check. A interface web acaba de falhar e está me impedindo de trabalhar!",
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
-	"factCheckCard.dateLabel": {
-		"string": "Publicado em",
-		"developer_comment": "Date tooltip label for fact-check cards"
+	"explainerForm.saveSuccess": {
+		"string": "Article created successfully! This new article may take a while to appear up everywhere.",
+		"developer_comment": "Save item action success message"
+	},
+	"explainers.sortDate": {
+		"string": "Atualização (data)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the explainers page."
+	},
+	"explainers.sortLanguage": {
+		"string": "Idioma",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the explainers page."
+	},
+	"explainers.sortTitle": {
+		"string": "Título",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the explainers page."
+	},
+	"explainers.title": {
+		"string": "Explicativos",
+		"developer_comment": "Title of the explainers page."
+	},
+	"exportList.confirmationButtonLabel": {
+		"string": "Start Export",
+		"developer_comment": "Label of the export list confirmation button."
+	},
+	"exportList.confirmationMessage": {
+		"string": "To generate a spreadsheet (.csv) export of the contents of this list, select <b>Start Export</b> below.<br /><br />When your export is ready for download, you will receive an email confirmation at:<br /><b>{email}</b>",
+		"developer_comment": "Confirmation message displayed on the export list modal."
+	},
+	"exportList.confirmationTitle": {
+		"string": "Export List Contents?",
+		"developer_comment": "Title of the export list confirmation dialog."
+	},
+	"exportList.error": {
+		"string": "Export failed. Please ensure you have the necessary permissions to perform this operation and that the number of results is fewer than 10,000.",
+		"developer_comment": "Message displayed when list export fails."
+	},
+	"exportList.success": {
+		"string": "Export started. You'll receive an email when it's ready.",
+		"developer_comment": "Message displayed when list is exported successfully."
+	},
+	"exportList.tooltip": {
+		"string": "Export List Contents",
+		"developer_comment": "Tooltip for the export list button"
+	},
+	"factChecks.sortDate": {
+		"string": "Atualização (data)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"factChecks.sortLanguage": {
+		"string": "Idioma",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"factChecks.sortTitle": {
+		"string": "Título",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"factChecks.title": {
+		"string": "Afirmação & Verificações de Fatos",
+		"developer_comment": "Title of the fact-checks page."
 	},
 	"feedBlankState.description": {
 		"string": "Tente {resetLink} para encontrar itens ou verificar se a {listLink} possui itens",
@@ -1052,25 +1536,9 @@
 		"string": "Nenhum item",
 		"developer_comment": "Title displayed on feed page when there are no items to be listed."
 	},
-	"feedClusters.itemsCount": {
-		"string": "{count, plural, one {1 / 1} many {{from} - {to} / #} other {{from} - {to} / #}}",
-		"developer_comment": "Pagination count of items returned"
-	},
-	"feedClusters.nextPage": {
-		"string": "Próxima página",
-		"developer_comment": "Pagination button to go to next page"
-	},
 	"feedClusters.noTitle": {
 		"string": "(sem título)",
 		"developer_comment": "No title available"
-	},
-	"feedClusters.previousPage": {
-		"string": "Página anterior",
-		"developer_comment": "Pagination button to go to previous page"
-	},
-	"feedClusters.sharedFeed": {
-		"string": "Feed Compartilhado",
-		"developer_comment": "Displayed on top of the feed title on the feed page."
 	},
 	"feedCollaboration.alreadyAdded": {
 		"string": "O endereço de e-mail já foi adicionado à lista de convites",
@@ -1304,10 +1772,6 @@
 		"string": "Os filtros foram salvos com sucesso.",
 		"developer_comment": "Success message displayed when feed requests filters are saved"
 	},
-	"feedHeader.sharedFeed": {
-		"string": "Feed Compartilhado",
-		"developer_comment": "Displayed on top of the feed title on the feed page."
-	},
 	"feedHeader.tooltipLicense": {
 		"string": "Licença do Feed: {licenseName}",
 		"developer_comment": "Tooltip message displayed on feed license icon."
@@ -1316,9 +1780,81 @@
 		"string": "Configurações do Feed Compartilhado",
 		"developer_comment": "Tooltip message displayed on feed settings icon."
 	},
+	"feedImportDialog.addNotPart1": {
+		"string": "Seu espaço de trabalho não contribui para esse item do feed compartilhado.",
+		"developer_comment": "Explanation on import dialog on feed item page."
+	},
+	"feedImportDialog.addNotPart2": {
+		"string": "Você pode importar essa mídia em um {newItemLink}, ou buscar por um {existingItemLink}.",
+		"developer_comment": "Explanation on import dialog on feed item page... the default in English for 'newItemLink' is 'new item in your workspace', while for 'existingItemLink' it's 'existing item to import'."
+	},
+	"feedImportDialog.addNotPartLinkNew": {
+		"string": "novo item em seu espaço de trabalho",
+		"developer_comment": "This is the text of the link to create a new item in the feed import dialog. It's used in the middle of a sentence like: You can import this media in a 'new item in your workspace'."
+	},
+	"feedImportDialog.addNotPartLinkSearch": {
+		"string": "item existente a ser importado",
+		"developer_comment": "This is the text of the link to create a new item in the feed import dialog. It's used in the middle of a sentence like: You can import this media in a new item or search for an 'existing item to import'."
+	},
+	"feedImportDialog.claimContext": {
+		"string": "Contexto adicional",
+		"developer_comment": "Text field label on import dialog on feed item page."
+	},
+	"feedImportDialog.claimTitle": {
+		"string": "Título da afirmação",
+		"developer_comment": "Text field label on import dialog on feed item page."
+	},
+	"feedImportDialog.explanationImportTypeAdd": {
+		"string": "Adicione a mídia selecionada ao item correspondente do espaço de trabalho.",
+		"developer_comment": "Explanation on import dialog on feed item page."
+	},
+	"feedImportDialog.explanationImportTypeCreate": {
+		"string": "Adicione uma afirmação opcional para a mídia que está sendo importada. Isso também pode ser feito após a conclusão da importação.",
+		"developer_comment": "Explanation on import dialog on feed item page."
+	},
+	"feedImportDialog.goToImported": {
+		"string": "Ir para o Item do Espaço de Trabalho",
+		"developer_comment": "Link text for the link that takes to the imported item page."
+	},
+	"feedImportDialog.import": {
+		"string": "Importar Mídia",
+		"developer_comment": "Label of a confirmation button on the import dialog window on the feed item page."
+	},
+	"feedImportDialog.lastSubmitted": {
+		"string": "Último envio {date}",
+		"developer_comment": "Shows the last time a media was submitted (on feed import dialog media card)"
+	},
+	"feedImportDialog.requestsCount": {
+		"string": "{requestsCount, plural, one {# solicitação} many {# solicitações} other {# solicitações}}",
+		"developer_comment": "Header of requests list. Example: 26 requests."
+	},
+	"feedImportDialog.success": {
+		"string": "A mídia foi importada com sucesso. Pode demorar um pouco até que todos os itens sejam realmente importados. {linkToImportedMedia}",
+		"developer_comment": "Banner displayed after items are imported successfully."
+	},
+	"feedImportDialog.title": {
+		"string": "{mediaCount, plural, one {Importar # mídia para o seu espaço de trabalho} many {Importar # mídias para o seu espaço de trabalho} other {Importar # mídias para o seu espaço de trabalho}}",
+		"developer_comment": "Title for the import media dialog on the feed item page."
+	},
+	"feedImportDialog.typeAdd": {
+		"string": "Item Correspondente",
+		"developer_comment": "Tab for import type on import dialog on feed item page."
+	},
+	"feedImportDialog.typeCreate": {
+		"string": "Criar Novo",
+		"developer_comment": "Tab for import type on import dialog on feed item page."
+	},
+	"feedImportDialog.typeSearch": {
+		"string": "Buscar por Item",
+		"developer_comment": "Tab for import type on import dialog on feed item page."
+	},
 	"feedInvitation.accept": {
 		"string": "Aceitar Convite",
 		"developer_comment": "Label for a button that the user presses to accept an invitation they have received to collaborate with another organization"
+	},
+	"feedInvitation.acceptedButton": {
+		"string": "Convite aceito",
+		"developer_comment": "Label for a button indicating the invitation has been accepted"
 	},
 	"feedInvitation.alreadyAccepted": {
 		"string": "Você já aceitou este convite.",
@@ -1360,18 +1896,6 @@
 		"string": "Ver convite",
 		"developer_comment": "Label for a button that the user presses to view an invitation that they are going to accept or reject"
 	},
-	"feedItem.importSelectLabel": {
-		"string": "Importar para",
-		"developer_comment": "Select field label used in import claim dialog from feed page."
-	},
-	"feedItem.importTextLabel": {
-		"string": "Afirmação",
-		"developer_comment": "Text field that prompts user to add a claim for related media."
-	},
-	"feedItem.proceedImport": {
-		"string": "Importar",
-		"developer_comment": "Button label to confirm importing claim from feed page"
-	},
 	"feedItem.promptDeclineConfirm": {
 		"string": "Rejeitar convite",
 		"developer_comment": "Button label to confirm declining an invitation"
@@ -1380,9 +1904,9 @@
 		"string": "Você precisará entrar em contato com {creator} para se juntar novamente.",
 		"developer_comment": "Dialog description when a user declines an invitation, telling them who to contact if they change their mind and want another invitation."
 	},
-	"feedItemHeader.sharedFeed": {
-		"string": "Feed Compartilhado",
-		"developer_comment": "Displayed on top of the feed title on the feed item page."
+	"feedItemHeader.importMediaToWorkspace": {
+		"string": "Importar Mídias para o Espaço de Trabalho",
+		"developer_comment": "Label of a button displayed on the feed item page that when clicked allows the user to import media from the feed into the workspace."
 	},
 	"feedItemHeader.viewSharedFeed": {
 		"string": "Visualizar Feed Compartilhado",
@@ -1428,93 +1952,9 @@
 		"string": "0 Solicitações",
 		"developer_comment": "Empty message when there are zero requests for this item in the feed"
 	},
-	"feedRequestedMedia.factChecksSentForAllMedias": {
-		"string": "{factChecksCount, plural, one {# verificação de fatos enviada} many {# verificações de fatos enviadas} other {# verificações de fatos enviadas}}",
-		"developer_comment": "Part of the header of requests list. Example: 12 fact-checks sent"
-	},
-	"feedRequestedMedia.import": {
-		"string": "Importar",
-		"developer_comment": "Button label for importing media into workspace action"
-	},
-	"feedRequestedMedia.lastSubmitted": {
-		"string": "Último envio {date}",
-		"developer_comment": "Header of medias list. Example: 3 medias"
-	},
-	"feedRequestedMedia.numberOfMedias": {
-		"string": "{mediasCount, plural, one {# mídia} many {# mídias} other {# mídias}}",
-		"developer_comment": "Header of medias list. Example: 3 medias"
-	},
-	"feedRequestedMedia.requestsForAllMedias": {
-		"string": "{requestsCount, plural, one {# solicitação} many {# solicitações} other {# solicitações}}",
-		"developer_comment": "Header of requests list. Example: 26 requests"
-	},
-	"feedRequestedMedia.requestsForThisMedia": {
-		"string": "{requestsCount, plural, one {# solicitação para esta mídia} many {# solicitações para esta mídia} other {# solicitações para esta mídia}}",
-		"developer_comment": "Header of requests list. Example: 3 requests for this media"
-	},
-	"feedRequestedMedia.subscriptionsForAllMedias": {
-		"string": "{subscriptionsCount, plural, one {# assinatura} many {# assinaturas} other {# assinaturas}}",
-		"developer_comment": "Part of the header of requests list. Example: 12 subscriptions"
-	},
-	"feedRequestedMediaDialog.title": {
-		"string": "Importar mídias e solicitações",
-		"developer_comment": "Dialog title for importing medias and requests"
-	},
-	"feedRequestsTable.factCheckBy": {
-		"string": "Verificação de fatos por",
-		"developer_comment": "Header label for fact-check by column"
-	},
-	"feedRequestsTable.factChecksSent": {
-		"string": "Verificações de fatos enviadas",
-		"developer_comment": "Header label for fact-checks sent column"
-	},
-	"feedRequestsTable.lastSubmitted": {
-		"string": "Último envio",
-		"developer_comment": "Header label for date column, in which are shown timestamps of last time a media was sent"
-	},
-	"feedRequestsTable.matchedMedia": {
-		"string": "Mídia",
-		"developer_comment": "Header label for number of medias found to be matched to the current one"
-	},
-	"feedRequestsTable.media": {
-		"string": "Mídia",
-		"developer_comment": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
-	},
-	"feedRequestsTable.mediaType": {
-		"string": "Tipo de mídia",
-		"developer_comment": "Header label for media type column, in which are shown the type of the media associated with the request"
-	},
-	"feedRequestsTable.mediaTypeAudio": {
-		"string": "Áudio",
-		"developer_comment": "Label for feed request media type"
-	},
-	"feedRequestsTable.mediaTypeImage": {
-		"string": "Imagem",
-		"developer_comment": "Label for feed request media type"
-	},
-	"feedRequestsTable.mediaTypeLink": {
-		"string": "Link",
-		"developer_comment": "Label for feed request media type"
-	},
-	"feedRequestsTable.mediaTypeText": {
-		"string": "Texto",
-		"developer_comment": "Label for feed request media type"
-	},
-	"feedRequestsTable.mediaTypeVideo": {
-		"string": "Vídeo",
-		"developer_comment": "Label for feed request media type"
-	},
-	"feedRequestsTable.noFactCheck": {
-		"string": "Sem verificação de fatos",
-		"developer_comment": "Displayed on feed requests table when a request was not fact-checked yet."
-	},
-	"feedRequestsTable.requests": {
-		"string": "Solicitações",
-		"developer_comment": "Header label for number of requests column"
-	},
-	"feedRequestsTable.subscriptions": {
-		"string": "Assinaturas",
-		"developer_comment": "Header label for number of subscriptions column"
+	"feedPageContent.pageTitle": {
+		"string": "Feeds Compartilhados",
+		"developer_comment": "Page title for the Shared Feeds page"
 	},
 	"feedSection.howToGetStartedContent": {
 		"string": "Crie um novo feed compartilhado e selecione os dados do seu espaço de trabalho com os quais gostaria de contribuir.</br> Em seguida, convide um ou mais espaços de trabalho para participar. Todos os espaços de trabalho que contribuírem compartilharão os mesmos dados.",
@@ -1548,14 +1988,6 @@
 		"string": "O que vem em seguida?",
 		"developer_comment": "Title of section about what is coming next for the shared feeds"
 	},
-	"feedSwitcher.apiRequests": {
-		"string": "Solicitações da API",
-		"developer_comment": "Button label to take the user to the list of requests coming from the API."
-	},
-	"feedSwitcher.sharedRequests": {
-		"string": "Verificações de Fatos Compartilhadas",
-		"developer_comment": "Button label to take the user to the list of fact-checks shared in the feed."
-	},
 	"feedTeamCard.notContributing": {
 		"string": "Seu espaço de trabalho não contribui para este item do feed compartilhado.<br /><br /> Selecione um espaço de trabalho abaixo para importar a mídia dele para o seu espaço de trabalho.",
 		"developer_comment": "Displayed on the current workspace card on feed item page when the current workspace is not contributing to that cluster. This is an HTML message, please keep the <br /> tag."
@@ -1574,23 +2006,23 @@
 	},
 	"feedTeamFactCheckDialog.claim": {
 		"string": "Afirmação",
-		"developer_comment": "Title for the claim section on the claim and fact-check dialog on the feed item page."
+		"developer_comment": "Title for the claim section on the claim & fact-check dialog on the feed item page."
 	},
 	"feedTeamFactCheckDialog.close": {
 		"string": "Fechar",
-		"developer_comment": "Label of a button to close the claim and fact-check dialog window on the feed item page."
+		"developer_comment": "Label of a button to close the claim & fact-check dialog window on the feed item page."
 	},
 	"feedTeamFactCheckDialog.factCheck": {
 		"string": "Verificação de Fatos",
-		"developer_comment": "Title for the fact-check section on the claim and fact-check dialog on the feed item page."
+		"developer_comment": "Title for the fact-check section on the claim & fact-check dialog on the feed item page."
 	},
 	"feedTeamFactCheckDialog.noFactCheck": {
 		"string": "Nenhuma Verificação de Fatos Disponível",
-		"developer_comment": "Title for the fact-check section on the claim and fact-check dialog on the feed item page when there is no fact-check available."
+		"developer_comment": "Title for the fact-check section on the claim & fact-check dialog on the feed item page when there is no fact-check available."
 	},
 	"feedTeamFactCheckDialog.title": {
-		"string": "Afirmação e Verificação de Fatos",
-		"developer_comment": "Title for claim and fact-check dialog on the feed item page."
+		"string": "Afirmação & Verificação de Fatos",
+		"developer_comment": "Title for claim & fact-check dialog on the feed item page."
 	},
 	"feedTopBar.addOrg": {
 		"string": "Adiciona uma organização colaboradora",
@@ -1648,6 +2080,10 @@
 		"string": "Fechar",
 		"developer_comment": "Generic label for a button or link for a user to press when they wish to close a view"
 	},
+	"global.closeSlideout": {
+		"string": "Fechar painel lateral",
+		"developer_comment": "Button label for closing an open slideout"
+	},
 	"global.confirm": {
 		"string": "Confirmar",
 		"developer_comment": "Generic label for a button or link for a user to press when they wish to confirm an action"
@@ -1655,6 +2091,10 @@
 	"global.delete": {
 		"string": "Excluir",
 		"developer_comment": "Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
+	},
+	"global.description": {
+		"string": "Descrição",
+		"developer_comment": "Generic label for a text field to input a description"
 	},
 	"global.edit": {
 		"string": "Editar",
@@ -1667,6 +2107,10 @@
 	"global.save": {
 		"string": "Salvar",
 		"developer_comment": "Generic label for a button or link for a user to press when they wish to save an action or setting"
+	},
+	"global.sharedFeed": {
+		"string": "Feed Compartilhado",
+		"developer_comment": "Generic Label for the shared feed feature which is a collection of check work spaces contributing content to one place"
 	},
 	"global.submit": {
 		"string": "Enviar",
@@ -1708,17 +2152,9 @@
 		"string": "Bem-vindo(a) ao Check. Por favor, faça o login com a senha que você recebeu no e-mail de boas-vindas.",
 		"developer_comment": "Message that appears after accepting an invitation to join the app."
 	},
-	"importDialog.importDescription": {
-		"string": "Uma nova afirmação será criada no seu espaço de trabalho com todas as mídias selecionadas.",
-		"developer_comment": "Dialog description when importing a claim from feed page."
-	},
-	"importDialog.importTitle": {
-		"string": "Importar dados para o espaço de trabalho",
-		"developer_comment": "Dialog title when importing a claim from feed page."
-	},
-	"importDialog.success": {
-		"string": "A mídia foi importada com sucesso.",
-		"developer_comment": "Banner displayed after items are imported successfully"
+	"importedArticles.title": {
+		"string": "Importados",
+		"developer_comment": "Title of the imported articles page."
 	},
 	"inviteDialog.invitationSent": {
 		"string": "Convites enviados!",
@@ -1780,9 +2216,37 @@
 		"string": "Você deve concordar com os Termos de Serviço e com a Política de Privacidade",
 		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
 	},
-	"itemRating.noFactCheck": {
+	"itemArticlesOrFactCheck.articleCount": {
+		"string": "{count, plural, one {# Artigo} many {# Artigos} other {# Artigos}}",
+		"developer_comment": "A label showing the number of articles represented in an item."
+	},
+	"itemArticlesOrFactCheck.factCheckCount": {
+		"string": "{count, plural, one {# Verificação de fatos} many {# Verificações de fatos} other {# Verificações de fatos}}",
+		"developer_comment": "A label showing the number of fact-checks represented in an item."
+	},
+	"itemArticlesOrFactCheck.noArticles": {
+		"string": "Nenhum artigo",
+		"developer_comment": "A label that appears when no articles are present to display."
+	},
+	"itemArticlesOrFactCheck.noFactCheck": {
 		"string": "nenhuma verificação de fatos",
 		"developer_comment": "A label that appears when no fact-check is present to display."
+	},
+	"itemReportStatus.labelPublished": {
+		"string": "Publicado",
+		"developer_comment": "Label of a report status icon when the report is published"
+	},
+	"itemReportStatus.labelUnpublished": {
+		"string": "Não publicado",
+		"developer_comment": "Label of a report status icon when the report is not published"
+	},
+	"itemReportStatus.tooltipPublished": {
+		"string": "Verificação de Fatos publicada",
+		"developer_comment": "Tooltip of a report status icon when the report is published"
+	},
+	"itemReportStatus.tooltipUnpublished": {
+		"string": "Verificação de Fatos não publicada",
+		"developer_comment": "Tooltip of a report status icon when the report is not published"
 	},
 	"itemTitle.claimTitle": {
 		"string": "Título da Afirmação",
@@ -1795,6 +2259,10 @@
 	"itemTitle.customTitle": {
 		"string": "Título Customizado",
 		"developer_comment": "Label for a menu item that selects Custom Title as the title field for an item."
+	},
+	"itemTitle.customizeTitleTooltip": {
+		"string": "Customize the title for this Media",
+		"developer_comment": "Tooltip for choosing the title for this media item"
 	},
 	"itemTitle.factCheckTitle": {
 		"string": "Título da Verificação de Fatos",
@@ -1875,113 +2343,13 @@
 		"string": "{remaining, plural, one {# caracter restante} many {# caracteres restantes} other {# caracteres restantes}}",
 		"developer_comment": "Label that displays how many characters more can be typed"
 	},
-	"list.Demand": {
-		"string": "Solicitações",
-		"developer_comment": "Table header for Requests column"
-	},
-	"list.FirstSeen": {
-		"string": "Enviado",
-		"developer_comment": "Table header for item submitted date column"
-	},
-	"list.Item": {
-		"string": "Afirmação",
-		"developer_comment": "Table header for Claim column"
-	},
-	"list.LinkedItems": {
-		"string": "Mídia",
-		"developer_comment": "Plural - Table header for number of related media column"
-	},
-	"list.ShareCount": {
-		"string": "Compartilhamentos do Facebook",
-		"developer_comment": "Table header for Facebook share count column"
-	},
-	"list.Status": {
-		"string": "Status",
-		"developer_comment": "Table header for item status column"
-	},
-	"list.Type": {
-		"string": "Tipo",
-		"developer_comment": "Table header for item type column"
-	},
-	"list.clusterFactCheckedByTeamNames": {
-		"string": "Relatório publicado",
-		"developer_comment": "Table header for column that shows from which workspaces the items in the same cluster have a published report"
-	},
-	"list.clusterFirstItemAt": {
-		"string": "Enviado",
-		"developer_comment": "Table header for column that shows when the last item of the cluster was created"
-	},
-	"list.clusterLastItemAt": {
-		"string": "Último envio",
-		"developer_comment": "Table header for column that shows when the last item of the cluster was created"
-	},
-	"list.clusterRequests": {
-		"string": "Solicitações",
-		"developer_comment": "Table header for column that shows number of requests in a cluster"
-	},
-	"list.clusterSize": {
-		"string": "Mídia",
-		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
-	},
-	"list.commentCount": {
-		"string": "Comentários no Facebook",
-		"developer_comment": "Table header for Facebook comments count column"
-	},
-	"list.createdBy": {
-		"string": "Criado por",
-		"developer_comment": "Table header for column that shows the creator name"
-	},
-	"list.factCheck": {
-		"string": "Verificação de fatos",
-		"developer_comment": "Table header for Fact-check column"
-	},
-	"list.factCheckPublishedAt": {
-		"string": "Verificação de fatos publicada em",
-		"developer_comment": "Table header for fact-check publication date column"
-	},
-	"list.mediaPublishedAt": {
-		"string": "Mídia publicada",
-		"developer_comment": "Table header for media (singular) published date column"
-	},
-	"list.reactCount": {
-		"string": "Reações no Facebook",
-		"developer_comment": "Table header for Facebook reactions count column"
-	},
-	"list.reportPublishedBy": {
-		"string": "Relatório publicado por",
-		"developer_comment": "Table header for user who published report column"
-	},
-	"list.reportStatus": {
-		"string": "Status do relatório",
-		"developer_comment": "Table header for report status column"
-	},
-	"list.sourceName": {
-		"string": "Fonte",
-		"developer_comment": "Table header for column that shows item source"
-	},
-	"list.suggestionsCount": {
-		"string": "Sugestões",
-		"developer_comment": "Table header suggested matches count column"
-	},
-	"list.tags": {
-		"string": "Tags",
-		"developer_comment": "Table header for item tags column"
-	},
-	"list.teamName": {
-		"string": "Verificação de fatos por",
-		"developer_comment": "Table header for column that shows the team name"
-	},
-	"list.updated": {
-		"string": "Atualizado",
-		"developer_comment": "Table header for item updated date column"
-	},
 	"listSort.changeDirection": {
 		"string": "Modifica a direção de ordenação da lista",
 		"developer_comment": "Tooltip to tell the user they can change the direction of the list sort"
 	},
 	"listSort.sort": {
 		"string": "Ordenar",
-		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
+		"developer_comment": "Label for sort criteria drop-down field displayed on listing pages"
 	},
 	"login.contactSupport": {
 		"string": "Para receber suporte, entre em contato com <a href=\"mailto:{supportEmail}\">{supportEmail}</a>.",
@@ -2135,12 +2503,16 @@
 		"string": "Desbloquear status",
 		"developer_comment": "Menu item to unlock an item status so it can be changed"
 	},
+	"mediaActionsBar.assignmentNotesPlaceholder": {
+		"string": "Include an optional note in the email sent to assigned workspace members",
+		"developer_comment": "Placeholder text to field for adding details about the assignment"
+	},
 	"mediaActionsBar.assignmentNotesTitle": {
-		"string": "Adicione uma nota ao e-mail",
-		"developer_comment": "Helper text to field for adding details about the assignment"
+		"string": "Add a Note",
+		"developer_comment": "Title text for field for adding details about the assignment"
 	},
 	"mediaActionsBar.assignmentTitle": {
-		"string": "Atribuir item aos(às) colaboradores(as)",
+		"string": "Assign Item",
 		"developer_comment": "Assignment dialog title"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
@@ -2175,17 +2547,89 @@
 		"string": "Não é spam",
 		"developer_comment": "Label for button that marks an item as not spam"
 	},
-	"mediaActionsBar.publishedReport": {
-		"string": "Relatório publicado",
-		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
-	},
 	"mediaActionsBar.restoreTo": {
 		"string": "Restaurar da Lixeira",
 		"developer_comment": "Label for button that restores item from Trash"
 	},
-	"mediaActionsBar.unpublishedReport": {
-		"string": "Relatório não publicado",
-		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
+	"mediaAndRequestsDialogComponent.contextFeed": {
+		"string": "Solicitações Importadas",
+		"developer_comment": "Tab for choosing which requests to list in imported media dialog."
+	},
+	"mediaAndRequestsDialogComponent.contextWorkspace": {
+		"string": "Solicitações da Tipline",
+		"developer_comment": "Tab for choosing which requests to list in imported media dialog."
+	},
+	"mediaArticleCard.editButton": {
+		"string": "Editar Artigo",
+		"developer_comment": "Label for edit button"
+	},
+	"mediaArticleCard.explainer": {
+		"string": "Explicativo",
+		"developer_comment": "Title in an article card on item page."
+	},
+	"mediaArticleCard.factCheck": {
+		"string": "Afirmação & Verificação de Fatos",
+		"developer_comment": "Title in an article card on item page."
+	},
+	"mediaArticleCard.unpublishedAlertContent": {
+		"string": "Essa Verificação de Fatos não será devolvida aos(às) usuários(as) da Tipline até que seja publicada",
+		"developer_comment": "Description of the alert message displayed on articles list when an unpublished claim & fact-check is added"
+	},
+	"mediaArticles.chooseRecentArticle": {
+		"string": "Escolha um artigo recente para adicionar a essa mídia:",
+		"developer_comment": "Message displayed on articles sidebar when an item has no articles."
+	},
+	"mediaArticles.confirmReplaceFactCheckBody": {
+		"string": "Tem certeza de que gostaria de substituir a afirmação & verificação de fatos atual?",
+		"developer_comment": "Confirmation dialog message when replacing a fact-check."
+	},
+	"mediaArticles.confirmReplaceFactCheckButton": {
+		"string": "Substituir afirmação & verificação de fatos",
+		"developer_comment": "'Replace' here is an infinitive verb"
+	},
+	"mediaArticles.confirmReplaceFactCheckTitle": {
+		"string": "Substituir afirmação & verificação de fatos?",
+		"developer_comment": "'Replace' here is an infinitive verb."
+	},
+	"mediaArticles.noArticlesAddedToItem": {
+		"string": "Nenhum artigo está sendo entregue aos(às) usuários(as) da Tipline que enviaram solicitações que correspondem a essa mídia.",
+		"developer_comment": "Message displayed on articles sidebar when an item has no articles."
+	},
+	"mediaArticles.success": {
+		"string": "O artigo foi adicionado com sucesso.",
+		"developer_comment": "Banner displayed after an article is successfully added to an item."
+	},
+	"mediaArticlesCard.explainer": {
+		"string": "Explicativo",
+		"developer_comment": "Type description of an explainer article card."
+	},
+	"mediaArticlesCard.explainerTooltip": {
+		"string": "Adiciona um artigo explicativo a este grupo de mídia",
+		"developer_comment": "Tooltip message displayed on article cards on item page for explainer type articles."
+	},
+	"mediaArticlesCard.factCheck": {
+		"string": "Afirmação & Verificação de Fatos",
+		"developer_comment": "Type description of a fact-check article card."
+	},
+	"mediaArticlesCard.factcheckInUseTooltip": {
+		"string": "This Claim & Fact-Check article is already applied to another media cluster<br /><br />Remove it from its current media cluster in order to add it here.",
+		"developer_comment": "Tooltip message displayed on article cards on item page for fact-check type articles."
+	},
+	"mediaArticlesCard.factcheckTooltip": {
+		"string": "Adiciona um artigo de Afirmação & Verificação de Fatos a este grupo de mídia",
+		"developer_comment": "Tooltip message displayed on article cards on item page for fact-check type articles."
+	},
+	"mediaArticlesDisplay.readOnlyAlertContent": {
+		"string": "Quando um artigo de afirmação & verificação de fatos for adicionado, será priorizado como o único artigo a ser entregue como resposta a solicitações que correspondam a esse item.",
+		"developer_comment": "Description of the alert message displayed on data points section of the edit feed page."
+	},
+	"mediaArticlesDisplay.readOnlyAlertTitle": {
+		"string": "Afirmação & Verificação de Fatos Adicionadas",
+		"developer_comment": "Title of the alert message displayed on data points section of the edit feed page."
+	},
+	"mediaArticlesTeamArticles.noResults": {
+		"string": "Nenhum resultado corresponde à sua pesquisa.",
+		"developer_comment": "Message displayed on articles sidebar when search returns no articles."
 	},
 	"mediaCardLarge.lastSeen": {
 		"string": "Último envio em {date}",
@@ -2211,33 +2655,13 @@
 		"string": "Transcrição",
 		"developer_comment": "Header for the transcription content of an audio or video"
 	},
-	"mediaClaim.claim": {
-		"string": "Afirmação",
-		"developer_comment": "Title of the media claim section."
-	},
-	"mediaClaim.error": {
-		"string": "erro",
-		"developer_comment": "Caption that informs that a claim could not be saved"
-	},
-	"mediaClaim.placeholder": {
-		"string": "Por exemplo: A terra é plana",
-		"developer_comment": "Placeholder for claim description field."
-	},
-	"mediaClaim.saved": {
-		"string": "salva por {userName} {timeAgo}",
-		"developer_comment": "Caption that informs who last saved this claim and when it happened."
-	},
-	"mediaClaim.saving": {
-		"string": "salvando…",
-		"developer_comment": "Caption that informs that a claim is being saved"
-	},
-	"mediaClaim.title": {
-		"string": "Título",
-		"developer_comment": "Title for the text input for claim title"
-	},
 	"mediaComponent.annotation": {
 		"string": "Anotações",
 		"developer_comment": "Label for the Annotation tab"
+	},
+	"mediaComponent.articles": {
+		"string": "Artigos",
+		"developer_comment": "Label for the Articles tab"
 	},
 	"mediaComponent.lastSeen": {
 		"string": "Último envio em {date}",
@@ -2255,13 +2679,13 @@
 		"string": "Sugestões",
 		"developer_comment": "Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
 	},
-	"mediaContext.placeholder": {
-		"string": "Adicione contexto da afirmação",
-		"developer_comment": "Placeholder for claim context field."
+	"mediaConfirmationBanner.alertContent": {
+		"string": "Todas as solicitações para esse item serão respondidas pelo item correspondente abaixo.",
+		"developer_comment": "Content of the alert message displayed on item page for confirmed matches."
 	},
-	"mediaContext.title": {
-		"string": "Contexto adicional",
-		"developer_comment": "Title of claim additional context field."
+	"mediaConfirmationBanner.alertTitle": {
+		"string": "As mídias e as solicitações foram correspondidas com outro item neste espaço de trabalho.",
+		"developer_comment": "Title of the alert message displayed on item page for confirmed matches."
 	},
 	"mediaDetail.spam": {
 		"string": "Spam",
@@ -2275,53 +2699,21 @@
 		"string": "Transcrição de áudio em andamento…",
 		"developer_comment": "Label when transcription is in progress"
 	},
-	"mediaFactCheck.errorSummary": {
-		"string": "É necessário um resumo para a verificação de fatos",
-		"developer_comment": "Caption that informs that a fact-check could not be saved and that the summary field has to be filled"
-	},
-	"mediaFactCheck.errorTitle": {
-		"string": "É necessário um título para a verificação de fatos",
-		"developer_comment": "Caption that informs that a fact-check could not be saved and that the title field has to be filled"
-	},
 	"mediaFactCheck.factCheck": {
 		"string": "Verificação de fatos",
 		"developer_comment": "Title of the media fact-check section."
 	},
-	"mediaFactCheck.saved": {
-		"string": "salva por {userName} {timeAgo}",
-		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
+	"mediaFeedInformation.importedMediaContent": {
+		"string": "Essa mídia foi importada de um feed compartilhado: {feedTitle}",
+		"developer_comment": "Content of alert box displayed on media modal when this media was imported from a feed."
 	},
-	"mediaFactCheck.saving": {
-		"string": "salvando…",
-		"developer_comment": "Caption that informs that a fact-check is being saved"
+	"mediaFeedInformation.importedMediaTitle": {
+		"string": "Mídia Importada",
+		"developer_comment": "Singular. Title of alert box displayed on media modal when this media was imported from a feed."
 	},
-	"mediaFactCheck.selectLanguageLabel": {
-		"string": "Idioma",
-		"developer_comment": "Label for input to select language"
-	},
-	"mediaFactCheck.summary": {
-		"string": "Resumo",
-		"developer_comment": "Label for fact-check summary field"
-	},
-	"mediaFactCheck.summaryPlaceholder": {
-		"string": "Contextualize brevemente a classificação da verificação de fatos",
-		"developer_comment": "Placeholder instructions for fact-check summary field"
-	},
-	"mediaFactCheck.title": {
-		"string": "Título",
-		"developer_comment": "Label for fact-check title field"
-	},
-	"mediaFactCheck.titlePlaceholder": {
-		"string": "Mensagem objetiva para os(as) leitores(as)",
-		"developer_comment": "Placeholder instructions for fact-check title field"
-	},
-	"mediaFactCheck.url": {
-		"string": "URL do artigo",
-		"developer_comment": "Label for fact-check URL field"
-	},
-	"mediaFactCheck.urlPlaceholder": {
-		"string": "Adicione uma URL para este artigo de verificação de fatos",
-		"developer_comment": "Placeholder instructions for fact-check URL field"
+	"mediaFeedInformation.viewSharedFeed": {
+		"string": "Visualizar Feed Compartilhado",
+		"developer_comment": "Label of action button in alert box displayed on media modal when this media was imported from a feed."
 	},
 	"mediaItem.detach": {
 		"string": "Remover mídia",
@@ -2354,6 +2746,10 @@
 	"mediaLanguageSwitcher.success": {
 		"string": "Idioma atualizado",
 		"developer_comment": "Success message displayed when an item language is changed"
+	},
+	"mediaMainItemPreview.viewItem": {
+		"string": "Ver Item",
+		"developer_comment": "Button label on secondary item banner. This button opens the main item."
 	},
 	"mediaMetadata.ImageSearch": {
 		"string": "Busca reversa de imagem",
@@ -2403,45 +2799,25 @@
 		"string": "{current} de {total}",
 		"developer_comment": "The current item number and total in the list paging control is showing"
 	},
-	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Exportar todas as mídias",
-		"developer_comment": "Button label to commit action of exporting media"
+	"mediaSimilarityBarAdd.mergeItems": {
+		"string": "Unir Itens",
+		"developer_comment": "Label for the Merge Items button."
 	},
-	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Gerenciar mídias",
-		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
+	"mediaSimilarityBarAdd.mergeItemsButton": {
+		"string": "Merge Selected Items",
+		"developer_comment": "Button label to commit action of merging items."
 	},
-	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, one {Importar todas as mídias de um item} many {Importar todas as mídias de # itens} other {Importar todas as mídias de # itens}}",
-		"developer_comment": "Button label to commit action of importing media from one or more items into the current one"
+	"mediaSimilarityBarAdd.mergeItemsTitle": {
+		"string": "Search for Media to Merge",
+		"developer_comment": "Dialog title for merging items."
 	},
-	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Adicionar mídia a esta verificação de fatos",
-		"developer_comment": "Menu item for importing (one or more) media matched as similar"
+	"mediaSimilarityBarAdd.mergeItemsTooltip": {
+		"string": "This media item has already been merged.",
+		"developer_comment": "Tooltip message for when merging media is not allowed from this item"
 	},
-	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Importar mídias de outros itens",
-		"developer_comment": "Dialog title for importing media from other items."
-	},
-	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "Mover todas as mídias para outra verificação de fatos",
-		"developer_comment": "Menu option for exporting media from this item to another"
-	},
-	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "Exportar todas as mídias para outro item",
-		"developer_comment": "Dialog title for exporting media to other item."
-	},
-	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "Mover todas as mídias para uma verificação de fatos importada",
-		"developer_comment": "Menu option for adding the current media to an imported fact-check"
-	},
-	"mediaSimilarityBarAdd.exportTooltip": {
-		"string": "A mídia deste item não pode ser exportada se este item for anexado a um item principal ou se seu relatório já estiver publicado",
-		"developer_comment": "Tooltip message for exporting media menu option"
-	},
-	"mediaSimilarityBarAdd.savedSuccessfully": {
-		"string": "Item semelhante adicionado com sucesso",
-		"developer_comment": "Banner displayed when similar item is added successfully"
+	"mediaSimilarityBarAdd.mergedSuccessfully": {
+		"string": "Os itens foram unidos com sucesso.",
+		"developer_comment": "Banner displayed when items are merged successfully."
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
 		"string": "Mídia",
@@ -2455,25 +2831,25 @@
 		"string": "Desculpe, ocorreu um erro ao atualizar o status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
 		"developer_comment": "Error message displayed when a status change fails"
 	},
-	"mediaSuggestionReview.matchDescription": {
-		"string": "Esta mídia corresponde à afirmação e à verificação de fatos abaixo.",
-		"developer_comment": "Hint text to tell the user what the 'Open claim' button does."
+	"mediaSuggestionBanner.alertTitle": {
+		"string": "As mídias e as solicitações parecem ser semelhantes a um item existente em seu espaço de trabalho. Eles são correspondentes?",
+		"developer_comment": "Title of the alert message displayed on item page for suggestions."
 	},
-	"mediaSuggestionReview.matchTitle": {
-		"string": "Afirmação correspondente",
-		"developer_comment": "Title of a box that lets the user open a claim that this has been matched with."
+	"mediaSuggestionBanner.approve": {
+		"string": "Sim, são semelhantes",
+		"developer_comment": "Button label to accept similarity suggestion."
 	},
-	"mediaSuggestionReview.openButtonMatched": {
-		"string": "Abrir afirmação",
-		"developer_comment": "A label for a button that opens a claim item"
+	"mediaSuggestionBanner.reject": {
+		"string": "Não, mantenha-os separados",
+		"developer_comment": "Button label to reject similarity suggestion."
 	},
-	"mediaSuggestionReview.prompt": {
-		"string": "A afirmação ou a verificação de fatos abaixo é uma boa correspondência para esta mídia?",
-		"developer_comment": "Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
+	"mediaSuggestionBanner.updateSuggestionError": {
+		"string": "Error when trying to update suggestion. Please try again or contact support if the error persists.",
+		"developer_comment": "Message display when it fails to approve or reject suggestion."
 	},
-	"mediaSuggestionReview.title": {
-		"string": "Sugestões de Afirmação e Verificação de Fatos",
-		"developer_comment": "Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
+	"mediaSuggestionBanner.updateSuggestionSuccess": {
+		"string": "Updated successfully, refreshing…",
+		"developer_comment": "Message display once suggestion is approved or rejected successfully."
 	},
 	"mediaSuggestions.lastSubmitted": {
 		"string": "Último envio {date}",
@@ -2492,15 +2868,15 @@
 		"developer_comment": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media."
 	},
 	"mediaSuggestionsComponent.bulkReject": {
-		"string": "Rejeitar todas as mídias desta página",
+		"string": "Rejeita todas as mídias desta página",
 		"developer_comment": "Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list."
 	},
 	"mediaSuggestionsComponent.bulkSpam": {
-		"string": "Marcar todas as mídias desta página como spam",
+		"string": "Marca todas as mídias desta página como spam",
 		"developer_comment": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list."
 	},
 	"mediaSuggestionsComponent.bulkTrash": {
-		"string": "Enviar todas as mídias desta página para a lixeira",
+		"string": "Envia todas as mídias desta página para a lixeira",
 		"developer_comment": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list."
 	},
 	"mediaSuggestionsComponent.dialogBulkAcceptConfirm": {
@@ -2591,10 +2967,6 @@
 		"string": "A sugestão foi atualizada com sucesso.",
 		"developer_comment": "Banner displayed after items are accepted or rejected successfully"
 	},
-	"metadata.cancel": {
-		"string": "Cancelar",
-		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
-	},
 	"metadata.couldNotSave": {
 		"string": "Não foi possível salvar. Por favor, preencha todos os campos obrigatórios",
 		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
@@ -2602,14 +2974,6 @@
 	"metadata.couldNotSaveUrl": {
 		"string": "Não foi possível salvar, pelo menos uma URL é inválida",
 		"developer_comment": "Error message displayed when a URL is not in the correct format in the form, which prevents the form from being saved."
-	},
-	"metadata.delete": {
-		"string": "Excluir",
-		"developer_comment": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
-	},
-	"metadata.edit": {
-		"string": "Editar",
-		"developer_comment": "This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
 	},
 	"metadata.file.dropFile": {
 		"string": "Arraste e solte um arquivo aqui, ou clique para carregá-lo (tamanho máximo: {fileSizeLabel}, extensões permitidas: {extensions})",
@@ -2663,10 +3027,6 @@
 		"string": "Pesquisar no mapa",
 		"developer_comment": "This is a label that appears on a text field. If the user begins to type a location they will receive a list of suggested place names."
 	},
-	"metadata.save": {
-		"string": "Salvar",
-		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
-	},
 	"metadata.uploadProgressLabel": {
 		"string": "Salvando {file}…",
 		"developer_comment": "This is a label that appears while a file upload is ongoing."
@@ -2674,6 +3034,14 @@
 	"metadata.url.helperText": {
 		"string": "A URL deve possuir um formato válido",
 		"developer_comment": "A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL."
+	},
+	"metatdataText.answerTitle": {
+		"string": "Resposta",
+		"developer_comment": "Input title for a metadata answer field"
+	},
+	"metatdataText.placeholder": {
+		"string": "Adicionar resposta à anotação",
+		"developer_comment": "Placeholder of the input field for annotation answer"
 	},
 	"multiSelectFilter.noResultsMatching": {
 		"string": "Nenhum resultado correspondente a {keyword}.",
@@ -2690,6 +3058,14 @@
 	"network.stillWorking": {
 		"string": "Processando…",
 		"developer_comment": "Status message trying to connect to the network"
+	},
+	"newArticleButton.newArticle": {
+		"string": "Novo Artigo",
+		"developer_comment": "Label of a button that opens a form to create a new article."
+	},
+	"newArticleButton.tooltip": {
+		"string": "Não é possível adicionar um artigo aqui.",
+		"developer_comment": "Tooltip message displayed on new article button when it is disabled."
 	},
 	"newProject.cancel": {
 		"string": "Cancelar",
@@ -2892,7 +3268,7 @@
 		"developer_comment": "Help text for the user to contact the workspace admin for additional help accessing"
 	},
 	"notFound.title": {
-		"string": "Ah não! Esta página não existe ou você não possui autorização para acessá-la.",
+		"string": "Esta página não existe ou você não possui autorização para acessá-la.",
 		"developer_comment": "Not found page title"
 	},
 	"numericRangeFilter.and": {
@@ -2938,6 +3314,18 @@
 	"ocrButton.textExtractedSuccessfully": {
 		"string": "Extração do texto completa",
 		"developer_comment": "Banner displayed when text extraction operation for an image is done"
+	},
+	"paginator.itemsCount": {
+		"string": "{count, plural, one {1 / 1} many {{from} - {to} / #} other {{from} - {to} / #}}",
+		"developer_comment": "Pagination count of items returned"
+	},
+	"paginator.nextPage": {
+		"string": "Próxima página",
+		"developer_comment": "Pagination button to go to next page."
+	},
+	"paginator.previousPage": {
+		"string": "Página anterior",
+		"developer_comment": "Pagination button to go to previous page."
 	},
 	"passwordChange.changePassword": {
 		"string": "Modificar senha",
@@ -3036,8 +3424,8 @@
 		"developer_comment": "Empty message that is displayed when search results are zero"
 	},
 	"projectsComponent.allItems": {
-		"string": "Todos",
-		"developer_comment": "Label for the 'All items' list displayed on the left sidebar"
+		"string": "Todas Mídias",
+		"developer_comment": "Label for the 'All media' list displayed on the left sidebar"
 	},
 	"projectsComponent.assignedToMe": {
 		"string": "Atribuído a mim",
@@ -3080,8 +3468,8 @@
 		"developer_comment": "Success message when new list is created"
 	},
 	"projectsComponent.newSharedFeed": {
-		"string": "Novo feed compartilhado",
-		"developer_comment": "Tooltip for the button that navigates to shared feed creation page"
+		"string": "Novo Feed Compartilhado",
+		"developer_comment": "Label for the button that navigates to shared feed creation page"
 	},
 	"projectsComponent.noCustomLists": {
 		"string": "Nenhuma lista personalizada",
@@ -3108,12 +3496,8 @@
 		"developer_comment": "'Rename' here is an infinitive verb"
 	},
 	"projectsComponent.sharedFeedNavHeader": {
-		"string": "Feeds Compartilhados <sup>BETA</sup>",
-		"developer_comment": "The navigation name of the shared feeds section with included Beta messaging"
-	},
-	"projectsComponent.sharedFeeds": {
-		"string": "Colaboração [{feedsLength}]",
-		"developer_comment": "Collaborating is a label to describe the type of shared feeds listed. In this case it means that they are groups of workspaces working together."
+		"string": "Feeds Compartilhados [{feedsLength}] <sup>BETA</sup>",
+		"developer_comment": "The navigation name of the shared feeds section with included Beta messaging and the total count of items in the list below"
 	},
 	"projectsComponent.spam": {
 		"string": "Spam",
@@ -3143,9 +3527,9 @@
 		"string": "Mídias sem correspondência",
 		"developer_comment": "Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)"
 	},
-	"published.title": {
+	"publishedArticles.title": {
 		"string": "Publicado",
-		"developer_comment": "Title of the Published list page"
+		"developer_comment": "Title of the published articles page."
 	},
 	"quickFilterMenu.filters": {
 		"string": "Filtros",
@@ -3156,16 +3540,40 @@
 		"developer_comment": "Header for a menu containing shortcuts to various search filters"
 	},
 	"quickFilterMenu.myWorkspace": {
-		"string": "Verificações de fatos <strong>somente</strong> no meu espaço de trabalho",
-		"developer_comment": "Label for a menu item that filters a search of fact-checks so that the user only sees those that are in their workspace"
+		"string": "Itens <strong>somente</strong> em meu espaço de trabalho",
+		"developer_comment": "Label for a menu item that filters a search of items so that the user only sees those that are in their workspace"
 	},
 	"quickFilterMenu.otherWorkspaces": {
-		"string": "Verificações de fatos que <strong>não estão</strong> no meu espaço de trabalho",
-		"developer_comment": "Label for a menu item that filters a search of fact-checks so that the user only sees those that are *not* in their workspace"
+		"string": "Itens que <strong>não estão</strong> em meu espaço de trabalho",
+		"developer_comment": "Label for a menu item that filters a search of items so that the user only sees those that are *not* in their workspace"
 	},
 	"refreshButton.success": {
 		"string": "A mídia foi atualizada com sucesso.",
 		"developer_comment": "Notification displayed when refresh action (re-parsing) of media is completed"
+	},
+	"removeArticleButton.confirmationDialogBody": {
+		"string": "This article will no longer be associated with this media item but will remain in your workspace.",
+		"developer_comment": "Confirmation message displayed on a modal when a user tries to remove an article."
+	},
+	"removeArticleButton.confirmationDialogTitle": {
+		"string": "Tem certeza que deseja remover este artigo?",
+		"developer_comment": "Title displayed on a confirmation modal when a user tries to remove an article."
+	},
+	"removeArticleButton.removeButton": {
+		"string": "Remover artigo",
+		"developer_comment": "Button label to remove article from item"
+	},
+	"removeArticleButton.tooltip": {
+		"string": "Remove o artigo do grupo de mídia",
+		"developer_comment": "Tooltip message displayed on remove article button."
+	},
+	"removeArticleButton.tooltipDisabled": {
+		"string": "Você não pode remover este artigo.",
+		"developer_comment": "Tooltip message displayed on remove article button when it is disabled."
+	},
+	"removeArticleWrapperButton.success": {
+		"string": "Os artigos foram removidos com sucesso.",
+		"developer_comment": "Banner displayed after an article is successfully removed from an item."
 	},
 	"reorder.moveDown": {
 		"string": "Move o item para baixo",
@@ -3471,18 +3879,6 @@
 		"string": "Você deve adicionar um título, um resumo e um idioma à verificação de fatos para poder publicar o relatório.",
 		"developer_comment": "Text with a reason why user can not publish a report"
 	},
-	"reportStatusCell.paused": {
-		"string": "Suspenso",
-		"developer_comment": "Table cell title for report status of paused"
-	},
-	"reportStatusCell.published": {
-		"string": "Publicado",
-		"developer_comment": "Table cell title for report status of published"
-	},
-	"reportStatusCell.unpublished": {
-		"string": "Não publicado",
-		"developer_comment": "Table cell title for report status of unpublished"
-	},
 	"requestReceipt.factCheckDelivered": {
 		"string": "Verificação de fatos entregue em {date}",
 		"developer_comment": "Message displayed when user request has a fact-check delivered"
@@ -3527,17 +3923,21 @@
 		"string": "Se",
 		"developer_comment": "Logical operator IF statement label"
 	},
-	"ruleBody.ruleName": {
-		"string": "Nome",
-		"developer_comment": "Text field label for the rule name"
+	"ruleBody.namePlaceholder": {
+		"string": "Insira um nome descritivo para a regra",
+		"developer_comment": "Text field placeholder for the input name of rule"
 	},
-	"ruleBody.ruleNameValidation": {
-		"string": "O nome da regra é obrigatório",
-		"developer_comment": "Help content for the text field"
+	"ruleBody.ruleName": {
+		"string": "Nome da Regra",
+		"developer_comment": "Text field label for the rule name"
 	},
 	"ruleBody.then": {
 		"string": "Então",
 		"developer_comment": "Logical operator THEN statement"
+	},
+	"ruleOperatorWrapper.add": {
+		"string": "Adicionar Condição",
+		"developer_comment": "Button label for the user to add another if/then condition to this rule"
 	},
 	"ruleOperatorWrapper.and": {
 		"string": "E",
@@ -3603,6 +4003,10 @@
 		"string": "Atualizada",
 		"developer_comment": "Table header for rule update dates"
 	},
+	"rulesTableTool.blank": {
+		"string": "Nenhuma Regra de Espaço de Trabalho",
+		"developer_comment": "Message displayed when there are no rules items"
+	},
 	"rulesTableToolbar.add": {
 		"string": "Nova regra",
 		"developer_comment": "Button label for creating a new rule"
@@ -3643,9 +4047,25 @@
 		"string": "Mais Ações?",
 		"developer_comment": "Label to the save button of the shared feed update form"
 	},
-	"saveFeed.confirmationDialogBody": {
-		"string": "Você tem certeza de que deseja atualizar este feed compartilhado?",
+	"saveFeed.collaboratorRemovalConfirmationDialogBody": {
+		"string": "As seguintes organizações colaboradoras serão removidas desse feed compartilhado:",
 		"developer_comment": "Confirmation dialog message when saving a feed."
+	},
+	"saveFeed.confirmLeave": {
+		"string": "Você tem alterações não salvas no seu feed compartilhado. Você deseja continuar em uma nova página? Seu trabalho não será salvo.",
+		"developer_comment": "This is a prompt that appears when a user tries to exit a page before saving their work."
+	},
+	"saveFeed.confirmLeaveTitle": {
+		"string": "Você deseja sair sem salvar?",
+		"developer_comment": "This is a prompt that appears when a user tries to exit a page before saving their work."
+	},
+	"saveFeed.confirmationDialogBody": {
+		"string": "As atualizações desse feed compartilhado estarão disponíveis para todos(as) os(as) usuários(as) de <strong>{name}</strong> e espaços de trabalho colaboradores.",
+		"developer_comment": "Confirmation dialog message when saving an existing feed."
+	},
+	"saveFeed.confirmationDialogBodyCreate": {
+		"string": "Esse feed compartilhado estará disponível para todos(as) os(as) usuários(as) de <strong>{name}</strong>.",
+		"developer_comment": "Confirmation dialog message when creating a feed."
 	},
 	"saveFeed.confirmationDialogButton": {
 		"string": "Atualizar Feed Compartilhado",
@@ -3656,8 +4076,12 @@
 		"developer_comment": "Button label to confirm creating a feed."
 	},
 	"saveFeed.confirmationDialogTitle": {
-		"string": "Você tem certeza de que deseja atualizar este feed compartilhado?",
+		"string": "Atualizar Feed Compartilhado?",
 		"developer_comment": "Confirmation dialog title when saving a feed."
+	},
+	"saveFeed.confirmationDialogTitleCreate": {
+		"string": "Criar Feed Compartilhado?",
+		"developer_comment": "Confirmation dialog title for creating a feed."
 	},
 	"saveFeed.createSaveButton": {
 		"string": "Criar feed compartilhado",
@@ -3735,9 +4159,9 @@
 		"string": "Um e-mail será enviado aos(às) colaboradores(as) listados(as) para convidá-los(as) a contribuir com esse feed compartilhado.",
 		"developer_comment": "Confirmation dialog message when saving a feed."
 	},
-	"saveFeed.invitationConfirmationDialogTitle": {
-		"string": "Convites de colaboração",
-		"developer_comment": "Confirmation dialog title for feed collaboration invitations."
+	"saveFeed.invitationDeleteConfirmationDialogBody": {
+		"string": "Os convites para os seguintes endereços de e-mail serão cancelados:",
+		"developer_comment": "Confirmation dialog message when saving a feed."
 	},
 	"saveFeed.lastUpdated": {
 		"string": "Última atualização de configurações em {timeAgo}",
@@ -3760,16 +4184,12 @@
 		"developer_comment": "Warning displayed on edit feed page when no list is selected."
 	},
 	"saveFeed.sharedFeedPageEditSubtitle": {
-		"string": "Editar o feed compartilhado",
+		"string": "Editar | {feedName}",
 		"developer_comment": "Subtitle of the shared feed editing page"
 	},
 	"saveFeed.sharedFeedPageSubtitle": {
-		"string": "Crie um novo feed compartilhado",
+		"string": "Criar Feed Compartilhado",
 		"developer_comment": "Subtitle of the shared feed creation page"
-	},
-	"saveFeed.sharedFeedPageTitle": {
-		"string": "Feed compartilhado",
-		"developer_comment": "Title of the shared feed creation page"
 	},
 	"saveFeed.titleHelper": {
 		"string": "Bons nomes de feeds compartilhados são curtos, memoráveis e informam ao seu público o foco da mídia",
@@ -3888,8 +4308,8 @@
 		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
-		"string": "Todos os itens",
-		"developer_comment": "Page title for listing all items in check"
+		"string": "Todas Mídias",
+		"developer_comment": "Page title for listing all media items in check"
 	},
 	"search.and": {
 		"string": "e",
@@ -3939,9 +4359,9 @@
 		"string": "Confirmados",
 		"developer_comment": "Allow filtering by confirmed items"
 	},
-	"search.dateLastSubmittedHeading": {
-		"string": "Mídia publicada",
-		"developer_comment": "This is a heading in a drop down selector, to filter a search by the last submitted date"
+	"search.connectorAnd": {
+		"string": "e",
+		"developer_comment": "Logical operator 'AND' to be applied when filtering articles by multiple fields."
 	},
 	"search.dateLessThan": {
 		"string": "a menos de",
@@ -4199,6 +4619,10 @@
 		"string": "Extensão do navegador",
 		"developer_comment": "Filter option that refers to items created via the browser extension"
 	},
+	"searchFieldChannel.imported": {
+		"string": "Importados",
+		"developer_comment": "Filter option that refers to items imported from external systems"
+	},
 	"searchFieldChannel.manual": {
 		"string": "Manual",
 		"developer_comment": "Filter option that refers to items created manually"
@@ -4280,44 +4704,60 @@
 		"developer_comment": "Label for checkbox to toggle searching for keyword across usernames and phone numbers in Requests"
 	},
 	"searchResults.itemsCount": {
-		"string": "{totalCount, plural, one {1 / 1} many {{from} - {to} / #} other {{from} - {to} / #}}",
+		"string": "{count, plural, one {1 / 1} many {{from} - {to} / #} other {{from} - {to} / #}}",
 		"developer_comment": "Pagination count of items returned"
 	},
-	"searchResults.sortDateUpdated": {
-		"string": "Data atualizada",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	"searchResults.sortFactCheckPublishedOn": {
+		"string": "Verificação de fatos publicada (data)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
 	},
 	"searchResults.sortFactChecksCount": {
 		"string": "Verificações de fatos (quantidade)",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the feed page."
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
 	},
-	"searchResults.sortLastRequestDate": {
-		"string": "Data atualizada",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the feed page."
+	"searchResults.sortLastSeen": {
+		"string": "Última solicitação (data)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
 	},
 	"searchResults.sortMediaCount": {
 		"string": "Mídia (quantidade)",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the feed page."
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
 	},
 	"searchResults.sortRating": {
 		"string": "Classificação",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
+	},
+	"searchResults.sortReportStatus": {
+		"string": "Relatório (status)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
 	},
 	"searchResults.sortRequestsCount": {
 		"string": "Solicitações (quantidade)",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the feed page."
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
+	},
+	"searchResults.sortScore": {
+		"string": "Search: Best Match",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
+	},
+	"searchResults.sortSubmitted": {
+		"string": "Envio (data)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
+	},
+	"searchResults.sortSuggestionsCount": {
+		"string": "Sugestões (quantidade)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
 	},
 	"searchResults.sortTitle": {
 		"string": "Título",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
+	},
+	"searchResults.sortUpdated": {
+		"string": "Atualização (data)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
 	},
 	"searchResults.tooManyResults": {
 		"string": "A navegação nesta lista está limitada aos primeiros {max, number} resultados. Use os filtros acima para refinar a lista.",
 		"developer_comment": "An alert message that informs the user that their query is too large and need to narrow their filters if they want to continue search for items."
-	},
-	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(# selecionado)} many {(# selecionados)} other {(# selecionados)}}",
-		"developer_comment": "Label for number of selected items"
 	},
 	"select.removeSelection": {
 		"string": "Desfazer seleção",
@@ -4411,10 +4851,6 @@
 		"string": "Usar fonte já existente",
 		"developer_comment": "Submit button to relate media to an existing source"
 	},
-	"settingsHeader.save": {
-		"string": "Salvar",
-		"developer_comment": "Button label for save columns settings"
-	},
 	"sharedFeedIcon.Tooltip": {
 		"string": "Incluído no Feed Compartilhado:",
 		"developer_comment": "Tooltip for shared feeds icon"
@@ -4422,10 +4858,6 @@
 	"sharedFeeds": {
 		"string": "Feeds Compartilhados <sup>BETA</sup>",
 		"developer_comment": "Title for the shared feeds page"
-	},
-	"sharedItemCard.factCheckCount": {
-		"string": "{count, plural, one {# Verificação de fatos} many {# Verificações de fatos} other {# Verificações de fatos}}",
-		"developer_comment": "A label showing the number of fact-checks represented in an item."
 	},
 	"sharedItemCard.lastRequested": {
 		"string": "Última Solicitação",
@@ -4496,12 +4928,12 @@
 		"developer_comment": "Banner displayed when similarity settings are saved successfully"
 	},
 	"similarityComponent.singleLanguageFactChecksEnabled": {
-		"string": "Somente enviar verificações de fatos no mesmo idioma que o idioma da conversa",
-		"developer_comment": "Label displayed when similarity setting for single language fact-checks is enabled"
+		"string": "Enviar somente artigos no mesmo idioma da conversa",
+		"developer_comment": "Label displayed when similarity setting for single language articles is enabled"
 	},
 	"similarityComponent.singleLanguageFactChecksHelp": {
-		"string": "A correspondência de mídia agrupa itens semelhantes, mesmo que estejam em vários idiomas. Se habilitada, as verificações de fatos serão enviadas somente aos(às) usuários(as) cujo idioma escolhido para a conversa na Tipline corresponda ao idioma da verificação de fatos. Se desabilitada, as verificações de fatos serão enviadas a todos(as) os(as) usuários(as) cuja mídia corresponda à afirmação, independentemente do idioma da conversa. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Saiba mais sobre os menus da Tipline</a>.",
-		"developer_comment": "Help text displayed when similarity setting for single language fact-checks is enabled"
+		"string": "Se habilitada, os artigos serão enviadas somente aos(às) usuários(as) cujo idioma escolhido para a conversa na Tipline corresponda ao idioma do artigo. Se desabilitada, os artigos serão enviados a todos(as) os(as) usuários(as) cuja mídia corresponda à afirmação, independentemente do idioma da conversa. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Saiba mais sobre os menus da Tipline</a>.",
+		"developer_comment": "Help text displayed when similarity setting for single language articles is enabled"
 	},
 	"similarityComponent.textLength": {
 		"string": "Mínimo de palavras necessárias para uma correspondência confirmada",
@@ -4537,123 +4969,17 @@
 		"string": "Recurso",
 		"developer_comment": "Button label to add a resource to this bot"
 	},
-	"smoochBot.descriptionGreeting": {
-		"string": "A primeira mensagem que é enviada ao(à) usuário(a). Ela apresenta sua organização e o serviço que você presta por meio deste bot.",
-		"developer_comment": "Definition of the bot Greeting content"
-	},
-	"smoochBot.descriptionInactive": {
-		"string": "Esta mensagem é enviada para qualquer usuário(a) que tenha enviado uma mensagem para a Tipline quando o bot Check Message estiver definido como inativo.",
-		"developer_comment": "Definition of the bot Inactive content"
-	},
-	"smoochBot.descriptionInvalidFormat": {
-		"string": "Uma mensagem automática é enviada ao(à) usuário(a) quando ele(a) envia um arquivo ao qual o Check não oferece suporte.",
-		"developer_comment": "Definition of the bot Invalid format content"
-	},
-	"smoochBot.descriptionMainMenu": {
-		"string": "Um menu pedindo ao(à) usuário(a) para escolher entre um conjunto de opções. Esta mensagem segue automaticamente a mensagem de saudação. '9' não pode ser usado como uma opção no menu principal.",
-		"developer_comment": "Definition of the bot Main menu content"
-	},
-	"smoochBot.descriptionOptionNotAvailable": {
-		"string": "A mensagem é enviada se a resposta do(a) usuário(a) a um menu não corresponder a um cenário de menu válido.",
-		"developer_comment": "Definition of the bot Option not available content"
-	},
-	"smoochBot.descriptionPrivacyStatementContent": {
-		"string": "Conteúdo da Declaração de Privacidade. Edite o texto abaixo, ou substitua-o por um conteúdo personalizado.",
-		"developer_comment": "Description of the privacy statement content and how to use custom text"
-	},
-	"smoochBot.descriptionPrivacyStatementGreeting": {
-		"string": "Por padrão, a Declaração de Privacidade a seguir está disponível para todos(as) os(as) usuários(as). Ao substituí-la por uma personalizada, é necessário fazê-lo para cada idioma em que seu bot estiver ativo.",
-		"developer_comment": "Description of the requirement of the privacy statement in regards to translations"
-	},
-	"smoochBot.descriptionPrivacyStatementGreeting2": {
-		"string": "A opção '9' deve ser referenciada para que os(as) usuários(as) possam acessar a Declaração de Privacidade no Menu Principal.",
-		"developer_comment": "Description of a greeting requirement of a menu option number that must be used for the privacy statement"
-	},
-	"smoochBot.descriptionQueryPrompt": {
-		"string": "A mensagem solicitando que o(a) usuário(a) envie conteúdo para uma verificação de fatos.",
-		"developer_comment": "Definition of the bot Query prompt content"
-	},
-	"smoochBot.descriptionQueryReceived": {
-		"string": "A confirmação enviada ao(à) usuário(a) após o recebimento de uma consulta válida do(a) usuário(a).",
-		"developer_comment": "Definition of the bot Query received content"
-	},
-	"smoochBot.descriptionReportUpdated": {
-		"string": "A mensagem é enviada ao(à) usuário(a) quando o status de um relatório é modificado. O relatório deve ter sido concluído para que esta mensagem seja enviada.",
-		"developer_comment": "Definition of the bot Report updated content"
-	},
-	"smoochBot.descriptionSecondaryMenu": {
-		"string": "Um menu opcional solicitando que o(a) usuário(a) escolha entre um conjunto de opções. Quando um(a) usuário(a) responde com uma das opções, o bot pode enviar um relatório ou direcioná-lo(a) para outra mensagem de bot.",
-		"developer_comment": "Definition of the bot Secondary menu content"
-	},
-	"smoochBot.descriptionSubscription": {
-		"string": "Demonstre o valor do seu boletim informativo aos(às) usuários(as). Todas as pessoas que autorizarem receberão qualquer futuro boletim informativo.",
-		"developer_comment": "Definition of the bot Subscription content"
-	},
 	"smoochBot.designYourBot": {
 		"string": "Crie seu bot",
 		"developer_comment": "Title of tipline settings page"
-	},
-	"smoochBot.footnoteGreeting": {
-		"string": "A declaração e opção a seguir serão automaticamente adicionadas ao final desta mensagem: \"Nunca compartilharemos suas informações pessoais identificáveis. Responda '9' para ler nossa Declaração de Privacidade e Propósito\".",
-		"developer_comment": "Description of what extra content will be appended to the footer of messages"
-	},
-	"smoochBot.footnoteGreeting2": {
-		"string": "A Declaração de Privacidade padrão pode ser substituída por uma personalizada na opção 'Declaração de Privacidade', presente nesta página.",
-		"developer_comment": "Description of how to replace the privacy statement content with custom content"
 	},
 	"smoochBot.labelContent": {
 		"string": "Conteúdo & tradução",
 		"developer_comment": "Button label in tipline settings page"
 	},
-	"smoochBot.labelGreeting": {
-		"string": "Saudação",
-		"developer_comment": "Label for the bot Greeting content area"
-	},
-	"smoochBot.labelInactive": {
-		"string": "Aviso de inatividade",
-		"developer_comment": "Label for the bot Notice of inactivity content area"
-	},
-	"smoochBot.labelInvalidFormat": {
-		"string": "Formato inválido",
-		"developer_comment": "Label for the bot Invalid format content area"
-	},
 	"smoochBot.labelMainMenu": {
 		"string": "Menu principal",
 		"developer_comment": "Label for the bot Main menu content area"
-	},
-	"smoochBot.labelOptionNotAvailable": {
-		"string": "Opção não disponível",
-		"developer_comment": "Label for the bot Option not available content area"
-	},
-	"smoochBot.labelPrivacyStatement": {
-		"string": "Declaração de Privacidade",
-		"developer_comment": "Label for the bot Privacy statement content area"
-	},
-	"smoochBot.labelQueryPrompt": {
-		"string": "Instruções de consulta",
-		"developer_comment": "Label for the bot Query prompt content area"
-	},
-	"smoochBot.labelQueryReceived": {
-		"string": "Consulta recebida",
-		"developer_comment": "Label for the bot Query received content area"
-	},
-	"smoochBot.labelReportUpdated": {
-		"string": "Relatório atualizado",
-		"developer_comment": "Label for the bot Report updated content area"
-	},
-	"smoochBot.labelSecondaryMenu": {
-		"string": "Menu secundário",
-		"developer_comment": "Label for the bot Secondary menu content area"
-	},
-	"smoochBot.labelSubscription": {
-		"string": "Autorização de inscrição",
-		"developer_comment": "Label for the bot Query Subscription opt-in content area"
-	},
-	"smoochBot.menuKeywords": {
-		"string": "Palavras-chave separadas por vírgula"
-	},
-	"smoochBot.newResourceTitle": {
-		"string": "Novo recurso do bot"
 	},
 	"smoochBot.placeholderGreeting": {
 		"string": "Olá! Bem-vindo(a) ao bot de verificação de fatos de [Nome da sua organização]."
@@ -4682,15 +5008,9 @@
 	"smoochBot.placeholderSecondaryMenu": {
 		"string": "*Informações sobre a doença causada pelo Coronavírus (COVID-19)* 🦠\n\n👉*Responda com qualquer um dos seguintes números (ou emoji) para obter informações sobre o tópico:*\n\n*1:* Como eu me protejo e/ou protejo a minha família? 👨‍👩‍👧\n*2:* Acho que estou ficando doente 🤒\n*3:* Como posso lidar com o estresse associado ao COVID-19? ❤️\n*4:* Informações sobre casos e recuperações em todo o mundo 📊\n*5:* Últimas atualizações da Organização Mundial da Saúde 🌐\n\n*Responda 0* para voltar ao *Menu Principal* 📌"
 	},
-	"smoochBot.placeholderSubscription": {
-		"string": "Digite para criar seu pedido de autorização para o envio do boletim informativo."
-	},
 	"smoochBot.settings": {
 		"string": "Configurações",
 		"developer_comment": "Tab label to click to see the settings area"
-	},
-	"smoochBot.tos": {
-		"string": "Termos de Serviço ({language})"
 	},
 	"smoochBotComponent.back": {
 		"string": "Voltar para edição",
@@ -4728,10 +5048,6 @@
 		"string": "Tipline",
 		"developer_comment": "Page title for tipling settings page"
 	},
-	"smoochBotConfig.subscriptionHeader": {
-		"string": "Você está atualmente {subscription_status} em nosso boletim informativo.",
-		"developer_comment": "Status message for the user to know if they are subscribed or not to the newsletter"
-	},
 	"smoochBotContentAndTranslation.addMoreInformationDefault": {
 		"string": "Você está pronto(a) para enviar?",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
@@ -4744,9 +5060,21 @@
 		"string": "Caixa de diálogo de envio",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
+	"smoochBotContentAndTranslation.customized": {
+		"string": "Customized",
+		"developer_comment": "Label to indicate that a bot response has been customized and is different than the default message"
+	},
+	"smoochBotContentAndTranslation.defaultTextTitle": {
+		"string": "Default Bot Response:",
+		"developer_comment": "Title for the area to show users what the default text value is for this bot response"
+	},
 	"smoochBotContentAndTranslation.error": {
 		"string": "O indicador {subscription_status} está faltando em seu conteúdo personalizado ou tradução",
 		"developer_comment": "Error message displayed on the tipline settings page when the placeholder is not present"
+	},
+	"smoochBotContentAndTranslation.expandCollapse": {
+		"string": "Expand/Collapse content details",
+		"developer_comment": "Tooltip for the button to show or hide a content details in the list"
 	},
 	"smoochBotContentAndTranslation.feedbackDefault": {
 		"string": "Estas verificações de fatos estão respondendo à sua pergunta?",
@@ -4844,6 +5172,10 @@
 		"string": "Opção não disponível",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
+	"smoochBotContentAndTranslation.pageTitle": {
+		"string": "Bot Content & Translations",
+		"developer_comment": "Page title where users can customize the content that the tipline bot will respond with"
+	},
 	"smoochBotContentAndTranslation.placeholder": {
 		"string": "Digite aqui um conteúdo personalizado ou uma tradução",
 		"developer_comment": "Placeholder used in all fields under tipline content and translation settings."
@@ -4884,6 +5216,14 @@
 		"string": "Envio recebido",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
+	"smoochBotContentAndTranslation.textFieldTitleCustomized": {
+		"string": "Custom Bot Response",
+		"developer_comment": "Title for the textfield where users have enter custom text for a bot response"
+	},
+	"smoochBotContentAndTranslation.textFieldTitleDefault": {
+		"string": "Customize Bot Response",
+		"developer_comment": "Title for the textfield where users can enter custom text for a bot response"
+	},
 	"smoochBotContentAndTranslation.timeoutDefault": {
 		"string": "Agradecemos por nos contatar! Digite qualquer tecla para iniciar uma nova conversa.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
@@ -4895,6 +5235,10 @@
 	"smoochBotContentAndTranslation.timeoutTitle": {
 		"string": "Tempo de conversa excedido",
 		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.viewDefault": {
+		"string": "Default Bot Response",
+		"developer_comment": "Label for button to allow users to show or hide the default bot response, when a custom response is currently in use."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "Cancelar",
@@ -5052,10 +5396,6 @@
 		"string": "Idiomas e Privacidade",
 		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
 	},
-	"smoochBotMainMenu.mainMenu": {
-		"string": "Menu principal",
-		"developer_comment": "Title of the tipline bot main menu settings page."
-	},
 	"smoochBotMainMenu.numberOfLanguages": {
 		"string": "{numberOfLanguages} idiomas",
 		"developer_comment": "Menu description used in the tipline bot when multiple languages are collapsed in a single menu option (always plural)"
@@ -5116,6 +5456,14 @@
 		"string": "Opções de menu",
 		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
 	},
+	"smoochBotMainMenuSection.editMenuOption": {
+		"string": "Edit Menu Option",
+		"developer_comment": "Tooltip for the edit menu option"
+	},
+	"smoochBotMainMenuSection.editMenuOptionReadOnly": {
+		"string": "This menu option cannot be edited",
+		"developer_comment": "Tooltip for the edit menu read only option"
+	},
 	"smoochBotMainMenuSection.maxOptionsReachedDescription": {
 		"string": "O número máximo de opções no menu principal é 10.",
 		"developer_comment": "Text of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
@@ -5129,19 +5477,27 @@
 		"developer_comment": "Title of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
 	},
 	"smoochBotMainMenuSection.newOption": {
-		"string": "Nova opção",
+		"string": "New Menu Option",
 		"developer_comment": "Button label to create a new main menu option on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.noOptions": {
-		"string": "Não há opção nesta seção, no momento.",
+		"string": "There are currently no menu options in this section.",
 		"developer_comment": "Message displayed when there is no menu option on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.optionNoDescription": {
 		"string": "sem descrição",
 		"developer_comment": "Displayed when a tipline bot menu option doesn't have a description."
 	},
+	"smoochBotMainMenuSection.removeMenuOption": {
+		"string": "Remove Menu Option",
+		"developer_comment": "Tooltip for the remove menu option"
+	},
+	"smoochBotMainMenuSection.removeMenuOptionReadOnly": {
+		"string": "This menu option cannot be removed",
+		"developer_comment": "Tooltip for the remove menu read only option"
+	},
 	"smoochBotMainMenuSection.sectionTitle": {
-		"string": "Título - limite de 24 caracteres",
+		"string": "Menu Title - 24 characters limit",
 		"developer_comment": "Label for a main menu section title field on tipline bot settings."
 	},
 	"smoochBotMenuEditor.scenario": {
@@ -5525,17 +5881,9 @@
 		"string": "Remover a tela de admin nesta página",
 		"developer_comment": "A label on a button that remove admin screen."
 	},
-	"switchTeams.cancelJoinRequest": {
-		"string": "Cancelar",
-		"developer_comment": "Button label to cancel a request to join a workspace"
-	},
 	"switchTeams.error": {
 		"string": "Desculpe, ocorreu um erro ao atualizar o espaço de trabalho. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
 		"developer_comment": "Error message with instructions on how to contact support"
-	},
-	"switchTeams.joinRequestMessage": {
-		"string": "Você enviou uma solicitação para  participar",
-		"developer_comment": "Status message of a request to join a workspace"
 	},
 	"switchTeams.member": {
 		"string": "{membersCount, plural, one {# membro} many {# membros} other {# membros}}",
@@ -5577,10 +5925,6 @@
 		"string": "Buscar…",
 		"developer_comment": "Placeholder text for searching tags"
 	},
-	"taglist.tooltipAdd": {
-		"string": "Adiciona tags",
-		"developer_comment": "Tooltip message displayed on a tag item to let the user know they can add new tags to the list"
-	},
 	"taglist.tooltipManage": {
 		"string": "Gerencia tags",
 		"developer_comment": "Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
@@ -5592,6 +5936,10 @@
 	"task.TitlePlaceholder": {
 		"string": "Insira um título para essa anotação",
 		"developer_comment": "Input Placeholder for the Title field for custom annotation field"
+	},
+	"task.savedByLabel": {
+		"string": "Saved {timeAgo} by {userName}",
+		"developer_comment": "This is a label that indicates when and by whom the task was saved."
 	},
 	"task.uploadWarningBody": {
 		"string": "Navegar para fora desta página pode causar a interrupção no carregamento do arquivo.",
@@ -5618,7 +5966,7 @@
 		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.blankAnnotation": {
-		"string": "Não há campos de anotação",
+		"string": "Nenhuma Anotação no Espaço de Trabalho.",
 		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
@@ -5713,6 +6061,10 @@
 		"string": "Eu compreendo, salvar modificações",
 		"developer_comment": "Save action button label warning"
 	},
+	"tasks.savedByLabel": {
+		"string": "Saved {timeAgo} by {userName}",
+		"developer_comment": "This is a label that indicates when and by whom the task was saved."
+	},
 	"tasks.shortTextDescription": {
 		"string": "Permite a você inserir um texto",
 		"developer_comment": "Description for text type field"
@@ -5794,11 +6146,11 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.newsletterSubscriptions": {
-		"string": "Assinaturas do boletim informativo.",
+		"string": "Increase in newsletter subscriptions month on month.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.newslettersDelivered": {
-		"string": "Número de boletins informativos entregues com sucesso aos assinantes, levando-se em conta erros do(a) usuário(a).",
+		"string": "The total number of newsletters successfully delivered to subscribers, within 24 hours of being sent as well as accounting for user errors.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.newslettersSent": {
@@ -5874,15 +6226,19 @@
 		"developer_comment": "Label for a button to change a workspace image"
 	},
 	"teamDetails.linkManagement": {
-		"string": "Gerenciamento de links",
+		"string": "Link Management",
 		"developer_comment": "Title of the link management section in team details page"
 	},
+	"teamDetails.linkManagementLinkLength": {
+		"string": "<strong>Link length and RSS:</strong> Link shortening makes URLs a predictable length. If you are using an RSS feed, the link service cannot be disabled. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about link shortening</a>.",
+		"developer_comment": "Additional helper text for link management describing link length"
+	},
 	"teamDetails.linkManagementRss": {
-		"string": "Encurtar links torna as URLs mais legíveis e com um tamanho previsível. Se você estiver usando um feed RSS, o serviço de links não poderá ser desativado. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Saiba mais sobre encurtadores de links</a>.",
+		"string": "<strong>Link engagement analytics:</strong> Link shortening is used to record the number of times the link was clicked by users when distributed through a report or a newsletter.",
 		"developer_comment": "Helper text for link management switcher when workspace has RSS newsletters configured"
 	},
 	"teamDetails.linkManagementSwitcher": {
-		"string": "Habilitar o encurtamento de links e a análise",
+		"string": "Enable link shortening and engagement analytics",
 		"developer_comment": "Label for a switch where the user toggles link management in team details page"
 	},
 	"teamDetails.profile": {
@@ -5932,70 +6288,6 @@
 	"teamIntegrations.title": {
 		"string": "Integrações",
 		"developer_comment": "Settings page title for the Integrations section"
-	},
-	"teamListsColumn.none": {
-		"string": "Nenhuma coluna disponível",
-		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
-	},
-	"teamListsComponent.buttonLabel": {
-		"string": "Salvar modificações",
-		"developer_comment": "Button label for saving changes"
-	},
-	"teamListsComponent.confirmSaveText": {
-		"string": "Você tem certeza? Suas mudanças afetarão todas as listas e serão visíveis por todos(as) os(as) usuários(as) em seu espaço de trabalho.",
-		"developer_comment": "Content of 'Save changes' confirmation dialog."
-	},
-	"teamListsComponent.confirmSaveTitle": {
-		"string": "Modificação de colunas do espaço de trabalho",
-		"developer_comment": "Dialog title for saving columns change"
-	},
-	"teamListsComponent.createMetadata": {
-		"string": "Criar novo campo de anotação",
-		"developer_comment": "Button label for create new annotation field"
-	},
-	"teamListsComponent.defaultErrorMessage": {
-		"string": "Não foi possível salvar as configurações de coluna.",
-		"developer_comment": "Warning displayed if an error occurred when saving column settings"
-	},
-	"teamListsComponent.displayedColumns": {
-		"string": "Exibidas",
-		"developer_comment": "Columns that are displayed for users in lists."
-	},
-	"teamListsComponent.generalColumns": {
-		"string": "Geral (oculta)",
-		"developer_comment": "Columns not currently displayed for users in lists."
-	},
-	"teamListsComponent.helpContext": {
-		"string": "Gerencie as informações exibidas sobre cada item. As configurações de coluna afetam os dados exibidos para todos os membros do seu espaço de trabalho. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Saiba mais sobre configurações de coluna</a>.",
-		"developer_comment": "Context description for the functionality of this page"
-	},
-	"teamListsComponent.metadataColumns": {
-		"string": "Anotações (ocultas)",
-		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists."
-	},
-	"teamListsComponent.savedSuccessfully": {
-		"string": "As configurações de coluna foram salvas com sucesso.",
-		"developer_comment": "Banner displayed when column settings are saved successfully"
-	},
-	"teamListsComponent.title": {
-		"string": "Configurações de coluna",
-		"developer_comment": "Header for Column settings page, where users can configure the visibility of columns in lists."
-	},
-	"teamListsItem.general": {
-		"string": "Geral",
-		"developer_comment": "label to show that this type of task is a general task"
-	},
-	"teamListsItem.hide": {
-		"string": "Ocultar",
-		"developer_comment": "Button label to hide this item from the list"
-	},
-	"teamListsItem.metadata": {
-		"string": "Anotação",
-		"developer_comment": "label to show that this type of task is an annotation"
-	},
-	"teamListsItem.show": {
-		"string": "Exibir",
-		"developer_comment": "Button label to show this item in the list"
 	},
 	"teamMemberActions.copiedToClipboard": {
 		"string": "O e-mail foi copiado para a área de transferência",
@@ -6070,7 +6362,7 @@
 		"developer_comment": "Tooltip to call the menu for actions to perform on a single user"
 	},
 	"teamMetadataRender.blankAnnotations": {
-		"string": "Não há campos de anotação",
+		"string": "Nenhuma Anotação no Espaço de Trabalho.",
 		"developer_comment": "Text for empty annotations"
 	},
 	"teamMetadataRender.headerItemButton": {
@@ -6197,10 +6489,6 @@
 		"string": "Anotações",
 		"developer_comment": "Label for the Annotations settings navigation menu item"
 	},
-	"teamSettingsNavigation.columns": {
-		"string": "Colunas",
-		"developer_comment": "Label for the Columns settings navigation menu item"
-	},
 	"teamSettingsNavigation.data": {
 		"string": "Dados",
 		"developer_comment": "Label for the Data settings navigation menu item"
@@ -6285,6 +6573,10 @@
 		"string": "Gerenciar tag",
 		"developer_comment": "Tooltip to call menu for actions to perform on a tag"
 	},
+	"teamTagsComponent.blank": {
+		"string": "Nenhuma Tag no Espaço de Trabalho.",
+		"developer_comment": "Message displayed when there are no tags in the workspace"
+	},
 	"teamTagsComponent.helpContext": {
 		"string": "Categorize automaticamente os itens por palavra-chave. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Saiba mais sobre tags</a>.",
 		"developer_comment": "Context description for the functionality of this page"
@@ -6308,10 +6600,6 @@
 	"teamTagsComponent.title": {
 		"string": "Tags [{count}]",
 		"developer_comment": "Title for the tags settings page"
-	},
-	"teamTaskCard.menu": {
-		"string": "Campo {number}",
-		"developer_comment": "E.g. Field 1, Field 2..."
 	},
 	"teamTaskCard.required": {
 		"string": "Requerido",
@@ -6445,6 +6733,10 @@
 		"string": "Lixeira",
 		"developer_comment": "Title for the trash listing of items"
 	},
+	"trashedArticles.title": {
+		"string": "Lixeira",
+		"developer_comment": "Title of the trashed articles page."
+	},
 	"unmatchedMedia.title": {
 		"string": "Mídias sem correspondência",
 		"developer_comment": "Title of the unmatched media list page"
@@ -6466,11 +6758,11 @@
 		"developer_comment": "Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system."
 	},
 	"uploadFile.audioMessage": {
-		"string": "Deposite um arquivo de áudio aqui, ou clique para carregar um arquivo (tamanho máximo: {audio_max_size}, extensões permitidas: {audio_extensions})",
+		"string": "<p>Drop an audio file here, or click to upload a file</p><p>Max File Size: <strong>{audio_max_size}</strong></p><p>Allowed Extensions: <strong>{audio_extensions}</strong></p>",
 		"developer_comment": "Message to the user describing the requirements for uploading an audio file"
 	},
 	"uploadFile.changeFile": {
-		"string": "{filename} (clique ou deposite para modificar)",
+		"string": "<strong>{filename}</strong>(click or drop to change)",
 		"developer_comment": "Output of the uploaded filename and how to change the file"
 	},
 	"uploadFile.fileMessage": {
@@ -6482,7 +6774,7 @@
 		"developer_comment": "Error message when the user tries to upload a file that is over the size limit"
 	},
 	"uploadFile.imageVideoAudioMessage": {
-		"string": "Deposite um arquivo aqui, ou clique para carregar um arquivo (tamanho máximo: {file_max_size}, extensões permitidas: {file_extensions})",
+		"string": "<p>Drop a file here, or click to upload a file</p><p>Max File Size: <strong>{file_max_size}</strong></p><p>Allowed Extensions: <strong>{file_extensions}</strong></p>",
 		"developer_comment": "Message to the user describing the requirements for uploading an image, video, or audio file using this component"
 	},
 	"uploadFile.invalidExtension": {
@@ -6490,11 +6782,15 @@
 		"developer_comment": "Error message when the user tries to upload a file with a not accepted file extension"
 	},
 	"uploadFile.message": {
-		"string": "Deposite um arquivo de imagem aqui, ou clique para  carregar um arquivo (tamanho máximo: {upload_max_size}, extensões permitidas: {upload_extensions}, dimensões permitidas entre {upload_min_dimensions} e {upload_max_dimensions} pixels)",
+		"string": "<p>Drop an image file here, or click to upload a file</p><p>Max File Size: <strong>{upload_max_size}</strong></p><p>Allowed Extensions: <strong>{upload_extensions}</strong></p><p>Allowed Dimensions: <strong>{upload_min_dimensions} and {upload_max_dimensions} pixels</strong></p>",
 		"developer_comment": "Message to the user describing the requirements for uploading an image"
 	},
+	"uploadFile.removeFileButton": {
+		"string": "Remover",
+		"developer_comment": "Label for the remove uploaded file button"
+	},
 	"uploadFile.videoMessage": {
-		"string": "Deposite um arquivo de vídeo aqui, ou clique para carregar um arquivo (tamanho máximo: {video_max_size}, extensões permitidas: {video_extensions})",
+		"string": "<p>Drop a video file here, or click to upload a file</p><p>Max File Size: <strong>{video_max_size}</strong></p><p>Allowed Extensions: <strong>{video_extensions}</strong></p>",
 		"developer_comment": "Message to the user describing the requirements for uploading a video"
 	},
 	"userConfirmPage.signIn": {
@@ -6596,25 +6892,21 @@
 		"string": "Política de Privacidade",
 		"developer_comment": "Link text for the privacy policy"
 	},
-	"userPrivacy.seeInformationButton": {
-		"string": "Ver minhas informações",
-		"developer_comment": "Button text for the user to see their privacy information"
-	},
 	"userPrivacy.seeInformationText": {
-		"string": "Nós vamos lhe enviar um arquivo com conteúdos e dados criados por você e gerados no {appName}. Ele pode ser guardado para os seus registros ou transferidos para outro serviço.",
+		"string": "Solicita um arquivo com o conteúdo e os dados que você criou e gerou em {appName},  entrando em contato com <a href=\"mailto:{privacyEmail}?subject=Send information\">{privacyEmail}</a>.",
 		"developer_comment": "Description of what the app will do when the user requests their information"
 	},
-	"userPrivacy.stopProcessingButton": {
-		"string": "Solicitação de interrupção de tratamento",
-		"developer_comment": "Button text for the user to request a change to their privacy settings"
-	},
 	"userPrivacy.stopProcessingText": {
-		"string": "Você pode enviar uma solicitação ao {appName} para interromper o processamento das suas informações, de acordo com certas condições.",
+		"string": "Solicita {appName} para interromper o processamento de suas informações sob determinadas condições, entrando em contato com <a href=\"mailto:{privacyEmail}?subject=Stop processing\">{privacyEmail}</a>.",
 		"developer_comment": "Help text to tell the user how they can request a change to their privacy settings"
 	},
 	"userPrivacy.title": {
 		"string": "Suas informações",
 		"developer_comment": "Page title for the user's privacy information"
+	},
+	"userPrivacy.userRequests": {
+		"string": "Solicitações de Informação dos(as) Usuários(as)",
+		"developer_comment": "Title for area instructing how to request data from Check"
 	},
 	"userSecurity.authenticateDescription": {
 		"string": "Insira sua senha atual para confirmar sua identidade:",
@@ -6779,10 +7071,6 @@
 	"userTos.validation": {
 		"string": "Você deve concordar com os Termos de Serviço e com a Política de Privacidade",
 		"developer_comment": "Message to the user that they must review the application terms of service"
-	},
-	"valueListCell.more": {
-		"string": "+ mais {number}",
-		"developer_comment": "Button to maximize list display (tags, urls, checked options) with all values within a table cell"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Este item não pôde ser identificado. Ele pode ter sido removido, ou pode estar visível apenas para os(as) usuários(as) que estão logados. Clique no link acima para navegar até ele.",
