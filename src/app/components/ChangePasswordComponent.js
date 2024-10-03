@@ -184,7 +184,7 @@ ChangePasswordComponent.defaultProps = {
 
 ChangePasswordComponent.propTypes = {
   type: PropTypes.string.isRequired,
-  showCurrentPassword: PropTypes.string,
+  showCurrentPassword: PropTypes.bool,
   token: PropTypes.string,
   showConfirm: PropTypes.func,
   user: PropTypes.object,

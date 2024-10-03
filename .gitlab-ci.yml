@@ -36,6 +36,7 @@ deploy_qa:
     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
   script:
     - apk add --no-cache curl jq python3 py3-pip git
+    - pip install setuptools==75.1.0
     - pip install urllib3==2.0.6
     - pip install botocore==1.31.62
     - pip install boto3==1.28.62
@@ -81,6 +82,7 @@ deploy_live:
     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
   script:
     - apk add --no-cache curl jq python3 py3-pip git
+    - pip install setuptools==75.1.0
     - pip install urllib3==2.0.6
     - pip install botocore==1.31.62
     - pip install boto3==1.28.62

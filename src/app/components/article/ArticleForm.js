@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
+import ArticleTrash from './ArticleTrash.js';
 import TagList from '../cds/menus-lists-dialogs/TagList.js';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Slideout from '../cds/slideout/Slideout';
@@ -435,12 +436,13 @@ const ArticleForm = ({
                           }}
                           error={summaryError}
                           label={<FormattedMessage defaultMessage="Summary" description="Label for article summary field" id="articleForm.explainerSummary" />}
-                          maxChars={900 - articleTitle.length - url.length}
+                          maxChars={4096 - articleTitle.length - url.length}
+                          maxHeight="500px"
                           name="summary"
                           placeholder={placeholder}
                           required
                           rows="1"
-                          value={truncateLength(summary, 900 - articleTitle.length - url.length - 3)}
+                          value={truncateLength(summary, 4096 - articleTitle.length - url.length - 3)}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
@@ -562,7 +564,7 @@ const ArticleForm = ({
           </div>
         </>
       }
-      footer={mode === 'create'}
+      footer
       mainActionButton={mode === 'create' ? (
         <ButtonMain
           buttonProps={{ id: 'article-form__save-button' }}
@@ -570,7 +572,13 @@ const ArticleForm = ({
           label={mainActionButtonLabel}
           onClick={() => handleSave({ publish: createAndPublish })}
         />
-      ) : null}
+      ) : (
+        <ArticleTrash
+          article={article}
+          type={articleType}
+          onClose={onClose}
+        />
+      )}
       secondaryActionButton={(articleType === 'fact-check') && createAndPublish ? (
         <ButtonMain
           buttonProps={{ id: 'article-form__save-unpublished-button' }}
@@ -652,5 +660,6 @@ export default createFragmentContainer(ArticleForm, graphql`
         name
       }
     }
+    ...ArticleTrash_article
   }
 `);

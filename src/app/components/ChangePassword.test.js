@@ -5,7 +5,7 @@ import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
 describe('<ChangePasswordComponent />', () => {
   it('should render Change Password Component', () => {
     const wrapper = mountWithIntl(<ChangePasswordComponent
-      showCurrentPassword="OldPaswword"
+      showCurrentPassword={false}
       type="reset-password"
     />);
     expect(wrapper.find('.int-user-password-change__password-input')).toHaveLength(1);
