@@ -1,10 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import {
-  IconButton,
-  Menu,
-  MenuItem,
-} from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MediaPlaybackSpeed from './MediaPlaybackSpeed';
 
 describe('MediaPlaybackSpeed', () => {
@@ -29,8 +27,8 @@ describe('MediaPlaybackSpeed', () => {
   it('opens popover menu on click', () => {
     const wrapper = shallow(<MediaPlaybackSpeed {...defaultProps} />);
     expect(wrapper.find(Menu).props().open).toBeFalsy();
-    expect(wrapper.find(IconButton)).toHaveLength(1);
-    wrapper.find(IconButton).at(0).simulate('click', { currentTarget: 1 });
+    expect(wrapper.find(ButtonMain)).toHaveLength(1);
+    wrapper.find(ButtonMain).at(0).simulate('click', { currentTarget: 1 });
     expect(wrapper.find(Menu).props().open).toBeTruthy();
   });
 

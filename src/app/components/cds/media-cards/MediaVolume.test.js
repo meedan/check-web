@@ -1,8 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import {
-  IconButton,
-} from '@material-ui/core';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MediaVolume from './MediaVolume';
 
 describe('MediaVolume', () => {
@@ -27,10 +25,10 @@ describe('MediaVolume', () => {
 
   it('toggles icon state when clicking volume icon', () => {
     const wrapper = shallow(<MediaVolume {...defaultProps} />);
-    expect(wrapper.find(IconButton)).toHaveLength(1);
+    expect(wrapper.find(ButtonMain)).toHaveLength(1);
     expect(wrapper.find('.icon__vol-up')).toHaveLength(1);
     expect(wrapper.find('.icon__vol-off')).toHaveLength(0);
-    wrapper.find(IconButton).at(0).simulate('click');
+    wrapper.find(ButtonMain).at(0).simulate('click');
     expect(wrapper.find('.icon__vol-off')).toHaveLength(1);
     expect(wrapper.find('.icon__vol-up')).toHaveLength(0);
   });
@@ -48,10 +46,10 @@ describe('MediaVolume', () => {
     const wrapper = shallow(<MediaVolume {...defaultProps} />);
     wrapper.find('#media-volume-slider').at(0).simulate('change', {}, 0.3);
     // volume off
-    wrapper.find(IconButton).at(0).simulate('click');
+    wrapper.find(ButtonMain).at(0).simulate('click');
     expect(videoRef.current.volume).toEqual(0);
     // restore volume
-    wrapper.find(IconButton).at(0).simulate('click');
+    wrapper.find(ButtonMain).at(0).simulate('click');
     expect(videoRef.current.volume).toEqual(0.3);
   });
 });

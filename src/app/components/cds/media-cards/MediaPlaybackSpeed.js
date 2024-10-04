@@ -1,34 +1,17 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import {
-  IconButton,
-  Menu,
-  MenuItem,
-} from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import SlowMotionVideoIcon from '../../../icons/slow_motion_video.svg';
-
-const useStyles = makeStyles(() => ({
-  active: {
-    backgroundColor: 'var(--color-beige-93)',
-  },
-  icon: {
-    color: 'var(--color-white-100)',
-    fontSize: '24px',
-    '&:hover': {
-      color: 'var(--color-white-100)',
-      backgroundColor: 'var(--overlayLight)',
-    },
-  },
-}));
+import styles from './MediaControls.module.css';
 
 const MediaPlaybackSpeed = ({
   playbackSpeed,
   setPlaybackSpeed,
   videoRef,
 }) => {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const containerRef = React.useRef(null);
 
@@ -49,9 +32,13 @@ const MediaPlaybackSpeed = ({
 
   return (
     <div id="media-playback-speed" ref={containerRef}>
-      <IconButton className={classes.icon} size="small" onClick={handleClick}>
-        <SlowMotionVideoIcon />
-      </IconButton>
+      <ButtonMain
+        iconCenter={<SlowMotionVideoIcon />}
+        size="default"
+        theme="white"
+        variant="text"
+        onClick={handleClick}
+      />
       <Menu
         anchorEl={anchorEl}
         container={containerRef.current}
@@ -59,16 +46,16 @@ const MediaPlaybackSpeed = ({
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem className={playbackSpeed === 0.25 ? classes.active : ''} onClick={() => handlePlaybackRateChange(0.25)}>0.25x</MenuItem>
-        <MenuItem className={playbackSpeed === 0.5 ? classes.active : ''} onClick={() => handlePlaybackRateChange(0.5)}>0.5x</MenuItem>
-        <MenuItem className={playbackSpeed === 0.75 ? classes.active : ''} onClick={() => handlePlaybackRateChange(0.75)}>0.75x</MenuItem>
-        <MenuItem className={playbackSpeed === 1 ? classes.active : ''} onClick={() => handlePlaybackRateChange(1)}>
+        <MenuItem className={playbackSpeed === 0.25 ? styles.activePlaybackSpeed : ''} onClick={() => handlePlaybackRateChange(0.25)}>0.25x</MenuItem>
+        <MenuItem className={playbackSpeed === 0.5 ? styles.activePlaybackSpeed : ''} onClick={() => handlePlaybackRateChange(0.5)}>0.5x</MenuItem>
+        <MenuItem className={playbackSpeed === 0.75 ? styles.activePlaybackSpeed : ''} onClick={() => handlePlaybackRateChange(0.75)}>0.75x</MenuItem>
+        <MenuItem className={playbackSpeed === 1 ? styles.activePlaybackSpeed : ''} onClick={() => handlePlaybackRateChange(1)}>
           <FormattedMessage defaultMessage="Normal speed" description="Sets video playback rate to original 1x speed" id="media.normalSpeed" />
         </MenuItem>
-        <MenuItem className={playbackSpeed === 1.25 ? classes.active : ''} onClick={() => handlePlaybackRateChange(1.25)}>1.25x</MenuItem>
-        <MenuItem className={playbackSpeed === 1.5 ? classes.active : ''} onClick={() => handlePlaybackRateChange(1.5)}>1.5x</MenuItem>
-        <MenuItem className={playbackSpeed === 1.75 ? classes.active : ''} onClick={() => handlePlaybackRateChange(1.75)}>1.75x</MenuItem>
-        <MenuItem className={playbackSpeed === 2 ? classes.active : ''} onClick={() => handlePlaybackRateChange(2)}>2x</MenuItem>
+        <MenuItem className={playbackSpeed === 1.25 ? styles.activePlaybackSpeed : ''} onClick={() => handlePlaybackRateChange(1.25)}>1.25x</MenuItem>
+        <MenuItem className={playbackSpeed === 1.5 ? styles.activePlaybackSpeed : ''} onClick={() => handlePlaybackRateChange(1.5)}>1.5x</MenuItem>
+        <MenuItem className={playbackSpeed === 1.75 ? styles.activePlaybackSpeed : ''} onClick={() => handlePlaybackRateChange(1.75)}>1.75x</MenuItem>
+        <MenuItem className={playbackSpeed === 2 ? styles.activePlaybackSpeed : ''} onClick={() => handlePlaybackRateChange(2)}>2x</MenuItem>
       </Menu>
     </div>
   );
