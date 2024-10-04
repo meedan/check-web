@@ -51,7 +51,8 @@ const MediaVolume = ({
         onChange={handleChange}
       />
       <ButtonMain
-        iconCenter={isVolumeOff ? <VolumeOffIcon className="icon__vol-off" /> : <VolumeUpIcon className="icon__vol-up" />}
+        className={isVolumeOff ? 'int-button__icon--vol-off' : 'int-button__icon--vol-up'}
+        iconCenter={isVolumeOff ? <VolumeOffIcon /> : <VolumeUpIcon />}
         size="default"
         theme="white"
         variant="text"
