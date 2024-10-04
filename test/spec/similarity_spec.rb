@@ -65,11 +65,11 @@ shared_examples 'similarity' do
 
   it 'should identify texts as similar', bin7: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
-    pm1 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1502s.')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch
-    api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}"
+    pm = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
+    verbose_wait 3
+    api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry!')
+    verbose_wait 3
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
