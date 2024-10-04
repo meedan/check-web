@@ -97,7 +97,7 @@
     "@meedan/check-ui": "^0.1.63",
     "@react-google-maps/api": "1.8.7",
     "@sentry/cli": "^2.20.0",
-    "@sentry/react": "^7.60.0",
+    "@sentry/react": "^7.119.1",
     "@sentry/webpack-plugin": "^2.5.0",
     "@svgr/webpack": "^5.5.0",
     "@vvo/tzdb": "^6.39.0",
