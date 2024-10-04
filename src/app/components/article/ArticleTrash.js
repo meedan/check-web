@@ -22,7 +22,6 @@ const updateExplainer = graphql`
         trashed
       }
       team {
-        articles_count
         explainerCount: articles_count(article_type: "explainer")
         trashCount: articles_count(trashed: true)
       }
@@ -38,7 +37,6 @@ const updateFactCheck = graphql`
         trashed
       }
       team {
-        articles_count
         factChecksCount: articles_count(article_type: "fact-check")
         publishedCount: articles_count(article_type: "fact-check", report_status: "published")
         importedCount: articles_count(article_type: "fact-check", imported: true)

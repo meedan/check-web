@@ -59,7 +59,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim & fact-checks" id="articlesComponent.claimAndFactChecks" tagName="span" />
               </div>
-              <DrawerListCounter key={team.factChecksCount} numberOfItems={team.factChecksCount} />
+              <DrawerListCounter numberOfItems={team.factChecksCount} />
             </li>
           </Link>
           <Link
@@ -81,7 +81,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have explainers" id="articlesComponent.explainers" tagName="span" />
               </div>
-              <DrawerListCounter key={team.explainersCount} numberOfItems={team.explainersCount} />
+              <DrawerListCounter numberOfItems={team.explainersCount} />
             </li>
           </Link>
           <Link
@@ -103,7 +103,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" id="projectsComponent.importedReports" tagName="span" />
               </div>
-              <DrawerListCounter key={team.importedCount} numberOfItems={team.importedCount} />
+              <DrawerListCounter numberOfItems={team.importedCount} />
             </li>
           </Link>
           <Link
@@ -125,7 +125,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" id="projectsComponent.published" tagName="span" />
               </div>
-              <DrawerListCounter key={team.publishedCount} numberOfItems={team.publishedCount} />
+              <DrawerListCounter numberOfItems={team.publishedCount} />
             </li>
           </Link>
         </ul>
@@ -150,7 +150,7 @@ const DrawerArticlesComponent = ({ team }) => {
             <div className={styles.listLabel}>
               <FormattedMessage defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items that have been marked as Trashed" id="projectsComponent.trash" tagName="span" />
             </div>
-            <DrawerListCounter key={team.trashCount} numberOfItems={team.trashCount} />
+            <DrawerListCounter numberOfItems={team.trashCount} />
           </li>
         </Link>
       </ul>
