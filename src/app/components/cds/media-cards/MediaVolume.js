@@ -40,7 +40,7 @@ const MediaVolume = ({
   };
 
   return (
-    <div className={styles['media-controls-volume']}>
+    <div className={styles['media-controls-volume']} id="media-volume">
       <Slider
         className={styles['media-controls-volume-slider']}
         id="media-volume-slider"
