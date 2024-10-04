@@ -551,7 +551,7 @@ const ArticleForm = ({
                   </div>
                   <div>
                     <FormattedMessage
-                      defaultMessage="{count} characters remaining"
+                      defaultMessage="{count, plural, one {# character left} other {# characters left}}"
                       description="Label for the character count remaining in the combined text fields"
                       id="articleForm.characterCount"
                       values={{ count: 4096 - articleTitle.length - url.length - summary.length }}
