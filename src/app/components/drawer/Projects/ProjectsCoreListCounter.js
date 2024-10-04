@@ -2,7 +2,7 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import ProjectsListCounter from './ProjectsListCounter';
+import DrawerListCounter from './DrawerListCounter';
 
 const ProjectsCoreListCounter = ({ query }) => (
   <QueryRenderer
@@ -16,7 +16,7 @@ const ProjectsCoreListCounter = ({ query }) => (
     `}
     render={({ props }) => {
       if (props) {
-        return (<ProjectsListCounter numberOfItems={props.search.number_of_results} />);
+        return (<DrawerListCounter numberOfItems={props.search.number_of_results} />);
       }
       return null;
     }}
