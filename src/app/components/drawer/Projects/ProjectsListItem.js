@@ -1,9 +1,8 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
-import ProjectsListCounter from './ProjectsListCounter';
+import DrawerListCounter from './DrawerListCounter';
 import styles from './Projects.module.css';
 
 const ProjectsListItem = ({
@@ -56,7 +55,7 @@ const ProjectsListItem = ({
             {project.title || project.name}
           </span>
         </div>
-        <ProjectsListCounter numberOfItems={project.medias_count} />
+        <DrawerListCounter numberOfItems={project.medias_count} />
       </li>
     </Link>
   );
@@ -65,19 +64,18 @@ const ProjectsListItem = ({
 };
 
 ProjectsListItem.defaultProps = {
-  icon: null,
-  onClick: null,
-  isActive: false,
   className: '',
+  icon: null,
+  isActive: false,
   routeSuffix: '',
   tooltip: null,
+  onClick: null,
 };
 
 ProjectsListItem.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
+  className: PropTypes.string,
   icon: PropTypes.node,
-  routePrefix: PropTypes.string.isRequired,
-  routeSuffix: PropTypes.string,
+  isActive: PropTypes.bool,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
@@ -86,10 +84,11 @@ ProjectsListItem.propTypes = {
     medias_count: PropTypes.number,
     project_group_id: PropTypes.number,
   }).isRequired,
-  onClick: PropTypes.func,
-  isActive: PropTypes.bool,
-  className: PropTypes.string,
+  routePrefix: PropTypes.string.isRequired,
+  routeSuffix: PropTypes.string,
+  teamSlug: PropTypes.string.isRequired,
   tooltip: PropTypes.node,
+  onClick: PropTypes.func,
 };
 
 export default ProjectsListItem;

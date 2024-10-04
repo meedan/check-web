@@ -1,21 +1,21 @@
 import React from 'react';
-import ProjectsListCounter from './ProjectsListCounter';
+import DrawerListCounter from './DrawerListCounter';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
-describe('<ProjectsListCounter />', () => {
+describe('<DrawerListCounter />', () => {
   it('renders nothing if numberOfItems is not a number', () => {
-    const counter = mountWithIntl(<ProjectsListCounter numberOfItems="test" />);
+    const counter = mountWithIntl(<DrawerListCounter numberOfItems="test" />);
     expect(counter.find('small').text()).toEqual('');
   });
 
 
   it('renders a small number as is', () => {
-    const counter = mountWithIntl(<ProjectsListCounter numberOfItems={12} />);
+    const counter = mountWithIntl(<DrawerListCounter numberOfItems={12} />);
     expect(counter.find('small').text()).toEqual('12');
   });
 
   it('makes long numbers shorter', () => {
-    const counter = mountWithIntl(<ProjectsListCounter numberOfItems={12345} />);
+    const counter = mountWithIntl(<DrawerListCounter numberOfItems={12345} />);
     expect(counter.find('small').text()).toEqual('12K');
   });
 });
