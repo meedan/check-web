@@ -34,7 +34,7 @@ describe('MediaPlaybackSpeed', () => {
 
   it('changes selected menu item based on mounted speed', () => {
     const wrapper = shallow(<MediaPlaybackSpeed {...defaultProps} playbackSpeed={0.5} />);
-    expect(wrapper.find('.makeStyles-active-1').at(0).text()).toEqual('0.5x');
+    expect(wrapper.find('.test-active-playback-speed').at(0).text()).toEqual('0.5x');
   });
 
   it('changes video speed based on menu selections', () => {
