@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Running only unit tests
-if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ \[full\ ci\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[text\ similarity\ tests\] ]] && ! $TRAVIS_COMMIT_MESSAGE =~ \[media\ similarity\ tests\] ]]
+if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ \[full\ ci\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[text\ similarity\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[media\ similarity\ tests\] ]]
 then
   echo "Running only unit tests"
   docker-compose build web
@@ -45,6 +45,7 @@ else
       docker-compose build
       docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
     else
+      docker-compose build
       docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
     fi
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
