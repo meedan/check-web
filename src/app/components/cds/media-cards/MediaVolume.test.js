@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MediaVolume from './MediaVolume';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 
 describe('MediaVolume', () => {
   // our "video" DOM node, which is just a ref to a volume from the perspective of this component

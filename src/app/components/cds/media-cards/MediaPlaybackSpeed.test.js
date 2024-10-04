@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MediaPlaybackSpeed from './MediaPlaybackSpeed';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 
 describe('MediaPlaybackSpeed', () => {
   // our "video" DOM node, which is just a ref to a playbackRate from the perspective of this component
