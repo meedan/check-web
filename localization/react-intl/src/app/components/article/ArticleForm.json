@@ -57,7 +57,7 @@
   {
     "id": "articleForm.reportDesignerTooltipTwo",
     "description": "Tooltip for the report designer button",
-    "defaultMessage": "Fact-Check Title, Summary, and Language are required in order to to publish a Fact-Check report"
+    "defaultMessage": "Fact-Check Title, Summary, and Language are required in order to publish a Fact-Check report"
   },
   {
     "id": "articleForm.reportDesignerTooltipThree",

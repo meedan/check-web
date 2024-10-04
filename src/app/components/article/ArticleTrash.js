@@ -104,7 +104,7 @@ const ArticleTrash = ({
     />
   );
 
-  const factCheckBody = type === 'fact-check' && article.claim_description?.project_media ? (
+  const factCheckBody = type === 'fact-check' && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' ? (
     <div>
       {associationWarning}
       {deletionWarning}
@@ -279,6 +279,7 @@ export default createFragmentContainer(ArticleTrash, graphql`
         project_media {
           title
           full_url
+          type
         }
       }
     }

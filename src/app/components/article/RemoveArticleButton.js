@@ -31,8 +31,11 @@ const removeClaimDescriptionMutation = graphql`
       claim_description {
         project_media_was {
           title
+          last_status
+          status
           last_status_obj {
             locked
+            content
           }
           dynamic_annotation_report_design {
             data
