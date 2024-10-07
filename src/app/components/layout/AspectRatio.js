@@ -209,8 +209,6 @@ AspectRatio.defaultProps = {
   superAdminMask: false,
 };
 
-// eslint-disable-next-line import/no-unused-modules
-export { AspectRatio };
 export default createFragmentContainer(injectIntl(AspectRatio), graphql`
   fragment AspectRatio_projectMedia on ProjectMedia {
     id

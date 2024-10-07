@@ -35,7 +35,7 @@ const ContentWarningMessage = ({
     message = (
       <FormattedHTMLMessage
         defaultMessage="An automation rule has detected this content as sensitive"
-        description="Content warning displayed over sensitive content"
+        description="Content warning displayed over sensitive content detected by an automation rule"
         id="contentScreen.warningByAutomationRule"
         tagName="p"
       />
@@ -44,7 +44,7 @@ const ContentWarningMessage = ({
     message = (
       <FormattedHTMLMessage
         defaultMessage="This content has been flagged as <strong>SPAM</strong> because the user was blocked due to sending excessive messages."
-        description="Content warning displayed over sensitive content"
+        description="Content warning displayed over sensitive content flagged as SPAM by Smooch Bot"
         id="contentScreen.warningBySmoochBot"
         tagName="p"
       />
@@ -53,7 +53,7 @@ const ContentWarningMessage = ({
     message = (
       <FormattedHTMLMessage
         defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
-        description="Content warning displayed over sensitive content"
+        description="Content warning displayed over sensitive content detected by a specific user"
         id="contentScreen.warning"
         tagName="p"
         values={{
