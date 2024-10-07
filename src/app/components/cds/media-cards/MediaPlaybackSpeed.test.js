@@ -1,11 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import {
-  IconButton,
-  Menu,
-  MenuItem,
-} from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import MediaPlaybackSpeed from './MediaPlaybackSpeed';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 
 describe('MediaPlaybackSpeed', () => {
   // our "video" DOM node, which is just a ref to a playbackRate from the perspective of this component
@@ -29,14 +27,14 @@ describe('MediaPlaybackSpeed', () => {
   it('opens popover menu on click', () => {
     const wrapper = shallow(<MediaPlaybackSpeed {...defaultProps} />);
     expect(wrapper.find(Menu).props().open).toBeFalsy();
-    expect(wrapper.find(IconButton)).toHaveLength(1);
-    wrapper.find(IconButton).at(0).simulate('click', { currentTarget: 1 });
+    expect(wrapper.find(ButtonMain)).toHaveLength(1);
+    wrapper.find(ButtonMain).at(0).simulate('click', { currentTarget: 1 });
     expect(wrapper.find(Menu).props().open).toBeTruthy();
   });
 
   it('changes selected menu item based on mounted speed', () => {
     const wrapper = shallow(<MediaPlaybackSpeed {...defaultProps} playbackSpeed={0.5} />);
-    expect(wrapper.find('.makeStyles-active-1').at(0).text()).toEqual('0.5x');
+    expect(wrapper.find('.test-active-playback-speed').at(0).text()).toEqual('0.5x');
   });
 
   it('changes video speed based on menu selections', () => {
