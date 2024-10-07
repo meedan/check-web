@@ -6,12 +6,12 @@ import { FormattedMessage } from 'react-intl';
 import RemoveArticleButton from './RemoveArticleButton';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Card from '../cds/media-cards/Card';
-import EllipseIcon from '../../icons/ellipse.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import BookIcon from '../../icons/book.svg';
 import BulletSeparator from '../layout/BulletSeparator';
 import Language from '../cds/media-cards/Language';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
+import ItemRating from '../cds/media-cards/ItemRating';
 import ArticleUrl from '../cds/media-cards/ArticleUrl';
 import ItemReportStatus from '../cds/media-cards/ItemReportStatus';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -19,6 +19,8 @@ import cardStyles from '../cds/media-cards/Card.module.css';
 import styles from './ArticleCard.module.css';
 
 const MediaArticleCard = ({
+  claimSummary,
+  claimTitle,
   date,
   id,
   languageCode,
@@ -61,7 +63,6 @@ const MediaArticleCard = ({
               { variant === 'fact-check' && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
               { variant === 'explainer' && <FormattedMessage defaultMessage="Explainer" description="Title in an article card on item page." id="mediaArticleCard.explainer" /> }
             </div>
-            { statusLabel && <div><EllipseIcon style={{ color: statusColor }} /> {statusLabel}</div> }
           </div>
           <div
             className={cx(
@@ -70,18 +71,39 @@ const MediaArticleCard = ({
             )}
           >
             <div className={cardStyles.cardSummaryContent}>
-              <h6 className={cx(cardStyles.cardTitle)}>
-                { url ?
-                  <ArticleUrl linkText={title} showIcon={false} title={title} url={url} variant={variant} />
-                  :
-                  <>
-                    {title}
-                  </>
-                }
-              </h6>
-              <div className={cardStyles.cardDescription}>
-                {summary}
-              </div>
+              { variant === 'fact-check' &&
+                <div
+                  className={cx(
+                    [cardStyles.cardSummaryClaimContent],
+                    {
+                      [cardStyles.cardSummaryClaimFactCheck]: title || summary,
+                    })
+                  }
+                >
+                  <h6 className={cx(cardStyles.cardTitle)}>
+                    {claimTitle}
+                  </h6>
+                  <div className={cardStyles.cardDescription}>
+                    {claimSummary}
+                  </div>
+                </div>
+              }
+              { title &&
+                <h6 className={cx(cardStyles.cardTitle)}>
+                  { url ?
+                    <ArticleUrl linkText={title} showIcon={false} title={title} url={url} variant={variant} />
+                    :
+                    <>
+                      {title}
+                    </>
+                  }
+                </h6>
+              }
+              { summary &&
+                <div className={cardStyles.cardDescription}>
+                  {summary}
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -92,13 +114,22 @@ const MediaArticleCard = ({
       <BulletSeparator
         className={styles.mediaArticleCardFooter}
         details={[
-          variant === 'fact-check' && (<ItemReportStatus
-            displayLabel
-            isPublished={Boolean(publishedAt)}
-            publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
-            theme="lightText"
-            tooltip={false}
-          />),
+          statusLabel && (
+            <ItemRating
+              rating={statusLabel}
+              ratingColor={statusColor}
+              size="small"
+            />
+          ),
+          variant === 'fact-check' && (
+            <ItemReportStatus
+              displayLabel
+              isPublished={Boolean(publishedAt)}
+              publishedAt={publishedAt ? new Date(publishedAt * 1000) : null}
+              theme="lightText"
+              tooltip={false}
+            />
+          ),
           languageCode && (
             <Language
               languageCode={languageCode}
@@ -139,6 +170,8 @@ const MediaArticleCard = ({
 );
 
 MediaArticleCard.defaultProps = {
+  claimSummary: null,
+  claimTitle: null,
   url: null,
   languageCode: null,
   variant: 'explainer',
@@ -153,6 +186,8 @@ MediaArticleCard.defaultProps = {
 
 MediaArticleCard.propTypes = {
   id: PropTypes.string.isRequired,
+  claimSummary: PropTypes.string,
+  claimTitle: PropTypes.string,
   title: PropTypes.string.isRequired,
   url: PropTypes.string,
   date: PropTypes.instanceOf(Date).isRequired,

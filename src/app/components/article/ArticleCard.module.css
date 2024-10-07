@@ -18,12 +18,13 @@
 
     .mediaArticleCard {
       flex-direction: column;
-      gap: 3px;
+      gap: 6px;
 
       .articleCardHeader {
-        align-items: flex-start;
+        align-items: center;
         display: flex;
         gap: 3px;
+        height: 30px;
 
         .articleIcon {
           font-size: var(--font-size-subtitle-1);

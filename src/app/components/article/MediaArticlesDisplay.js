@@ -30,6 +30,8 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
     <div className={styles.mediaArticlesDisplay}>
       { hasFactCheck ?
         <MediaArticleCard
+          claimSummary={factCheck.claim_description.context}
+          claimTitle={factCheck.claim_description.description}
           date={new Date(factCheck.updated_at * 1000)}
           id={factCheck.claim_description.id}
           key={factCheck.id}
@@ -38,8 +40,8 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
           removeDisabled={projectMedia.type === 'Blank'}
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
-          summary={isFactCheckValueBlank(factCheck.summary) ? factCheck.claim_description.context : factCheck.summary}
-          title={isFactCheckValueBlank(factCheck.title) ? factCheck.claim_description.description : factCheck.title}
+          summary={isFactCheckValueBlank(factCheck.summary) ? null : factCheck.summary}
+          title={isFactCheckValueBlank(factCheck.title) ? null : factCheck.title}
           url={factCheck.url}
           variant="fact-check"
           onClick={() => { setArticleToEdit(factCheck); }}
