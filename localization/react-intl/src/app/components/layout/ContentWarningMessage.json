@@ -1,0 +1,37 @@
+[
+  {
+    "id": "contentScreen.adult",
+    "description": "Content warning type: Adult",
+    "defaultMessage": "Adult"
+  },
+  {
+    "id": "contentScreen.medical",
+    "description": "Content warning type: Medical",
+    "defaultMessage": "Medical"
+  },
+  {
+    "id": "contentScreen.span",
+    "description": "Content warning type: Span",
+    "defaultMessage": "Span"
+  },
+  {
+    "id": "contentScreen.violence",
+    "description": "Content warning type: Violence",
+    "defaultMessage": "Violence"
+  },
+  {
+    "id": "contentScreen.warningByAutomationRule",
+    "description": "Content warning displayed over sensitive content",
+    "defaultMessage": "An automation rule has detected this content as sensitive"
+  },
+  {
+    "id": "contentScreen.warningBySmoochBot",
+    "description": "Content warning displayed over sensitive content",
+    "defaultMessage": "This content has been flagged as <strong>SPAM</strong> because the user was blocked due to sending excessive messages."
+  },
+  {
+    "id": "contentScreen.warning",
+    "description": "Content warning displayed over sensitive content",
+    "defaultMessage": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
+  }
+]

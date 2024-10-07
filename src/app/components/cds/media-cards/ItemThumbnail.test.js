@@ -22,6 +22,7 @@ describe('<ItemThumbnail />', () => {
       <ItemThumbnail
         maskContent={false}
         type="UploadedImage"
+        url="http://image-test.com"
       />);
     expect(wrapper.find(MediaTypeDisplayIcon).length).toEqual(1);
   });

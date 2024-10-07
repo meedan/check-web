@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import cx from 'classnames/bind';
+import ContentWarningMessage from './ContentWarningMessage.js';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SensitiveContentMenuButton from '../media/SensitiveContentMenuButton.js';
 import FullscreenIcon from '../../icons/fullscreen.svg';
@@ -12,29 +13,6 @@ import FullscreenExitIcon from '../../icons/fullscreen_exit.svg';
 import VisibilityOffIcon from '../../icons/visibility_off.svg';
 import DownloadIcon from '../../icons/download.svg';
 import styles from './AspectRatio.module.css';
-
-const messages = defineMessages({
-  adult: {
-    id: 'contentScreen.adult',
-    defaultMessage: 'Adult',
-    description: 'Content warning type: Adult',
-  },
-  medical: {
-    id: 'contentScreen.medical',
-    defaultMessage: 'Medical',
-    description: 'Content warning type: Medical',
-  },
-  span: {
-    id: 'contentScreen.span',
-    defaultMessage: 'Span',
-    description: 'Content warning type: Span',
-  },
-  violence: {
-    id: 'contentScreen.violence',
-    defaultMessage: 'Violence',
-    description: 'Content warning type: Violence',
-  },
-});
 
 const AspectRatio = ({
   children,
@@ -49,7 +27,6 @@ const AspectRatio = ({
 }) => {
   const contentWarning = projectMedia?.show_warning_cover;
   const warningCreator = projectMedia?.dynamic_annotation_flag?.annotator?.name;
-  // const warningCreator = 'Smooch Bot' || projectMedia?.dynamic_annotation_flag?.annotator?.name;
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
@@ -143,48 +120,6 @@ const AspectRatio = ({
     />
   );
 
-  let message;
-  if (warningCreator === 'Alegre') {
-    message = (
-      <FormattedHTMLMessage
-        defaultMessage="An automation rule has detected this content as sensitive"
-        description="Content warning displayed over sensitive content"
-        id="contentScreen.warningByAutomationRule"
-        tagName="p"
-      />
-    );
-  } else if (warningCreator === 'Smooch Bot' || !warningCreator) {
-    message = (
-      <FormattedHTMLMessage
-        defaultMessage="This content has been flagged as <strong>SPAM</strong> because the user was blocked due to sending excessive messages."
-        description="Content warning displayed over sensitive content"
-        id="contentScreen.warningBySmoochBot"
-        tagName="p"
-      />
-    );
-  } else {
-    message = (
-      <FormattedHTMLMessage
-        defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
-        description="Content warning displayed over sensitive content"
-        id="contentScreen.warning"
-        tagName="p"
-        values={{
-          user_name: warningCreator,
-          warning_category: (
-            (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
-            warningCategory
-          ),
-        }}
-      />
-    );
-  }
-
-  // // eslint-disable-next-line
-  // console.log('warningCreator', warningCreator);
-  // // eslint-disable-next-line
-  // console.log('warningCategory', warningCategory, message);
-
   const SensitiveScreen = () => (
     <div
       className={cx(
@@ -211,7 +146,11 @@ const AspectRatio = ({
         />
       ) : null }
       <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
-        {message}
+        <ContentWarningMessage
+          intl={intl}
+          warningCategory={warningCategory}
+          warningCreator={warningCreator}
+        />
       </div>
       { contentWarning && !superAdminMask ? <ToggleShowHideButton /> : null }
     </div>
