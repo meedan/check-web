@@ -1,13 +1,18 @@
 [
   {
-    "id": "smoochBot.labelContent",
-    "description": "Button label in tipline settings page",
-    "defaultMessage": "Content & translation"
+    "id": "smoochBot.labelSettings",
+    "description": "Label for the bot platform settings area",
+    "defaultMessage": "Platforms"
   },
   {
     "id": "smoochBot.labelMainMenu",
     "description": "Label for the bot Main menu content area",
-    "defaultMessage": "Main menu"
+    "defaultMessage": "Main Menu"
+  },
+  {
+    "id": "smoochBot.labelContent",
+    "description": "Button label in tipline settings page",
+    "defaultMessage": "Content & Translation"
   },
   {
     "id": "smoochBot.placeholderGreeting",
