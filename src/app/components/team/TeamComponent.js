@@ -17,7 +17,6 @@ import TeamMembers from './TeamMembers';
 import TeamIntegrations from './TeamIntegrations';
 import TeamSimilarity from './Similarity';
 import Newsletter from './Newsletter';
-import TeamData from '../Dashboard';
 import PageTitle from '../PageTitle';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
@@ -87,9 +86,6 @@ class TeamComponent extends Component {
               : null }
             { tab === 'newsletter'
               ? <Newsletter />
-              : null }
-            { tab === 'data'
-              ? <TeamData teamSlug={team.slug} />
               : null }
             { tab === 'rules'
               ? <TeamRules teamSlug={team.slug} />

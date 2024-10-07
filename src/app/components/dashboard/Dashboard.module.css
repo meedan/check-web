@@ -1,0 +1,20 @@
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .dashboard-content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 32px;
+    overflow: auto;
+    padding: 16px 32px 32px;
+
+    .dashboard-filter-area {
+      background: var(--color-beige-86);
+      border-radius: var(--border-radius-default);
+      padding: 16px;
+    }
+  }
+}

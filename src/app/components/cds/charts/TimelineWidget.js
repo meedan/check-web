@@ -92,7 +92,7 @@ TimelineWidget.propTypes = {
   })),
   height: PropTypes.number,
   lineColor: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   tooltipFormatter: PropTypes.func,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
