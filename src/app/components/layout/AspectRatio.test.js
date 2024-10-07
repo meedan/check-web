@@ -42,13 +42,15 @@ describe('<AspectRatio />', () => {
     };
 
     const wrapper = mountWithIntl(<AspectRatio
-      projectMedia={projectMedia}
-      currentUserRole="editors"
       children={<div>Test Child</div>}
+      currentUserRole="editors"
       intl={mockIntl}
+      projectMedia={projectMedia}
     />);
     // console.log(wrapper.html());
+    // eslint-disable-next-line
     console.log(wrapper.debug());
+    // eslint-disable-next-line
     console.log(wrapper.props());
     // expect(wrapper.html()).toMatch('An automation rule has detected this content as sensitive');
   });
