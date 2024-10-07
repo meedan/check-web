@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -25,6 +24,11 @@ const messages = defineMessages({
     defaultMessage: 'Medical',
     description: 'Content warning type: Medical',
   },
+  span: {
+    id: 'contentScreen.span',
+    defaultMessage: 'Span',
+    description: 'Content warning type: Span',
+  },
   violence: {
     id: 'contentScreen.violence',
     defaultMessage: 'Violence',
@@ -45,6 +49,7 @@ const AspectRatio = ({
 }) => {
   const contentWarning = projectMedia?.show_warning_cover;
   const warningCreator = projectMedia?.dynamic_annotation_flag?.annotator?.name;
+  // const warningCreator = 'Smooch Bot' || projectMedia?.dynamic_annotation_flag?.annotator?.name;
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
@@ -105,7 +110,7 @@ const AspectRatio = ({
       sortable = sortable.concat([...Object.entries(projectMedia.dynamic_annotation_flag.data.custom)]);
     }
     const filteredFlags = {};
-    ['adult', 'medical', 'violence'].forEach((key) => { filteredFlags[key] = projectMedia.dynamic_annotation_flag.data.flags[key]; });
+    ['adult', 'medical', 'span', 'violence'].forEach((key) => { filteredFlags[key] = projectMedia.dynamic_annotation_flag.data.flags[key]; });
     sortable = sortable.concat([...Object.entries(filteredFlags)]);
     sortable.sort((a, b) => b[1] - a[1]);
     const type = sortable[0];
@@ -138,6 +143,48 @@ const AspectRatio = ({
     />
   );
 
+  let message;
+  if (warningCreator === 'Alegre') {
+    message = (
+      <FormattedHTMLMessage
+        defaultMessage="An automation rule has detected this content as sensitive"
+        description="Content warning displayed over sensitive content"
+        id="contentScreen.warningByAutomationRule"
+        tagName="p"
+      />
+    );
+  } else if (warningCreator === 'Smooch Bot' || !warningCreator) {
+    message = (
+      <FormattedHTMLMessage
+        defaultMessage="This content has been flagged as <strong>SPAM</strong> because the user was blocked due to sending excessive messages."
+        description="Content warning displayed over sensitive content"
+        id="contentScreen.warningBySmoochBot"
+        tagName="p"
+      />
+    );
+  } else {
+    message = (
+      <FormattedHTMLMessage
+        defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
+        description="Content warning displayed over sensitive content"
+        id="contentScreen.warning"
+        tagName="p"
+        values={{
+          user_name: warningCreator,
+          warning_category: (
+            (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
+            warningCategory
+          ),
+        }}
+      />
+    );
+  }
+
+  // // eslint-disable-next-line
+  // console.log('warningCreator', warningCreator);
+  // // eslint-disable-next-line
+  // console.log('warningCategory', warningCategory, message);
+
   const SensitiveScreen = () => (
     <div
       className={cx(
@@ -164,28 +211,7 @@ const AspectRatio = ({
         />
       ) : null }
       <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
-        { warningCreator !== 'Alegre' ? (
-          <FormattedHTMLMessage
-            defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
-            description="Content warning displayed over sensitive content"
-            id="contentScreen.warning"
-            tagName="p"
-            values={{
-              user_name: warningCreator,
-              warning_category: (
-                (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
-              warningCategory
-              ),
-            }}
-          />
-        ) : (
-          <FormattedHTMLMessage
-            defaultMessage="An automation rule has detected this content as sensitive"
-            description="Content warning displayed over sensitive content"
-            id="contentScreen.warningByAutomationRule"
-            tagName="p"
-          />
-        )}
+        {message}
       </div>
       { contentWarning && !superAdminMask ? <ToggleShowHideButton /> : null }
     </div>
@@ -221,18 +247,18 @@ const AspectRatio = ({
 
 AspectRatio.propTypes = {
   children: PropTypes.node.isRequired,
+  currentUserRole: PropTypes.string.isRequired,
   downloadUrl: PropTypes.string,
   expandedImage: PropTypes.string,
+  intl: intlShape.isRequired,
   isPenderCard: PropTypes.bool,
   isVideoFile: PropTypes.bool,
-  superAdminMask: PropTypes.bool,
-  currentUserRole: PropTypes.string.isRequired,
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
     show_warning_cover: PropTypes.bool.isRequired,
     dynamic_annotation_flag: PropTypes.object.isRequired,
   }),
-  intl: intlShape.isRequired,
+  superAdminMask: PropTypes.bool,
 };
 
 AspectRatio.defaultProps = {
@@ -244,6 +270,8 @@ AspectRatio.defaultProps = {
   superAdminMask: false,
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { AspectRatio };
 export default createFragmentContainer(injectIntl(AspectRatio), graphql`
   fragment AspectRatio_projectMedia on ProjectMedia {
     id
