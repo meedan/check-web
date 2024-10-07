@@ -31,7 +31,7 @@ const UnmatchedMedia = ({ routeParams }) => {
       readOnlyFields={['unmatched']}
       searchUrlPrefix={`/${routeParams.team}/unmatched-media`}
       teamSlug={routeParams.team}
-      title={<FormattedMessage defaultMessage="Unmatched media" description="Title of the unmatched media list page" id="unmatchedMedia.title" />}
+      title={<FormattedMessage defaultMessage="Unmatched Media Clusters" description="Title of the unmatched media list page" id="unmatchedMedia.title" />}
     />
   );
 };

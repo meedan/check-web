@@ -114,7 +114,7 @@ const DrawerTiplineComponent = ({
             >
               <CategoryIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage defaultMessage="All Media" description="Label for the 'All media' list displayed on the left sidebar" id="projectsComponent.allItems" tagName="span" />
+                <FormattedMessage defaultMessage="All Media Clusters" description="Label for the 'All media cluster' list displayed on the left sidebar which lists all the clusters of media in the system without applying a filter" id="projectsComponent.allItems" tagName="span" />
               </div>
               <div className={styles.listItemCount} title={team.medias_count}>
                 <small>
@@ -213,7 +213,7 @@ const DrawerTiplineComponent = ({
               >
                 <UnmatchedIcon className={styles.listIcon} />
                 <div className={styles.listLabel}>
-                  <FormattedMessage defaultMessage="Unmatched media" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" id="projectsComponent.unmatchedMedia" tagName="span" />
+                  <FormattedMessage defaultMessage="Unmatched" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" id="projectsComponent.unmatchedMedia" tagName="span" />
                 </div>
                 <ProjectsCoreListCounter query={unmatchedMediaDefaultQuery} />
               </li>
@@ -225,7 +225,7 @@ const DrawerTiplineComponent = ({
           <li className={cx(styles.listItem, styles.listHeader, styles.listItem_containsCount, 'project-list__header')} onClick={handleToggleListsExpand}>
             { listsExpanded ? <ExpandLessIcon className={styles.listIcon} /> : <ExpandMoreIcon className={styles.listIcon} /> }
             <div className={styles.listLabel}>
-              <FormattedMessage defaultMessage="Custom Lists" description="List of items with some filters applied" id="projectsComponent.lists" tagName="span" />
+              <FormattedMessage defaultMessage="Custom FIltered Lists" description="List of items with some filters applied" id="projectsComponent.lists" tagName="span" />
             </div>
             <Can permission="create Project" permissions={team.permissions}>
               <Tooltip arrow title={<FormattedMessage defaultMessage="New list" description="Tooltip for button that opens list creation dialog" id="projectsComponent.newListButton" />}>

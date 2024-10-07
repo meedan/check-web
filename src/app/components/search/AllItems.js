@@ -21,7 +21,7 @@ export default function AllItems({ routeParams }) {
         query={safelyParseJSON(routeParams.query, defaultQuery)}
         searchUrlPrefix={`/${routeParams.team}/all-items`}
         teamSlug={routeParams.team}
-        title={<FormattedMessage defaultMessage="All Media" description="Page title for listing all media items in check" id="search.allClaimsTitle" />}
+        title={<FormattedMessage defaultMessage="All Media Clusters" description="Page title for listing all media items in check" id="search.allClaimsTitle" />}
       />
     </ErrorBoundary>
   );

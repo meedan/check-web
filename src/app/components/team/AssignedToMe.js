@@ -45,7 +45,7 @@ const AssignedToMe = ({ routeParams }) => (
               readOnlyFields={['assigned_to']}
               searchUrlPrefix={`/${routeParams.team}/assigned-to-me`}
               teamSlug={routeParams.team}
-              title={<FormattedMessage defaultMessage="Assigned to me" description="Title of the 'assigned to me' list page. It lists items assigned to the current user" id="assignedTo.title" />}
+              title={<FormattedMessage defaultMessage="Media Clusters Assigned to Me" description="Title of the 'assigned to me' list page. It lists items assigned to the current user" id="assignedTo.title" />}
             />
           );
         }

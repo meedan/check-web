@@ -2,6 +2,6 @@
   {
     "id": "search.allClaimsTitle",
     "description": "Page title for listing all media items in check",
-    "defaultMessage": "All Media"
+    "defaultMessage": "All Media Clusters"
   }
 ]

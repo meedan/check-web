@@ -409,7 +409,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     unmatched: (
-      <FormattedMessage defaultMessage="Media is unmatched" description="Label for field to filter by unmatched media" id="search.unmatched">
+      <FormattedMessage defaultMessage="Media Cluster is unmatched" description="Label for field to filter by unmatched media" id="search.unmatched">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
@@ -426,7 +426,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     read: (
-      <FormattedMessage defaultMessage="Item is" description="Prefix label for field to filter by media read" id="search.read">
+      <FormattedMessage defaultMessage="Medai Cluster is" description="Prefix label for field to filter by media read" id="search.read">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
