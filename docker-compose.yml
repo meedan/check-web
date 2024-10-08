@@ -229,7 +229,6 @@ services:
       - redis
       - elasticsearch
       - presto-server
-      - presto-mean-tokens
     env_file:
       - alegre/.env_file
     networks:

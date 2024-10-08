@@ -63,7 +63,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify texts as similar', bin8: true do
+  it 'should identify texts as similar', bin7: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     pm = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
     verbose_wait 3
@@ -85,7 +85,7 @@ shared_examples 'similarity' do
   #   expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   # end
 
-  it 'should identify videos as similar', bin7: true do
+  it 'should identify videos as similar', bin8: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/video.mp4')
@@ -98,7 +98,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify images as similar', bin7: true do
+  it 'should identify images as similar', bin8: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/similarity.jpg')
@@ -111,7 +111,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should extract text from a image', bin7: true do
+  it 'should extract text from a image', bin8: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/ocr.png')
@@ -122,7 +122,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Test')).to be(true)
   end
 
-  it 'should identify audios as similar', bin7: true do
+  it 'should identify audios as similar', bin8: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/audio.mp3')
