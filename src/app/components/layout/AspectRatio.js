@@ -87,7 +87,7 @@ const AspectRatio = ({
       sortable = sortable.concat([...Object.entries(projectMedia.dynamic_annotation_flag.data.custom)]);
     }
     const filteredFlags = {};
-    ['adult', 'medical', 'span', 'violence'].forEach((key) => { filteredFlags[key] = projectMedia.dynamic_annotation_flag.data.flags[key]; });
+    ['adult', 'medical', 'spam', 'violence'].forEach((key) => { filteredFlags[key] = projectMedia.dynamic_annotation_flag.data.flags[key]; });
     sortable = sortable.concat([...Object.entries(filteredFlags)]);
     sortable.sort((a, b) => b[1] - a[1]);
     const type = sortable[0];
