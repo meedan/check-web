@@ -2,50 +2,71 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import Select from '../cds/inputs/Select';
+import TimeFrameSelect from './TimeFrameSelect';
+import LanguageSelect from './LanguageSelect';
 import TimelineWidget from '../cds/charts/TimelineWidget';
-import CalendarIcon from '../../icons/calendar_month.svg';
-import LanguageIcon from '../../icons/language.svg';
+import NumberWidget from '../cds/charts/NumberWidget';
+import ListWidget from '../cds/charts/ListWidget';
 import styles from './Dashboard.module.css';
 
 const ArticlesDashboard = ({ team }) => (
   <div className={styles['dashboard-wrapper']}>
     <div className={styles['dashboard-content']}>
       <div className={styles['dashboard-filter-area']}>
-        <div>
-          <Select
-            iconLeft={<CalendarIcon />}
-            onChange={() => {}}
-          >
-            <option value="last-week">Last: 7 days</option>
-          </Select>
-        </div>
-        <div>
-          <Select
-            iconLeft={<LanguageIcon />}
-            onChange={() => {}}
-          >
-            <option value="all-languages">Languages: All</option>
-          </Select>
-        </div>
+        <TimeFrameSelect />
+        <LanguageSelect languages={team.get_languages} />
       </div>
       <TimelineWidget
+        data={[
+          { date: '2018-01-01', value: 0 },
+          { date: '2018-01-02', value: 0 },
+          { date: '2018-01-03', value: 0 },
+          { date: '2018-01-04', value: 0 },
+          { date: '2018-01-05', value: 0 },
+          { date: '2018-01-06', value: 0 },
+          { date: '2018-01-07', value: 0 },
+        ]}
         title="Articles Added & Updated"
       />
-      <p>{team.slug}</p>
-      <p>{team.get_language}</p>
+      <div className={styles['dashboard-two-column']}>
+        <div className={styles['dashboard-two-column']}>
+          <NumberWidget itemCount={999} title="Explainers Created" />
+          <NumberWidget itemCount={999} title="Fact-Checks Created" />
+        </div>
+        <div className={styles['dashboard-two-column']}>
+          <ListWidget
+            items={[
+              { itemText: 'Article 1', itemValue: 999 },
+              { itemText: 'Article 2', itemValue: 888 },
+              { itemText: 'Article 3', itemValue: 777 },
+              { itemText: 'Article 4', itemValue: 666 },
+              { itemText: 'Article 5', itemValue: 555 },
+            ]}
+            title="Top Explainers Sent"
+          />
+          <ListWidget
+            items={[
+              { itemText: 'Article 1', itemValue: 999 },
+              { itemText: 'Article 2', itemValue: 888 },
+              { itemText: 'Article 3', itemValue: 777 },
+              { itemText: 'Article 4', itemValue: 666 },
+              { itemText: 'Article 5', itemValue: 555 },
+            ]}
+            title="Top Article Tags"
+          />
+        </div>
+      </div>
     </div>
   </div>
 );
 
-const ArticlesDashboardQueryRenderer = ({ teamSlug }) => (
+const ArticlesDashboardQueryRenderer = ({ routeParams }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
       query ArticlesDashboardQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
-          slug
-          get_language
+          get_languages
         }
       }
     `}
@@ -59,12 +80,14 @@ const ArticlesDashboardQueryRenderer = ({ teamSlug }) => (
       // TODO: We need a better error handling in the future, standardized with other components
       return null;
     }}
-    variables={{ teamSlug }}
+    variables={{ teamSlug: routeParams.team }}
   />
 );
 
 ArticlesDashboardQueryRenderer.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
+  routeParams: PropTypes.shape({
+    team: PropTypes.string.isRequired, // slug
+  }).isRequired,
 };
 
 export default ArticlesDashboardQueryRenderer;

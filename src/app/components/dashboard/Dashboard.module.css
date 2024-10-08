@@ -14,7 +14,19 @@
     .dashboard-filter-area {
       background: var(--color-beige-86);
       border-radius: var(--border-radius-default);
+      display: flex;
+      gap: 16px;
       padding: 16px;
+    }
+
+    .dashboard-two-column {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+
+      > div {
+        flex: 1;
+      }
     }
   }
 }
