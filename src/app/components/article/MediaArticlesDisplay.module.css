@@ -7,6 +7,19 @@
   padding: 0 16px 16px;
   width: 100%;
 
+  .explainerCard {
+    opacity: 1;
+
+    &.explainerCardDimmed {
+      opacity: .15;
+      transition: opacity 225ms cubic-bezier(0, 0, .2, 1) 0ms;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
   &::before {
     background-color: var(--color-white-100);
     content: '';
@@ -19,8 +32,4 @@
     right: 0;
     z-index: 2;
   }
-}
-
-.explainerCard:hover {
-  opacity: 1 !important;
 }

@@ -82,6 +82,18 @@
       overflow: hidden;
     }
 
+    .cardSummaryClaimContent {
+      display: flex;
+      flex-direction: column;
+      margin: 0 0 8px;
+
+      &.cardSummaryClaimFactCheck {
+        border-bottom: solid 2px var(--color-gray-96);
+        margin: 0;
+        padding: 0 0 6px;
+      }
+    }
+
     .toggleCollapse {
       align-items: center;
       background-color: var(--color-blue-98);
