@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
+import cx from 'classnames/bind';
 import MediaArticleCard from './MediaArticleCard';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
@@ -75,9 +76,13 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
 
         return (
           <div
-            className={styles.explainerCard}
+            className={cx(
+              [styles.explainerCard],
+              {
+                [styles.explainerCardDimmed]: hasFactCheck && hasExplainer,
+              })
+            }
             key={explainerItem.id}
-            style={{ opacity: ((hasFactCheck && hasExplainer) ? 0.15 : 1) }}
           >
             <MediaArticleCard
               date={new Date(explainer.updated_at * 1000)}
