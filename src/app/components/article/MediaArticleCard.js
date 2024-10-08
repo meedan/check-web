@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -185,21 +184,22 @@ MediaArticleCard.defaultProps = {
 };
 
 MediaArticleCard.propTypes = {
-  id: PropTypes.string.isRequired,
   claimSummary: PropTypes.string,
   claimTitle: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  url: PropTypes.string,
   date: PropTypes.instanceOf(Date).isRequired,
-  statusLabel: PropTypes.string,
-  statusColor: PropTypes.string,
-  summary: PropTypes.string,
+  id: PropTypes.string.isRequired,
   languageCode: PropTypes.string,
   publishedAt: PropTypes.number, // Timestamp
+  removeDisabled: PropTypes.bool,
+  statusColor: PropTypes.string,
+  statusLabel: PropTypes.string,
+  summary: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string,
   variant: PropTypes.oneOf(['explainer', 'fact-check']),
   onClick: PropTypes.func,
   onRemove: PropTypes.func,
-  removeDisabled: PropTypes.bool,
+
 };
 
 export default MediaArticleCard;
