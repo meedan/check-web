@@ -14,7 +14,7 @@ else
     docker-compose build web api api-background pender pender-background
     docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
   else
-    if [[ $TRAVIS_JOB_NAME == 'media-similarity-test' ]]
+    if [[ $TRAVIS_JOB_NAME == 'media-similarity-tests' ]]
     then
       i=0
       NGROK_URL=""
