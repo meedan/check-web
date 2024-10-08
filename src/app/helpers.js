@@ -22,6 +22,7 @@ function safelyParseJSON(jsonString, invalid = null) {
   try {
     return JSON.parse(jsonString);
   } catch (e) {
+    console.error('safelyParseJSON', e); // eslint-disable-line no-console
     return invalid;
   }
 }
