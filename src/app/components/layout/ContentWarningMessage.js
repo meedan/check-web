@@ -13,10 +13,10 @@ const messages = defineMessages({
     defaultMessage: 'Medical',
     description: 'Content warning type: Medical',
   },
-  span: {
-    id: 'contentScreen.span',
-    defaultMessage: 'Span',
-    description: 'Content warning type: Span',
+  spam: {
+    id: 'contentScreen.spam',
+    defaultMessage: 'Spam',
+    description: 'Content warning type: Spam',
   },
   violence: {
     id: 'contentScreen.violence',

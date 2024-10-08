@@ -10,9 +10,9 @@
     "defaultMessage": "Medical"
   },
   {
-    "id": "contentScreen.span",
-    "description": "Content warning type: Span",
-    "defaultMessage": "Span"
+    "id": "contentScreen.spam",
+    "description": "Content warning type: Spam",
+    "defaultMessage": "Spam"
   },
   {
     "id": "contentScreen.violence",
