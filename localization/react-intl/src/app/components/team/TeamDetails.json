@@ -25,11 +25,6 @@
     "defaultMessage": "Edit"
   },
   {
-    "id": "teamDetails.profile",
-    "description": "Title of the profile section in team details page",
-    "defaultMessage": "Profile"
-  },
-  {
     "id": "teamDetails.workspaceName",
     "description": "Label for workspace name field",
     "defaultMessage": "Workspace name"

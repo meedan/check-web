@@ -17,7 +17,7 @@
   {
     "id": "similarityComponent.title",
     "description": "Title to similarity matching settings page",
-    "defaultMessage": "Similarity matching"
+    "defaultMessage": "Similarity Matching"
   },
   {
     "id": "similarityComponent.masterSwitchLabelOn",
