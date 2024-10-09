@@ -92,8 +92,8 @@ const CreateMediaButton = ({
         iconLeft={<AddIcon />}
         label={
           <FormattedMessage
-            defaultMessage="Add Media"
-            description="Label of a button that opens a form to create a new media item."
+            defaultMessage="Add Media Cluster"
+            description="Label of a button that opens a form to create a new media cluster."
             id="createMediaButton.newMediaItem"
           />
         }
@@ -104,7 +104,7 @@ const CreateMediaButton = ({
       />
       <Dialog className={styles['dialog-window']} fullWidth open={open}>
         <div className={styles['dialog-title']}>
-          <FormattedMessage defaultMessage="Add Media" description="Dialog title for adding a new item" id="createMediaButton.addNewItem" tagName="h6" />
+          <FormattedMessage defaultMessage="Add Media Cluster" description="Dialog title for adding a new cluster of media" id="createMediaButton.addNewItem" tagName="h6" />
           <ButtonMain
             className={styles['dialog-close-button']}
             disabled={saving}

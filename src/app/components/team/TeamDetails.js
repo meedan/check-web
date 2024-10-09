@@ -156,9 +156,6 @@ const TeamDetails = ({
 
         <div className={styles['team-details-column']}>
           <div className={settingsStyles['setting-content-container']}>
-            <div className={settingsStyles['setting-content-container-title']}>
-              <FormattedMessage defaultMessage="Profile" description="Title of the profile section in team details page" id="teamDetails.profile" />
-            </div>
             { editProfileImg ?
               <UploadFile
                 noPreview

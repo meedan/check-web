@@ -6,18 +6,18 @@
   },
   {
     "id": "saveFeed.feedContentBlurbFactChecksOnly",
-    "description": "Helper text for the feed content section when the feed is sharing only fact-checks.",
-    "defaultMessage": "Select a custom filtered list of <strong>published fact-checks</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+    "description": "Helper text for the feed content section when the feed is sharing only claim & fact-checks.",
+    "defaultMessage": "Select a custom filtered list of <strong>published claim & fact-checks</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
   },
   {
     "id": "saveFeed.feedContentBlurbMediaOnly",
-    "description": "Helper text for the feed content section when the feed is sharing only media.",
-    "defaultMessage": "Select a custom filtered list of <strong>media, claims & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+    "description": "Helper text for the feed content section when the feed is sharing only media clusters and requests containing that media.",
+    "defaultMessage": "Select a custom filtered list of <strong>media clusters & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
   },
   {
     "id": "saveFeed.feedContentBlurbFactChecksAndMedia",
     "description": "Helper text for the feed content section when the feed is sharing fact-checks and media.",
-    "defaultMessage": "Select a custom filtered list of <strong>published fact-checks or media, claims & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+    "defaultMessage": "Select a custom filtered list of <strong>published claim & fact-checks or media clusters & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
   },
   {
     "id": "saveFeed.feedContentSelectLabel",

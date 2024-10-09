@@ -15,7 +15,7 @@ const MediaSimilarityBarComponent = ({
   <div className={styles['similar-matched-media-bar']}>
     <div className="similarity-bar__matches-count typography-subtitle2">
       <FormattedMessage
-        defaultMessage="Media"
+        defaultMessage="Media in Cluster"
         description="Plural. Heading for the number of media"
         id="mediaSimilarityBarComponent.similarMedia"
       />

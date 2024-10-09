@@ -190,7 +190,7 @@ const SimilarityComponent = ({
         }
         title={
           <FormattedMessage
-            defaultMessage="Similarity matching"
+            defaultMessage="Similarity Matching"
             description="Title to similarity matching settings page"
             id="similarityComponent.title"
           />

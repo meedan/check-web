@@ -2,6 +2,6 @@
   {
     "id": "mediaSimilarityBarComponent.similarMedia",
     "description": "Plural. Heading for the number of media",
-    "defaultMessage": "Media"
+    "defaultMessage": "Media in Cluster"
   }
 ]

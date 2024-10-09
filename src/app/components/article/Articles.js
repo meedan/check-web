@@ -166,7 +166,11 @@ const ArticlesComponent = ({
         <div className="search__list-header-filter-row">
           <div className={searchResultsStyles.searchResultsTitleWrapper}>
             <div className={searchResultsStyles.searchHeaderSubtitle}>
-              &nbsp;
+              <FormattedMessage
+                defaultMessage="Articles"
+                description="Sub header for the articles lists to indicate they are in the articles section"
+                id="articles.subheader"
+              />
             </div>
             <div className={searchResultsStyles.searchHeaderTitle}>
               <h6>

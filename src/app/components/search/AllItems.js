@@ -16,12 +16,13 @@ export default function AllItems({ routeParams }) {
           'cluster_teams', 'cluster_published_reports', 'feed_fact_checked_by',
         ]}
         icon={<CategoryIcon />}
+        listSubtitle={<FormattedMessage defaultMessage="Tipline" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}
         mediaUrlPrefix={`/${routeParams.team}/media`}
         page="all-items"
         query={safelyParseJSON(routeParams.query, defaultQuery)}
         searchUrlPrefix={`/${routeParams.team}/all-items`}
         teamSlug={routeParams.team}
-        title={<FormattedMessage defaultMessage="All Media" description="Page title for listing all media items in check" id="search.allClaimsTitle" />}
+        title={<FormattedMessage defaultMessage="All Media Clusters" description="Page title for listing all media items in check" id="search.allClaimsTitle" />}
       />
     </ErrorBoundary>
   );
