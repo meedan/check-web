@@ -426,7 +426,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     read: (
-      <FormattedMessage defaultMessage="Medai Cluster is" description="Prefix label for field to filter by media read" id="search.read">
+      <FormattedMessage defaultMessage="Media Cluster is" description="Prefix label for field to filter by media read" id="search.read">
         { label => (
           <MultiSelectFilter
             allowSearch={false}

@@ -157,7 +157,7 @@
   {
     "id": "search.read",
     "description": "Prefix label for field to filter by media read",
-    "defaultMessage": "Medai Cluster is"
+    "defaultMessage": "Media Cluster is"
   },
   {
     "id": "search.statusHeading",
