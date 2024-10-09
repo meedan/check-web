@@ -14,6 +14,7 @@ const ButtonMain = ({
   iconRight,
   label,
   onClick,
+  onPointerUp,
   size,
   theme,
   title,
@@ -40,6 +41,7 @@ const ButtonMain = ({
     type="button"
     variant={variant}
     onClick={onClick}
+    onPointerUp={onPointerUp}
     {...buttonProps}
   >
     { iconLeft && (
@@ -77,6 +79,7 @@ ButtonMain.defaultProps = {
   customStyle: {},
   buttonProps: {},
   onClick: () => {},
+  onPointerUp: () => {},
 };
 
 ButtonMain.propTypes = {
@@ -93,6 +96,7 @@ ButtonMain.propTypes = {
   title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   variant: PropTypes.oneOf(['contained', 'outlined', 'text']),
   onClick: PropTypes.func,
+  onPointerUp: PropTypes.func,
 };
 
 export default ButtonMain;
