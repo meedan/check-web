@@ -10,6 +10,11 @@
     "defaultMessage": "Could not update tags, please try again later or contact support if the error persists."
   },
   {
+    "id": "articles.subheader",
+    "description": "Sub header for the articles lists to indicate they are in the articles section",
+    "defaultMessage": "Articles"
+  },
+  {
     "id": "articles.blank",
     "description": "Empty message that is displayed when there are no articles to display.",
     "defaultMessage": "There are no articles here."

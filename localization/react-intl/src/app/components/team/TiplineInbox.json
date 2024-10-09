@@ -1,7 +1,12 @@
 [
   {
+    "id": "search.tiplineSubHeader",
+    "description": "Displayed on top of the tipline lists title on the search results page.",
+    "defaultMessage": "Tipline"
+  },
+  {
     "id": "tiplineInbox.title",
     "description": "Title for the tipline inbox listing of items",
-    "defaultMessage": "Tipline inbox"
+    "defaultMessage": "Inbox"
   }
 ]

@@ -26,6 +26,7 @@ const SuggestedMatches = ({ routeParams }) => {
         defaultQuery={defaultQuery}
         hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
         icon={<LightbulbIcon />}
+        listSubtitle={<FormattedMessage defaultMessage="Tipline" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}
         mediaUrlPrefix={`/${routeParams.team}/media`}
         page="suggested-matches"
         query={query}

@@ -16,6 +16,7 @@ export default function AllItems({ routeParams }) {
           'cluster_teams', 'cluster_published_reports', 'feed_fact_checked_by',
         ]}
         icon={<CategoryIcon />}
+        listSubtitle={<FormattedMessage defaultMessage="Tipline" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}
         mediaUrlPrefix={`/${routeParams.team}/media`}
         page="all-items"
         query={safelyParseJSON(routeParams.query, defaultQuery)}

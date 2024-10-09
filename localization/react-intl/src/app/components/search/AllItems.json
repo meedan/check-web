@@ -1,5 +1,10 @@
 [
   {
+    "id": "search.tiplineSubHeader",
+    "description": "Displayed on top of the tipline lists title on the search results page.",
+    "defaultMessage": "Tipline"
+  },
+  {
     "id": "search.allClaimsTitle",
     "description": "Page title for listing all media items in check",
     "defaultMessage": "All Media Clusters"
