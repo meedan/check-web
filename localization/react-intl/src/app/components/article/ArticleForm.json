@@ -20,6 +20,11 @@
     "defaultMessage": "Edit Claim & Fact-Check Article"
   },
   {
+    "id": "articleForm.characterLimitReached",
+    "description": "Error message for when the character limit is reached",
+    "defaultMessage": "Character Limit Reached"
+  },
+  {
     "id": "articleForm.saveArticleButton",
     "description": "Button that saves the form data as a new article",
     "defaultMessage": "Create Article"
