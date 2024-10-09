@@ -20,6 +20,11 @@
     "defaultMessage": "Edit Claim & Fact-Check Article"
   },
   {
+    "id": "articleForm.characterLimitReached",
+    "description": "Error message for when the character limit is reached",
+    "defaultMessage": "Character Limit Reached"
+  },
+  {
     "id": "articleForm.saveArticleButton",
     "description": "Button that saves the form data as a new article",
     "defaultMessage": "Create Article"
@@ -183,6 +188,11 @@
     "id": "articleForm.factCheckUrl",
     "description": "Label for article URL field",
     "defaultMessage": "Article URL"
+  },
+  {
+    "id": "articleForm.characterCount",
+    "description": "Label for the character count remaining in the combined text fields",
+    "defaultMessage": "{count, plural, one {# character left} other {# characters left}}"
   },
   {
     "id": "articleForm.selectLanguageLabel",
