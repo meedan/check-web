@@ -405,8 +405,9 @@ const ArticleForm = ({
                             } else {
                               setTitleError(true);
                             }
+                            setArticleTitle(newValue);
                           }}
-                          onKeyDown={e => setArticleTitle(e.target.value.trim())}
+                          onKeyUp={e => setArticleTitle(e.target.value.trim())}
                         />)}
                       </FormattedMessage> :
                       <FormattedMessage
@@ -434,8 +435,9 @@ const ArticleForm = ({
                             if (newValue.length) {
                               handleBlur('title', newValue);
                             }
+                            setArticleTitle(newValue);
                           }}
-                          onKeyDown={e => setArticleTitle(e.target.value.trim())}
+                          onKeyUp={e => setArticleTitle(e.target.value.trim())}
                         />)}
                       </FormattedMessage>}
                   </div>
@@ -470,8 +472,9 @@ const ArticleForm = ({
                               } else {
                                 setSummaryError(true);
                               }
+                              setSummary(newValue);
                             }}
-                            onKeyDown={e => setSummary(e.target.value.trim())}
+                            onKeyUp={e => setSummary(e.target.value.trim())}
                           />
                         )}
                       </FormattedMessage> :
@@ -502,8 +505,9 @@ const ArticleForm = ({
                               if (newValue.length) {
                                 handleBlur('summary', newValue);
                               }
+                              setSummary(newValue);
                             }}
-                            onKeyDown={e => setSummary(e.target.value.trim())}
+                            onKeyUp={e => setSummary(e.target.value.trim())}
                           />
                         )}
                       </FormattedMessage>
@@ -536,7 +540,7 @@ const ArticleForm = ({
                               setUrl(newUrl);
                               handleBlur('url', newUrl);
                             }}
-                            onKeyDown={e => setUrl(e.target.value.trim())}
+                            onKeyUp={e => setUrl(e.target.value.trim())}
                           />
                         )}
                       </FormattedMessage> :
@@ -567,7 +571,7 @@ const ArticleForm = ({
                               setUrl(newUrl);
                               handleBlur('url', newUrl);
                             }}
-                            onKeyDown={e => setUrl(e.target.value.trim())}
+                            onKeyUp={e => setUrl(e.target.value.trim())}
                           />
                         )}
                       </FormattedMessage>
