@@ -50,4 +50,10 @@ describe('<FeedTopBar />', () => {
     feedTopBar = feedTopBarComponent.find('.feed-top-bar-list');
     expect(feedTopBar).toHaveLength(0);
   });
+
+  it('should render shared custom list icon', () => {
+    const feedTopBarComponent = mountWithIntlProvider(<FeedTopBar feed={feed} setTeamFilters={() => {}} team={team} teamFilters={teamFiltersAll} />);
+    const feedTopBar = feedTopBarComponent.find('button.int-feed-top-bar__icon-button--settings');
+    expect(feedTopBar).toHaveLength(1);
+  });
 });
