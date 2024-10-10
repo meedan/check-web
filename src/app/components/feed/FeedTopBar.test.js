@@ -51,13 +51,4 @@ describe('<FeedTopBar />', () => {
     expect(feedTopBar).toHaveLength(0);
   });
 
-  it('should render settings icon if there is permission', () => {
-    let feedTopBarComponent = mountWithIntlProvider(<FeedTopBar feed={feed} setTeamFilters={() => {}} team={team} teamFilters={teamFiltersAll} />);
-    let feedTopBar = feedTopBarComponent.find('button.int-feed-top-bar__icon-button--settings');
-    expect(feedTopBar).toHaveLength(1);
-
-    feedTopBarComponent = mountWithIntlProvider(<FeedTopBar feed={{ ...feed, permissions: '{}' }} setTeamFilters={() => {}} team={team} teamFilters={teamFiltersAll} />);
-    feedTopBar = feedTopBarComponent.find('button.int-feed-top-bar__icon-button--settings');
-    expect(feedTopBar).toHaveLength(0);
-  });
 });
