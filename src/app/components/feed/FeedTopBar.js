@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -25,8 +24,12 @@ const FeedTopBar = ({
   const hasList = Boolean(feed.saved_search);
 
   const handleClick = () => {
-    browserHistory.push(`/${team.slug}/list/${feed.saved_search.dbid}`);
+    const customListDbid = feed.current_feed_team.saved_search ? feed.current_feed_team.saved_search?.dbid : feed.saved_search.dbid;
+    browserHistory.push(`/${team.slug}/list/${customListDbid}`);
   };
+
+  // eslint-disable-next-line
+  console.log('FeedTopBar', feed);
 
   const handleClickAdd = () => {
     browserHistory.push(`/${team.slug}/feed/${feed.dbid}/edit`);
@@ -216,10 +219,6 @@ FeedTopBar.defaultProps = {
 };
 
 FeedTopBar.propTypes = {
-  team: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-    avatar: PropTypes.string,
-  }).isRequired,
   feed: PropTypes.shape({
     published: PropTypes.bool.isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
@@ -228,9 +227,14 @@ FeedTopBar.propTypes = {
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,
-  teamFilters: PropTypes.arrayOf(PropTypes.number).isRequired, // Array of team DBIDs
-  setTeamFilters: PropTypes.func.isRequired,
   hideQuickFilterMenu: PropTypes.bool,
+  // Array of team DBIDs
+  setTeamFilters: PropTypes.func.isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
+  }).isRequired,
+  teamFilters: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 // Used in unit test
@@ -258,6 +262,7 @@ export default createFragmentContainer(FeedTopBar, graphql`
     }
     current_feed_team {
       saved_search {
+        dbid
         title
       }
     }
