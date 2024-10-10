@@ -2113,10 +2113,10 @@ const SandboxComponent = ({ admin }) => {
                     value={numberWidgetBackgroundColor}
                     onChange={e => setNumberWidgetBackgroundColor(e.target.value)}
                   >
-                    <option value="var(--color-pink-93)">background color: pink-93 (default)</option>
-                    <option value="var(--color-yellow-79)">background color: yellow-79</option>
-                    <option value="var(--color-purple-92)">background color: purple-92</option>
-                    <option value="var(--color-green-82)">background color: green-82</option>
+                    <option value="var(--color-pink-93)">pink-93 (default)</option>
+                    <option value="var(--color-yellow-79)">yellow-79</option>
+                    <option value="var(--color-purple-92)">purple-92</option>
+                    <option value="var(--color-green-82)">green-82</option>
                   </Select>
                 </li>
               </ul>
@@ -2152,8 +2152,8 @@ const SandboxComponent = ({ admin }) => {
                     value={listWidgetBackgroundColor}
                     onChange={e => setListWidgetBackgroundColor(e.target.value)}
                   >
-                    <option value="var(--color-pink-93)">background color: pink-93 (default)</option>
-                    <option value="var(--color-purple-92)">background color: purple-92</option>
+                    <option value="var(--color-pink-93)">pink-93 (default)</option>
+                    <option value="var(--color-purple-92)">purple-92</option>
                   </Select>
                 </li>
               </ul>
