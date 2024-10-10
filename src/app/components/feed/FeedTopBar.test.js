@@ -50,5 +50,4 @@ describe('<FeedTopBar />', () => {
     feedTopBar = feedTopBarComponent.find('.feed-top-bar-list');
     expect(feedTopBar).toHaveLength(0);
   });
-
 });
