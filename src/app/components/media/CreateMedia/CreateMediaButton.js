@@ -104,7 +104,7 @@ const CreateMediaButton = ({
       />
       <Dialog className={styles['dialog-window']} fullWidth open={open}>
         <div className={styles['dialog-title']}>
-          <FormattedMessage defaultMessage="Add Media Cluster" description="Dialog title for adding a new cluster of media" id="createMediaButton.addNewItem" tagName="h6" />
+          <FormattedMessage defaultMessage="Add New Media Cluster" description="Dialog title for adding a new cluster of media" id="createMediaButton.addNewItem" tagName="h6" />
           <ButtonMain
             className={styles['dialog-close-button']}
             disabled={saving}
@@ -140,7 +140,11 @@ const CreateMediaButton = ({
             }}
             disabled={saving}
             label={
-              <FormattedMessage defaultMessage="Submit" description="Generic label for a button or link for a user to press when they wish to submit and form or action" id="global.submit" />
+              <FormattedMessage
+                defaultMessage="Add Media Cluster"
+                description="Label of a button that submits the form to creata new media cluster"
+                id="createMediaButton.addNewMediaCluster"
+              />
             }
             size="default"
             theme="info"
