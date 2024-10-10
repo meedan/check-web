@@ -358,6 +358,13 @@ const SandboxComponent = ({ admin }) => {
     { name: 'Image', value: 2000 },
   ];
 
+  const [listWidgetBackgroundColor, setListWidgetBackgroundColor] = React.useState('var(--color-pink-93)');
+
+  const [numberWidgetBackgroundColor, setNumberWidgetBackgroundColor] = React.useState('var(--color-pink-93)');
+  const [numberWidgetItemCount, setNumberWidgetItemCount] = React.useState('2024');
+  const [numberWidgetUnit, setNumberWidgetUnit] = React.useState(Boolean(true));
+  const [numberWidgetContextText, setNumberWidgetContextText] = React.useState(Boolean(true));
+
   const generateUncaughtError = () => {
     // eslint-disable-next-line
     thisGeneratesSandboxError();
@@ -2058,71 +2065,102 @@ const SandboxComponent = ({ admin }) => {
               />
             </div>
           </div>
-
           <div className={styles.componentWrapper}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>
-              Number Widget
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                NumberWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/file/82Go6q0krKApn1L8EQ2joj?type=design&node-id=188%3A12213&mode=design"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <SwitchComponent
+                    checked={numberWidgetUnit}
+                    label="Unit"
+                    labelPlacement="top"
+                    onChange={() => setNumberWidgetUnit(!numberWidgetUnit)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={numberWidgetContextText}
+                    label="Context"
+                    labelPlacement="top"
+                    onChange={() => setNumberWidgetContextText(!numberWidgetContextText)}
+                  />
+                </li>
+                <li>
+                  <Select
+                    label="Item Count"
+                    value={numberWidgetItemCount}
+                    onChange={e => setNumberWidgetItemCount(e.target.value)}
+                  >
+                    <option value="2024">2024</option>
+                    <option value="0">0</option>
+                    <option value="-">null</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Background Color"
+                    value={numberWidgetBackgroundColor}
+                    onChange={e => setNumberWidgetBackgroundColor(e.target.value)}
+                  >
+                    <option value="var(--color-pink-93)">pink-93 (default)</option>
+                    <option value="var(--color-yellow-79)">yellow-79</option>
+                    <option value="var(--color-purple-92)">purple-92</option>
+                    <option value="var(--color-green-82)">green-82</option>
+                  </Select>
+                </li>
+              </ul>
             </div>
-            <div>
-              <div className={styles.componentWrapper}>
-                <NumberWidget contextText="Lorem ipsum dolor sit amet." itemCount="2024" title="A Title" unit="unit" />
-              </div>
-              <div className={styles.componentWrapper}>
-                <NumberWidget color="var(--color-yellow-79)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." title="A Title" unit="unit" />
-              </div>
-              <div className={styles.componentWrapper}>
-                <NumberWidget color="var(--color-purple-92)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" />
-              </div>
-              <div className={styles.componentWrapper}>
-                <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.componentWrapper}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>
-              List Widget
-            </div>
-            <div className={styles.componentWrapper}>
-              <ListWidget
-                items={
-                  [
-                    {
-                      itemValue: '2024',
-                      itemLink: null,
-                      itemText: 'Not-Linked Tag',
-                      id: 'item1',
-                    },
-                    {
-                      itemValue: '94607',
-                      itemLink: 'e.not/a/working/url/',
-                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
-                      id: 'item2',
-                    },
-                    {
-                      itemValue: '120',
-                      itemLink: 'https://maze.toys/mazes/mini/daily/',
-                      itemText: 'Linked Tag',
-                      id: 'item3',
-                    },
-                    {
-                      itemValue: '9423125',
-                      itemLink: 'https://www.lipsum.com/feed/html',
-                      itemText: 'Lorem Ipsum URL',
-                      id: 'item4',
-                    },
-                    {
-                      itemText: 'Lorem ipsum dolor sit amet',
-                      id: 'item5',
-                    },
-                  ]
-                }
-                title="List Title"
+            <div className={styles.componentBlockVariants}>
+              <NumberWidget
+                color={numberWidgetBackgroundColor}
+                contextText={numberWidgetContextText ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae.' : null}
+                itemCount={numberWidgetItemCount}
+                title="Title"
+                unit={numberWidgetUnit ? 'unit' : null}
               />
             </div>
-            <div className={styles.componentWrapper}>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                ListWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/file/82Go6q0krKApn1L8EQ2joj?type=design&node-id=188%3A11014&mode=design"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <Select
+                    label="Background Color"
+                    value={listWidgetBackgroundColor}
+                    onChange={e => setListWidgetBackgroundColor(e.target.value)}
+                  >
+                    <option value="var(--color-pink-93)">pink-93 (default)</option>
+                    <option value="var(--color-purple-92)">purple-92</option>
+                  </Select>
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentBlockVariants}>
               <ListWidget
-                color="var(--color-purple-92)"
+                color={listWidgetBackgroundColor}
                 items={
                   [
                     {
@@ -2138,7 +2176,7 @@ const SandboxComponent = ({ admin }) => {
                       id: 'item2',
                     },
                     {
-                      itemValue: '120',
+                      itemValue: '0',
                       itemLink: 'https://maze.toys/mazes/mini/daily/',
                       itemText: 'Linked Tag',
                       id: 'item3',

@@ -16,7 +16,7 @@ describe('ContentWarningMessage', () => {
     const wrapper = mountWithIntl(<ContentWarningMessage
       intl={{}}
       warningCategory="spam"
-      warningCreator="Smooch Bot"
+      warningCreator="Smooch"
     />);
     expect(wrapper.text()).toMatch(/This content has been flagged as SPAM because the user was blocked due to sending excessive messages/);
   });
