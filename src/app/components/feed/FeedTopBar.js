@@ -121,28 +121,26 @@ const FeedTopBar = ({
           </button>
         </Tooltip>
         { current && hasList && (
-          <Can permission="update Feed" permissions={feed.permissions}>
-            <Tooltip
-              arrow
-              placement="right"
-              title={<FormattedMessage
-                defaultMessage="Go to custom list"
-                description="Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
-                id="feedTopBar.customList"
-              />}
-            >
-              <span className={styles.feedTopBarCustomListButton}>
-                <ButtonMain
-                  className={cx(styles.feedListIcon, 'int-feed-top-bar__icon-button--settings')}
-                  iconCenter={<ShareIcon />}
-                  size="small"
-                  theme="lightText"
-                  variant="contained"
-                  onClick={handleClick}
-                />
-              </span>
-            </Tooltip>
-          </Can>
+          <Tooltip
+            arrow
+            placement="right"
+            title={<FormattedMessage
+              defaultMessage="Go to custom list"
+              description="Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
+              id="feedTopBar.customList"
+            />}
+          >
+            <span className={styles.feedTopBarCustomListButton}>
+              <ButtonMain
+                className={cx(styles.feedListIcon, 'int-feed-top-bar__icon-button--settings')}
+                iconCenter={<ShareIcon />}
+                size="small"
+                theme="lightText"
+                variant="contained"
+                onClick={handleClick}
+              />
+            </span>
+          </Tooltip>
         )}
       </div>
     );
