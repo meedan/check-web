@@ -28,9 +28,6 @@ const FeedTopBar = ({
     browserHistory.push(`/${team.slug}/list/${customListDbid}`);
   };
 
-  // eslint-disable-next-line
-  console.log('FeedTopBar', feed);
-
   const handleClickAdd = () => {
     browserHistory.push(`/${team.slug}/feed/${feed.dbid}/edit`);
   };
