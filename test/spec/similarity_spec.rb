@@ -85,6 +85,16 @@ shared_examples 'similarity' do
   #   expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   # end
   #
+
+  it 'should prepare environment for media similarity tests', bin8: true do
+    data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
+    pm = api_create_claim(data: data, quote: 'Just kicking off Alegre service.')
+    sleep 60 # Wait for the item to be sent to Alegre
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
+    wait_for_selector('.media__more-medias')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
+  end
+
   it 'should identify images as similar', bin8: true do
     api_create_team_and_bot(bot: 'alegre')
     create_image('files/similarity.jpg')
