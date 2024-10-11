@@ -88,10 +88,10 @@ shared_examples 'similarity' do
   it 'should identify videos as similar', bin8: true do
     api_create_team_and_bot(bot: 'alegre')
     create_image('files/video.mp4')
-    verbose_wait 6
+    verbose_wait 5
     wait_for_selector('.cluster-card')
     create_image('files/video2.mp4')
-    verbose_wait 6
+    verbose_wait 5
     wait_for_selector('.cluster-card').click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
