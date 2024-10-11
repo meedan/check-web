@@ -75,7 +75,7 @@ class WebPageMediaCard extends Component {
                 <img alt="" src={projectMedia.picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
               </AspectRatio> : null
             }
-            { data.error &&
+            { data.error ?
               <Alert
                 className={cx('web-page-media-card__error', styles['webpage-media-card-error'])}
                 contained
@@ -87,7 +87,7 @@ class WebPageMediaCard extends Component {
                   />
                 }
                 variant="error"
-              />
+              /> : null
             }
           </>
         }
