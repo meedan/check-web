@@ -40,7 +40,7 @@ const ContentWarningMessage = ({
         tagName="p"
       />
     );
-  } else if (warningCreator === 'Smooch Bot' || !warningCreator) {
+  } else if (warningCreator === 'Smooch' || !warningCreator) {
     message = (
       <FormattedHTMLMessage
         defaultMessage="This content has been flagged as <strong>SPAM</strong> because the user was blocked due to sending excessive messages."
