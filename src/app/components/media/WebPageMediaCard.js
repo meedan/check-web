@@ -49,9 +49,9 @@ class WebPageMediaCard extends Component {
             <div className={cx('media-card-large__title', styles['webpage-media-card-title'])}>
               {data.title}
             </div> : null }
-          { data.description ?
+          { data.description && !inModal ?
             <p>
-              {inModal ? null : data.description}
+              {data.description}
             </p> : null }
         </div>
         {this.canEmbedHtml() ?
