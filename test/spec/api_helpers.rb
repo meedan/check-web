@@ -57,6 +57,7 @@ module ApiHelpers
     @slug = "test-team-#{Time.now.to_i}-#{rand(10_000).to_i}"
     team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: @slug, email: user.email }
     sleep 5
+    puts "team created: #{team.inspect}"
     api_install_bot(params[:bot], team[:slug], params[:score]) if params[:bot]
     sleep 10
     { user: user, team: team }
