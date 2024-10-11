@@ -24,7 +24,7 @@ const FeedTopBar = ({
   const hasList = Boolean(feed.saved_search);
 
   const handleClick = () => {
-    const customListDbid = feed.current_feed_team.saved_search ? feed.current_feed_team.saved_search?.dbid : feed.saved_search.dbid;
+    const customListDbid = feed.current_feed_team.saved_search?.dbid || feed.saved_search.dbid;
     browserHistory.push(`/${team.slug}/list/${customListDbid}`);
   };
 
