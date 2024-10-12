@@ -56,8 +56,10 @@ module ApiHelpers
     user = params[:user] || api_register_and_login_with_email
     @slug = "test-team-#{Time.now.to_i}-#{rand(10_000).to_i}"
     team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: @slug, email: user.email }
-    api_install_bot(params[:bot], team[:slug], params[:score]) if params[:bot]
     sleep 5
+    puts "team created: #{team.inspect}"
+    api_install_bot(params[:bot], team[:slug], params[:score]) if params[:bot]
+    sleep 10
     { user: user, team: team }
   end
 
@@ -170,9 +172,12 @@ module ApiHelpers
   end
 
   def api_install_bot(bot, slug = nil, settings = {})
+    settings ||= { min_es_score: 0 }
     url = @driver.current_url.to_s
     team_slug = slug || url.match(%r{^https?://[^/]+/([^/]+)})[1]
+    puts "Installing bot with settings: #{settings.inspect}"
     request_api 'install_bot', { bot: bot, slug: team_slug, settings: settings.to_json }
+    sleep 2
     @driver.navigate.to url
   end
 
