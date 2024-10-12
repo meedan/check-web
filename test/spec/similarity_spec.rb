@@ -91,8 +91,8 @@ shared_examples 'similarity' do
     pm = api_create_claim(data: data, quote: 'Just kicking off Alegre service.')
     sleep 60 # Wait for the item to be sent to Alegre
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
-    wait_for_selector('.media__more-medias')
-    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
+    wait_for_selector('.quote-media-card')
+    expect(@driver.find_elements(:css, '.quote-media-card').size).to eq 1
   end
 
   it 'should identify images as similar', bin8: true do
