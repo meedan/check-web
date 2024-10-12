@@ -149,7 +149,7 @@ describe('<WebPageMediaCard />', () => {
       projectMedia={webPageWithGoodPicture.media}
     />);
 
-    expect(cardWithErrorMessage.find('div.web-page-media-card__error')).toHaveLength(1);
-    expect(cardWithoutErrorMessage.find('div.web-page-media-card__error')).toHaveLength(0);
+    expect(cardWithErrorMessage.find('.web-page-media-card__error')).toHaveLength(1);
+    expect(cardWithoutErrorMessage.find('.web-page-media-card__error')).toHaveLength(0);
   });
 });

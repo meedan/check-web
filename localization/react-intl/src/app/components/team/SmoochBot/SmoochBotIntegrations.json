@@ -1,10 +1,5 @@
 [
   {
-    "id": "smoochBotIntegrations.title",
-    "description": "Title of Settings tab in the tipline settings page",
-    "defaultMessage": "Messaging services"
-  },
-  {
     "id": "smoochBotIntegrations.phoneNumber",
     "description": "Label showing the whatsapp phone number connected to this bot",
     "defaultMessage": "Connected phone number: {link}"

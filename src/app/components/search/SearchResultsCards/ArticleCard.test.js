@@ -6,6 +6,7 @@ describe('<ArticleCard />', () => {
   it('should render ArticleCard component', () => {
     const wrapper = shallow(<ArticleCard
       date={1687921388}
+      handleClick={() => {}}
       statusLabel="Test"
       title="Test"
     />);

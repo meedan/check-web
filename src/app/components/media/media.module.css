@@ -408,6 +408,33 @@
   }
 }
 
+.webpage-media-card {
+  .webpage-media-card-title-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 16px;
+
+    .webpage-media-card-title {
+      @mixin typography-subtitle2;
+      overflow-wrap: break-word;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    &.webpage-media-card-title-summary-modal {
+      padding: 0 0 16px;
+    }
+  }
+
+  .webpage-media-card-error {
+    margin: 16px;
+    width: auto;
+  }
+}
+
 .assign-media-dialog-content {
   display: flex;
   gap: 16px;
