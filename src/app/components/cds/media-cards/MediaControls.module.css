@@ -1,0 +1,108 @@
+.media-controls-overlay {
+  border: solid 3px var(--color-white-100);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.media-controls {
+  align-items: center;
+  background: linear-gradient(180deg, rgba(0 0 0 / 0) 0%, rgba(0 0 0 / .31) 51.56%, rgba(0 0 0 / .7) 100%);
+  bottom: 0;
+  color: var(--color-white-100);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 12px 8px 0;
+  position: absolute;
+  width: 100%;
+
+  .media-controls-play-time,
+  .media-controls-volume-speed {
+    @mixin typography-body2;
+    align-items: center;
+    display: flex;
+    flex: 1 0 50%;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    max-width: 50%;
+    width: 100%;
+  }
+
+  .media-controls-volume-speed {
+    justify-content: flex-end;
+
+    .media-controls-volume {
+      align-items: center;
+      background-color: rgba(0 0 0 / 0);
+      border-radius: var(--border-radius-default);
+      display: flex;
+      max-width: 150px;
+      padding: 0 0 0 16px;
+      transition: .5s;
+      width: 150px;
+
+      .media-controls-volume-slider {
+        flex: 1;
+        margin-right: 12px;
+        opacity: 0;
+
+        :global(.MuiSlider-rail) {
+          border-radius: var(--border-radius-medium);
+          color: rgba(255 255 255 / .7);
+          height: 4px;
+        }
+
+        :global(.MuiSlider-track) {
+          border-radius: var(--border-radius-medium);
+          color: var(--color-white-100);
+          height: 4px;
+        }
+
+        :global(.MuiSlider-thumb) {
+          align-items: center;
+          background-color: var(--color-white-100);
+          /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+          border-radius: 50%;
+          box-shadow: none;
+          display: flex;
+          height: 12px;
+          justify-content: center;
+          margin: -5px 0 0 -6px;
+          opacity: 0;
+          outline: 0;
+          position: absolute;
+          transition: box-shadow 150ms cubic-bezier(.4, 0, .2, 1) 0ms;
+          width: 12px;
+
+          &:focus,
+          &:hover {
+            box-shadow: inherit;
+          }
+        }
+
+        &:hover {
+          :global(.MuiSlider-thumb) {
+            opacity: 1;
+            transition: opacity .5s;
+          }
+        }
+      }
+
+      &:hover {
+        background-color: var(--overlayLight);
+
+        .media-controls-volume-slider {
+          opacity: 1;
+          transition: .5s;
+        }
+      }
+    }
+
+    .activePlaybackSpeed {
+      color: var(--color-blue-54);
+      font-weight: 700;
+    }
+  }
+}

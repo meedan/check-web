@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -25,7 +24,8 @@ const FeedTopBar = ({
   const hasList = Boolean(feed.saved_search);
 
   const handleClick = () => {
-    browserHistory.push(`/${team.slug}/list/${feed.saved_search.dbid}`);
+    const customListDbid = feed.current_feed_team.saved_search?.dbid || feed.saved_search.dbid;
+    browserHistory.push(`/${team.slug}/list/${customListDbid}`);
   };
 
   const handleClickAdd = () => {
@@ -118,28 +118,26 @@ const FeedTopBar = ({
           </button>
         </Tooltip>
         { current && hasList && (
-          <Can permission="update Feed" permissions={feed.permissions}>
-            <Tooltip
-              arrow
-              placement="right"
-              title={<FormattedMessage
-                defaultMessage="Go to custom list"
-                description="Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
-                id="feedTopBar.customList"
-              />}
-            >
-              <span className={styles.feedTopBarCustomListButton}>
-                <ButtonMain
-                  className={cx(styles.feedListIcon, 'int-feed-top-bar__icon-button--settings')}
-                  iconCenter={<ShareIcon />}
-                  size="small"
-                  theme="lightText"
-                  variant="contained"
-                  onClick={handleClick}
-                />
-              </span>
-            </Tooltip>
-          </Can>
+          <Tooltip
+            arrow
+            placement="right"
+            title={<FormattedMessage
+              defaultMessage="Go to custom list"
+              description="Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
+              id="feedTopBar.customList"
+            />}
+          >
+            <span className={styles.feedTopBarCustomListButton}>
+              <ButtonMain
+                className={cx(styles.feedListIcon, 'int-feed-top-bar__icon-button--settings')}
+                iconCenter={<ShareIcon />}
+                size="small"
+                theme="lightText"
+                variant="contained"
+                onClick={handleClick}
+              />
+            </span>
+          </Tooltip>
         )}
       </div>
     );
@@ -216,10 +214,6 @@ FeedTopBar.defaultProps = {
 };
 
 FeedTopBar.propTypes = {
-  team: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-    avatar: PropTypes.string,
-  }).isRequired,
   feed: PropTypes.shape({
     published: PropTypes.bool.isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
@@ -228,9 +222,14 @@ FeedTopBar.propTypes = {
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,
-  teamFilters: PropTypes.arrayOf(PropTypes.number).isRequired, // Array of team DBIDs
-  setTeamFilters: PropTypes.func.isRequired,
   hideQuickFilterMenu: PropTypes.bool,
+  // Array of team DBIDs
+  setTeamFilters: PropTypes.func.isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
+  }).isRequired,
+  teamFilters: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 // Used in unit test
@@ -258,6 +257,7 @@ export default createFragmentContainer(FeedTopBar, graphql`
     }
     current_feed_team {
       saved_search {
+        dbid
         title
       }
     }

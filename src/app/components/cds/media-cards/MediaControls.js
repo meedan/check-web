@@ -1,47 +1,16 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Box,
-  Grid,
-  IconButton,
-} from '@material-ui/core';
 import MediaTimeline from './MediaTimeline';
 import MediaVolume from './MediaVolume';
 import MediaPlaybackSpeed from './MediaPlaybackSpeed';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import PauseIcon from '../../../icons/pause.svg';
 import PlayArrowIcon from '../../../icons/play_arrow.svg';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    color: 'var(--color-white-100)',
-    background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.31) 51.56%, rgba(0, 0, 0, 0.7) 100%)',
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    padding: theme.spacing(1.5, 1, 0, 1),
-  },
-  icon: {
-    color: 'var(--color-white-100)',
-    fontSize: '24px',
-    marginRight: theme.spacing(1),
-    '&:hover': {
-      color: 'var(--color-white-100)',
-      backgroundColor: 'var(--overlayLight)',
-    },
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    height: '100%',
-    width: '100%',
-  },
-}));
+import styles from './MediaControls.module.css';
 
 const MediaControls = ({
   videoRef,
 }) => {
-  const classes = useStyles();
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [duration, setDuration] = React.useState(0);
   const [currentTime, setCurrentTime] = React.useState(0);
@@ -74,13 +43,13 @@ const MediaControls = ({
   };
 
   const PlayButton = () => (
-    <IconButton
-      className={classes.icon}
-      size="small"
+    <ButtonMain
+      iconCenter={isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+      size="default"
+      theme="white"
+      variant="text"
       onPointerUp={togglePlay}
-    >
-      { isPlaying ? <PauseIcon /> : <PlayArrowIcon /> }
-    </IconButton>
+    />
   );
 
   const prettyPrintTime = (seconds) => {
@@ -96,58 +65,38 @@ const MediaControls = ({
   };
   const durationDisplay = prettyPrintTime(duration);
   const TimeDisplay = () => (
-    <div className="typography-body1">
+    <div>
       {prettyPrintTime(currentTime)} / {durationDisplay}
     </div>
   );
 
   return (
     <>
-      <div className={classes.overlay} onKeyUp={togglePlay} onPointerUp={togglePlay} />
-      <Grid
-        alignItems="center"
-        className={classes.root}
-        container
-        display="flex"
-      >
-        <Grid
-          alignItems="center"
-          container
-          item
-          xs={6}
-        >
+      <div className={styles['media-controls-overlay']} onKeyUp={togglePlay} onPointerUp={togglePlay} />
+      <div className={styles['media-controls']}>
+        <div className={styles['media-controls-play-time']}>
           <PlayButton />
           <TimeDisplay />
-        </Grid>
-        <Grid
-          alignItems="center"
-          container
-          item
-          justify="flex-end"
-          xs={6}
-        >
-          <Grid container item justify="flex-end" xs={6}>
-            <MediaVolume
-              setVolume={setVolume}
-              videoRef={videoRef}
-              volume={volume}
-            />
-          </Grid>
-          <Box alignItems="center" display="flex">
-            <MediaPlaybackSpeed
-              playbackSpeed={playbackSpeed}
-              setPlaybackSpeed={setPlaybackSpeed}
-              videoRef={videoRef}
-            />
-          </Box>
-        </Grid>
+        </div>
+        <div className={styles['media-controls-volume-speed']}>
+          <MediaVolume
+            setVolume={setVolume}
+            videoRef={videoRef}
+            volume={volume}
+          />
+          <MediaPlaybackSpeed
+            playbackSpeed={playbackSpeed}
+            setPlaybackSpeed={setPlaybackSpeed}
+            videoRef={videoRef}
+          />
+        </div>
         <MediaTimeline
           currentTime={currentTime}
           duration={duration}
           setCurrentTime={setCurrentTime}
           videoRef={videoRef}
         />
-      </Grid>
+      </div>
     </>
   );
 };

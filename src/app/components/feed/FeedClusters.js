@@ -134,7 +134,7 @@ const FeedClustersComponent = ({
                 pageSize={pageSize}
                 onChangePage={handleChangePage}
               />
-              <ExportList filters={{ feed_id: feed.dbid, ...setFiltersForQuery(otherFilters) }} type="feed" />
+              <ExportList filters={{ feed_id: feed.dbid, team_ids: teamFilters, ...setFiltersForQuery(otherFilters) }} type="feed" />
             </div>
           </div>
           : null

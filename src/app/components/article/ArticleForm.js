@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
+import ArticleTrash from './ArticleTrash.js';
 import TagList from '../cds/menus-lists-dialogs/TagList.js';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Slideout from '../cds/slideout/Slideout';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconReport from '../../icons/fact_check.svg';
 import IconUnpublishedReport from '../../icons/unpublished_report.svg';
+import ErrorIcon from '../../icons/error.svg';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
-import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import inputStyles from '../../styles/css/inputs.module.css';
 import { safelyParseJSON, truncateLength, isFactCheckValueBlank } from '../../helpers';
 import RatingSelector from '../cds/inputs/RatingSelector';
@@ -67,6 +69,11 @@ const ArticleForm = ({
   const isStatusLocked = article.claim_description?.project_media?.last_status_obj?.locked || false;
   const factCheckFieldsMissing = (articleType === 'fact-check' && (isFactCheckValueBlank(articleTitle) || isFactCheckValueBlank(summary) || !language));
 
+  const maxCount = articleType === 'explainer' ? 4096 : 900;
+  const [charCount, setCharCount] = React.useState(summary.length + url.length + articleTitle.length);
+  const [charCountError, setCharCountError] = React.useState(charCount > maxCount);
+  const maxCountErrorMessage = <FormattedMessage defaultMessage="Character Limit Reached" description="Error message for when the character limit is reached" id="articleForm.characterLimitReached" />;
+
   React.useEffect(() => {
     setLanguage(language || defaultArticleLanguage);
   }, [language]);
@@ -85,6 +92,16 @@ const ArticleForm = ({
       setCanPublish(false);
     }
   }, [articleTitle, summary, claimDescription, language]);
+
+  React.useEffect(() => {
+    const count = summary.length + url.length + articleTitle.length;
+    setCharCount(count);
+    if (count > maxCount) {
+      setCharCountError(true);
+    } else {
+      setCharCountError(false);
+    }
+  }, [articleTitle, summary, url]);
 
   const handleGoToReport = (projectMediaDbid) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
@@ -206,7 +223,7 @@ const ArticleForm = ({
                       title={
                         <>
                           {!article.claim_description?.project_media?.dbid && <FormattedMessage defaultMessage="Assign this Fact Check to a media item to be able to edit and publish a report" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltip" />}
-                          {article.claim_description?.project_media?.dbid && factCheckFieldsMissing && <FormattedMessage defaultMessage="Fact-Check Title, Summary, and Language are required in order to to publish a Fact-Check report" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltipTwo" />}
+                          {article.claim_description?.project_media?.dbid && factCheckFieldsMissing && <FormattedMessage defaultMessage="Fact-Check Title, Summary, and Language are required in order to publish a Fact-Check report" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltipTwo" />}
                           {article.claim_description?.project_media?.dbid && !factCheckFieldsMissing && <FormattedMessage defaultMessage="Go to Fact-Check report editor" description="Tooltip for the report designer button" id="articleForm.reportDesignerTooltipThree" />}
                         </>
                       }
@@ -357,194 +374,226 @@ const ArticleForm = ({
                     onButtonClick={() => handleGoToReport(article.claim_description?.project_media?.dbid)}
                   />
                 )}
-                <div className={inputStyles['form-fieldset-field']}>
-                  { articleType === 'explainer' ?
-                    <FormattedMessage
-                      defaultMessage="A descriptive title for this explainer article"
-                      description="Placeholder instructions for article title field"
-                      id="articleForm.explainerTitleInputPlaceholder"
-                    >
-                      { placeholder => (<TextArea
-                        autoGrow
-                        className="article-form__title"
-                        componentProps={{
-                          id: 'article-form__title',
-                        }}
-                        defaultValue={articleTitle}
-                        error={titleError}
-                        label={<FormattedMessage defaultMessage="Title" description="Label for explainer title field" id="articleForm.explainerTitle" />}
-                        maxHeight="266px"
-                        name="title"
-                        placeholder={placeholder}
-                        required
-                        rows="1"
-                        onBlur={(e) => {
-                          const newValue = e.target.value.trim();
-                          if (newValue.length) {
-                            setTitleError(false);
-                            handleBlur('title', newValue);
-                          } else {
-                            setTitleError(true);
-                          }
-                          setArticleTitle(newValue);
-                        }}
-                      />)}
-                    </FormattedMessage> :
-                    <FormattedMessage
-                      defaultMessage="A descriptive title for this fact-check article"
-                      description="Placeholder instructions for article title field"
-                      id="articleForm.factCheckTitleInputPlaceholder"
-                    >
-                      { placeholder => (<TextArea
-                        autoGrow
-                        className="article-form__title"
-                        componentProps={{
-                          id: 'article-form__title',
-                        }}
-                        defaultValue={isFactCheckValueBlank(articleTitle) ? null : articleTitle}
-                        disabled={readOnly}
-                        error={titleError}
-                        label={<FormattedMessage defaultMessage="Title" description="Label for fact-check title field" id="articleForm.factCheckTitle" />}
-                        maxHeight="266px"
-                        name="title"
-                        placeholder={placeholder}
-                        rows="1"
-                        onBlur={(e) => {
-                          const newValue = e.target.value.trim();
-                          if (newValue.length) {
-                            handleBlur('title', newValue);
-                          }
-                          setArticleTitle(newValue);
-                        }}
-                      />)}
-                    </FormattedMessage>}
-                </div>
-                <div className={inputStyles['form-fieldset-field']}>
-                  {articleType === 'explainer' ?
-                    <FormattedMessage
-                      defaultMessage="Briefly contextualize the narrative of this explainer"
-                      description="Placeholder instructions for explainer summary field"
-                      id="articleForm.explainerSummaryPlaceholder"
-                    >
-                      { placeholder => (
-                        <LimitedTextArea
+                <div className={inputStyles['form-inner-wrapper']}>
+                  <div className={inputStyles['form-fieldset-field']}>
+                    { articleType === 'explainer' ?
+                      <FormattedMessage
+                        defaultMessage="A descriptive title for this explainer article"
+                        description="Placeholder instructions for article title field"
+                        id="articleForm.explainerTitleInputPlaceholder"
+                      >
+                        { placeholder => (<TextArea
                           autoGrow
-                          className="article-form__summary"
+                          className="article-form__title"
                           componentProps={{
-                            id: 'article-form__summary',
+                            id: 'article-form__title',
                           }}
-                          error={summaryError}
-                          label={<FormattedMessage defaultMessage="Summary" description="Label for article summary field" id="articleForm.explainerSummary" />}
-                          maxChars={900 - articleTitle.length - url.length}
-                          name="summary"
+                          defaultValue={articleTitle}
+                          error={titleError || (charCountError && articleTitle.length)}
+                          helpContent={charCountError && articleTitle.length ? maxCountErrorMessage : null}
+                          label={<FormattedMessage defaultMessage="Title" description="Label for explainer title field" id="articleForm.explainerTitle" />}
+                          maxHeight="266px"
+                          name="title"
                           placeholder={placeholder}
                           required
                           rows="1"
-                          value={truncateLength(summary, 900 - articleTitle.length - url.length - 3)}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
-                              setSummaryError(false);
-                              handleBlur('description', newValue);
+                              setTitleError(false);
+                              handleBlur('title', newValue);
                             } else {
-                              setSummaryError(true);
+                              setTitleError(true);
                             }
-                            setSummary(newValue);
+                            setArticleTitle(newValue);
                           }}
-                        />
-                      )}
-                    </FormattedMessage> :
-                    <FormattedMessage
-                      defaultMessage="Briefly contextualize the narrative of this fact-check"
-                      description="Placeholder instructions for fact-check summary field"
-                      id="articleForm.factCheckSummaryPlaceholder"
-                    >
-                      { placeholder => (
-                        <LimitedTextArea
+                          onKeyUp={e => setArticleTitle(e.target.value.trim())}
+                        />)}
+                      </FormattedMessage> :
+                      <FormattedMessage
+                        defaultMessage="A descriptive title for this fact-check article"
+                        description="Placeholder instructions for article title field"
+                        id="articleForm.factCheckTitleInputPlaceholder"
+                      >
+                        { placeholder => (<TextArea
                           autoGrow
-                          className="article-form__summary"
+                          className="article-form__title"
                           componentProps={{
-                            id: 'article-form__summary',
+                            id: 'article-form__title',
                           }}
+                          defaultValue={isFactCheckValueBlank(articleTitle) ? null : articleTitle}
                           disabled={readOnly}
-                          error={summaryError}
-                          key={`article-form__summary-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
-                          label={<FormattedMessage defaultMessage="Summary" description="Label for article summary field" id="articleForm.summary" />}
-                          maxChars={900 - articleTitle.length - url.length}
-                          name="summary"
+                          error={titleError || (charCountError && articleTitle.length)}
+                          helpContent={charCountError && articleTitle.length ? maxCountErrorMessage : null}
+                          label={<FormattedMessage defaultMessage="Title" description="Label for fact-check title field" id="articleForm.factCheckTitle" />}
+                          maxHeight="266px"
+                          name="title"
                           placeholder={placeholder}
-                          required={false}
                           rows="1"
-                          value={isFactCheckValueBlank(summary) ? null : truncateLength(summary, 900 - articleTitle.length - url.length - 3)}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
-                              handleBlur('summary', newValue);
+                              handleBlur('title', newValue);
                             }
-                            setSummary(newValue);
+                            setArticleTitle(newValue);
                           }}
-                        />
-                      )}
-                    </FormattedMessage>
-                  }
-                </div>
-                <div className={inputStyles['form-fieldset-field']}>
-                  {articleType === 'explainer' ?
-                    <FormattedMessage
-                      defaultMessage="Add a URL to this explainer article"
-                      description="Placeholder instructions for URL field"
-                      id="articleForm.explainerUrlPlaceholder"
+                          onKeyUp={e => setArticleTitle(e.target.value.trim())}
+                        />)}
+                      </FormattedMessage>}
+                  </div>
+                  <div className={inputStyles['form-fieldset-field']}>
+                    {articleType === 'explainer' ?
+                      <FormattedMessage
+                        defaultMessage="Briefly contextualize the narrative of this explainer"
+                        description="Placeholder instructions for explainer summary field"
+                        id="articleForm.explainerSummaryPlaceholder"
+                      >
+                        { placeholder => (
+                          <TextArea
+                            autoGrow
+                            className="article-form__summary"
+                            componentProps={{
+                              id: 'article-form__summary',
+                            }}
+                            defaultValue={truncateLength(summary, 4096 - articleTitle.length - url.length - 3)}
+                            error={summaryError || (charCountError && summary.length)}
+                            helpContent={charCountError && summary.length ? maxCountErrorMessage : null}
+                            label={<FormattedMessage defaultMessage="Summary" description="Label for article summary field" id="articleForm.explainerSummary" />}
+                            maxHeight="500px"
+                            name="summary"
+                            placeholder={placeholder}
+                            required
+                            rows="1"
+                            onBlur={(e) => {
+                              const newValue = e.target.value.trim();
+                              if (newValue.length) {
+                                setSummaryError(false);
+                                handleBlur('description', newValue);
+                              } else {
+                                setSummaryError(true);
+                              }
+                              setSummary(newValue);
+                            }}
+                            onKeyUp={e => setSummary(e.target.value.trim())}
+                          />
+                        )}
+                      </FormattedMessage> :
+                      <FormattedMessage
+                        defaultMessage="Briefly contextualize the narrative of this fact-check"
+                        description="Placeholder instructions for fact-check summary field"
+                        id="articleForm.factCheckSummaryPlaceholder"
+                      >
+                        { placeholder => (
+                          <TextArea
+                            autoGrow
+                            className="article-form__summary"
+                            componentProps={{
+                              id: 'article-form__summary',
+                            }}
+                            defaultValue={isFactCheckValueBlank(summary) ? null : truncateLength(summary, 900 - articleTitle.length - url.length - 3)}
+                            disabled={readOnly}
+                            error={summaryError || (charCountError && summary.length)}
+                            helpContent={charCountError && summary.length ? maxCountErrorMessage : null}
+                            key={`article-form__summary-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
+                            label={<FormattedMessage defaultMessage="Summary" description="Label for article summary field" id="articleForm.summary" />}
+                            name="summary"
+                            placeholder={placeholder}
+                            required={false}
+                            rows="1"
+                            onBlur={(e) => {
+                              const newValue = e.target.value.trim();
+                              if (newValue.length) {
+                                handleBlur('summary', newValue);
+                              }
+                              setSummary(newValue);
+                            }}
+                            onKeyUp={e => setSummary(e.target.value.trim())}
+                          />
+                        )}
+                      </FormattedMessage>
+                    }
+                  </div>
+                  <div className={inputStyles['form-fieldset-field']}>
+                    {articleType === 'explainer' ?
+                      <FormattedMessage
+                        defaultMessage="Add a URL to this explainer article"
+                        description="Placeholder instructions for URL field"
+                        id="articleForm.explainerUrlPlaceholder"
+                      >
+                        { placeholder => (
+                          <TextField
+                            className="article-form__url"
+                            componentProps={{
+                              id: 'article-form__url',
+                            }}
+                            defaultValue={url}
+                            error={charCountError && url.length}
+                            helpContent={charCountError && url.length ? maxCountErrorMessage : null}
+                            label={<FormattedMessage defaultMessage="Article URL" description="Label for article URL field" id="articleForm.explainerUrl" />}
+                            placeholder={placeholder}
+                            onBlur={(e) => {
+                              const newValue = e.target.value;
+                              let newUrl = newValue;
+                              if (!/^https?:\/\//.test(newValue) && newValue && newValue.length > 0) {
+                                newUrl = `https://${newValue}`;
+                              }
+                              setUrl(newUrl);
+                              handleBlur('url', newUrl);
+                            }}
+                            onKeyUp={e => setUrl(e.target.value.trim())}
+                          />
+                        )}
+                      </FormattedMessage> :
+                      <FormattedMessage
+                        defaultMessage="Add a URL to this fact-check article"
+                        description="Placeholder instructions for URL field"
+                        id="articleForm.factCheckUrlPlaceholder"
+                      >
+                        { placeholder => (
+                          <TextField
+                            className="article-form__url"
+                            componentProps={{
+                              id: 'article-form__url',
+                            }}
+                            defaultValue={url}
+                            disabled={readOnly}
+                            error={charCountError && url.length}
+                            helpContent={charCountError && url.length ? maxCountErrorMessage : null}
+                            key={`article-form__url-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
+                            label={<FormattedMessage defaultMessage="Article URL" description="Label for article URL field" id="articleForm.factCheckUrl" />}
+                            placeholder={placeholder}
+                            onBlur={(e) => {
+                              const newValue = e.target.value;
+                              let newUrl = newValue;
+                              if (!/^https?:\/\//.test(newValue) && newValue && newValue.length > 0) {
+                                newUrl = `https://${newValue}`;
+                              }
+                              setUrl(newUrl);
+                              handleBlur('url', newUrl);
+                            }}
+                            onKeyUp={e => setUrl(e.target.value.trim())}
+                          />
+                        )}
+                      </FormattedMessage>
+                    }
+                  </div>
+                  <div className={inputStyles['input-wrapper']}>
+                    <div className={cx(
+                      [inputStyles['help-container']],
+                      {
+                        'int-error__message--textfield': charCountError,
+                        [inputStyles['error-label']]: charCountError,
+                      })}
                     >
-                      { placeholder => (
-                        <TextField
-                          className="article-form__url"
-                          componentProps={{
-                            id: 'article-form__url',
-                          }}
-                          defaultValue={url}
-                          label={<FormattedMessage defaultMessage="Article URL" description="Label for article URL field" id="articleForm.explainerUrl" />}
-                          placeholder={placeholder}
-                          onBlur={(e) => {
-                            const newValue = e.target.value;
-                            let newUrl = newValue;
-                            if (!/^https?:\/\//.test(newValue) && newValue && newValue.length > 0) {
-                              newUrl = `https://${newValue}`;
-                            }
-                            setUrl(newUrl);
-                            handleBlur('url', newUrl);
-                          }}
-                        />
-                      )}
-                    </FormattedMessage> :
-                    <FormattedMessage
-                      defaultMessage="Add a URL to this fact-check article"
-                      description="Placeholder instructions for URL field"
-                      id="articleForm.factCheckUrlPlaceholder"
-                    >
-                      { placeholder => (
-                        <TextField
-                          className="article-form__url"
-                          componentProps={{
-                            id: 'article-form__url',
-                          }}
-                          defaultValue={url}
-                          disabled={readOnly}
-                          key={`article-form__url-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
-                          label={<FormattedMessage defaultMessage="Article URL" description="Label for article URL field" id="articleForm.factCheckUrl" />}
-                          placeholder={placeholder}
-                          onBlur={(e) => {
-                            const newValue = e.target.value;
-                            let newUrl = newValue;
-                            if (!/^https?:\/\//.test(newValue) && newValue && newValue.length > 0) {
-                              newUrl = `https://${newValue}`;
-                            }
-                            setUrl(newUrl);
-                            handleBlur('url', newUrl);
-                          }}
-                        />
-                      )}
-                    </FormattedMessage>
-                  }
+                      { charCountError && <ErrorIcon className={inputStyles['error-icon']} />}
+                      <FormattedMessage
+                        defaultMessage="{count, plural, one {# character left} other {# characters left}}"
+                        description="Label for the character count remaining in the combined text fields"
+                        id="articleForm.characterCount"
+                        values={{ count: maxCount - charCount }}
+                      />
+                    </div>
+                  </div>
                 </div>
                 { languages.length > 1 ?
                   <div className={inputStyles['form-fieldset-field']}>
@@ -562,7 +611,7 @@ const ArticleForm = ({
           </div>
         </>
       }
-      footer={mode === 'create'}
+      footer
       mainActionButton={mode === 'create' ? (
         <ButtonMain
           buttonProps={{ id: 'article-form__save-button' }}
@@ -570,7 +619,13 @@ const ArticleForm = ({
           label={mainActionButtonLabel}
           onClick={() => handleSave({ publish: createAndPublish })}
         />
-      ) : null}
+      ) : (
+        <ArticleTrash
+          article={article}
+          type={articleType}
+          onClose={onClose}
+        />
+      )}
       secondaryActionButton={(articleType === 'fact-check') && createAndPublish ? (
         <ButtonMain
           buttonProps={{ id: 'article-form__save-unpublished-button' }}
@@ -652,5 +707,6 @@ export default createFragmentContainer(ArticleForm, graphql`
         name
       }
     }
+    ...ArticleTrash_article
   }
 `);

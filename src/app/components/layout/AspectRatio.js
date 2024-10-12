@@ -1,11 +1,11 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import cx from 'classnames/bind';
+import ContentWarningMessage from './ContentWarningMessage.js';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SensitiveContentMenuButton from '../media/SensitiveContentMenuButton.js';
 import FullscreenIcon from '../../icons/fullscreen.svg';
@@ -13,24 +13,6 @@ import FullscreenExitIcon from '../../icons/fullscreen_exit.svg';
 import VisibilityOffIcon from '../../icons/visibility_off.svg';
 import DownloadIcon from '../../icons/download.svg';
 import styles from './AspectRatio.module.css';
-
-const messages = defineMessages({
-  adult: {
-    id: 'contentScreen.adult',
-    defaultMessage: 'Adult',
-    description: 'Content warning type: Adult',
-  },
-  medical: {
-    id: 'contentScreen.medical',
-    defaultMessage: 'Medical',
-    description: 'Content warning type: Medical',
-  },
-  violence: {
-    id: 'contentScreen.violence',
-    defaultMessage: 'Violence',
-    description: 'Content warning type: Violence',
-  },
-});
 
 const AspectRatio = ({
   children,
@@ -105,7 +87,7 @@ const AspectRatio = ({
       sortable = sortable.concat([...Object.entries(projectMedia.dynamic_annotation_flag.data.custom)]);
     }
     const filteredFlags = {};
-    ['adult', 'medical', 'violence'].forEach((key) => { filteredFlags[key] = projectMedia.dynamic_annotation_flag.data.flags[key]; });
+    ['adult', 'medical', 'spam', 'violence'].forEach((key) => { filteredFlags[key] = projectMedia.dynamic_annotation_flag.data.flags[key]; });
     sortable = sortable.concat([...Object.entries(filteredFlags)]);
     sortable.sort((a, b) => b[1] - a[1]);
     const type = sortable[0];
@@ -164,28 +146,11 @@ const AspectRatio = ({
         />
       ) : null }
       <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
-        { warningCreator !== 'Alegre' ? (
-          <FormattedHTMLMessage
-            defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
-            description="Content warning displayed over sensitive content"
-            id="contentScreen.warning"
-            tagName="p"
-            values={{
-              user_name: warningCreator,
-              warning_category: (
-                (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
-              warningCategory
-              ),
-            }}
-          />
-        ) : (
-          <FormattedHTMLMessage
-            defaultMessage="An automation rule has detected this content as sensitive"
-            description="Content warning displayed over sensitive content"
-            id="contentScreen.warningByAutomationRule"
-            tagName="p"
-          />
-        )}
+        <ContentWarningMessage
+          intl={intl}
+          warningCategory={warningCategory}
+          warningCreator={warningCreator}
+        />
       </div>
       { contentWarning && !superAdminMask ? <ToggleShowHideButton /> : null }
     </div>
@@ -221,18 +186,18 @@ const AspectRatio = ({
 
 AspectRatio.propTypes = {
   children: PropTypes.node.isRequired,
+  currentUserRole: PropTypes.string.isRequired,
   downloadUrl: PropTypes.string,
   expandedImage: PropTypes.string,
+  intl: intlShape.isRequired,
   isPenderCard: PropTypes.bool,
   isVideoFile: PropTypes.bool,
-  superAdminMask: PropTypes.bool,
-  currentUserRole: PropTypes.string.isRequired,
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
     show_warning_cover: PropTypes.bool.isRequired,
     dynamic_annotation_flag: PropTypes.object.isRequired,
   }),
-  intl: intlShape.isRequired,
+  superAdminMask: PropTypes.bool,
 };
 
 AspectRatio.defaultProps = {

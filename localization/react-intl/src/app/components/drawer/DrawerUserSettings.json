@@ -1,0 +1,32 @@
+[
+  {
+    "id": "userSettingsNavigation.usersettings",
+    "description": "Navigation list title for user settings",
+    "defaultMessage": "User Settings"
+  },
+  {
+    "id": "userSettingsNavigation.profile",
+    "description": "Label for the Profile user settings navigation menu item",
+    "defaultMessage": "Profile"
+  },
+  {
+    "id": "userSettingsNavigation.workspaces",
+    "description": "Label for the Workspaces user settings navigation menu item",
+    "defaultMessage": "Workspaces"
+  },
+  {
+    "id": "userSettingsNavigation.privacy",
+    "description": "Label for the privacy user settings navigation menu item",
+    "defaultMessage": "Privacy"
+  },
+  {
+    "id": "userSettingsNavigation.security",
+    "description": "Label for the security user settings navigation menu item",
+    "defaultMessage": "Security"
+  },
+  {
+    "id": "UserMenu.signOut",
+    "description": "This is the sign out button on the user profile page",
+    "defaultMessage": "Sign Out"
+  }
+]
