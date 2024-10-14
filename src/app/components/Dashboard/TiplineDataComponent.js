@@ -9,14 +9,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import cx from 'classnames/bind';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import HelpIcon from '../../../icons/help.svg';
-import GetAppIcon from '../../../icons/file_download.svg';
-import SettingsHeader from '../SettingsHeader';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
-import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
-import Select from '../../cds/inputs/Select';
-import settingsStyles from '../Settings.module.css';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import HelpIcon from '../../icons/help.svg';
+import IosShareIcon from '../../icons/ios_share.svg';
+import SettingsHeader from '../team/SettingsHeader';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
+import Select from '../cds/inputs/Select';
+import settingsStyles from '../team/Settings.module.css';
 
 const messagesDescription = 'Explanation on table header, when hovering the "help" icon, on data settings page';
 const messages = defineMessages({
@@ -159,7 +159,7 @@ function formatValue(header, value) {
   return formattedValue;
 }
 
-const TeamDataComponent = ({
+const TiplineDataComponent = ({
   data,
   defaultLanguage,
   intl,
@@ -246,15 +246,27 @@ const TeamDataComponent = ({
     pom.click();
   };
 
+  const dates = [];
+  rows.forEach((row) => {
+    dates.push(formatValue('Month', row.Month));
+  });
+  // const dates = ['Sep 2024', 'Jan 2023', 'Dec 2023', 'Feb 2024'];
+  const parseMonthYear = (value) => {
+    const [month, year] = value.split(' ');
+    const monthIndex = new Date(`${month} 1`).getMonth();
+    return new Date(year, monthIndex);
+  };
+  dates.sort((a, b) => parseMonthYear(a) - parseMonthYear(b));
+
   return (
     <>
       <SettingsHeader
         actionButton={
           <ButtonMain
-            iconLeft={<GetAppIcon />}
+            iconLeft={<IosShareIcon />}
             label={
               <FormattedMessage
-                defaultMessage="Download CSV"
+                defaultMessage="Export"
                 description="Label for action button displayed on workspace data report page."
                 id="teamDataComponent.download"
               />
@@ -273,6 +285,7 @@ const TeamDataComponent = ({
             values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data' }}
           />
         }
+        dates={dates}
         extra={(platforms.length > 1 || languages.length > 1) &&
           <>
             { platforms.length > 1 ?
@@ -295,7 +308,7 @@ const TeamDataComponent = ({
         }
         title={
           <FormattedMessage
-            defaultMessage="Tipline engagement data"
+            defaultMessage="All Data:"
             description="Header for the stored data page of the current team"
             id="teamDataComponent.title"
           />
@@ -384,16 +397,16 @@ const TeamDataComponent = ({
   );
 };
 
-TeamDataComponent.defaultProps = {
+TiplineDataComponent.defaultProps = {
   data: null,
   defaultLanguage: null,
 };
 
-TeamDataComponent.propTypes = {
+TiplineDataComponent.propTypes = {
   slug: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.object), // or null
   defaultLanguage: PropTypes.string, // or null
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(TeamDataComponent);
+export default injectIntl(TiplineDataComponent);
