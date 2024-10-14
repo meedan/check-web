@@ -187,8 +187,7 @@ services:
     networks:
       - dev
     depends_on:
-      elasticmq:
-        condition: service_healthy
+      - elasticmq
       - redis
   presto-video:
     build: presto
