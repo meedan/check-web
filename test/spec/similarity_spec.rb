@@ -85,7 +85,6 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-
   it 'should prepare environment for media similarity tests', bin8: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     pm = api_create_claim(data: data, quote: 'Just kicking off Alegre service.')
