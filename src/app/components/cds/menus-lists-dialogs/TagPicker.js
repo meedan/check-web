@@ -124,29 +124,31 @@ const TagPicker = ({
           )}
         </FormattedMessage>
       </Popover>
-      <Tooltip
-        arrow
-        placement="top"
-        title={
-          <FormattedMessage
-            defaultMessage="Manage Tags"
-            description="Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
-            id="taglist.tooltipManage"
-          />
-        }
-      >
-        <div>
-          <ButtonMain
-            className="int-tag-list__button--manage"
-            disabled={readOnly}
-            iconCenter={<TagMoreIcon />}
-            size="small"
-            theme="lightText"
-            variant="contained"
-            onClick={handleOpenMenu}
-          />
-        </div>
-      </Tooltip>
+      { !readOnly &&
+        <Tooltip
+          arrow
+          placement="top"
+          title={
+            <FormattedMessage
+              defaultMessage="Manage Tags"
+              description="Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
+              id="taglist.tooltipManage"
+            />
+          }
+        >
+          <div>
+            <ButtonMain
+              className="int-tag-list__button--manage"
+              disabled={readOnly}
+              iconCenter={<TagMoreIcon />}
+              size="small"
+              theme="lightText"
+              variant="contained"
+              onClick={handleOpenMenu}
+            />
+          </div>
+        </Tooltip>
+      }
       { saving && <MediasLoading size="icon" theme="grey" variant="icon" /> }
     </div>
   );
