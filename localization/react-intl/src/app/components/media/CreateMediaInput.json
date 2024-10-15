@@ -1,13 +1,23 @@
 [
   {
+    "id": "createMedia.createIntro",
+    "description": "This is introduction text to tell the user what the process is for creating a new cluster of media",
+    "defaultMessage": "Create a new cluster of media in this workspace by adding the first piece of media for the new cluster."
+  },
+  {
+    "id": "createMedia.createIntroType",
+    "description": "This description is to let the user know what types of media can be created",
+    "defaultMessage": "Media in a cluster can be a <strong>URL, block of text, image, audio, or video</strong> file."
+  },
+  {
+    "id": "createMedia.textBased",
+    "description": "This is a label for the text-based component to let the use know what type of media will be created",
+    "defaultMessage": "Text-based Media"
+  },
+  {
     "id": "createMedia.mediaInput",
     "description": "Placeholder text for the media URL input",
     "defaultMessage": "Add a URL to a social media post or webpage, or a block of text."
-  },
-  {
-    "id": "createMedia.mediaMediaSubtitle",
-    "description": "Subtitle for the section of the media that contains the claim being created",
-    "defaultMessage": "The media that contains the claim."
   },
   {
     "id": "createMedia.mediaInputLabel",
@@ -15,9 +25,9 @@
     "defaultMessage": "URL or Text Block"
   },
   {
-    "id": "createMedia.or",
-    "description": "This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled.",
-    "defaultMessage": "or"
+    "id": "createMedia.audioVisual",
+    "description": "This is a label for the audio visual upload media component to let the use know what type of media will be created",
+    "defaultMessage": "Audio/Visual Media"
   },
   {
     "id": "createMedia.mediaRemoveFile",
