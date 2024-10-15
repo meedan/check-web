@@ -54,6 +54,9 @@ services:
   presto-video:
     environment:
       BOILERPLATE_ENV: test
+  presto-mean-tokens:
+    environment:
+      BOILERPLATE_ENV: test
   web:
     environment:
       PLATFORM: web
