@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -164,7 +163,7 @@ const TiplineRequest = ({
       ) : (
         intl.formatMessage(messages.smoochNoMessage)
       )}
-      time={<TimeBefore date={updatedAt} />}
+      time={<TimeBefore date={updatedAt} includeTime />}
     />
   );
 };
@@ -174,6 +173,12 @@ TiplineRequest.defaultProps = {
 };
 
 TiplineRequest.propTypes = {
+  annotated: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    media: PropTypes.shape({
+      file_path: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
   annotation: PropTypes.shape({
     smooch_data: PropTypes.object.isRequired,
     created_at: PropTypes.string.isRequired,
@@ -182,12 +187,6 @@ TiplineRequest.propTypes = {
     smooch_report_update_received_at: PropTypes.number,
     associated_graphql_id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
-  }).isRequired,
-  annotated: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    media: PropTypes.shape({
-      file_path: PropTypes.string.isRequired,
-    }).isRequired,
   }).isRequired,
   hideButtons: PropTypes.bool,
   intl: intlShape.isRequired,
