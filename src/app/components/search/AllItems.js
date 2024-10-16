@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Search from './Search';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
-import CategoryIcon from '../../icons/category.svg';
+import PermMediaIcon from '../../icons/perm_media.svg';
 
 export default function AllItems({ routeParams }) {
   const defaultQuery = { sort: 'recent_activity' };
@@ -15,8 +15,8 @@ export default function AllItems({ routeParams }) {
         hideFields={[
           'cluster_teams', 'cluster_published_reports', 'feed_fact_checked_by',
         ]}
-        icon={<CategoryIcon />}
-        listSubtitle={<FormattedMessage defaultMessage="Tipline" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}
+        icon={<PermMediaIcon />}
+        listSubtitle={<FormattedMessage defaultMessage="Media Clusters List" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}
         mediaUrlPrefix={`/${routeParams.team}/media`}
         page="all-items"
         query={safelyParseJSON(routeParams.query, defaultQuery)}

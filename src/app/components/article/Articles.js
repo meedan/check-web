@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -167,7 +166,7 @@ const ArticlesComponent = ({
           <div className={searchResultsStyles.searchResultsTitleWrapper}>
             <div className={searchResultsStyles.searchHeaderSubtitle}>
               <FormattedMessage
-                defaultMessage="Articles"
+                defaultMessage="Articles List"
                 description="Sub header for the articles lists to indicate they are in the articles section"
                 id="articles.subheader"
               />
@@ -306,28 +305,6 @@ ArticlesComponent.defaultProps = {
 };
 
 ArticlesComponent.propTypes = {
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
-  title: PropTypes.node.isRequired, // <FormattedMessage />
-  icon: PropTypes.node.isRequired,
-  page: PropTypes.number,
-  sort: PropTypes.oneOf(['title', 'language', 'updated_at']),
-  sortType: PropTypes.oneOf(['ASC', 'DESC']),
-  filters: PropTypes.object,
-  defaultFilters: PropTypes.object,
-  team: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
-  onChangeSearchParams: PropTypes.func.isRequired,
-  onChangeArticleType: PropTypes.func,
-  updateMutation: PropTypes.object.isRequired,
-  filterOptions: PropTypes.arrayOf(PropTypes.string),
-  sortOptions: PropTypes.arrayOf(PropTypes.exact({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired, // Localizable string
-  })),
-  statuses: PropTypes.object,
-  articlesCount: PropTypes.number,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -347,6 +324,28 @@ ArticlesComponent.propTypes = {
       }),
     }),
   })),
+  articlesCount: PropTypes.number,
+  defaultFilters: PropTypes.object,
+  filterOptions: PropTypes.arrayOf(PropTypes.string),
+  filters: PropTypes.object,
+  icon: PropTypes.node.isRequired,
+  page: PropTypes.number,
+  sort: PropTypes.oneOf(['title', 'language', 'updated_at']),
+  sortOptions: PropTypes.arrayOf(PropTypes.exact({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired, // Localizable string
+  })),
+  sortType: PropTypes.oneOf(['ASC', 'DESC']),
+  statuses: PropTypes.object,
+  team: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
+  title: PropTypes.node.isRequired, // <FormattedMessage />
+  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
+  updateMutation: PropTypes.object.isRequired,
+  onChangeArticleType: PropTypes.func,
+  onChangeSearchParams: PropTypes.func.isRequired,
 };
 
 // Used in unit test
@@ -503,17 +502,17 @@ Articles.defaultProps = {
 
 Articles.propTypes = {
   articleTypeReadOnly: PropTypes.bool,
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
-  title: PropTypes.node.isRequired, // <FormattedMessage />
-  icon: PropTypes.node.isRequired,
-  teamSlug: PropTypes.string.isRequired,
-  filterOptions: PropTypes.arrayOf(PropTypes.string),
   defaultFilters: PropTypes.object,
-  updateMutation: PropTypes.object.isRequired,
+  filterOptions: PropTypes.arrayOf(PropTypes.string),
+  icon: PropTypes.node.isRequired,
   sortOptions: PropTypes.arrayOf(PropTypes.exact({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired, // Localizable string
   })),
+  teamSlug: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired, // <FormattedMessage />
+  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
+  updateMutation: PropTypes.object.isRequired,
   onChangeArticleType: PropTypes.func,
 };
 

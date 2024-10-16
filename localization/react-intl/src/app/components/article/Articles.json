@@ -12,7 +12,7 @@
   {
     "id": "articles.subheader",
     "description": "Sub header for the articles lists to indicate they are in the articles section",
-    "defaultMessage": "Articles"
+    "defaultMessage": "Articles List"
   },
   {
     "id": "articles.blank",

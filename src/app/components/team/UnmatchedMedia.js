@@ -25,7 +25,7 @@ const UnmatchedMedia = ({ routeParams }) => {
       defaultQuery={{ ...defaultFilters, ...defaultSort }}
       hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
       icon={<UnmatchedIcon />}
-      listSubtitle={<FormattedMessage defaultMessage="Tipline" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}
+      listSubtitle={<FormattedMessage defaultMessage="Media Clusters List" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}
       mediaUrlPrefix={`/${routeParams.team}/media`}
       page="unmatched-media"
       query={query}

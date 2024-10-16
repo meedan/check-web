@@ -32,12 +32,12 @@
   {
     "id": "projectsComponent.lists",
     "description": "List of items with some filters applied",
-    "defaultMessage": "Custom FIltered Lists"
+    "defaultMessage": "Custom Filtered Lists"
   },
   {
     "id": "projectsComponent.newListButton",
     "description": "Tooltip for button that opens list creation dialog",
-    "defaultMessage": "New list"
+    "defaultMessage": "New Custom Filtered List"
   },
   {
     "id": "projectsComponent.noCustomLists",
@@ -67,11 +67,11 @@
   {
     "id": "projectsComponent.newListSuccessMessage",
     "description": "Success message when new list is created",
-    "defaultMessage": "List created successfully"
+    "defaultMessage": "Filtered List created successfully"
   },
   {
     "id": "projectsComponent.newList",
     "description": "Title for a dialog to create a new list displayed on the left sidebar.",
-    "defaultMessage": "New List"
+    "defaultMessage": "New Custom Filtered List"
   }
 ]

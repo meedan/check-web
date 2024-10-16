@@ -376,7 +376,7 @@ const SearchFields = ({
       />
     ),
     show: (
-      <FormattedMessage defaultMessage="Type is" description="Prefix label for field to filter by media type" id="search.show">
+      <FormattedMessage defaultMessage="Media in cluster is" description="Prefix label for field to filter by media type" id="search.show">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
@@ -392,7 +392,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     show_similar: (
-      <FormattedMessage defaultMessage="Include matched media" description="Label for filter field to display matched media" id="search.showSimilar">
+      <FormattedMessage defaultMessage="Include matched media clusters" description="Label for filter field to display matched media" id="search.showSimilar">
         { label => (
           <MultiSelectFilter
             allowSearch={false}

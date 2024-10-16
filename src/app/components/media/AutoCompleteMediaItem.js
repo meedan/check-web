@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -306,6 +305,11 @@ const AutoCompleteMediaItem = (props, context) => {
               }
               iconLeft={<SearchIcon />}
               id="autocomplete-media-item"
+              label={
+                props.selectedItemType === 'fact-check' ?
+                  <FormattedMessage defaultMessage="Search Articles" description="Textfield input label to let the user know they are searching for artilces" id="autoCompleteMediaItem.textFieldArticlesLabel" />
+                  : <FormattedMessage defaultMessage="Search Media Clusters" description="Textfield input label to let the user know they are searching for clusters of media" id="autoCompleteMediaItem.textFieldClustersLabel" />
+              }
               name="autocomplete-media-item"
               placeholder={placeholder}
               onChange={handleChangeSearchText}
@@ -428,22 +432,22 @@ AutoCompleteMediaItem.contextTypes = {
 };
 
 AutoCompleteMediaItem.defaultProps = {
-  dbid: null,
-  typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
   customFilter: null,
-  showFilters: false,
-  multiple: false,
+  dbid: null,
   disablePublished: false,
+  multiple: false,
+  showFilters: false,
+  typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
 };
 
 AutoCompleteMediaItem.propTypes = {
-  // onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
-  dbid: PropTypes.number, // filter results: do _not_ select this number
-  typesToShow: PropTypes.arrayOf(PropTypes.string),
   customFilter: PropTypes.func,
-  showFilters: PropTypes.bool,
-  multiple: PropTypes.bool,
+  dbid: PropTypes.number, // filter results: do _not_ select this number
   disablePublished: PropTypes.bool,
+  multiple: PropTypes.bool,
+  showFilters: PropTypes.bool,
+  typesToShow: PropTypes.arrayOf(PropTypes.string),
+  // onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
 };
 
 export default injectIntl(AutoCompleteMediaItem);

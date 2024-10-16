@@ -13,7 +13,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
-import PermMediaIcon from '../../icons/perm_media.svg';
+import AttachFileIcon from '../../icons/attach_file.svg';
 import searchStyles from './search.module.css';
 
 class SearchKeyword extends React.Component {
@@ -281,7 +281,7 @@ class SearchKeyword extends React.Component {
                   <Tooltip arrow title={<FormattedMessage defaultMessage="Search with file" description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt." id="search.file" />}>
                     <span>
                       <ButtonMain
-                        iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <PermMediaIcon />}
+                        iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <AttachFileIcon />}
                         size="small"
                         theme="lightText"
                         variant="text"
