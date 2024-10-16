@@ -24,26 +24,26 @@ const FeedContent = ({
 
     <div className="typography-body2">
 
-      {/* Feed is sharing fact-checks but not media/claim/requests */}
+      {/* Feed is sharing claim & fact-checks but not media & requests */}
       { dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS) && !dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
         <FormattedHTMLMessage
-          defaultMessage="Select a custom filtered list of <strong>published fact-checks</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
-          description="Helper text for the feed content section when the feed is sharing only fact-checks."
+          defaultMessage="Select a custom filtered list of <strong>published claim & fact-checks</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+          description="Helper text for the feed content section when the feed is sharing only claim & fact-checks."
           id="saveFeed.feedContentBlurbFactChecksOnly"
         /> : null }
 
-      {/* Feed is sharing media/claim/requests but not fact-checks */}
+      {/* Feed is sharing media & requests but not claim & fact-checks */}
       { !dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS) && dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
         <FormattedHTMLMessage
-          defaultMessage="Select a custom filtered list of <strong>media, claims & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
-          description="Helper text for the feed content section when the feed is sharing only media."
+          defaultMessage="Select a custom filtered list of <strong>media clusters & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+          description="Helper text for the feed content section when the feed is sharing only media clusters and requests containing that media."
           id="saveFeed.feedContentBlurbMediaOnly"
         /> : null }
 
-      {/* Feed is sharing both fact-checks and media/claim/requests */}
+      {/* Feed is sharing both claim & fact-checks and media & requests */}
       { dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS) && dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
         <FormattedHTMLMessage
-          defaultMessage="Select a custom filtered list of <strong>published fact-checks or media, claims & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+          defaultMessage="Select a custom filtered list of <strong>published claim & fact-checks or media clusters & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
           description="Helper text for the feed content section when the feed is sharing fact-checks and media."
           id="saveFeed.feedContentBlurbFactChecksAndMedia"
         /> : null }

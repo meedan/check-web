@@ -1,13 +1,13 @@
 [
   {
     "id": "createMediaButton.newMediaItem",
-    "description": "Label of a button that opens a form to create a new media item.",
-    "defaultMessage": "Add Media"
+    "description": "Label of a button that opens a form to create a new media cluster.",
+    "defaultMessage": "Add Media Cluster"
   },
   {
     "id": "createMediaButton.addNewItem",
-    "description": "Dialog title for adding a new item",
-    "defaultMessage": "Add Media"
+    "description": "Dialog title for adding a new cluster of media",
+    "defaultMessage": "Add New Media Cluster"
   },
   {
     "id": "global.cancel",
@@ -15,8 +15,8 @@
     "defaultMessage": "Cancel"
   },
   {
-    "id": "global.submit",
-    "description": "Generic label for a button or link for a user to press when they wish to submit and form or action",
-    "defaultMessage": "Submit"
+    "id": "createMediaButton.addNewMediaCluster",
+    "description": "Label of a button that submits the form to creata new media cluster",
+    "defaultMessage": "Add Media Cluster"
   }
 ]
