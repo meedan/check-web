@@ -27,6 +27,18 @@ jobs:
       contains(github.event.head_commit.message, '[similarity tests]')
 
     steps:
+    - name: Chown user
+      run: |
+        sudo chown -R $USER:$USER $GITHUB_WORKSPACE
+        
+    - name: free disk space
+      run: |
+        sudo apt clean
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        df -h 
     - uses: actions/checkout@v4
 
     - name: Configure AWS Credentials
