@@ -3,7 +3,7 @@ name: Build and Run Tests
 on:
   push:
     branches:
-    - CV2-5260-run-integration-tests
+    - CV2-5261-run-check-similarity-tests
   # pull_request:
   #   branches:
   #   - Epic-4798/migraton-of-check-web-ci
