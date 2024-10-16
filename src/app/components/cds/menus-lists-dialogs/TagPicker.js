@@ -139,7 +139,6 @@ const TagPicker = ({
           <div>
             <ButtonMain
               className="int-tag-list__button--manage"
-              disabled={readOnly}
               iconCenter={<TagMoreIcon />}
               size="small"
               theme="lightText"
