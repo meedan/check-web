@@ -135,7 +135,7 @@ jobs:
         IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
       run: | 
         docker ps
-        docker compose exec web bash service nginx start
+        docker compose exec web service nginx start
         docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start 
         docker compose exec -T \
           -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID \
@@ -151,7 +151,7 @@ jobs:
     
     - name: After similarity tests
       run: |
-       docker compose exec web bash -c "python -m json.tool test/file.json"
+       docker-compose exec web bash -c "python -m json.tool test/file.json"
        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
        kill -9 $(pgrep ngrok)
 
@@ -267,7 +267,7 @@ jobs:
         IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
       run: | 
         docker ps
-        docker compose exec web bash service nginx start
+        docker compose exec web service nginx start
         docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start 
         docker compose exec -T \
           -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID \
