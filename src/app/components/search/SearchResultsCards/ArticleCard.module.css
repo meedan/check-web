@@ -1,4 +1,5 @@
 .articleCard {
+  border-radius: var(--border-radius-default);
   display: block;
   min-width: 500px;
 
