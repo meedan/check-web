@@ -19,7 +19,7 @@ jobs:
   similarity-tests:
     runs-on: 
       group: check-runner
-      labels: self-hosted
+      labels: check
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
@@ -35,7 +35,7 @@ jobs:
         docker stop $(docker ps -a -q)
         docker rm $(docker ps -a -q)
         docker rmi -f $(docker images -aq)
-        
+
     - name: free disk space
       run: |
         sudo apt clean
