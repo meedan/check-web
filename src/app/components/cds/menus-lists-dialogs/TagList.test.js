@@ -38,9 +38,9 @@ describe('TagList', () => {
     expect(wrapper.find('#hidden-tags')).toHaveLength(1);
   });
 
-  it('render disabled menu button in read only mode', () => {
+  it('does not render disabled menu button in read only mode', () => {
     const wrapper = mount(<TagList {...defaultProps} readOnly />);
-    expect(wrapper.find('ButtonMain.int-tag-list__button--manage')).toHaveLength(1);
+    expect(wrapper.find('ButtonMain.int-tag-list__button--manage')).toHaveLength(0);
   });
 });
 
