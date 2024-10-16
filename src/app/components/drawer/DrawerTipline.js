@@ -141,7 +141,7 @@ const DrawerTiplineComponent = ({
             >
               <PersonIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" id="projectsComponent.assignedToMe" tagName="span" />
+                <FormattedMessage defaultMessage="Assigned to Me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" id="projectsComponent.assignedToMe" tagName="span" />
               </div>
               <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
             </li>
