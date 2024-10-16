@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -23,6 +22,7 @@ const UserTosComponent = (props) => {
 
   const handleSubmit = () => {
     const onSuccess = () => {
+      props.setOpenDialog(false);
     };
     const onFailure = () => {
       setMessage(<FormattedMessage defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists." description="Message displayed in error notification when an operation fails unexpectedly" id="global.unknownError" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />);
@@ -71,7 +71,7 @@ const UserTosComponent = (props) => {
         size="default"
         theme="info"
         variant="contained"
-        onClick={handleSubmit.bind(this)}
+        onClick={() => handleSubmit()}
       />
     </div>,
   ];
@@ -94,8 +94,9 @@ const UserTosComponent = (props) => {
 };
 
 UserTosComponent.propTypes = {
-  user: PropTypes.object.isRequired,
   about: PropTypes.object.isRequired,
+  setOpenDialog: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const UserTosContainer = Relay.createContainer(injectIntl(UserTosComponent), {
@@ -111,14 +112,14 @@ const UserTosContainer = Relay.createContainer(injectIntl(UserTosComponent), {
 const UserTos = (props) => {
   const route = new AboutRoute();
   const { user } = props;
-  const openDialog = user && user.dbid && !user.accepted_terms;
+  const [openDialog, setOpenDialog] = React.useState(user && user.dbid && !user.accepted_terms);
 
   return (
     <Dialog className={dialogStyles['dialog-window']} open={openDialog}>
       <RelayContainer
         Component={UserTosContainer}
         renderFetched={data =>
-          <UserTosContainer user={user} {...data} />
+          <UserTosContainer {...data} setOpenDialog={setOpenDialog} user={user} />
         }
         route={route}
       />
