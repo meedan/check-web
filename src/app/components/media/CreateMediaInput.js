@@ -154,13 +154,13 @@ class CreateMediaInput extends React.Component {
     return (
       <>
         <FormattedMessage
-          defaultMessage="Create a new cluster of media in this workspace by adding the first piece of media for the new cluster."
+          defaultMessage="Create a new media cluster in this workspace by adding the first piece of media for the new cluster."
           description="This is introduction text to tell the user what the process is for creating a new cluster of media"
           id="createMedia.createIntro"
           tagName="p"
         />
         <FormattedHTMLMessage
-          defaultMessage="Media in a cluster can be a <strong>URL, block of text, image, audio, or video</strong> file."
+          defaultMessage="Media in a cluster can be a <strong>URL, block of text, image, audio, or video</strong>."
           description="This description is to let the user know what types of media can be created"
           id="createMedia.createIntroType"
           tagName="p"
