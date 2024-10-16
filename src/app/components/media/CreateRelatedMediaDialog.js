@@ -38,6 +38,7 @@ class CreateRelatedMediaDialog extends React.Component {
         action,
         selectedItem: null,
         selectedItems: [],
+        selectedItemType: 'fact-check',
         typesToShow: ['blank'],
       });
     } else if (action !== null) {
@@ -45,6 +46,7 @@ class CreateRelatedMediaDialog extends React.Component {
         action,
         selectedItem: null,
         selectedItems: [],
+        selectedItemType: 'media',
         typesToShow: null,
       });
     }
@@ -248,6 +250,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 key={action}
                 media={media}
                 multiple={action === 'addSimilarToThis'}
+                selectedItemType={this.state.selectedItemType}
                 showFilters={Boolean(this.props.showFilters)}
                 typesToShow={this.state.typesToShow}
                 onSelect={this.handleSelectExisting}
