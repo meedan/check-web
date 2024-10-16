@@ -39,13 +39,14 @@ const AssignedToMe = ({ routeParams }) => (
               defaultQuery={defaultQuery}
               hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_AssignedToMe_reports']}
               icon={<PersonIcon />}
+              listSubtitle={<FormattedMessage defaultMessage="Media Clusters List" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}
               mediaUrlPrefix={`/${routeParams.team}/media`}
               page="assigned-to-me"
               query={query}
               readOnlyFields={['assigned_to']}
               searchUrlPrefix={`/${routeParams.team}/assigned-to-me`}
               teamSlug={routeParams.team}
-              title={<FormattedMessage defaultMessage="Assigned to me" description="Title of the 'assigned to me' list page. It lists items assigned to the current user" id="assignedTo.title" />}
+              title={<FormattedMessage defaultMessage="Media Clusters Assigned to Me" description="Title of the 'assigned to me' list page. It lists items assigned to the current user" id="assignedTo.title" />}
             />
           );
         }
