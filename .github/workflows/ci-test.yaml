@@ -30,6 +30,11 @@ jobs:
     - name: Chown user
       run: |
         sudo chown -R $USER:$USER $GITHUB_WORKSPACE
+    - name: Remove images and stop containers
+      run: |
+        docker stop $(docker ps -a -q)
+        docker rm $(docker ps -a -q)
+        docker rmi -f $(docker images -aq)
         
     - name: free disk space
       run: |
