@@ -21,6 +21,7 @@ const SharedItemCardFooter = ({
   mediaType,
   onChangeTags,
   onSeeMore,
+  readOnly,
   requestsCount,
   suggestionsCount,
   tags,
@@ -36,6 +37,7 @@ const SharedItemCardFooter = ({
       tags && onChangeTags && (
         <TagList
           maxTags={5}
+          readOnly={readOnly}
           setTags={onChangeTags}
           tags={tags}
           teamSlug={teamSlug}
@@ -79,6 +81,7 @@ const SharedItemCardFooter = ({
 SharedItemCardFooter.defaultProps = {
   mediaCount: null,
   mediaType: null,
+  readOnly: false,
   requestsCount: null,
   suggestionsCount: null,
   languageCode: null,
@@ -98,6 +101,7 @@ SharedItemCardFooter.propTypes = {
   lastRequestDate: PropTypes.instanceOf(Date),
   mediaCount: PropTypes.number,
   mediaType: PropTypes.string,
+  readOnly: PropTypes.bool,
   requestsCount: PropTypes.number,
   suggestionsCount: PropTypes.number,
   tags: PropTypes.arrayOf(PropTypes.string),
