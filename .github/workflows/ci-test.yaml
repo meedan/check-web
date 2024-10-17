@@ -30,11 +30,6 @@ jobs:
     - name: Chown user
       run: |
         sudo chown -R $USER:$USER $GITHUB_WORKSPACE
-    - name: Remove images and stop containers
-      run: |
-        docker stop $(docker ps -a -q)
-        docker rm $(docker ps -a -q)
-        docker rmi -f $(docker images -aq)
 
     - name: free disk space
       run: |
@@ -183,7 +178,7 @@ jobs:
       run: |
         echo "Cleaning up the runner directory..."
         sudo rm -rf /home/ubuntu/actions-runner/check/* 
-        
+
   integration-and-unit-tests:
     runs-on: ubuntu-latest
     if: >
