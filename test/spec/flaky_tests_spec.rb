@@ -17,7 +17,7 @@ module FlakyTests
     }
     client = Aws::S3::Client.new(config)
     s3 = Aws::S3::Resource.new(client: client)
-    bucket_name = 'check-web-github'
+    bucket_name = 'check-web-travis'
     s3.bucket(bucket_name).object(KEY)
   end
 
