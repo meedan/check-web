@@ -50,7 +50,7 @@ const TimelineWidget = ({
           <XAxis
             axisLine={false}
             dataKey="date"
-            interval="equidistantPreserveStart"
+            interval="equidistant"
             tick={{ fill: 'var(--color-gray-15)' }}
             tickFormatter={tickFormatter}
             tickLine={{ stroke: 'var(--color-gray-75)' }}

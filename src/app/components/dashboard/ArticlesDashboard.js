@@ -4,9 +4,16 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import TimeFrameSelect from './TimeFrameSelect';
 import LanguageSelect from './LanguageSelect';
-import TimelineWidget from '../cds/charts/TimelineWidget';
-import NumberWidget from '../cds/charts/NumberWidget';
-import ListWidget from '../cds/charts/ListWidget';
+import ListTopArticlesSent from './ListTopArticlesSent';
+import ListTopArticlesTags from './ListTopArticlesTags';
+import NumberArticlesSent from './NumberArticlesSent';
+import NumberExplainersCreated from './NumberExplainersCreated';
+import NumberFactChecksCreated from './NumberFactChecksCreated';
+import NumberPublishedFactChecks from './NumberPublishedFactChecks';
+import StackedBarSearchResultsByType from './StackedBarSearchResultsByType';
+import TimelineArticlesCreatedAndUpdated from './TimelineArticlesCreatedAndUpdated';
+import VerticalBarFactChecksByRating from './VerticalBarFactChecksByRating';
+import MediasLoading from '../media/MediasLoading';
 import styles from './Dashboard.module.css';
 
 const ArticlesDashboard = ({ team }) => (
@@ -16,44 +23,26 @@ const ArticlesDashboard = ({ team }) => (
         <TimeFrameSelect />
         <LanguageSelect languages={team.get_languages} />
       </div>
-      <TimelineWidget
-        data={[
-          { date: '2018-01-01', value: 0 },
-          { date: '2018-01-02', value: 0 },
-          { date: '2018-01-03', value: 0 },
-          { date: '2018-01-04', value: 0 },
-          { date: '2018-01-05', value: 0 },
-          { date: '2018-01-06', value: 0 },
-          { date: '2018-01-07', value: 0 },
-        ]}
-        title="Articles Added & Updated"
-      />
+      <TimelineArticlesCreatedAndUpdated statistics={team.statistics} />
       <div className={styles['dashboard-two-column']}>
-        <div className={styles['dashboard-two-column']}>
-          <NumberWidget itemCount={999} title="Explainers Created" />
-          <NumberWidget itemCount={999} title="Fact-Checks Created" />
+        <div className={styles['dashboard-single-column']}>
+          <div className={styles['dashboard-two-column']}>
+            <NumberExplainersCreated statistics={team.statistics} />
+            <NumberFactChecksCreated statistics={team.statistics} />
+          </div>
+          <NumberPublishedFactChecks statistics={team.statistics} />
+          <div className={styles['dashboard-combo']}>
+            <NumberArticlesSent statistics={team.statistics} />
+            <StackedBarSearchResultsByType statistics={team.statistics} />
+          </div>
         </div>
-        <div className={styles['dashboard-two-column']}>
-          <ListWidget
-            items={[
-              { itemText: 'Article 1', itemValue: 999 },
-              { itemText: 'Article 2', itemValue: 888 },
-              { itemText: 'Article 3', itemValue: 777 },
-              { itemText: 'Article 4', itemValue: 666 },
-              { itemText: 'Article 5', itemValue: 555 },
-            ]}
-            title="Top Explainers Sent"
-          />
-          <ListWidget
-            items={[
-              { itemText: 'Article 1', itemValue: 999 },
-              { itemText: 'Article 2', itemValue: 888 },
-              { itemText: 'Article 3', itemValue: 777 },
-              { itemText: 'Article 4', itemValue: 666 },
-              { itemText: 'Article 5', itemValue: 555 },
-            ]}
-            title="Top Article Tags"
-          />
+
+        <div className={styles['dashboard-single-column']}>
+          <div className={styles['dashboard-two-column']}>
+            <ListTopArticlesSent statistics={team.statistics} />
+            <ListTopArticlesTags statistics={team.statistics} />
+          </div>
+          <VerticalBarFactChecksByRating statistics={team.statistics} />
         </div>
       </div>
     </div>
@@ -67,6 +56,17 @@ const ArticlesDashboardQueryRenderer = ({ routeParams }) => (
       query ArticlesDashboardQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           get_languages
+          statistics(period: "last_week") {
+            ...ListTopArticlesSent_statistics
+            ...ListTopArticlesTags_statistics
+            ...NumberArticlesSent_statistics
+            ...NumberExplainersCreated_statistics
+            ...NumberFactChecksCreated_statistics
+            ...NumberPublishedFactChecks_statistics
+            ...StackedBarSearchResultsByType_statistics
+            ...TimelineArticlesCreatedAndUpdated_statistics
+            ...VerticalBarFactChecksByRating_statistics
+          }
         }
       }
     `}
@@ -78,7 +78,7 @@ const ArticlesDashboardQueryRenderer = ({ routeParams }) => (
       }
 
       // TODO: We need a better error handling in the future, standardized with other components
-      return null;
+      return <MediasLoading size="large" theme="white" variant="page" />;
     }}
     variables={{ teamSlug: routeParams.team }}
   />

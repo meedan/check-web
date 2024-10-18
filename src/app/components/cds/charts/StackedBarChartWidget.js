@@ -35,7 +35,7 @@ const StackedBarChartWidget = ({
     fill: d.name === 'empty' ? 'var(--color-gray-88)' : (d.color || colors[i % colors.length]),
   }));
 
-  const dataSum = data.reduce((acc, d) => acc + d.value, 0);
+  const dataSum = data.reduce((acc, d) => (d.name === 'empty' ? acc : acc + d.value), 0);
 
   const barChartData = { name: 'Data' };
 
@@ -44,7 +44,7 @@ const StackedBarChartWidget = ({
   });
 
   const getBarRadius = (i, length) => {
-    if (length === 1) return [50, 50, 50, 50];
+    if (length === 1 || dataSum === 0) return [50, 50, 50, 50];
     if (i === 0) return [50, 0, 0, 50];
     if (i === length - 1) return [0, 50, 50, 0];
     return [0, 0, 0, 0];
@@ -103,7 +103,7 @@ const StackedBarChartWidget = ({
               onMouseLeave={() => setMouseOverBar(null)}
             />
           ))}
-          <XAxis hide type="number" />
+          <XAxis domain={[0, dataSum]} hide type="number" />
           <YAxis dataKey="name" hide type="category" />
           <Tooltip
             content={<CustomTooltip />}

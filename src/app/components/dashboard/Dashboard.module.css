@@ -28,5 +28,27 @@
         flex: 1;
       }
     }
+
+    .dashboard-single-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dashboard-combo {
+      background-color: var(--color-white-100);
+      border-radius: var(--border-radius-large);
+      display: flex;
+      flex-direction: row;
+    }
+
+    .dashboard-combo > div:first-child {
+      flex: 1;
+      margin: 16px 0 16px 16px;
+    }
+
+    .dashboard-combo > div:last-child {
+      flex: 2;
+    }
   }
 }
