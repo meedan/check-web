@@ -91,11 +91,11 @@ const ChooseExistingArticleButton = ({
               </div>
               <div className={styles.seachResults}>
                 { !search && (
-                  <div className={cx('typography-body2', styles.heading)}>
+                  <div className={cx('typography-subtitle2', styles.heading)}>
                     <FormattedMessage
-                      defaultMessage="Recent Articles"
-                      description="Label for the list of articles."
-                      id="chooseExistingArticleButton.recentArticles"
+                      defaultMessage="Choose a recent article to add to this media:"
+                      description="Message displayed on articles sidebar when an item has no articles."
+                      id="mediaArticles.chooseRecentArticle"
                     />
                   </div>
                 )}
@@ -103,6 +103,7 @@ const ChooseExistingArticleButton = ({
               </div>
             </div>
           }
+          contentScrollable={Boolean(false)}
           footer
           showCancel
           title={title}

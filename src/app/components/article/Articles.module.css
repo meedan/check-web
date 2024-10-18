@@ -16,29 +16,27 @@
 
   .articlesSidebarScroller {
     @mixin scroll-indicator-top 16px, var(--color-white-100), var(--color-beige-86);
-    border: solid 1px var(--color-orange-60);
     overflow-y: auto;
     padding: 16px;
     position: relative;
     width: 100%;
+  }
 
-    .articlesSidebarNoArticle {
-      border: 2px dashed var(--color-gray-88);
-      border-radius: var(--border-radius-default);
-      color: var(--color-gray-75);
-      font-style: italic;
-      margin: 0 0 32px;
-      padding: 16px;
-      text-align: center;
+  .articlesSidebarNoArticle {
+    border: 2px dashed var(--color-gray-88);
+    border-radius: var(--border-radius-default);
+    color: var(--color-gray-75);
+    font-style: italic;
+    margin: 0 0 32px;
+    padding: 16px;
+    text-align: center;
 
-      :global(.check-icon) {
-        font-size: var(--font-size-h4);
-      }
+    :global(.check-icon) {
+      font-size: var(--font-size-h4);
     }
   }
 
   .articlesSidebarList {
-    border: solid 2px;
     display: flex;
     flex-direction: column;
     gap: 10px;

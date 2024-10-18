@@ -1,14 +1,19 @@
 .contentWrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  height: 100%;
 
-  .seachHeader {
-    border: solid 2px;
+  .seachHeader,
+  .seachResults {
+    padding: 16px;
   }
 
   .seachResults {
-    border: solid 2px;
+    @mixin scroll-indicator-top 16px, var(--color-white-100), var(--color-beige-86);
+    overflow-y: auto;
+    padding: 16px;
+    position: relative;
+    width: 100%;
   }
 }
 
