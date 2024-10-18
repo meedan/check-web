@@ -2,6 +2,14 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  .seachHeader {
+    border: solid 2px;
+  }
+
+  .seachResults {
+    border: solid 2px;
+  }
 }
 
 .heading {

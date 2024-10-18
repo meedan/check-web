@@ -188,8 +188,8 @@ class MediaComponent extends Component {
         { view === 'default' || view === 'similarMedia' ?
           <React.Fragment>
             <div className={cx('media__column', styles['media-item-medias'])}>
+              { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} /> : null }
               <div className={styles['media-item-content']}>
-                { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} /> : null }
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
                     feedId={projectMedia.imported_from_feed_id}

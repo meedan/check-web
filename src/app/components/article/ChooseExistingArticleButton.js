@@ -73,21 +73,23 @@ const ChooseExistingArticleButton = ({
         <Slideout
           content={
             <div className={styles.contentWrapper}>
-              <FormattedMessage
-                defaultMessage="Search by article title or summary"
-                description="Label for the search field to find an article."
-                id="chooseExistingArticleButton.search"
-              >
-                {placeholder => (
-                  <TextField
-                    iconLeft={<SearchIcon />}
-                    id="search-articles"
-                    placeholder={placeholder}
-                    onChange={e => handleType(e.target.value)}
-                  />
-                )}
-              </FormattedMessage>
-              <div>
+              <div className={styles.seachHeader}>
+                <FormattedMessage
+                  defaultMessage="Search by article title or summary"
+                  description="Label for the search field to find an article."
+                  id="chooseExistingArticleButton.search"
+                >
+                  {placeholder => (
+                    <TextField
+                      iconLeft={<SearchIcon />}
+                      id="search-articles"
+                      placeholder={placeholder}
+                      onChange={e => handleType(e.target.value)}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+              <div className={styles.seachResults}>
                 { !search && (
                   <div className={cx('typography-body2', styles.heading)}>
                     <FormattedMessage
