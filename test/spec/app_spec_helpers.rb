@@ -161,7 +161,7 @@ module AppSpecHelpers
 
   def create_image(file)
     # show the side navigation for workspace tipline
-    wait_for_selector('#side-navigation__tipline-toggle').click
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/all-items"
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media-button__open-button').click
