@@ -2104,7 +2104,7 @@ const SandboxComponent = ({ admin }) => {
                   >
                     <option value="2024">2024</option>
                     <option value="0">0</option>
-                    <option value="-">null</option>
+                    <option value="null">null</option>
                   </Select>
                 </li>
                 <li>
@@ -2125,7 +2125,7 @@ const SandboxComponent = ({ admin }) => {
               <NumberWidget
                 color={numberWidgetBackgroundColor}
                 contextText={numberWidgetContextText ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae.' : null}
-                itemCount={numberWidgetItemCount}
+                itemCount={numberWidgetItemCount === 'null' ? null : numberWidgetItemCount}
                 title="Title"
                 unit={numberWidgetUnit ? 'unit' : null}
               />

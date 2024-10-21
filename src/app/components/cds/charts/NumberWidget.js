@@ -13,11 +13,9 @@ const NumberWidget = ({
     <div className={styles.numberWidgetTitle}>
       {title}
     </div>
-    { itemCount &&
-      <div className={styles.numberWidgetItemCount}>
-        {itemCount} { unit && itemCount !== '-' && <span className={styles.numberWidgetUnit}>{unit}</span> }
-      </div>
-    }
+    <div className={styles.numberWidgetItemCount}>
+      { itemCount || '-' } { unit && itemCount !== '-' && itemCount !== null && <span className={styles.numberWidgetUnit}>{unit}</span> }
+    </div>
     { contextText &&
       <div className={styles.numberWidgetContextText}>
         {contextText}
