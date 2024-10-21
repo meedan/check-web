@@ -1,5 +1,10 @@
 [
   {
+    "id": "search.tiplineSubHeader",
+    "description": "Displayed on top of the tipline lists title on the search results page.",
+    "defaultMessage": "Media Clusters List"
+  },
+  {
     "id": "suggestedMatches.title",
     "description": "Header for suggested media page",
     "defaultMessage": "Suggestions"

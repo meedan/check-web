@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -80,7 +79,7 @@ const FeedItemHeader = ({ cluster, feed, team }) => {
             iconLeft={<PermMediaIcon />}
             label={
               <FormattedMessage
-                defaultMessage="Import Media to Workspace"
+                defaultMessage="Import Media Clusters"
                 description="Label of a button displayed on the feed item page that when clicked allows the user to import media from the feed into the workspace."
                 id="feedItemHeader.importMediaToWorkspace"
               />
@@ -98,13 +97,6 @@ const FeedItemHeader = ({ cluster, feed, team }) => {
 };
 
 FeedItemHeader.propTypes = {
-  team: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
-  feed: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
   cluster: PropTypes.shape({
     title: PropTypes.string.isRequired,
     last_request_date: PropTypes.number,
@@ -116,6 +108,13 @@ FeedItemHeader.propTypes = {
         url: PropTypes.string,
       }),
     }).isRequired,
+  }).isRequired,
+  feed: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
   }).isRequired,
 };
 

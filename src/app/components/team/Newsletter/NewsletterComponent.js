@@ -457,7 +457,6 @@ const NewsletterComponent = ({
               onSubmit={handleLanguageChange}
             /> : null
         }
-        helpUrl="https://help.checkmedia.org/en/articles/8722205-newsletter"
         title={
           <FormattedMessage
             defaultMessage="Newsletter"

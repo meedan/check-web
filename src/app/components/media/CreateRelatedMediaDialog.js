@@ -38,6 +38,7 @@ class CreateRelatedMediaDialog extends React.Component {
         action,
         selectedItem: null,
         selectedItems: [],
+        selectedItemType: 'fact-check',
         typesToShow: ['blank'],
       });
     } else if (action !== null) {
@@ -45,6 +46,7 @@ class CreateRelatedMediaDialog extends React.Component {
         action,
         selectedItem: null,
         selectedItems: [],
+        selectedItemType: 'media',
         typesToShow: null,
       });
     }
@@ -119,7 +121,7 @@ class CreateRelatedMediaDialog extends React.Component {
                       <ButtonMain
                         disabled
                         iconLeft={<ImportToMediaIcon />}
-                        label={<FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />}
+                        label={<FormattedMessage defaultMessage="Import into this Media Cluster" description="Tab text for importing media into this item" id="createMedia.import" />}
                         size="default"
                         theme="text"
                         variant="text"
@@ -135,7 +137,7 @@ class CreateRelatedMediaDialog extends React.Component {
                     value="addSimilarToThis"
                   >
                     <ImportToMediaIcon />
-                    <FormattedMessage defaultMessage="Import into this Media" description="Tab text for importing media into this item" id="createMedia.import" />
+                    <FormattedMessage defaultMessage="Import into this Media Cluster" description="Tab text for importing media into this item" id="createMedia.import" />
                   </ToggleButton>
                 )}
 
@@ -143,13 +145,13 @@ class CreateRelatedMediaDialog extends React.Component {
                   <>
                     <Tooltip
                       arrow
-                      title={<FormattedMessage defaultMessage="This media contains a published fact-check. Unpublish or remove the fact-check to export to another media." description="Tooltip text for when exporting media from this item is not allowed" id="createMedia.exportTooltip" />}
+                      title={<FormattedMessage defaultMessage="This media cluster contains a published fact-check. Unpublish or remove the fact-check to export to another media." description="Tooltip text for when exporting media from this item is not allowed" id="createMedia.exportTooltip" />}
                     >
                       <span>
                         <ButtonMain
                           disabled
                           iconRight={<ExportToMediaIcon />}
-                          label={<FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />}
+                          label={<FormattedMessage defaultMessage="Export to another Media Cluster" description="Tab text for exporting media out of this item" id="createMedia.export" />}
                           size="default"
                           theme="text"
                           variant="text"
@@ -158,7 +160,7 @@ class CreateRelatedMediaDialog extends React.Component {
                     </Tooltip>
                     <Tooltip
                       arrow
-                      title={<FormattedMessage defaultMessage="This media contains a published fact-check. Remove the fact-check to add to an existing imported fact-check." description="Tooltip text for when adding media from this item is not allowed" id="createMedia.addTooltip" />}
+                      title={<FormattedMessage defaultMessage="This media cluster contains a published fact-check. Remove the fact-check to add to an existing imported fact-check." description="Tooltip text for when adding media from this item is not allowed" id="createMedia.addTooltip" />}
                     >
                       <span>
                         <ButtonMain
@@ -180,7 +182,7 @@ class CreateRelatedMediaDialog extends React.Component {
                     key="2"
                     value="addThisToSimilar"
                   >
-                    <FormattedMessage defaultMessage="Export to another Media" description="Tab text for exporting media out of this item" id="createMedia.export" />
+                    <FormattedMessage defaultMessage="Export to another Media Cluster" description="Tab text for exporting media out of this item" id="createMedia.export" />
                     <ExportToMediaIcon />
                   </ToggleButton>
                 )}
@@ -248,6 +250,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 key={action}
                 media={media}
                 multiple={action === 'addSimilarToThis'}
+                selectedItemType={this.state.selectedItemType}
                 showFilters={Boolean(this.props.showFilters)}
                 typesToShow={this.state.typesToShow}
                 onSelect={this.handleSelectExisting}
