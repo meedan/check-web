@@ -2170,7 +2170,7 @@ const SandboxComponent = ({ admin }) => {
                       id: 'item1',
                     },
                     {
-                      itemValue: '94607',
+                      itemValue: null,
                       itemLink: 'e.not/a/working/url/',
                       itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
                       id: 'item2',

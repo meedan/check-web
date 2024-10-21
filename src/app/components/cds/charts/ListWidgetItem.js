@@ -16,7 +16,7 @@ const ListWidgetItem = ({
         :
         <div className={styles.listWidgetItemText}>{itemText}</div>
     }
-    <div className={styles.listWidgetItemValue}>{itemValue}</div>
+    <div className={styles.listWidgetItemValue}>{itemValue || '-'}</div>
   </li>
 );
 
