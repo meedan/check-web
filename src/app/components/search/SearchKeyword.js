@@ -283,7 +283,7 @@ class SearchKeyword extends React.Component {
                       <ButtonMain
                         iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <AttachFileIcon />}
                         size="small"
-                        theme="lightText"
+                        theme="lightBeige"
                         variant="text"
                         onClick={this.triggerInputFile}
                       />

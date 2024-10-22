@@ -231,8 +231,8 @@ const ItemTitleComponent = ({
         <ListSubheader>
           <span className={cx('typography-body1-bold', styles.itemTitleMenuHeader)}>
             <FormattedMessage
-              defaultMessage="Select Item Name"
-              description="Header for a menu containing content options for item title"
+              defaultMessage="Select Media Cluster Name"
+              description="Header for a menu containing content options for title of the cluster of media"
               id="itemTitle.menuHeader"
             />
           </span>
