@@ -2104,7 +2104,7 @@ const SandboxComponent = ({ admin }) => {
                   >
                     <option value="2024">2024</option>
                     <option value="0">0</option>
-                    <option value="-">null</option>
+                    <option value="null">null</option>
                   </Select>
                 </li>
                 <li>
@@ -2170,7 +2170,7 @@ const SandboxComponent = ({ admin }) => {
                       id: 'item1',
                     },
                     {
-                      itemValue: '94607',
+                      itemValue: null,
                       itemLink: 'e.not/a/working/url/',
                       itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
                       id: 'item2',
