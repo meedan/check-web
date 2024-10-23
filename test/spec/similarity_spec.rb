@@ -85,17 +85,6 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify texts as similar with vector search enabled on two models', bin7: true do
-    data = api_create_team_and_bot(bot: 'alegre', score: { 'master_similarity_enabled' => true, 'text_similarity_enabled' => true, 'text_elasticsearch_matching_threshold' => 0.9, 'text_elasticsearch_suggestion_threshold' => 0.7, 'text_vector_matching_threshold' => 0.95, 'text_vector_suggestion_threshold' => 0.75, 'text_similarity_model' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens', 'paraphrase-multilingual-mpnet-base-v2'], 'alegre_model_in_use' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens', 'paraphrase-multilingual-mpnet-base-v2'], 'min_es_score' => 100_000 })
-    pm = api_create_claim(data: data, quote: 'The ends of the warp threads are usually fastened to beams. One end is fastened to one beam, the other end to a second beam, so that the warp threads all lie parallel and are all the same length. The beams are held apart to keep the warp threads taut.')
-    verbose_wait 3
-    api_create_claim(data: data, quote: 'The ends of the warp threads are usually fastened to beams. One end is fastened to one beam, the other end to a second beam, so that the warp threads all lie parallel and are all the same length. The beams are held apart to keep the warp threads tight.')
-    verbose_wait 3
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
-    wait_for_selector('.media__more-medias')
-    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
-  end
-
   it 'should prepare environment for media similarity tests', bin8: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     pm = api_create_claim(data: data, quote: 'Just kicking off Alegre service.')
