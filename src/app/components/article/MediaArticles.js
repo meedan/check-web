@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -217,9 +216,6 @@ const MediaArticlesComponent = ({
 };
 
 MediaArticlesComponent.propTypes = {
-  team: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
@@ -227,6 +223,9 @@ MediaArticlesComponent.propTypes = {
     claim_description: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }),
+  }).isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
@@ -284,8 +283,8 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
 };
 
 MediaArticles.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
   projectMediaDbid: PropTypes.number.isRequired,
+  teamSlug: PropTypes.string.isRequired,
 };
 
 export default MediaArticles;
