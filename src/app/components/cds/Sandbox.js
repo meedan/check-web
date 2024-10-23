@@ -2125,7 +2125,7 @@ const SandboxComponent = ({ admin }) => {
               <NumberWidget
                 color={numberWidgetBackgroundColor}
                 contextText={numberWidgetContextText ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae.' : null}
-                itemCount={numberWidgetItemCount === 'null' ? null : numberWidgetItemCount}
+                itemCount={numberWidgetItemCount}
                 title="Title"
                 unit={numberWidgetUnit ? 'unit' : null}
               />
