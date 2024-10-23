@@ -24,4 +24,18 @@ describe('<TimeBefore />', () => {
     expect(content.length).toEqual(1);
     expect(content.text()).toMatch('2017');
   });
+
+  it('should display date and time when includeTime is true', () => {
+    const wrapper = mountWithIntlProvider(<TimeBefore date={new Date('2023-10-01T10:30:00Z')} includeTime />);
+    const content = wrapper.find('time');
+    expect(content.text()).toMatch('2023');
+    expect(content.text()).toMatch('10:30 AM');
+  });
+
+  it('should display only date when includeTime is not passed', () => {
+    const wrapper = mountWithIntlProvider(<TimeBefore date={new Date('2023-10-01T10:30:00Z')} />);
+    const content = wrapper.find('time');
+    expect(content.text()).toMatch('2023');
+    expect(content.text()).not.toMatch('10:30 AM');
+  });
 });

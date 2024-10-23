@@ -30,6 +30,16 @@
     "defaultMessage": "Type above to search"
   },
   {
+    "id": "autoCompleteMediaItem.textFieldArticlesLabel",
+    "description": "Textfield input label to let the user know they are searching for artilces",
+    "defaultMessage": "Search Articles"
+  },
+  {
+    "id": "autoCompleteMediaItem.textFieldClustersLabel",
+    "description": "Textfield input label to let the user know they are searching for clusters of media",
+    "defaultMessage": "Search Media Clusters"
+  },
+  {
     "id": "autoCompleteMediaItem.cantSelectPublished",
     "description": "Tooltip error message about when media can be imported",
     "defaultMessage": "Media cannot be imported from items that have their report published"

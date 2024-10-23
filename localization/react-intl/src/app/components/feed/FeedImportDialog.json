@@ -12,7 +12,7 @@
   {
     "id": "feedImportDialog.title",
     "description": "Title for the import media dialog on the feed item page.",
-    "defaultMessage": "{mediaCount, plural, one {Import # media into your workspace} other {Import # media into your workspace}}"
+    "defaultMessage": "{mediaCount, plural, one {Import # Media Clusters to your Workspace} other {Import # Media Clusters to your Workspace}}"
   },
   {
     "id": "feedImportDialog.typeCreate",
@@ -47,7 +47,7 @@
   {
     "id": "feedImportDialog.explanationImportTypeAdd",
     "description": "Explanation on import dialog on feed item page.",
-    "defaultMessage": "Add the selected media to your matching  workspace item."
+    "defaultMessage": "Add the selected media to your matching workspace item."
   },
   {
     "id": "feedImportDialog.lastSubmitted",
@@ -87,6 +87,6 @@
   {
     "id": "feedImportDialog.import",
     "description": "Label of a confirmation button on the import dialog window on the feed item page.",
-    "defaultMessage": "Import Media"
+    "defaultMessage": "Import Media Clusters"
   }
 ]

@@ -8,10 +8,16 @@ function hoursDiff(date2, date1) {
   return Math.abs(Math.round(diff));
 }
 
-const TimeBefore = ({ date, intl }) => {
+const TimeBefore = ({ date, includeTime, intl }) => {
   if (new Date(date).toString() === 'Invalid Date') {
     return '-';
   }
+
+  const dateOptions = includeTime
+    ? {
+      month: 'short', year: 'numeric', day: '2-digit', hour: 'numeric', minute: 'numeric',
+    }
+    : { month: 'short', year: 'numeric', day: '2-digit' };
   return (
     <FormattedDate
       day="numeric"
@@ -24,7 +30,7 @@ const TimeBefore = ({ date, intl }) => {
       {title => (
         <time dateTime={date.toISOString()} title={title}>
           { hoursDiff(new Date(), date) >= 24 ?
-            date.toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' }) :
+            date.toLocaleDateString(intl.locale, dateOptions) :
             <FormattedRelative value={date} /> }
         </time>
       )}
@@ -32,8 +38,13 @@ const TimeBefore = ({ date, intl }) => {
   );
 };
 
+TimeBefore.defaultProps = {
+  includeTime: false,
+};
+
 TimeBefore.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,
+  includeTime: PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

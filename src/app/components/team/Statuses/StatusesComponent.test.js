@@ -50,7 +50,7 @@ describe('<StatusesComponent/>', () => {
     // languages
     expect(wrapper.find('#language-change').hostNodes()).toHaveLength(1);
     // statuses
-    expect(wrapper.find('.component__settings-header h5').text()).toMatch('English Statuses [3]');
+    expect(wrapper.find('.component__settings-header h6').text()).toMatch('Statuses [3]');
     expect(wrapper.html()).toMatch('Undetermined');
     expect(wrapper.html()).toMatch('True');
     expect(wrapper.html()).toMatch('In Progress');

@@ -16,7 +16,6 @@ import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { stringHelper } from '../../../customHelpers';
 import { getErrorMessage } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
-import { languageName } from '../../../LanguageRegistry';
 import settingsStyles from '../Settings.module.css';
 
 const StatusesComponent = ({ setFlashMessage, team }) => {
@@ -242,11 +241,10 @@ const StatusesComponent = ({ setFlashMessage, team }) => {
         }
         title={
           <FormattedMessage
-            defaultMessage="{languageName} Statuses [{statusCount}]"
+            defaultMessage="Statuses [{statusCount}]"
             description="The idea of this sentence is 'statuses written in language <languageName>'"
             id="statusesComponent.title"
             values={{
-              languageName: languageName(currentLanguage),
               statusCount: statuses.length,
             }}
           />

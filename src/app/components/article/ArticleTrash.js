@@ -3,6 +3,7 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ExternalLink from '../ExternalLink';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -20,6 +21,10 @@ const updateExplainer = graphql`
         id
         trashed
       }
+      team {
+        explainerCount: articles_count(article_type: "explainer")
+        trashCount: articles_count(trashed: true)
+      }
     }
   }
 `;
@@ -30,6 +35,12 @@ const updateFactCheck = graphql`
       fact_check {
         id
         trashed
+      }
+      team {
+        factChecksCount: articles_count(article_type: "fact-check")
+        publishedCount: articles_count(article_type: "fact-check", report_status: "published")
+        importedCount: articles_count(article_type: "fact-check", imported: true)
+        trashCount: articles_count(trashed: true)
       }
     }
   }
@@ -93,7 +104,7 @@ const ArticleTrash = ({
     />
   );
 
-  const factCheckBody = type === 'fact-check' && article.claim_description?.project_media ? (
+  const factCheckBody = type === 'fact-check' && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' ? (
     <div>
       {associationWarning}
       {deletionWarning}
@@ -165,8 +176,7 @@ const ArticleTrash = ({
     setFlashMessage(message, 'success');
     onClose();
     handleDialogClose();
-    // FIXME: Replace this reload with a NODE_DELETE, RANGE_DELETE relay config
-    window.location.reload();
+    browserHistory.push(`${window.location.pathname}?reload=true`);
   };
 
   const handleProceed = () => {
@@ -269,6 +279,7 @@ export default createFragmentContainer(ArticleTrash, graphql`
         project_media {
           title
           full_url
+          type
         }
       }
     }

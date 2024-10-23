@@ -2,7 +2,7 @@
   {
     "id": "numericRangeFilter.linkedItems",
     "description": "Filter option that refers to number of media",
-    "defaultMessage": "Media (count) is between"
+    "defaultMessage": "Media in cluster (count) is between"
   },
   {
     "id": "numericRangeFilter.suggestedItems",

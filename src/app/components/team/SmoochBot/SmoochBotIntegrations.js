@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../../cds/inputs/TextField';
 import GetAppIcon from '../../../icons/file_download.svg';
 import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
@@ -40,7 +40,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
 
   return (
     <React.Fragment>
-      <Box display="flex" flexWrap="wrap" justifyContent="space-between">
+      <div className={smoochBotStyles['smoochbot-integration-buttons']}>
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ec472becaf"
@@ -107,9 +107,12 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                           setTimeout(() => { setCopied(null); }, 1000);
                         }}
                       >
-                        <IconButton>
-                          <FileCopyOutlinedIcon />
-                        </IconButton>
+                        <ButtonMain
+                          iconCenter={<FileCopyOutlinedIcon />}
+                          size="default"
+                          theme="lightText"
+                          variant="text"
+                        />
                       </CopyToClipboard>
                     </Tooltip>
                   </Box>
@@ -160,17 +163,24 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                             setTimeout(() => { setCopied(null); }, 1000);
                           }}
                         >
-                          <IconButton>
-                            <FileCopyOutlinedIcon />
-                          </IconButton>
+                          <ButtonMain
+                            iconCenter={<FileCopyOutlinedIcon />}
+                            size="default"
+                            theme="lightText"
+                            variant="text"
+                          />
                         </CopyToClipboard>
                       </Tooltip>
                     </Box>
                     <Box alignItems="flex-start" display="flex" mt={2}>
                       <QRCodeCanvas id="whatsapp-qr-code-canvas" size={192} value={`https://wa.me/${enabledIntegrations?.whatsapp?.phoneNumber.replace(/[^0-9]/g, '')}`} />
-                      <IconButton onClick={handleDownloadWhatsAppQrCode}>
-                        <GetAppIcon />
-                      </IconButton>
+                      <ButtonMain
+                        iconCenter={<GetAppIcon />}
+                        size="default"
+                        theme="lightText"
+                        variant="text"
+                        onClick={handleDownloadWhatsAppQrCode}
+                      />
                     </Box>
                   </Box>
                 </Box>
@@ -351,7 +361,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           type="instagram"
           url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
         />
-      </Box>
+      </div>
     </React.Fragment>
   );
 };

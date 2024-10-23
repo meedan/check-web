@@ -24,7 +24,7 @@ describe('<UploadFileComponent />', () => {
       onChange={() => {}}
       onError={() => {}}
     />);
-    expect(wrapper.html()).toMatch('Drop an audio file here, or click to upload a file');
+    expect(wrapper.html()).toMatch('Click or drag an audio file here to upload.');
     expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
@@ -36,7 +36,7 @@ describe('<UploadFileComponent />', () => {
       onChange={() => {}}
       onError={() => {}}
     />);
-    expect(wrapper.html()).toMatch('Drop a video file here, or click to upload a file');
+    expect(wrapper.html()).toMatch('Click or drag a video file here to upload.');
     expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
@@ -48,7 +48,7 @@ describe('<UploadFileComponent />', () => {
       onChange={() => {}}
       onError={() => {}}
     />);
-    expect(wrapper.html()).toMatch('Drop an image file here, or click to upload a file');
+    expect(wrapper.html()).toMatch('Click or drag an image here to upload.');
     expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
@@ -60,7 +60,7 @@ describe('<UploadFileComponent />', () => {
       onChange={() => {}}
       onError={() => {}}
     />);
-    expect(wrapper.html()).toMatch('Drop a file here, or click to upload a file');
+    expect(wrapper.html()).toMatch('Click or drag a file here to upload.');
     expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
@@ -73,7 +73,7 @@ describe('<UploadFileComponent />', () => {
       onError={() => {}}
     />);
     //
-    expect(wrapper.html()).toMatch('Drop a file here, or click to upload a file');
+    expect(wrapper.html()).toMatch('Click or drag a file here to upload.');
     expect(wrapper.find('.int-uploadfile__dropzone-without-file').hostNodes()).toHaveLength(1);
   });
 
@@ -85,7 +85,7 @@ describe('<UploadFileComponent />', () => {
       onChange={() => {}}
       onError={() => {}}
     />);
-    expect(wrapper.html()).not.toMatch('Drop a file here, or click to upload a file');
+    expect(wrapper.html()).not.toMatch('Click or drag a file here to upload.');
     expect(wrapper.find('.int-uploadfile__dropzone-with-file').hostNodes()).toHaveLength(1);
   });
 });

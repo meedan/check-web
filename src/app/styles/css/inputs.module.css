@@ -123,12 +123,10 @@
     padding: 16px;
   }
 
-  + .form-inner-wrapper {
-    margin: 16px 0 0;
-  }
-
-  + .form-footer-actions {
-    margin: 16px 0 0;
+  + .form-inner-wrapper,
+  + .form-footer-actions,
+  + .form-fieldset-field {
+    margin-top: 16px;
   }
 }
 
@@ -146,7 +144,7 @@
   }
 
   .form-fieldset-field {
-    margin: 0 0 16px;
+    margin-bottom: 16px;
 
     &.form-autocomplete-create {
       display: flex;
@@ -163,11 +161,11 @@
     }
 
     &:last-of-type {
-      margin: 0;
+      margin-bottom: 0;
     }
   }
 
   + .form-fieldset {
-    margin: 16px 0 0;
+    margin-top: 16px;
   }
 }

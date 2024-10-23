@@ -11,7 +11,7 @@ import styles from './search.module.css';
 const messages = defineMessages({
   linkedItems: {
     id: 'numericRangeFilter.linkedItems',
-    defaultMessage: 'Media (count) is between',
+    defaultMessage: 'Media in cluster (count) is between',
     description: 'Filter option that refers to number of media',
   },
   suggestedItems: {

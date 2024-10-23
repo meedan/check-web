@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
+import cx from 'classnames/bind';
 import MediaArticleCard from './MediaArticleCard';
 import ClaimFactCheckForm from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
@@ -28,8 +29,17 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
 
   return (
     <div className={styles.mediaArticlesDisplay}>
+      <div className="typography-subtitle2">
+        <FormattedMessage
+          defaultMessage="Articles Delivered to Tipline Requests"
+          description="Title for the list of articles being delivered to users of the tipline for this cluster of media"
+          id="mediaArticlesDisplay.listTitle"
+        />
+      </div>
       { hasFactCheck ?
         <MediaArticleCard
+          claimSummary={factCheck.claim_description.context}
+          claimTitle={factCheck.claim_description.description}
           date={new Date(factCheck.updated_at * 1000)}
           id={factCheck.claim_description.id}
           key={factCheck.id}
@@ -38,8 +48,8 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
           removeDisabled={projectMedia.type === 'Blank'}
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
-          summary={isFactCheckValueBlank(factCheck.summary) ? factCheck.claim_description.context : factCheck.summary}
-          title={isFactCheckValueBlank(factCheck.title) ? factCheck.claim_description.description : factCheck.title}
+          summary={isFactCheckValueBlank(factCheck.summary) ? null : factCheck.summary}
+          title={isFactCheckValueBlank(factCheck.title) ? null : factCheck.title}
           url={factCheck.url}
           variant="fact-check"
           onClick={() => { setArticleToEdit(factCheck); }}
@@ -73,9 +83,13 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
 
         return (
           <div
-            className={styles.explainerCard}
+            className={cx(
+              [styles.explainerCard],
+              {
+                [styles.explainerCardDimmed]: hasFactCheck && hasExplainer,
+              })
+            }
             key={explainerItem.id}
-            style={{ opacity: ((hasFactCheck && hasExplainer) ? 0.15 : 1) }}
           >
             <MediaArticleCard
               date={new Date(explainer.updated_at * 1000)}
