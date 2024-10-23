@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getDisplayValue } from './NumberWidget';
 import { isValidURL } from '../../../helpers';
 import styles from './ListWidget.module.css';
 
@@ -16,7 +17,7 @@ const ListWidgetItem = ({
         :
         <div className={styles.listWidgetItemText}>{itemText}</div>
     }
-    <div className={styles.listWidgetItemValue}>{itemValue || '-'}</div>
+    <div className={styles.listWidgetItemValue}>{getDisplayValue(itemValue)}</div>
   </li>
 );
 
@@ -24,14 +25,14 @@ ListWidgetItem.defaultProps = {
   id: null,
   itemLink: null,
   itemText: null,
-  itemValue: '-',
+  itemValue: null,
 };
 
 ListWidgetItem.propTypes = {
   id: PropTypes.string,
   itemLink: PropTypes.string,
   itemText: PropTypes.node,
-  itemValue: PropTypes.string,
+  itemValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default ListWidgetItem;

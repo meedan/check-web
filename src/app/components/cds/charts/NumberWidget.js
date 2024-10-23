@@ -53,4 +53,5 @@ NumberWidget.propTypes = {
   unit: PropTypes.node,
 };
 
+export { getDisplayValue };
 export default NumberWidget;
