@@ -18,6 +18,7 @@ import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getSuperAdminMask } from '../../helpers';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
+import PushPinIcon from '../../icons/push_pin.svg';
 import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
 import styles from './media.module.css';
@@ -233,6 +234,12 @@ class MediaComponent extends Component {
                     onClose={() => this.setState({ openMediaDialog: false })}
                   />
                   : null }
+                {projectMedia.linked_items_count > 1 &&
+                  <div className={styles['media-item-medias-header']}>
+                    <PushPinIcon />
+                    Pinned Media
+                  </div>
+                }
                 <MediaCardLarge
                   currentUserRole={currentUserRole}
                   projectMedia={projectMedia}
@@ -242,7 +249,14 @@ class MediaComponent extends Component {
                 { isSuggestedOrSimilar ?
                   null
                   :
-                  <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} />
+                  <>
+                    {projectMedia.linked_items_count > 1 &&
+                      <div className={styles['media-item-medias-header']}>
+                        Similar Media in Cluster [{projectMedia.linked_items_count - 1}]
+                      </div>
+                    }
+                    <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} />
+                  </>
                 }
               </div>
             </div>
@@ -304,6 +318,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     notes_count: annotations_count(annotation_type: "comment")
     report_status
     suggested_similar_items_count
+    linked_items_count
     imported_from_feed_id
     imported_from_project_media_id
     suggested_similar_relationships(first: 10000) {

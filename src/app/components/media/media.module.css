@@ -126,6 +126,24 @@
       align-self: flex-start;
       display: flex;
       max-height: 100%;
+
+      .media-item-content {
+        .media-item-medias-header {
+          @mixin typography-subtitle2;
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          padding: 0 16px 16px 0;
+
+          &:not(:first-child) {
+            padding: 16px 16px 0 0;
+          }
+
+          svg {
+            font-size: var(--iconSizeSmall);
+          }
+        }
+      }
     }
 
     .media-item-column-header {
