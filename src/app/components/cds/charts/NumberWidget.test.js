@@ -1,5 +1,5 @@
 import React from 'react';
-import NumberWidget from './NumberWidget';
+import NumberWidget, { getDisplayValue } from './NumberWidget';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<NumberWidget />', () => {
@@ -25,5 +25,13 @@ describe('<NumberWidget />', () => {
 
   it('renders without crashing if not required are null', () => {
     mountWithIntl(<NumberWidget {...nullProps} />);
+  });
+
+  it('displays the a random number, 0 or null correctly', () => {
+    expect(getDisplayValue(0)).toEqual('0');
+    expect(getDisplayValue(2024)).toEqual('2024');
+    expect(getDisplayValue('0')).toEqual('0');
+    expect(getDisplayValue('2024')).toEqual('2024');
+    expect(getDisplayValue(null)).toEqual('-');
   });
 });
