@@ -54,7 +54,7 @@ class ErrorBoundary extends React.Component {
     const { component, intl } = this.props;
 
     const callIntercom = (data) => {
-      if (Intercom) {
+      if (window.Intercom) {
         Intercom(
           'showNewMessage',
           `${intl.formatMessage(messages.askSupport)}\n\n${data.url}`,
