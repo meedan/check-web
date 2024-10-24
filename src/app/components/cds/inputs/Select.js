@@ -72,7 +72,6 @@ const Select = ({
               })
             }
             disabled={disabled}
-            id="check-select__input"
             ref={inputRef}
             {...inputProps}
           >

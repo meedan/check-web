@@ -1,0 +1,7 @@
+[
+  {
+    "id": "platformSelect.allPlatforms",
+    "description": "Option to select all platforms",
+    "defaultMessage": "Platforms: All"
+  }
+]

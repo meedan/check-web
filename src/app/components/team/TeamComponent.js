@@ -11,7 +11,6 @@ import TeamRules from './Rules';
 import TeamStatuses from './Statuses';
 import SmoochBot from './SmoochBot';
 import TeamTags from './TeamTags';
-import TeamData from './TeamData';
 import TeamTasks from './TeamTasks';
 import TeamReport from './TeamReport';
 import TeamMembers from './TeamMembers';
@@ -87,9 +86,6 @@ class TeamComponent extends Component {
               : null }
             { tab === 'newsletter'
               ? <Newsletter />
-              : null }
-            { tab === 'data'
-              ? <TeamData teamSlug={team.slug} />
               : null }
             { tab === 'rules'
               ? <TeamRules teamSlug={team.slug} />

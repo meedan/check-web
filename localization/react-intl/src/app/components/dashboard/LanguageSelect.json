@@ -1,0 +1,7 @@
+[
+  {
+    "id": "dashboard.allLanguages",
+    "description": "Option to select all languages",
+    "defaultMessage": "Languages: All"
+  }
+]

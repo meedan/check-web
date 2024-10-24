@@ -18,4 +18,15 @@ const CheckChannels = {
   SHARED_DATABASE: '12',
 };
 
+const humanTiplineNames = {
+  WHATSAPP: 'WhatsApp',
+  MESSENGER: 'Messenger',
+  TWITTER: 'X (Twitter)',
+  TELEGRAM: 'Telegram',
+  VIBER: 'Viber',
+  LINE: 'Line',
+  INSTAGRAM: 'Instagram',
+};
+
+export { humanTiplineNames };
 export default CheckChannels;
