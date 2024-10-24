@@ -204,6 +204,21 @@ services:
     depends_on:
       elasticmq:
         condition: service_healthy
+  presto-mean-tokens:
+    build: presto
+    platform: linux/amd64
+    volumes:
+      - "./presto:/app"
+    env_file:
+      - presto/.env_file
+    environment:
+      ROLE: worker
+      MODEL_NAME: mean_tokens.Model
+    networks:
+      - dev
+    depends_on:
+      elasticmq:
+        condition: service_healthy
   alegre:
     build: alegre
     ports:
@@ -214,9 +229,6 @@ services:
       - redis
       - elasticsearch
       - presto-server
-      - presto-image
-      - presto-audio
-      - presto-video
     env_file:
       - alegre/.env_file
     networks:
