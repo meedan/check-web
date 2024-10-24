@@ -237,7 +237,11 @@ class MediaComponent extends Component {
                 {projectMedia.linked_items_count > 1 &&
                   <div className={styles['media-item-medias-header']}>
                     <PushPinIcon />
-                    Pinned Media
+                    <FormattedMessage
+                      defaultMessage="Pinned Media"
+                      description="Title for the media in this list that is pinned to the top"
+                      id="mediaComponent.pinnedMedia"
+                    />
                   </div>
                 }
                 <MediaCardLarge
@@ -252,7 +256,12 @@ class MediaComponent extends Component {
                   <>
                     {projectMedia.linked_items_count > 1 &&
                       <div className={styles['media-item-medias-header']}>
-                        Similar Media in Cluster [{projectMedia.linked_items_count - 1}]
+                        <FormattedMessage
+                          defaultMessage="Similar Media in Cluster"
+                          description="Title for the remaining media in this list that are not pinned to the top"
+                          id="mediaComponent.similarMediaList"
+                        />
+                        &nbsp;[{projectMedia.linked_items_count - 1}]
                       </div>
                     }
                     <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} />

@@ -103,7 +103,7 @@ const ChooseExistingArticleButton = ({
               </div>
             </div>
           }
-          contentScrollable={Boolean(false)}
+          contentScrollable={false}
           footer
           showCancel
           title={title}
