@@ -27,6 +27,7 @@ const setInitialTab = (projectMedia) => {
   const articlesCount = projectMedia.articles_count;
   const suggestionsCount = projectMedia.suggested_similar_items_count;
   const requestsCount = projectMedia.requests_count;
+  const isSuggestedOrSimilar = (projectMedia.is_suggested || projectMedia.is_confirmed_similar_to_another_item);
 
   if (articlesCount === 0 && requestsCount === 0 && suggestionsCount === 0) {
     initialTab = 'articles';
@@ -50,6 +51,10 @@ const setInitialTab = (projectMedia) => {
 
   if (articlesCount === 0 && requestsCount >= 1 && suggestionsCount >= 1) {
     initialTab = 'suggestedMedia';
+  }
+
+  if (isSuggestedOrSimilar) {
+    initialTab = 'requests';
   }
 
   return initialTab;
