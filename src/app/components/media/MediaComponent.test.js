@@ -87,5 +87,4 @@ describe('<MediaComponent />', () => {
     const initialTab = setInitialTab(projectMedia);
     expect(initialTab).toBe('requests');
   });
-
 });
