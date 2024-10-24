@@ -78,7 +78,7 @@ const TimelineWidget = ({
 TimelineWidget.defaultProps = {
   areaColor: 'var(--color-green-50)',
   data: [],
-  height: 150,
+  height: '150px',
   lineColor: 'var(--color-green-50)',
   tooltipFormatter: value => value,
   width: '100%',

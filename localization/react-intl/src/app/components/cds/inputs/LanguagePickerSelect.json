@@ -7,7 +7,7 @@
   {
     "id": "LanguagePickerSelect.allLanguages",
     "description": "Label for the all languages option",
-    "defaultMessage": "All languages"
+    "defaultMessage": "Languages: All"
   },
   {
     "id": "LanguagePickerSelect.unknownLanguage",

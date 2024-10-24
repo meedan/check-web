@@ -15,7 +15,7 @@ const messages = defineMessages({
   },
   allLanguages: {
     id: 'LanguagePickerSelect.allLanguages',
-    defaultMessage: 'All languages',
+    defaultMessage: 'Languages: All',
     description: 'Label for the all languages option',
   },
   unknownLanguage: {

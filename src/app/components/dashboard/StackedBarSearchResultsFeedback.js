@@ -2,17 +2,17 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import StackedBarChartWidget from '../cds/charts/StackedBarChartWidget';
 
-const StackedBarSearchResultsByType = ({ statistics }) => (
+const StackedBarSearchResultsFeedback = ({ statistics }) => (
   <StackedBarChartWidget
     data={
       Object.entries(statistics.number_of_search_results_by_type).map(([name, value]) => ({ name, value }))
     }
-    title="Matched Results"
+    title="Search Results"
   />
 );
 
-export default createFragmentContainer(StackedBarSearchResultsByType, graphql`
-  fragment StackedBarSearchResultsByType_statistics on TeamStatistics {
+export default createFragmentContainer(StackedBarSearchResultsFeedback, graphql`
+  fragment StackedBarSearchResultsFeedback_statistics on TeamStatistics {
     number_of_search_results_by_type
   }
 `);
