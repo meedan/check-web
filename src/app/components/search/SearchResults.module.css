@@ -168,11 +168,13 @@
   }
 
   .search-results-scroller {
+    @mixin scroll-indicator-top 16px, var(--color-white-100), var(--color-beige-86);
     display: flex;
     flex-direction: column;
     gap: 8px;
     overflow: auto;
-    padding: 1px 16px 16px;
+    padding: 16px;
+    position: relative;
   }
 }
 

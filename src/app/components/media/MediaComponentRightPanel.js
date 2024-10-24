@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
+import cx from 'classnames/bind';
 import MediaTasks from './MediaTasks';
 import MediaRequests from './MediaRequests';
 import MediaSource from './MediaSource';
@@ -10,6 +11,7 @@ import MediaSuggestions from './Similarity/MediaSuggestions';
 import MediaSecondaryBanner from './MediaSecondaryBanner';
 import MediaArticles from '../article/MediaArticles';
 import ErrorBoundary from '../error/ErrorBoundary';
+import styles from './media.module.css';
 
 const MediaComponentRightPanel = ({
   projectMedia,
@@ -30,7 +32,7 @@ const MediaComponentRightPanel = ({
     <ErrorBoundary component="MediaComponentRightPanel">
       <MediaSecondaryBanner projectMedia={projectMedia} />
       <Tabs
-        className="media__annotations-tabs"
+        className={cx('media__annotations-tabs', styles['media-item-column-header'])}
         indicatorColor="primary"
         scrollButtons="auto"
         textColor="primary"

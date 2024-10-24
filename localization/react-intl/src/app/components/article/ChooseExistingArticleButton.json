@@ -15,8 +15,8 @@
     "defaultMessage": "Search by article title or summary"
   },
   {
-    "id": "chooseExistingArticleButton.recentArticles",
-    "description": "Label for the list of articles.",
-    "defaultMessage": "Recent Articles"
+    "id": "mediaArticles.chooseRecentArticle",
+    "description": "Message displayed on articles sidebar when an item has no articles.",
+    "defaultMessage": "Choose a recent article to add to this media:"
   }
 ]

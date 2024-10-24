@@ -189,7 +189,7 @@
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--color-blue-54), var(--color-blue-38, var(--color-blue-98));
+      @mixin main-button-text-theme var(--color-blue-54), var(--color-blue-38), var(--color-blue-98);
     }
   }
 

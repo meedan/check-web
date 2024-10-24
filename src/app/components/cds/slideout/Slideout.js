@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/i1LSbpQXKyA7dLc8AkgtKA/Articles?type=design&node-id=106-63346&mode=design&t=o7PouU0Z5ISH5G3K-0
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -12,6 +11,7 @@ import styles from './Slideout.module.css';
 const Slideout = ({
   cancelProps,
   content,
+  contentScrollable,
   footer,
   mainActionButton,
   onClose,
@@ -63,7 +63,14 @@ const Slideout = ({
             </Tooltip>
           </div>
         </div>
-        <div className={styles.slideoutBody}>
+        <div
+          className={cx(
+            [styles.slideoutBody],
+            {
+              [styles.slideoutBodyStatic]: !contentScrollable,
+            })
+          }
+        >
           {content}
         </div>
         { footer &&
@@ -111,25 +118,27 @@ const Slideout = ({
 };
 
 Slideout.defaultProps = {
-  content: null,
-  footer: false,
-  showCancel: false,
   cancelProps: {},
+  content: null,
+  contentScrollable: true,
+  footer: false,
   mainActionButton: null,
-  secondaryActionButton: null,
   optionalNode: null,
+  secondaryActionButton: null,
+  showCancel: false,
 };
 
 Slideout.propTypes = {
-  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-  content: PropTypes.node,
-  footer: PropTypes.bool,
-  onClose: PropTypes.func.isRequired,
-  showCancel: PropTypes.bool,
   cancelProps: PropTypes.object,
+  content: PropTypes.node,
+  contentScrollable: PropTypes.bool,
+  footer: PropTypes.bool,
   mainActionButton: PropTypes.instanceOf(ButtonMain),
-  secondaryActionButton: PropTypes.instanceOf(ButtonMain),
   optionalNode: PropTypes.node,
+  secondaryActionButton: PropTypes.instanceOf(ButtonMain),
+  showCancel: PropTypes.bool,
+  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Slideout;

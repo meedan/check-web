@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -151,30 +150,32 @@ const MediaArticlesComponent = ({
           onCreate={onUpdate}
         />
       </div>
-      { hasArticle ? (
-        <MediaArticlesDisplay projectMedia={projectMedia} onUpdate={onUpdate} />
-      ) : (
-        <div className={cx('typography-body1', styles.articlesSidebarNoArticleWrapper)}>
-          <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
-            <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
-            <div>
+      <div className={cx('typography-body1', styles.articlesSidebarScroller)}>
+        { hasArticle ? (
+          <MediaArticlesDisplay projectMedia={projectMedia} onUpdate={onUpdate} />
+        ) : (
+          <>
+            <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
+              <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
+              <div>
+                <FormattedMessage
+                  defaultMessage="No articles are being delivered to Tipline users who send requests that match this Media."
+                  description="Message displayed on articles sidebar when an item has no articles."
+                  id="mediaArticles.noArticlesAddedToItem"
+                />
+              </div>
+            </div>
+            <div className="typography-subtitle2">
               <FormattedMessage
-                defaultMessage="No articles are being delivered to Tipline users who send requests that match this Media."
+                defaultMessage="Choose a recent article to add to this media:"
                 description="Message displayed on articles sidebar when an item has no articles."
-                id="mediaArticles.noArticlesAddedToItem"
+                id="mediaArticles.chooseRecentArticle"
               />
             </div>
-          </div>
-          <div className="typography-subtitle2">
-            <FormattedMessage
-              defaultMessage="Choose a recent article to add to this media:"
-              description="Message displayed on articles sidebar when an item has no articles."
-              id="mediaArticles.chooseRecentArticle"
-            />
-          </div>
-          <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
-        </div>
-      )}
+            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
+          </>
+        )}
+      </div>
 
       {/* Confirm dialog for replacing fact-check */}
       <ConfirmProceedDialog
@@ -215,9 +216,6 @@ const MediaArticlesComponent = ({
 };
 
 MediaArticlesComponent.propTypes = {
-  team: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
@@ -225,6 +223,9 @@ MediaArticlesComponent.propTypes = {
     claim_description: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }),
+  }).isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
@@ -282,8 +283,8 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
 };
 
 MediaArticles.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
   projectMediaDbid: PropTypes.number.isRequired,
+  teamSlug: PropTypes.string.isRequired,
 };
 
 export default MediaArticles;

@@ -1,12 +1,8 @@
 .similar-matched-media-bar {
   align-items: center;
-  background-color: var(--color-white-100);
   display: flex;
   justify-content: space-between;
-  padding: 0 0 8px;
-  position: sticky;
-  top: -16;
-  z-index: 200;
+  padding: 8px 16px;
 }
 
 .similar-matched-media-list {

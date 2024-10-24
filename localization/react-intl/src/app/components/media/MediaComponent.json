@@ -8,5 +8,15 @@
     "id": "mediaComponent.requests",
     "description": "Number of times a request has been sent about this media",
     "defaultMessage": "{count, plural, one {# request} other {# requests}}"
+  },
+  {
+    "id": "mediaComponent.pinnedMedia",
+    "description": "Title for the media in this list that is pinned to the top",
+    "defaultMessage": "Pinned Media"
+  },
+  {
+    "id": "mediaComponent.similarMediaList",
+    "description": "Title for the remaining media in this list that are not pinned to the top",
+    "defaultMessage": "Similar Media in Cluster"
   }
 ]

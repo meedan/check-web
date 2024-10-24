@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
@@ -283,7 +282,7 @@ class SearchKeyword extends React.Component {
                       <ButtonMain
                         iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <AttachFileIcon />}
                         size="small"
-                        theme="lightText"
+                        theme="lightBeige"
                         variant="text"
                         onClick={this.triggerInputFile}
                       />
@@ -310,10 +309,13 @@ SearchKeyword.defaultProps = {
 };
 
 SearchKeyword.propTypes = {
-  pusher: pusherShape.isRequired,
+  cleanupQuery: PropTypes.func.isRequired,
   clientSessionId: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  pusher: pusherShape.isRequired,
   query: PropTypes.object.isRequired,
   setStateQuery: PropTypes.func.isRequired,
+  showExpand: PropTypes.bool,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     pusher_channel: PropTypes.string.isRequired,
@@ -330,9 +332,6 @@ SearchKeyword.propTypes = {
       })),
     }),
   }).isRequired,
-  showExpand: PropTypes.bool,
-  cleanupQuery: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
 };
 
 

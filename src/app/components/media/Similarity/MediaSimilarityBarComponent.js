@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import MediaSimilarityBarAdd from './MediaSimilarityBarAdd';
+import mediaStyles from '../media.module.css';
 import styles from './MediaSimilarities.module.css';
 
 const MediaSimilarityBarComponent = ({
@@ -12,7 +14,7 @@ const MediaSimilarityBarComponent = ({
   isPublished,
   projectMediaDbid,
 }) => (
-  <div className={styles['similar-matched-media-bar']}>
+  <div className={cx(styles['similar-matched-media-bar'], mediaStyles['media-item-column-header'])}>
     <div className="similarity-bar__matches-count typography-subtitle2">
       <FormattedMessage
         defaultMessage="Media in Cluster"
