@@ -19,7 +19,7 @@ jobs:
   similarity-tests:
     runs-on: 
       group: check-runner
-      labels: check-web-media
+      labels: media
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
