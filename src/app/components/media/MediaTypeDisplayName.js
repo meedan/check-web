@@ -65,7 +65,9 @@ const messages = defineMessages({
   },
 });
 
-export { messages };
+const getMediaTypeDisplayName = (mediaType, intl) => intl.formatMessage(messages[mediaType]);
+
+export { getMediaTypeDisplayName };
 
 export default function MediaTypeDisplayName({ mediaType }) {
   switch (mediaType) {

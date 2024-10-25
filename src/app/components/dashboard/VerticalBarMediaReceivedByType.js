@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { messages } from '../media/MediaTypeDisplayName';
+import { getMediaTypeDisplayName } from '../media/MediaTypeDisplayName';
 import VerticalBarChartWidget from '../cds/charts/VerticalBarChartWidget';
 
 const VerticalBarMediaReceivedByType = ({ intl, statistics }) => (
@@ -15,7 +15,7 @@ const VerticalBarMediaReceivedByType = ({ intl, statistics }) => (
       <VerticalBarChartWidget
         data={
           Object.entries(statistics.number_of_media_received_by_type).map(([name, value]) => ({
-            name: intl.formatMessage(messages[name]),
+            name: getMediaTypeDisplayName(name, intl),
             value,
           }))
         }
