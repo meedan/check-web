@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Select from '../cds/inputs/Select';
 import { humanTiplineNames } from '../../CheckChannels';
@@ -27,5 +28,10 @@ const PlatformSelect = ({
     }
   </Select>
 );
+
+PlatformSelect.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default PlatformSelect;

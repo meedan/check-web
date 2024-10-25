@@ -1,0 +1,7 @@
+[
+  {
+    "id": "timelineArticlesCreatedAndUpdated.title",
+    "description": "Title for the number of articles added and updated timeline widget",
+    "defaultMessage": "Articles Added & Updated"
+  }
+]

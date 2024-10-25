@@ -1,0 +1,7 @@
+[
+  {
+    "id": "listTopArticlesSent.title",
+    "description": "Title for the top articles sent list widget",
+    "defaultMessage": "Top Articles Sent"
+  }
+]

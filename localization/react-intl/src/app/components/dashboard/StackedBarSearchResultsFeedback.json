@@ -1,0 +1,7 @@
+[
+  {
+    "id": "stackedBarSearchResultsFeedback.title",
+    "description": "Title for the number of search results by type widget",
+    "defaultMessage": "Search Results"
+  }
+]

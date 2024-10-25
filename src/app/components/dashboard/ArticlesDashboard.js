@@ -12,6 +12,7 @@ import NumberPublishedFactChecks from './NumberPublishedFactChecks';
 import StackedBarSearchResultsByType from './StackedBarSearchResultsByType';
 import TimelineArticlesCreatedAndUpdated from './TimelineArticlesCreatedAndUpdated';
 import VerticalBarFactChecksByRating from './VerticalBarFactChecksByRating';
+import ErrorBoundary from '../error/ErrorBoundary';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import MediasLoading from '../media/MediasLoading';
 import { safelyParseJSON } from '../../helpers';
@@ -61,13 +62,26 @@ const ArticlesDashboard = ({
   </div>
 );
 
+ArticlesDashboard.defaultProps = {
+  language: null,
+};
+
+ArticlesDashboard.propTypes = {
+  language: PropTypes.string,
+  period: PropTypes.string.isRequired,
+  team: PropTypes.shape({
+    get_languages: PropTypes.string.isRequired,
+    statistics: PropTypes.object.isRequired,
+  }).isRequired,
+  onChangeLanguage: PropTypes.func.isRequired,
+  onChangePeriod: PropTypes.func.isRequired,
+};
+
 const ArticlesDashboardQueryRenderer = ({ routeParams }) => {
   const [period, setPeriod] = React.useState('past_month');
   const [language, setLanguage] = React.useState(null);
 
-  const handlePeriodChange = (event) => {
-    setPeriod(event.target.value);
-  };
+  const handlePeriodChange = e => setPeriod(e.target.value);
 
   const handleLanguageChange = (obj) => {
     const { languageCode } = obj;
@@ -75,50 +89,52 @@ const ArticlesDashboardQueryRenderer = ({ routeParams }) => {
   };
 
   return (
-    <QueryRenderer
-      environment={Relay.Store}
-      query={graphql`
-        query ArticlesDashboardQuery($teamSlug: String!, $period: String!, $language: String) {
-          team(slug: $teamSlug) {
-            get_languages
-            statistics(period: $period, language: $language) {
-              ...ListTopArticlesSent_statistics
-              ...ListTopArticlesTags_statistics
-              ...NumberArticlesSent_statistics
-              ...NumberExplainersCreated_statistics
-              ...NumberFactChecksCreated_statistics
-              ...NumberPublishedFactChecks_statistics
-              ...StackedBarSearchResultsByType_statistics
-              ...TimelineArticlesCreatedAndUpdated_statistics
-              ...VerticalBarFactChecksByRating_statistics
+    <ErrorBoundary component="ArticlesDashboard">
+      <QueryRenderer
+        environment={Relay.Store}
+        query={graphql`
+          query ArticlesDashboardQuery($teamSlug: String!, $period: String!, $language: String) {
+            team(slug: $teamSlug) {
+              get_languages
+              statistics(period: $period, language: $language) {
+                ...ListTopArticlesSent_statistics
+                ...ListTopArticlesTags_statistics
+                ...NumberArticlesSent_statistics
+                ...NumberExplainersCreated_statistics
+                ...NumberFactChecksCreated_statistics
+                ...NumberPublishedFactChecks_statistics
+                ...StackedBarSearchResultsByType_statistics
+                ...TimelineArticlesCreatedAndUpdated_statistics
+                ...VerticalBarFactChecksByRating_statistics
+              }
             }
           }
-        }
-      `}
-      render={({ error, props }) => {
-        if (!error && props) {
-          const { team } = props;
+        `}
+        render={({ error, props }) => {
+          if (!error && props) {
+            const { team } = props;
 
-          return (
-            <ArticlesDashboard
-              language={language}
-              period={period}
-              team={team}
-              onChangeLanguage={handleLanguageChange}
-              onChangePeriod={handlePeriodChange}
-            />
-          );
-        }
+            return (
+              <ArticlesDashboard
+                language={language}
+                period={period}
+                team={team}
+                onChangeLanguage={handleLanguageChange}
+                onChangePeriod={handlePeriodChange}
+              />
+            );
+          }
 
-        // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading size="large" theme="white" variant="page" />;
-      }}
-      variables={{
-        teamSlug: routeParams.team,
-        period,
-        language,
-      }}
-    />
+          // TODO: We need a better error handling in the future, standardized with other components
+          return <MediasLoading size="large" theme="white" variant="page" />;
+        }}
+        variables={{
+          teamSlug: routeParams.team,
+          period,
+          language,
+        }}
+      />
+    </ErrorBoundary>
   );
 };
 

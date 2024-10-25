@@ -1,0 +1,7 @@
+[
+  {
+    "id": "numberConversations.title",
+    "description": "Title for the number of conversations widget",
+    "defaultMessage": "Conversations"
+  }
+]

@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -403,10 +402,10 @@ TiplineDataComponent.defaultProps = {
 };
 
 TiplineDataComponent.propTypes = {
-  slug: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.object), // or null
   defaultLanguage: PropTypes.string, // or null
   intl: intlShape.isRequired,
+  slug: PropTypes.string.isRequired,
 };
 
 export default injectIntl(TiplineDataComponent);

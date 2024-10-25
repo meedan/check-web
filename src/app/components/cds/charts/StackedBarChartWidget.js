@@ -30,16 +30,20 @@ const StackedBarChartWidget = ({
     'var(--color-gray-42)',
   ];
 
+  const dataSum = data.reduce((acc, d) => (d.name === 'empty' ? acc : acc + d.value), 0);
+
+  if (dataSum === 0 && !data.some(d => d.name === 'empty')) {
+    data.push({ name: 'empty', value: 1 });
+  }
+
   const coloredData = data.map((d, i) => ({
     ...d,
     fill: d.name === 'empty' ? 'var(--color-gray-88)' : (d.color || colors[i % colors.length]),
   }));
 
-  const dataSum = data.reduce((acc, d) => (d.name === 'empty' ? acc : acc + d.value), 0);
-
   const barChartData = { name: 'Data' };
 
-  data.forEach((d) => {
+  coloredData.forEach((d) => {
     barChartData[d.name] = d.value;
   });
 

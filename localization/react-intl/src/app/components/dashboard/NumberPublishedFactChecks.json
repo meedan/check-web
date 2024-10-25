@@ -1,0 +1,7 @@
+[
+  {
+    "id": "numberPublishedFactChecks.title",
+    "description": "Title for the number of published fact-checks widget",
+    "defaultMessage": "Published Fact-Checks"
+  }
+]

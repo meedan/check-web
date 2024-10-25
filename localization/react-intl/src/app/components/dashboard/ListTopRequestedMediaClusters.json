@@ -1,0 +1,7 @@
+[
+  {
+    "id": "listTopRequestedMediaClusters.title",
+    "description": "Title for the top requested media clusters list widget",
+    "defaultMessage": "Top Requested Media Clusters"
+  }
+]

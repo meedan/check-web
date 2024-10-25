@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Select from '../cds/inputs/Select';
 import CalendarIcon from '../../icons/calendar_month.svg';
@@ -56,5 +57,10 @@ const TimeFrameSelect = ({
     </FormattedMessage>
   </Select>
 );
+
+TimeFrameSelect.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default TimeFrameSelect;

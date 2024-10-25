@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import PropTypes from 'prop-types';
 import ListTopMediaTags from './ListTopMediaTags';
 import ListTopRequestedMediaClusters from './ListTopRequestedMediaClusters';
 import NumberArticlesSent from './NumberArticlesSent';
@@ -83,14 +83,33 @@ const TiplineDashboard = ({
   </div>
 );
 
+TiplineDashboard.defaultProps = {
+  language: null,
+  platform: null,
+};
+
+TiplineDashboard.propTypes = {
+  language: PropTypes.string,
+  period: PropTypes.string.isRequired,
+  platform: PropTypes.string,
+  team: PropTypes.shape({
+    data_report: PropTypes.object.isRequired,
+    get_language: PropTypes.string.isRequired,
+    get_languages: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    statistics: PropTypes.object.isRequired,
+  }).isRequired,
+  onChangeLanguage: PropTypes.func.isRequired,
+  onChangePeriod: PropTypes.func.isRequired,
+  onChangePlatform: PropTypes.func.isRequired,
+};
+
 const TiplineDashboardQueryRenderer = ({ routeParams }) => {
   const [period, setPeriod] = React.useState('past_month');
   const [language, setLanguage] = React.useState(null);
   const [platform, setPlatform] = React.useState(null);
 
-  const handlePeriodChange = (event) => {
-    setPeriod(event.target.value);
-  };
+  const handlePeriodChange = e => setPeriod(e.target.value);
 
   const handleLanguageChange = (obj) => {
     const { languageCode } = obj;
