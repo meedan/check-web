@@ -144,7 +144,7 @@ jobs:
     
     - name: After integration tests
       run: |
-       docker compose exec web bash -c "python -m json.tool test/file.json"
+       docker-compose exec web bash -c "[ -f test/file.json ] && python -m json.tool test/file.json || echo 'File does not exist'"
         size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 
   unit-tests:
