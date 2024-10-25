@@ -5,18 +5,20 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import StackedBarChartWidget from '../cds/charts/StackedBarChartWidget';
 
 const StackedBarSearchResultsFeedback = ({ statistics }) => (
-  <StackedBarChartWidget
-    data={
-      Object.entries(statistics.number_of_search_results_by_type).map(([name, value]) => ({ name, value }))
-    }
-    title={
-      <FormattedMessage
-        defaultMessage="Search Results"
-        description="Title for the number of search results by type widget"
-        id="stackedBarSearchResultsFeedback.title"
+  <FormattedMessage
+    defaultMessage="Search Results"
+    description="Title for the number of search results by type widget"
+    id="stackedBarSearchResultsFeedback.title"
+  >
+    {title => (
+      <StackedBarChartWidget
+        data={
+          Object.entries(statistics.number_of_search_results_by_type).map(([name, value]) => ({ name, value }))
+        }
+        title={title}
       />
-    }
-  />
+    )}
+  </FormattedMessage>
 );
 
 StackedBarSearchResultsFeedback.propTypes = {

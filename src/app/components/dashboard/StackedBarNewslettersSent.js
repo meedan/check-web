@@ -11,18 +11,18 @@ const StackedBarNewslettersSent = ({ statistics }) => {
   };
 
   return (
-    <StackedBarChartWidget
-      data={
-        Object.entries(data).map(([name, value]) => ({ name, value }))
-      }
-      title={
-        <FormattedMessage
-          defaultMessage="Newsletters Sent"
-          description="Title for the number of newsletters sent widget"
-          id="stackedBarNewslettersSent.title"
+    <FormattedMessage
+      defaultMessage="Newsletters Sent"
+      description="Title for the number of newsletters sent widget"
+      id="stackedBarNewslettersSent.title"
+    >
+      {title => (
+        <StackedBarChartWidget
+          data={Object.entries(data).map(([name, value]) => ({ name, value }))}
+          title={title}
         />
-      }
-    />
+      )}
+    </FormattedMessage>
   );
 };
 

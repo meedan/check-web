@@ -5,18 +5,20 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import VerticalBarChartWidget from '../cds/charts/VerticalBarChartWidget';
 
 const VerticalBarFactChecksByRating = ({ statistics }) => (
-  <VerticalBarChartWidget
-    data={
-      Object.entries(statistics.number_of_fact_checks_by_rating).map(([name, value]) => ({ name, value }))
-    }
-    title={
-      <FormattedMessage
-        defaultMessage="Claim & Fact-Checks"
-        description="Title for the number of fact-checks by rating widget"
-        id="verticalBarFactChecksByRating.title"
+  <FormattedMessage
+    defaultMessage="Claim & Fact-Checks"
+    description="Title for the number of fact-checks by rating widget"
+    id="verticalBarFactChecksByRating.title"
+  >
+    {title => (
+      <VerticalBarChartWidget
+        data={
+          Object.entries(statistics.number_of_fact_checks_by_rating).map(([name, value]) => ({ name, value }))
+        }
+        title={title}
       />
-    }
-  />
+    )}
+  </FormattedMessage>
 );
 
 VerticalBarFactChecksByRating.propTypes = {

@@ -1,22 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { messages } from '../media/MediaTypeDisplayName';
 import VerticalBarChartWidget from '../cds/charts/VerticalBarChartWidget';
 
-const VerticalBarMediaReceivedByType = ({ statistics }) => (
-  <VerticalBarChartWidget
-    data={
-      Object.entries(statistics.number_of_media_received_by_type).map(([name, value]) => ({ name, value }))
-    }
-    title={
-      <FormattedMessage
-        defaultMessage="Media Received"
-        description="Title for the number of media received by type widget"
-        id="verticalBarMediaReceivedByType.title"
+const VerticalBarMediaReceivedByType = ({ intl, statistics }) => (
+  <FormattedMessage
+    defaultMessage="Media Received"
+    description="Title for the number of media received by type widget"
+    id="verticalBarMediaReceivedByType.title"
+  >
+    {title => (
+      <VerticalBarChartWidget
+        data={
+          Object.entries(statistics.number_of_media_received_by_type).map(([name, value]) => ({
+            name: intl.formatMessage(messages[name]),
+            value,
+          }))
+        }
+        title={title}
       />
-    }
-  />
+    )}
+  </FormattedMessage>
 );
 
 VerticalBarMediaReceivedByType.propTypes = {
@@ -25,7 +31,7 @@ VerticalBarMediaReceivedByType.propTypes = {
   }).isRequired,
 };
 
-export default createFragmentContainer(VerticalBarMediaReceivedByType, graphql`
+export default createFragmentContainer(injectIntl(VerticalBarMediaReceivedByType), graphql`
   fragment VerticalBarMediaReceivedByType_statistics on TeamStatistics {
     number_of_media_received_by_type
   }

@@ -14,10 +14,13 @@ import NumberWidget from '../cds/charts/NumberWidget';
 const NumberAvgResponseTime = ({ intl, statistics }) => {
   moment.locale(intl.locale);
 
+  const value = statistics.average_response_time ?
+    moment.duration(statistics.average_response_time, 'seconds').humanize() : null;
+
   return (
     <NumberWidget
       color="var(--color-yellow-79)"
-      itemCount={moment.duration(statistics.average_response_time, 'seconds').humanize()}
+      itemCount={value}
       title={
         <FormattedMessage
           defaultMessage="Avg. Response Time"
