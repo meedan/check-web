@@ -1,7 +1,7 @@
 #!/bin/bash
 # set -e 
 # Running only unit tests
-if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ \[full\ ci\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[text\ similarity\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[media\ similarity\ tests\] ]]
+if [[ $GITHUB_BRANCH != 'develop' && $GITHUB_BRANCH != 'master' && ! $GITHUB_COMMIT_MESSAGE =~ \[full\ ci\] && ! $GITHUB_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[similarity\ tests\] ]]
 then
   echo "Running only unit tests"
   docker compose build web
@@ -10,6 +10,7 @@ then
 # Running all tests
 else
   if [[ "$GITHUB_JOB_NAME" == 'integration-and-unit-tests' ]]
+  if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
   then
     docker compose build web api api-background pender pender-background
     docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
