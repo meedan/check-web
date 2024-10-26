@@ -16,7 +16,7 @@ env:
   AWS_REGION: eu-west-1
 
 jobs:
-  similarity-tests:
+  media-similarity-tests:
     runs-on: 
       group: check-runner
       labels: media
@@ -24,7 +24,7 @@ jobs:
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
       contains(github.event.head_commit.message, '[full ci]') ||
-      contains(github.event.head_commit.message, '[similarity tests]')
+      contains(github.event.head_commit.message, '[media similarity tests]')
 
     steps:
     - name: Chown user
@@ -145,7 +145,7 @@ jobs:
         docker compose exec web npm run linter
         docker compose exec web npm run test:integration:lint
 
-    - name: Run similarity test
+    - name: Run media similarity test
       env:
         IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
       run: | 
@@ -164,7 +164,7 @@ jobs:
           -e TEST_RETRY_COUNT=3 \
           web npm run tests
     
-    - name: After similarity tests
+    - name: After media similarity tests
       run: |
        docker compose exec web bash -c "python -m json.tool test/file.json"
        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
