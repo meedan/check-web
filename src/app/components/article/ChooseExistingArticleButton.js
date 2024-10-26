@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -118,8 +117,8 @@ ChooseExistingArticleButton.defaultProps = {
 
 ChooseExistingArticleButton.propTypes = {
   disabled: PropTypes.bool,
-  teamSlug: PropTypes.string.isRequired,
   projectMediaDbid: PropTypes.number.isRequired,
+  teamSlug: PropTypes.string.isRequired,
   onAdd: PropTypes.func.isRequired,
 };
 

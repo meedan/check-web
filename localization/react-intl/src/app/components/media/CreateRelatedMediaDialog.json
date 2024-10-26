@@ -7,22 +7,22 @@
   {
     "id": "createMedia.import",
     "description": "Tab text for importing media into this item",
-    "defaultMessage": "Import into this Media"
+    "defaultMessage": "Import into this Media Cluster"
   },
   {
     "id": "createMedia.exportTooltip",
     "description": "Tooltip text for when exporting media from this item is not allowed",
-    "defaultMessage": "This media contains a published fact-check. Unpublish or remove the fact-check to export to another media."
+    "defaultMessage": "This media cluster contains a published fact-check. Unpublish or remove the fact-check to export to another media."
   },
   {
     "id": "createMedia.export",
     "description": "Tab text for exporting media out of this item",
-    "defaultMessage": "Export to another Media"
+    "defaultMessage": "Export to another Media Cluster"
   },
   {
     "id": "createMedia.addTooltip",
     "description": "Tooltip text for when adding media from this item is not allowed",
-    "defaultMessage": "This media contains a published fact-check. Remove the fact-check to add to an existing imported fact-check."
+    "defaultMessage": "This media cluster contains a published fact-check. Remove the fact-check to add to an existing imported fact-check."
   },
   {
     "id": "createMedia.add",

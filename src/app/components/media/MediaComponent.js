@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields, react/sort-prop-types */
+/* eslint-disable relay/unused-fields */
 import React, { Component } from 'react';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
@@ -269,9 +269,9 @@ class MediaComponent extends Component {
 
 MediaComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  clientSessionId: PropTypes.string.isRequired,
   // eslint-disable-next-line react/no-typos
   pusher: pusherShape.isRequired,
-  clientSessionId: PropTypes.string.isRequired,
 };
 
 MediaComponent.contextTypes = {

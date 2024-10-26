@@ -121,7 +121,7 @@ const SavedSearch = ({ routeParams }) => (
                     `}
                   />
                 }
-                listSubtitle={<FormattedMessage defaultMessage="Custom List" description="Displayed on top of the custom list title on the search results page." id="savedSearch.subtitle" />}
+                listSubtitle={<FormattedMessage defaultMessage="Custom Media Clusters List" description="Displayed on top of the custom list title on the search results page." id="savedSearch.subtitle" />}
                 mediaUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}/media`}
                 page="list"
                 query={query}

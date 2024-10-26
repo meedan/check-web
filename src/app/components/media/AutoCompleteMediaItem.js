@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -13,8 +12,10 @@ import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import SettingsIcon from '../../icons/settings.svg';
 import SearchIcon from '../../icons/search.svg';
+import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import styles from './media.module.css';
 
 // Return { jsonPromise, abort }.
@@ -88,6 +89,14 @@ const AutoCompleteMediaItem = (props, context) => {
     setShowFilters(!showFilters);
   };
 
+  const handleClick = (e, dbid) => {
+    if (!props.multiple) {
+      handleSelectOne(dbid);
+    }
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   const query = {
     keyword: searchText,
     show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
@@ -151,12 +160,28 @@ const AutoCompleteMediaItem = (props, context) => {
                       picture
                       metadata
                     }
+                    fact_check {
+                      claim_description {
+                        context
+                        description
+                      }
+                      tags
+                      title
+                      summary
+                      url
+                      updated_at
+                      id
+                      language
+                      rating
+                      report_status
+                    }
                   }
                 }
               }
               team {
                 id
                 name
+                verification_statuses
                 project_groups(first: 10000) {
                   edges {
                     node {
@@ -236,7 +261,6 @@ const AutoCompleteMediaItem = (props, context) => {
         });
       } catch (err) {
         // TODO nix catch-all error handler for errors we've likely never seen
-        console.error(err); // eslint-disable-line no-console
         setSearchResult({ loading: false, items: null, error: err });
       }
     }
@@ -281,6 +305,11 @@ const AutoCompleteMediaItem = (props, context) => {
               }
               iconLeft={<SearchIcon />}
               id="autocomplete-media-item"
+              label={
+                props.selectedItemType === 'fact-check' ?
+                  <FormattedMessage defaultMessage="Search Articles" description="Textfield input label to let the user know they are searching for artilces" id="autoCompleteMediaItem.textFieldArticlesLabel" />
+                  : <FormattedMessage defaultMessage="Search Media Clusters" description="Textfield input label to let the user know they are searching for clusters of media" id="autoCompleteMediaItem.textFieldClustersLabel" />
+              }
               name="autocomplete-media-item"
               placeholder={placeholder}
               onChange={handleChangeSearchText}
@@ -299,72 +328,93 @@ const AutoCompleteMediaItem = (props, context) => {
       </div>
       { searchResult && searchResult.items && searchResult.items.length > 0 ?
         <div className={styles['media-item-autocomplete-results']}>
-          { searchResult.items.map(projectMedia => (
-            <div
-              className={props.multiple ? styles['media-item-autocomplete-multiple'] : 'autocomplete-media-item__select'}
-              key={projectMedia.dbid}
-            >
-              { props.multiple ?
-                <Tooltip
-                  arrow
-                  disableFocusListener
-                  disableHoverListener={!projectMedia.isPublished || !props.disablePublished}
-                  disableTouchListener
-                  title={
-                    <FormattedMessage
-                      defaultMessage="Media cannot be imported from items that have their report published"
-                      description="Tooltip error message about when media can be imported"
-                      id="autoCompleteMediaItem.cantSelectPublished"
-                    />
-                  }
-                >
-                  <span>
-                    <Checkbox
-                      className="autocomplete-media-item__select"
-                      disabled={projectMedia.isPublished && props.disablePublished}
-                      onChange={(e, checked) => {
-                        handleSelectMany(projectMedia.dbid, checked);
-                      }}
-                    />
-                  </span>
-                </Tooltip> : null
-              }
-              <Link className={styles['media-item-autocomplete-link']} to={projectMedia.full_url}>
-                <SmallMediaCard
-                  className={selectedDbid === projectMedia.dbid ? styles['media-item-autocomplete-selected-item'] : null}
-                  customTitle={projectMedia.title}
-                  description={projectMedia.description}
-                  details={[
-                    (
+          { searchResult.items.map((projectMedia) => {
+            let currentStatus = null;
+            if (projectMedia.fact_check?.rating) {
+              currentStatus = getStatus(searchResult.team.verification_statuses, projectMedia.fact_check.rating);
+            }
+            return (
+              <div
+                className={props.multiple ? styles['media-item-autocomplete-multiple'] : 'autocomplete-media-item__select'}
+                key={projectMedia.dbid}
+              >
+                { props.multiple ?
+                  <Tooltip
+                    arrow
+                    disableFocusListener
+                    disableHoverListener={!projectMedia.isPublished || !props.disablePublished}
+                    disableTouchListener
+                    title={
                       <FormattedMessage
-                        defaultMessage="Last submitted {date}"
-                        description="Shows the last time a media was submitted"
-                        id="autoCompleteMediaItem.lastSubmitted"
-                        values={{
-                          date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                        defaultMessage="Media cannot be imported from items that have their report published"
+                        description="Tooltip error message about when media can be imported"
+                        id="autoCompleteMediaItem.cantSelectPublished"
+                      />
+                    }
+                  >
+                    <span>
+                      <Checkbox
+                        className="autocomplete-media-item__select"
+                        disabled={projectMedia.isPublished && props.disablePublished}
+                        onChange={(e, checked) => {
+                          handleSelectMany(projectMedia.dbid, checked);
                         }}
                       />
-                    ),
-                    <FormattedMessage
-                      defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                      description="Header of requests list. Example: 26 requests"
-                      id="autoCompleteMediaItem.requestsCount"
-                      values={{ requestsCount: projectMedia.requests_count }}
-                    />,
-                  ]}
-                  maskContent={projectMedia.show_warning_cover}
-                  media={projectMedia.media}
-                  onClick={(e) => {
-                    if (!props.multiple) {
-                      handleSelectOne(projectMedia.dbid);
-                    }
-                    e.preventDefault();
-                    e.stopPropagation();
-                  }}
-                />
-              </Link>
-            </div>
-          ))}
+                    </span>
+                  </Tooltip> : null
+                }
+                { props.selectedItemType === 'fact-check' ?
+                  <ArticleCard
+                    className={selectedDbid === projectMedia.dbid ? styles['media-item-autocomplete-selected-item'] : null}
+                    date={projectMedia.fact_check.updated_at}
+                    handleClick={e => handleClick(e, projectMedia.dbid)}
+                    isPublished={projectMedia.fact_check.report_status === 'published'}
+                    key={projectMedia.id}
+                    languageCode={projectMedia.fact_check.language !== 'und' ? projectMedia.fact_check.language : null}
+                    publishedAt={projectMedia.fact_check.claim_description?.updated_at}
+                    readOnly
+                    statusColor={currentStatus ? currentStatus.style?.color : null}
+                    statusLabel={currentStatus ? currentStatus.label : null}
+                    summary={isFactCheckValueBlank(projectMedia.fact_check.summary) ? projectMedia.fact_check.claim_description?.description : projectMedia.fact_check.summary}
+                    tags={projectMedia.fact_check.tags}
+                    title={isFactCheckValueBlank(projectMedia.fact_check.title) ? projectMedia.fact_check.claim_description?.context : projectMedia.fact_check.title}
+                    url={projectMedia.fact_check.url}
+                    variant="fact-check"
+                    onChangeTags={() => {}}
+                  />
+                  :
+                  <Link className={styles['media-item-autocomplete-link']} to={projectMedia.full_url}>
+                    <SmallMediaCard
+                      className={selectedDbid === projectMedia.dbid ? styles['media-item-autocomplete-selected-item'] : null}
+                      customTitle={projectMedia.title}
+                      description={projectMedia.description}
+                      details={[
+                        (
+                          <FormattedMessage
+                            defaultMessage="Last submitted {date}"
+                            description="Shows the last time a media was submitted"
+                            id="autoCompleteMediaItem.lastSubmitted"
+                            values={{
+                              date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                            }}
+                          />
+                        ),
+                        <FormattedMessage
+                          defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
+                          description="Header of requests list. Example: 26 requests"
+                          id="autoCompleteMediaItem.requestsCount"
+                          values={{ requestsCount: projectMedia.requests_count }}
+                        />,
+                      ]}
+                      maskContent={projectMedia.show_warning_cover}
+                      media={projectMedia.media}
+                      onClick={e => handleClick(e, projectMedia.dbid)}
+                    />
+                  </Link>
+                }
+              </div>
+            );
+          })}
         </div> : null }
       { showFilters ?
         <SearchKeywordContainer
@@ -382,22 +432,22 @@ AutoCompleteMediaItem.contextTypes = {
 };
 
 AutoCompleteMediaItem.defaultProps = {
-  dbid: null,
-  typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
   customFilter: null,
-  showFilters: false,
-  multiple: false,
+  dbid: null,
   disablePublished: false,
+  multiple: false,
+  showFilters: false,
+  typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
 };
 
 AutoCompleteMediaItem.propTypes = {
-  // onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
-  dbid: PropTypes.number, // filter results: do _not_ select this number
-  typesToShow: PropTypes.arrayOf(PropTypes.string),
   customFilter: PropTypes.func,
-  showFilters: PropTypes.bool,
-  multiple: PropTypes.bool,
+  dbid: PropTypes.number, // filter results: do _not_ select this number
   disablePublished: PropTypes.bool,
+  multiple: PropTypes.bool,
+  showFilters: PropTypes.bool,
+  typesToShow: PropTypes.arrayOf(PropTypes.string),
+  // onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
 };
 
 export default injectIntl(AutoCompleteMediaItem);

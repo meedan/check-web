@@ -311,11 +311,11 @@
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--color-gray-15), var(--color-gray-37), var(--color-gray-15), var(--color-gray-37), transparent;
+      @mixin main-button-outlined-theme var(--color-gray-15), var(--color-gray-37), var(--color-gray-15), var(--color-gray-37), var(--color-gray-96);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--color-gray-15), var(--color-gray-37), var(--color-gray-88);
+      @mixin main-button-text-theme var(--color-gray-15), var(--color-gray-37), var(--color-gray-96);
     }
   }
 

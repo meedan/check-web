@@ -13,6 +13,7 @@ import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
 import styles from './ArticleCard.module.css';
 
 const ArticleCard = ({
+  className,
   date,
   handleClick,
   isPublished,
@@ -20,6 +21,7 @@ const ArticleCard = ({
   onChangeTags,
   projectMediaDbid,
   publishedAt,
+  readOnly,
   statusColor,
   statusLabel,
   summary,
@@ -32,7 +34,12 @@ const ArticleCard = ({
   variant,
 }) => (
   <div
-    className={cx('article-card', styles.articleCard)}
+    className={cx(
+      'article-card',
+      [styles.articleCard],
+      {
+        [className]: true,
+      })}
     onClick={handleClick}
     onKeyDown={handleClick}
   >
@@ -60,6 +67,7 @@ const ArticleCard = ({
         ) : null }
         <SharedItemCardFooter
           languageCode={languageCode}
+          readOnly={readOnly}
           tags={tags}
           teamSlug={teamSlug}
           onChangeTags={onChangeTags}
@@ -91,12 +99,14 @@ const ArticleCard = ({
 );
 
 ArticleCard.defaultProps = {
+  className: '',
   summary: null,
   url: null,
   statusColor: 'black',
   teamAvatar: null,
   teamName: null,
   languageCode: null,
+  readOnly: false,
   tags: [],
   onChangeTags: null,
   variant: 'explainer',
@@ -106,6 +116,7 @@ ArticleCard.defaultProps = {
 };
 
 ArticleCard.propTypes = {
+  className: PropTypes.string,
   date: PropTypes.oneOfType([
     PropTypes.string, // article.updated_at (Articles.js)
     PropTypes.number, // projectMedia.feed_columns_values.updated_at_timestamp (SearchResultsCards/index.js)
@@ -114,6 +125,7 @@ ArticleCard.propTypes = {
   languageCode: PropTypes.string,
   projectMediaDbid: PropTypes.number,
   publishedAt: PropTypes.number, // Timestamp
+  readOnly: PropTypes.bool,
   statusColor: PropTypes.string,
   statusLabel: PropTypes.string,
   summary: PropTypes.string,
