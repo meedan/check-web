@@ -17,6 +17,7 @@ env:
 
 jobs:
   media-similarity-tests:
+    needs: [text-similarity-tests]
     runs-on: 
       group: check-runner
       labels: media
