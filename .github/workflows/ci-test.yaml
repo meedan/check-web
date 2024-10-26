@@ -232,7 +232,6 @@ jobs:
         cp .env_file.test .env_file
         cp ../test/google_credentials.json google_credentials.json
         cd -
-
     - name: Setup Configuration Files
       run: |
         cp config.js.example config.js
@@ -240,7 +239,6 @@ jobs:
         cp config-build.js.example config-build.js
         cp config-server.js.example config-server.js
         cp test/config.yml.example test/config.yml
-
     - name: Before Script
       env: 
         MAX_WEB_CURL: 3000
@@ -253,9 +251,13 @@ jobs:
     
     - name: Run linter
       run: |
-        docker compose exec web bash -c "python -m json.tool test/file.json"
-        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
-        
+        docker compose exec web npm run linter
+        docker compose exec web npm run test:integration:lint
+    
+    - name: Run Unit Tests
+      run: |
+        docker compose exec -T -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME web npm run tests
+  
   media-similarity-tests:
     runs-on: 
       group: check-runner
