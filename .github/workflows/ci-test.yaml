@@ -18,7 +18,7 @@ env:
 jobs:
   media-similarity-tests:
     runs-on: 
-      labels: media
+      labels: testing
       
     if: >
       github.ref == 'refs/heads/develop' ||
