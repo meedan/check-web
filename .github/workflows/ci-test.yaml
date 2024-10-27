@@ -18,7 +18,8 @@ env:
 jobs:
   media-similarity-tests:
     needs: [text-similarity-tests]
-    runs-on: self-hosted
+    runs-on: 
+      labels: media
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
@@ -64,7 +65,7 @@ jobs:
          NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
       run: |
         export GITHUB_TAG=0.0.0
-    # curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt-get update && sudo apt-get install ngrok
+        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt-get update && sudo apt-get install ngrok
         
     - name: Setup Pender 
       run: | 
@@ -158,9 +159,9 @@ jobs:
        kill -9 $(pgrep ngrok)
     
   text-similarity-tests:
-    runs-on: self-hosted
+    runs-on: 
       # group: check-runner
-      # labels: text
+      labels: text
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
@@ -291,17 +292,18 @@ jobs:
        docker compose exec web bash -c "[ -f test/file.json ] && python -m json.tool test/file.json || echo 'File does not exist'"
        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 
-  # cleanup-after-similarity-tests:
-  #   runs-on: self-hosted
-  #   needs: [media-similarity-tests, text-similarity-tests]
-  #   steps:
-  #     - name: Cleanup Docker Resources
-  #       if: always()
-  #       run: |
-  #         echo "Cleaning up Docker resources..."
-  #         docker stop $(docker ps -q) || true
-  #         docker rm $(docker ps -aq) || true
-  #         docker rmi $(docker images -q) || true
+  cleanup-after-similarity-tests:
+    runs-on: self-hosted
+    needs: [media-similarity-tests, text-similarity-tests]
+    steps:
+      - name: Cleanup Docker Resources
+        if: always()
+        run: |
+          echo "Cleaning up Docker resources..."
+          docker stop $(docker ps -q) || true
+          docker rm $(docker ps -aq) || true
+          docker rmi $(docker images -q) || true
+          docker volume rm $(docker volume ls -q) || true
 
   integration-and-unit-tests:
     runs-on: ubuntu-latest
