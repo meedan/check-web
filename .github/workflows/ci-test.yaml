@@ -172,9 +172,9 @@ jobs:
        kill -9 $(pgrep ngrok)
     
   text-similarity-tests:
-    runs-on: ubuntu-latest
-      # group: check-runner
-      # labels: text
+    runs-on: 
+      group: check-runner
+      labels: text
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
