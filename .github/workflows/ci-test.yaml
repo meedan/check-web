@@ -17,10 +17,8 @@ env:
 
 jobs:
   media-similarity-tests:
-    # needs: [text-similarity-tests]
-    runs-on: 
-      group: check-runner
-      labels: media
+    runs-on: self-hosted
+      
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
@@ -172,9 +170,9 @@ jobs:
        kill -9 $(pgrep ngrok)
     
   text-similarity-tests:
-    runs-on: 
-      group: check-runner
-      labels: text
+    runs-on: self-hosted
+      # group: check-runner
+      # labels: text
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
