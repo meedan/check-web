@@ -17,9 +17,7 @@ env:
 
 jobs:
   media-similarity-tests:
-    runs-on: 
-      labels: testing
-      
+    runs-on: self-hosted
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
