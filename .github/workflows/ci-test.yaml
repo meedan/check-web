@@ -27,6 +27,12 @@ jobs:
       contains(github.event.head_commit.message, '[media similarity tests]')
 
     steps:
+    - name: Set permissions for _work directory
+      run: |
+        sudo chown -R $USER:$USER /home/ubuntu/runner/_work
+        sudo chmod -R 755 /home/ubuntu/runner/_work
+  
+
     - uses: actions/checkout@v4
 
     - name: Configure AWS Credentials
@@ -176,6 +182,11 @@ jobs:
       contains(github.event.head_commit.message, '[text similarity tests]')
 
     steps:
+    - name: Set permissions for _work directory
+      run: |
+        sudo chown -R $USER:$USER /home/ubuntu/runner/_work
+        sudo chmod -R 755 /home/ubuntu/runner/_work
+  
     - uses: actions/checkout@v4
 
     - name: Configure AWS Credentials
