@@ -65,31 +65,37 @@ shared_examples 'similarity' do
 
   it 'should identify texts as similar', bin7: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
-    pm1 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1502s.')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch
-    api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}"
+    pm = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry.')
+    verbose_wait 3
+    api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and IT industry!')
+    verbose_wait 3
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify videos as similar', bin7: true do
-    api_create_team_and_bot(bot: 'alegre')
-    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
-    create_image('files/video.mp4')
-    verbose_wait 5
-    wait_for_selector('.cluster-card')
-    create_image('files/video2.mp4')
-    verbose_wait 5
-    wait_for_selector('.cluster-card').click
+  it 'should identify texts as similar with vector search', bin7: true do
+    data = api_create_team_and_bot(bot: 'alegre', score: { 'master_similarity_enabled' => true, 'text_similarity_enabled' => true, 'text_elasticsearch_matching_threshold' => 0.9, 'text_elasticsearch_suggestion_threshold' => 0.7, 'text_vector_matching_threshold' => 0.95, 'text_vector_suggestion_threshold' => 0.75, 'text_similarity_model' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens'], 'alegre_model_in_use' => ['elasticsearch', 'xlm-r-bert-base-nli-stsb-mean-tokens'], 'min_es_score' => 100_000 })
+    pm = api_create_claim(data: data, quote: 'In January 2003, Batista joined Triple H, Ric Flair and Randy Orton to form the heel stable Evolution.[25] Batista, however, was sidelined for much of 2003 after he tore his right triceps muscle at a Raw live event in a tag team match alongside Orton against The Dudley Boyz.')
+    verbose_wait 3
+    api_create_claim(data: data, quote: 'In January 2003, Batista joined Triple H, Ric Flair and Randy Orton to form the heel stable Evolution.[25] Batista, however, was sidelined for much of 2003 after he tore his right triceps muscle at a Raw live event in a tag team match alongside Orton against The Dudley Boy.')
+    verbose_wait 3
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify images as similar', bin7: true do
+  it 'should prepare environment for media similarity tests', bin8: true do
+    data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
+    pm = api_create_claim(data: data, quote: 'Just kicking off Alegre service.')
+    sleep 60 # Wait for the item to be sent to Alegre
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
+    wait_for_selector('.quote-media-card')
+    expect(@driver.find_elements(:css, '.quote-media-card').size).to eq 1
+  end
+
+  it 'should identify images as similar', bin8: true do
     api_create_team_and_bot(bot: 'alegre')
-    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/similarity.jpg')
     verbose_wait 4
     wait_for_selector('.cluster-card')
@@ -100,7 +106,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should extract text from a image', bin7: true do
+  it 'should extract text from a image', bin8: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/ocr.png')
@@ -111,7 +117,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Test')).to be(true)
   end
 
-  it 'should identify audios as similar', bin7: true do
+  it 'should identify audios as similar', bin8: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/audio.mp3')
@@ -119,6 +125,18 @@ shared_examples 'similarity' do
     wait_for_selector('.cluster-card')
     create_image('files/audio.ogg')
     verbose_wait 4
+    wait_for_selector('.cluster-card').click
+    wait_for_selector('.media__more-medias')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
+  end
+
+  it 'should identify videos as similar', bin8: true do
+    api_create_team_and_bot(bot: 'alegre')
+    create_image('files/video.mp4')
+    verbose_wait 6
+    wait_for_selector('.cluster-card')
+    create_image('files/video2.mp4')
+    verbose_wait 6
     wait_for_selector('.cluster-card').click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
