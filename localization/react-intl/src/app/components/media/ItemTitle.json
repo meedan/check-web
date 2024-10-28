@@ -11,8 +11,8 @@
   },
   {
     "id": "itemTitle.menuHeader",
-    "description": "Header for a menu containing content options for item title",
-    "defaultMessage": "Select Item Name"
+    "description": "Header for a menu containing content options for title of the cluster of media",
+    "defaultMessage": "Select Media Cluster Name"
   },
   {
     "id": "itemTitle.customTitle",

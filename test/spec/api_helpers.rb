@@ -11,12 +11,21 @@ module ApiHelpers
     require 'net/http'
     uri = URI(api_path + path)
     uri.query = URI.encode_www_form(params)
-    response = Net::HTTP.get_response(uri)
     ret = nil
+    response = nil
     begin
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = (uri.scheme == 'https')
+      http.open_timeout = 120 # Time to open the connection
+      http.read_timeout = 120 # Time to wait for the response
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
       ret = OpenStruct.new JSON.parse(response.body)['data']
+      puts "Successful response when calling #{path} with params '#{params.inspect}': #{response.body}"
+    rescue Net::ReadTimeout
+      puts "Timeout when calling #{path} with params '#{params.inspect}'"
     rescue StandardError
-      print "Failed to parse body of response for endpoint `#{path}`:\n#{response.inspect}\n" unless response.class <= Net::HTTPSuccess
+      puts "Failed to parse body of response for endpoint #{path}: Response: #{response.inspect} Body: #{response.body}" unless response.class <= Net::HTTPSuccess
     end
     ret
   end
@@ -47,8 +56,10 @@ module ApiHelpers
     user = params[:user] || api_register_and_login_with_email
     @slug = "test-team-#{Time.now.to_i}-#{rand(10_000).to_i}"
     team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: @slug, email: user.email }
-    api_install_bot(params[:bot], team[:slug], params[:score]) if params[:bot]
     sleep 5
+    puts "team created: #{team.inspect}"
+    api_install_bot(params[:bot], team[:slug], params[:score]) if params[:bot]
+    sleep 10
     { user: user, team: team }
   end
 
@@ -161,9 +172,12 @@ module ApiHelpers
   end
 
   def api_install_bot(bot, slug = nil, settings = {})
+    settings ||= { min_es_score: 0 }
     url = @driver.current_url.to_s
     team_slug = slug || url.match(%r{^https?://[^/]+/([^/]+)})[1]
+    puts "Installing bot with settings: #{settings.inspect}"
     request_api 'install_bot', { bot: bot, slug: team_slug, settings: settings.to_json }
+    sleep 2
     @driver.navigate.to url
   end
 

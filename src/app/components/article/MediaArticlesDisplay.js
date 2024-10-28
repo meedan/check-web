@@ -31,7 +31,7 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
     <div className={styles.mediaArticlesDisplay}>
       <div className="typography-subtitle2">
         <FormattedMessage
-          defaultMessage="Articles Delivered to Tipline Requests"
+          defaultMessage="Articles Delivered to Tipline Requests:"
           description="Title for the list of articles being delivered to users of the tipline for this cluster of media"
           id="mediaArticlesDisplay.listTitle"
         />
