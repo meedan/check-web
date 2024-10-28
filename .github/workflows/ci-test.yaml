@@ -31,7 +31,6 @@ jobs:
       run: |
         sudo chown -R $USER:$USER ${{ github.runner.workspace }}
         sudo chmod -R 755 ${{ github.runner.workspace }}
-  
 
     - uses: actions/checkout@v4
 
