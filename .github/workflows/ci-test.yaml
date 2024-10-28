@@ -17,7 +17,7 @@ env:
 
 jobs:
   media-similarity-tests:
-    needs: [text-similarity-tests]
+    # needs: [text-similarity-tests]
     runs-on: 
       labels: check-web
     if: >
