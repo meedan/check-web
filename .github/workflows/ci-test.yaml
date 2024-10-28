@@ -29,8 +29,7 @@ jobs:
     steps:
     - name: Set permissions for _work directory
       run: |
-        sudo chown -R ubuntu:ubuntu ${{ github.runner.workspace }}
-        sudo chmod -R 755 ${{ github.runner.workspace }}
+        sudo chown -R $USER:$USER $GITHUB_WORKSPACE
 
     - uses: actions/checkout@v4
 
@@ -183,8 +182,7 @@ jobs:
     steps:
     - name: Set permissions for _work directory
       run: |
-        sudo chown -R $USER:$USER ${{ github.runner.workspace }}
-        sudo chmod -R 755 ${{ github.runner.workspace }}
+        sudo chown -R $USER:$USER $GITHUB_WORKSPACE
   
     - uses: actions/checkout@v4
 
