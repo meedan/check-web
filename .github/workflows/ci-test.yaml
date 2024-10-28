@@ -19,7 +19,7 @@ jobs:
   media-similarity-tests:
     needs: [text-similarity-tests]
     runs-on: 
-      labels: media
+      labels: check-web
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
@@ -160,8 +160,7 @@ jobs:
     
   text-similarity-tests:
     runs-on: 
-      # group: check-runner
-      labels: text
+      labels: check-web
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
@@ -293,7 +292,8 @@ jobs:
        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 
   cleanup-after-similarity-tests:
-    runs-on: self-hosted
+    runs-on: 
+      labels: check-web
     needs: [media-similarity-tests, text-similarity-tests]
     steps:
       - name: Cleanup Docker Resources
