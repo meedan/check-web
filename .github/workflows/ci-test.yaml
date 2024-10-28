@@ -157,6 +157,14 @@ jobs:
        docker compose exec web bash -c "[ -f test/file.json ] && python -m json.tool test/file.json || echo 'File does not exist'"
        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
        kill -9 $(pgrep ngrok)
+
+    - name: Cleanup Docker Resources
+      run: |
+          echo "Cleaning up Docker resources..."
+          docker stop $(docker ps -q) 
+          docker rm $(docker ps -aq) 
+          docker rmi $(docker images -q) 
+          docker volume rm $(docker volume ls -q)  
     
   text-similarity-tests:
     runs-on: 
@@ -290,20 +298,29 @@ jobs:
       run: |
        docker compose exec web bash -c "[ -f test/file.json ] && python -m json.tool test/file.json || echo 'File does not exist'"
        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
-
-  cleanup-after-similarity-tests:
-    runs-on: 
-      labels: check-web
-    needs: [media-similarity-tests, text-similarity-tests]
-    steps:
-      - name: Cleanup Docker Resources
-        if: always()
-        run: |
+    
+    - name: Cleanup Docker Resources
+      run: |
           echo "Cleaning up Docker resources..."
-          docker stop $(docker ps -q) || true
-          docker rm $(docker ps -aq) || true
-          docker rmi $(docker images -q) || true
-          docker volume rm $(docker volume ls -q) || true
+          docker stop $(docker ps -q) 
+          docker rm $(docker ps -aq) 
+          docker rmi $(docker images -q) 
+          docker volume rm $(docker volume ls -q)
+
+        # docker volume rm $(docker volume ls -q) || true
+  # cleanup-after-similarity-tests:
+  #   runs-on: 
+  #     labels: check-web
+  #   needs: [media-similarity-tests, text-similarity-tests]
+  #   steps:
+  #     - name: Cleanup Docker Resources
+  #       if: always()
+  #       run: |
+  #         echo "Cleaning up Docker resources..."
+  #         docker stop $(docker ps -q) || true
+  #         docker rm $(docker ps -aq) || true
+  #         docker rmi $(docker images -q) || true
+  #         docker volume rm $(docker volume ls -q) || true
 
   integration-and-unit-tests:
     runs-on: ubuntu-latest
