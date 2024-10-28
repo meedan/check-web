@@ -30,7 +30,7 @@ jobs:
     - name: Set permissions for _work directory
       run: |
         sudo chown -R $USER:$USER $GITHUB_WORKSPACE
-
+        sudo chmod 755 $GITHUB_WORKSPACE
     - uses: actions/checkout@v4
 
     - name: Configure AWS Credentials
@@ -183,6 +183,7 @@ jobs:
     - name: Set permissions for _work directory
       run: |
         sudo chown -R $USER:$USER $GITHUB_WORKSPACE
+        sudo chmod 755 $GITHUB_WORKSPACE
   
     - uses: actions/checkout@v4
 
