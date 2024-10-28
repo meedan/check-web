@@ -18,6 +18,7 @@ import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getSuperAdminMask } from '../../helpers';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
+import PushPinIcon from '../../icons/push_pin.svg';
 import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
 import styles from './media.module.css';
@@ -193,8 +194,8 @@ class MediaComponent extends Component {
         { view === 'default' || view === 'similarMedia' ?
           <React.Fragment>
             <div className={cx('media__column', styles['media-item-medias'])}>
+              { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} /> : null }
               <div className={styles['media-item-content']}>
-                { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} /> : null }
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
                     feedId={projectMedia.imported_from_feed_id}
@@ -238,6 +239,16 @@ class MediaComponent extends Component {
                     onClose={() => this.setState({ openMediaDialog: false })}
                   />
                   : null }
+                {projectMedia.linked_items_count > 1 &&
+                  <div className={styles['media-item-medias-header']}>
+                    <PushPinIcon />
+                    <FormattedMessage
+                      defaultMessage="Pinned Media"
+                      description="Title for the media in this list that is pinned to the top"
+                      id="mediaComponent.pinnedMedia"
+                    />
+                  </div>
+                }
                 <MediaCardLarge
                   currentUserRole={currentUserRole}
                   projectMedia={projectMedia}
@@ -247,7 +258,19 @@ class MediaComponent extends Component {
                 { isSuggestedOrSimilar ?
                   null
                   :
-                  <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} />
+                  <>
+                    {projectMedia.linked_items_count > 1 &&
+                      <div className={styles['media-item-medias-header']}>
+                        <FormattedMessage
+                          defaultMessage="Similar Media in Cluster"
+                          description="Title for the remaining media in this list that are not pinned to the top"
+                          id="mediaComponent.similarMediaList"
+                        />
+                        &nbsp;[{projectMedia.linked_items_count - 1}]
+                      </div>
+                    }
+                    <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} />
+                  </>
                 }
               </div>
             </div>
@@ -309,6 +332,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     notes_count: annotations_count(annotation_type: "comment")
     report_status
     suggested_similar_items_count
+    linked_items_count
     imported_from_feed_id
     imported_from_project_media_id
     suggested_similar_relationships(first: 10000) {
