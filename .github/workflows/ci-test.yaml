@@ -3,10 +3,10 @@ name: Build and Run Tests
 on:
   push:
     branches:
-    - CV2-5261-run-check-similarity-tests
-  # pull_request:
-  #   branches:
-  #   - Epic-4798/migraton-of-check-web-ci
+    - develop
+  pull_request:
+    branches:
+    - Epic-4798/migraton-of-check-web-ci
 
 env:
   GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
@@ -17,7 +17,7 @@ env:
 
 jobs:
   media-similarity-tests:
-    # needs: [text-similarity-tests]
+    needs: [text-similarity-tests]
     runs-on: 
       labels: check-web
     if: >
@@ -315,21 +315,6 @@ jobs:
           docker rm $(docker ps -aq) 
           docker rmi $(docker images -q) 
           docker volume rm $(docker volume ls -q)
-
-        # docker volume rm $(docker volume ls -q) || true
-  # cleanup-after-similarity-tests:
-  #   runs-on: 
-  #     labels: check-web
-  #   needs: [media-similarity-tests, text-similarity-tests]
-  #   steps:
-  #     - name: Cleanup Docker Resources
-  #       if: always()
-  #       run: |
-  #         echo "Cleaning up Docker resources..."
-  #         docker stop $(docker ps -q) || true
-  #         docker rm $(docker ps -aq) || true
-  #         docker rmi $(docker images -q) || true
-  #         docker volume rm $(docker volume ls -q) || true
 
   integration-and-unit-tests:
     runs-on: ubuntu-latest
