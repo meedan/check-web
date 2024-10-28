@@ -31,6 +31,34 @@
   }
 }
 
+@define-mixin scroll-indicator-top $container-padding: 16px, $container-background: var(--color-white-100), $indicator-color: var(--color-beige-86) {
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    top: 0;
+    z-index: 3;
+  }
+
+  &::before {
+    background-color: $indicator-color;
+    box-shadow: 0 3px 6px 0 rgba(0 0 0 / .45);
+    flex: 1 0 2px;
+    height: 2px;
+    margin: 0 calc(0% - $(container-padding));
+    position: sticky;
+    transform: translateY(-$container-padding);
+  }
+
+  &::after {
+    background-color: $container-background;
+    height: $container-padding;
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+}
+
 @define-mixin typography-definition $size: 14px, $weight: 400, $spacing: .15px, $height: 20px {
   font-size: $(size);
   font-weight: $(weight);
