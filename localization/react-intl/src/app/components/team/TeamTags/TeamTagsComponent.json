@@ -15,6 +15,21 @@
     "defaultMessage": "Tags [{count}]"
   },
   {
+    "id": "search.previousPage",
+    "description": "Pagination button to go to previous page",
+    "defaultMessage": "Previous page"
+  },
+  {
+    "id": "searchResults.itemsCount",
+    "description": "Pagination count of items returned",
+    "defaultMessage": "{totalCount, plural, one {1 / 1} other {{from} - {to} / #}}"
+  },
+  {
+    "id": "search.nextPage",
+    "description": "Pagination button to go to next page",
+    "defaultMessage": "Next page"
+  },
+  {
     "id": "teamTagsComponent.blank",
     "description": "Message displayed when there are no tags in the workspace",
     "defaultMessage": "No Workspace Tags"
