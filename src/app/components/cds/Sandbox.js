@@ -13,8 +13,6 @@ import TimelineWidget from './charts/TimelineWidget';
 import TagList from './menus-lists-dialogs/TagList';
 import TextField from './inputs/TextField';
 import ListSort from './inputs/ListSort';
-import ListWidget from './charts/ListWidget';
-import NumberWidget from './charts/NumberWidget';
 import TextArea from './inputs/TextArea';
 import DatePicker from './inputs/DatePicker';
 import LanguagePickerSelect from './inputs/LanguagePickerSelect';
