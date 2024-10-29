@@ -63,4 +63,28 @@ describe('<MediaComponent />', () => {
     const initialTab = setInitialTab(projectMedia);
     expect(initialTab).toBe('suggestedMedia');
   });
+
+  it('should have the initial tab as Requests for a suggested item', () => {
+    const projectMedia = {
+      articles_count: 1,
+      requests_count: 0,
+      suggested_similar_items_count: 1,
+      is_suggested: true,
+      is_confirmed_similar_to_another_item: false,
+    };
+    const initialTab = setInitialTab(projectMedia);
+    expect(initialTab).toBe('requests');
+  });
+
+  it('should have the initial tab as Requests for an item confirmed as similar to another item', () => {
+    const projectMedia = {
+      articles_count: 1,
+      requests_count: 0,
+      suggested_similar_items_count: 1,
+      is_suggested: false,
+      is_confirmed_similar_to_another_item: true,
+    };
+    const initialTab = setInitialTab(projectMedia);
+    expect(initialTab).toBe('requests');
+  });
 });
