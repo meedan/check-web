@@ -1,5 +1,15 @@
 [
   {
+    "id": "stackedBarSearchResultsByType.FactCheck",
+    "description": "Article type: Fact-Check",
+    "defaultMessage": "Fact-Check"
+  },
+  {
+    "id": "stackedBarSearchResultsByType.Explainer",
+    "description": "Article type: Explainer",
+    "defaultMessage": "Explainer"
+  },
+  {
     "id": "stackedBarSearchResultsByType.title",
     "description": "Title for the number of search results by type widget",
     "defaultMessage": "Matched Results"

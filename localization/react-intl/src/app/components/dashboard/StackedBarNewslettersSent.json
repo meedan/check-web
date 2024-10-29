@@ -1,5 +1,10 @@
 [
   {
+    "id": "stackedBarNewslettersSent.delivered",
+    "description": "Delivered newsletters",
+    "defaultMessage": "Delivered"
+  },
+  {
     "id": "stackedBarNewslettersSent.title",
     "description": "Title for the number of newsletters sent widget",
     "defaultMessage": "Newsletters Sent"

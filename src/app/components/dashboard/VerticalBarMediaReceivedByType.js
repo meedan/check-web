@@ -14,7 +14,7 @@ const VerticalBarMediaReceivedByType = ({ intl, statistics }) => (
     {title => (
       <VerticalBarChartWidget
         data={
-          Object.entries(statistics.number_of_media_received_by_type).map(([name, value]) => ({
+          Object.entries(statistics.number_of_media_received_by_media_type).map(([name, value]) => ({
             name: getMediaTypeDisplayName(name, intl),
             value,
           }))
@@ -27,12 +27,12 @@ const VerticalBarMediaReceivedByType = ({ intl, statistics }) => (
 
 VerticalBarMediaReceivedByType.propTypes = {
   statistics: PropTypes.shape({
-    number_of_media_received_by_type: PropTypes.object.isRequired,
+    number_of_media_received_by_media_type: PropTypes.object.isRequired,
   }).isRequired,
 };
 
 export default createFragmentContainer(injectIntl(VerticalBarMediaReceivedByType), graphql`
   fragment VerticalBarMediaReceivedByType_statistics on TeamStatistics {
-    number_of_media_received_by_type
+    number_of_media_received_by_media_type
   }
 `);

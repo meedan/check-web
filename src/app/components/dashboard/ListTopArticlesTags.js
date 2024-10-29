@@ -6,6 +6,13 @@ import ListWidget from '../cds/charts/ListWidget';
 
 const ListTopArticlesTags = ({ statistics }) => (
   <ListWidget
+    emptyText={
+      <FormattedMessage
+        defaultMessage="No article tags"
+        description="Text to display when there are no article tags"
+        id="listTopArticlesTags.emptyText"
+      />
+    }
     items={
       Object.entries(statistics.top_articles_tags).map(([itemText, itemValue]) => ({ itemText, itemValue }))
     }

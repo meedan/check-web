@@ -6,6 +6,13 @@ import ListWidget from '../cds/charts/ListWidget';
 
 const ListTopArticlesSent = ({ statistics }) => (
   <ListWidget
+    emptyText={
+      <FormattedMessage
+        defaultMessage="No articles sent"
+        description="Text to display when there are no articles sent"
+        id="listTopArticlesSent.emptyText"
+      />
+    }
     items={
       Object.entries(statistics.top_articles_sent).map(([itemText, itemValue]) => ({ itemText, itemValue }))
     }

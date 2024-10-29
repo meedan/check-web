@@ -10,6 +10,22 @@
   padding: 16px;
   width: 100%;
 
+  .listWidgetEmpty {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+    width: 100%;
+
+    span.listWidgetEmptyText {
+      @mixin typography-body1;
+      color: var(--color-gray-42);
+      font-style: italic;
+      font-weight: 400;
+    }
+  }
+
   .listWidgetItemWrapper {
     display: flex;
     flex-direction: row;

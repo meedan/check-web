@@ -6,6 +6,13 @@ import ListWidget from '../cds/charts/ListWidget';
 
 const ListTopRequestedMediaClusters = ({ statistics }) => (
   <ListWidget
+    emptyText={
+      <FormattedMessage
+        defaultMessage="No media clusters"
+        description="Text to display when there are no media clusters"
+        id="listTopRequestedMediaClusters.emptyText"
+      />
+    }
     items={
       Object.entries(statistics.top_requested_media_clusters).map(([itemText, itemValue]) => ({ itemText, itemValue }))
     }

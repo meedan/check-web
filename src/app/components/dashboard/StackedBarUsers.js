@@ -1,10 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import StackedBarChartWidget from '../cds/charts/StackedBarChartWidget';
 
-const StackedBarUsers = ({ statistics }) => {
+const messages = defineMessages({
+  unique: {
+    defaultMessage: 'Unique',
+    description: 'Unique users',
+    id: 'stackedBarUsers.unique',
+  },
+  returning: {
+    defaultMessage: 'Returning',
+    description: 'Returning users',
+    id: 'stackedBarUsers.returning',
+  },
+});
+
+const StackedBarUsers = ({ intl, statistics }) => {
   const data = {
     unique: statistics.number_of_unique_users,
     returning: statistics.number_of_total_users - statistics.number_of_unique_users,
@@ -18,7 +31,10 @@ const StackedBarUsers = ({ statistics }) => {
     >
       {title => (
         <StackedBarChartWidget
-          data={Object.entries(data).map(([name, value]) => ({ name, value }))}
+          data={Object.entries(data).map(([name, value]) => ({
+            name: intl.formatMessage(messages[name]),
+            value,
+          }))}
           title={title}
         />
       )}
@@ -33,7 +49,7 @@ StackedBarUsers.propTypes = {
   }).isRequired,
 };
 
-export default createFragmentContainer(StackedBarUsers, graphql`
+export default createFragmentContainer(injectIntl(StackedBarUsers), graphql`
   fragment StackedBarUsers_statistics on TeamStatistics {
     number_of_total_users
     number_of_unique_users

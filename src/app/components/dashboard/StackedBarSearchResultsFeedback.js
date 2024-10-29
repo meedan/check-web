@@ -1,10 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import StackedBarChartWidget from '../cds/charts/StackedBarChartWidget';
 
-const StackedBarSearchResultsFeedback = ({ statistics }) => (
+const messages = defineMessages({
+  Positive: {
+    defaultMessage: 'Positive',
+    description: 'Feedback type: Positive',
+    id: 'stackedBarSearchResultsFeedback.positive',
+  },
+  Negative: {
+    defaultMessage: 'Negative',
+    description: 'Feedback type: Negative',
+    id: 'stackedBarSearchResultsFeedback.negative',
+  },
+  'No Response': {
+    defaultMessage: 'No Response',
+    description: 'Feedback type: No Response',
+    id: 'stackedBarSearchResultsFeedback.noResponse',
+  },
+});
+
+const StackedBarSearchResultsFeedback = ({ intl, statistics }) => (
   <FormattedMessage
     defaultMessage="Search Results"
     description="Title for the number of search results by type widget"
@@ -13,7 +31,10 @@ const StackedBarSearchResultsFeedback = ({ statistics }) => (
     {title => (
       <StackedBarChartWidget
         data={
-          Object.entries(statistics.number_of_search_results_by_type).map(([name, value]) => ({ name, value }))
+          Object.entries(statistics.number_of_search_results_by_feedback_type).map(([name, value]) => ({
+            name: intl.formatMessage(messages[name]),
+            value,
+          }))
         }
         title={title}
       />
@@ -23,12 +44,12 @@ const StackedBarSearchResultsFeedback = ({ statistics }) => (
 
 StackedBarSearchResultsFeedback.propTypes = {
   statistics: PropTypes.shape({
-    number_of_search_results_by_type: PropTypes.object.isRequired,
+    number_of_search_results_by_feedback_type: PropTypes.object.isRequired,
   }).isRequired,
 };
 
-export default createFragmentContainer(StackedBarSearchResultsFeedback, graphql`
+export default createFragmentContainer(injectIntl(StackedBarSearchResultsFeedback), graphql`
   fragment StackedBarSearchResultsFeedback_statistics on TeamStatistics {
-    number_of_search_results_by_type
+    number_of_search_results_by_feedback_type
   }
 `);

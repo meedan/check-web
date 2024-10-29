@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import StackedBarChartWidget from '../cds/charts/StackedBarChartWidget';
 
-const StackedBarNewslettersSent = ({ statistics }) => {
+const messages = defineMessages({
+  delivered: {
+    defaultMessage: 'Delivered',
+    description: 'Delivered newsletters',
+    id: 'stackedBarNewslettersSent.delivered',
+  },
+});
+
+const StackedBarNewslettersSent = ({ intl, statistics }) => {
   const data = {
-    sent: statistics.number_of_newsletters_sent,
+    delivered: statistics.number_of_newsletters_delivered,
     empty: statistics.number_of_newsletters_sent - statistics.number_of_newsletters_delivered || 1,
   };
 
@@ -18,7 +26,10 @@ const StackedBarNewslettersSent = ({ statistics }) => {
     >
       {title => (
         <StackedBarChartWidget
-          data={Object.entries(data).map(([name, value]) => ({ name, value }))}
+          data={Object.entries(data).map(([name, value]) => ({
+            name: messages[name] ? intl.formatMessage(messages[name]) : name,
+            value,
+          }))}
           title={title}
         />
       )}
@@ -33,7 +44,7 @@ StackedBarNewslettersSent.propTypes = {
   }).isRequired,
 };
 
-export default createFragmentContainer(StackedBarNewslettersSent, graphql`
+export default createFragmentContainer(injectIntl(StackedBarNewslettersSent), graphql`
   fragment StackedBarNewslettersSent_statistics on TeamStatistics {
     number_of_newsletters_delivered
     number_of_newsletters_sent
