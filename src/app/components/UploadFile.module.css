@@ -1,0 +1,70 @@
+.UploadFile {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 16px;
+
+  .UploadFile-with-file,
+  .UploadFile-without-file {
+    align-items: center;
+    border: 2px dashed var(--color-gray-59);
+    border-radius: var(--border-radius-default);
+    color: var(--color-gray-59);
+    cursor: pointer;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .UploadFile-with-file {
+    strong {
+      display: block;
+      margin: 0 0 8px;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .UploadFile-without-file {
+    color: var(--color-gray-15);
+    text-align: left;
+
+    p:last-of-type {
+      margin: 0;
+    }
+  }
+
+  .PreviewWrapper {
+    align-items: center;
+    background-color: var(--color-white-100);
+    border-radius: var(--border-radius-default);
+    display: flex;
+    flex: 0 0 96px;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+
+    .Preview,
+    .NoPreview {
+      display: block;
+      height: 80px;
+      position: relative;
+      width: 80px;
+    }
+
+    .Preview {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .NoPreview {
+      align-items: center;
+      color: var(--color-gray-59);
+      display: flex;
+      font-size: var(--iconSizeDefault);
+      justify-content: center;
+    }
+  }
+}
