@@ -5,11 +5,6 @@
     "defaultMessage": "Article added successfully!"
   },
   {
-    "id": "mediaArticles.mediaArticlesListTitle",
-    "description": "Title for the list of articles being delivered to users of the tipline for this cluster of media",
-    "defaultMessage": "Articles blab alb"
-  },
-  {
     "id": "mediaArticles.noArticlesAddedToItem",
     "description": "Message displayed on articles sidebar when an item has no articles.",
     "defaultMessage": "No articles are being delivered to Tipline users who send requests that match this Media."
