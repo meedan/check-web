@@ -383,6 +383,8 @@ const Articles = ({
 
   filters = adjustFilters(filters);
 
+  filters = adjustFilters(filters);
+
   return (
     <ErrorBoundary component="Articles">
       <QueryRenderer
@@ -394,6 +396,8 @@ const Articles = ({
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
             $users: [Int], $updated_at: String, $tags: [String], $language: [String], $published_by: [Int],
             $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean,
+            $users: [Int], $updated_at: String, $tags: [String], $language: [String], $published_by: [Int],
+            $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String,
           ) {
             team(slug: $slug) {
               name
@@ -403,11 +407,15 @@ const Articles = ({
               articles_count(
                 article_type: $type, user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, text: $text,
                 publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported, trashed: $trashed,
+                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, text: $text,
+                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported
               )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
                 user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by,
                 report_status: $report_status, rating: $verification_status, imported: $imported, text: $text, trashed: $trashed,
+                user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by,
+                report_status: $report_status, rating: $verification_status, imported: $imported, text: $text,
               ) {
                 edges {
                   node {
