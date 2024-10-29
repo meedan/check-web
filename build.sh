@@ -9,7 +9,6 @@ then
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
 # Running all tests
 else
-  if [[ "$GITHUB_JOB_NAME" == 'integration-and-unit-tests' ]]
   if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
   then
     docker compose build web api api-background pender pender-background
