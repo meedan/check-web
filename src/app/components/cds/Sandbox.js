@@ -246,6 +246,7 @@ const SandboxComponent = ({ admin }) => {
   const [slideoutTitle, setSlideoutTitle] = React.useState('');
   const [openSlideout, setOpenSlideout] = React.useState(Boolean(false));
   const [slideoutFooter, setSlideoutFooter] = React.useState(Boolean(true));
+  const [slideoutScrollable, setSlideoutScrollable] = React.useState(Boolean(true));
   const [slideoutCancel, setSlideoutCancel] = React.useState(Boolean(true));
   const [slideoutMainAction, setSlideoutMainAction] = React.useState(Boolean(true));
   const [slideoutSecondaryAction, setSlideoutSecondaryAction] = React.useState(Boolean(false));
@@ -1880,6 +1881,14 @@ const SandboxComponent = ({ admin }) => {
                 </li>
                 <li>
                   <SwitchComponent
+                    checked={slideoutScrollable}
+                    label="Content Scrollable"
+                    labelPlacement="top"
+                    onChange={() => setSlideoutScrollable(!slideoutScrollable)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
                     checked={slideoutCancel}
                     label="Show Cancel"
                     labelPlacement="top"
@@ -1930,6 +1939,7 @@ const SandboxComponent = ({ admin }) => {
                     </p>
                   </>
                 }
+                contentScrollable={slideoutScrollable}
                 footer={slideoutFooter}
                 mainActionButton={slideoutMainAction && <ButtonMain label="Main content" size="small" />}
                 optionalNode={slideoutOptionalNode && <SwitchComponent label="Optional Node label" />}

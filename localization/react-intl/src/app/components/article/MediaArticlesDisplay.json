@@ -5,6 +5,11 @@
     "defaultMessage": "Articles Delivered to Tipline Requests"
   },
   {
+    "id": "mediaArticlesDisplay.listTitle",
+    "description": "Title for the list of articles being delivered to users of the tipline for this cluster of media",
+    "defaultMessage": "Articles Delivered to Tipline Requests:"
+  },
+  {
     "id": "mediaArticlesDisplay.readOnlyAlertContent",
     "description": "Description of the alert message displayed on data points section of the edit feed page.",
     "defaultMessage": "When a claim & fact-check article is added, it will be prioritized as the only article to be delivered as a response to requests that match this item."
