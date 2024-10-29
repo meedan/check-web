@@ -1,11 +1,7 @@
 #!/bin/bash
 # set -e 
 # Running only unit tests
-<<<<<<< HEAD
 if [[ $GITHUB_BRANCH != 'develop' && $GITHUB_BRANCH != 'master' && ! $GITHUB_COMMIT_MESSAGE =~ \[full\ ci\] && ! $GITHUB_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[text\ similarity\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[media\ similarity\ tests\] ]]
-=======
-if [[ $GITHUB_BRANCH != 'develop' && $GITHUB_BRANCH != 'master' && ! $GITHUB_COMMIT_MESSAGE =~ \[full\ ci\] && ! $GITHUB_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[similarity\ tests\] ]]
->>>>>>> Epic-4798/migraton-of-check-web-ci
 then
   echo "Running only unit tests"
   docker compose build web
