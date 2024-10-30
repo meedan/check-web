@@ -7,7 +7,7 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    gap: 32px;
+    gap: 16px;
     overflow: auto;
     padding: 16px 32px 32px;
 
@@ -15,17 +15,25 @@
       background: var(--color-beige-86);
       border-radius: var(--border-radius-default);
       display: flex;
+      flex-wrap: wrap;
       gap: 16px;
+      min-width: 450px;
       padding: 16px;
     }
 
-    .dashboard-two-column {
+    .dashboard-combo {
+      background-color: var(--color-white-100);
+      border-radius: var(--border-radius-large);
       display: flex;
       flex-direction: row;
-      gap: 16px;
 
-      > div {
+      > div:first-child {
         flex: 1;
+        margin: 16px 0 16px 16px;
+      }
+
+      > div:last-child {
+        flex: 2;
       }
     }
 
@@ -35,20 +43,23 @@
       gap: 16px;
     }
 
-    .dashboard-combo {
-      background-color: var(--color-white-100);
-      border-radius: var(--border-radius-large);
+    .dashboard-two-column {
       display: flex;
-      flex-direction: row;
-    }
+      flex-flow: row wrap;
+      gap: 16px;
+      min-width: 450px;
 
-    .dashboard-combo > div:first-child {
-      flex: 1;
-      margin: 16px 0 16px 16px;
-    }
+      > .dashboard-single-column {
+        flex: 2 1 calc(50% - 8px);
+        min-width: 450px;
+        width: 100%;
 
-    .dashboard-combo > div:last-child {
-      flex: 2;
+        .dashboard-two-column {
+          > div {
+            flex-basis: calc(50% - 8px);
+          }
+        }
+      }
     }
   }
 }
