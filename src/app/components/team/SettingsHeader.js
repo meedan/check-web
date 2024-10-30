@@ -9,7 +9,6 @@ const SettingsHeader = ({
   actionButton,
   className,
   context,
-  dates,
   extra,
   helpUrl,
   style,
@@ -18,9 +17,6 @@ const SettingsHeader = ({
   const handleHelp = () => {
     window.open(helpUrl);
   };
-
-  const [firstValue, ...rest] = dates;
-  const lastValue = rest?.length > 0 ? rest[rest.length - 1] : firstValue;
 
   return (
     <div
@@ -48,11 +44,6 @@ const SettingsHeader = ({
         </div>
         }
         <div className={styles['actions-container']}>
-          { dates &&
-            <div className={cx(styles['data-wrapper'], 'typography-h5')} >
-              {firstValue} - {lastValue}
-            </div>
-          }
           { actionButton &&
             <div className={styles['buttons-wrapper']}>
               {actionButton}
@@ -75,7 +66,6 @@ SettingsHeader.defaultProps = {
   helpUrl: null,
   className: '',
   extra: null,
-  dates: [],
   style: {},
 };
 
@@ -83,7 +73,6 @@ SettingsHeader.propTypes = {
   actionButton: PropTypes.node,
   className: PropTypes.string,
   context: PropTypes.element,
-  dates: PropTypes.arrayOf(PropTypes.string),
   extra: PropTypes.node,
   helpUrl: PropTypes.string,
   style: PropTypes.object,
