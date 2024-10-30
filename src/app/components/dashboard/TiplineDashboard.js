@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -18,6 +19,8 @@ import TiplineDataComponent from './TiplineDataComponent';
 import TimelineTiplineMessageVolume from './TimelineTiplineMessageVolume';
 import VerticalBarMediaReceivedByType from './VerticalBarMediaReceivedByType';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
+import PageTitle from '../PageTitle';
+import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import { safelyParseJSON } from '../../helpers';
 import styles from './Dashboard.module.css';
@@ -119,59 +122,63 @@ const TiplineDashboardQueryRenderer = ({ routeParams }) => {
   };
 
   return (
-    <QueryRenderer
-      environment={Relay.Store}
-      query={graphql`
-        query TiplineDashboardQuery($teamSlug: String!, $period: String!, $platform: String, $language: String) {
-          team(slug: $teamSlug) {
-            slug
-            get_language
-            get_languages
-            data_report
-            statistics(period: $period, platform: $platform, language: $language) {
-              ...ListTopMediaTags_statistics
-              ...ListTopRequestedMediaClusters_statistics
-              ...NumberArticlesSent_statistics
-              ...NumberAvgResponseTime_statistics
-              ...NumberConversations_statistics
-              ...NumberSubscribers_statistics
-              ...StackedBarNewslettersSent_statistics
-              ...StackedBarSearchResultsFeedback_statistics
-              ...StackedBarSearchResultsByType_statistics
-              ...StackedBarUsers_statistics
-              ...TimelineTiplineMessageVolume_statistics
-              ...VerticalBarMediaReceivedByType_statistics
+    <PageTitle title={<FormattedMessage defaultMessage="Tipline Dashboard" description="Title of the dashboard page." id="tiplineDashboard.title" />}>
+      <ErrorBoundary component="TiplineDashboard">
+        <QueryRenderer
+          environment={Relay.Store}
+          query={graphql`
+            query TiplineDashboardQuery($teamSlug: String!, $period: String!, $platform: String, $language: String) {
+              team(slug: $teamSlug) {
+                slug
+                get_language
+                get_languages
+                data_report
+                statistics(period: $period, platform: $platform, language: $language) {
+                  ...ListTopMediaTags_statistics
+                  ...ListTopRequestedMediaClusters_statistics
+                  ...NumberArticlesSent_statistics
+                  ...NumberAvgResponseTime_statistics
+                  ...NumberConversations_statistics
+                  ...NumberSubscribers_statistics
+                  ...StackedBarNewslettersSent_statistics
+                  ...StackedBarSearchResultsFeedback_statistics
+                  ...StackedBarSearchResultsByType_statistics
+                  ...StackedBarUsers_statistics
+                  ...TimelineTiplineMessageVolume_statistics
+                  ...VerticalBarMediaReceivedByType_statistics
+                }
+              }
             }
-          }
-        }
-      `}
-      render={({ error, props }) => {
-        if (!error && props) {
-          const { team } = props;
+          `}
+          render={({ error, props }) => {
+            if (!error && props) {
+              const { team } = props;
 
-          return (
-            <TiplineDashboard
-              language={language}
-              period={period}
-              platform={platform}
-              team={team}
-              onChangeLanguage={handleLanguageChange}
-              onChangePeriod={handlePeriodChange}
-              onChangePlatform={handlePlatformChange}
-            />
-          );
-        }
+              return (
+                <TiplineDashboard
+                  language={language}
+                  period={period}
+                  platform={platform}
+                  team={team}
+                  onChangeLanguage={handleLanguageChange}
+                  onChangePeriod={handlePeriodChange}
+                  onChangePlatform={handlePlatformChange}
+                />
+              );
+            }
 
-        // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading size="large" theme="white" variant="page" />;
-      }}
-      variables={{
-        language,
-        period,
-        platform,
-        teamSlug: routeParams.team,
-      }}
-    />
+            // TODO: We need a better error handling in the future, standardized with other components
+            return <MediasLoading size="large" theme="white" variant="page" />;
+          }}
+          variables={{
+            language,
+            period,
+            platform,
+            teamSlug: routeParams.team,
+          }}
+        />
+      </ErrorBoundary>
+    </PageTitle>
   );
 };
 
