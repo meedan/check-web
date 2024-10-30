@@ -1,7 +1,7 @@
 #!/bin/bash
 # set -e 
 # Running only unit tests
-if [[ $GITHUB_BRANCH != 'develop' && $GITHUB_BRANCH != 'master' && ! $GITHUB_COMMIT_MESSAGE =~ \[full\ ci\] && ! $GITHUB_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[similarity\ tests\] ]]
+if [[ $GITHUB_BRANCH != 'develop' && $GITHUB_BRANCH != 'master' && ! $GITHUB_COMMIT_MESSAGE =~ \[full\ ci\] && ! $GITHUB_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[text\ similarity\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[media\ similarity\ tests\] ]]
 then
   echo "Running only unit tests"
   docker compose build web
@@ -9,13 +9,12 @@ then
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
 # Running all tests
 else
-  if [[ "$GITHUB_JOB_NAME" == 'integration-and-unit-tests' ]]
   if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
   then
     docker compose build web api api-background pender pender-background
     docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
   else
-    if [[ $TRAVIS_JOB_NAME == 'media-similarity-tests' ]]
+    if [[ $GITHUB_JOB_NAME == 'media-similarity-tests' ]]
     then
       i=0
       NGROK_URL=""
@@ -43,11 +42,11 @@ else
       echo "Ngrok tunnel: $NGROK_URL"
       sed -i "s~similarity_media_file_url_host: ''~similarity_media_file_url_host: '$NGROK_URL'~g" check-api/config/config.yml
       cat check-api/config/config.yml | grep similarity_media_file_url_host
-      docker-compose build web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
-      docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
+      docker compose build web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
+      docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
     else
-      docker-compose build web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
-      docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
+      docker compose build web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
+      docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
     fi
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
     until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
@@ -63,3 +62,4 @@ else
   # docker-compose logs -f presto-audio &
   # docker-compose logs -f presto-video &
 fi
+
