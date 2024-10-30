@@ -2,12 +2,12 @@
   {
     "id": "stackedBarSearchResultsByType.FactCheck",
     "description": "Article type: Fact-Check",
-    "defaultMessage": "Fact-Check"
+    "defaultMessage": "Fact-Checks"
   },
   {
     "id": "stackedBarSearchResultsByType.Explainer",
     "description": "Article type: Explainer",
-    "defaultMessage": "Explainer"
+    "defaultMessage": "Explainers"
   },
   {
     "id": "stackedBarSearchResultsByType.title",

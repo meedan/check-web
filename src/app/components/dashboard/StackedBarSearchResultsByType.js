@@ -6,12 +6,12 @@ import StackedBarChartWidget from '../cds/charts/StackedBarChartWidget';
 
 const messages = defineMessages({
   FactCheck: {
-    defaultMessage: 'Fact-Check',
+    defaultMessage: 'Fact-Checks',
     description: 'Article type: Fact-Check',
     id: 'stackedBarSearchResultsByType.FactCheck',
   },
   Explainer: {
-    defaultMessage: 'Explainer',
+    defaultMessage: 'Explainers',
     description: 'Article type: Explainer',
     id: 'stackedBarSearchResultsByType.Explainer',
   },
