@@ -72,13 +72,11 @@ const TiplineDashboard = ({
           <VerticalBarMediaReceivedByType statistics={team.statistics} />
         </div>
       </div>
-      <div>
-        <TiplineDataComponent
-          data={team.data_report}
-          defaultLanguage={team.get_language}
-          slug={team.slug}
-        />
-      </div>
+      <TiplineDataComponent
+        data={team.data_report}
+        defaultLanguage={team.get_language}
+        slug={team.slug}
+      />
     </div>
   </div>
 );
