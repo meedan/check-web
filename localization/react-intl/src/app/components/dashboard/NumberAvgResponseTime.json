@@ -1,0 +1,7 @@
+[
+  {
+    "id": "numberAvgResponseTime.title",
+    "description": "Title for the average response time widget",
+    "defaultMessage": "Avg. Response Time"
+  }
+]

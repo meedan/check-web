@@ -1,0 +1,22 @@
+[
+  {
+    "id": "stackedBarSearchResultsFeedback.positive",
+    "description": "Feedback type: Positive",
+    "defaultMessage": "Positive"
+  },
+  {
+    "id": "stackedBarSearchResultsFeedback.negative",
+    "description": "Feedback type: Negative",
+    "defaultMessage": "Negative"
+  },
+  {
+    "id": "stackedBarSearchResultsFeedback.noResponse",
+    "description": "Feedback type: No Response",
+    "defaultMessage": "No Response"
+  },
+  {
+    "id": "stackedBarSearchResultsFeedback.title",
+    "description": "Title for the number of search results by type widget",
+    "defaultMessage": "Search Results"
+  }
+]

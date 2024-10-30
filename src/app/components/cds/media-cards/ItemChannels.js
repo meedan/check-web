@@ -10,7 +10,7 @@ import ViberIcon from '../../../icons/viber.svg';
 import LineIcon from '../../../icons/line.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
-import CheckChannels from '../../../CheckChannels';
+import CheckChannels, { humanTiplineNames } from '../../../CheckChannels';
 import CheckPropTypes from '../../../CheckPropTypes';
 import styles from './Card.module.css';
 
@@ -20,16 +20,6 @@ const ItemChannels = ({
   sortMainFirst,
 }) => {
   const tiplines = CheckChannels.TIPLINE;
-
-  const humanTiplineNames = {
-    WHATSAPP: 'WhatsApp',
-    MESSENGER: 'Messenger',
-    TWITTER: 'X (Twitter)',
-    TELEGRAM: 'Telegram',
-    VIBER: 'Viber',
-    LINE: 'Line',
-    INSTAGRAM: 'Instagram',
-  };
 
   function getTiplineNameFromChannelNumber(channel) {
     const matchedTipline = Object.entries(tiplines).find(item => item[1] === channel.toString());

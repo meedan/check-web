@@ -1,0 +1,17 @@
+[
+  {
+    "id": "stackedBarUsers.unique",
+    "description": "Unique users",
+    "defaultMessage": "Unique"
+  },
+  {
+    "id": "stackedBarUsers.returning",
+    "description": "Returning users",
+    "defaultMessage": "Returning"
+  },
+  {
+    "id": "stackedBarUsers.title",
+    "description": "Title for the number of users widget",
+    "defaultMessage": "Users"
+  }
+]

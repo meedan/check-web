@@ -7,6 +7,6 @@
   {
     "id": "feedItemMedia.titleWorkspaceSelected",
     "description": "Title for the media section on the feed item page when there is a workspace selected.",
-    "defaultMessage": "Media in Cluster [{mediaCount}] from requests [{requestsCount}]"
+    "defaultMessage": "Media [{mediaCount}] from requests [{requestsCount}]"
   }
 ]

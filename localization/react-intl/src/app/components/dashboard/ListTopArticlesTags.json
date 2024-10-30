@@ -1,0 +1,17 @@
+[
+  {
+    "id": "listTopMediaTags.manageTags",
+    "description": "Label for the button to manage tags",
+    "defaultMessage": "Manage Tags"
+  },
+  {
+    "id": "listTopArticlesTags.emptyText",
+    "description": "Text to display when there are no article tags",
+    "defaultMessage": "No article tags"
+  },
+  {
+    "id": "listTopArticlesTags.title",
+    "description": "Title for the top article tags list widget",
+    "defaultMessage": "Top Article Tags"
+  }
+]
