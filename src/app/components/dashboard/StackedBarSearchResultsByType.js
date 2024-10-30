@@ -17,6 +17,11 @@ const messages = defineMessages({
   },
 });
 
+const colors = {
+  FactCheck: 'var(--color-purple-61)',
+  Explainer: 'var(--color-blue-54)',
+};
+
 const StackedBarSearchResultsByType = ({ intl, statistics }) => (
   <FormattedMessage
     defaultMessage="Matched Results"
@@ -29,6 +34,7 @@ const StackedBarSearchResultsByType = ({ intl, statistics }) => (
           Object.entries(statistics.number_of_matched_results_by_article_type).map(([name, value]) => ({
             name: intl.formatMessage(messages[name]),
             value,
+            color: colors[name],
           }))
         }
         title={title}

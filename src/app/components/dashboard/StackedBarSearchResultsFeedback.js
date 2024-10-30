@@ -22,6 +22,12 @@ const messages = defineMessages({
   },
 });
 
+const colors = {
+  Positive: 'var(--color-green-50)',
+  Negative: 'var(--color-pink-53)',
+  'No Response': 'var(--color-blue-54)',
+};
+
 const StackedBarSearchResultsFeedback = ({ intl, statistics }) => (
   <FormattedMessage
     defaultMessage="Search Results"
@@ -34,6 +40,7 @@ const StackedBarSearchResultsFeedback = ({ intl, statistics }) => (
           Object.entries(statistics.number_of_search_results_by_feedback_type).map(([name, value]) => ({
             name: intl.formatMessage(messages[name]),
             value,
+            color: colors[name],
           }))
         }
         title={title}

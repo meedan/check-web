@@ -29,8 +29,10 @@ const StackedBarNewslettersSent = ({ intl, statistics }) => {
           data={Object.entries(data).map(([name, value]) => ({
             name: messages[name] ? intl.formatMessage(messages[name]) : name,
             value,
+            color: name === 'delivered' ? 'var(--color-green-50)' : null,
           }))}
           title={title}
+          total={statistics.number_of_newsletters_sent}
         />
       )}
     </FormattedMessage>
