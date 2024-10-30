@@ -30,7 +30,7 @@ const messages = defineMessages({
   },
   Blank: {
     defaultMessage: 'Imported fact-check',
-    description: 'Label to show that the type of media is was imported into the application',
+    description: 'Label to show that the type of item is an imported fact-check',
     id: 'media.typeBlank',
   },
   Facebook: {
@@ -82,7 +82,7 @@ export default function MediaTypeDisplayName({ mediaType }) {
   case 'UploadedAudio':
     return <FormattedMessage defaultMessage="Audio" description="Label to show that the type of media is an audio file" id="media.typeAudio" />;
   case 'Blank':
-    return <FormattedMessage defaultMessage="Imported fact-check" description="Label to show that the type of media is was imported into the application" id="media.typeBlank" />;
+    return <FormattedMessage defaultMessage="Imported fact-check" description="Label to show that the type of item is an imported fact-check" id="media.typeBlank" />;
   case 'Facebook':
     return <FormattedMessage defaultMessage="Facebook Post" description="Label to show that the type of media is a Facebook post" id="media.typeFacebook" />;
   case 'Instagram':

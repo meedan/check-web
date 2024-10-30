@@ -41,7 +41,7 @@ const TiplineDashboard = ({
           selectedLanguage={language || 'all'}
           onSubmit={onChangeLanguage}
         />
-        <PlatformSelect value={platform} onChange={onChangePlatform} />
+        <PlatformSelect value={platform || 'all'} onChange={onChangePlatform} />
       </div>
       <TimelineTiplineMessageVolume statistics={team.statistics} />
       <div className={styles['dashboard-two-column']}>
@@ -91,7 +91,7 @@ TiplineDashboard.propTypes = {
   period: PropTypes.string.isRequired,
   platform: PropTypes.string,
   team: PropTypes.shape({
-    data_report: PropTypes.object.isRequired,
+    data_report: PropTypes.object,
     get_language: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,

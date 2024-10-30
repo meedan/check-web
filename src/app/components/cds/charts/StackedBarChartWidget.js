@@ -16,11 +16,12 @@ const StackedBarChartWidget = ({
   height,
   intl,
   title,
+  total,
   width,
 }) => {
   if (!data) return null;
 
-  const colors = [
+  const defaultColors = [
     'var(--color-blue-54)',
     'var(--color-orange-54)',
     'var(--color-green-50)',
@@ -30,25 +31,32 @@ const StackedBarChartWidget = ({
     'var(--color-gray-42)',
   ];
 
-  const dataSum = data.reduce((acc, d) => (d.name === 'empty' ? acc : acc + d.value), 0);
+  // Get the sum of all values, excluding the 'empty' value if it exists
+  // If the sum is 0, add an 'empty' value to the data
+  const dataSum = total || data.reduce((acc, d) => (d.name === 'empty' ? acc : acc + d.value), 0);
 
   if (dataSum === 0 && !data.some(d => d.name === 'empty')) {
     data.push({ name: 'empty', value: 1 });
   }
 
+  // Add colors to the data, using the default colors if none are provided
   const coloredData = data.map((d, i) => ({
     ...d,
-    fill: d.name === 'empty' ? 'var(--color-gray-88)' : (d.color || colors[i % colors.length]),
+    fill: d.name === 'empty' ? 'var(--color-gray-88)' : (d.color || defaultColors[i % defaultColors.length]),
   }));
 
+  const coloredDataMinusZeroes = coloredData.filter(d => d.value !== 0);
+
+  // Create the data object for the BarChart component
   const barChartData = { name: 'Data' };
 
   coloredData.forEach((d) => {
     barChartData[d.name] = d.value;
   });
 
-  const getBarRadius = (i, length) => {
-    if (length === 1 || dataSum === 0) return [50, 50, 50, 50];
+  // Get the radius for the bar caps
+  const getBarRadius = (i, length, value) => {
+    if (length === 1 || dataSum === 0 || dataSum === value) return [50, 50, 50, 50];
     if (i === 0) return [50, 0, 0, 50];
     if (i === length - 1) return [0, 50, 50, 0];
     return [0, 0, 0, 0];
@@ -95,13 +103,13 @@ const StackedBarChartWidget = ({
           data={[barChartData]}
           layout="vertical"
         >
-          { coloredData.map((d, i) => (
+          { coloredDataMinusZeroes.map((d, i) => (
             <Bar
               barSize={16}
               dataKey={d.name}
               fill={d.fill}
               key={d.name}
-              radius={getBarRadius(i, coloredData.length)}
+              radius={getBarRadius(i, coloredDataMinusZeroes.length, d.value)}
               stackId={1}
               onMouseEnter={() => setMouseOverBar(d.name)}
               onMouseLeave={() => setMouseOverBar(null)}
