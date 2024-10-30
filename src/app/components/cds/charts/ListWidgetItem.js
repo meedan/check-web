@@ -13,9 +13,9 @@ const ListWidgetItem = ({
   <li className={styles.listWidgetItemWrapper} key={id}>
     {
       isValidURL(itemLink) ?
-        <div className={styles.listWidgetItemText}><a href={itemLink}>{itemText}</a></div>
+        <div className={styles.listWidgetItemText} title={itemText}><a href={itemLink}>{itemText}</a></div>
         :
-        <div className={styles.listWidgetItemText}>{itemText}</div>
+        <div className={styles.listWidgetItemText} title={itemText}>{itemText}</div>
     }
     <div className={styles.listWidgetItemValue}>{getDisplayValue(itemValue)}</div>
   </li>
