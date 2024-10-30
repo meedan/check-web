@@ -3,7 +3,7 @@ name: Build and Run Tests
 on:
   push:
     branches:
-    - develop
+    - Epic-4798/migraton-of-check-web-ci
   pull_request:
     branches:
     - Epic-4798/migraton-of-check-web-ci
