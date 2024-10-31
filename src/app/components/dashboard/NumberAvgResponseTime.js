@@ -14,6 +14,20 @@ import NumberWidget from '../cds/charts/NumberWidget';
 const NumberAvgResponseTime = ({ intl, statistics }) => {
   moment.locale(intl.locale);
 
+  // Set the rounding function to round to 2 decimal places and set the thresholds
+  moment.relativeTimeRounding((t) => {
+    const DIGITS = 2; // like: 2.56 minutes
+    return Math.round(t * (10 ** DIGITS)) / (10 ** DIGITS);
+  });
+  moment.relativeTimeThreshold('y', 365);
+  moment.relativeTimeThreshold('M', 12);
+  moment.relativeTimeThreshold('w', 4);
+  moment.relativeTimeThreshold('d', 31);
+  moment.relativeTimeThreshold('h', 24);
+  moment.relativeTimeThreshold('m', 60);
+  moment.relativeTimeThreshold('s', 60);
+  moment.relativeTimeThreshold('ss', 0);
+
   const value = statistics.average_response_time ?
     moment.duration(statistics.average_response_time, 'seconds').humanize() : null;
 
