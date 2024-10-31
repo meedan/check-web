@@ -17,7 +17,6 @@ env:
 
 jobs:
   media-similarity-tests:
-    needs: [text-similarity-tests]
     runs-on: 
       labels: check-web
     if: >
@@ -169,9 +168,11 @@ jobs:
           docker volume rm $(docker volume ls -q)  
     
   text-similarity-tests:
+    needs: [media-similarity-tests]
     runs-on: 
       labels: check-web
     if: >
+      always() ||
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
       contains(github.event.head_commit.message, '[full ci]') ||
