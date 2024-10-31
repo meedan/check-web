@@ -16,7 +16,7 @@ import VerticalBarFactChecksByRating from './VerticalBarFactChecksByRating';
 import PageTitle from '../PageTitle';
 import ErrorBoundary from '../error/ErrorBoundary';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import { safelyParseJSON } from '../../helpers';
 import styles from './Dashboard.module.css';
 
@@ -134,7 +134,7 @@ const ArticlesDashboardQueryRenderer = ({ routeParams }) => {
             }
 
             // TODO: We need a better error handling in the future, standardized with other components
-            return <MediasLoading size="large" text={<FormattedMessage defaultMessage="Fetching latest data, please wait…" description="Loading message of the dashboard page." id="articlesDashboard.loading" />} theme="white" variant="page" />;
+            return <Loader size="large" text={<FormattedMessage defaultMessage="Fetching latest data, please wait…" description="Loading message of the dashboard page." id="articlesDashboard.loading" />} theme="white" variant="page" />;
           }}
           variables={{
             teamSlug: routeParams.team,

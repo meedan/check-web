@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import cx from 'classnames/bind';
-import MediasLoading from './media/MediasLoading';
+import Loader from './cds/loading/Loader';
 import styles from './PenderCard.module.css';
 
 class PenderCard extends Component {
@@ -66,7 +66,7 @@ class PenderCard extends Component {
               return this.props.fallback;
             }
             return (
-              <MediasLoading size="medium" theme="white" variant="inline" />
+              <Loader size="medium" theme="white" variant="inline" />
             );
           })()}
         </div>

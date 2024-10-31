@@ -7,7 +7,7 @@ import RemoveableWrapper from './RemoveableWrapper';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import MultiSelector from '../layout/MultiSelector';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import AddIcon from '../../icons/add.svg';
 import CloseIcon from '../../icons/clear.svg';
 import ErrorOutlineIcon from '../../icons/error_outline.svg';
@@ -251,7 +251,7 @@ const CustomSelectDropdown = ({
               allowSearch={allowSearch}
               hasMore={hasMore}
               inputPlaceholder={inputPlaceholder || placeholder}
-              loadingIcon={loading && <MediasLoading size="small" theme="grey" variant="inline" />}
+              loadingIcon={loading && <Loader size="small" theme="grey" variant="inline" />}
               notFoundLabel={!loading && inputPlaceholder ? (
                 <FormattedMessage
                   defaultMessage="No results matching {keyword}."

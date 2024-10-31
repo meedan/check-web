@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import MediasLoading from './MediasLoading';
+import Loader from '../cds/loading/Loader';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import Annotations from '../annotations/Annotations';
@@ -228,7 +228,7 @@ const MediaLog = (props) => {
           team={props.team}
         />
       )}
-      renderLoading={() => <MediasLoading size="medium" theme="grey" variant="inline" />}
+      renderLoading={() => <Loader size="medium" theme="grey" variant="inline" />}
       route={route}
     />
   );

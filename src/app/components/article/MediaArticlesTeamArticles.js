@@ -7,7 +7,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import MediaArticlesCard from './MediaArticlesCard';
 import ErrorBoundary from '../error/ErrorBoundary';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import DescriptionIcon from '../../icons/description.svg';
 import styles from './Articles.module.css';
 
@@ -100,7 +100,7 @@ const MediaArticlesTeamArticles = ({
             <MediaArticlesTeamArticlesComponent articles={articles} team={props.team} textSearch={textSearch} onAdd={onAdd} />
           );
         }
-        return <MediasLoading size="large" theme="white" variant="inline" />;
+        return <Loader size="large" theme="white" variant="inline" />;
       }}
       variables={{
         textSearch,

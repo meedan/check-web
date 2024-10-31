@@ -12,7 +12,7 @@ import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import AddIcon from '../../../icons/add.svg';
 import IconClose from '../../../icons/clear.svg';
 import styles from '../../../styles/css/dialog.module.css';
-import MediasLoading from '../MediasLoading';
+import Loader from '../../cds/loading/Loader';
 
 const CreateMediaButton = ({
   environment,
@@ -116,7 +116,7 @@ const CreateMediaButton = ({
           />
         </div>
         <div className={styles['dialog-content']}>
-          { !saving ? <CreateMediaInput formId="create-media-dialog-form" team={team} onSubmit={handleSubmit} /> : <MediasLoading size="medium" theme="white" variant="inline" />}
+          { !saving ? <CreateMediaInput formId="create-media-dialog-form" team={team} onSubmit={handleSubmit} /> : <Loader size="medium" theme="white" variant="inline" />}
         </div>
         <div className={styles['dialog-actions']}>
           <ButtonMain

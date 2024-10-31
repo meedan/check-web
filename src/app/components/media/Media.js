@@ -4,7 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { injectIntl } from 'react-intl';
 import MediaComponent from './MediaComponent';
-import MediasLoading from './MediasLoading';
+import Loader from '../cds/loading/Loader';
 import ErrorBoundary from '../error/ErrorBoundary';
 import CheckContext from '../../CheckContext';
 
@@ -26,7 +26,7 @@ const ProjectMedia = (parentProps, context) => {
         `}
         render={({ error, props }) => {
           if (!error && !props) {
-            return (<MediasLoading size="large" theme="white" variant="page" />);
+            return (<Loader size="large" theme="white" variant="page" />);
           }
 
           if (!error && props) {
