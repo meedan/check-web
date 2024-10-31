@@ -20,6 +20,7 @@ jobs:
     runs-on: 
       labels: check-web
     if: >
+      always() ||
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
       contains(github.event.head_commit.message, '[full ci]') ||
