@@ -3,10 +3,10 @@ name: Build and Run Tests
 on:
   push:
     branches:
-    - Epic-4798/migraton-of-check-web-ci
+    - '**'
   pull_request:
     branches:
-    - Epic-4798/migraton-of-check-web-ci
+    - develop
 
 env:
   GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
@@ -534,7 +534,7 @@ jobs:
         cp config-build.js.example config-build.js
         cp config-server.js.example config-server.js
         cp test/config.yml.example test/config.yml
-        
+
     - name: Before Script
       env: 
         MAX_WEB_CURL: 3000
