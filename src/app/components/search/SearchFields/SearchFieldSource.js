@@ -4,7 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import MediasLoading from '../../media/MediasLoading';
+import Loader from '../../cds/loading/Loader';
 import SettingsInputAntennaIcon from '../../../icons/settings_input_antenna.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
 
@@ -73,7 +73,7 @@ const SearchFieldSource = ({
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+        return <Loader size="icon" theme="grey" variant="icon" />;
       }}
       variables={{
         teamSlug,

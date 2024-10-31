@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
 import Annotation from './Annotation';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from '../media/media.module.css';
 
@@ -80,7 +80,7 @@ class Annotations extends React.Component {
               disabled={this.state.loadingMore}
               iconCenter={
                 this.state.loadingMore ?
-                  <MediasLoading size="icon" theme="white" variant="icon" /> :
+                  <Loader size="icon" theme="white" variant="icon" /> :
                   null
               }
               label={

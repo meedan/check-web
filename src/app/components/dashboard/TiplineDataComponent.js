@@ -1,7 +1,6 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Table from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -9,17 +8,22 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import cx from 'classnames/bind';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import HelpIcon from '../../../icons/help.svg';
-import GetAppIcon from '../../../icons/file_download.svg';
-import SettingsHeader from '../SettingsHeader';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
-import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
-import Select from '../../cds/inputs/Select';
-import settingsStyles from '../Settings.module.css';
+import BlankState from '../layout/BlankState';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import HelpIcon from '../../icons/help.svg';
+import IosShareIcon from '../../icons/ios_share.svg';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
+import Select from '../cds/inputs/Select';
+import styles from './Dashboard.module.css';
 
 const messagesDescription = 'Explanation on table header, when hovering the "help" icon, on data settings page';
 const messages = defineMessages({
+  allData: {
+    id: 'teamDataComponent.allDataTitle',
+    defaultMessage: 'All Data:',
+    description: 'Header for the stored data page of the current team',
+  },
   uniqueUsers: {
     id: 'teamDataComponent.uniqueUsers',
     defaultMessage: 'Unique users who interacted with the bot.',
@@ -159,7 +163,7 @@ function formatValue(header, value) {
   return formattedValue;
 }
 
-const TeamDataComponent = ({
+const TiplineDataComponent = ({
   data,
   defaultLanguage,
   intl,
@@ -246,15 +250,60 @@ const TeamDataComponent = ({
     pom.click();
   };
 
+  const dates = [];
+  rows.forEach((row) => {
+    dates.push(formatValue('Month', row.Month));
+  });
+  // const dates = ['Sep 2024', 'Jan 2023', 'Dec 2023', 'Feb 2024'];
+  const parseMonthYear = (value) => {
+    const [month, year] = value.split(' ');
+    const monthIndex = new Date(`${month} 1`).getMonth();
+    return new Date(year, monthIndex);
+  };
+  dates.sort((a, b) => parseMonthYear(a) - parseMonthYear(b));
+
+  const [firstValue, ...rest] = dates;
+  const lastValue = rest?.length > 0 ? rest[rest.length - 1] : firstValue;
+
   return (
-    <>
-      <SettingsHeader
-        actionButton={
+    <div className={styles['dashboard-data-table']}>
+      <div className={styles['dashboard-data-table-header']}>
+        <div className={styles['dashboard-data-table-header-title']}>
+          <h5>
+            {intl.formatMessage(messages.allData)}
+          </h5>
+          { (platforms.length > 1 || languages.length > 1) &&
+            <>
+              { platforms.length > 1 ?
+                <Select
+                  value={currentPlatform}
+                  onChange={(e) => { setCurrentPlatform(e.target.value); }}
+                >
+                  {platforms.map(platform => (
+                    <option key={platform} value={platform}>{platform}</option>
+                  ))}
+                </Select> : null }
+              { languages.length > 1 ?
+                <LanguagePickerSelect
+                  languages={languages}
+                  selectedLanguage={currentLanguage}
+                  onSubmit={newValue => setCurrentLanguage(newValue.languageCode)}
+                /> : null
+              }
+            </>
+          }
+        </div>
+        <div className={styles['dashboard-data-table-header-actions']}>
+          { dates &&
+            <h6>
+              {firstValue} - {lastValue}
+            </h6>
+          }
           <ButtonMain
-            iconLeft={<GetAppIcon />}
+            iconLeft={<IosShareIcon />}
             label={
               <FormattedMessage
-                defaultMessage="Download CSV"
+                defaultMessage="Export"
                 description="Label for action button displayed on workspace data report page."
                 id="teamDataComponent.download"
               />
@@ -264,54 +313,19 @@ const TeamDataComponent = ({
             variant="contained"
             onClick={handleDownload}
           />
-        }
-        context={
-          <FormattedHTMLMessage
-            defaultMessage='View and export monthly tipline usage data. Data may take 24 hours to update; all data except for WhatsApp conversations are specific to each tipline language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about engagement data</a>.'
-            description="Context description for the functionality of this page"
-            id="teamDataComponent.helpContext"
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data' }}
-          />
-        }
-        extra={(platforms.length > 1 || languages.length > 1) &&
-          <>
-            { platforms.length > 1 ?
-              <Select
-                value={currentPlatform}
-                onChange={(e) => { setCurrentPlatform(e.target.value); }}
-              >
-                {platforms.map(platform => (
-                  <option key={platform} value={platform}>{platform}</option>
-                ))}
-              </Select> : null }
-            { languages.length > 1 ?
-              <LanguagePickerSelect
-                languages={languages}
-                selectedLanguage={currentLanguage}
-                onSubmit={newValue => setCurrentLanguage(newValue.languageCode)}
-              /> : null
-            }
-          </>
-        }
-        title={
-          <FormattedMessage
-            defaultMessage="Tipline engagement data"
-            description="Header for the stored data page of the current team"
-            id="teamDataComponent.title"
-          />
-        }
-      />
+        </div>
+      </div>
       { data ?
-        <TableContainer className={cx('team-data-component__with-data', settingsStyles['engagement-data-table-wrapper'])}>
+        <TableContainer className={cx('team-data-component__with-data', styles['engagement-data-table-wrapper'])}>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
                 {headers.map(header => (
                   <TableCell
                     className={cx(
-                      [settingsStyles.tableCell],
+                      [styles.tableCell],
                       {
-                        [settingsStyles.stickyTableCell]: header === 'Month',
+                        [styles.stickyTableCell]: header === 'Month',
                       })
                     }
                     key={header}
@@ -321,7 +335,7 @@ const TeamDataComponent = ({
                       <span>{header}</span>
                       { helpMessages[header] ?
                         <Tooltip arrow key={header} title={helpMessages[header]}>
-                          <span className={settingsStyles['table-header-tooltip']}>
+                          <span className={styles['table-header-tooltip']}>
                             <HelpIcon />
                           </span>
                         </Tooltip> : null }
@@ -336,9 +350,9 @@ const TeamDataComponent = ({
                   {headers.map(header => (
                     <TableCell
                       className={cx(
-                        [settingsStyles.tableCell],
+                        [styles.tableCell],
                         {
-                          [settingsStyles.stickyTableCell]: header === 'Month',
+                          [styles.stickyTableCell]: header === 'Month',
                         })
                       }
                       key={`${row.ID}-${header}`}
@@ -351,49 +365,30 @@ const TeamDataComponent = ({
             </tbody>
           </Table>
         </TableContainer> :
-        <div className={cx(settingsStyles['setting-details-wrapper'])}>
-          <div className={cx(settingsStyles['setting-content-container'], 'team-data-component__no-data')}>
+        <div className="team-data-component__no-data">
+          <BlankState>
             <FormattedMessage
-              defaultMessage="Fill {thisShortForm} to request access to your data report."
-              description="Paragraph text informing the user what they need to do to enable this feature"
-              id="teamDataComponent.set1"
-              tagName="p"
-              values={{
-                thisShortForm: (
-                  <a href="https://airtable.com/shrWpaztZ2SzD5TrA" rel="noopener noreferrer" target="_blank">
-                    <FormattedMessage
-                      defaultMessage="this short form"
-                      description="Link text taking the user to a form to fill out in order to request this feature be enabled"
-                      id="teamDataComponent.formLinkText"
-                    />
-                  </a>
-                ),
-              }}
+              defaultMessage="No Data Available"
+              description="Message when the data table for all data has no contents"
+              id="teamDataComponent.noData"
             />
-            <span className="typography-body1">
-              <FormattedMessage
-                defaultMessage="Your data report will be enabled within one business day."
-                description="Informational message to let the user know when their report will be available to view"
-                id="teamDataComponent.set2"
-              />
-            </span>
-          </div>
+          </BlankState>
         </div>
       }
-    </>
+    </div>
   );
 };
 
-TeamDataComponent.defaultProps = {
+TiplineDataComponent.defaultProps = {
   data: null,
   defaultLanguage: null,
 };
 
-TeamDataComponent.propTypes = {
-  slug: PropTypes.string.isRequired,
+TiplineDataComponent.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object), // or null
   defaultLanguage: PropTypes.string, // or null
   intl: intlShape.isRequired,
+  slug: PropTypes.string.isRequired,
 };
 
-export default injectIntl(TeamDataComponent);
+export default injectIntl(TiplineDataComponent);

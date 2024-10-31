@@ -1,0 +1,12 @@
+[
+  {
+    "id": "listTopArticlesSent.emptyText",
+    "description": "Text to display when there are no articles sent",
+    "defaultMessage": "No articles sent"
+  },
+  {
+    "id": "listTopArticlesSent.title",
+    "description": "Title for the top articles sent list widget",
+    "defaultMessage": "Top Articles Sent"
+  }
+]

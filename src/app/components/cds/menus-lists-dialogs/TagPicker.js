@@ -7,7 +7,7 @@ import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MultiSelector from '../../layout/MultiSelector';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import TagMoreIcon from '../../../icons/tag_add.svg';
-import MediasLoading from '../../media/MediasLoading';
+import Loader from '../../cds/loading/Loader';
 import styles from './TagList.module.css';
 
 const TagPicker = ({
@@ -99,7 +99,7 @@ const TagPicker = ({
               }
               hasMore={hasMore}
               inputPlaceholder={placeholder}
-              loadingIcon={loading && <MediasLoading size="small" theme="grey" variant="inline" />}
+              loadingIcon={loading && <Loader size="small" theme="grey" variant="inline" />}
               notFoundLabel={
                 <FormattedMessage
                   defaultMessage="No tags found"
@@ -148,7 +148,7 @@ const TagPicker = ({
           </div>
         </Tooltip>
       }
-      { saving && <MediasLoading size="icon" theme="grey" variant="icon" /> }
+      { saving && <Loader size="icon" theme="grey" variant="icon" /> }
     </div>
   );
 };

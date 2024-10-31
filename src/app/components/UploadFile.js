@@ -5,7 +5,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import MediasLoading from './media/MediasLoading';
+import Loader from './cds/loading/Loader';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import ClearIcon from '../icons/clear.svg';
 import FilePresentIcon from '../icons/file_present.svg';
@@ -268,7 +268,7 @@ const UploadFile = childProps => (
       } else if (props) {
         return <UploadFileComponent about={props.about} {...childProps} />;
       }
-      return <MediasLoading size="medium" theme="grey" variant="inline" />;
+      return <Loader size="medium" theme="grey" variant="inline" />;
     }}
   />
 );

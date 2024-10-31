@@ -5,6 +5,11 @@
     "defaultMessage": "Tipline"
   },
   {
+    "id": "articlesComponent.dashboard",
+    "description": "Label for the dashboard displayed on the left sidebar",
+    "defaultMessage": "Dashboard"
+  },
+  {
     "id": "projectsComponent.allItems",
     "description": "Label for the 'All media cluster' list displayed on the left sidebar which lists all the clusters of media in the system without applying a filter",
     "defaultMessage": "All Media Clusters"

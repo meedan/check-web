@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import FeedMediaRequests from './FeedMediaRequests';
 import ErrorBoundary from '../error/ErrorBoundary';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import NotFound from '../NotFound';
 import MediaCardLarge from '../media/MediaCardLarge';
 
@@ -48,7 +48,7 @@ const FeedItemMediaDialog = ({ feedDbid, itemDbid }) => {
             }
             return (<NotFound />);
           }
-          return <MediasLoading size="large" theme="grey" variant="inline" />;
+          return <Loader size="large" theme="grey" variant="inline" />;
         }}
         variables={{
           currentTeamSlug,

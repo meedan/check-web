@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
-import MediasLoading from './MediasLoading';
+import Loader from '../cds/loading/Loader';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import Annotations from '../annotations/Annotations';
@@ -204,7 +204,7 @@ const MediaRequests = (props) => {
       forceFetch
       renderFetched={data =>
         <Container all={all} cachedMedia={media} style={style} {...data} />}
-      renderLoading={() => <MediasLoading size="medium" theme="grey" variant="inline" />}
+      renderLoading={() => <Loader size="medium" theme="grey" variant="inline" />}
       route={route}
     />
   );

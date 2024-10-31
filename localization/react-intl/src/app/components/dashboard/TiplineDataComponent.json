@@ -1,0 +1,112 @@
+[
+  {
+    "id": "teamDataComponent.allDataTitle",
+    "description": "Header for the stored data page of the current team",
+    "defaultMessage": "All Data:"
+  },
+  {
+    "id": "teamDataComponent.uniqueUsers",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Unique users who interacted with the bot."
+  },
+  {
+    "id": "teamDataComponent.returningUsers",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Unique users who had at least one session in the current month, and at least one session in the last previous two months."
+  },
+  {
+    "id": "teamDataComponent.publishedReports",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Published reports created in Check or imported into Check (for all platforms)."
+  },
+  {
+    "id": "teamDataComponent.reportsSent",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Reports sent in response to requests. For example, if two users requested the same claim and received the same report, it counts as two."
+  },
+  {
+    "id": "teamDataComponent.uniqueUsersWhoReceivedReport",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Unique users who received a report. For example, if one user received three reports, it counts as one."
+  },
+  {
+    "id": "teamDataComponent.responseTime",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Average time between a user request and a report sent."
+  },
+  {
+    "id": "teamDataComponent.uniqueNewslettersSent",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Unique newsletters sent, for all platforms."
+  },
+  {
+    "id": "teamDataComponent.newsletterSubscriptions",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Increase in newsletter subscriptions month on month."
+  },
+  {
+    "id": "teamDataComponent.newsletterCancellations",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Newsletter cancellations."
+  },
+  {
+    "id": "teamDataComponent.currentSubscribers",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Current number of newsletter subscriptions."
+  },
+  {
+    "id": "teamDataComponent.newslettersDelivered",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "The total number of newsletters successfully delivered to subscribers, within 24 hours of being sent as well as accounting for user errors."
+  },
+  {
+    "id": "teamDataComponent.whatsappConversations",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Conversations are 24-hour message threads between you and your users. They are opened when messages sent by Check to users are delivered."
+  },
+  {
+    "id": "teamDataComponent.whatsappConversationsUser",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Conversations are 24-hour message threads between you and your users. Service conversations are initiated when no conversation exists between you and a user and a user messages you, triggering a message from the bot. If a user is blocked, no user conversation is created."
+  },
+  {
+    "id": "teamDataComponent.whatsappConversationsBusiness",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Conversations are 24-hour message threads between you and your users. Business conversations are initiated when no open conversation exists between you and a user, and a message you send is received by that user."
+  },
+  {
+    "id": "teamDataComponent.positiveSearches",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of user searches that returned at least one report."
+  },
+  {
+    "id": "teamDataComponent.negativeSearches",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of user searches that did not return a report."
+  },
+  {
+    "id": "teamDataComponent.positiveFeedback",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of conversations that returned at least one result and the user answered \"Yes\"."
+  },
+  {
+    "id": "teamDataComponent.negativeFeedback",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of conversations that returned at least one result and the user answered \"No\"."
+  },
+  {
+    "id": "teamDataComponent.newslettersSent",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "The total number of newsletters sent to subscribers."
+  },
+  {
+    "id": "teamDataComponent.download",
+    "description": "Label for action button displayed on workspace data report page.",
+    "defaultMessage": "Export"
+  },
+  {
+    "id": "teamDataComponent.noData",
+    "description": "Message when the data table for all data has no contents",
+    "defaultMessage": "No Data Available"
+  }
+]

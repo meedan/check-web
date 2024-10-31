@@ -1,0 +1,12 @@
+[
+  {
+    "id": "numberSubscribers.new",
+    "description": "Context caption to number of subscribers, of which how many are new",
+    "defaultMessage": "{number} new"
+  },
+  {
+    "id": "numberSubscribers.title",
+    "description": "Title for the number of subscribers widget",
+    "defaultMessage": "Subscribers"
+  }
+]

@@ -10,6 +10,7 @@ import PublishedIcon from '../../icons/fact_check.svg';
 import TrashIcon from '../../icons/delete.svg';
 import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
+import BarChartIcon from '../../icons/bar_chart.svg';
 import styles from './Projects/Projects.module.css';
 
 const DrawerArticlesComponent = ({ team }) => {
@@ -40,6 +41,27 @@ const DrawerArticlesComponent = ({ team }) => {
       </div>
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper)}>
+          <Link
+            className={styles.linkList}
+            to={`/${team.slug}/articles/dashboard`}
+            onClick={() => { handleSpecialLists('dashboard'); }}
+          >
+            <li
+              className={cx(
+                'projects-list__dashboard',
+                styles.listItem,
+                styles.listItem_containsCount,
+                {
+                  [styles.listItem_active]: activeItem.type === 'dashboard',
+                })
+              }
+            >
+              <BarChartIcon className={styles.listIcon} />
+              <div className={styles.listLabel}>
+                <FormattedMessage defaultMessage="Dashboard" description="Label for the dashboard displayed on the left sidebar" id="articlesComponent.dashboard" tagName="span" />
+              </div>
+            </li>
+          </Link>
           <Link
             className={styles.linkList}
             to={`/${team.slug}/articles/fact-checks`}

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import CheckBoxIcon from '../../icons/check_box.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import IconFileUpload from '../../icons/file_upload.svg';
@@ -258,7 +258,7 @@ const CustomFiltersManager = ({
           );
         }
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+        return <Loader size="icon" theme="grey" variant="icon" />;
       }}
       variables={{
         teamSlug,

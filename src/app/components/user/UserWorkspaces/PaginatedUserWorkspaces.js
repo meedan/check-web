@@ -18,7 +18,7 @@ import CreateTeamDialog from '../../team/CreateTeamDialog';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
-import MediasLoading from '../../media/MediasLoading';
+import Loader from '../../cds/loading/Loader';
 import Paginator from '../../cds/inputs/Paginator';
 import styles from '../user.module.css';
 import workspaceStyles from './UserWorkspacesComponent.module.css';
@@ -147,7 +147,7 @@ const UserWorkspacesComponent = ({
       <div className={styles['user-setting-details-wrapper']}>
         { teams.length ?
           <div className={styles['user-setting-content-container']}>
-            { isPaginationLoading && <MediasLoading size="medium" theme="grey" variant="inline" /> }
+            { isPaginationLoading && <Loader size="medium" theme="grey" variant="inline" /> }
             <ul className={cx('teams', styles['user-setting-content-list'])}>
               {teams.slice(cursor, cursor + pageSize).map(team => (
                 <ListItem

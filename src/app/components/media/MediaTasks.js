@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
-import MediasLoading from './MediasLoading';
+import Loader from '../cds/loading/Loader';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Task from '../task/Task';
 import Tasks from '../task/Tasks';
@@ -233,7 +233,7 @@ const MediaTasks = (props) => {
       <Relay.RootContainer
         Component={MediaMetadataContainer}
         renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} fieldset="metadata" />}
-        renderLoading={() => <MediasLoading size="medium" theme="grey" variant="inline" />}
+        renderLoading={() => <Loader size="medium" theme="grey" variant="inline" />}
         route={route}
       />
     </ErrorBoundary>
