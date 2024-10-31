@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { browserHistory } from 'react-router';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
@@ -39,7 +38,7 @@ const MediaSimilarityBarAdd = ({
     setShowDialog(false);
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     const mediaUrl = `/${teamSlug}/media/${mainItemDbid}`;
-    browserHistory.push(mediaUrl);
+    window.location.assign(mediaUrl);
   };
 
   const handleAdd = (projectMedia) => {
