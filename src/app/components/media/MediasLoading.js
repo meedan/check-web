@@ -6,6 +6,7 @@ import styles from './mediasloading.module.css';
 
 const MediasLoading = ({
   size,
+  text,
   theme,
   variant,
 }) => (
@@ -22,20 +23,28 @@ const MediasLoading = ({
         [styles.pageLevel]: variant === 'page',
         [styles.inlineLevel]: variant === 'inline',
         [styles.iconLevel]: variant === 'icon',
+        [styles.showLoadingText]: text,
       })
     }
   >
     <CheckMarkIcon />
+    { text && (
+      <small>
+        {text}
+      </small>
+    )}
   </div>);
 
 MediasLoading.defaultProps = {
   size: 'large',
+  text: null,
   theme: 'grey',
   variant: 'page',
 };
 
 MediasLoading.propTypes = {
   size: PropTypes.oneOf(['icon', 'small', 'medium', 'large']),
+  text: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   theme: PropTypes.oneOf(['grey', 'white']),
   variant: PropTypes.oneOf(['page', 'inline', 'icon']),
 };

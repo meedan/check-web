@@ -134,7 +134,7 @@ const ArticlesDashboardQueryRenderer = ({ routeParams }) => {
             }
 
             // TODO: We need a better error handling in the future, standardized with other components
-            return <MediasLoading size="large" theme="white" variant="page" />;
+            return <MediasLoading size="large" text={<FormattedMessage defaultMessage="Fetching latest data, please wait…" description="Loading message of the dashboard page." id="articlesDashboard.loading" />} theme="white" variant="page" />;
           }}
           variables={{
             teamSlug: routeParams.team,
