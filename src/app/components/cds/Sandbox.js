@@ -250,6 +250,7 @@ const SandboxComponent = ({ admin }) => {
   const [slideoutSecondaryAction, setSlideoutSecondaryAction] = React.useState(Boolean(false));
   const [slideoutOptionalNode, setSlideoutOptionalNode] = React.useState(Boolean(false));
 
+  const [loadingText, setLoadingText] = React.useState(Boolean(false));
   const [loadingTheme, setLoadingTheme] = React.useState('grey');
   const onChangeLoadingTheme = (event) => {
     setLoadingTheme(event.target.value);
@@ -1790,7 +1791,7 @@ const SandboxComponent = ({ admin }) => {
       }
       { (!selectedCategory || selectedCategory === 'loaders') &&
         <section>
-          <h6>LoadingAnimations</h6>
+          <h6>Loading Animations</h6>
           <div className={styles.componentWrapper}>
             <div className={styles.componentControls}>
               <div className={cx('typography-subtitle2', [styles.componentName])}>
@@ -1828,6 +1829,14 @@ const SandboxComponent = ({ admin }) => {
                     <option value="page">page</option>=
                   </Select>
                 </li>
+                <li>
+                  <SwitchComponent
+                    checked={loadingText}
+                    label="Text"
+                    labelPlacement="top"
+                    onChange={() => setLoadingText(!loadingText)}
+                  />
+                </li>
               </ul>
             </div>
             <div
@@ -1837,8 +1846,9 @@ const SandboxComponent = ({ admin }) => {
                   [styles.componentInlineGreyVariants]: loadingTheme === 'white',
                 })
               }
+              style={{ pointerEvents: loadingVariant === 'page' ? 'none' : null }}
             >
-              <MediasLoading size={loadingSize} theme={loadingTheme} variant={loadingVariant} />
+              <MediasLoading size={loadingSize} text={loadingText && 'Fetching real-time data, please wait…'} theme={loadingTheme} variant={loadingVariant} />
             </div>
           </div>
         </section>
