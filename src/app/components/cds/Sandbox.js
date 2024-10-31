@@ -1848,7 +1848,7 @@ const SandboxComponent = ({ admin }) => {
               }
               style={{ pointerEvents: loadingVariant === 'page' ? 'none' : null }}
             >
-              <MediasLoading size={loadingSize} text={loadingText && 'Fetching real-time data, please wait…'} theme={loadingTheme} variant={loadingVariant} />
+              <MediasLoading size={loadingSize} text={loadingText && 'Fetching latest data, please wait…'} theme={loadingTheme} variant={loadingVariant} />
             </div>
           </div>
         </section>
