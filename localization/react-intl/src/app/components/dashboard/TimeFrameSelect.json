@@ -1,0 +1,32 @@
+[
+  {
+    "id": "timeframeSelect.pastWeek",
+    "description": "Label for the last week option in the timeframe select",
+    "defaultMessage": "Last: 7 days"
+  },
+  {
+    "id": "timeframeSelect.past2Weeks",
+    "description": "Label for the last 2 weeks option in the timeframe select",
+    "defaultMessage": "Last: 14 days"
+  },
+  {
+    "id": "timeframeSelect.pastMonth",
+    "description": "Label for the last month option in the timeframe select",
+    "defaultMessage": "Last: 30 days"
+  },
+  {
+    "id": "timeframeSelect.past3Months",
+    "description": "Label for the last 3 months option in the timeframe select",
+    "defaultMessage": "Last: 90 days"
+  },
+  {
+    "id": "timeframeSelect.past6Months",
+    "description": "Label for the last 6 months option in the timeframe select",
+    "defaultMessage": "Last: 180 days"
+  },
+  {
+    "id": "timeframeSelect.yearToDate",
+    "description": "Label for the year to date option in the timeframe select",
+    "defaultMessage": "Year to date"
+  }
+]

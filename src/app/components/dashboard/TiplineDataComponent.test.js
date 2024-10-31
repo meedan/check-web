@@ -1,10 +1,10 @@
 import React from 'react';
-import TeamDataComponent from './TeamDataComponent';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
+import TiplineDataComponent from './TiplineDataComponent';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
-describe('<TeamDataComponent />', () => {
+describe('<TiplineDataComponent />', () => {
   it('should not render table if there is no data', () => {
-    const wrapper = mountWithIntl(<TeamDataComponent
+    const wrapper = mountWithIntl(<TiplineDataComponent
       data={null}
       params={{}}
       route={{ action: 'settings' }}
@@ -15,7 +15,7 @@ describe('<TeamDataComponent />', () => {
   });
 
   it('should render table if there is data', () => {
-    const wrapper = mountWithIntl(<TeamDataComponent
+    const wrapper = mountWithIntl(<TiplineDataComponent
       data={[{
         Month: 'January 2022',
         Conversations: 123,
@@ -49,7 +49,7 @@ describe('<TeamDataComponent />', () => {
       },
     ];
 
-    let wrapper = mountWithIntl(<TeamDataComponent
+    let wrapper = mountWithIntl(<TiplineDataComponent
       data={data}
       params={{}}
       route={{ action: 'settings' }}
@@ -57,7 +57,7 @@ describe('<TeamDataComponent />', () => {
     />);
     expect(wrapper.html()).toMatch('English');
 
-    wrapper = mountWithIntl(<TeamDataComponent
+    wrapper = mountWithIntl(<TiplineDataComponent
       data={data}
       defaultLanguage="es"
       params={{}}

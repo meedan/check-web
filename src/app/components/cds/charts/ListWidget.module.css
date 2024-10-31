@@ -5,16 +5,33 @@
   color: var(--color-gray-15);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   min-width: 180px;
   padding: 16px;
   width: 100%;
+
+  .listWidgetEmpty {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+    width: 100%;
+
+    span.listWidgetEmptyText {
+      @mixin typography-body1;
+      color: var(--color-gray-42);
+      font-style: italic;
+      font-weight: 400;
+    }
+  }
 
   .listWidgetItemWrapper {
     display: flex;
     flex-direction: row;
     gap: 8px;
     justify-content: space-between;
+    margin: 0 0 8px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -28,6 +45,10 @@
     .listWidgetItemValue {
       min-width: 7ch;
       text-align: right;
+    }
+
+    &:last-child {
+      margin: 0;
     }
   }
 

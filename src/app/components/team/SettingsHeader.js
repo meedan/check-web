@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -32,23 +31,25 @@ const SettingsHeader = ({
     >
       <div className={styles['title-actions-wrapper']}>
         <div className={styles['title-wrapper']}>
-          <h6 className="component__settings-header">
+          <h5 className="component__settings-header">
             {title}
             { helpUrl &&
               <ButtonMain iconCenter={<HelpIcon />} size="default" theme="lightText" variant="text" onClick={handleHelp} />
             }
-          </h6>
-          { extra &&
-            <div className={styles['extra-wrapper']}>
-              {extra}
+          </h5>
+        </div>
+        { extra &&
+        <div className={styles['extra-wrapper']}>
+          {extra}
+        </div>
+        }
+        <div className={styles['actions-container']}>
+          { actionButton &&
+            <div className={styles['buttons-wrapper']}>
+              {actionButton}
             </div>
           }
         </div>
-        { actionButton &&
-          <div className={styles['buttons-wrapper']}>
-            {actionButton}
-          </div>
-        }
       </div>
       { context &&
         <div className={styles['settings-header-context']}>
@@ -62,20 +63,20 @@ const SettingsHeader = ({
 SettingsHeader.defaultProps = {
   context: null,
   actionButton: null,
-  extra: null,
   helpUrl: null,
   className: '',
+  extra: null,
   style: {},
 };
 
 SettingsHeader.propTypes = {
-  title: PropTypes.node.isRequired,
-  context: PropTypes.element,
-  helpUrl: PropTypes.string,
   actionButton: PropTypes.node,
-  extra: PropTypes.node,
   className: PropTypes.string,
+  context: PropTypes.element,
+  extra: PropTypes.node,
+  helpUrl: PropTypes.string,
   style: PropTypes.object,
+  title: PropTypes.node.isRequired,
 };
 
 export default SettingsHeader;

@@ -1,0 +1,7 @@
+[
+  {
+    "id": "verticalBarMediaReceivedByType.title",
+    "description": "Title for the number of media received by type widget",
+    "defaultMessage": "Media Received"
+  }
+]

@@ -5,6 +5,11 @@
     "defaultMessage": "Tipline"
   },
   {
+    "id": "articlesComponent.dashboard",
+    "description": "Label for the dashboard displayed on the left sidebar",
+    "defaultMessage": "Dashboard"
+  },
+  {
     "id": "projectsComponent.allItems",
     "description": "Label for the 'All media' list displayed on the left sidebar",
     "defaultMessage": "All Media"
