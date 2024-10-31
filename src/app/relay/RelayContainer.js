@@ -1,11 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import MediasLoading from '../components/media/MediasLoading';
+import Loader from '../components/cds/loading/Loader';
 
 const RelayContainer = props => (
   <Relay.RootContainer
     {...props}
-    renderLoading={() => <MediasLoading size="large" theme="white" variant="page" />}
+    renderLoading={() => <Loader size="large" theme="white" variant="page" />}
   />
 );
 

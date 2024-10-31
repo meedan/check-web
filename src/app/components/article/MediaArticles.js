@@ -11,7 +11,7 @@ import MediaArticlesDisplay from './MediaArticlesDisplay';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import DescriptionIcon from '../../icons/description.svg';
 import { getErrorMessage } from '../../helpers';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -57,7 +57,7 @@ const MediaArticlesComponent = ({
   const hasArticle = projectMedia.articles_count > 0;
 
   if (adding) {
-    return <MediasLoading size="large" theme="white" variant="inline" />;
+    return <Loader size="large" theme="white" variant="inline" />;
   }
 
   const onCompleted = () => {
@@ -270,7 +270,7 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
               />
             );
           }
-          return <MediasLoading size="large" theme="white" variant="inline" />;
+          return <Loader size="large" theme="white" variant="inline" />;
         }}
         variables={{
           slug: teamSlug,

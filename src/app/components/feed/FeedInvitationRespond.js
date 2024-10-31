@@ -15,7 +15,7 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import NotFound from '../NotFound';
 import { can } from '../Can';
 import CheckError from '../../CheckError';
@@ -173,10 +173,10 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
                   variant="contained"
                   onClick={handleAcceptInvite}
                 />
-                { saving && <MediasLoading size="icon" theme="grey" variant="icon" /> }
+                { saving && <Loader size="icon" theme="grey" variant="icon" /> }
               </div>
               <div className={cx(styles['action-container'])}>
-                { saving && <MediasLoading size="icon" theme="grey" variant="icon" /> }
+                { saving && <Loader size="icon" theme="grey" variant="icon" /> }
                 <ButtonMain
                   className="int-feed-invitation-respond__button--reject"
                   disabled={saving}

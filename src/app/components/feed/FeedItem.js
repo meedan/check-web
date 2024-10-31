@@ -6,7 +6,7 @@ import Relay from 'react-relay/classic';
 import FeedItemHeader from './FeedItemHeader';
 import FeedItemTeams from './FeedItemTeams';
 import ErrorBoundary from '../error/ErrorBoundary';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import NotFound from '../NotFound';
 import PageTitle from '../PageTitle';
 
@@ -72,7 +72,7 @@ const FeedItem = ({ routeParams }) => (
           }
           return (<NotFound />);
         }
-        return <MediasLoading size="large" theme="white" variant="page" />;
+        return <Loader size="large" theme="white" variant="page" />;
       }}
       variables={{
         slug: routeParams.team,

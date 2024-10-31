@@ -18,7 +18,7 @@ import ExportList from '../ExportList';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import BulkActionsMenu from '../media/BulkActionsMenu';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import SearchRoute from '../../relay/SearchRoute';
@@ -786,7 +786,7 @@ export default function SearchResults({ query, teamSlug, ...props }) {
       renderFetched={data => (
         <SearchResultsContainer {...props} query={query} search={data.search} />
       )}
-      renderLoading={() => <MediasLoading size="large" theme="white" variant="page" />}
+      renderLoading={() => <Loader size="large" theme="white" variant="page" />}
       route={route}
     />
   );

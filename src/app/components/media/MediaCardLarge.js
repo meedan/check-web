@@ -12,11 +12,11 @@ import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import MediaCardLargeFooter from './MediaCardLargeFooter';
 import BlankMediaButton from './BlankMediaButton';
-import MediasLoading from './MediasLoading';
 import MediaPlayerCard from './MediaPlayerCard';
 import QuoteMediaCard from './QuoteMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
+import Loader from '../cds/loading/Loader';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import { getMediaType } from '../../helpers';
@@ -181,7 +181,7 @@ const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
       `}
       render={({ error, props }) => {
         if (!error && !props) {
-          return (<MediasLoading size="small" theme="grey" variant="inline" />);
+          return (<Loader size="small" theme="grey" variant="inline" />);
         }
 
         if (!error && props) {

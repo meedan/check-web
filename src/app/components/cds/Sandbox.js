@@ -30,7 +30,7 @@ import ListIcon from '../../icons/list.svg';
 import FigmaColorLogo from '../../icons/figma_color.svg';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import ParsedText from '../ParsedText';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
@@ -1795,7 +1795,7 @@ const SandboxComponent = ({ admin }) => {
           <div className={styles.componentWrapper}>
             <div className={styles.componentControls}>
               <div className={cx('typography-subtitle2', [styles.componentName])}>
-                MediasLoading
+                Loader
               </div>
               <ul>
                 <li>
@@ -1848,7 +1848,7 @@ const SandboxComponent = ({ admin }) => {
               }
               style={{ pointerEvents: loadingVariant === 'page' ? 'none' : null }}
             >
-              <MediasLoading size={loadingSize} text={loadingText && 'Fetching latest data, please wait…'} theme={loadingTheme} variant={loadingVariant} />
+              <Loader size={loadingSize} text={loadingText && 'Fetching latest data, please wait…'} theme={loadingTheme} variant={loadingVariant} />
             </div>
           </div>
         </section>

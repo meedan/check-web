@@ -15,7 +15,7 @@ import Paginator from '../cds/inputs/Paginator';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import NextIcon from '../../icons/chevron_right.svg';
 import CheckChannels from '../../CheckChannels';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
@@ -363,7 +363,7 @@ const FeedClusters = ({ feedId, teamSlug }) => {
             />
           );
         }
-        return <MediasLoading size="large" theme="white" variant="page" />;
+        return <Loader size="large" theme="white" variant="page" />;
       }}
       variables={{
         slug: teamSlug,

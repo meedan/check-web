@@ -5,7 +5,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import MediaSlug from '../media/MediaSlug';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
@@ -136,7 +136,7 @@ const FeedItemMediaList = ({ teamDbid }) => {
             }
             return (<NotFound />);
           }
-          return <MediasLoading size="large" theme="grey" variant="inline" />;
+          return <Loader size="large" theme="grey" variant="inline" />;
         }}
         variables={{
           currentTeamSlug,
