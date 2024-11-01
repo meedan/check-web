@@ -19,8 +19,8 @@ const NumberAvgResponseTime = ({ statistics }) => {
 
   // Format the duration using Moment's humanize function
   const value =
-    statistics.average_response_time + 1 ?
-      moment.duration(345, 'seconds').humanize() : null;
+    statistics.average_response_time ?
+      moment.duration(statistics.average_response_time, 'seconds').humanize() : null;
 
   // Restore the original rounding function
   moment.relativeTimeRounding(originalRounding);
