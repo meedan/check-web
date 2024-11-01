@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { addLocaleData } from 'react-intl';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Helmet } from 'react-helmet';
+import moment from 'moment';
 import rtlDetect from 'rtl-detect';
 import thunk from 'redux-thunk';
 import { create as jssCreate } from 'jss';
@@ -20,6 +21,12 @@ import { PusherContext, getPusherContextValueForClientSessionId } from '../../ap
 import { ClientSessionIdContext, generateRandomClientSessionId } from '../../app/ClientSessionId';
 import rootReducer from '../../app/redux';
 import locales from '../../../localization/translations/locales';
+import 'moment/locale/ar';
+import 'moment/locale/es';
+import 'moment/locale/fr';
+import 'moment/locale/id';
+import 'moment/locale/mk';
+import 'moment/locale/pt';
 
 import(/* webpackChunkName: "variables" */ '../../app/styles/css/mixins/variables.css');
 import(/* webpackChunkName: "main" */ '../../app/styles/css/index.css');
@@ -49,6 +56,16 @@ locale = locale.replace(/[-_].*$/, '');
 if (locales.indexOf(locale) === -1) {
   locale = 'en';
 }
+
+// Configure moment singleton
+moment.locale(locale);
+moment.relativeTimeThreshold('M', 12);
+moment.relativeTimeThreshold('w', 4);
+moment.relativeTimeThreshold('d', 31);
+moment.relativeTimeThreshold('h', 24);
+moment.relativeTimeThreshold('m', 60);
+moment.relativeTimeThreshold('s', 60);
+moment.relativeTimeThreshold('ss', 0);
 
 const clientSessionId = generateRandomClientSessionId();
 
