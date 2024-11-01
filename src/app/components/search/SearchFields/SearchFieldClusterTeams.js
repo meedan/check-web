@@ -2,7 +2,7 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import MediasLoading from '../../media/MediasLoading';
+import Loader from '../../cds/loading/Loader';
 import MultiSelectFilter from '../MultiSelectFilter';
 
 const SearchFieldClusterTeams = ({
@@ -43,7 +43,7 @@ const SearchFieldClusterTeams = ({
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading size="small" theme="white" variant="inline" />;
+        return <Loader size="small" theme="white" variant="inline" />;
       }}
       variables={{
         teamSlug,

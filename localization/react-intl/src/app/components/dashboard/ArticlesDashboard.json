@@ -1,0 +1,12 @@
+[
+  {
+    "id": "articlesDashboard.title",
+    "description": "Title of the dashboard page.",
+    "defaultMessage": "Articles Dashboard"
+  },
+  {
+    "id": "articlesDashboard.loading",
+    "description": "Loading message of the dashboard page.",
+    "defaultMessage": "Fetching latest data, please wait…"
+  }
+]

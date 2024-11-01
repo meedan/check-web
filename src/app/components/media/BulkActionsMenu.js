@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MediasLoading from './MediasLoading';
 import BulkActionsAssign from './BulkActionsAssign';
 import BulkActionsStatus from './BulkActionsStatus';
 import BulkActionsTag from './BulkActionsTag';
 import BulkActionsRemoveTag from './BulkActionsRemoveTag';
+import Loader from '../cds/loading/Loader';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Can from '../Can';
@@ -375,7 +375,7 @@ const BulkActionsMenuRenderer = (parentProps) => {
             <BulkActionsMenu {...parentProps} {...props} />
           );
         }
-        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+        return <Loader size="icon" theme="grey" variant="icon" />;
       }}
       variables={{
         teamSlug,

@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import MeComponent from './MeComponent';
 import ErrorBoundary from '../error/ErrorBoundary';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import MeRoute from '../../relay/MeRoute';
 import meFragment from '../../relay/meFragment';
 
@@ -19,7 +19,7 @@ const Me = (props) => {
       <Relay.RootContainer
         Component={MeContainer}
         renderFetched={data => <MeContainer {...props} {...data} />}
-        renderLoading={() => <MediasLoading size="large" theme="white" variant="page" />}
+        renderLoading={() => <Loader size="large" theme="white" variant="page" />}
         route={route}
       />
     </ErrorBoundary>

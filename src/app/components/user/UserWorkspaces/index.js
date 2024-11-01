@@ -4,7 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 // Importing UserWorkspacesComponent for the fragment only
 // eslint-disable-next-line no-unused-vars
 import PaginatedUserWorkspaces from './PaginatedUserWorkspaces';
-import MediasLoading from '../../media/MediasLoading';
+import Loader from '../../cds/loading/Loader';
 
 const userWorkspacesQuery = graphql`
   query UserWorkspacesQuery($pageSize: Int!, $after: String) {
@@ -33,7 +33,7 @@ const UserWorkspaces = () => {
         }
         if (!error && !innerProps) {
           return (
-            <MediasLoading />
+            <Loader />
           );
         }
         return null;

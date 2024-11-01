@@ -3,9 +3,9 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import cx from 'classnames/bind';
-import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
 import CreateMediaSource from './CreateMediaSource';
+import Loader from '../cds/loading/Loader';
 import ErrorBoundary from '../error/ErrorBoundary';
 import SourceInfo from '../source/SourceInfo';
 import { can } from '../Can';
@@ -181,7 +181,7 @@ const MediaSource = ({ params, projectMedia }) => {
         `}
         render={({ error, props }) => {
           if (!error && !props) {
-            return <MediasLoading size="medium" theme="grey" variant="inline" />;
+            return <Loader size="medium" theme="grey" variant="inline" />;
           }
 
           if (!error && props) {

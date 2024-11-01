@@ -13,7 +13,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import MediaSlug from '../MediaSlug';
-import MediasLoading from '../MediasLoading';
+import Loader from '../../cds/loading/Loader';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
@@ -933,7 +933,7 @@ const MediaSuggestionsComponent = ({
         }
         <div id="suggested-media__items">
           { isPaginationLoading ?
-            <MediasLoading size="medium" theme="grey" variant="inline" /> :
+            <Loader size="medium" theme="grey" variant="inline" /> :
             relationships
               .slice(cursor, cursor + pageSize)
               .map(relationshipItem => (

@@ -21,7 +21,7 @@ import {
   deleteQueryStringValue,
   pageSize,
 } from '../../urlHelpers';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
@@ -475,7 +475,7 @@ const Articles = ({
             );
           }
           // TODO render error state
-          return <MediasLoading size="large" theme="white" variant="page" />;
+          return <Loader size="large" theme="white" variant="page" />;
         }}
         variables={{
           slug: teamSlug,

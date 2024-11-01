@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import IconClose from '../../icons/clear.svg';
 import TextField from '../cds/inputs/TextField';
 import styles from '../../styles/css/dialog.module.css';
@@ -95,7 +95,7 @@ const ConfirmProceedDialog = ({
           }}
           className="int-confirm-proceed-dialog__proceed"
           disabled={proceedDisabled || isSaving || confirmationText !== typeTextToConfirm}
-          iconLeft={isSaving ? <MediasLoading size="icon" theme="white" variant="icon" /> : null}
+          iconLeft={isSaving ? <Loader size="icon" theme="white" variant="icon" /> : null}
           label={proceedLabel}
           size="default"
           theme="info"
