@@ -307,6 +307,7 @@ const SensitiveContentMenu = ({
                         rows={1}
                         value={customType || ''}
                         onBlur={handleChangeCustom}
+                        onChange={e => setCustomType(e.target.value)}
                       />
                     )}
                   </FormattedMessage>
