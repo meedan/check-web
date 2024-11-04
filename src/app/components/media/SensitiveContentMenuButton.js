@@ -59,6 +59,9 @@ const SensitiveContentMenu = ({
     }
   }
 
+  // eslint-disable-next-line
+  console.log('warningType', warningType, 'warningTypeCustom', warningTypeCustom, 'dynamic_annotation_flag', dynamic_annotation_flag, "projectMedia: ", projectMedia.dynamic_annotation_flag.data);
+
   const [enableSwitch, setEnableSwitch] = React.useState(show_warning_cover);
   const [contentType, setContentType] = React.useState(warningType);
   const [customType, setCustomType] = React.useState(warningTypeCustom);
@@ -78,8 +81,14 @@ const SensitiveContentMenu = ({
   };
 
   const handleChangeCustom = (e) => {
+    // eslint-disable-next-line
+    console.log('handleChangeCustom', e.target.value);
     setContentType('other');
     setCustomType(e.target.value);
+    // eslint-disable-next-line
+    console.log('customType', customType);
+    // eslint-disable-next-line
+    console.log('contentType', contentType);
   };
 
   const submitFlagAnnotation = () => {
@@ -130,6 +139,9 @@ const SensitiveContentMenu = ({
         spam: 0,
       };
     }
+
+    // eslint-disable-next-line
+    console.log('fields', fields);
 
     if (!dynamic_annotation_flag) {
       commitMutation(Relay.Store, {
@@ -339,6 +351,9 @@ const SensitiveContentMenuButton = ({
   const [anchorEl, setAnchorEl] = React.useState();
   const containerRef = React.useRef(null);
 
+  // eslint-disable-next-line
+  console.log('projectMedia: SensitiveContentMenu', projectMedia);
+
   return (
     <div ref={containerRef}>
       <ButtonMain
@@ -384,5 +399,8 @@ export default createFragmentContainer(withSetFlashMessage(SensitiveContentMenuB
   fragment SensitiveContentMenuButton_projectMedia on ProjectMedia {
     dbid
     show_warning_cover
+    dynamic_annotation_flag {
+      data
+    }
   }
 `);
