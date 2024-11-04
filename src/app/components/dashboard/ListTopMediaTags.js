@@ -40,8 +40,8 @@ const ListTopMediaTags = ({ statistics }) => {
       items={dataArray}
       title={
         <FormattedMessage
-          defaultMessage="Top Media Tags"
-          description="Title for the top media tags list widget"
+          defaultMessage="Top Media Cluster Tags"
+          description="Title for the top media cluster tags list widget"
           id="listTopMediaTags.title"
         />
       }

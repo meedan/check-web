@@ -6,7 +6,7 @@ import { commitMutation, createFragmentContainer, graphql } from 'react-relay/co
 import { Store } from 'react-relay/classic';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Dialog from '@material-ui/core/Dialog';
-import MediasLoading from '../../media/MediasLoading';
+import Loader from '../../cds/loading/Loader';
 import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { FormattedGlobalMessage } from '../../MappedMessage';
@@ -170,7 +170,7 @@ const AddLanguageAction = ({ setLanguages, team }) => {
           <ButtonMain
             className="add-language-action__submit"
             disabled={!value || isSaving}
-            iconLeft={isSaving ? <MediasLoading size="icon" theme="white" variant="icon" /> : null}
+            iconLeft={isSaving ? <Loader size="icon" theme="white" variant="icon" /> : null}
             label={
               <FormattedMessage
                 defaultMessage="Add language"

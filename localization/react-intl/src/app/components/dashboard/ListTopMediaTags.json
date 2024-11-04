@@ -11,7 +11,7 @@
   },
   {
     "id": "listTopMediaTags.title",
-    "description": "Title for the top media tags list widget",
-    "defaultMessage": "Top Media Tags"
+    "description": "Title for the top media cluster tags list widget",
+    "defaultMessage": "Top Media Cluster Tags"
   }
 ]
