@@ -65,7 +65,7 @@ moment.relativeTimeThreshold('d', 31);
 moment.relativeTimeThreshold('h', 24);
 moment.relativeTimeThreshold('m', 60);
 moment.relativeTimeThreshold('s', 60);
-moment.relativeTimeThreshold('ss', 0);
+moment.relativeTimeThreshold('ss', 15);
 
 const clientSessionId = generateRandomClientSessionId();
 
