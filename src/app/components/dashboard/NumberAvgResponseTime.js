@@ -12,18 +12,41 @@ const NumberAvgResponseTime = ({ statistics }) => {
     return Math.round(t * (10 ** DIGITS)) / (10 ** DIGITS);
   };
 
+  // Get the original rounding function and thresholds
   const originalRounding = moment.relativeTimeRounding();
 
-  // Set the custom rounding function
+  const originalThresholds = {
+    M: moment.relativeTimeThreshold('M'),
+    w: moment.relativeTimeThreshold('w'),
+    d: moment.relativeTimeThreshold('d'),
+    h: moment.relativeTimeThreshold('h'),
+    m: moment.relativeTimeThreshold('m'),
+    s: moment.relativeTimeThreshold('s'),
+    ss: moment.relativeTimeThreshold('ss'),
+  };
+
+  // Set the custom rounding function and thresholds
   moment.relativeTimeRounding(roundingFunction);
+
+  moment.relativeTimeThreshold('M', null);
+  moment.relativeTimeThreshold('w', null);
+  moment.relativeTimeThreshold('d', Infinity);
+  moment.relativeTimeThreshold('h', 24);
+  moment.relativeTimeThreshold('m', 60);
+  moment.relativeTimeThreshold('s', 60);
+  moment.relativeTimeThreshold('ss', null);
 
   // Format the duration using Moment's humanize function
   const value =
     statistics.average_response_time ?
       moment.duration(statistics.average_response_time, 'seconds').humanize() : null;
 
-  // Restore the original rounding function
+  // Restore the original rounding function and thresholds
   moment.relativeTimeRounding(originalRounding);
+
+  Object.entries(originalThresholds).forEach(([key, val]) => {
+    moment.relativeTimeThreshold(key, val);
+  });
 
   return (
     <NumberWidget
