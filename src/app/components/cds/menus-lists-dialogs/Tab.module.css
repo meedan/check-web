@@ -1,0 +1,14 @@
+.tab {
+  @mixin typography-button;
+  align-items: center;
+  border-radius: var(--border-radius-default);
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  height: 38px;
+  justify-content: center;
+  min-width: auto;
+  padding: 4px 8px;
+  transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+}

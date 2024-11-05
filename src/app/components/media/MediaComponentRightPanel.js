@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
+// import Tab from '@material-ui/core/Tab';
+// import Tabs from '@material-ui/core/Tabs';
 import cx from 'classnames/bind';
 import MediaTasks from './MediaTasks';
 import MediaRequests from './MediaRequests';
@@ -11,6 +11,8 @@ import MediaSuggestions from './Similarity/MediaSuggestions';
 import MediaSecondaryBanner from './MediaSecondaryBanner';
 import MediaArticles from '../article/MediaArticles';
 import ErrorBoundary from '../error/ErrorBoundary';
+import TabWrapper from '../cds/menus-lists-dialogs/TabWrapper';
+import Tab from '../cds/menus-lists-dialogs/Tab';
 import styles from './media.module.css';
 
 const MediaComponentRightPanel = ({
@@ -31,7 +33,7 @@ const MediaComponentRightPanel = ({
   return (
     <ErrorBoundary component="MediaComponentRightPanel">
       <MediaSecondaryBanner projectMedia={projectMedia} />
-      <Tabs
+      <TabWrapper
         className={cx('media__annotations-tabs', styles['media-item-column-header'])}
         indicatorColor="primary"
         scrollButtons="auto"
@@ -114,7 +116,7 @@ const MediaComponentRightPanel = ({
             value="source"
           />
         )}
-      </Tabs>
+      </TabWrapper>
       { showTab === 'requests' ? <MediaRequests all={!projectMedia.is_confirmed_similar_to_another_item} media={projectMedia} /> : null }
       { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} superAdminMask={superAdminMask} teamDbid={projectMedia.team?.dbid} /> : null }
       { showTab === 'metadata' ? <MediaTasks fieldset="metadata" media={projectMedia} /> : null }

@@ -1,0 +1,4 @@
+.tabWrapper {
+  background: var(--color-purple-61);
+  display: flex;
+}
