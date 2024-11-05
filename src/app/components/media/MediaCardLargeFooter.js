@@ -8,6 +8,7 @@ import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaSlug from './MediaSlug';
 import ExternalLink from '../ExternalLink';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 
 const MediaCardLargeFooter = ({
   data,
@@ -70,21 +71,35 @@ const MediaCardLargeFooter = ({
         <Box mb={2}>
           <MediaSlug
             details={[(
-              <FormattedMessage
-                defaultMessage="Last submitted on {date}"
-                description="Header for the date when the media item was last received by the workspace"
-                id="mediaCardLarge.lastSeen"
-                values={{
-                  date: (
-                    <FormattedDate
-                      day="numeric"
-                      month="short"
-                      value={projectMedia.last_seen * 1000}
-                      year="numeric"
-                    />
-                  ),
-                }}
-              />
+              <Tooltip
+                arrow
+                title={
+                  <FormattedMessage
+                    defaultMessage="Last submitted on {date}"
+                    description="Header for the date when the media item was last received by the workspace"
+                    id="mediaCardLarge.lastSeen"
+                    values={{
+                      date: (
+                        <FormattedDate
+                          day="numeric"
+                          month="short"
+                          value={projectMedia.last_seen * 1000}
+                          year="numeric"
+                        />
+                      ),
+                    }}
+                  />
+                }
+              >
+                <span>
+                  <FormattedDate
+                    day="numeric"
+                    month="short"
+                    value={projectMedia.last_seen * 1000}
+                    year="numeric"
+                  />
+                </span>
+              </Tooltip>
             ), (
               <FormattedMessage
                 defaultMessage="{count, plural, one {# request} other {# requests}}"

@@ -939,14 +939,23 @@ const MediaSuggestionsComponent = ({
               .map(relationshipItem => (
                 <RelationshipItem
                   details={[
-                    <FormattedMessage
-                      defaultMessage="Last submitted {date}"
-                      description="Shows the last time a media was submitted (on feed request media card)"
-                      id="mediaSuggestions.lastSubmitted"
-                      values={{
-                        date: intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                      }}
-                    />,
+                    <Tooltip
+                      arrow
+                      title={
+                        <FormattedMessage
+                          defaultMessage="Last submitted {date}"
+                          description="Shows the last time a media was submitted (on feed request media card)"
+                          id="mediaSuggestions.lastSubmitted"
+                          values={{
+                            date: intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                          }}
+                        />
+                      }
+                    >
+                      <span>
+                        {intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' })}
+                      </span>
+                    </Tooltip>,
                     <FormattedMessage
                       defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
                       description="Header of requests list. Example: 26 requests"

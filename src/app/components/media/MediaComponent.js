@@ -21,6 +21,7 @@ import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAnd
 import PushPinIcon from '../../icons/push_pin.svg';
 import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './media.module.css';
 
 const setInitialTab = (projectMedia) => {
@@ -204,21 +205,35 @@ class MediaComponent extends Component {
                       <MediaSlug
                         className={styles['media-slug-title']}
                         details={[(
-                          <FormattedMessage
-                            defaultMessage="Last submitted on {date}"
-                            description="Header for the date when the media item was last received by the workspace"
-                            id="mediaComponent.lastSeen"
-                            values={{
-                              date: (
-                                <FormattedDate
-                                  day="numeric"
-                                  month="short"
-                                  value={projectMedia.last_seen * 1000}
-                                  year="numeric"
-                                />
-                              ),
-                            }}
-                          />
+                          <Tooltip
+                            arrow
+                            title={
+                              <FormattedMessage
+                                defaultMessage="Last submitted on {date}"
+                                description="Header for the date when the media item was last received by the workspace"
+                                id="mediaComponent.lastSeen"
+                                values={{
+                                  date: (
+                                    <FormattedDate
+                                      day="numeric"
+                                      month="short"
+                                      value={projectMedia.last_seen * 1000}
+                                      year="numeric"
+                                    />
+                                  ),
+                                }}
+                              />
+                            }
+                          >
+                            <span>
+                              <FormattedDate
+                                day="numeric"
+                                month="short"
+                                value={projectMedia.last_seen * 1000}
+                                year="numeric"
+                              />
+                            </span>
+                          </Tooltip>
                         ), (
                           <FormattedMessage
                             defaultMessage="{count, plural, one {# request} other {# requests}}"

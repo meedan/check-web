@@ -16,6 +16,7 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ParsedText from '../ParsedText';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './FeedItem.module.css';
 import mediaStyles from '../media/media.module.css';
 
@@ -195,14 +196,23 @@ const FeedImportDialog = ({
                 details={[
                   (
                     item.last_seen &&
-                      <FormattedMessage
-                        defaultMessage="Last submitted {date}"
-                        description="Shows the last time a media was submitted (on feed import dialog media card)"
-                        id="feedImportDialog.lastSubmitted"
-                        values={{
-                          date: intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                        }}
-                      />
+                      <Tooltip
+                        arrow
+                        title={
+                          <FormattedMessage
+                            defaultMessage="Last submitted {date}"
+                            description="Shows the last time a media was submitted (on feed import dialog media card)"
+                            id="feedImportDialog.lastSubmitted"
+                            values={{
+                              date: intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                            }}
+                          />
+                        }
+                      >
+                        <span>
+                          {intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' })}
+                        </span>
+                      </Tooltip>
                   ),
                   (
                     item.requests_count &&

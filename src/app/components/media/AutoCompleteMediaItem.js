@@ -390,14 +390,23 @@ const AutoCompleteMediaItem = (props, context) => {
                       description={projectMedia.description}
                       details={[
                         (
-                          <FormattedMessage
-                            defaultMessage="Last submitted {date}"
-                            description="Shows the last time a media was submitted"
-                            id="autoCompleteMediaItem.lastSubmitted"
-                            values={{
-                              date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                            }}
-                          />
+                          <Tooltip
+                            arrow
+                            title={
+                              <FormattedMessage
+                                defaultMessage="Last submitted {date}"
+                                description="Shows the last time a media was submitted"
+                                id="autoCompleteMediaItem.lastSubmitted"
+                                values={{
+                                  date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                                }}
+                              />
+                            }
+                          >
+                            <span>
+                              {props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' })}
+                            </span>
+                          </Tooltip>
                         ),
                         <FormattedMessage
                           defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"

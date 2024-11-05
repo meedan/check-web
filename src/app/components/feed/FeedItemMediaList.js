@@ -10,6 +10,7 @@ import MediaSlug from '../media/MediaSlug';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import NotFound from '../NotFound';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from '../media/media.module.css';
 
 const FeedItemMediaListComponent = ({ feedDbid, intl, items }) => {
@@ -25,14 +26,23 @@ const FeedItemMediaListComponent = ({ feedDbid, intl, items }) => {
         const details = [
           (
             item.last_seen &&
-              <FormattedMessage
-                defaultMessage="Last submitted {date}"
-                description="Shows the last time a media was submitted (on feed item page media card)"
-                id="feedItemMediaList.lastSubmitted"
-                values={{
-                  date: intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                }}
-              />
+              <Tooltip
+                arrow
+                title={
+                  <FormattedMessage
+                    defaultMessage="Last submitted {date}"
+                    description="Shows the last time a media was submitted (on feed item page media card)"
+                    id="feedItemMediaList.lastSubmitted"
+                    values={{
+                      date: intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                    }}
+                  />
+                }
+              >
+                <span>
+                  {intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' })}
+                </span>
+              </Tooltip>
           ),
           (
             item.requests_count &&

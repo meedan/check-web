@@ -19,6 +19,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../../helpers';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import styles from '../media.module.css';
 import similarityStyles from './MediaSimilarities.module.css';
 
@@ -268,14 +269,23 @@ const MediaRelationship = ({
   };
 
   const details = [
-    <FormattedMessage
-      defaultMessage="Last submitted {date}"
-      description="Shows the last time a media was submitted"
-      id="mediaRelationship.lastSubmitted"
-      values={{
-        date: intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-      }}
-    />,
+    <Tooltip
+      arrow
+      title={
+        <FormattedMessage
+          defaultMessage="Last submitted {date}"
+          description="Shows the last time a media was submitted"
+          id="mediaRelationship.lastSubmitted"
+          values={{
+            date: intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+          }}
+        />
+      }
+    >
+      <span>
+        {intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' })}
+      </span>
+    </Tooltip>,
     <FormattedMessage
       defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
       description="Header of requests list. Example: 26 requests"
