@@ -107,7 +107,12 @@ const MediaArticleCard = ({
           </div>
         </div>
         <div className={styles.articleCardRight}>
-          <RemoveArticleButton disabled={removeDisabled} id={id} variant={variant} onRemove={onRemove} />
+          <RemoveArticleButton
+            disabled={removeDisabled}
+            id={id}
+            variant={variant}
+            onRemove={onRemove}
+          />
         </div>
       </div>
       <BulletSeparator
