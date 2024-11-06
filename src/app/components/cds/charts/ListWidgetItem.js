@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { getDisplayValue } from './NumberWidget';
-import { isValidURL } from '../../../helpers';
 import styles from './ListWidget.module.css';
 
 const ListWidgetItem = ({
@@ -12,8 +12,10 @@ const ListWidgetItem = ({
 }) => (
   <li className={styles.listWidgetItemWrapper} key={id}>
     {
-      isValidURL(itemLink) ?
-        <div className={styles.listWidgetItemText} title={itemText}><a href={itemLink}>{itemText}</a></div>
+      itemLink ?
+        <div className={styles.listWidgetItemText} title={itemText}>
+          <Link to={itemLink}>{itemText}</Link>
+        </div>
         :
         <div className={styles.listWidgetItemText} title={itemText}>{itemText}</div>
     }

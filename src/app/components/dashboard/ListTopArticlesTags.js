@@ -8,7 +8,10 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TagIcon from '../../icons/local_offer.svg';
 
 const ListTopArticlesTags = ({ statistics }) => {
-  const dataArray = Object.entries(statistics.top_articles_tags).map(([itemText, itemValue]) => ({ itemText, itemValue }));
+  const dataArray = statistics.top_articles_tags.map(t => ({
+    itemText: t.label,
+    itemValue: t.value,
+  }));
 
   const teamSlug = window.location.pathname.split('/')[1];
 
@@ -51,7 +54,7 @@ const ListTopArticlesTags = ({ statistics }) => {
 
 ListTopArticlesTags.propTypes = {
   statistics: PropTypes.shape({
-    top_articles_tags: PropTypes.object.isRequired,
+    top_articles_tags: PropTypes.array.isRequired,
   }).isRequired,
 };
 
