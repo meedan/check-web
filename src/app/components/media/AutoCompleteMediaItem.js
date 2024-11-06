@@ -12,6 +12,8 @@ import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import LastRequestDate from '../cds/media-cards/LastRequestDate';
+import RequestsCount from '../cds/media-cards/RequestsCount';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import SettingsIcon from '../../icons/settings.svg';
 import SearchIcon from '../../icons/search.svg';
@@ -390,30 +392,18 @@ const AutoCompleteMediaItem = (props, context) => {
                       description={projectMedia.description}
                       details={[
                         (
-                          <Tooltip
-                            arrow
-                            title={
-                              <FormattedMessage
-                                defaultMessage="Last submitted {date}"
-                                description="Shows the last time a media was submitted"
-                                id="autoCompleteMediaItem.lastSubmitted"
-                                values={{
-                                  date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                                }}
-                              />
-                            }
-                          >
-                            <span>
-                              {props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' })}
-                            </span>
-                          </Tooltip>
+                          <LastRequestDate
+                            lastRequestDate={+projectMedia.last_seen * 1000}
+                            theme="lightText"
+                            variant="text"
+                          />
+                        ), (
+                          <RequestsCount
+                            requestsCount={projectMedia.requests_count}
+                            theme="lightText"
+                            variant="text"
+                          />
                         ),
-                        <FormattedMessage
-                          defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                          description="Header of requests list. Example: 26 requests"
-                          id="autoCompleteMediaItem.requestsCount"
-                          values={{ requestsCount: projectMedia.requests_count }}
-                        />,
                       ]}
                       maskContent={projectMedia.show_warning_cover}
                       media={projectMedia.media}

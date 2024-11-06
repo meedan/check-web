@@ -19,7 +19,8 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../../helpers';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
+import LastRequestDate from '../../cds/media-cards/LastRequestDate';
+import RequestsCount from '../../cds/media-cards/RequestsCount';
 import styles from '../media.module.css';
 import similarityStyles from './MediaSimilarities.module.css';
 
@@ -251,7 +252,6 @@ const RelationshipMenu = ({
 const MediaRelationship = ({
   canDelete,
   canSwitch,
-  intl,
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
@@ -268,31 +268,19 @@ const MediaRelationship = ({
     ev.stopPropagation();
   };
 
-  const details = [
-    <Tooltip
-      arrow
-      title={
-        <FormattedMessage
-          defaultMessage="Last submitted {date}"
-          description="Shows the last time a media was submitted"
-          id="mediaRelationship.lastSubmitted"
-          values={{
-            date: intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-          }}
-        />
-      }
-    >
-      <span>
-        {intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' })}
-      </span>
-    </Tooltip>,
-    <FormattedMessage
-      defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-      description="Header of requests list. Example: 26 requests"
-      id="mediaSuggestions.requestsCount"
-      values={{ requestsCount: relationship?.target?.requests_count }}
-    />,
-  ];
+  const details = [(
+    <LastRequestDate
+      lastRequestDate={+relationship?.target?.last_seen * 1000}
+      theme="lightText"
+      variant="text"
+    />
+  ), (
+    <RequestsCount
+      requestsCount={relationship?.target?.requests_count}
+      theme="lightText"
+      variant="text"
+    />
+  )];
 
   const maskContent = relationship?.target?.show_warning_cover;
 

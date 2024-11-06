@@ -9,6 +9,8 @@ import { getCompactNumber } from '../../../helpers';
 const RequestsCount = ({
   intl,
   requestsCount,
+  theme,
+  variant,
 }) => (
   <FormattedMessage
     defaultMessage="{requestsCount, plural, one {# Request} other {{requestsCount, number} Requests}}"
@@ -32,8 +34,8 @@ const RequestsCount = ({
             iconLeft={<RequestsIcon />}
             label={getCompactNumber(intl.locale, requestsCount)}
             size="small"
-            theme="lightBeige"
-            variant={requestsCount === 0 ? 'text' : 'contained'}
+            theme={theme}
+            variant={variant}
           />
         </span>
       </Tooltip>
@@ -44,6 +46,13 @@ const RequestsCount = ({
 RequestsCount.propTypes = {
   intl: intlShape.isRequired,
   requestsCount: PropTypes.number.isRequired,
+  theme: PropTypes.string,
+  variant: PropTypes.string,
+};
+
+RequestsCount.defaultProps = {
+  theme: 'lightBeige',
+  variant: 'contained',
 };
 
 export default injectIntl(RequestsCount);

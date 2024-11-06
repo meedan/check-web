@@ -12,6 +12,8 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
+import LastRequestDate from '../../cds/media-cards/LastRequestDate';
+import RequestsCount from '../../cds/media-cards/RequestsCount';
 import MediaSlug from '../MediaSlug';
 import Loader from '../../cds/loading/Loader';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
@@ -31,7 +33,6 @@ import styles from '../media.module.css';
 import suggestionsStyles from './MediaSuggestions.module.css';
 
 const MediaSuggestionsComponent = ({
-  intl,
   mainItem,
   pageSize,
   relationships,
@@ -938,31 +939,19 @@ const MediaSuggestionsComponent = ({
               .slice(cursor, cursor + pageSize)
               .map(relationshipItem => (
                 <RelationshipItem
-                  details={[
-                    <Tooltip
-                      arrow
-                      title={
-                        <FormattedMessage
-                          defaultMessage="Last submitted {date}"
-                          description="Shows the last time a media was submitted (on feed request media card)"
-                          id="mediaSuggestions.lastSubmitted"
-                          values={{
-                            date: intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                          }}
-                        />
-                      }
-                    >
-                      <span>
-                        {intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' })}
-                      </span>
-                    </Tooltip>,
-                    <FormattedMessage
-                      defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                      description="Header of requests list. Example: 26 requests"
-                      id="mediaSuggestions.requestsCount"
-                      values={{ requestsCount: relationshipItem?.target?.requests_count }}
-                    />,
-                  ]}
+                  details={[(
+                    <LastRequestDate
+                      lastRequestDate={+relationshipItem?.target?.last_seen * 1000}
+                      theme="lightText"
+                      variant="text"
+                    />
+                  ), (
+                    <RequestsCount
+                      requestsCount={relationshipItem?.target?.requests_count}
+                      theme="lightText"
+                      variant="text"
+                    />
+                  )]}
                   key={relationshipItem.target_id}
                   relationshipItem={relationshipItem}
                 />
