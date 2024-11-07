@@ -66,12 +66,11 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
   return (
     <ButtonMain
       className="media-actions__refresh"
-      customStyle={{ color: waitRequest ? null : 'var(--color-gray-15)' }}
       disabled={waitRequest}
       iconCenter={<RefreshIcon />}
       size="small"
       theme="text"
-      variant="outlined"
+      variant="contained"
       onClick={handleClick} // For integration test
     />
   );

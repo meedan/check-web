@@ -1,18 +1,18 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Loader from '../cds/loading/Loader';
 import MediaSlug from '../media/MediaSlug';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import NotFound from '../NotFound';
+import LastRequestDate from '../cds/media-cards/LastRequestDate';
+import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from '../media/media.module.css';
 
-const FeedItemMediaListComponent = ({ feedDbid, intl, items }) => {
+const FeedItemMediaListComponent = ({ feedDbid, items }) => {
   const [selectedItemId, setSelectedItemId] = React.useState(null);
 
   const swallowClick = (event) => {
@@ -25,22 +25,18 @@ const FeedItemMediaListComponent = ({ feedDbid, intl, items }) => {
         const details = [
           (
             item.last_seen &&
-              <FormattedMessage
-                defaultMessage="Last submitted {date}"
-                description="Shows the last time a media was submitted (on feed item page media card)"
-                id="feedItemMediaList.lastSubmitted"
-                values={{
-                  date: intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                }}
+              <LastRequestDate
+                lastRequestDate={item.last_seen * 1000}
+                theme="lightText"
+                variant="text"
               />
           ),
           (
             item.requests_count &&
-              <FormattedMessage
-                defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                description="Header of requests list. Example: 26 requests."
-                id="feedItemMediaList.requestsCount"
-                values={{ requestsCount: item.requests_count }}
+              <RequestsCount
+                requestsCount={item.requests_count}
+                theme="lightText"
+                variant="text"
               />
           ),
         ];
@@ -80,6 +76,7 @@ const FeedItemMediaListComponent = ({ feedDbid, intl, items }) => {
 };
 
 FeedItemMediaListComponent.propTypes = {
+  feedDbid: PropTypes.number.isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string,
@@ -89,11 +86,7 @@ FeedItemMediaListComponent.propTypes = {
     media: PropTypes.object,
     type: PropTypes.string,
   })).isRequired,
-  feedDbid: PropTypes.number.isRequired,
-  intl: intlShape.isRequired,
 };
-
-const FeedItemMediaListComponentWithIntl = injectIntl(FeedItemMediaListComponent);
 
 const FeedItemMediaList = ({ teamDbid }) => {
   const urlParseRegex = new RegExp('^/(?<currentTeamSlug>[^/]+)/feed/(?<feedDbid>[0-9]+)/item/(?<projectMediaDbid>[0-9]+)$');
@@ -132,7 +125,7 @@ const FeedItemMediaList = ({ teamDbid }) => {
           if (props && !error) {
             const items = props.team?.feed?.cluster?.project_medias;
             if (items) {
-              return (<FeedItemMediaListComponentWithIntl feedDbid={parseInt(feedDbid, 10)} items={items.edges.map(edge => edge.node)} />);
+              return (<FeedItemMediaListComponent feedDbid={parseInt(feedDbid, 10)} items={items.edges.map(edge => edge.node)} />);
             }
             return (<NotFound />);
           }
