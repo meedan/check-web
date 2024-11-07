@@ -95,7 +95,7 @@ const AspectRatio = ({
   }
 
   // eslint-disable-next-line
-  console.log('warningType', warningType, "projectMedia", projectMedia.dynamic_annotation_flag.data);
+  console.log('warningType', warningType, "projectMedia", projectMedia.dynamic_annotation_flag?.data);
 
   const warningCategory = warningType;
   const skipAspectRatio = !maskContent && !superAdminMask && isPenderCard;

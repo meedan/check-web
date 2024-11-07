@@ -60,7 +60,7 @@ const SensitiveContentMenu = ({
   }
 
   // eslint-disable-next-line
-  console.log('warningType', warningType, 'warningTypeCustom', warningTypeCustom, 'dynamic_annotation_flag', dynamic_annotation_flag, "projectMedia: ", projectMedia.dynamic_annotation_flag.data);
+  console.log('warningType', warningType, 'warningTypeCustom', warningTypeCustom, 'dynamic_annotation_flag', dynamic_annotation_flag, "projectMedia: ", projectMedia.dynamic_annotation_flag?.data);
 
   const [enableSwitch, setEnableSwitch] = React.useState(show_warning_cover);
   const [contentType, setContentType] = React.useState(warningType);
@@ -307,7 +307,7 @@ const SensitiveContentMenu = ({
                         rows={1}
                         value={customType || ''}
                         onBlur={handleChangeCustom}
-                        onChange={e => setCustomType(e.target.value)}
+                        onChange={e => handleSetContentType(e.target.value)}
                       />
                     )}
                   </FormattedMessage>
