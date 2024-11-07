@@ -70,7 +70,7 @@ jobs:
         
     - name: Setup Pender 
       run: | 
-        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GIT_BRANCH) || echo 'develop')
+        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $GITHUB_BRANCH >/dev/null && echo $GITHUB_BRANCH) || echo 'develop')
         echo "Using branch $PENDER_BRANCH for Pender"
         git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
         cd pender
