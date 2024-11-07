@@ -78,6 +78,7 @@ const TiplineDashboard = ({
               <VerticalBarMediaReceivedByType statistics={team.statistics} />
             </div>
           </div>
+          <hr />
         </>
       )}
       <TiplineDataComponent
