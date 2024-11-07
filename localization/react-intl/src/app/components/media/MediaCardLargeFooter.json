@@ -12,7 +12,7 @@
   {
     "id": "mediaCardLargeFooter.transcription",
     "description": "Header for the transcription content of an audio or video",
-    "defaultMessage": "Transcription"
+    "defaultMessage": "Transcription:"
   },
   {
     "id": "mediaCardLarge.publishedOn",

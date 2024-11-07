@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import {
-  Box,
   Menu,
   MenuItem,
 } from '@material-ui/core';
+import cx from 'classnames/bind';
 import RefreshButton from './RefreshButton';
 import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
 import MediaLanguageSwitcher from './MediaLanguageSwitcher';
 import ExternalLink from '../ExternalLink';
 import MoreVertIcon from '../../icons/more_vert.svg';
+import OpenInNewIcon from '../../icons/open_in_new.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import styles from './media.module.css';
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -111,43 +113,39 @@ class MediaExpandedActions extends React.Component {
 
     return (
       <div
-        style={
-          bottomSeparator ?
-            {
-              borderBottom: '1px solid var(--color-blue-81)',
-              paddingBottom: '16px',
-            } :
-            {}
+        className={cx(
+          styles['media-card-large-footer-actions'],
+          {
+            [styles['media-card-large-footer-modal-actions']]: bottomSeparator,
+          })
         }
       >
-        <Box alignItems="center" display="flex" justifyContent="space-between">
-          <div>
-            { !inModal ?
-              <ButtonMain
-                label={
-                  <FormattedMessage
-                    defaultMessage="More"
-                    description="Button to open an expanded view of the media"
-                    id="mediaCardLarge.more"
-                  />
-                }
-                size="default"
-                theme="info"
-                variant="contained"
-                onClick={onClickMore}
-              /> : null }
-            { inModal ? <MediaLanguageSwitcher projectMedia={projectMedia} /> : null }
-          </div>
-          { media.type !== 'Claim' ?
-            <Box display="flex" style={{ gap: '4px' }}>
-              { media.type === 'Link' ?
-                <RefreshButton projectMediaId={projectMedia.id} /> : null }
-              <ExtraMediaActions
-                projectMedia={projectMedia}
-                reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+        { !inModal ?
+          <ButtonMain
+            iconRight={<OpenInNewIcon />}
+            label={
+              <FormattedMessage
+                defaultMessage="More"
+                description="Button to open an expanded view of the media"
+                id="mediaCardLarge.more"
               />
-            </Box> : null }
-        </Box>
+            }
+            size="small"
+            theme="text"
+            variant="contained"
+            onClick={onClickMore}
+          />
+          : <MediaLanguageSwitcher projectMedia={projectMedia} />
+        }
+        { media.type !== 'Claim' ?
+          <div>
+            { media.type === 'Link' ?
+              <RefreshButton projectMediaId={projectMedia.id} /> : null }
+            <ExtraMediaActions
+              projectMedia={projectMedia}
+              reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+            />
+          </div> : null }
       </div>
     );
   }
