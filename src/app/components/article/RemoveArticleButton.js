@@ -84,6 +84,7 @@ const RemoveArticleButton = ({
     setRemoving(false);
     setOpenDialog(false);
     onRemove();
+    window.location.assign(window.location.pathname);
   };
 
   const onError = (error) => {
