@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
@@ -130,11 +129,11 @@ const MediaCardLargeFooter = ({
 };
 
 MediaCardLargeFooter.propTypes = {
+  data: PropTypes.object.isRequired,
   inModal: PropTypes.bool.isRequired,
+  mediaType: PropTypes.string.isRequired,
   projectMedia: PropTypes.object.isRequired,
   onClickMore: PropTypes.func,
-  mediaType: PropTypes.string.isRequired,
-  data: PropTypes.object.isRequired,
 };
 
 MediaCardLargeFooter.defaultProps = {

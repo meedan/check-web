@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -335,14 +334,14 @@ const MediaRelationship = ({
 };
 
 MediaRelationship.propTypes = {
+  canDelete: PropTypes.bool.isRequired,
+  canSwitch: PropTypes.bool.isRequired,
+  mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
+  mainProjectMediaDemand: PropTypes.number.isRequired,
+  mainProjectMediaId: PropTypes.string.isRequired,
   relationship: PropTypes.object.isRequired,
   relationshipSourceId: PropTypes.number.isRequired,
   relationshipTargetId: PropTypes.number.isRequired,
-  canSwitch: PropTypes.bool.isRequired,
-  canDelete: PropTypes.bool.isRequired,
-  mainProjectMediaId: PropTypes.string.isRequired,
-  mainProjectMediaDemand: PropTypes.number.isRequired,
-  mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
   superAdminMask: PropTypes.bool,
 };
 

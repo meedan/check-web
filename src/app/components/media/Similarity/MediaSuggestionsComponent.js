@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -966,21 +965,21 @@ MediaSuggestionsComponent.propTypes = {
   mainItem: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }).isRequired,
-  reportType: PropTypes.string.isRequired,
+  pageSize: PropTypes.number.isRequired,
   relationships: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     target_id: PropTypes.number.isRequired,
   })).isRequired,
   relay: PropTypes.object.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  totalCount: PropTypes.number.isRequired,
+  reportType: PropTypes.string.isRequired,
+  superAdminMask: PropTypes.bool,
   team: PropTypes.shape({
     slug: PropTypes.string,
     smooch_bot: PropTypes.shape({
       id: PropTypes.string,
     }),
   }).isRequired,
-  superAdminMask: PropTypes.bool,
+  totalCount: PropTypes.number.isRequired,
 };
 
 MediaSuggestionsComponent.defaultProps = {

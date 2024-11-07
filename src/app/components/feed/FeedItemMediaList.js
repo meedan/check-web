@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -78,6 +77,7 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
 };
 
 FeedItemMediaListComponent.propTypes = {
+  feedDbid: PropTypes.number.isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string,
@@ -87,7 +87,6 @@ FeedItemMediaListComponent.propTypes = {
     media: PropTypes.object,
     type: PropTypes.string,
   })).isRequired,
-  feedDbid: PropTypes.number.isRequired,
 };
 
 const FeedItemMediaListComponentWithIntl = injectIntl(FeedItemMediaListComponent);
