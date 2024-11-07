@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import Dialog from '@material-ui/core/Dialog';
@@ -336,7 +336,7 @@ FeedImportDialog.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { FeedImportDialog };
 
-export default createFragmentContainer(withSetFlashMessage(injectIntl(FeedImportDialog)), graphql`
+export default createFragmentContainer(withSetFlashMessage(FeedImportDialog), graphql`
   fragment FeedImportDialog_team on Team {
     dbid
   }

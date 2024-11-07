@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { injectIntl } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Loader from '../cds/loading/Loader';
 import MediaSlug from '../media/MediaSlug';
@@ -89,8 +88,6 @@ FeedItemMediaListComponent.propTypes = {
   })).isRequired,
 };
 
-const FeedItemMediaListComponentWithIntl = injectIntl(FeedItemMediaListComponent);
-
 const FeedItemMediaList = ({ teamDbid }) => {
   const urlParseRegex = new RegExp('^/(?<currentTeamSlug>[^/]+)/feed/(?<feedDbid>[0-9]+)/item/(?<projectMediaDbid>[0-9]+)$');
   const { currentTeamSlug, feedDbid, projectMediaDbid } = urlParseRegex.test(window.location.pathname) && window.location.pathname.match(urlParseRegex).groups;
@@ -128,7 +125,7 @@ const FeedItemMediaList = ({ teamDbid }) => {
           if (props && !error) {
             const items = props.team?.feed?.cluster?.project_medias;
             if (items) {
-              return (<FeedItemMediaListComponentWithIntl feedDbid={parseInt(feedDbid, 10)} items={items.edges.map(edge => edge.node)} />);
+              return (<FeedItemMediaListComponent feedDbid={parseInt(feedDbid, 10)} items={items.edges.map(edge => edge.node)} />);
             }
             return (<NotFound />);
           }
