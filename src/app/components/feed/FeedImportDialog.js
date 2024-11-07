@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import Dialog from '@material-ui/core/Dialog';
@@ -16,13 +16,14 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ParsedText from '../ParsedText';
+import LastRequestDate from '../cds/media-cards/LastRequestDate';
+import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './FeedItem.module.css';
 import mediaStyles from '../media/media.module.css';
 
 const FeedImportDialog = ({
   cluster,
   feed,
-  intl,
   onClose,
   setFlashMessage,
   team,
@@ -195,22 +196,18 @@ const FeedImportDialog = ({
                 details={[
                   (
                     item.last_seen &&
-                      <FormattedMessage
-                        defaultMessage="Last submitted {date}"
-                        description="Shows the last time a media was submitted (on feed import dialog media card)"
-                        id="feedImportDialog.lastSubmitted"
-                        values={{
-                          date: intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                        }}
+                      <LastRequestDate
+                        lastRequestDate={item.last_seen * 1000}
+                        theme="lightText"
+                        variant="text"
                       />
                   ),
                   (
                     item.requests_count &&
-                      <FormattedMessage
-                        defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                        description="Header of requests list. Example: 26 requests."
-                        id="feedImportDialog.requestsCount"
-                        values={{ requestsCount: item.requests_count }}
+                      <RequestsCount
+                        requestsCount={item.requests_count}
+                        theme="lightText"
+                        variant="text"
                       />
                   ),
                 ]}
@@ -328,7 +325,6 @@ FeedImportDialog.propTypes = {
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
@@ -340,7 +336,7 @@ FeedImportDialog.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { FeedImportDialog };
 
-export default createFragmentContainer(withSetFlashMessage(injectIntl(FeedImportDialog)), graphql`
+export default createFragmentContainer(withSetFlashMessage(FeedImportDialog), graphql`
   fragment FeedImportDialog_team on Team {
     dbid
   }

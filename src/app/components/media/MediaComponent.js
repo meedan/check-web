@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedDate } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import MediaCardLarge from './MediaCardLarge';
 import MediaSlug from './MediaSlug';
@@ -21,6 +21,8 @@ import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAnd
 import PushPinIcon from '../../icons/push_pin.svg';
 import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
+import LastRequestDate from '../cds/media-cards/LastRequestDate';
+import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './media.module.css';
 
 const setInitialTab = (projectMedia) => {
@@ -204,29 +206,16 @@ class MediaComponent extends Component {
                       <MediaSlug
                         className={styles['media-slug-title']}
                         details={[(
-                          <FormattedMessage
-                            defaultMessage="Last submitted on {date}"
-                            description="Header for the date when the media item was last received by the workspace"
-                            id="mediaComponent.lastSeen"
-                            values={{
-                              date: (
-                                <FormattedDate
-                                  day="numeric"
-                                  month="short"
-                                  value={projectMedia.last_seen * 1000}
-                                  year="numeric"
-                                />
-                              ),
-                            }}
+                          <LastRequestDate
+                            lastRequestDate={projectMedia.last_seen * 1000}
+                            theme="lightText"
+                            variant="text"
                           />
                         ), (
-                          <FormattedMessage
-                            defaultMessage="{count, plural, one {# request} other {# requests}}"
-                            description="Number of times a request has been sent about this media"
-                            id="mediaComponent.requests"
-                            values={{
-                              count: projectMedia.requests_count,
-                            }}
+                          <RequestsCount
+                            requestsCount={projectMedia.requests_count}
+                            theme="lightText"
+                            variant="text"
                           />
                         )]}
                         mediaType={projectMedia.type}

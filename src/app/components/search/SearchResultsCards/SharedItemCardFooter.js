@@ -57,6 +57,7 @@ const SharedItemCardFooter = ({
       requestsCount !== null && (
         <RequestsCount
           requestsCount={requestsCount}
+          variant={requestsCount === 0 ? 'text' : 'contained'}
         />
       ),
       lastRequestDate && requestsCount > 0 && (

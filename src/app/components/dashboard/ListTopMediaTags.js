@@ -5,12 +5,17 @@ import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import ListWidget from '../cds/charts/ListWidget';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import { urlFromSearchQuery } from '../search/Search';
 import TagIcon from '../../icons/local_offer.svg';
 
 const ListTopMediaTags = ({ statistics }) => {
-  const dataArray = Object.entries(statistics.top_media_tags).map(([itemText, itemValue]) => ({ itemText, itemValue }));
-
   const teamSlug = window.location.pathname.split('/')[1];
+
+  const dataArray = statistics.top_media_tags.map(t => ({
+    itemText: t.label,
+    itemValue: t.value,
+    itemLink: urlFromSearchQuery({ tags: [t.label] }, `/${teamSlug}/all-items`),
+  }));
 
   return (
     <ListWidget
@@ -51,7 +56,7 @@ const ListTopMediaTags = ({ statistics }) => {
 
 ListTopMediaTags.propTypes = {
   statistics: PropTypes.shape({
-    top_media_tags: PropTypes.object.isRequired,
+    top_media_tags: PropTypes.array.isRequired,
   }).isRequired,
 };
 

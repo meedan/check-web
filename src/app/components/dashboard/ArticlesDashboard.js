@@ -58,7 +58,7 @@ const ArticlesDashboard = ({
             <ListTopArticlesTags statistics={team.statistics} />
           </div>
           <VerticalBarFactChecksByRating
-            language={language}
+            language={language || team.get_language}
             statistics={team.statistics}
             team={team}
           />
@@ -102,6 +102,7 @@ const ArticlesDashboardQueryRenderer = ({ routeParams }) => {
           query={graphql`
             query ArticlesDashboardQuery($teamSlug: String!, $period: String!, $language: String) {
               team(slug: $teamSlug) {
+                get_language
                 get_languages
                 ...VerticalBarFactChecksByRating_team
                 statistics(period: $period, language: $language) {

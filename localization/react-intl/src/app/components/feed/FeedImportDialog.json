@@ -50,16 +50,6 @@
     "defaultMessage": "Add the selected media to your matching workspace item."
   },
   {
-    "id": "feedImportDialog.lastSubmitted",
-    "description": "Shows the last time a media was submitted (on feed import dialog media card)",
-    "defaultMessage": "Last submitted {date}"
-  },
-  {
-    "id": "feedImportDialog.requestsCount",
-    "description": "Header of requests list. Example: 26 requests.",
-    "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
-  },
-  {
     "id": "feedImportDialog.addNotPart1",
     "description": "Explanation on import dialog on feed item page.",
     "defaultMessage": "Your workspace does not contribute to this shared feed item."
