@@ -190,8 +190,6 @@ const SensitiveContentMenu = ({
         `,
         variables: {
           input: {
-            annotated_type: 'ProjectMedia',
-            annotated_id: projectMedia.dbid.toString(),
             id: dynamic_annotation_flag.id,
             set_fields: JSON.stringify(fields),
           },
