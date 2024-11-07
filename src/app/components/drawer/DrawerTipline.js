@@ -376,7 +376,6 @@ DrawerTiplineComponent.propTypes = {
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    filters: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
