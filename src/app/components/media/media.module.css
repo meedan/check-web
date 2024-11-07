@@ -368,8 +368,6 @@
 }
 
 .media-card-large {
-  border: solid 10px;
-
   .media-card-large-footer {
     display: flex;
     flex-direction: column;
@@ -418,7 +416,6 @@
   }
 
   .quote-mediacard {
-    border: solid 3px;
     padding: 16px 16px 0;
   }
 
