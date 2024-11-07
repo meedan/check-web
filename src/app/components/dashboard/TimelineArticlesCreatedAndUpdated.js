@@ -15,7 +15,10 @@ const TimelineArticlesCreatedAndUpdated = ({ statistics }) => {
   return (
     <TimelineWidget
       data={
-        Object.entries(statistics.number_of_articles_created_by_date).map(([date, value]) => ({ date, value }))
+        Object.entries(statistics.number_of_articles_created_by_date).map(([date, value]) => ({
+          date: `${date}T23:59:59.000Z`,
+          value,
+        }))
       }
       title={
         <FormattedMessage

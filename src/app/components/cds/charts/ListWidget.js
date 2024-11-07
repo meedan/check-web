@@ -26,7 +26,7 @@ const ListWidget = ({
           itemLink={i.itemLink}
           itemText={i.itemText}
           itemValue={i.itemValue}
-          key={i.id}
+          key={i.itemText}
         />
       ))}
     </ul>
@@ -43,7 +43,11 @@ ListWidget.propTypes = {
   actionButton: PropTypes.node,
   color: PropTypes.string,
   emptyText: PropTypes.node,
-  items: PropTypes.arrayOf(PropTypes.shape({ itemLink: PropTypes.string, itemText: PropTypes.string, itemValue: PropTypes.string })).isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    itemLink: PropTypes.string,
+    itemText: PropTypes.string,
+    itemValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  })).isRequired,
   title: PropTypes.node.isRequired,
 };
 
