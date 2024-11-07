@@ -11,6 +11,11 @@
     overflow: auto;
     padding: 16px 32px 32px;
 
+    hr {
+      border-bottom: solid 1px var(--color-beige-76);
+      margin-top: 32px;
+    }
+
     .dashboard-filter-area {
       background: var(--color-beige-86);
       border-radius: var(--border-radius-default);
@@ -63,11 +68,8 @@
     }
 
     .dashboard-data-table {
-      margin: 16px 0 0;
-
       .dashboard-data-table-header {
         align-items: center;
-        border-top: solid 1px var(--color-beige-76);
         display: flex;
         flex-flow: row wrap;
         gap: 16px;
