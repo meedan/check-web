@@ -5,12 +5,11 @@ import { getDisplayValue } from './NumberWidget';
 import styles from './ListWidget.module.css';
 
 const ListWidgetItem = ({
-  id,
   itemLink,
   itemText,
   itemValue,
 }) => (
-  <li className={styles.listWidgetItemWrapper} key={id}>
+  <li className={styles.listWidgetItemWrapper}>
     {
       itemLink ?
         <div className={styles.listWidgetItemText} title={itemText}>
@@ -24,14 +23,12 @@ const ListWidgetItem = ({
 );
 
 ListWidgetItem.defaultProps = {
-  id: null,
   itemLink: null,
   itemText: null,
   itemValue: null,
 };
 
 ListWidgetItem.propTypes = {
-  id: PropTypes.string,
   itemLink: PropTypes.string,
   itemText: PropTypes.node,
   itemValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

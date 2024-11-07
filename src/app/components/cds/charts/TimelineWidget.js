@@ -13,12 +13,10 @@ import styles from './TimelineWidget.module.css';
 const TimelineWidget = ({
   areaColor,
   data,
-  height,
   intl,
   lineColor,
   title,
   tooltipFormatter,
-  width,
 }) => {
   const tickFormatter = intl ?
     value => intl.formatDate(value, { month: 'short', day: 'numeric' }) :
@@ -29,10 +27,7 @@ const TimelineWidget = ({
     value => value;
 
   return (
-    <div
-      className={styles.timelineWidgetWrapper}
-      style={{ height, width }}
-    >
+    <div className={styles.timelineWidgetWrapper}>
       <div className={styles.timelineWidgetTitle}>
         {title}
       </div>
@@ -78,10 +73,8 @@ const TimelineWidget = ({
 TimelineWidget.defaultProps = {
   areaColor: 'var(--color-green-50)',
   data: [],
-  height: '150px',
   lineColor: 'var(--color-green-50)',
   tooltipFormatter: value => value,
-  width: '100%',
 };
 
 TimelineWidget.propTypes = {
@@ -90,11 +83,9 @@ TimelineWidget.propTypes = {
     date: PropTypes.string,
     value: PropTypes.number,
   })),
-  height: PropTypes.number,
   lineColor: PropTypes.string,
   title: PropTypes.node.isRequired,
   tooltipFormatter: PropTypes.func,
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export { TimelineWidget }; // eslint-disable-line import/no-unused-modules
