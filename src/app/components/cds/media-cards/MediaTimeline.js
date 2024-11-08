@@ -1,7 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { Slider } from '@material-ui/core';
-import cx from 'classnames/bind';
 import styles from './MediaControls.module.css';
 
 const MediaTimeline = ({
@@ -21,7 +20,7 @@ const MediaTimeline = ({
 
   return (
     <Slider
-      className={cx(styles['media-timeline'])}
+      className={styles['media-timeline']}
       max={duration}
       step={duration / 1000}
       value={currentTime}
