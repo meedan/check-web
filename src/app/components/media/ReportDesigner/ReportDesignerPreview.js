@@ -1,51 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import cx from 'classnames/bind';
 import ReportDesignerImagePreview from './ReportDesignerImagePreview';
 import { formatDate } from './reportDesignerHelpers';
 import { getStatus } from '../../../helpers';
 import WarningIcon from '../../../icons/report_problem.svg';
 import ParsedText from '../../ParsedText';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    margin: '0 auto',
-  },
-  messagePreview: {
-    borderRadius: '8px',
-    backgroundColor: 'var(--color-white-100)',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    width: 502,
-    color: 'var(--color-gray-15)',
-    lineHeight: '1.5em',
-  },
-  visualCardPreview: {
-    position: 'relative',
-  },
-  contentScreen: {
-    width: 500,
-    height: 500,
-    top: 0,
-    padding: '64px 40px 16px 40px',
-    backgroundColor: 'var(--color-gray-15)',
-    zIndex: 100,
-    position: 'absolute',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    color: 'var(--color-white-100)',
-    textAlign: 'center',
-  },
-  icon: {
-    fontSize: '80px',
-    color: 'var(--color-pink-53)',
-  },
-}));
+import styles from './ReportDesigner.module.css';
 
 function isEmpty(data) {
   if (!data) {
@@ -123,12 +85,11 @@ function previewFooter(defaultReport) {
 }
 
 const ReportDesignerPreview = (props) => {
-  const classes = useStyles();
   const { data, media } = props;
 
   if (isEmpty(data)) {
     return (
-      <div className={[classes.messagePreview, classes.root].join(' ')}>
+      <div className={cx(styles['message-preview'], styles['report-designer-preview'])}>
         <FormattedMessage
           defaultMessage="Start creating your report to preview what users will see when they receive it."
           description="Empty message when there is no preview to show"
@@ -160,9 +121,9 @@ const ReportDesignerPreview = (props) => {
 
   // Preview for the introduction, the text message, and the visual card
   return (
-    <Box className={classes.root}>
+    <div className={styles['report-designer-preview']}>
       { data.use_introduction ?
-        <Box className={classes.messagePreview}>
+        <div className={styles['message-preview']}>
           { introduction ? (
             <ParsedText text={introduction} />
           ) : (
@@ -172,9 +133,9 @@ const ReportDesignerPreview = (props) => {
               id="reportDesigner.addIntro"
             />
           )}
-        </Box> : null }
+        </div> : null }
       { data.use_text_message ?
-        <Box className={classes.messagePreview}>
+        <div className={styles['message-preview']}>
           { text.length ? (
             <ParsedText block text={text.join('\n\n')} truncateFileUrls={false} />
           ) : (
@@ -184,9 +145,9 @@ const ReportDesignerPreview = (props) => {
               id="reportDesigner.addText"
             />
           )}
-        </Box> : null }
+        </div> : null }
       { data.use_visual_card && !data.use_text_message ?
-        <Box className={classes.visualCardPreview}>
+        <div className={styles['visual-card-preview']}>
           <ReportDesignerImagePreview
             date={data.date || formatDate(new Date(), data.language)}
             defaultReport={defaultReport}
@@ -206,8 +167,8 @@ const ReportDesignerPreview = (props) => {
             template={media.team.get_report_design_image_template}
           />
           { maskContent ? (
-            <div className={classes.contentScreen}>
-              <WarningIcon className={classes.icon} />
+            <div className={styles['content-screen']}>
+              <WarningIcon className={styles['content-screen-icon']} />
               <h5>
                 <FormattedHTMLMessage
                   defaultMessage="Content with warning cannot<br />be published as a visual card."
@@ -235,8 +196,8 @@ const ReportDesignerPreview = (props) => {
               </div>
             </div>
           ) : null }
-        </Box> : null }
-    </Box>
+        </div> : null }
+    </div>
   );
 };
 

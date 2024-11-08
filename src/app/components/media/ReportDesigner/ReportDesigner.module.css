@@ -134,6 +134,46 @@
       }
     }
   }
+
+  .report-designer-preview {
+    margin: 0 auto;
+
+    .message-preview {
+      background-color: var(--color-white-100);
+      border-radius: var(--border-radius-default);
+      color: var(--color-gray-15);
+      line-height: 1.5em;
+      margin-bottom: 16px;
+      margin-top: 16px;
+      padding: 16px;
+      width: 502px;
+    }
+
+    .visual-card-preview {
+      position: relative;
+    }
+
+    .content-screen {
+      align-items: center;
+      background-color: var(--color-gray-15);
+      color: var(--color-white-100);
+      display: flex;
+      flex-direction: column;
+      height: 500px;
+      justify-content: space-between;
+      padding: 64px 40px 16px;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      width: 500px;
+      z-index: 100;
+    }
+
+    .content-screen-icon {
+      color: var(--color-pink-53);
+      font-size: var(--font-size-h1);
+    }
+  }
 }
 
 .correction-link {
