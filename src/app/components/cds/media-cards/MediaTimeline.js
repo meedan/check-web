@@ -7,6 +7,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    border: 'solid 5px red',
   },
   track: {
     height: theme.spacing(2),
@@ -15,6 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const CustomSlider = withStyles(theme => ({
   root: {
+    border: 'solid 5px blue',
     padding: theme.spacing(1, 0, 2, 0),
     '&:hover': {
       '& $thumb': {
