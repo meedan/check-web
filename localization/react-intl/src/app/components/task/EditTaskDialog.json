@@ -115,9 +115,19 @@
     "defaultMessage": "Description (optional)"
   },
   {
+    "id": "tasks.timezonesHelper",
+    "description": "Helper of timezones list available to the task",
+    "defaultMessage": "Allow users to select from specific timezones."
+  },
+  {
     "id": "tasks.timezones",
     "description": "Label of timezones list available to the task",
     "defaultMessage": "Timezones available to complete the task"
+  },
+  {
+    "id": "tasks.timezonesError",
+    "description": "Error message if the user does not select a timezone",
+    "defaultMessage": "Please include at least one timezone."
   },
   {
     "id": "tasks.cancelAdd",

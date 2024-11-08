@@ -173,3 +173,14 @@
 .select-chip {
   margin: 0 8px;
 }
+
+:global(.MuiFormHelperText-root).mui-helper-error {
+  color: var(--color-pink-53);
+}
+
+.mui-icon-select :global(.MuiSelect-select) {
+  align-items: center;
+  display: flex;
+  height: 48px;
+  padding: 0 24px 0 8px;
+}
