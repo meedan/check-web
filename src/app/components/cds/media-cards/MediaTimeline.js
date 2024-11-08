@@ -1,52 +1,8 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import {
-  Slider,
-} from '@material-ui/core';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    border: 'solid 5px red',
-  },
-  track: {
-    height: theme.spacing(2),
-  },
-}));
-
-const CustomSlider = withStyles(theme => ({
-  root: {
-    border: 'solid 5px blue',
-    padding: theme.spacing(1, 0, 2, 0),
-    '&:hover': {
-      '& $thumb': {
-        opacity: 1,
-      },
-    },
-  },
-  thumb: {
-    color: 'var(--color-white-100)',
-    height: theme.spacing(1.5),
-    width: theme.spacing(1.5),
-    opacity: 0,
-    '&:focus, &:hover, &$active': {
-      boxShadow: 'inherit',
-    },
-  },
-  focusVisible: {
-    boxShadow: 'none',
-  },
-  track: {
-    height: theme.spacing(0.5),
-    borderRadius: theme.spacing(0.5),
-    color: 'var(--color-white-100)',
-  },
-  rail: {
-    height: theme.spacing(0.5),
-    borderRadius: theme.spacing(0.5),
-    color: 'rgba(255, 255, 255, 0.7)',
-  },
-}))(Slider);
+import { Slider } from '@material-ui/core';
+import cx from 'classnames/bind';
+import styles from './MediaControls.module.css';
 
 const MediaTimeline = ({
   currentTime,
@@ -54,8 +10,6 @@ const MediaTimeline = ({
   setCurrentTime,
   videoRef,
 }) => {
-  const classes = useStyles();
-
   const handleChange = (event, newValue) => {
     setCurrentTime(newValue);
   };
@@ -66,8 +20,8 @@ const MediaTimeline = ({
   };
 
   return (
-    <CustomSlider
-      className={classes.root}
+    <Slider
+      className={cx(styles['media-timeline'])}
       max={duration}
       step={duration / 1000}
       value={currentTime}
