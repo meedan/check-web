@@ -6,7 +6,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 describe('<ApiKeyCreate />', () => {
   it('should render', () => {
     const wrapper = shallowWithIntl(<ApiKeyCreate />);
-    expect(wrapper.find('WithStyles(ForwardRef(Dialog))')).toHaveLength(1);
+    expect(wrapper.find('ForwardRef(Dialog)')).toHaveLength(1);
     expect(wrapper.find(ButtonMain)).toHaveLength(3);
   });
 });
