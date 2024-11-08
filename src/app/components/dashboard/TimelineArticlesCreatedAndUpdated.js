@@ -35,7 +35,7 @@ const TimelineArticlesCreatedAndUpdated = ({ statistics }) => (
             defaultMessage="• {articleCount} updated"
             description="Tooltip for the articles created and updated widget"
             id="timelineArticlesCreatedAndUpdated.updated"
-            values={{ articleCount: props.payload.updatedValue - value }}
+            values={{ articleCount: props.payload.updatedValue }}
           />
         </div>
       </>
