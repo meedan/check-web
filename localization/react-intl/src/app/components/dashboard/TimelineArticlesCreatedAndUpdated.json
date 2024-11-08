@@ -7,11 +7,11 @@
   {
     "id": "timelineArticlesCreatedAndUpdated.created",
     "description": "Tooltip for the articles created and updated widget",
-    "defaultMessage": "• {articleCount} created"
+    "defaultMessage": "• {articleCount} Articles Added"
   },
   {
     "id": "timelineArticlesCreatedAndUpdated.updated",
     "description": "Tooltip for the articles created and updated widget",
-    "defaultMessage": "• {articleCount} updated"
+    "defaultMessage": "• {articleCount} Articles Updated"
   }
 ]

@@ -21,10 +21,10 @@ const TimelineTiplineMessageVolume = ({ statistics }) => (
     }
     tooltipFormatter={value => [(
       <FormattedMessage
-        defaultMessage="• {value} messages"
+        defaultMessage="• {messageCount} Messages"
         description="Tooltip for the tipline message volume widget"
         id="timelineTiplineMessageVolume.tooltip"
-        values={{ value }}
+        values={{ messageCount: value }}
       />
     )]}
   />
