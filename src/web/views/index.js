@@ -25,6 +25,7 @@ module.exports = ({ config }) => {
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <title>Check</title>
           <meta name="description" content="" />
+          <meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-src 'self' *.checkmedia.org;">
           <link href="/images/logo/check.ico" rel="icon">
           <script src="/js/config.js" defer="defer"></script>
           <script src="/js/vendor.bundle${BUNDLE_PREFIX}.js" defer="defer"></script>

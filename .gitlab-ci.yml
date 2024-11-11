@@ -23,6 +23,7 @@ build_qa:
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
+    - CV2-5619-fix-instagram-embed-issues
 
 deploy_qa:
   image: python:3-alpine
@@ -46,6 +47,7 @@ deploy_qa:
     - sh scripts/clear-cf-cache.sh
   only:
     - develop
+    - CV2-5619-fix-instagram-embed-issues
 
 build_live:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
