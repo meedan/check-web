@@ -39,6 +39,7 @@
   }
 
   &.sizeLarge {
+    font-size: var(--font-size-body-1, 14px);
     height: 48px;
 
     .input-icon-left-icon,

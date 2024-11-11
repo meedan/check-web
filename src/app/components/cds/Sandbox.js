@@ -372,6 +372,7 @@ const SandboxComponent = ({ admin }) => {
   const [tabsDisabled, setTabsDisabled] = React.useState(Boolean(false));
   const [tabsSize, setTabsSize] = React.useState('default');
   const [tabsVariant, setTabsVariant] = React.useState('default');
+  const [activeTab, setActiveTab] = React.useState('');
 
   const generateUncaughtError = () => {
     // eslint-disable-next-line
@@ -2289,35 +2290,44 @@ const SandboxComponent = ({ admin }) => {
               </ul>
             </div>
             <div className={styles.componentInlineVariants}>
-              <TabWrapper
-                size={tabsSize}
-                tabs={
-                  [
-                    {
-                      label: 'Tab 1',
-                      iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
-                      iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
-                      iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
-                      disabled: tabsDisabled,
-                    },
-                    {
-                      label: 'Tab 2',
-                      iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
-                      iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
-                      iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
-                      disabled: tabsDisabled,
-                    },
-                    {
-                      label: 'Tab 3',
-                      iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
-                      iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
-                      iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
-                      disabled: tabsDisabled,
-                    },
-                  ]
-                }
-                variant={tabsVariant}
-              />
+              <div style={{ border: '1px solid black' }}>
+                <TabWrapper
+                  size={tabsSize}
+                  tabs={
+                    [
+                      {
+                        label: 'Tab 1',
+                        iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                        iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                        iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                        disabled: tabsDisabled,
+                        value: 'tab 1',
+                      },
+                      {
+                        label: 'Tab 2',
+                        iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                        iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                        iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                        disabled: tabsDisabled,
+                        value: 'tab 2',
+                      },
+                      {
+                        label: 'Tab 3',
+                        iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                        iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                        iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                        disabled: tabsDisabled,
+                        value: 'tab 3',
+                      },
+                    ]
+                  }
+                  variant={tabsVariant}
+                  onChange={value => setActiveTab(value)}
+                />
+                <div>
+                  {activeTab}
+                </div>
+              </div>
             </div>
           </div>
         </section>

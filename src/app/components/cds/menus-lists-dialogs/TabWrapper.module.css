@@ -13,8 +13,8 @@
     height: 62px;
   }
 
-  &.typeBanner {
-    border-radius: none;
+  &.variantBanner {
+    border-radius: var(--border-radius-zero, 0);
     margin: 0;
   }
 
