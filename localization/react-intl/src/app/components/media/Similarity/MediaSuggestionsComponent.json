@@ -148,15 +148,5 @@
     "id": "mediaSuggestionsComponent.dialogBulkRejectConfirm",
     "description": "Button that a user presses to confirm that they are going to reject all visible suggested media",
     "defaultMessage": "Reject"
-  },
-  {
-    "id": "mediaSuggestions.lastSubmitted",
-    "description": "Shows the last time a media was submitted (on feed request media card)",
-    "defaultMessage": "Last submitted {date}"
-  },
-  {
-    "id": "mediaSuggestions.requestsCount",
-    "description": "Header of requests list. Example: 26 requests",
-    "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
   }
 ]
