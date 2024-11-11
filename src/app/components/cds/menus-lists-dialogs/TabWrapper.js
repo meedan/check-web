@@ -1,25 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import cx from 'classnames/bind';
 import PropTypes from 'prop-types';
+import Tab from './Tab';
+import Select from '../inputs/Select';
+import { getQueryStringValue } from '../../../urlHelpers';
 import styles from './TabWrapper.module.css';
 
 const TabWrapper = ({
-  children,
+  onChange,
   size,
+  tabs,
+  type,
 }) => {
+  const [activeTab, setActiveTab] = React.useState(getQueryStringValue('tab') || tabs[0].value);
   const wrapperRef = React.useRef(null);
   const [isOverflowing, setIsOverflowing] = React.useState(false);
+  const [fullTabWidth, setFullTabWidth] = React.useState(0);
 
-  useEffect(() => {
-    const checkOverflow = () => {
+  useLayoutEffect(() => {
+    const calculateFullTabWidth = () => {
       if (wrapperRef.current) {
-        const {
-          clientHeight,
-          clientWidth,
-          scrollHeight,
-          scrollWidth,
-        } = wrapperRef.current;
-        if (scrollHeight > clientHeight || scrollWidth > clientWidth) {
+        const tabItems = Array.from(wrapperRef.current.children);
+        const totalTabWidth = tabItems.reduce((total, tab) => total + tab.clientWidth, 0);
+        setFullTabWidth(totalTabWidth + (tabItems.length * 16));
+        return totalTabWidth;
+      }
+      return 0;
+    };
+
+    const checkOverflow = (totalTabWidth) => {
+      if (wrapperRef.current) {
+        const containerWidth = wrapperRef.current.clientWidth;
+        if (totalTabWidth > containerWidth) {
           setIsOverflowing(true);
         } else {
           setIsOverflowing(false);
@@ -27,13 +39,51 @@ const TabWrapper = ({
       }
     };
 
-    checkOverflow();
-    window.addEventListener('resize', checkOverflow);
+    const totalTabWidth = calculateFullTabWidth();
+    checkOverflow(totalTabWidth);
+
+    const resizeObserver = new ResizeObserver(() => {
+      checkOverflow(fullTabWidth);
+    });
+
+    if (wrapperRef.current) {
+      resizeObserver.observe(wrapperRef.current);
+    }
 
     return () => {
-      window.removeEventListener('resize', checkOverflow);
+      if (wrapperRef.current) {
+        resizeObserver.unobserve(wrapperRef.current);
+      }
     };
+  }, [fullTabWidth]);
+
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      if (wrapperRef.current) {
+        const containerWidth = wrapperRef.current.clientWidth;
+        if (fullTabWidth > containerWidth) {
+          setIsOverflowing(true);
+        } else {
+          setIsOverflowing(false);
+        }
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [fullTabWidth]);
+  useEffect(() => {
+    if (getQueryStringValue('tab')) {
+      onChange(getQueryStringValue('tab'));
+    }
   }, []);
+
+  const handleClick = (value) => {
+    setActiveTab(value);
+    onChange(value);
+  };
 
   return (
     <div
@@ -42,28 +92,50 @@ const TabWrapper = ({
         [styles.tabWrapper],
         {
           [styles.sizeDefault]: size === 'default',
-          [styles.sizeLarge]: size === 'large',
+          [styles.sizeLarge]: size === 'large' || isOverflowing,
+          [styles.typeBanner]: type === 'banner',
         },
       )}
       ref={wrapperRef}
     >
       { isOverflowing &&
-        <div className={styles.tabWrapperOverflow}>Overflowing</div>
+        <Select
+          className={styles.select}
+          value={activeTab}
+          onChange={e => handleClick(e.target.value)}
+        >
+          {tabs.map(tab => (
+            <option value={tab.value}>
+              {tab.label}{tab.extraLabel}
+            </option>
+          ))}
+        </Select>
       }
-      {React.Children.map(children, child =>
-        React.cloneElement(child, { isOverflowing }),
-      )}
+      { !isOverflowing &&
+        tabs.map(tab => (
+          <Tab
+            active={activeTab === tab.value}
+            key={tab.value}
+            size={size}
+            {...tab}
+            onClick={handleClick}
+          />
+        ))
+      }
     </div>
   );
 };
 
 TabWrapper.defaultProps = {
   size: 'default',
+  type: 'default',
 };
 
 TabWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
   size: PropTypes.oneOf(['large', 'default']),
+  tabs: PropTypes.array.isRequired,
+  type: PropTypes.oneOf(['default', 'banner']),
+  onChange: PropTypes.func.isRequired,
 };
 
 export default TabWrapper;

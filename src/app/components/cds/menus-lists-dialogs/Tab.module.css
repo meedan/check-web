@@ -2,13 +2,80 @@
   @mixin typography-button;
   align-items: center;
   border-radius: var(--border-radius-default);
+  color: var(--color-gray-37);
   cursor: pointer;
   display: flex;
   flex-direction: row;
+  font-size: var(--font-size-body-2, 12px);
+  font-weight: var(--font-weight-body-2, 400);
   gap: 8px;
-  height: 38px;
+  height: 30px;
   justify-content: center;
   min-width: auto;
   padding: 4px 8px;
   transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+
+  .tabLabel {
+    display: inline-block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tab-icon-left-icon,
+  .tab-icon-right-icon,
+  .tab-icon-center-icon {
+    display: flex;
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    font-size: 20px;
+    width: fit-content;
+  }
+
+  &.tab-icon-center-icon {
+    height: 30px;
+    min-width: 30px;
+    width: 30px;
+  }
+
+  &.sizeLarge {
+    height: 48px;
+
+    .input-icon-left-icon,
+    .input-icon-right-icon {
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 32px;
+    }
+
+    .input-icon-center-icon {
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 30px;
+    }
+
+    &.input-icon-center {
+      height: 48px;
+      min-width: 48px;
+      width: 48px;
+    }
+  }
+
+  &.disabled {
+    color: var(--color-gray-59);
+    cursor: default;
+  }
+
+  &:hover:not(.disabled) {
+    background-color: var(--color-blue-98);
+    color: var(--color-blue-38);
+  }
+
+  &.active {
+    background-color: var(--color-white-100);
+    color: var(--color-blue-38);
+    font-weight: 600;
+
+    &.disabled {
+      color: var(--color-gray-75);
+    }
+  }
 }

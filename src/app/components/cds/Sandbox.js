@@ -23,6 +23,7 @@ import SwitchComponent from './inputs/SwitchComponent';
 import ButtonMain from './buttons-checkboxes-chips/ButtonMain';
 import Checkbox from './buttons-checkboxes-chips/Checkbox';
 import Slideout from './slideout/Slideout';
+import TabWrapper from './menus-lists-dialogs/TabWrapper';
 import Reorder from '../layout/Reorder';
 import AddIcon from '../../icons/settings.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
@@ -367,6 +368,11 @@ const SandboxComponent = ({ admin }) => {
   const [numberWidgetUnit, setNumberWidgetUnit] = React.useState(Boolean(true));
   const [numberWidgetContextText, setNumberWidgetContextText] = React.useState(Boolean(true));
 
+  const [tabsIcon, setTabsIcon] = React.useState('none');
+  const [tabsDisabled, setTabsDisabled] = React.useState(Boolean(false));
+  const [tabsSize, setTabsSize] = React.useState('default');
+  const [tabsVariant, setTabsVariant] = React.useState('default');
+
   const generateUncaughtError = () => {
     // eslint-disable-next-line
     thisGeneratesSandboxError();
@@ -467,6 +473,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <ButtonMain label="Charts" size="small" theme={selectedCategory === 'charts' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('charts')} />
+        </li>
+        <li>
+          <ButtonMain label="Tabs" size="small" theme={selectedCategory === 'tabs' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('tabs')} />
         </li>
       </ul>
       { (!selectedCategory || selectedCategory === 'cards') &&
@@ -2215,6 +2224,246 @@ const SandboxComponent = ({ admin }) => {
                 }
                 title="List Title"
               />
+            </div>
+          </div>
+        </section>
+      }
+      { (!selectedCategory || selectedCategory === 'tabs') &&
+        <section>
+          <h6>Tabs</h6>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                Tabs
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/88ZNxsO7k8UHY85QaHXAs7/Unpublished?node-id=1-20650&node-type=symbol&m=dev"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <Select
+                    label="Variant"
+                    value={tabsVariant}
+                    onChange={e => setTabsVariant(e.target.value)}
+                  >
+                    <option value="default">Default</option>
+                    <option value="banner">Banner</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Size"
+                    value={tabsSize}
+                    onChange={e => setTabsSize(e.target.value)}
+                  >
+                    <option value="default">default</option>
+                    <option value="large">large</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Icons"
+                    value={tabsIcon}
+                    onChange={e => setTabsIcon(e.target.value)}
+                  >
+                    <option value="none">none</option>
+                    <option value="left">left</option>
+                    <option value="right">right</option>
+                    <option value="center">center</option>
+                  </Select>
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={tabsDisabled}
+                    label="Disabled"
+                    labelPlacement="top"
+                    onChange={() => setTabsDisabled(!tabsDisabled)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <TabWrapper
+                size={tabsSize}
+                tabs={
+                  [
+                    {
+                      label: 'Tab 1',
+                      iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                      iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                      iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                      disabled: tabsDisabled,
+                    },
+                    {
+                      label: 'Tab 2',
+                      iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                      iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                      iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                      disabled: tabsDisabled,
+                    },
+                    {
+                      label: 'Tab 3',
+                      iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                      iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                      iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                      disabled: tabsDisabled,
+                    },
+                  ]
+                }
+                variant={tabsVariant}
+              />
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                Reorder
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=2142-47843&mode=design&t=Xk5LFyi7pmsXEX1T-4"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <Select
+                    label="Variant"
+                    value={reorderVariant}
+                    onChange={onChangeReorderVariant}
+                  >
+                    <option value="vertical">vertical (default)</option>
+                    <option value="horizontal">horizontal</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Theme"
+                    value={reorderTheme}
+                    onChange={onChangeReorderTheme}
+                  >
+                    <option value="gray">gray (default)</option>
+                    <option value="white">white</option>
+                  </Select>
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={reorderFirst}
+                    label="First"
+                    labelPlacement="top"
+                    onChange={() => setReorderFirst(!reorderFirst)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={reorderLast}
+                    label="Last"
+                    labelPlacement="top"
+                    onChange={() => setReorderLast(!reorderLast)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants} style={{ backgroundColor: reorderTheme === 'white' ? 'var(--color-gray-96)' : 'var(--color-white-100' }}>
+              <Reorder
+                disableDown={reorderLast}
+                disableUp={reorderFirst}
+                theme={reorderTheme}
+                variant={reorderVariant}
+              />
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                ToggleButtonGroup
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3703-28265&mode=design&t=ZVq51pKdIKdWZicO-4"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <Select
+                    label="Size"
+                    value={toggleButtonGroupSize}
+                    onChange={onChangeToggleButtonGroupSize}
+                  >
+                    <option value="default">default</option>
+                    <option value="small">small</option>
+                    <option value="large">large</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Variant"
+                    value={toggleButtonGroupVariant}
+                    onChange={onChangeToggleButtonGroupVariant}
+                  >
+                    <option value="contained">contained</option>
+                    <option value="outlined">outlined</option>
+                  </Select>
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={toggleButtonGroupLabel}
+                    label="Label"
+                    labelPlacement="top"
+                    onChange={() => setToggleButtonGroupLabel(!toggleButtonGroupLabel)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={toggleButtonGroupHelp}
+                    label="Show Help"
+                    labelPlacement="top"
+                    onChange={() => setToggleButtonGroupHelp(!toggleButtonGroupHelp)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={toggleButtonGroupDisabled}
+                    label="Disabled"
+                    labelPlacement="top"
+                    onChange={() => setToggleButtonGroupDisabled(!toggleButtonGroupDisabled)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--color-beige-93' }}>
+              <ToggleButtonGroup
+                exclusive
+                helpContent={toggleButtonGroupHelp ? 'I can be of help to ToggleButtonGroup' : null}
+                label={toggleButtonGroupLabel ? 'I am a toggleButtonGroup label' : null}
+                size={toggleButtonGroupSize}
+                value={toggleButtonGroupValue}
+                variant={toggleButtonGroupVariant}
+                onChange={(e, newValue) => changeToggleButtonGroupExample(newValue)}
+              >
+                <ToggleButton disabled={toggleButtonGroupDisabled} key="1" value="1">
+                  One
+                </ToggleButton>
+                <ToggleButton disabled={toggleButtonGroupDisabled} key="2" value="2">
+                  Two
+                </ToggleButton>
+                <ToggleButton disabled={toggleButtonGroupDisabled} key="3" value="3">
+                  Three
+                </ToggleButton>
+              </ToggleButtonGroup>
             </div>
           </div>
         </section>

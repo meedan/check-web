@@ -1,4 +1,25 @@
 .tabWrapper {
-  background: var(--color-purple-61);
+  align-items: center;
+  background: var(--color-beige-93);
+  border-radius: var(--border-radius-default, 8px);
   display: flex;
+  gap: 16px;
+  height: 44px;
+  margin: 8px;
+  min-width: 350px;
+  padding: 0 10px;
+
+  &.sizeLarge {
+    height: 62px;
+  }
+
+  &.typeBanner {
+    border-radius: none;
+    margin: 0;
+  }
+
+  .select {
+    min-width: 200px;
+    width: 100%;
+  }
 }

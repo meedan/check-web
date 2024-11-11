@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
 // import Tab from '@material-ui/core/Tab';
 // import Tabs from '@material-ui/core/Tabs';
 import cx from 'classnames/bind';
@@ -12,10 +12,38 @@ import MediaSecondaryBanner from './MediaSecondaryBanner';
 import MediaArticles from '../article/MediaArticles';
 import ErrorBoundary from '../error/ErrorBoundary';
 import TabWrapper from '../cds/menus-lists-dialogs/TabWrapper';
-import Tab from '../cds/menus-lists-dialogs/Tab';
 import styles from './media.module.css';
 
+const tabLabels = defineMessages({
+  articles: {
+    defaultMessage: 'Articles',
+    description: 'Label for the Articles tab',
+    id: 'mediaComponent.articles',
+  },
+  requests: {
+    defaultMessage: 'Requests',
+    description: 'Label for the Requests tab, as in requests from users',
+    id: 'mediaComponent.requests',
+  },
+  suggestedMedia: {
+    defaultMessage: 'Suggestions',
+    description: 'Label for the "Suggestions" tab, to show a list of media items that are suggested as similar to the one the user is viewing',
+    id: 'mediaComponent.suggestedMedia',
+  },
+  annotation: {
+    defaultMessage: 'Annotations',
+    description: 'Label for the Annotation tab',
+    id: 'mediaComponent.annotation',
+  },
+  source: {
+    defaultMessage: 'Source',
+    description: 'Label for the Source tab, as in source of the information',
+    id: 'mediaComponent.source',
+  },
+});
+
 const MediaComponentRightPanel = ({
+  intl,
   projectMedia,
   setShowTab,
   showTab,
@@ -35,88 +63,46 @@ const MediaComponentRightPanel = ({
       <MediaSecondaryBanner projectMedia={projectMedia} />
       <TabWrapper
         className={cx('media__annotations-tabs', styles['media-item-column-header'])}
-        indicatorColor="primary"
-        scrollButtons="auto"
-        textColor="primary"
+        tabs={[
+          {
+            label: intl.formatMessage(tabLabels.articles),
+            show: showArticles,
+            value: 'articles',
+            className: 'media-tab__articles',
+            extraLabel: projectMedia.articles_count > 0 ? ` [${projectMedia.articles_count}]` : '',
+          },
+          {
+            label: intl.formatMessage(tabLabels.requests),
+            show: showRequests,
+            value: 'requests',
+            className: 'media-tab__requests',
+            extraLabel: projectMedia.demand > 0 ? ` [${projectMedia.demand}]` : '',
+          },
+          {
+            label: intl.formatMessage(tabLabels.suggestedMedia),
+            show: showSuggestions,
+            value: 'suggestedMedia',
+            className: 'media-tab__suggestedMedia',
+            extraLabel: projectMedia.suggested_similar_items_count > 0 ? ` [${projectMedia.suggested_similar_items_count}]` : '',
+          },
+          {
+            label: intl.formatMessage(tabLabels.annotation),
+            show: showAnnotations,
+            value: 'metadata',
+            className: 'media-tab__metadata',
+            extraLabel: '',
+          },
+          {
+            label: intl.formatMessage(tabLabels.source),
+            value: 'source',
+            show: showSources,
+            className: 'media-tab__source',
+            extraLabel: '',
+          },
+        ]}
         value={showTab}
-        variant="scrollable"
-        onChange={(e, value) => setShowTab(value)}
-      >
-        { showArticles && (
-          <Tab
-            className="media-tab__articles"
-            label={
-              <span>
-                <FormattedMessage
-                  defaultMessage="Articles"
-                  description="Label for the Articles tab"
-                  id="mediaComponent.articles"
-                />
-                {projectMedia.articles_count > 0 && ` [${projectMedia.articles_count}]`}
-              </span>
-            }
-            value="articles"
-          />
-        )}
-        { showRequests && (
-          <Tab
-            className="media-tab__requests"
-            label={
-              <span>
-                <FormattedMessage
-                  defaultMessage="Requests"
-                  description="Label for the Requests tab, as in requests from users"
-                  id="mediaComponent.requests"
-                />
-                {projectMedia.demand > 0 && ` [${projectMedia.demand}]`}
-              </span>
-            }
-            value="requests"
-          />
-        )}
-        { showSuggestions && (
-          <Tab
-            className="media-tab__sugestedMedia"
-            label={
-              <span>
-                <FormattedMessage
-                  defaultMessage="Suggestions"
-                  description="Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
-                  id="mediaComponent.suggestedMedia"
-                />
-                {projectMedia.suggested_similar_items_count > 0 && ` [${projectMedia.suggested_similar_items_count}]`}
-              </span>
-            }
-            value="suggestedMedia"
-          />
-        )}
-        { showAnnotations && (
-          <Tab
-            className="media-tab__metadata"
-            label={
-              <FormattedMessage
-                defaultMessage="Annotations"
-                description="Label for the Annotation tab"
-                id="mediaComponent.annotation"
-              />
-            }
-            value="metadata"
-          />
-        )}
-        { showSources && (
-          <Tab
-            className="media-tab__source"
-            label={
-              <FormattedMessage
-                defaultMessage="Source"
-                description="Label for the Source tab, as in source of the information"
-                id="mediaComponent.source"
-              />
-            }
-            value="source"
-          />
-        )}
-      </TabWrapper>
+        onChange={setShowTab}
+      />
       { showTab === 'requests' ? <MediaRequests all={!projectMedia.is_confirmed_similar_to_another_item} media={projectMedia} /> : null }
       { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} superAdminMask={superAdminMask} teamDbid={projectMedia.team?.dbid} /> : null }
       { showTab === 'metadata' ? <MediaTasks fieldset="metadata" media={projectMedia} /> : null }
@@ -137,4 +123,4 @@ MediaComponentRightPanel.defaultProps = {
   superAdminMask: false,
 };
 
-export default MediaComponentRightPanel;
+export default injectIntl(MediaComponentRightPanel);

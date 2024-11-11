@@ -5,53 +5,72 @@ import styles from './Tab.module.css';
 
 const Tab = ({
   active,
+  className,
   disabled,
+  extraLabel,
   iconCenter,
   iconLeft,
   iconRight,
-  isOverflowing,
   label,
+  onClick,
+  show,
   size,
+  value,
 }) => (
   <>
-    <div className={cx(
-      'tab',
-      [styles.tab],
-      {
-        [styles.active]: active,
-        [styles.disabled]: disabled,
-        [styles.sizeDefault]: size === 'default',
-        [styles.sizeLarge]: size === 'large',
-      })}
-    >
-      {iconLeft && <span>{iconLeft}</span>}
-      {iconCenter && <span>{iconCenter}</span>}
-      {iconRight && <span>{iconRight}</span>}
-      {!iconCenter && label}
-      { isOverflowing && <div className={styles.tabOverflow}>Overflowing</div> }
-    </div>
+    { show &&
+      <div
+        className={cx(
+          'tab',
+          [styles.tab],
+          {
+            [className]: true,
+            [styles.active]: active,
+            [styles.disabled]: disabled,
+            [styles.sizeDefault]: size === 'default',
+            [styles.sizeLarge]: size === 'large',
+          })}
+        onClick={() => !disabled ? onClick(value) : null}
+        onKeyPress={() => !disabled ? onClick(value) : null}
+      >
+        {iconLeft && <div className={styles['tab-icon-left-icon']}>{iconLeft}</div>}
+        {iconCenter && <div className={styles['tab-icon-center-icon']}>{iconCenter}</div>}
+        {!iconCenter &&
+          <div>
+            {label}{extraLabel}
+          </div>
+        }
+        {iconRight && <div className={styles['tab-icon-right-icon']}>{iconRight}</div>}
+      </div>
+    }
   </>
 );
 
 Tab.defaultProps = {
   active: false,
+  className: null,
   disabled: false,
+  extraLabel: '',
   iconLeft: null,
   iconRight: null,
   iconCenter: null,
-  isOverflowing: false,
+  show: true,
   size: 'default',
 };
 
 Tab.propTypes = {
   active: PropTypes.bool,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
+  extraLabel: PropTypes.string,
   iconCenter: PropTypes.element,
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
-  isOverflowing: PropTypes.bool,
   label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+  show: PropTypes.bool,
   size: PropTypes.oneOf(['large', 'default']),
+  value: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Tab;
