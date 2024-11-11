@@ -107,7 +107,10 @@ const TabWrapper = ({
           onChange={e => handleClick(e.target.value)}
         >
           {tabs.map(tab => (
-            <option value={tab.value}>
+            <option
+              className={tab.className}
+              value={tab.value}
+            >
               {tab.label}{tab.extraLabel}
             </option>
           ))}
