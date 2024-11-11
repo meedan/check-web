@@ -10,7 +10,7 @@ const TabWrapper = ({
   onChange,
   size,
   tabs,
-  type,
+  variant,
 }) => {
   const [activeTab, setActiveTab] = React.useState(getQueryStringValue('tab') || tabs[0].value);
   const wrapperRef = React.useRef(null);
@@ -93,7 +93,7 @@ const TabWrapper = ({
         {
           [styles.sizeDefault]: size === 'default',
           [styles.sizeLarge]: size === 'large' || isOverflowing,
-          [styles.typeBanner]: type === 'banner',
+          [styles.variantBanner]: variant === 'banner',
         },
       )}
       ref={wrapperRef}
@@ -128,13 +128,13 @@ const TabWrapper = ({
 
 TabWrapper.defaultProps = {
   size: 'default',
-  type: 'default',
+  variant: 'default',
 };
 
 TabWrapper.propTypes = {
   size: PropTypes.oneOf(['large', 'default']),
   tabs: PropTypes.array.isRequired,
-  type: PropTypes.oneOf(['default', 'banner']),
+  variant: PropTypes.oneOf(['default', 'banner']),
   onChange: PropTypes.func.isRequired,
 };
 
