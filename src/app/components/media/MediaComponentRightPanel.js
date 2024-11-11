@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, defineMessages } from 'react-intl';
-// import Tab from '@material-ui/core/Tab';
-// import Tabs from '@material-ui/core/Tabs';
-import cx from 'classnames/bind';
 import MediaTasks from './MediaTasks';
 import MediaRequests from './MediaRequests';
 import MediaSource from './MediaSource';
@@ -12,7 +9,6 @@ import MediaSecondaryBanner from './MediaSecondaryBanner';
 import MediaArticles from '../article/MediaArticles';
 import ErrorBoundary from '../error/ErrorBoundary';
 import TabWrapper from '../cds/menus-lists-dialogs/TabWrapper';
-import styles from './media.module.css';
 
 const tabLabels = defineMessages({
   articles: {
@@ -62,7 +58,7 @@ const MediaComponentRightPanel = ({
     <ErrorBoundary component="MediaComponentRightPanel">
       <MediaSecondaryBanner projectMedia={projectMedia} />
       <TabWrapper
-        className={cx('media__annotations-tabs', styles['media-item-column-header'])}
+        className="media__annotations-tabs"
         tabs={[
           {
             label: intl.formatMessage(tabLabels.articles),

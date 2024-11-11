@@ -7,6 +7,7 @@ import { getQueryStringValue } from '../../../urlHelpers';
 import styles from './TabWrapper.module.css';
 
 const TabWrapper = ({
+  className,
   onChange,
   size,
   tabs,
@@ -91,6 +92,7 @@ const TabWrapper = ({
         'tab-wrapper',
         [styles.tabWrapper],
         {
+          [className]: true,
           [styles.sizeDefault]: size === 'default',
           [styles.sizeLarge]: size === 'large' || isOverflowing,
           [styles.variantBanner]: variant === 'banner',
@@ -127,11 +129,13 @@ const TabWrapper = ({
 };
 
 TabWrapper.defaultProps = {
+  className: null,
   size: 'default',
   variant: 'default',
 };
 
 TabWrapper.propTypes = {
+  className: PropTypes.string,
   size: PropTypes.oneOf(['large', 'default']),
   tabs: PropTypes.array.isRequired,
   variant: PropTypes.oneOf(['default', 'banner']),
