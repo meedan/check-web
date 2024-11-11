@@ -60,12 +60,10 @@ const MediaCardLarge = ({
       }
     >
       { type === 'Claim' && !inModal ? (
-        <div className={styles['quote-mediacard-wrapper']}>
-          <QuoteMediaCard
-            quote={media.quote}
-            showAll={inModal}
-          />
-        </div>
+        <QuoteMediaCard
+          quote={media.quote}
+          showAll={inModal}
+        />
       ) : null }
       { type === 'UploadedImage' ? (
         <ImageMediaCard

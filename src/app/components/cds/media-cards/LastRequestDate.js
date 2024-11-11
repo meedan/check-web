@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
@@ -60,10 +59,10 @@ const LastRequestDate = ({
 LastRequestDate.propTypes = {
   intl: intlShape.isRequired,
   lastRequestDate: PropTypes.instanceOf(Date).isRequired,
-  variant: PropTypes.string,
   theme: PropTypes.string,
   tooltip: PropTypes.bool,
   tooltipLabel: PropTypes.node,
+  variant: PropTypes.string,
 };
 
 LastRequestDate.defaultProps = {

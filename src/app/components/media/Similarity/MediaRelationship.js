@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -19,6 +18,8 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../../helpers';
+import LastRequestDate from '../../cds/media-cards/LastRequestDate';
+import RequestsCount from '../../cds/media-cards/RequestsCount';
 import styles from '../media.module.css';
 import similarityStyles from './MediaSimilarities.module.css';
 
@@ -226,7 +227,7 @@ const RelationshipMenu = ({
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
-                  <FormattedMessage defaultMessage="Detach media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." id="mediaItem.detach" />
+                  <FormattedMessage defaultMessage="Reject Media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." id="mediaItem.detach" />
                 }
               />
             </MenuItem>
@@ -250,7 +251,6 @@ const RelationshipMenu = ({
 const MediaRelationship = ({
   canDelete,
   canSwitch,
-  intl,
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
@@ -267,22 +267,19 @@ const MediaRelationship = ({
     ev.stopPropagation();
   };
 
-  const details = [
-    <FormattedMessage
-      defaultMessage="Last submitted {date}"
-      description="Shows the last time a media was submitted"
-      id="mediaRelationship.lastSubmitted"
-      values={{
-        date: intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-      }}
-    />,
-    <FormattedMessage
-      defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-      description="Header of requests list. Example: 26 requests"
-      id="mediaSuggestions.requestsCount"
-      values={{ requestsCount: relationship?.target?.requests_count }}
-    />,
-  ];
+  const details = [(
+    <LastRequestDate
+      lastRequestDate={+relationship?.target?.last_seen * 1000}
+      theme="lightText"
+      variant="text"
+    />
+  ), (
+    <RequestsCount
+      requestsCount={relationship?.target?.requests_count}
+      theme="lightText"
+      variant="text"
+    />
+  )];
 
   const maskContent = relationship?.target?.show_warning_cover;
 
@@ -337,14 +334,14 @@ const MediaRelationship = ({
 };
 
 MediaRelationship.propTypes = {
+  canDelete: PropTypes.bool.isRequired,
+  canSwitch: PropTypes.bool.isRequired,
+  mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
+  mainProjectMediaDemand: PropTypes.number.isRequired,
+  mainProjectMediaId: PropTypes.string.isRequired,
   relationship: PropTypes.object.isRequired,
   relationshipSourceId: PropTypes.number.isRequired,
   relationshipTargetId: PropTypes.number.isRequired,
-  canSwitch: PropTypes.bool.isRequired,
-  canDelete: PropTypes.bool.isRequired,
-  mainProjectMediaId: PropTypes.string.isRequired,
-  mainProjectMediaDemand: PropTypes.number.isRequired,
-  mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
   superAdminMask: PropTypes.bool,
 };
 

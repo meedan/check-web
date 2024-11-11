@@ -13,7 +13,7 @@ import BookIcon from '../../icons/book.svg';
 import BarChartIcon from '../../icons/bar_chart.svg';
 import styles from './Projects/Projects.module.css';
 
-const DrawerArticlesComponent = ({ team }) => {
+const DrawerArticlesComponent = ({ currentUser, team }) => {
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
   const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
@@ -41,27 +41,29 @@ const DrawerArticlesComponent = ({ team }) => {
       </div>
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper)}>
-          <Link
-            className={styles.linkList}
-            to={`/${team.slug}/articles/dashboard`}
-            onClick={() => { handleSpecialLists('dashboard'); }}
-          >
-            <li
-              className={cx(
-                'projects-list__dashboard',
-                styles.listItem,
-                styles.listItem_containsCount,
-                {
-                  [styles.listItem_active]: activeItem.type === 'dashboard',
-                })
-              }
+          { currentUser.is_admin && (
+            <Link
+              className={styles.linkList}
+              to={`/${team.slug}/articles/dashboard`}
+              onClick={() => { handleSpecialLists('dashboard'); }}
             >
-              <BarChartIcon className={styles.listIcon} />
-              <div className={styles.listLabel}>
-                <FormattedMessage defaultMessage="Dashboard" description="Label for the dashboard displayed on the left sidebar" id="articlesComponent.dashboard" tagName="span" />
-              </div>
-            </li>
-          </Link>
+              <li
+                className={cx(
+                  'projects-list__dashboard',
+                  styles.listItem,
+                  styles.listItem_containsCount,
+                  {
+                    [styles.listItem_active]: activeItem.type === 'dashboard',
+                  })
+                }
+              >
+                <BarChartIcon className={styles.listIcon} />
+                <div className={styles.listLabel}>
+                  <FormattedMessage defaultMessage="Dashboard" description="Label for the dashboard displayed on the left sidebar" id="articlesComponent.dashboard" tagName="span" />
+                </div>
+              </li>
+            </Link>
+          )}
           <Link
             className={styles.linkList}
             to={`/${team.slug}/articles/fact-checks`}
@@ -198,12 +200,15 @@ const DrawerArticles = () => {
             trashCount: articles_count(trashed: true)
             ...NewArticleButton_team
           }
+          me {
+            is_admin
+          }
         }
       `}
       render={({ error, props }) => {
         if (!props || error) return null;
 
-        return <DrawerArticlesComponent team={props.team} />;
+        return <DrawerArticlesComponent currentUser={props.me} team={props.team} />;
       }}
       variables={{ teamSlug }}
     />

@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -12,6 +11,8 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
+import LastRequestDate from '../../cds/media-cards/LastRequestDate';
+import RequestsCount from '../../cds/media-cards/RequestsCount';
 import MediaSlug from '../MediaSlug';
 import Loader from '../../cds/loading/Loader';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
@@ -31,7 +32,6 @@ import styles from '../media.module.css';
 import suggestionsStyles from './MediaSuggestions.module.css';
 
 const MediaSuggestionsComponent = ({
-  intl,
   mainItem,
   pageSize,
   relationships,
@@ -938,22 +938,19 @@ const MediaSuggestionsComponent = ({
               .slice(cursor, cursor + pageSize)
               .map(relationshipItem => (
                 <RelationshipItem
-                  details={[
-                    <FormattedMessage
-                      defaultMessage="Last submitted {date}"
-                      description="Shows the last time a media was submitted (on feed request media card)"
-                      id="mediaSuggestions.lastSubmitted"
-                      values={{
-                        date: intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                      }}
-                    />,
-                    <FormattedMessage
-                      defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                      description="Header of requests list. Example: 26 requests"
-                      id="mediaSuggestions.requestsCount"
-                      values={{ requestsCount: relationshipItem?.target?.requests_count }}
-                    />,
-                  ]}
+                  details={[(
+                    <LastRequestDate
+                      lastRequestDate={+relationshipItem?.target?.last_seen * 1000}
+                      theme="lightText"
+                      variant="text"
+                    />
+                  ), (
+                    <RequestsCount
+                      requestsCount={relationshipItem?.target?.requests_count}
+                      theme="lightText"
+                      variant="text"
+                    />
+                  )]}
                   key={relationshipItem.target_id}
                   relationshipItem={relationshipItem}
                 />
@@ -968,21 +965,21 @@ MediaSuggestionsComponent.propTypes = {
   mainItem: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }).isRequired,
-  reportType: PropTypes.string.isRequired,
+  pageSize: PropTypes.number.isRequired,
   relationships: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     target_id: PropTypes.number.isRequired,
   })).isRequired,
   relay: PropTypes.object.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  totalCount: PropTypes.number.isRequired,
+  reportType: PropTypes.string.isRequired,
+  superAdminMask: PropTypes.bool,
   team: PropTypes.shape({
     slug: PropTypes.string,
     smooch_bot: PropTypes.shape({
       id: PropTypes.string,
     }),
   }).isRequired,
-  superAdminMask: PropTypes.bool,
+  totalCount: PropTypes.number.isRequired,
 };
 
 MediaSuggestionsComponent.defaultProps = {

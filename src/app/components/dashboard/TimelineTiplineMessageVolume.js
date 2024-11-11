@@ -7,7 +7,10 @@ import TimelineWidget from '../cds/charts/TimelineWidget';
 const TimelineTiplineMessageVolume = ({ statistics }) => (
   <TimelineWidget
     data={
-      Object.entries(statistics.number_of_conversations_by_date).map(([date, value]) => ({ date, value }))
+      Object.entries(statistics.number_of_messages_by_date).map(([date, value]) => ({
+        date: `${date}T23:59:59.000Z`,
+        value,
+      }))
     }
     title={
       <FormattedMessage
@@ -16,17 +19,25 @@ const TimelineTiplineMessageVolume = ({ statistics }) => (
         id="timelineTiplineMessageVolume.title"
       />
     }
+    tooltipFormatter={value => [(
+      <FormattedMessage
+        defaultMessage="• {messageCount} Messages"
+        description="Tooltip for the tipline message volume widget"
+        id="timelineTiplineMessageVolume.tooltip"
+        values={{ messageCount: value }}
+      />
+    )]}
   />
 );
 
 TimelineTiplineMessageVolume.propTypes = {
   statistics: PropTypes.shape({
-    number_of_conversations_by_date: PropTypes.object.isRequired,
+    number_of_messages_by_date: PropTypes.object.isRequired,
   }).isRequired,
 };
 
 export default createFragmentContainer(TimelineTiplineMessageVolume, graphql`
   fragment TimelineTiplineMessageVolume_statistics on TeamStatistics {
-    number_of_conversations_by_date
+    number_of_messages_by_date
   }
 `);

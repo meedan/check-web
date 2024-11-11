@@ -1,13 +1,14 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import rtlDetect from 'rtl-detect';
+import cx from 'classnames/bind';
 import ParsedText from '../ParsedText';
 import LongShort from '../layout/LongShort';
+import styles from './media.module.css';
 
 const QuoteMediaCard = ({ languageCode, quote, showAll }) => (
   <div
-    className="quote-media-card"
+    className={cx('quote-media-card', styles['quote-mediacard'])}
     dir={rtlDetect.isRtlLang(languageCode) ? 'rtl' : 'ltr'}
     lang={languageCode}
   >
@@ -17,8 +18,8 @@ const QuoteMediaCard = ({ languageCode, quote, showAll }) => (
   </div>
 );
 QuoteMediaCard.propTypes = {
-  quote: PropTypes.string.isRequired,
   languageCode: PropTypes.string.isRequired,
+  quote: PropTypes.string.isRequired,
 };
 
 export default QuoteMediaCard;
