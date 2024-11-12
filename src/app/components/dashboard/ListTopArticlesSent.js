@@ -10,7 +10,7 @@ const ListTopArticlesSent = ({ statistics }) => {
   const dataArray = statistics.top_articles_sent.map(a => ({
     itemText: a.label,
     itemValue: a.value,
-    itemLink: `/${teamSlug}/articles/explainers?explainerId=${a.id}`,
+    itemLink: `/${teamSlug}/articles/fact-checks?factCheckId=${a.id}`,
   }));
 
   return (
