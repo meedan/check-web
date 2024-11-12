@@ -19,11 +19,16 @@ const TimelineWidget = ({
   tooltipFormatter,
 }) => {
   const tickFormatter = intl ?
-    value => intl.formatDate(value, { month: 'short', day: 'numeric' }) :
+    value => intl.formatDate(value, { month: 'short', day: 'numeric', timeZone: 'UTC' }) :
     value => value;
 
   const labelFormatter = intl ?
-    value => `${intl.formatDate(value, { month: 'long', day: 'numeric', year: 'numeric' })}:` :
+    value => `${intl.formatDate(value, {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      timeZone: 'UTC',
+    })}:` :
     value => value;
 
   return (
