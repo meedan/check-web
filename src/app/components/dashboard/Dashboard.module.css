@@ -17,13 +17,22 @@
     }
 
     .dashboard-filter-area {
-      background: var(--color-beige-86);
+      align-items: center;
+      background-color: var(--color-beige-86);
       border-radius: var(--border-radius-default);
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
       min-width: 450px;
       padding: 16px;
+
+      .dashboard-filters {
+        align-items: center;
+        display: flex;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
     }
 
     .dashboard-combo {
