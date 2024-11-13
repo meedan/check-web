@@ -19,8 +19,9 @@ shared_examples 'similarity' do
     pm2 = api_create_claim(data: data, quote: 'claim 2')
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm2.id)
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}"
+    @driver.manage.window.maximize
     wait_for_selector('#media-similarity__add-button')
-    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
+    wait_for_selector('.media-tab__suggestedMedia').click
     @driver.action.move_to(wait_for_selector('.suggested-media__item')).perform # hover element
     wait_for_selector('.similarity-media-item__accept-relationship').click
     @driver.navigate.refresh
