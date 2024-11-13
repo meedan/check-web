@@ -29,6 +29,7 @@ const Tab = ({
             [styles.disabled]: disabled,
             [styles.sizeDefault]: size === 'default',
             [styles.sizeLarge]: size === 'large',
+            [styles.iconCenter]: iconCenter,
           })}
         onClick={() => !disabled ? onClick(value) : null}
         onKeyPress={() => !disabled ? onClick(value) : null}

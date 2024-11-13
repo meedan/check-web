@@ -14,6 +14,7 @@
   min-width: auto;
   padding: 4px 8px;
   transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+  white-space: nowrap;
 
   .tabLabel {
     display: inline-block;
@@ -42,6 +43,12 @@
     font-size: var(--font-size-body-1, 14px);
     height: 48px;
 
+    &.iconCenter {
+      height: 48px;
+      min-width: 48px;
+      width: 48px;
+    }
+
     .input-icon-left-icon,
     .input-icon-right-icon {
       /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
@@ -51,12 +58,6 @@
     .input-icon-center-icon {
       /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
       font-size: 30px;
-    }
-
-    &.input-icon-center {
-      height: 48px;
-      min-width: 48px;
-      width: 48px;
     }
   }
 

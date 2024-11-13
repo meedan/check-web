@@ -3,7 +3,7 @@ import cx from 'classnames/bind';
 import PropTypes from 'prop-types';
 import Tab from './Tab';
 import Select from '../inputs/Select';
-import { getQueryStringValue } from '../../../urlHelpers';
+import { getQueryStringValue, pushQueryStringValue } from '../../../urlHelpers';
 import styles from './TabWrapper.module.css';
 
 const TabWrapper = ({
@@ -75,14 +75,18 @@ const TabWrapper = ({
       window.removeEventListener('resize', handleResize);
     };
   }, [fullTabWidth]);
+
   useEffect(() => {
     if (getQueryStringValue('tab')) {
       onChange(getQueryStringValue('tab'));
+    } else {
+      pushQueryStringValue('tab', tabs[0].value);
     }
   }, []);
 
   const handleClick = (value) => {
     setActiveTab(value);
+    pushQueryStringValue('tab', value);
     onChange(value);
   };
 
