@@ -16,7 +16,7 @@ const VerticalBarFactChecksByRating = ({ language, statistics, team }) => (
       <VerticalBarChartWidget
         data={
           Object.entries(statistics.number_of_fact_checks_by_rating).map(([name, value]) => ({
-            name: getStatus(team.verification_statuses, name, language).label,
+            name: getStatus(team.verification_statuses, name, language).label || name,
             value,
             color: getStatusStyle(getStatus(team.verification_statuses, name), 'color'),
           }))

@@ -18,9 +18,11 @@ import TimeFrameSelect from './TimeFrameSelect';
 import TiplineDataComponent from './TiplineDataComponent';
 import TimelineTiplineMessageVolume from './TimelineTiplineMessageVolume';
 import VerticalBarMediaReceivedByType from './VerticalBarMediaReceivedByType';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import PageTitle from '../PageTitle';
 import ErrorBoundary from '../error/ErrorBoundary';
+import HelpIcon from '../../icons/help.svg';
 import Loader from '../cds/loading/Loader';
 import { safelyParseJSON } from '../../helpers';
 import styles from './Dashboard.module.css';
@@ -40,14 +42,23 @@ const TiplineDashboard = ({
       { currentUser.is_admin && (
         <>
           <div className={styles['dashboard-filter-area']}>
-            <TimeFrameSelect value={period} onChange={onChangePeriod} />
-            <LanguagePickerSelect
-              allowAllLanguages
-              languages={safelyParseJSON(team.get_languages) || ['en']}
-              selectedLanguage={language || 'all'}
-              onSubmit={onChangeLanguage}
+            <div className={styles['dashboard-filters']}>
+              <TimeFrameSelect value={period} onChange={onChangePeriod} />
+              <LanguagePickerSelect
+                allowAllLanguages
+                languages={safelyParseJSON(team.get_languages) || ['en']}
+                selectedLanguage={language || 'all'}
+                onSubmit={onChangeLanguage}
+              />
+              <PlatformSelect value={platform || 'all'} onChange={onChangePlatform} />
+            </div>
+            <ButtonMain
+              iconCenter={<HelpIcon />}
+              size="default"
+              theme="beige"
+              variant="text"
+              onClick={() => window.open('https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data')}
             />
-            <PlatformSelect value={platform || 'all'} onChange={onChangePlatform} />
           </div>
           <TimelineTiplineMessageVolume statistics={team.statistics} />
           <div className={styles['dashboard-two-column']}>

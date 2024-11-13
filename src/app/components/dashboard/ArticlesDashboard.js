@@ -13,8 +13,10 @@ import NumberPublishedFactChecks from './NumberPublishedFactChecks';
 import StackedBarSearchResultsByType from './StackedBarSearchResultsByType';
 import TimelineArticlesCreatedAndUpdated from './TimelineArticlesCreatedAndUpdated';
 import VerticalBarFactChecksByRating from './VerticalBarFactChecksByRating';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import PageTitle from '../PageTitle';
 import ErrorBoundary from '../error/ErrorBoundary';
+import HelpIcon from '../../icons/help.svg';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import Loader from '../cds/loading/Loader';
 import { safelyParseJSON } from '../../helpers';
@@ -30,12 +32,21 @@ const ArticlesDashboard = ({
   <div className={styles['dashboard-wrapper']}>
     <div className={styles['dashboard-content']}>
       <div className={styles['dashboard-filter-area']}>
-        <TimeFrameSelect value={period} onChange={onChangePeriod} />
-        <LanguagePickerSelect
-          allowAllLanguages
-          languages={safelyParseJSON(team.get_languages) || ['en']}
-          selectedLanguage={language || 'all'}
-          onSubmit={onChangeLanguage}
+        <div className={styles['dashboard-filters']}>
+          <TimeFrameSelect value={period} onChange={onChangePeriod} />
+          <LanguagePickerSelect
+            allowAllLanguages
+            languages={safelyParseJSON(team.get_languages) || ['en']}
+            selectedLanguage={language || 'all'}
+            onSubmit={onChangeLanguage}
+          />
+        </div>
+        <ButtonMain
+          iconCenter={<HelpIcon />}
+          size="default"
+          theme="beige"
+          variant="text"
+          onClick={() => window.open('https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data')}
         />
       </div>
       <TimelineArticlesCreatedAndUpdated statistics={team.statistics} />

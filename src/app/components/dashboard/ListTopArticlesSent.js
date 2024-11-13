@@ -4,13 +4,14 @@ import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import ListWidget from '../cds/charts/ListWidget';
 
+// FIXME: For now, it assumes the backend is returning only fact-checks - must update this component once the backend returns explainers too
 const ListTopArticlesSent = ({ statistics }) => {
   const teamSlug = window.location.pathname.split('/')[1];
 
   const dataArray = statistics.top_articles_sent.map(a => ({
     itemText: a.label,
     itemValue: a.value,
-    itemLink: `/${teamSlug}/articles/explainers?explainerId=${a.id}`,
+    itemLink: `/${teamSlug}/articles/fact-checks?factCheckId=${a.id}`,
   }));
 
   return (
@@ -25,7 +26,7 @@ const ListTopArticlesSent = ({ statistics }) => {
       items={dataArray}
       title={
         <FormattedMessage
-          defaultMessage="Top Articles Sent"
+          defaultMessage="Top Fact-Checks Sent"
           description="Title for the top articles sent list widget"
           id="listTopArticlesSent.title"
         />

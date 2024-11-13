@@ -463,6 +463,15 @@
   }
 }
 
+.video-media-card {
+  position: relative;
+
+  video {
+    height: 100%;
+    width: 100%;
+  }
+}
+
 body[dir='rtl'] {
   .media-timeline-item {
     &::before {

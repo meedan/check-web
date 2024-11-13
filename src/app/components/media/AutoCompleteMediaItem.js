@@ -100,7 +100,7 @@ const AutoCompleteMediaItem = (props, context) => {
   };
 
   const query = {
-    keyword: searchText,
+    keyword: encodeURIComponent(searchText),
     show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
     eslimit: 50,
     archived: [CheckArchivedFlags.NONE, CheckArchivedFlags.UNCONFIRMED],

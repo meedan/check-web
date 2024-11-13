@@ -1,8 +1,6 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import { browserHistory } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -19,26 +17,7 @@ import HelpIcon from '../../../icons/help.svg';
 import CheckPropTypes from '../../../CheckPropTypes';
 import styles from './ReportDesigner.module.css';
 
-const useStyles = makeStyles(theme => ({
-  confirmation: {
-    marginBottom: theme.spacing(2),
-  },
-  correctionLink: {
-    display: 'inline-flex',
-    gap: `${theme.spacing(0.5)}px`,
-    color: 'var(--color-blue-54)',
-    '&:visited': {
-      color: 'var(--color-blue-54)',
-    },
-    '&:hover': {
-      textDecoration: 'none',
-    },
-  },
-}));
-
 const ReportDesignerTopBar = (props) => {
-  const classes = useStyles();
-
   const {
     data,
     defaultLanguage,
@@ -228,7 +207,7 @@ const ReportDesignerTopBar = (props) => {
                       demand: media.demand,
                       correctionLink: (
                         <React.Fragment>
-                          <a className={classes.correctionLink} href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" target="_blank">
+                          <a className={styles['correction-link']} href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" target="_blank">
                             <FormattedMessage
                               defaultMessage="correction"
                               description="This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
@@ -244,49 +223,47 @@ const ReportDesignerTopBar = (props) => {
 
                 {/* Re-sending a report with the same status */}
                 { !cantPublishReason && data.last_published && !statusChanged && media.demand > 0 ?
-                  <Box className={classes.confirmation}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={resendToPrevious}
-                          key="resend-report"
-                          onChange={(e) => { setResendToPrevious(e.target.checked); }}
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={resendToPrevious}
+                        key="resend-report"
+                        onChange={(e) => { setResendToPrevious(e.target.checked); }}
+                      />
+                    }
+                    label={
+                      media.team?.get_languages?.length > 1 && data.options?.language && data.options.language !== 'und' && media.team?.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled ?
+                        <FormattedMessage
+                          defaultMessage="Also send this updated report only to users who requested this item in {reportLanguage}."
+                          description="Helper message to publishing report action"
+                          id="reportDesigner.republishAndResendSingleLanguage"
+                          values={{
+                            reportLanguage: languageLabel(data?.options?.language),
+                          }}
+                        /> :
+                        <FormattedMessage
+                          defaultMessage="{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
+                          description="Helper message to publishing report correction action"
+                          id="reportDesigner.republishAndResend"
+                          values={{
+                            demand: media.demand,
+                            correctionLink: (
+                              <React.Fragment>
+                                <a className={styles['correction-link']} href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" target="_blank">
+                                  <FormattedMessage
+                                    defaultMessage="correction"
+                                    description="This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
+                                    id="reportDesigner.correction"
+                                  />
+                                  {' '}
+                                  <HelpIcon />
+                                </a>
+                              </React.Fragment>
+                            ),
+                          }}
                         />
-                      }
-                      label={
-                        media.team?.get_languages?.length > 1 && data.options?.language && data.options.language !== 'und' && media.team?.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled ?
-                          <FormattedMessage
-                            defaultMessage="Also send this updated report only to users who requested this item in {reportLanguage}."
-                            description="Helper message to publishing report action"
-                            id="reportDesigner.republishAndResendSingleLanguage"
-                            values={{
-                              reportLanguage: languageLabel(data?.options?.language),
-                            }}
-                          /> :
-                          <FormattedMessage
-                            defaultMessage="{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
-                            description="Helper message to publishing report correction action"
-                            id="reportDesigner.republishAndResend"
-                            values={{
-                              demand: media.demand,
-                              correctionLink: (
-                                <React.Fragment>
-                                  <a className={classes.correctionLink} href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" target="_blank">
-                                    <FormattedMessage
-                                      defaultMessage="correction"
-                                      description="This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
-                                      id="reportDesigner.correction"
-                                    />
-                                    {' '}
-                                    <HelpIcon />
-                                  </a>
-                                </React.Fragment>
-                              ),
-                            }}
-                          />
-                      }
-                    />
-                  </Box> : null }
+                    }
+                  /> : null }
               </Box>
             }
             disabled={readOnly}
@@ -445,15 +422,15 @@ ReportDesignerTopBar.defaultProps = {
 };
 
 ReportDesignerTopBar.propTypes = {
-  state: CheckPropTypes.reportState.isRequired,
-  media: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   defaultLanguage: PropTypes.string.isRequired,
-  onStatusChange: PropTypes.func.isRequired,
-  onStateChange: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool,
   intl: intlShape.isRequired,
+  media: PropTypes.object.isRequired,
   prefixUrl: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+  state: CheckPropTypes.reportState.isRequired,
+  onStateChange: PropTypes.func.isRequired,
+  onStatusChange: PropTypes.func.isRequired,
 };
 
 export default injectIntl(ReportDesignerTopBar);

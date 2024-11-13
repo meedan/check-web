@@ -5,14 +5,8 @@ import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 describe('<ThresholdControl />', () => {
   const label = <div />;
 
-  const classes = {
-    sliderRoot: 'sliderRoot',
-    textFieldRoot: 'textFieldRoot',
-  };
-
   it('should render suggestion message if type is not "matching"', () => {
     const wrapper = mountWithIntl(<ThresholdControl
-      classes={classes}
       disable={false}
       handleInputChange={() => {}}
       label={label}
@@ -26,7 +20,6 @@ describe('<ThresholdControl />', () => {
 
   it('should render matching message if type is "matching"', () => {
     const wrapper = mountWithIntl(<ThresholdControl
-      classes={classes}
       disable={false}
       handleInputChange={() => {}}
       label={label}
@@ -40,7 +33,6 @@ describe('<ThresholdControl />', () => {
 
   it('should render error message if has a error', () => {
     const wrapper = mountWithIntl(<ThresholdControl
-      classes={classes}
       disable={false}
       error
       handleInputChange={() => {}}

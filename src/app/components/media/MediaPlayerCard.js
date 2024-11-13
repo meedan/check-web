@@ -1,18 +1,12 @@
-/* eslint-disable jsx-a11y/media-has-caption, react/sort-prop-types */
+/* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import AspectRatio from '../layout/AspectRatio';
 import MediaControls from '../cds/media-cards/MediaControls.js';
 import Alert from '../cds/alerts-and-prompts/Alert';
-
-const useStyles = makeStyles(() => ({
-  video: {
-    width: '100%',
-    height: '100%',
-  },
-}));
+import styles from './media.module.css';
 
 // from https://github.com/cookpete/react-player/blob/a110aaf2f3f4e23a3ba3889fe9e8e7b96b769f59/src/patterns.js#L3
 const youtubeRegex = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|watch\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//;
@@ -31,7 +25,6 @@ const MediaPlayerCard = ({
   warningCategory,
   warningCreator,
 }) => {
-  const classes = useStyles();
   const videoRef = React.useRef();
   const [errorAlert, setErrorAlert] = React.useState(false);
 
@@ -49,7 +42,7 @@ const MediaPlayerCard = ({
   };
 
   return (
-    <article className="video-media-card" style={{ position: 'relative' }}>
+    <article className={cx('video-media-card', styles['video-media-card'])}>
       { errorAlert &&
       <Alert
         banner
@@ -105,7 +98,6 @@ const MediaPlayerCard = ({
           ) : (
             <>
               <video
-                className={classes.video}
                 id="media-player-card__video"
                 poster={isAudio ? poster : ''}
                 ref={videoRef}
@@ -126,9 +118,9 @@ MediaPlayerCard.propTypes = {
   coverImage: PropTypes.string,
   filePath: PropTypes.string.isRequired,
   isYoutube: PropTypes.bool,
+  superAdminMask: PropTypes.bool,
   warningCategory: PropTypes.string,
   warningCreator: PropTypes.string,
-  superAdminMask: PropTypes.bool,
 };
 
 MediaPlayerCard.defaultProps = {

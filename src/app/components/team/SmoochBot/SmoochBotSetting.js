@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -10,19 +9,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '../../cds/inputs/TextField';
 import Chip from '../../cds/buttons-checkboxes-chips/Chip';
-
-const useStyles = makeStyles(theme => ({
-  field: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  chip: {
-    margin: `0 ${theme.spacing(1)}px 0 ${theme.spacing(1)}px`,
-  },
-}));
+import inputStyles from '../../../styles/css/inputs.module.css';
 
 const SmoochBotSetting = (props) => {
-  const classes = useStyles();
   const { field, schema, value } = props;
 
   const handleChange = (key, newValue) => {
@@ -65,7 +54,7 @@ const SmoochBotSetting = (props) => {
           renderValue={selectedValues => (
             <div>
               { selectedValues.map(selectedValue => (
-                <Chip className={classes.chip} key={selectedValue} label={selectedValue} />
+                <Chip className={inputStyles['select-chip']} key={selectedValue} label={selectedValue} />
               ))}
             </div>
           )}
@@ -107,7 +96,7 @@ const SmoochBotSetting = (props) => {
 
   return (
     <TextField
-      className={classes.field}
+      className={inputStyles['form-fieldset-field']}
       componentProps={inputProps}
       defaultValue={value || schema.default}
       helpContent={schema.description}

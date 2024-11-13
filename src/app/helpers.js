@@ -42,7 +42,7 @@ function getStatus(statusesParam, id, language, defaultLanguage) {
       status = JSON.parse(JSON.stringify(st));
     }
   });
-  if (language) {
+  if (language && status.locales) {
     const defaultLabel = status.locales[defaultLanguage || 'en'] ?
       status.locales[defaultLanguage || 'en'].label : '';
     status.label = status.locales[language] ?
