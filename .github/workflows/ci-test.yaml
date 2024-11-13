@@ -1,6 +1,8 @@
 name: Build and Run Tests
 
 on:
+  schedule:
+    - cron: '0 7 * * *'  #Runs  daily at 7 AM UTC
   push:
     branches:
     - '**'
@@ -160,6 +162,7 @@ jobs:
        kill -9 $(pgrep ngrok)
     
     - name: Cleanup Docker Resources
+      if: always()
       run: |
           echo "Cleaning up Docker resources..."
           docker stop $(docker ps -q) 
@@ -305,6 +308,7 @@ jobs:
        size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
     
     - name: Cleanup Docker Resources
+      if: always()
       run: |
           echo "Cleaning up Docker resources..."
           docker stop $(docker ps -q) 
