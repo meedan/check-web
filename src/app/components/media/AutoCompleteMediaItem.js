@@ -368,19 +368,19 @@ const AutoCompleteMediaItem = (props, context) => {
                 { props.selectedItemType === 'fact-check' ?
                   <ArticleCard
                     className={selectedDbid === projectMedia.dbid ? styles['media-item-autocomplete-selected-item'] : null}
-                    date={projectMedia.fact_check.updated_at}
+                    date={projectMedia.fact_check?.updated_at}
                     handleClick={e => handleClick(e, projectMedia.dbid)}
-                    isPublished={projectMedia.fact_check.report_status === 'published'}
+                    isPublished={projectMedia.fact_check?.report_status === 'published'}
                     key={projectMedia.id}
-                    languageCode={projectMedia.fact_check.language !== 'und' ? projectMedia.fact_check.language : null}
-                    publishedAt={projectMedia.fact_check.claim_description?.updated_at}
+                    languageCode={projectMedia.fact_check?.language !== 'und' ? projectMedia.fact_check?.language : null}
+                    publishedAt={projectMedia.fact_check?.claim_description?.updated_at}
                     readOnly
                     statusColor={currentStatus ? currentStatus.style?.color : null}
                     statusLabel={currentStatus ? currentStatus.label : null}
-                    summary={isFactCheckValueBlank(projectMedia.fact_check.summary) ? projectMedia.fact_check.claim_description?.description : projectMedia.fact_check.summary}
-                    tags={projectMedia.fact_check.tags}
-                    title={isFactCheckValueBlank(projectMedia.fact_check.title) ? projectMedia.fact_check.claim_description?.context : projectMedia.fact_check.title}
-                    url={projectMedia.fact_check.url}
+                    summary={isFactCheckValueBlank(projectMedia.fact_check?.summary) ? projectMedia.fact_check?.claim_description?.description : projectMedia.fact_check?.summary}
+                    tags={projectMedia.fact_check?.tags}
+                    title={isFactCheckValueBlank(projectMedia.fact_check?.title) ? projectMedia.fact_check?.claim_description?.context : projectMedia.fact_check?.title}
+                    url={projectMedia.fact_check?.url}
                     variant="fact-check"
                     onChangeTags={() => {}}
                   />
