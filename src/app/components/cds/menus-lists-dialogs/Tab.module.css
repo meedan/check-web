@@ -74,7 +74,7 @@
   &.active {
     background-color: var(--color-white-100);
     color: var(--color-blue-38);
-    text-shadow: .2px 0 0 currentColor, -.2px 0 0 currentColor;
+    text-shadow: .2px 0 0 currentcolor, -.2px 0 0 currentcolor;
 
     &.disabled {
       color: var(--color-gray-75);
