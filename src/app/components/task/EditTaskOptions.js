@@ -1,8 +1,7 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { Box } from '@material-ui/core';
+import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import AddIcon from '../../icons/add.svg';
@@ -121,54 +120,49 @@ const EditTaskOptions = ({
 
   return (
     <React.Fragment>
-      <hr />
-      <Box mt={1}>
+      <div className={styles['task-multi-select-wrapper']}>
         { options.map((item, index) => (
-          <div key={`edit-task-options__option-${index.toString()}`}>
-            <div className={styles['task-multi-select']}>
+          <div className={styles['task-multi-select']} key={`edit-task-options__option-${index.toString()}`}>
+            <ButtonMain
+              className="create-task__remove-option-button create-task__md-icon"
+              disabled
+              iconCenter={
+                <>
+                  { taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null }
+                  { taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null }
+                </>
+              }
+              key="create-task__remove-option-button"
+              size="default"
+              theme="text"
+              variant="text"
+            />
+            <TextField
+              className={cx('create-task__add-option-input', styles['task-multi-select-option-input'])}
+              componentProps={{
+                id: index.toString(),
+              }}
+              disabled={item.other}
+              error={item.label && options.filter(o => o.label === item.label).length > 1}
+              key="create-task__add-option-input"
+              placeholder={`${intl.formatMessage(messages.value)} ${index + 1}`}
+              value={item.label}
+              onChange={e => handleEditOption(e.target.value, index)}
+            />
+            { canRemove ?
               <ButtonMain
                 className="create-task__remove-option-button create-task__md-icon"
-                disabled
-                iconCenter={
-                  <>
-                    { taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null }
-                    { taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null }
-                  </>
-                }
+                iconCenter={<ClearIcon />}
                 key="create-task__remove-option-button"
                 size="small"
-                theme="text"
-                variant="text"
-              />
-              <Box clone px={1} py={0.5} width="75%">
-                <TextField
-                  className="create-task__add-option-input"
-                  componentProps={{
-                    id: index.toString(),
-                  }}
-                  disabled={item.other}
-                  error={item.label && options.filter(o => o.label === item.label).length > 1}
-                  key="create-task__add-option-input"
-                  placeholder={`${intl.formatMessage(messages.value)} ${index + 1}`}
-                  value={item.label}
-                  onChange={e => handleEditOption(e.target.value, index)}
-                />
-              </Box>
-              { canRemove ?
-                <ButtonMain
-                  className="create-task__remove-option-button create-task__md-icon"
-                  iconCenter={<ClearIcon />}
-                  key="create-task__remove-option-button"
-                  size="small"
-                  theme="lightText"
-                  variant="contained"
-                  onClick={() => handleRemoveOption(index)}
-                /> : null
-              }
-            </div>
+                theme="lightText"
+                variant="contained"
+                onClick={() => handleRemoveOption(index)}
+              /> : null
+            }
           </div>
         ))}
-        <Box display="flex" mt={1}>
+        <div className={styles['task-multi-select-actions']}>
           <ButtonMain
             iconLeft={<AddIcon />}
             label={
@@ -183,7 +177,7 @@ const EditTaskOptions = ({
             variant="contained"
             onClick={handleAddOption}
           />
-          <Box ml={1}>
+          { !hasOther &&
             <ButtonMain
               disabled={hasOther}
               iconLeft={<AddIcon />}
@@ -199,9 +193,9 @@ const EditTaskOptions = ({
               variant="contained"
               onClick={handleAddOther}
             />
-          </Box>
-        </Box>
-      </Box>
+          }
+        </div>
+      </div>
     </React.Fragment>
   );
 };
@@ -212,12 +206,12 @@ EditTaskOptions.defaultProps = {
 
 EditTaskOptions.propTypes = {
   intl: intlShape.isRequired,
-  onChange: PropTypes.func.isRequired,
   task: PropTypes.shape({
     type: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
   }),
   taskType: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 // TODO createFragmentContainer
