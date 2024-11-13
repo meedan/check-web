@@ -3,5 +3,10 @@
     "id": "verticalBarFactChecksByRating.title",
     "description": "Title for the number of fact-checks by rating widget",
     "defaultMessage": "Claim & Fact-Checks"
+  },
+  {
+    "id": "verticalBarFactChecksByRating.removed",
+    "description": "Label for the fact-checks ratings chart for a rating that was removed",
+    "defaultMessage": "(removed)"
   }
 ]
