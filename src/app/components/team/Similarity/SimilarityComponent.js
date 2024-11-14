@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { createFragmentContainer, commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import cx from 'classnames/bind';
@@ -266,7 +265,6 @@ const SimilarityComponent = ({
                           disabled={!settings.date_similarity_threshold_enabled} // eslint-disable-line react/jsx-no-duplicate-props
                           type="number"
                           value={settings.similarity_date_threshold}
-                          variant="outlined"
                           onChange={(e) => { handleSettingsChange('similarity_date_threshold', e.target.value); }}
                         />
                       ),
@@ -279,66 +277,65 @@ const SimilarityComponent = ({
         </div>
         { settings.master_similarity_enabled && isSuperAdmin ? (
           <React.Fragment>
+            <br />
+            <h6>
+              Internal settings
+            </h6>
+            <br />
             <div className={settingsStyles['setting-content-container']}>
-              <div className={settingsStyles['setting-content-container-title']}>
-                <span>Internal settings</span>
-              </div>
-              <div className={inputStyles['form-fieldset']}>
-                <SwitchComponent
-                  checked={settings.text_similarity_enabled}
-                  helperContent="Uses Elasticsearch for basic syntactic matching. It finds sentences that are written in a similar way, even if their meanings differ."
-                  label="Text matching"
-                  labelPlacement="end"
-                  onChange={() => handleSettingsChange('text_similarity_enabled', !settings.text_similarity_enabled)}
-                />
-                { settings.text_similarity_enabled &&
-                  <>
-                    <ThresholdControl
-                      disabled={!settings.text_similarity_enabled}
-                      label="Elasticsearch matching threshold"
-                      type="matching"
-                      value={Number(settings.text_elasticsearch_matching_threshold * 100).toFixed()}
-                      onChange={newValue => handleThresholdChange('text_elasticsearch_matching_threshold', newValue)}
-                    />
-                    <ThresholdControl
-                      disabled={!settings.text_similarity_enabled}
-                      error={(settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold)}
-                      label="Elasticsearch suggestion threshold"
-                      type="suggestion"
-                      value={Number(settings.text_elasticsearch_suggestion_threshold * 100).toFixed()}
-                      onChange={newValue => handleThresholdChange('text_elasticsearch_suggestion_threshold', newValue)}
-                    />
-                    <Box ml={7}>
-                      <FormattedMessage
-                        defaultMessage="Minimum words required for a confirmed match"
-                        description="A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
-                        id="similarityComponent.textLength"
-                      />
-                      <TextField
-                        className={settingsStyles['similarity-component-input']}
-                        componentProps={{
-                          min: '0',
-                        }}
-                        disabled={!settings.text_similarity_enabled}
-                        size="small"
-                        type="number"
-                        value={settings.text_length_matching_threshold}
-                        variant="outlined"
-                        onChange={(e) => { handleSettingsChange('text_length_matching_threshold', e.target.value); }}
-                      />
-                    </Box>
-                    <Box mb={4}>
-                      <Box ml={6}>
-                        <SwitchComponent
-                          checked={settings.text_similarity_enabled && vectorModelToggle}
-                          disabled={!settings.text_similarity_enabled}
-                          helperContent="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
-                          label="Vector model"
-                          labelPlacement="end"
-                          onChange={() => handleVectorModelToggle(!vectorModelToggle)}
-                        />
-                        <Box mb={2} ml={7} mr={6} mt={2}>
-                          <p><strong>Model to use</strong></p>
+              <SwitchComponent
+                checked={settings.text_similarity_enabled}
+                helperContent="Uses Elasticsearch for basic syntactic matching. It finds sentences that are written in a similar way, even if their meanings differ."
+                label="Text matching"
+                labelPlacement="end"
+                onChange={() => handleSettingsChange('text_similarity_enabled', !settings.text_similarity_enabled)}
+              />
+              { settings.text_similarity_enabled &&
+                <div className={cx(settingsStyles['setting-content-container-inner'], inputStyles['form-fieldset'])}>
+                  <ThresholdControl
+                    disabled={!settings.text_similarity_enabled}
+                    label="Elasticsearch matching threshold"
+                    type="matching"
+                    value={Number(settings.text_elasticsearch_matching_threshold * 100).toFixed()}
+                    onChange={newValue => handleThresholdChange('text_elasticsearch_matching_threshold', newValue)}
+                  />
+                  <ThresholdControl
+                    disabled={!settings.text_similarity_enabled}
+                    error={(settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold)}
+                    label="Elasticsearch suggestion threshold"
+                    type="suggestion"
+                    value={Number(settings.text_elasticsearch_suggestion_threshold * 100).toFixed()}
+                    onChange={newValue => handleThresholdChange('text_elasticsearch_suggestion_threshold', newValue)}
+                  />
+                  <FormattedMessage
+                    defaultMessage="Minimum words required for a confirmed match"
+                    description="A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
+                    id="similarityComponent.textLength"
+                  />
+                  <TextField
+                    className={settingsStyles['similarity-component-input']}
+                    componentProps={{
+                      min: '0',
+                    }}
+                    disabled={!settings.text_similarity_enabled}
+                    type="number"
+                    value={settings.text_length_matching_threshold}
+                    onChange={(e) => { handleSettingsChange('text_length_matching_threshold', e.target.value); }}
+                  />
+                  <SwitchComponent
+                    checked={settings.text_similarity_enabled && vectorModelToggle}
+                    disabled={!settings.text_similarity_enabled}
+                    helperContent="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
+                    label="Vector model"
+                    labelPlacement="end"
+                    onChange={() => handleVectorModelToggle(!vectorModelToggle)}
+                  />
+                  { settings.text_similarity_enabled && vectorModelToggle &&
+                    <div className={settingsStyles['setting-content-container-inner-accent']}>
+                      <strong>Model to use</strong>
+                      <br />
+                      <ul>
+                        <li>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -349,6 +346,8 @@ const SimilarityComponent = ({
                             disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                             label="Paraphrase multilingual - New model, covers 50+ languages"
                           />
+                        </li>
+                        <li>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -359,6 +358,8 @@ const SimilarityComponent = ({
                             disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                             label="Means tokens - Covers all languages"
                           />
+                        </li>
+                        <li>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -369,6 +370,8 @@ const SimilarityComponent = ({
                             disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                             label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
                           />
+                        </li>
+                        <li>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -379,6 +382,8 @@ const SimilarityComponent = ({
                             disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                             label="Filipino Paraphrase - Specialized in Filipino"
                           />
+                        </li>
+                        <li>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -389,210 +394,201 @@ const SimilarityComponent = ({
                             disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                             label="OpenAI ada model - Experimental, pay-per-use model"
                           />
-                        </Box>
-                        <ThresholdControl
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          label="Vector model matching threshold"
-                          type="matching"
-                          value={Number(settings.text_vector_matching_threshold * 100).toFixed()}
-                          onChange={newValue => handleThresholdChange('text_vector_matching_threshold', newValue)}
-                        />
-                        <ThresholdControl
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          error={(settings.text_vector_suggestion_threshold > settings.text_vector_matching_threshold)}
-                          label="Vector model suggestion threshold"
-                          type="suggestion"
-                          value={Number(settings.text_vector_suggestion_threshold * 100).toFixed()}
-                          onChange={newValue => handleThresholdChange('text_vector_suggestion_threshold', newValue)}
-                        />
-                      </Box>
-                    </Box>
-                  </>
-                }
-              </div>
-              <div className={inputStyles['form-fieldset']}>
-                <SwitchComponent
-                  checked={settings.image_similarity_enabled}
-                  label="Image matching"
-                  labelPlacement="end"
-                  onChange={() => handleSettingsChange('image_similarity_enabled', !settings.image_similarity_enabled)}
-                />
-                { settings.image_similarity_enabled &&
-                  <Box mb={4}>
-                    <br />
-                    <ThresholdControl
-                      disabled={!settings.image_similarity_enabled}
-                      label="Image matching threshold"
-                      type="matching"
-                      value={Number(settings.image_hash_matching_threshold * 100).toFixed()}
-                      onChange={newValue => handleThresholdChange('image_hash_matching_threshold', newValue)}
-                    />
-                    <ThresholdControl
-                      disabled={!settings.image_similarity_enabled}
-                      error={(settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold)}
-                      label="Image suggestion threshold"
-                      type="suggestion"
-                      value={Number(settings.image_hash_suggestion_threshold * 100).toFixed()}
-                      onChange={newValue => handleThresholdChange('image_hash_suggestion_threshold', newValue)}
-                    />
-                  </Box>
-                }
-              </div>
-              <div className={inputStyles['form-fieldset']}>
-                <SwitchComponent
-                  checked={settings.video_similarity_enabled}
-                  label="Video matching"
-                  labelPlacement="end"
-                  onChange={() => handleSettingsChange('video_similarity_enabled', !settings.video_similarity_enabled)}
-                />
-                { settings.video_similarity_enabled &&
-                  <Box mb={4}>
-                    <ThresholdControl
-                      disabled={!settings.video_similarity_enabled}
-                      label="Video matching threshold"
-                      type="matching"
-                      value={Number(settings.video_hash_matching_threshold * 100).toFixed()}
-                      onChange={newValue => handleThresholdChange('video_hash_matching_threshold', newValue)}
-                    />
-                    <ThresholdControl
-                      disabled={!settings.video_similarity_enabled}
-                      error={(settings.video_hash_suggestion_threshold > settings.video_hash_matching_threshold)}
-                      label="Video suggestion threshold"
-                      type="suggestion"
-                      value={Number(settings.video_hash_suggestion_threshold * 100).toFixed()}
-                      onChange={newValue => handleThresholdChange('video_hash_suggestion_threshold', newValue)}
-                    />
-                  </Box>
-                }
-              </div>
-              <div className={inputStyles['form-fieldset']}>
-                <SwitchComponent
-                  checked={settings.audio_similarity_enabled}
-                  label="Audio matching"
-                  labelPlacement="end"
-                  onChange={() => handleSettingsChange('audio_similarity_enabled', !settings.audio_similarity_enabled)}
-                />
-                { settings.audio_similarity_enabled &&
-                  <Box mb={4}>
-                    <ThresholdControl
-                      disabled={!settings.audio_similarity_enabled}
-                      label="Audio matching threshold"
-                      type="matching"
-                      value={Number(settings.audio_hash_matching_threshold * 100).toFixed()}
-                      onChange={newValue => handleThresholdChange('audio_hash_matching_threshold', newValue)}
-                    />
-                    <ThresholdControl
-                      disabled={!settings.audio_similarity_enabled}
-                      error={(settings.audio_hash_suggestion_threshold > settings.audio_hash_matching_threshold)}
-                      label="Audio suggestion threshold"
-                      type="suggestion"
-                      value={Number(settings.audio_hash_suggestion_threshold * 100).toFixed()}
-                      onChange={newValue => handleThresholdChange('audio_hash_suggestion_threshold', newValue)}
-                    />
-                  </Box>
-                }
-              </div>
-              <div className={inputStyles['form-fieldset']}>
-                <SwitchComponent
-                  checked={settings.transcription_similarity_enabled}
-                  label="Automated transcription"
-                  labelPlacement="end"
-                  onChange={() => handleSettingsChange('transcription_similarity_enabled', !settings.transcription_similarity_enabled)}
-                />
-                { settings.transcription_similarity_enabled &&
-                  <>
-                    <Box mb={4}>
-                      <Box mb={2} ml={7}>
-                        <FormattedMessage
-                          defaultMessage="Minimum duration in seconds"
-                          description="number input for Automated transcription minimum duration"
-                          id="similarityComponent.minimumDuration"
-                        />
-                        <TextField
-                          className={settingsStyles['similarity-component-input']}
-                          componentProps={{
-                            min: '0',
-                          }}
-                          disabled={!settings.transcription_similarity_enabled}
-                          size="small"
-                          type="number"
-                          value={settings.transcription_minimum_duration}
-                          variant="outlined"
-                          onChange={(e) => { handleSettingsChange('transcription_minimum_duration', e.target.value); }}
-                        />
-                      </Box>
-                      <Box mb={2} ml={7}>
-                        <FormattedMessage
-                          defaultMessage="Maximum duration in seconds"
-                          description="number input for Automated transcription maximum duration"
-                          id="similarityComponent.maximumDuration"
-                        />
-                        <TextField
-                          className={settingsStyles['similarity-component-input']}
-                          componentProps={{
-                            min: '0',
-                          }}
-                          disabled={!settings.transcription_similarity_enabled}
-                          size="small"
-                          type="number"
-                          value={settings.transcription_maximum_duration}
-                          variant="outlined"
-                          onChange={(e) => { handleSettingsChange('transcription_maximum_duration', e.target.value); }}
-                        />
-                      </Box>
-                      <Box mb={2} ml={7}>
-                        <FormattedMessage
-                          defaultMessage="Minimum number of requests"
-                          description="number input for Automated transcription duration requests"
-                          id="similarityComponent.minimumRequests"
-                        />
-                        <TextField
-                          className={settingsStyles['similarity-component-input']}
-                          componentProps={{
-                            min: '0',
-                          }}
-                          disabled={!settings.transcription_similarity_enabled}
-                          size="small"
-                          type="number"
-                          value={settings.transcription_minimum_requests}
-                          variant="outlined"
-                          onChange={(e) => { handleSettingsChange('transcription_minimum_requests', e.target.value); }}
-                        />
-                      </Box>
-                    </Box>
-                  </>
-                }
-              </div>
-              <div className={inputStyles['form-fieldset']}>
-                <TextField
-                  className={inputStyles['form-fieldset-field']}
-                  label={
-                    <FormattedMessage
-                      defaultMessage="Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
-                      description="Text input for language similarity matching settings"
-                      id="similarityComponent.languageForSimilarity"
-                    />
+                        </li>
+                      </ul>
+                      <ThresholdControl
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        label="Vector model matching threshold"
+                        type="matching"
+                        value={Number(settings.text_vector_matching_threshold * 100).toFixed()}
+                        onChange={newValue => handleThresholdChange('text_vector_matching_threshold', newValue)}
+                      />
+                      <ThresholdControl
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        error={(settings.text_vector_suggestion_threshold > settings.text_vector_matching_threshold)}
+                        label="Vector model suggestion threshold"
+                        type="suggestion"
+                        value={Number(settings.text_vector_suggestion_threshold * 100).toFixed()}
+                        onChange={newValue => handleThresholdChange('text_vector_suggestion_threshold', newValue)}
+                      />
+                    </div>
                   }
-                  value={settings.language_for_similarity}
-                  onChange={(e) => { handleSettingsChange('language_for_similarity', e.target.value); }}
-                />
-                <TextField
-                  className={inputStyles['form-fieldset-field']}
-                  componentProps={{
-                    min: '0',
-                  }}
-                  label={
-                    <FormattedMessage
-                      defaultMessage="Minimum score for ElasticSearch"
-                      description="number input for the minimum matching score for ElasticSearch"
-                      id="similarityComponent.minEsScore"
-                    />
-                  }
-                  type="number"
-                  value={settings.min_es_score}
-                  onChange={(e) => { handleSettingsChange('min_es_score', parseInt(e.target.value, 10)); }}
-                />
-              </div>
+                </div>
+              }
+            </div>
+            <div className={settingsStyles['setting-content-container']}>
+              <SwitchComponent
+                checked={settings.image_similarity_enabled}
+                label="Image matching"
+                labelPlacement="end"
+                onChange={() => handleSettingsChange('image_similarity_enabled', !settings.image_similarity_enabled)}
+              />
+              { settings.image_similarity_enabled &&
+                <div className={cx(settingsStyles['setting-content-container-inner'], inputStyles['form-fieldset'])}>
+                  <ThresholdControl
+                    disabled={!settings.image_similarity_enabled}
+                    label="Image matching threshold"
+                    type="matching"
+                    value={Number(settings.image_hash_matching_threshold * 100).toFixed()}
+                    onChange={newValue => handleThresholdChange('image_hash_matching_threshold', newValue)}
+                  />
+                  <ThresholdControl
+                    disabled={!settings.image_similarity_enabled}
+                    error={(settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold)}
+                    label="Image suggestion threshold"
+                    type="suggestion"
+                    value={Number(settings.image_hash_suggestion_threshold * 100).toFixed()}
+                    onChange={newValue => handleThresholdChange('image_hash_suggestion_threshold', newValue)}
+                  />
+                </div>
+              }
+            </div>
+            <div className={settingsStyles['setting-content-container']}>
+              <SwitchComponent
+                checked={settings.video_similarity_enabled}
+                label="Video matching"
+                labelPlacement="end"
+                onChange={() => handleSettingsChange('video_similarity_enabled', !settings.video_similarity_enabled)}
+              />
+              { settings.video_similarity_enabled &&
+                <div className={cx(settingsStyles['setting-content-container-inner'], inputStyles['form-fieldset'])}>
+                  <ThresholdControl
+                    disabled={!settings.video_similarity_enabled}
+                    label="Video matching threshold"
+                    type="matching"
+                    value={Number(settings.video_hash_matching_threshold * 100).toFixed()}
+                    onChange={newValue => handleThresholdChange('video_hash_matching_threshold', newValue)}
+                  />
+                  <ThresholdControl
+                    disabled={!settings.video_similarity_enabled}
+                    error={(settings.video_hash_suggestion_threshold > settings.video_hash_matching_threshold)}
+                    label="Video suggestion threshold"
+                    type="suggestion"
+                    value={Number(settings.video_hash_suggestion_threshold * 100).toFixed()}
+                    onChange={newValue => handleThresholdChange('video_hash_suggestion_threshold', newValue)}
+                  />
+                </div>
+              }
+            </div>
+            <div className={settingsStyles['setting-content-container']}>
+              <SwitchComponent
+                checked={settings.audio_similarity_enabled}
+                label="Audio matching"
+                labelPlacement="end"
+                onChange={() => handleSettingsChange('audio_similarity_enabled', !settings.audio_similarity_enabled)}
+              />
+              { settings.audio_similarity_enabled &&
+                <div className={cx(settingsStyles['setting-content-container-inner'], inputStyles['form-fieldset'])}>
+                  <ThresholdControl
+                    disabled={!settings.audio_similarity_enabled}
+                    label="Audio matching threshold"
+                    type="matching"
+                    value={Number(settings.audio_hash_matching_threshold * 100).toFixed()}
+                    onChange={newValue => handleThresholdChange('audio_hash_matching_threshold', newValue)}
+                  />
+                  <ThresholdControl
+                    disabled={!settings.audio_similarity_enabled}
+                    error={(settings.audio_hash_suggestion_threshold > settings.audio_hash_matching_threshold)}
+                    label="Audio suggestion threshold"
+                    type="suggestion"
+                    value={Number(settings.audio_hash_suggestion_threshold * 100).toFixed()}
+                    onChange={newValue => handleThresholdChange('audio_hash_suggestion_threshold', newValue)}
+                  />
+                </div>
+              }
+            </div>
+            <div className={settingsStyles['setting-content-container']}>
+              <SwitchComponent
+                checked={settings.transcription_similarity_enabled}
+                label="Automated transcription"
+                labelPlacement="end"
+                onChange={() => handleSettingsChange('transcription_similarity_enabled', !settings.transcription_similarity_enabled)}
+              />
+              { settings.transcription_similarity_enabled &&
+                <div className={cx(settingsStyles['setting-content-container-inner'], inputStyles['form-fieldset'])}>
+                  <TextField
+                    className={inputStyles['form-fieldset-field']}
+                    componentProps={{
+                      min: '0',
+                    }}
+                    disabled={!settings.transcription_similarity_enabled}
+                    label={
+                      <FormattedMessage
+                        defaultMessage="Minimum duration in seconds"
+                        description="number input for Automated transcription minimum duration"
+                        id="similarityComponent.minimumDuration"
+                      />
+                    }
+                    type="number"
+                    value={settings.transcription_minimum_duration}
+                    onChange={(e) => { handleSettingsChange('transcription_minimum_duration', e.target.value); }}
+                  />
+                  <TextField
+                    className={inputStyles['form-fieldset-field']}
+                    componentProps={{
+                      min: '0',
+                    }}
+                    disabled={!settings.transcription_similarity_enabled}
+                    label={
+                      <FormattedMessage
+                        defaultMessage="Maximum duration in seconds"
+                        description="number input for Automated transcription maximum duration"
+                        id="similarityComponent.maximumDuration"
+                      />
+                    }
+                    type="number"
+                    value={settings.transcription_maximum_duration}
+                    onChange={(e) => { handleSettingsChange('transcription_maximum_duration', e.target.value); }}
+                  />
+                  <TextField
+                    className={inputStyles['form-fieldset-field']}
+                    componentProps={{
+                      min: '0',
+                    }}
+                    disabled={!settings.transcription_similarity_enabled}
+                    label={
+                      <FormattedMessage
+                        defaultMessage="Minimum number of requests"
+                        description="number input for Automated transcription duration requests"
+                        id="similarityComponent.minimumRequests"
+                      />
+                    }
+                    type="number"
+                    value={settings.transcription_minimum_requests}
+                    onChange={(e) => { handleSettingsChange('transcription_minimum_requests', e.target.value); }}
+                  />
+                </div>
+              }
+            </div>
+            <div className={cx(settingsStyles['setting-content-container'], inputStyles['form-fieldset'])}>
+              <TextField
+                className={inputStyles['form-fieldset-field']}
+                label={
+                  <FormattedMessage
+                    defaultMessage="Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
+                    description="Text input for language similarity matching settings"
+                    id="similarityComponent.languageForSimilarity"
+                  />
+                }
+                value={settings.language_for_similarity}
+                onChange={(e) => { handleSettingsChange('language_for_similarity', e.target.value); }}
+              />
+              <TextField
+                className={inputStyles['form-fieldset-field']}
+                componentProps={{
+                  min: '0',
+                }}
+                label={
+                  <FormattedMessage
+                    defaultMessage="Minimum score for ElasticSearch"
+                    description="number input for the minimum matching score for ElasticSearch"
+                    id="similarityComponent.minEsScore"
+                  />
+                }
+                type="number"
+                value={settings.min_es_score}
+                onChange={(e) => { handleSettingsChange('min_es_score', parseInt(e.target.value, 10)); }}
+              />
             </div>
           </React.Fragment>
         ) : null }

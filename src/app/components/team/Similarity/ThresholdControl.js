@@ -42,10 +42,8 @@ const ThresholdControl = ({
           min: '0',
         }}
         disabled={disabled}
-        size="small"
         type="number"
         value={value}
-        variant="outlined"
         onChange={e => onChange(e.target.value)}
       />
       <Slider
