@@ -38,6 +38,9 @@ const ThresholdControl = ({
     <div className={styles['threshold-control-inputs']}>
       <TextField
         className={settingsStyles['similarity-component-input']}
+        componentProps={{
+          min: '0',
+        }}
         disabled={disabled}
         size="small"
         type="number"

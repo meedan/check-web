@@ -20,6 +20,16 @@
     "defaultMessage": "Similarity Matching"
   },
   {
+    "id": "similarityComponent.singleLanguageFactChecksHelp",
+    "description": "Help text displayed when similarity setting for single language articles is enabled",
+    "defaultMessage": "If enabled, articles will only be sent to users whose chosen language of conversation in the tipline matches the article language. If disabled, articles will be sent to all users whose media matches the claim, regardless of their conversation language. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about tipline menus</a>."
+  },
+  {
+    "id": "similarityComponent.singleLanguageFactChecksEnabled",
+    "description": "Label displayed when similarity setting for single language articles is enabled",
+    "defaultMessage": "Only send articles in the same language as the conversation language"
+  },
+  {
     "id": "similarityComponent.masterSwitchLabelOn",
     "description": "Switch input label when switch is set to automatic matching",
     "defaultMessage": "Automated matching is ON"
@@ -37,17 +47,7 @@
   {
     "id": "similarityComponent.dateThreshold",
     "description": "Number input for how many month back similarity suggestions will be processed for",
-    "defaultMessage": "Similar content last submitted more than {maxTime} months ago will only be suggested"
-  },
-  {
-    "id": "similarityComponent.singleLanguageFactChecksHelp",
-    "description": "Help text displayed when similarity setting for single language articles is enabled",
-    "defaultMessage": "If enabled, articles will only be sent to users whose chosen language of conversation in the tipline matches the article language. If disabled, articles will be sent to all users whose media matches the claim, regardless of their conversation language. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about tipline menus</a>."
-  },
-  {
-    "id": "similarityComponent.singleLanguageFactChecksEnabled",
-    "description": "Label displayed when similarity setting for single language articles is enabled",
-    "defaultMessage": "Only send articles in the same language as the conversation language"
+    "defaultMessage": "Only similar content last submitted more than {maxTime} {count, plural, one {month} other {months}} ago will be suggested."
   },
   {
     "id": "similarityComponent.textLength",
