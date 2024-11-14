@@ -463,6 +463,11 @@
   }
 }
 
+.bulk-assign-media-dialog-note {
+  min-width: 450px;
+  padding: 16px;
+}
+
 .video-media-card {
   position: relative;
 

@@ -1,15 +1,15 @@
-/* eslint-disable relay/unused-fields, react/sort-prop-types */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import TextField from '../cds/inputs/TextField';
 import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import styles from './media.module.css';
 
 const BulkActionsAssign = ({
   onDismiss,
@@ -90,14 +90,14 @@ const BulkActionsAssign = ({
           submitLabel={
             <FormattedMessage
               defaultMessage="{numItems, plural, one {Assign # item} other {Assign # items}}"
-              description="Button for commiting the action of assigning of a number of items in bulk"
+              description="Button for committing the action of assigning of a number of items in bulk"
               id="bulkActionsAssign.submitLabel"
               values={{ numItems: selectedMedia.length }}
             />
           }
           onSubmit={handleSubmit}
         >
-          <Box mt={2} mx={2}>
+          <div className={styles['bulk-assign-media-dialog-note']}>
             <TextField
               label={
                 <FormattedMessage
@@ -111,7 +111,7 @@ const BulkActionsAssign = ({
               variant="outlined"
               onChange={e => setAssignMessage(e.target.value)}
             />
-          </Box>
+          </div>
         </MultiSelector>
       )}
     </FormattedMessage>
@@ -119,12 +119,12 @@ const BulkActionsAssign = ({
 };
 
 BulkActionsAssign.propTypes = {
-  onDismiss: PropTypes.func.isRequired,
   selectedMedia: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   team: PropTypes.shape({
     team_users: PropTypes.object.isRequired,
   }).isRequired,
+  onDismiss: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(withSetFlashMessage(BulkActionsAssign), graphql`
