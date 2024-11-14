@@ -13,35 +13,32 @@ const TabWrapper = ({
   tabs,
   variant,
 }) => {
-  const [activeTab, setActiveTab] = React.useState(getQueryStringValue('tab') || tabs[0].value);
+  const [activeTab, setActiveTab] = React.useState(getQueryStringValue('tab') || tabs.find(tab => tab.show !== false).value);
   const wrapperRef = React.useRef(null);
   const [isOverflowing, setIsOverflowing] = React.useState(false);
   const [fullTabWidth, setFullTabWidth] = React.useState(0);
 
   useLayoutEffect(() => {
-    const calculateFullTabWidth = () => {
-      if (wrapperRef.current) {
-        const tabItems = Array.from(wrapperRef.current.children);
-        const totalTabWidth = tabItems.reduce((total, tab) => total + tab.clientWidth, 0);
-        setFullTabWidth(totalTabWidth + (tabItems.length * 16));
-        return totalTabWidth;
-      }
-      return 0;
-    };
+    if (wrapperRef.current) {
+      const tabItems = Array.from(wrapperRef.current.children);
+      const totalTabWidth = tabItems.reduce((total, tab) => total + tab.clientWidth, 0);
+      setFullTabWidth(totalTabWidth + (tabItems.length * 16));
+    }
+  }, []);
 
-    const checkOverflow = (totalTabWidth) => {
+  useLayoutEffect(() => {
+    const checkOverflow = (tabWidth) => {
       if (wrapperRef.current) {
         const containerWidth = wrapperRef.current.clientWidth;
-        if (totalTabWidth > containerWidth) {
+        if (tabWidth > containerWidth && !isOverflowing) {
           setIsOverflowing(true);
-        } else {
+        } else if (tabWidth <= containerWidth && isOverflowing) {
           setIsOverflowing(false);
         }
       }
     };
 
-    const totalTabWidth = calculateFullTabWidth();
-    checkOverflow(totalTabWidth);
+    checkOverflow(fullTabWidth);
 
     const resizeObserver = new ResizeObserver(() => {
       checkOverflow(fullTabWidth);
@@ -80,7 +77,7 @@ const TabWrapper = ({
     if (getQueryStringValue('tab')) {
       onChange(getQueryStringValue('tab'));
     } else {
-      pushQueryStringValue('tab', tabs[0].value);
+      pushQueryStringValue('tab', activeTab);
     }
   }, []);
 
@@ -113,6 +110,7 @@ const TabWrapper = ({
           {tabs.map(tab => (
             <option
               className={tab.className}
+              key={tab.value}
               value={tab.value}
             >
               {tab.label}{tab.extraLabel}
