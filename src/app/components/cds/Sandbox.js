@@ -23,6 +23,7 @@ import SwitchComponent from './inputs/SwitchComponent';
 import ButtonMain from './buttons-checkboxes-chips/ButtonMain';
 import Checkbox from './buttons-checkboxes-chips/Checkbox';
 import Slideout from './slideout/Slideout';
+import TabWrapper from './menus-lists-dialogs/TabWrapper';
 import Reorder from '../layout/Reorder';
 import AddIcon from '../../icons/settings.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
@@ -367,6 +368,12 @@ const SandboxComponent = ({ admin }) => {
   const [numberWidgetUnit, setNumberWidgetUnit] = React.useState(Boolean(true));
   const [numberWidgetContextText, setNumberWidgetContextText] = React.useState(Boolean(true));
 
+  const [tabsIcon, setTabsIcon] = React.useState('none');
+  const [tabsDisabled, setTabsDisabled] = React.useState(Boolean(false));
+  const [tabsSize, setTabsSize] = React.useState('default');
+  const [tabsVariant, setTabsVariant] = React.useState('default');
+  const [activeTab, setActiveTab] = React.useState('');
+
   const generateUncaughtError = () => {
     // eslint-disable-next-line
     thisGeneratesSandboxError();
@@ -467,6 +474,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <ButtonMain label="Charts" size="small" theme={selectedCategory === 'charts' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('charts')} />
+        </li>
+        <li>
+          <ButtonMain label="Tabs" size="small" theme={selectedCategory === 'tabs' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('tabs')} />
         </li>
       </ul>
       { (!selectedCategory || selectedCategory === 'cards') &&
@@ -2215,6 +2225,109 @@ const SandboxComponent = ({ admin }) => {
                 }
                 title="List Title"
               />
+            </div>
+          </div>
+        </section>
+      }
+      { (!selectedCategory || selectedCategory === 'tabs') &&
+        <section>
+          <h6>Tabs</h6>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                Tabs
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/88ZNxsO7k8UHY85QaHXAs7/Unpublished?node-id=1-20650&node-type=symbol&m=dev"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <Select
+                    label="Variant"
+                    value={tabsVariant}
+                    onChange={e => setTabsVariant(e.target.value)}
+                  >
+                    <option value="default">Default</option>
+                    <option value="banner">Banner</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Size"
+                    value={tabsSize}
+                    onChange={e => setTabsSize(e.target.value)}
+                  >
+                    <option value="default">default</option>
+                    <option value="large">large</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Icons"
+                    value={tabsIcon}
+                    onChange={e => setTabsIcon(e.target.value)}
+                  >
+                    <option value="none">none</option>
+                    <option value="left">left</option>
+                    <option value="right">right</option>
+                    <option value="center">center</option>
+                  </Select>
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={tabsDisabled}
+                    label="Disabled"
+                    labelPlacement="top"
+                    onChange={() => setTabsDisabled(!tabsDisabled)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <div style={{ border: '1px solid black' }}>
+                <TabWrapper
+                  size={tabsSize}
+                  tabs={
+                    [
+                      {
+                        label: 'Tab 1',
+                        iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                        iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                        iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                        disabled: tabsDisabled,
+                        value: 'tab 1',
+                      },
+                      {
+                        label: 'Tab 2',
+                        iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                        iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                        iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                        disabled: tabsDisabled,
+                        value: 'tab 2',
+                      },
+                      {
+                        label: 'Tab 3',
+                        iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                        iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                        iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                        disabled: tabsDisabled,
+                        value: 'tab 3',
+                      },
+                    ]
+                  }
+                  variant={tabsVariant}
+                  onChange={value => setActiveTab(value)}
+                />
+                <div>
+                  {activeTab}
+                </div>
+              </div>
             </div>
           </div>
         </section>
