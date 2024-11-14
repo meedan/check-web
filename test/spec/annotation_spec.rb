@@ -112,6 +112,7 @@ shared_examples 'annotation' do
   it 'should add, and answer a multiple choice annotation', bin4: true do
     api_create_team_metadata_and_claim({ quote: 'item item', type: 'multiple_choice', options: '[{"label": "Foo"}, {"label": "Bar"}]' })
     wait_for_selector('#search-input')
+    @driver.manage.window.maximize
     wait_for_selector('.cluster-card').click
     wait_for_selector('.media__annotations-tabs')
     wait_for_selector('.media-tab__metadata').click
