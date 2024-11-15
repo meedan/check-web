@@ -47,7 +47,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           icon={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
           info={
             isOnline('whatsapp') ?
-              <Box>
+              <div>
                 <FormattedMessage
                   defaultMessage="Connected phone number: {link}"
                   description="Label showing the whatsapp phone number connected to this bot"
@@ -61,13 +61,12 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                   }}
                 />
                 <Box mb={1} mt={2}>
-                  <strong>
-                    <FormattedMessage
-                      defaultMessage="Entry point"
-                      description="Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
-                      id="smoochBotIntegrations.entryPointTitle"
-                    />
-                  </strong>
+                  <FormattedMessage
+                    defaultMessage="Entry point"
+                    description="Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+                    id="smoochBotIntegrations.entryPointTitle"
+                    tagName="strong"
+                  />
                   <Box mt={1}>
                     <FormattedMessage
                       defaultMessage="Use this address anywhere online to open WhatsApp and start a tipline conversation:"
@@ -118,13 +117,12 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                   </Box>
                 </Box>
                 <Box mb={1} mt={2}>
-                  <strong>
-                    <FormattedMessage
-                      defaultMessage="QR code"
-                      description="Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
-                      id="smoochBotIntegrations.qrCodeTitle"
-                    />
-                  </strong>
+                  <FormattedMessage
+                    defaultMessage="QR code"
+                    description="Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+                    id="smoochBotIntegrations.qrCodeTitle"
+                    tagName="strong"
+                  />
                   <Box mb={1} mt={1}>
                     <FormattedMessage
                       defaultMessage="Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation."
@@ -132,7 +130,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                       id="smoochBotIntegrations.qrCodeDescription"
                     />
                   </Box>
-                  <Box>
+                  <div>
                     <Box alignItems="flex-start" display="flex">
                       <TextField
                         className={smoochBotStyles['smoochbot-component-input']}
@@ -182,9 +180,9 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                         onClick={handleDownloadWhatsAppQrCode}
                       />
                     </Box>
-                  </Box>
+                  </div>
                 </Box>
-              </Box> : null
+              </div> : null
           }
           installationId={installationId}
           label="WhatsApp"
