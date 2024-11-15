@@ -39,6 +39,7 @@ shared_examples 'source' do
   it 'should add a existing source for a media', bin4: true do
     api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'https://www.cnnbrasil.com.br/' })
     wait_for_selector('.test__media')
+    @driver.manage.window.maximize
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__name')
     expect(@driver.page_source.downcase.include?('brasil')).to be(true)
@@ -49,6 +50,7 @@ shared_examples 'source' do
     create_media('media 2')
     @driver.navigate.refresh
     wait_for_selector_list_size('.cluster-card', 2)
+    @driver.manage.window.maximize
     wait_for_selector('.cluster-card').click
     wait_for_selector('.test__media')
     wait_for_selector('.media-tab__source').click
