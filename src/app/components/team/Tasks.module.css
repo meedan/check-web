@@ -27,7 +27,6 @@
           align-items: center;
           display: flex;
           gap: 8px;
-          margin: 0 0 8px;
 
           .task-card-label-description-index {
             align-items: center;
@@ -43,6 +42,11 @@
             display: block;
             flex: 1 1 auto;
           }
+        }
+
+        p {
+          @mixin typography-body2;
+          margin: 4px 0 0;
         }
       }
     }

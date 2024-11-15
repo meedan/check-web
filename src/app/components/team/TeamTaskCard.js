@@ -79,9 +79,11 @@ const TeamTaskCard = ({
               </Menu>
             </div>
           </div>
-          <p>
-            {task.description}
-          </p>
+          { task.description &&
+            <p>
+              {task.description}
+            </p>
+          }
         </div>
       </div>
       <div className={settingsStyles['setting-content-container-inner-accent']}>
@@ -109,9 +111,7 @@ const TeamTaskCard = ({
         </div>
         <TeamTaskCardForm about={about} task={task} />
       </div>
-      <div>
-        {children}
-      </div>
+      {children}
     </div>
   );
 };
