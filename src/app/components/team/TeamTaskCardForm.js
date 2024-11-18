@@ -65,7 +65,7 @@ const TeamTaskCardForm = ({ about, task }) => (
     }
     { task.type === 'geolocation' ?
       <MetadataLocation
-        AnnotatorInformation={() => <></>}
+        AnnotatorInformation={() => null}
         CancelButton={() => null}
         DeleteButton={() => null}
         EditButton={() => null}
