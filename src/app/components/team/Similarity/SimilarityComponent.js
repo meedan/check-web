@@ -251,7 +251,7 @@ const SimilarityComponent = ({
                 />
                 { settings.date_similarity_threshold_enabled &&
                   <FormattedMessage
-                    defaultMessage="Similar content last submitted more than {maxTime} {count, plural, one {month} other {months}} ago will only be suggested not automatically confirmed as a matched."
+                    defaultMessage="Similar content last submitted more than {maxTime} {count, plural, one {month} other {months}} ago will only be suggested, not automatically confirmed as a matched."
                     description="Number input for how many month back similarity suggestions will be processed for"
                     id="similarityComponent.dateThreshold"
                     values={{

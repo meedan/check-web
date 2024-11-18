@@ -47,7 +47,7 @@
   {
     "id": "similarityComponent.dateThreshold",
     "description": "Number input for how many month back similarity suggestions will be processed for",
-    "defaultMessage": "Similar content last submitted more than {maxTime} {count, plural, one {month} other {months}} ago will only be <strong>suggested</strong> not automatically confirmed as a matched."
+    "defaultMessage": "Similar content last submitted more than {maxTime} {count, plural, one {month} other {months}} ago will only be suggested, not automatically confirmed as a matched."
   },
   {
     "id": "similarityComponent.textLength",
