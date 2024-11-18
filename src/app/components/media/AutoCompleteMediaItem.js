@@ -105,6 +105,7 @@ const AutoCompleteMediaItem = (props, context) => {
     eslimit: 50,
     archived: [CheckArchivedFlags.NONE, CheckArchivedFlags.UNCONFIRMED],
     show_similar: Boolean(props.customFilter),
+    sort: 'score',
   };
   if (keywordFields) {
     query.keyword_fields = keywordFields;
