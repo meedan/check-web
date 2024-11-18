@@ -388,9 +388,9 @@ const AutoCompleteMediaItem = (props, context) => {
                     statusColor={currentStatus ? currentStatus.style?.color : null}
                     statusLabel={currentStatus ? currentStatus.label : null}
                     summary={isFactCheckValueBlank(projectMedia.fact_check.summary) ? projectMedia.fact_check.claim_description?.description : projectMedia.fact_check.summary}
-                    tags={projectMedia.fact_check?.tags}
+                    tags={projectMedia.fact_check.tags}
                     title={isFactCheckValueBlank(projectMedia.fact_check.title) ? projectMedia.fact_check.claim_description?.context : projectMedia.fact_check.title}
-                    url={projectMedia.fact_check?.url}
+                    url={projectMedia.fact_check.url}
                     variant="fact-check"
                     onChangeTags={() => {}}
                   />
