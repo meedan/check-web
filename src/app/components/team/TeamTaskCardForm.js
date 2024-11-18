@@ -51,6 +51,7 @@ const TeamTaskCardForm = ({ about, task }) => (
     { task.type === 'number' ?
       <MetadataNumber
         AnnotatorInformation={() => null}
+        CancelButton={() => null}
         DeleteButton={() => null}
         EditButton={() => null}
         FieldInformation={() => null}
