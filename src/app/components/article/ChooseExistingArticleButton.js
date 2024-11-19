@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import cx from 'classnames/bind';
 import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
 import SearchIcon from '../../icons/search.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -90,15 +89,6 @@ const ChooseExistingArticleButton = ({
                 </FormattedMessage>
               </div>
               <div className={styles.seachResults}>
-                { !search && (
-                  <div className={cx('typography-subtitle2', styles.heading)}>
-                    <FormattedMessage
-                      defaultMessage="Choose a recent article to add to this media:"
-                      description="Message displayed on articles sidebar when an item has no articles."
-                      id="mediaArticles.chooseRecentArticle"
-                    />
-                  </div>
-                )}
                 <MediaArticlesTeamArticles targetId={projectMediaDbid} teamSlug={teamSlug} textSearch={search} onAdd={onAdd} />
               </div>
             </div>

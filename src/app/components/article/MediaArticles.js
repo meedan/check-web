@@ -14,6 +14,7 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import Loader from '../cds/loading/Loader';
 import { getErrorMessage } from '../../helpers';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import DescriptionIcon from '../../icons/description.svg';
 import styles from './Articles.module.css';
 
 const addExplainerMutation = graphql`
@@ -157,7 +158,19 @@ const MediaArticlesComponent = ({
         { hasArticle ? (
           <MediaArticlesDisplay projectMedia={projectMedia} onUpdate={onUpdate} />
         ) : (
-          <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
+          <>
+            <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
+              <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
+              <div>
+                <FormattedMessage
+                  defaultMessage="No articles are being delivered to Tipline users who send requests that match this Media."
+                  description="Message displayed on articles sidebar when an item has no articles."
+                  id="mediaArticles.noArticlesAddedToItem"
+                />
+              </div>
+            </div>
+            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
+          </>
         )}
       </div>
 

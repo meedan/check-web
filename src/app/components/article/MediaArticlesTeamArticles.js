@@ -29,17 +29,7 @@ const MediaArticlesTeamArticlesComponent = ({
   team.relevantExplainers?.edges?.some(edge => edge.node?.id);
   return (
     <>
-      <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
-        <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
-        <div>
-          <FormattedMessage
-            defaultMessage="No articles are being delivered to Tipline users who send requests that match this Media."
-            description="Message displayed on articles sidebar when an item has no articles."
-            id="mediaArticles.noArticlesAddedToItem"
-          />
-        </div>
-      </div>
-      { !hasRelevantArticles && (
+      { !hasRelevantArticles && !textSearch && (
         <div className="typography-subtitle2">
           <FormattedMessage
             defaultMessage="Choose a recent article to add to this media:"
@@ -48,7 +38,7 @@ const MediaArticlesTeamArticlesComponent = ({
           />
         </div>
       )}
-      { hasRelevantArticles && (
+      { hasRelevantArticles && !textSearch && (
         <div className="typography-subtitle2">
           <FormattedMessage
             defaultMessage="Choose a relevant article to add to this media:"
