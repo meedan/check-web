@@ -6,6 +6,7 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import Loader from '../cds/loading/Loader';
 import MediaSlug from '../media/MediaSlug';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import NotFound from '../NotFound';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
@@ -24,6 +25,13 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
       {items.map((item) => {
         const details = [
           (
+            <MediaIdentifier
+              mediaType={item.type}
+              slug={item.title}
+              theme="lightText"
+              variant="text"
+            />
+          ), (
             item.last_seen &&
               <LastRequestDate
                 lastRequestDate={item.last_seen * 1000}
@@ -58,8 +66,6 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
                   <MediaSlug
                     className={styles['media-slug-title']}
                     details={details}
-                    mediaType={item.type}
-                    slug={item.title}
                   />
                 }
                 projectMediaImportedId={selectedItemId}

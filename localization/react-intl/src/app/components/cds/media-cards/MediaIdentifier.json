@@ -1,0 +1,12 @@
+[
+  {
+    "id": "mediaIdentifier.copiedToClipboard",
+    "description": "success message fro when the identifier slug for this piece of media has been copied to the clipboard",
+    "defaultMessage": "The media identifier has been copied to the clipboard"
+  },
+  {
+    "id": "mediaIdentifier.copy",
+    "description": "Message to the user describing the requirements for uploading an image",
+    "defaultMessage": "Copy <strong>{mediaTypeName}</strong> Identifier to the Clipboard:"
+  }
+]

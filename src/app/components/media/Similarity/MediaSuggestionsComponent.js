@@ -11,6 +11,7 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
+import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import MediaSlug from '../MediaSlug';
@@ -553,8 +554,6 @@ const MediaSuggestionsComponent = ({
               <MediaSlug
                 className={styles['media-slug-title']}
                 details={details}
-                mediaType={relationshipItem?.target?.type}
-                slug={relationshipItem?.target?.title}
               />
             }
             projectMediaId={selectedItemId}
@@ -939,6 +938,13 @@ const MediaSuggestionsComponent = ({
               .map(relationshipItem => (
                 <RelationshipItem
                   details={[(
+                    <MediaIdentifier
+                      mediaType={relationshipItem?.target?.type}
+                      slug={relationshipItem?.target?.title}
+                      theme="lightText"
+                      variant="text"
+                    />
+                  ), (
                     <LastRequestDate
                       lastRequestDate={+relationshipItem?.target?.last_seen * 1000}
                       theme="lightText"

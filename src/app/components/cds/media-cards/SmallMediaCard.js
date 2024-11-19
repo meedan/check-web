@@ -9,12 +9,10 @@ import Alert from '../alerts-and-prompts/Alert';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
-import { getMediaType } from '../../../helpers';
 import styles from './Card.module.css';
 
 const SmallMediaCard = ({
   className, // { type, url, domain, quote, picture, metadata }
-  customTitle,
   description,
   details,
   maskContent,
@@ -68,11 +66,7 @@ const SmallMediaCard = ({
               </div> : null
             }
           </div>
-          <MediaSlug
-            details={details}
-            mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
-            slug={customTitle || media.metadata?.title}
-          />
+          <MediaSlug details={details} />
         </div>
       </div>
     </div>
@@ -88,7 +82,6 @@ SmallMediaCard.propTypes = {
     picture: PropTypes.string, // URL to an image
     metadata: PropTypes.object,
   }).isRequired,
-  customTitle: PropTypes.string,
   details: PropTypes.array,
   description: PropTypes.string,
   maskContent: PropTypes.bool,
@@ -98,7 +91,6 @@ SmallMediaCard.propTypes = {
 };
 
 SmallMediaCard.defaultProps = {
-  customTitle: null,
   details: null,
   description: null,
   maskContent: false,
@@ -113,7 +105,6 @@ export default createFragmentContainer(SmallMediaCard, graphql`
   fragment SmallMediaCard_media on Media {
     type
     url
-    domain
     quote
     picture
     metadata

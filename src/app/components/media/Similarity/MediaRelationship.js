@@ -18,6 +18,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../../helpers';
+import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import styles from '../media.module.css';
@@ -268,6 +269,13 @@ const MediaRelationship = ({
   };
 
   const details = [(
+    <MediaIdentifier
+      mediaType={relationship?.target?.type}
+      slug={relationship.target?.title}
+      theme="lightText"
+      variant="text"
+    />
+  ), (
     <LastRequestDate
       lastRequestDate={+relationship?.target?.last_seen * 1000}
       theme="lightText"
@@ -293,8 +301,6 @@ const MediaRelationship = ({
             <MediaSlug
               className={styles['media-slug-title']}
               details={details}
-              mediaType={relationship?.target?.type}
-              slug={relationship.target?.title}
             />
           }
           projectMediaId={relationship.target_id}

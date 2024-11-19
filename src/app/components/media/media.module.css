@@ -341,29 +341,8 @@
 }
 
 .media-slug {
-  .media-slug-title {
-    align-items: center;
-    display: flex;
-    gap: 3px;
-    margin: 4px 0;
-
-    h6 {
-      @mixin typography-body2;
-      min-width: 0; /* https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child */
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-  }
-
   .media-slug-bullets {
     @mixin typography-body2;
-  }
-
-  &.media-slug-title {
-    h6 {
-      @mixin typography-body1-bold;
-    }
   }
 }
 

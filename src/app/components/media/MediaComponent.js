@@ -21,6 +21,7 @@ import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAnd
 import PushPinIcon from '../../icons/push_pin.svg';
 import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './media.module.css';
@@ -206,6 +207,13 @@ class MediaComponent extends Component {
                       <MediaSlug
                         className={styles['media-slug-title']}
                         details={[(
+                          <MediaIdentifier
+                            mediaType={projectMedia.type}
+                            slug={projectMedia.title}
+                            theme="lightText"
+                            variant="text"
+                          />
+                        ), (
                           <LastRequestDate
                             lastRequestDate={projectMedia.last_seen * 1000}
                             theme="lightText"
@@ -218,8 +226,6 @@ class MediaComponent extends Component {
                             variant="text"
                           />
                         )]}
-                        mediaType={projectMedia.type}
-                        slug={projectMedia.title}
                       />
                     }
                     projectMediaId={projectMedia.dbid}

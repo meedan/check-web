@@ -8,6 +8,7 @@ import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaSlug from './MediaSlug';
 import ExternalLink from '../ExternalLink';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './media.module.css';
 
@@ -79,6 +80,13 @@ const MediaCardLargeFooter = ({
       { !inModal ?
         <MediaSlug
           details={[(
+            <MediaIdentifier
+              mediaType={mediaType}
+              slug={projectMedia.media_slug || projectMedia.title}
+              theme="lightText"
+              variant="text"
+            />
+          ), (
             <LastRequestDate
               lastRequestDate={projectMedia.last_seen * 1000}
               theme="lightText"
@@ -92,8 +100,6 @@ const MediaCardLargeFooter = ({
             />
           ),
           ]}
-          mediaType={mediaType}
-          slug={projectMedia.media_slug || projectMedia.title}
         />
         : null
       }
