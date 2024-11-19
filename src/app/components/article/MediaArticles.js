@@ -133,6 +133,10 @@ const MediaArticlesComponent = ({
     }
   };
 
+  const hasRelevantArticles =
+    team.relevantFactChecks?.edges?.some(edge => edge.node?.id) ||
+    team.relevantExplainers?.edges?.some(edge => edge.node?.id);
+
   return (
     <div className={styles.articlesSidebar} id="articles-sidebar">
       <div className={styles.articlesSidebarTopBar}>
@@ -165,13 +169,24 @@ const MediaArticlesComponent = ({
                 />
               </div>
             </div>
-            <div className="typography-subtitle2">
-              <FormattedMessage
-                defaultMessage="Choose a recent article to add to this media:"
-                description="Message displayed on articles sidebar when an item has no articles."
-                id="mediaArticles.chooseRecentArticle"
-              />
-            </div>
+            { !hasRelevantArticles && (
+              <div className="typography-subtitle2">
+                <FormattedMessage
+                  defaultMessage="Choose a recent article to add to this media:"
+                  description="Message displayed on articles sidebar when an item has no articles."
+                  id="mediaArticles.chooseRecentArticle"
+                />
+              </div>
+            )}
+            { hasRelevantArticles && (
+              <div className="typography-subtitle2">
+                <FormattedMessage
+                  defaultMessage="Choose a relevant article to add to this media:"
+                  description="Message displayed on articles sidebar when an item has relevant articles."
+                  id="mediaArticles.chooseRelevantArticle"
+                />
+              </div>
+            )}
             <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
           </>
         )}
@@ -247,6 +262,24 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
             team(slug: $slug) {
               slug
               ...NewArticleButton_team
+              relevantFactChecks: relevant_articles(first: 1, article_type: "fact-check", sort: "id", sort_type: "desc", text: "", target_id: null) {
+                edges {
+                 node {
+                   ... on FactCheck {
+                     id
+                   }
+                 }
+               }
+              }
+              relevantExplainers: relevant_articles(first: 1, article_type: "explainer", sort: "id", sort_type: "desc", text: "", target_id: null) {
+                edges {
+                  node {
+                    ... on Explainer {
+                      id
+                    }
+                  }
+                }
+              }
             }
             project_media(ids: $ids) {
               dbid
