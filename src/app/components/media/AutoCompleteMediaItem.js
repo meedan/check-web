@@ -333,6 +333,15 @@ const AutoCompleteMediaItem = (props, context) => {
         <div className={styles['media-item-autocomplete-results']}>
           { searchResult.items.map((projectMedia) => {
             let currentStatus = null;
+
+            /* If the selected item type is fact-check and the projectMedia lacks a fact-check, return null.
+            This may be due to a missing ElasticSearch update or a race condition during the update process,
+            where fact-check data is temporarily unavailable. This avoids showing stale or invalid data.
+            */
+            if (props.selectedItemType === 'fact-check' && !projectMedia.fact_check) {
+              return null;
+            }
+
             if (projectMedia.fact_check?.rating) {
               currentStatus = getStatus(searchResult.team.verification_statuses, projectMedia.fact_check.rating);
             }
