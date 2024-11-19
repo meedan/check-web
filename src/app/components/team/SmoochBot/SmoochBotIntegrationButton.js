@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../../cds/inputs/TextField';
 import SettingsHeader from '../SettingsHeader';
@@ -262,10 +262,14 @@ const SmoochBotIntegrationButton = ({
       <ConfirmProceedDialog
         body={
           deprecationNotice ?
-            <Box>{deprecationNotice}</Box> :
-            <Box>
+            <Alert
+              icon
+              title={deprecationNotice}
+              variant="warning"
+            /> :
+            <div>
               {params.map(param => (
-                <Box key={param.key}>
+                <div key={param.key}>
                   <TextField
                     id={`smooch-bot-integration-button__${type}-${param.key}`}
                     key={param.key}
@@ -273,9 +277,9 @@ const SmoochBotIntegrationButton = ({
                     variant="outlined"
                     onChange={(e) => { handleParam(param.key, e.target.value); }}
                   />
-                </Box>
+                </div>
               ))}
-              <Box>
+              <div>
                 { url ?
                   <FormattedMessage
                     defaultMessage="Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline."
@@ -291,8 +295,8 @@ const SmoochBotIntegrationButton = ({
                     tagName="p"
                   />
                 }
-              </Box>
-            </Box>
+              </div>
+            </div>
         }
         cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Button label to cancel connection" id="smoochBotIntegrationButton.cancel" />}
         isSaving={saving}

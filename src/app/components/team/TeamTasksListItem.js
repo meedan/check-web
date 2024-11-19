@@ -1,9 +1,8 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, graphql } from 'react-relay/compat';
-import Box from '@material-ui/core/Box';
+import cx from 'classnames/bind';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import TeamTaskCard from './TeamTaskCard';
 import TeamTaskContainer from './TeamTaskContainer';
@@ -23,6 +22,7 @@ import LinkOutlinedIcon from '../../icons/link.svg';
 import LocationIcon from '../../icons/location.svg';
 import RadioButtonCheckedIcon from '../../icons/radio_button_checked.svg';
 import ShortTextIcon from '../../icons/notes.svg';
+import styles from './Tasks.module.css';
 
 function submitMoveTeamTaskUp({
   onFailure,
@@ -302,7 +302,7 @@ class TeamTasksListItem extends React.Component {
 
     return (
       <React.Fragment>
-        <Box alignItems="center" className="team-tasks__list-item" display="flex" style={{ gap: '10px' }}>
+        <li className={cx('team-tasks__list-item', styles['team-tasks-list-item'])}>
           <Reorder
             disableDown={this.props.isLast}
             disableUp={this.props.isFirst}
@@ -354,7 +354,7 @@ class TeamTasksListItem extends React.Component {
                 />
               )}
             </TeamTaskContainer> : null }
-        </Box>
+        </li>
       </React.Fragment>
     );
   }
@@ -362,6 +362,7 @@ class TeamTasksListItem extends React.Component {
 
 
 TeamTasksListItem.propTypes = {
+  about: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   task: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -377,7 +378,6 @@ TeamTasksListItem.propTypes = {
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }).isRequired,
-  about: PropTypes.object.isRequired,
 };
 
 export default withSetFlashMessage(TeamTasksListItem);

@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -54,8 +53,8 @@ const TeamTaskCard = ({
                 className="team-tasks__menu-item-button"
                 iconCenter={<IconMoreVert />}
                 size="default"
-                theme="text"
-                variant="outlined"
+                theme="lightBeige"
+                variant="contained"
                 onClick={e => setAnchorEl(e.currentTarget)}
               />
               <Menu
@@ -80,9 +79,11 @@ const TeamTaskCard = ({
               </Menu>
             </div>
           </div>
-          <p>
-            {task.description}
-          </p>
+          { task.description &&
+            <p>
+              {task.description}
+            </p>
+          }
         </div>
       </div>
       <div className={settingsStyles['setting-content-container-inner-accent']}>
@@ -110,24 +111,22 @@ const TeamTaskCard = ({
         </div>
         <TeamTaskCardForm about={about} task={task} />
       </div>
-      <div>
-        {children}
-      </div>
+      {children}
     </div>
   );
 };
 
 TeamTaskCard.propTypes = {
+  about: PropTypes.object.isRequired,
   icon: PropTypes.node.isRequired,
-  task: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  showInBrowserExtension: PropTypes.bool.isRequired,
-  setShowInBrowserExtension: PropTypes.func.isRequired,
   required: PropTypes.bool.isRequired,
   setRequired: PropTypes.func.isRequired,
-  about: PropTypes.object.isRequired,
+  setShowInBrowserExtension: PropTypes.func.isRequired,
+  showInBrowserExtension: PropTypes.bool.isRequired,
+  task: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
 
 export default TeamTaskCard;

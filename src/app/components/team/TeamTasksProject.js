@@ -1,8 +1,5 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import List from '@material-ui/core/List';
 import cx from 'classnames/bind';
 import TeamTasksListItem from './TeamTasksListItem';
 import settingsStyles from './Settings.module.css';
@@ -11,10 +8,12 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
   <div className={cx('team-tasks-project', settingsStyles['setting-content-container'])}>
     {
       props.project.title ?
-        <Box pb={2}>{props.project.title}</Box>
+        <div className={settingsStyles['setting-content-container-title']}>
+          <span>{props.project.title}</span>
+        </div>
         : null
     }
-    <List>
+    <ul>
       {props.project.teamTasks.map((task, index) =>
         (<TeamTasksListItem
           about={props.about}
@@ -26,17 +25,17 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
           tasks={props.project.teamTasks}
           team={props.team}
         />))}
-    </List>
+    </ul>
   </div>
 ) : null;
 
 TeamTasksProject.propTypes = {
+  about: PropTypes.object.isRequired,
   project: PropTypes.shape({
     teamTasks: PropTypes.array,
     title: PropTypes.string,
   }).isRequired,
   team: PropTypes.object.isRequired,
-  about: PropTypes.object.isRequired,
 };
 
 export default TeamTasksProject;
