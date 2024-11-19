@@ -5,21 +5,6 @@
     "defaultMessage": "Article added successfully!"
   },
   {
-    "id": "mediaArticles.noArticlesAddedToItem",
-    "description": "Message displayed on articles sidebar when an item has no articles.",
-    "defaultMessage": "No articles are being delivered to Tipline users who send requests that match this Media."
-  },
-  {
-    "id": "mediaArticles.chooseRecentArticle",
-    "description": "Message displayed on articles sidebar when an item has no articles.",
-    "defaultMessage": "Choose a recent article to add to this media:"
-  },
-  {
-    "id": "mediaArticles.chooseRelevantArticle",
-    "description": "Message displayed on articles sidebar when an item has relevant articles.",
-    "defaultMessage": "Choose a relevant article to add to this media:"
-  },
-  {
     "id": "mediaArticles.confirmReplaceFactCheckBody",
     "description": "Confirmation dialog message when replacing a fact-check.",
     "defaultMessage": "Are you sure you would like to replace the current claim & fact-check?"

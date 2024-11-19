@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -25,8 +24,39 @@ const MediaArticlesTeamArticlesComponent = ({
   //     console.log("Relevant Articles:", article.relevent_articles.edges.map(edge => edge.node));
   //   }
   // });
+  const hasRelevantArticles =
+  team.relevantFactChecks?.edges?.some(edge => edge.node?.id) ||
+  team.relevantExplainers?.edges?.some(edge => edge.node?.id);
   return (
     <>
+      <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
+        <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
+        <div>
+          <FormattedMessage
+            defaultMessage="No articles are being delivered to Tipline users who send requests that match this Media."
+            description="Message displayed on articles sidebar when an item has no articles."
+            id="mediaArticles.noArticlesAddedToItem"
+          />
+        </div>
+      </div>
+      { !hasRelevantArticles && (
+        <div className="typography-subtitle2">
+          <FormattedMessage
+            defaultMessage="Choose a recent article to add to this media:"
+            description="Message displayed on articles sidebar when an item has no articles."
+            id="mediaArticles.chooseRecentArticle"
+          />
+        </div>
+      )}
+      { hasRelevantArticles && (
+        <div className="typography-subtitle2">
+          <FormattedMessage
+            defaultMessage="Choose a relevant article to add to this media:"
+            description="Message displayed on articles sidebar when an item has relevant articles."
+            id="mediaArticles.chooseRelevantArticle"
+          />
+        </div>
+      )}
       { textSearch && !articles.length ? (
         <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
           <DescriptionIcon />
@@ -53,8 +83,8 @@ MediaArticlesTeamArticlesComponent.defaultProps = {
 };
 
 MediaArticlesTeamArticlesComponent.propTypes = {
-  team: PropTypes.object.isRequired,
   articles: PropTypes.arrayOf(PropTypes.object),
+  team: PropTypes.object.isRequired,
   textSearch: PropTypes.string,
   onAdd: PropTypes.func.isRequired,
 };
@@ -128,8 +158,8 @@ const MediaArticlesTeamArticles = ({
           console.log("Props:", props);
 
           let articles = [];
-          if (props.team.relevantFactChecks || props.team.relevantExplainers) {
-            articles = props.team.relevantFactChecks.edges.concat(props.team.relevantExplainers.edges).map(edge => edge.node)
+          if (props.team.relevantFactChecks.length > 0 || props.team.relevantExplainers.length > 0) {
+            articles = props.team.relevantFactChecks.edges.concat(props.team.relevantExplainers.edges).map(edge => edge.node);
             // eslint-disable-next-line
             console.log("Relevant Articles:", articles);
           } else {
@@ -162,9 +192,9 @@ MediaArticlesTeamArticles.defaultProps = {
 };
 
 MediaArticlesTeamArticles.propTypes = {
+  targetId: PropTypes.number,
   teamSlug: PropTypes.string.isRequired,
-  textSearch: PropTypes.string,
-  targetId: PropTypes.number, // ProjectMedia ID (in order to exclude articles already applied to this item)
+  textSearch: PropTypes.string, // ProjectMedia ID (in order to exclude articles already applied to this item)
   onAdd: PropTypes.func.isRequired,
 };
 
