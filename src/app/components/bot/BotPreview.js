@@ -2,7 +2,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
-import ChatHistory from '../layout/ChatHistory';
+import ChatFeed from '../cds/chat/ChatFeed';
 import IconBot from '../../icons/smart_toy.svg';
 import styles from './BotPreview.module.css';
 
@@ -56,11 +56,11 @@ const BotPreview = ({ me }) => me.is_admin ? (
         </div>
       </div>
       <div className={styles['device-placeholder']}>
-        {/* <ChatHistory
-          handleClose={() => {}}
+        <ChatFeed
           history={fakeData}
           title="bli"
-        /> */}
+          userOnRight
+        />
       </div>
     </div>
     <div className={styles['settings-column']}>
