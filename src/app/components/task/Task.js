@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
+import { MetadataFile, MetadataDate, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
 import moment from 'moment';
+import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import MetadataNumber from '../metadata/MetadataNumber';
 import MetadataText from '../metadata/MetadataText';
 import Can, { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -356,44 +358,40 @@ class Task extends Component {
     const messages = this.generateMessages(about);
 
     const EditButton = () => (
-      <div className={styles['task-metadata-button']}>
-        <ButtonMain
-          className="metadata-edit"
-          label={
-            <FormattedMessage
-              defaultMessage="Edit"
-              description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
-              id="global.edit"
-            />
-          }
-          size="default"
-          theme="info"
-          variant="contained"
-          onClick={() => this.handleAction('edit_response', responseObj)}
-        />
-      </div>
+      <ButtonMain
+        className={cx('metadata-edit', styles['task-metadata-button'])}
+        label={
+          <FormattedMessage
+            defaultMessage="Edit"
+            description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
+            id="global.edit"
+          />
+        }
+        size="default"
+        theme="info"
+        variant="contained"
+        onClick={() => this.handleAction('edit_response', responseObj)}
+      />
     );
 
     const CancelButton = () => (
-      <div className={styles['task-metadata-button']}>
-        <ButtonMain
-          className="metadata-cancel"
-          label={
-            <FormattedMessage
-              defaultMessage="Cancel"
-              description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
-              id="global.cancel"
-            />
-          }
-          size="default"
-          theme="lightText"
-          variant="text"
-          onClick={() => {
-            this.setState({ editingResponse: false });
-            this.setState({ textValue: this.getMultiselectInitialValue(task) || task.first_response_value || '' });
-          }}
-        />
-      </div>
+      <ButtonMain
+        className={cx('metadata-cancel', styles['task-metadata-button'])}
+        label={
+          <FormattedMessage
+            defaultMessage="Cancel"
+            description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+            id="global.cancel"
+          />
+        }
+        size="default"
+        theme="lightText"
+        variant="text"
+        onClick={() => {
+          this.setState({ editingResponse: false });
+          this.setState({ textValue: this.getMultiselectInitialValue(task) || task.first_response_value || '' });
+        }}
+      />
     );
 
     const SaveButton = (props) => {
@@ -409,63 +407,61 @@ class Task extends Component {
         mutationPayload?.response_single_choice ||
         null;
       return (
-        <div className={styles['task-metadata-button']}>
-          <ButtonMain
-            buttonProps={{
-              'data-required': required,
-              'data-empty': empty,
-              'data-urlerror': anyInvalidUrls,
-            }}
-            className="metadata-save"
-            disabled={this.state.textValue === task.first_response_value}
-            label={
-              <FormattedMessage
-                defaultMessage="Save"
-                description="Generic label for a button or link for a user to press when they wish to save an action or setting"
-                id="global.save"
-              />
+        <ButtonMain
+          buttonProps={{
+            'data-required': required,
+            'data-empty': empty,
+            'data-urlerror': anyInvalidUrls,
+          }}
+          className={cx('metadata-save', styles['task-metadata-button'])}
+          disabled={this.state.textValue === task.first_response_value}
+          label={
+            <FormattedMessage
+              defaultMessage="Save"
+              description="Generic label for a button or link for a user to press when they wish to save an action or setting"
+              id="global.save"
+            />
+          }
+          size="default"
+          theme="info"
+          variant="contained"
+          onClick={() => {
+            let tempTextValue;
+            const isEmptyUrlArray = () => task.type === 'url' && Array.isArray(this.state.textValue) && this.state.textValue?.filter(item => item.url !== '' || item.title !== '').length === 0;
+            // if multiple choice, textValue is an object, we transform it to a string separated by ', '
+            if (task.type === 'multiple_choice') {
+              tempTextValue = this.state.textValue.selected?.join(', ');
+              if (this.state.textValue.other) {
+                tempTextValue += `, ${this.state.textValue.other}`;
+              }
+            } else {
+              tempTextValue = this.state.textValue;
             }
-            size="default"
-            theme="info"
-            variant="contained"
-            onClick={() => {
-              let tempTextValue;
-              const isEmptyUrlArray = () => task.type === 'url' && Array.isArray(this.state.textValue) && this.state.textValue?.filter(item => item.url !== '' || item.title !== '').length === 0;
-              // if multiple choice, textValue is an object, we transform it to a string separated by ', '
-              if (task.type === 'multiple_choice') {
-                tempTextValue = this.state.textValue.selected?.join(', ');
-                if (this.state.textValue.other) {
-                  tempTextValue += `, ${this.state.textValue.other}`;
-                }
-              } else {
-                tempTextValue = this.state.textValue;
+            // in the case of multiple/single choice we need to set the textTempValue of an empty annotation to null rather than empty string, so it matches the state of first_response_value
+            if (task.type === 'multiple_choice' || task.type === 'single_choice') {
+              if (tempTextValue === '') {
+                tempTextValue = null;
               }
-              // in the case of multiple/single choice we need to set the textTempValue of an empty annotation to null rather than empty string, so it matches the state of first_response_value
-              if (task.type === 'multiple_choice' || task.type === 'single_choice') {
-                if (tempTextValue === '') {
-                  tempTextValue = null;
-                }
-              }
-              if (!payload && (!this.state.textValue || isEmptyUrlArray()) && task.first_response_value && task.first_response?.id) {
-                this.submitDeleteTaskResponse(task.first_response.id);
-              } else if (tempTextValue === task?.first_response_value) {
-                // if the current submission hasn't changed at all, do nothing
-              } else if (responseObj) {
-                // if there is a pre-existing response, we must be updating a record
-                this.handleUpdateResponse(
-                  payload || this.state.textValue,
-                  uploadables ? uploadables['file[]'] : null,
-                  responseObj,
-                );
-              } else {
-                this.handleSubmitResponse(
-                  payload || this.state.textValue,
-                  uploadables ? uploadables['file[]'] : null,
-                );
-              }
-            }}
-          />
-        </div>
+            }
+            if (!payload && (!this.state.textValue || isEmptyUrlArray()) && task.first_response_value && task.first_response?.id) {
+              this.submitDeleteTaskResponse(task.first_response.id);
+            } else if (tempTextValue === task?.first_response_value) {
+              // if the current submission hasn't changed at all, do nothing
+            } else if (responseObj) {
+              // if there is a pre-existing response, we must be updating a record
+              this.handleUpdateResponse(
+                payload || this.state.textValue,
+                uploadables ? uploadables['file[]'] : null,
+                responseObj,
+              );
+            } else {
+              this.handleSubmitResponse(
+                payload || this.state.textValue,
+                uploadables ? uploadables['file[]'] : null,
+              );
+            }
+          }}
+        />
       );
     };
 
