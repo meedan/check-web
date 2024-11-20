@@ -40,6 +40,7 @@ describe('<FeedImportDialog />', () => {
         edges: [
           {
             node: {
+              typee: 'UploadedImage',
               dbid: 4,
             },
           },

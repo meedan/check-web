@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -74,6 +73,10 @@ const SmallMediaCard = ({
 };
 
 SmallMediaCard.propTypes = {
+  className: PropTypes.string,
+  description: PropTypes.string,
+  details: PropTypes.array,
+  maskContent: PropTypes.bool,
   media: PropTypes.shape({
     type: PropTypes.string.isRequired,
     url: PropTypes.string, // Mandatory for link
@@ -82,12 +85,8 @@ SmallMediaCard.propTypes = {
     picture: PropTypes.string, // URL to an image
     metadata: PropTypes.object,
   }).isRequired,
-  details: PropTypes.array,
-  description: PropTypes.string,
-  maskContent: PropTypes.bool,
   superAdminMask: PropTypes.bool,
   onClick: PropTypes.func,
-  className: PropTypes.string,
 };
 
 SmallMediaCard.defaultProps = {
