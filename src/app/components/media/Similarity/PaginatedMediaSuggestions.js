@@ -78,6 +78,7 @@ const PaginatedMediaSuggestions = createPaginationContainer(
                 media {
                   ...SmallMediaCard_media
                 }
+                media_slug
               }
             }
           }

@@ -43,7 +43,7 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
           (
             <MediaIdentifier
               mediaType={item.type}
-              slug={item.title}
+              slug={item.media_slug || item.title}
               theme="lightText"
               variant="text"
             />
@@ -53,7 +53,6 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
         return (
           <>
             <SmallMediaCard
-              customTitle={item.title}
               description={item.description}
               details={details}
               key={item.dbid}
@@ -120,6 +119,7 @@ const FeedItemMediaList = ({ teamDbid }) => {
                         media {
                           ...SmallMediaCard_media
                         }
+                        media_slug
                       }
                     }
                   }

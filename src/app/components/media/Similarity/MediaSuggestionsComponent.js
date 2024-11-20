@@ -538,7 +538,6 @@ const MediaSuggestionsComponent = ({
         {
           relationshipItem?.target && (
             <SmallMediaCard
-              customTitle={relationshipItem?.target?.title}
               description={relationshipItem?.target?.description}
               details={details}
               maskContent={relationshipItem?.target?.show_warning_cover}
@@ -952,7 +951,7 @@ const MediaSuggestionsComponent = ({
                   ), (
                     <MediaIdentifier
                       mediaType={relationshipItem?.target?.type}
-                      slug={relationshipItem?.target?.title}
+                      slug={relationshipItem?.target?.media_slug || relationshipItem?.target?.title}
                       theme="lightText"
                       variant="text"
                     />

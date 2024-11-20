@@ -221,7 +221,7 @@ class MediaComponent extends Component {
                         ), (
                           <MediaIdentifier
                             mediaType={projectMedia.type}
-                            slug={projectMedia.title}
+                            slug={projectMedia.media_slug}
                             theme="lightText"
                             variant="text"
                           />
@@ -312,6 +312,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     title
     type
     is_read
+    media_slug
     permissions
     pusher_channel
     project_id

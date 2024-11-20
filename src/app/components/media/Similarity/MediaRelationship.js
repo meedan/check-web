@@ -283,7 +283,7 @@ const MediaRelationship = ({
   ), (
     <MediaIdentifier
       mediaType={relationship?.target?.type}
-      slug={relationship.target?.title}
+      slug={relationship?.target?.media_slug || relationship?.target?.title}
       theme="lightText"
       variant="text"
     />
@@ -311,7 +311,6 @@ const MediaRelationship = ({
       {
         relationship?.target && (
           <SmallMediaCard
-            customTitle={relationship?.target?.title}
             description={relationship?.target?.description}
             details={details}
             key={relationship.id}
