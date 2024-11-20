@@ -1,0 +1,75 @@
+.phone {
+  @mixin typography-subtitle1;
+  border: solid 2px var(--color-white-100);
+  border-radius: var(--border-radius-max);
+  color: var(--color-gray-15);
+  height: 932px;
+  width: 450px;
+
+  .phoneTop {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .phoneTopDecorationPill {
+      align-items: center;
+      background-color: var(--color-beige-76);
+      border-radius: var(--border-radius-max);
+      display: flex;
+      height: 16.27px;
+      padding: 4.25px;
+      width: 56.95px;
+    }
+
+    .phoneTopDecorationCircle {
+      background-color: var(--color-beige-86);
+      border-radius: var(--border-radius-max);
+      height: 9.76px;
+      width: 9.76px;
+    }
+  }
+
+  .phoneIdentifier {
+    align-items: center;
+    border-bottom: solid 2px var(--color-white-100);
+    border-top: solid 2px var(--color-white-100);
+    display: flex;
+    gap: 16px;
+    height: 68px;
+    padding: 16px;
+  }
+
+  .phoneChatFeed {
+    height: 692.14px;
+  }
+
+  .phoneInput {
+    align-items: center;
+    border-top: solid 2px var(--color-white-100);
+    display: flex;
+    gap: 8px;
+    height: 80px;
+    padding: 16px;
+
+    .phoneInputTextField {
+      width: 100%;
+    }
+  }
+
+  .phoneHome {
+    align-items: center;
+    display: flex;
+    height: 43.95px;
+    justify-content: center;
+    padding-bottom: 16px;
+    padding-top: 16px;
+
+    .phoneHomeDecoration {
+      background-color: var(--color-beige-76);
+      border-radius: var(--border-radius-max);
+      height: 11.59px;
+      width: 45.2px;
+    }
+  }
+}

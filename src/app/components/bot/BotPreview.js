@@ -68,13 +68,11 @@ const BotPreview = ({ me }) => me.is_admin ? (
           </div>
         </div>
       </div>
-      <div className={styles['device-placeholder']}>
-        <DeviceMockupComponent
-          chatFeedContent="TBD"
-          contactAvatar="https://placekitten.com/300/300"
-          contactId="+1 (555) 555-1212"
-        />
-      </div>
+      <DeviceMockupComponent
+        chatFeedContent="TBD"
+        contactAvatar="https://placekitten.com/300/300"
+        contactId="+1 (555) 555-1212"
+      />
       <div className={styles['device-placeholder']}>
         <ChatFeed
           history={fakeData}

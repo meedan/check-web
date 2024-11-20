@@ -5,16 +5,19 @@ import TeamAvatar from '../../team/TeamAvatar';
 import TextField from '../inputs/TextField';
 import AddIcon from '../../../icons/add.svg';
 import DevicesIcon from '../../../icons/devices.svg';
+import styles from './DeviceMockupComponent.module.css';
 
 const DeviceMockupComponent = ({
   chatFeedContent,
   contactAvatar,
   contactId,
 }) => (
-  <div className="Phone">
-    <div className="PhoneTop">
-      <div className="PhoneTopDecoration" />
-      {/* FIX ICON */}
+  <div className={styles.phone}>
+    <div className={styles.phoneTop}>
+      <div />
+      <div className={styles.phoneTopDecorationPill}>
+        <div className={styles.phoneTopDecorationCircle} />
+      </div>
       <ButtonMain
         iconCenter={<DevicesIcon />}
         size="large"
@@ -22,14 +25,14 @@ const DeviceMockupComponent = ({
         variant="text"
       />
     </div>
-    <div className="PhoneIdentifier">
+    <div className={styles.phoneIdentifier}>
       <TeamAvatar size="36px" team={{ avatar: contactAvatar }} />
       <div className="contactId">{ contactId }</div>
     </div>
-    <div className="PhoneChatFeed">
+    <div className={styles.phoneChatFeed}>
       { chatFeedContent }
     </div>
-    <div className="PhoneInput">
+    <div className={styles.phoneInput}>
       <ButtonMain
         iconCenter={<AddIcon />}
         size="large"
@@ -37,11 +40,11 @@ const DeviceMockupComponent = ({
         variant="text"
       />
       <TextField
-        className="PhoneInputTextField"
+        className={styles.phoneInputTextField}
       />
     </div>
-    <div className="PhoneHome">
-      <div className="PhoneHomeDecoration" />
+    <div className={styles.phoneHome}>
+      <div className={styles.phoneHomeDecoration} />
     </div>
   </div>
 );
