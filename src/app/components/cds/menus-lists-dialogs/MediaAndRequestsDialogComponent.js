@@ -14,6 +14,7 @@ import dialogStyles from '../../../styles/css/dialog.module.css';
 import styles from './MediaAndRequestsDialog.module.css';
 
 const MediaAndRequestsDialogComponent = ({
+  dialogTitle,
   feedId,
   mediaHeader,
   mediaSlug,
@@ -34,6 +35,11 @@ const MediaAndRequestsDialogComponent = ({
       onClose={onClose}
     >
       <div className={dialogStyles['dialog-title']}>
+        { dialogTitle &&
+          <h6>
+            {dialogTitle}
+          </h6>
+        }
         {mediaSlug}
         <ButtonMain
           className={dialogStyles['dialog-close-button']}
@@ -86,12 +92,14 @@ const MediaAndRequestsDialogComponent = ({
 };
 
 MediaAndRequestsDialogComponent.defaultProps = {
+  dialogTitle: '',
   mediaHeader: null,
   projectMediaImportedId: null,
   feedId: null,
 };
 
 MediaAndRequestsDialogComponent.propTypes = {
+  dialogTitle: PropTypes.string,
   mediaSlug: PropTypes.element.isRequired,
   mediaHeader: PropTypes.element,
   projectMediaId: PropTypes.number.isRequired,

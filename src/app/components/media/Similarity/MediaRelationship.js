@@ -309,6 +309,7 @@ const MediaRelationship = ({
     <div className={cx('media__relationship', similarityStyles['similar-matched-media'])} >
       { isSelected ?
         <MediaAndRequestsDialogComponent
+          dialogTitle={relationship?.target?.media.metadata?.title || relationship?.target?.media.quote || relationship?.target?.description}
           feedId={relationship?.target?.imported_from_feed_id}
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           mediaSlug={

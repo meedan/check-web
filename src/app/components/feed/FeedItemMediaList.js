@@ -61,6 +61,7 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
             />
             { selectedItemId === item.dbid ?
               <MediaAndRequestsDialogComponent
+                dialogTitle={item.media.metadata?.title || item.media.quote || item.description}
                 feedId={feedDbid}
                 mediaSlug={
                   <MediaSlug

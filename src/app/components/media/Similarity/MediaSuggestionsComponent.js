@@ -549,6 +549,7 @@ const MediaSuggestionsComponent = ({
         }
         { selectedItemId === relationshipItem?.target_id ?
           <MediaAndRequestsDialogComponent
+            dialogTitle={relationshipItem?.target?.media.metadata?.title || relationshipItem?.target?.media.quote || relationshipItem?.target?.description}
             mediaSlug={
               <MediaSlug
                 className={styles['media-slug-title']}

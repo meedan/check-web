@@ -201,6 +201,7 @@ class MediaComponent extends Component {
               <div className={styles['media-item-content']}>
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
+                    dialogTitle={projectMedia.title || projectMedia.quote || projectMedia.description}
                     feedId={projectMedia.imported_from_feed_id}
                     mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
                     mediaSlug={
