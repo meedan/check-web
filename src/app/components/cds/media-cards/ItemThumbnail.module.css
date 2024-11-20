@@ -18,6 +18,11 @@
   align-items: center;
   display: flex;
   justify-content: center;
+
+  :global(.check-icon) {
+    color: var(--color-gray-75);
+    font-size: var(--iconSizeDefault);
+  }
 }
 
 .contentScreen {

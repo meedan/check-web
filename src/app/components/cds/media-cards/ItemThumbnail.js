@@ -95,7 +95,7 @@ const ItemThumbnail = ({
           }
         >
           <div className={styles.iconContainer}>
-            <MediaTypeDisplayIcon className={styles.mediaIcon} fontSize="var(--iconSizeDefault)" mediaType={mediaType} />
+            <MediaTypeDisplayIcon className={styles.mediaIcon} mediaType={mediaType} />
           </div>
         </div>
       </Tooltip>

@@ -30,11 +30,11 @@
   }
 
   &.compactBulletSeparator {
-    gap: 0 0;
+    gap: 0 2px;
     margin: 0;
 
     .bullet {
-      margin: 0 2px;
+      margin: 0 4px;
     }
   }
 
