@@ -212,7 +212,7 @@ const FeedImportDialog = ({
                   ),
                   (
                     <MediaIdentifier
-                      mediaType={item.media.type}
+                      mediaType={item.type}
                       slug={item.media_slug}
                       theme="lightText"
                       variant="text"
@@ -360,8 +360,8 @@ export default createFragmentContainer(withSetFlashMessage(FeedImportDialog), gr
           last_seen
           requests_count
           description
+          type
           media {
-            type
             ...SmallMediaCard_media
           }
           media_slug
