@@ -477,6 +477,28 @@
   }
 }
 
+.mediaMenuList {
+  align-items: center;
+  display: flex;
+  margin-top: 10px;
+
+  .mediaMenuItem {
+    .mediaMenuIcon {
+      margin-right: 8px;
+      min-width: fit-content !important;
+    }
+
+    &:hover {
+      background-color: var(--color-blue-98);
+      color: var(--color-blue-32);
+
+      .mediaMenuIcon {
+        color: var(--color-blue-32);
+      }
+    }
+  }
+}
+
 body[dir='rtl'] {
   .media-timeline-item {
     &::before {

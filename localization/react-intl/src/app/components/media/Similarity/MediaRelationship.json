@@ -17,11 +17,11 @@
   {
     "id": "mediaItem.pinAsMain",
     "description": "Menu option for pinning an item as the main item",
-    "defaultMessage": "Pin to the top"
+    "defaultMessage": "Pin this media to the top of the cluster"
   },
   {
     "id": "mediaItem.detach",
     "description": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item.",
-    "defaultMessage": "Reject Media"
+    "defaultMessage": "Reject this media from the cluster"
   }
 ]
