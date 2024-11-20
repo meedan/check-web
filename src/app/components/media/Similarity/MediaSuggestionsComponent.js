@@ -938,13 +938,6 @@ const MediaSuggestionsComponent = ({
               .map(relationshipItem => (
                 <RelationshipItem
                   details={[(
-                    <MediaIdentifier
-                      mediaType={relationshipItem?.target?.type}
-                      slug={relationshipItem?.target?.title}
-                      theme="lightText"
-                      variant="text"
-                    />
-                  ), (
                     <LastRequestDate
                       lastRequestDate={+relationshipItem?.target?.last_seen * 1000}
                       theme="lightText"
@@ -953,6 +946,13 @@ const MediaSuggestionsComponent = ({
                   ), (
                     <RequestsCount
                       requestsCount={relationshipItem?.target?.requests_count}
+                      theme="lightText"
+                      variant="text"
+                    />
+                  ), (
+                    <MediaIdentifier
+                      mediaType={relationshipItem?.target?.type}
+                      slug={relationshipItem?.target?.title}
                       theme="lightText"
                       variant="text"
                     />

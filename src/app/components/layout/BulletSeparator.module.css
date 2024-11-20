@@ -8,17 +8,14 @@
   line-height: 20px;
   margin: 0 0 2px;
 
-  &.compactBulletSeparator {
-    margin: 0;
-  }
-
-  &.captionTypography {
-    @mixin typography-caption;
-  }
-
   .detailSpan {
     align-items: center;
     display: flex;
+    max-width: 100%;
+
+    > span {
+      max-width: 100%;
+    }
   }
 
   .bullet {
@@ -30,5 +27,18 @@
   .icon {
     font-size: var(--iconSizeDefault);
     margin: 0 3px 0 0;
+  }
+
+  &.compactBulletSeparator {
+    gap: 0 0;
+    margin: 0;
+
+    .bullet {
+      margin: 0 2px;
+    }
+  }
+
+  &.captionTypography {
+    @mixin typography-caption;
   }
 }

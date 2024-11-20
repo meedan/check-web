@@ -80,13 +80,6 @@ const MediaCardLargeFooter = ({
       { !inModal ?
         <MediaSlug
           details={[(
-            <MediaIdentifier
-              mediaType={mediaType}
-              slug={projectMedia.media_slug || projectMedia.title}
-              theme="lightText"
-              variant="text"
-            />
-          ), (
             <LastRequestDate
               lastRequestDate={projectMedia.last_seen * 1000}
               theme="lightText"
@@ -95,6 +88,13 @@ const MediaCardLargeFooter = ({
           ), (
             <RequestsCount
               requestsCount={projectMedia.requests_count}
+              theme="lightText"
+              variant="text"
+            />
+          ), (
+            <MediaIdentifier
+              mediaType={mediaType}
+              slug={projectMedia.media_slug || projectMedia.title}
               theme="lightText"
               variant="text"
             />

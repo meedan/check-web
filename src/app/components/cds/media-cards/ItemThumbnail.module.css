@@ -1,6 +1,6 @@
 .thumbnail {
   border: 2px solid var(--color-gray-88);
-  border-radius: 6px;
+  border-radius: var(--border-radius-medium);
   flex-grow: 0;
   flex-shrink: 0;
   height: 92px;
@@ -45,5 +45,18 @@
   svg {
     color: var(--color-gray-75);
     font-size: var(--iconSizeDefault);
+  }
+}
+
+.contentScreen,
+.thumbnail {
+  &.sizeSmall {
+    height: 72px;
+    width: 72px;
+
+    .thumbnail {
+      height: 72px;
+      width: 72px;
+    }
   }
 }

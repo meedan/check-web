@@ -54,7 +54,7 @@ const SmallMediaCard = ({
       }
     >
       <div className={styles.smallMediaCard} onClick={onClick} onKeyDown={onClick}>
-        <ItemThumbnail maskContent={maskContent || superAdminMask} picture={media?.picture} type={media?.type} url={media?.url} />
+        <ItemThumbnail maskContent={maskContent || superAdminMask} picture={media?.picture} size="small" type={media?.type} url={media?.url} />
         <div className={styles.smallMediaCardContent}>
           <div className={styles.titleAndUrl}>
             <div className={cx('typography-subtitle2', styles.row, (media.url ? styles.oneLineDescription : styles.twoLinesDescription))}>
@@ -62,7 +62,7 @@ const SmallMediaCard = ({
             </div>
             { media.url ?
               <div className={cx(styles.row, 'typography-body2')}>
-                <ExternalLink maxUrlLength={60} readable url={media.url} />
+                <ExternalLink readable url={media.url} />
               </div> : null
             }
           </div>

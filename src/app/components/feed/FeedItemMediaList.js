@@ -25,13 +25,6 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
       {items.map((item) => {
         const details = [
           (
-            <MediaIdentifier
-              mediaType={item.type}
-              slug={item.title}
-              theme="lightText"
-              variant="text"
-            />
-          ), (
             item.last_seen &&
               <LastRequestDate
                 lastRequestDate={item.last_seen * 1000}
@@ -46,6 +39,14 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
                 theme="lightText"
                 variant="text"
               />
+          ),
+          (
+            <MediaIdentifier
+              mediaType={item.type}
+              slug={item.title}
+              theme="lightText"
+              variant="text"
+            />
           ),
         ];
 

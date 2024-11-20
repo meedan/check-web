@@ -7,6 +7,6 @@
   {
     "id": "mediaIdentifier.copy",
     "description": "Message to the user describing the requirements for uploading an image",
-    "defaultMessage": "Copy <strong>{mediaTypeName}</strong> Identifier to the Clipboard:"
+    "defaultMessage": "Click to Copy <strong>{mediaTypeName}</strong> Identifier to the Clipboard:"
   }
 ]

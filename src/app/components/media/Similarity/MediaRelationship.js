@@ -269,13 +269,6 @@ const MediaRelationship = ({
   };
 
   const details = [(
-    <MediaIdentifier
-      mediaType={relationship?.target?.type}
-      slug={relationship.target?.title}
-      theme="lightText"
-      variant="text"
-    />
-  ), (
     <LastRequestDate
       lastRequestDate={+relationship?.target?.last_seen * 1000}
       theme="lightText"
@@ -284,6 +277,13 @@ const MediaRelationship = ({
   ), (
     <RequestsCount
       requestsCount={relationship?.target?.requests_count}
+      theme="lightText"
+      variant="text"
+    />
+  ), (
+    <MediaIdentifier
+      mediaType={relationship?.target?.type}
+      slug={relationship.target?.title}
       theme="lightText"
       variant="text"
     />

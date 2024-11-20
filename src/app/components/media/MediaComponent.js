@@ -207,13 +207,6 @@ class MediaComponent extends Component {
                       <MediaSlug
                         className={styles['media-slug-title']}
                         details={[(
-                          <MediaIdentifier
-                            mediaType={projectMedia.type}
-                            slug={projectMedia.title}
-                            theme="lightText"
-                            variant="text"
-                          />
-                        ), (
                           <LastRequestDate
                             lastRequestDate={projectMedia.last_seen * 1000}
                             theme="lightText"
@@ -222,6 +215,13 @@ class MediaComponent extends Component {
                         ), (
                           <RequestsCount
                             requestsCount={projectMedia.requests_count}
+                            theme="lightText"
+                            variant="text"
+                          />
+                        ), (
+                          <MediaIdentifier
+                            mediaType={projectMedia.type}
+                            slug={projectMedia.title}
                             theme="lightText"
                             variant="text"
                           />

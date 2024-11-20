@@ -38,6 +38,7 @@ const MediaIdentifier = ({
         <ButtonMain
           iconLeft={<MediaTypeDisplayIcon mediaType={mediaType} />}
           label={slug}
+          maxWidth
           size="small"
           theme={theme}
           variant={variant}
@@ -55,7 +56,7 @@ const MediaIdentifier = ({
         title={(
           <>
             <FormattedHTMLMessage
-              defaultMessage="Copy <strong>{mediaTypeName}</strong> Identifier to the Clipboard:"
+              defaultMessage="Click to Copy <strong>{mediaTypeName}</strong> Identifier to the Clipboard:"
               description="Message to the user describing the requirements for uploading an image"
               id="mediaIdentifier.copy"
               tagName="div"
@@ -63,10 +64,9 @@ const MediaIdentifier = ({
                 mediaTypeName: getMediaTypeDisplayName(mediaType, intl),
               }}
             />
-            <br />
-            <div>
-              {slug}
-            </div>
+            <ul>
+              <li>{slug}</li>
+            </ul>
           </>
         )}
       >
