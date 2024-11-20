@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -100,11 +99,11 @@ MediaAndRequestsDialogComponent.defaultProps = {
 
 MediaAndRequestsDialogComponent.propTypes = {
   dialogTitle: PropTypes.string,
-  mediaSlug: PropTypes.element.isRequired,
+  feedId: PropTypes.number,
   mediaHeader: PropTypes.element,
+  mediaSlug: PropTypes.element.isRequired,
   projectMediaId: PropTypes.number.isRequired,
   projectMediaImportedId: PropTypes.number,
-  feedId: PropTypes.number,
   onClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
