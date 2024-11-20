@@ -5,6 +5,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import { Link } from 'react-router';
 import ChatFeed from '../cds/chat/ChatFeed';
 import Select from '../cds/inputs/Select';
+import DeviceMockupComponent from '../cds/mockups/DeviceMockupComponent';
 import IconBot from '../../icons/smart_toy.svg';
 import SettingsIcon from '../../icons/settings.svg';
 import styles from './BotPreview.module.css';
@@ -66,6 +67,13 @@ const BotPreview = ({ me }) => me.is_admin ? (
             <p>At any time you can clear your chat and start over.</p>
           </div>
         </div>
+      </div>
+      <div className={styles['device-placeholder']}>
+        <DeviceMockupComponent
+          chatFeedContent="TBD"
+          contactAvatar="https://placekitten.com/300/300"
+          contactId="+1 (555) 555-1212"
+        />
       </div>
       <div className={styles['device-placeholder']}>
         <ChatFeed
