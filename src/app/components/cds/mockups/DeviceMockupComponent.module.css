@@ -5,19 +5,13 @@
   color: var(--color-gray-15);
   height: 932px;
 
-  &.phoneWidth {
-    width: 450px;
-  }
-
-  &.tabletWidth {
-    width: 1000px;
-  }
-
   .deviceTop {
     align-items: center;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 40px;
 
     .deviceTopDecorationPill {
       align-items: center;
@@ -64,19 +58,28 @@
     }
   }
 
-  .deviceHome {
-    align-items: center;
-    display: flex;
-    height: 43.95px;
-    justify-content: center;
-    padding-bottom: 16px;
-    padding-top: 16px;
+  &.phone {
+    width: 450px;
 
-    .deviceHomeDecoration {
-      background-color: var(--color-beige-76);
-      border-radius: var(--border-radius-max);
-      height: 11.59px;
-      width: 45.2px;
+    .deviceHome {
+      align-items: center;
+      display: flex;
+      height: 43.95px;
+      justify-content: center;
+      padding-bottom: 16px;
+      padding-top: 16px;
+
+      .deviceHomeDecoration {
+        background-color: var(--color-beige-76);
+        border-radius: var(--border-radius-max);
+        height: 11.59px;
+        width: 45.2px;
+      }
     }
+  }
+
+  &.tablet {
+    height: 900px;
+    width: 1000px;
   }
 }

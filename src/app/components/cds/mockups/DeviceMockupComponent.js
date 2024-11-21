@@ -23,13 +23,13 @@ const DeviceMockupComponent = ({
       className={
         cx(styles.device,
           {
-            [styles.tabletWidth]: fullWidth,
-            [styles.phoneWidth]: !fullWidth,
+            [styles.tablet]: fullWidth,
+            [styles.phone]: !fullWidth,
           })
       }
     >
       <div className={styles.deviceTop}>
-        <div />
+        <div style={{ width: '30px' }} />
         <div className={styles.deviceTopDecorationPill}>
           <div className={styles.deviceTopDecorationCircle} />
         </div>
@@ -87,8 +87,3 @@ DeviceMockupComponent.propTypes = {
 };
 
 export default DeviceMockupComponent;
-// The component should accept the following props:
-//   contactAvatar: string, url to the tipline logo
-//   contactId: string, whatsapp number or similar platform id
-//   screenContent : node, a div with the actual chat history contents
-//   onSendText : function, called when a text is entered in the component’s text input
