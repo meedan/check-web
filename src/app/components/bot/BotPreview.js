@@ -5,6 +5,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import { Link } from 'react-router';
 import ChatFeed from '../cds/chat/ChatFeed';
 import Select from '../cds/inputs/Select';
+import DeviceMockupComponent from '../cds/mockups/DeviceMockupComponent';
 import IconBot from '../../icons/smart_toy.svg';
 import SettingsIcon from '../../icons/settings.svg';
 import styles from './BotPreview.module.css';
@@ -67,13 +68,16 @@ const BotPreview = ({ me }) => me.is_admin ? (
           </div>
         </div>
       </div>
-      <div className={styles['device-placeholder']}>
+      <DeviceMockupComponent
+        contactAvatar="https://placekitten.com/300/300"
+        contactId="+1 (555) 555-1212"
+      >
         <ChatFeed
           history={fakeData}
           title="bli"
           userOnRight
         />
-      </div>
+      </DeviceMockupComponent>
     </div>
     <div className={styles['settings-column']}>
       <div className={styles['settings-column-header']}>
