@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import TeamAvatar from '../../team/TeamAvatar';
 import TextField from '../inputs/TextField';
@@ -12,35 +13,48 @@ const DeviceMockupComponent = ({
   contactAvatar,
   contactId,
 }) => {
-  const onSendText = (e) => {
-  // eslint-disable-next-line
-    console.log(e);
+  const [fullWidth, setFullWidth] = React.useState(false);
+
+  const handleClick = () => {
+    setFullWidth(!fullWidth);
+  };
+
+  const onSendText = () => {
     // send to child?
     // clear text field
   };
 
   return (
-    <div className={styles.phone}>
-      <div className={styles.phoneTop}>
+    <div
+      className={
+        cx(styles.device,
+          {
+            [styles.tabletWidth]: fullWidth,
+            [styles.phoneWidth]: !fullWidth,
+          })
+      }
+    >
+      <div className={styles.deviceTop}>
         <div />
-        <div className={styles.phoneTopDecorationPill}>
-          <div className={styles.phoneTopDecorationCircle} />
+        <div className={styles.deviceTopDecorationPill}>
+          <div className={styles.deviceTopDecorationCircle} />
         </div>
         <ButtonMain
           iconCenter={<DevicesIcon />}
           size="large"
           theme="text"
           variant="text"
+          onClick={handleClick}
         />
       </div>
-      <div className={styles.phoneIdentifier}>
+      <div className={styles.deviceIdentifier}>
         <TeamAvatar size="36px" team={{ avatar: contactAvatar }} />
         <div className="contactId">{ contactId }</div>
       </div>
-      <div className={styles.phoneChatFeed}>
+      <div className={styles.deviceChatFeed}>
         { children }
       </div>
-      <div className={styles.phoneInput}>
+      <div className={styles.deviceInput}>
         <ButtonMain
           iconCenter={<AddIcon />}
           size="large"
@@ -48,16 +62,16 @@ const DeviceMockupComponent = ({
           variant="text"
         />
         <TextField
-          className={styles.phoneInputTextField}
+          className={styles.deviceInputTextField}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
-              onSendText(e.target.value);
+              onSendText(e);
             }
           }}
         />
       </div>
-      <div className={styles.phoneHome}>
-        <div className={styles.phoneHomeDecoration} />
+      <div className={styles.deviceHome}>
+        <div className={styles.deviceHomeDecoration} />
       </div>
     </div>
   );

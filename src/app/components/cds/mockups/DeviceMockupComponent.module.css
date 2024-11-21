@@ -1,18 +1,25 @@
-.phone {
+.device {
   @mixin typography-subtitle1;
   border: solid 2px var(--color-white-100);
   border-radius: var(--border-radius-max);
   color: var(--color-gray-15);
   height: 932px;
-  width: 450px;
 
-  .phoneTop {
+  .phoneWidth {
+    width: 450px;
+  }
+
+  .tabletWidth {
+    width: 1000px;
+  }
+
+  .deviceTop {
     align-items: center;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 
-    .phoneTopDecorationPill {
+    .deviceTopDecorationPill {
       align-items: center;
       background-color: var(--color-beige-76);
       border-radius: var(--border-radius-max);
@@ -22,7 +29,7 @@
       width: 56.95px;
     }
 
-    .phoneTopDecorationCircle {
+    .deviceTopDecorationCircle {
       background-color: var(--color-beige-86);
       border-radius: var(--border-radius-max);
       height: 9.76px;
@@ -30,7 +37,7 @@
     }
   }
 
-  .phoneIdentifier {
+  .deviceIdentifier {
     align-items: center;
     border-bottom: solid 2px var(--color-white-100);
     border-top: solid 2px var(--color-white-100);
@@ -40,11 +47,11 @@
     padding: 16px;
   }
 
-  .phoneChatFeed {
+  .deviceChatFeed {
     height: 692.14px;
   }
 
-  .phoneInput {
+  .deviceInput {
     align-items: center;
     border-top: solid 2px var(--color-white-100);
     display: flex;
@@ -52,12 +59,12 @@
     height: 80px;
     padding: 16px;
 
-    .phoneInputTextField {
+    .deviceInputTextField {
       width: 100%;
     }
   }
 
-  .phoneHome {
+  .deviceHome {
     align-items: center;
     display: flex;
     height: 43.95px;
@@ -65,7 +72,7 @@
     padding-bottom: 16px;
     padding-top: 16px;
 
-    .phoneHomeDecoration {
+    .deviceHomeDecoration {
       background-color: var(--color-beige-76);
       border-radius: var(--border-radius-max);
       height: 11.59px;
