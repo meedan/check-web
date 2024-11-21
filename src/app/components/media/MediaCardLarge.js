@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields, react/sort-prop-types */
+/* eslint-disable relay/unused-fields */
 /*
   FIXME: had to skip this relay/unused-fields rule unfortunately because of the team fragment that is needed
   for MediaStatusCommon (some 4 levels up the component tree) and is very difficult to
@@ -129,11 +129,11 @@ const MediaCardLarge = ({
 };
 
 MediaCardLarge.propTypes = {
-  projectMedia: PropTypes.object.isRequired, // Specifying a shape isn't needed now that we have a fragmentContainer ensuring all necessary fields are retrieved
-  inModal: PropTypes.bool,
   currentUserRole: PropTypes.string.isRequired,
-  onClickMore: PropTypes.func.isRequired,
+  inModal: PropTypes.bool,
+  projectMedia: PropTypes.object.isRequired, // Specifying a shape isn't needed now that we have a fragmentContainer ensuring all necessary fields are retrieved
   superAdminMask: PropTypes.bool,
+  onClickMore: PropTypes.func.isRequired,
 };
 
 MediaCardLarge.defaultProps = {
