@@ -5,11 +5,11 @@
   color: var(--color-gray-15);
   height: 932px;
 
-  .phoneWidth {
+  &.phoneWidth {
     width: 450px;
   }
 
-  .tabletWidth {
+  &.tabletWidth {
     width: 1000px;
   }
 

@@ -2,6 +2,7 @@
   display: flex;
   flex-flow: row wrap;
   gap: 32px;
+  overflow: auto;
   padding: 0 32px;
 
   .card-and-device-column {
@@ -65,14 +66,6 @@
   .bot-preview-welcome-content {
     padding: 16px;
   }
-}
-
-.device-placeholder {
-  background-color: var(--color-gray-88);
-  border-radius: var(--border-radius-large, 16px);
-  height: 500px;
-  margin-top: 58px;
-  width: 350px;
 }
 
 .settings-card {
