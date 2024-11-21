@@ -18,7 +18,6 @@ import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getSuperAdminMask } from '../../helpers';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
-import PushPinIcon from '../../icons/push_pin.svg';
 import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
@@ -228,18 +227,9 @@ class MediaComponent extends Component {
                     onClose={() => this.setState({ openMediaDialog: false })}
                   />
                   : null }
-                {projectMedia.linked_items_count > 1 &&
-                  <div className={styles['media-item-medias-header']}>
-                    <PushPinIcon />
-                    <FormattedMessage
-                      defaultMessage="Pinned Media"
-                      description="Title for the media in this list that is pinned to the top"
-                      id="mediaComponent.pinnedMedia"
-                    />
-                  </div>
-                }
                 <MediaCardLarge
                   currentUserRole={currentUserRole}
+                  pinned={projectMedia.linked_items_count > 1}
                   projectMedia={projectMedia}
                   superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
                   onClickMore={() => this.setState({ openMediaDialog: true })}

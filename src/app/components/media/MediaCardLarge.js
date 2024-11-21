@@ -7,6 +7,7 @@
 */
 import React from 'react';
 import Relay from 'react-relay/classic';
+import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer, QueryRenderer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -19,14 +20,17 @@ import WebPageMediaCard from './WebPageMediaCard';
 import Loader from '../cds/loading/Loader';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
+import PushPinIcon from '../../icons/push_pin.svg';
 import { getMediaType } from '../../helpers';
 import ErrorBoundary from '../error/ErrorBoundary';
 import styles from './MediaCardLarge.module.css';
+import mediaStyles from './media.module.css';
 
 const MediaCardLarge = ({
   currentUserRole,
   inModal,
   onClickMore,
+  pinned,
   projectMedia,
   superAdminMask,
 }) => {
@@ -117,13 +121,25 @@ const MediaCardLarge = ({
         </div>
       ) : null }
       { !isBlank ?
-        <MediaCardLargeFooter
-          data={data}
-          inModal={inModal}
-          mediaType={type}
-          projectMedia={projectMedia}
-          onClickMore={onClickMore}
-        /> : null }
+        <div className={styles['media-card-large-meta']}>
+          {pinned &&
+            <div className={mediaStyles['media-item-medias-header']}>
+              <PushPinIcon />
+              <FormattedMessage
+                defaultMessage="Pinned Media"
+                description="Title for the media in this list that is pinned to the top"
+                id="mediaComponent.pinnedMedia"
+              />
+            </div>
+          }
+          <MediaCardLargeFooter
+            data={data}
+            inModal={inModal}
+            mediaType={type}
+            projectMedia={projectMedia}
+            onClickMore={onClickMore}
+          />
+        </div> : null }
     </div>
   );
 };
@@ -131,6 +147,7 @@ const MediaCardLarge = ({
 MediaCardLarge.propTypes = {
   currentUserRole: PropTypes.string.isRequired,
   inModal: PropTypes.bool,
+  pinned: PropTypes.bool,
   projectMedia: PropTypes.object.isRequired, // Specifying a shape isn't needed now that we have a fragmentContainer ensuring all necessary fields are retrieved
   superAdminMask: PropTypes.bool,
   onClickMore: PropTypes.func.isRequired,
@@ -138,6 +155,7 @@ MediaCardLarge.propTypes = {
 
 MediaCardLarge.defaultProps = {
   inModal: false,
+  pinned: true,
   superAdminMask: false,
 };
 
