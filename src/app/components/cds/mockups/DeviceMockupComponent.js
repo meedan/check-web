@@ -12,17 +12,11 @@ const DeviceMockupComponent = ({
   children,
   contactAvatar,
   contactId,
+  onSendText,
 }) => {
+  const [textValue, setTextValue] = React.useState('');
   const [fullWidth, setFullWidth] = React.useState(false);
-
-  const handleClick = () => {
-    setFullWidth(!fullWidth);
-  };
-
-  const onSendText = () => {
-    // send to child?
-    // clear text field
-  };
+  const handleClick = () => setFullWidth(!fullWidth);
 
   return (
     <div
@@ -63,9 +57,12 @@ const DeviceMockupComponent = ({
         />
         <TextField
           className={styles.deviceInputTextField}
+          value={textValue}
+          onChange={e => setTextValue(e.target.value)}
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
-              onSendText(e);
+              onSendText(e.target.value);
+              setTextValue('');
             }
           }}
         />
