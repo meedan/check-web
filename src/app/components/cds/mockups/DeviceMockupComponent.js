@@ -11,43 +11,57 @@ const DeviceMockupComponent = ({
   children,
   contactAvatar,
   contactId,
-}) => (
-  <div className={styles.phone}>
-    <div className={styles.phoneTop}>
-      <div />
-      <div className={styles.phoneTopDecorationPill}>
-        <div className={styles.phoneTopDecorationCircle} />
+}) => {
+  const onSendText = (e) => {
+  // eslint-disable-next-line
+    console.log(e);
+    // send to child?
+    // clear text field
+  };
+
+  return (
+    <div className={styles.phone}>
+      <div className={styles.phoneTop}>
+        <div />
+        <div className={styles.phoneTopDecorationPill}>
+          <div className={styles.phoneTopDecorationCircle} />
+        </div>
+        <ButtonMain
+          iconCenter={<DevicesIcon />}
+          size="large"
+          theme="text"
+          variant="text"
+        />
       </div>
-      <ButtonMain
-        iconCenter={<DevicesIcon />}
-        size="large"
-        theme="text"
-        variant="text"
-      />
+      <div className={styles.phoneIdentifier}>
+        <TeamAvatar size="36px" team={{ avatar: contactAvatar }} />
+        <div className="contactId">{ contactId }</div>
+      </div>
+      <div className={styles.phoneChatFeed}>
+        { children }
+      </div>
+      <div className={styles.phoneInput}>
+        <ButtonMain
+          iconCenter={<AddIcon />}
+          size="large"
+          theme="text"
+          variant="text"
+        />
+        <TextField
+          className={styles.phoneInputTextField}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              onSendText(e.target.value);
+            }
+          }}
+        />
+      </div>
+      <div className={styles.phoneHome}>
+        <div className={styles.phoneHomeDecoration} />
+      </div>
     </div>
-    <div className={styles.phoneIdentifier}>
-      <TeamAvatar size="36px" team={{ avatar: contactAvatar }} />
-      <div className="contactId">{ contactId }</div>
-    </div>
-    <div className={styles.phoneChatFeed}>
-      { children }
-    </div>
-    <div className={styles.phoneInput}>
-      <ButtonMain
-        iconCenter={<AddIcon />}
-        size="large"
-        theme="text"
-        variant="text"
-      />
-      <TextField
-        className={styles.phoneInputTextField}
-      />
-    </div>
-    <div className={styles.phoneHome}>
-      <div className={styles.phoneHomeDecoration} />
-    </div>
-  </div>
-);
+  );
+};
 
 DeviceMockupComponent.defaultProps = {
   contactAvatar: null,
