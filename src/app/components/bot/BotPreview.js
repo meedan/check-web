@@ -2,9 +2,14 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
+import { Link } from 'react-router';
 import ChatFeed from '../cds/chat/ChatFeed';
+import Select from '../cds/inputs/Select';
 import IconBot from '../../icons/smart_toy.svg';
+import SettingsIcon from '../../icons/settings.svg';
 import styles from './BotPreview.module.css';
+
+const teamSlug = window.location.pathname.split('/')[1];
 
 const fakeData = [
   {
@@ -44,6 +49,13 @@ const BotPreview = ({ me }) => me.is_admin ? (
         <div className={styles['bot-preview-actions']}>
           <IconBot />{' '}Bot Preview{' '}<span className={styles.beta}>BETA</span>
         </div>
+        <div>
+          <Select>
+            <option>Facebook Messenger</option>
+            <option>Telegram</option>
+            <option>Whatsapp</option>
+          </Select>
+        </div>
         <div className={styles['bot-preview-welcome']}>
           <div className={styles['bot-preview-welcome-header']}><IconBot /> Welcome</div>
           <div className={styles['bot-preview-welcome-content']}>
@@ -64,8 +76,19 @@ const BotPreview = ({ me }) => me.is_admin ? (
       </div>
     </div>
     <div className={styles['settings-column']}>
-      <div><span className="typography-h6">Settings</span> - Tipline Settings</div>
-      <div className={styles['settings-card']}>Settings Widget</div>
+      <div className={styles['settings-column-header']}>
+        <SettingsIcon />
+        <span className="typography-h6">Settings</span> - <Link to={`/${teamSlug}/settings/tipline`}>Tipline Settings</Link>
+      </div>
+      <div className={styles['settings-card']}>
+        <div className={styles['settings-card-header']}>
+          <SettingsIcon />
+          <h6>Settings Widget</h6>
+        </div>
+        <p>
+          Future iterations of this Bot Preview builder experience will integrate Tipline settings into this page. This is a placeholder for future settings.
+        </p>
+      </div>
     </div>
   </div>
 ) : null;
@@ -96,7 +119,7 @@ const BotPreviewQueryRenderer = () => (
 
       return <BotPreview {...props} />;
     }}
-    variables={{ teamSlug: window.location.pathname.split('/')[1] }}
+    variables={{ teamSlug }}
   />
 );
 
