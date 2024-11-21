@@ -21,7 +21,7 @@ import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import { getMediaType } from '../../helpers';
 import ErrorBoundary from '../error/ErrorBoundary';
-import styles from './media.module.css';
+import styles from './MediaCardLarge.module.css';
 
 const MediaCardLarge = ({
   currentUserRole,

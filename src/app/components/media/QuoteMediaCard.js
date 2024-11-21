@@ -4,7 +4,7 @@ import rtlDetect from 'rtl-detect';
 import cx from 'classnames/bind';
 import ParsedText from '../ParsedText';
 import LongShort from '../layout/LongShort';
-import styles from './media.module.css';
+import styles from './MediaCardLarge.module.css';
 
 const QuoteMediaCard = ({ languageCode, quote, showAll }) => (
   <div

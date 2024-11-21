@@ -9,7 +9,7 @@ import MediaSlug from './MediaSlug';
 import ExternalLink from '../ExternalLink';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import RequestsCount from '../cds/media-cards/RequestsCount';
-import styles from './media.module.css';
+import styles from './MediaCardLarge.module.css';
 
 const MediaCardLargeFooter = ({
   data,

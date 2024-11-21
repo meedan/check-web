@@ -19,7 +19,7 @@ import MoreVertIcon from '../../icons/more_vert.svg';
 import SearchIcon from '../../icons/search.svg';
 import OpenInNewIcon from '../../icons/open_in_new.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from './media.module.css';
+import styles from './MediaCardLarge.module.css';
 
 const ExtraMediaActions = ({
   projectMedia,

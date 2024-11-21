@@ -5,7 +5,7 @@ import deepEqual from 'deep-equal';
 import cx from 'classnames/bind';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import AspectRatio from '../layout/AspectRatio';
-import styles from '../media/media.module.css';
+import styles from '../media/MediaCardLarge.module.css';
 
 class WebPageMediaCard extends Component {
   shouldComponentUpdate(nextProps) {
