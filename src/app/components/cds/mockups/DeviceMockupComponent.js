@@ -8,7 +8,7 @@ import DevicesIcon from '../../../icons/devices.svg';
 import styles from './DeviceMockupComponent.module.css';
 
 const DeviceMockupComponent = ({
-  chatFeedContent,
+  children,
   contactAvatar,
   contactId,
 }) => (
@@ -30,7 +30,7 @@ const DeviceMockupComponent = ({
       <div className="contactId">{ contactId }</div>
     </div>
     <div className={styles.phoneChatFeed}>
-      { chatFeedContent }
+      { children }
     </div>
     <div className={styles.phoneInput}>
       <ButtonMain
@@ -52,11 +52,11 @@ const DeviceMockupComponent = ({
 DeviceMockupComponent.defaultProps = {
   contactAvatar: null,
   contactId: null,
-  chatFeedContent: null,
+  children: null,
 };
 
 DeviceMockupComponent.propTypes = {
-  chatFeedContent: PropTypes.node,
+  children: PropTypes.node,
   contactAvatar: PropTypes.string,
   contactId: PropTypes.string,
 };
