@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import cx from 'classnames/bind';
-import Loader from './cds/loading/Loader';
-import styles from './PenderCard.module.css';
+import Loader from '../cds/loading/Loader';
+import styles from './MediaCardLarge.module.css';
 
 class PenderCard extends Component {
   componentDidMount() {

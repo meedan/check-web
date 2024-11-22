@@ -17,8 +17,8 @@ import MediaPlayerCard from './MediaPlayerCard';
 import QuoteMediaCard from './QuoteMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
+import PenderCard from './PenderCard';
 import Loader from '../cds/loading/Loader';
-import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import PushPinIcon from '../../icons/push_pin.svg';
 import { getMediaType } from '../../helpers';
@@ -55,11 +55,8 @@ const MediaCardLarge = ({
       className={cx(
         'media-card-large',
         styles['media-card-large'],
-        styles['media-card-large-border'],
         {
-          [styles['rounded-top-corners']]: (type === 'Claim' || isBlank || isWebPage || isPender),
-          [styles['no-border']]: inModal || !(type === 'Claim' || isBlank || isWebPage || isPender),
-          [styles['no-outline']]: inModal || (type === 'Claim' || isBlank || isWebPage || isPender),
+          [styles['media-card-large-modal']]: inModal,
         })
       }
     >
@@ -132,6 +129,23 @@ const MediaCardLarge = ({
               />
             </div>
           }
+          <div
+            className={cx(
+              styles['webpage-media-card-title-summary'],
+              {
+                [styles['webpage-media-card-title-summary-modal']]: inModal,
+              })
+            }
+          >
+            { data.title ?
+              <div className={cx('media-card-large__title', styles['media-card-large-title'])}>
+                {data.title}
+              </div> : null }
+            { data.description && !inModal ?
+              <p>
+                {data.description}
+              </p> : null }
+          </div>
           <MediaCardLargeFooter
             data={data}
             inModal={inModal}
