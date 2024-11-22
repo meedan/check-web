@@ -76,18 +76,18 @@ const MediaIdentifier = ({
   );
 };
 
+MediaIdentifier.defaultProps = {
+  variant: 'contained',
+  theme: 'lightBeige',
+  tooltip: true,
+};
+
 MediaIdentifier.propTypes = {
   mediaType: PropTypes.string.isRequired,
   slug: PropTypes.any.isRequired,
   theme: PropTypes.string,
   tooltip: PropTypes.bool,
   variant: PropTypes.string,
-};
-
-MediaIdentifier.defaultProps = {
-  variant: 'contained',
-  theme: 'lightBeige',
-  tooltip: true,
 };
 
 export default injectIntl(MediaIdentifier);
