@@ -26,7 +26,7 @@ const MediaIdentifier = ({
     setFlashMessage((
       <FormattedMessage
         defaultMessage="The media identifier has been copied to the clipboard"
-        description="success message fro when the identifier slug for this piece of media has been copied to the clipboard"
+        description="success message for when the identifier slug for this piece of media has been copied to the clipboard"
         id="mediaIdentifier.copiedToClipboard"
       />
     ), 'success');
