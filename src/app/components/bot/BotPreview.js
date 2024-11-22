@@ -1,7 +1,7 @@
 /* eslint-disable relay/unused-fields, no-unused-vars */
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { QueryRenderer, graphql } from 'react-relay/compat';
+import { QueryRenderer, graphql, fetchQuery } from 'react-relay/compat';
 import { Link } from 'react-router';
 import ChatFeed from '../cds/chat/ChatFeed';
 import Select from '../cds/inputs/Select';
@@ -9,9 +9,22 @@ import DeviceMockupComponent from '../cds/mockups/DeviceMockupComponent';
 import IconBot from '../../icons/smart_toy.svg';
 import SettingsIcon from '../../icons/settings.svg';
 import { safelyParseJSON } from '../../helpers';
+import createEnvironment from '../../relay/EnvironmentModern';
 import styles from './BotPreview.module.css';
 
 const teamSlug = window.location.pathname.split('/')[1];
+
+const query = graphql`
+  query BotPreviewTiplineQuery($teamSlug: String!, $searchText: String!) {
+    team(slug: $teamSlug) {
+      bot_query(searchText: $searchText) {
+        title
+        type
+        format
+      }
+    }
+  }
+`;
 
 const BotPreview = ({ me }) => {
   const savedHistory = safelyParseJSON(window.storage.getValue('botPreviewMessageHistory'), []);
@@ -28,8 +41,16 @@ const BotPreview = ({ me }) => {
         },
       },
     ];
+
     setMessageHistory(newHistory);
     window.storage.set('botPreviewMessageHistory', JSON.stringify(newHistory));
+
+    const environment = createEnvironment(me.token, teamSlug);
+
+    fetchQuery(environment, query, { teamSlug, searchText: text })
+      .then((data) => {
+        console.log('Fetched data:', data); // eslint-disable-line no-console
+      });
   };
 
   if (!me.is_admin) return null;
@@ -97,6 +118,7 @@ const BotPreviewQueryRenderer = () => (
         me {
           email
           is_admin
+          token
         }
         team(slug: $teamSlug) {
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
