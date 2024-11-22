@@ -21,6 +21,11 @@
       @mixin typography-subtitle2;
       overflow-wrap: break-word;
       padding: 0 0 16px;
+
+      svg {
+        font-size: var(--iconSizeSmall);
+        vertical-align: middle;
+      }
     }
 
     .media-card-large-footer {

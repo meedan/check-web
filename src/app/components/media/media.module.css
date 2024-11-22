@@ -10,7 +10,7 @@
     display: flex;
     gap: 8px;
     justify-content: flex-start;
-    margin: 16px 32px -32px;
+    margin: 2px 32px -28px;
   }
 
   .media-actions-bar {

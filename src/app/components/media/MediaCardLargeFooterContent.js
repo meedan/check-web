@@ -9,12 +9,12 @@ const MediaCardLargeFooterContent = ({
   if (!body) return null;
 
   return (
-    <div className="typography-body2">
+    <>
       {title}
       <LongShort maxLines={2} showAll={showAll}>
         {body}
       </LongShort>
-    </div>
+    </>
   );
 };
 

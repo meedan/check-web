@@ -119,16 +119,6 @@ const MediaCardLarge = ({
       ) : null }
       { !isBlank ?
         <div className={styles['media-card-large-meta']}>
-          {pinned &&
-            <div className={mediaStyles['media-item-medias-header']}>
-              <PushPinIcon />
-              <FormattedMessage
-                defaultMessage="Pinned Media"
-                description="Title for the media in this list that is pinned to the top"
-                id="mediaComponent.pinnedMedia"
-              />
-            </div>
-          }
           <div
             className={cx(
               styles['webpage-media-card-title-summary'],
@@ -139,8 +129,21 @@ const MediaCardLarge = ({
           >
             { data.title ?
               <div className={cx('media-card-large__title', styles['media-card-large-title'])}>
+                { pinned &&
+                  <PushPinIcon />
+                }
                 {data.title}
               </div> : null }
+            { pinned && !data.title && !inModal &&
+              <div className={mediaStyles['media-item-medias-header']}>
+                <PushPinIcon />
+                <FormattedMessage
+                  defaultMessage="Pinned Media"
+                  description="Title for the media in this list that is pinned to the top"
+                  id="mediaComponent.pinnedMedia"
+                />
+              </div>
+            }
             { data.description && !inModal ?
               <p>
                 {data.description}
