@@ -21,6 +21,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../../helpers';
+import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import styles from '../media.module.css';
@@ -293,6 +294,13 @@ const MediaRelationship = ({
       theme="lightText"
       variant="text"
     />
+  ), (
+    <MediaIdentifier
+      mediaType={relationship?.target?.type}
+      slug={relationship?.target?.media_slug || relationship?.target?.title}
+      theme="lightText"
+      variant="text"
+    />
   )];
 
   const maskContent = relationship?.target?.show_warning_cover;
@@ -301,14 +309,13 @@ const MediaRelationship = ({
     <div className={cx('media__relationship', similarityStyles['similar-matched-media'])} >
       { isSelected ?
         <MediaAndRequestsDialogComponent
+          dialogTitle={relationship?.target?.media.metadata?.title || relationship?.target?.media.quote || relationship?.target?.description}
           feedId={relationship?.target?.imported_from_feed_id}
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           mediaSlug={
             <MediaSlug
               className={styles['media-slug-title']}
               details={details}
-              mediaType={relationship?.target?.type}
-              slug={relationship.target?.title}
             />
           }
           projectMediaId={relationship.target_id}
@@ -319,7 +326,6 @@ const MediaRelationship = ({
       {
         relationship?.target && (
           <SmallMediaCard
-            customTitle={relationship?.target?.title}
             description={relationship?.target?.description}
             details={details}
             key={relationship.id}

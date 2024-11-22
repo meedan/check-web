@@ -11,6 +11,7 @@ import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordC
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import RequestsCount from '../cds/media-cards/RequestsCount';
@@ -163,6 +164,7 @@ const AutoCompleteMediaItem = (props, context) => {
                       picture
                       metadata
                     }
+                    media_slug
                     fact_check {
                       claim_description {
                         context
@@ -398,7 +400,6 @@ const AutoCompleteMediaItem = (props, context) => {
                   <Link className={styles['media-item-autocomplete-link']} to={projectMedia.full_url}>
                     <SmallMediaCard
                       className={selectedDbid === projectMedia.dbid ? styles['media-item-autocomplete-selected-item'] : null}
-                      customTitle={projectMedia.title}
                       description={projectMedia.description}
                       details={[
                         (
@@ -410,6 +411,13 @@ const AutoCompleteMediaItem = (props, context) => {
                         ), (
                           <RequestsCount
                             requestsCount={projectMedia.requests_count}
+                            theme="lightText"
+                            variant="text"
+                          />
+                        ), (
+                          <MediaIdentifier
+                            mediaType={projectMedia.type}
+                            slug={projectMedia.media_slug}
                             theme="lightText"
                             variant="text"
                           />

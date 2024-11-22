@@ -20,6 +20,7 @@ import { getSuperAdminMask } from '../../helpers';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './media.module.css';
@@ -199,6 +200,7 @@ class MediaComponent extends Component {
               <div className={styles['media-item-content']}>
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
+                    dialogTitle={projectMedia.title || projectMedia.quote || projectMedia.description}
                     feedId={projectMedia.imported_from_feed_id}
                     mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
                     mediaSlug={
@@ -216,9 +218,14 @@ class MediaComponent extends Component {
                             theme="lightText"
                             variant="text"
                           />
+                        ), (
+                          <MediaIdentifier
+                            mediaType={projectMedia.type}
+                            slug={projectMedia.media_slug}
+                            theme="lightText"
+                            variant="text"
+                          />
                         )]}
-                        mediaType={projectMedia.type}
-                        slug={projectMedia.title}
                       />
                     }
                     projectMediaId={projectMedia.dbid}
@@ -296,6 +303,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     title
     type
     is_read
+    media_slug
     permissions
     pusher_channel
     project_id

@@ -5,9 +5,14 @@
   padding: 0 .5em 0 .25em;
   position: relative;
 
+  :global(.check-icon) {
+    color: var(--color-blue-32);
+    font-size: var(--iconSizeSmall);
+  }
+
   &::after {
     background-color: var(--color-blue-98);
-    border-radius: 4px;
+    border-radius: var(--border-radius-medium);
     bottom: -.1em;
     content: '';
     left: 0;

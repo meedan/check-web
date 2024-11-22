@@ -10,6 +10,14 @@
     border-bottom: solid 1px var(--color-gray-88);
     padding: 16px 48px 16px 24px;
 
+    h6 {
+      -webkit-box-orient: vertical;
+      display: -webkit-box; /* stylelint-disable-line */
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .dialog-title-choice {
       display: flex;
       flex-direction: column;

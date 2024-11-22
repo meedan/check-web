@@ -11,6 +11,7 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
+import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import MediaSlug from '../MediaSlug';
@@ -537,7 +538,6 @@ const MediaSuggestionsComponent = ({
         {
           relationshipItem?.target && (
             <SmallMediaCard
-              customTitle={relationshipItem?.target?.title}
               description={relationshipItem?.target?.description}
               details={details}
               maskContent={relationshipItem?.target?.show_warning_cover}
@@ -549,12 +549,11 @@ const MediaSuggestionsComponent = ({
         }
         { selectedItemId === relationshipItem?.target_id ?
           <MediaAndRequestsDialogComponent
+            dialogTitle={relationshipItem?.target?.media.metadata?.title || relationshipItem?.target?.media.quote || relationshipItem?.target?.description}
             mediaSlug={
               <MediaSlug
                 className={styles['media-slug-title']}
                 details={details}
-                mediaType={relationshipItem?.target?.type}
-                slug={relationshipItem?.target?.title}
               />
             }
             projectMediaId={selectedItemId}
@@ -1038,6 +1037,13 @@ const MediaSuggestionsComponent = ({
                   ), (
                     <RequestsCount
                       requestsCount={relationshipItem?.target?.requests_count}
+                      theme="lightText"
+                      variant="text"
+                    />
+                  ), (
+                    <MediaIdentifier
+                      mediaType={relationshipItem?.target?.type}
+                      slug={relationshipItem?.target?.media_slug || relationshipItem?.target?.title}
                       theme="lightText"
                       variant="text"
                     />
