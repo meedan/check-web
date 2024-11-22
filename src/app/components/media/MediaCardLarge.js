@@ -129,12 +129,11 @@ const MediaCardLarge = ({
           >
             { data.title ?
               <div className={cx('media-card-large__title', styles['media-card-large-title'])}>
-                { pinned &&
-                  <PushPinIcon />
-                }
+                { pinned ?
+                  <PushPinIcon /> : null }
                 {data.title}
               </div> : null }
-            { pinned && !data.title && !inModal &&
+            { pinned && !data.title && !inModal ?
               <div className={mediaStyles['media-item-medias-header']}>
                 <PushPinIcon />
                 <FormattedMessage
@@ -142,8 +141,7 @@ const MediaCardLarge = ({
                   description="Title for the media in this list that is pinned to the top"
                   id="mediaComponent.pinnedMedia"
                 />
-              </div>
-            }
+              </div> : null }
             { data.description && !inModal ?
               <p>
                 {data.description}

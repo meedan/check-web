@@ -9,14 +9,15 @@
   > .webpage-media-card {
     flex: 2 1;
     min-width: calc(220px * (16/9));
-    outline: solid 2px var(--color-orange-77);
+
+    /* outline: solid 2px var(--color-orange-77); */
   }
 
   .media-card-large-meta {
     flex: 1 2;
     min-width: 350px;
-    outline: solid 2px var(--color-pink-53);
 
+    /* outline: solid 2px var(--color-pink-53); */
     .media-card-large-title {
       @mixin typography-subtitle2;
       overflow-wrap: break-word;
