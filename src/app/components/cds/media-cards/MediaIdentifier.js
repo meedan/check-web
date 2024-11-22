@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, intlShape, injectIntl } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -83,6 +83,7 @@ MediaIdentifier.defaultProps = {
 };
 
 MediaIdentifier.propTypes = {
+  intl: intlShape.isRequired,
   mediaType: PropTypes.string.isRequired,
   slug: PropTypes.any.isRequired,
   theme: PropTypes.string,
