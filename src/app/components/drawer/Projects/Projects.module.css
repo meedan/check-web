@@ -237,3 +237,31 @@
     }
   }
 }
+
+@media (max-width: 1200px) {
+  .listTitle {
+    display: none;
+  }
+
+  .listWrapper {
+    .listItem {
+      padding: 10px 15px;
+
+      .listIcon {
+        margin: 0 8px 0 0;
+      }
+
+      .listLabel {
+        display: none;
+      }
+
+      .listItemCount {
+        line-height: inherit;
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+      }
+    }
+  }
+}
