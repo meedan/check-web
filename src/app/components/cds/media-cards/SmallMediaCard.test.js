@@ -29,11 +29,4 @@ describe('SmallMediaCard', () => {
 
     expect(wrapper.html()).toMatch('meedan.com');
   });
-
-  it('displays custom title', () => {
-    const props = { ...defaultProps, customTitle: 'Custom title' };
-    const wrapper = mount(<SmallMediaCard {...props} />);
-
-    expect(wrapper.html()).toMatch('Custom title');
-  });
 });

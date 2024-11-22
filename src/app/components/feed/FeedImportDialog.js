@@ -17,6 +17,7 @@ import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ParsedText from '../ParsedText';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './FeedItem.module.css';
 import mediaStyles from '../media/media.module.css';
@@ -191,7 +192,6 @@ const FeedImportDialog = ({
                 <br />
               </div>
               <SmallMediaCard
-                customTitle={item.title}
                 description={team.description}
                 details={[
                   (
@@ -209,6 +209,14 @@ const FeedImportDialog = ({
                         theme="lightText"
                         variant="text"
                       />
+                  ),
+                  (
+                    <MediaIdentifier
+                      mediaType={item.type}
+                      slug={item.media_slug}
+                      theme="lightText"
+                      variant="text"
+                    />
                   ),
                 ]}
                 media={item.media}
@@ -349,13 +357,14 @@ export default createFragmentContainer(withSetFlashMessage(FeedImportDialog), gr
       edges {
         node {
           dbid
-          title
           last_seen
           requests_count
           description
+          type
           media {
             ...SmallMediaCard_media
           }
+          media_slug
         }
       }
     }
