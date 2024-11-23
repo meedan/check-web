@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import Message from './Message';
-import Alert from '../alerts-and-prompts/Alert';
 import styles from './ChatFeed.module.css';
 
 const ChatFeed = ({
@@ -117,12 +116,10 @@ const ChatFeed = ({
         {history.length > 0 ? convertSentAtToLocaleDateString(history[history.length - 1].sent_at) : null}
       </div>
       {
-        history.length === 0 && (
-          <Alert
-            title={title}
-            variant="info"
-          />
-        )
+        history.length === 0 &&
+          <>
+            {title}
+          </>
       }
     </div>
   );
