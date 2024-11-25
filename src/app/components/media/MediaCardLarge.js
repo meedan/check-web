@@ -63,7 +63,6 @@ const MediaCardLarge = ({
       { type === 'Claim' && !inModal ? (
         <QuoteMediaCard
           quote={media.quote}
-          showAll={inModal}
         />
       ) : null }
       { type === 'UploadedImage' ? (

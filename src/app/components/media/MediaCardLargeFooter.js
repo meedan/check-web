@@ -63,7 +63,6 @@ const MediaCardLargeFooter = ({
   const transcriptionOrExtractedFooter = (
     <MediaCardLargeFooterContent
       body={footerBody}
-      showAll={inModal}
       title={footerTitle}
     />
   );
