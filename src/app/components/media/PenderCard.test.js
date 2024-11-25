@@ -1,6 +1,6 @@
 import React from 'react';
-import Loader from '../cds/loading/Loader';
 import PenderCard from './PenderCard';
+import Loader from '../cds/loading/Loader';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<PenderCard />', () => {
