@@ -188,6 +188,7 @@
   }
 
   .media-articles {
+    flex: 0 1 auto;
     padding: 0;
   }
 

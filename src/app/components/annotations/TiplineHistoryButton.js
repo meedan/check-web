@@ -33,7 +33,7 @@ const TiplineHistoryButton = ({
         }
       >
         <span>
-          <ButtonMain className="int-tipline-history__button--open" iconCenter={<QuestionAnswerIcon />} theme="text" variant="outlined" onClick={handleClick} />
+          <ButtonMain className="int-tipline-history__button--open" iconCenter={<QuestionAnswerIcon />} size="small" theme="text" variant="contained" onClick={handleClick} />
         </span>
       </Tooltip>
       <Modal

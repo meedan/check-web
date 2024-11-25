@@ -7,14 +7,14 @@
   > .quote-mediacard,
   > .video-media-card,
   > .webpage-media-card {
-    flex: 2 1;
+    flex: 1 1;
     min-width: calc(220px * (16/9));
 
     /* outline: solid 2px var(--color-orange-77); */
   }
 
   .media-card-large-meta {
-    flex: 1 2;
+    flex: 1 1;
     min-width: 350px;
 
     /* outline: solid 2px var(--color-pink-53); */
@@ -32,12 +32,12 @@
     .media-card-large-footer {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 8px;
 
       .media-card-large-footer-actions {
         align-items: center;
         display: flex;
-        justify-content: space-between;
+        gap: 4px;
 
         > div {
           display: flex;
