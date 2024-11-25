@@ -20,6 +20,10 @@ const query = graphql`
     team(slug: $teamSlug) {
       bot_query(searchText: $searchText) {
         title
+        body
+        image_url
+        language
+        url
         type
         format
       }
@@ -30,6 +34,47 @@ const query = graphql`
 const BotPreview = ({ me }) => {
   const savedHistory = safelyParseJSON(window.storage.getValue('botPreviewMessageHistory'), []);
   const [messageHistory, setMessageHistory] = React.useState(savedHistory);
+
+  const handleReceiveResults = (results) => {
+    const resultMessages = results.map(result => ({
+      sent_at: Date.now() / 1000,
+      event: result.type === 'fact_check' ? 'search_result' : undefined,
+      payload: {
+        text: `${result.title}\n\n${result.body}`,
+      },
+    }));
+
+    const newHistory = [
+      ...messageHistory,
+      ...resultMessages,
+    ];
+
+    setMessageHistory(newHistory);
+    window.storage.set('botPreviewMessageHistory', JSON.stringify(newHistory));
+  };
+
+  const sendQuery = (text) => {
+    const environment = createEnvironment(me.token, teamSlug);
+    fetchQuery(environment, query, { teamSlug, searchText: text })
+      .then((data) => {
+        console.log('Fetched data:', data); // eslint-disable-line no-console
+        if (Array.isArray(data?.team?.bot_query)) {
+          handleReceiveResults(data.team.bot_query);
+        }
+      });
+  };
+
+  // Querying the bot on useEffect is a bit of a hack, but it works for now.
+  // The reason is that we need to wait for the messageHistory state to update before
+  // sending the last message (the user's query) to the bot otherwise it will be
+  // overwritten in the state by the bot's response.
+  // So this is essentially to behave as a callback once the user's query is saved to the state.
+  React.useEffect(() => {
+    // if last element is incoming, then send it to the bot
+    if (messageHistory.length > 0 && messageHistory[messageHistory.length - 1].direction === 'incoming') {
+      sendQuery(messageHistory[messageHistory.length - 1].payload.text);
+    }
+  }, [messageHistory]);
 
   const handleSendText = (text) => {
     const newHistory = [
@@ -45,13 +90,6 @@ const BotPreview = ({ me }) => {
 
     setMessageHistory(newHistory);
     window.storage.set('botPreviewMessageHistory', JSON.stringify(newHistory));
-
-    const environment = createEnvironment(me.token, teamSlug);
-
-    fetchQuery(environment, query, { teamSlug, searchText: text })
-      .then((data) => {
-        console.log('Fetched data:', data); // eslint-disable-line no-console
-      });
   };
 
   if (!me.is_admin) return null;
