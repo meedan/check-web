@@ -7,6 +7,8 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import cx from 'classnames/bind';
 import RefreshButton from './RefreshButton';
 import OcrButton from './OcrButton';
@@ -14,6 +16,7 @@ import TranscriptionButton from './TranscriptionButton';
 import MediaLanguageSwitcher from './MediaLanguageSwitcher';
 import ExternalLink from '../ExternalLink';
 import MoreVertIcon from '../../icons/more_vert.svg';
+import SearchIcon from '../../icons/search.svg';
 import OpenInNewIcon from '../../icons/open_in_new.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from './media.module.css';
@@ -50,11 +53,12 @@ const ExtraMediaActions = ({
       />
       <Menu
         anchorEl={anchorEl}
+        className={styles.mediaMenuList}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
         { (projectMedia.media && projectMedia.media.url) ?
-          <MenuItem onClick={() => setAnchorEl(null)}>
+          <MenuItem className={styles.mediaMenuItem} onClick={() => setAnchorEl(null)}>
             <ExternalLink
               style={{ color: 'unset', textDecoration: 'none' }}
               url={projectMedia.media.url}
@@ -74,13 +78,21 @@ const ExtraMediaActions = ({
         />
         { allowsReverseSearch ?
           <MenuItem
+            className={styles.mediaMenuItem}
             id="media-expanded-actions__reverse-image-search"
             onClick={() => handleMenuAndClose(reverseImageSearchGoogle)}
           >
-            <FormattedMessage
-              defaultMessage="Reverse image search"
-              description="Menu option for performing reverse image searches on google or other engines"
-              id="mediaMetadata.ImageSearch"
+            <ListItemIcon className={styles.mediaMenuIcon}>
+              <SearchIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                <FormattedMessage
+                  defaultMessage="Reverse image search"
+                  description="Menu option for performing reverse image searches on google or other engines"
+                  id="mediaMetadata.ImageSearch"
+                />
+              }
             />
           </MenuItem> : null }
         <OcrButton

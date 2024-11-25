@@ -8,6 +8,7 @@ import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaSlug from './MediaSlug';
 import ExternalLink from '../ExternalLink';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './media.module.css';
 
@@ -90,10 +91,15 @@ const MediaCardLargeFooter = ({
               theme="lightText"
               variant="text"
             />
+          ), (
+            <MediaIdentifier
+              mediaType={mediaType}
+              slug={projectMedia.media_slug || projectMedia.title}
+              theme="lightText"
+              variant="text"
+            />
           ),
           ]}
-          mediaType={mediaType}
-          slug={projectMedia.media_slug || projectMedia.title}
         />
         : null
       }

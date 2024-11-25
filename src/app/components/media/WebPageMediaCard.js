@@ -45,7 +45,7 @@ class WebPageMediaCard extends Component {
             })
           }
         >
-          { data.title ?
+          { data.title && !inModal ?
             <div className={cx('media-card-large__title', styles['webpage-media-card-title'])}>
               {data.title}
             </div> : null }

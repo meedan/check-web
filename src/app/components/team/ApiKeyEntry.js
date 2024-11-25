@@ -20,7 +20,7 @@ const ApiKeyEntry = ({ apiKey }) => {
     setFlashMessage((
       <FormattedMessage
         defaultMessage="The API Key has been copied to the clipboard"
-        description="success message fro when an API Key has been copied to the clipboard"
+        description="success message for when an API Key has been copied to the clipboard"
         id="apiKeyEntry.copiedToClipboard"
       />
     ), 'success');

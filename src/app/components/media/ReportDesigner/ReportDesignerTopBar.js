@@ -4,7 +4,6 @@ import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Box from '@material-ui/core/Box';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaStatus from '../MediaStatus';
@@ -175,7 +174,7 @@ const ReportDesignerTopBar = (props) => {
               />
             }
             content={
-              <Box>
+              <>
                 {/* Can't publish report */}
                 { cantPublishReason ? <p>{cantPublishReason}</p> : null }
                 {/* Sending report for the first time */}
@@ -264,7 +263,7 @@ const ReportDesignerTopBar = (props) => {
                         />
                     }
                   /> : null }
-              </Box>
+              </>
             }
             disabled={readOnly}
             icon={<IconPlay />}

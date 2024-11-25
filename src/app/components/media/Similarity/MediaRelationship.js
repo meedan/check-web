@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,13 +12,16 @@ import cx from 'classnames/bind';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import ClearIcon from '../../../icons/clear.svg';
+import PushPinIcon from '../../../icons/push_pin.svg';
 import IconMoreVert from '../../../icons/more_vert.svg';
+import RejectIcon from '../../../icons/cancel.svg';
 import MediaSlug from '../MediaSlug';
 import MediaFeedInformation from '../MediaFeedInformation';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../../helpers';
+import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import styles from '../media.module.css';
@@ -207,27 +211,38 @@ const RelationshipMenu = ({
           />
           <Menu
             anchorEl={anchorEl}
+            className={styles.mediaMenuList}
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
-            <MenuItem onClick={event => swallowClick(event, handleSwitch)}>
+            <MenuItem className={styles.mediaMenuItem} onClick={event => swallowClick(event, handleSwitch)}>
+              <ListItemIcon className={styles.mediaMenuIcon}>
+                <PushPinIcon />
+              </ListItemIcon>
               <ListItemText
                 className="similarity-media-item__pin-relationship"
                 primary={
                   <FormattedMessage
-                    defaultMessage="Pin to the top"
+                    defaultMessage="Pin this media to the top of the cluster"
                     description="Menu option for pinning an item as the main item"
                     id="mediaItem.pinAsMain"
                   />
                 }
               />
             </MenuItem>
-            <MenuItem onClick={event => swallowClick(event, handleDelete)}>
+            <MenuItem className={styles.mediaMenuItem} onClick={event => swallowClick(event, handleDelete)}>
+              <ListItemIcon className={styles.mediaMenuIcon}>
+                <RejectIcon />
+              </ListItemIcon>
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
-                  <FormattedMessage defaultMessage="Reject Media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." id="mediaItem.detach" />
+                  <FormattedMessage
+                    defaultMessage="Reject this media from the cluster"
+                    description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
+                    id="mediaItem.detach"
+                  />
                 }
               />
             </MenuItem>
@@ -279,6 +294,13 @@ const MediaRelationship = ({
       theme="lightText"
       variant="text"
     />
+  ), (
+    <MediaIdentifier
+      mediaType={relationship?.target?.type}
+      slug={relationship?.target?.media_slug || relationship?.target?.title}
+      theme="lightText"
+      variant="text"
+    />
   )];
 
   const maskContent = relationship?.target?.show_warning_cover;
@@ -287,14 +309,13 @@ const MediaRelationship = ({
     <div className={cx('media__relationship', similarityStyles['similar-matched-media'])} >
       { isSelected ?
         <MediaAndRequestsDialogComponent
+          dialogTitle={relationship?.target?.media.metadata?.title || relationship?.target?.media.quote || relationship?.target?.description}
           feedId={relationship?.target?.imported_from_feed_id}
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           mediaSlug={
             <MediaSlug
               className={styles['media-slug-title']}
               details={details}
-              mediaType={relationship?.target?.type}
-              slug={relationship.target?.title}
             />
           }
           projectMediaId={relationship.target_id}
@@ -305,7 +326,6 @@ const MediaRelationship = ({
       {
         relationship?.target && (
           <SmallMediaCard
-            customTitle={relationship?.target?.title}
             description={relationship?.target?.description}
             details={details}
             key={relationship.id}

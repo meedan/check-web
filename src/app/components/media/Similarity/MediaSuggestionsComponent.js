@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
@@ -11,6 +11,7 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
+import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import MediaSlug from '../MediaSlug';
@@ -537,7 +538,6 @@ const MediaSuggestionsComponent = ({
         {
           relationshipItem?.target && (
             <SmallMediaCard
-              customTitle={relationshipItem?.target?.title}
               description={relationshipItem?.target?.description}
               details={details}
               maskContent={relationshipItem?.target?.show_warning_cover}
@@ -549,12 +549,11 @@ const MediaSuggestionsComponent = ({
         }
         { selectedItemId === relationshipItem?.target_id ?
           <MediaAndRequestsDialogComponent
+            dialogTitle={relationshipItem?.target?.media.metadata?.title || relationshipItem?.target?.media.quote || relationshipItem?.target?.description}
             mediaSlug={
               <MediaSlug
                 className={styles['media-slug-title']}
                 details={details}
-                mediaType={relationshipItem?.target?.type}
-                slug={relationshipItem?.target?.title}
               />
             }
             projectMediaId={selectedItemId}
@@ -564,7 +563,16 @@ const MediaSuggestionsComponent = ({
           : null }
       </div>
       <div className={suggestionsStyles['suggestions-item-actions']}>
-        <Tooltip arrow title={<FormattedMessage defaultMessage="Match media" description="Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list." id="mediaSuggestionsComponent.accept" />}>
+        <Tooltip
+          arrow
+          title={
+            <FormattedMessage
+              defaultMessage="Add this suggested media to this media cluster"
+              description="Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list."
+              id="mediaSuggestionsComponent.accept"
+            />
+          }
+        >
           <span>
             <ButtonMain
               className="similarity-media-item__accept-relationship"
@@ -578,7 +586,16 @@ const MediaSuggestionsComponent = ({
             />
           </span>
         </Tooltip>
-        <Tooltip arrow title={<FormattedMessage defaultMessage="Reject media" description="Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list." id="mediaSuggestionsComponent.reject" />}>
+        <Tooltip
+          arrow
+          title={
+            <FormattedMessage
+              defaultMessage="Reject this suggested media from this media cluster"
+              description="Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list."
+              id="mediaSuggestionsComponent.reject"
+            />
+          }
+        >
           <span>
             <ButtonMain
               className="similarity-media-item__reject-relationship"
@@ -594,7 +611,16 @@ const MediaSuggestionsComponent = ({
             />
           </span>
         </Tooltip>
-        <Tooltip arrow title={<FormattedMessage defaultMessage="Mark media as spam" description="Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list." id="mediaSuggestionsComponent.spam" />}>
+        <Tooltip
+          arrow
+          title={
+            <FormattedMessage
+              defaultMessage="Mark this suggested media as spam"
+              description="Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list."
+              id="mediaSuggestionsComponent.spam"
+            />
+          }
+        >
           <span>
             <ButtonMain
               customStyle={relationshipItem?.target?.media ? {} : { display: 'none' }}
@@ -607,7 +633,16 @@ const MediaSuggestionsComponent = ({
             />
           </span>
         </Tooltip>
-        <Tooltip arrow title={<FormattedMessage defaultMessage="Send media to trash" description="Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list." id="mediaSuggestionsComponent.trash" />}>
+        <Tooltip
+          arrow
+          title={
+            <FormattedMessage
+              defaultMessage="Send this suggested media to trash"
+              description="Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list."
+              id="mediaSuggestionsComponent.trash"
+            />
+          }
+        >
           <span>
             <ButtonMain
               customStyle={relationshipItem?.target?.media ? {} : { display: 'none' }}
@@ -631,7 +666,16 @@ const MediaSuggestionsComponent = ({
           <>
             <div className={cx(suggestionsStyles['suggestions-bulk-actions-wrapper'], inputStyles['form-inner-wrapper'])}>
               <div className={suggestionsStyles['suggestions-bulk-actions']}>
-                <Tooltip arrow title={<FormattedMessage defaultMessage="Match all media on this page" description="Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media." id="mediaSuggestionsComponent.bulkAccept" />}>
+                <Tooltip
+                  arrow
+                  title={
+                    <FormattedMessage
+                      defaultMessage="Add all suggested media to this media cluster"
+                      description="Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media."
+                      id="mediaSuggestionsComponent.bulkAccept"
+                    />
+                  }
+                >
                   <span>
                     <ButtonMain
                       disabled={disableAcceptRejectButtons}
@@ -643,7 +687,16 @@ const MediaSuggestionsComponent = ({
                     />
                   </span>
                 </Tooltip>
-                <Tooltip arrow title={<FormattedMessage defaultMessage="Reject all media on this page" description="Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list." id="mediaSuggestionsComponent.bulkReject" />}>
+                <Tooltip
+                  arrow
+                  title={
+                    <FormattedMessage
+                      defaultMessage="Reject all suggested media from this media cluster"
+                      description="Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list."
+                      id="mediaSuggestionsComponent.bulkReject"
+                    />
+                  }
+                >
                   <span>
                     <ButtonMain
                       disabled={disableAcceptRejectButtons}
@@ -655,7 +708,16 @@ const MediaSuggestionsComponent = ({
                     />
                   </span>
                 </Tooltip>
-                <Tooltip arrow title={<FormattedMessage defaultMessage="Mark all media on this page as spam" description="Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list." id="mediaSuggestionsComponent.bulkSpam" />}>
+                <Tooltip
+                  arrow
+                  title={
+                    <FormattedMessage
+                      defaultMessage="Send all suggested media to spam"
+                      description="Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list."
+                      id="mediaSuggestionsComponent.bulkSpam"
+                    />
+                  }
+                >
                   <span>
                     <ButtonMain
                       disabled={disableAcceptRejectButtons}
@@ -667,7 +729,16 @@ const MediaSuggestionsComponent = ({
                     />
                   </span>
                 </Tooltip>
-                <Tooltip arrow title={<FormattedMessage defaultMessage="Send all media on this page to trash" description="Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list." id="mediaSuggestionsComponent.bulkTrash" />}>
+                <Tooltip
+                  arrow
+                  title={
+                    <FormattedMessage
+                      defaultMessage="Send all suggested media to trash"
+                      description="Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list."
+                      id="mediaSuggestionsComponent.bulkTrash"
+                    />
+                  }
+                >
                   <span>
                     <ButtonMain
                       disabled={disableAcceptRejectButtons}
@@ -742,10 +813,18 @@ const MediaSuggestionsComponent = ({
             >
               <div className={dialogStyles['dialog-title']}>
                 <FormattedMessage
-                  defaultMessage="Are you sure you want to match {number} suggestions?"
+                  defaultMessage="Add all suggested media to this media cluster?"
                   description="Prompt to a user when they choose to match media as a bulk action"
                   id="mediaSuggestionsComponent.dialogBulkAcceptTitle"
                   tagName="h6"
+                />
+              </div>
+              <div className={dialogStyles['dialog-content']}>
+                <FormattedHTMLMessage
+                  defaultMessage="Are you sure you want to add these <strong>{number}</strong> suggested media to this media cluster?"
+                  description="Prompt to a user when they choose to match media as a bulk action"
+                  id="mediaSuggestionsComponent.dialogBulkAcceptContent"
+                  tagName="p"
                   values={{
                     number: relationships.slice(cursor, cursor + pageSize).length,
                   }}
@@ -768,7 +847,7 @@ const MediaSuggestionsComponent = ({
                 <ButtonMain
                   label={
                     <FormattedMessage
-                      defaultMessage="Match all"
+                      defaultMessage="Add All Media"
                       description="Button that a user presses to confirm that they are going to match all visible suggested media"
                       id="mediaSuggestionsComponent.dialogBulkAcceptConfirm"
                       values={{
@@ -868,7 +947,7 @@ const MediaSuggestionsComponent = ({
                 <ButtonMain
                   label={
                     <FormattedMessage
-                      defaultMessage="Send to trash"
+                      defaultMessage="Send Media to Trash"
                       description="Button that a user presses to confirm that they are going to send all visible suggested media to trash"
                       id="mediaSuggestionsComponent.dialogBulkTrashConfirm"
                       values={{
@@ -892,10 +971,21 @@ const MediaSuggestionsComponent = ({
             >
               <div className={dialogStyles['dialog-title']}>
                 <FormattedMessage
-                  defaultMessage="Are you sure you want to reject {number} suggestions?"
+                  defaultMessage="Reject all suggested media from this media cluster?"
                   description="Prompt to a user when they choose to reject media in bulk"
                   id="mediaSuggestionsComponent.dialogBulkRejectTitle"
                   tagName="h6"
+                  values={{
+                    number: relationships.slice(cursor, cursor + pageSize).length,
+                  }}
+                />
+              </div>
+              <div className={dialogStyles['dialog-content']}>
+                <FormattedHTMLMessage
+                  defaultMessage="Are you sure you want to reject these <strong>{number}</strong> suggested media from this media cluster?"
+                  description="Prompt to a user when they choose to match media as a bulk action"
+                  id="mediaSuggestionsComponent.dialogBulkRejectContent"
+                  tagName="p"
                   values={{
                     number: relationships.slice(cursor, cursor + pageSize).length,
                   }}
@@ -915,7 +1005,7 @@ const MediaSuggestionsComponent = ({
                 />
                 <ButtonMain
                   label={<FormattedMessage
-                    defaultMessage="Reject"
+                    defaultMessage="Reject All Media"
                     description="Button that a user presses to confirm that they are going to reject all visible suggested media"
                     id="mediaSuggestionsComponent.dialogBulkRejectConfirm"
                     values={{
@@ -947,6 +1037,13 @@ const MediaSuggestionsComponent = ({
                   ), (
                     <RequestsCount
                       requestsCount={relationshipItem?.target?.requests_count}
+                      theme="lightText"
+                      variant="text"
+                    />
+                  ), (
+                    <MediaIdentifier
+                      mediaType={relationshipItem?.target?.type}
+                      slug={relationshipItem?.target?.media_slug || relationshipItem?.target?.title}
                       theme="lightText"
                       variant="text"
                     />

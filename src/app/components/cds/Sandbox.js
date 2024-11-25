@@ -880,6 +880,8 @@ const SandboxComponent = ({ admin }) => {
                 disableUp={reorderFirst}
                 theme={reorderTheme}
                 variant={reorderVariant}
+                onMoveDown={() => {}}
+                onMoveUp={() => {}}
               />
             </div>
           </div>

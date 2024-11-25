@@ -6,6 +6,7 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import Loader from '../cds/loading/Loader';
 import MediaSlug from '../media/MediaSlug';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import NotFound from '../NotFound';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
@@ -39,12 +40,19 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
                 variant="text"
               />
           ),
+          (
+            <MediaIdentifier
+              mediaType={item.type}
+              slug={item.media_slug || item.title}
+              theme="lightText"
+              variant="text"
+            />
+          ),
         ];
 
         return (
           <>
             <SmallMediaCard
-              customTitle={item.title}
               description={item.description}
               details={details}
               key={item.dbid}
@@ -53,13 +61,12 @@ const FeedItemMediaListComponent = ({ feedDbid, items }) => {
             />
             { selectedItemId === item.dbid ?
               <MediaAndRequestsDialogComponent
+                dialogTitle={item.media.metadata?.title || item.media.quote || item.description}
                 feedId={feedDbid}
                 mediaSlug={
                   <MediaSlug
                     className={styles['media-slug-title']}
                     details={details}
-                    mediaType={item.type}
-                    slug={item.title}
                   />
                 }
                 projectMediaImportedId={selectedItemId}
@@ -113,6 +120,7 @@ const FeedItemMediaList = ({ teamDbid }) => {
                         media {
                           ...SmallMediaCard_media
                         }
+                        media_slug
                       }
                     }
                   }
