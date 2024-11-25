@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import TeamAvatar from '../../team/TeamAvatar';
 import TextField from '../inputs/TextField';
+import Tooltip from '../alerts-and-prompts/Tooltip';
 import AddIcon from '../../../icons/add.svg';
 import DevicesIcon from '../../../icons/devices.svg';
 import styles from './DeviceMockupComponent.module.css';
@@ -33,13 +35,26 @@ const DeviceMockupComponent = ({
         <div className={styles.deviceTopDecorationPill}>
           <div className={styles.deviceTopDecorationCircle} />
         </div>
-        <ButtonMain
-          iconCenter={<DevicesIcon />}
-          size="large"
-          theme="text"
-          variant="text"
-          onClick={handleClick}
-        />
+        <Tooltip
+          arrow
+          title={
+            <FormattedMessage
+              defaultMessage="Toggle Device Preview Width"
+              description="Tooltip describing that you can change the width of the preview from phone to tablet"
+              id="deviceMockup.devicesTooltip"
+            />
+          }
+        >
+          <span>
+            <ButtonMain
+              iconCenter={<DevicesIcon />}
+              size="default"
+              theme="beige"
+              variant="text"
+              onClick={handleClick}
+            />
+          </span>
+        </Tooltip>
       </div>
       <div className={styles.deviceIdentifier}>
         <TeamAvatar size="36px" team={{ avatar: contactAvatar }} />

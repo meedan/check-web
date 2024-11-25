@@ -3,6 +3,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, fetchQuery } from 'react-relay/compat';
 import { Link } from 'react-router';
+import cx from 'classnames/bind';
 import ChatFeed from '../cds/chat/ChatFeed';
 import Select from '../cds/inputs/Select';
 import DeviceMockupComponent from '../cds/mockups/DeviceMockupComponent';
@@ -58,20 +59,22 @@ const BotPreview = ({ me }) => {
   return (
     <div className={styles['bot-preview-wrapper']}>
       <div className={styles['card-and-device-column']}>
-        <div>
-          <div className={styles['bot-preview-actions']}>
-            <IconBot />{' '}Bot Preview{' '}<span className={styles.beta}>BETA</span>
+        <div className={styles['bot-preview-header']}>
+          <div className={styles['bot-preview-title']}>
+            <IconBot />{' '}<h6>Bot Preview</h6>{' '}<sup className={styles.beta}>BETA</sup>
           </div>
-          <div>
+          <div className={styles['bot-preview-actions-context']}>
             <Select>
               <option>Facebook Messenger</option>
               <option>Telegram</option>
               <option>Whatsapp</option>
             </Select>
           </div>
-          <div className={styles['bot-preview-welcome']}>
-            <div className={styles['bot-preview-welcome-header']}><IconBot /> Welcome</div>
-            <div className={styles['bot-preview-welcome-content']}>
+        </div>
+        <div className={styles['bot-preview-action-device-wrapper']}>
+          <div className={styles['bot-preview-action-panel']}>
+            <div className={styles['bot-preview-action-panel-header']}><IconBot /> Welcome</div>
+            <div className={cx(styles['bot-preview-action-panel-content'], styles['bot-preview-action-panel-welcome'])}>
               <p>This is a MVP preview of the Tipline bot associated with this workspace.</p>
               <p>No interactions in this preview affect this workspace. You can test out how your bot will respond to commands.</p>
               <p>This preview is only viewable by you <strong>({me.email})</strong></p>
@@ -79,27 +82,27 @@ const BotPreview = ({ me }) => {
               <p>At any time you can clear your chat and start over.</p>
             </div>
           </div>
+          <DeviceMockupComponent
+            contactAvatar="https://placekitten.com/300/300"
+            contactId="+1 (555) 555-1212"
+            onSendText={handleSendText}
+          >
+            <ChatFeed
+              history={messageHistory}
+              userOnRight
+            />
+          </DeviceMockupComponent>
         </div>
-        <DeviceMockupComponent
-          contactAvatar="https://placekitten.com/300/300"
-          contactId="+1 (555) 555-1212"
-          onSendText={handleSendText}
-        >
-          <ChatFeed
-            history={messageHistory}
-            userOnRight
-          />
-        </DeviceMockupComponent>
       </div>
       <div className={styles['settings-column']}>
         <div className={styles['settings-column-header']}>
           <SettingsIcon />
-          <span className="typography-h6">Settings</span> - <Link to={`/${teamSlug}/settings/tipline`}>Tipline Settings</Link>
+          <h6>Settings</h6> - <Link to={`/${teamSlug}/settings/tipline`}>Tipline Settings</Link>
         </div>
         <div className={styles['settings-card']}>
           <div className={styles['settings-card-header']}>
             <SettingsIcon />
-            <h6>Settings Widget</h6>
+            <span>Settings Widget</span>
           </div>
           <p>
             Future iterations of this Bot Preview builder experience will integrate Tipline settings into this page. This is a placeholder for future settings.
