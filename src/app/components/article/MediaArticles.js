@@ -169,7 +169,7 @@ const MediaArticlesComponent = ({
                 />
               </div>
             </div>
-            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
+            <MediaArticlesTeamArticles targetId={projectMedia.dbid} teamSlug={team.slug} onAdd={handleConfirmAdd} />
           </>
         )}
       </div>

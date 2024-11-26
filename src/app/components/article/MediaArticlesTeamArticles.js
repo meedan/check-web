@@ -12,21 +12,22 @@ import styles from './Articles.module.css';
 
 const MediaArticlesTeamArticlesComponent = ({
   articles,
+  hasRelevantArticles,
   onAdd,
   team,
   textSearch,
 }) => {
   // eslint-disable-next-line
   console.log("Articles:", articles);
-  // articles.forEach(article => {
-  //   console.log("Article:", article);
-  //   if (article?.relevent_articles) {
-  //     console.log("Relevant Articles:", article.relevent_articles.edges.map(edge => edge.node));
-  //   }
-  // });
-  const hasRelevantArticles =
-  team.relevantFactChecks?.edges?.some(edge => edge.node?.id) ||
-  team.relevantExplainers?.edges?.some(edge => edge.node?.id);
+  articles.forEach((article) => {
+    // eslint-disable-next-line
+    console.log('Article:', article);
+    if (article?.relevent_articles) {
+      // eslint-disable-next-line
+      console.log('Relevant Articles:', article.relevent_articles.edges.map(edge => edge.node));
+    }
+  });
+
   return (
     <>
       { !hasRelevantArticles && !textSearch && (
@@ -69,11 +70,13 @@ const MediaArticlesTeamArticlesComponent = ({
 
 MediaArticlesTeamArticlesComponent.defaultProps = {
   articles: [],
+  hasRelevantArticles: false,
   textSearch: null,
 };
 
 MediaArticlesTeamArticlesComponent.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.object),
+  hasRelevantArticles: PropTypes.bool,
   team: PropTypes.object.isRequired,
   textSearch: PropTypes.string,
   onAdd: PropTypes.func.isRequired,
@@ -93,29 +96,22 @@ const MediaArticlesTeamArticles = ({
       environment={Relay.Store}
       key={new Date().getTime()}
       query={graphql`
-        query MediaArticlesTeamArticlesQuery($slug: String!, $textSearch: String!, $numberOfArticles: Int!, $targetId: Int, $standalone: Boolean) {
+        query MediaArticlesTeamArticlesQuery($ids: String!, $slug: String!, $textSearch: String!, $numberOfArticles: Int!, $targetId: Int, $standalone: Boolean) {
+          project_media(ids: $ids) {
+            relevant_articles(first:1) {
+              edges {
+                node {
+                  ... on FactCheck {
+                    id
+                    ...MediaArticlesCard_article
+                  }
+                }
+              }
+            }
+            relevant_articles_count
+          }
           team(slug: $slug) {
             ...MediaArticlesCard_team
-             relevantFactChecks: relevant_articles(first: $numberOfArticles, article_type: "fact-check", sort: "id", sort_type: "desc", text: $textSearch, target_id: $targetId) {
-               edges {
-                 node {
-                   ... on FactCheck {
-                     id
-                     ...MediaArticlesCard_article
-                   }
-                 }
-               }
-             }
-             relevantExplainers: relevant_articles(first: $numberOfArticles, article_type: "explainers", sort: "id", sort_type: "desc", text: $textSearch, target_id: $targetId) {
-               edges {
-                 node {
-                   ... on FactCheck {
-                     id
-                     ...MediaArticlesCard_article
-                   }
-                 }
-               }
-             }
             factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", text: $textSearch, target_id: $targetId, standalone: $standalone) {
               edges {
                 node {
@@ -148,8 +144,12 @@ const MediaArticlesTeamArticles = ({
           console.log("Props:", props);
 
           let articles = [];
-          if (props.team.relevantFactChecks.length > 0 || props.team.relevantExplainers.length > 0) {
-            articles = props.team.relevantFactChecks.edges.concat(props.team.relevantExplainers.edges).map(edge => edge.node);
+          let hasRelevantArticles = false;
+          if (props.project_media.relevant_articles_count > 0) {
+            hasRelevantArticles = true;
+            // eslint-disable-next-line
+            console.log("Has Relevant Articles:", hasRelevantArticles);
+            articles = props.project_media.relevant_articles.edges.map(edge => edge.node);
             // eslint-disable-next-line
             console.log("Relevant Articles:", articles);
           } else {
@@ -159,7 +159,7 @@ const MediaArticlesTeamArticles = ({
           }
 
           return (
-            <MediaArticlesTeamArticlesComponent articles={articles} team={props.team} textSearch={textSearch} onAdd={onAdd} />
+            <MediaArticlesTeamArticlesComponent articles={articles} hasRelevantArticles={hasRelevantArticles} team={props.team} textSearch={textSearch} onAdd={onAdd} />
           );
         }
         return <Loader size="large" theme="white" variant="inline" />;
@@ -169,6 +169,7 @@ const MediaArticlesTeamArticles = ({
         slug: teamSlug,
         numberOfArticles,
         targetId,
+        ids: targetId.toString(),
         timestamp: new Date().getTime(), // No cache
         standalone: !textSearch,
       }}
