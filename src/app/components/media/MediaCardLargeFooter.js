@@ -25,7 +25,7 @@ const MediaCardLargeFooter = ({
   if (extractedText) {
     footerTitle = (
       <FormattedMessage
-        defaultMessage="Extracted text"
+        defaultMessage="Extracted Text:"
         description="Header for the OCR extracted text content of an image"
         id="mediaCardLargeFooter.extractedText"
       />

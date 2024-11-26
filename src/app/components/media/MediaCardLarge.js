@@ -95,6 +95,7 @@ const MediaCardLarge = ({
       ) : null }
       { isPender ? (
         <AspectRatio
+          className={styles['aspect-ratio-media-card']}
           currentUserRole={currentUserRole}
           isPenderCard={isPender}
           projectMedia={projectMedia}
