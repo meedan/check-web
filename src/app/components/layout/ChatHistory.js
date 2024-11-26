@@ -31,8 +31,7 @@ const ChatHistory = ({
       </div>
     </div>
     <ChatFeed
-      history={history}
-      title={
+      emptyChatMessage={
         <Alert
           title={
             <FormattedMessage
@@ -44,6 +43,7 @@ const ChatHistory = ({
           variant="info"
         />
       }
+      history={history}
     />
   </div>
 );
