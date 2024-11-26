@@ -18,15 +18,7 @@ const MediaArticlesTeamArticlesComponent = ({
   textSearch,
 }) => {
   // eslint-disable-next-line
-  console.log("Articles:", articles);
-  articles.forEach((article) => {
-    // eslint-disable-next-line
-    console.log('Article:', article);
-    if (article?.relevent_articles) {
-      // eslint-disable-next-line
-      console.log('Relevant Articles:', article.relevent_articles.edges.map(edge => edge.node));
-    }
-  });
+  console.log('Article:', articles);
 
   return (
     <>
@@ -82,6 +74,8 @@ MediaArticlesTeamArticlesComponent.propTypes = {
   onAdd: PropTypes.func.isRequired,
 };
 
+// eslint-disable-next-line
+export { MediaArticlesTeamArticlesComponent };  // For unit test
 const numberOfArticles = 30;
 
 const MediaArticlesTeamArticles = ({
@@ -98,7 +92,7 @@ const MediaArticlesTeamArticles = ({
       query={graphql`
         query MediaArticlesTeamArticlesQuery($ids: String!, $slug: String!, $textSearch: String!, $numberOfArticles: Int!, $targetId: Int, $standalone: Boolean) {
           project_media(ids: $ids) {
-            relevant_articles(first:1) {
+            relevant_articles(first: $numberOfArticles) {
               edges {
                 node {
                   ... on FactCheck {
