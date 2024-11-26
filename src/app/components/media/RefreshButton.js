@@ -67,7 +67,14 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
     <ButtonMain
       className="media-actions__refresh"
       disabled={waitRequest}
-      iconCenter={<RefreshIcon />}
+      iconLeft={<RefreshIcon />}
+      label={
+        <FormattedMessage
+          defaultMessage="Refresh Media"
+          description="Button label to initiate the refresh of media is content"
+          id="refreshButton.label"
+        />
+      }
       size="small"
       theme="text"
       variant="contained"

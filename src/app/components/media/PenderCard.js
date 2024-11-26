@@ -54,7 +54,6 @@ class PenderCard extends Component {
         <div
           className={cx('pender-card', styles['pender-card'])}
           id={this.props.domId}
-          style={{ maxHeight: 'none' }}
         />
 
         <div

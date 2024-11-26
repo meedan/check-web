@@ -18,7 +18,6 @@
 
   .pender-card-wrapper {
     .pender-card {
-      max-height: 2000px;
       min-height: 200px;
       overflow-x: hidden;
       overflow-y: hidden;
