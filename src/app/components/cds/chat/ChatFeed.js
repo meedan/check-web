@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import { injectIntl } from 'react-intl';
 import Message from './Message';
-import Alert from '../alerts-and-prompts/Alert';
 import styles from './ChatFeed.module.css';
 
 const ChatFeed = ({
+  className,
+  emptyChatMessage,
   history,
   intl,
-  title,
   userOnRight,
 }) => {
   const parseHistory = () => {
@@ -78,7 +79,13 @@ const ChatFeed = ({
   const convertSentAtToLocaleDateString = sent_at => new Date(+sent_at * 1000).toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' });
 
   return (
-    <div className={styles['chat-content']}>
+    <div
+      className={cx(styles['chat-content'],
+        {
+          [className]: true,
+        })
+      }
+    >
       {parseHistory(history).map((item, index, array) => {
         const content = parseItem(item);
         let dateHeader = null;
@@ -117,24 +124,24 @@ const ChatFeed = ({
         {history.length > 0 ? convertSentAtToLocaleDateString(history[history.length - 1].sent_at) : null}
       </div>
       {
-        history.length === 0 && (
-          <Alert
-            title={title}
-            variant="info"
-          />
-        )
+        history.length === 0 &&
+          <>
+            {emptyChatMessage}
+          </>
       }
     </div>
   );
 };
 
 ChatFeed.defaultProps = {
+  className: '',
   userOnRight: false,
 };
 
 ChatFeed.propTypes = {
+  className: PropTypes.string,
+  emptyChatMessage: PropTypes.oneOf([PropTypes.object, PropTypes.string]).isRequired,
   history: PropTypes.object.isRequired,
-  title: PropTypes.oneOf([PropTypes.object, PropTypes.string]).isRequired,
   userOnRight: PropTypes.bool,
 };
 

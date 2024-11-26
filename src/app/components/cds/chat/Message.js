@@ -13,7 +13,7 @@ import styles from './ChatFeed.module.css';
 
 const messages = defineMessages({
   unsupportedMessage: {
-    id: 'chatHistory.unsupportedMessage',
+    id: 'message.unsupportedMessage',
     defaultMessage: 'Unsupported message',
     description: 'Fallback used in the conversation history when a type of message is not supported',
   },
@@ -32,6 +32,8 @@ const Message = ({
   userSelection,
 }) => {
   const d = new Date(dateTime);
+
+  const messageSide = ((userMessage && userOnRight) || (!userMessage && !userOnRight)) ? 'right' : 'left';
 
   const parseCapiTemplate = items => (
     items?.components.map(
@@ -88,7 +90,9 @@ const Message = ({
     <div
       className={cx(
         styles.message,
-        { [styles.right]: (userMessage && userOnRight) || (!userMessage && !userOnRight) },
+        {
+          [styles.right]: messageSide === 'right',
+        },
       )}
       id={`message-${messageId}`}
     >
@@ -100,10 +104,12 @@ const Message = ({
             [styles.user]: userMessage,
             [styles.bot]: !userMessage,
             [styles.selection]: userSelection,
+            [styles.sent]: messageSide === 'right',
+            [styles.received]: messageSide === 'left',
           },
         )}
         >
-          {userMessage && <p>User: </p>} <ParsedText mediaChips text={preParsedText} />
+          <ParsedText mediaChips text={preParsedText} />
         </div> : null }
       <div className={`typography-body2 ${styles.time}`}>
         {icon}
