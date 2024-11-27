@@ -16,6 +16,7 @@ import styles from './AspectRatio.module.css';
 
 const AspectRatio = ({
   children,
+  className,
   currentUserRole,
   downloadUrl,
   expandedImage,
@@ -158,7 +159,14 @@ const AspectRatio = ({
 
   if (skipAspectRatio) {
     return (
-      <div style={{ position: 'relative' }}>
+      <div
+        className={cx(
+          styles.aspectRatioSkipped,
+          {
+            [className]: true,
+          })
+        }
+      >
         <ButtonsContainer />
         {children}
         <SensitiveScreen />
@@ -167,7 +175,15 @@ const AspectRatio = ({
   }
 
   return (
-    <div className={cx(uniqueClassName, styles.aspectRatio)}>
+    <div
+      className={cx(
+        uniqueClassName,
+        styles.aspectRatio,
+        {
+          [className]: true,
+        })
+      }
+    >
       { expandedContent ?
         <Lightbox
           mainSrc={expandedContent}
@@ -186,6 +202,7 @@ const AspectRatio = ({
 
 AspectRatio.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
   currentUserRole: PropTypes.string.isRequired,
   downloadUrl: PropTypes.string,
   expandedImage: PropTypes.string,
@@ -201,6 +218,7 @@ AspectRatio.propTypes = {
 };
 
 AspectRatio.defaultProps = {
+  className: null,
   downloadUrl: '',
   expandedImage: '',
   isPenderCard: false,

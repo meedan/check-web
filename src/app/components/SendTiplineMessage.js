@@ -88,9 +88,9 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
           <ButtonMain
             className="send-tipline-message__button"
             iconCenter={<SendIcon />}
-            size="default"
+            size="small"
             theme="text"
-            variant="outlined"
+            variant="contained"
             onClick={() => setDialogOpen(true)}
           />
         </span>

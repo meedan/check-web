@@ -1,10 +1,5 @@
 [
   {
-    "id": "mediaComponent.pinnedMedia",
-    "description": "Title for the media in this list that is pinned to the top",
-    "defaultMessage": "Pinned Media"
-  },
-  {
     "id": "mediaComponent.similarMediaList",
     "description": "Title for the remaining media in this list that are not pinned to the top",
     "defaultMessage": "Similar Media in Cluster"

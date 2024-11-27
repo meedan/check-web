@@ -2,7 +2,7 @@
   {
     "id": "mediaCardLargeFooter.extractedText",
     "description": "Header for the OCR extracted text content of an image",
-    "defaultMessage": "Extracted text"
+    "defaultMessage": "Extracted Text:"
   },
   {
     "id": "mediaExpanded.transcriptionInProgress",

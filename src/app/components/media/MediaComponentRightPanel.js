@@ -9,6 +9,7 @@ import MediaSecondaryBanner from './MediaSecondaryBanner';
 import MediaArticles from '../article/MediaArticles';
 import ErrorBoundary from '../error/ErrorBoundary';
 import TabWrapper from '../cds/menus-lists-dialogs/TabWrapper';
+import styles from './media.module.css';
 
 const tabLabels = defineMessages({
   articles: {
@@ -57,48 +58,50 @@ const MediaComponentRightPanel = ({
   return (
     <ErrorBoundary component="MediaComponentRightPanel">
       <MediaSecondaryBanner projectMedia={projectMedia} />
-      <TabWrapper
-        className="media__annotations-tabs"
-        tabs={[
-          {
-            label: intl.formatMessage(tabLabels.articles),
-            show: showArticles,
-            value: 'articles',
-            className: 'media-tab__articles',
-            extraLabel: projectMedia.articles_count > 0 ? ` [${projectMedia.articles_count}]` : '',
-          },
-          {
-            label: intl.formatMessage(tabLabels.requests),
-            show: showRequests,
-            value: 'requests',
-            className: 'media-tab__requests',
-            extraLabel: projectMedia.demand > 0 ? ` [${projectMedia.demand}]` : '',
-          },
-          {
-            label: intl.formatMessage(tabLabels.suggestedMedia),
-            show: showSuggestions,
-            value: 'suggestedMedia',
-            className: 'media-tab__suggestedMedia',
-            extraLabel: projectMedia.suggested_similar_items_count > 0 ? ` [${projectMedia.suggested_similar_items_count}]` : '',
-          },
-          {
-            label: intl.formatMessage(tabLabels.annotation),
-            show: showAnnotations,
-            value: 'metadata',
-            className: 'media-tab__metadata',
-            extraLabel: '',
-          },
-          {
-            label: intl.formatMessage(tabLabels.source),
-            value: 'source',
-            show: showSources,
-            className: 'media-tab__source',
-            extraLabel: '',
-          },
-        ]}
-        value={showTab}
-        onChange={setShowTab}
-      />
+      <div className={styles['media-annotations-tabs']}>
+        <TabWrapper
+          className="media__annotations-tabs"
+          tabs={[
+            {
+              label: intl.formatMessage(tabLabels.articles),
+              show: showArticles,
+              value: 'articles',
+              className: 'media-tab__articles',
+              extraLabel: projectMedia.articles_count > 0 ? ` [${projectMedia.articles_count}]` : '',
+            },
+            {
+              label: intl.formatMessage(tabLabels.requests),
+              show: showRequests,
+              value: 'requests',
+              className: 'media-tab__requests',
+              extraLabel: projectMedia.demand > 0 ? ` [${projectMedia.demand}]` : '',
+            },
+            {
+              label: intl.formatMessage(tabLabels.suggestedMedia),
+              show: showSuggestions,
+              value: 'suggestedMedia',
+              className: 'media-tab__suggestedMedia',
+              extraLabel: projectMedia.suggested_similar_items_count > 0 ? ` [${projectMedia.suggested_similar_items_count}]` : '',
+            },
+            {
+              label: intl.formatMessage(tabLabels.annotation),
+              show: showAnnotations,
+              value: 'metadata',
+              className: 'media-tab__metadata',
+              extraLabel: '',
+            },
+            {
+              label: intl.formatMessage(tabLabels.source),
+              value: 'source',
+              show: showSources,
+              className: 'media-tab__source',
+              extraLabel: '',
+            },
+          ]}
+          value={showTab}
+          onChange={setShowTab}
+        />
+      </div>
       { showTab === 'requests' ? <MediaRequests all={!projectMedia.is_confirmed_similar_to_another_item} media={projectMedia} /> : null }
       { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} superAdminMask={superAdminMask} teamDbid={projectMedia.team?.dbid} /> : null }
       { showTab === 'metadata' ? <MediaTasks fieldset="metadata" media={projectMedia} /> : null }

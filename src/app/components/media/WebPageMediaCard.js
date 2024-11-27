@@ -5,7 +5,7 @@ import deepEqual from 'deep-equal';
 import cx from 'classnames/bind';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import AspectRatio from '../layout/AspectRatio';
-import styles from '../media/media.module.css';
+import styles from '../media/MediaCardLarge.module.css';
 
 class WebPageMediaCard extends Component {
   shouldComponentUpdate(nextProps) {
@@ -28,7 +28,6 @@ class WebPageMediaCard extends Component {
       contentWarning,
       currentUserRole,
       data,
-      inModal,
       projectMedia,
       superAdminMask,
       warningCategory,
@@ -37,23 +36,6 @@ class WebPageMediaCard extends Component {
 
     return (
       <article className={cx('web-page-media-card', styles['webpage-media-card'])}>
-        <div
-          className={cx(
-            styles['webpage-media-card-title-summary'],
-            {
-              [styles['webpage-media-card-title-summary-modal']]: inModal,
-            })
-          }
-        >
-          { data.title && !inModal ?
-            <div className={cx('media-card-large__title', styles['webpage-media-card-title'])}>
-              {data.title}
-            </div> : null }
-          { data.description && !inModal ?
-            <p>
-              {data.description}
-            </p> : null }
-        </div>
         {this.canEmbedHtml() ?
           <div
             dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger

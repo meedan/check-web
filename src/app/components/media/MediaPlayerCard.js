@@ -6,7 +6,7 @@ import cx from 'classnames/bind';
 import AspectRatio from '../layout/AspectRatio';
 import MediaControls from '../cds/media-cards/MediaControls.js';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import styles from './media.module.css';
+import styles from './MediaCardLarge.module.css';
 
 // from https://github.com/cookpete/react-player/blob/a110aaf2f3f4e23a3ba3889fe9e8e7b96b769f59/src/patterns.js#L3
 const youtubeRegex = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|watch\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//;
