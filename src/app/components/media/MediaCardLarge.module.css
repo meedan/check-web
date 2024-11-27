@@ -9,6 +9,7 @@
   > .video-media-card,
   > .webpage-media-card {
     flex: 1 1;
+    min-height: calc(226px * (16/9));
     min-width: calc(200px * (16/9));
   }
 
