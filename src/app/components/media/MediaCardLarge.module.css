@@ -12,10 +12,6 @@
     min-width: calc(200px * (16/9));
   }
 
-  .aspect-ratio-media-card {
-    padding: 0 0 16px;
-  }
-
   .pender-card-wrapper {
     .pender-card {
       min-height: 200px;
