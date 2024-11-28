@@ -109,6 +109,22 @@
         }
       }
     }
+
+    .emptyChatMessage {
+      @mixin typography-subtitle1;
+      align-items: center;
+      color: var(--color-blue-32);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+      justify-content: center;
+      text-align: center;
+
+      :global(.check-icon) {
+        font-size: var(--iconSizeDefault);
+      }
+    }
   }
 
   .settings-column {

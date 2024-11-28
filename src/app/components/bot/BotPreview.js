@@ -9,6 +9,7 @@ import { SmoochIcon } from '../annotations/TiplineRequest';
 import ChatFeed from '../cds/chat/ChatFeed';
 import Select from '../cds/inputs/Select';
 import DeviceMockupComponent from '../cds/mockups/DeviceMockupComponent';
+import IconArrowDown from '../../icons/arrow_downward.svg';
 import IconBot from '../../icons/smart_toy.svg';
 import SettingsIcon from '../../icons/settings.svg';
 import { safelyParseJSON } from '../../helpers';
@@ -136,8 +137,12 @@ const BotPreview = ({ me, team }) => {
           <div className={styles['bot-preview-title']}>
             <IconBot />{' '}
             <h6>Bot Preview</h6>{' '}
-            <sup className={styles.beta}>BETA</sup>{' - '}
-            <button className={styles.buttonAsLink} onClick={resetHistory}>reset chat</button>
+            <sup className={styles.beta}>BETA</sup>
+            { messageHistory.length ?
+              <>
+                {' - '}
+                <button className={styles.buttonAsLink} onClick={resetHistory}>reset chat</button>
+              </> : null }
           </div>
           <div className={styles['bot-preview-actions-context']}>
             <SmoochIcon name={selectedPlatform} />
@@ -169,6 +174,12 @@ const BotPreview = ({ me, team }) => {
             onSendText={handleSendText}
           >
             <ChatFeed
+              emptyChatMessage={
+                <div className={styles.emptyChatMessage}>
+                  Start chatting with this workspace Tipline Bot by entering a search term into the input below.
+                  <IconArrowDown />
+                </div>
+              }
               history={messageHistory}
               userOnRight
             />
