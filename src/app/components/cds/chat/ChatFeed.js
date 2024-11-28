@@ -135,13 +135,14 @@ const ChatFeed = ({
 
 ChatFeed.defaultProps = {
   className: '',
+  emptyChatMessage: null,
   userOnRight: false,
 };
 
 ChatFeed.propTypes = {
   className: PropTypes.string,
-  emptyChatMessage: PropTypes.oneOf([PropTypes.object, PropTypes.string]).isRequired,
-  history: PropTypes.object.isRequired,
+  emptyChatMessage: PropTypes.oneOf([PropTypes.object, PropTypes.string]),
+  history: PropTypes.array.isRequired,
   userOnRight: PropTypes.bool,
 };
 

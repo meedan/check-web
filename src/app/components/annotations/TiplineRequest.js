@@ -42,7 +42,7 @@ const SmoochIcon = ({ name }) => {
 };
 
 SmoochIcon.propTypes = {
-  name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line', 'instagram']).isRequired,
+  name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line', 'instagram', '-']).isRequired,
 };
 
 const channelLabel = {
@@ -192,4 +192,5 @@ TiplineRequest.propTypes = {
   intl: intlShape.isRequired,
 };
 
+export { SmoochIcon };
 export default injectIntl(TiplineRequest);

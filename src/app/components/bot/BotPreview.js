@@ -1,9 +1,11 @@
-/* eslint-disable relay/unused-fields, no-unused-vars */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, fetchQuery } from 'react-relay/compat';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
+// FIXME: Extract SmoochIcon to its own component
+import { SmoochIcon } from '../annotations/TiplineRequest';
 import ChatFeed from '../cds/chat/ChatFeed';
 import Select from '../cds/inputs/Select';
 import DeviceMockupComponent from '../cds/mockups/DeviceMockupComponent';
@@ -22,25 +24,53 @@ const query = graphql`
         title
         body
         image_url
-        language
         url
         type
-        format
       }
     }
   }
 `;
 
-const BotPreview = ({ me }) => {
+const formattedText = (result) => {
+  if (result.url) {
+    return `*${result.title}*\n\n${result.body}\n\n${result.url}`;
+  }
+
+  return `*${result.title}*\n\n${result.body}`;
+};
+
+const platformContactName = (platform, smoochIntegrations) => {
+  const contactNameFieldForPlatform = {
+    whatsapp: 'phoneNumber',
+    messenger: 'username',
+    viber: 'uri',
+    line: 'channelId',
+    '-': 'displayName',
+  };
+
+  return smoochIntegrations[platform][contactNameFieldForPlatform[platform]];
+};
+
+const BotPreview = ({ me, team }) => {
+  let smoochIntegrations = { '-': { displayName: 'No tiplines enabled' } };
+
+  if (team.smooch_bot?.smooch_enabled_integrations && Object.keys(team.smooch_bot.smooch_enabled_integrations)[0]) {
+    smoochIntegrations = team.smooch_bot.smooch_enabled_integrations;
+  }
+  const firstPlatform = Object.keys(smoochIntegrations)[0];
+
   const savedHistory = safelyParseJSON(window.storage.getValue('botPreviewMessageHistory'), []);
+
   const [messageHistory, setMessageHistory] = React.useState(savedHistory);
+  const [selectedPlatform, setSelectedPlatform] = React.useState(firstPlatform);
 
   const handleReceiveResults = (results) => {
     const resultMessages = results.map(result => ({
       sent_at: Date.now() / 1000,
       event: result.type === 'fact_check' ? 'search_result' : undefined,
+      media_url: result.image_url || undefined,
       payload: {
-        text: `${result.title}\n\n${result.body}`,
+        text: formattedText(result),
       },
     }));
 
@@ -92,6 +122,11 @@ const BotPreview = ({ me }) => {
     window.storage.set('botPreviewMessageHistory', JSON.stringify(newHistory));
   };
 
+  const resetHistory = () => {
+    setMessageHistory([]);
+    window.storage.set('botPreviewMessageHistory', JSON.stringify([]));
+  };
+
   if (!me.is_admin) return null;
 
   return (
@@ -99,13 +134,21 @@ const BotPreview = ({ me }) => {
       <div className={styles['card-and-device-column']}>
         <div className={styles['bot-preview-header']}>
           <div className={styles['bot-preview-title']}>
-            <IconBot />{' '}<h6>Bot Preview</h6>{' '}<sup className={styles.beta}>BETA</sup>
+            <IconBot />{' '}
+            <h6>Bot Preview</h6>{' '}
+            <sup className={styles.beta}>BETA</sup>{' - '}
+            <button className={styles.buttonAsLink} onClick={resetHistory}>reset chat</button>
           </div>
           <div className={styles['bot-preview-actions-context']}>
-            <Select>
-              <option>Facebook Messenger</option>
-              <option>Telegram</option>
-              <option>Whatsapp</option>
+            <SmoochIcon name={selectedPlatform} />
+            <Select
+              className={styles.select}
+              value={selectedPlatform}
+              onChange={e => setSelectedPlatform(e.target.value)}
+            >
+              {Object.keys(smoochIntegrations).map(key => (
+                <option key={key} value={key}>{smoochIntegrations[key].displayName || key}</option>
+              ))}
             </Select>
           </div>
         </div>
@@ -121,8 +164,8 @@ const BotPreview = ({ me }) => {
             </div>
           </div>
           <DeviceMockupComponent
-            contactAvatar="https://placekitten.com/300/300"
-            contactId="+1 (555) 555-1212"
+            contactAvatar={team.avatar}
+            contactId={platformContactName(selectedPlatform, smoochIntegrations)}
             onSendText={handleSendText}
           >
             <ChatFeed
@@ -151,6 +194,11 @@ const BotPreview = ({ me }) => {
   );
 };
 
+BotPreview.propTypes = {
+  me: PropTypes.object.isRequired,
+  team: PropTypes.object.isRequired,
+};
+
 const BotPreviewQueryRenderer = () => (
   <QueryRenderer
     environment={Relay.Store}
@@ -162,8 +210,8 @@ const BotPreviewQueryRenderer = () => (
           token
         }
         team(slug: $teamSlug) {
+          avatar
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
-            json_settings
             smooch_enabled_integrations(force: true)
           }
         }
@@ -172,9 +220,6 @@ const BotPreviewQueryRenderer = () => (
     render={({ error, props }) => {
       if (error) return null;
       if (!props) return null;
-
-      console.log('props', JSON.parse(props.team.smooch_bot.json_settings)); // eslint-disable-line no-console
-      console.log('integrations', props.team.smooch_bot.smooch_enabled_integrations); // eslint-disable-line no-console
 
       return <BotPreview {...props} />;
     }}

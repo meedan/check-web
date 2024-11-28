@@ -37,10 +37,32 @@
         color: var(--color-white-100);
         padding: 4px 8px;
       }
+
+      .buttonAsLink {
+        background: none !important;
+        border: none;
+        color: var(--color-blue-54);
+        cursor: pointer;
+        padding: 0 !important;
+        text-decoration: underline;
+      }
     }
 
     .bot-preview-actions-context {
-      display: block;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+
+      :global(.check-icon) {
+        font-size: var(--iconSizeDefault);
+      }
+
+      .select {
+        @mixin typography-subtitle2;
+        background: transparent;
+        border: none;
+        color: var(--color-gray-37);
+      }
     }
   }
 
