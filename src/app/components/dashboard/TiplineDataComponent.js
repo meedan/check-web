@@ -294,7 +294,8 @@ const TiplineDataComponent = ({
           }
         </div>
         <div className={styles['dashboard-data-table-header-actions']}>
-          { dates &&
+          { dates.length === 1 && dates.includes('-') ?
+            null :
             <h6>
               {firstValue} - {lastValue}
             </h6>
