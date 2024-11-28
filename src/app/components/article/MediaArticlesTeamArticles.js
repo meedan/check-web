@@ -18,7 +18,7 @@ const MediaArticlesTeamArticlesComponent = ({
   textSearch,
 }) => {
   // eslint-disable-next-line
-  console.log('Article:', articles);
+  // console.log('Articles:', articles);
 
   return (
     <>
@@ -76,7 +76,7 @@ MediaArticlesTeamArticlesComponent.propTypes = {
 
 // eslint-disable-next-line
 export { MediaArticlesTeamArticlesComponent };  // For unit test
-const numberOfArticles = 30;
+const numberOfArticles = 10;
 
 const MediaArticlesTeamArticles = ({
   onAdd,
