@@ -18,7 +18,7 @@ const MediaArticlesTeamArticlesComponent = ({
   textSearch,
 }) => {
   // eslint-disable-next-line
-  // console.log('Articles:', articles);
+  console.log('Articles:', articles);
 
   return (
     <>
