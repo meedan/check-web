@@ -49,10 +49,6 @@
     }
 
     .bot-preview-actions-context {
-      align-items: center;
-      display: flex;
-      flex-direction: row;
-
       :global(.check-icon) {
         font-size: var(--iconSizeDefault);
       }
@@ -68,7 +64,7 @@
 
   .bot-preview-action-device-wrapper {
     display: flex;
-    margin: -72px 0 0;
+    margin: -34px 0 0;
 
     .bot-preview-action-panel {
       display: flex;
