@@ -36,7 +36,7 @@ const PlatformSelect = ({
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'start',
+          horizontal: 'left',
         }}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}

@@ -141,7 +141,7 @@ ChatFeed.defaultProps = {
 
 ChatFeed.propTypes = {
   className: PropTypes.string,
-  emptyChatMessage: PropTypes.oneOf([PropTypes.object, PropTypes.string]),
+  emptyChatMessage: PropTypes.node,
   history: PropTypes.array.isRequired,
   userOnRight: PropTypes.bool,
 };
