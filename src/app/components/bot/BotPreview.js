@@ -54,44 +54,6 @@ const platformContactName = (platform, smoochIntegrations) => {
 const BotPreview = ({ me, team }) => {
   let smoochIntegrations = { '-': { displayName: 'No tiplines enabled' } };
 
-  // Uncomment the block below to test with multiple integrations
-  /*
-  smoochIntegrations = {
-    "whatsapp": {
-      "_id": "5c193e6d91130000222756d3",
-      "displayName": "WhatsApp",
-      "type": "whatsapp",
-      "appId": "891951067591543",
-      "phoneNumber": "557183151081",
-      "status": "active"
-    },
-    "messenger": {
-      "_id": "5d751f90b94f8f00121d3ba4",
-      "type": "messenger",
-      "displayName": "Messenger",
-      "appId": "891951067591543",
-      "pageId": "102799447775986",
-      "userId": "2414077795307127",
-      "username": "Caio Almeida",
-      "status": "active"
-    },
-    "viber": {
-      "_id": "607c5bc8c64c8b00d3b989e7",
-      "type": "viber",
-      "displayName": "Viber",
-      "uri": "meedandemoqa",
-      "status": "active"
-    },
-    "line": {
-      "_id": "607c5dc2b13e2d00d3adac4e",
-      "type": "line",
-      "displayName": "Line",
-      "channelId": "0000000000",
-      "status": "active"
-    }
-  };
-  */
-
   if (team.smooch_bot?.smooch_enabled_integrations && Object.keys(team.smooch_bot.smooch_enabled_integrations)[0]) {
     smoochIntegrations = team.smooch_bot.smooch_enabled_integrations;
   }
