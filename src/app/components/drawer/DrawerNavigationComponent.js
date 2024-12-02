@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
@@ -100,8 +101,8 @@ class DrawerNavigationComponent extends Component {
 }
 
 DrawerNavigationComponent.propTypes = {
-  clientSessionId: PropTypes.string.isRequired,
   pusher: pusherShape.isRequired,
+  clientSessionId: PropTypes.string.isRequired,
 };
 
 DrawerNavigationComponent.contextTypes = {

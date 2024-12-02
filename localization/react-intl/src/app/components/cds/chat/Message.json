@@ -1,7 +1,0 @@
-[
-  {
-    "id": "message.unsupportedMessage",
-    "description": "Fallback used in the conversation history when a type of message is not supported",
-    "defaultMessage": "Unsupported message"
-  }
-]
