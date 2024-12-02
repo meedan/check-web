@@ -67,7 +67,7 @@ const DeviceMockupComponent = ({
         <ButtonMain
           iconCenter={<AddIcon />}
           size="large"
-          theme="text"
+          theme="beige"
           variant="text"
         />
         <TextField
