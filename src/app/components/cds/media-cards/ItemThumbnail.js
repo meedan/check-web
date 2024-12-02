@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -10,11 +9,25 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import styles from './ItemThumbnail.module.css';
 
 const ItemThumbnail = ({
-  maskContent, picture, type, url,
+  maskContent,
+  picture,
+  size,
+  type,
+  url,
 }) => {
   if (!type && !picture) {
     return (
-      <div className={cx(styles.thumbnail, styles.container, styles.emptyMedia)}>
+      <div
+        className={cx(
+          styles.thumbnail,
+          styles.container,
+          styles.emptyMedia,
+          {
+            [styles.sizeDefault]: size === 'default',
+            [styles.sizeSmall]: size === 'small',
+          })
+        }
+      >
         <div className={styles.iconContainer}>
           <EmptyMediaIcon />
         </div>
@@ -37,7 +50,16 @@ const ItemThumbnail = ({
             />
           }
         >
-          <div className={cx(styles.thumbnail, styles.container)}>
+          <div
+            className={cx(
+              styles.thumbnail,
+              styles.container,
+              {
+                [styles.sizeDefault]: size === 'default',
+                [styles.sizeSmall]: size === 'small',
+              })
+            }
+          >
             <div className={styles.iconContainer}>
               <img
                 alt={type}
@@ -62,16 +84,35 @@ const ItemThumbnail = ({
           />
         }
       >
-        <div className={cx(styles.thumbnail, styles.container)}>
+        <div
+          className={cx(
+            styles.thumbnail,
+            styles.container,
+            {
+              [styles.sizeDefault]: size === 'default',
+              [styles.sizeSmall]: size === 'small',
+            })
+          }
+        >
           <div className={styles.iconContainer}>
-            <MediaTypeDisplayIcon className={styles.mediaIcon} fontSize="var(--iconSizeDefault)" mediaType={mediaType} />
+            <MediaTypeDisplayIcon className={styles.mediaIcon} mediaType={mediaType} />
           </div>
         </div>
       </Tooltip>
     );
   }
   return (
-    <div className={cx(styles.thumbnail, styles.container, styles.contentScreen)}>
+    <div
+      className={cx(
+        styles.thumbnail,
+        styles.container,
+        styles.contentScreen,
+        {
+          [styles.sizeDefault]: size === 'default',
+          [styles.sizeSmall]: size === 'small',
+        })
+      }
+    >
       <div className={styles.iconContainer}>
         <VisibilityOffIcon className={styles.visibilityOffIcon} />
       </div>
@@ -95,17 +136,19 @@ function requiredBoolIfTypeNotEmpty(props, propName, componentName) {
 }
 
 ItemThumbnail.defaultProps = {
-  url: null,
-  type: null,
-  picture: null,
   maskContent: null,
+  picture: null,
+  size: 'default',
+  type: null,
+  url: null,
 };
 
 ItemThumbnail.propTypes = {
+  maskContent: requiredBoolIfTypeNotEmpty,
+  picture: requiredStringIfTypeNotEmpty,
+  size: PropTypes.oneOf(['default', 'small']),
   type: PropTypes.string,
   url: requiredStringIfTypeNotEmpty,
-  picture: requiredStringIfTypeNotEmpty,
-  maskContent: requiredBoolIfTypeNotEmpty,
 };
 
 export default ItemThumbnail;

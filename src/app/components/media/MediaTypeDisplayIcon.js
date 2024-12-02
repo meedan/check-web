@@ -52,32 +52,32 @@ export function mediaTypeFromFilename(fileName) {
   return mediaType;
 }
 
-export default function MediaTypeDisplayIcon({ color = 'var(--color-gray-75)', fontSize = 'var(--iconSizeSmall)', mediaType }) {
+export default function MediaTypeDisplayIcon({ mediaType }) {
   switch (mediaType) {
   case 'Claim':
-    return <Description style={{ fontSize, color }} />;
+    return <Description />;
   case 'Link':
-    return <Public style={{ fontSize, color }} />;
+    return <Public />;
   case 'UploadedImage':
-    return <Image style={{ fontSize, color }} />;
+    return <Image />;
   case 'UploadedVideo':
-    return <Movie style={{ fontSize, color }} />;
+    return <Movie />;
   case 'UploadedAudio':
-    return <Audiotrack style={{ fontSize, color }} />;
+    return <Audiotrack />;
   case 'Facebook':
-    return <Facebook style={{ fontSize, color }} />;
+    return <Facebook />;
   case 'Instagram':
-    return <Instagram style={{ fontSize, color }} />;
+    return <Instagram />;
   case 'Telegram':
-    return <Telegram style={{ fontSize, color }} />;
+    return <Telegram />;
   case 'Tiktok':
-    return <Tiktok style={{ fontSize, color }} />;
+    return <Tiktok />;
   case 'Twitter':
-    return <Twitter style={{ fontSize, color }} />;
+    return <Twitter />;
   case 'Youtube':
-    return <YouTube style={{ fontSize, color }} />;
+    return <YouTube />;
   case 'Blank':
-    return <EmptyMedia style={{ fontSize, color }} />;
+    return <EmptyMedia />;
   case '-':
   default:
     return null;

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import {
-  Box,
   Checkbox,
   Dialog,
   FormControl,
@@ -367,9 +366,11 @@ class EditTaskDialog extends React.Component {
             ))}
           </Select>
         </FormControl>
-        <Box mb={this.state.hasCollectedAnswers ? 1 : 2} mt={1}>
-          { types.find(t => t.value === this.state.taskType)?.description }
-        </Box>
+        <Alert
+          content={types.find(t => t.value === this.state.taskType)?.description}
+          icon
+          variant="info"
+        />
       </React.Fragment>
     );
 
@@ -436,7 +437,7 @@ class EditTaskDialog extends React.Component {
             </FormattedMessage>
             <FieldTypeSelect />
             { this.state.taskType === 'datetime' ?
-              <Box mt={2}>
+              <div>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -545,7 +546,7 @@ class EditTaskDialog extends React.Component {
                     </FormHelperText>
                   ) : null
                 }
-              </Box>
+              </div>
               : null
             }
             <EditTaskOptions

@@ -21,7 +21,7 @@
   },
   {
     "id": "teamMemberActions.copiedToClipboard",
-    "description": "success message fro when an email address has been copied to the clipboard",
+    "description": "success message for when an email address has been copied to the clipboard",
     "defaultMessage": "The email has been copied to the clipboard"
   },
   {

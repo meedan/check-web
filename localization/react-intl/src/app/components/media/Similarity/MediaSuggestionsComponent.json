@@ -52,42 +52,42 @@
   {
     "id": "mediaSuggestionsComponent.accept",
     "description": "Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list.",
-    "defaultMessage": "Match media"
+    "defaultMessage": "Add this suggested media to this media cluster"
   },
   {
     "id": "mediaSuggestionsComponent.reject",
     "description": "Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list.",
-    "defaultMessage": "Reject media"
+    "defaultMessage": "Reject this suggested media from this media cluster"
   },
   {
     "id": "mediaSuggestionsComponent.spam",
-    "description": "Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list.",
-    "defaultMessage": "Mark media as spam"
+    "description": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list.",
+    "defaultMessage": "Mark this suggested media as spam"
   },
   {
     "id": "mediaSuggestionsComponent.trash",
     "description": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list.",
-    "defaultMessage": "Send media to trash"
+    "defaultMessage": "Send this suggested media to trash"
   },
   {
     "id": "mediaSuggestionsComponent.bulkAccept",
     "description": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media.",
-    "defaultMessage": "Match all media on this page"
+    "defaultMessage": "Add all suggested media to this media cluster"
   },
   {
     "id": "mediaSuggestionsComponent.bulkReject",
     "description": "Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list.",
-    "defaultMessage": "Reject all media on this page"
+    "defaultMessage": "Reject all suggested media from this media cluster"
   },
   {
     "id": "mediaSuggestionsComponent.bulkSpam",
     "description": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list.",
-    "defaultMessage": "Mark all media on this page as spam"
+    "defaultMessage": "Send all suggested media to spam"
   },
   {
     "id": "mediaSuggestionsComponent.bulkTrash",
     "description": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list.",
-    "defaultMessage": "Send all media on this page to trash"
+    "defaultMessage": "Send all suggested media to trash"
   },
   {
     "id": "mediaSuggestionsComponent.previous",
@@ -107,7 +107,12 @@
   {
     "id": "mediaSuggestionsComponent.dialogBulkAcceptTitle",
     "description": "Prompt to a user when they choose to match media as a bulk action",
-    "defaultMessage": "Are you sure you want to match {number} suggestions?"
+    "defaultMessage": "Add all suggested media to this media cluster?"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkAcceptContent",
+    "description": "Prompt to a user when they choose to match media as a bulk action",
+    "defaultMessage": "Are you sure you want to add these <strong>{number}</strong> suggested media to this media cluster?"
   },
   {
     "id": "global.cancel",
@@ -117,7 +122,7 @@
   {
     "id": "mediaSuggestionsComponent.dialogBulkAcceptConfirm",
     "description": "Button that a user presses to confirm that they are going to match all visible suggested media",
-    "defaultMessage": "Match all"
+    "defaultMessage": "Add All Media"
   },
   {
     "id": "mediaSuggestionsComponent.dialogBulkSpamTitle",
@@ -137,16 +142,21 @@
   {
     "id": "mediaSuggestionsComponent.dialogBulkTrashConfirm",
     "description": "Button that a user presses to confirm that they are going to send all visible suggested media to trash",
-    "defaultMessage": "Send to trash"
+    "defaultMessage": "Send Media to Trash"
   },
   {
     "id": "mediaSuggestionsComponent.dialogBulkRejectTitle",
     "description": "Prompt to a user when they choose to reject media in bulk",
-    "defaultMessage": "Are you sure you want to reject {number} suggestions?"
+    "defaultMessage": "Reject all suggested media from this media cluster?"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkRejectContent",
+    "description": "Prompt to a user when they choose to match media as a bulk action",
+    "defaultMessage": "Are you sure you want to reject these <strong>{number}</strong> suggested media from this media cluster?"
   },
   {
     "id": "mediaSuggestionsComponent.dialogBulkRejectConfirm",
     "description": "Button that a user presses to confirm that they are going to reject all visible suggested media",
-    "defaultMessage": "Reject"
+    "defaultMessage": "Reject All Media"
   }
 ]

@@ -16,6 +16,7 @@ import DescriptionIcon from '../../icons/description.svg';
 import { getErrorMessage } from '../../helpers';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import styles from './Articles.module.css';
+import mediaStyles from '../media/media.module.css';
 
 const addExplainerMutation = graphql`
   mutation MediaArticlesCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
@@ -134,7 +135,7 @@ const MediaArticlesComponent = ({
   };
 
   return (
-    <div className={styles.articlesSidebar} id="articles-sidebar">
+    <div className={cx(mediaStyles['media-articles'], styles.articlesSidebar)} id="articles-sidebar">
       <div className={styles.articlesSidebarTopBar}>
         <ChooseExistingArticleButton
           disabled={projectMedia.type === 'Blank'}

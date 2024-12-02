@@ -38,11 +38,12 @@ const ThresholdControl = ({
     <div className={styles['threshold-control-inputs']}>
       <TextField
         className={settingsStyles['similarity-component-input']}
+        componentProps={{
+          min: '0',
+        }}
         disabled={disabled}
-        size="small"
         type="number"
         value={value}
-        variant="outlined"
         onChange={e => onChange(e.target.value)}
       />
       <Slider

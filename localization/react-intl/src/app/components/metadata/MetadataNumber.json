@@ -1,0 +1,12 @@
+[
+  {
+    "id": "metatdataText.placeholder",
+    "description": "Placeholder of the input field for annotation answer",
+    "defaultMessage": "Add annotation answer"
+  },
+  {
+    "id": "metatdataText.answerTitle",
+    "description": "Input title for a metadata answer field",
+    "defaultMessage": "Answer"
+  }
+]

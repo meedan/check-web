@@ -1,4 +1,5 @@
 .media-item-wrapper {
+  --minMediaColumnWidth: calc(216px * (16/9));
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -9,7 +10,7 @@
     display: flex;
     gap: 8px;
     justify-content: flex-start;
-    margin: 16px 32px -32px;
+    margin: 2px 32px -28px;
   }
 
   .media-actions-bar {
@@ -21,6 +22,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 16px 32px 0;
+    min-width: var(--minMediaColumnWidth);
     padding: 16px;
     width: auto;
 
@@ -94,12 +96,14 @@
   }
 
   .media-item {
-    align-items: flex-start;
+    align-content: stretch;
+    align-items: stretch;
     display: flex;
     flex: 1 1 100%;
-    flex-direction: row;
+    flex-flow: row wrap;
     gap: 16px;
     margin: 0 32px 16px;
+    min-height: 0;
     overflow: hidden;
 
     .media-item-content {
@@ -112,22 +116,22 @@
 
     .media-item-medias,
     .media-item-annotations {
-      background-color: var(--color-white-100);
       border-radius: var(--border-radius-default);
       display: flex;
-      flex: 1 1 340px;
+      flex: 1;
       flex-direction: column;
-      max-height: 100%;
-      max-width: var(--columnWidthLarge);
       overflow: hidden;
     }
 
     .media-item-medias {
-      align-self: flex-start;
-      display: flex;
-      max-height: 100%;
+      flex: 2 1 0;
+      height: 100%;
+      min-width: var(--minMediaColumnWidth);
 
       .media-item-content {
+        background-color: var(--color-white-100);
+        border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-default) var(--border-radius-default);
+
         .media-item-medias-header {
           @mixin typography-subtitle2;
           align-items: center;
@@ -146,17 +150,30 @@
       }
     }
 
+    .media-item-annotations {
+      flex: 1 1 0;
+      height: 100%;
+      min-width: var(--minMediaColumnWidth);
+
+      .media-annotations-tabs {
+        background-color: var(--color-white-100);
+        border-radius: var(--border-radius-default) var(--border-radius-default) var(--border-radius-zero) var(--border-radius-zero);
+      }
+    }
+
     .media-item-column-header {
       background-color: var(--color-white-100);
-      flex: 1 0 56px;
+      flex: 0 0 56px;
     }
   }
 
+  .media-articles,
   .media-requests,
   .media-suggestions,
   .media-sources,
   .media-tasks {
-    flex: 1;
+    background-color: var(--color-white-100);
+    border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-default) var(--border-radius-default);
     padding: 16px;
 
     .empty-list {
@@ -165,6 +182,11 @@
       padding: 16px;
       text-align: center;
     }
+  }
+
+  .media-articles {
+    flex: 0 1 auto;
+    padding: 0;
   }
 
   .media-sources {
@@ -215,15 +237,14 @@
     }
   }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1200px) {
     height: 100vh;
     overflow: auto;
 
     .media-item {
-      display: block;
       margin: 0;
       overflow: auto;
-      padding: 0 32px 16px;
+      padding: 0 16px 16px 32px;
 
       .media-item-content {
         overflow: visible;
@@ -231,8 +252,7 @@
 
       .media-item-medias,
       .media-item-annotations {
-        flex: 1 1 340px;
-        margin: 0 0 16px;
+        height: auto;
         max-height: unset;
       }
 
@@ -333,124 +353,19 @@
         display: flex;
       }
 
-      .media-item-autocomplete-selected-item {
+      .media-item-autocomplete-selected-item,
+      .media-item-autocomplete-selected-item :global(.card) {
         background-color: var(--color-gray-96);
+        border-color: var(--color-blue-32);
+        outline-color: var(--color-blue-32);
       }
     }
   }
 }
 
 .media-slug {
-  .media-slug-title {
-    align-items: center;
-    display: flex;
-    gap: 3px;
-    margin: 4px 0;
-
-    h6 {
-      @mixin typography-body2;
-      min-width: 0; /* https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child */
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-  }
-
   .media-slug-bullets {
     @mixin typography-body2;
-  }
-
-  &.media-slug-title {
-    h6 {
-      @mixin typography-body1-bold;
-    }
-  }
-}
-
-.media-card-large {
-  .media-card-large-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 16px;
-
-    .media-card-large-footer-actions {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-
-      > div {
-        display: flex;
-        gap: 4px;
-      }
-
-      &.media-card-large-footer-modal-actions {
-        border-bottom: 1px solid var(--color-blue-81);
-        padding-bottom: 16px;
-      }
-    }
-
-    &.media-card-large-footer-modal {
-      padding: 16px 0;
-    }
-  }
-
-  &.media-card-large-border {
-    background-color: var(--color-white-100);
-    border: 1px solid var(--color-gray-88);
-    border-radius: var(--border-radius-zero) var(--border-radius-zero) var(--border-radius-default) var(--border-radius-default);
-    outline: 1px solid var(--color-gray-88);
-    outline-offset: -1px;
-
-    &.rounded-top-corners {
-      border-radius: var(--border-radius-default);
-    }
-
-    &.no-border {
-      border: 0;
-    }
-
-    &.no-outline {
-      outline: none;
-    }
-  }
-
-  .quote-mediacard {
-    padding: 16px 16px 0;
-  }
-
-  .empty-media-card-large {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    min-height: 400px;
-  }
-}
-
-.webpage-media-card {
-  .webpage-media-card-title-summary {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    padding: 16px;
-
-    .webpage-media-card-title {
-      @mixin typography-subtitle2;
-      overflow-wrap: break-word;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    &.webpage-media-card-title-summary-modal {
-      padding: 0 0 16px;
-    }
-  }
-
-  .webpage-media-card-error {
-    margin: 16px;
-    width: auto;
   }
 }
 
@@ -463,12 +378,30 @@
   }
 }
 
-.video-media-card {
-  position: relative;
+.bulk-assign-media-dialog-note {
+  min-width: 450px;
+  padding: 16px;
+}
 
-  video {
-    height: 100%;
-    width: 100%;
+.mediaMenuList {
+  align-items: center;
+  display: flex;
+  margin-top: 10px;
+
+  .mediaMenuItem {
+    .mediaMenuIcon {
+      margin-right: 8px;
+      min-width: fit-content !important;
+    }
+
+    &:hover {
+      background-color: var(--color-blue-98);
+      color: var(--color-blue-32);
+
+      .mediaMenuIcon {
+        color: var(--color-blue-32);
+      }
+    }
   }
 }
 

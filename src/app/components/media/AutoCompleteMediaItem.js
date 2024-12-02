@@ -11,6 +11,7 @@ import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordC
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import RequestsCount from '../cds/media-cards/RequestsCount';
@@ -105,6 +106,7 @@ const AutoCompleteMediaItem = (props, context) => {
     eslimit: 50,
     archived: [CheckArchivedFlags.NONE, CheckArchivedFlags.UNCONFIRMED],
     show_similar: Boolean(props.customFilter),
+    sort: 'score',
   };
   if (keywordFields) {
     query.keyword_fields = keywordFields;
@@ -162,6 +164,7 @@ const AutoCompleteMediaItem = (props, context) => {
                       picture
                       metadata
                     }
+                    media_slug
                     fact_check {
                       claim_description {
                         context
@@ -332,6 +335,15 @@ const AutoCompleteMediaItem = (props, context) => {
         <div className={styles['media-item-autocomplete-results']}>
           { searchResult.items.map((projectMedia) => {
             let currentStatus = null;
+
+            /* If the selected item type is fact-check and the projectMedia lacks a fact-check, return null.
+            This may be due to a missing ElasticSearch update or a race condition during the update process,
+            where fact-check data is temporarily unavailable. This avoids showing stale or invalid data.
+            */
+            if (props.selectedItemType === 'fact-check' && !projectMedia.fact_check) {
+              return null;
+            }
+
             if (projectMedia.fact_check?.rating) {
               currentStatus = getStatus(searchResult.team.verification_statuses, projectMedia.fact_check.rating);
             }
@@ -388,7 +400,6 @@ const AutoCompleteMediaItem = (props, context) => {
                   <Link className={styles['media-item-autocomplete-link']} to={projectMedia.full_url}>
                     <SmallMediaCard
                       className={selectedDbid === projectMedia.dbid ? styles['media-item-autocomplete-selected-item'] : null}
-                      customTitle={projectMedia.title}
                       description={projectMedia.description}
                       details={[
                         (
@@ -400,6 +411,13 @@ const AutoCompleteMediaItem = (props, context) => {
                         ), (
                           <RequestsCount
                             requestsCount={projectMedia.requests_count}
+                            theme="lightText"
+                            variant="text"
+                          />
+                        ), (
+                          <MediaIdentifier
+                            mediaType={projectMedia.type}
+                            slug={projectMedia.media_slug}
                             theme="lightText"
                             variant="text"
                           />

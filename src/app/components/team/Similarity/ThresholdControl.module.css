@@ -1,6 +1,5 @@
 .threshold-control {
-  border: solid 2px;
-  margin: 0 0 16px 56px;
+  margin: 0 0 16px;
 
   > strong {
     display: block;

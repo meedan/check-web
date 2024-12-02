@@ -18,9 +18,9 @@ import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getSuperAdminMask } from '../../helpers';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
-import PushPinIcon from '../../icons/push_pin.svg';
 import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './media.module.css';
@@ -200,6 +200,7 @@ class MediaComponent extends Component {
               <div className={styles['media-item-content']}>
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
+                    dialogTitle={projectMedia.title || projectMedia.quote || projectMedia.description}
                     feedId={projectMedia.imported_from_feed_id}
                     mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
                     mediaSlug={
@@ -217,9 +218,14 @@ class MediaComponent extends Component {
                             theme="lightText"
                             variant="text"
                           />
+                        ), (
+                          <MediaIdentifier
+                            mediaType={projectMedia.type}
+                            slug={projectMedia.media_slug}
+                            theme="lightText"
+                            variant="text"
+                          />
                         )]}
-                        mediaType={projectMedia.type}
-                        slug={projectMedia.title}
                       />
                     }
                     projectMediaId={projectMedia.dbid}
@@ -228,18 +234,9 @@ class MediaComponent extends Component {
                     onClose={() => this.setState({ openMediaDialog: false })}
                   />
                   : null }
-                {projectMedia.linked_items_count > 1 &&
-                  <div className={styles['media-item-medias-header']}>
-                    <PushPinIcon />
-                    <FormattedMessage
-                      defaultMessage="Pinned Media"
-                      description="Title for the media in this list that is pinned to the top"
-                      id="mediaComponent.pinnedMedia"
-                    />
-                  </div>
-                }
                 <MediaCardLarge
                   currentUserRole={currentUserRole}
+                  pinned={projectMedia.linked_items_count > 1}
                   projectMedia={projectMedia}
                   superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
@@ -306,6 +303,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     title
     type
     is_read
+    media_slug
     permissions
     pusher_channel
     project_id
