@@ -44,7 +44,7 @@ const TextField = React.forwardRef(({
   variant,
   ...inputProps
 }, ref) => {
-  const [internalError, setInternalError] = React.useState(suppressInitialError ? undefined : error);
+  const [internalError, setInternalError] = React.useState(suppressInitialError ? false : error);
 
   React.useEffect(() => {
     if (ref?.current && textArea) {
@@ -183,7 +183,7 @@ const TextField = React.forwardRef(({
 TextField.defaultProps = {
   className: '',
   disabled: false,
-  error: undefined,
+  error: false,
   helpContent: null,
   iconLeft: null,
   iconRight: null,

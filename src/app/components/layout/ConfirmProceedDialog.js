@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -107,16 +108,16 @@ const ConfirmProceedDialog = ({
 };
 
 ConfirmProceedDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  title: PropTypes.node.isRequired,
   body: PropTypes.node.isRequired,
   cancelLabel: PropTypes.element,
   isSaving: PropTypes.bool,
-  open: PropTypes.bool.isRequired,
-  proceedDisabled: PropTypes.bool,
-  proceedLabel: PropTypes.node,
-  title: PropTypes.node.isRequired,
-  typeTextToConfirm: PropTypes.string,
   onCancel: PropTypes.func,
   onProceed: PropTypes.func.isRequired,
+  proceedDisabled: PropTypes.bool,
+  proceedLabel: PropTypes.node,
+  typeTextToConfirm: PropTypes.string,
 };
 
 ConfirmProceedDialog.defaultProps = {

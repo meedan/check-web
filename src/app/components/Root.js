@@ -11,7 +11,6 @@ import NotFound from './NotFound';
 import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './login/UserPasswordReset';
-import BotPreview from './bot/BotPreview';
 import ErrorBoundary from './error/ErrorBoundary';
 import Me from './user/Me';
 import Team from './team/Team';
@@ -87,7 +86,6 @@ class Root extends Component {
                   <Route component={Me} path="check/me(/:tab)" />
                   <Route component={FeedInvitation} path="check/feed/:feedId/invitation" splash />
                   <Route component={Team} path=":team" />
-                  <Route component={BotPreview} path=":team/bot" />
                   <Route component={Team} path=":team/settings(/:tab)" />
                   <Route component={MediaPage} path=":team/media/:mediaId" />
                   <Redirect from=":team/project/:projectId/media/:mediaId" to=":team/media/:mediaId" />

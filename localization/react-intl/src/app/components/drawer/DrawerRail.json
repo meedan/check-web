@@ -38,10 +38,5 @@
     "id": "drawerRail.articlesDescription",
     "description": "Tooltip for the Articles rail navigation",
     "defaultMessage": "Articles"
-  },
-  {
-    "id": "workspaceMenu.botBuilder",
-    "description": "Tooltip for drawer navigation to bot builder",
-    "defaultMessage": "Bot Builder"
   }
 ]

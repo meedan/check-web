@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { injectIntl, defineMessages } from 'react-intl';
 import cx from 'classnames/bind';
@@ -9,8 +8,6 @@ import HelpIcon from '../../icons/help.svg';
 import InfoIcon from '../../icons/info.svg';
 import QuestionAnswerIcon from '../../icons/question_answer.svg';
 import SettingsIcon from '../../icons/settings.svg';
-/* CV2-5570: Bot preview side navigation item is hidden until we launch the feature publicly */
-// import SmartToyIcon from '../../icons/smart_toy.svg';
 import PersonIcon from '../../icons/person.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
@@ -59,35 +56,28 @@ const messages = defineMessages({
     defaultMessage: 'Articles',
     description: 'Tooltip for the Articles rail navigation',
   },
-  botBuilder: {
-    id: 'workspaceMenu.botBuilder',
-    defaultMessage: 'Bot Builder',
-    description: 'Tooltip for drawer navigation to bot builder',
-  },
 });
 
-const DrawerRail = ({
-  currentUserIsMember,
-  drawerOpen,
-  drawerType,
-  intl,
-  onDrawerOpenChange,
-  onDrawerTypeChange,
-  team,
-  /* CV2-5570: Bot preview side navigation item is hidden until we launch the feature publicly */
-  // user,
-}) => {
+const DrawerRail = (props) => {
   const testPath = window.location.pathname;
   const isSettingsPage = /[^/]+\/settings?/.test(testPath);
   const isArticlePage = /[^/]+\/articles?/.test(testPath);
-  const isBotBuilder = /[^/]+\/bot?/.test(testPath);
   const isFeedPage = /^\/[^/]+\/feed(s)?($|\/)/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
   const isUserSettingsPage = teamSlug === 'check';
-  const isTipline = !isUserSettingsPage && !isSettingsPage && !isFeedPage && !isArticlePage && !isBotBuilder;
+  const isTipline = !isUserSettingsPage && !isSettingsPage && !isFeedPage && !isArticlePage;
   const pathParts = testPath.split('/');
   const [activeItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
+
+  const {
+    currentUserIsMember,
+    drawerOpen,
+    drawerType,
+    onDrawerOpenChange,
+    onDrawerTypeChange,
+    team,
+  } = props;
 
   const setDrawerTypeChange = (newDrawerType) => {
     const currentDrawerType = drawerType;
@@ -120,8 +110,6 @@ const DrawerRail = ({
         onDrawerTypeChange('user');
       } else if (isArticlePage) {
         onDrawerTypeChange('articles');
-      } else if (isBotBuilder) {
-        onDrawerTypeChange('bot');
       } else {
         onDrawerTypeChange('tipline');
       }
@@ -133,15 +121,15 @@ const DrawerRail = ({
       {!!team && (currentUserIsMember || !team.private) ? (
         <>
           <div className={styles.drawerRailTop}>
-            <Tooltip arrow placement="right" title={intl.formatMessage(messages.settingsDescription)}>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.settingsDescription)}>
               <Link
                 className="team-header__drawer-team-link"
-                to={`/${team.slug}/settings/workspace`}
+                to={`/${props.team.slug}/settings/workspace`}
               >
-                <TeamAvatar className={styles.teamLogo} size="44px" team={team} />
+                <TeamAvatar className={styles.teamLogo} size="44px" team={props.team} />
               </Link>
             </Tooltip>
-            <Tooltip arrow placement="right" title={intl.formatMessage(messages.railToggleDescription)}>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.railToggleDescription)}>
               <button
                 className={cx(
                   [styles.railIconButton],
@@ -159,24 +147,7 @@ const DrawerRail = ({
             </Tooltip>
           </div>
           <div className={styles.drawerRailMiddle}>
-            {/* CV2-5570: Bot preview side navigation item is hidden until we launch the feature publicly */}
-            {/* user?.is_admin &&
-            <Tooltip arrow placement="right" title={intl.formatMessage(messages.botBuilder)}>
-              <Link
-                className={cx(
-                  [styles.railIconLink],
-                  {
-                    [styles.railIconLinkActive]: isBotBuilder,
-                  })
-                }
-                id="side-navigation__bot-toggle"
-                to={`/${team.slug}/bot`}
-                onClick={() => setDrawerTypeChange('bot')}
-              >
-                <SmartToyIcon />
-              </Link>
-            </Tooltip> */}
-            <Tooltip arrow placement="right" title={intl.formatMessage(messages.articlesDescription)}>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.articlesDescription)}>
               <Link
                 className={cx(
                   [styles.railIconLink],
@@ -185,13 +156,13 @@ const DrawerRail = ({
                   })
                 }
                 id="side-navigation__article-toggle"
-                to={`/${team.slug}/articles/fact-checks`}
+                to={`/${props.team.slug}/articles/fact-checks`}
                 onClick={() => setDrawerTypeChange('articles')}
               >
                 <DescriptionIcon />
               </Link>
             </Tooltip>
-            <Tooltip arrow placement="right" title={intl.formatMessage(messages.tiplineDescription)}>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.tiplineDescription)}>
               <Link
                 className={cx(
                   [styles.railIconLink],
@@ -200,13 +171,13 @@ const DrawerRail = ({
                   })
                 }
                 id="side-navigation__tipline-toggle"
-                to={`/${team.slug}/all-items`}
+                to={`/${props.team.slug}/all-items`}
                 onClick={() => setDrawerTypeChange('tipline')}
               >
                 <QuestionAnswerIcon />
               </Link>
             </Tooltip>
-            <Tooltip arrow placement="right" title={intl.formatMessage(messages.feedDescription)}>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.feedDescription)}>
               <Link
                 className={cx(
                   [styles.railIconLink],
@@ -215,13 +186,13 @@ const DrawerRail = ({
                   })
                 }
                 id="side-navigation__feed-toggle"
-                to={`/${team.slug}/feeds`}
+                to={`/${props.team.slug}/feeds`}
                 onClick={() => setDrawerTypeChange('feed')}
               >
                 <SharedFeedIcon />
               </Link>
             </Tooltip>
-            <Tooltip arrow placement="right" title={intl.formatMessage(messages.settingsDescription)}>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.settingsDescription)}>
               <Link
                 className={cx(
                   [styles.railIconLink],
@@ -229,13 +200,13 @@ const DrawerRail = ({
                     [styles.railIconLinkActive]: isSettingsPage,
                   })
                 }
-                to={`/${team.slug}/settings/workspace`}
+                to={`/${props.team.slug}/settings/workspace`}
                 onClick={() => setDrawerTypeChange('settings')}
               >
                 <SettingsIcon />
               </Link>
             </Tooltip>
-            <Tooltip arrow placement="right" title={intl.formatMessage(messages.userSettingsDescription)}>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.userSettingsDescription)}>
               <Link
                 className={cx(
                   'user-menu__avatar',
@@ -263,7 +234,7 @@ const DrawerRail = ({
         </>
       }
       <div className={styles.drawerRailBottom}>
-        <Tooltip arrow placement="right" title={intl.formatMessage(messages.trainingDescription)}>
+        <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.trainingDescription)}>
           <a
             className={styles.railIconLink}
             href="https://help.checkmedia.org/"
@@ -273,7 +244,7 @@ const DrawerRail = ({
             <HelpIcon />
           </a>
         </Tooltip>
-        <Tooltip arrow placement="right" title={intl.formatMessage(messages.legalDescription)}>
+        <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.legalDescription)}>
           <a
             className={styles.railIconLink}
             href="https://meedan.com/legal"
@@ -286,26 +257,6 @@ const DrawerRail = ({
       </div>
     </div>
   );
-};
-
-DrawerRail.defaultProps = {
-  drawerOpen: true,
-  drawerType: 'tipline',
-  team: null,
-  /* CV2-5570: Bot preview side navigation item is hidden until we launch the feature publicly */
-  // user: null,
-};
-
-DrawerRail.propTypes = {
-  currentUserIsMember: PropTypes.bool.isRequired,
-  drawerOpen: PropTypes.bool,
-  drawerType: PropTypes.string,
-  intl: PropTypes.object.isRequired,
-  team: PropTypes.object,
-  /* CV2-5570: Bot preview side navigation item is hidden until we launch the feature publicly */
-  // user: PropTypes.object,
-  onDrawerOpenChange: PropTypes.func.isRequired,
-  onDrawerTypeChange: PropTypes.func.isRequired,
 };
 
 export default injectIntl(DrawerRail);
