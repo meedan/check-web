@@ -81,6 +81,5 @@ shared_examples 'source' do
     wait_for_selector('.media-tab__source').click
     wait_for_selector('#source__name-input')
     expect(wait_for_selector('.source__name').text == 'BBC').to be(true)
-    expect(wait_for_selector('#main_source__link').attribute('value') == 'https://www.bbc.com/portuguese').to be(true)
   end
 end

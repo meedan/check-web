@@ -4,6 +4,7 @@ shared_examples 'similarity' do
     verbose_wait 2 # Wait for the items to be indexed in ElasticSearch
     wait_for_selector('.search__results-heading')
     wait_for_selector('.cluster-card').click
+    wait_for_selector('.test__media')
     wait_for_selector('#media-similarity__add-button').click
 
     # Merge similar items

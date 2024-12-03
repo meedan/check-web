@@ -56,7 +56,7 @@ const SmallMediaCard = ({
         <ItemThumbnail maskContent={maskContent || superAdminMask} picture={media?.picture} size="small" type={media?.type} url={media?.url} />
         <div className={styles.smallMediaCardContent}>
           <div className={styles.titleAndUrl}>
-            <div className={cx('typography-subtitle2', styles.row, (media.url ? styles.oneLineDescription : styles.twoLinesDescription))}>
+            <div className={cx('typography-subtitle2', 'small-media-card__title', styles.row, (media.url ? styles.oneLineDescription : styles.twoLinesDescription))}>
               <ParsedText text={media.metadata?.title || media.quote || description} />
             </div>
             { media.url ?
