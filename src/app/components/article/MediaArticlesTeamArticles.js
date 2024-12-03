@@ -99,6 +99,10 @@ const MediaArticlesTeamArticles = ({
                     id
                     ...MediaArticlesCard_article
                   }
+                  ... on Explainer {
+                    id
+                    ...MediaArticlesCard_article
+                  }
                 }
               }
             }
