@@ -19,7 +19,8 @@ import MoreVertIcon from '../../icons/more_vert.svg';
 import SearchIcon from '../../icons/search.svg';
 import OpenInNewIcon from '../../icons/open_in_new.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from './media.module.css';
+import styles from './MediaCardLarge.module.css';
+import mediaStyles from './media.module.css';
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -53,12 +54,15 @@ const ExtraMediaActions = ({
       />
       <Menu
         anchorEl={anchorEl}
-        className={styles.mediaMenuList}
+        className={mediaStyles.mediaMenuList}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
         { (projectMedia.media && projectMedia.media.url) ?
-          <MenuItem className={styles.mediaMenuItem} onClick={() => setAnchorEl(null)}>
+          <MenuItem className={mediaStyles.mediaMenuItem} onClick={() => setAnchorEl(null)}>
+            <ListItemIcon className={mediaStyles.mediaMenuIcon}>
+              <OpenInNewIcon />
+            </ListItemIcon>
             <ExternalLink
               style={{ color: 'unset', textDecoration: 'none' }}
               url={projectMedia.media.url}
@@ -78,11 +82,11 @@ const ExtraMediaActions = ({
         />
         { allowsReverseSearch ?
           <MenuItem
-            className={styles.mediaMenuItem}
+            className={mediaStyles.mediaMenuItem}
             id="media-expanded-actions__reverse-image-search"
             onClick={() => handleMenuAndClose(reverseImageSearchGoogle)}
           >
-            <ListItemIcon className={styles.mediaMenuIcon}>
+            <ListItemIcon className={mediaStyles.mediaMenuIcon}>
               <SearchIcon />
             </ListItemIcon>
             <ListItemText
@@ -150,14 +154,14 @@ class MediaExpandedActions extends React.Component {
           : <MediaLanguageSwitcher projectMedia={projectMedia} />
         }
         { media.type !== 'Claim' ?
-          <div>
+          <>
             { media.type === 'Link' ?
               <RefreshButton projectMediaId={projectMedia.id} /> : null }
             <ExtraMediaActions
               projectMedia={projectMedia}
               reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
             />
-          </div> : null }
+          </> : null }
       </div>
     );
   }

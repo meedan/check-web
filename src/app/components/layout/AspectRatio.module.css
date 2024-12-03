@@ -32,6 +32,10 @@
   }
 }
 
+.aspectRatioSkipped {
+  position: relative;
+}
+
 .sensitiveScreen {
   align-items: center;
   background-color: transparent;

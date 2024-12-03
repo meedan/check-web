@@ -1,0 +1,7 @@
+[
+  {
+    "id": "mediaComponent.pinnedMedia",
+    "description": "Title for the media in this list that is pinned to the top",
+    "defaultMessage": "Pinned Media"
+  }
+]
