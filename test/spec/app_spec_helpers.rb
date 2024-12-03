@@ -283,7 +283,6 @@ module AppSpecHelpers
     wait_for_selector('#create-media-dialog__submit-button').click
   end
 
-
   def add_article_to_item
     wait_for_selector('.media-card-large')
     wait_for_selector('#articles-sidebar-team-articles')
