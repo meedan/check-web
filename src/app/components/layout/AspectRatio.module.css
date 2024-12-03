@@ -55,6 +55,10 @@
   width: 100%;
   z-index: 100;
 
+  p {
+    margin-bottom: 0;
+  }
+
   .toggleShowHideButton {
     pointer-events: auto;
   }
