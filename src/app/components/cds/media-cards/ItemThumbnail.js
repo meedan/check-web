@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
@@ -15,6 +15,32 @@ const ItemThumbnail = ({
   type,
   url,
 }) => {
+  const [contentMask, setContentMask] = React.useState(window.storage.getValue('contentMask') === 'true');
+  const mediaType = type === 'Link' ? mediaTypeFromUrl(url) : type;
+  const isHidden = contentMask || maskContent;
+
+  useEffect(() => {
+    const handleMaskChange = (event) => {
+      if (event.key === 'contentMask') {
+        setContentMask(event.newValue === 'true');
+      }
+    };
+
+    window.addEventListener('storage', handleMaskChange);
+
+    return () => {
+      window.removeEventListener('storage', handleMaskChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (contentMask === 'true') {
+      console.log('isHidden true', contentMask); //eslint-disable-line
+    } else {
+      console.log('isHidden false', contentMask); //eslint-disable-line
+    }
+  }, [contentMask]);
+
   if (!type && !picture) {
     return (
       <div
@@ -34,89 +60,47 @@ const ItemThumbnail = ({
       </div>
     );
   }
-  if (!maskContent) {
-    let mediaType = type;
-    if (type === 'Link') {
-      // use mediaTypeFromUrl to get the specific social icon
-      mediaType = mediaTypeFromUrl(url);
-    }
-    if (picture) {
-      return (
-        <Tooltip
-          arrow
-          title={
-            <MediaTypeDisplayName
-              mediaType={mediaType}
-            />
-          }
-        >
-          <div
-            className={cx(
-              styles.thumbnail,
-              styles.container,
-              {
-                [styles.sizeDefault]: size === 'default',
-                [styles.sizeSmall]: size === 'small',
-              })
-            }
-          >
-            <div className={styles.iconContainer}>
-              <img
-                alt={type}
-                className={styles.thumbnail}
-                src={picture}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = '/images/image_placeholder.svg';
-                }}
-              />
-            </div>
-          </div>
-        </Tooltip>
-      );
-    }
-    return (
-      <Tooltip
-        arrow
-        title={
-          <MediaTypeDisplayName
-            mediaType={mediaType}
-          />
-        }
-      >
-        <div
-          className={cx(
-            styles.thumbnail,
-            styles.container,
-            {
-              [styles.sizeDefault]: size === 'default',
-              [styles.sizeSmall]: size === 'small',
-            })
-          }
-        >
-          <div className={styles.iconContainer}>
-            <MediaTypeDisplayIcon className={styles.mediaIcon} mediaType={mediaType} />
-          </div>
-        </div>
-      </Tooltip>
-    );
-  }
   return (
-    <div
-      className={cx(
-        styles.thumbnail,
-        styles.container,
-        styles.contentScreen,
-        {
-          [styles.sizeDefault]: size === 'default',
-          [styles.sizeSmall]: size === 'small',
-        })
+    <Tooltip
+      arrow
+      title={
+        <MediaTypeDisplayName
+          mediaType={mediaType}
+        />
       }
     >
-      <div className={styles.iconContainer}>
-        <VisibilityOffIcon className={styles.visibilityOffIcon} />
+      <div
+        className={cx(
+          styles.thumbnail,
+          styles.container,
+          {
+            [styles.sizeDefault]: size === 'default',
+            [styles.sizeSmall]: size === 'small',
+            [styles.contentScreen]: isHidden,
+          })
+        }
+      >
+        <div className={styles.iconContainer}>
+          { picture && !contentMask && !maskContent &&
+            <img
+              alt={type}
+              className={styles.thumbnail}
+              src={picture}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '/images/image_placeholder.svg';
+              }}
+            />
+          }
+          { !picture && !contentMask && !maskContent &&
+            <MediaTypeDisplayIcon className={styles.mediaIcon} mediaType={mediaType} />
+          }
+          { (contentMask || maskContent) &&
+            <VisibilityOffIcon className={styles.visibilityOffIcon} />
+          }
+        </div>
       </div>
-    </div>
+    </Tooltip>
   );
 };
 
