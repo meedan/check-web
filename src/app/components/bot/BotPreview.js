@@ -80,6 +80,19 @@ const BotPreview = ({ me, team }) => {
       ...resultMessages,
     ];
 
+    if (resultMessages.length === 0) {
+      const noResultsMessage = {
+        sent_at: Date.now() / 1000,
+        direction: 'outgoing',
+        event: null,
+        payload: {
+          text: 'No results found for that search term.',
+        },
+      };
+
+      newHistory.push(noResultsMessage);
+    }
+
     setMessageHistory(newHistory);
     window.storage.set('botPreviewMessageHistory', JSON.stringify(newHistory));
   };
