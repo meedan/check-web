@@ -13,13 +13,6 @@ const SuperAdminControls = ({
   const [superAdminmaskContent, setSuperAdminMaskContent] = React.useState(maskSession);
   const [superAdminMaskContentSession, setSuperAdminMaskContentSession] = React.useState(maskSession);
 
-  useEffect(() => {
-    const mask = window.storage.getValue('contentMask');
-    if (mask !== null) {
-      setSuperAdminMaskContent(mask);
-    }
-  }, []);
-
   const updateStoredValue = (value) => {
     window.storage.set('contentMask', value);
     window.dispatchEvent(new StorageEvent('storage', {
@@ -27,6 +20,12 @@ const SuperAdminControls = ({
       newValue: value,
     }));
   };
+
+  useEffect(() => {
+    // this will be later updated to pull a stored value in local storage
+    // but at the moment, just reset the local storage value to the default mask value
+    updateStoredValue(true);
+  }, []);
 
   const handleSuperAdminClickPage = () => {
     const newValue = !superAdminmaskContent;

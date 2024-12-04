@@ -9,20 +9,20 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import styles from './ItemThumbnail.module.css';
 
 const ItemThumbnail = ({
+  ignoreGeneralContentMask,
   maskContent,
   picture,
   size,
   type,
   url,
 }) => {
-  const [contentMask, setContentMask] = React.useState(window.storage.getValue('contentMask') === 'true');
-  const mediaType = type === 'Link' ? mediaTypeFromUrl(url) : type;
-  const isHidden = contentMask || maskContent;
+  const [generalContentMask, setGeneralContentMask] = React.useState(window.storage.getValue('contentMask') || maskContent);
+  const isHidden = maskContent || (!ignoreGeneralContentMask && generalContentMask === 'true');
 
   useEffect(() => {
     const handleMaskChange = (event) => {
       if (event.key === 'contentMask') {
-        setContentMask(event.newValue === 'true');
+        setGeneralContentMask(event.newValue);
       }
     };
 
@@ -32,14 +32,6 @@ const ItemThumbnail = ({
       window.removeEventListener('storage', handleMaskChange);
     };
   }, []);
-
-  useEffect(() => {
-    if (contentMask === 'true') {
-      console.log('isHidden true', contentMask); //eslint-disable-line
-    } else {
-      console.log('isHidden false', contentMask); //eslint-disable-line
-    }
-  }, [contentMask]);
 
   if (!type && !picture) {
     return (
@@ -60,47 +52,67 @@ const ItemThumbnail = ({
       </div>
     );
   }
-  return (
-    <Tooltip
-      arrow
-      title={
-        <MediaTypeDisplayName
-          mediaType={mediaType}
-        />
-      }
-    >
-      <div
-        className={cx(
-          styles.thumbnail,
-          styles.container,
-          {
-            [styles.sizeDefault]: size === 'default',
-            [styles.sizeSmall]: size === 'small',
-            [styles.contentScreen]: isHidden,
-          })
+  if (!isHidden) {
+    let mediaType = type;
+    if (type === 'Link') {
+      // use mediaTypeFromUrl to get the specific social icon
+      mediaType = mediaTypeFromUrl(url);
+    }
+    return (
+      <Tooltip
+        arrow
+        title={
+          <MediaTypeDisplayName
+            mediaType={mediaType}
+          />
         }
       >
-        <div className={styles.iconContainer}>
-          { picture && !contentMask && !maskContent &&
-            <img
-              alt={type}
-              className={styles.thumbnail}
-              src={picture}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = '/images/image_placeholder.svg';
-              }}
-            />
+        <div
+          className={cx(
+            styles.thumbnail,
+            styles.container,
+            {
+              [styles.sizeDefault]: size === 'default',
+              [styles.sizeSmall]: size === 'small',
+            })
           }
-          { !picture && !contentMask && !maskContent &&
-            <MediaTypeDisplayIcon className={styles.mediaIcon} mediaType={mediaType} />
-          }
-          { (contentMask || maskContent) &&
-            <VisibilityOffIcon className={styles.visibilityOffIcon} />
-          }
+        >
+          <div className={styles.iconContainer}>
+            { picture &&
+              <img
+                alt={type}
+                className={styles.thumbnail}
+                src={picture}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/images/image_placeholder.svg';
+                }}
+              />
+            }
+            { !picture &&
+              <MediaTypeDisplayIcon className={styles.mediaIcon} mediaType={mediaType} />
+            }
+          </div>
         </div>
+      </Tooltip>
+    );
+  }
+  return (
+    <div
+      className={cx(
+        styles.thumbnail,
+        styles.container,
+        styles.contentScreen,
+        {
+          [styles.sizeDefault]: size === 'default',
+          [styles.sizeSmall]: size === 'small',
+        })
+      }
+    >
+      <div className={styles.iconContainer}>
+        <VisibilityOffIcon className={styles.visibilityOffIcon} />
       </div>
-    </Tooltip>
+    </div>
   );
 };
 
@@ -120,6 +132,7 @@ function requiredBoolIfTypeNotEmpty(props, propName, componentName) {
 }
 
 ItemThumbnail.defaultProps = {
+  ignoreGeneralContentMask: true,
   maskContent: null,
   picture: null,
   size: 'default',
@@ -128,6 +141,7 @@ ItemThumbnail.defaultProps = {
 };
 
 ItemThumbnail.propTypes = {
+  ignoreGeneralContentMask: PropTypes.bool,
   maskContent: requiredBoolIfTypeNotEmpty,
   picture: requiredStringIfTypeNotEmpty,
   size: PropTypes.oneOf(['default', 'small']),
