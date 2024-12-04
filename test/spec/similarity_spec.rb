@@ -115,7 +115,7 @@ shared_examples 'similarity' do
     verbose_wait 4
     wait_for_selector('.cluster-card').click
     wait_for_selector('.image-media-card')
-    expect(@driver.page_source.include?('Extracted text')).to be(true)
+    expect(@driver.page_source.include?('Extracted Text')).to be(true)
     expect(@driver.page_source.include?('Test')).to be(true)
   end
 
