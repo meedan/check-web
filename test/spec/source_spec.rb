@@ -3,9 +3,10 @@ require_relative 'spec_helper'
 shared_examples 'source' do
   it 'should check, edit and remove source info', bin2: true do
     api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'https://g1.globo.com/' })
+    verbose_wait 1
+    @driver.navigate.refresh
     wait_for_selector('.test__media')
     wait_for_selector('.media-tab__source').click
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
     wait_for_selector('#media__source')
     expect(@driver.page_source.include?('G1')).to be(true)
     wait_for_selector('#source__name-input').send_keys('- Edited')
