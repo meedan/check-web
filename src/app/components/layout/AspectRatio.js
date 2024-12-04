@@ -146,13 +146,13 @@ const AspectRatio = ({
           tagName="p"
         />
       ) : null }
-      <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
+      {contentWarning && maskContent && !superAdminMask ?
         <ContentWarningMessage
           intl={intl}
           warningCategory={warningCategory}
           warningCreator={warningCreator}
-        />
-      </div>
+        /> : null
+      }
       { contentWarning && !superAdminMask ? <ToggleShowHideButton /> : null }
     </div>
   );
