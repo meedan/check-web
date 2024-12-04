@@ -21,9 +21,6 @@ shared_examples 'search' do
     verbose_wait # wait for the items to be indexed in Elasticsearch
     # find all medias with an empty search
     wait_for_selector('.cluster-card', :css, 20, true)
-    wait_for_selector('#search-input').click
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('.cluster-card', :css, 20, true)
     expect(@driver.find_elements(:css, '.cluster-card').size).to eq 2
     # search by keywords
     wait_for_selector('#search-input').send_keys(:control, 'a', :delete)

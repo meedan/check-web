@@ -1,7 +1,7 @@
 shared_examples 'similarity' do
   it 'should import and export items', bin4: true do
     api_create_team_claims_sources_and_redirect_to_all_items({ count: 3 })
-    verbose_wait 2 # Wait for the items to be indexed in ElasticSearch
+    verbose_wait 3 # Wait for the items to be indexed in ElasticSearch
     wait_for_selector('.search__results-heading')
     wait_for_selector('.cluster-card').click
     wait_for_selector('.test__media')
