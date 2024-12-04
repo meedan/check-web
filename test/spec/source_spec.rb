@@ -6,6 +6,7 @@ shared_examples 'source' do
     verbose_wait 1
     @driver.navigate.refresh
     wait_for_selector('.test__media')
+    wait_for_selector('.media-tab__articles')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('#media__source')
     expect(@driver.page_source.include?('G1')).to be(true)
