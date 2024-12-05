@@ -16,7 +16,7 @@ const ItemThumbnail = ({
   type,
   url,
 }) => {
-  const [generalContentMask, setGeneralContentMask] = React.useState(window.storage.getValue('contentMask') || maskContent);
+  const [generalContentMask, setGeneralContentMask] = React.useState(window.localStorage.getItem('contentMask') || maskContent);
   const isHidden = maskContent || (!ignoreGeneralContentMask && generalContentMask === 'true');
 
   useEffect(() => {
