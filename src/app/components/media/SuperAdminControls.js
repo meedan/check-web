@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -13,10 +13,25 @@ const SuperAdminControls = ({
   const [superAdminmaskContent, setSuperAdminMaskContent] = React.useState(maskSession);
   const [superAdminMaskContentSession, setSuperAdminMaskContentSession] = React.useState(maskSession);
 
+  const updateStoredValue = (value) => {
+    window.storage.set('contentMask', value);
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'contentMask',
+      newValue: value,
+    }));
+  };
+
+  useEffect(() => {
+    // this will be later updated to pull a stored value in local storage
+    // but at the moment, just reset the local storage value to the default mask value
+    updateStoredValue(true);
+  }, []);
+
   const handleSuperAdminClickPage = () => {
     const newValue = !superAdminmaskContent;
     setSuperAdminMaskContent(newValue);
     handleSuperAdminMask(newValue);
+    updateStoredValue(newValue);
   };
 
   const handleSuperAdminClickSession = () => {
@@ -26,6 +41,7 @@ const SuperAdminControls = ({
     // Call methods for apply admin screen on this page to apply session action to current page
     setSuperAdminMaskContent(newValue);
     handleSuperAdminMask(newValue);
+    updateStoredValue(newValue);
   };
 
   return (

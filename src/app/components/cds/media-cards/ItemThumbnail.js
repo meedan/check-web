@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
@@ -9,12 +9,30 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import styles from './ItemThumbnail.module.css';
 
 const ItemThumbnail = ({
+  ignoreGeneralContentMask,
   maskContent,
   picture,
   size,
   type,
   url,
 }) => {
+  const [generalContentMask, setGeneralContentMask] = React.useState(window.localStorage.getItem('contentMask') || maskContent);
+  const isHidden = maskContent || (!ignoreGeneralContentMask && generalContentMask === 'true');
+
+  useEffect(() => {
+    const handleMaskChange = (event) => {
+      if (event.key === 'contentMask') {
+        setGeneralContentMask(event.newValue);
+      }
+    };
+
+    window.addEventListener('storage', handleMaskChange);
+
+    return () => {
+      window.removeEventListener('storage', handleMaskChange);
+    };
+  }, []);
+
   if (!type && !picture) {
     return (
       <div
@@ -34,46 +52,11 @@ const ItemThumbnail = ({
       </div>
     );
   }
-  if (!maskContent) {
+  if (!isHidden) {
     let mediaType = type;
     if (type === 'Link') {
       // use mediaTypeFromUrl to get the specific social icon
       mediaType = mediaTypeFromUrl(url);
-    }
-    if (picture) {
-      return (
-        <Tooltip
-          arrow
-          title={
-            <MediaTypeDisplayName
-              mediaType={mediaType}
-            />
-          }
-        >
-          <div
-            className={cx(
-              styles.thumbnail,
-              styles.container,
-              {
-                [styles.sizeDefault]: size === 'default',
-                [styles.sizeSmall]: size === 'small',
-              })
-            }
-          >
-            <div className={styles.iconContainer}>
-              <img
-                alt={type}
-                className={styles.thumbnail}
-                src={picture}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = '/images/image_placeholder.svg';
-                }}
-              />
-            </div>
-          </div>
-        </Tooltip>
-      );
     }
     return (
       <Tooltip
@@ -95,7 +78,20 @@ const ItemThumbnail = ({
           }
         >
           <div className={styles.iconContainer}>
-            <MediaTypeDisplayIcon className={styles.mediaIcon} mediaType={mediaType} />
+            { picture &&
+              <img
+                alt={type}
+                className={styles.thumbnail}
+                src={picture}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/images/image_placeholder.svg';
+                }}
+              />
+            }
+            { !picture &&
+              <MediaTypeDisplayIcon className={styles.mediaIcon} mediaType={mediaType} />
+            }
           </div>
         </div>
       </Tooltip>
@@ -136,6 +132,7 @@ function requiredBoolIfTypeNotEmpty(props, propName, componentName) {
 }
 
 ItemThumbnail.defaultProps = {
+  ignoreGeneralContentMask: true,
   maskContent: null,
   picture: null,
   size: 'default',
@@ -144,6 +141,7 @@ ItemThumbnail.defaultProps = {
 };
 
 ItemThumbnail.propTypes = {
+  ignoreGeneralContentMask: PropTypes.bool,
   maskContent: requiredBoolIfTypeNotEmpty,
   picture: requiredStringIfTypeNotEmpty,
   size: PropTypes.oneOf(['default', 'small']),
