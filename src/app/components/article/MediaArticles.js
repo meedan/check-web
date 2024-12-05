@@ -12,9 +12,9 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Loader from '../cds/loading/Loader';
-import DescriptionIcon from '../../icons/description.svg';
 import { getErrorMessage } from '../../helpers';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import DescriptionIcon from '../../icons/description.svg';
 import styles from './Articles.module.css';
 import mediaStyles from '../media/media.module.css';
 
@@ -166,14 +166,7 @@ const MediaArticlesComponent = ({
                 />
               </div>
             </div>
-            <div className="typography-subtitle2">
-              <FormattedMessage
-                defaultMessage="Choose a recent article to add to this media:"
-                description="Message displayed on articles sidebar when an item has no articles."
-                id="mediaArticles.chooseRecentArticle"
-              />
-            </div>
-            <MediaArticlesTeamArticles teamSlug={team.slug} onAdd={handleConfirmAdd} />
+            <MediaArticlesTeamArticles targetId={projectMedia.dbid} teamSlug={team.slug} onAdd={handleConfirmAdd} />
           </>
         )}
       </div>

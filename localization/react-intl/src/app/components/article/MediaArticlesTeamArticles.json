@@ -1,5 +1,15 @@
 [
   {
+    "id": "mediaArticles.chooseRecentArticle",
+    "description": "Message displayed on articles sidebar when an item has no articles.",
+    "defaultMessage": "Choose a recent article to add to this media:"
+  },
+  {
+    "id": "mediaArticles.chooseRelevantArticle",
+    "description": "Message displayed on articles sidebar when an item has relevant articles.",
+    "defaultMessage": "Choose a relevant article to add to this media:"
+  },
+  {
     "id": "mediaArticlesTeamArticles.noResults",
     "description": "Message displayed on articles sidebar when search returns no articles.",
     "defaultMessage": "No results matched your search."
