@@ -132,14 +132,14 @@ const MediaArticlesTeamArticles = ({
       `}
       render={({ error, props }) => {
         if (!error && props) {
-          // Merge explainers with fact-checks and re-sort
-
           let articles = [];
           let hasRelevantArticles = false;
+          // If there are relevant articles, we prioritize and display them
           if (props.project_media.relevant_articles_count > 0) {
             hasRelevantArticles = true;
             articles = props.project_media.relevant_articles.edges.map(edge => edge.node);
           } else {
+            // Fallback: If no relevant articles are found, merge fact-checks and explainers, and by creation date.
             articles = props.team.factChecks.edges.concat(props.team.explainers.edges).map(edge => edge.node).sort((a, b) => (parseInt(a.created_at, 10) < parseInt(b.created_at, 10)) ? 1 : -1);
           }
 
@@ -168,9 +168,9 @@ MediaArticlesTeamArticles.defaultProps = {
 };
 
 MediaArticlesTeamArticles.propTypes = {
-  targetId: PropTypes.number,
+  targetId: PropTypes.number, // ProjectMedia ID (in order to exclude articles already applied to this item)
   teamSlug: PropTypes.string.isRequired,
-  textSearch: PropTypes.string, // ProjectMedia ID (in order to exclude articles already applied to this item)
+  textSearch: PropTypes.string,
   onAdd: PropTypes.func.isRequired,
 };
 
