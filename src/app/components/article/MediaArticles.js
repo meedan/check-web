@@ -134,10 +134,6 @@ const MediaArticlesComponent = ({
     }
   };
 
-  // const hasRelevantArticles =
-  //   team.relevantFactChecks?.edges?.some(edge => edge.node?.id) ||
-  //   team.relevantExplainers?.edges?.some(edge => edge.node?.id);
-
   return (
     <div className={cx(mediaStyles['media-articles'], styles.articlesSidebar)} id="articles-sidebar">
       <div className={styles.articlesSidebarTopBar}>
