@@ -69,11 +69,18 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
       disabled={waitRequest}
       iconLeft={<RefreshIcon />}
       label={
-        <FormattedMessage
-          defaultMessage="Refresh Media"
-          description="Button label to initiate the refresh of media is content"
-          id="refreshButton.label"
-        />
+        waitRequest ?
+          <FormattedMessage
+            defaultMessage="Refreshing, please wait…"
+            description="Button label to indicate that media is being refreshed"
+            id="refreshButton.labelWait"
+          />
+          :
+          <FormattedMessage
+            defaultMessage="Refresh Media"
+            description="Button label to initiate the refresh of media is content"
+            id="refreshButton.label"
+          />
       }
       size="small"
       theme="text"

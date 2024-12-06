@@ -12,11 +12,11 @@
   {
     "id": "transcriptionButton.inProgress",
     "description": "Message displayed when transcription operation hasn't started yet",
-    "defaultMessage": "Requesting transcription…"
+    "defaultMessage": "Requesting Transcription…"
   },
   {
     "id": "transcriptionButton.label",
     "description": "Button label - when this button is clicked, transcription operation starts",
-    "defaultMessage": "Transcribe this Media"
+    "defaultMessage": "Transcribe Media"
   }
 ]
