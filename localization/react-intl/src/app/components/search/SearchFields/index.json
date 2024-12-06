@@ -142,22 +142,22 @@
   {
     "id": "search.show",
     "description": "Prefix label for field to filter by media type",
-    "defaultMessage": "Type is"
+    "defaultMessage": "Media in cluster is"
   },
   {
     "id": "search.showSimilar",
     "description": "Label for filter field to display matched media",
-    "defaultMessage": "Include matched media"
+    "defaultMessage": "Include matched media clusters"
   },
   {
     "id": "search.unmatched",
     "description": "Label for field to filter by unmatched media",
-    "defaultMessage": "Media is unmatched"
+    "defaultMessage": "Media Cluster is unmatched"
   },
   {
     "id": "search.read",
     "description": "Prefix label for field to filter by media read",
-    "defaultMessage": "Item is"
+    "defaultMessage": "Media Cluster is"
   },
   {
     "id": "search.statusHeading",

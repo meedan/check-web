@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
@@ -93,17 +92,17 @@ MetadataText.defaultProps = {
 };
 
 MetadataText.propTypes = {
-  node: PropTypes.object.isRequired,
-  disabled: PropTypes.bool,
-  EditButton: PropTypes.element.isRequired,
-  DeleteButton: PropTypes.element.isRequired,
-  CancelButton: PropTypes.element.isRequired,
-  SaveButton: PropTypes.element.isRequired,
   AnnotatorInformation: PropTypes.element.isRequired,
+  CancelButton: PropTypes.element.isRequired,
+  DeleteButton: PropTypes.element.isRequired,
+  EditButton: PropTypes.element.isRequired,
   FieldInformation: PropTypes.element.isRequired,
+  SaveButton: PropTypes.element.isRequired,
+  disabled: PropTypes.bool,
   hasData: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   metadataValue: PropTypes.string.isRequired,
+  node: PropTypes.object.isRequired,
   setMetadataValue: PropTypes.func.isRequired,
 };
 

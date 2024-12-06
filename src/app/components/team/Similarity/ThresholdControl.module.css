@@ -1,0 +1,21 @@
+.threshold-control {
+  margin: 0 0 16px;
+
+  > strong {
+    display: block;
+    margin: 0 0 8px;
+  }
+
+  .threshold-control-inputs {
+    align-items: center;
+    display: flex;
+
+    :global(.MuiSlider-root) {
+      max-width: 240px;
+    }
+  }
+
+  .threshold-control-error {
+    color: var(--color-pink-53);
+  }
+}

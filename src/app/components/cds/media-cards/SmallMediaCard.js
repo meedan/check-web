@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -9,12 +8,10 @@ import Alert from '../alerts-and-prompts/Alert';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
-import { getMediaType } from '../../../helpers';
 import styles from './Card.module.css';
 
 const SmallMediaCard = ({
   className, // { type, url, domain, quote, picture, metadata }
-  customTitle,
   description,
   details,
   maskContent,
@@ -56,23 +53,19 @@ const SmallMediaCard = ({
       }
     >
       <div className={styles.smallMediaCard} onClick={onClick} onKeyDown={onClick}>
-        <ItemThumbnail maskContent={maskContent || superAdminMask} picture={media?.picture} type={media?.type} url={media?.url} />
+        <ItemThumbnail maskContent={maskContent || superAdminMask} picture={media?.picture} size="small" type={media?.type} url={media?.url} />
         <div className={styles.smallMediaCardContent}>
           <div className={styles.titleAndUrl}>
-            <div className={cx('typography-subtitle2', styles.row, (media.url ? styles.oneLineDescription : styles.twoLinesDescription))}>
+            <div className={cx('typography-subtitle2', 'small-media-card__title', styles.row, (media.url ? styles.oneLineDescription : styles.twoLinesDescription))}>
               <ParsedText text={media.metadata?.title || media.quote || description} />
             </div>
             { media.url ?
               <div className={cx(styles.row, 'typography-body2')}>
-                <ExternalLink maxUrlLength={60} readable url={media.url} />
+                <ExternalLink readable url={media.url} />
               </div> : null
             }
           </div>
-          <MediaSlug
-            details={details}
-            mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
-            slug={customTitle || media.metadata?.title}
-          />
+          <MediaSlug details={details} />
         </div>
       </div>
     </div>
@@ -80,6 +73,10 @@ const SmallMediaCard = ({
 };
 
 SmallMediaCard.propTypes = {
+  className: PropTypes.string,
+  description: PropTypes.string,
+  details: PropTypes.array,
+  maskContent: PropTypes.bool,
   media: PropTypes.shape({
     type: PropTypes.string.isRequired,
     url: PropTypes.string, // Mandatory for link
@@ -88,17 +85,11 @@ SmallMediaCard.propTypes = {
     picture: PropTypes.string, // URL to an image
     metadata: PropTypes.object,
   }).isRequired,
-  customTitle: PropTypes.string,
-  details: PropTypes.array,
-  description: PropTypes.string,
-  maskContent: PropTypes.bool,
   superAdminMask: PropTypes.bool,
   onClick: PropTypes.func,
-  className: PropTypes.string,
 };
 
 SmallMediaCard.defaultProps = {
-  customTitle: null,
   details: null,
   description: null,
   maskContent: false,
@@ -113,7 +104,6 @@ export default createFragmentContainer(SmallMediaCard, graphql`
   fragment SmallMediaCard_media on Media {
     type
     url
-    domain
     quote
     picture
     metadata

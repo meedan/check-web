@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import urlRegex from 'url-regex';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -153,45 +153,59 @@ class CreateMediaInput extends React.Component {
   renderFormInput() {
     return (
       <>
+        <FormattedMessage
+          defaultMessage="Create a new media cluster in this workspace by adding the first piece of media for the new cluster."
+          description="This is introduction text to tell the user what the process is for creating a new cluster of media"
+          id="createMedia.createIntro"
+          tagName="p"
+        />
+        <FormattedHTMLMessage
+          defaultMessage="Media in a cluster can be a <strong>URL, block of text, image, audio, or video</strong>."
+          description="This description is to let the user know what types of media can be created"
+          id="createMedia.createIntroType"
+          tagName="p"
+        />
         {
           this.state.mediaFile === null ? (
-            <div className={inputStyles['form-fieldset-field']}>
-              <FormattedMessage
-                defaultMessage="Add a URL to a social media post or webpage, or a block of text."
-                description="Placeholder text for the media URL input"
-                id="createMedia.mediaInput"
-              >
-                { placeholder => (
-                  <TextArea
-                    disabled={this.state.mediaFile}
-                    helpContent={
-                      <FormattedMessage defaultMessage="The media that contains the claim." description="Subtitle for the section of the media that contains the claim being created" id="createMedia.mediaMediaSubtitle" />
-                    }
-                    id="create-media-input"
-                    key="createMedia.media.input"
-                    label={
-                      <FormattedMessage
-                        defaultMessage="URL or Text Block"
-                        description="Label for the text input for claim title"
-                        id="createMedia.mediaInputLabel"
-                      />
-                    }
-                    maxHeight="126px"
-                    name="text"
-                    placeholder={placeholder}
-                    value={this.state.textValue}
-                    onChange={this.handleChange}
-                    onKeyPress={this.handleKeyPress}
-                  />
-                )}
-              </FormattedMessage>
-            </div>
+            <>
+              <div className={inputStyles['form-fieldset-title']}>
+                <FormattedMessage defaultMessage="Text-based Media" description="This is a label for the text-based component to let the use know what type of media will be created" id="createMedia.textBased" />
+              </div>
+              <div className={inputStyles['form-fieldset-field']}>
+                <FormattedMessage
+                  defaultMessage="Add a URL to a social media post or webpage, or a block of text."
+                  description="Placeholder text for the media URL input"
+                  id="createMedia.mediaInput"
+                >
+                  { placeholder => (
+                    <TextArea
+                      disabled={this.state.mediaFile}
+                      id="create-media-input"
+                      key="createMedia.media.input"
+                      label={
+                        <FormattedMessage
+                          defaultMessage="URL or Text Block"
+                          description="Label for the text input for claim title"
+                          id="createMedia.mediaInputLabel"
+                        />
+                      }
+                      maxHeight="126px"
+                      name="text"
+                      placeholder={placeholder}
+                      value={this.state.textValue}
+                      onChange={this.handleChange}
+                      onKeyPress={this.handleKeyPress}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+            </>
           ) : null
         }
         {
           (this.state.mediaFile === null && this.state.textValue.length === 0) ? (
             <div className={inputStyles['form-fieldset-title']}>
-              <FormattedMessage defaultMessage="or" description="This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled." id="createMedia.or" />
+              <FormattedMessage defaultMessage="Audio/Visual Media" description="This is a label for the audio visual upload media component to let the use know what type of media will be created" id="createMedia.audioVisual" />
             </div>
           ) : null
         }

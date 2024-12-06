@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { browserHistory } from 'react-router';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
@@ -31,15 +30,15 @@ const MediaSimilarityBarAdd = ({
     setSubmitting(false);
     setFlashMessage((
       <FormattedMessage
-        defaultMessage="Items merged successfully."
-        description="Banner displayed when items are merged successfully."
+        defaultMessage="Media Clusters merged successfully."
+        description="Banner displayed when clusters of media are merged successfully."
         id="mediaSimilarityBarAdd.mergedSuccessfully"
       />
     ), 'success');
     setShowDialog(false);
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     const mediaUrl = `/${teamSlug}/media/${mainItemDbid}`;
-    browserHistory.push(mediaUrl);
+    window.location.assign(mediaUrl);
   };
 
   const handleAdd = (projectMedia) => {
@@ -172,8 +171,8 @@ const MediaSimilarityBarAdd = ({
         disableTouchListener
         title={
           <FormattedMessage
-            defaultMessage="This media item has already been merged."
-            description="Tooltip message for when merging media is not allowed from this item"
+            defaultMessage="This media cluster has already been merged."
+            description="Tooltip message for when merging media clusters is not allowed from this cluster of media"
             id="mediaSimilarityBarAdd.mergeItemsTooltip"
           />
         }
@@ -184,7 +183,7 @@ const MediaSimilarityBarAdd = ({
               id: 'media-similarity__add-button',
             }}
             disabled={!canMerge}
-            label={<FormattedMessage defaultMessage="Merge Items" description="Label for the Merge Items button." id="mediaSimilarityBarAdd.mergeItems" />}
+            label={<FormattedMessage defaultMessage="Merge Media Clusters" description="Label for the Merge Media Clusters button." id="mediaSimilarityBarAdd.mergeItems" />}
             size="default"
             theme="info"
             variant="contained"
@@ -203,14 +202,14 @@ const MediaSimilarityBarAdd = ({
         showFilters
         submitButtonLabel={() => (
           <FormattedMessage
-            defaultMessage="Merge Selected Items"
+            defaultMessage="Merge Selected Media Clusters"
             description="Button label to commit action of merging items."
             id="mediaSimilarityBarAdd.mergeItemsButton"
           />
         )}
         title={
           <FormattedMessage
-            defaultMessage="Search for Media to Merge"
+            defaultMessage="Search for Media Clusters to Merge"
             description="Dialog title for merging items."
             id="mediaSimilarityBarAdd.mergeItemsTitle"
             tagName="h6"

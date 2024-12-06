@@ -2,7 +2,7 @@
   {
     "id": "mediaCardLargeFooter.extractedText",
     "description": "Header for the OCR extracted text content of an image",
-    "defaultMessage": "Extracted text"
+    "defaultMessage": "Extracted Text:"
   },
   {
     "id": "mediaExpanded.transcriptionInProgress",
@@ -12,17 +12,7 @@
   {
     "id": "mediaCardLargeFooter.transcription",
     "description": "Header for the transcription content of an audio or video",
-    "defaultMessage": "Transcription"
-  },
-  {
-    "id": "mediaCardLarge.lastSeen",
-    "description": "Header for the date when the media item was last received by the workspace",
-    "defaultMessage": "Last submitted on {date}"
-  },
-  {
-    "id": "mediaCardLarge.requests",
-    "description": "Number of times a request has been sent about this media",
-    "defaultMessage": "{count, plural, one {# request} other {# requests}}"
+    "defaultMessage": "Transcription:"
   },
   {
     "id": "mediaCardLarge.publishedOn",

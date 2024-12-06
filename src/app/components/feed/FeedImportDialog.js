@@ -1,8 +1,7 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,13 +16,15 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ParsedText from '../ParsedText';
+import LastRequestDate from '../cds/media-cards/LastRequestDate';
+import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
+import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './FeedItem.module.css';
 import mediaStyles from '../media/media.module.css';
 
 const FeedImportDialog = ({
   cluster,
   feed,
-  intl,
   onClose,
   setFlashMessage,
   team,
@@ -116,7 +117,7 @@ const FeedImportDialog = ({
         <div className={dialogStyles['dialog-title']}>
           <div className={dialogStyles['dialog-title-choice']}>
             <FormattedMessage
-              defaultMessage="{mediaCount, plural, one {Import # media into your workspace} other {Import # media into your workspace}}"
+              defaultMessage="{mediaCount, plural, one {Import # Media Clusters to your Workspace} other {Import # Media Clusters to your Workspace}}"
               description="Title for the import media dialog on the feed item page."
               id="feedImportDialog.title"
               tagName="h6"
@@ -184,34 +185,38 @@ const FeedImportDialog = ({
             <div id="feed-import-dialog__add">
               <div className="typography-subtitle2">
                 <FormattedMessage
-                  defaultMessage="Add the selected media to your matching  workspace item."
+                  defaultMessage="Add the selected media to your matching workspace item."
                   description="Explanation on import dialog on feed item page."
                   id="feedImportDialog.explanationImportTypeAdd"
                 />
+                <br />
               </div>
               <SmallMediaCard
-                customTitle={item.title}
                 description={team.description}
                 details={[
                   (
                     item.last_seen &&
-                      <FormattedMessage
-                        defaultMessage="Last submitted {date}"
-                        description="Shows the last time a media was submitted (on feed import dialog media card)"
-                        id="feedImportDialog.lastSubmitted"
-                        values={{
-                          date: intl.formatDate(item.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                        }}
+                      <LastRequestDate
+                        lastRequestDate={item.last_seen * 1000}
+                        theme="lightText"
+                        variant="text"
                       />
                   ),
                   (
                     item.requests_count &&
-                      <FormattedMessage
-                        defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                        description="Header of requests list. Example: 26 requests."
-                        id="feedImportDialog.requestsCount"
-                        values={{ requestsCount: item.requests_count }}
+                      <RequestsCount
+                        requestsCount={item.requests_count}
+                        theme="lightText"
+                        variant="text"
                       />
+                  ),
+                  (
+                    <MediaIdentifier
+                      mediaType={item.type}
+                      slug={item.media_slug}
+                      theme="lightText"
+                      variant="text"
+                    />
                   ),
                 ]}
                 media={item.media}
@@ -288,7 +293,7 @@ const FeedImportDialog = ({
             disabled={saving || !canImport}
             label={
               <FormattedMessage
-                defaultMessage="Import Media"
+                defaultMessage="Import Media Clusters"
                 description="Label of a confirmation button on the import dialog window on the feed item page."
                 id="feedImportDialog.import"
               />
@@ -307,9 +312,6 @@ FeedImportDialog.defaultProps = {
 };
 
 FeedImportDialog.propTypes = {
-  team: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-  }).isRequired,
   cluster: PropTypes.shape({
     media_count: PropTypes.number.isRequired,
     center: PropTypes.shape({
@@ -331,16 +333,18 @@ FeedImportDialog.propTypes = {
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }).isRequired,
-  onClose: PropTypes.func,
   setFlashMessage: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
+  team: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }).isRequired,
+  onClose: PropTypes.func,
 };
 
 // Used in unit test
 // eslint-disable-next-line import/no-unused-modules
 export { FeedImportDialog };
 
-export default createFragmentContainer(withSetFlashMessage(injectIntl(FeedImportDialog)), graphql`
+export default createFragmentContainer(withSetFlashMessage(FeedImportDialog), graphql`
   fragment FeedImportDialog_team on Team {
     dbid
   }
@@ -353,13 +357,14 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(FeedImport
       edges {
         node {
           dbid
-          title
           last_seen
           requests_count
           description
+          type
           media {
             ...SmallMediaCard_media
           }
+          media_slug
         }
       }
     }

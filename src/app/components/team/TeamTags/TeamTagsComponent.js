@@ -18,7 +18,7 @@ import PrevIcon from '../../../icons/chevron_left.svg';
 import SearchField from '../../search/SearchField';
 import TimeBefore from '../../TimeBefore';
 import SettingsHeader from '../SettingsHeader';
-import MediasLoading from '../../media/MediasLoading';
+import Loader from '../../cds/loading/Loader';
 import Can from '../../Can';
 import styles from './TeamTagsComponent.module.css';
 import settingsStyles from '../Settings.module.css';
@@ -196,7 +196,7 @@ const TeamTagsComponent = ({
                   <TableCell className={styles['table-col-head-action']} padding="checkbox" />
                 </TableRow>
               </TableHead>
-              { isPaginationLoading && <MediasLoading size="medium" theme="grey" variant="inline" /> }
+              { isPaginationLoading && <Loader size="medium" theme="grey" variant="inline" /> }
               <TableBody className={isPaginationLoading && styles['tags-hide']}>
                 { tags.slice(cursor, cursor + pageSize).map(tag => (
                   <TableRow className="team-tags__row" key={tag.id}>

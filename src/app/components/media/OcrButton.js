@@ -1,11 +1,14 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import DescriptionIcon from '../../icons/description.svg';
 import { withSetFlashMessage } from '../FlashMessage';
+import styles from './media.module.css';
 
 const OcrButton = ({
   hasExtractedText,
@@ -78,6 +81,7 @@ const OcrButton = ({
 
   return (
     <MenuItem
+      className={styles.mediaMenuItem}
       disabled={pending}
       id="ocr-button__extract-text"
       onClick={handleClick}
@@ -88,11 +92,21 @@ const OcrButton = ({
           description="Message displayed while text is being extracted from an image"
           id="ocrButton.inProgress"
         /> :
-        <FormattedMessage
-          defaultMessage="Extract text"
-          description="Button label - when this button is clicked, text is extracted from image"
-          id="ocrButton.label"
-        /> }
+        <>
+          <ListItemIcon className={styles.mediaMenuIcon}>
+            <DescriptionIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <FormattedMessage
+                defaultMessage="Extract text from this media"
+                description="Button label - when this button is clicked, text is extracted from image"
+                id="ocrButton.label"
+              />
+            }
+          />
+        </>
+      }
     </MenuItem>
   );
 };
@@ -102,11 +116,11 @@ OcrButton.defaultProps = {
 };
 
 OcrButton.propTypes = {
+  hasExtractedText: PropTypes.bool,
   projectMediaId: PropTypes.string.isRequired,
   projectMediaType: PropTypes.string.isRequired,
-  hasExtractedText: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default withSetFlashMessage(OcrButton);

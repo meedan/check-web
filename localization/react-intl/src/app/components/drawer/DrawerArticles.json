@@ -5,6 +5,11 @@
     "defaultMessage": "Articles"
   },
   {
+    "id": "articlesComponent.dashboard",
+    "description": "Label for the dashboard displayed on the left sidebar",
+    "defaultMessage": "Dashboard"
+  },
+  {
     "id": "articlesComponent.claimAndFactChecks",
     "description": "Label for a list displayed on the left sidebar that includes items that have claim & fact-checks",
     "defaultMessage": "Claim & Fact-Checks"
@@ -23,5 +28,10 @@
     "id": "projectsComponent.published",
     "description": "Label for a list displayed on the left sidebar that includes items that have published reports",
     "defaultMessage": "Published"
+  },
+  {
+    "id": "projectsComponent.trash",
+    "description": "Label for a list displayed on the left sidebar that includes items that have been marked as Trashed",
+    "defaultMessage": "Trash"
   }
 ]

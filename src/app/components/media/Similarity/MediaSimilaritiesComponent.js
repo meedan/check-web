@@ -96,6 +96,7 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
             imported_from_feed_id
             imported_from_project_media_id
             ...MediaFeedInformation_projectMedia
+            media_slug
             media {
               ...SmallMediaCard_media
             }

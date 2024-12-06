@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=139-6525&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -15,6 +14,7 @@ const ButtonMain = ({
   iconRight,
   label,
   onClick,
+  onPointerUp,
   size,
   theme,
   title,
@@ -41,6 +41,7 @@ const ButtonMain = ({
     type="button"
     variant={variant}
     onClick={onClick}
+    onPointerUp={onPointerUp}
     {...buttonProps}
   >
     { iconLeft && (
@@ -78,22 +79,24 @@ ButtonMain.defaultProps = {
   customStyle: {},
   buttonProps: {},
   onClick: () => {},
+  onPointerUp: () => {},
 };
 
 ButtonMain.propTypes = {
+  buttonProps: PropTypes.object,
   className: PropTypes.string,
+  customStyle: PropTypes.object,
+  disabled: PropTypes.bool,
+  iconCenter: PropTypes.element,
+  iconLeft: PropTypes.element,
+  iconRight: PropTypes.element,
   label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   size: PropTypes.oneOf(['default', 'small', 'large']),
   theme: PropTypes.oneOf(['info', 'lightInfo', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert', 'black', 'white', 'beige', 'lightBeige']),
-  iconLeft: PropTypes.element,
-  iconRight: PropTypes.element,
-  iconCenter: PropTypes.element,
   title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   variant: PropTypes.oneOf(['contained', 'outlined', 'text']),
-  disabled: PropTypes.bool,
-  customStyle: PropTypes.object,
-  buttonProps: PropTypes.object,
   onClick: PropTypes.func,
+  onPointerUp: PropTypes.func,
 };
 
 export default ButtonMain;

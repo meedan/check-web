@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../../cds/inputs/TextField';
 import GetAppIcon from '../../../icons/file_download.svg';
 import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
@@ -40,14 +40,14 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
 
   return (
     <React.Fragment>
-      <Box display="flex" flexWrap="wrap" justifyContent="space-between">
+      <div className={smoochBotStyles['smoochbot-integration-buttons']}>
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ec472becaf"
           icon={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
           info={
             isOnline('whatsapp') ?
-              <Box>
+              <div>
                 <FormattedMessage
                   defaultMessage="Connected phone number: {link}"
                   description="Label showing the whatsapp phone number connected to this bot"
@@ -61,13 +61,12 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                   }}
                 />
                 <Box mb={1} mt={2}>
-                  <strong>
-                    <FormattedMessage
-                      defaultMessage="Entry point"
-                      description="Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
-                      id="smoochBotIntegrations.entryPointTitle"
-                    />
-                  </strong>
+                  <FormattedMessage
+                    defaultMessage="Entry point"
+                    description="Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+                    id="smoochBotIntegrations.entryPointTitle"
+                    tagName="strong"
+                  />
                   <Box mt={1}>
                     <FormattedMessage
                       defaultMessage="Use this address anywhere online to open WhatsApp and start a tipline conversation:"
@@ -107,21 +106,23 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                           setTimeout(() => { setCopied(null); }, 1000);
                         }}
                       >
-                        <IconButton>
-                          <FileCopyOutlinedIcon />
-                        </IconButton>
+                        <ButtonMain
+                          iconCenter={<FileCopyOutlinedIcon />}
+                          size="default"
+                          theme="lightText"
+                          variant="text"
+                        />
                       </CopyToClipboard>
                     </Tooltip>
                   </Box>
                 </Box>
                 <Box mb={1} mt={2}>
-                  <strong>
-                    <FormattedMessage
-                      defaultMessage="QR code"
-                      description="Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
-                      id="smoochBotIntegrations.qrCodeTitle"
-                    />
-                  </strong>
+                  <FormattedMessage
+                    defaultMessage="QR code"
+                    description="Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+                    id="smoochBotIntegrations.qrCodeTitle"
+                    tagName="strong"
+                  />
                   <Box mb={1} mt={1}>
                     <FormattedMessage
                       defaultMessage="Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation."
@@ -129,7 +130,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                       id="smoochBotIntegrations.qrCodeDescription"
                     />
                   </Box>
-                  <Box>
+                  <div>
                     <Box alignItems="flex-start" display="flex">
                       <TextField
                         className={smoochBotStyles['smoochbot-component-input']}
@@ -160,21 +161,28 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
                             setTimeout(() => { setCopied(null); }, 1000);
                           }}
                         >
-                          <IconButton>
-                            <FileCopyOutlinedIcon />
-                          </IconButton>
+                          <ButtonMain
+                            iconCenter={<FileCopyOutlinedIcon />}
+                            size="default"
+                            theme="lightText"
+                            variant="text"
+                          />
                         </CopyToClipboard>
                       </Tooltip>
                     </Box>
                     <Box alignItems="flex-start" display="flex" mt={2}>
                       <QRCodeCanvas id="whatsapp-qr-code-canvas" size={192} value={`https://wa.me/${enabledIntegrations?.whatsapp?.phoneNumber.replace(/[^0-9]/g, '')}`} />
-                      <IconButton onClick={handleDownloadWhatsAppQrCode}>
-                        <GetAppIcon />
-                      </IconButton>
+                      <ButtonMain
+                        iconCenter={<GetAppIcon />}
+                        size="default"
+                        theme="lightText"
+                        variant="text"
+                        onClick={handleDownloadWhatsAppQrCode}
+                      />
                     </Box>
-                  </Box>
+                  </div>
                 </Box>
-              </Box> : null
+              </div> : null
           }
           installationId={installationId}
           label="WhatsApp"
@@ -351,7 +359,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           type="instagram"
           url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
         />
-      </Box>
+      </div>
     </React.Fragment>
   );
 };

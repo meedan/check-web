@@ -13,9 +13,9 @@ const MediaCount = ({
   mediaType,
 }) => (
   <FormattedMessage
-    defaultMessage="{mediaCount, plural, one {# Media} other {{mediaCount, number} Media}}"
+    defaultMessage="{mediaCount, plural, one {# Media} other {{mediaCount, number} Media}} in Cluster"
     // {mediaCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
-    description="A count of media in an item. Title-case where applicable. Example: 3 Media. In English we prefer Media for both singular and plural"
+    description="A count of media in a cluster of media. Title-case where applicable. Example: 3 Media. In English we prefer Media for both singular and plural"
     id="sharedItemCard.medias"
     values={{ mediaCount }}
   >
@@ -31,7 +31,7 @@ const MediaCount = ({
               type: null,
             }}
             disabled
-            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon color="unset" fontSize="unset" mediaType={mediaType} /> : <MediaIcon />}
+            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} /> : <MediaIcon />}
             label={getCompactNumber(intl.locale, mediaCount)}
             size="small"
             theme="lightBeige"

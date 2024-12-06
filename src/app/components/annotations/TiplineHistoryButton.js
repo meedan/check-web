@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -33,7 +32,7 @@ const TiplineHistoryButton = ({
         }
       >
         <span>
-          <ButtonMain className="int-tipline-history__button--open" iconCenter={<QuestionAnswerIcon />} theme="text" variant="outlined" onClick={handleClick} />
+          <ButtonMain className="int-tipline-history__button--open" iconCenter={<QuestionAnswerIcon />} size="small" theme="text" variant="contained" onClick={handleClick} />
         </span>
       </Tooltip>
       <Modal
@@ -54,10 +53,10 @@ TiplineHistoryButton.defaultProps = {
 };
 
 TiplineHistoryButton.propTypes = {
-  uid: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   channel: PropTypes.string.isRequired, // WhatsApp, Telegram, etc.
   // messageId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  uid: PropTypes.string.isRequired,
 };
 
 export default TiplineHistoryButton;

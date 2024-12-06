@@ -8,7 +8,7 @@ import MultiSelectFilter from './MultiSelectFilter';
 import RemoveableWrapper from './RemoveableWrapper';
 import Select from '../cds/inputs/Select';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import { languageLabel } from '../../LanguageRegistry';
 import LanguageIcon from '../../icons/language.svg';
 import styles from './search.module.css';
@@ -109,7 +109,7 @@ const LanguageFilter = ({
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <MediasLoading size="icon" theme="grey" variant="icon" />;
+        return <Loader size="icon" theme="grey" variant="icon" />;
       }}
       variables={{
         teamSlug,

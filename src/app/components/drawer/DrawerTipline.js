@@ -13,7 +13,8 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateMedia from '../media/CreateMedia';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import AddIcon from '../../icons/add_filled.svg';
-import CategoryIcon from '../../icons/category.svg';
+import BarChartIcon from '../../icons/bar_chart.svg';
+import PermMediaIcon from '../../icons/perm_media.svg';
 import ExpandLessIcon from '../../icons/chevron_down.svg';
 import ExpandMoreIcon from '../../icons/chevron_right.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
@@ -96,6 +97,28 @@ const DrawerTiplineComponent = ({
       </Can>
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper, 'projects-list')}>
+          {/* Dashboard */}
+          <Link
+            className={styles.linkList}
+            to={`/${team.slug}/dashboard`}
+            onClick={() => { handleSpecialLists('dashboard'); }}
+          >
+            <li
+              className={cx(
+                'projects-list__dashboard',
+                styles.listItem,
+                styles.listItem_containsCount,
+                {
+                  [styles.listItem_active]: activeItem.type === 'dashboard',
+                })
+              }
+            >
+              <BarChartIcon className={styles.listIcon} />
+              <div className={styles.listLabel}>
+                <FormattedMessage defaultMessage="Dashboard" description="Label for the dashboard displayed on the left sidebar" id="articlesComponent.dashboard" tagName="span" />
+              </div>
+            </li>
+          </Link>
           {/* All items */}
           <Link
             className={styles.linkList}
@@ -112,9 +135,9 @@ const DrawerTiplineComponent = ({
                 })
               }
             >
-              <CategoryIcon className={styles.listIcon} />
+              <PermMediaIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage defaultMessage="All Media" description="Label for the 'All media' list displayed on the left sidebar" id="projectsComponent.allItems" tagName="span" />
+                <FormattedMessage defaultMessage="All Media Clusters" description="Label for the 'All media cluster' list displayed on the left sidebar which lists all the clusters of media in the system without applying a filter" id="projectsComponent.allItems" tagName="span" />
               </div>
               <div className={styles.listItemCount} title={team.medias_count}>
                 <small>
@@ -141,7 +164,7 @@ const DrawerTiplineComponent = ({
             >
               <PersonIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" id="projectsComponent.assignedToMe" tagName="span" />
+                <FormattedMessage defaultMessage="Assigned to Me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" id="projectsComponent.assignedToMe" tagName="span" />
               </div>
               <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
             </li>
@@ -213,7 +236,7 @@ const DrawerTiplineComponent = ({
               >
                 <UnmatchedIcon className={styles.listIcon} />
                 <div className={styles.listLabel}>
-                  <FormattedMessage defaultMessage="Unmatched media" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" id="projectsComponent.unmatchedMedia" tagName="span" />
+                  <FormattedMessage defaultMessage="Unmatched" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" id="projectsComponent.unmatchedMedia" tagName="span" />
                 </div>
                 <ProjectsCoreListCounter query={unmatchedMediaDefaultQuery} />
               </li>
@@ -225,10 +248,10 @@ const DrawerTiplineComponent = ({
           <li className={cx(styles.listItem, styles.listHeader, styles.listItem_containsCount, 'project-list__header')} onClick={handleToggleListsExpand}>
             { listsExpanded ? <ExpandLessIcon className={styles.listIcon} /> : <ExpandMoreIcon className={styles.listIcon} /> }
             <div className={styles.listLabel}>
-              <FormattedMessage defaultMessage="Custom Lists" description="List of items with some filters applied" id="projectsComponent.lists" tagName="span" />
+              <FormattedMessage defaultMessage="Custom Filtered Lists" description="List of items with some filters applied" id="projectsComponent.lists" tagName="span" />
             </div>
             <Can permission="create Project" permissions={team.permissions}>
-              <Tooltip arrow title={<FormattedMessage defaultMessage="New list" description="Tooltip for button that opens list creation dialog" id="projectsComponent.newListButton" />}>
+              <Tooltip arrow title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Tooltip for button that opens list creation dialog" id="projectsComponent.newListButton" />}>
                 <div className={cx(styles.listItemCount, styles.listAddListButton)}>
                   <ButtonMain
                     buttonProps={{
@@ -336,9 +359,9 @@ const DrawerTiplineComponent = ({
         buttonLabel={<FormattedMessage defaultMessage="Create List" description="Label for a button to create a new list displayed on the left sidebar." id="projectsComponent.createList" />}
         errorMessage={<FormattedMessage defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" id="projectsComponent.newListErrorMessage" />}
         open={showNewListDialog}
-        successMessage={<FormattedMessage defaultMessage="List created successfully" description="Success message when new list is created" id="projectsComponent.newListSuccessMessage" />}
+        successMessage={<FormattedMessage defaultMessage="Filtered List created successfully" description="Success message when new list is created" id="projectsComponent.newListSuccessMessage" />}
         team={team}
-        title={<FormattedMessage defaultMessage="New List" description="Title for a dialog to create a new list displayed on the left sidebar." id="projectsComponent.newList" />}
+        title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Title for a dialog to create a new list displayed on the left sidebar." id="projectsComponent.newList" />}
         onClose={() => { setShowNewListDialog(false); }}
       />
     </React.Fragment>
@@ -353,7 +376,6 @@ DrawerTiplineComponent.propTypes = {
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    filters: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,

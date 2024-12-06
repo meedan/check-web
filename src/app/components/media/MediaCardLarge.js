@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields, react/sort-prop-types */
+/* eslint-disable relay/unused-fields */
 /*
   FIXME: had to skip this relay/unused-fields rule unfortunately because of the team fragment that is needed
   for MediaStatusCommon (some 4 levels up the component tree) and is very difficult to
@@ -7,26 +7,30 @@
 */
 import React from 'react';
 import Relay from 'react-relay/classic';
+import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer, QueryRenderer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import MediaCardLargeFooter from './MediaCardLargeFooter';
 import BlankMediaButton from './BlankMediaButton';
-import MediasLoading from './MediasLoading';
 import MediaPlayerCard from './MediaPlayerCard';
 import QuoteMediaCard from './QuoteMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
-import PenderCard from '../PenderCard';
+import PenderCard from './PenderCard';
+import Loader from '../cds/loading/Loader';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
+import PushPinIcon from '../../icons/push_pin.svg';
 import { getMediaType } from '../../helpers';
 import ErrorBoundary from '../error/ErrorBoundary';
-import styles from './media.module.css';
+import styles from './MediaCardLarge.module.css';
+import mediaStyles from './media.module.css';
 
 const MediaCardLarge = ({
   currentUserRole,
   inModal,
   onClickMore,
+  pinned,
   projectMedia,
   superAdminMask,
 }) => {
@@ -51,21 +55,15 @@ const MediaCardLarge = ({
       className={cx(
         'media-card-large',
         styles['media-card-large'],
-        styles['media-card-large-border'],
         {
-          [styles['rounded-top-corners']]: (type === 'Claim' || isBlank || isWebPage || isPender),
-          [styles['no-border']]: inModal || !(type === 'Claim' || isBlank || isWebPage || isPender),
-          [styles['no-outline']]: inModal || (type === 'Claim' || isBlank || isWebPage || isPender),
+          [styles['media-card-large-modal']]: inModal,
         })
       }
     >
       { type === 'Claim' && !inModal ? (
-        <div className={styles['quote-mediacard-wrapper']}>
-          <QuoteMediaCard
-            quote={media.quote}
-            showAll={inModal}
-          />
-        </div>
+        <QuoteMediaCard
+          quote={media.quote}
+        />
       ) : null }
       { type === 'UploadedImage' ? (
         <ImageMediaCard
@@ -97,6 +95,7 @@ const MediaCardLarge = ({
       ) : null }
       { isPender ? (
         <AspectRatio
+          className={styles['aspect-ratio-media-card']}
           currentUserRole={currentUserRole}
           isPenderCard={isPender}
           projectMedia={projectMedia}
@@ -119,27 +118,59 @@ const MediaCardLarge = ({
         </div>
       ) : null }
       { !isBlank ?
-        <MediaCardLargeFooter
-          data={data}
-          inModal={inModal}
-          mediaType={type}
-          projectMedia={projectMedia}
-          onClickMore={onClickMore}
-        /> : null }
+        <div className={styles['media-card-large-meta']}>
+          <div
+            className={cx(
+              styles['webpage-media-card-title-summary'],
+              {
+                [styles['webpage-media-card-title-summary-modal']]: inModal,
+              })
+            }
+          >
+            { data.title ?
+              <div className={cx('media-card-large__title', styles['media-card-large-title'])}>
+                { pinned ?
+                  <PushPinIcon /> : null }
+                {data.title}
+              </div> : null }
+            { pinned && !data.title && !inModal ?
+              <div className={mediaStyles['media-item-medias-header']}>
+                <PushPinIcon />
+                <FormattedMessage
+                  defaultMessage="Pinned Media"
+                  description="Title for the media in this list that is pinned to the top"
+                  id="mediaComponent.pinnedMedia"
+                />
+              </div> : null }
+            { data.description && !inModal ?
+              <p>
+                {data.description}
+              </p> : null }
+          </div>
+          <MediaCardLargeFooter
+            data={data}
+            inModal={inModal}
+            mediaType={type}
+            projectMedia={projectMedia}
+            onClickMore={onClickMore}
+          />
+        </div> : null }
     </div>
   );
 };
 
 MediaCardLarge.propTypes = {
-  projectMedia: PropTypes.object.isRequired, // Specifying a shape isn't needed now that we have a fragmentContainer ensuring all necessary fields are retrieved
-  inModal: PropTypes.bool,
   currentUserRole: PropTypes.string.isRequired,
-  onClickMore: PropTypes.func.isRequired,
+  inModal: PropTypes.bool,
+  pinned: PropTypes.bool,
+  projectMedia: PropTypes.object.isRequired, // Specifying a shape isn't needed now that we have a fragmentContainer ensuring all necessary fields are retrieved
   superAdminMask: PropTypes.bool,
+  onClickMore: PropTypes.func.isRequired,
 };
 
 MediaCardLarge.defaultProps = {
   inModal: false,
+  pinned: true,
   superAdminMask: false,
 };
 
@@ -181,7 +212,7 @@ const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
       `}
       render={({ error, props }) => {
         if (!error && !props) {
-          return (<MediasLoading size="small" theme="grey" variant="inline" />);
+          return (<Loader size="small" theme="grey" variant="inline" />);
         }
 
         if (!error && props) {

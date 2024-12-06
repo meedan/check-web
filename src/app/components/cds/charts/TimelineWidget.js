@@ -13,26 +13,26 @@ import styles from './TimelineWidget.module.css';
 const TimelineWidget = ({
   areaColor,
   data,
-  height,
   intl,
   lineColor,
   title,
   tooltipFormatter,
-  width,
 }) => {
   const tickFormatter = intl ?
-    value => intl.formatDate(value, { month: 'short', day: 'numeric' }) :
+    value => intl.formatDate(value, { month: 'short', day: 'numeric', timeZone: 'UTC' }) :
     value => value;
 
   const labelFormatter = intl ?
-    value => `${intl.formatDate(value, { month: 'long', day: 'numeric', year: 'numeric' })}:` :
+    value => `${intl.formatDate(value, {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      timeZone: 'UTC',
+    })}:` :
     value => value;
 
   return (
-    <div
-      className={styles.timelineWidgetWrapper}
-      style={{ height, width }}
-    >
+    <div className={styles.timelineWidgetWrapper}>
       <div className={styles.timelineWidgetTitle}>
         {title}
       </div>
@@ -50,7 +50,7 @@ const TimelineWidget = ({
           <XAxis
             axisLine={false}
             dataKey="date"
-            interval="equidistantPreserveStart"
+            interval="equidistant"
             tick={{ fill: 'var(--color-gray-15)' }}
             tickFormatter={tickFormatter}
             tickLine={{ stroke: 'var(--color-gray-75)' }}
@@ -78,10 +78,8 @@ const TimelineWidget = ({
 TimelineWidget.defaultProps = {
   areaColor: 'var(--color-green-50)',
   data: [],
-  height: 150,
   lineColor: 'var(--color-green-50)',
   tooltipFormatter: value => value,
-  width: '100%',
 };
 
 TimelineWidget.propTypes = {
@@ -90,11 +88,9 @@ TimelineWidget.propTypes = {
     date: PropTypes.string,
     value: PropTypes.number,
   })),
-  height: PropTypes.number,
   lineColor: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   tooltipFormatter: PropTypes.func,
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export { TimelineWidget }; // eslint-disable-line import/no-unused-modules

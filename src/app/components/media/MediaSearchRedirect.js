@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import MediasLoading from './MediasLoading';
+import Loader from '../cds/loading/Loader';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import WarningIcon from '../../icons/report_problem.svg';
 import { stringHelper } from '../../customHelpers';
@@ -53,7 +53,7 @@ Error.propTypes = {
  *
  * State transitions:
  *
- *     <MediasLoading> -----> [success] <Redirect>
+ *     <Loader> -----> [success] <Redirect>
  *                             > [no item at listIndex] <BrokenLink>
  *                             > [query failure] <Error>
  *
@@ -115,11 +115,11 @@ export default function MediaSearchRedirect({
             const url = buildSiblingUrl(targetId, listIndex);
             const { pathname, search } = getPathnameAndSearch(url);
             browserHistory.push({ pathname, search, state: { mediaNavList, count: props.search.number_of_results } });
-            return <MediasLoading size="icon" variant="icon" />; // while the page loads
+            return <Loader size="icon" variant="icon" />; // while the page loads
           }
           return <BrokenLink />;
         }
-        return <MediasLoading size="icon" variant="icon" />;
+        return <Loader size="icon" variant="icon" />;
       }}
       variables={{
         queryJson: JSON.stringify({ ...listQuery, esoffset: searchIndex }),

@@ -384,5 +384,9 @@ export default createFragmentContainer(withSetFlashMessage(SensitiveContentMenuB
   fragment SensitiveContentMenuButton_projectMedia on ProjectMedia {
     dbid
     show_warning_cover
+    dynamic_annotation_flag {
+      id
+      data
+    }
   }
 `);

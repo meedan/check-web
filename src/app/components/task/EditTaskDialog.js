@@ -1,9 +1,7 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import {
-  Box,
   Checkbox,
   Dialog,
   FormControl,
@@ -15,7 +13,6 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { getTimeZones } from '@vvo/tzdb';
 import cx from 'classnames/bind';
@@ -45,19 +42,6 @@ const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   };
   return newOption;
 });
-
-const styles = {
-  select: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  autocomplete: {
-    marginTop: '16px',
-  },
-  error: {
-    color: 'var(--color-pink-53)',
-  },
-};
 
 class EditTaskDialog extends React.Component {
   constructor(props) {
@@ -186,8 +170,6 @@ class EditTaskDialog extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
-
     const types = [
       {
         label: (
@@ -359,7 +341,7 @@ class EditTaskDialog extends React.Component {
             />
           </InputLabel>
           <Select
-            classes={{ root: classes.select }}
+            className={inputStyles['mui-icon-select']}
             disabled={this.state.hasCollectedAnswers}
             label={
               <FormattedMessage
@@ -384,9 +366,11 @@ class EditTaskDialog extends React.Component {
             ))}
           </Select>
         </FormControl>
-        <Box mb={this.state.hasCollectedAnswers ? 1 : 2} mt={1}>
-          { types.find(t => t.value === this.state.taskType)?.description }
-        </Box>
+        <Alert
+          content={types.find(t => t.value === this.state.taskType)?.description}
+          icon
+          variant="info"
+        />
       </React.Fragment>
     );
 
@@ -453,7 +437,7 @@ class EditTaskDialog extends React.Component {
             </FormattedMessage>
             <FieldTypeSelect />
             { this.state.taskType === 'datetime' ?
-              <Box mt={2}>
+              <div>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -509,12 +493,16 @@ class EditTaskDialog extends React.Component {
                       description: 'A label next to a check box. If the box is checked, the user will be only be allowed to use certain time zones when they fill out this form.',
                     })}
                   />
-                  <FormHelperText>Allow users to select from specific timezones.</FormHelperText>
+                  <FormattedMessage
+                    defaultMessage="Allow users to select from specific timezones."
+                    description="Helper of timezones list available to the task"
+                    id="tasks.timezonesHelper"
+                    tagName="p"
+                  />
                 </FormControl>
                 {
                   this.state.restrictTimezones ? (
                     <Autocomplete
-                      classes={{ root: classes.autocomplete }}
                       defaultValue={this.state.options}
                       filterSelectedOptions
                       getOptionLabel={option => option.label}
@@ -549,10 +537,16 @@ class EditTaskDialog extends React.Component {
                 }
                 {
                   this.state.restrictTimezones && this.state.options.length === 0 ? (
-                    <FormHelperText classes={{ root: classes.error }}>Please include at least one timezone.</FormHelperText>
+                    <FormHelperText className={inputStyles['mui-helper-error']}>
+                      <FormattedMessage
+                        defaultMessage="Please include at least one timezone."
+                        description="Error message if the user does not select a timezone"
+                        id="tasks.timezonesError"
+                      />
+                    </FormHelperText>
                   ) : null
                 }
-              </Box>
+              </div>
               : null
             }
             <EditTaskOptions
@@ -612,10 +606,10 @@ class EditTaskDialog extends React.Component {
 // TODO review propTypes
 EditTaskDialog.propTypes = {
   message: PropTypes.node,
-  onDismiss: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   task: PropTypes.object,
   taskType: PropTypes.string,
+  onDismiss: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 EditTaskDialog.defaultProps = {
@@ -624,4 +618,4 @@ EditTaskDialog.defaultProps = {
   taskType: null,
 };
 
-export default injectIntl(withStyles(styles)(EditTaskDialog));
+export default injectIntl(EditTaskDialog);

@@ -5,7 +5,7 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaSimilaritiesComponent from './MediaSimilaritiesComponent'; // eslint-disable-line no-unused-vars
 import PaginatedMediaSuggestions from './PaginatedMediaSuggestions';
-import MediasLoading from '../MediasLoading';
+import Loader from '../../cds/loading/Loader';
 
 // Initial query for the paginated media suggestions
 const mediaSuggestionsQuery = graphql`
@@ -53,7 +53,7 @@ const MediaSuggestions = ({ dbid, superAdminMask, teamDbid }) => {
             <PaginatedMediaSuggestions pageSize={pageSize} parentProps={props} root={props.project_media} superAdminMask={superAdminMask} />
           );
         }
-        return <MediasLoading size="medium" theme="grey" variant="inline" />;
+        return <Loader size="medium" theme="grey" variant="inline" />;
       }}
       variables={{
         ids,

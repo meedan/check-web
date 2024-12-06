@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -74,27 +73,29 @@ const ChooseExistingArticleButton = ({
         <Slideout
           content={
             <div className={styles.contentWrapper}>
-              <FormattedMessage
-                defaultMessage="Search by article title or summary"
-                description="Label for the search field to find an article."
-                id="chooseExistingArticleButton.search"
-              >
-                {placeholder => (
-                  <TextField
-                    iconLeft={<SearchIcon />}
-                    id="search-articles"
-                    placeholder={placeholder}
-                    onChange={e => handleType(e.target.value)}
-                  />
-                )}
-              </FormattedMessage>
-              <div>
+              <div className={styles.seachHeader}>
+                <FormattedMessage
+                  defaultMessage="Search by article title or summary"
+                  description="Label for the search field to find an article."
+                  id="chooseExistingArticleButton.search"
+                >
+                  {placeholder => (
+                    <TextField
+                      iconLeft={<SearchIcon />}
+                      id="search-articles"
+                      placeholder={placeholder}
+                      onChange={e => handleType(e.target.value)}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+              <div className={styles.seachResults}>
                 { !search && (
-                  <div className={cx('typography-body2', styles.heading)}>
+                  <div className={cx('typography-subtitle2', styles.heading)}>
                     <FormattedMessage
-                      defaultMessage="Recent Articles"
-                      description="Label for the list of articles."
-                      id="chooseExistingArticleButton.recentArticles"
+                      defaultMessage="Choose a recent article to add to this media:"
+                      description="Message displayed on articles sidebar when an item has no articles."
+                      id="mediaArticles.chooseRecentArticle"
                     />
                   </div>
                 )}
@@ -102,6 +103,7 @@ const ChooseExistingArticleButton = ({
               </div>
             </div>
           }
+          contentScrollable={false}
           footer
           showCancel
           title={title}
@@ -118,8 +120,8 @@ ChooseExistingArticleButton.defaultProps = {
 
 ChooseExistingArticleButton.propTypes = {
   disabled: PropTypes.bool,
-  teamSlug: PropTypes.string.isRequired,
   projectMediaDbid: PropTypes.number.isRequired,
+  teamSlug: PropTypes.string.isRequired,
   onAdd: PropTypes.func.isRequired,
 };
 

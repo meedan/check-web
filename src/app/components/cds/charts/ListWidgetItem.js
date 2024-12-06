@@ -1,37 +1,37 @@
 import React from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { isValidURL } from '../../../helpers';
+import { getDisplayValue } from './NumberWidget';
 import styles from './ListWidget.module.css';
 
 const ListWidgetItem = ({
-  id,
   itemLink,
   itemText,
   itemValue,
 }) => (
-  <li className={styles.listWidgetItemWrapper} key={id}>
+  <li className={styles.listWidgetItemWrapper}>
     {
-      isValidURL(itemLink) ?
-        <div className={styles.listWidgetItemText}><a href={itemLink}>{itemText}</a></div>
+      itemLink ?
+        <div className={styles.listWidgetItemText} title={itemText}>
+          <Link to={itemLink}>{itemText}</Link>
+        </div>
         :
-        <div className={styles.listWidgetItemText}>{itemText}</div>
+        <div className={styles.listWidgetItemText} title={itemText}>{itemText}</div>
     }
-    <div className={styles.listWidgetItemValue}>{itemValue}</div>
+    <div className={styles.listWidgetItemValue}>{getDisplayValue(itemValue)}</div>
   </li>
 );
 
 ListWidgetItem.defaultProps = {
-  id: null,
   itemLink: null,
   itemText: null,
-  itemValue: '-',
+  itemValue: null,
 };
 
 ListWidgetItem.propTypes = {
-  id: PropTypes.string,
   itemLink: PropTypes.string,
   itemText: PropTypes.node,
-  itemValue: PropTypes.string,
+  itemValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default ListWidgetItem;

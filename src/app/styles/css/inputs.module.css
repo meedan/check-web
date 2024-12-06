@@ -114,7 +114,7 @@
     margin: 0 0 16px;
     position: sticky;
     top: -16px;
-    z-index: 1001;
+    z-index: 2;
   }
 
   .form-inner-wrapper {
@@ -123,12 +123,10 @@
     padding: 16px;
   }
 
-  + .form-inner-wrapper {
-    margin: 16px 0 0;
-  }
-
-  + .form-footer-actions {
-    margin: 16px 0 0;
+  + .form-inner-wrapper,
+  + .form-footer-actions,
+  + .form-fieldset-field {
+    margin-top: 16px;
   }
 }
 
@@ -146,7 +144,7 @@
   }
 
   .form-fieldset-field {
-    margin: 0 0 16px;
+    margin-bottom: 16px;
 
     &.form-autocomplete-create {
       display: flex;
@@ -163,11 +161,26 @@
     }
 
     &:last-of-type {
-      margin: 0;
+      margin-bottom: 0;
     }
   }
 
   + .form-fieldset {
-    margin: 16px 0 0;
+    margin-top: 16px;
   }
+}
+
+.select-chip {
+  margin: 0 8px;
+}
+
+:global(.MuiFormHelperText-root).mui-helper-error {
+  color: var(--color-pink-53);
+}
+
+.mui-icon-select :global(.MuiSelect-select) {
+  align-items: center;
+  display: flex;
+  height: 48px;
+  padding: 0 24px 0 8px;
 }

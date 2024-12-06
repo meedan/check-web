@@ -1,0 +1,12 @@
+[
+  {
+    "id": "listTopRequestedMediaClusters.emptyText",
+    "description": "Text to display when there are no media clusters",
+    "defaultMessage": "No media clusters"
+  },
+  {
+    "id": "listTopRequestedMediaClusters.title",
+    "description": "Title for the top requested media clusters list widget",
+    "defaultMessage": "Top Requested Media Clusters"
+  }
+]

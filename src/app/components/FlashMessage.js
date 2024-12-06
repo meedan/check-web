@@ -63,9 +63,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
                 content={msg}
                 floating
                 variant={variant}
-                onClose={persist ? () => {
-                  closeSnackbar(key);
-                } : null}
+                onClose={() => { closeSnackbar(key); }}
               />
             </div>
           ),
@@ -89,9 +87,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
                 floating
                 title={<>{createFriendlyErrorMessageTitle(msg)}</>}
                 variant={variant}
-                onClose={persist ? () => {
-                  closeSnackbar(key);
-                } : null}
+                onClose={() => { closeSnackbar(key); }}
               />
             </div>
           ),
@@ -114,9 +110,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
               content={message}
               floating
               variant={variant}
-              onClose={persist ? () => {
-                closeSnackbar(key);
-              } : null}
+              onClose={() => { closeSnackbar(key); }}
             />
           </div>
         ),

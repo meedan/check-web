@@ -23,6 +23,7 @@ import SwitchComponent from './inputs/SwitchComponent';
 import ButtonMain from './buttons-checkboxes-chips/ButtonMain';
 import Checkbox from './buttons-checkboxes-chips/Checkbox';
 import Slideout from './slideout/Slideout';
+import TabWrapper from './menus-lists-dialogs/TabWrapper';
 import Reorder from '../layout/Reorder';
 import AddIcon from '../../icons/settings.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
@@ -30,7 +31,7 @@ import ListIcon from '../../icons/list.svg';
 import FigmaColorLogo from '../../icons/figma_color.svg';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
-import MediasLoading from '../media/MediasLoading';
+import Loader from '../cds/loading/Loader';
 import ParsedText from '../ParsedText';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
@@ -244,11 +245,13 @@ const SandboxComponent = ({ admin }) => {
   const [slideoutTitle, setSlideoutTitle] = React.useState('');
   const [openSlideout, setOpenSlideout] = React.useState(Boolean(false));
   const [slideoutFooter, setSlideoutFooter] = React.useState(Boolean(true));
+  const [slideoutScrollable, setSlideoutScrollable] = React.useState(Boolean(true));
   const [slideoutCancel, setSlideoutCancel] = React.useState(Boolean(true));
   const [slideoutMainAction, setSlideoutMainAction] = React.useState(Boolean(true));
   const [slideoutSecondaryAction, setSlideoutSecondaryAction] = React.useState(Boolean(false));
   const [slideoutOptionalNode, setSlideoutOptionalNode] = React.useState(Boolean(false));
 
+  const [loadingText, setLoadingText] = React.useState(Boolean(false));
   const [loadingTheme, setLoadingTheme] = React.useState('grey');
   const onChangeLoadingTheme = (event) => {
     setLoadingTheme(event.target.value);
@@ -358,6 +361,19 @@ const SandboxComponent = ({ admin }) => {
     { name: 'Image', value: 2000 },
   ];
 
+  const [listWidgetBackgroundColor, setListWidgetBackgroundColor] = React.useState('var(--color-pink-93)');
+
+  const [numberWidgetBackgroundColor, setNumberWidgetBackgroundColor] = React.useState('var(--color-pink-93)');
+  const [numberWidgetItemCount, setNumberWidgetItemCount] = React.useState('2024');
+  const [numberWidgetUnit, setNumberWidgetUnit] = React.useState(Boolean(true));
+  const [numberWidgetContextText, setNumberWidgetContextText] = React.useState(Boolean(true));
+
+  const [tabsIcon, setTabsIcon] = React.useState('none');
+  const [tabsDisabled, setTabsDisabled] = React.useState(Boolean(false));
+  const [tabsSize, setTabsSize] = React.useState('default');
+  const [tabsVariant, setTabsVariant] = React.useState('default');
+  const [activeTab, setActiveTab] = React.useState('');
+
   const generateUncaughtError = () => {
     // eslint-disable-next-line
     thisGeneratesSandboxError();
@@ -458,6 +474,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <ButtonMain label="Charts" size="small" theme={selectedCategory === 'charts' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('charts')} />
+        </li>
+        <li>
+          <ButtonMain label="Tabs" size="small" theme={selectedCategory === 'tabs' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('tabs')} />
         </li>
       </ul>
       { (!selectedCategory || selectedCategory === 'cards') &&
@@ -861,6 +880,8 @@ const SandboxComponent = ({ admin }) => {
                 disableUp={reorderFirst}
                 theme={reorderTheme}
                 variant={reorderVariant}
+                onMoveDown={() => {}}
+                onMoveUp={() => {}}
               />
             </div>
           </div>
@@ -1782,11 +1803,11 @@ const SandboxComponent = ({ admin }) => {
       }
       { (!selectedCategory || selectedCategory === 'loaders') &&
         <section>
-          <h6>LoadingAnimations</h6>
+          <h6>Loading Animations</h6>
           <div className={styles.componentWrapper}>
             <div className={styles.componentControls}>
               <div className={cx('typography-subtitle2', [styles.componentName])}>
-                MediasLoading
+                Loader
               </div>
               <ul>
                 <li>
@@ -1820,6 +1841,14 @@ const SandboxComponent = ({ admin }) => {
                     <option value="page">page</option>=
                   </Select>
                 </li>
+                <li>
+                  <SwitchComponent
+                    checked={loadingText}
+                    label="Text"
+                    labelPlacement="top"
+                    onChange={() => setLoadingText(!loadingText)}
+                  />
+                </li>
               </ul>
             </div>
             <div
@@ -1829,8 +1858,9 @@ const SandboxComponent = ({ admin }) => {
                   [styles.componentInlineGreyVariants]: loadingTheme === 'white',
                 })
               }
+              style={{ pointerEvents: loadingVariant === 'page' ? 'none' : null }}
             >
-              <MediasLoading size={loadingSize} theme={loadingTheme} variant={loadingVariant} />
+              <Loader size={loadingSize} text={loadingText && 'Fetching latest data, please wait…'} theme={loadingTheme} variant={loadingVariant} />
             </div>
           </div>
         </section>
@@ -1867,6 +1897,14 @@ const SandboxComponent = ({ admin }) => {
                     label="Show Footer"
                     labelPlacement="top"
                     onChange={() => setSlideoutFooter(!slideoutFooter)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={slideoutScrollable}
+                    label="Content Scrollable"
+                    labelPlacement="top"
+                    onChange={() => setSlideoutScrollable(!slideoutScrollable)}
                   />
                 </li>
                 <li>
@@ -1921,6 +1959,7 @@ const SandboxComponent = ({ admin }) => {
                     </p>
                   </>
                 }
+                contentScrollable={slideoutScrollable}
                 footer={slideoutFooter}
                 mainActionButton={slideoutMainAction && <ButtonMain label="Main content" size="small" />}
                 optionalNode={slideoutOptionalNode && <SwitchComponent label="Optional Node label" />}
@@ -2058,33 +2097,102 @@ const SandboxComponent = ({ admin }) => {
               />
             </div>
           </div>
-
           <div className={styles.componentWrapper}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>
-              Number Widget
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                NumberWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/file/82Go6q0krKApn1L8EQ2joj?type=design&node-id=188%3A12213&mode=design"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <SwitchComponent
+                    checked={numberWidgetUnit}
+                    label="Unit"
+                    labelPlacement="top"
+                    onChange={() => setNumberWidgetUnit(!numberWidgetUnit)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={numberWidgetContextText}
+                    label="Context"
+                    labelPlacement="top"
+                    onChange={() => setNumberWidgetContextText(!numberWidgetContextText)}
+                  />
+                </li>
+                <li>
+                  <Select
+                    label="Item Count"
+                    value={numberWidgetItemCount}
+                    onChange={e => setNumberWidgetItemCount(e.target.value)}
+                  >
+                    <option value="2024">2024</option>
+                    <option value="0">0</option>
+                    <option value="null">null</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Background Color"
+                    value={numberWidgetBackgroundColor}
+                    onChange={e => setNumberWidgetBackgroundColor(e.target.value)}
+                  >
+                    <option value="var(--color-pink-93)">pink-93 (default)</option>
+                    <option value="var(--color-yellow-79)">yellow-79</option>
+                    <option value="var(--color-purple-92)">purple-92</option>
+                    <option value="var(--color-green-82)">green-82</option>
+                  </Select>
+                </li>
+              </ul>
             </div>
-            <div>
-              <div className={styles.componentWrapper}>
-                <NumberWidget contextText="Lorem ipsum dolor sit amet." itemCount="2024" title="A Title" unit="unit" />
-              </div>
-              <div className={styles.componentWrapper}>
-                <NumberWidget color="var(--color-yellow-79)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." title="A Title" unit="unit" />
-              </div>
-              <div className={styles.componentWrapper}>
-                <NumberWidget color="var(--color-purple-92)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit." itemCount="2024" title="A Title" />
-              </div>
-              <div className={styles.componentWrapper}>
-                <NumberWidget color="var(--color-green-82)" contextText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae." itemCount="2024" title="Title" unit="unit" />
-              </div>
+            <div className={styles.componentBlockVariants}>
+              <NumberWidget
+                color={numberWidgetBackgroundColor}
+                contextText={numberWidgetContextText ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris feugiat pharetra condimentum. Fusce convallis tincidunt sem, tempus convallis sapien eleifend vitae.' : null}
+                itemCount={numberWidgetItemCount}
+                title="Title"
+                unit={numberWidgetUnit ? 'unit' : null}
+              />
             </div>
           </div>
-
           <div className={styles.componentWrapper}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>
-              List Widget
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                ListWidget
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/file/82Go6q0krKApn1L8EQ2joj?type=design&node-id=188%3A11014&mode=design"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <Select
+                    label="Background Color"
+                    value={listWidgetBackgroundColor}
+                    onChange={e => setListWidgetBackgroundColor(e.target.value)}
+                  >
+                    <option value="var(--color-pink-93)">pink-93 (default)</option>
+                    <option value="var(--color-purple-92)">purple-92</option>
+                  </Select>
+                </li>
+              </ul>
             </div>
-            <div className={styles.componentWrapper}>
+            <div className={styles.componentBlockVariants}>
               <ListWidget
+                color={listWidgetBackgroundColor}
                 items={
                   [
                     {
@@ -2094,13 +2202,13 @@ const SandboxComponent = ({ admin }) => {
                       id: 'item1',
                     },
                     {
-                      itemValue: '94607',
+                      itemValue: null,
                       itemLink: 'e.not/a/working/url/',
                       itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
                       id: 'item2',
                     },
                     {
-                      itemValue: '120',
+                      itemValue: '0',
                       itemLink: 'https://maze.toys/mazes/mini/daily/',
                       itemText: 'Linked Tag',
                       id: 'item3',
@@ -2120,43 +2228,108 @@ const SandboxComponent = ({ admin }) => {
                 title="List Title"
               />
             </div>
-            <div className={styles.componentWrapper}>
-              <ListWidget
-                color="var(--color-purple-92)"
-                items={
-                  [
-                    {
-                      itemValue: '2024',
-                      itemLink: null,
-                      itemText: 'Not-Linked Tag',
-                      id: 'item1',
-                    },
-                    {
-                      itemValue: '94607',
-                      itemLink: 'e.not/a/working/url/',
-                      itemText: 'Should not have a link. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius commodo malesuada',
-                      id: 'item2',
-                    },
-                    {
-                      itemValue: '120',
-                      itemLink: 'https://maze.toys/mazes/mini/daily/',
-                      itemText: 'Linked Tag',
-                      id: 'item3',
-                    },
-                    {
-                      itemValue: '9423125',
-                      itemLink: 'https://www.lipsum.com/feed/html',
-                      itemText: 'Lorem Ipsum URL',
-                      id: 'item4',
-                    },
-                    {
-                      itemText: 'Lorem ipsum dolor sit amet',
-                      id: 'item5',
-                    },
-                  ]
-                }
-                title="List Title"
-              />
+          </div>
+        </section>
+      }
+      { (!selectedCategory || selectedCategory === 'tabs') &&
+        <section>
+          <h6>Tabs</h6>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                Tabs
+                <a
+                  className={styles.figmaLink}
+                  href="https://www.figma.com/design/88ZNxsO7k8UHY85QaHXAs7/Unpublished?node-id=1-20650&node-type=symbol&m=dev"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Figma Designs"
+                >
+                  <FigmaColorLogo />
+                </a>
+              </div>
+              <ul>
+                <li>
+                  <Select
+                    label="Variant"
+                    value={tabsVariant}
+                    onChange={e => setTabsVariant(e.target.value)}
+                  >
+                    <option value="default">Default</option>
+                    <option value="banner">Banner</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Size"
+                    value={tabsSize}
+                    onChange={e => setTabsSize(e.target.value)}
+                  >
+                    <option value="default">default</option>
+                    <option value="large">large</option>
+                  </Select>
+                </li>
+                <li>
+                  <Select
+                    label="Icons"
+                    value={tabsIcon}
+                    onChange={e => setTabsIcon(e.target.value)}
+                  >
+                    <option value="none">none</option>
+                    <option value="left">left</option>
+                    <option value="right">right</option>
+                    <option value="center">center</option>
+                  </Select>
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={tabsDisabled}
+                    label="Disabled"
+                    labelPlacement="top"
+                    onChange={() => setTabsDisabled(!tabsDisabled)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentInlineVariants}>
+              <div style={{ border: '1px solid black' }}>
+                <TabWrapper
+                  size={tabsSize}
+                  tabs={
+                    [
+                      {
+                        label: 'Tab 1',
+                        iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                        iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                        iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                        disabled: tabsDisabled,
+                        value: 'tab 1',
+                      },
+                      {
+                        label: 'Tab 2',
+                        iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                        iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                        iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                        disabled: tabsDisabled,
+                        value: 'tab 2',
+                      },
+                      {
+                        label: 'Tab 3',
+                        iconCenter: tabsIcon === 'center' ? <CalendarIcon name="calendar" /> : null,
+                        iconLeft: tabsIcon === 'left' ? <CalendarIcon name="calendar" /> : null,
+                        iconRight: tabsIcon === 'right' ? <CalendarIcon name="calendar" /> : null,
+                        disabled: tabsDisabled,
+                        value: 'tab 3',
+                      },
+                    ]
+                  }
+                  variant={tabsVariant}
+                  onChange={value => setActiveTab(value)}
+                />
+                <div>
+                  {activeTab}
+                </div>
+              </div>
             </div>
           </div>
         </section>

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "timelineArticlesCreatedAndUpdated.title",
+    "description": "Title for the number of articles added and updated timeline widget",
+    "defaultMessage": "Articles Added & Updated"
+  },
+  {
+    "id": "timelineArticlesCreatedAndUpdated.created",
+    "description": "Tooltip for the articles created and updated widget",
+    "defaultMessage": "• {articleCount} Articles Added"
+  },
+  {
+    "id": "timelineArticlesCreatedAndUpdated.updated",
+    "description": "Tooltip for the articles created and updated widget",
+    "defaultMessage": "• {articleCount} Articles Updated"
+  }
+]

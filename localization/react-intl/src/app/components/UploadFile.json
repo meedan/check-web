@@ -2,27 +2,27 @@
   {
     "id": "uploadFile.message",
     "description": "Message to the user describing the requirements for uploading an image",
-    "defaultMessage": "<p>Drop an image file here, or click to upload a file</p><p>Max File Size: <strong>{upload_max_size}</strong></p><p>Allowed Extensions: <strong>{upload_extensions}</strong></p><p>Allowed Dimensions: <strong>{upload_min_dimensions} and {upload_max_dimensions} pixels</strong></p>"
+    "defaultMessage": "<p>Click or drag an image here to upload.</p><p>Max File Size: <strong>{upload_max_size}</strong></p><p>Allowed Extensions: <strong>{upload_extensions}</strong></p><p>Allowed Dimensions: <strong>{upload_min_dimensions} and {upload_max_dimensions} pixels</strong></p>"
   },
   {
     "id": "uploadFile.videoMessage",
     "description": "Message to the user describing the requirements for uploading a video",
-    "defaultMessage": "<p>Drop a video file here, or click to upload a file</p><p>Max File Size: <strong>{video_max_size}</strong></p><p>Allowed Extensions: <strong>{video_extensions}</strong></p>"
+    "defaultMessage": "<p>Click or drag a video file here to upload.</p><p>Max File Size: <strong>{video_max_size}</strong></p><p>Allowed Extensions: <strong>{video_extensions}</strong></p>"
   },
   {
     "id": "uploadFile.audioMessage",
     "description": "Message to the user describing the requirements for uploading an audio file",
-    "defaultMessage": "<p>Drop an audio file here, or click to upload a file</p><p>Max File Size: <strong>{audio_max_size}</strong></p><p>Allowed Extensions: <strong>{audio_extensions}</strong></p>"
+    "defaultMessage": "<p>Click or drag an audio file here to upload.</p><p>Max File Size: <strong>{audio_max_size}</strong></p><p>Allowed Extensions: <strong>{audio_extensions}</strong></p>"
   },
   {
     "id": "uploadFile.fileMessage",
     "description": "Message to the user describing the requirements for uploading a file using this component",
-    "defaultMessage": "Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+    "defaultMessage": "<>Click or drag a file here to upload.</><p><p>Max File Size: <strong>{file_max_size}</strong></p><p>Allowed Extensions: <strong>{file_extensions}</strong></p>"
   },
   {
     "id": "uploadFile.imageVideoAudioMessage",
     "description": "Message to the user describing the requirements for uploading an image, video, or audio file using this component",
-    "defaultMessage": "<p>Drop a file here, or click to upload a file</p><p>Max File Size: <strong>{file_max_size}</strong></p><p>Allowed Extensions: <strong>{file_extensions}</strong></p>"
+    "defaultMessage": "<p>Click or drag a file here to upload.</p><p>Max File Size: <strong>{file_max_size}</strong></p><p>Allowed Extensions: <strong>{file_extensions}</strong></p>"
   },
   {
     "id": "uploadFile.invalidExtension",

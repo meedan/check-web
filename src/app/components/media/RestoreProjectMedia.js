@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import MediasLoading from './MediasLoading';
+import Loader from '../cds/loading/Loader';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
@@ -128,7 +128,7 @@ function RestoreProjectMedia({
       className={className}
       color="primary"
       disabled={isSaving}
-      iconLeft={isSaving ? <MediasLoading size="icon" theme="grey" variant="icon" /> : null}
+      iconLeft={isSaving ? <Loader size="icon" theme="grey" variant="icon" /> : null}
       label={buttonLabel}
       variant="contained"
       onClick={handleSubmit}

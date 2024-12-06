@@ -43,9 +43,28 @@
   }
 }
 
-.task-multi-select {
-  align-items: center;
+.task-multi-select-wrapper {
+  border-top: solid 1px var(--color-gray-88);
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0 0;
+  padding: 16px 0 0;
+
+  .task-multi-select {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+
+    .task-multi-select-option-input {
+      flex: 1 1 auto;
+    }
+  }
+
+  .task-multi-select-actions {
+    display: flex;
+    gap: 16px;
+  }
 }
 
 .task-conditional-multiselect {

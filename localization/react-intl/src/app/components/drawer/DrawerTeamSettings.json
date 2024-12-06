@@ -5,11 +5,6 @@
     "defaultMessage": "Annotations"
   },
   {
-    "id": "teamSettingsNavigation.data",
-    "description": "Label for the Data settings navigation menu item",
-    "defaultMessage": "Data"
-  },
-  {
     "id": "teamSettingsNavigation.integrations",
     "description": "Label for the Integrations settings navigation menu item",
     "defaultMessage": "Integrations"

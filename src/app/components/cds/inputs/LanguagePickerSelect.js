@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -12,14 +11,22 @@ const messages = defineMessages({
   optionLabel: {
     id: 'LanguagePickerSelect.optionLabel',
     defaultMessage: '{languageName} ({languageCode})',
+    description: 'English (en), French (fr), etc.',
+  },
+  allLanguages: {
+    id: 'LanguagePickerSelect.allLanguages',
+    defaultMessage: 'Languages: All',
+    description: 'Label for the all languages option',
   },
   unknownLanguage: {
     id: 'LanguagePickerSelect.unknownLanguage',
     defaultMessage: 'Unknown language',
+    description: 'Label for the unknown language option',
   },
 });
 
 const LanguagePickerSelect = ({
+  allowAllLanguages,
   helpContent,
   intl,
   isDisabled,
@@ -31,14 +38,21 @@ const LanguagePickerSelect = ({
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
   const options = (languages || []).slice();
-  if (!options.includes('und')) {
+
+  if (allowAllLanguages) {
+    options.unshift('all');
+  }
+
+  if (!allowAllLanguages && !options.includes('und')) {
     options.unshift('und');
   }
 
   // intl.formatMessage needed here because Autocomplete
   // performs toLowerCase on strings for comparison
   const getOptionLabel = (code) => {
+    if (code === 'all') return intl.formatMessage(messages.allLanguages);
     if (code === 'und') return intl.formatMessage(messages.unknownLanguage);
+
     return intl.formatMessage(messages.optionLabel, {
       languageName: (
         LanguageRegistry[code] ?
@@ -100,14 +114,14 @@ LanguagePickerSelect.defaultProps = {
 };
 
 LanguagePickerSelect.propTypes = {
+  helpContent: PropTypes.node,
   intl: intlShape.isRequired,
-  selectedLanguage: PropTypes.string,
-  onSubmit: PropTypes.func.isRequired,
-  languages: PropTypes.arrayOf(PropTypes.string),
   isDisabled: PropTypes.bool,
   label: PropTypes.node,
-  helpContent: PropTypes.node,
+  languages: PropTypes.arrayOf(PropTypes.string),
   required: PropTypes.bool,
+  selectedLanguage: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default injectIntl(LanguagePickerSelect);

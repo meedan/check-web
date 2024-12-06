@@ -22,6 +22,7 @@ function safelyParseJSON(jsonString, invalid = null) {
   try {
     return JSON.parse(jsonString);
   } catch (e) {
+    console.error('safelyParseJSON', e); // eslint-disable-line no-console
     return invalid;
   }
 }
@@ -41,7 +42,7 @@ function getStatus(statusesParam, id, language, defaultLanguage) {
       status = JSON.parse(JSON.stringify(st));
     }
   });
-  if (language) {
+  if (language && status.locales) {
     const defaultLabel = status.locales[defaultLanguage || 'en'] ?
       status.locales[defaultLanguage || 'en'].label : '';
     status.label = status.locales[language] ?

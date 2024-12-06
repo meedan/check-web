@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
-import { Box } from '@material-ui/core';
-import MediaCardTitleSummary from './MediaCardTitleSummary';
+import cx from 'classnames/bind';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import AspectRatio from '../layout/AspectRatio';
+import styles from '../media/MediaCardLarge.module.css';
 
 class WebPageMediaCard extends Component {
   shouldComponentUpdate(nextProps) {
@@ -27,7 +28,6 @@ class WebPageMediaCard extends Component {
       contentWarning,
       currentUserRole,
       data,
-      inModal,
       projectMedia,
       superAdminMask,
       warningCategory,
@@ -35,12 +35,7 @@ class WebPageMediaCard extends Component {
     } = this.props;
 
     return (
-      <article className="web-page-media-card">
-        <MediaCardTitleSummary
-          style={inModal ? { padding: '0 0 16px 0' } : null}
-          summary={inModal ? null : data.description}
-          title={data.title}
-        />
+      <article className={cx('web-page-media-card', styles['webpage-media-card'])}>
         {this.canEmbedHtml() ?
           <div
             dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
@@ -63,15 +58,18 @@ class WebPageMediaCard extends Component {
               </AspectRatio> : null
             }
             { data.error ?
-              <div className="web-page-media-card__error">
-                <Box mt={2}>
+              <Alert
+                className={cx('web-page-media-card__error', styles['webpage-media-card-error'])}
+                contained
+                content={
                   <FormattedMessage
                     defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
                     description="Error message displayed when link data is unavailable"
                     id="webPageMediaCard.Error"
                   />
-                </Box>
-              </div> : null
+                }
+                variant="error"
+              /> : null
             }
           </>
         }

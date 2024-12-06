@@ -4,15 +4,16 @@ import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import ArticleCoreListCounter from '../article/ArticleCoreListCounter';
+import DrawerListCounter from './Projects/DrawerListCounter';
 import NewArticleButton from '../article/NewArticleButton';
 import PublishedIcon from '../../icons/fact_check.svg';
 import TrashIcon from '../../icons/delete.svg';
 import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
+import BarChartIcon from '../../icons/bar_chart.svg';
 import styles from './Projects/Projects.module.css';
 
-const DrawerArticlesComponent = ({ team }) => {
+const DrawerArticlesComponent = ({ currentUser, team }) => {
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
   const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
@@ -40,6 +41,29 @@ const DrawerArticlesComponent = ({ team }) => {
       </div>
       <div className={styles.listWrapperScrollWrapper}>
         <ul className={cx(styles.listWrapper)}>
+          { currentUser.is_admin && (
+            <Link
+              className={styles.linkList}
+              to={`/${team.slug}/articles/dashboard`}
+              onClick={() => { handleSpecialLists('dashboard'); }}
+            >
+              <li
+                className={cx(
+                  'projects-list__dashboard',
+                  styles.listItem,
+                  styles.listItem_containsCount,
+                  {
+                    [styles.listItem_active]: activeItem.type === 'dashboard',
+                  })
+                }
+              >
+                <BarChartIcon className={styles.listIcon} />
+                <div className={styles.listLabel}>
+                  <FormattedMessage defaultMessage="Dashboard" description="Label for the dashboard displayed on the left sidebar" id="articlesComponent.dashboard" tagName="span" />
+                </div>
+              </li>
+            </Link>
+          )}
           <Link
             className={styles.linkList}
             to={`/${team.slug}/articles/fact-checks`}
@@ -59,7 +83,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Claim & Fact-Checks" description="Label for a list displayed on the left sidebar that includes items that have claim & fact-checks" id="articlesComponent.claimAndFactChecks" tagName="span" />
               </div>
-              <ArticleCoreListCounter teamSlug={team.slug} type="fact-check" />
+              <DrawerListCounter numberOfItems={team.factChecksCount} />
             </li>
           </Link>
           <Link
@@ -81,7 +105,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Explainers" description="Label for a list displayed on the left sidebar that includes items that have explainers" id="articlesComponent.explainers" tagName="span" />
               </div>
-              <ArticleCoreListCounter teamSlug={team.slug} type="explainer" />
+              <DrawerListCounter numberOfItems={team.explainersCount} />
             </li>
           </Link>
           <Link
@@ -103,7 +127,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" id="projectsComponent.importedReports" tagName="span" />
               </div>
-              <ArticleCoreListCounter defaultFilters={{ imported: true }} teamSlug={team.slug} type="fact-check" />
+              <DrawerListCounter numberOfItems={team.importedCount} />
             </li>
           </Link>
           <Link
@@ -125,7 +149,7 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" id="projectsComponent.published" tagName="span" />
               </div>
-              <ArticleCoreListCounter defaultFilters={{ report_status: 'published' }} teamSlug={team.slug} type="fact-check" />
+              <DrawerListCounter numberOfItems={team.publishedCount} />
             </li>
           </Link>
         </ul>
@@ -150,7 +174,7 @@ const DrawerArticlesComponent = ({ team }) => {
             <div className={styles.listLabel}>
               <FormattedMessage defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items that have been marked as Trashed" id="projectsComponent.trash" tagName="span" />
             </div>
-            <ArticleCoreListCounter defaultFilters={{ trashed: true }} teamSlug={team.slug} />
+            <DrawerListCounter numberOfItems={team.trashCount} />
           </li>
         </Link>
       </ul>
@@ -169,14 +193,22 @@ const DrawerArticles = () => {
         query DrawerArticlesQuery($teamSlug: String!) {
           team(slug: $teamSlug) {
             slug
+            factChecksCount: articles_count(article_type: "fact-check")
+            explainersCount: articles_count(article_type: "explainer")
+            publishedCount: articles_count(article_type: "fact-check", report_status: "published")
+            importedCount: articles_count(article_type: "fact-check", imported: true)
+            trashCount: articles_count(trashed: true)
             ...NewArticleButton_team
+          }
+          me {
+            is_admin
           }
         }
       `}
       render={({ error, props }) => {
         if (!props || error) return null;
 
-        return <DrawerArticlesComponent team={props.team} />;
+        return <DrawerArticlesComponent currentUser={props.me} team={props.team} />;
       }}
       variables={{ teamSlug }}
     />

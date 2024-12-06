@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -14,6 +13,7 @@ import dialogStyles from '../../../styles/css/dialog.module.css';
 import styles from './MediaAndRequestsDialog.module.css';
 
 const MediaAndRequestsDialogComponent = ({
+  dialogTitle,
   feedId,
   mediaHeader,
   mediaSlug,
@@ -34,6 +34,11 @@ const MediaAndRequestsDialogComponent = ({
       onClose={onClose}
     >
       <div className={dialogStyles['dialog-title']}>
+        { dialogTitle &&
+          <h6>
+            {dialogTitle}
+          </h6>
+        }
         {mediaSlug}
         <ButtonMain
           className={dialogStyles['dialog-close-button']}
@@ -86,17 +91,19 @@ const MediaAndRequestsDialogComponent = ({
 };
 
 MediaAndRequestsDialogComponent.defaultProps = {
+  dialogTitle: '',
   mediaHeader: null,
   projectMediaImportedId: null,
   feedId: null,
 };
 
 MediaAndRequestsDialogComponent.propTypes = {
-  mediaSlug: PropTypes.element.isRequired,
+  dialogTitle: PropTypes.string,
+  feedId: PropTypes.number,
   mediaHeader: PropTypes.element,
+  mediaSlug: PropTypes.element.isRequired,
   projectMediaId: PropTypes.number.isRequired,
   projectMediaImportedId: PropTypes.number,
-  feedId: PropTypes.number,
   onClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };

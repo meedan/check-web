@@ -4,7 +4,9 @@ import ListWidgetItem from './ListWidgetItem';
 import styles from './ListWidget.module.css';
 
 const ListWidget = ({
+  actionButton,
   color,
+  emptyText,
   items,
   title,
 }) => (
@@ -12,13 +14,19 @@ const ListWidget = ({
     <div>
       {title}
     </div>
+    { !items.length && (
+      <div className={styles.listWidgetEmpty}>
+        <span className={styles.listWidgetEmptyText}>{emptyText}</span>
+        {actionButton}
+      </div>
+    )}
     <ul>
       { items.map(i => (
         <ListWidgetItem
           itemLink={i.itemLink}
           itemText={i.itemText}
           itemValue={i.itemValue}
-          key={i.id}
+          key={i.itemText}
         />
       ))}
     </ul>
@@ -26,12 +34,20 @@ const ListWidget = ({
 );
 
 ListWidget.defaultProps = {
+  actionButton: null,
   color: 'var(--color-pink-93)',
+  emptyText: null,
 };
 
 ListWidget.propTypes = {
+  actionButton: PropTypes.node,
   color: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.shape({ itemLink: PropTypes.string, itemText: PropTypes.string, itemValue: PropTypes.string })).isRequired,
+  emptyText: PropTypes.node,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    itemLink: PropTypes.string,
+    itemText: PropTypes.string,
+    itemValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  })).isRequired,
   title: PropTypes.node.isRequired,
 };
 

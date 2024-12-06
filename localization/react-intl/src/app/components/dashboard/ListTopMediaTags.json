@@ -1,0 +1,17 @@
+[
+  {
+    "id": "listTopMediaTags.manageTags",
+    "description": "Label for the button to manage tags",
+    "defaultMessage": "Manage Tags"
+  },
+  {
+    "id": "listTopMediaTags.emptyText",
+    "description": "Text to display when there are no media tags",
+    "defaultMessage": "No media tags"
+  },
+  {
+    "id": "listTopMediaTags.title",
+    "description": "Title for the top media cluster tags list widget",
+    "defaultMessage": "Top Media Cluster Tags"
+  }
+]

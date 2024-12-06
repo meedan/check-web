@@ -12,7 +12,7 @@ import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import AddIcon from '../../../icons/add.svg';
 import IconClose from '../../../icons/clear.svg';
 import styles from '../../../styles/css/dialog.module.css';
-import MediasLoading from '../MediasLoading';
+import Loader from '../../cds/loading/Loader';
 
 const CreateMediaButton = ({
   environment,
@@ -92,8 +92,8 @@ const CreateMediaButton = ({
         iconLeft={<AddIcon />}
         label={
           <FormattedMessage
-            defaultMessage="Add Media"
-            description="Label of a button that opens a form to create a new media item."
+            defaultMessage="Add Media Cluster"
+            description="Label of a button that opens a form to create a new media cluster."
             id="createMediaButton.newMediaItem"
           />
         }
@@ -104,7 +104,7 @@ const CreateMediaButton = ({
       />
       <Dialog className={styles['dialog-window']} fullWidth open={open}>
         <div className={styles['dialog-title']}>
-          <FormattedMessage defaultMessage="Add Media" description="Dialog title for adding a new item" id="createMediaButton.addNewItem" tagName="h6" />
+          <FormattedMessage defaultMessage="Add New Media Cluster" description="Dialog title for adding a new cluster of media" id="createMediaButton.addNewItem" tagName="h6" />
           <ButtonMain
             className={styles['dialog-close-button']}
             disabled={saving}
@@ -116,7 +116,7 @@ const CreateMediaButton = ({
           />
         </div>
         <div className={styles['dialog-content']}>
-          { !saving ? <CreateMediaInput formId="create-media-dialog-form" team={team} onSubmit={handleSubmit} /> : <MediasLoading size="medium" theme="white" variant="inline" />}
+          { !saving ? <CreateMediaInput formId="create-media-dialog-form" team={team} onSubmit={handleSubmit} /> : <Loader size="medium" theme="white" variant="inline" />}
         </div>
         <div className={styles['dialog-actions']}>
           <ButtonMain
@@ -140,7 +140,11 @@ const CreateMediaButton = ({
             }}
             disabled={saving}
             label={
-              <FormattedMessage defaultMessage="Submit" description="Generic label for a button or link for a user to press when they wish to submit and form or action" id="global.submit" />
+              <FormattedMessage
+                defaultMessage="Add Media Cluster"
+                description="Label of a button that submits the form to creata new media cluster"
+                id="createMediaButton.addNewMediaCluster"
+              />
             }
             size="default"
             theme="info"

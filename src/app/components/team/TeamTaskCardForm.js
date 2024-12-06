@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -6,11 +5,11 @@ import {
   MetadataDate,
   MetadataFile,
   MetadataMultiselect,
-  MetadataNumber,
   MetadataLocation,
   MetadataUrl,
 } from '@meedan/check-ui';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import MetadataNumber from '../metadata/MetadataNumber';
 import MetadataText from '../metadata/MetadataText';
 import styles from './Tasks.module.css';
 
@@ -42,7 +41,8 @@ const TeamTaskCardForm = ({ about, task }) => (
         FieldInformation={() => null}
         SaveButton={() => null}
         disabled
-        hasData=""
+        hasData={false}
+        isEditing={false}
         metadataValue=""
         node={task}
         setMetadataValue={() => null}
@@ -56,9 +56,9 @@ const TeamTaskCardForm = ({ about, task }) => (
         EditButton={() => null}
         FieldInformation={() => null}
         SaveButton={() => null}
-        classes={{}}
         disabled
-        hasData=""
+        hasData={false}
+        isEditing={false}
         metadataValue=""
         node={task}
         setMetadataValue={() => null}
@@ -74,7 +74,8 @@ const TeamTaskCardForm = ({ about, task }) => (
         SaveButton={() => null}
         classes={{}}
         disabled
-        hasData=""
+        hasData={false}
+        isEditing={false}
         mapboxApiKey={config.mapboxApiKey}
         messages={{
           customize: (
@@ -187,12 +188,12 @@ const TeamTaskCardForm = ({ about, task }) => (
 );
 
 TeamTaskCardForm.propTypes = {
-  task: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-  }).isRequired,
   about: PropTypes.shape({
     file_max_size: PropTypes.string.isRequired,
     file_extensions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  task: PropTypes.shape({
+    type: PropTypes.string.isRequired,
   }).isRequired,
 };
 

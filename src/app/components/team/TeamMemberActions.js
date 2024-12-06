@@ -199,7 +199,7 @@ const TeamMemberActions = ({
     setFlashMessage((
       <FormattedMessage
         defaultMessage="The email has been copied to the clipboard"
-        description="success message fro when an email address has been copied to the clipboard"
+        description="success message for when an email address has been copied to the clipboard"
         id="teamMemberActions.copiedToClipboard"
       />
     ), 'success');
