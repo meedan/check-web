@@ -27,6 +27,12 @@ const DrawerNavigation = (props) => {
   const [drawerOpen, setDrawerOpen] = React.useState(getBooleanPref('drawer.isOpen', true));
   const [drawerType, setDrawerType] = React.useState('tipline');
 
+  React.useEffect(() => {
+    if (drawerType === 'bot') {
+      setDrawerOpen(false);
+    }
+  }, [drawerType]);
+
   if (props.teamSlug) {
     const { teamSlug } = props;
 
