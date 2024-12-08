@@ -41,7 +41,7 @@
             }
         ],
         "scale-unlimited/declaration-strict-value": [
-            ["/color/", "fill", "stroke", "font-size", "border-radius"],
+            ["/color/", "fill", "stroke", "font-size", "border-radius", "z-index"],
             {
                 "ignoreValues": ["transparent", "inherit", "currentColor", "currentcolor", "none", "underline", "medium", "unset"]
             }

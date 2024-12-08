@@ -9,7 +9,7 @@
   padding: 15px 0;
   text-align: center;
   width: var(--drawerRailWidth);
-  z-index: 2;
+  z-index: var(--z-index-2);
 
   .drawerRailTop,
   .drawerRailMiddle,
