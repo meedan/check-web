@@ -104,7 +104,7 @@
 }
 .rc-tooltip {
   position: absolute;
-  z-index: 1070;
+  z-index: var(--z-index-max);
   display: block;
   visibility: visible;
   line-height: 1.5;

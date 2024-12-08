@@ -24,7 +24,7 @@
     display: block;
     margin: 80px 0 0;
     position: relative;
-    z-index: 11;
+    z-index: var(--z-index-2);
   }
 
   &::after {
@@ -36,7 +36,7 @@
     right: 0;
     text-align: center;
     top: 0;
-    z-index: 10;
+    z-index: var(--z-index-1);
   }
 }
 
