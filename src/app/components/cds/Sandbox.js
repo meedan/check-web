@@ -320,7 +320,6 @@ const SandboxComponent = ({ admin }) => {
 
   const [categoryTab, setCategoryTab] = React.useState('all');
   const onChangeCategoryTab = (event) => {
-    console.log(event); // eslint-disable-line no-console
     setCategoryTab(event);
   };
 
