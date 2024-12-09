@@ -8,13 +8,13 @@
   min-width: 350px;
   padding: 8px 10px;
 
-  &.sizeLarge {
-    height: 62px;
-  }
-
   &.variantBanner {
     border-radius: var(--border-radius-zero, 0);
     margin: 0;
+  }
+
+  &.wrapContent {
+    flex-wrap: wrap;
   }
 
   .select {
