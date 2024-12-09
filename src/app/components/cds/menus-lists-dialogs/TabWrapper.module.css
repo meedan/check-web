@@ -3,10 +3,10 @@
   background: var(--color-beige-93);
   border-radius: var(--border-radius-default, 8px);
   display: flex;
-  gap: 16px;
+  gap: 3px;
   margin: 8px;
   min-width: 350px;
-  padding: 8px 10px;
+  padding: 8px;
 
   &.variantBanner {
     border-radius: var(--border-radius-zero, 0);
