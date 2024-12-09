@@ -13,11 +13,13 @@ const TabWrapper = ({
   tabs,
   value,
   variant,
+  wrapContent,
 }) => {
   const [activeTab, setActiveTab] = React.useState(getQueryStringValue('tab') || value || tabs.find(tab => tab.show !== false).value);
   const wrapperRef = React.useRef(null);
   const [isOverflowing, setIsOverflowing] = React.useState(false);
   const [fullTabWidth, setFullTabWidth] = React.useState(0);
+  const wrapperHeightMax = size === 'large' ? 130 : 95;
 
   useLayoutEffect(() => {
     if (wrapperRef.current) {
@@ -31,10 +33,15 @@ const TabWrapper = ({
     const checkOverflow = (tabWidth) => {
       if (wrapperRef.current) {
         const containerWidth = wrapperRef.current.clientWidth;
-        if (tabWidth > containerWidth && !isOverflowing) {
+        const containerHeight = wrapperRef.current.clientHeight;
+        if (tabWidth > containerWidth && !isOverflowing && !wrapContent) {
           setIsOverflowing(true);
         } else if (tabWidth <= containerWidth && isOverflowing) {
           setIsOverflowing(false);
+        }
+
+        if (containerHeight > wrapperHeightMax && wrapContent) {
+          setIsOverflowing(true);
         }
       }
     };
@@ -60,10 +67,15 @@ const TabWrapper = ({
     const handleResize = () => {
       if (wrapperRef.current) {
         const containerWidth = wrapperRef.current.clientWidth;
-        if (fullTabWidth > containerWidth) {
+        const containerHeight = wrapperRef.current.clientHeight;
+        if (fullTabWidth > containerWidth && !wrapContent) {
           setIsOverflowing(true);
         } else {
           setIsOverflowing(false);
+        }
+
+        if (containerHeight > wrapperHeightMax && !isOverflowing && wrapContent) {
+          setIsOverflowing(true);
         }
       }
     };
@@ -98,6 +110,7 @@ const TabWrapper = ({
           [styles.sizeDefault]: size === 'default',
           [styles.sizeLarge]: size === 'large' || isOverflowing,
           [styles.variantBanner]: variant === 'banner',
+          [styles.wrapContent]: wrapContent,
         },
       )}
       ref={wrapperRef}
@@ -139,6 +152,7 @@ TabWrapper.defaultProps = {
   size: 'default',
   value: null,
   variant: 'default',
+  wrapContent: false,
 };
 
 TabWrapper.propTypes = {
@@ -147,6 +161,7 @@ TabWrapper.propTypes = {
   tabs: PropTypes.array.isRequired,
   value: PropTypes.string,
   variant: PropTypes.oneOf(['default', 'banner']),
+  wrapContent: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
 };
 
