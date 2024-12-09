@@ -3,24 +3,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import {
-  Menu,
-  MenuItem,
-} from '@material-ui/core';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import cx from 'classnames/bind';
 import RefreshButton from './RefreshButton';
 import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
 import MediaLanguageSwitcher from './MediaLanguageSwitcher';
-import ExternalLink from '../ExternalLink';
-import MoreVertIcon from '../../icons/more_vert.svg';
 import SearchIcon from '../../icons/search.svg';
 import OpenInNewIcon from '../../icons/open_in_new.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from './MediaCardLarge.module.css';
-import mediaStyles from './media.module.css';
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -31,82 +22,60 @@ const ExtraMediaActions = ({
   const isPicture = !!projectMedia.picture && !isYoutubeVideo;
   const isVideo = isYoutubeVideo || isUploadedVideo;
   const allowsReverseSearch = isPicture || isVideo;
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleMenuAndClose = (callback) => {
-    if (callback) callback();
-    setAnchorEl(null);
-  };
 
   if (projectMedia.media.type === 'Claim') return null;
 
   return (
-    <div className="media-expanded-actions">
-      <ButtonMain
-        buttonProps={{
-          id: 'media-expanded-actions__menu',
-        }}
-        iconCenter={<MoreVertIcon />}
-        size="small"
-        theme="text"
-        variant="contained"
-        onClick={e => setAnchorEl(e.currentTarget)}
-      />
-      <Menu
-        anchorEl={anchorEl}
-        className={mediaStyles.mediaMenuList}
-        open={Boolean(anchorEl)}
-        onClose={() => setAnchorEl(null)}
-      >
-        { (projectMedia.media && projectMedia.media.url) ?
-          <MenuItem className={mediaStyles.mediaMenuItem} onClick={() => setAnchorEl(null)}>
-            <ListItemIcon className={mediaStyles.mediaMenuIcon}>
-              <OpenInNewIcon />
-            </ListItemIcon>
-            <ExternalLink
-              style={{ color: 'unset', textDecoration: 'none' }}
-              url={projectMedia.media.url}
-            >
-              <FormattedMessage
-                defaultMessage="Open link"
-                description="Menu option for navigating to the original media url"
-                id="mediaMetadata.openLink"
-              />
-            </ExternalLink>
-          </MenuItem> : null }
-        <TranscriptionButton
-          projectMediaId={projectMedia.id}
-          projectMediaType={projectMedia.media.type}
-          transcription={projectMedia.transcription}
-          onClick={() => setAnchorEl(null)}
-        />
-        { allowsReverseSearch ?
-          <MenuItem
-            className={mediaStyles.mediaMenuItem}
-            id="media-expanded-actions__reverse-image-search"
-            onClick={() => handleMenuAndClose(reverseImageSearchGoogle)}
-          >
-            <ListItemIcon className={mediaStyles.mediaMenuIcon}>
-              <SearchIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={
-                <FormattedMessage
-                  defaultMessage="Reverse image search"
-                  description="Menu option for performing reverse image searches on google or other engines"
-                  id="mediaMetadata.ImageSearch"
-                />
-              }
+    <>
+      { (projectMedia.media && projectMedia.media.url) ?
+        <ButtonMain
+          buttonProps={{
+            id: 'media-expanded-actions__reverse-image-search',
+          }}
+          iconLeft={<OpenInNewIcon />}
+          label={
+            <FormattedMessage
+              defaultMessage="Open Link"
+              description="Menu option for navigating to the original media url"
+              id="mediaMetadata.openLink"
             />
-          </MenuItem> : null }
-        <OcrButton
-          hasExtractedText={Boolean(projectMedia.extracted_text)}
-          projectMediaId={projectMedia.id}
-          projectMediaType={projectMedia.media.type}
-          onClick={() => setAnchorEl(null)}
-        />
-      </Menu>
-    </div>
+          }
+          size="small"
+          theme="text"
+          variant="contained"
+          onClick={() => window.open(projectMedia.media.url)}
+        /> : null
+      }
+      <TranscriptionButton
+        projectMediaId={projectMedia.id}
+        projectMediaType={projectMedia.media.type}
+        transcription={projectMedia.transcription}
+      />
+      { allowsReverseSearch ?
+        <ButtonMain
+          buttonProps={{
+            id: 'media-expanded-actions__reverse-image-search',
+          }}
+          iconLeft={<SearchIcon />}
+          label={
+            <FormattedMessage
+              defaultMessage="Reverse Image Search"
+              description="Menu option for performing reverse image searches on google or other engines"
+              id="mediaMetadata.ImageSearch"
+            />
+          }
+          size="small"
+          theme="text"
+          variant="contained"
+          onClick={() => reverseImageSearchGoogle()}
+        /> : null
+      }
+      <OcrButton
+        hasExtractedText={Boolean(projectMedia.extracted_text)}
+        projectMediaId={projectMedia.id}
+        projectMediaType={projectMedia.media.type}
+      />
+    </>
   );
 };
 
@@ -128,41 +97,46 @@ class MediaExpandedActions extends React.Component {
     if (media.type === 'Blank') return null;
 
     return (
-      <div
-        className={cx(
-          styles['media-card-large-footer-actions'],
-          {
-            [styles['media-card-large-footer-modal-actions']]: bottomSeparator,
-          })
+      <>
+        { inModal ?
+          <MediaLanguageSwitcher projectMedia={projectMedia} />
+          : null
         }
-      >
-        { !inModal ?
-          <ButtonMain
-            iconRight={<OpenInNewIcon />}
-            label={
-              <FormattedMessage
-                defaultMessage="More"
-                description="Button to open an expanded view of the media"
-                id="mediaCardLarge.more"
+        <div
+          className={cx(
+            styles['media-card-large-footer-actions'],
+            {
+              [styles['media-card-large-footer-modal-actions']]: bottomSeparator,
+            })
+          }
+        >
+          { media.type !== 'Claim' ?
+            <>
+              { media.type === 'Link' ? <RefreshButton projectMediaId={projectMedia.id} /> : null }
+              <ExtraMediaActions
+                projectMedia={projectMedia}
+                reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
               />
-            }
-            size="small"
-            theme="text"
-            variant="contained"
-            onClick={onClickMore}
-          />
-          : <MediaLanguageSwitcher projectMedia={projectMedia} />
-        }
-        { media.type !== 'Claim' ?
-          <>
-            { media.type === 'Link' ?
-              <RefreshButton projectMediaId={projectMedia.id} /> : null }
-            <ExtraMediaActions
-              projectMedia={projectMedia}
-              reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+            </> : null
+          }
+          { !inModal ?
+            <ButtonMain
+              label={
+                <FormattedMessage
+                  defaultMessage="More…"
+                  description="Button to open an expanded view of the media"
+                  id="mediaCardLarge.more"
+                />
+              }
+              size="small"
+              theme="text"
+              variant="contained"
+              onClick={onClickMore}
             />
-          </> : null }
-      </div>
+            : null
+          }
+        </div>
+      </>
     );
   }
 }
