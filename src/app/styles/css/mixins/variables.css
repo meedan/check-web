@@ -154,7 +154,7 @@
 
   --z-index-max: 1000; /* Nothing will ever be higher, for example tooltips and toasts */
   --z-index-10: 10; /* Highest main UI elements, such as slideouts */
-  --z-index-9: 9; /* Highest main UI elements, such as slideouts */
+  --z-index-9: 9;
   --z-index-8: 8;
   --z-index-7: 7;
   --z-index-6: 6;
