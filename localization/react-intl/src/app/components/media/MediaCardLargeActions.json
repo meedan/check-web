@@ -2,16 +2,16 @@
   {
     "id": "mediaMetadata.openLink",
     "description": "Menu option for navigating to the original media url",
-    "defaultMessage": "Open link"
+    "defaultMessage": "Open Link"
   },
   {
     "id": "mediaMetadata.ImageSearch",
     "description": "Menu option for performing reverse image searches on google or other engines",
-    "defaultMessage": "Reverse image search"
+    "defaultMessage": "Reverse Image Search"
   },
   {
     "id": "mediaCardLarge.more",
     "description": "Button to open an expanded view of the media",
-    "defaultMessage": "More"
+    "defaultMessage": "More…"
   }
 ]
