@@ -5,6 +5,7 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import cx from 'classnames/bind';
 import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaCardLargeActions from './MediaCardLargeActions';
+import MediaClusterOriginButton from './MediaClusterOriginButton';
 import MediaSlug from './MediaSlug';
 import ExternalLink from '../ExternalLink';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
@@ -107,26 +108,44 @@ const MediaCardLargeFooter = ({
       { footerBody && !inModal ? <>{transcriptionOrExtractedFooter}</> : null }
       { !inModal ?
         <MediaSlug
-          details={[(
-            <LastRequestDate
-              lastRequestDate={projectMedia.last_seen * 1000}
-              theme="lightText"
-              variant="text"
-            />
-          ), (
-            <RequestsCount
-              requestsCount={projectMedia.requests_count}
-              theme="lightText"
-              variant="text"
-            />
-          ), (
-            <MediaIdentifier
-              mediaType={mediaType}
-              slug={projectMedia.media_slug || projectMedia.title}
-              theme="lightText"
-              variant="text"
-            />
-          ),
+          details={[
+            (
+              <LastRequestDate
+                lastRequestDate={projectMedia.last_seen * 1000}
+                theme="lightText"
+                variant="text"
+              />
+            ),
+            (
+              <RequestsCount
+                requestsCount={projectMedia.requests_count}
+                theme="lightText"
+                variant="text"
+              />
+            ),
+            (
+              <MediaIdentifier
+                mediaType={mediaType}
+                slug={projectMedia.media_slug || projectMedia.title}
+                theme="lightText"
+                variant="text"
+              />
+            ),
+            (
+              <MediaClusterOriginButton type="typeA" />
+            ),
+            (
+              <MediaClusterOriginButton type="typeB" />
+            ),
+            (
+              <MediaClusterOriginButton type="typeC" />
+            ),
+            (
+              <MediaClusterOriginButton type="null" />
+            ),
+            (
+              <MediaClusterOriginButton type="typeE" />
+            ),
           ]}
         />
         : null
