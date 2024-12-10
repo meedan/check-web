@@ -169,28 +169,5 @@ shared_examples 'app' do |webdriver_url|
       expect((@driver.current_url.to_s =~ %r{/terms-of-service$}).nil?).to be(false)
     end
 
-    it 'should create standalone fact check', bin4: true do
-      data = api_create_team_and_bot
-      puts ""
-      puts "team: #{data.inspect}"
-
-      # Create the standalone fact check
-      api_create_imported_standalone_fact_check(
-        team_data: data,
-        description: '-',
-        context: '',
-        title: 'Foo Bar Testing',
-        summary: 'Foo Bar Testing',
-        url: 'http://example.com/test',
-        language: 'en'
-      )
-      verbose_wait 1
-      pm = api_create_claim(data: data, quote: 'Foo Bar Testing')
-      @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
-      verbose_wait 1
-      @driver.navigate.refresh
-      verbose_wait 1
-    end
-
   end
 end

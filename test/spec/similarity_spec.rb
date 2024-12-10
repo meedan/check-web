@@ -86,33 +86,30 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  # it 'should create and add fact-check and check it is suggested to an item', bin7: true do
-  #   data = api_create_team_and_bot
-  #   pm1 = api_create_claim(data: data, quote: 'claim 1')
-  #   pm2 = api_create_claim(data: data, quote: 'Presidente da Coreia do Sul diz que vai revogar lei marcial')
-  #   @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/articles/fact-checks"
-  #   wait_for_selector('.projects-list__fact-checks')
-  #   wait_for_selector('#new-article-menu__open-button').click
-  #   wait_for_selector('#new-article-button__add-explainer')
-  #   wait_for_selector('#new-article-button__add-claim-and-fact-check').click
-  #   fill_field('#article-form__description', 'O presidente da Coreia do Sul, Yoon Suk Yeol')
-  #   fill_field('#article-form__context', 'Yoon se reuniu com o gabinete governamental')
-  #   fill_field('#article-form__title', 'Presidente da Coreia do Sul diz que vai revogar lei marcial após deputados rejeitarem medida')
-  #   fill_field('#article-form__summary', 'O presidente da Coreia do Sul, Yoon Suk Yeol, anunciou nesta terça-feira (3) que vai revogar o decreto de lei marcial.')
-  #   wait_for_selector('#article-form__url').click
-  #   wait_for_selector('#article-form__save-button').click
-  #   wait_for_selector_none('#article-form__save-button')
-  #   @driver.navigate.refresh
-  #   wait_for_selector('.article-card')
-  #   @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}"
-  #   add_article_to_item
-  #   expect(@driver.find_elements(:css, '.article-card').size).to eq 1
-  #   @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm2.id}"
-  #   wait_for_selector('.test__media')
-  #   wait_for_selector('.media-tab__articles').click
-  #   verbose_wait 10
-  #   wait_for_selector('.article-card')
-  # end
+  it 'should create standalone fact check', bin7: true do
+    data = api_create_team_and_bot
+    puts ""
+    puts "team: #{data.inspect}"
+
+    # Create the standalone fact check
+    api_create_imported_standalone_fact_check(
+      team_data: data,
+      description: '-',
+      context: '',
+      title: 'Foo Bar Testing',
+      summary: 'Foo Bar Testing',
+      url: 'http://example.com/test',
+      language: 'en'
+    )
+    verbose_wait 3
+    pm = api_create_claim(data: data, quote: 'Foo Bar Testing')
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
+    verbose_wait 3
+    @driver.navigate.refresh
+    verbose_wait 1
+    # wait_for_selector('.article-card')
+    expect(@driver.page_source.include?('Choose a relevant article')).to be(true)
+  end
 
   it 'should prepare environment for media similarity tests', bin8: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
