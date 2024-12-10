@@ -195,4 +195,28 @@ module ApiHelpers
     request_api 'new_media_tag', { pm_id: claim[:id], email: data[:user].email, tag: 'TAG' }
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
+
+  def api_create_imported_standalone_fact_check(params = {})
+  team_data = params[:team_data] || api_create_team_and_bot(params)
+  email = params[:email] || team_data[:user].email
+  description = params[:description] || 'Default Test Description'
+  context = params[:context] || 'Default Test Context'
+  title = params[:title] || 'Default Test Title'
+  summary = params[:summary] || 'Default Test Summary'
+  url = params[:url] || 'http://example.com/test'
+  language = params[:language] || 'en'
+
+  # API call to create the standalone fact check
+  request_api 'create_imported_standalone_fact_check', {
+    team_id: team_data[:team].dbid,
+    email: email,
+    description: description,
+    context: context,
+    title: title,
+    summary: summary,
+    url: url,
+    language: language
+  }
+end
+
 end
