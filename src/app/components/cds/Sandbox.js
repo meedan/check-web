@@ -36,11 +36,6 @@ import ParsedText from '../ParsedText';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import { FlashMessageSetterContext } from '../FlashMessage';
-import {
-  getQueryStringValue,
-  pushQueryStringValue,
-  deleteQueryStringValue,
-} from '../../urlHelpers';
 import styles from './sandbox.module.css';
 
 const SandboxComponent = ({ admin }) => {
@@ -48,10 +43,6 @@ const SandboxComponent = ({ admin }) => {
   if (!isAdmin) {
     return null;
   }
-
-  let category = null;
-  category = getQueryStringValue('category');
-  const [selectedCategory, setSelectedTab] = React.useState(category);
 
   const [tags, setTags] = React.useState([
     'first',
@@ -327,6 +318,11 @@ const SandboxComponent = ({ admin }) => {
     setReorderTheme(event.target.value);
   };
 
+  const [categoryTab, setCategoryTab] = React.useState('all');
+  const onChangeCategoryTab = (event) => {
+    setCategoryTab(event);
+  };
+
   const [sampleDataSet, setSampleDataSet] = React.useState('design');
   const [stackedBarChartEmptySection, setStackedBarChartEmptySection] = React.useState(true);
 
@@ -421,65 +417,72 @@ const SandboxComponent = ({ admin }) => {
     }
   };
 
-  const handleClick = (newCategory) => {
-    if (category !== newCategory) {
-      if (newCategory === 'all') {
-        setSelectedTab(null);
-        deleteQueryStringValue('category');
-      } else {
-        setSelectedTab(newCategory);
-        pushQueryStringValue('category', newCategory);
-      }
-    }
-  };
-
   return (
     <div className={styles.sandbox}>
       <h5>
         UI Sandbox&nbsp;<span aria-label="Beach" role="img">🏖️</span>
       </h5>
-      <ul className={styles.sandboxNav}>
-        <li>
-          <ButtonMain label="All" size="small" theme={!selectedCategory ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('all')} />
-        </li>
-        <li>
-          <ButtonMain label="Cards" size="small" theme={selectedCategory === 'cards' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('cards')} />
-        </li>
-        <li>
-          <ButtonMain label="Buttons" size="small" theme={selectedCategory === 'buttons' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('buttons')} />
-        </li>
-        <li>
-          <ButtonMain label="Inputs" size="small" theme={selectedCategory === 'inputs' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('inputs')} />
-        </li>
-        <li>
-          <ButtonMain label="Chips" size="small" theme={selectedCategory === 'chips' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('chips')} />
-        </li>
-        <li>
-          <ButtonMain label="Tags" size="small" theme={selectedCategory === 'tags' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('tags')} />
-        </li>
-        <li>
-          <ButtonMain label="Alerts &amp; Prompts" size="small" theme={selectedCategory === 'alerts' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('alerts')} />
-        </li>
-        <li>
-          <ButtonMain label="Text Display" size="small" theme={selectedCategory === 'text' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('text')} />
-        </li>
-        <li>
-          <ButtonMain label="Loading Animations" size="small" theme={selectedCategory === 'loaders' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('loaders')} />
-        </li>
-        <li>
-          <ButtonMain label="Slideout" size="small" theme={selectedCategory === 'slideout' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('slideout')} />
-        </li>
-        <li>
-          <ButtonMain label="Errors" size="small" theme={selectedCategory === 'errors' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('errors')} />
-        </li>
-        <li>
-          <ButtonMain label="Charts" size="small" theme={selectedCategory === 'charts' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('charts')} />
-        </li>
-        <li>
-          <ButtonMain label="Tabs" size="small" theme={selectedCategory === 'tabs' ? 'info' : 'lightText'} variant="contained" onClick={() => handleClick('tabs')} />
-        </li>
-      </ul>
-      { (!selectedCategory || selectedCategory === 'cards') &&
+      <TabWrapper
+        className={styles.sandboxNav}
+        tabs={[
+          {
+            label: 'All',
+            value: 'all',
+          },
+          {
+            label: 'Cards',
+            value: 'cards',
+          },
+          {
+            label: 'Buttons',
+            value: 'buttons',
+          },
+          {
+            label: 'Inputs',
+            value: 'inputs',
+          },
+          {
+            label: 'Chips',
+            value: 'chips',
+          },
+          {
+            label: 'Tags',
+            value: 'tags',
+          },
+          {
+            label: 'Alerts & Prompts',
+            value: 'alerts',
+          },
+          {
+            label: 'Text Display',
+            value: 'text',
+          },
+          {
+            label: 'Loading Animations',
+            value: 'loaders',
+          },
+          {
+            label: 'Slideout',
+            value: 'slideout',
+          },
+          {
+            label: 'Errors',
+            value: 'errors',
+          },
+          {
+            label: 'Charts',
+            value: 'charts',
+          },
+          {
+            label: 'Tabs',
+            value: 'tabs',
+          },
+        ]}
+        value={categoryTab}
+        wrapContent
+        onChange={onChangeCategoryTab}
+      />
+      { (categoryTab === 'all' || categoryTab === 'cards') &&
         <section>
           <h6>Item Cards</h6>
           <div className={styles.componentWrapper}>
@@ -708,7 +711,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'buttons') &&
+      { (categoryTab === 'all' || categoryTab === 'buttons') &&
         <section>
           <h6>Buttons</h6>
           <div className={styles.componentWrapper}>
@@ -971,7 +974,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'inputs') &&
+      { (categoryTab === 'all' || categoryTab === 'inputs') &&
         <section>
           <h6>Inputs</h6>
           <div className={styles.componentWrapper}>
@@ -1559,7 +1562,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'chips') &&
+      { (categoryTab === 'all' || categoryTab === 'chips') &&
         <section>
           <h6>Chips</h6>
           <div className={styles.componentWrapper}>
@@ -1596,7 +1599,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'tags') &&
+      { (categoryTab === 'all' || categoryTab === 'tags') &&
         <section>
           <h6>Tags</h6>
           <div className={styles.componentWrapper}>
@@ -1657,7 +1660,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'alerts') &&
+      { (categoryTab === 'all' || categoryTab === 'alerts') &&
         <section>
           <h6>Alerts &amp; Prompts</h6>
           <div className={styles.componentWrapper}>
@@ -1789,7 +1792,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'text') &&
+      { (categoryTab === 'all' || categoryTab === 'text') &&
         <section>
           <h6>Parsed Text</h6>
           <div className={styles.componentWrapper}>
@@ -1801,7 +1804,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'loaders') &&
+      { (categoryTab === 'all' || categoryTab === 'loaders') &&
         <section>
           <h6>Loading Animations</h6>
           <div className={styles.componentWrapper}>
@@ -1865,7 +1868,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'slideout') &&
+      { (categoryTab === 'all' || categoryTab === 'slideout') &&
         <section id="sandbox-slideout">
           <h6>Slideout</h6>
           <div className={styles.componentWrapper}>
@@ -1972,7 +1975,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'errors') &&
+      { (categoryTab === 'all' || categoryTab === 'errors') &&
         <section>
           <h6>Errors</h6>
           <div className={styles.componentWrapper}>
@@ -1986,7 +1989,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'charts') &&
+      { (categoryTab === 'all' || categoryTab === 'charts') &&
         <section>
           <h6>Charts</h6>
           <div className={styles.componentWrapper}>
@@ -2231,7 +2234,7 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (!selectedCategory || selectedCategory === 'tabs') &&
+      { (categoryTab === 'all' || categoryTab === 'tabs') &&
         <section>
           <h6>Tabs</h6>
           <div className={styles.componentWrapper}>

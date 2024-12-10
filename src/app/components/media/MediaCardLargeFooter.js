@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import cx from 'classnames/bind';
 import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaSlug from './MediaSlug';
@@ -68,14 +67,7 @@ const MediaCardLargeFooter = ({
   );
 
   return (
-    <div
-      className={cx(
-        styles['media-card-large-footer'],
-        {
-          [styles['media-card-large-footer-modal']]: inModal,
-        })
-      }
-    >
+    <div className={styles['media-card-large-footer']}>
       { /* 1st MediaLargeFooterContent, exclusive for Link, always displays URL above MediaCardLargeActions */}
       { projectMedia.type === 'Link' ?
         <MediaCardLargeFooterContent

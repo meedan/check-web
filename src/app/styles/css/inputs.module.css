@@ -114,7 +114,7 @@
     margin: 0 0 16px;
     position: sticky;
     top: -16px;
-    z-index: 2;
+    z-index: var(--z-index-2);
   }
 
   .form-inner-wrapper {

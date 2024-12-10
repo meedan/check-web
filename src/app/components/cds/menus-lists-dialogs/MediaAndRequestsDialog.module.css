@@ -6,13 +6,13 @@
     position: relative;
 
     &::after {
-      background-color: var(--color-blue-81);
+      background-color: var(--color-gray-88);
       bottom: 0;
       content: '';
       left: 50%;
       position: absolute;
       top: 0;
-      width: 2px;
+      width: 1px;
     }
 
     > div {

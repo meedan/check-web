@@ -200,7 +200,7 @@
     display: block;
     left: 6px;
     right: 20px;
-    z-index: 1;
+    z-index: var(--z-index-1);
   }
 
   &::after {
@@ -222,7 +222,7 @@
       position: absolute;
       right: 0;
       top: 0;
-      z-index: 2;
+      z-index: var(--z-index-2);
     }
 
     &::after {
@@ -233,7 +233,7 @@
       height: 2px;
       margin-top: auto;
       position: relative;
-      z-index: 2;
+      z-index: var(--z-index-2);
     }
   }
 }
