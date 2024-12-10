@@ -423,6 +423,7 @@ const AutoCompleteMediaItem = (props, context) => {
                           />
                         ),
                       ]}
+                      ignoreGeneralContentMask={props.ignoreGeneralContentMask}
                       maskContent={projectMedia.show_warning_cover}
                       media={projectMedia.media}
                       onClick={e => handleClick(e, projectMedia.dbid)}
@@ -452,6 +453,7 @@ AutoCompleteMediaItem.defaultProps = {
   customFilter: null,
   dbid: null,
   disablePublished: false,
+  ignoreGeneralContentMask: true,
   multiple: false,
   showFilters: false,
   typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
@@ -461,6 +463,7 @@ AutoCompleteMediaItem.propTypes = {
   customFilter: PropTypes.func,
   dbid: PropTypes.number, // filter results: do _not_ select this number
   disablePublished: PropTypes.bool,
+  ignoreGeneralContentMask: PropTypes.bool,
   multiple: PropTypes.bool,
   showFilters: PropTypes.bool,
   typesToShow: PropTypes.arrayOf(PropTypes.string),
