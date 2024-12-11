@@ -381,18 +381,6 @@ function getTimeZoneOptions() {
 }
 
 /**
- * Return a boolean for super admin screen page
- */
-function getSuperAdminMask(state) {
-  const { superAdminMask, superAdminMaskAction } = state;
-  if (superAdminMaskAction === 'page') {
-    return superAdminMask;
-  }
-  const superAdminMaskSession = sessionStorage.getItem('superAdminMaskSession');
-  return superAdminMaskSession !== 'false';
-}
-
-/**
  * Return a number formatted 12.2K, 130M, etc. Mostly to ensure same options across the app
  */
 function getCompactNumber(locale, number) {
@@ -439,7 +427,6 @@ export { // eslint-disable-line import/no-unused-modules
   getMediaType,
   escapeHtml,
   getTimeZoneOptions,
-  getSuperAdminMask,
   getCompactNumber,
   getSeparatedNumber,
   isFactCheckValueBlank,
