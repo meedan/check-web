@@ -62,7 +62,12 @@ const BotPreview = ({ me, team }) => {
 
   const savedHistory = safelyParseJSON(window.storage.getValue('botPreviewMessageHistory'), []);
 
-  const isAdmin = false;
+  // FIXME: When the Feature Flag is removed, we probably should just use:
+  // const userRole = UserUtil.myRole(window.Check.store.getState().app.context.currentUser, TeamSlug)
+  const { currentUser } = window.Check.store.getState().app.context;
+  const teams = safelyParseJSON(currentUser.teams);
+  const userRole = teams[teamSlug] && teams[teamSlug].role;
+  const isAdmin = userRole === 'admin';
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [messageHistory, setMessageHistory] = React.useState(savedHistory);
