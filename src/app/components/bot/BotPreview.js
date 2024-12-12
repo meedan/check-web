@@ -62,6 +62,8 @@ const BotPreview = ({ me, team }) => {
 
   const savedHistory = safelyParseJSON(window.storage.getValue('botPreviewMessageHistory'), []);
 
+  const isAdmin = false;
+
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [messageHistory, setMessageHistory] = React.useState(savedHistory);
   const [selectedPlatform, setSelectedPlatform] = React.useState(firstPlatform);
@@ -210,11 +212,15 @@ const BotPreview = ({ me, team }) => {
           <SettingsIcon />
           <h6>Settings</h6> - <Link to={`/${teamSlug}/settings/tipline`}>Tipline Settings</Link>
         </div>
-        <Alert
-          content="Contact your workspace admin to make any changes to settings."
-          title="You must be an admin to change Bot Settings"
-          variant="warning"
-        />
+        { isAdmin ?
+          null
+          :
+          <Alert
+            content="Contact your workspace admin to make any changes to settings."
+            title="You must be an admin to change Bot Settings"
+            variant="warning"
+          />
+        }
         <div className={styles['settings-card']}>
           <div className={styles['settings-card-header']}>
             <SettingsIcon />
