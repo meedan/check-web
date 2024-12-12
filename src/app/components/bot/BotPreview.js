@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, fetchQuery } from 'react-relay/compat';
 import { Link } from 'react-router';
@@ -221,8 +222,20 @@ const BotPreview = ({ me, team }) => {
           null
           :
           <Alert
-            content="Contact your workspace admin to make any changes to settings."
-            title="You must be an admin to change Bot Settings"
+            content={
+              <FormattedMessage
+                defaultMessage="Contact your workspace admin to make any changes to settings."
+                description="Description of the alert message displayed on settings section of the bot preview page."
+                id="botPreview.readOnlyAlertContent"
+              />
+            }
+            title={
+              <FormattedMessage
+                defaultMessage="You must be an admin to change Bot Settings"
+                description="Title of the alert message displayed on settings section of the bot preview page."
+                id="botPreview.readOnlyAlertTitle"
+              />
+            }
             variant="warning"
           />
         }
