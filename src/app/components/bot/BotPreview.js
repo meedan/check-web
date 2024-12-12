@@ -5,6 +5,7 @@ import { QueryRenderer, graphql, fetchQuery } from 'react-relay/compat';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
 import PlatformSelect from './PlatformSelect';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import ChatFeed from '../cds/chat/ChatFeed';
 import DeviceMockupComponent from '../cds/mockups/DeviceMockupComponent';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -209,6 +210,11 @@ const BotPreview = ({ me, team }) => {
           <SettingsIcon />
           <h6>Settings</h6> - <Link to={`/${teamSlug}/settings/tipline`}>Tipline Settings</Link>
         </div>
+        <Alert
+          content="Contact your workspace admin to make any changes to settings."
+          title="You must be an admin to change Bot Settings"
+          variant="warning"
+        />
         <div className={styles['settings-card']}>
           <div className={styles['settings-card-header']}>
             <SettingsIcon />
