@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, fetchQuery } from 'react-relay/compat';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
 import PlatformSelect from './PlatformSelect';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import ChatFeed from '../cds/chat/ChatFeed';
 import DeviceMockupComponent from '../cds/mockups/DeviceMockupComponent';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -60,6 +62,13 @@ const BotPreview = ({ me, team }) => {
   const firstPlatform = Object.keys(smoochIntegrations)[0];
 
   const savedHistory = safelyParseJSON(window.storage.getValue('botPreviewMessageHistory'), []);
+
+  // FIXME: When the Feature Flag is removed, we probably should just use:
+  // const userRole = UserUtil.myRole(window.Check.store.getState().app.context.currentUser, TeamSlug)
+  const { currentUser } = window.Check.store.getState().app.context;
+  const teams = safelyParseJSON(currentUser.teams);
+  const userRole = teams[teamSlug] && teams[teamSlug].role;
+  const isAdmin = userRole === 'admin';
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [messageHistory, setMessageHistory] = React.useState(savedHistory);
@@ -209,6 +218,27 @@ const BotPreview = ({ me, team }) => {
           <SettingsIcon />
           <h6>Settings</h6> - <Link to={`/${teamSlug}/settings/tipline`}>Tipline Settings</Link>
         </div>
+        { isAdmin ?
+          null
+          :
+          <Alert
+            content={
+              <FormattedMessage
+                defaultMessage="Contact your workspace admin to make any changes to settings."
+                description="Description of the alert message displayed on settings section of the bot preview page."
+                id="botPreview.readOnlyAlertContent"
+              />
+            }
+            title={
+              <FormattedMessage
+                defaultMessage="You must be an admin to change Bot Settings"
+                description="Title of the alert message displayed on settings section of the bot preview page."
+                id="botPreview.readOnlyAlertTitle"
+              />
+            }
+            variant="warning"
+          />
+        }
         <div className={styles['settings-card']}>
           <div className={styles['settings-card-header']}>
             <SettingsIcon />
