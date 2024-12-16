@@ -1,6 +1,4 @@
 .media-item-wrapper {
-  --minMediaColumnWidth: calc(216px * (16/9));
-  --minAnnotationsColumnWidth: calc(280px * (16/9));
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -23,7 +21,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 16px 16px 0;
-    min-width: var(--minMediaColumnWidth);
     padding: 16px;
     width: auto;
 
@@ -127,7 +124,6 @@
     .media-item-medias {
       flex: 2 1 0;
       height: 100%;
-      min-width: var(--minMediaColumnWidth);
 
       .media-item-content {
         background-color: var(--color-white-100);
@@ -154,7 +150,7 @@
     .media-item-annotations {
       flex: 1 1 0;
       height: 100%;
-      min-width: var(--minAnnotationsColumnWidth);
+      min-width: 500px;
 
       .media-annotations-tabs {
         background-color: var(--color-white-100);
