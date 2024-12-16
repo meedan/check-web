@@ -21,9 +21,6 @@ shared_examples 'search' do
     verbose_wait # wait for the items to be indexed in Elasticsearch
     # find all medias with an empty search
     wait_for_selector('.cluster-card', :css, 20, true)
-    wait_for_selector('#search-input').click
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('.cluster-card', :css, 20, true)
     expect(@driver.find_elements(:css, '.cluster-card').size).to eq 2
     # search by keywords
     wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
@@ -42,7 +39,6 @@ shared_examples 'search' do
     wait_for_selector('.image-media-card')
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
     current_window = @driver.window_handles.last
-    wait_for_selector('#media-expanded-actions__menu').click
     wait_for_selector('#media-expanded-actions__reverse-image-search').click
     @driver.switch_to.window(@driver.window_handles.last)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)

@@ -99,6 +99,7 @@ const MediaComponentRightPanel = ({
             },
           ]}
           value={showTab}
+          wrapContent
           onChange={setShowTab}
         />
       </div>

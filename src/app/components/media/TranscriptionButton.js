@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TranscribeIcon from '../../icons/transcribe.svg';
 import { withSetFlashMessage } from '../FlashMessage';
-import styles from './media.module.css';
 
 const TranscriptionButton = ({
   onClick,
@@ -80,34 +77,31 @@ const TranscriptionButton = ({
   }
 
   return (
-    <MenuItem
-      className={styles.mediaMenuItem}
+    <ButtonMain
+      buttonProps={{
+        id: 'transcription-button__request-transcription',
+      }}
       disabled={pending || (transcription && transcription.data && transcription.data.last_response.job_status)}
-      id="transcription-button__request-transcription"
-      onClick={handleClick}
-    >
-      { pending ?
-        <FormattedMessage
-          defaultMessage="Requesting transcription…"
-          description="Message displayed when transcription operation hasn't started yet"
-          id="transcriptionButton.inProgress"
-        /> :
-        <>
-          <ListItemIcon className={styles.mediaMenuIcon}>
-            <TranscribeIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={
-              <FormattedMessage
-                defaultMessage="Transcribe this Media"
-                description="Button label - when this button is clicked, transcription operation starts"
-                id="transcriptionButton.label"
-              />
-            }
+      iconLeft={<TranscribeIcon />}
+      label={
+        pending ?
+          <FormattedMessage
+            defaultMessage="Requesting Transcription…"
+            description="Message displayed when transcription operation hasn't started yet"
+            id="transcriptionButton.inProgress"
           />
-        </>
+          :
+          <FormattedMessage
+            defaultMessage="Transcribe Media"
+            description="Button label - when this button is clicked, transcription operation starts"
+            id="transcriptionButton.label"
+          />
       }
-    </MenuItem>
+      size="small"
+      theme="text"
+      variant="contained"
+      onClick={handleClick}
+    />
   );
 };
 

@@ -4,13 +4,8 @@
   padding: 16px 32px;
 
   .sandboxNav {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 16px;
-    list-style: none;
-    margin: 20px 0 40px;
-    min-width: 300px;
-    padding: 0;
+    background-color: var(--color-beige-86);
+    margin: 20px 0;
   }
 
   h6 {

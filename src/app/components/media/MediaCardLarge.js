@@ -129,7 +129,7 @@ const MediaCardLarge = ({
           >
             { data.title ?
               <div className={cx('media-card-large__title', styles['media-card-large-title'])}>
-                { pinned ?
+                { pinned && !inModal ?
                   <PushPinIcon /> : null }
                 {data.title}
               </div> : null }

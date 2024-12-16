@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import DescriptionIcon from '../../icons/description.svg';
 import { withSetFlashMessage } from '../FlashMessage';
-import styles from './media.module.css';
 
 const OcrButton = ({
   hasExtractedText,
@@ -80,34 +77,30 @@ const OcrButton = ({
   }
 
   return (
-    <MenuItem
-      className={styles.mediaMenuItem}
-      disabled={pending}
-      id="ocr-button__extract-text"
-      onClick={handleClick}
-    >
-      { pending ?
-        <FormattedMessage
-          defaultMessage="Text extraction in progress…"
-          description="Message displayed while text is being extracted from an image"
-          id="ocrButton.inProgress"
-        /> :
-        <>
-          <ListItemIcon className={styles.mediaMenuIcon}>
-            <DescriptionIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={
-              <FormattedMessage
-                defaultMessage="Extract text from this media"
-                description="Button label - when this button is clicked, text is extracted from image"
-                id="ocrButton.label"
-              />
-            }
+    <ButtonMain
+      buttonProps={{
+        id: 'ocr-button__extract-text',
+      }}
+      iconLeft={<DescriptionIcon />}
+      label={
+        pending ?
+          <FormattedMessage
+            defaultMessage="Text extraction in progress…"
+            description="Message displayed while text is being extracted from an image"
+            id="ocrButton.inProgress"
           />
-        </>
+          :
+          <FormattedMessage
+            defaultMessage="Extract Text from Media"
+            description="Button label - when this button is clicked, text is extracted from image"
+            id="ocrButton.label"
+          />
       }
-    </MenuItem>
+      size="small"
+      theme="text"
+      variant="contained"
+      onClick={handleClick}
+    />
   );
 };
 
