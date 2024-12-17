@@ -124,6 +124,11 @@
       min-height: 42px;
     }
 
+    button:not(:first-child) {
+      border-left: 0;
+      border-top: 2px solid var(--color-gray-88);
+    }
+
     :global(.MuiToggleButtonGroup-grouped:not(:first-child)) {
       border-top-right-radius: 0;
     }
