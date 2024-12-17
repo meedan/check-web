@@ -88,9 +88,7 @@ shared_examples 'similarity' do
   end
 
   it 'should create standalone fact check', bin7: true do
-    data = api_create_team_and_bot
-    puts ""
-    puts "team: #{data.inspect}"
+    data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
 
     # Create the standalone fact check
     api_create_imported_standalone_fact_check(
