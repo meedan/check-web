@@ -168,6 +168,5 @@ shared_examples 'app' do |webdriver_url|
       @driver.navigate.forward
       expect((@driver.current_url.to_s =~ %r{/terms-of-service$}).nil?).to be(false)
     end
-
   end
 end

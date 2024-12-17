@@ -166,5 +166,4 @@ shared_examples 'similarity' do
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
-
 end
