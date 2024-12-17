@@ -9,7 +9,7 @@
     flex-direction: column;
     gap: 16px;
     overflow: auto;
-    padding: 16px 32px 32px;
+    padding: 16px 16px 32px;
 
     hr {
       border-bottom: solid 1px var(--color-beige-76);

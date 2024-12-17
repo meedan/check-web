@@ -9,8 +9,9 @@
   > .video-media-card,
   > .webpage-media-card {
     flex: 1 1;
+    max-width: 500px;
     min-height: 200px;
-    min-width: calc(200px * (16/9));
+    min-width: 240px;
   }
 
   .pender-card-wrapper {
@@ -99,7 +100,7 @@
 
   .media-card-large-meta {
     flex: 1 1;
-    min-width: 350px;
+    min-width: 240px;
 
     .media-card-large-title {
       @mixin typography-subtitle2;

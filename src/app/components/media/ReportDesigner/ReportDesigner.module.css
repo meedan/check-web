@@ -13,7 +13,7 @@
     flex-wrap: wrap;
     gap: 16px;
     justify-content: space-between;
-    margin: 16px 32px 0;
+    margin: 16px 16px 0;
     padding: 16px;
     width: auto;
 
@@ -35,7 +35,7 @@
     flex: 1 1 auto;
     flex-direction: row;
     height: 400px;
-    margin: 0 32px;
+    margin: 0 16px;
     max-height: 100%;
     overflow: hidden;
 
@@ -55,6 +55,8 @@
     }
 
     .report-editor {
+      padding: 0 16px 16px 0;
+
       .report-designer-form {
         background-color: var(--color-white-100);
         border-radius: var(--border-radius-default);
