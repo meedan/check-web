@@ -19,7 +19,9 @@ const ToggleButtonGroup = ({
   className,
   helpContent,
   label,
+  orientation,
   size,
+  theme,
   variant,
   ...toggleButtonGroupProps
 }) => (
@@ -40,6 +42,7 @@ const ToggleButtonGroup = ({
       <div
         className={cx(
           styles['toggle-button-group'],
+          styles[`theme-${theme}`],
           {
             [className]: true,
             [styles.sizeDefault]: size === 'default',
@@ -47,6 +50,7 @@ const ToggleButtonGroup = ({
             [styles.sizeLarge]: size === 'large',
             [styles.contained]: variant === 'contained',
             [styles.outlined]: variant === 'outlined',
+            [styles.vertical]: orientation === 'vertical',
           })
         }
       >
@@ -73,6 +77,7 @@ ToggleButtonGroup.defaultProps = {
   size: 'default',
   helpContent: null,
   label: '',
+  theme: 'default',
   variant: 'outlined',
 };
 
@@ -81,6 +86,7 @@ ToggleButtonGroup.propTypes = {
   size: PropTypes.oneOf(['default', 'small', 'large']),
   helpContent: PropTypes.node,
   label: PropTypes.node,
+  theme: PropTypes.oneOf(['default', 'setting']),
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
 
