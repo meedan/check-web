@@ -32,7 +32,6 @@ const MediaCardLarge = ({
   onClickMore,
   pinned,
   projectMedia,
-  superAdminMask,
 }) => {
   const { media } = projectMedia;
   const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
@@ -70,7 +69,6 @@ const MediaCardLarge = ({
           currentUserRole={currentUserRole}
           imagePath={media.embed_path}
           projectMedia={projectMedia}
-          superAdminMask={superAdminMask}
         />
       ) : null }
       { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
@@ -81,7 +79,6 @@ const MediaCardLarge = ({
           isAudio={type === 'UploadedAudio'}
           isYoutube={isYoutube}
           projectMedia={projectMedia}
-          superAdminMask={superAdminMask}
         />
       ) : null }
       { isWebPage && !isYoutube ? (
@@ -90,7 +87,6 @@ const MediaCardLarge = ({
           data={data}
           inModal={inModal}
           projectMedia={projectMedia}
-          superAdminMask={superAdminMask}
         />
       ) : null }
       { isPender ? (
@@ -99,7 +95,6 @@ const MediaCardLarge = ({
           currentUserRole={currentUserRole}
           isPenderCard={isPender}
           projectMedia={projectMedia}
-          superAdminMask={superAdminMask}
         >
           <PenderCard
             domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
@@ -164,14 +159,12 @@ MediaCardLarge.propTypes = {
   inModal: PropTypes.bool,
   pinned: PropTypes.bool,
   projectMedia: PropTypes.object.isRequired, // Specifying a shape isn't needed now that we have a fragmentContainer ensuring all necessary fields are retrieved
-  superAdminMask: PropTypes.bool,
   onClickMore: PropTypes.func.isRequired,
 };
 
 MediaCardLarge.defaultProps = {
   inModal: false,
   pinned: true,
-  superAdminMask: false,
 };
 
 const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`

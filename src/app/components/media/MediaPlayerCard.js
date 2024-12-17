@@ -21,7 +21,6 @@ const MediaPlayerCard = ({
   isAudio,
   isYoutube,
   projectMedia,
-  superAdminMask,
   warningCategory,
   warningCreator,
 }) => {
@@ -73,7 +72,6 @@ const MediaPlayerCard = ({
         isVideoFile
         key={contentWarning}
         projectMedia={projectMedia}
-        superAdminMask={superAdminMask}
         warningCategory={warningCategory}
         warningCreator={warningCreator}
       >
@@ -118,7 +116,6 @@ MediaPlayerCard.propTypes = {
   coverImage: PropTypes.string,
   filePath: PropTypes.string.isRequired,
   isYoutube: PropTypes.bool,
-  superAdminMask: PropTypes.bool,
   warningCategory: PropTypes.string,
   warningCreator: PropTypes.string,
 };
@@ -129,7 +126,6 @@ MediaPlayerCard.defaultProps = {
   isYoutube: false,
   warningCategory: '',
   warningCreator: '',
-  superAdminMask: false,
 };
 
 export default MediaPlayerCard;
