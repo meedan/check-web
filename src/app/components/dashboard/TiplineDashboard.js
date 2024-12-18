@@ -28,7 +28,6 @@ import { safelyParseJSON } from '../../helpers';
 import styles from './Dashboard.module.css';
 
 const TiplineDashboard = ({
-  currentUser,
   language,
   onChangeLanguage,
   onChangePeriod,
@@ -39,59 +38,54 @@ const TiplineDashboard = ({
 }) => (
   <div className={styles['dashboard-wrapper']}>
     <div className={styles['dashboard-content']}>
-      { currentUser.is_admin && (
-        <>
-          <div className={styles['dashboard-filter-area']}>
-            <div className={styles['dashboard-filters']}>
-              <TimeFrameSelect value={period} onChange={onChangePeriod} />
-              <LanguagePickerSelect
-                allowAllLanguages
-                languages={safelyParseJSON(team.get_languages) || ['en']}
-                selectedLanguage={language || 'all'}
-                onSubmit={onChangeLanguage}
-              />
-              <PlatformSelect value={platform || 'all'} onChange={onChangePlatform} />
-            </div>
-            <ButtonMain
-              iconCenter={<HelpIcon />}
-              size="default"
-              theme="beige"
-              variant="text"
-              onClick={() => window.open('https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data')}
-            />
+      <div className={styles['dashboard-filter-area']}>
+        <div className={styles['dashboard-filters']}>
+          <TimeFrameSelect value={period} onChange={onChangePeriod} />
+          <LanguagePickerSelect
+            allowAllLanguages
+            languages={safelyParseJSON(team.get_languages) || ['en']}
+            selectedLanguage={language || 'all'}
+            onSubmit={onChangeLanguage}
+          />
+          <PlatformSelect value={platform || 'all'} onChange={onChangePlatform} />
+        </div>
+        <ButtonMain
+          iconCenter={<HelpIcon />}
+          size="default"
+          theme="beige"
+          variant="text"
+          onClick={() => window.open('https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data')}
+        />
+      </div>
+      <TimelineTiplineMessageVolume statistics={team.statistics} />
+      <div className={styles['dashboard-two-column']}>
+        <div className={styles['dashboard-single-column']}>
+          <div className={styles['dashboard-combo']}>
+            <NumberConversations statistics={team.statistics} />
+            <StackedBarSearchResultsFeedback statistics={team.statistics} />
           </div>
-          <TimelineTiplineMessageVolume statistics={team.statistics} />
-          <div className={styles['dashboard-two-column']}>
-            <div className={styles['dashboard-single-column']}>
-              <div className={styles['dashboard-combo']}>
-                <NumberConversations statistics={team.statistics} />
-                <StackedBarSearchResultsFeedback statistics={team.statistics} />
-              </div>
-              <div className={styles['dashboard-combo']}>
-                <NumberAvgResponseTime statistics={team.statistics} />
-                <StackedBarUsers statistics={team.statistics} />
-              </div>
-              <div className={styles['dashboard-combo']}>
-                <NumberArticlesSent statistics={team.statistics} />
-                <StackedBarSearchResultsByType statistics={team.statistics} />
-              </div>
-              <div className={styles['dashboard-combo']}>
-                <NumberSubscribers statistics={team.statistics} />
-                <StackedBarNewslettersSent statistics={team.statistics} />
-              </div>
-            </div>
+          <div className={styles['dashboard-combo']}>
+            <NumberAvgResponseTime statistics={team.statistics} />
+            <StackedBarUsers statistics={team.statistics} />
+          </div>
+          <div className={styles['dashboard-combo']}>
+            <NumberArticlesSent statistics={team.statistics} />
+            <StackedBarSearchResultsByType statistics={team.statistics} />
+          </div>
+          <div className={styles['dashboard-combo']}>
+            <NumberSubscribers statistics={team.statistics} />
+            <StackedBarNewslettersSent statistics={team.statistics} />
+          </div>
+        </div>
 
-            <div className={styles['dashboard-single-column']}>
-              <div className={styles['dashboard-two-column']}>
-                <ListTopMediaTags statistics={team.statistics} />
-                <ListTopRequestedMediaClusters statistics={team.statistics} />
-              </div>
-              <VerticalBarMediaReceivedByType statistics={team.statistics} />
-            </div>
+        <div className={styles['dashboard-single-column']}>
+          <div className={styles['dashboard-two-column']}>
+            <ListTopMediaTags statistics={team.statistics} />
+            <ListTopRequestedMediaClusters statistics={team.statistics} />
           </div>
-          <hr />
-        </>
-      )}
+          <VerticalBarMediaReceivedByType statistics={team.statistics} />
+        </div>
+      </div>
       <TiplineDataComponent
         data={team.data_report}
         defaultLanguage={team.get_language}
@@ -107,9 +101,6 @@ TiplineDashboard.defaultProps = {
 };
 
 TiplineDashboard.propTypes = {
-  currentUser: PropTypes.exact({
-    is_admin: PropTypes.bool.isRequired,
-  }).isRequired,
   language: PropTypes.string,
   period: PropTypes.string.isRequired,
   platform: PropTypes.string,
@@ -168,18 +159,14 @@ const TiplineDashboardQueryRenderer = ({ routeParams }) => {
                   ...VerticalBarMediaReceivedByType_statistics
                 }
               }
-              me {
-                is_admin
-              }
             }
           `}
           render={({ error, props }) => {
             if (!error && props) {
-              const { me, team } = props;
+              const { team } = props;
 
               return (
                 <TiplineDashboard
-                  currentUser={me}
                   language={language}
                   period={period}
                   platform={platform}
