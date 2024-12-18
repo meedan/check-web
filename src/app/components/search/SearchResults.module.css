@@ -76,7 +76,7 @@
 }
 
 .search-results-header {
-  margin: 16px 32px;
+  margin: 16px;
 
   :global(.search__list-header-filter-row) {
     align-items: flex-start;
@@ -95,7 +95,7 @@
 .search-results-top {
   background-color: var(--color-white-100);
   border-radius: var(--border-radius-default);
-  margin: 0 32px 16px;
+  margin: 0 16px 16px;
   padding: 16px;
 
   .search-results-top-extra {
@@ -109,7 +109,7 @@
   border-radius: var(--border-radius-default);
   display: flex;
   flex-direction: column;
-  margin: 0 32px 16px;
+  margin: 0 16px 16px;
   max-height: 100%;
   overflow: hidden;
 

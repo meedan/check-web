@@ -9,8 +9,9 @@
   > .video-media-card,
   > .webpage-media-card {
     flex: 1 1;
+    max-width: 500px;
     min-height: 200px;
-    min-width: calc(200px * (16/9));
+    min-width: 240px;
   }
 
   .pender-card-wrapper {
@@ -77,6 +78,7 @@
     padding: 16px;
 
     blockquote {
+      @mixin typography-body1;
       -webkit-box-orient: vertical;
       display: -webkit-box; /* stylelint-disable-line */
       hyphens: auto;
@@ -98,7 +100,7 @@
 
   .media-card-large-meta {
     flex: 1 1;
-    min-width: 350px;
+    min-width: 240px;
 
     .media-card-large-title {
       @mixin typography-subtitle2;
@@ -117,6 +119,7 @@
       gap: 8px;
 
       blockquote {
+        @mixin typography-body2;
         -webkit-box-orient: vertical;
         display: -webkit-box; /* stylelint-disable-line */
         hyphens: auto;
@@ -131,21 +134,13 @@
       .media-card-large-footer-actions {
         align-items: center;
         display: flex;
+        flex-flow: row wrap;
         gap: 4px;
-
-        > div {
-          display: flex;
-          gap: 4px;
-        }
 
         &.media-card-large-footer-modal-actions {
           border-bottom: 1px solid var(--color-blue-81);
           padding-bottom: 16px;
         }
-      }
-
-      &.media-card-large-footer-modal {
-        padding: 16px 0;
       }
     }
   }

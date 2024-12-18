@@ -268,7 +268,7 @@ class MediaActionsBarComponent extends Component {
 
     return (
       <div className={cx('media-actions-bar', styles['media-actions-wrapper'])}>
-        <ItemThumbnail maskContent={media.show_warning_cover} picture={media.media?.picture} type={media.media?.type} url={media.media?.url} />
+        <ItemThumbnail ignoreGeneralContentMask={false} maskContent={media.show_warning_cover} picture={media.media?.picture} type={media.media?.type} url={media.media?.url} />
         <div className={styles['media-actions-title']}>
           <ItemTitle projectMediaId={this.props.media?.dbid} />
           <div className={styles['media-actions-context']}>

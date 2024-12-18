@@ -37,7 +37,7 @@
 .feedItemColumns {
   display: flex;
   gap: 16px;
-  margin: 16px 32px;
+  margin: 16px;
 }
 
 .feedItemColumn {
