@@ -87,8 +87,8 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should create standalone fact check', bin7: true do
-    data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
+  it 'should display relevant articles suggestion', bin7: true do
+    data = api_create_team_and_bot(bot: 'alegre')
 
     # Create the standalone fact check
     api_create_imported_standalone_fact_check(
