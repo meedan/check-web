@@ -112,6 +112,56 @@
     }
   }
 
+  &.vertical {
+    height: auto;
+
+    :global(.MuiToggleButtonGroup-root) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    :global(.MuiButtonBase-root) {
+      min-height: 42px;
+    }
+
+    button:not(:first-child) {
+      border-left: 0;
+      border-top: 2px solid var(--color-gray-88);
+    }
+
+    :global(.MuiToggleButtonGroup-grouped:not(:first-child)) {
+      border-top-right-radius: 0;
+    }
+
+    :global(.MuiToggleButtonGroup-grouped:not(:last-child)) {
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  &.theme-setting {
+    &.contained,
+    &.outlined {
+      :global(.MuiButtonBase-root.Mui-selected):not(:global(.Mui-disabled)) {
+        background-color: var(--color-purple-61);
+        border-color: var(--color-purple-61);
+        color: var(--color-white-100);
+
+        &:hover {
+          background-color: var(--color-purple-61);
+          border-color: var(--color-purple-61);
+        }
+      }
+    }
+
+    :global(.MuiButtonBase-root) {
+      &:hover {
+        background-color: var(--color-purple-96);
+        color: var(--color-purple-61);
+        transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+      }
+    }
+  }
+
   :global(.MuiButtonBase-root.Mui-disabled) {
     background-color: var(--color-gray-96);
     color: var(--color-gray-59);

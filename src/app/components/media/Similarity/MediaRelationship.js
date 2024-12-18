@@ -273,7 +273,6 @@ const MediaRelationship = ({
   relationshipSourceId,
   relationshipTargetId,
   setFlashMessage,
-  superAdminMask,
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
@@ -331,7 +330,6 @@ const MediaRelationship = ({
             key={relationship.id}
             maskContent={maskContent}
             media={relationship?.target?.media}
-            superAdminMask={superAdminMask}
             onClick={() => setIsSelected(true)}
           />
         )
@@ -362,11 +360,6 @@ MediaRelationship.propTypes = {
   relationship: PropTypes.object.isRequired,
   relationshipSourceId: PropTypes.number.isRequired,
   relationshipTargetId: PropTypes.number.isRequired,
-  superAdminMask: PropTypes.bool,
-};
-
-MediaRelationship.defaultProps = {
-  superAdminMask: false,
 };
 
 export default withSetFlashMessage(injectIntl(MediaRelationship));

@@ -39,7 +39,7 @@ const mediaSuggestionsQuery = graphql`
   }
 `;
 
-const MediaSuggestions = ({ dbid, superAdminMask, teamDbid }) => {
+const MediaSuggestions = ({ dbid, teamDbid }) => {
   const ids = `${dbid},0,${teamDbid}`; // Project ID doesn't matter
   const pageSize = 4;
 
@@ -50,7 +50,7 @@ const MediaSuggestions = ({ dbid, superAdminMask, teamDbid }) => {
       render={({ props }) => {
         if (props) {
           return (
-            <PaginatedMediaSuggestions pageSize={pageSize} parentProps={props} root={props.project_media} superAdminMask={superAdminMask} />
+            <PaginatedMediaSuggestions pageSize={pageSize} parentProps={props} root={props.project_media} />
           );
         }
         return <Loader size="medium" theme="grey" variant="inline" />;

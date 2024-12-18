@@ -39,7 +39,6 @@ const MediaSuggestionsComponent = ({
   relay,
   reportType,
   setFlashMessage,
-  superAdminMask,
   team,
   totalCount,
 }) => {
@@ -542,7 +541,6 @@ const MediaSuggestionsComponent = ({
               details={details}
               maskContent={relationshipItem?.target?.show_warning_cover}
               media={relationshipItem?.target?.media}
-              superAdminMask={superAdminMask}
               onClick={() => setSelectedItemId(relationshipItem?.target?.dbid)}
             />
           )
@@ -1069,7 +1067,6 @@ MediaSuggestionsComponent.propTypes = {
   })).isRequired,
   relay: PropTypes.object.isRequired,
   reportType: PropTypes.string.isRequired,
-  superAdminMask: PropTypes.bool,
   team: PropTypes.shape({
     slug: PropTypes.string,
     smooch_bot: PropTypes.shape({
@@ -1077,10 +1074,6 @@ MediaSuggestionsComponent.propTypes = {
     }),
   }).isRequired,
   totalCount: PropTypes.number.isRequired,
-};
-
-MediaSuggestionsComponent.defaultProps = {
-  superAdminMask: false,
 };
 
 // eslint-disable-next-line

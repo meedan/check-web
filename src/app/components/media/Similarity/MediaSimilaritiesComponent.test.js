@@ -32,11 +32,9 @@ describe('<MediaSimilaritiesComponent />', () => {
       },
     };
 
-    const superAdminMask = false;
     const wrapper = shallowWithIntl(
       <MediaSimilaritiesComponent
         projectMedia={projectMedia}
-        superAdminMask={superAdminMask}
       />,
     );
 

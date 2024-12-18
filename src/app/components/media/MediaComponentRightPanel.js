@@ -44,7 +44,6 @@ const MediaComponentRightPanel = ({
   projectMedia,
   setShowTab,
   showTab,
-  superAdminMask,
 }) => {
   const { team_bots: teamBots } = projectMedia.team;
   const isSecondary = Boolean(projectMedia.is_suggested || projectMedia.is_confirmed_similar_to_another_item);
@@ -104,7 +103,7 @@ const MediaComponentRightPanel = ({
         />
       </div>
       { showTab === 'requests' ? <MediaRequests all={!projectMedia.is_confirmed_similar_to_another_item} media={projectMedia} /> : null }
-      { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} superAdminMask={superAdminMask} teamDbid={projectMedia.team?.dbid} /> : null }
+      { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} /> : null }
       { showTab === 'metadata' ? <MediaTasks fieldset="metadata" media={projectMedia} /> : null }
       { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
       { showTab === 'articles' ? <MediaArticles projectMediaDbid={projectMedia.dbid} teamSlug={projectMedia.team.slug} /> : null }
@@ -116,11 +115,6 @@ MediaComponentRightPanel.propTypes = {
   projectMedia: PropTypes.object.isRequired, // FIXME: Detail which fields are expected
   setShowTab: PropTypes.func.isRequired, // React useState setter
   showTab: PropTypes.string.isRequired, // React useState state
-  superAdminMask: PropTypes.bool,
-};
-
-MediaComponentRightPanel.defaultProps = {
-  superAdminMask: false,
 };
 
 export default injectIntl(MediaComponentRightPanel);

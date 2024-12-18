@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
@@ -24,7 +24,6 @@ const AspectRatio = ({
   isPenderCard,
   isVideoFile,
   projectMedia,
-  superAdminMask,
 }) => {
   const contentWarning = projectMedia?.show_warning_cover;
   const warningCreator = projectMedia?.dynamic_annotation_flag?.annotator?.name;
@@ -32,6 +31,22 @@ const AspectRatio = ({
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
   const uniqueClassName = projectMedia?.id.replace(/[^a-zA-Z0-9]/g, '');
+
+  const [generalContentMask, setGeneralContentMask] = React.useState(window.localStorage.getItem('contentMask') === 'true');
+
+  useEffect(() => {
+    const handleMaskChange = (event) => {
+      if (event.key === 'contentMask') {
+        setGeneralContentMask(event.newValue === 'true');
+      }
+    };
+
+    window.addEventListener('storage', handleMaskChange);
+
+    return () => {
+      window.removeEventListener('storage', handleMaskChange);
+    };
+  }, []);
 
   const handleOnExpand = () => {
     // If this is video, use the button to enter or exit fullscreen for the container div depending on whether we are already in fullscreen
@@ -96,7 +111,7 @@ const AspectRatio = ({
   }
 
   const warningCategory = warningType;
-  const skipAspectRatio = !maskContent && !superAdminMask && isPenderCard;
+  const skipAspectRatio = !maskContent && !generalContentMask && isPenderCard;
 
   const ToggleShowHideButton = () => (
     <ButtonMain
@@ -126,7 +141,7 @@ const AspectRatio = ({
       className={cx(
         styles.sensitiveScreen,
         {
-          [styles.contentWarning]: maskContent || superAdminMask,
+          [styles.contentWarning]: maskContent || generalContentMask,
         })
       }
     >
@@ -134,11 +149,11 @@ const AspectRatio = ({
         className={cx(
           styles.visibilityIcon,
           {
-            [styles.warningIcon]: contentWarning || superAdminMask,
+            [styles.warningIcon]: contentWarning || generalContentMask,
           })
         }
       />
-      { superAdminMask ? (
+      { generalContentMask ? (
         <FormattedMessage
           defaultMessage="Sensitive Content Masking Applied"
           description="Text to show that admin screen is on"
@@ -146,14 +161,14 @@ const AspectRatio = ({
           tagName="p"
         />
       ) : null }
-      {contentWarning && maskContent && !superAdminMask ?
+      {contentWarning && maskContent && !generalContentMask ?
         <ContentWarningMessage
           intl={intl}
           warningCategory={warningCategory}
           warningCreator={warningCreator}
         /> : null
       }
-      { contentWarning && !superAdminMask ? <ToggleShowHideButton /> : null }
+      { contentWarning && !generalContentMask ? <ToggleShowHideButton /> : null }
     </div>
   );
 
@@ -192,9 +207,9 @@ const AspectRatio = ({
         />
         : null }
       <div className={styles.innerWrapper}>
-        { !superAdminMask ? <ButtonsContainer /> : null }
-        { !maskContent && !superAdminMask ? children : null }
-        { contentWarning || superAdminMask ? <SensitiveScreen /> : null }
+        { !generalContentMask ? <ButtonsContainer /> : null }
+        { !maskContent && !generalContentMask ? children : null }
+        { contentWarning || generalContentMask ? <SensitiveScreen /> : null }
       </div>
     </div>
   );
@@ -214,7 +229,6 @@ AspectRatio.propTypes = {
     show_warning_cover: PropTypes.bool.isRequired,
     dynamic_annotation_flag: PropTypes.object.isRequired,
   }),
-  superAdminMask: PropTypes.bool,
 };
 
 AspectRatio.defaultProps = {
@@ -224,7 +238,6 @@ AspectRatio.defaultProps = {
   isPenderCard: false,
   isVideoFile: false,
   projectMedia: null,
-  superAdminMask: false,
 };
 
 export default createFragmentContainer(injectIntl(AspectRatio), graphql`

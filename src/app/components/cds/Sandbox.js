@@ -197,6 +197,7 @@ const SandboxComponent = ({ admin }) => {
   const [toggleButtonGroupLabel, setToggleButtonGroupLabel] = React.useState(Boolean(true));
   const [toggleButtonGroupHelp, setToggleButtonGroupHelp] = React.useState(Boolean(true));
   const [toggleButtonGroupDisabled, setToggleButtonGroupDisabled] = React.useState(Boolean(false));
+  const [toggleButtonGroupisVertical, setToggleButtonGroupisVertical] = React.useState(Boolean(false));
 
   const [timeLabel, setTimeLabel] = React.useState(Boolean(false));
   const [timeHelp, setTimeHelp] = React.useState(Boolean(false));
@@ -266,6 +267,11 @@ const SandboxComponent = ({ admin }) => {
   const [toggleButtonGroupVariant, setToggleButtonGroupVariant] = React.useState('contained');
   const onChangeToggleButtonGroupVariant = (event) => {
     setToggleButtonGroupVariant(event.target.value);
+  };
+
+  const [toggleButtonGroupTheme, setToggleButtonGroupTheme] = React.useState('default');
+  const onChangeToggleButtonGroupTheme = (event) => {
+    setToggleButtonGroupTheme(event.target.value);
   };
 
   const [toggleButtonGroupValue, setToggleButtonGroupValue] = React.useState('1');
@@ -925,6 +931,16 @@ const SandboxComponent = ({ admin }) => {
                   </Select>
                 </li>
                 <li>
+                  <Select
+                    label="Theme"
+                    value={toggleButtonGroupTheme}
+                    onChange={onChangeToggleButtonGroupTheme}
+                  >
+                    <option value="default">default</option>
+                    <option value="setting">setting</option>
+                  </Select>
+                </li>
+                <li>
                   <SwitchComponent
                     checked={toggleButtonGroupLabel}
                     label="Label"
@@ -948,6 +964,14 @@ const SandboxComponent = ({ admin }) => {
                     onChange={() => setToggleButtonGroupDisabled(!toggleButtonGroupDisabled)}
                   />
                 </li>
+                <li>
+                  <SwitchComponent
+                    checked={toggleButtonGroupisVertical}
+                    label="Vertical"
+                    labelPlacement="top"
+                    onChange={() => setToggleButtonGroupisVertical(!toggleButtonGroupisVertical)}
+                  />
+                </li>
               </ul>
             </div>
             <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--color-beige-93' }}>
@@ -955,7 +979,9 @@ const SandboxComponent = ({ admin }) => {
                 exclusive
                 helpContent={toggleButtonGroupHelp ? 'I can be of help to ToggleButtonGroup' : null}
                 label={toggleButtonGroupLabel ? 'I am a toggleButtonGroup label' : null}
+                orientation={toggleButtonGroupisVertical ? 'vertical' : 'horizontal'}
                 size={toggleButtonGroupSize}
+                theme={toggleButtonGroupTheme}
                 value={toggleButtonGroupValue}
                 variant={toggleButtonGroupVariant}
                 onChange={(e, newValue) => changeToggleButtonGroupExample(newValue)}

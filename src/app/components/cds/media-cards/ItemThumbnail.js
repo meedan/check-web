@@ -132,7 +132,7 @@ function requiredBoolIfTypeNotEmpty(props, propName, componentName) {
 }
 
 ItemThumbnail.defaultProps = {
-  ignoreGeneralContentMask: true,
+  ignoreGeneralContentMask: false,
   maskContent: null,
   picture: null,
   size: 'default',

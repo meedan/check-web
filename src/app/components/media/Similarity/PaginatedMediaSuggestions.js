@@ -47,7 +47,6 @@ const PaginatedMediaSuggestions = createPaginationContainer(
       relationships={props.root.suggested_similar_relationships ? props.root.suggested_similar_relationships?.edges.map(r => r.node) : []}
       relay={props.relay}
       reportType={props.parentProps.project_media.report_type}
-      superAdminMask={props.superAdminMask}
       team={props.parentProps.project_media.team}
       totalCount={props.root.suggested_similar_relationships?.totalCount}
     />
