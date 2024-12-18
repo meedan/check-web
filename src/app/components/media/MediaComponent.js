@@ -74,7 +74,6 @@ class MediaComponent extends Component {
     this.state = {
       showTab: initialTab,
       openMediaDialog: false,
-      superAdminMask: true,
     };
   }
 
@@ -158,10 +157,6 @@ class MediaComponent extends Component {
     pusher.unsubscribe(projectMedia.pusher_channel);
   }
 
-  handlesuperAdminMask(value) {
-    this.setState({ superAdminMask: value });
-  }
-
   render() {
     // if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
     //   return null;
@@ -232,7 +227,6 @@ class MediaComponent extends Component {
                   currentUserRole={currentUserRole}
                   pinned={projectMedia.linked_items_count > 1}
                   projectMedia={projectMedia}
-                  superAdminMask={isAdmin ? this.state.superAdminMask : false}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
                 { isSuggestedOrSimilar ?
@@ -249,7 +243,7 @@ class MediaComponent extends Component {
                         &nbsp;[{projectMedia.linked_items_count - 1}]
                       </div>
                     }
-                    <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? this.state.superAdminMask : false} />
+                    <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} />
                   </>
                 }
               </div>
@@ -259,15 +253,12 @@ class MediaComponent extends Component {
                 projectMedia={projectMedia}
                 setShowTab={setShowTab}
                 showTab={this.state.showTab}
-                superAdminMask={isAdmin ? this.state.superAdminMask : false}
               />
             </div>
           </React.Fragment> : null }
         {
           isAdmin ?
-            <SuperAdminControls
-              handleSuperAdminMask={this.handlesuperAdminMask.bind(this)}
-            /> : null
+            <SuperAdminControls /> : null
         }
       </>
     );

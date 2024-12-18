@@ -16,7 +16,7 @@ function sort(items) {
   return items.slice().sort((a, b) => b.node.target?.requests_count - a.node.target?.requests_count);
 }
 
-const MediaSimilaritiesComponent = ({ projectMedia, superAdminMask }) => (
+const MediaSimilaritiesComponent = ({ projectMedia }) => (
   <div className={cx('media__more-medias', styles['similar-matched-media-list'])} id="matched-media">
     <span id="matched-overlay" />
     { sort(projectMedia.confirmed_similar_relationships?.edges).map(relationship => (
@@ -30,7 +30,6 @@ const MediaSimilaritiesComponent = ({ projectMedia, superAdminMask }) => (
         relationship={relationship.node}
         relationshipSourceId={relationship.node.source_id}
         relationshipTargetId={relationship.node.target_id}
-        superAdminMask={superAdminMask}
       />
     ))}
   </div>
@@ -54,11 +53,6 @@ MediaSimilaritiesComponent.propTypes = {
       })).isRequired,
     }).isRequired,
   }).isRequired,
-  superAdminMask: PropTypes.bool,
-};
-
-MediaSimilaritiesComponent.defaultProps = {
-  superAdminMask: false,
 };
 
 // eslint-disable-next-line import/no-unused-modules
