@@ -49,6 +49,13 @@
         padding: 0 15px;
       }
     }
+
+    &.iconCenter {
+      :global(.MuiToggleButton-label) {
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        font-size: 22px;
+      }
+    }
   }
 
   &.sizeSmall {
@@ -67,6 +74,13 @@
     :global(.MuiToggleButtonGroup-grouped) {
       padding: 0 10px;
     }
+
+    &.iconCenter {
+      :global(.MuiToggleButton-label) {
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        font-size: 18px;
+      }
+    }
   }
 
   &.sizeLarge {
@@ -75,6 +89,13 @@
 
     :global(.MuiToggleButtonGroup-grouped) {
       padding: 0 20px;
+    }
+
+    &.iconCenter {
+      :global(.MuiToggleButton-label) {
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        font-size: 26px;
+      }
     }
   }
 
@@ -99,6 +120,23 @@
       &:hover {
         background-color: var(--color-white-100);
       }
+    }
+  }
+
+  &.containedLight {
+    border-color: var(--color-beige-86);
+
+    :global(.MuiButtonBase-root) {
+      background-color: var(--color-beige-93);
+
+      &:hover {
+        color: var(--color-blue-54);
+      }
+    }
+
+    :global(.MuiButtonBase-root.Mui-selected) {
+      background-color: var(--color-blue-90);
+      color: var(--color-blue-54);
     }
   }
 
@@ -143,12 +181,24 @@
     &.outlined {
       :global(.MuiButtonBase-root.Mui-selected):not(:global(.Mui-disabled)) {
         background-color: var(--color-purple-61);
-        border-color: var(--color-purple-61);
-        color: var(--color-white-100);
+        border-color: var(--color-purple-96);
 
         &:hover {
           background-color: var(--color-purple-61);
           border-color: var(--color-purple-61);
+          color: var(--color-white-100);
+        }
+      }
+    }
+
+    &.containedLight {
+      :global(.MuiButtonBase-root.Mui-selected):not(:global(.Mui-disabled)) {
+        background-color: var(--color-purple-96);
+        border-color: var(--color-beige-86);
+        color: var(--color-purple-61);
+
+        &:hover {
+          background-color: var(--color-purple-96);
         }
       }
     }
