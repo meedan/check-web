@@ -150,6 +150,8 @@ const BotPreview = ({ me, team }) => {
   const userRole = teams[teamSlug] && teams[teamSlug].role;
   const isAdmin = userRole === 'admin';
 
+  const [confirmBeforeCommit, setConfirmBeforeCommit] = React.useState(false);
+  const [confirmBeforeReset, setConfirmBeforeReset] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [messageHistory, setMessageHistory] = React.useState(savedHistory);
   const [selectedPlatform, setSelectedPlatform] = React.useState(firstPlatform);
@@ -291,7 +293,7 @@ const BotPreview = ({ me, team }) => {
               size="small"
               theme="text"
               variant="outlined"
-              onClick={revertAllSettings}
+              onClick={() => setConfirmBeforeReset(true)}
             />
           }
           title={
@@ -302,7 +304,33 @@ const BotPreview = ({ me, team }) => {
             />
           }
           variant="success"
-          onButtonClick={saveAllSettings}
+          onButtonClick={() => setConfirmBeforeCommit(true)}
+        />
+      )}
+      { confirmBeforeCommit && (
+        <ConfirmProceedDialog
+          body="If you proceed, the changes you have made to the bot settings will be applied to the live bot for this workspace."
+          open={confirmBeforeCommit}
+          proceedLabel="Apply Changes"
+          title="Apply Changes to Live Bot"
+          onCancel={() => setConfirmBeforeCommit(false)}
+          onProceed={() => {
+            setConfirmBeforeCommit(false);
+            saveAllSettings();
+          }}
+        />
+      )}
+      { confirmBeforeReset && (
+        <ConfirmProceedDialog
+          body="If you proceed, the changes you have made to the bot settings will be discarded."
+          open={confirmBeforeReset}
+          proceedLabel="Discard Changes"
+          title="Discard Changes"
+          onCancel={() => setConfirmBeforeReset(false)}
+          onProceed={() => {
+            setConfirmBeforeReset(false);
+            revertAllSettings();
+          }}
         />
       )}
       <div className={styles['bot-preview-wrapper']}>
