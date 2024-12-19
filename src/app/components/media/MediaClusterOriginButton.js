@@ -9,6 +9,8 @@ import Bolt from '../../icons/bolt.svg';
 import Tipline from '../../icons/question_answer.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 
+const allowedTypes = new Set(['typeA', 'typeB', 'typeC', 'typeD', 'typeE']);
+
 const getIconAndMessage = (type) => {
   switch (type) {
   case 'typeA':
@@ -65,7 +67,7 @@ const getIconAndMessage = (type) => {
         />
       ),
     };
-  case 'typeE':
+  case 'typeD':
     return {
       icon: <Tipline />,
       message: (
@@ -83,7 +85,7 @@ const getIconAndMessage = (type) => {
         />
       ),
     };
-  default:
+  case 'typeE':
     return {
       icon: <Bolt />,
       message: (
@@ -101,10 +103,22 @@ const getIconAndMessage = (type) => {
         />
       ),
     };
+  default:
+    return {
+      icon: null,
+      message: null,
+      tooltipMessage: null,
+    };
   }
 };
 
 const MediaClusterOriginButton = ({ type }) => {
+  if (!allowedTypes.has(type)) {
+    // eslint-disable-next-line
+    console.log('Invalid type:', type);
+    return null;
+  }
+
   const { icon, message, tooltipMessage } = getIconAndMessage(type);
 
   return (
@@ -116,9 +130,9 @@ const MediaClusterOriginButton = ({ type }) => {
         <ButtonMain
           iconLeft={icon}
           label={message}
-          size="default"
+          size="small"
           theme="lightText"
-          variant="contained"
+          variant="text"
         />
       </span>
     </Tooltip>

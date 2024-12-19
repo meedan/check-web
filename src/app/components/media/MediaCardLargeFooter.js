@@ -133,7 +133,7 @@ const MediaCardLargeFooter = ({
               <MediaClusterOriginButton type="typeC" />
             ),
             (
-              <MediaClusterOriginButton type="null" />
+              <MediaClusterOriginButton type="typeD" />
             ),
             (
               <MediaClusterOriginButton type="typeE" />
