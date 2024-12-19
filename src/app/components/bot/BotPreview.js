@@ -2,18 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { QueryRenderer, graphql, fetchQuery } from 'react-relay/compat';
+import { QueryRenderer, commitMutation, graphql, fetchQuery } from 'react-relay/compat';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
+import LanguageSettings from './LanguageSettings';
 import PlatformSelect from './PlatformSelect';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import Alert from '../cds/alerts-and-prompts/Alert';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChatFeed from '../cds/chat/ChatFeed';
 import DeviceMockupComponent from '../cds/mockups/DeviceMockupComponent';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import IconArrowDown from '../../icons/arrow_downward.svg';
 import IconBot from '../../icons/smart_toy.svg';
 import SettingsIcon from '../../icons/settings.svg';
-import { safelyParseJSON } from '../../helpers';
+import { getErrorMessageForRelayModernProblem, safelyParseJSON } from '../../helpers';
 import createEnvironment from '../../relay/EnvironmentModern';
 import styles from './BotPreview.module.css';
 
@@ -53,6 +57,82 @@ const platformContactName = (platform, smoochIntegrations) => {
   return smoochIntegrations[platform][contactNameFieldForPlatform[platform]];
 };
 
+const submitToggleLanguageDetection = ({
+  onFailure,
+  onSuccess,
+  team,
+  value,
+}) => {
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation BotPreviewToggleLanguageDetectionMutation($input: UpdateTeamInput!) {
+        updateTeam(input: $input) {
+          team {
+            get_language_detection
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: team.id,
+        language_detection: value,
+      },
+    },
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+};
+
+const submitToggleSendArticlesInSameLanguage = ({
+  onFailure,
+  onSuccess,
+  team,
+  value,
+}) => {
+  const newSettings = {
+    ...team.alegre_bot?.alegre_settings,
+    single_language_fact_checks_enabled: value,
+  };
+
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation BotPreviewToggleSendArticlesInSameLanguageMutation($input: UpdateTeamBotInstallationInput!) {
+        updateTeamBotInstallation(input: $input) {
+          team_bot_installation {
+            team {
+              alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+                id
+                alegre_settings
+                lock_version
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: team.alegre_bot.id,
+        json_settings: JSON.stringify(newSettings),
+        lock_version: team.alegre_bot.lock_version,
+      },
+    },
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+};
+
 const BotPreview = ({ me, team }) => {
   let smoochIntegrations = { '-': { displayName: 'No tiplines enabled' } };
 
@@ -73,6 +153,39 @@ const BotPreview = ({ me, team }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [messageHistory, setMessageHistory] = React.useState(savedHistory);
   const [selectedPlatform, setSelectedPlatform] = React.useState(firstPlatform);
+  const [languageDetection, setLanguageDetection] = React.useState(team.get_language_detection);
+  const [sendArticlesInSameLanguage, setSendArticlesInSameLanguage] = React.useState(team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled);
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
+
+  const settingsHaveChanged = languageDetection !== team.get_language_detection || sendArticlesInSameLanguage !== team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled;
+
+  const revertAllSettings = () => {
+    setLanguageDetection(team.get_language_detection);
+    setSendArticlesInSameLanguage(team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled);
+  };
+
+  const saveAllSettings = () => {
+    const onFailure = (errors) => {
+      setFlashMessage((
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
+      ), 'error');
+    };
+
+    submitToggleLanguageDetection({
+      team,
+      value: languageDetection,
+      onSuccess: () => {},
+      onFailure,
+    });
+
+    submitToggleSendArticlesInSameLanguage({
+      team,
+      value: sendArticlesInSameLanguage,
+      onSuccess: () => {},
+      onFailure,
+    });
+  };
 
   const handleReceiveResults = (results) => {
     const resultMessages = results.map(result => ({
@@ -154,102 +267,139 @@ const BotPreview = ({ me, team }) => {
   if (!me.is_admin) return null;
 
   return (
-    <div className={styles['bot-preview-wrapper']}>
-      <div className={styles['card-and-device-column']}>
-        <div className={styles['bot-preview-header']}>
-          <div className={styles['bot-preview-title']}>
-            <IconBot />{' '}
-            <h6>Bot Preview</h6>{' '}
-            <sup className={styles.beta}>BETA</sup>
-            { messageHistory.length ?
-              <>
-                {' - '}
-                <button className={styles.buttonAsLink} onClick={() => setDialogOpen(true)}>reset chat</button>
-              </> : null }
-            <ConfirmProceedDialog
-              body="Are you sure you would like to clear this chat? All messages will be removed"
-              open={dialogOpen}
-              proceedLabel="Yes, clear chat"
-              title="Reset Chat"
-              onCancel={() => setDialogOpen(false)}
-              onProceed={resetHistory}
+    <>
+      { settingsHaveChanged && (
+        <Alert
+          banner
+          buttonLabel={
+            <FormattedMessage
+              defaultMessage="Apply Changes to Live Bot"
+              description="Label for the button to apply changes to the bot settings."
+              id="botPreview.applyChangesButton"
             />
+          }
+          content={
+            <FormattedMessage
+              defaultMessage="Use the Bot Preview below to see the results of the changes you have made to the settings. When ready, apply changes to publish the settings to the Live Tipline Bot for this workspace."
+              description="Description of the alert message displayed on the bot preview page to warn about unsaved changes."
+              id="botPreview.changesAlertContent"
+            />
+          }
+          extraActions={
+            <ButtonMain
+              label="Reset All Changes"
+              size="small"
+              theme="text"
+              variant="outlined"
+              onClick={revertAllSettings}
+            />
+          }
+          title={
+            <FormattedMessage
+              defaultMessage="Changes Made to Bot Settings"
+              description="Title of the alert message displayed on the bot preview page to warn about unsaved changes."
+              id="botPreview.changesAlertTitle"
+            />
+          }
+          variant="success"
+          onButtonClick={saveAllSettings}
+        />
+      )}
+      <div className={styles['bot-preview-wrapper']}>
+        <div className={styles['card-and-device-column']}>
+          <div className={styles['bot-preview-header']}>
+            <div className={styles['bot-preview-title']}>
+              <IconBot />{' '}
+              <h6>Bot Preview</h6>{' '}
+              <sup className={styles.beta}>BETA</sup>
+              { messageHistory.length ?
+                <>
+                  {' - '}
+                  <button className={styles.buttonAsLink} onClick={() => setDialogOpen(true)}>reset chat</button>
+                </> : null }
+              <ConfirmProceedDialog
+                body="Are you sure you would like to clear this chat? All messages will be removed"
+                open={dialogOpen}
+                proceedLabel="Yes, clear chat"
+                title="Reset Chat"
+                onCancel={() => setDialogOpen(false)}
+                onProceed={resetHistory}
+              />
 
-          </div>
-          <div className={styles['bot-preview-actions-context']}>
-            <PlatformSelect
-              smoochIntegrations={smoochIntegrations}
-              value={selectedPlatform}
-              onChange={setSelectedPlatform}
-            />
-          </div>
-        </div>
-        <div className={styles['bot-preview-action-device-wrapper']}>
-          <div className={styles['bot-preview-action-panel']}>
-            <div className={styles['bot-preview-action-panel-header']}><IconBot /> Welcome</div>
-            <div className={cx(styles['bot-preview-action-panel-content'], styles['bot-preview-action-panel-welcome'])}>
-              <p>This is a MVP preview of the Tipline bot associated with this workspace.</p>
-              <p>No interactions in this preview affect this workspace. You can test out how your bot will respond to commands.</p>
-              <p>This preview is only viewable by you <strong>({me.email})</strong></p>
-              <p>The only available response by the bot is to search for content on in the workspace.</p>
-              <p>At any time you can clear your chat and start over.</p>
+            </div>
+            <div className={styles['bot-preview-actions-context']}>
+              <PlatformSelect
+                smoochIntegrations={smoochIntegrations}
+                value={selectedPlatform}
+                onChange={setSelectedPlatform}
+              />
             </div>
           </div>
-          <DeviceMockupComponent
-            contactAvatar={team.avatar}
-            contactId={platformContactName(selectedPlatform, smoochIntegrations)}
-            onSendText={handleSendText}
-          >
-            <ChatFeed
-              emptyChatMessage={
-                <div className={styles.emptyChatMessage}>
-                  Start chatting with this workspace Tipline Bot by entering a search term into the input below.
-                  <IconArrowDown />
-                </div>
-              }
-              history={messageHistory}
-              userOnRight
-            />
-          </DeviceMockupComponent>
-        </div>
-      </div>
-      <div className={styles['settings-column']}>
-        <div className={styles['settings-column-header']}>
-          <SettingsIcon />
-          <h6>Settings</h6> - <Link to={`/${teamSlug}/settings/tipline`}>Tipline Settings</Link>
-        </div>
-        { isAdmin ?
-          null
-          :
-          <Alert
-            content={
-              <FormattedMessage
-                defaultMessage="Contact your workspace admin to make any changes to settings."
-                description="Description of the alert message displayed on settings section of the bot preview page."
-                id="botPreview.readOnlyAlertContent"
+          <div className={styles['bot-preview-action-device-wrapper']}>
+            <div className={styles['bot-preview-action-panel']}>
+              <div className={styles['bot-preview-action-panel-header']}><IconBot /> Welcome</div>
+              <div className={cx(styles['bot-preview-action-panel-content'], styles['bot-preview-action-panel-welcome'])}>
+                <p>This is a MVP preview of the Tipline bot associated with this workspace.</p>
+                <p>No interactions in this preview affect this workspace. You can test out how your bot will respond to commands.</p>
+                <p>This preview is only viewable by you <strong>({me.email})</strong></p>
+                <p>The only available response by the bot is to search for content on in the workspace.</p>
+                <p>At any time you can clear your chat and start over.</p>
+              </div>
+            </div>
+            <DeviceMockupComponent
+              contactAvatar={team.avatar}
+              contactId={platformContactName(selectedPlatform, smoochIntegrations)}
+              onSendText={handleSendText}
+            >
+              <ChatFeed
+                emptyChatMessage={
+                  <div className={styles.emptyChatMessage}>
+                    Start chatting with this workspace Tipline Bot by entering a search term into the input below.
+                    <IconArrowDown />
+                  </div>
+                }
+                history={messageHistory}
+                userOnRight
               />
-            }
-            title={
-              <FormattedMessage
-                defaultMessage="You must be an admin to change Bot Settings"
-                description="Title of the alert message displayed on settings section of the bot preview page."
-                id="botPreview.readOnlyAlertTitle"
-              />
-            }
-            variant="warning"
-          />
-        }
-        <div className={styles['settings-card']}>
-          <div className={styles['settings-card-header']}>
-            <SettingsIcon />
-            <span>Settings Widget</span>
+            </DeviceMockupComponent>
           </div>
-          <p>
-            Future iterations of this Bot Preview builder experience will integrate Tipline settings into this page. This is a placeholder for future settings.
-          </p>
+        </div>
+        <div className={styles['settings-column']}>
+          <div className={styles['settings-column-header']}>
+            <SettingsIcon />
+            <h6>Settings</h6> - <Link to={`/${teamSlug}/settings/tipline`}>Tipline Settings</Link>
+          </div>
+          { isAdmin ?
+            null
+            :
+            <Alert
+              content={
+                <FormattedMessage
+                  defaultMessage="Contact your workspace admin to make any changes to settings."
+                  description="Description of the alert message displayed on settings section of the bot preview page."
+                  id="botPreview.readOnlyAlertContent"
+                />
+              }
+              title={
+                <FormattedMessage
+                  defaultMessage="You must be an admin to change Bot Settings"
+                  description="Title of the alert message displayed on settings section of the bot preview page."
+                  id="botPreview.readOnlyAlertTitle"
+                />
+              }
+              variant="warning"
+            />
+          }
+          <LanguageSettings
+            isAdmin={isAdmin}
+            languageDetection={languageDetection}
+            sendArticlesInSameLanguage={sendArticlesInSameLanguage}
+            onChangeLanguageDetection={setLanguageDetection}
+            onChangeSendArticlesInSameLanguage={setSendArticlesInSameLanguage}
+          />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -269,9 +419,16 @@ const BotPreviewQueryRenderer = () => (
           token
         }
         team(slug: $teamSlug) {
+          id
           avatar
+          get_language_detection
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
             smooch_enabled_integrations(force: true)
+          }
+          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+            id
+            alegre_settings
+            lock_version
           }
         }
       }

@@ -28,6 +28,7 @@ const Alert = ({
   className,
   contained,
   content,
+  extraActions,
   floating,
   icon,
   onButtonClick,
@@ -69,9 +70,10 @@ const Alert = ({
           {content}
         </div>
       }
-      { buttonLabel &&
+      { (buttonLabel || extraActions) &&
         <div className={styles.actionsWrapper}>
           <ButtonMain label={buttonLabel} size="small" theme={buttonTheme(variant)} variant="contained" onClick={onButtonClick} />
+          { extraActions }
         </div>
       }
     </div>
@@ -102,6 +104,7 @@ Alert.defaultProps = {
   content: null,
   title: null,
   buttonLabel: null,
+  extraActions: null,
   onButtonClick: null,
   onClose: null,
   floating: false,
@@ -117,6 +120,7 @@ Alert.propTypes = {
   floating: PropTypes.bool,
   banner: PropTypes.bool,
   contained: PropTypes.bool,
+  extraActions: PropTypes.node,
   icon: PropTypes.bool,
   buttonLabel: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onButtonClick: PropTypes.func,
