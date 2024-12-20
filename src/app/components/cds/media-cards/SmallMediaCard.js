@@ -18,6 +18,7 @@ const SmallMediaCard = ({
   media,
   onClick,
   superAdminMask,
+  title,
 }) => {
   if (!media) {
     return (
@@ -57,7 +58,7 @@ const SmallMediaCard = ({
         <div className={styles.smallMediaCardContent}>
           <div className={styles.titleAndUrl}>
             <div className={cx('typography-subtitle2', 'small-media-card__title', styles.row, (media.url ? styles.oneLineDescription : styles.twoLinesDescription))}>
-              <ParsedText text={media.metadata?.title || media.quote || description} />
+              <ParsedText text={title || media.metadata?.title || media.quote || description} />
             </div>
             { media.url ?
               <div className={cx(styles.row, 'typography-body2')}>
@@ -86,16 +87,18 @@ SmallMediaCard.propTypes = {
     metadata: PropTypes.object,
   }).isRequired,
   superAdminMask: PropTypes.bool,
+  title: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 SmallMediaCard.defaultProps = {
+  className: '',
   details: null,
   description: null,
   maskContent: false,
   superAdminMask: false,
+  title: null,
   onClick: () => {},
-  className: '',
 };
 
 // eslint-disable-next-line import/no-unused-modules

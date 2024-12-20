@@ -425,6 +425,7 @@ const AutoCompleteMediaItem = (props, context) => {
                       ]}
                       maskContent={projectMedia.show_warning_cover}
                       media={projectMedia.media}
+                      title={projectMedia.title}
                       onClick={e => handleClick(e, projectMedia.dbid)}
                     />
                   </Link>
