@@ -5,7 +5,7 @@
   height: 100vh;
   transition: width 225ms cubic-bezier(0, 0, .2, 1) 0ms;
   width: var(--drawerWidth);
-  z-index: var(--z-index-2);
+  z-index: var(--z-index-4);
 
   :global(.MuiDrawer-paperAnchorLeft) {
     background-color: var(--color-beige-93);
