@@ -99,26 +99,29 @@ const MediaCardLargeFooter = ({
       { footerBody && !inModal ? <>{transcriptionOrExtractedFooter}</> : null }
       { !inModal ?
         <MediaSlug
-          details={[(
-            <LastRequestDate
-              lastRequestDate={projectMedia.last_seen * 1000}
-              theme="lightText"
-              variant="text"
-            />
-          ), (
-            <RequestsCount
-              requestsCount={projectMedia.requests_count}
-              theme="lightText"
-              variant="text"
-            />
-          ), (
-            <MediaIdentifier
-              mediaType={mediaType}
-              slug={projectMedia.media_slug || projectMedia.title}
-              theme="lightText"
-              variant="text"
-            />
-          ),
+          details={[
+            (
+              <LastRequestDate
+                lastRequestDate={projectMedia.last_seen * 1000}
+                theme="lightText"
+                variant="text"
+              />
+            ),
+            (
+              <RequestsCount
+                requestsCount={projectMedia.requests_count}
+                theme="lightText"
+                variant="text"
+              />
+            ),
+            (
+              <MediaIdentifier
+                mediaType={mediaType}
+                slug={projectMedia.media_slug || projectMedia.title}
+                theme="lightText"
+                variant="text"
+              />
+            ),
           ]}
         />
         : null
