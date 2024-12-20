@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Person from '../../icons/person.svg';
 import PersonAdd from '../../icons/person_add.svg';
@@ -11,7 +11,7 @@ import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 
 const allowedTypes = new Set(['typeA', 'typeB', 'typeC', 'typeD', 'typeE']);
 
-const getIconAndMessage = (type) => {
+const getIconAndMessage = (type, user) => {
   switch (type) {
   case 'typeA':
     return {
@@ -24,10 +24,11 @@ const getIconAndMessage = (type) => {
         />
       ),
       tooltipMessage: (
-        <FormattedMessage
-          defaultMessage="This media was merged by a user."
+        <FormattedHTMLMessage
+          defaultMessage="<strong>{user}</strong> added this media by merging from another cluster"
           description="Tooltip message for User Merged"
           id="mediaClusterOriginButton.userMergedTooltip"
+          values={{ user }}
         />
       ),
     };
@@ -42,10 +43,11 @@ const getIconAndMessage = (type) => {
         />
       ),
       tooltipMessage: (
-        <FormattedMessage
-          defaultMessage="This media was matched by a user."
+        <FormattedHTMLMessage
+          defaultMessage="<strong>{user}</strong> accepted this media as a suggested match"
           description="Tooltip message for User Matched"
           id="mediaClusterOriginButton.userMatchedTooltip"
+          values={{ user }}
         />
       ),
     };
@@ -60,10 +62,11 @@ const getIconAndMessage = (type) => {
         />
       ),
       tooltipMessage: (
-        <FormattedMessage
-          defaultMessage="This media was added by a user."
+        <FormattedHTMLMessage
+          defaultMessage="<strong>{user}</strong> uploaded this media using the Check interface"
           description="Tooltip message for User Added"
           id="mediaClusterOriginButton.userAddedTooltip"
+          values={{ user }}
         />
       ),
     };
@@ -79,7 +82,7 @@ const getIconAndMessage = (type) => {
       ),
       tooltipMessage: (
         <FormattedMessage
-          defaultMessage="This media was submitted via Tipline."
+          defaultMessage="Original cluster media submitted by Tipline User"
           description="Tooltip message for Tipline Submitted"
           id="mediaClusterOriginButton.tiplineSubmittedTooltip"
         />
@@ -97,7 +100,7 @@ const getIconAndMessage = (type) => {
       ),
       tooltipMessage: (
         <FormattedMessage
-          defaultMessage="This media was auto-matched."
+          defaultMessage="Automatically matched media by Check"
           description="Tooltip message for Auto Matched"
           id="mediaClusterOriginButton.autoMatchedTooltip"
         />
@@ -112,14 +115,12 @@ const getIconAndMessage = (type) => {
   }
 };
 
-const MediaClusterOriginButton = ({ type }) => {
+const MediaClusterOriginButton = ({ type, user }) => {
   if (!allowedTypes.has(type)) {
-    // eslint-disable-next-line
-    console.log('Invalid type:', type);
     return null;
   }
 
-  const { icon, message, tooltipMessage } = getIconAndMessage(type);
+  const { icon, message, tooltipMessage } = getIconAndMessage(type, user);
 
   return (
     <Tooltip
@@ -139,8 +140,13 @@ const MediaClusterOriginButton = ({ type }) => {
   );
 };
 
+MediaClusterOriginButton.defaultProps = {
+  user: 'Unknown User',
+};
+
 MediaClusterOriginButton.propTypes = {
   type: PropTypes.string.isRequired,
+  user: PropTypes.string,
 };
 
 export default MediaClusterOriginButton;
