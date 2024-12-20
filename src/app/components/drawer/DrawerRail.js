@@ -14,7 +14,6 @@ import SettingsIcon from '../../icons/settings.svg';
 // import SmartToyIcon from '../../icons/smart_toy.svg';
 import PersonIcon from '../../icons/person.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
-import ChevronRightIcon from '../../icons/chevron_right.svg';
 import ChevronLeftIcon from '../../icons/chevron_left.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import styles from './DrawerRail.module.css';
@@ -134,28 +133,22 @@ const DrawerRail = ({
       {!!team && (currentUserIsMember || !team.private) ? (
         <>
           <div className={styles.drawerRailTop}>
-            <Tooltip arrow placement="right" title={intl.formatMessage(messages.settingsDescription)}>
-              <Link
-                className="team-header__drawer-team-link"
-                to={`/${team.slug}/settings/workspace`}
-              >
-                <TeamAvatar className={styles.teamLogo} size="44px" team={team} />
-              </Link>
-            </Tooltip>
             <Tooltip arrow placement="right" title={intl.formatMessage(messages.railToggleDescription)}>
               <button
                 className={cx(
-                  [styles.railIconButton],
+                  [styles.railToggleButton],
                   {
-                    'side-navigation__toggle-open': drawerOpen,
-                    'side-navigation__toggle-closed': !drawerOpen,
+                    [styles.railToggleButtonClosed]: !drawerOpen,
                   })
                 }
                 id="side-navigation__toggle"
                 type="button"
                 onClick={() => setDrawerOpenChange()}
               >
-                {drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                <div className={styles.railIconLink}>
+                  <ChevronLeftIcon />
+                </div>
+                <TeamAvatar className={styles.teamLogo} size="44px" team={team} />
               </button>
             </Tooltip>
             <ContentFilterControls />
@@ -226,6 +219,7 @@ const DrawerRail = ({
             <Tooltip arrow placement="right" title={intl.formatMessage(messages.settingsDescription)}>
               <Link
                 className={cx(
+                  'team-header__drawer-team-link',
                   [styles.railIconLink],
                   {
                     [styles.railIconLinkActive]: isSettingsPage,
