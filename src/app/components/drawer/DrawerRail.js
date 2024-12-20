@@ -219,12 +219,12 @@ const DrawerRail = ({
             <Tooltip arrow placement="right" title={intl.formatMessage(messages.settingsDescription)}>
               <Link
                 className={cx(
-                  'team-header__drawer-team-link',
                   [styles.railIconLink],
                   {
                     [styles.railIconLinkActive]: isSettingsPage,
                   })
                 }
+                id="side-navigation__settings-toggle"
                 to={`/${team.slug}/settings/workspace`}
                 onClick={() => setDrawerTypeChange('settings')}
               >
