@@ -10,8 +10,6 @@ import Tipline from '../../icons/question_answer.svg';
 describe('<MediaClusterOriginButton />', () => {
   it('should render a button with the correct icon and message for each type', () => {
     const userMerged = mountWithIntl(<MediaClusterOriginButton type="typeA" />);
-    // console.log(userMerged.debug());
-    // console.log(userMerged.html());
     expect(userMerged.find(Person).length).toEqual(1);
     expect(userMerged.html()).toMatch('User Merged');
 
