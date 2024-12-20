@@ -92,7 +92,7 @@ ToggleButtonGroup.propTypes = {
   iconCenter: PropTypes.bool,
   label: PropTypes.node,
   theme: PropTypes.oneOf(['default', 'setting']),
-  variant: PropTypes.oneOf(['contained', 'outlined']),
+  variant: PropTypes.oneOf(['contained', 'containedLight', 'outlined']),
 };
 
 export { ToggleButton, ToggleButtonGroup };
