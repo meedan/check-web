@@ -176,7 +176,7 @@ const ClaimFactCheckForm = ({
     setError(false);
     onClose(false);
     setFlashMessage(<FormattedMessage
-      defaultMessage="Article created successfully! This new article may take a while to appear up everywhere."
+      defaultMessage="Article created successfully! This new article may take a while to appear everywhere."
       description="Save item action success message"
       id="claimFactCheckForm.saveSuccess"
     />, 'success');
