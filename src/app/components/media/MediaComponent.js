@@ -13,10 +13,8 @@ import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent'
 import MediaFeedInformation from './MediaFeedInformation';
 /* eslint-disable-next-line no-unused-vars */
 import MediaSecondaryBanner from './MediaSecondaryBanner'; // For fragment
-import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
-import { getSuperAdminMask } from '../../helpers';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import PageTitle from '../PageTitle';
 import { withPusher, pusherShape } from '../../pusher';
@@ -67,10 +65,6 @@ const setInitialTab = (projectMedia) => {
 export { setInitialTab }; // For unit test
 
 class MediaComponent extends Component {
-  static handleSuperAdminMaskSession(value) {
-    sessionStorage.setItem('superAdminMaskSession', value);
-  }
-
   constructor(props) {
     super(props);
 
@@ -79,8 +73,6 @@ class MediaComponent extends Component {
     this.state = {
       showTab: initialTab,
       openMediaDialog: false,
-      superAdminMask: true,
-      superAdminMaskAction: 'session',
     };
   }
 
@@ -164,10 +156,6 @@ class MediaComponent extends Component {
     pusher.unsubscribe(projectMedia.pusher_channel);
   }
 
-  handlesuperAdminMask(value) {
-    this.setState({ superAdminMask: value, superAdminMaskAction: 'page' });
-  }
-
   render() {
     // if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
     //   return null;
@@ -187,8 +175,6 @@ class MediaComponent extends Component {
       this.getContext().currentUser,
       currentTeam.slug,
     );
-
-    const isAdmin = this.getContext().currentUser.is_admin;
 
     return (
       <>
@@ -238,7 +224,6 @@ class MediaComponent extends Component {
                   currentUserRole={currentUserRole}
                   pinned={projectMedia.linked_items_count > 1}
                   projectMedia={projectMedia}
-                  superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
                 { isSuggestedOrSimilar ?
@@ -255,7 +240,7 @@ class MediaComponent extends Component {
                         &nbsp;[{projectMedia.linked_items_count - 1}]
                       </div>
                     }
-                    <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} />
+                    <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} />
                   </>
                 }
               </div>
@@ -265,17 +250,9 @@ class MediaComponent extends Component {
                 projectMedia={projectMedia}
                 setShowTab={setShowTab}
                 showTab={this.state.showTab}
-                superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
               />
             </div>
           </React.Fragment> : null }
-        {
-          isAdmin ?
-            <SuperAdminControls
-              handleSuperAdminMask={this.handlesuperAdminMask.bind(this)}
-              handleSuperAdminMaskSession={MediaComponent.handleSuperAdminMaskSession.bind(this)}
-            /> : null
-        }
       </>
     );
   }
