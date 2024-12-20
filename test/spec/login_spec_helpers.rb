@@ -45,7 +45,7 @@ module LoginSpecHelpers
   end
 
   def logout
-    wait_for_selector('.user-menu__avatar').click
+    wait_for_selector('#side-rail__user-settings').click
     wait_for_selector('.user-menu__logout').click
     wait_for_selector('#login-container').click
   end

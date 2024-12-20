@@ -29,7 +29,7 @@ shared_examples 'media' do |type|
     wait_for_selector('#bulk-actions-menu__button').click
     wait_for_selector('.bulk-actions-menu__restore').click
     wait_for_selector('.int-flash-message__toast')
-    wait_for_selector('#side-navigation__tipline-toggle').click
+    wait_for_selector('#side-rail__tipline').click
     wait_for_selector_list_size('.cluster-card', 1, :css)
     expect(@driver.find_elements(:css, '.cluster-card').size == 1).to be(true)
   end
