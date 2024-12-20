@@ -309,10 +309,10 @@ const BotPreview = ({ me, team }) => {
       )}
       { confirmBeforeCommit && (
         <ConfirmProceedDialog
-          body="If you proceed, the changes you have made to the bot settings will be applied to the live bot for this workspace."
+          body={<p>If you proceed, the changes you have made to the bot settings will be applied to the live bot for this workspace.</p>}
           open={confirmBeforeCommit}
           proceedLabel="Apply Changes"
-          title="Apply Changes to Live Bot"
+          title="Apply Changes to Live Bot?"
           onCancel={() => setConfirmBeforeCommit(false)}
           onProceed={() => {
             setConfirmBeforeCommit(false);
@@ -322,10 +322,10 @@ const BotPreview = ({ me, team }) => {
       )}
       { confirmBeforeReset && (
         <ConfirmProceedDialog
-          body="If you proceed, the changes you have made to the bot settings will be discarded."
+          body={<p>If you proceed, the changes you have made to the bot settings will be discarded.</p>}
           open={confirmBeforeReset}
           proceedLabel="Discard Changes"
-          title="Discard Changes"
+          title="Discard Changes?"
           onCancel={() => setConfirmBeforeReset(false)}
           onProceed={() => {
             setConfirmBeforeReset(false);
