@@ -141,7 +141,6 @@ const DrawerRail = ({
                     [styles.railToggleButtonClosed]: !drawerOpen,
                   })
                 }
-                id="side-navigation__toggle"
                 type="button"
                 onClick={() => setDrawerOpenChange()}
               >
@@ -164,7 +163,7 @@ const DrawerRail = ({
                     [styles.railIconLinkActive]: isBotBuilder,
                   })
                 }
-                id="side-navigation__bot-toggle"
+                id="side-rail__bot"
                 to={`/${team.slug}/bot`}
                 onClick={() => setDrawerTypeChange('bot')}
               >
@@ -179,7 +178,7 @@ const DrawerRail = ({
                     [styles.railIconLinkActive]: isArticlePage,
                   })
                 }
-                id="side-navigation__article-toggle"
+                id="side-rail__articles"
                 to={`/${team.slug}/articles/fact-checks`}
                 onClick={() => setDrawerTypeChange('articles')}
               >
@@ -194,7 +193,7 @@ const DrawerRail = ({
                     [styles.railIconLinkActive]: isTipline,
                   })
                 }
-                id="side-navigation__tipline-toggle"
+                id="side-rail__tipline"
                 to={`/${team.slug}/all-items`}
                 onClick={() => setDrawerTypeChange('tipline')}
               >
@@ -209,7 +208,7 @@ const DrawerRail = ({
                     [styles.railIconLinkActive]: isFeedPage,
                   })
                 }
-                id="side-navigation__feed-toggle"
+                id="side-rail__shared-feed"
                 to={`/${team.slug}/feeds`}
                 onClick={() => setDrawerTypeChange('feed')}
               >
@@ -224,7 +223,7 @@ const DrawerRail = ({
                     [styles.railIconLinkActive]: isSettingsPage,
                   })
                 }
-                id="side-navigation__settings-toggle"
+                id="side-rail__workspace-settings"
                 to={`/${team.slug}/settings/workspace`}
                 onClick={() => setDrawerTypeChange('settings')}
               >
@@ -234,12 +233,12 @@ const DrawerRail = ({
             <Tooltip arrow placement="right" title={intl.formatMessage(messages.userSettingsDescription)}>
               <Link
                 className={cx(
-                  'user-menu__avatar',
                   [styles.railIconLink],
                   {
                     [styles.railIconLinkActive]: isUserSettingsPage,
                   })
                 }
+                id="side-rail__user-settings"
                 to="/check/me/profile"
                 onClick={() => setDrawerTypeChange('user')}
               >

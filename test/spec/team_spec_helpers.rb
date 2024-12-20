@@ -37,7 +37,7 @@ module TeamSpecHelpers
     wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath).click
     wait_for_selector('.projects-list__all-items')
     wait_for_selector('.project__title')
-    wait_for_selector('#side-navigation__settings-toggle').click
+    wait_for_selector('#side-rail__workspace-settings').click
     wait_for_selector('.team')
   end
 
