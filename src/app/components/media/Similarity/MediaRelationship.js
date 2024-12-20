@@ -17,7 +17,6 @@ import IconMoreVert from '../../../icons/more_vert.svg';
 import RejectIcon from '../../../icons/cancel.svg';
 import MediaSlug from '../MediaSlug';
 import MediaFeedInformation from '../MediaFeedInformation';
-import MediaClusterOriginButton from '../MediaClusterOriginButton';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
@@ -302,8 +301,6 @@ const MediaRelationship = ({
       theme="lightText"
       variant="text"
     />
-  ), (
-    <MediaClusterOriginButton type="typeA" />
   )];
 
   const maskContent = relationship?.target?.show_warning_cover;

@@ -4,7 +4,6 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaCardLargeActions from './MediaCardLargeActions';
-import MediaClusterOriginButton from './MediaClusterOriginButton';
 import MediaSlug from './MediaSlug';
 import ExternalLink from '../ExternalLink';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
@@ -122,21 +121,6 @@ const MediaCardLargeFooter = ({
                 theme="lightText"
                 variant="text"
               />
-            ),
-            (
-              <MediaClusterOriginButton type="typeA" />
-            ),
-            (
-              <MediaClusterOriginButton type="typeB" />
-            ),
-            (
-              <MediaClusterOriginButton type="typeC" />
-            ),
-            (
-              <MediaClusterOriginButton type="typeD" />
-            ),
-            (
-              <MediaClusterOriginButton type="typeE" />
             ),
           ]}
         />

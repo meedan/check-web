@@ -1,7 +1,6 @@
 import React from 'react';
-// import { mount } from 'enzyme';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import MediaClusterOriginButton from './MediaClusterOriginButton';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import Person from '../../icons/person.svg';
 import PersonAdd from '../../icons/person_add.svg';
 import PersonCheck from '../../icons/person_check.svg';
@@ -28,11 +27,11 @@ describe('<MediaClusterOriginButton />', () => {
     const tiplineSubmitted = mountWithIntl(<MediaClusterOriginButton type="typeD" />);
     expect(tiplineSubmitted.find(Tipline).length).toEqual(1);
     expect(tiplineSubmitted.html()).toMatch('Tipline Submitted');
-    
+
     const autoMatched = mountWithIntl(<MediaClusterOriginButton type="typeE" />);
     expect(autoMatched.find(Bolt).length).toEqual(1);
     expect(autoMatched.html()).toMatch('Auto Matched');
-});
+  });
 
 
   it('should return null for invalid type', () => {

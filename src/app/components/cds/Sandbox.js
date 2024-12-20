@@ -27,7 +27,7 @@ import TabWrapper from './menus-lists-dialogs/TabWrapper';
 import Reorder from '../layout/Reorder';
 import AddIcon from '../../icons/settings.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
-// import MediaClusterOriginButton from '../media/MediaClusterOriginButton';
+import MediaClusterOriginButton from '../media/MediaClusterOriginButton';
 import ListIcon from '../../icons/list.svg';
 import FigmaColorLogo from '../../icons/figma_color.svg';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
@@ -477,6 +477,10 @@ const SandboxComponent = ({ admin }) => {
           {
             label: 'Tabs',
             value: 'tabs',
+          },
+          {
+            label: 'Media Cluster Origin Buttons',
+            value: 'media-cluster-origin-buttons',
           },
         ]}
         value={categoryTab}
@@ -2338,6 +2342,31 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
+      { (categoryTab === 'all' || categoryTab === 'media-cluster-origin-buttons') && (
+        <section>
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Media Cluster Origin Buttons
+              <a
+                className={styles.figmaLink}
+                href="https://www.figma.com/design/aVRaTgms3H4jY8hOslFq5y/Media?node-id=901-1203&p=f&m=dev"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+              >
+                <FigmaColorLogo />
+              </a>
+
+              <MediaClusterOriginButton type="typeA" />
+              <MediaClusterOriginButton type="typeB" />
+              <MediaClusterOriginButton type="typeC" />
+              <MediaClusterOriginButton type="typeD" />
+              <MediaClusterOriginButton type="typeE" />
+              <MediaClusterOriginButton type="invalidType" />
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 };
