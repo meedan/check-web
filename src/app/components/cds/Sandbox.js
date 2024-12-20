@@ -198,6 +198,7 @@ const SandboxComponent = ({ admin }) => {
   const [toggleButtonGroupHelp, setToggleButtonGroupHelp] = React.useState(Boolean(true));
   const [toggleButtonGroupDisabled, setToggleButtonGroupDisabled] = React.useState(Boolean(false));
   const [toggleButtonGroupisVertical, setToggleButtonGroupisVertical] = React.useState(Boolean(false));
+  const [toggleButtonGroupIconCenter, setToggleButtonGroupIconCenter] = React.useState(Boolean(false));
 
   const [timeLabel, setTimeLabel] = React.useState(Boolean(false));
   const [timeHelp, setTimeHelp] = React.useState(Boolean(false));
@@ -927,6 +928,7 @@ const SandboxComponent = ({ admin }) => {
                     onChange={onChangeToggleButtonGroupVariant}
                   >
                     <option value="contained">contained</option>
+                    <option value="containedLight">contained (light)</option>
                     <option value="outlined">outlined</option>
                   </Select>
                 </li>
@@ -972,12 +974,21 @@ const SandboxComponent = ({ admin }) => {
                     onChange={() => setToggleButtonGroupisVertical(!toggleButtonGroupisVertical)}
                   />
                 </li>
+                <li>
+                  <SwitchComponent
+                    checked={toggleButtonGroupIconCenter}
+                    label="Icons"
+                    labelPlacement="top"
+                    onChange={() => setToggleButtonGroupIconCenter(!toggleButtonGroupIconCenter)}
+                  />
+                </li>
               </ul>
             </div>
             <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--color-beige-93' }}>
               <ToggleButtonGroup
                 exclusive
                 helpContent={toggleButtonGroupHelp ? 'I can be of help to ToggleButtonGroup' : null}
+                iconCenter={toggleButtonGroupIconCenter}
                 label={toggleButtonGroupLabel ? 'I am a toggleButtonGroup label' : null}
                 orientation={toggleButtonGroupisVertical ? 'vertical' : 'horizontal'}
                 size={toggleButtonGroupSize}
@@ -987,13 +998,22 @@ const SandboxComponent = ({ admin }) => {
                 onChange={(e, newValue) => changeToggleButtonGroupExample(newValue)}
               >
                 <ToggleButton disabled={toggleButtonGroupDisabled} key="1" value="1">
-                  One
+                  { toggleButtonGroupIconCenter ?
+                    <AddIcon />
+                    : 'One'
+                  }
                 </ToggleButton>
                 <ToggleButton disabled={toggleButtonGroupDisabled} key="2" value="2">
-                  Two
+                  { toggleButtonGroupIconCenter ?
+                    <CalendarIcon />
+                    : 'Two'
+                  }
                 </ToggleButton>
                 <ToggleButton disabled={toggleButtonGroupDisabled} key="3" value="3">
-                  Three
+                  { toggleButtonGroupIconCenter ?
+                    <ListIcon />
+                    : 'Three'
+                  }
                 </ToggleButton>
               </ToggleButtonGroup>
             </div>

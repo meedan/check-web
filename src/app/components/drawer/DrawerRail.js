@@ -4,6 +4,7 @@ import { injectIntl, defineMessages } from 'react-intl';
 import cx from 'classnames/bind';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import TeamAvatar from '../team/TeamAvatar';
+import ContentFilterControls from '../media/ContentFilterControls';
 import HelpIcon from '../../icons/help.svg';
 import InfoIcon from '../../icons/info.svg';
 import QuestionAnswerIcon from '../../icons/question_answer.svg';
@@ -145,6 +146,7 @@ const DrawerRail = (props) => {
                 {drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </button>
             </Tooltip>
+            <ContentFilterControls />
           </div>
           <div className={styles.drawerRailMiddle}>
             <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.articlesDescription)}>

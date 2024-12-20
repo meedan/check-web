@@ -13,7 +13,6 @@ import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent'
 import MediaFeedInformation from './MediaFeedInformation';
 /* eslint-disable-next-line no-unused-vars */
 import MediaSecondaryBanner from './MediaSecondaryBanner'; // For fragment
-import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
@@ -177,8 +176,6 @@ class MediaComponent extends Component {
       currentTeam.slug,
     );
 
-    const isAdmin = this.getContext().currentUser.is_admin;
-
     return (
       <>
         <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
@@ -256,10 +253,6 @@ class MediaComponent extends Component {
               />
             </div>
           </React.Fragment> : null }
-        {
-          isAdmin ?
-            <SuperAdminControls /> : null
-        }
       </>
     );
   }
