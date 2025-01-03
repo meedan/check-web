@@ -93,20 +93,20 @@ shared_examples 'similarity' do
     # Create the standalone fact check
     api_create_imported_standalone_fact_check(
       team_data: data,
-      description: '-',
-      context: '',
+      description: 'Foo Bar Testing',
+      context: 'Foo Bar Testing',
       title: 'Foo Bar Testing',
       summary: 'Foo Bar Testing',
       url: 'http://example.com/test',
       language: 'en'
     )
-    verbose_wait 3
+    verbose_wait
     pm = api_create_claim(data: data, quote: 'Foo Bar Testing')
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
-    verbose_wait 3
-    @driver.navigate.refresh
-    verbose_wait 1
-    # wait_for_selector('.article-card')
+    wait_and_refresh('.media-articles-card__card') #debug
+    wait_and_refresh('.media-articles-card__card') #debug
+    wait_and_refresh('.media-articles-card__card') #debug
+    wait_and_refresh('.media-articles-card__card') #debug
     expect(@driver.page_source.include?('Choose a relevant article')).to be(true)
   end
 
