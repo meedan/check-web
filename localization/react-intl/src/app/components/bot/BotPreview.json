@@ -1,0 +1,27 @@
+[
+  {
+    "id": "botPreview.applyChangesButton",
+    "description": "Label for the button to apply changes to the bot settings.",
+    "defaultMessage": "Apply Changes to Live Bot"
+  },
+  {
+    "id": "botPreview.changesAlertContent",
+    "description": "Description of the alert message displayed on the bot preview page to warn about unsaved changes.",
+    "defaultMessage": "Use the Bot Preview below to see the results of the changes you have made to the settings. When ready, apply changes to publish the settings to the Live Tipline Bot for this workspace."
+  },
+  {
+    "id": "botPreview.changesAlertTitle",
+    "description": "Title of the alert message displayed on the bot preview page to warn about unsaved changes.",
+    "defaultMessage": "Changes Made to Bot Settings"
+  },
+  {
+    "id": "botPreview.readOnlyAlertContent",
+    "description": "Description of the alert message displayed on settings section of the bot preview page.",
+    "defaultMessage": "Contact your workspace admin to make any changes to settings."
+  },
+  {
+    "id": "botPreview.readOnlyAlertTitle",
+    "description": "Title of the alert message displayed on settings section of the bot preview page.",
+    "defaultMessage": "You must be an admin to change Bot Settings"
+  }
+]
