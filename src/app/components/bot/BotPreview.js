@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import cx from 'classnames/bind';
 import LanguageSettings from './LanguageSettings';
 import PlatformSelect from './PlatformSelect';
+import LinkManagement from './LinkManagement';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import Alert from '../cds/alerts-and-prompts/Alert';
@@ -425,6 +426,10 @@ const BotPreview = ({ me, team }) => {
             onChangeLanguageDetection={setLanguageDetection}
             onChangeSendArticlesInSameLanguage={setSendArticlesInSameLanguage}
           />
+          <LinkManagement
+            isAdmin={isAdmin}
+            team={team}
+          />
         </div>
       </div>
     </>
@@ -458,6 +463,7 @@ const BotPreviewQueryRenderer = () => (
             alegre_settings
             lock_version
           }
+          ...LinkManagement_team
         }
       }
     `}
