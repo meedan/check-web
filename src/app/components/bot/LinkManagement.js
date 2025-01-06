@@ -4,6 +4,7 @@ import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import TextField from '../cds/inputs/TextField';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import Alert from '../cds/alerts-and-prompts/Alert';
+import LinkIcon from '../../icons/link.svg';
 import inputStyles from '../../styles/css/inputs.module.css';
 import styles from './BotPreview.module.css';
 import settingsStyles from '../team/Settings.module.css';
@@ -20,6 +21,7 @@ const LinkManagement = ({
   return (
     <div className={styles['settings-card']}>
       <div className={styles['settings-card-header']}>
+        <LinkIcon />
         <FormattedMessage defaultMessage="Link Management" description="Title of the link management section in team details page" id="linkManagement.linkManagementTitle" />
       </div>
       <div className={inputStyles['form-fieldset']}>
@@ -27,7 +29,15 @@ const LinkManagement = ({
           checked={shortenOutgoingUrls || hasRssNewsletters}
           className={inputStyles['form-fieldset-field']}
           disabled={hasRssNewsletters || hasScheduledNewsletters || !isAdmin}
-          helperContent={
+          label={<FormattedMessage
+            defaultMessage="Enable link shortening and engagement analytics"
+            description="Label for a switch where the user toggles link management in team details page"
+            id="linkManagement.linkManagementSwitcher"
+          />}
+          onChange={setShortenOutgoingUrls}
+        />
+        <Alert
+          content={
             <>
               <FormattedHTMLMessage
                 defaultMessage="<strong>Link engagement analytics:</strong> Link shortening is used to record the number of times the link was clicked by users when distributed through a report or a newsletter."
@@ -45,12 +55,6 @@ const LinkManagement = ({
               />
             </>
           }
-          label={<FormattedMessage
-            defaultMessage="Enable link shortening and engagement analytics"
-            description="Label for a switch where the user toggles link management in team details page"
-            id="linkManagement.linkManagementSwitcher"
-          />}
-          onChange={setShortenOutgoingUrls}
         />
         { shortenOutgoingUrls ?
           <div className={styles['link-engagement-details']}>
