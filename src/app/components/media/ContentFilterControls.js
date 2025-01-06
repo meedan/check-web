@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
-import ShieldCheckIcon from '../../icons/shield_check.svg';
-import ShieldOffIcon from '../../icons/shield_off.svg';
+import ShieldCheckIcon from '../../icons/visibility_off.svg';
+import ShieldOffIcon from '../../icons/visibility.svg';
 import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './ContentFilterControls.module.css';
