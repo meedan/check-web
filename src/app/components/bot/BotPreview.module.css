@@ -165,6 +165,21 @@
           font-size: var(--iconSizeDefault);
         }
       }
+
+      .settings-card-details {
+        align-items: flex-start;
+        align-self: stretch;
+        background: var(--color-beige-86);
+        border-radius: var(--border-radius-default, 8px);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 8px;
+
+        a {
+          color: unset;
+        }
+      }
     }
   }
 }

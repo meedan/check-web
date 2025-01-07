@@ -20,6 +20,11 @@
     "defaultMessage": "<strong>Link length and RSS:</strong> Link shortening makes URLs a predictable length. If you are using an RSS feed, the link service cannot be disabled. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about link shortening</a>."
   },
   {
+    "id": "linkManagement.utmCode",
+    "description": "Label for 'UTM code' field",
+    "defaultMessage": "<strong>UTM code </strong>"
+  },
+  {
     "id": "linkManagement.utmCodePlaceholder",
     "description": "Placeholder for the optional UTM code text field",
     "defaultMessage": "Leave blank to disable UTM codes."
@@ -30,9 +35,9 @@
     "defaultMessage": "Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about UTM codes</a>."
   },
   {
-    "id": "linkManagement.utmCode",
-    "description": "Label for 'UTM code' field",
-    "defaultMessage": "UTM code (optional)"
+    "id": "linkManagement.utmCodeInputTitle",
+    "description": "Title text for the UTM code input field",
+    "defaultMessage": "Append UTM code (optional)"
   },
   {
     "id": "linkManagement.warnContent",
