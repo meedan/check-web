@@ -27,7 +27,7 @@ import TabWrapper from './menus-lists-dialogs/TabWrapper';
 import Reorder from '../layout/Reorder';
 import AddIcon from '../../icons/settings.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
-import MediaClusterOriginButton from '../media/MediaClusterOriginButton';
+import MediaOrigin from '../media/MediaOrigin';
 import ListIcon from '../../icons/list.svg';
 import FigmaColorLogo from '../../icons/figma_color.svg';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
@@ -2392,7 +2392,7 @@ const SandboxComponent = ({ admin }) => {
         <section>
           <div className={styles.componentWrapper}>
             <div className={cx('typography-subtitle2', [styles.componentName])}>
-              Media Cluster Origin Buttons
+              Media Origin
               <a
                 className={styles.figmaLink}
                 href="https://www.figma.com/design/aVRaTgms3H4jY8hOslFq5y/Media?node-id=901-1203&p=f&m=dev"
@@ -2403,12 +2403,12 @@ const SandboxComponent = ({ admin }) => {
                 <FigmaColorLogo />
               </a>
 
-              <MediaClusterOriginButton type="typeA" />
-              <MediaClusterOriginButton type="typeB" />
-              <MediaClusterOriginButton type="typeC" />
-              <MediaClusterOriginButton type="typeD" />
-              <MediaClusterOriginButton type="typeE" />
-              <MediaClusterOriginButton type="invalidType" />
+              <MediaOrigin type="typeA" />
+              <MediaOrigin type="typeB" />
+              <MediaOrigin type="typeC" />
+              <MediaOrigin type="typeD" />
+              <MediaOrigin type="typeE" />
+              <MediaOrigin type="invalidType" />
             </div>
           </div>
         </section>

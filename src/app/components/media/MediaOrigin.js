@@ -20,14 +20,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="User Merged"
           description="Message for User Merged"
-          id="mediaClusterOriginButton.userMerged"
+          id="MediaOrigin.userMerged"
         />
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
           defaultMessage="<strong>{user}</strong> added this media by merging from another cluster"
           description="Tooltip message for User Merged"
-          id="mediaClusterOriginButton.userMergedTooltip"
+          id="MediaOrigin.userMergedTooltip"
           values={{ user }}
         />
       ),
@@ -39,14 +39,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="User Matched"
           description="Message for User Matched"
-          id="mediaClusterOriginButton.userMatched"
+          id="MediaOrigin.userMatched"
         />
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
           defaultMessage="<strong>{user}</strong> accepted this media as a suggested match"
           description="Tooltip message for User Matched"
-          id="mediaClusterOriginButton.userMatchedTooltip"
+          id="MediaOrigin.userMatchedTooltip"
           values={{ user }}
         />
       ),
@@ -58,14 +58,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="User Added"
           description="This media was added by a user."
-          id="mediaClusterOriginButton.userAdded"
+          id="MediaOrigin.userAdded"
         />
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
           defaultMessage="<strong>{user}</strong> uploaded this media using the Check interface"
           description="Tooltip message for User Added"
-          id="mediaClusterOriginButton.userAddedTooltip"
+          id="MediaOrigin.userAddedTooltip"
           values={{ user }}
         />
       ),
@@ -77,14 +77,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="Tipline Submitted"
           description="Message for Tipline Submitted"
-          id="mediaClusterOriginButton.tiplineSubmitted"
+          id="MediaOrigin.tiplineSubmitted"
         />
       ),
       tooltipMessage: (
         <FormattedMessage
           defaultMessage="Original cluster media submitted by Tipline User"
           description="Tooltip message for Tipline Submitted"
-          id="mediaClusterOriginButton.tiplineSubmittedTooltip"
+          id="MediaOrigin.tiplineSubmittedTooltip"
         />
       ),
     };
@@ -95,14 +95,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="Auto Matched"
           description="Message for Auto Matched"
-          id="mediaClusterOriginButton.autoMatched"
+          id="MediaOrigin.autoMatched"
         />
       ),
       tooltipMessage: (
         <FormattedMessage
           defaultMessage="Automatically matched media by Check"
           description="Tooltip message for Auto Matched"
-          id="mediaClusterOriginButton.autoMatchedTooltip"
+          id="MediaOrigin.autoMatchedTooltip"
         />
       ),
     };
@@ -115,7 +115,7 @@ const getIconAndMessage = (type, user) => {
   }
 };
 
-const MediaClusterOriginButton = ({ type, user }) => {
+const MediaOrigin = ({ type, user }) => {
   if (!allowedTypes.has(type)) {
     return null;
   }
@@ -140,13 +140,13 @@ const MediaClusterOriginButton = ({ type, user }) => {
   );
 };
 
-MediaClusterOriginButton.defaultProps = {
+MediaOrigin.defaultProps = {
   user: 'Unknown User',
 };
 
-MediaClusterOriginButton.propTypes = {
+MediaOrigin.propTypes = {
   type: PropTypes.string.isRequired,
   user: PropTypes.string,
 };
 
-export default MediaClusterOriginButton;
+export default MediaOrigin;
