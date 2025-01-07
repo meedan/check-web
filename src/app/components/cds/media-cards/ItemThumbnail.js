@@ -52,12 +52,14 @@ const ItemThumbnail = ({
       </div>
     );
   }
+
+  let mediaType = type;
+  if (type === 'Link') {
+    // use mediaTypeFromUrl to get the specific social icon
+    mediaType = mediaTypeFromUrl(url);
+  }
+
   if (!isHidden) {
-    let mediaType = type;
-    if (type === 'Link') {
-      // use mediaTypeFromUrl to get the specific social icon
-      mediaType = mediaTypeFromUrl(url);
-    }
     return (
       <Tooltip
         arrow
@@ -98,21 +100,30 @@ const ItemThumbnail = ({
     );
   }
   return (
-    <div
-      className={cx(
-        styles.thumbnail,
-        styles.container,
-        styles.contentScreen,
-        {
-          [styles.sizeDefault]: size === 'default',
-          [styles.sizeSmall]: size === 'small',
-        })
+    <Tooltip
+      arrow
+      title={
+        <MediaTypeDisplayName
+          mediaType={mediaType}
+        />
       }
     >
-      <div className={styles.iconContainer}>
-        <VisibilityOffIcon className={styles.visibilityOffIcon} />
+      <div
+        className={cx(
+          styles.thumbnail,
+          styles.container,
+          styles.contentScreen,
+          {
+            [styles.sizeDefault]: size === 'default',
+            [styles.sizeSmall]: size === 'small',
+          })
+        }
+      >
+        <div className={styles.iconContainer}>
+          <VisibilityOffIcon className={styles.visibilityOffIcon} />
+        </div>
       </div>
-    </div>
+    </Tooltip>
   );
 };
 
@@ -132,7 +143,7 @@ function requiredBoolIfTypeNotEmpty(props, propName, componentName) {
 }
 
 ItemThumbnail.defaultProps = {
-  ignoreGeneralContentMask: true,
+  ignoreGeneralContentMask: false,
   maskContent: null,
   picture: null,
   size: 'default',

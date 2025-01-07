@@ -1,0 +1,32 @@
+[
+  {
+    "id": "languagesComponent.languageDetectionSwitch",
+    "description": "Label for a switch where the user toggles auto language detection",
+    "defaultMessage": "Enable language detection"
+  },
+  {
+    "id": "languagesComponent.enabledDescription",
+    "description": "Instructions for the language detection toggle switch when enabled",
+    "defaultMessage": "The Check Tipline bot will automatically recognize and respond in the language of your user's request."
+  },
+  {
+    "id": "languageSettings.disabledDescription",
+    "description": "Instructions for the language detection toggle switch when disabled",
+    "defaultMessage": "When enabled the Check Tipline bot will automatically recognize and respond in the language of your user's request."
+  },
+  {
+    "id": "languageSettings.sendArticlesInSameLanguage",
+    "description": "Label for a switch where the user toggles sending articles in the same language as the conversation",
+    "defaultMessage": "Send articles in the same language as the conversation"
+  },
+  {
+    "id": "languageSettings.sendArticlesInSameLanguageEnabledDescription",
+    "description": "Instructions for the 'Send articles in the same language as the conversation' toggle switch when enabled",
+    "defaultMessage": "Articles will only be sent to users whose chosen language of conversation in the tipline matches the article language."
+  },
+  {
+    "id": "languageSettings.sendArticlesInSameLanguageDisabledDescription",
+    "description": "Instructions for the 'Send articles in the same language as the conversation' toggle switch when disabled",
+    "defaultMessage": "When enabled articles will only be sent to users whose chosen  language of conversation in the tipline matches the article language."
+  }
+]

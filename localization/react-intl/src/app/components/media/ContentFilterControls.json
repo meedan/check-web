@@ -1,0 +1,12 @@
+[
+  {
+    "id": "contentFilterControls.tooltipOff",
+    "description": "Tooltip for off state of the content filter toggle",
+    "defaultMessage": "Show visual media previews"
+  },
+  {
+    "id": "contentFilterControls.tooltipOn",
+    "description": "Tooltip for on state of the content filter toggle",
+    "defaultMessage": "Hide visual media previews"
+  }
+]

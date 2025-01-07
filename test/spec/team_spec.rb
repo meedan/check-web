@@ -94,7 +94,7 @@ shared_examples 'team' do
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length.zero?).to be(true)
     # do not be able to duplicate team
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
-    wait_for_selector('.team-header__drawer-team-link').click
+    wait_for_selector('#side-rail__workspace-settings').click
   end
 
   it 'should go back to previous team', bin1: true do
@@ -112,7 +112,7 @@ shared_examples 'team' do
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
     wait_for_selector('#add-filter-menu__open-button')
     expect(@driver.current_url.to_s.match(t2.slug).nil?).to be(false)
-    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/settings/workspace\"]")
+    wait_for_selector("#side-rail__workspace-settings[href=\"/#{t2.slug}/settings/workspace\"]")
 
     # Navigate back to first team
     @driver.navigate.to "#{@config['self_url']}/check/me/workspaces"

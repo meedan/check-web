@@ -29,7 +29,6 @@ class WebPageMediaCard extends Component {
       currentUserRole,
       data,
       projectMedia,
-      superAdminMask,
       warningCategory,
       warningCreator,
     } = this.props;
@@ -50,7 +49,6 @@ class WebPageMediaCard extends Component {
                 currentUserRole={currentUserRole}
                 key={contentWarning}
                 projectMedia={projectMedia}
-                superAdminMask={superAdminMask}
                 warningCategory={warningCategory}
                 warningCreator={warningCreator}
               >
