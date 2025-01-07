@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import cx from 'classnames/bind';
 import LanguageSettings from './LanguageSettings';
 import PlatformSelect from './PlatformSelect';
+import LinkManagement from './LinkManagement';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import Alert from '../cds/alerts-and-prompts/Alert';
@@ -133,6 +134,40 @@ const submitToggleSendArticlesInSameLanguage = ({
   });
 };
 
+const submitTeamLinkManagement = ({
+  onFailure,
+  onSuccess,
+  team,
+  values,
+}) => {
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation BotPreviewUpdateTeamLinkManagementMutation($input: UpdateTeamInput!) {
+        updateTeam(input: $input) {
+          team {
+            get_shorten_outgoing_urls
+            get_outgoing_urls_utm_code
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: team.id,
+        shorten_outgoing_urls: values.shortenOutgoingUrls,
+        outgoing_urls_utm_code: values.utmCode,
+      },
+    },
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+};
+
 const BotPreview = ({ me, team }) => {
   let smoochIntegrations = { '-': { displayName: 'No tiplines enabled' } };
 
@@ -157,9 +192,15 @@ const BotPreview = ({ me, team }) => {
   const [selectedPlatform, setSelectedPlatform] = React.useState(firstPlatform);
   const [languageDetection, setLanguageDetection] = React.useState(team.get_language_detection);
   const [sendArticlesInSameLanguage, setSendArticlesInSameLanguage] = React.useState(team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled);
+  const [shortenOutgoingUrls, setShortenOutgoingUrls] = React.useState(team.get_shorten_outgoing_urls);
+  const [utmCode, setUtmCode] = React.useState(team.get_outgoing_urls_utm_code);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
-  const settingsHaveChanged = languageDetection !== team.get_language_detection || sendArticlesInSameLanguage !== team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled;
+  const settingsHaveChanged =
+    languageDetection !== team.get_language_detection ||
+    sendArticlesInSameLanguage !== team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled ||
+    shortenOutgoingUrls !== team.get_shorten_outgoing_urls ||
+    utmCode !== team.get_outgoing_urls_utm_code;
 
   const revertAllSettings = () => {
     setLanguageDetection(team.get_language_detection);
@@ -184,6 +225,16 @@ const BotPreview = ({ me, team }) => {
     submitToggleSendArticlesInSameLanguage({
       team,
       value: sendArticlesInSameLanguage,
+      onSuccess: () => {},
+      onFailure,
+    });
+
+    submitTeamLinkManagement({
+      team,
+      values: {
+        shortenOutgoingUrls,
+        utmCode,
+      },
       onSuccess: () => {},
       onFailure,
     });
@@ -425,6 +476,14 @@ const BotPreview = ({ me, team }) => {
             onChangeLanguageDetection={setLanguageDetection}
             onChangeSendArticlesInSameLanguage={setSendArticlesInSameLanguage}
           />
+          <LinkManagement
+            isAdmin={isAdmin}
+            shortenOutgoingUrls={shortenOutgoingUrls}
+            team={team}
+            utmCode={utmCode}
+            onChangeEnableLinkShortening={setShortenOutgoingUrls}
+            onChangeUTMCode={setUtmCode}
+          />
         </div>
       </div>
     </>
@@ -450,6 +509,8 @@ const BotPreviewQueryRenderer = () => (
           id
           avatar
           get_language_detection
+          get_shorten_outgoing_urls
+          get_outgoing_urls_utm_code
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
             smooch_enabled_integrations(force: true)
           }
@@ -458,6 +519,7 @@ const BotPreviewQueryRenderer = () => (
             alegre_settings
             lock_version
           }
+          ...LinkManagement_team
         }
       }
     `}
