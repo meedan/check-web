@@ -1,21 +1,21 @@
 [
   {
-    "id": "linkManagement.linkManagementTitle",
+    "id": "teamDetails.linkManagement",
     "description": "Title of the link management section in team details page",
     "defaultMessage": "Link Management"
   },
   {
-    "id": "linkManagement.linkManagementSwitcher",
+    "id": "teamDetails.linkManagementSwitcher",
     "description": "Label for a switch where the user toggles link management in team details page",
     "defaultMessage": "Enable link shortening and engagement analytics"
   },
   {
-    "id": "linkManagement.linkManagementRss",
+    "id": "teamDetails.linkManagementRss",
     "description": "Helper text for link management switcher when workspace has RSS newsletters configured",
     "defaultMessage": "<strong>Link engagement analytics:</strong> Link shortening is used to record the number of times the link was clicked by users when distributed through a report or a newsletter."
   },
   {
-    "id": "linkManagement.linkManagementLinkLength",
+    "id": "teamDetails.linkManagementLinkLength",
     "description": "Additional helper text for link management describing link length",
     "defaultMessage": "<strong>Link length and RSS:</strong> Link shortening makes URLs a predictable length. If you are using an RSS feed, the link service cannot be disabled. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about link shortening</a>."
   },
@@ -25,12 +25,12 @@
     "defaultMessage": "<strong>UTM code </strong>"
   },
   {
-    "id": "linkManagement.utmCodePlaceholder",
+    "id": "teamDetails.utmCodePlaceholder",
     "description": "Placeholder for the optional UTM code text field",
     "defaultMessage": "Leave blank to disable UTM codes."
   },
   {
-    "id": "linkManagement.utmCodeHelp",
+    "id": "teamDetails.utmCodeHelp",
     "description": "Helper text for UTM code field",
     "defaultMessage": "Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about UTM codes</a>."
   },
@@ -40,12 +40,12 @@
     "defaultMessage": "Append UTM code (optional)"
   },
   {
-    "id": "linkManagement.warnContent",
+    "id": "teamDetails.warnContent",
     "description": "Text displayed in the content of a warning box on team details page when link shortening is on",
     "defaultMessage": "<strong>Before:</strong> https://www.example.com/your-link<br /><strong>After:</strong> https://chck.media/x1y2z3w4/{code}"
   },
   {
-    "id": "linkManagement.warnTitle",
+    "id": "teamDetails.warnTitle",
     "description": "Text displayed in the title of a warning box on team details page when link shortening is on",
     "defaultMessage": "All links sent via Check will be rewritten."
   }

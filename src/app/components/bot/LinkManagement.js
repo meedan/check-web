@@ -24,7 +24,7 @@ const LinkManagement = ({
     <div className={styles['settings-card']}>
       <div className={styles['settings-card-header']}>
         <LinkIcon />
-        <FormattedMessage defaultMessage="Link Management" description="Title of the link management section in team details page" id="linkManagement.linkManagementTitle" />
+        <FormattedMessage defaultMessage="Link Management" description="Title of the link management section in team details page" id="teamDetails.linkManagement" />
       </div>
       <div className={styles['setting-content-container']}>
         <SwitchComponent
@@ -34,7 +34,7 @@ const LinkManagement = ({
           label={<FormattedMessage
             defaultMessage="Enable link shortening and engagement analytics"
             description="Label for a switch where the user toggles link management in team details page"
-            id="linkManagement.linkManagementSwitcher"
+            id="teamDetails.linkManagementSwitcher"
           />}
           onChange={() => onChangeEnableLinkShortening(!shortenOutgoingUrls)}
         />
@@ -44,14 +44,14 @@ const LinkManagement = ({
               <FormattedHTMLMessage
                 defaultMessage="<strong>Link engagement analytics:</strong> Link shortening is used to record the number of times the link was clicked by users when distributed through a report or a newsletter."
                 description="Helper text for link management switcher when workspace has RSS newsletters configured"
-                id="linkManagement.linkManagementRss"
+                id="teamDetails.linkManagementRss"
                 tagName="div"
               />
               <br />
               <FormattedHTMLMessage
                 defaultMessage='<strong>Link length and RSS:</strong> Link shortening makes URLs a predictable length. If you are using an RSS feed, the link service cannot be disabled. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about link shortening</a>.'
                 description="Additional helper text for link management describing link length"
-                id="linkManagement.linkManagementLinkLength"
+                id="teamDetails.linkManagementLinkLength"
                 tagName="div"
                 values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_99c0776acf' }}
               />
@@ -70,7 +70,7 @@ const LinkManagement = ({
             <FormattedMessage
               defaultMessage="Leave blank to disable UTM codes."
               description="Placeholder for the optional UTM code text field"
-              id="linkManagement.utmCodePlaceholder"
+              id="teamDetails.utmCodePlaceholder"
             >
               { placeholder => (
                 <TextField
@@ -81,7 +81,7 @@ const LinkManagement = ({
                     <FormattedHTMLMessage
                       defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
                       description="Helper text for UTM code field"
-                      id="linkManagement.utmCodeHelp"
+                      id="teamDetails.utmCodeHelp"
                       values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_9bfd0e654f' }}
                     />
                   }
@@ -103,11 +103,11 @@ const LinkManagement = ({
                 <FormattedHTMLMessage
                   defaultMessage="<strong>Before:</strong> https://www.example.com/your-link<br /><strong>After:</strong> https://chck.media/x1y2z3w4/{code}"
                   description="Text displayed in the content of a warning box on team details page when link shortening is on"
-                  id="linkManagement.warnContent"
+                  id="teamDetails.warnContent"
                   values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
                 />
               }
-              title={<FormattedMessage defaultMessage="All links sent via Check will be rewritten." description="Text displayed in the title of a warning box on team details page when link shortening is on" id="linkManagement.warnTitle" />}
+              title={<FormattedMessage defaultMessage="All links sent via Check will be rewritten." description="Text displayed in the title of a warning box on team details page when link shortening is on" id="teamDetails.warnTitle" />}
               variant="warning"
             />
           </div>
