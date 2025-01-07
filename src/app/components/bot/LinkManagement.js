@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import TextField from '../cds/inputs/TextField';
@@ -115,6 +116,14 @@ const LinkManagement = ({
       }
     </div>
   );
+};
+
+LinkManagement.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
+  shortenOutgoingUrls: PropTypes.bool.isRequired,
+  utmCode: PropTypes.string.isRequired,
+  onChangeEnableLinkShortening: PropTypes.func.isRequired,
+  onChangeUTMCode: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(LinkManagement, graphql`
