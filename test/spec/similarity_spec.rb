@@ -103,7 +103,7 @@ shared_examples 'similarity' do
     verbose_wait 2
     pm = api_create_claim(data: data, quote: 'Foo Bar Testing')
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
-    wait_and_refresh('.media-articles-card__card') #debug
+    wait_and_refresh('.media-articles-card__card')
     expect(@driver.page_source.include?('Choose a relevant article')).to be(true)
   end
 
