@@ -30,7 +30,6 @@ module AppSpecHelpers
   end
 
   def wait_and_refresh(selector, wait_time: 2, timeout: 20)
-    puts "Waiting for #{selector} to appear"
     verbose_wait wait_time
     @driver.navigate.refresh
     wait_for_selector(selector, :css, timeout, true)
