@@ -2,9 +2,20 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Slider from '@material-ui/core/Slider';
 import TextField from '../cds/inputs/TextField';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import LibraryAddCheckIcon from '../../icons/library_add_check.svg';
 import styles from './BotPreview.module.css';
 import settingsStyles from '../team/Settings.module.css';
+
+const valueLabelComponet = (props) => {
+  const { children, open, value } = props;
+
+  return (
+    <Tooltip arrow open={open} placement="top" title={value}>
+      {children}
+    </Tooltip>
+  );
+};
 
 const marks = [
   {
@@ -67,13 +78,14 @@ const MatchingSettings = ({
       />
       <div className={styles['settings-slider-wrapper']}>
         <Slider
+          ValueLabelComponent={valueLabelComponet}
           defaultValue={Number(similarityThresholdMatching)}
           disabled={!isAdmin}
           marks={marks}
           max={0.9}
           min={0.75}
           step={null}
-          valueLabelDisplay="auto"
+          valueLabelDisplay="on"
           valueLabelFormat={x => (<FormattedMessage
             defaultMessage="Search Treshold: {val}"
             description="Label for value on slider."
