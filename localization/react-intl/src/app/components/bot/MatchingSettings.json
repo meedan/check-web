@@ -1,0 +1,27 @@
+[
+  {
+    "id": "matchingSettings.minWordsHelpMessage",
+    "description": "Message for additional context for the use of the minimum word value",
+    "defaultMessage": "If message contains less than 3 words, it will not be used to match content in the tipline."
+  },
+  {
+    "id": "matchingSettings.minWordsLabel",
+    "description": "Label for minimum matching words input",
+    "defaultMessage": "Minimum words"
+  },
+  {
+    "id": "matchingSettings.similarityTresholdLabel",
+    "description": "Label for the search treshold slider",
+    "defaultMessage": "Search Treshold"
+  },
+  {
+    "id": "matchingSettings.similarityTresholdValueLabel",
+    "description": "Label for value on slider.",
+    "defaultMessage": "Search Treshold: {val}"
+  },
+  {
+    "id": "matchingSettings.similarityThresholdHelpMessage",
+    "description": "Additional context for the use of the value for the search threshold slider",
+    "defaultMessage": "When searching for articles to return based on a user message, how strict should the bot be when comparing text."
+  }
+]

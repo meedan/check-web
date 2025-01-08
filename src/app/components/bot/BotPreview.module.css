@@ -180,6 +180,10 @@
           color: unset;
         }
       }
+
+      .settings-slider-wrapper {
+        margin: 0 8px;
+      }
     }
   }
 }

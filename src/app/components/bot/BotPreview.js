@@ -199,11 +199,10 @@ const BotPreview = ({ me, team }) => {
 
   const settings = team.smooch_bot?.json_settings ? JSON.parse(team.smooch_bot.json_settings) : {};
 
-  console.log(settings); //eslint-disable-line
-  const [similarityThresholdMatching, setSimilarityTresholdMatching] = React.useState(settings.smooch_search_text_similarity_threshold || null);
-  const [maxWordsMatching, setMaxWordsMatching] = React.useState(settings.smooch_search_max_keyword || null);
+  const [similarityThresholdMatching, setSimilarityTresholdMatching] = React.useState(settings.smooch_search_text_similarity_threshold);
+  const [minWordsMatching, setMinWordsMatching] = React.useState(team.alegre_bot?.alegre_settings?.text_length_matching_threshold);
 
-  console.log(similarityThresholdMatching, maxWordsMatching); //eslint-disable-line
+  console.log(similarityThresholdMatching, minWordsMatching); //eslint-disable-line
 
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -213,7 +212,7 @@ const BotPreview = ({ me, team }) => {
     shortenOutgoingUrls !== team.get_shorten_outgoing_urls ||
     utmCode !== team.get_outgoing_urls_utm_code ||
     similarityThresholdMatching !== settings?.smooch_search_text_similarity_threshold ||
-    maxWordsMatching !== settings?.smooch_search_max_keyword;
+    minWordsMatching !== team.alegre_bot?.alegre_settings?.text_length_matching_threshold;
 
   const revertAllSettings = () => {
     setLanguageDetection(team.get_language_detection);
@@ -499,9 +498,9 @@ const BotPreview = ({ me, team }) => {
           />
           <MatchingSettings
             isAdmin={isAdmin}
-            maxWordsMatching={maxWordsMatching}
+            minWordsMatching={minWordsMatching}
             similarityThresholdMatching={similarityThresholdMatching}
-            onChangeMaxWordsMatching={setMaxWordsMatching}
+            onChangeMinWordsMatching={setMinWordsMatching}
             onChangeSimilarityTresholdMatching={setSimilarityTresholdMatching}
           />
         </div>
