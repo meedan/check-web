@@ -8,6 +8,7 @@ import cx from 'classnames/bind';
 import LanguageSettings from './LanguageSettings';
 import PlatformSelect from './PlatformSelect';
 import LinkManagement from './LinkManagement';
+import MatchingSettings from './MatchingSettings';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import Alert from '../cds/alerts-and-prompts/Alert';
@@ -192,15 +193,27 @@ const BotPreview = ({ me, team }) => {
   const [selectedPlatform, setSelectedPlatform] = React.useState(firstPlatform);
   const [languageDetection, setLanguageDetection] = React.useState(team.get_language_detection);
   const [sendArticlesInSameLanguage, setSendArticlesInSameLanguage] = React.useState(team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled);
+
   const [shortenOutgoingUrls, setShortenOutgoingUrls] = React.useState(team.get_shorten_outgoing_urls);
   const [utmCode, setUtmCode] = React.useState(team.get_outgoing_urls_utm_code);
+
+  const settings = team.smooch_bot?.json_settings ? JSON.parse(team.smooch_bot.json_settings) : {};
+
+  console.log(settings); //eslint-disable-line
+  const [similarityThresholdMatching, setSimilarityTresholdMatching] = React.useState(settings.smooch_search_text_similarity_threshold || null);
+  const [maxWordsMatching, setMaxWordsMatching] = React.useState(settings.smooch_search_max_keyword || null);
+
+  console.log(similarityThresholdMatching, maxWordsMatching); //eslint-disable-line
+
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const settingsHaveChanged =
     languageDetection !== team.get_language_detection ||
     sendArticlesInSameLanguage !== team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled ||
     shortenOutgoingUrls !== team.get_shorten_outgoing_urls ||
-    utmCode !== team.get_outgoing_urls_utm_code;
+    utmCode !== team.get_outgoing_urls_utm_code ||
+    similarityThresholdMatching !== settings?.smooch_search_text_similarity_threshold ||
+    maxWordsMatching !== settings?.smooch_search_max_keyword;
 
   const revertAllSettings = () => {
     setLanguageDetection(team.get_language_detection);
@@ -484,6 +497,13 @@ const BotPreview = ({ me, team }) => {
             onChangeEnableLinkShortening={setShortenOutgoingUrls}
             onChangeUTMCode={setUtmCode}
           />
+          <MatchingSettings
+            isAdmin={isAdmin}
+            maxWordsMatching={maxWordsMatching}
+            similarityThresholdMatching={similarityThresholdMatching}
+            onChangeMaxWordsMatching={setMaxWordsMatching}
+            onChangeSimilarityTresholdMatching={setSimilarityTresholdMatching}
+          />
         </div>
       </div>
     </>
@@ -512,6 +532,9 @@ const BotPreviewQueryRenderer = () => (
           get_shorten_outgoing_urls
           get_outgoing_urls_utm_code
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+            id
+            json_settings
+            lock_version
             smooch_enabled_integrations(force: true)
           }
           alegre_bot: team_bot_installation(bot_identifier: "alegre") {
