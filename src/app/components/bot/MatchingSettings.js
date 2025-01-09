@@ -71,11 +71,13 @@ const MatchingSettings = ({
       />
     </div>
     <div className={settingsStyles['setting-content-container']}>
-      <FormattedMessage
-        defaultMessage="Search Treshold"
-        description="Label for the search treshold slider"
-        id="matchingSettings.similarityTresholdLabel"
-      />
+      <div className={styles['settings-slider-help-text']}>
+        <FormattedMessage
+          defaultMessage="Search Treshold"
+          description="Label for the search treshold slider"
+          id="matchingSettings.similarityTresholdLabel"
+        />
+      </div>
       <div className={styles['settings-slider-wrapper']}>
         <Slider
           ValueLabelComponent={valueLabelComponet}
@@ -95,12 +97,13 @@ const MatchingSettings = ({
           onChange={e => onChangeSimilarityTresholdMatching(e.target.value)}
         />
       </div>
-      <FormattedMessage
-        defaultMessage="When searching for articles to return based on a user message, how strict should the bot be when comparing text."
-        description="Additional context for the use of the value for the search threshold slider"
-        id="matchingSettings.similarityThresholdHelpMessage"
-        tagName="p"
-      />
+      <div className={styles['settings-slider-help-text']}>
+        <FormattedMessage
+          defaultMessage="When searching for articles to return based on a user message, how strict should the bot be when comparing text."
+          description="Additional context for the use of the value for the search threshold slider"
+          id="matchingSettings.similarityThresholdHelpMessage"
+        />
+      </div>
     </div>
   </div>
 );

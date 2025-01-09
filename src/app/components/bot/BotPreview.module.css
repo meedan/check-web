@@ -184,6 +184,10 @@
       .settings-slider-wrapper {
         margin: 8px 24px;
       }
+
+      .settings-slider-help-text {
+        @mixin typography-caption;
+      }
     }
   }
 }
