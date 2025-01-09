@@ -87,6 +87,26 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
+  it 'should display relevant articles suggestion', bin7: true do
+    data = api_create_team_and_bot(bot: 'alegre')
+
+    # Create the standalone fact check
+    api_create_imported_standalone_fact_check(
+      team_data: data,
+      description: 'Foo Bar Testing',
+      context: 'Foo Bar Testing',
+      title: 'Foo Bar Testing',
+      summary: 'Foo Bar Testing',
+      url: 'http://example.com/test',
+      language: 'en'
+    )
+    verbose_wait 2
+    pm = api_create_claim(data: data, quote: 'Foo Bar Testing')
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm.id}"
+    wait_and_refresh('.media-articles-card__card')
+    expect(@driver.page_source.include?('Choose a relevant article')).to be(true)
+  end
+
   it 'should prepare environment for media similarity tests', bin8: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     pm = api_create_claim(data: data, quote: 'Just kicking off Alegre service.')

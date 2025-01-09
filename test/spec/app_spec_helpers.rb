@@ -29,6 +29,12 @@ module AppSpecHelpers
     end
   end
 
+  def wait_and_refresh(selector, wait_time: 2, timeout: 20)
+    verbose_wait wait_time
+    @driver.navigate.refresh
+    wait_for_selector(selector, :css, timeout, true)
+  end
+
   def wait_for_selector(selector, type = :css, timeout = 20, reload = false, index: 0)
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
