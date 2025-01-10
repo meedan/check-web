@@ -8,50 +8,31 @@ import PersonCheck from '../../icons/person_check.svg';
 import Bolt from '../../icons/bolt.svg';
 import Tipline from '../../icons/question_answer.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import CheckMediaOrigin from '../../CheckMediaOrigin';
 
-const allowedTypes = new Set(['typeA', 'typeB', 'typeC', 'typeD', 'typeE']);
+const allowedTypes = new Set([0, 1, 2, 3, 4]);
 
 const getIconAndMessage = (type, user) => {
   switch (type) {
-  case 'typeA':
+  case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
-      icon: <Person />,
+      icon: <Tipline />,
       message: (
         <FormattedMessage
-          defaultMessage="User Merged"
-          description="Message for User Merged"
-          id="MediaOrigin.userMerged"
+          defaultMessage="Tipline Submitted"
+          description="Message for Tipline Submitted"
+          id="MediaOrigin.tiplineSubmitted"
         />
       ),
       tooltipMessage: (
-        <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> added this media by merging from another cluster"
-          description="Tooltip message for User Merged"
-          id="MediaOrigin.userMergedTooltip"
-          values={{ user }}
-        />
-      ),
-    };
-  case 'typeB':
-    return {
-      icon: <PersonCheck />,
-      message: (
         <FormattedMessage
-          defaultMessage="User Matched"
-          description="Message for User Matched"
-          id="MediaOrigin.userMatched"
-        />
-      ),
-      tooltipMessage: (
-        <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> accepted this media as a suggested match"
-          description="Tooltip message for User Matched"
-          id="MediaOrigin.userMatchedTooltip"
-          values={{ user }}
+          defaultMessage="Original cluster media submitted by Tipline User"
+          description="Tooltip message for Tipline Submitted"
+          id="MediaOrigin.tiplineSubmittedTooltip"
         />
       ),
     };
-  case 'typeC':
+  case CheckMediaOrigin.USER_ADDED:
     return {
       icon: <PersonAdd />,
       message: (
@@ -70,25 +51,45 @@ const getIconAndMessage = (type, user) => {
         />
       ),
     };
-  case 'typeD':
+  case CheckMediaOrigin.USER_MERGED:
     return {
-      icon: <Tipline />,
+      icon: <Person />,
       message: (
         <FormattedMessage
-          defaultMessage="Tipline Submitted"
-          description="Message for Tipline Submitted"
-          id="MediaOrigin.tiplineSubmitted"
+          defaultMessage="User Merged"
+          description="Message for User Merged"
+          id="MediaOrigin.userMerged"
         />
       ),
       tooltipMessage: (
-        <FormattedMessage
-          defaultMessage="Original cluster media submitted by Tipline User"
-          description="Tooltip message for Tipline Submitted"
-          id="MediaOrigin.tiplineSubmittedTooltip"
+        <FormattedHTMLMessage
+          defaultMessage="<strong>{user}</strong> added this media by merging from another cluster"
+          description="Tooltip message for User Merged"
+          id="MediaOrigin.userMergedTooltip"
+          values={{ user }}
         />
       ),
     };
-  case 'typeE':
+  case CheckMediaOrigin.USER_MATCHED:
+    return {
+      icon: <PersonCheck />,
+      message: (
+        <FormattedMessage
+          defaultMessage="User Matched"
+          description="Message for User Matched"
+          id="MediaOrigin.userMatched"
+        />
+      ),
+      tooltipMessage: (
+        <FormattedHTMLMessage
+          defaultMessage="<strong>{user}</strong> accepted this media as a suggested match"
+          description="Tooltip message for User Matched"
+          id="MediaOrigin.userMatchedTooltip"
+          values={{ user }}
+        />
+      ),
+    };
+  case CheckMediaOrigin.AUTO_MATCHED:
     return {
       icon: <Bolt />,
       message: (

@@ -1,5 +1,25 @@
 [
   {
+    "id": "MediaOrigin.tiplineSubmitted",
+    "description": "Message for Tipline Submitted",
+    "defaultMessage": "Tipline Submitted"
+  },
+  {
+    "id": "MediaOrigin.tiplineSubmittedTooltip",
+    "description": "Tooltip message for Tipline Submitted",
+    "defaultMessage": "Original cluster media submitted by Tipline User"
+  },
+  {
+    "id": "MediaOrigin.userAdded",
+    "description": "This media was added by a user.",
+    "defaultMessage": "User Added"
+  },
+  {
+    "id": "MediaOrigin.userAddedTooltip",
+    "description": "Tooltip message for User Added",
+    "defaultMessage": "<strong>{user}</strong> uploaded this media using the Check interface"
+  },
+  {
     "id": "MediaOrigin.userMerged",
     "description": "Message for User Merged",
     "defaultMessage": "User Merged"
@@ -18,26 +38,6 @@
     "id": "MediaOrigin.userMatchedTooltip",
     "description": "Tooltip message for User Matched",
     "defaultMessage": "<strong>{user}</strong> accepted this media as a suggested match"
-  },
-  {
-    "id": "MediaOrigin.userAdded",
-    "description": "This media was added by a user.",
-    "defaultMessage": "User Added"
-  },
-  {
-    "id": "MediaOrigin.userAddedTooltip",
-    "description": "Tooltip message for User Added",
-    "defaultMessage": "<strong>{user}</strong> uploaded this media using the Check interface"
-  },
-  {
-    "id": "MediaOrigin.tiplineSubmitted",
-    "description": "Message for Tipline Submitted",
-    "defaultMessage": "Tipline Submitted"
-  },
-  {
-    "id": "MediaOrigin.tiplineSubmittedTooltip",
-    "description": "Tooltip message for Tipline Submitted",
-    "defaultMessage": "Original cluster media submitted by Tipline User"
   },
   {
     "id": "MediaOrigin.autoMatched",
