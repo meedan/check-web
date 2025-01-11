@@ -97,7 +97,7 @@ const submitToggleSendArticlesInSameLanguage = ({
   team,
   value,
 }) => {
-  const newSettings = {
+  const newAlegreSettings = {
     ...team.alegre_bot?.alegre_settings,
     single_language_fact_checks_enabled: value,
   };
@@ -121,7 +121,7 @@ const submitToggleSendArticlesInSameLanguage = ({
     variables: {
       input: {
         id: team.alegre_bot.id,
-        json_settings: JSON.stringify(newSettings),
+        json_settings: JSON.stringify(newAlegreSettings),
         lock_version: team.alegre_bot.lock_version,
       },
     },
@@ -169,6 +169,41 @@ const submitTeamLinkManagement = ({
   });
 };
 
+const submitMatchingSettings = ({
+  onFailure,
+  onSuccess,
+  team,
+  value,
+}) => {
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation BotPreviewUpdateTeamBotInstallationMutation($input: UpdateTeamBotInstallationInput!) {
+        updateTeamBotInstallation(input: $input) {
+          team_bot_installation {
+            id
+            json_settings
+            lock_version
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: team.smooch_bot.id,
+        json_settings: value,
+        lock_version: team.smooch_bot.lock_version,
+      },
+    },
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+};
+
 const BotPreview = ({ me, team }) => {
   let smoochIntegrations = { '-': { displayName: 'No tiplines enabled' } };
 
@@ -200,9 +235,13 @@ const BotPreview = ({ me, team }) => {
   const settings = team.smooch_bot?.json_settings ? JSON.parse(team.smooch_bot.json_settings) : {};
 
   const [similarityThresholdMatching, setSimilarityTresholdMatching] = React.useState(settings.smooch_search_text_similarity_threshold);
-  const [minWordsMatching, setMinWordsMatching] = React.useState(team.alegre_bot?.alegre_settings?.text_length_matching_threshold);
+  const [maxWordsMatching, setMaxWordsMatching] = React.useState(settings.smooch_search_max_keyword);
 
-  console.log(similarityThresholdMatching, minWordsMatching); //eslint-disable-line
+  const newSmoochSettings = {
+    ...settings,
+    smooch_search_text_similarity_threshold: similarityThresholdMatching,
+    smooch_search_max_keyword: maxWordsMatching,
+  };
 
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -212,11 +251,15 @@ const BotPreview = ({ me, team }) => {
     shortenOutgoingUrls !== team.get_shorten_outgoing_urls ||
     utmCode !== team.get_outgoing_urls_utm_code ||
     similarityThresholdMatching !== settings?.smooch_search_text_similarity_threshold ||
-    minWordsMatching !== team.alegre_bot?.alegre_settings?.text_length_matching_threshold;
+    maxWordsMatching !== settings.smooch_search_max_keyword;
 
   const revertAllSettings = () => {
     setLanguageDetection(team.get_language_detection);
     setSendArticlesInSameLanguage(team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled);
+    setShortenOutgoingUrls(team.get_shorten_outgoing_urls);
+    setUtmCode(team.get_outgoing_urls_utm_code);
+    setSimilarityTresholdMatching(settings.smooch_search_text_similarity_threshold);
+    setMaxWordsMatching(settings.smooch_search_max_keyword);
   };
 
   const saveAllSettings = () => {
@@ -247,6 +290,13 @@ const BotPreview = ({ me, team }) => {
         shortenOutgoingUrls,
         utmCode,
       },
+      onSuccess: () => {},
+      onFailure,
+    });
+
+    submitMatchingSettings({
+      team,
+      value: JSON.stringify(newSmoochSettings),
       onSuccess: () => {},
       onFailure,
     });
@@ -498,9 +548,9 @@ const BotPreview = ({ me, team }) => {
           />
           <MatchingSettings
             isAdmin={isAdmin}
-            minWordsMatching={minWordsMatching}
+            maxWordsMatching={maxWordsMatching}
             similarityThresholdMatching={similarityThresholdMatching}
-            onChangeMinWordsMatching={setMinWordsMatching}
+            onChangeMaxWordsMatching={setMaxWordsMatching}
             onChangeSimilarityTresholdMatching={setSimilarityTresholdMatching}
           />
         </div>

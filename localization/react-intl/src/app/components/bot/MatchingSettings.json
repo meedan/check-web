@@ -1,13 +1,13 @@
 [
   {
-    "id": "matchingSettings.minWordsHelpMessage",
-    "description": "Message for additional context for the use of the minimum word value",
-    "defaultMessage": "If message contains less than 3 words, it will not be used to match content in the tipline."
+    "id": "matchingSettings.maxWordsHelpMessage",
+    "description": "Message for additional context for the use of the maximum word value",
+    "defaultMessage": "Maximum number of words to perform a keyword search instead of a similarity search."
   },
   {
-    "id": "matchingSettings.minWordsLabel",
-    "description": "Label for minimum matching words input",
-    "defaultMessage": "Minimum words"
+    "id": "matchingSettings.maxWordsLabel",
+    "description": "Label for maximum matching words input",
+    "defaultMessage": "Maximum words"
   },
   {
     "id": "matchingSettings.similarityTresholdLabel",

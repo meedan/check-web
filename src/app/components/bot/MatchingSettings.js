@@ -19,27 +19,27 @@ const valueLabelComponet = (props) => {
 
 const marks = [
   {
-    value: 0.75,
+    value: '0.75',
     label: 'Lenient',
   },
   {
-    value: 0.80,
+    value: '0.80',
     label: '',
   },
   {
-    value: 0.85,
+    value: '0.85',
     label: '',
   },
   {
-    value: 0.90,
+    value: '0.90',
     label: 'Strict',
   },
 ];
 
 const MatchingSettings = ({
   isAdmin,
-  minWordsMatching,
-  onChangeMinWordsMatching,
+  maxWordsMatching,
+  onChangeMaxWordsMatching,
   onChangeSimilarityTresholdMatching,
   similarityThresholdMatching,
 }) => (
@@ -50,24 +50,24 @@ const MatchingSettings = ({
     </div>
     <div className={settingsStyles['setting-content-container']}>
       <TextField
-        defaultValue={minWordsMatching}
+        defaultValue={maxWordsMatching}
         disabled={!isAdmin}
         helpContent={
           <FormattedMessage
-            defaultMessage="If message contains less than 3 words, it will not be used to match content in the tipline."
-            description="Message for additional context for the use of the minimum word value"
-            id="matchingSettings.minWordsHelpMessage"
+            defaultMessage="Maximum number of words to perform a keyword search instead of a similarity search."
+            description="Message for additional context for the use of the maximum word value"
+            id="matchingSettings.maxWordsHelpMessage"
           />
         }
         label={
           <FormattedMessage
-            defaultMessage="Minimum words"
-            description="Label for minimum matching words input"
-            id="matchingSettings.minWordsLabel"
+            defaultMessage="Maximum words"
+            description="Label for maximum matching words input"
+            id="matchingSettings.maxWordsLabel"
           />
         }
         required
-        onChange={e => onChangeMinWordsMatching(e.target.value)}
+        onChange={e => onChangeMaxWordsMatching(parseInt(e.target.value, 10))}
       />
     </div>
     <div className={settingsStyles['setting-content-container']}>
@@ -87,6 +87,7 @@ const MatchingSettings = ({
           max={0.9}
           min={0.75}
           step={null}
+          track={false}
           valueLabelDisplay="on"
           valueLabelFormat={x => (<FormattedMessage
             defaultMessage="Search Treshold: {val}"
@@ -94,7 +95,7 @@ const MatchingSettings = ({
             id="matchingSettings.similarityTresholdValueLabel"
             values={{ val: x }}
           />)}
-          onChange={e => onChangeSimilarityTresholdMatching(e.target.value)}
+          onChange={(e, val) => onChangeSimilarityTresholdMatching(val.toString())}
         />
       </div>
       <div className={styles['settings-slider-help-text']}>
