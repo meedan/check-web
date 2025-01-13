@@ -10,8 +10,6 @@ import Tipline from '../../icons/question_answer.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import CheckMediaOrigin from '../../CheckMediaOrigin';
 
-const allowedTypes = new Set([0, 1, 2, 3, 4]);
-
 const getIconAndMessage = (type, user) => {
   switch (type) {
   case CheckMediaOrigin.TIPLINE_SUBMITTED:
@@ -117,10 +115,6 @@ const getIconAndMessage = (type, user) => {
 };
 
 const MediaOrigin = ({ type, user }) => {
-  if (!allowedTypes.has(type)) {
-    return null;
-  }
-
   const { icon, message, tooltipMessage } = getIconAndMessage(type, user);
 
   return (
