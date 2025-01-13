@@ -10,6 +10,7 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import CheckMediaOrigin from '../../CheckMediaOrigin';
 
 const getIconAndMessage = (type, user, cluster, datetime) => {
+  // The default messages are temporary, and will be updated in the ticket CV2-5785
   switch (type) {
   case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
@@ -101,7 +102,7 @@ MediaBanner.defaultProps = {
 MediaBanner.propTypes = {
   cluster: PropTypes.string.isRequired,
   datetime: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.number.isRequired,
   user: PropTypes.string,
 };
 

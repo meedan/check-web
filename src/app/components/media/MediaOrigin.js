@@ -146,7 +146,7 @@ MediaOrigin.defaultProps = {
 };
 
 MediaOrigin.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.number.isRequired,
   user: PropTypes.string,
 };
 
