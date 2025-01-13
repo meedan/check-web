@@ -9,6 +9,16 @@ import styles from '../Settings.module.css';
 const SmoochBotSettings = (props) => {
   const fields = props.schema;
 
+  const fieldsNotInUse = [
+    'smooch_template_name_for_fact_check_report_image_only',
+    'smooch_template_name_for_fact_check_report_text_only',
+    'smooch_template_name_for_fact_check_report_updated_image_only',
+    'smooch_template_name_for_fact_check_report_updated_text_only',
+    'smooch_template_name_for_more_information_needed_text_only',
+    'smooch_template_name_for_newsletter',
+    'smooch_template_name_for_newsletter_with_button',
+  ];
+
   return (
     <React.Fragment>
       <div className={styles['setting-content-container-title']}>
@@ -88,15 +98,18 @@ const SmoochBotSettings = (props) => {
               ))}
             </div>
             <div className={inputStyles['form-fieldset']}>
-              {Object.keys(fields).filter(f => /^smooch_template_name_for_/.test(f)).map(field => (
-                <SmoochBotSetting
-                  currentUser={props.currentUser}
-                  field={field}
-                  schema={fields[field]}
-                  value={props.settings[field] || ' '}
-                  onChange={props.onChange}
-                />
-              ))}
+              {Object.keys(fields)
+                .filter(f => /^smooch_template_name_for_/.test(f))
+                .filter(f => !fieldsNotInUse.includes(f))
+                .map(field => (
+                  <SmoochBotSetting
+                    currentUser={props.currentUser}
+                    field={field}
+                    schema={fields[field]}
+                    value={props.settings[field] || ' '}
+                    onChange={props.onChange}
+                  />
+                ))}
             </div>
           </div>
 
