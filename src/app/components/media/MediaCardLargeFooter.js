@@ -20,9 +20,6 @@ const MediaCardLargeFooter = ({
 }) => {
   let footerTitle = null;
 
-  // eslint-disable-next-line
-  console.log("media_cluter_origin",projectMedia.media_cluster_origin);
-
   const extractedText = projectMedia.extracted_text?.data?.text;
   if (extractedText) {
     footerTitle = (
@@ -156,7 +153,6 @@ MediaCardLargeFooter.defaultProps = {
 export default createFragmentContainer(MediaCardLargeFooter, graphql`
   fragment MediaCardLargeFooter_projectMedia on ProjectMedia {
     media_slug
-    media_cluster_origin
     title
     last_seen
     requests_count
