@@ -53,7 +53,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
       icon: <PersonCheck />,
       message: (
         <FormattedHTMLMessage
-          defaultMessage="This media was added to the cluster by <strong>{user}</strong> when accpeted from {cluster}, {datetime}"
+          defaultMessage="This media was added to the cluster by <strong>{user}</strong> when accepted from {cluster}, {datetime}"
           description="Message for User Matched"
           id="mediaBanner.userMatched"
           values={{ user, cluster, datetime }}
@@ -109,7 +109,7 @@ MediaBanner.propTypes = {
   cluster: PropTypes.string.isRequired,
   datetime: PropTypes.string.isRequired,
   type: PropTypes.number.isRequired,
-  user: PropTypes.string,
+  user: PropTypes.node,
 };
 
 export default MediaBanner;

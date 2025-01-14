@@ -17,7 +17,7 @@
   {
     "id": "mediaBanner.userMatched",
     "description": "Message for User Matched",
-    "defaultMessage": "This media was added to the cluster by <strong>{user}</strong> when accpeted from {cluster}, {datetime}"
+    "defaultMessage": "This media was added to the cluster by <strong>{user}</strong> when accepted from {cluster}, {datetime}"
   },
   {
     "id": "mediaBanner.autoMatched",
