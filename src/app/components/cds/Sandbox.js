@@ -28,6 +28,7 @@ import Reorder from '../layout/Reorder';
 import AddIcon from '../../icons/settings.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
 import MediaOrigin from '../media/MediaOrigin';
+import MediaOriginBanner from '../media/MediaOriginBanner';
 import ListIcon from '../../icons/list.svg';
 import FigmaColorLogo from '../../icons/figma_color.svg';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
@@ -37,6 +38,7 @@ import ParsedText from '../ParsedText';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import { FlashMessageSetterContext } from '../FlashMessage';
+import CheckMediaOrigin from '../../CheckMediaOrigin';
 import styles from './sandbox.module.css';
 
 const SandboxComponent = ({ admin }) => {
@@ -2403,12 +2405,36 @@ const SandboxComponent = ({ admin }) => {
                 <FigmaColorLogo />
               </a>
 
-              <MediaOrigin type="typeA" />
-              <MediaOrigin type="typeB" />
-              <MediaOrigin type="typeC" />
-              <MediaOrigin type="typeD" />
-              <MediaOrigin type="typeE" />
-              <MediaOrigin type="invalidType" />
+              <MediaOrigin type={CheckMediaOrigin.TIPLINE_SUBMITTED} />
+              <MediaOrigin type={CheckMediaOrigin.USER_ADDED} />
+              <MediaOrigin type={CheckMediaOrigin.USER_MERGED} />
+              <MediaOrigin type={CheckMediaOrigin.USER_MATCHED} />
+              <MediaOrigin type={CheckMediaOrigin.AUTO_MATCHED} />
+              <MediaOrigin type={99} /> {/* invalid type */}
+            </div>
+          </div>
+        </section>
+      )}
+      { (categoryTab === 'all' || categoryTab === 'media-cluster-origin-buttons') && (
+        <section>
+          <div className={styles.componentWrapper}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Media Origin Banner
+              <a
+                className={styles.figmaLink}
+                href="https://www.figma.com/design/aVRaTgms3H4jY8hOslFq5y/Media?node-id=901-1203&p=f&m=dev"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+              >
+                <FigmaColorLogo />
+              </a>
+
+              <MediaOriginBanner cluster="Foo bar" timestamp={1736876257} type={CheckMediaOrigin.TIPLINE_SUBMITTED} user="Smooch" />
+              <MediaOriginBanner cluster="Foo bar" timestamp={1736876257} type={CheckMediaOrigin.USER_ADDED} user="Bruce" />
+              <MediaOriginBanner cluster="Foo bar" timestamp={1736876257} type={CheckMediaOrigin.USER_MERGED} user="Kara" />
+              <MediaOriginBanner cluster="Bla" timestamp={1736876257} type={CheckMediaOrigin.USER_MATCHED} user="Clark" />
+              <MediaOriginBanner cluster="Foo bar" timestamp={1736876257} type={CheckMediaOrigin.AUTO_MATCHED} user="Alegre" />
             </div>
           </div>
         </section>

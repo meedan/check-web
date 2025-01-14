@@ -8,101 +8,100 @@ import PersonCheck from '../../icons/person_check.svg';
 import Bolt from '../../icons/bolt.svg';
 import Tipline from '../../icons/question_answer.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-
-const allowedTypes = new Set(['typeA', 'typeB', 'typeC', 'typeD', 'typeE']);
+import CheckMediaOrigin from '../../CheckMediaOrigin';
 
 const getIconAndMessage = (type, user) => {
   switch (type) {
-  case 'typeA':
-    return {
-      icon: <Person />,
-      message: (
-        <FormattedMessage
-          defaultMessage="User Merged"
-          description="Message for User Merged"
-          id="MediaOrigin.userMerged"
-        />
-      ),
-      tooltipMessage: (
-        <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> added this media by merging from another cluster"
-          description="Tooltip message for User Merged"
-          id="MediaOrigin.userMergedTooltip"
-          values={{ user }}
-        />
-      ),
-    };
-  case 'typeB':
-    return {
-      icon: <PersonCheck />,
-      message: (
-        <FormattedMessage
-          defaultMessage="User Matched"
-          description="Message for User Matched"
-          id="MediaOrigin.userMatched"
-        />
-      ),
-      tooltipMessage: (
-        <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> accepted this media as a suggested match"
-          description="Tooltip message for User Matched"
-          id="MediaOrigin.userMatchedTooltip"
-          values={{ user }}
-        />
-      ),
-    };
-  case 'typeC':
-    return {
-      icon: <PersonAdd />,
-      message: (
-        <FormattedMessage
-          defaultMessage="User Added"
-          description="This media was added by a user."
-          id="MediaOrigin.userAdded"
-        />
-      ),
-      tooltipMessage: (
-        <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> uploaded this media using the Check interface"
-          description="Tooltip message for User Added"
-          id="MediaOrigin.userAddedTooltip"
-          values={{ user }}
-        />
-      ),
-    };
-  case 'typeD':
+  case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
       icon: <Tipline />,
       message: (
         <FormattedMessage
           defaultMessage="Tipline Submitted"
           description="Message for Tipline Submitted"
-          id="MediaOrigin.tiplineSubmitted"
+          id="mediaOrigin.tiplineSubmitted"
         />
       ),
       tooltipMessage: (
         <FormattedMessage
           defaultMessage="Original cluster media submitted by Tipline User"
           description="Tooltip message for Tipline Submitted"
-          id="MediaOrigin.tiplineSubmittedTooltip"
+          id="mediaOrigin.tiplineSubmittedTooltip"
         />
       ),
     };
-  case 'typeE':
+  case CheckMediaOrigin.USER_ADDED:
+    return {
+      icon: <PersonAdd />,
+      message: (
+        <FormattedMessage
+          defaultMessage="User Added"
+          description="This media was added by a user."
+          id="mediaOrigin.userAdded"
+        />
+      ),
+      tooltipMessage: (
+        <FormattedHTMLMessage
+          defaultMessage="<strong>{user}</strong> uploaded this media using the Check interface"
+          description="Tooltip message for User Added"
+          id="mediaOrigin.userAddedTooltip"
+          values={{ user }}
+        />
+      ),
+    };
+  case CheckMediaOrigin.USER_MERGED:
+    return {
+      icon: <Person />,
+      message: (
+        <FormattedMessage
+          defaultMessage="User Merged"
+          description="Message for User Merged"
+          id="mediaOrigin.userMerged"
+        />
+      ),
+      tooltipMessage: (
+        <FormattedHTMLMessage
+          defaultMessage="<strong>{user}</strong> added this media by merging from another cluster"
+          description="Tooltip message for User Merged"
+          id="mediaOrigin.userMergedTooltip"
+          values={{ user }}
+        />
+      ),
+    };
+  case CheckMediaOrigin.USER_MATCHED:
+    return {
+      icon: <PersonCheck />,
+      message: (
+        <FormattedMessage
+          defaultMessage="User Matched"
+          description="Message for User Matched"
+          id="mediaOrigin.userMatched"
+        />
+      ),
+      tooltipMessage: (
+        <FormattedHTMLMessage
+          defaultMessage="<strong>{user}</strong> accepted this media as a suggested match"
+          description="Tooltip message for User Matched"
+          id="mediaOrigin.userMatchedTooltip"
+          values={{ user }}
+        />
+      ),
+    };
+  case CheckMediaOrigin.AUTO_MATCHED:
     return {
       icon: <Bolt />,
       message: (
         <FormattedMessage
           defaultMessage="Auto Matched"
           description="Message for Auto Matched"
-          id="MediaOrigin.autoMatched"
+          id="mediaOrigin.autoMatched"
         />
       ),
       tooltipMessage: (
         <FormattedMessage
           defaultMessage="Automatically matched media by Check"
           description="Tooltip message for Auto Matched"
-          id="MediaOrigin.autoMatchedTooltip"
+          id="mediaOrigin.autoMatchedTooltip"
         />
       ),
     };
@@ -116,10 +115,6 @@ const getIconAndMessage = (type, user) => {
 };
 
 const MediaOrigin = ({ type, user }) => {
-  if (!allowedTypes.has(type)) {
-    return null;
-  }
-
   const { icon, message, tooltipMessage } = getIconAndMessage(type, user);
 
   return (
@@ -145,7 +140,7 @@ MediaOrigin.defaultProps = {
 };
 
 MediaOrigin.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.number.isRequired,
   user: PropTypes.string,
 };
 

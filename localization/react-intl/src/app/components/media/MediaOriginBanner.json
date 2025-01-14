@@ -1,0 +1,27 @@
+[
+  {
+    "id": "mediaOriginBanner.tiplineSubmitted",
+    "description": "Message for Tipline Submitted",
+    "defaultMessage": "This media was submitted via <strong>Tipline</strong>"
+  },
+  {
+    "id": "mediaOriginBanner.userAdded",
+    "description": "Message for User Matched",
+    "defaultMessage": "This media was added to the cluster by <strong>{user}</strong>"
+  },
+  {
+    "id": "mediaOriginBanner.userMerged",
+    "description": "Message for User Matched",
+    "defaultMessage": "This media was added to the cluster by <strong>{user}</strong> when merged from <strong><u>{cluster}</u></strong>"
+  },
+  {
+    "id": "mediaOriginBanner.userMatched",
+    "description": "Message for User Matched",
+    "defaultMessage": "This media was added to the cluster by <strong>{user}</strong> when accepted from <strong><u>{cluster}</u></strong>"
+  },
+  {
+    "id": "mediaOriginBanner.autoMatched",
+    "description": "Message for Auto Matched",
+    "defaultMessage": "This media was automatically matched to the cluster"
+  }
+]

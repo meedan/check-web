@@ -28,6 +28,7 @@ const Alert = ({
   className,
   contained,
   content,
+  customIcon,
   extraActions,
   floating,
   icon,
@@ -53,10 +54,14 @@ const Alert = ({
   >
     { icon &&
       <div className={styles.iconWrapper}>
-        { variant === 'error' && <ErrorOutlineIcon /> }
-        { variant === 'success' && <CheckCircleOutlineOutlinedIcon /> }
-        { variant === 'info' && <InfoOutlinedIcon /> }
-        { variant === 'warning' && <ReportProblemOutlinedIcon /> }
+        { customIcon || (
+          <>
+            { variant === 'error' && <ErrorOutlineIcon /> }
+            { variant === 'success' && <CheckCircleOutlineOutlinedIcon /> }
+            { variant === 'info' && <InfoOutlinedIcon /> }
+            { variant === 'warning' && <ReportProblemOutlinedIcon /> }
+          </>
+        )}
       </div>
     }
     <div className={styles.contentWrapper}>
@@ -104,6 +109,7 @@ Alert.defaultProps = {
   content: null,
   title: null,
   buttonLabel: null,
+  customIcon: null,
   extraActions: null,
   onButtonClick: null,
   onClose: null,
@@ -120,6 +126,7 @@ Alert.propTypes = {
   floating: PropTypes.bool,
   banner: PropTypes.bool,
   contained: PropTypes.bool,
+  customIcon: PropTypes.node,
   extraActions: PropTypes.node,
   icon: PropTypes.bool,
   buttonLabel: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
