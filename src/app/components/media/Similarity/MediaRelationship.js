@@ -24,6 +24,7 @@ import { getErrorMessage } from '../../../helpers';
 import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
+import MediaOrigin from '../MediaOrigin';
 import styles from '../media.module.css';
 import similarityStyles from './MediaSimilarities.module.css';
 
@@ -269,6 +270,8 @@ const MediaRelationship = ({
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
+  media_cluster_origin,
+  media_cluster_origin_user,
   relationship,
   relationshipSourceId,
   relationshipTargetId,
@@ -300,7 +303,14 @@ const MediaRelationship = ({
       theme="lightText"
       variant="text"
     />
-  )];
+  ),
+  (
+    <MediaOrigin
+      type={media_cluster_origin}
+      user={media_cluster_origin_user?.name}
+    />
+  ),
+  ];
 
   const maskContent = relationship?.target?.show_warning_cover;
 

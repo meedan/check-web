@@ -27,6 +27,8 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => (
         mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
         mainProjectMediaDemand={projectMedia.demand}
         mainProjectMediaId={projectMedia.id}
+        media_cluster_origin={projectMedia.media_cluster_origin}
+        media_cluster_origin_user={projectMedia.media_cluster_origin_user}
         relationship={relationship.node}
         relationshipSourceId={relationship.node.source_id}
         relationshipTargetId={relationship.node.target_id}
@@ -63,6 +65,10 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
     id
     demand
     permissions
+    media_cluster_origin
+    media_cluster_origin_user{
+      name
+    }
     confirmedSimilarCount: confirmed_similar_items_count
     confirmed_similar_relationships(first: 10000) {
       edges {

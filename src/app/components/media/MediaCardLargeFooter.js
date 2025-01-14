@@ -5,6 +5,7 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaSlug from './MediaSlug';
+import MediaOrigin from './MediaOrigin';
 import ExternalLink from '../ExternalLink';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
@@ -19,6 +20,11 @@ const MediaCardLargeFooter = ({
   projectMedia,
 }) => {
   let footerTitle = null;
+
+  // eslint-disable-next-line
+  console.log("media_cluter_origin",projectMedia.media_cluster_origin, "User: ", projectMedia.media_cluster_origin_user?.name, "timestamp: ", projectMedia.media_cluster_origin_timestamp);
+  // eslint-disable-next-line
+  console.log("User !!: ", projectMedia.media_cluster_origin_user?.name);
 
   const extractedText = projectMedia.extracted_text?.data?.text;
   if (extractedText) {
@@ -122,6 +128,12 @@ const MediaCardLargeFooter = ({
                 variant="text"
               />
             ),
+            (
+              <MediaOrigin
+                type={projectMedia.media_cluster_origin}
+                user={projectMedia.media_cluster_origin_user?.name}
+              />
+            ),
           ]}
         />
         : null
@@ -166,6 +178,11 @@ export default createFragmentContainer(MediaCardLargeFooter, graphql`
     transcription: annotation(annotation_type: "transcription") {
       data
     }
+    media_cluster_origin
+    media_cluster_origin_user {
+      name
+    }
+    media_cluster_origin_timestamp
     ...MediaCardLargeActions_projectMedia
   }
 `);
