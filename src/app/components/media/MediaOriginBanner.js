@@ -115,7 +115,7 @@ const MediaOriginBanner = ({
 
 MediaOriginBanner.propTypes = {
   cluster: PropTypes.string.isRequired,
-  timestamp: PropTypes.string.isRequired,
+  timestamp: PropTypes.number.isRequired,
   type: PropTypes.number.isRequired,
   user: PropTypes.string.isRequired,
 };
