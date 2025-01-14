@@ -232,9 +232,9 @@ const BotPreview = ({ me, team }) => {
   const [shortenOutgoingUrls, setShortenOutgoingUrls] = React.useState(team.get_shorten_outgoing_urls);
   const [utmCode, setUtmCode] = React.useState(team.get_outgoing_urls_utm_code);
 
-  const settings = team.smooch_bot?.json_settings ? JSON.parse(team.smooch_bot.json_settings) : {};
+  const settings = team.smooch_bot?.json_settings ? safelyParseJSON(team.smooch_bot.json_settings) : {};
 
-  const [similarityThresholdMatching, setSimilarityTresholdMatching] = React.useState(settings.smooch_search_text_similarity_threshold);
+  const [similarityThresholdMatching, setSimilarityThresholdMatching] = React.useState(settings.smooch_search_text_similarity_threshold);
   const [maxWordsMatching, setMaxWordsMatching] = React.useState(settings.smooch_search_max_keyword);
 
   const newSmoochSettings = {
@@ -258,7 +258,7 @@ const BotPreview = ({ me, team }) => {
     setSendArticlesInSameLanguage(team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled);
     setShortenOutgoingUrls(team.get_shorten_outgoing_urls);
     setUtmCode(team.get_outgoing_urls_utm_code);
-    setSimilarityTresholdMatching(settings.smooch_search_text_similarity_threshold);
+    setSimilarityThresholdMatching(settings.smooch_search_text_similarity_threshold);
     setMaxWordsMatching(settings.smooch_search_max_keyword);
   };
 
@@ -551,7 +551,7 @@ const BotPreview = ({ me, team }) => {
             maxWordsMatching={maxWordsMatching}
             similarityThresholdMatching={similarityThresholdMatching}
             onChangeMaxWordsMatching={setMaxWordsMatching}
-            onChangeSimilarityTresholdMatching={setSimilarityTresholdMatching}
+            onChangeSimilarityThresholdMatching={setSimilarityThresholdMatching}
           />
         </div>
       </div>
