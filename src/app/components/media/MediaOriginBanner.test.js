@@ -1,5 +1,5 @@
 import React from 'react';
-import MediaBanner from './MediaBanner';
+import MediaBanner from './MediaOriginBanner';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import Person from '../../icons/person.svg';
 import PersonAdd from '../../icons/person_add.svg';

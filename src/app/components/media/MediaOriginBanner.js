@@ -19,7 +19,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedHTMLMessage
           defaultMessage="This media was submitted via <strong>Tipline</strong> on {datetime}."
           description="Message for Tipline Submitted"
-          id="mediaBanner.tiplineSubmitted"
+          id="mediaOriginBanner.tiplineSubmitted"
           values={{ datetime }}
         />
       ),
@@ -31,7 +31,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedHTMLMessage
           defaultMessage="This media was added to the cluster by <strong>{user}</strong> on {datetime}"
           description="Message for User Matched"
-          id="mediaBanner.userAdded"
+          id="mediaOriginBanner.userAdded"
           values={{ user, datetime }}
         />
       ),
@@ -43,7 +43,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedHTMLMessage
           defaultMessage="This media was added to the cluster by <strong>{user}</strong> when merged from {cluster} on {datetime}"
           description="Message for User Matched"
-          id="mediaBanner.userMerged"
+          id="mediaOriginBanner.userMerged"
           values={{ user, cluster, datetime }}
         />
       ),
@@ -55,7 +55,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedHTMLMessage
           defaultMessage="This media was added to the cluster by <strong>{user}</strong> when accepted from {cluster}, {datetime}"
           description="Message for User Matched"
-          id="mediaBanner.userMatched"
+          id="mediaOriginBanner.userMatched"
           values={{ user, cluster, datetime }}
         />
       ),
@@ -67,7 +67,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedMessage
           defaultMessage="This media was automatically matched to the cluster."
           description="Message for Auto Matched"
-          id="mediaBanner.autoMatched"
+          id="mediaOriginBanner.autoMatched"
         />
       ),
     };
@@ -80,7 +80,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
   }
 };
 
-const MediaBanner = ({
+const MediaOriginBanner = ({
   cluster, datetime, type, user,
 }) => {
   const { icon, message } = getIconAndMessage(type, user, cluster, datetime);
@@ -95,21 +95,21 @@ const MediaBanner = ({
   );
 };
 
-MediaBanner.defaultProps = {
+MediaOriginBanner.defaultProps = {
   user: (
     <FormattedMessage
       defaultMessage="Unknown User"
       description="Default message displayed when the user is not available"
-      id="mediaBanner.unknownUser"
+      id="mediaOriginBanner.unknownUser"
     />
   ),
 };
 
-MediaBanner.propTypes = {
+MediaOriginBanner.propTypes = {
   cluster: PropTypes.string.isRequired,
   datetime: PropTypes.string.isRequired,
   type: PropTypes.number.isRequired,
   user: PropTypes.node,
 };
 
-export default MediaBanner;
+export default MediaOriginBanner;

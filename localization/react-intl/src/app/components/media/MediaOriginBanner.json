@@ -1,31 +1,31 @@
 [
   {
-    "id": "mediaBanner.tiplineSubmitted",
+    "id": "mediaOriginBanner.tiplineSubmitted",
     "description": "Message for Tipline Submitted",
     "defaultMessage": "This media was submitted via <strong>Tipline</strong> on {datetime}."
   },
   {
-    "id": "mediaBanner.userAdded",
+    "id": "mediaOriginBanner.userAdded",
     "description": "Message for User Matched",
     "defaultMessage": "This media was added to the cluster by <strong>{user}</strong> on {datetime}"
   },
   {
-    "id": "mediaBanner.userMerged",
+    "id": "mediaOriginBanner.userMerged",
     "description": "Message for User Matched",
     "defaultMessage": "This media was added to the cluster by <strong>{user}</strong> when merged from {cluster} on {datetime}"
   },
   {
-    "id": "mediaBanner.userMatched",
+    "id": "mediaOriginBanner.userMatched",
     "description": "Message for User Matched",
     "defaultMessage": "This media was added to the cluster by <strong>{user}</strong> when accepted from {cluster}, {datetime}"
   },
   {
-    "id": "mediaBanner.autoMatched",
+    "id": "mediaOriginBanner.autoMatched",
     "description": "Message for Auto Matched",
     "defaultMessage": "This media was automatically matched to the cluster."
   },
   {
-    "id": "mediaBanner.unknownUser",
+    "id": "mediaOriginBanner.unknownUser",
     "description": "Default message displayed when the user is not available",
     "defaultMessage": "Unknown User"
   }

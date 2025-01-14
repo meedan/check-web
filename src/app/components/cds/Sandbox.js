@@ -28,7 +28,7 @@ import Reorder from '../layout/Reorder';
 import AddIcon from '../../icons/settings.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
 import MediaOrigin from '../media/MediaOrigin';
-import MediaBanner from '../media/MediaBanner';
+import MediaOriginBanner from '../media/MediaOriginBanner';
 import ListIcon from '../../icons/list.svg';
 import FigmaColorLogo from '../../icons/figma_color.svg';
 import ArticleCard from '../search/SearchResultsCards/ArticleCard';
@@ -2430,11 +2430,11 @@ const SandboxComponent = ({ admin }) => {
                 <FigmaColorLogo />
               </a>
 
-              <MediaBanner type={CheckMediaOrigin.TIPLINE_SUBMITTED} />
-              <MediaBanner type={CheckMediaOrigin.USER_ADDED} />
-              <MediaBanner type={CheckMediaOrigin.USER_MERGED} />
-              <MediaBanner type={CheckMediaOrigin.USER_MATCHED} />
-              <MediaBanner type={CheckMediaOrigin.AUTO_MATCHED} />
+              <MediaOriginBanner type={CheckMediaOrigin.TIPLINE_SUBMITTED} />
+              <MediaOriginBanner type={CheckMediaOrigin.USER_ADDED} />
+              <MediaOriginBanner type={CheckMediaOrigin.USER_MERGED} />
+              <MediaOriginBanner type={CheckMediaOrigin.USER_MATCHED} />
+              <MediaOriginBanner type={CheckMediaOrigin.AUTO_MATCHED} />
             </div>
           </div>
         </section>
