@@ -19,7 +19,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedHTMLMessage
           defaultMessage="This media was submitted via <strong>Tipline</strong> on {datetime}."
           description="Message for Tipline Submitted"
-          id="MediaBanner.tiplineSubmitted"
+          id="mediaBanner.tiplineSubmitted"
           values={{ datetime }}
         />
       ),
@@ -31,7 +31,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedHTMLMessage
           defaultMessage="This media was added to the cluster by <strong>{user}</strong> on {datetime}"
           description="Message for User Matched"
-          id="MediaBanner.userAdded"
+          id="mediaBanner.userAdded"
           values={{ user, datetime }}
         />
       ),
@@ -43,7 +43,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedHTMLMessage
           defaultMessage="This media was added to the cluster by <strong>{user}</strong> when merged from {cluster} on {datetime}"
           description="Message for User Matched"
-          id="MediaBanner.userMerged"
+          id="mediaBanner.userMerged"
           values={{ user, cluster, datetime }}
         />
       ),
@@ -55,7 +55,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedHTMLMessage
           defaultMessage="This media was added to the cluster by <strong>{user}</strong> when accpeted from {cluster}, {datetime}"
           description="Message for User Matched"
-          id="MediaBanner.userMatched"
+          id="mediaBanner.userMatched"
           values={{ user, cluster, datetime }}
         />
       ),
@@ -67,7 +67,7 @@ const getIconAndMessage = (type, user, cluster, datetime) => {
         <FormattedMessage
           defaultMessage="This media was automatically matched to the cluster."
           description="Message for Auto Matched"
-          id="MediaBanner.autoMatched"
+          id="mediaBanner.autoMatched"
         />
       ),
     };
@@ -96,7 +96,13 @@ const MediaBanner = ({
 };
 
 MediaBanner.defaultProps = {
-  user: 'Unknown User',
+  user: (
+    <FormattedMessage
+      defaultMessage="Unknown User"
+      description="Default message displayed when the user is not available"
+      id="mediaBanner.unknownUser"
+    />
+  ),
 };
 
 MediaBanner.propTypes = {

@@ -27,7 +27,7 @@ describe('<MediaBanner />', () => {
 
     const userMatched = mountWithIntl(<MediaBanner cluster={cluster} datetime={datetime} type={CheckMediaOrigin.USER_MATCHED} user="John Doe" />);
     expect(userMatched.find(PersonCheck).length).toEqual(1);
-    expect(userMatched.html()).toMatch('This media was added to the cluster by <strong>John Doe</strong> when accpeted from');
+    expect(userMatched.html()).toMatch('This media was added to the cluster by <strong>John Doe</strong> when accepted from');
 
     const autoMatched = mountWithIntl(<MediaBanner cluster={cluster} datetime={datetime} type={CheckMediaOrigin.AUTO_MATCHED} />);
     expect(autoMatched.find(Bolt).length).toEqual(1);
