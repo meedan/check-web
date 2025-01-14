@@ -2430,11 +2430,11 @@ const SandboxComponent = ({ admin }) => {
                 <FigmaColorLogo />
               </a>
 
-              <MediaOriginBanner timestamp={1736876257} type={CheckMediaOrigin.TIPLINE_SUBMITTED} />
-              <MediaOriginBanner timestamp={1736876257} type={CheckMediaOrigin.USER_ADDED} user="Bruce" />
+              <MediaOriginBanner cluster="Foo bar" timestamp={1736876257} type={CheckMediaOrigin.TIPLINE_SUBMITTED} user="Smooch" />
+              <MediaOriginBanner cluster="Foo bar" timestamp={1736876257} type={CheckMediaOrigin.USER_ADDED} user="Bruce" />
               <MediaOriginBanner cluster="Foo bar" timestamp={1736876257} type={CheckMediaOrigin.USER_MERGED} user="Kara" />
               <MediaOriginBanner cluster="Bla" timestamp={1736876257} type={CheckMediaOrigin.USER_MATCHED} user="Clark" />
-              <MediaOriginBanner timestamp={1736876257} type={CheckMediaOrigin.AUTO_MATCHED} />
+              <MediaOriginBanner cluster="Foo bar" timestamp={1736876257} type={CheckMediaOrigin.AUTO_MATCHED} user="Alegre" />
             </div>
           </div>
         </section>
