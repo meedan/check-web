@@ -95,15 +95,11 @@ const MediaOriginBanner = ({
   );
 };
 
-MediaOriginBanner.defaultProps = {
-  user: '',
-};
-
 MediaOriginBanner.propTypes = {
   cluster: PropTypes.string.isRequired,
   datetime: PropTypes.string.isRequired,
   type: PropTypes.number.isRequired,
-  user: PropTypes.string,
+  user: PropTypes.string.isRequired,
 };
 
 export default MediaOriginBanner;
