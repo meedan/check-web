@@ -22,9 +22,8 @@ const MediaCardLargeFooter = ({
   let footerTitle = null;
 
   // eslint-disable-next-line
-  console.log("media_cluter_origin",projectMedia.media_cluster_origin, "User: ", projectMedia.media_cluster_origin_user?.name, "timestamp: ", projectMedia.media_cluster_origin_timestamp);
+  // console.log("media_cluter_origin",projectMedia.media_cluster_origin, "User: ", projectMedia.media_cluster_origin_user?.name);
   // eslint-disable-next-line
-  console.log("User !!: ", projectMedia.media_cluster_origin_user?.name);
 
   const extractedText = projectMedia.extracted_text?.data?.text;
   if (extractedText) {
@@ -182,7 +181,6 @@ export default createFragmentContainer(MediaCardLargeFooter, graphql`
     media_cluster_origin_user {
       name
     }
-    media_cluster_origin_timestamp
     ...MediaCardLargeActions_projectMedia
   }
 `);
