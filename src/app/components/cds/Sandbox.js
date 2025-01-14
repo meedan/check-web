@@ -2431,7 +2431,7 @@ const SandboxComponent = ({ admin }) => {
               </a>
 
               <MediaOriginBanner type={CheckMediaOrigin.TIPLINE_SUBMITTED} />
-              <MediaOriginBanner type={CheckMediaOrigin.USER_ADDED} />
+              <MediaOriginBanner type={CheckMediaOrigin.USER_ADDED} user="Bruce" />
               <MediaOriginBanner type={CheckMediaOrigin.USER_MERGED} />
               <MediaOriginBanner type={CheckMediaOrigin.USER_MATCHED} />
               <MediaOriginBanner type={CheckMediaOrigin.AUTO_MATCHED} />
