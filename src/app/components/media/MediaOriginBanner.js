@@ -96,20 +96,14 @@ const MediaOriginBanner = ({
 };
 
 MediaOriginBanner.defaultProps = {
-  user: (
-    <FormattedMessage
-      defaultMessage="Unknown User"
-      description="Default message displayed when the user is not available"
-      id="mediaOriginBanner.unknownUser"
-    />
-  ),
+  user: '',
 };
 
 MediaOriginBanner.propTypes = {
   cluster: PropTypes.string.isRequired,
   datetime: PropTypes.string.isRequired,
   type: PropTypes.number.isRequired,
-  user: PropTypes.node,
+  user: PropTypes.string,
 };
 
 export default MediaOriginBanner;

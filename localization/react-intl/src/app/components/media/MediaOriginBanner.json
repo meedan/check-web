@@ -23,10 +23,5 @@
     "id": "mediaOriginBanner.autoMatched",
     "description": "Message for Auto Matched",
     "defaultMessage": "This media was automatically matched to the cluster."
-  },
-  {
-    "id": "mediaOriginBanner.unknownUser",
-    "description": "Default message displayed when the user is not available",
-    "defaultMessage": "Unknown User"
   }
 ]
