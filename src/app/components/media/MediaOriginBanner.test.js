@@ -9,7 +9,7 @@ import Tipline from '../../icons/question_answer.svg';
 import CheckMediaOrigin from '../../CheckMediaOrigin';
 
 describe('<MediaBanner />', () => {
-  const timestamp = 1736876257; // Pass timestamp as a number
+  const timestamp = 1736876257;
   const cluster = 'Cluster A';
   const user = 'Bruce';
   it('should render a banner with the correct icon and message for each type', () => {
