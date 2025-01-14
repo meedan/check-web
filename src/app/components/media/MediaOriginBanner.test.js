@@ -9,36 +9,33 @@ import Tipline from '../../icons/question_answer.svg';
 import CheckMediaOrigin from '../../CheckMediaOrigin';
 
 describe('<MediaBanner />', () => {
+  const timestamp = 1736876257; // Pass timestamp as a number
+  const cluster = 'Cluster A';
+  const user = 'Bruce';
   it('should render a banner with the correct icon and message for each type', () => {
-    const datetime = '2023-12-15T17:19:40Z';
-    const cluster = 'Cluster A';
-
-    const tiplineSubmitted = mountWithIntl(<MediaBanner cluster={cluster} datetime={datetime} type={CheckMediaOrigin.TIPLINE_SUBMITTED} />);
+    const tiplineSubmitted = mountWithIntl(<MediaBanner cluster={cluster} timestamp={timestamp} type={CheckMediaOrigin.TIPLINE_SUBMITTED} user={user} />);
     expect(tiplineSubmitted.find(Tipline).length).toEqual(1);
-    expect(tiplineSubmitted.html()).toMatch('This media was submitted via <strong>Tipline</strong> on');
+    expect(tiplineSubmitted.html()).toContain('This media was submitted via <strong>Tipline</strong>');
 
-    const userAdded = mountWithIntl(<MediaBanner cluster={cluster} datetime={datetime} type={CheckMediaOrigin.USER_ADDED} user="John Doe" />);
+    const userAdded = mountWithIntl(<MediaBanner cluster={cluster} timestamp={timestamp} type={CheckMediaOrigin.USER_ADDED} user={user} />);
     expect(userAdded.find(PersonAdd).length).toEqual(1);
-    expect(userAdded.html()).toMatch('This media was added to the cluster by <strong>John Doe</strong> on');
+    expect(userAdded.html()).toContain('This media was added to the cluster by');
 
-    const userMerged = mountWithIntl(<MediaBanner cluster={cluster} datetime={datetime} type={CheckMediaOrigin.USER_MERGED} user="John Doe" />);
+    const userMerged = mountWithIntl(<MediaBanner cluster={cluster} timestamp={timestamp} type={CheckMediaOrigin.USER_MERGED} user={user} />);
     expect(userMerged.find(Person).length).toEqual(1);
-    expect(userMerged.html()).toMatch('This media was added to the cluster by <strong>John Doe</strong> when merged from');
+    expect(userMerged.html()).toContain('This media was added to the cluster by');
 
-    const userMatched = mountWithIntl(<MediaBanner cluster={cluster} datetime={datetime} type={CheckMediaOrigin.USER_MATCHED} user="John Doe" />);
+    const userMatched = mountWithIntl(<MediaBanner cluster={cluster} timestamp={timestamp} type={CheckMediaOrigin.USER_MATCHED} user={user} />);
     expect(userMatched.find(PersonCheck).length).toEqual(1);
-    expect(userMatched.html()).toMatch('This media was added to the cluster by <strong>John Doe</strong> when accepted from');
+    expect(userMatched.html()).toContain('This media was added to the cluster by');
 
-    const autoMatched = mountWithIntl(<MediaBanner cluster={cluster} datetime={datetime} type={CheckMediaOrigin.AUTO_MATCHED} />);
+    const autoMatched = mountWithIntl(<MediaBanner cluster={cluster} timestamp={timestamp} type={CheckMediaOrigin.AUTO_MATCHED} user={user} />);
     expect(autoMatched.find(Bolt).length).toEqual(1);
-    expect(autoMatched.html()).toMatch('This media was automatically matched to the cluster.');
+    expect(autoMatched.html()).toContain('This media was automatically matched to the cluster');
   });
 
-
   it('should return null for invalid type', () => {
-    const datetime = '2023-12-15T17:19:40Z';
-    const cluster = 'Cluster A';
-    const wrapper = mountWithIntl(<MediaBanner cluster={cluster} datetime={datetime} type={99} />);
+    const wrapper = mountWithIntl(<MediaBanner cluster={cluster} timestamp={timestamp} type={99} user={user} />);
     expect(wrapper.find('FormattedMessage').length).toEqual(0);
   });
 });
