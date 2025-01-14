@@ -1,51 +1,51 @@
 [
   {
-    "id": "MediaOrigin.tiplineSubmitted",
+    "id": "mediaOrigin.tiplineSubmitted",
     "description": "Message for Tipline Submitted",
     "defaultMessage": "Tipline Submitted"
   },
   {
-    "id": "MediaOrigin.tiplineSubmittedTooltip",
+    "id": "mediaOrigin.tiplineSubmittedTooltip",
     "description": "Tooltip message for Tipline Submitted",
     "defaultMessage": "Original cluster media submitted by Tipline User"
   },
   {
-    "id": "MediaOrigin.userAdded",
+    "id": "mediaOrigin.userAdded",
     "description": "This media was added by a user.",
     "defaultMessage": "User Added"
   },
   {
-    "id": "MediaOrigin.userAddedTooltip",
+    "id": "mediaOrigin.userAddedTooltip",
     "description": "Tooltip message for User Added",
     "defaultMessage": "<strong>{user}</strong> uploaded this media using the Check interface"
   },
   {
-    "id": "MediaOrigin.userMerged",
+    "id": "mediaOrigin.userMerged",
     "description": "Message for User Merged",
     "defaultMessage": "User Merged"
   },
   {
-    "id": "MediaOrigin.userMergedTooltip",
+    "id": "mediaOrigin.userMergedTooltip",
     "description": "Tooltip message for User Merged",
     "defaultMessage": "<strong>{user}</strong> added this media by merging from another cluster"
   },
   {
-    "id": "MediaOrigin.userMatched",
+    "id": "mediaOrigin.userMatched",
     "description": "Message for User Matched",
     "defaultMessage": "User Matched"
   },
   {
-    "id": "MediaOrigin.userMatchedTooltip",
+    "id": "mediaOrigin.userMatchedTooltip",
     "description": "Tooltip message for User Matched",
     "defaultMessage": "<strong>{user}</strong> accepted this media as a suggested match"
   },
   {
-    "id": "MediaOrigin.autoMatched",
+    "id": "mediaOrigin.autoMatched",
     "description": "Message for Auto Matched",
     "defaultMessage": "Auto Matched"
   },
   {
-    "id": "MediaOrigin.autoMatchedTooltip",
+    "id": "mediaOrigin.autoMatchedTooltip",
     "description": "Tooltip message for Auto Matched",
     "defaultMessage": "Automatically matched media by Check"
   }

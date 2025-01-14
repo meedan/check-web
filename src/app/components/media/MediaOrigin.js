@@ -19,14 +19,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="Tipline Submitted"
           description="Message for Tipline Submitted"
-          id="MediaOrigin.tiplineSubmitted"
+          id="mediaOrigin.tiplineSubmitted"
         />
       ),
       tooltipMessage: (
         <FormattedMessage
           defaultMessage="Original cluster media submitted by Tipline User"
           description="Tooltip message for Tipline Submitted"
-          id="MediaOrigin.tiplineSubmittedTooltip"
+          id="mediaOrigin.tiplineSubmittedTooltip"
         />
       ),
     };
@@ -37,14 +37,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="User Added"
           description="This media was added by a user."
-          id="MediaOrigin.userAdded"
+          id="mediaOrigin.userAdded"
         />
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
           defaultMessage="<strong>{user}</strong> uploaded this media using the Check interface"
           description="Tooltip message for User Added"
-          id="MediaOrigin.userAddedTooltip"
+          id="mediaOrigin.userAddedTooltip"
           values={{ user }}
         />
       ),
@@ -56,14 +56,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="User Merged"
           description="Message for User Merged"
-          id="MediaOrigin.userMerged"
+          id="mediaOrigin.userMerged"
         />
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
           defaultMessage="<strong>{user}</strong> added this media by merging from another cluster"
           description="Tooltip message for User Merged"
-          id="MediaOrigin.userMergedTooltip"
+          id="mediaOrigin.userMergedTooltip"
           values={{ user }}
         />
       ),
@@ -75,14 +75,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="User Matched"
           description="Message for User Matched"
-          id="MediaOrigin.userMatched"
+          id="mediaOrigin.userMatched"
         />
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
           defaultMessage="<strong>{user}</strong> accepted this media as a suggested match"
           description="Tooltip message for User Matched"
-          id="MediaOrigin.userMatchedTooltip"
+          id="mediaOrigin.userMatchedTooltip"
           values={{ user }}
         />
       ),
@@ -94,14 +94,14 @@ const getIconAndMessage = (type, user) => {
         <FormattedMessage
           defaultMessage="Auto Matched"
           description="Message for Auto Matched"
-          id="MediaOrigin.autoMatched"
+          id="mediaOrigin.autoMatched"
         />
       ),
       tooltipMessage: (
         <FormattedMessage
           defaultMessage="Automatically matched media by Check"
           description="Tooltip message for Auto Matched"
-          id="MediaOrigin.autoMatchedTooltip"
+          id="mediaOrigin.autoMatchedTooltip"
         />
       ),
     };
