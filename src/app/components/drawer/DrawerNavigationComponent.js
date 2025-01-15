@@ -45,6 +45,7 @@ class DrawerNavigationComponent extends Component {
   }
 
   subscribe() {
+    console.log(this.props); //eslint-disable-line
     const { clientSessionId, pusher, team } = this.props;
     if (pusher && team) {
       pusher.subscribe(team.pusher_channel).bind('media_updated', 'DrawerNavigationComponent', (data, run) => {
@@ -74,6 +75,8 @@ class DrawerNavigationComponent extends Component {
     const {
       currentUserIsMember, drawerOpen, drawerType, team,
     } = this.props;
+
+    console.log(this.props) //eslint-disable-line
 
     // This component now renders based on teamPublicFragment
     // and decides whether to include <Project> which has its own team route/relay
