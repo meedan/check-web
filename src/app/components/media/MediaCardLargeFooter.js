@@ -21,10 +21,6 @@ const MediaCardLargeFooter = ({
 }) => {
   let footerTitle = null;
 
-  // eslint-disable-next-line
-  // console.log("media_cluter_origin",projectMedia.media_cluster_origin, "User: ", projectMedia.media_cluster_origin_user?.name);
-  // eslint-disable-next-line
-
   const extractedText = projectMedia.extracted_text?.data?.text;
   if (extractedText) {
     footerTitle = (
