@@ -23,7 +23,7 @@ describe('<MediaSimilaritiesComponent />', () => {
                 media_cluster_origin_user: {
                   name: 'test User',
                 },
-              }
+              },
             },
           },
           {
