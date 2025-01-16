@@ -76,7 +76,7 @@ const LinkManagement = ({
                 <TextField
                   className={inputStyles['form-fieldset-field']}
                   defaultValue={utmCode}
-                  disabled={hasScheduledNewsletters || !isAdmin}
+                  disabled={!isAdmin}
                   helpContent={
                     <FormattedHTMLMessage
                       defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
