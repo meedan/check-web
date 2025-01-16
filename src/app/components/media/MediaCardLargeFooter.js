@@ -5,6 +5,7 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaSlug from './MediaSlug';
+import MediaOrigin from './MediaOrigin';
 import ExternalLink from '../ExternalLink';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
@@ -122,6 +123,12 @@ const MediaCardLargeFooter = ({
                 variant="text"
               />
             ),
+            (
+              <MediaOrigin
+                type={projectMedia.media_cluster_origin}
+                user={projectMedia.media_cluster_origin_user?.name}
+              />
+            ),
           ]}
         />
         : null
@@ -165,6 +172,10 @@ export default createFragmentContainer(MediaCardLargeFooter, graphql`
     }
     transcription: annotation(annotation_type: "transcription") {
       data
+    }
+    media_cluster_origin
+    media_cluster_origin_user {
+      name
     }
     ...MediaCardLargeActions_projectMedia
   }

@@ -27,7 +27,6 @@ import TabWrapper from './menus-lists-dialogs/TabWrapper';
 import Reorder from '../layout/Reorder';
 import AddIcon from '../../icons/settings.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
-import MediaOrigin from '../media/MediaOrigin';
 import MediaOriginBanner from '../media/MediaOriginBanner';
 import ListIcon from '../../icons/list.svg';
 import FigmaColorLogo from '../../icons/figma_color.svg';
@@ -2390,31 +2389,6 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </section>
       }
-      { (categoryTab === 'all' || categoryTab === 'media-cluster-origin-buttons') && (
-        <section>
-          <div className={styles.componentWrapper}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>
-              Media Origin
-              <a
-                className={styles.figmaLink}
-                href="https://www.figma.com/design/aVRaTgms3H4jY8hOslFq5y/Media?node-id=901-1203&p=f&m=dev"
-                rel="noopener noreferrer"
-                target="_blank"
-                title="Figma Designs"
-              >
-                <FigmaColorLogo />
-              </a>
-
-              <MediaOrigin type={CheckMediaOrigin.TIPLINE_SUBMITTED} />
-              <MediaOrigin type={CheckMediaOrigin.USER_ADDED} />
-              <MediaOrigin type={CheckMediaOrigin.USER_MERGED} />
-              <MediaOrigin type={CheckMediaOrigin.USER_MATCHED} />
-              <MediaOrigin type={CheckMediaOrigin.AUTO_MATCHED} />
-              <MediaOrigin type={99} /> {/* invalid type */}
-            </div>
-          </div>
-        </section>
-      )}
       { (categoryTab === 'all' || categoryTab === 'media-cluster-origin-buttons') && (
         <section>
           <div className={styles.componentWrapper}>
