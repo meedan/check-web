@@ -132,7 +132,7 @@ ExportList.defaultProps = {
 
 ExportList.propTypes = {
   filters: PropTypes.object,
-  type: PropTypes.oneOf(['media', 'feed', 'fact-check', 'explainer']).isRequired,
+  type: PropTypes.oneOf(['media', 'feed', 'fact_check', 'explainer']).isRequired,
 };
 
 export default ExportList;

@@ -260,6 +260,7 @@ const ArticlesComponent = ({
                 statusLabel={currentStatus ? currentStatus.label : null}
                 summary={isFactCheckValueBlank(summary) ? article.claim_description?.context : summary}
                 tags={article.tags}
+                teamSlug={team.slug}
                 title={isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title}
                 url={article.url}
                 variant={type}
