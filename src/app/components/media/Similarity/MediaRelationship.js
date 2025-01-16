@@ -303,14 +303,12 @@ const MediaRelationship = ({
       theme="lightText"
       variant="text"
     />
-  ),
-  (
+  ), (
     <MediaOrigin
       type={media_cluster_origin}
       user={media_cluster_origin_user?.name}
     />
-  ),
-  ];
+  )];
 
   const maskContent = relationship?.target?.show_warning_cover;
 
