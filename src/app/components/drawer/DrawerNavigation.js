@@ -1,18 +1,11 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
+import Drawer from '@material-ui/core/Drawer';
 import DrawerRail from './DrawerRail';
-import DrawerNavigationComponent from './DrawerNavigationComponent';
-import FindPublicTeamRoute from '../../relay/FindPublicTeamRoute';
-import teamPublicFragment from '../../relay/teamPublicFragment';
 import ErrorBoundary from '../error/ErrorBoundary';
-
-const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
-  fragments: {
-    team: () => teamPublicFragment,
-  },
-});
+import DrawerContent from './index.js';
+import styles from './Drawer.module.css';
 
 const getBooleanPref = (key, fallback) => {
   const inStore = window.storage.getValue(key);
@@ -33,10 +26,6 @@ const DrawerNavigation = (parentProps) => {
   if (parentProps.teamSlug) {
     const { teamSlug } = parentProps;
 
-    const route = new FindPublicTeamRoute({ teamSlug });
-
-    console.log(teamSlug); //eslint-disable-line
-
     return (
       <>
         <ErrorBoundary component="DrawerNavigation">
@@ -45,30 +34,33 @@ const DrawerNavigation = (parentProps) => {
             query={graphql`
               query DrawerNavigationQuery($teamSlug: String!) {
                 find_public_team(slug: $teamSlug) {
-                  id,
-                  name,
-                  avatar,
-                  dbid,
-                  private,
-                  slug,
-                  team_graphql_id,
-                  trash_count,
-                  spam_count,
-                  pusher_channel,
+                  ...DrawerRail_team
                 }
               }
             `}
             render={({ error, props }) => {
               if (!error && props) {
                 return (
-                  <DrawerRail
-                    currentUserIsMember={parentProps.currentUserIsMember}
-                    drawerOpen={drawerOpen}
-                    drawerType={drawerType}
-                    team={props.find_public_team}
-                    onDrawerOpenChange={setDrawerOpen}
-                    onDrawerTypeChange={setDrawerType}
-                  />
+                  <>
+                    <DrawerRail
+                      currentUserIsMember={parentProps.currentUserIsMember}
+                      drawerOpen={drawerOpen}
+                      drawerType={drawerType}
+                      team={props.find_public_team}
+                      onDrawerOpenChange={setDrawerOpen}
+                      onDrawerTypeChange={setDrawerType}
+                    />
+                    <Drawer
+                      anchor="left"
+                      className={[styles.drawer, drawerOpen ? styles.drawerOpen : styles.drawerClosed].join(' ')}
+                      open={Boolean(drawerOpen)}
+                      variant="persistent"
+                    >
+                      {parentProps.currentUserIsMember ? (
+                        <DrawerContent drawerType={drawerType} />
+                      ) : null }
+                    </Drawer>
+                  </>
                 );
               }
               return null;
@@ -78,23 +70,11 @@ const DrawerNavigation = (parentProps) => {
             }}
           />
         </ErrorBoundary>
-        <Relay.RootContainer
-          Component={DrawerNavigationContainer}
-          renderFetched={
-            data => (<DrawerNavigationContainer
-              drawerOpen={drawerOpen}
-              drawerType={drawerType}
-              {...parentProps}
-              {...data}
-            />)
-          }
-          route={route}
-        />
       </>
     );
   }
 
-  return <><DrawerRail {...parentProps} /><DrawerNavigationComponent {...parentProps} /></>;
+  return <><DrawerRail {...parentProps} /></>;
 };
 
 export default DrawerNavigation;
