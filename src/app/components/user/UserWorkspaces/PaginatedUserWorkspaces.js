@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, createPaginationContainer, graphql } from 'react-relay/compat';
-import { browserHistory } from 'react-router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -66,8 +65,7 @@ const UserWorkspacesComponent = ({
   };
 
   const onSuccess = (team) => {
-    const path = `/${team.slug}/all-items`;
-    browserHistory.push(path);
+    window.location.assign(`/${team.slug}/all-items`)
   };
 
   const setCurrentTeam = (team) => {
