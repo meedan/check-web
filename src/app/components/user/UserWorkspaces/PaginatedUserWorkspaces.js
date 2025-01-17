@@ -65,6 +65,12 @@ const UserWorkspacesComponent = ({
   };
 
   const onSuccess = (team) => {
+    /* While debugging an error related to creating tipline resources, I realized it occurred only
+       when navigating to the tipline settings page directly from the Workspaces list (i.e., switching
+       from one workspace to another). The resource isn't created because the workspace ID being used
+       is still the previous one. As a result, the session isn't fully cleared or switched to the new
+       workspace. The simplest fix is to force a hard refresh to ensure a completely new session under
+       the new workspace. */
     window.location.assign(`/${team.slug}/all-items`);
   };
 
