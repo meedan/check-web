@@ -65,7 +65,7 @@ const UserWorkspacesComponent = ({
   };
 
   const onSuccess = (team) => {
-    window.location.assign(`/${team.slug}/all-items`)
+    window.location.assign(`/${team.slug}/all-items`);
   };
 
   const setCurrentTeam = (team) => {
