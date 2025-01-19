@@ -89,7 +89,7 @@ const ChooseExistingArticleButton = ({
                 </FormattedMessage>
               </div>
               <div className={styles.seachResults}>
-                <MediaArticlesTeamArticles targetId={projectMediaDbid} teamSlug={teamSlug} textSearch={search} onAdd={onAdd} />
+                <MediaArticlesTeamArticles criteria={['recent']} targetId={projectMediaDbid} teamSlug={teamSlug} textSearch={search} onAdd={onAdd} />
               </div>
             </div>
           }
