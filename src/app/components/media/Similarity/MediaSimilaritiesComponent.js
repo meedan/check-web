@@ -30,7 +30,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => (
         media_cluster_origin={relationship.node.target?.media_cluster_origin}
         media_cluster_origin_timestamp={relationship.node.target?.media_cluster_origin_timestamp}
         media_cluster_origin_user={relationship.node.target?.media_cluster_origin_user?.name}
-        media_cluster_relationship={relationship.node.target?.media_cluster_relationship.target.title}
+        media_cluster_relationship={relationship.node.target?.media_cluster_relationship}
         relationship={relationship.node}
         relationshipSourceId={relationship.node.source_id}
         relationshipTargetId={relationship.node.target_id}
@@ -85,7 +85,9 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
               target{
                 title
               }
-              confirmed_by { name }
+              confirmed_by {
+                name
+              }
             }
             dbid
             title
