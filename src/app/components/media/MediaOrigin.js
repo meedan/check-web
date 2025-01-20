@@ -135,13 +135,10 @@ const MediaOrigin = ({ type, user }) => {
   );
 };
 
-MediaOrigin.defaultProps = {
-  user: 'Unknown User',
-};
 
 MediaOrigin.propTypes = {
   type: PropTypes.number.isRequired,
-  user: PropTypes.string,
+  user: PropTypes.string.isRequired,
 };
 
 export default MediaOrigin;

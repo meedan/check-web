@@ -51,7 +51,7 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster by <strong>{user}</strong> when merged from <strong><u>{cluster}</u></strong> "
+            defaultMessage="This media was added to the cluster by <strong>{user}</strong> when merged from <strong><u>{cluster}</u></strong>, "
             description="Message for User Matched"
             id="mediaOriginBanner.userMerged"
             values={{ user, cluster }}
@@ -66,7 +66,7 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster by <strong>{user}</strong> when accepted from <strong><u>{cluster}</u></strong> "
+            defaultMessage="This media was added to the cluster by <strong>{user}</strong> when accepted from <strong><u>{cluster}</u></strong>, "
             description="Message for User Matched"
             id="mediaOriginBanner.userMatched"
             values={{ user, cluster }}

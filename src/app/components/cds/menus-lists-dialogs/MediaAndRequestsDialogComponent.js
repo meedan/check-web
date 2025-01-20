@@ -10,11 +10,15 @@ import MediaRequests from '../../media/MediaRequests';
 import { MediaCardLargeQueryRenderer } from '../../media/MediaCardLarge';
 import FeedItemMediaDialog from '../../feed/FeedItemMediaDialog';
 import dialogStyles from '../../../styles/css/dialog.module.css';
+import MediaOriginBanner from '../../media/MediaOriginBanner';
 import styles from './MediaAndRequestsDialog.module.css';
 
 const MediaAndRequestsDialogComponent = ({
   dialogTitle,
   feedId,
+  media_cluster_origin,
+  media_cluster_origin_timestamp,
+  media_cluster_origin_user,
   mediaHeader,
   mediaSlug,
   onClick,
@@ -23,6 +27,11 @@ const MediaAndRequestsDialogComponent = ({
   projectMediaImportedId,
 }) => {
   const [context, setContext] = React.useState(projectMediaId ? 'workspace' : 'feed');
+
+  // eslint-disable-next-line
+  console.log("blalflslfalfsa")
+  // eslint-disable-next-line
+  console.log("Dialog: ", media_cluster_origin, media_cluster_origin_user)
 
   return (
     <Dialog
@@ -54,7 +63,10 @@ const MediaAndRequestsDialogComponent = ({
         <div className={styles.columns}>
           { context === 'workspace' ?
             <>
-              <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
+              <div>
+                <MediaOriginBanner timestamp={media_cluster_origin_timestamp} type={media_cluster_origin} user={media_cluster_origin_user} />
+                <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
+              </div>
               <div>
                 { projectMediaId && projectMediaImportedId && ( // Show the toggle if we have two values to switch between
                   <div className={styles.toggle}>
