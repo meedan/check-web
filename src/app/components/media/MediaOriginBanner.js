@@ -11,17 +11,19 @@ import CheckMediaOrigin from '../../CheckMediaOrigin';
 import { parseStringUnixTimestamp } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 
-const getIconAndMessage = (type, user, cluster, timestamp) => {
+const getIconAndMessage = (media_cluster_origin, media_cluster_relationship, user, cluster, timestamp) => {
   // The default messages are temporary, and will be updated in the ticket CV2-5785
   const formattedTimestamp = <TimeBefore date={parseStringUnixTimestamp(timestamp)} />;
-  switch (type) {
+  // eslint-disable-next-line
+  console.log('formattedTimestamp: ',formattedTimestamp)
+  switch (media_cluster_origin) {
   case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
       icon: <Tipline />,
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was submitted via <strong>Tipline</strong> "
+            defaultMessage="This media was submitted via <strong>Tipline</strong>, "
             description="Message for Tipline Submitted"
             id="mediaOriginBanner.tiplineSubmitted"
             values={{ timestamp }}
@@ -36,8 +38,8 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster by <strong>{user}</strong> "
-            description="Message for User Matched"
+            defaultMessage="This media was added to the cluster by <strong>{user}</strong>, "
+            description="Message for User Added"
             id="mediaOriginBanner.userAdded"
             values={{ user }}
           />
@@ -51,10 +53,10 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster by <strong>{user}</strong> when merged from <strong><u>{cluster}</u></strong>, "
-            description="Message for User Matched"
+            defaultMessage="This media was merged to the cluster by <strong>{user}</strong>, "
+            description="Message for User Merged"
             id="mediaOriginBanner.userMerged"
-            values={{ user, cluster }}
+            values={{ user }}
           />
           {formattedTimestamp}
         </>
@@ -69,7 +71,7 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
             defaultMessage="This media was added to the cluster by <strong>{user}</strong> when accepted from <strong><u>{cluster}</u></strong>, "
             description="Message for User Matched"
             id="mediaOriginBanner.userMatched"
-            values={{ user, cluster }}
+            values={{ user, media_cluster_relationship }}
           />
           {formattedTimestamp}
         </>
@@ -81,7 +83,7 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was automatically matched to the cluster "
+            defaultMessage="This media was automatically matched to the cluster, "
             description="Message for Auto Matched"
             id="mediaOriginBanner.autoMatched"
           />
@@ -99,9 +101,12 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
 };
 
 const MediaOriginBanner = ({
-  cluster, timestamp, type, user,
+  media_cluster_origin, media_cluster_relationship, timestamp, user,
 }) => {
-  const { icon, message } = getIconAndMessage(type, user, cluster, timestamp);
+  const { icon, message } = getIconAndMessage(media_cluster_origin, user, media_cluster_relationship, timestamp);
+
+  // eslint-disable-next-line
+  console.log('MediaOriginBanner: ', media_cluster_origin, media_cluster_relationship, timestamp, user);
 
   return (
     <Alert
@@ -114,9 +119,9 @@ const MediaOriginBanner = ({
 };
 
 MediaOriginBanner.propTypes = {
-  cluster: PropTypes.string.isRequired,
+  media_cluster_origin: PropTypes.number.isRequired,
+  media_cluster_relationship: PropTypes.string.isRequired,
   timestamp: PropTypes.number.isRequired,
-  type: PropTypes.number.isRequired,
   user: PropTypes.string.isRequired,
 };
 

@@ -19,6 +19,7 @@ const MediaAndRequestsDialogComponent = ({
   media_cluster_origin,
   media_cluster_origin_timestamp,
   media_cluster_origin_user,
+  media_cluster_relationship,
   mediaHeader,
   mediaSlug,
   onClick,
@@ -29,9 +30,7 @@ const MediaAndRequestsDialogComponent = ({
   const [context, setContext] = React.useState(projectMediaId ? 'workspace' : 'feed');
 
   // eslint-disable-next-line
-  console.log("blalflslfalfsa")
-  // eslint-disable-next-line
-  console.log("Dialog: ", media_cluster_origin, media_cluster_origin_user)
+  console.log("Dialog: ", media_cluster_origin, media_cluster_origin_user, media_cluster_origin_timestamp, media_cluster_relationship);
 
   return (
     <Dialog
@@ -64,7 +63,7 @@ const MediaAndRequestsDialogComponent = ({
           { context === 'workspace' ?
             <>
               <div>
-                <MediaOriginBanner timestamp={media_cluster_origin_timestamp} type={media_cluster_origin} user={media_cluster_origin_user} />
+                <MediaOriginBanner media_cluster_origin={media_cluster_origin} media_cluster_relationship={media_cluster_relationship} timestamp={media_cluster_origin_timestamp} user={media_cluster_origin_user} />
                 <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
               </div>
               <div>

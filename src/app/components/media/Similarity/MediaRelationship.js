@@ -334,6 +334,7 @@ const MediaRelationship = ({
           media_cluster_origin={media_cluster_origin}
           media_cluster_origin_timestamp={media_cluster_origin_timestamp}
           media_cluster_origin_user={media_cluster_origin_user}
+          media_cluster_relationship={media_cluster_relationship}
           projectMediaId={relationship.target_id}
           projectMediaImportedId={relationship?.target?.imported_from_project_media_id}
           onClick={swallowClick}
