@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { injectIntl, defineMessages } from 'react-intl';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import TeamAvatar from '../team/TeamAvatar';
@@ -147,7 +148,7 @@ const DrawerRail = ({
                 <div className={styles.railIconLink}>
                   <ChevronLeftIcon />
                 </div>
-                <TeamAvatar className={styles.teamLogo} size="44px" team={team} />
+                <TeamAvatar className={styles.teamLogo} size="44px" team={{ avatar: team.avatar }} />
               </button>
             </Tooltip>
             <ContentFilterControls />
@@ -303,4 +304,10 @@ DrawerRail.propTypes = {
   onDrawerTypeChange: PropTypes.func.isRequired,
 };
 
-export default injectIntl(DrawerRail);
+export default createFragmentContainer(injectIntl(DrawerRail), graphql`
+  fragment DrawerRail_team on PublicTeam {
+    slug
+    private
+    avatar
+  }
+`);
