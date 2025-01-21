@@ -115,6 +115,10 @@ const MediaOriginBanner = ({
   );
 };
 
+MediaOriginBanner.defaultProps = {
+  media_cluster_relationship: {},
+};
+
 MediaOriginBanner.propTypes = {
   media_cluster_origin: PropTypes.number.isRequired,
   media_cluster_origin_timestamp: PropTypes.number.isRequired,
@@ -126,7 +130,7 @@ MediaOriginBanner.propTypes = {
     target: PropTypes.shape({
       title: PropTypes.string,
     }),
-  }).isRequired,
+  }),
 };
 
 export default MediaOriginBanner;

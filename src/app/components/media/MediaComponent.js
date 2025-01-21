@@ -8,6 +8,7 @@ import cx from 'classnames/bind';
 import MediaCardLarge from './MediaCardLarge';
 import MediaSlug from './MediaSlug';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
+import MediaOriginBanner from './MediaOriginBanner';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
 import MediaFeedInformation from './MediaFeedInformation';
@@ -214,6 +215,14 @@ class MediaComponent extends Component {
                         )]}
                       />
                     }
+                    media_origin_banner={
+                      <MediaOriginBanner
+                        media_cluster_origin={projectMedia.media_cluster_origin}
+                        media_cluster_origin_timestamp={projectMedia.media_cluster_origin_timestamp}
+                        media_cluster_origin_user={projectMedia.media_cluster_origin_user.name}
+                        media_cluster_relationship={projectMedia.media_cluster_relationship}
+                      />
+                    }
                     projectMediaId={projectMedia.dbid}
                     projectMediaImportedId={projectMedia.imported_from_project_media_id}
                     onClick={e => e.stopPropagation()}
@@ -340,6 +349,19 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
       dbid
       team {
         slug
+      }
+    }
+    media_cluster_origin
+    media_cluster_origin_user {
+      name
+    }
+    media_cluster_origin_timestamp
+    media_cluster_relationship {
+      target {
+        title
+      }
+      confirmed_by {
+        name
       }
     }
     is_confirmed_similar_to_another_item
