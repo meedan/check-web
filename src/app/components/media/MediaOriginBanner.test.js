@@ -19,19 +19,19 @@ describe('<MediaBanner />', () => {
 
     const userAdded = mountWithIntl(<MediaBanner media_cluster_origin={CheckMediaOrigin.USER_ADDED} media_cluster_origin_timestamp={media_cluster_origin_timestamp} media_cluster_origin_user={media_cluster_origin_user} media_cluster_relationship={media_cluster_relationship} />);
     expect(userAdded.find(PersonAdd).length).toEqual(1);
-    expect(userAdded.html()).toContain('This media was added to the cluster by');
+    expect(userAdded.html()).toContain('This media was added to the cluster of media by');
 
     const userMerged = mountWithIntl(<MediaBanner media_cluster_origin={CheckMediaOrigin.USER_MERGED} media_cluster_origin_timestamp={media_cluster_origin_timestamp} media_cluster_origin_user={media_cluster_origin_user} media_cluster_relationship={media_cluster_relationship} />);
     expect(userMerged.find(Person).length).toEqual(1);
-    expect(userMerged.html()).toContain('This media was merged to the cluster by');
+    expect(userMerged.html()).toContain('his media was merged into this cluster of media by');
 
     const userMatched = mountWithIntl(<MediaBanner media_cluster_origin={CheckMediaOrigin.USER_MATCHED} media_cluster_origin_timestamp={media_cluster_origin_timestamp} media_cluster_origin_user={media_cluster_origin_user} media_cluster_relationship={media_cluster_relationship} />);
     expect(userMatched.find(PersonCheck).length).toEqual(1);
-    expect(userMatched.html()).toContain('This media was added to the cluster by');
+    expect(userMatched.html()).toContain('This media was added to the cluster of media by');
 
     const autoMatched = mountWithIntl(<MediaBanner media_cluster_origin={CheckMediaOrigin.AUTO_MATCHED} media_cluster_origin_timestamp={media_cluster_origin_timestamp} media_cluster_origin_user={media_cluster_origin_user} media_cluster_relationship={media_cluster_relationship} />);
     expect(autoMatched.find(Bolt).length).toEqual(1);
-    expect(autoMatched.html()).toContain('This media was automatically matched to the cluster');
+    expect(autoMatched.html()).toContain('This media was automatically matched to the cluster of media,');
   });
 
   it('should return null for invalid type', () => {
