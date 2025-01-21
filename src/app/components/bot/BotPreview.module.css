@@ -199,6 +199,14 @@
           height: 18px;
           margin-top: -4px;
           width: 3px;
+
+          &:hover {
+            border: 12px solid var(--color-blue-32);
+            border-radius: var(--border-radius-max);
+            margin-left: -10px;
+            margin-top: -7px;
+            opacity: .2;
+          }
         }
 
         :global(.MuiSlider-thumb) {

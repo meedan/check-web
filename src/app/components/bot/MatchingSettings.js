@@ -65,7 +65,6 @@ const MatchingSettings = ({
       </div>
       <div className={settingsStyles['setting-content-container']}>
         <TextField
-          defaultValue={maxWordsMatching}
           disabled={!isAdmin}
           helpContent={
             <FormattedMessage
@@ -82,6 +81,7 @@ const MatchingSettings = ({
             />
           }
           required
+          value={maxWordsMatching}
           onChange={e => onChangeMaxWordsMatching(parseInt(e.target.value, 10))}
         />
       </div>
@@ -96,13 +96,13 @@ const MatchingSettings = ({
         <div className={styles['settings-slider-wrapper']}>
           <Slider
             ValueLabelComponent={valueLabelComponet}
-            defaultValue={Number(similarityThresholdMatching)}
             disabled={!isAdmin}
             marks={marks}
             max={0.9}
             min={0.75}
             step={null}
             track={false}
+            value={Number(similarityThresholdMatching)}
             valueLabelDisplay="auto"
             valueLabelFormat={x => (<FormattedMessage
               defaultMessage="Search Threshold: {val}"
