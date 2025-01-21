@@ -17,8 +17,6 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_relationship, med
   const media_cluster_origin_confirmed_by = media_cluster_relationship?.confirmed_by?.name;
   const media_cluster_origin_title = media_cluster_relationship?.target?.title;
 
-  // eslint-disable-next-line
-  console.log('formattedTimestamp: ',parseStringUnixTimestamp(media_cluster_origin_timestamp), formattedTimestamp)
   switch (media_cluster_origin) {
   case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
@@ -107,9 +105,6 @@ const MediaOriginBanner = ({
 }) => {
   const { icon, message } = getIconAndMessage(media_cluster_origin, media_cluster_relationship, media_cluster_origin_user, media_cluster_origin_timestamp);
 
-  // eslint-disable-next-line
-  console.log('MediaOriginBanner: ', media_cluster_origin, media_cluster_relationship, media_cluster_origin_timestamp, media_cluster_origin_user);
-
   return (
     <Alert
       content={<span style={{ color: 'black' }}>{message}</span>}
@@ -124,7 +119,14 @@ MediaOriginBanner.propTypes = {
   media_cluster_origin: PropTypes.number.isRequired,
   media_cluster_origin_timestamp: PropTypes.number.isRequired,
   media_cluster_origin_user: PropTypes.string.isRequired,
-  media_cluster_relationship: PropTypes.string.isRequired,
+  media_cluster_relationship: PropTypes.shape({
+    confirmed_by: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    target: PropTypes.shape({
+      title: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default MediaOriginBanner;

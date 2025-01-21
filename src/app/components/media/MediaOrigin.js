@@ -10,8 +10,8 @@ import Tipline from '../../icons/question_answer.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import CheckMediaOrigin from '../../CheckMediaOrigin';
 
-const getIconAndMessage = (type, user) => {
-  switch (type) {
+const getIconAndMessage = (media_cluster_origin, media_cluster_origin_user) => {
+  switch (media_cluster_origin) {
   case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
       icon: <Tipline />,
@@ -42,10 +42,10 @@ const getIconAndMessage = (type, user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> uploaded this media using the Check interface"
+          defaultMessage="<strong>{media_cluster_origin_user}</strong> uploaded this media using the Check interface"
           description="Tooltip message for User Added"
           id="mediaOrigin.userAddedTooltip"
-          values={{ user }}
+          values={{ media_cluster_origin_user }}
         />
       ),
     };
@@ -61,10 +61,10 @@ const getIconAndMessage = (type, user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> added this media by merging from another cluster"
+          defaultMessage="<strong>{media_cluster_origin_user}</strong> added this media by merging from another cluster"
           description="Tooltip message for User Merged"
           id="mediaOrigin.userMergedTooltip"
-          values={{ user }}
+          values={{ media_cluster_origin_user }}
         />
       ),
     };
@@ -80,10 +80,10 @@ const getIconAndMessage = (type, user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> accepted this media as a suggested match"
+          defaultMessage="<strong>{media_cluster_origin_user}</strong> accepted this media as a suggested match"
           description="Tooltip message for User Matched"
           id="mediaOrigin.userMatchedTooltip"
-          values={{ user }}
+          values={{ media_cluster_origin_user }}
         />
       ),
     };
@@ -114,8 +114,8 @@ const getIconAndMessage = (type, user) => {
   }
 };
 
-const MediaOrigin = ({ type, user }) => {
-  const { icon, message, tooltipMessage } = getIconAndMessage(type, user);
+const MediaOrigin = ({ media_cluster_origin, media_cluster_origin_user }) => {
+  const { icon, message, tooltipMessage } = getIconAndMessage(media_cluster_origin, media_cluster_origin_user);
 
   return (
     <Tooltip
@@ -137,8 +137,8 @@ const MediaOrigin = ({ type, user }) => {
 
 
 MediaOrigin.propTypes = {
-  type: PropTypes.number.isRequired,
-  user: PropTypes.string.isRequired,
+  media_cluster_origin: PropTypes.number.isRequired,
+  media_cluster_origin_user: PropTypes.string.isRequired,
 };
 
 export default MediaOrigin;

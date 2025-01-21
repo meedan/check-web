@@ -29,9 +29,6 @@ const MediaAndRequestsDialogComponent = ({
 }) => {
   const [context, setContext] = React.useState(projectMediaId ? 'workspace' : 'feed');
 
-  // eslint-disable-next-line
-  console.log("Dialog: ", media_cluster_origin, media_cluster_origin_user, media_cluster_origin_timestamp, media_cluster_relationship);
-
   return (
     <Dialog
       className={dialogStyles['dialog-window']}

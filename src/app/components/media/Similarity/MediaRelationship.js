@@ -281,10 +281,6 @@ const MediaRelationship = ({
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
-  // eslint-disable-next-line
-  console.log('MediaCluster', media_cluster_origin, media_cluster_origin_user);
-  // eslint-disable-next-line
-  console.log('MediaRelantioship', media_cluster_relationship);
   const swallowClick = (ev) => {
     // Don't close Dialog when clicking on it
     ev.stopPropagation();
@@ -311,8 +307,8 @@ const MediaRelationship = ({
     />
   ), (
     <MediaOrigin
-      type={media_cluster_origin}
-      user={media_cluster_origin_user}
+      media_cluster_origin={media_cluster_origin}
+      media_cluster_origin_user={media_cluster_origin_user}
     />
   )];
 

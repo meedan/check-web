@@ -125,8 +125,8 @@ const MediaCardLargeFooter = ({
             ),
             (
               <MediaOrigin
-                type={projectMedia.media_cluster_origin}
-                user={projectMedia.media_cluster_origin_user?.name}
+                media_cluster_origin={projectMedia.media_cluster_origin}
+                media_cluster_origin_user={projectMedia.media_cluster_origin_user?.name}
               />
             ),
           ]}
