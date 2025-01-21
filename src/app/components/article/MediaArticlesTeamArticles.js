@@ -74,7 +74,6 @@ export { MediaArticlesTeamArticlesComponent };  // For unit test
 const numberOfArticles = 10;
 
 const MediaArticlesTeamArticles = ({
-  criteria,
   onAdd,
   targetId,
   teamSlug,
@@ -136,10 +135,10 @@ const MediaArticlesTeamArticles = ({
           let articles = [];
           let hasRelevantArticles = false;
           // If there are relevant articles, we prioritize and display them
-          if (criteria.includes('relevant') && props.project_media.relevant_articles_count > 0) {
+          if (props.project_media.relevant_articles_count > 0 && !textSearch) {
             hasRelevantArticles = true;
             articles = props.project_media.relevant_articles.edges.map(edge => edge.node);
-          } else if (criteria.includes('recent')) {
+          } else {
             // Fallback: If no relevant articles are found, merge fact-checks and explainers, and by creation date.
             articles = props.team.factChecks.edges.concat(props.team.explainers.edges).map(edge => edge.node).sort((a, b) => (parseInt(a.created_at, 10) < parseInt(b.created_at, 10)) ? 1 : -1);
           }
@@ -164,13 +163,11 @@ const MediaArticlesTeamArticles = ({
 );
 
 MediaArticlesTeamArticles.defaultProps = {
-  criteria: ['relevant', 'recent'],
   textSearch: '',
   targetId: null,
 };
 
 MediaArticlesTeamArticles.propTypes = {
-  criteria: PropTypes.arrayOf(PropTypes.oneOf(['relevant', 'recent'])),
   targetId: PropTypes.number, // ProjectMedia ID (in order to exclude articles already applied to this item)
   teamSlug: PropTypes.string.isRequired,
   textSearch: PropTypes.string,
