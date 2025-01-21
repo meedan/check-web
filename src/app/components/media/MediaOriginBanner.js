@@ -38,7 +38,7 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_relationship, med
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster by <strong>{media_cluster_origin_user}</strong>, "
+            defaultMessage="This media was added to the cluster of media by <strong>{media_cluster_origin_user}</strong>, "
             description="Message for User Added"
             id="mediaOriginBanner.userAdded"
             values={{ media_cluster_origin_user }}
@@ -53,7 +53,7 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_relationship, med
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was merged to the cluster by <strong>{media_cluster_origin_user}</strong>, "
+            defaultMessage="This media was merged into this cluster of media by <strong>{media_cluster_origin_user}</strong>, "
             description="Message for User Merged"
             id="mediaOriginBanner.userMerged"
             values={{ media_cluster_origin_user }}
@@ -68,7 +68,7 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_relationship, med
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster by <strong>{media_cluster_origin_confirmed_by}</strong> when accepted from <strong><u>{media_cluster_origin_title}</u></strong>, "
+            defaultMessage="This media was added to the cluster of media by <strong>{media_cluster_origin_confirmed_by}</strong> when accepted from <strong><u>{media_cluster_origin_title}</u></strong>, "
             description="Message for User Matched"
             id="mediaOriginBanner.userMatched"
             values={{ media_cluster_origin_confirmed_by, media_cluster_origin_title }}
@@ -83,7 +83,7 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_relationship, med
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was automatically matched to the cluster, "
+            defaultMessage="This media was automatically matched to the cluster of media, "
             description="Message for Auto Matched"
             id="mediaOriginBanner.autoMatched"
           />

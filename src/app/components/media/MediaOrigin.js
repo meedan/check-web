@@ -42,7 +42,7 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_origin_user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{media_cluster_origin_user}</strong> uploaded this media using the Check interface"
+          defaultMessage="<strong>{media_cluster_origin_user}</strong> uploaded this media using Check"
           description="Tooltip message for User Added"
           id="mediaOrigin.userAddedTooltip"
           values={{ media_cluster_origin_user }}
@@ -61,7 +61,7 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_origin_user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{media_cluster_origin_user}</strong> added this media by merging from another cluster"
+          defaultMessage="<strong>{media_cluster_origin_user}</strong> added this media by merging from another cluster of media"
           description="Tooltip message for User Merged"
           id="mediaOrigin.userMergedTooltip"
           values={{ media_cluster_origin_user }}
