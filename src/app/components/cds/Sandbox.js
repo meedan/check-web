@@ -484,10 +484,6 @@ const SandboxComponent = ({ admin }) => {
             label: 'Tabs',
             value: 'tabs',
           },
-          {
-            label: 'Media Cluster Origin Buttons',
-            value: 'media-cluster-origin-buttons',
-          },
         ]}
         value={categoryTab}
         wrapContent
