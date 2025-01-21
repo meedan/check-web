@@ -10,16 +10,12 @@ import MediaRequests from '../../media/MediaRequests';
 import { MediaCardLargeQueryRenderer } from '../../media/MediaCardLarge';
 import FeedItemMediaDialog from '../../feed/FeedItemMediaDialog';
 import dialogStyles from '../../../styles/css/dialog.module.css';
-import MediaOriginBanner from '../../media/MediaOriginBanner';
 import styles from './MediaAndRequestsDialog.module.css';
 
 const MediaAndRequestsDialogComponent = ({
   dialogTitle,
   feedId,
-  media_cluster_origin,
-  media_cluster_origin_timestamp,
-  media_cluster_origin_user,
-  media_cluster_relationship,
+  media_origin_banner,
   mediaHeader,
   mediaSlug,
   onClick,
@@ -60,7 +56,7 @@ const MediaAndRequestsDialogComponent = ({
           { context === 'workspace' ?
             <>
               <div>
-                <MediaOriginBanner media_cluster_origin={media_cluster_origin} media_cluster_origin_timestamp={media_cluster_origin_timestamp} media_cluster_origin_user={media_cluster_origin_user} media_cluster_relationship={media_cluster_relationship} />
+                {media_origin_banner}
                 <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
               </div>
               <div>
@@ -101,6 +97,7 @@ const MediaAndRequestsDialogComponent = ({
 MediaAndRequestsDialogComponent.defaultProps = {
   dialogTitle: '',
   mediaHeader: null,
+  media_origin_banner: null,
   projectMediaImportedId: null,
   feedId: null,
 };
@@ -110,6 +107,7 @@ MediaAndRequestsDialogComponent.propTypes = {
   feedId: PropTypes.number,
   mediaHeader: PropTypes.element,
   mediaSlug: PropTypes.element.isRequired,
+  media_origin_banner: PropTypes.element,
   projectMediaId: PropTypes.number.isRequired,
   projectMediaImportedId: PropTypes.number,
   onClick: PropTypes.func.isRequired,

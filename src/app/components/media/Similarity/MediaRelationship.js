@@ -25,6 +25,7 @@ import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import MediaOrigin from '../MediaOrigin';
+import MediaOriginBanner from '../MediaOriginBanner';
 import styles from '../media.module.css';
 import similarityStyles from './MediaSimilarities.module.css';
 
@@ -331,6 +332,14 @@ const MediaRelationship = ({
           media_cluster_origin_timestamp={media_cluster_origin_timestamp}
           media_cluster_origin_user={media_cluster_origin_user}
           media_cluster_relationship={media_cluster_relationship}
+          media_origin_banner={
+            <MediaOriginBanner
+              media_cluster_origin={media_cluster_origin}
+              media_cluster_origin_timestamp={media_cluster_origin_timestamp}
+              media_cluster_origin_user={media_cluster_origin_user}
+              media_cluster_relationship={media_cluster_relationship}
+            />
+          }
           projectMediaId={relationship.target_id}
           projectMediaImportedId={relationship?.target?.imported_from_project_media_id}
           onClick={swallowClick}
