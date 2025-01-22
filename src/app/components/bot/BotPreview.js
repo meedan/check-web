@@ -8,6 +8,7 @@ import cx from 'classnames/bind';
 import LanguageSettings from './LanguageSettings';
 import PlatformSelect from './PlatformSelect';
 import LinkManagement from './LinkManagement';
+import MatchingSettings from './MatchingSettings';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import Alert from '../cds/alerts-and-prompts/Alert';
@@ -96,7 +97,7 @@ const submitToggleSendArticlesInSameLanguage = ({
   team,
   value,
 }) => {
-  const newSettings = {
+  const newAlegreSettings = {
     ...team.alegre_bot?.alegre_settings,
     single_language_fact_checks_enabled: value,
   };
@@ -120,7 +121,7 @@ const submitToggleSendArticlesInSameLanguage = ({
     variables: {
       input: {
         id: team.alegre_bot.id,
-        json_settings: JSON.stringify(newSettings),
+        json_settings: JSON.stringify(newAlegreSettings),
         lock_version: team.alegre_bot.lock_version,
       },
     },
@@ -168,6 +169,41 @@ const submitTeamLinkManagement = ({
   });
 };
 
+const submitMatchingSettings = ({
+  onFailure,
+  onSuccess,
+  team,
+  value,
+}) => {
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation BotPreviewUpdateTeamBotInstallationMutation($input: UpdateTeamBotInstallationInput!) {
+        updateTeamBotInstallation(input: $input) {
+          team_bot_installation {
+            id
+            json_settings
+            lock_version
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: team.smooch_bot.id,
+        json_settings: value,
+        lock_version: team.smooch_bot.lock_version,
+      },
+    },
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+};
+
 const BotPreview = ({ me, team }) => {
   let smoochIntegrations = { '-': { displayName: 'No tiplines enabled' } };
 
@@ -192,19 +228,38 @@ const BotPreview = ({ me, team }) => {
   const [selectedPlatform, setSelectedPlatform] = React.useState(firstPlatform);
   const [languageDetection, setLanguageDetection] = React.useState(team.get_language_detection);
   const [sendArticlesInSameLanguage, setSendArticlesInSameLanguage] = React.useState(team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled);
+
   const [shortenOutgoingUrls, setShortenOutgoingUrls] = React.useState(team.get_shorten_outgoing_urls);
   const [utmCode, setUtmCode] = React.useState(team.get_outgoing_urls_utm_code);
+
+  const settings = team.smooch_bot?.json_settings ? safelyParseJSON(team.smooch_bot.json_settings) : {};
+
+  const [similarityThresholdMatching, setSimilarityThresholdMatching] = React.useState(settings.smooch_search_text_similarity_threshold);
+  const [maxWordsMatching, setMaxWordsMatching] = React.useState(settings.smooch_search_max_keyword);
+
+  const newSmoochSettings = {
+    ...settings,
+    smooch_search_text_similarity_threshold: similarityThresholdMatching,
+    smooch_search_max_keyword: maxWordsMatching,
+  };
+
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const settingsHaveChanged =
     languageDetection !== team.get_language_detection ||
     sendArticlesInSameLanguage !== team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled ||
     shortenOutgoingUrls !== team.get_shorten_outgoing_urls ||
-    utmCode !== team.get_outgoing_urls_utm_code;
+    utmCode !== team.get_outgoing_urls_utm_code ||
+    similarityThresholdMatching !== settings?.smooch_search_text_similarity_threshold ||
+    maxWordsMatching !== settings.smooch_search_max_keyword;
 
   const revertAllSettings = () => {
     setLanguageDetection(team.get_language_detection);
     setSendArticlesInSameLanguage(team.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled);
+    setShortenOutgoingUrls(team.get_shorten_outgoing_urls);
+    setUtmCode(team.get_outgoing_urls_utm_code);
+    setSimilarityThresholdMatching(settings.smooch_search_text_similarity_threshold);
+    setMaxWordsMatching(settings.smooch_search_max_keyword);
   };
 
   const saveAllSettings = () => {
@@ -235,6 +290,13 @@ const BotPreview = ({ me, team }) => {
         shortenOutgoingUrls,
         utmCode,
       },
+      onSuccess: () => {},
+      onFailure,
+    });
+
+    submitMatchingSettings({
+      team,
+      value: JSON.stringify(newSmoochSettings),
       onSuccess: () => {},
       onFailure,
     });
@@ -484,6 +546,13 @@ const BotPreview = ({ me, team }) => {
             onChangeEnableLinkShortening={setShortenOutgoingUrls}
             onChangeUTMCode={setUtmCode}
           />
+          <MatchingSettings
+            isAdmin={isAdmin}
+            maxWordsMatching={maxWordsMatching}
+            similarityThresholdMatching={similarityThresholdMatching}
+            onChangeMaxWordsMatching={setMaxWordsMatching}
+            onChangeSimilarityThresholdMatching={setSimilarityThresholdMatching}
+          />
         </div>
       </div>
     </>
@@ -512,6 +581,9 @@ const BotPreviewQueryRenderer = () => (
           get_shorten_outgoing_urls
           get_outgoing_urls_utm_code
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+            id
+            json_settings
+            lock_version
             smooch_enabled_integrations(force: true)
           }
           alegre_bot: team_bot_installation(bot_identifier: "alegre") {
