@@ -271,14 +271,14 @@ const MediaRelationship = ({
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
-  mediaClusterOrigin,
-  mediaClusterOriginTimestamp,
-  mediaClusterOriginUser,
   mediaClusterRelationship,
+  origin,
+  originTimestamp,
   relationship,
   relationshipSourceId,
   relationshipTargetId,
   setFlashMessage,
+  user,
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
@@ -308,8 +308,8 @@ const MediaRelationship = ({
     />
   ), (
     <MediaOrigin
-      mediaClusterOrigin={mediaClusterOrigin}
-      mediaClusterOriginUser={mediaClusterOriginUser}
+      origin={origin}
+      user={user}
     />
   )];
 
@@ -321,17 +321,13 @@ const MediaRelationship = ({
         <MediaAndRequestsDialogComponent
           dialogTitle={relationship?.target?.media.metadata?.title || relationship?.target?.media.quote || relationship?.target?.description}
           feedId={relationship?.target?.imported_from_feed_id}
-          mediaClusterOrigin={mediaClusterOrigin}
-          mediaClusterOriginTimestamp={mediaClusterOriginTimestamp}
-          mediaClusterOriginUser={mediaClusterOriginUser}
-          mediaClusterRelationship={mediaClusterRelationship}
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           mediaOriginBanner={
             <MediaOriginBanner
-              mediaClusterOrigin={mediaClusterOrigin}
-              mediaClusterOriginTimestamp={mediaClusterOriginTimestamp}
-              mediaClusterOriginUser={mediaClusterOriginUser}
               mediaClusterRelationship={mediaClusterRelationship}
+              origin={origin}
+              originTimestamp={originTimestamp}
+              user={user}
             />
           }
           mediaSlug={

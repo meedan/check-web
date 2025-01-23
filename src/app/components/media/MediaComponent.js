@@ -192,10 +192,10 @@ class MediaComponent extends Component {
                     mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
                     mediaOriginBanner={
                       <MediaOriginBanner
-                        mediaClusterOrigin={projectMedia.media_cluster_origin}
-                        mediaClusterOriginTimestamp={projectMedia.media_cluster_origin_timestamp}
-                        mediaClusterOriginUser={projectMedia.media_cluster_origin_user.name}
                         mediaClusterRelationship={projectMedia.media_cluster_relationship}
+                        origin={projectMedia.media_cluster_origin}
+                        originTimestamp={projectMedia.media_cluster_origin_timestamp}
+                        user={projectMedia.media_cluster_origin_user.name}
                       />
                     }
                     mediaSlug={

@@ -11,12 +11,12 @@ import CheckMediaOrigin from '../../CheckMediaOrigin';
 import { parseStringUnixTimestamp } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 
-const getIconAndMessage = (mediaClusterOrigin, mediaClusterRelationship, mediaClusterOriginUser, mediaClusterOriginTimestamp) => {
-  const formattedTimestamp = <TimeBefore date={parseStringUnixTimestamp(mediaClusterOriginTimestamp)} />;
-  const mediaClusterOriginConfirmedBy = mediaClusterRelationship?.confirmed_by?.name;
-  const mediaClusterOriginTitle = mediaClusterRelationship?.target?.title;
+const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimestamp) => {
+  const formattedTimestamp = <TimeBefore date={parseStringUnixTimestamp(originTimestamp)} />;
+  const confirmedBy = mediaClusterRelationship?.confirmed_by?.name;
+  const originTitle = mediaClusterRelationship?.target?.title;
 
-  switch (mediaClusterOrigin) {
+  switch (origin) {
   case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
       icon: <Tipline />,
@@ -37,10 +37,10 @@ const getIconAndMessage = (mediaClusterOrigin, mediaClusterRelationship, mediaCl
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster of media by <strong>{mediaClusterOriginUser}</strong>, "
+            defaultMessage="This media was added to the cluster of media by <strong>{user}</strong>, "
             description="Message for User Added"
             id="mediaOriginBanner.userAdded"
-            values={{ mediaClusterOriginUser }}
+            values={{ user }}
           />
           {formattedTimestamp}
         </>
@@ -52,10 +52,10 @@ const getIconAndMessage = (mediaClusterOrigin, mediaClusterRelationship, mediaCl
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was merged into this cluster of media by <strong>{mediaClusterOriginUser}</strong>, "
+            defaultMessage="This media was merged into this cluster of media by <strong>{user}</strong>, "
             description="Message for User Merged"
             id="mediaOriginBanner.userMerged"
-            values={{ mediaClusterOriginUser }}
+            values={{ user }}
           />
           {formattedTimestamp}
         </>
@@ -67,10 +67,10 @@ const getIconAndMessage = (mediaClusterOrigin, mediaClusterRelationship, mediaCl
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster of media by <strong>{mediaClusterOriginConfirmedBy}</strong> when accepted from <strong><u>{mediaClusterOriginTitle}</u></strong>, "
+            defaultMessage="This media was added to the cluster of media by <strong>{confirmedBy}</strong> when accepted from <strong><u>{originTitle}</u></strong>, "
             description="Message for User Matched"
             id="mediaOriginBanner.userMatched"
-            values={{ mediaClusterOriginConfirmedBy, mediaClusterOriginTitle }}
+            values={{ confirmedBy, originTitle }}
           />
           {formattedTimestamp}
         </>
@@ -100,9 +100,9 @@ const getIconAndMessage = (mediaClusterOrigin, mediaClusterRelationship, mediaCl
 };
 
 const MediaOriginBanner = ({
-  mediaClusterOrigin, mediaClusterOriginTimestamp, mediaClusterOriginUser, mediaClusterRelationship,
+  mediaClusterRelationship, origin, originTimestamp, user,
 }) => {
-  const { icon, message } = getIconAndMessage(mediaClusterOrigin, mediaClusterRelationship, mediaClusterOriginUser, mediaClusterOriginTimestamp);
+  const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user, originTimestamp);
   return (
     <div style={{ marginBottom: '8px' }}>
       <Alert
@@ -120,12 +120,6 @@ MediaOriginBanner.defaultProps = {
 };
 
 MediaOriginBanner.propTypes = {
-  mediaClusterOrigin: PropTypes.number.isRequired,
-  mediaClusterOriginTimestamp: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  mediaClusterOriginUser: PropTypes.string.isRequired,
   mediaClusterRelationship: PropTypes.shape({
     confirmedBy: PropTypes.shape({
       name: PropTypes.string,
@@ -134,6 +128,12 @@ MediaOriginBanner.propTypes = {
       title: PropTypes.string,
     }),
   }),
+  origin: PropTypes.number.isRequired,
+  originTimestamp: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  user: PropTypes.string.isRequired,
 };
 
 export default MediaOriginBanner;

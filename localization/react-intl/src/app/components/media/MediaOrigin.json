@@ -17,7 +17,7 @@
   {
     "id": "mediaOrigin.userAddedTooltip",
     "description": "Tooltip message for User Added",
-    "defaultMessage": "<strong>{mediaClusterOriginUser}</strong> uploaded this media using Check"
+    "defaultMessage": "<strong>{user}</strong> uploaded this media using Check"
   },
   {
     "id": "mediaOrigin.userMerged",
@@ -27,7 +27,7 @@
   {
     "id": "mediaOrigin.userMergedTooltip",
     "description": "Tooltip message for User Merged",
-    "defaultMessage": "<strong>{mediaClusterOriginUser}</strong> added this media by merging from another cluster of media"
+    "defaultMessage": "<strong>{user}</strong> added this media by merging from another cluster of media"
   },
   {
     "id": "mediaOrigin.userMatched",
@@ -37,7 +37,7 @@
   {
     "id": "mediaOrigin.userMatchedTooltip",
     "description": "Tooltip message for User Matched",
-    "defaultMessage": "<strong>{mediaClusterOriginUser}</strong> accepted this media as a suggested match"
+    "defaultMessage": "<strong>{user}</strong> accepted this media as a suggested match"
   },
   {
     "id": "mediaOrigin.autoMatched",

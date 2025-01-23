@@ -27,13 +27,13 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => (
         mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
         mainProjectMediaDemand={projectMedia.demand}
         mainProjectMediaId={projectMedia.id}
-        mediaClusterOrigin={relationship.node.target?.media_cluster_origin}
-        mediaClusterOriginTimestamp={relationship.node.target?.media_cluster_origin_timestamp}
-        mediaClusterOriginUser={relationship.node.target?.media_cluster_origin_user?.name}
         mediaClusterRelationship={relationship.node.target?.media_cluster_relationship}
+        origin={relationship.node.target?.media_cluster_origin}
+        originTimestamp={relationship.node.target?.media_cluster_origin_timestamp}
         relationship={relationship.node}
         relationshipSourceId={relationship.node.source_id}
         relationshipTargetId={relationship.node.target_id}
+        user={relationship.node.target?.media_cluster_origin_user?.name}
       />
     ))}
   </div>
