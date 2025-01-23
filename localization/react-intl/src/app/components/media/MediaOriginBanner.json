@@ -7,17 +7,17 @@
   {
     "id": "mediaOriginBanner.userAdded",
     "description": "Message for User Added",
-    "defaultMessage": "This media was added to the cluster of media by <strong>{media_cluster_origin_user}</strong>,"
+    "defaultMessage": "This media was added to the cluster of media by <strong>{mediaClusterOriginUser}</strong>,"
   },
   {
     "id": "mediaOriginBanner.userMerged",
     "description": "Message for User Merged",
-    "defaultMessage": "This media was merged into this cluster of media by <strong>{media_cluster_origin_user}</strong>,"
+    "defaultMessage": "This media was merged into this cluster of media by <strong>{mediaClusterOriginUser}</strong>,"
   },
   {
     "id": "mediaOriginBanner.userMatched",
     "description": "Message for User Matched",
-    "defaultMessage": "This media was added to the cluster of media by <strong>{media_cluster_origin_confirmed_by}</strong> when accepted from <strong><u>{media_cluster_origin_title}</u></strong>,"
+    "defaultMessage": "This media was added to the cluster of media by <strong>{mediaClusterOriginConfirmedBy}</strong> when accepted from <strong><u>{mediaClusterOriginTitle}</u></strong>,"
   },
   {
     "id": "mediaOriginBanner.autoMatched",

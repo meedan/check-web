@@ -15,8 +15,8 @@ import styles from './MediaAndRequestsDialog.module.css';
 const MediaAndRequestsDialogComponent = ({
   dialogTitle,
   feedId,
-  media_origin_banner,
   mediaHeader,
+  mediaOriginBanner,
   mediaSlug,
   onClick,
   onClose,
@@ -56,7 +56,7 @@ const MediaAndRequestsDialogComponent = ({
           { context === 'workspace' ?
             <>
               <div>
-                {media_origin_banner}
+                {mediaOriginBanner}
                 <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
               </div>
               <div>
@@ -97,7 +97,7 @@ const MediaAndRequestsDialogComponent = ({
 MediaAndRequestsDialogComponent.defaultProps = {
   dialogTitle: '',
   mediaHeader: null,
-  media_origin_banner: null,
+  mediaOriginBanner: null,
   projectMediaImportedId: null,
   feedId: null,
 };
@@ -106,8 +106,8 @@ MediaAndRequestsDialogComponent.propTypes = {
   dialogTitle: PropTypes.string,
   feedId: PropTypes.number,
   mediaHeader: PropTypes.element,
+  mediaOriginBanner: PropTypes.element,
   mediaSlug: PropTypes.element.isRequired,
-  media_origin_banner: PropTypes.element,
   projectMediaId: PropTypes.number.isRequired,
   projectMediaImportedId: PropTypes.number,
   onClick: PropTypes.func.isRequired,

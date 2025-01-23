@@ -271,10 +271,10 @@ const MediaRelationship = ({
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
-  media_cluster_origin,
-  media_cluster_origin_timestamp,
-  media_cluster_origin_user,
-  media_cluster_relationship,
+  mediaClusterOrigin,
+  mediaClusterOriginTimestamp,
+  mediaClusterOriginUser,
+  mediaClusterRelationship,
   relationship,
   relationshipSourceId,
   relationshipTargetId,
@@ -308,8 +308,8 @@ const MediaRelationship = ({
     />
   ), (
     <MediaOrigin
-      media_cluster_origin={media_cluster_origin}
-      media_cluster_origin_user={media_cluster_origin_user}
+      mediaClusterOrigin={mediaClusterOrigin}
+      mediaClusterOriginUser={mediaClusterOriginUser}
     />
   )];
 
@@ -321,23 +321,23 @@ const MediaRelationship = ({
         <MediaAndRequestsDialogComponent
           dialogTitle={relationship?.target?.media.metadata?.title || relationship?.target?.media.quote || relationship?.target?.description}
           feedId={relationship?.target?.imported_from_feed_id}
+          mediaClusterOrigin={mediaClusterOrigin}
+          mediaClusterOriginTimestamp={mediaClusterOriginTimestamp}
+          mediaClusterOriginUser={mediaClusterOriginUser}
+          mediaClusterRelationship={mediaClusterRelationship}
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
+          mediaOriginBanner={
+            <MediaOriginBanner
+              mediaClusterOrigin={mediaClusterOrigin}
+              mediaClusterOriginTimestamp={mediaClusterOriginTimestamp}
+              mediaClusterOriginUser={mediaClusterOriginUser}
+              mediaClusterRelationship={mediaClusterRelationship}
+            />
+          }
           mediaSlug={
             <MediaSlug
               className={styles['media-slug-title']}
               details={details}
-            />
-          }
-          media_cluster_origin={media_cluster_origin}
-          media_cluster_origin_timestamp={media_cluster_origin_timestamp}
-          media_cluster_origin_user={media_cluster_origin_user}
-          media_cluster_relationship={media_cluster_relationship}
-          media_origin_banner={
-            <MediaOriginBanner
-              media_cluster_origin={media_cluster_origin}
-              media_cluster_origin_timestamp={media_cluster_origin_timestamp}
-              media_cluster_origin_user={media_cluster_origin_user}
-              media_cluster_relationship={media_cluster_relationship}
             />
           }
           projectMediaId={relationship.target_id}

@@ -190,6 +190,14 @@ class MediaComponent extends Component {
                     dialogTitle={projectMedia.title || projectMedia.quote || projectMedia.description}
                     feedId={projectMedia.imported_from_feed_id}
                     mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
+                    mediaOriginBanner={
+                      <MediaOriginBanner
+                        mediaClusterOrigin={projectMedia.media_cluster_origin}
+                        mediaClusterOriginTimestamp={projectMedia.media_cluster_origin_timestamp}
+                        mediaClusterOriginUser={projectMedia.media_cluster_origin_user.name}
+                        mediaClusterRelationship={projectMedia.media_cluster_relationship}
+                      />
+                    }
                     mediaSlug={
                       <MediaSlug
                         className={styles['media-slug-title']}
@@ -213,14 +221,6 @@ class MediaComponent extends Component {
                             variant="text"
                           />
                         )]}
-                      />
-                    }
-                    media_origin_banner={
-                      <MediaOriginBanner
-                        media_cluster_origin={projectMedia.media_cluster_origin}
-                        media_cluster_origin_timestamp={projectMedia.media_cluster_origin_timestamp}
-                        media_cluster_origin_user={projectMedia.media_cluster_origin_user.name}
-                        media_cluster_relationship={projectMedia.media_cluster_relationship}
                       />
                     }
                     projectMediaId={projectMedia.dbid}

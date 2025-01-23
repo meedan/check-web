@@ -10,8 +10,8 @@ import Tipline from '../../icons/question_answer.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import CheckMediaOrigin from '../../CheckMediaOrigin';
 
-const getIconAndMessage = (media_cluster_origin, media_cluster_origin_user) => {
-  switch (media_cluster_origin) {
+const getIconAndMessage = (mediaClusterOrigin, mediaClusterOriginUser) => {
+  switch (mediaClusterOrigin) {
   case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
       icon: <Tipline />,
@@ -42,10 +42,10 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_origin_user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{media_cluster_origin_user}</strong> uploaded this media using Check"
+          defaultMessage="<strong>{mediaClusterOriginUser}</strong> uploaded this media using Check"
           description="Tooltip message for User Added"
           id="mediaOrigin.userAddedTooltip"
-          values={{ media_cluster_origin_user }}
+          values={{ mediaClusterOriginUser }}
         />
       ),
     };
@@ -61,10 +61,10 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_origin_user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{media_cluster_origin_user}</strong> added this media by merging from another cluster of media"
+          defaultMessage="<strong>{mediaClusterOriginUser}</strong> added this media by merging from another cluster of media"
           description="Tooltip message for User Merged"
           id="mediaOrigin.userMergedTooltip"
-          values={{ media_cluster_origin_user }}
+          values={{ mediaClusterOriginUser }}
         />
       ),
     };
@@ -80,10 +80,10 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_origin_user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{media_cluster_origin_user}</strong> accepted this media as a suggested match"
+          defaultMessage="<strong>{mediaClusterOriginUser}</strong> accepted this media as a suggested match"
           description="Tooltip message for User Matched"
           id="mediaOrigin.userMatchedTooltip"
-          values={{ media_cluster_origin_user }}
+          values={{ mediaClusterOriginUser }}
         />
       ),
     };
@@ -114,8 +114,8 @@ const getIconAndMessage = (media_cluster_origin, media_cluster_origin_user) => {
   }
 };
 
-const MediaOrigin = ({ media_cluster_origin, media_cluster_origin_user }) => {
-  const { icon, message, tooltipMessage } = getIconAndMessage(media_cluster_origin, media_cluster_origin_user);
+const MediaOrigin = ({ mediaClusterOrigin, mediaClusterOriginUser }) => {
+  const { icon, message, tooltipMessage } = getIconAndMessage(mediaClusterOrigin, mediaClusterOriginUser);
 
   return (
     <Tooltip
@@ -135,10 +135,9 @@ const MediaOrigin = ({ media_cluster_origin, media_cluster_origin_user }) => {
   );
 };
 
-
 MediaOrigin.propTypes = {
-  media_cluster_origin: PropTypes.number.isRequired,
-  media_cluster_origin_user: PropTypes.string.isRequired,
+  mediaClusterOrigin: PropTypes.number.isRequired,
+  mediaClusterOriginUser: PropTypes.string.isRequired,
 };
 
 export default MediaOrigin;

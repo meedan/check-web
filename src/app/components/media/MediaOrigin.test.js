@@ -10,29 +10,29 @@ import CheckMediaOrigin from '../../CheckMediaOrigin';
 
 describe('<MediaOrigin />', () => {
   it('should render a button with the correct icon and message for each type', () => {
-    const tiplineSubmitted = mountWithIntl(<MediaOrigin media_cluster_origin={CheckMediaOrigin.TIPLINE_SUBMITTED} media_cluster_origin_user="Smooch" />);
+    const tiplineSubmitted = mountWithIntl(<MediaOrigin mediaClusterOrigin={CheckMediaOrigin.TIPLINE_SUBMITTED} mediaClusterOriginUser="Smooch" />);
     expect(tiplineSubmitted.find(Tipline).length).toEqual(1);
     expect(tiplineSubmitted.html()).toMatch('Tipline Submitted');
 
-    const userAdded = mountWithIntl(<MediaOrigin media_cluster_origin={CheckMediaOrigin.USER_ADDED} media_cluster_origin_user="John Doe" />);
+    const userAdded = mountWithIntl(<MediaOrigin mediaClusterOrigin={CheckMediaOrigin.USER_ADDED} mediaClusterOriginUser="John Doe" />);
     expect(userAdded.find(PersonAdd).length).toEqual(1);
     expect(userAdded.html()).toMatch('User Added');
 
-    const userMerged = mountWithIntl(<MediaOrigin media_cluster_origin={CheckMediaOrigin.USER_MERGED} media_cluster_origin_user="John Doe" />);
+    const userMerged = mountWithIntl(<MediaOrigin mediaClusterOrigin={CheckMediaOrigin.USER_MERGED} mediaClusterOriginUser="John Doe" />);
     expect(userMerged.find(Person).length).toEqual(1);
     expect(userMerged.html()).toMatch('User Merged');
 
-    const userMatched = mountWithIntl(<MediaOrigin media_cluster_origin={CheckMediaOrigin.USER_MATCHED} media_cluster_origin_user="John Doe" />);
+    const userMatched = mountWithIntl(<MediaOrigin mediaClusterOrigin={CheckMediaOrigin.USER_MATCHED} mediaClusterOriginUser="John Doe" />);
     expect(userMatched.find(PersonCheck).length).toEqual(1);
     expect(userMatched.html()).toMatch('User Matched');
 
-    const autoMatched = mountWithIntl(<MediaOrigin media_cluster_origin={CheckMediaOrigin.AUTO_MATCHED} media_cluster_origin_user="Alegre" />);
+    const autoMatched = mountWithIntl(<MediaOrigin mediaClusterOrigin={CheckMediaOrigin.AUTO_MATCHED} mediaClusterOriginUser="Alegre" />);
     expect(autoMatched.find(Bolt).length).toEqual(1);
     expect(autoMatched.html()).toMatch('Auto Matched');
   });
 
   it('should return null for invalid type', () => {
-    const wrapper = mountWithIntl(<MediaOrigin media_cluster_origin={99} media_cluster_origin_user="user" />);
+    const wrapper = mountWithIntl(<MediaOrigin mediaClusterOrigin={99} mediaClusterOriginUser="user" />);
     expect(wrapper.find('FormattedMessage').length).toEqual(0);
   });
 });
