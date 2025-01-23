@@ -17,7 +17,7 @@
   {
     "id": "mediaOrigin.userAddedTooltip",
     "description": "Tooltip message for User Added",
-    "defaultMessage": "<strong>{user}</strong> uploaded this media using the Check interface"
+    "defaultMessage": "<strong>{user}</strong> uploaded this media using Check"
   },
   {
     "id": "mediaOrigin.userMerged",
@@ -27,7 +27,7 @@
   {
     "id": "mediaOrigin.userMergedTooltip",
     "description": "Tooltip message for User Merged",
-    "defaultMessage": "<strong>{user}</strong> added this media by merging from another cluster"
+    "defaultMessage": "<strong>{user}</strong> added this media by merging from another cluster of media"
   },
   {
     "id": "mediaOrigin.userMatched",

@@ -25,6 +25,7 @@ import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import MediaOrigin from '../MediaOrigin';
+import MediaOriginBanner from '../MediaOriginBanner';
 import styles from '../media.module.css';
 import similarityStyles from './MediaSimilarities.module.css';
 
@@ -270,12 +271,14 @@ const MediaRelationship = ({
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
-  media_cluster_origin,
-  media_cluster_origin_user,
+  mediaClusterRelationship,
+  origin,
+  originTimestamp,
   relationship,
   relationshipSourceId,
   relationshipTargetId,
   setFlashMessage,
+  user,
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
@@ -305,8 +308,8 @@ const MediaRelationship = ({
     />
   ), (
     <MediaOrigin
-      type={media_cluster_origin}
-      user={media_cluster_origin_user?.name}
+      origin={origin}
+      user={user}
     />
   )];
 
@@ -319,6 +322,14 @@ const MediaRelationship = ({
           dialogTitle={relationship?.target?.media.metadata?.title || relationship?.target?.media.quote || relationship?.target?.description}
           feedId={relationship?.target?.imported_from_feed_id}
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
+          mediaOriginBanner={
+            <MediaOriginBanner
+              mediaClusterRelationship={mediaClusterRelationship}
+              origin={origin}
+              originTimestamp={originTimestamp}
+              user={user}
+            />
+          }
           mediaSlug={
             <MediaSlug
               className={styles['media-slug-title']}

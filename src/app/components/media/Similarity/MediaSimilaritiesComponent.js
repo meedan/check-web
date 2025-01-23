@@ -27,11 +27,13 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => (
         mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
         mainProjectMediaDemand={projectMedia.demand}
         mainProjectMediaId={projectMedia.id}
-        media_cluster_origin={relationship.node.target?.media_cluster_origin}
-        media_cluster_origin_user={relationship.node.target?.media_cluster_origin_user.name}
+        mediaClusterRelationship={relationship.node.target?.media_cluster_relationship}
+        origin={relationship.node.target?.media_cluster_origin}
+        originTimestamp={relationship.node.target?.media_cluster_origin_timestamp}
         relationship={relationship.node}
         relationshipSourceId={relationship.node.source_id}
         relationshipTargetId={relationship.node.target_id}
+        user={relationship.node.target?.media_cluster_origin_user?.name}
       />
     ))}
   </div>
@@ -75,8 +77,17 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
           target {
             id
             media_cluster_origin
-            media_cluster_origin_user{
+            media_cluster_origin_user {
               name
+            }
+            media_cluster_origin_timestamp
+            media_cluster_relationship {
+              target{
+                title
+              }
+              confirmed_by {
+                name
+              }
             }
             dbid
             title
