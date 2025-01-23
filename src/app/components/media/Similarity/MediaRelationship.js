@@ -308,8 +308,7 @@ const MediaRelationship = ({
     />
   ), (
     <MediaOrigin
-      origin={origin}
-      user={user}
+      projectMedia={relationship?.target}
     />
   )];
 
