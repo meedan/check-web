@@ -23,10 +23,11 @@ const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimesta
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was submitted via <strong>Tipline</strong>, "
+            defaultMessage="This media was submitted via <strong>Tipline</strong>"
             description="Message for Tipline Submitted"
             id="mediaOriginBanner.tiplineSubmitted"
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
@@ -37,11 +38,12 @@ const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimesta
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster of media by <strong>{user}</strong>, "
+            defaultMessage="This media was added to the cluster of media by <strong>{user}</strong>"
             description="Message for User Added"
             id="mediaOriginBanner.userAdded"
             values={{ user }}
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
@@ -52,11 +54,12 @@ const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimesta
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was merged into this cluster of media by <strong>{user}</strong>, "
+            defaultMessage="This media was merged into this cluster of media by <strong>{user}</strong>"
             description="Message for User Merged"
             id="mediaOriginBanner.userMerged"
             values={{ user }}
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
@@ -67,11 +70,12 @@ const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimesta
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster of media by <strong>{confirmedBy}</strong> when accepted from <strong><u>{originTitle}</u></strong>, "
+            defaultMessage="This media was added to the cluster of media by <strong>{confirmedBy}</strong> when accepted from <strong><u>{originTitle}</u></strong>"
             description="Message for User Matched"
             id="mediaOriginBanner.userMatched"
             values={{ confirmedBy, originTitle }}
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
@@ -82,10 +86,11 @@ const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimesta
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was automatically matched to the cluster of media, "
+            defaultMessage="This media was automatically matched to the cluster of media"
             description="Message for Auto Matched"
             id="mediaOriginBanner.autoMatched"
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
