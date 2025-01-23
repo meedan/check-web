@@ -31,7 +31,7 @@ describe('<MediaBanner />', () => {
 
     const autoMatched = mountWithIntl(<MediaBanner mediaClusterRelationship={mediaClusterRelationship} origin={CheckMediaOrigin.AUTO_MATCHED} originTimestamp={originTimestamp} user={user} />);
     expect(autoMatched.find(Bolt).length).toEqual(1);
-    expect(autoMatched.html()).toContain('This media was automatically matched to the cluster of media,');
+    expect(autoMatched.html()).toContain('This media was automatically matched to the cluster of media');
   });
 
   it('should return null for invalid type', () => {
