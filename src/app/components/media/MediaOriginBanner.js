@@ -11,21 +11,23 @@ import CheckMediaOrigin from '../../CheckMediaOrigin';
 import { parseStringUnixTimestamp } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 
-const getIconAndMessage = (type, user, cluster, timestamp) => {
-  // The default messages are temporary, and will be updated in the ticket CV2-5785
-  const formattedTimestamp = <TimeBefore date={parseStringUnixTimestamp(timestamp)} />;
-  switch (type) {
+const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimestamp) => {
+  const formattedTimestamp = <TimeBefore date={parseStringUnixTimestamp(originTimestamp)} />;
+  const confirmedBy = mediaClusterRelationship?.confirmed_by?.name;
+  const originTitle = mediaClusterRelationship?.target?.title;
+
+  switch (origin) {
   case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
       icon: <Tipline />,
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was submitted via <strong>Tipline</strong> "
+            defaultMessage="This media was submitted via <strong>Tipline</strong>"
             description="Message for Tipline Submitted"
             id="mediaOriginBanner.tiplineSubmitted"
-            values={{ timestamp }}
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
@@ -36,11 +38,12 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster by <strong>{user}</strong> "
-            description="Message for User Matched"
+            defaultMessage="This media was added to the cluster of media by <strong>{user}</strong>"
+            description="Message for User Added"
             id="mediaOriginBanner.userAdded"
             values={{ user }}
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
@@ -51,11 +54,12 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster by <strong>{user}</strong> when merged from <strong><u>{cluster}</u></strong> "
-            description="Message for User Matched"
+            defaultMessage="This media was merged into this cluster of media by <strong>{user}</strong>"
+            description="Message for User Merged"
             id="mediaOriginBanner.userMerged"
-            values={{ user, cluster }}
+            values={{ user }}
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
@@ -66,11 +70,12 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was added to the cluster by <strong>{user}</strong> when accepted from <strong><u>{cluster}</u></strong> "
+            defaultMessage="This media was added to the cluster of media by <strong>{confirmedBy}</strong> when accepted from <strong><u>{originTitle}</u></strong>"
             description="Message for User Matched"
             id="mediaOriginBanner.userMatched"
-            values={{ user, cluster }}
+            values={{ confirmedBy, originTitle }}
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
@@ -81,10 +86,11 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
       message: (
         <>
           <FormattedHTMLMessage
-            defaultMessage="This media was automatically matched to the cluster "
+            defaultMessage="This media was automatically matched to the cluster of media"
             description="Message for Auto Matched"
             id="mediaOriginBanner.autoMatched"
           />
+          {', '}
           {formattedTimestamp}
         </>
       ),
@@ -99,24 +105,39 @@ const getIconAndMessage = (type, user, cluster, timestamp) => {
 };
 
 const MediaOriginBanner = ({
-  cluster, timestamp, type, user,
+  mediaClusterRelationship, origin, originTimestamp, user,
 }) => {
-  const { icon, message } = getIconAndMessage(type, user, cluster, timestamp);
-
+  const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user, originTimestamp);
   return (
-    <Alert
-      content={<span style={{ color: 'black' }}>{message}</span>}
-      customIcon={icon}
-      icon
-      variant="info"
-    />
+    <div style={{ marginBottom: '8px' }}>
+      <Alert
+        content={<span style={{ color: 'black' }}>{message}</span>}
+        customIcon={icon}
+        icon
+        variant="info"
+      />
+    </div>
   );
 };
 
+MediaOriginBanner.defaultProps = {
+  mediaClusterRelationship: {},
+};
+
 MediaOriginBanner.propTypes = {
-  cluster: PropTypes.string.isRequired,
-  timestamp: PropTypes.number.isRequired,
-  type: PropTypes.number.isRequired,
+  mediaClusterRelationship: PropTypes.shape({
+    confirmedBy: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    target: PropTypes.shape({
+      title: PropTypes.string,
+    }),
+  }),
+  origin: PropTypes.number.isRequired,
+  originTimestamp: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   user: PropTypes.string.isRequired,
 };
 
