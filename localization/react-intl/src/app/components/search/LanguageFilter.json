@@ -5,9 +5,9 @@
     "defaultMessage": "Media language"
   },
   {
-    "id": "search.reportLanguage",
-    "description": "Label for report language filter",
-    "defaultMessage": "Report language"
+    "id": "search.articleLanguage",
+    "description": "Label for article language filter",
+    "defaultMessage": "Article language"
   },
   {
     "id": "search.requestLanguage",

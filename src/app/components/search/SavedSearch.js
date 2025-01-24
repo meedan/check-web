@@ -52,7 +52,12 @@ const SavedSearch = ({ routeParams }) => (
             <div className="saved-search search-results-wrapper">
               <Search
                 defaultQuery={defaultQuery}
-                hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
+                hideFields={[
+                  'feed_fact_checked_by',
+                  'cluster_teams',
+                  'cluster_published_reports',
+                  'published_by',
+                ]}
                 icon={<ListIcon />}
                 listActions={
                   <ProjectActions

@@ -44,6 +44,8 @@ const ArticleFilters = ({
   teamSlug,
   type,
 }) => {
+  console.log('currentFilters', currentFilters); // eslint-disable-line
+
   const [filters, setFilters] = React.useState({ ...currentFilters });
 
   const [typeFilter, setTypeFilter] = React.useState([type]);
@@ -117,6 +119,11 @@ const ArticleFilters = ({
         {Object.keys(filters).map((filter, i) => {
           const value = filters[filter];
           const connector = ((i === 0) ? null : filterConnector);
+
+          console.log('connector', connector); // eslint-disable-line
+          console.log('filter', filter); // eslint-disable-line
+          console.log('i', i); // eslint-disable-line
+
 
           if (filter === 'imported') {
             return (

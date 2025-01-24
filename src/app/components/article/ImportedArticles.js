@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -45,7 +44,7 @@ const ImportedArticles = ({ intl, routeParams }) => {
   return (
     <Articles
       defaultFilters={{ imported: true }}
-      filterOptions={['users', 'tags', 'range']}
+      filterOptions={['tags', 'range', 'imported', 'language_filter']}
       icon={<FileDownloadIcon />}
       sortOptions={sortOptions}
       teamSlug={routeParams.team}
@@ -59,10 +58,10 @@ const ImportedArticles = ({ intl, routeParams }) => {
 ImportedArticles.defaultProps = {};
 
 ImportedArticles.propTypes = {
+  intl: intlShape.isRequired,
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired, // slug
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(ImportedArticles);

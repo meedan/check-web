@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -20,9 +19,9 @@ const messages = defineMessages({
     defaultMessage: 'Media language',
   },
   report_language: {
-    id: 'search.reportLanguage',
-    description: 'Label for report language filter',
-    defaultMessage: 'Report language',
+    id: 'search.articleLanguage',
+    description: 'Label for article language filter',
+    defaultMessage: 'Article language',
   },
   request_language: {
     id: 'search.requestLanguage',
@@ -121,12 +120,13 @@ const LanguageFilter = ({
 
 LanguageFilter.defaultProps = {
   hide: false,
-  value: null,
   optionsToHide: [],
+  value: null,
 };
 
 LanguageFilter.propTypes = {
   hide: PropTypes.bool,
+  intl: intlShape.isRequired,
   optionsToHide: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([
     PropTypes.shape({
@@ -141,7 +141,6 @@ LanguageFilter.propTypes = {
   ]),
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(LanguageFilter);

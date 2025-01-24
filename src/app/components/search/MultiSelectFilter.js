@@ -31,7 +31,6 @@ const Tag = ({
   label,
   onDelete,
   readOnly,
-  ...props
 }) => (
   <>
     {label ?
@@ -43,7 +42,6 @@ const Tag = ({
             [styles['filter-value-removable']]: !readOnly,
           })
         }
-        {...props}
       >
         <span>{label}</span>
         { readOnly ? null : (
@@ -67,7 +65,7 @@ const Tag = ({
         )}
       </div>
       :
-      <div className={cx('multi-select-filter__tag', styles['filter-value'], styles['filter-value-missing'])} {...props}>
+      <div className={cx('multi-select-filter__tag', styles['filter-value'], styles['filter-value-missing'])}>
         <span>
           <FormattedMessage defaultMessage="Property deleted" description="Message shown a placeholder when someone tries to filter a search by a property that the user has deleted" id="filter.tag.deleted" />
         </span>
@@ -111,6 +109,8 @@ const MultiSelectFilter = ({
     return option ? option.label : '';
   };
 
+  const getOptionForValue = value => options.find(o => String(o.value) === String(value));
+
   const handleTagDelete = (value) => {
     const newValue = [...selectedArray.filter(o => o !== value)];
     onChange(newValue);
@@ -137,21 +137,31 @@ const MultiSelectFilter = ({
             {label}
           </div>
         }
-        { !oneOption && selectedArray.map((value, index) => (
-          <React.Fragment key={getLabelForValue(value)}>
-            { index > 0 ? (
-              <OperatorToggle
-                operator={operator}
-                onClick={onToggleOperator}
-              />
-            ) : null }
-            <Tag
-              label={getLabelForValue(value)}
-              readOnly={readOnly}
-              onDelete={() => handleTagDelete(value)}
-            />
-          </React.Fragment>
-        )) }
+        { !oneOption && selectedArray.map((value, index) => {
+          const option = getOptionForValue(value);
+
+          return option.hasChildren ? null : (
+            <React.Fragment key={getLabelForValue(value)}>
+              { index > 0 ? (
+                <OperatorToggle
+                  operator={operator}
+                  onClick={onToggleOperator}
+                />
+              ) : null }
+              {/*
+                If option has children it's a category. Don't render a Tag for it.
+                E.g.: "Social Media" in Media type filter
+              */}
+              { !getOptionForValue(value).hasChildren &&
+                <Tag
+                  label={getLabelForValue(value)}
+                  readOnly={readOnly}
+                  onDelete={() => handleTagDelete(value)}
+                />
+              }
+            </React.Fragment>
+          );
+        }) }
         { !oneOption && selectedArray.length > 0 && showSelect ? (
           <OperatorToggle
             operator={operator}

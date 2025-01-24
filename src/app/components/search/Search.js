@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import SearchResults from './SearchResults';
@@ -104,36 +103,36 @@ export default function Search({
 }
 
 Search.defaultProps = {
-  feedTeam: null,
-  feed: null,
-  savedSearch: null,
-  hideFields: [],
-  readOnlyFields: [],
-  listActions: undefined,
-  showExpand: true,
-  resultType: 'default',
-  icon: null,
   extra: null,
+  feed: null,
+  feedTeam: null,
+  hideFields: [],
+  icon: null,
+  listActions: undefined,
   listSubtitle: null,
+  readOnlyFields: [],
+  resultType: 'default',
+  savedSearch: null,
+  showExpand: true,
 };
 
 Search.propTypes = {
-  searchUrlPrefix: PropTypes.string.isRequired,
-  mediaUrlPrefix: PropTypes.string.isRequired,
-  listActions: PropTypes.node, // or undefined
-  feedTeam: PropTypes.object, // or null
+  defaultQuery: PropTypes.object.isRequired, // may be empty
+  extra: PropTypes.oneOfType([PropTypes.node, PropTypes.func]), // or null
   feed: PropTypes.object, // or null
-  savedSearch: PropTypes.object, // or null
-  listSubtitle: PropTypes.object,
-  teamSlug: PropTypes.string.isRequired,
-  title: PropTypes.node.isRequired,
-  icon: PropTypes.node,
+  feedTeam: PropTypes.object, // or null
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
+  icon: PropTypes.node,
+  listActions: PropTypes.node, // or undefined
+  listSubtitle: PropTypes.object,
+  mediaUrlPrefix: PropTypes.string.isRequired,
   page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
   query: PropTypes.object.isRequired, // may be empty
-  defaultQuery: PropTypes.object.isRequired, // may be empty
-  showExpand: PropTypes.bool,
+  readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   resultType: PropTypes.string, // 'default' or 'feed', for now
-  extra: PropTypes.oneOfType([PropTypes.node, PropTypes.func]), // or null
+  savedSearch: PropTypes.object, // or null
+  searchUrlPrefix: PropTypes.string.isRequired,
+  showExpand: PropTypes.bool,
+  teamSlug: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
 };

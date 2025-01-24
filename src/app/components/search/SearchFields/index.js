@@ -181,9 +181,13 @@ const SearchFields = ({
         [...stateQuery.team_tasks, {}] : [{}];
     } else if (field === 'range') {
       newQuery.range = { created_at: {} };
+    } else if (field === 'linked_items_count') {
+      newQuery.linked_items_count = { min: 1, max: '' };
     } else {
       newQuery[field] = [];
     }
+
+    console.log('newQuery', newQuery); // eslint-disable-line
 
     setStateQuery(newQuery);
   };
@@ -207,6 +211,8 @@ const SearchFields = ({
   const handleNumericRange = (filterKey, value) => {
     const newQuery = { ...stateQuery };
     newQuery[filterKey] = value;
+    console.log('filterKey', filterKey); // eslint-disable-line
+    console.log('value', value); // eslint-disable-line
     setStateQuery(newQuery);
   };
 
