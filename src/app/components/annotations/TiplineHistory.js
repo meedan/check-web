@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -18,8 +17,6 @@ const TiplineHistory = ({
     query={graphql`
       query TiplineHistoryQuery($teamSlug: String!, $pageSize: Int!, $after: String, $uid: String!) {
         team(slug: $teamSlug) {
-          id
-          dbid
           ...PaginatedTiplineHistory_root
         }
       }

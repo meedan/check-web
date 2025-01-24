@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
@@ -493,14 +493,19 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
 };
 
 TeamReportComponent.propTypes = {
-  team: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    permissions: PropTypes.string.isRequired,
-    get_language: PropTypes.string.isRequired,
-    get_languages: PropTypes.string.isRequired,
-    get_report: PropTypes.string.isRequired,
-  }).isRequired,
+  team: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(TeamReportComponent);
+export default createFragmentContainer(withSetFlashMessage(TeamReportComponent), graphql`
+  fragment TeamReportComponent_team on Team {
+    id,
+    permissions,
+    get_language,
+    get_languages,
+    get_report,
+    smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+      id
+    }
+  }
+`);
