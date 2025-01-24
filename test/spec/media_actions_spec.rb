@@ -20,7 +20,8 @@ shared_examples 'media actions' do
     title1 = wait_for_selector('.media-card-large__title').text
     expect((title1 =~ /Test/).nil?).to be(false)
     wait_for_selector('.media-actions__refresh').click
-    wait_for_text_change(title1, '.media-card-large__title')
+    expect(@driver.page_source.include?('Media refreshed successfully')).to be(true)
+    @driver.navigate.refresh
     title2 = wait_for_selector('.media-card-large__title').text
     expect((title2 =~ /Test/).nil?).to be(false)
     expect(title1 != title2).to be(true)

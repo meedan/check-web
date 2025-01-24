@@ -16,7 +16,7 @@ shared_examples 'team' do
   it 'should edit team and logo', bin1: true do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
-    @driver.navigate.to "#{@config['self_url']}/#{team}"
+    @driver.navigate.to "#{@config['self_url']}/#{team}/settings/workspace"
     wait_for_selector('#team-details__update-button')
     wait_for_selector('.team-settings__workspace-tab').click
     expect(@driver.page_source.include?(' - EDIT')).to be(false)
