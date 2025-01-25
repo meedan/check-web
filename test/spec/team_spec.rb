@@ -64,7 +64,7 @@ shared_examples 'team' do
     api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
     # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}/settings")
     wait_for_selector('.component__settings-header')
     create_media('text')
     api_logout
