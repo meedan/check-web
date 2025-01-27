@@ -11,7 +11,7 @@
   },
   {
     "id": "exportList.tooltip",
-    "description": "Tooltip for the export list button sawy",
+    "description": "Tooltip for the export list button",
     "defaultMessage": "Export Contents"
   },
   {
