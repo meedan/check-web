@@ -11,13 +11,13 @@
   },
   {
     "id": "exportList.tooltip",
-    "description": "Tooltip for the export list button",
-    "defaultMessage": "Export List Contents"
+    "description": "Tooltip for the export list button sawy",
+    "defaultMessage": "Export Contents"
   },
   {
     "id": "exportList.confirmationMessage",
     "description": "Confirmation message displayed on the export list modal.",
-    "defaultMessage": "To generate a spreadsheet (.csv) export of the contents of this list, select <b>Start Export</b> below.<br /><br />When your export is ready for download, you will receive an email confirmation at:<br /><b>{email}</b>"
+    "defaultMessage": "To generate a spreadsheet (.csv) export of the contents of this page, select <b>Start Export</b> below.<br /><br />When your export is ready for download, you will receive an email confirmation at:<br /><b>{email}</b>"
   },
   {
     "id": "exportList.confirmationButtonLabel",
@@ -27,6 +27,6 @@
   {
     "id": "exportList.confirmationTitle",
     "description": "Title of the export list confirmation dialog.",
-    "defaultMessage": "Export List Contents?"
+    "defaultMessage": "Export Contents?"
   }
 ]
