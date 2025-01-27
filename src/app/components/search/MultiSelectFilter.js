@@ -140,6 +140,8 @@ const MultiSelectFilter = ({
         { !oneOption && selectedArray.map((value, index) => {
           const option = getOptionForValue(value);
 
+          // If option has children it's a category. Don't render a Tag for it.
+          // E.g.: "Social Media" in Media type filter
           return option.hasChildren ? null : (
             <React.Fragment key={getLabelForValue(value)}>
               { index > 0 ? (
@@ -148,17 +150,11 @@ const MultiSelectFilter = ({
                   onClick={onToggleOperator}
                 />
               ) : null }
-              {/*
-                If option has children it's a category. Don't render a Tag for it.
-                E.g.: "Social Media" in Media type filter
-              */}
-              { !getOptionForValue(value).hasChildren &&
-                <Tag
-                  label={getLabelForValue(value)}
-                  readOnly={readOnly}
-                  onDelete={() => handleTagDelete(value)}
-                />
-              }
+              <Tag
+                label={getLabelForValue(value)}
+                readOnly={readOnly}
+                onDelete={() => handleTagDelete(value)}
+              />
             </React.Fragment>
           );
         }) }

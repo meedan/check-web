@@ -187,8 +187,6 @@ const SearchFields = ({
       newQuery[field] = [];
     }
 
-    console.log('newQuery', newQuery); // eslint-disable-line
-
     setStateQuery(newQuery);
   };
 
@@ -211,8 +209,6 @@ const SearchFields = ({
   const handleNumericRange = (filterKey, value) => {
     const newQuery = { ...stateQuery };
     newQuery[filterKey] = value;
-    console.log('filterKey', filterKey); // eslint-disable-line
-    console.log('value', value); // eslint-disable-line
     setStateQuery(newQuery);
   };
 
