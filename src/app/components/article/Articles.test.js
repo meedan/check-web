@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArticlesComponent } from './Articles';
+import { ArticlesComponent, adjustFilters } from './Articles';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<Articles />', () => {
@@ -8,7 +8,7 @@ describe('<Articles />', () => {
     description: 'Description',
     url: 'https://test.xyz',
     language: 'en',
-    updated_at: 1716862848,
+    updated_at: '1716862848',
     tags: ['foo', 'bar'],
   };
 
@@ -33,5 +33,10 @@ describe('<Articles />', () => {
     ];
     const wrapper = shallowWithIntl(<ArticlesComponent {...articlesProps} articles={explainers} type="explainer" />);
     expect(wrapper.find('ArticleCard')).toHaveLength(2);
+  });
+
+  it('adjustFilters should not return undefined values', () => {
+    const filters = adjustFilters({ verification_status: 'false', published_by: undefined });
+    expect(filters).toEqual({ rating: 'false' });
   });
 });

@@ -361,7 +361,7 @@ ArticlesComponent.propTypes = {
 
 // Used in unit test
 // eslint-disable-next-line import/no-unused-modules
-export { ArticlesComponent };
+export { ArticlesComponent, adjustFilters };
 
 const Articles = ({
   articleTypeReadOnly,
