@@ -16,7 +16,7 @@ shared_examples 'team' do
   it 'should edit team and logo', bin1: true do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
-    @driver.navigate.to "#{@config['self_url']}/#{team}/settings/workspace"
+    @driver.navigate.to "#{@config['self_url']}/#{team}"
     wait_for_selector('#team-details__update-button')
     wait_for_selector('.team-settings__workspace-tab').click
     expect(@driver.page_source.include?(' - EDIT')).to be(false)
@@ -64,7 +64,7 @@ shared_examples 'team' do
     api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
     # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}/settings")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
     create_media('text')
     api_logout
