@@ -197,6 +197,7 @@ class MediaComponent extends Component {
                         originTimestamp={projectMedia.media_cluster_origin_timestamp}
                         user={projectMedia.media_cluster_origin_user.name}
                       />
+                      // <MediaOriginBanner projectMedia={projectMedia} />
                     }
                     mediaSlug={
                       <MediaSlug

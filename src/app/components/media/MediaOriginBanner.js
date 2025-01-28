@@ -130,7 +130,7 @@ MediaOriginBanner.propTypes = {
       name: PropTypes.string,
     }),
     target: PropTypes.shape({
-      title: PropTypes.string,
+      title: PropTypes.string.isRequired,
     }),
   }),
   origin: PropTypes.number.isRequired,

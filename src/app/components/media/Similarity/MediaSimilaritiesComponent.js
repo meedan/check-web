@@ -33,6 +33,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => (
         relationship={relationship.node}
         relationshipSourceId={relationship.node.source_id}
         relationshipTargetId={relationship.node.target_id}
+        relationshipp={relationship.node}
         user={relationship.node.target?.media_cluster_origin_user?.name}
       />
     ))}
@@ -71,6 +72,7 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
     confirmed_similar_relationships(first: 10000) {
       edges {
         node {
+          ...MediaRelationship_relationshipp
           id
           source_id
           target_id

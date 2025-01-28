@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { commitMutation, graphql } from 'react-relay/compat';
+import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -277,11 +277,14 @@ const MediaRelationship = ({
   relationship,
   relationshipSourceId,
   relationshipTargetId,
+  relationshipp,
   setFlashMessage,
   user,
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
+  // eslint-disable-next-line
+  console.log("media relationshio: ",relationshipp); 
   const swallowClick = (ev) => {
     // Don't close Dialog when clicking on it
     ev.stopPropagation();
@@ -375,9 +378,22 @@ MediaRelationship.propTypes = {
   mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
   mainProjectMediaDemand: PropTypes.number.isRequired,
   mainProjectMediaId: PropTypes.string.isRequired,
-  relationship: PropTypes.object.isRequired,
   relationshipSourceId: PropTypes.number.isRequired,
   relationshipTargetId: PropTypes.number.isRequired,
+  relationshipp: PropTypes.object.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(MediaRelationship));
+export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelationship)), graphql`
+  fragment MediaRelationship_relationshipp on Relationship {
+    target {
+      id
+      ...MediaFeedInformation_projectMedia
+      media_slug
+      media {
+        ...SmallMediaCard_media
+      }
+    }
+  }
+`);
+
+// export default withSetFlashMessage(injectIntl(MediaRelationship));
