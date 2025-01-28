@@ -135,7 +135,7 @@ const MediaArticlesTeamArticles = ({
           let articles = [];
           let hasRelevantArticles = false;
           // If there are relevant articles, we prioritize and display them
-          if (props.project_media.relevant_articles_count > 0) {
+          if (props.project_media.relevant_articles_count > 0 && !textSearch) {
             hasRelevantArticles = true;
             articles = props.project_media.relevant_articles.edges.map(edge => edge.node);
           } else {

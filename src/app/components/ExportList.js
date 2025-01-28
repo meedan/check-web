@@ -77,7 +77,7 @@ const ExportList = ({ filters, type }) => {
         arrow
         title={
           <FormattedMessage
-            defaultMessage="Export List Contents"
+            defaultMessage="Export Contents"
             description="Tooltip for the export list button"
             id="exportList.tooltip"
           />
@@ -96,7 +96,7 @@ const ExportList = ({ filters, type }) => {
         <ConfirmProceedDialog
           body={
             <FormattedHTMLMessage
-              defaultMessage="To generate a spreadsheet (.csv) export of the contents of this list, select <b>Start Export</b> below.<br /><br />When your export is ready for download, you will receive an email confirmation at:<br /><b>{email}</b>"
+              defaultMessage="To generate a spreadsheet (.csv) export of the contents of this page, select <b>Start Export</b> below.<br /><br />When your export is ready for download, you will receive an email confirmation at:<br /><b>{email}</b>"
               description="Confirmation message displayed on the export list modal."
               id="exportList.confirmationMessage"
               tagName="p"
@@ -113,7 +113,7 @@ const ExportList = ({ filters, type }) => {
           }
           title={
             <FormattedMessage
-              defaultMessage="Export List Contents?"
+              defaultMessage="Export Contents?"
               description="Title of the export list confirmation dialog."
               id="exportList.confirmationTitle"
             />

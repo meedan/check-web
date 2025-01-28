@@ -10,8 +10,8 @@ import Tipline from '../../icons/question_answer.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import CheckMediaOrigin from '../../CheckMediaOrigin';
 
-const getIconAndMessage = (type, user) => {
-  switch (type) {
+const getIconAndMessage = (origin, user) => {
+  switch (origin) {
   case CheckMediaOrigin.TIPLINE_SUBMITTED:
     return {
       icon: <Tipline />,
@@ -42,7 +42,7 @@ const getIconAndMessage = (type, user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> uploaded this media using the Check interface"
+          defaultMessage="<strong>{user}</strong> uploaded this media using Check"
           description="Tooltip message for User Added"
           id="mediaOrigin.userAddedTooltip"
           values={{ user }}
@@ -61,7 +61,7 @@ const getIconAndMessage = (type, user) => {
       ),
       tooltipMessage: (
         <FormattedHTMLMessage
-          defaultMessage="<strong>{user}</strong> added this media by merging from another cluster"
+          defaultMessage="<strong>{user}</strong> added this media by merging from another cluster of media"
           description="Tooltip message for User Merged"
           id="mediaOrigin.userMergedTooltip"
           values={{ user }}
@@ -114,8 +114,8 @@ const getIconAndMessage = (type, user) => {
   }
 };
 
-const MediaOrigin = ({ type, user }) => {
-  const { icon, message, tooltipMessage } = getIconAndMessage(type, user);
+const MediaOrigin = ({ origin, user }) => {
+  const { icon, message, tooltipMessage } = getIconAndMessage(origin, user);
 
   return (
     <Tooltip
@@ -135,13 +135,9 @@ const MediaOrigin = ({ type, user }) => {
   );
 };
 
-MediaOrigin.defaultProps = {
-  user: 'Unknown User',
-};
-
 MediaOrigin.propTypes = {
-  type: PropTypes.number.isRequired,
-  user: PropTypes.string,
+  origin: PropTypes.number.isRequired,
+  user: PropTypes.string.isRequired,
 };
 
 export default MediaOrigin;

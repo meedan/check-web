@@ -8,6 +8,7 @@ import cx from 'classnames/bind';
 import MediaCardLarge from './MediaCardLarge';
 import MediaSlug from './MediaSlug';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
+import MediaOriginBanner from './MediaOriginBanner';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
 import MediaFeedInformation from './MediaFeedInformation';
@@ -189,6 +190,14 @@ class MediaComponent extends Component {
                     dialogTitle={projectMedia.title || projectMedia.quote || projectMedia.description}
                     feedId={projectMedia.imported_from_feed_id}
                     mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
+                    mediaOriginBanner={
+                      <MediaOriginBanner
+                        mediaClusterRelationship={projectMedia.media_cluster_relationship}
+                        origin={projectMedia.media_cluster_origin}
+                        originTimestamp={projectMedia.media_cluster_origin_timestamp}
+                        user={projectMedia.media_cluster_origin_user.name}
+                      />
+                    }
                     mediaSlug={
                       <MediaSlug
                         className={styles['media-slug-title']}
@@ -340,6 +349,19 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
       dbid
       team {
         slug
+      }
+    }
+    media_cluster_origin
+    media_cluster_origin_user {
+      name
+    }
+    media_cluster_origin_timestamp
+    media_cluster_relationship {
+      target {
+        title
+      }
+      confirmed_by {
+        name
       }
     }
     is_confirmed_similar_to_another_item

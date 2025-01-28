@@ -13,6 +13,7 @@ import NumberPublishedFactChecks from './NumberPublishedFactChecks';
 import StackedBarSearchResultsByType from './StackedBarSearchResultsByType';
 import TimelineArticlesCreatedAndUpdated from './TimelineArticlesCreatedAndUpdated';
 import VerticalBarFactChecksByRating from './VerticalBarFactChecksByRating';
+import ExportList from '../ExportList';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import PageTitle from '../PageTitle';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -40,6 +41,9 @@ const ArticlesDashboard = ({
             selectedLanguage={language || 'all'}
             onSubmit={onChangeLanguage}
           />
+        </div>
+        <div>
+          <ExportList filters={{ language, period }} type="articles_dashboard" />
         </div>
         <ButtonMain
           iconCenter={<HelpIcon />}
