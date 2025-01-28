@@ -44,9 +44,20 @@ const adjustFilters = (filters) => {
   }
 
   // Some aliases
-  newFilters.user_ids = filters.users;
-  newFilters.publisher_ids = filters.published_by;
-  newFilters.rating = filters.verification_status;
+  if (filters.users) {
+    newFilters.user_ids = filters.users;
+    delete newFilters.users;
+  }
+
+  if (filters.published_by) {
+    newFilters.publisher_ids = filters.published_by;
+    delete newFilters.published_by;
+  }
+
+  if (filters.verification_status) {
+    newFilters.rating = filters.verification_status;
+    delete newFilters.verification_status;
+  }
 
   return newFilters;
 };
