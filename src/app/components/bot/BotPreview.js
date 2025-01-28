@@ -26,9 +26,26 @@ import styles from './BotPreview.module.css';
 const teamSlug = window.location.pathname.split('/')[1];
 
 const query = graphql`
-  query BotPreviewTiplineQuery($teamSlug: String!, $searchText: String!) {
+  query BotPreviewTiplineQuery(
+    $teamSlug: String!,
+    $enableLanguageDetection: Boolean,
+    $enableLinkShortening: Boolean,
+    $maxNumberOfWords: Int,
+    $searchText: String!
+    $shouldRestrictByLanguage: Boolean,
+    $threshold: Float,
+    $utmCode: String
+  ) {
     team(slug: $teamSlug) {
-      bot_query(searchText: $searchText) {
+      bot_query(
+        enableLanguageDetection: $enableLanguageDetection,
+        enableLinkShortening: $enableLinkShortening,
+        maxNumberOfWords: $maxNumberOfWords,
+        searchText: $searchText,
+        shouldRestrictByLanguage: $shouldRestrictByLanguage,
+        threshold: $threshold,
+        utmCode: $utmCode
+      ) {
         title
         body
         image_url
@@ -336,13 +353,20 @@ const BotPreview = ({ me, team }) => {
 
   const sendQuery = (text) => {
     const environment = createEnvironment(me.token, teamSlug);
-    fetchQuery(environment, query, { teamSlug, searchText: text })
-      .then((data) => {
-        console.log('Fetched data:', data); // eslint-disable-line no-console
-        if (Array.isArray(data?.team?.bot_query)) {
-          handleReceiveResults(data.team.bot_query);
-        }
-      });
+    fetchQuery(environment, query, {
+      teamSlug,
+      searchText: text,
+      enableLanguageDetection: languageDetection,
+      enableLinkShortening: shortenOutgoingUrls,
+      maxNumberOfWords: maxWordsMatching,
+      shouldRestrictByLanguage: sendArticlesInSameLanguage,
+      threshold: Number(similarityThresholdMatching),
+      utmCode,
+    }).then((data) => {
+      if (Array.isArray(data?.team?.bot_query)) {
+        handleReceiveResults(data.team.bot_query);
+      }
+    });
   };
 
   // Querying the bot on useEffect is a bit of a hack, but it works for now.
