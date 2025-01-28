@@ -142,7 +142,7 @@ const MultiSelectFilter = ({
 
           // If option has children it's a category. Don't render a Tag for it.
           // E.g.: "Social Media" in Media type filter
-          return option.hasChildren ? null : (
+          return option?.hasChildren ? null : (
             <React.Fragment key={getLabelForValue(value)}>
               { index > 0 ? (
                 <OperatorToggle
