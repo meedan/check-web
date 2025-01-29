@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -275,8 +276,6 @@ const MediaRelationship = ({
   origin,
   originTimestamp,
   relationship,
-  relationshipSourceId,
-  relationshipTargetId,
   relationshipp,
   setFlashMessage,
   user,
@@ -284,7 +283,7 @@ const MediaRelationship = ({
   const [isSelected, setIsSelected] = React.useState(false);
 
   // eslint-disable-next-line
-  console.log("media relationshio: ",relationshipp); 
+  console.log("media relationshipp: ",relationshipp); 
   const swallowClick = (ev) => {
     // Don't close Dialog when clicking on it
     ev.stopPropagation();
@@ -346,11 +345,11 @@ const MediaRelationship = ({
       {
         relationship?.target && (
           <SmallMediaCard
-            description={relationship?.target?.description}
+            description={relationshipp?.target?.description}
             details={details}
-            key={relationship.id}
+            key={relationshipp.id}
             maskContent={maskContent}
-            media={relationship?.target?.media}
+            media={relationshipp?.target?.media}
             onClick={() => setIsSelected(true)}
           />
         )
@@ -365,8 +364,8 @@ const MediaRelationship = ({
           demand: mainProjectMediaDemand,
         }}
         setFlashMessage={setFlashMessage}
-        sourceId={relationshipSourceId}
-        targetId={relationshipTargetId}
+        sourceId={relationshipp.source_id}
+        targetId={relationshipp.target_id}
       />
     </div>
   );
@@ -378,20 +377,37 @@ MediaRelationship.propTypes = {
   mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
   mainProjectMediaDemand: PropTypes.number.isRequired,
   mainProjectMediaId: PropTypes.string.isRequired,
-  relationshipSourceId: PropTypes.number.isRequired,
-  relationshipTargetId: PropTypes.number.isRequired,
   relationshipp: PropTypes.object.isRequired,
 };
 
 export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelationship)), graphql`
   fragment MediaRelationship_relationshipp on Relationship {
+    source_id
+    target_id
     target {
       id
-      ...MediaFeedInformation_projectMedia
       media_slug
+      dbid
+      title
+      description
+      picture
+      type
+      last_seen
+      linked_items_count
+      report_status
+      added_as_similar_by_name
+      show_warning_cover
+      confirmed_as_similar_by_name
+      is_confirmed_similar_to_another_item
+      url
+      quote
       media {
         ...SmallMediaCard_media
       }
+      imported_from_feed_id
+      imported_from_project_media_id
+      ...MediaOrigin_projectMedia
+      ...MediaFeedInformation_projectMedia
     }
   }
 `);

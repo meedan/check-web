@@ -95,8 +95,6 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
             title
             description
             picture
-            type
-            last_seen
             requests_count
             linked_items_count
             report_status
