@@ -37,7 +37,12 @@ const AssignedToMe = ({ routeParams }) => (
           return (
             <Search
               defaultQuery={defaultQuery}
-              hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_AssignedToMe_reports']}
+              hideFields={[
+                'feed_fact_checked_by',
+                'cluster_teams',
+                'cluster_published_reports',
+                'published_by',
+              ]}
               icon={<PersonIcon />}
               listSubtitle={<FormattedMessage defaultMessage="Media Clusters List" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}
               mediaUrlPrefix={`/${routeParams.team}/media`}

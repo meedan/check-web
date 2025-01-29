@@ -13,7 +13,10 @@ export default function AllItems({ routeParams }) {
       <Search
         defaultQuery={defaultQuery}
         hideFields={[
-          'cluster_teams', 'cluster_published_reports', 'feed_fact_checked_by',
+          'cluster_teams',
+          'cluster_published_reports',
+          'feed_fact_checked_by',
+          'published_by',
         ]}
         icon={<PermMediaIcon />}
         listSubtitle={<FormattedMessage defaultMessage="Media Clusters List" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}

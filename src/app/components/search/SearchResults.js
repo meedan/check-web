@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -601,51 +600,51 @@ function SearchResultsComponent({
 }
 
 SearchResultsComponent.defaultProps = {
-  showExpand: false,
+  extra: null,
+  feed: null,
+  feedTeam: null,
+  hideFields: [],
   icon: null,
   listActions: undefined,
-  resultType: 'default',
-  hideFields: [],
-  readOnlyFields: [],
-  savedSearch: null,
-  feedTeam: null,
-  feed: null,
   listSubtitle: null,
-  extra: null,
+  readOnlyFields: [],
+  resultType: 'default',
+  savedSearch: null,
+  showExpand: false,
 };
 
 SearchResultsComponent.propTypes = {
-  pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
+  extra: PropTypes.func, // or null
+  feed: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    saved_search_id: PropTypes.number,
+  }), // may be null
+  feedTeam: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    feedFilters: PropTypes.object,
+    filters: PropTypes.object,
+  }), // may be null
+  hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
+  icon: PropTypes.node,
+  listActions: PropTypes.node, // or undefined
+  listSubtitle: PropTypes.object,
+  mediaUrlPrefix: PropTypes.string.isRequired,
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
+  pusher: pusherShape.isRequired,
   query: PropTypes.object.isRequired,
+  readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
+  relay: PropTypes.object.isRequired,
+  resultType: PropTypes.string, // 'default' or 'feed', for now
+  savedSearch: PropTypes.object, // or null
   search: PropTypes.shape({
     id: PropTypes.string.isRequired, // TODO fill in props
     medias: PropTypes.shape({ edges: PropTypes.array.isRequired }).isRequired,
   }).isRequired,
-  feedTeam: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    filters: PropTypes.object,
-    feedFilters: PropTypes.object,
-  }), // may be null
-  feed: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
-    saved_search_id: PropTypes.number,
-  }), // may be null
   searchUrlPrefix: PropTypes.string.isRequired,
-  mediaUrlPrefix: PropTypes.string.isRequired,
   showExpand: PropTypes.bool,
-  relay: PropTypes.object.isRequired,
   title: PropTypes.node.isRequired,
-  listSubtitle: PropTypes.object,
-  icon: PropTypes.node,
-  listActions: PropTypes.node, // or undefined
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
-  resultType: PropTypes.string, // 'default' or 'feed', for now
-  hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  savedSearch: PropTypes.object, // or null
-  extra: PropTypes.func, // or null
 };
 
 // eslint-disable-next-line import/no-unused-modules
@@ -793,10 +792,10 @@ export default function SearchResults({ query, teamSlug, ...props }) {
 }
 
 SearchResults.propTypes = {
+  extra: PropTypes.func,
   listSubtitle: PropTypes.object,
   query: PropTypes.object.isRequired,
   teamSlug: PropTypes.string.isRequired,
-  extra: PropTypes.func,
 };
 
 SearchResults.defaultProps = {
