@@ -18,6 +18,7 @@ import TimeFrameSelect from './TimeFrameSelect';
 import TiplineDataComponent from './TiplineDataComponent';
 import TimelineTiplineMessageVolume from './TimelineTiplineMessageVolume';
 import VerticalBarMediaReceivedByType from './VerticalBarMediaReceivedByType';
+import ExportList from '../ExportList';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import PageTitle from '../PageTitle';
@@ -48,6 +49,9 @@ const TiplineDashboard = ({
             onSubmit={onChangeLanguage}
           />
           <PlatformSelect value={platform || 'all'} onChange={onChangePlatform} />
+        </div>
+        <div>
+          <ExportList filters={{ language, period, platform }} type="tipline_dashboard" />
         </div>
         <ButtonMain
           iconCenter={<HelpIcon />}
