@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -58,10 +57,10 @@ const FactChecks = ({ intl, routeParams }) => {
 FactChecks.defaultProps = {};
 
 FactChecks.propTypes = {
+  intl: intlShape.isRequired,
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired, // slug
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(FactChecks);

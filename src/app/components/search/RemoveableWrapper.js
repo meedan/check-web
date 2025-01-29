@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
@@ -61,16 +60,16 @@ const RemoveableWrapper = ({
 };
 
 RemoveableWrapper.defaultProps = {
-  readOnly: false,
   children: null,
+  readOnly: false,
   onRemove: null,
 };
 
 RemoveableWrapper.propTypes = {
-  icon: PropTypes.object.isRequired,
-  onRemove: PropTypes.func,
   children: PropTypes.node,
+  icon: PropTypes.object.isRequired,
   readOnly: PropTypes.bool,
+  onRemove: PropTypes.func,
 };
 
 export default RemoveableWrapper;

@@ -181,6 +181,8 @@ const SearchFields = ({
         [...stateQuery.team_tasks, {}] : [{}];
     } else if (field === 'range') {
       newQuery.range = { created_at: {} };
+    } else if (field === 'linked_items_count') {
+      newQuery.linked_items_count = { min: 1, max: '' };
     } else {
       newQuery[field] = [];
     }

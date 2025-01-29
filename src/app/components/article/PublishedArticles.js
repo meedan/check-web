@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -45,7 +44,7 @@ const PublishedArticles = ({ intl, routeParams }) => {
   return (
     <Articles
       defaultFilters={{ report_status: 'published' }}
-      filterOptions={['users', 'tags', 'range']}
+      filterOptions={['users', 'tags', 'range', 'verification_status', 'language_filter', 'published_by']}
       icon={<PublishedIcon />}
       sortOptions={sortOptions}
       teamSlug={routeParams.team}
@@ -59,10 +58,10 @@ const PublishedArticles = ({ intl, routeParams }) => {
 PublishedArticles.defaultProps = {};
 
 PublishedArticles.propTypes = {
+  intl: intlShape.isRequired,
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired, // slug
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(PublishedArticles);
