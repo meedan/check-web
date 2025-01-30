@@ -142,9 +142,10 @@ const MediaOrigin = ({
 MediaOrigin.propTypes = {
   projectMedia: PropTypes.object.isRequired,
 };
-// export default MediaOrigin;
+
 // eslint-disable-next-line import/no-unused-modules
 export { MediaOrigin }; // Used in unit test
+
 export default createFragmentContainer(MediaOrigin, graphql`
   fragment MediaOrigin_projectMedia on ProjectMedia {
     media_cluster_origin

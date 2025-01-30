@@ -130,6 +130,9 @@ MediaOriginBanner.defaultProps = {
   projectMedia: PropTypes.object.isRequired,
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { MediaOriginBanner }; // Used in unit test
+
 export default createFragmentContainer(MediaOriginBanner, graphql`
   fragment MediaOriginBanner_projectMedia on ProjectMedia {
     media_cluster_origin
