@@ -21,8 +21,6 @@ const SmallMediaCard = ({
   title,
 }) => {
   if (!media) {
-    // eslint-disable-next-line
-    console.log('SmallMediaCard: media is null');
     return (
       <Alert
         className={styles.alert}
