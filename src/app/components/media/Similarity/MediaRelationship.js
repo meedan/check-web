@@ -272,13 +272,9 @@ const MediaRelationship = ({
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
-  mediaClusterRelationship,
-  origin,
-  originTimestamp,
   relationship,
   relationshipp,
   setFlashMessage,
-  user,
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
@@ -291,26 +287,26 @@ const MediaRelationship = ({
 
   const details = [(
     <LastRequestDate
-      lastRequestDate={+relationship?.target?.last_seen * 1000}
+      lastRequestDate={+relationshipp?.target?.last_seen * 1000}
       theme="lightText"
       variant="text"
     />
   ), (
     <RequestsCount
-      requestsCount={relationship?.target?.requests_count}
+      requestsCount={relationshipp?.target?.requests_count}
       theme="lightText"
       variant="text"
     />
   ), (
     <MediaIdentifier
-      mediaType={relationship?.target?.type}
-      slug={relationship?.target?.media_slug || relationship?.target?.title}
+      mediaType={relationshipp?.target?.type}
+      slug={relationshipp?.target?.media_slug || relationshipp?.target?.title}
       theme="lightText"
       variant="text"
     />
   ), (
     <MediaOrigin
-      projectMedia={relationship?.target}
+      projectMedia={relationshipp?.target}
     />
   )];
 
@@ -325,10 +321,10 @@ const MediaRelationship = ({
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           mediaOriginBanner={
             <MediaOriginBanner
-              mediaClusterRelationship={mediaClusterRelationship}
-              origin={origin}
-              originTimestamp={originTimestamp}
-              user={user}
+              mediaClusterRelationship={relationshipp.target?.media_cluster_relationship}
+              origin={relationshipp.target?.media_cluster_origin}
+              originTimestamp={relationshipp.target?.media_cluster_origin_timestamp}
+              user={relationshipp.target?.media_cluster_origin_user?.name}
             />
           }
           mediaSlug={
@@ -337,19 +333,19 @@ const MediaRelationship = ({
               details={details}
             />
           }
-          projectMediaId={relationship.target_id}
-          projectMediaImportedId={relationship?.target?.imported_from_project_media_id}
+          projectMediaId={relationshipp.target_id}
+          projectMediaImportedId={relationshipp?.target?.imported_from_project_media_id}
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
         /> : null }
       {
-        relationship?.target && (
+        relationshipp?.target && (
           <SmallMediaCard
             description={relationshipp?.target?.description}
             details={details}
             key={relationshipp.id}
             maskContent={maskContent}
-            media={relationshipp?.target?.media}
+            media={relationship?.target?.media}
             onClick={() => setIsSelected(true)}
           />
         )
@@ -357,15 +353,15 @@ const MediaRelationship = ({
       <RelationshipMenu
         canDelete={canDelete}
         canSwitch={canSwitch}
-        id={relationship.id}
+        id={relationshipp.id}
         mainProjectMedia={{
           id: mainProjectMediaId,
           confirmedSimilarCount: mainProjectMediaConfirmedSimilarCount,
           demand: mainProjectMediaDemand,
         }}
         setFlashMessage={setFlashMessage}
-        sourceId={relationshipp.source_id}
-        targetId={relationshipp.target_id}
+        sourceId={relationshipp?.source_id}
+        targetId={relationshipp?.target_id}
       />
     </div>
   );
@@ -384,6 +380,7 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelat
   fragment MediaRelationship_relationshipp on Relationship {
     source_id
     target_id
+    id
     target {
       id
       media_slug
@@ -401,13 +398,21 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelat
       is_confirmed_similar_to_another_item
       url
       quote
-      media {
-        ...SmallMediaCard_media
-      }
       imported_from_feed_id
       imported_from_project_media_id
-      ...MediaOrigin_projectMedia
-      ...MediaFeedInformation_projectMedia
+      media_cluster_origin
+      media_cluster_origin_user {
+        name
+      }
+      media_cluster_origin_timestamp
+      media_cluster_relationship {
+        target{
+          title
+        }
+        confirmed_by {
+          name
+        }
+      }
     }
   }
 `);
