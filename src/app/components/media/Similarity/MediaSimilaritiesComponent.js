@@ -25,7 +25,6 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => (
         mainProjectMediaDemand={projectMedia.demand}
         mainProjectMediaId={projectMedia.id}
         relationship={relationship.node}
-        relationshipp={relationship.node}
       />
     ))}
   </div>
@@ -41,9 +40,6 @@ MediaSimilaritiesComponent.propTypes = {
       edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
           id: PropTypes.string.isRequired,
-          dbid: PropTypes.number.isRequired,
-          source_id: PropTypes.number.isRequired,
-          target_id: PropTypes.number.isRequired,
           target: PropTypes.object.isRequired,
         }).isRequired,
       })).isRequired,
@@ -63,7 +59,7 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
     confirmed_similar_relationships(first: 10000) {
       edges {
         node {
-          ...MediaRelationship_relationshipp
+          ...MediaRelationship_relationship
           id
           target {
             requests_count

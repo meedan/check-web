@@ -272,13 +272,13 @@ const MediaRelationship = ({
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
-  relationshipp,
+  relationship,
   setFlashMessage,
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
   // eslint-disable-next-line
-  console.log("media relationshipp: ",relationshipp); 
+  console.log("media relationship: ",relationship); 
   const swallowClick = (ev) => {
     // Don't close Dialog when clicking on it
     ev.stopPropagation();
@@ -286,44 +286,44 @@ const MediaRelationship = ({
 
   const details = [(
     <LastRequestDate
-      lastRequestDate={+relationshipp?.target?.last_seen * 1000}
+      lastRequestDate={+relationship?.target?.last_seen * 1000}
       theme="lightText"
       variant="text"
     />
   ), (
     <RequestsCount
-      requestsCount={relationshipp?.target?.requests_count}
+      requestsCount={relationship?.target?.requests_count}
       theme="lightText"
       variant="text"
     />
   ), (
     <MediaIdentifier
-      mediaType={relationshipp?.target?.type}
-      slug={relationshipp?.target?.media_slug || relationshipp?.target?.title}
+      mediaType={relationship?.target?.type}
+      slug={relationship?.target?.media_slug || relationship?.target?.title}
       theme="lightText"
       variant="text"
     />
   ), (
     <MediaOrigin
-      projectMedia={relationshipp?.target}
+      projectMedia={relationship?.target}
     />
   )];
 
-  const maskContent = relationshipp?.target?.show_warning_cover;
+  const maskContent = relationship?.target?.show_warning_cover;
 
   return (
     <div className={cx('media__relationship', similarityStyles['similar-matched-media'])} >
       { isSelected ?
         <MediaAndRequestsDialogComponent
-          dialogTitle={relationshipp?.target?.media.metadata?.title || relationshipp?.target?.media.quote || relationshipp?.target?.description}
-          feedId={relationshipp?.target?.imported_from_feed_id}
-          mediaHeader={<MediaFeedInformation projectMedia={relationshipp?.target} />}
+          dialogTitle={relationship?.target?.media.metadata?.title || relationship?.target?.media.quote || relationship?.target?.description}
+          feedId={relationship?.target?.imported_from_feed_id}
+          mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           mediaOriginBanner={
             <MediaOriginBanner
-              mediaClusterRelationship={relationshipp.target?.media_cluster_relationship}
-              origin={relationshipp.target?.media_cluster_origin}
-              originTimestamp={relationshipp.target?.media_cluster_origin_timestamp}
-              user={relationshipp.target?.media_cluster_origin_user?.name}
+              mediaClusterRelationship={relationship.target?.media_cluster_relationship}
+              origin={relationship.target?.media_cluster_origin}
+              originTimestamp={relationship.target?.media_cluster_origin_timestamp}
+              user={relationship.target?.media_cluster_origin_user?.name}
             />
           }
           mediaSlug={
@@ -332,19 +332,19 @@ const MediaRelationship = ({
               details={details}
             />
           }
-          projectMediaId={relationshipp.target_id}
-          projectMediaImportedId={relationshipp?.target?.imported_from_project_media_id}
+          projectMediaId={relationship.target_id}
+          projectMediaImportedId={relationship?.target?.imported_from_project_media_id}
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
         /> : null }
       {
-        relationshipp?.target && (
+        relationship?.target && (
           <SmallMediaCard
-            description={relationshipp?.target?.description}
+            description={relationship?.target?.description}
             details={details}
-            key={relationshipp.id}
+            key={relationship.id}
             maskContent={maskContent}
-            media={relationshipp?.target?.media}
+            media={relationship?.target?.media}
             onClick={() => setIsSelected(true)}
           />
         )
@@ -352,15 +352,15 @@ const MediaRelationship = ({
       <RelationshipMenu
         canDelete={canDelete}
         canSwitch={canSwitch}
-        id={relationshipp.id}
+        id={relationship.id}
         mainProjectMedia={{
           id: mainProjectMediaId,
           confirmedSimilarCount: mainProjectMediaConfirmedSimilarCount,
           demand: mainProjectMediaDemand,
         }}
         setFlashMessage={setFlashMessage}
-        sourceId={relationshipp?.source_id}
-        targetId={relationshipp?.target_id}
+        sourceId={relationship?.source_id}
+        targetId={relationship?.target_id}
       />
     </div>
   );
@@ -372,11 +372,11 @@ MediaRelationship.propTypes = {
   mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
   mainProjectMediaDemand: PropTypes.number.isRequired,
   mainProjectMediaId: PropTypes.string.isRequired,
-  relationshipp: PropTypes.object.isRequired,
+  relationship: PropTypes.object.isRequired,
 };
 
 export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelationship)), graphql`
-  fragment MediaRelationship_relationshipp on Relationship {
+  fragment MediaRelationship_relationship on Relationship {
     source_id
     target_id
     id
