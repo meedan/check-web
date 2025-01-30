@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -277,8 +276,6 @@ const MediaRelationship = ({
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
-  // eslint-disable-next-line
-  console.log("media relationship: ",relationship); 
   const swallowClick = (ev) => {
     // Don't close Dialog when clicking on it
     ev.stopPropagation();
@@ -320,10 +317,7 @@ const MediaRelationship = ({
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           mediaOriginBanner={
             <MediaOriginBanner
-              mediaClusterRelationship={relationship.target?.media_cluster_relationship}
-              origin={relationship.target?.media_cluster_origin}
-              originTimestamp={relationship.target?.media_cluster_origin_timestamp}
-              user={relationship.target?.media_cluster_origin_user?.name}
+              projectMedia={relationship?.target}
             />
           }
           mediaSlug={
@@ -383,41 +377,20 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelat
     target {
       id
       media_slug
-      dbid
       title
       description
-      picture
       type
       last_seen
-      linked_items_count
-      report_status
-      added_as_similar_by_name
       show_warning_cover
-      confirmed_as_similar_by_name
-      is_confirmed_similar_to_another_item
-      url
       quote
       imported_from_feed_id
-      imported_from_project_media_id
-      media_cluster_origin
-      media_cluster_origin_user {
-        name
-      }
-      media_cluster_origin_timestamp
-      media_cluster_relationship {
-        target{
-          title
-        }
-        confirmed_by {
-          name
-        }
-      }
       media {
         ...SmallMediaCard_media
       }
       ...MediaFeedInformation_projectMedia
+      ...MediaOrigin_projectMedia
+      ...MediaOriginBanner_projectMedia
     }
   }
 `);
 
-// export default withSetFlashMessage(injectIntl(MediaRelationship));
