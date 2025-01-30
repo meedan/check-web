@@ -26,6 +26,8 @@ import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
+// This converts the filters keys to the argument names expected by the articles field in the GraphQL query
+// The original keys are used in `ArticleFilters` to display the filters
 const adjustFilters = (filters) => {
   const newFilters = { ...filters };
 
@@ -43,20 +45,16 @@ const adjustFilters = (filters) => {
     delete newFilters.language;
   }
 
-  // Some aliases
   if (filters.users) {
     newFilters.user_ids = filters.users;
-    delete newFilters.users;
   }
 
   if (filters.published_by) {
     newFilters.publisher_ids = filters.published_by;
-    delete newFilters.published_by;
   }
 
   if (filters.verification_status) {
     newFilters.rating = filters.verification_status;
-    delete newFilters.verification_status;
   }
 
   return newFilters;
