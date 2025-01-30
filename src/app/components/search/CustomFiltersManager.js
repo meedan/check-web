@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -274,8 +273,6 @@ CustomFiltersManager.defaultProps = {
 
 CustomFiltersManager.propTypes = {
   hide: PropTypes.bool,
-  team: PropTypes.object.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
   operatorToggle: PropTypes.func.isRequired,
   query: PropTypes.shape({
     team_tasks: PropTypes.arrayOf(PropTypes.shape({
@@ -287,6 +284,8 @@ CustomFiltersManager.propTypes = {
       task_type: PropTypes.string,
     })),
   }).isRequired,
+  team: PropTypes.object.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 // eslint-disable-next-line import/no-unused-modules
