@@ -272,7 +272,6 @@ const MediaRelationship = ({
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
-  relationship,
   relationshipp,
   setFlashMessage,
 }) => {
@@ -310,15 +309,15 @@ const MediaRelationship = ({
     />
   )];
 
-  const maskContent = relationship?.target?.show_warning_cover;
+  const maskContent = relationshipp?.target?.show_warning_cover;
 
   return (
     <div className={cx('media__relationship', similarityStyles['similar-matched-media'])} >
       { isSelected ?
         <MediaAndRequestsDialogComponent
-          dialogTitle={relationship?.target?.media.metadata?.title || relationship?.target?.media.quote || relationship?.target?.description}
-          feedId={relationship?.target?.imported_from_feed_id}
-          mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
+          dialogTitle={relationshipp?.target?.media.metadata?.title || relationshipp?.target?.media.quote || relationshipp?.target?.description}
+          feedId={relationshipp?.target?.imported_from_feed_id}
+          mediaHeader={<MediaFeedInformation projectMedia={relationshipp?.target} />}
           mediaOriginBanner={
             <MediaOriginBanner
               mediaClusterRelationship={relationshipp.target?.media_cluster_relationship}
@@ -345,7 +344,7 @@ const MediaRelationship = ({
             details={details}
             key={relationshipp.id}
             maskContent={maskContent}
-            media={relationship?.target?.media}
+            media={relationshipp?.target?.media}
             onClick={() => setIsSelected(true)}
           />
         )
@@ -413,6 +412,10 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelat
           name
         }
       }
+      media {
+        ...SmallMediaCard_media
+      }
+      ...MediaFeedInformation_projectMedia
     }
   }
 `);

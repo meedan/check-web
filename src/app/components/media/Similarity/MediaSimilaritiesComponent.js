@@ -1,11 +1,8 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
-import MediaRelationship from './MediaRelationship'; // eslint-disable-line import/no-named-as-default-member
-import SmallMediaCard from '../../cds/media-cards/SmallMediaCard'; // eslint-disable-line no-unused-vars
-import MediaFeedInformation from '../MediaFeedInformation'; // eslint-disable-line no-unused-vars
+import MediaRelationship from './MediaRelationship';
 import { can } from '../../Can';
 import styles from './MediaSimilarities.module.css';
 
@@ -29,7 +26,6 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => (
         mainProjectMediaId={projectMedia.id}
         relationship={relationship.node}
         relationshipp={relationship.node}
-        user={relationship.node.target?.media_cluster_origin_user?.name}
       />
     ))}
   </div>
@@ -67,35 +63,10 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
     confirmed_similar_relationships(first: 10000) {
       edges {
         node {
-          dbid
           ...MediaRelationship_relationshipp
           id
-          source_id
-          target_id
           target {
-            id
-            dbid
-            title
-            description
-            picture
-            type
             requests_count
-            linked_items_count
-            last_seen
-            report_status
-            added_as_similar_by_name
-            show_warning_cover
-            confirmed_as_similar_by_name
-            is_confirmed_similar_to_another_item
-            url
-            quote
-            imported_from_feed_id
-            imported_from_project_media_id
-            ...MediaFeedInformation_projectMedia
-            media_slug
-            media {
-              ...SmallMediaCard_media
-            }
           }
         }
       }
