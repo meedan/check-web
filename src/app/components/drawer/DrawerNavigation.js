@@ -15,7 +15,7 @@ const getBooleanPref = (key, fallback) => {
 
 const DrawerNavigation = (parentProps) => {
   const [drawerOpen, setDrawerOpen] = React.useState(getBooleanPref('drawer.isOpen', true));
-  const [drawerType, setDrawerType] = React.useState('tipline');
+  const [drawerType, setDrawerType] = React.useState('');
 
   React.useEffect(() => {
     if (drawerType === 'bot') {
