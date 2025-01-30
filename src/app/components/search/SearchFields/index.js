@@ -35,66 +35,6 @@ import UnmatchedIcon from '../../../icons/unmatched.svg';
 import styles from '../search.module.css';
 
 const messages = defineMessages({
-  claim: {
-    id: 'search.showClaims',
-    defaultMessage: 'Text',
-    description: 'Describes media type Text',
-  },
-  image: {
-    id: 'search.showImages',
-    defaultMessage: 'Image',
-    description: 'Describes media type Image',
-  },
-  video: {
-    id: 'search.showVideos',
-    defaultMessage: 'Video',
-    description: 'Describes media type Video',
-  },
-  audio: {
-    id: 'search.showAudios',
-    defaultMessage: 'Audio',
-    description: 'Describes media type Audio',
-  },
-  socialMedia: {
-    id: 'search.socialMedia',
-    defaultMessage: 'Social media',
-    description: 'Allow user to filter by social media links',
-  },
-  facebook: {
-    id: 'search.facebook',
-    defaultMessage: 'Facebook post',
-    description: 'Allow user to filter items by facebook posts',
-  },
-  twitter: {
-    id: 'search.twitter',
-    defaultMessage: 'X (Twitter) post',
-    description: 'Allow user to filter items by x (twitter) posts',
-  },
-  tiktok: {
-    id: 'search.tiktok',
-    defaultMessage: 'TikTok post',
-    description: 'Allow user to filter items by tiktok posts',
-  },
-  youtube: {
-    id: 'search.youtube',
-    defaultMessage: 'Youtube video',
-    description: 'Allow user to filter items by youtube videos',
-  },
-  instagram: {
-    id: 'search.instagram',
-    defaultMessage: 'Instagram post',
-    description: 'Allow user to filter items by instagram posts',
-  },
-  telegram: {
-    id: 'search.telegram',
-    defaultMessage: 'Telegram',
-    description: 'Allow user to filter items by Telegram posts',
-  },
-  webLink: {
-    id: 'search.webLink',
-    defaultMessage: 'webLink',
-    description: 'Allow user to filter items by links of type page',
-  },
   read: {
     id: 'search.itemRead',
     defaultMessage: 'Read',
