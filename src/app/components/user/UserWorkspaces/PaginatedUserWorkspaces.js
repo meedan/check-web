@@ -4,9 +4,6 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, createPaginationContainer, graphql } from 'react-relay/compat';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import cx from 'classnames/bind';
 import NextIcon from '../../../icons/chevron_right.svg';
 import BlankState from '../../layout/BlankState';
@@ -19,7 +16,7 @@ import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
 import Loader from '../../cds/loading/Loader';
 import Paginator from '../../cds/inputs/Paginator';
-import styles from '../user.module.css';
+import styles from '../../team/Settings.module.css';
 import workspaceStyles from './UserWorkspacesComponent.module.css';
 
 const updateUserMutation = graphql`
@@ -148,11 +145,11 @@ const UserWorkspacesComponent = ({
           onChangePage={handlePageChange}
         />
       }
-      <div className={styles['user-setting-details-wrapper']}>
+      <div className={styles['setting-details-wrapper']}>
         { teams.length ?
-          <div className={styles['user-setting-content-container']}>
+          <div className={styles['setting-content-container']}>
             { isPaginationLoading && <Loader size="medium" theme="grey" variant="inline" /> }
-            <ul className={cx('teams', styles['user-setting-content-list'])}>
+            <ul className={cx('teams', styles['setting-content-list'])}>
               {teams.slice(cursor, cursor + pageSize).map(team => (
                 <ListItem
                   className={cx(workspaceStyles['list-item'], currentTeam === team.dbid && teams.length > 1 && workspaceStyles['current-active-item'])}
@@ -161,22 +158,20 @@ const UserWorkspacesComponent = ({
                   to={`/${team.slug}/all-items`}
                   onClick={() => setCurrentTeam(team)}
                 >
-                  <ListItemAvatar>
+                  <div className={styles['team-avatar']}>
                     <TeamAvatar size="32px" team={{ avatar: team.avatar }} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={team.name}
-                    secondary={
-                      <FormattedMessage
-                        defaultMessage="{membersCount, plural, one {# member} other {# members}}"
-                        description="Count of members of a workspace"
-                        id="switchTeams.member"
-                        values={{ membersCount: team.members_count }}
-                      />
-                    }
-                    style={{ color: 'var(--color-gray-15)' }}
-                  />
-                  <ListItemSecondaryAction>
+                  </div>
+                  <div>
+                    <strong>{team.name}</strong>
+                    <FormattedMessage
+                      defaultMessage="{membersCount, plural, one {# member} other {# members}}"
+                      description="Count of members of a workspace"
+                      id="switchTeams.member"
+                      tagName="p"
+                      values={{ membersCount: team.members_count }}
+                    />
+                  </div>
+                  <div className={styles['setting-content-list-actions']}>
                     <ButtonMain
                       iconCenter={<NextIcon />}
                       size="default"
@@ -184,12 +179,12 @@ const UserWorkspacesComponent = ({
                       variant="text"
                       onClick={() => setCurrentTeam(team)}
                     />
-                  </ListItemSecondaryAction>
+                  </div>
                 </ListItem>
               ))}
             </ul>
           </div> :
-          <div className={cx('no-workspaces', styles['user-setting-content-container'])}>
+          <div className={cx('no-workspaces', styles['setting-content-container'])}>
             <BlankState>
               <FormattedMessage defaultMessage="Not a member of any workspace." description="Empty message when the user is not a member of a workspace" id="switchTeams.noTeams" />
             </BlankState>

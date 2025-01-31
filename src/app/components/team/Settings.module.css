@@ -1,14 +1,41 @@
 .settings-wrapper {
+  border: solid 2px var(--color-orange-31);
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: auto;
 
   .settings-content {
+    border: solid 3px var(--color-green-82);
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
     overflow: auto;
     padding: 16px 16px 32px;
+
+    .appstore-badges {
+      display: flex;
+      gap: 16px;
+
+      a {
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        color: unset;
+        display: inline-flex;
+        overflow: hidden;
+
+        svg {
+          &.appstore-apple {
+            height: 40px;
+            width: 120px;
+          }
+
+          &.appstore-play {
+            height: 40px;
+            width: 135px;
+          }
+        }
+      }
+    }
 
     .setting-details-wrapper {
       max-width: var(--columnWidthLarge);
@@ -120,6 +147,10 @@
           margin: 0 0 16px;
           padding: 16px;
 
+          + .setting-content-container-inner {
+            margin: 16px 0 0;
+          }
+
           &:last-of-type {
             margin: 0;
           }
@@ -129,6 +160,10 @@
           background: var(--color-beige-86);
           border-radius: var(--border-radius-small);
           padding: 16px;
+
+          + .setting-content-container-inner-accent {
+            margin: 16px 0 0;
+          }
         }
 
         + .setting-content-container {
@@ -183,6 +218,26 @@
           .date-cell {
             min-width: 144px;
             white-space: nowrap;
+          }
+        }
+
+        &.user-info-primary {
+          flex: 3;
+
+          .user-info-name {
+            align-items: center;
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+          }
+
+          .contact-info {
+            align-items: center;
+            color: var(--color-gray-37);
+            display: flex;
+            flex-flow: wrap row;
+            gap: 8px;
+            margin: 0 0 16px;
           }
         }
       }
@@ -247,6 +302,10 @@
           > div {
             flex: 1 1 auto;
 
+            &.team-avatar {
+              flex: 0 0 auto;
+            }
+
             p {
               color: var(--color-gray-37);
               margin: 3px 0 0 26px;
@@ -269,6 +328,27 @@
 
       .tipline-admin-settings {
         margin: 32px 0 0;
+      }
+
+      .user-info-edit {
+        display: flex;
+        gap: 32px;
+
+        .user-info-primary {
+          width: 100%;
+        }
+
+        .user-info-avatar {
+          flex: 0;
+          flex-shrink: 0;
+          justify-content: center;
+          margin: 0 16px 0 0;
+
+          .StyledAvatarEditButton {
+            margin: 8px 0 0;
+            width: 100%;
+          }
+        }
       }
     }
   }

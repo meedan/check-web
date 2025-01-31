@@ -7,7 +7,7 @@ import UserPrivacy from './UserPrivacy';
 import UserSecurity from './UserSecurity';
 import PageTitle from '../PageTitle';
 import UserWorkspaces from '../user/UserWorkspaces';
-import styles from './user.module.css';
+import styles from '../team/Settings.module.css';
 
 class MeComponent extends React.Component {
   UNSAFE_componentWillMount() {
@@ -24,8 +24,8 @@ class MeComponent extends React.Component {
 
     return (
       <PageTitle prefix={user.name}>
-        <div className={cx('source', styles['user-settings-wrapper'])}>
-          <div className={styles['user-content']}>
+        <div className={cx('source', styles['settings-wrapper'])}>
+          <div className={styles['settings-content']}>
             { tab === 'profile' ? <UserProfile user={user} /> : null}
             { tab === 'teams' || tab === 'workspaces' ? <UserWorkspaces user={user} /> : null}
             { tab === 'privacy' ? <UserPrivacy user={user} /> : null}
