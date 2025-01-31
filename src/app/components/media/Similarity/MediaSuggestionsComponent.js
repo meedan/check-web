@@ -265,6 +265,19 @@ const MediaSuggestionsComponent = ({
                     created_at
                     type
                     requests_count
+                    media_cluster_origin
+                    media_cluster_origin_user {
+                      name
+                    }
+                    media_cluster_origin_timestamp
+                    media_cluster_relationship {
+                      target{
+                        title
+                      }
+                      confirmed_by {
+                        name
+                      }
+                    }
                   }
                 }
               }
@@ -348,6 +361,19 @@ const MediaSuggestionsComponent = ({
                     created_at
                     type
                     requests_count
+                    media_cluster_origin
+                    media_cluster_origin_user {
+                      name
+                    }
+                    media_cluster_origin_timestamp
+                    media_cluster_relationship {
+                      target{
+                        title
+                      }
+                      confirmed_by {
+                        name
+                      }
+                    }
                   }
                 }
               }

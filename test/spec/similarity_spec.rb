@@ -58,9 +58,8 @@ shared_examples 'similarity' do
     wait_for_selector('.media-tab__suggestedMedia').click
     @driver.action.move_to(wait_for_selector('.suggested-media__item')).perform # hover element
     wait_for_selector('.similarity-media-item__accept-relationship').click
-    wait_for_selector_list_size('.suggested-media__item', 1)
-    @driver.action.move_to(wait_for_selector('.suggested-media__item')).perform # hover element
-    wait_for_selector('.similarity-media-item__reject-relationship').click
+    @driver.action.move_to(wait_for_selector_list('.suggested-media__item')[1]).perform # hover element
+    wait_for_selector_list('.similarity-media-item__reject-relationship')[1].click
     @driver.navigate.refresh
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1

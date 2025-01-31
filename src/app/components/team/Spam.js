@@ -26,7 +26,14 @@ export default function Spam({ routeParams }) {
     <ErrorBoundary component="Spam">
       <Search
         defaultQuery={defaultQuery}
-        hideFields={['feed_fact_checked_by', 'user', 'cluster_teams', 'cluster_published_reports', 'archived']}
+        hideFields={[
+          'feed_fact_checked_by',
+          'user',
+          'cluster_teams',
+          'cluster_published_reports',
+          'archived',
+          'published_by',
+        ]}
         icon={<SpamIcon />}
         mediaUrlPrefix={`/${routeParams.team}/media`}
         page="spam"

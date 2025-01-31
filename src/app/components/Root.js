@@ -86,7 +86,7 @@ class Root extends Component {
                   <Route component={SandboxCrash} path="check/me/ui-sandbox/crash" />
                   <Route component={Me} path="check/me(/:tab)" />
                   <Route component={FeedInvitation} path="check/feed/:feedId/invitation" splash />
-                  <Redirect from=":team" to=":team/all-items(/:query)" />
+                  <Route component={Team} path=":team" />
                   <Route component={BotPreview} path=":team/bot" />
                   <Route component={Team} path=":team/settings(/:tab)" />
                   <Route component={MediaPage} path=":team/media/:mediaId" />

@@ -26,7 +26,14 @@ export default function Trash({ routeParams }) {
     <ErrorBoundary component="Trash">
       <Search
         defaultQuery={defaultQuery}
-        hideFields={['feed_fact_checked_by', 'user', 'cluster_teams', 'cluster_published_reports', 'archived']}
+        hideFields={[
+          'feed_fact_checked_by',
+          'user',
+          'cluster_teams',
+          'cluster_published_reports',
+          'archived',
+          'published_by',
+        ]}
         icon={<DeleteIcon />}
         mediaUrlPrefix={`/${routeParams.team}/media`}
         page="trash"
