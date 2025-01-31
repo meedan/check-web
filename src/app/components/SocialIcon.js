@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import FacebookIcon from '../icons/facebook.svg';
 import GoogleColorIcon from '../icons/google_color.svg';
 import InstagramIcon from '../icons/instagram.svg';
@@ -7,25 +8,26 @@ import LinkIcon from '../icons/link.svg';
 import SlackIcon from '../icons/slack.svg';
 import TwitterIcon from '../icons/twitter.svg';
 import YouTubeIcon from '../icons/youtube.svg';
+import styles from '../styles/css/socials.module.css';
 
 const SocialIcon = ({ domain, inColor }) => {
   switch (domain) {
   case 'slack.com':
   case 'slack':
-    return <SlackIcon className="logo" style={{ color: inColor ? 'var(--slackGreen)' : '' }} />;
+    return <SlackIcon className={cx('logo', { [styles['slack-green']]: inColor })} />;
   case 'twitter.com':
   case 'x.com':
   case 'twitter':
-    return <TwitterIcon className="logo" style={{ color: inColor ? 'var(--xBlack)' : '' }} />;
+    return <TwitterIcon className={cx('logo', { [styles['x-black']]: inColor })} />;
   case 'youtube.com':
   case 'youtube':
-    return <YouTubeIcon className="logo" style={{ color: inColor ? 'var(--youTubeRed)' : '' }} />;
+    return <YouTubeIcon className={cx('logo', { [styles['youtube-red']]: inColor })} />;
   case 'instagram.com':
   case 'instagram':
-    return <InstagramIcon className="logo" style={{ color: inColor ? 'var(--color-gray-15)' : '' }} />;
+    return <InstagramIcon className={cx('logo', { [styles['instagram-pink']]: inColor })} />;
   case 'facebook.com':
   case 'facebook':
-    return <FacebookIcon className="logo" style={{ color: inColor ? 'var(--facebookBlue)' : '' }} />;
+    return <FacebookIcon className={cx('logo', { [styles['facebook-blue']]: inColor })} />;
   case 'google.com':
   case 'google_oauth2':
     // eslint-disable-next-line

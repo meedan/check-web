@@ -1,0 +1,35 @@
+.facebook-blue {
+  color: var(--facebookBlue);
+}
+
+.instagram-pink {
+  color: var(--instagramPink);
+}
+
+.line-green {
+  color: var(--lineGreen);
+}
+
+.slack-green {
+  color: var(--slackGreen);
+}
+
+.telegram-blue {
+  color: var(--telegramBlue);
+}
+
+.viber-purple {
+  color: var(--viberPurple);
+}
+
+.whatsapp-green {
+  color: var(--whatsappGreen);
+}
+
+.x-black {
+  color: var(--xBlack);
+}
+
+.youtube-red {
+  color: var(--youTubeRed);
+}

@@ -21,6 +21,7 @@ import SettingsHeader from '../SettingsHeader';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { withSetFlashMessage } from '../../FlashMessage';
 import Can from '../../Can';
+import socialStyles from '../../../styles/css/socials.module.css';
 import settingsStyles from '../Settings.module.css';
 
 const TeamReportComponent = ({ setFlashMessage, team }) => {
@@ -330,7 +331,7 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
                   id: 'whatsapp',
                 }}
                 disabled={!report.use_signature}
-                iconLeft={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
+                iconLeft={<WhatsAppIcon className={socialStyles['whatsapp-green']} />}
                 key={`whatsapp-${currentLanguage}`}
                 label={
                   <FormattedMessage
@@ -363,7 +364,7 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
                   />
                   : null
                 }
-                iconLeft={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
+                iconLeft={<FacebookIcon className={socialStyles['facebook-blue']} />}
                 key={`facebook-${currentLanguage}`}
                 label={
                   <FormattedMessage
@@ -390,7 +391,7 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
                   />
                   : null
                 }
-                iconLeft={<><TwitterIcon style={{ color: 'var(--xBlack)' }} /></>}
+                iconLeft={<><TwitterIcon className={socialStyles['x-black']} /></>}
                 key={`twitter-${currentLanguage}`}
                 label={
                   <FormattedMessage
@@ -418,7 +419,7 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
                   />
                   : null
                 }
-                iconLeft={<TelegramIcon style={{ color: 'var(--telegramBlue)' }} />}
+                iconLeft={<TelegramIcon className={socialStyles['telegram-blue']} />}
                 key={`telegram-${currentLanguage}`}
                 label={
                   <FormattedMessage
@@ -436,7 +437,7 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
                   id: 'viber',
                 }}
                 disabled={!report.use_signature}
-                iconLeft={<ViberIcon style={{ color: 'var(--viberPurple)' }} />}
+                iconLeft={<ViberIcon className={socialStyles['viber-purple']} />}
                 key={`viber-${currentLanguage}`}
                 label={
                   <FormattedMessage
@@ -454,7 +455,7 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
                   id: 'line',
                 }}
                 disabled={!report.use_signature}
-                iconLeft={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
+                iconLeft={<LineIcon className={socialStyles['line-green']} />}
                 key={`line-${currentLanguage}`}
                 label={
                   <FormattedMessage
@@ -472,7 +473,7 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
                   id: 'instagram',
                 }}
                 disabled={!report.use_signature}
-                iconLeft={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
+                iconLeft={<InstagramIcon className={socialStyles['instagram-pink']} />}
                 key={`instagram-${currentLanguage}`}
                 label={
                   <FormattedMessage
