@@ -35,8 +35,15 @@ describe('<Articles />', () => {
     expect(wrapper.find('ArticleCard')).toHaveLength(2);
   });
 
-  it('adjustFilters should not return undefined values', () => {
-    const filters = adjustFilters({ verification_status: 'false', published_by: undefined });
-    expect(filters).toEqual({ rating: 'false' });
+  // Prevents regression: CV2-5988
+  it('adjustFilters should add articles API filters keys as aliases keeping original UI filters keys', () => {
+    const filters = adjustFilters({ verification_status: 'false' });
+    expect(filters).toEqual({ rating: 'false', verification_status: 'false' });
+  });
+
+  // Prevents regression: CV2-5988
+  it('adjustFilters should not insert API filters keys with undefined values unnecessarily', () => {
+    const filters = adjustFilters({});
+    expect(filters).toEqual({});
   });
 });
