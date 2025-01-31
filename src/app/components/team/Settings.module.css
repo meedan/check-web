@@ -286,9 +286,26 @@
           gap: 16px;
           margin: 0 0 8px;
           padding: 8px 0 16px;
+          position: relative;
 
           &.setting-content-list-language {
             align-items: center;
+          }
+
+          &.current-active-item {
+            &::before {
+              background-color: var(--color-beige-47);
+              bottom: 8px;
+              content: '';
+              left: -8px;
+              position: absolute;
+              top: 0;
+              width: 4px;
+            }
+          }
+
+          &.clickable-list-item {
+            cursor: pointer;
           }
 
           &:last-of-type {
@@ -307,6 +324,10 @@
             p {
               color: var(--color-gray-37);
               margin: 3px 0 0 26px;
+
+              &.member-count {
+                margin: 3px 0 0;
+              }
             }
 
             &.setting-content-list-actions {

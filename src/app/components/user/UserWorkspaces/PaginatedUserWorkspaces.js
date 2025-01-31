@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, createPaginationContainer, graphql } from 'react-relay/compat';
-import ListItem from '@material-ui/core/ListItem';
 import cx from 'classnames/bind';
 import NextIcon from '../../../icons/chevron_right.svg';
 import BlankState from '../../layout/BlankState';
@@ -17,7 +16,6 @@ import { stringHelper } from '../../../customHelpers';
 import Loader from '../../cds/loading/Loader';
 import Paginator from '../../cds/inputs/Paginator';
 import styles from '../../team/Settings.module.css';
-import workspaceStyles from './UserWorkspacesComponent.module.css';
 
 const updateUserMutation = graphql`
   mutation PaginatedUserWorkspacesUpdateUserMutation($input: UpdateUserInput!) {
@@ -151,8 +149,9 @@ const UserWorkspacesComponent = ({
             { isPaginationLoading && <Loader size="medium" theme="grey" variant="inline" /> }
             <ul className={cx('teams', styles['setting-content-list'])}>
               {teams.slice(cursor, cursor + pageSize).map(team => (
-                <ListItem
-                  className={cx(workspaceStyles['list-item'], currentTeam === team.dbid && teams.length > 1 && workspaceStyles['current-active-item'])}
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+                <li
+                  className={cx(styles['clickable-list-item'], currentTeam === team.dbid && teams.length > 1 && styles['current-active-item'])}
                   id={`switch-teams__link-to-${team.slug}`}
                   key={team.slug}
                   to={`/${team.slug}/all-items`}
@@ -163,24 +162,25 @@ const UserWorkspacesComponent = ({
                   </div>
                   <div>
                     <strong>{team.name}</strong>
-                    <FormattedMessage
-                      defaultMessage="{membersCount, plural, one {# member} other {# members}}"
-                      description="Count of members of a workspace"
-                      id="switchTeams.member"
-                      tagName="p"
-                      values={{ membersCount: team.members_count }}
-                    />
+                    <p className={styles['member-count']}>
+                      <FormattedMessage
+                        defaultMessage="{membersCount, plural, one {# member} other {# members}}"
+                        description="Count of members of a workspace"
+                        id="switchTeams.member"
+                        values={{ membersCount: team.members_count }}
+                      />
+                    </p>
                   </div>
                   <div className={styles['setting-content-list-actions']}>
                     <ButtonMain
                       iconCenter={<NextIcon />}
                       size="default"
                       theme="text"
-                      variant="text"
+                      variant="outlined"
                       onClick={() => setCurrentTeam(team)}
                     />
                   </div>
-                </ListItem>
+                </li>
               ))}
             </ul>
           </div> :
