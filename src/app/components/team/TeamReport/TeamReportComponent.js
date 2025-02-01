@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -493,8 +492,8 @@ const TeamReportComponent = ({ setFlashMessage, team }) => {
 };
 
 TeamReportComponent.propTypes = {
-  team: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
+  team: PropTypes.object.isRequired,
 };
 
 export default createFragmentContainer(withSetFlashMessage(TeamReportComponent), graphql`
