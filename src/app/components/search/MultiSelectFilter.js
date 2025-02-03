@@ -109,8 +109,6 @@ const MultiSelectFilter = ({
     return option ? option.label : '';
   };
 
-  const getOptionForValue = value => options.find(o => String(o.value) === String(value));
-
   const handleTagDelete = (value) => {
     const newValue = [...selectedArray.filter(o => o !== value)];
     onChange(newValue);
@@ -137,27 +135,21 @@ const MultiSelectFilter = ({
             {label}
           </div>
         }
-        { !oneOption && selectedArray.map((value, index) => {
-          const option = getOptionForValue(value);
-
-          // If option has children it's a category. Don't render a Tag for it.
-          // E.g.: "Social Media" in Media type filter
-          return option?.hasChildren ? null : (
-            <React.Fragment key={getLabelForValue(value)}>
-              { index > 0 ? (
-                <OperatorToggle
-                  operator={operator}
-                  onClick={onToggleOperator}
-                />
-              ) : null }
-              <Tag
-                label={getLabelForValue(value)}
-                readOnly={readOnly}
-                onDelete={() => handleTagDelete(value)}
+        { !oneOption && selectedArray.map((value, index) => (
+          <React.Fragment key={getLabelForValue(value)}>
+            { index > 0 ? (
+              <OperatorToggle
+                operator={operator}
+                onClick={onToggleOperator}
               />
-            </React.Fragment>
-          );
-        }) }
+            ) : null }
+            <Tag
+              label={getLabelForValue(value)}
+              readOnly={readOnly}
+              onDelete={() => handleTagDelete(value)}
+            />
+          </React.Fragment>
+        )) }
         { !oneOption && selectedArray.length > 0 && showSelect ? (
           <OperatorToggle
             operator={operator}

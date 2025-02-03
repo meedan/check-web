@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -483,13 +482,14 @@ const DateRangeFilter = ({
 
 DateRangeFilter.defaultProps = {
   hide: false,
-  value: null,
   optionsToHide: [],
+  value: null,
 };
 
 DateRangeFilter.propTypes = {
   classes: PropTypes.object.isRequired,
   hide: PropTypes.bool,
+  intl: intlShape.isRequired,
   optionsToHide: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([
     PropTypes.shape({
@@ -547,7 +547,6 @@ DateRangeFilter.propTypes = {
   ]),
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(DateRangeFilter);
