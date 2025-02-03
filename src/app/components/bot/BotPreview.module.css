@@ -121,6 +121,10 @@
         font-size: var(--iconSizeDefault);
       }
     }
+
+    .chat-content {
+      height: 100%;
+    }
   }
 
   .settings-column {
