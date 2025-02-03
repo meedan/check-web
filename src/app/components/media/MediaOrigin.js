@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Person from '../../icons/person.svg';
@@ -114,14 +115,16 @@ const getIconAndMessage = (origin, user) => {
   }
 };
 
-const MediaOrigin = ({ origin, user }) => {
+const MediaOrigin = ({
+  projectMedia: {
+    media_cluster_origin: origin,
+    media_cluster_origin_user: { name: user } = {},
+  },
+}) => {
   const { icon, message, tooltipMessage } = getIconAndMessage(origin, user);
 
   return (
-    <Tooltip
-      arrow
-      title={tooltipMessage}
-    >
+    <Tooltip arrow title={tooltipMessage}>
       <span>
         <ButtonMain
           iconLeft={icon}
@@ -135,9 +138,19 @@ const MediaOrigin = ({ origin, user }) => {
   );
 };
 
+
 MediaOrigin.propTypes = {
-  origin: PropTypes.number.isRequired,
-  user: PropTypes.string.isRequired,
+  projectMedia: PropTypes.object.isRequired,
 };
 
-export default MediaOrigin;
+// eslint-disable-next-line import/no-unused-modules
+export { MediaOrigin }; // Used in unit test
+
+export default createFragmentContainer(MediaOrigin, graphql`
+  fragment MediaOrigin_projectMedia on ProjectMedia {
+    media_cluster_origin
+    media_cluster_origin_user {
+      name
+    }
+  }
+`);
