@@ -38,6 +38,8 @@ const PaginatedTiplineHistory = createPaginationContainer(
   { // assign graphql fragment to a key called `root`
     root: graphql`
       fragment PaginatedTiplineHistory_root on Team {
+        id
+        dbid
         tipline_messages(first: $pageSize, after: $after, uid: $uid) @connection(key: "PaginatedTiplineHistory_tipline_messages"){
           edges {
             node {
