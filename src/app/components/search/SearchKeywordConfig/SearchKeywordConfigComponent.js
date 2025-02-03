@@ -146,18 +146,6 @@ const SearchKeywordConfigComponent = ({
       parent: 'media',
     },
   ];
-  const noteOption = [
-    {
-      value: 'comments',
-      label: (
-        <FormattedMessage
-          defaultMessage="Notes"
-          description="Label for checkbox to toggle searching for keyword across notes (aka comments)"
-          id="searchKeywordConfig.allNotes"
-        />
-      ),
-    },
-  ];
   const userRequestOptions = [
     {
       value: 'user_and_request',
@@ -198,8 +186,6 @@ const SearchKeywordConfigComponent = ({
     ...claimFactCheckOptions,
     ...hrOption,
     ...mediaOptions,
-    ...hrOption,
-    ...noteOption,
     ...hrOption,
     ...userRequestOptions,
   ];
