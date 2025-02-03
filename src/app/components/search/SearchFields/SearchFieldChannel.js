@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -146,16 +145,16 @@ const SearchFieldChannel = parentProps => (
 );
 
 SearchFieldChannel.defaultProps = {
-  readOnly: false,
   page: '',
+  readOnly: false,
 };
 
 SearchFieldChannel.propTypes = {
+  page: PropTypes.string,
   query: PropTypes.object.isRequired,
+  readOnly: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  page: PropTypes.string,
-  readOnly: PropTypes.bool,
 };
 
 export default injectIntl(SearchFieldChannel);
