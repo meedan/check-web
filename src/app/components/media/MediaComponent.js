@@ -191,12 +191,7 @@ class MediaComponent extends Component {
                     feedId={projectMedia.imported_from_feed_id}
                     mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
                     mediaOriginBanner={
-                      <MediaOriginBanner
-                        mediaClusterRelationship={projectMedia.media_cluster_relationship}
-                        origin={projectMedia.media_cluster_origin}
-                        originTimestamp={projectMedia.media_cluster_origin_timestamp}
-                        user={projectMedia.media_cluster_origin_user.name}
-                      />
+                      <MediaOriginBanner projectMedia={projectMedia} />
                     }
                     mediaSlug={
                       <MediaSlug
@@ -284,6 +279,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     ...MediaCardLarge_projectMedia
     ...MediaFeedInformation_projectMedia
     ...MediaSecondaryBanner_projectMedia
+    ...MediaOriginBanner_projectMedia
     id
     dbid
     title
@@ -349,19 +345,6 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
       dbid
       team {
         slug
-      }
-    }
-    media_cluster_origin
-    media_cluster_origin_user {
-      name
-    }
-    media_cluster_origin_timestamp
-    media_cluster_relationship {
-      target {
-        title
-      }
-      confirmed_by {
-        name
       }
     }
     is_confirmed_similar_to_another_item
