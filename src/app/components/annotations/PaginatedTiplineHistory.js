@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { createPaginationContainer, graphql } from 'react-relay/compat';
 import ChatHistory from '../layout/ChatHistory';
@@ -8,8 +7,6 @@ import ChatHistory from '../layout/ChatHistory';
 const tiplineHistoryQuery = graphql`
   query PaginatedTiplineHistoryQuery($teamSlug: String!, $pageSize: Int!, $after: String, $uid: String!) {
     team(slug: $teamSlug) {
-      id
-      dbid
       ...PaginatedTiplineHistory_root
     }
   }
@@ -19,7 +16,20 @@ const PaginatedTiplineHistory = createPaginationContainer(
   props => (
     <ChatHistory
       handleClose={props.handleClose}
-      history={props.root.tipline_messages ? props.root.tipline_messages.edges.map(({ node }) => ({ ...node })) : []}
+      history={props.root.tipline_messages ? props.root.tipline_messages.edges.map(({ node }) => ({
+        dbid: node.dbid,
+        event: node.event,
+        direction: node.direction,
+        language: node.language,
+        platform: node.platform,
+        uid: node.uid,
+        external_id: node.external_id,
+        payload: node.payload,
+        team_id: node.team_id,
+        state: node.state,
+        sent_at: node.sent_at,
+        media_url: node.media_url,
+      })) : []}
       pageSize={props.pageSize}
       relay={props.relay}
       title={props.title}
