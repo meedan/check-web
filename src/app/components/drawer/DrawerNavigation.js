@@ -1,21 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Drawer from '@material-ui/core/Drawer';
 import DrawerRail from './DrawerRail';
-import DrawerNavigationComponent from './DrawerNavigationComponent';
-import FindPublicTeamRoute from '../../relay/FindPublicTeamRoute';
-import teamPublicFragment from '../../relay/teamPublicFragment';
-
-const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
-  fragments: {
-    team: () => teamPublicFragment,
-  },
-});
-
-const DrawerRailContainer = Relay.createContainer(DrawerRail, {
-  fragments: {
-    team: () => teamPublicFragment,
-  },
-});
+import ErrorBoundary from '../error/ErrorBoundary';
+import DrawerContent from './index.js';
+import styles from './Drawer.module.css';
 
 const getBooleanPref = (key, fallback) => {
   const inStore = window.storage.getValue(key);
@@ -23,9 +13,9 @@ const getBooleanPref = (key, fallback) => {
   return (inStore === 'true'); // we are testing against the string value of 'true' because `localStorage` only stores string values, and casts `true` as `'true'`
 };
 
-const DrawerNavigation = (props) => {
+const DrawerNavigation = (parentProps) => {
   const [drawerOpen, setDrawerOpen] = React.useState(getBooleanPref('drawer.isOpen', true));
-  const [drawerType, setDrawerType] = React.useState('tipline');
+  const [drawerType, setDrawerType] = React.useState('');
 
   React.useEffect(() => {
     if (drawerType === 'bot') {
@@ -33,44 +23,58 @@ const DrawerNavigation = (props) => {
     }
   }, [drawerType]);
 
-  if (props.teamSlug) {
-    const { teamSlug } = props;
-
-    const route = new FindPublicTeamRoute({ teamSlug });
+  if (parentProps.teamSlug) {
+    const { teamSlug } = parentProps;
 
     return (
       <>
-        <Relay.RootContainer
-          Component={DrawerRailContainer}
-          renderFetched={
-            data => (<DrawerRailContainer
-              drawerOpen={drawerOpen}
-              drawerType={drawerType}
-              onDrawerOpenChange={setDrawerOpen}
-              onDrawerTypeChange={setDrawerType}
-              {...props}
-              {...data}
-            />)
-          }
-          route={route}
-        />
-        <Relay.RootContainer
-          Component={DrawerNavigationContainer}
-          renderFetched={
-            data => (<DrawerNavigationContainer
-              drawerOpen={drawerOpen}
-              drawerType={drawerType}
-              {...props}
-              {...data}
-            />)
-          }
-          route={route}
-        />
+        <ErrorBoundary component="DrawerNavigation">
+          <QueryRenderer
+            environment={Relay.Store}
+            query={graphql`
+              query DrawerNavigationQuery($teamSlug: String!) {
+                find_public_team(slug: $teamSlug) {
+                  ...DrawerRail_team
+                }
+              }
+            `}
+            render={({ error, props }) => {
+              if (!error && props) {
+                return (
+                  <>
+                    <DrawerRail
+                      currentUserIsMember={parentProps.currentUserIsMember}
+                      drawerOpen={drawerOpen}
+                      drawerType={drawerType}
+                      team={props.find_public_team}
+                      onDrawerOpenChange={setDrawerOpen}
+                      onDrawerTypeChange={setDrawerType}
+                    />
+                    <Drawer
+                      anchor="left"
+                      className={[styles.drawer, drawerOpen ? styles.drawerOpen : styles.drawerClosed].join(' ')}
+                      open={Boolean(drawerOpen)}
+                      variant="persistent"
+                    >
+                      {parentProps.currentUserIsMember ? (
+                        <DrawerContent drawerType={drawerType} />
+                      ) : null }
+                    </Drawer>
+                  </>
+                );
+              }
+              return null;
+            }}
+            variables={{
+              teamSlug,
+            }}
+          />
+        </ErrorBoundary>
       </>
     );
   }
 
-  return <><DrawerRail {...props} /><DrawerNavigationComponent {...props} /></>;
+  return <><DrawerRail {...parentProps} /></>;
 };
 
 export default DrawerNavigation;
