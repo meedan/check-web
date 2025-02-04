@@ -517,6 +517,7 @@ const BotPreview = ({ me, team }) => {
               onSendText={handleSendText}
             >
               <ChatFeed
+                className={styles['chat-content']}
                 emptyChatMessage={
                   <div className={styles.emptyChatMessage}>
                     Start chatting with this workspace Tipline Bot by entering a search term into the input below.
