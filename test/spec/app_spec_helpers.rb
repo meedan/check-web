@@ -29,6 +29,12 @@ module AppSpecHelpers
     end
   end
 
+  def wait_and_refresh(selector, wait_time: 2, timeout: 20)
+    verbose_wait wait_time
+    @driver.navigate.refresh
+    wait_for_selector(selector, :css, timeout, true)
+  end
+
   def wait_for_selector(selector, type = :css, timeout = 20, reload = false, index: 0)
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
@@ -148,14 +154,14 @@ module AppSpecHelpers
 
   def create_media(url, wait_for_creation = true)
     # show the side navigation for workspace tipline
-    wait_for_selector('#side-navigation__tipline-toggle').click
+    wait_for_selector('#side-rail__tipline').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media-button__open-button').click
     fill_field('#create-media-input', url)
     press_button('#create-media-button__submit-button')
     wait_for_selector_none('#create-media-input', :css, 1)
-    wait_for_selector('#side-navigation__tipline-toggle').click
+    wait_for_selector('#side-rail__tipline').click
     wait_for_selector('.cluster-card a') if wait_for_creation
   end
 
@@ -170,7 +176,7 @@ module AppSpecHelpers
     wait_for_selector('#create-media-dialog-form .int-uploadfile__dropzone-with-file')
     wait_for_selector('#create-media-button__submit-button').click
     wait_for_selector_none('#create-media-dialog-form .int-uploadfile__dropzone-with-file')
-    wait_for_selector('#side-navigation__tipline-toggle').click
+    wait_for_selector('#side-rail__tipline').click
   end
 
   def team_url(path)

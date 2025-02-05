@@ -26,6 +26,8 @@ import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
+// This converts the filters keys to the argument names expected by the articles field in the GraphQL query
+// The original keys are used in `ArticleFilters` to display the filters
 const adjustFilters = (filters) => {
   const newFilters = { ...filters };
 
@@ -43,10 +45,17 @@ const adjustFilters = (filters) => {
     delete newFilters.language;
   }
 
-  // Some aliases
-  newFilters.user_ids = filters.users;
-  newFilters.publisher_ids = filters.published_by;
-  newFilters.rating = filters.verification_status;
+  if (filters.users) {
+    newFilters.user_ids = filters.users;
+  }
+
+  if (filters.published_by) {
+    newFilters.publisher_ids = filters.published_by;
+  }
+
+  if (filters.verification_status) {
+    newFilters.rating = filters.verification_status;
+  }
 
   return newFilters;
 };
@@ -350,7 +359,7 @@ ArticlesComponent.propTypes = {
 
 // Used in unit test
 // eslint-disable-next-line import/no-unused-modules
-export { ArticlesComponent };
+export { ArticlesComponent, adjustFilters };
 
 const Articles = ({
   articleTypeReadOnly,

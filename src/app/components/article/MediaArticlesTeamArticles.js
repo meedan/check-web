@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -13,11 +12,30 @@ import styles from './Articles.module.css';
 
 const MediaArticlesTeamArticlesComponent = ({
   articles,
+  hasRelevantArticles,
   onAdd,
   team,
   textSearch,
 }) => (
   <>
+    { !hasRelevantArticles && !textSearch && (
+      <div className="typography-subtitle2">
+        <FormattedMessage
+          defaultMessage="Choose a recent article to add to this media:"
+          description="Message displayed on articles sidebar when an item has no articles."
+          id="mediaArticles.chooseRecentArticle"
+        />
+      </div>
+    )}
+    { hasRelevantArticles && !textSearch && (
+      <div className="typography-subtitle2">
+        <FormattedMessage
+          defaultMessage="Choose a relevant article to add to this media:"
+          description="Message displayed on articles sidebar when an item has relevant articles."
+          id="mediaArticles.chooseRelevantArticle"
+        />
+      </div>
+    )}
     { textSearch && !articles.length ? (
       <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
         <DescriptionIcon />
@@ -39,17 +57,21 @@ const MediaArticlesTeamArticlesComponent = ({
 
 MediaArticlesTeamArticlesComponent.defaultProps = {
   articles: [],
+  hasRelevantArticles: false,
   textSearch: null,
 };
 
 MediaArticlesTeamArticlesComponent.propTypes = {
-  team: PropTypes.object.isRequired,
   articles: PropTypes.arrayOf(PropTypes.object),
+  hasRelevantArticles: PropTypes.bool,
+  team: PropTypes.object.isRequired,
   textSearch: PropTypes.string,
   onAdd: PropTypes.func.isRequired,
 };
 
-const numberOfArticles = 30;
+// eslint-disable-next-line
+export { MediaArticlesTeamArticlesComponent };  // For unit test
+const numberOfArticles = 10;
 
 const MediaArticlesTeamArticles = ({
   onAdd,
@@ -63,7 +85,24 @@ const MediaArticlesTeamArticles = ({
       environment={Relay.Store}
       key={new Date().getTime()}
       query={graphql`
-        query MediaArticlesTeamArticlesQuery($slug: String!, $textSearch: String!, $numberOfArticles: Int!, $targetId: Int, $standalone: Boolean) {
+        query MediaArticlesTeamArticlesQuery($ids: String!, $slug: String!, $textSearch: String!, $numberOfArticles: Int!, $targetId: Int, $standalone: Boolean) {
+          project_media(ids: $ids) {
+            relevant_articles(first: $numberOfArticles) {
+              edges {
+                node {
+                  ... on FactCheck {
+                    id
+                    ...MediaArticlesCard_article
+                  }
+                  ... on Explainer {
+                    id
+                    ...MediaArticlesCard_article
+                  }
+                }
+              }
+            }
+            relevant_articles_count
+          }
           team(slug: $slug) {
             ...MediaArticlesCard_team
             factChecks: articles(first: $numberOfArticles, sort: "id", sort_type: "desc", article_type: "fact-check", text: $textSearch, target_id: $targetId, standalone: $standalone) {
@@ -93,11 +132,19 @@ const MediaArticlesTeamArticles = ({
       `}
       render={({ error, props }) => {
         if (!error && props) {
-          // Merge explainers with fact-checks and re-sort
-          const articles = props.team.factChecks.edges.concat(props.team.explainers.edges).map(edge => edge.node).sort((a, b) => (parseInt(a.created_at, 10) < parseInt(b.created_at, 10)) ? 1 : -1);
+          let articles = [];
+          let hasRelevantArticles = false;
+          // If there are relevant articles, we prioritize and display them
+          if (props.project_media.relevant_articles_count > 0 && !textSearch) {
+            hasRelevantArticles = true;
+            articles = props.project_media.relevant_articles.edges.map(edge => edge.node);
+          } else {
+            // Fallback: If no relevant articles are found, merge fact-checks and explainers, and by creation date.
+            articles = props.team.factChecks.edges.concat(props.team.explainers.edges).map(edge => edge.node).sort((a, b) => (parseInt(a.created_at, 10) < parseInt(b.created_at, 10)) ? 1 : -1);
+          }
 
           return (
-            <MediaArticlesTeamArticlesComponent articles={articles} team={props.team} textSearch={textSearch} onAdd={onAdd} />
+            <MediaArticlesTeamArticlesComponent articles={articles} hasRelevantArticles={hasRelevantArticles} team={props.team} textSearch={textSearch} onAdd={onAdd} />
           );
         }
         return <Loader size="large" theme="white" variant="inline" />;
@@ -107,6 +154,7 @@ const MediaArticlesTeamArticles = ({
         slug: teamSlug,
         numberOfArticles,
         targetId,
+        ids: targetId.toString(),
         timestamp: new Date().getTime(), // No cache
         standalone: !textSearch,
       }}
@@ -120,9 +168,9 @@ MediaArticlesTeamArticles.defaultProps = {
 };
 
 MediaArticlesTeamArticles.propTypes = {
+  targetId: PropTypes.number, // ProjectMedia ID (in order to exclude articles already applied to this item)
   teamSlug: PropTypes.string.isRequired,
   textSearch: PropTypes.string,
-  targetId: PropTypes.number, // ProjectMedia ID (in order to exclude articles already applied to this item)
   onAdd: PropTypes.func.isRequired,
 };
 

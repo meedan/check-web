@@ -81,7 +81,6 @@ const MediaArticlesCard = ({ article, onAdd, team }) => {
           { article.nodeType === 'Explainer' && <FormattedMessage defaultMessage="Explainer" description="Type description of an explainer article card." id="mediaArticlesCard.explainer" tagName="small" /> }
         </div>
         <h6 className={styles.articlesSidebarCardTitle}>
-          { article.nodeType === 'Explainer' && article.title }
           { article.nodeType === 'FactCheck' && isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title }
         </h6>
         { article.nodeType === 'Explainer' && article.description && <div className={styles.articlesSidebarCardDescription}>{article.description}</div> }

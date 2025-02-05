@@ -16,7 +16,7 @@ shared_examples 'team' do
   it 'should edit team and logo', bin1: true do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
-    @driver.navigate.to "#{@config['self_url']}/#{team}"
+    @driver.navigate.to "#{@config['self_url']}/#{team}/settings/workspace"
     wait_for_selector('#team-details__update-button')
     wait_for_selector('.team-settings__workspace-tab').click
     expect(@driver.page_source.include?(' - EDIT')).to be(false)
@@ -64,7 +64,7 @@ shared_examples 'team' do
     api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
     # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}/settings")
     wait_for_selector('.component__settings-header')
     create_media('text')
     api_logout
@@ -94,7 +94,7 @@ shared_examples 'team' do
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length.zero?).to be(true)
     # do not be able to duplicate team
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
-    wait_for_selector('.team-header__drawer-team-link').click
+    wait_for_selector('#side-rail__workspace-settings').click
   end
 
   it 'should go back to previous team', bin1: true do
@@ -112,7 +112,7 @@ shared_examples 'team' do
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
     wait_for_selector('#add-filter-menu__open-button')
     expect(@driver.current_url.to_s.match(t2.slug).nil?).to be(false)
-    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/settings/workspace\"]")
+    wait_for_selector("#side-rail__workspace-settings[href=\"/#{t2.slug}/settings/workspace\"]")
 
     # Navigate back to first team
     @driver.navigate.to "#{@config['self_url']}/check/me/workspaces"

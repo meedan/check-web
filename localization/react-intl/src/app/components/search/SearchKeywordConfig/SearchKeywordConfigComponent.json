@@ -60,11 +60,6 @@
     "defaultMessage": "URL"
   },
   {
-    "id": "searchKeywordConfig.allNotes",
-    "description": "Label for checkbox to toggle searching for keyword across notes (aka comments)",
-    "defaultMessage": "Notes"
-  },
-  {
     "id": "searchKeywordConfig.request",
     "description": "Label for checkbox to toggle searching for keyword across Requests data",
     "defaultMessage": "Request"

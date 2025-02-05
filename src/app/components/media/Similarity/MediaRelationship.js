@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { commitMutation, graphql } from 'react-relay/compat';
+import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -24,6 +24,8 @@ import { getErrorMessage } from '../../../helpers';
 import MediaIdentifier from '../../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
+import MediaOrigin from '../MediaOrigin';
+import MediaOriginBanner from '../MediaOriginBanner';
 import styles from '../media.module.css';
 import similarityStyles from './MediaSimilarities.module.css';
 
@@ -270,10 +272,7 @@ const MediaRelationship = ({
   mainProjectMediaDemand,
   mainProjectMediaId,
   relationship,
-  relationshipSourceId,
-  relationshipTargetId,
   setFlashMessage,
-  superAdminMask,
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
@@ -301,6 +300,10 @@ const MediaRelationship = ({
       theme="lightText"
       variant="text"
     />
+  ), (
+    <MediaOrigin
+      projectMedia={relationship?.target}
+    />
   )];
 
   const maskContent = relationship?.target?.show_warning_cover;
@@ -312,6 +315,11 @@ const MediaRelationship = ({
           dialogTitle={relationship?.target?.media.metadata?.title || relationship?.target?.media.quote || relationship?.target?.description}
           feedId={relationship?.target?.imported_from_feed_id}
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
+          mediaOriginBanner={
+            <MediaOriginBanner
+              projectMedia={relationship?.target}
+            />
+          }
           mediaSlug={
             <MediaSlug
               className={styles['media-slug-title']}
@@ -331,7 +339,6 @@ const MediaRelationship = ({
             key={relationship.id}
             maskContent={maskContent}
             media={relationship?.target?.media}
-            superAdminMask={superAdminMask}
             onClick={() => setIsSelected(true)}
           />
         )
@@ -346,8 +353,8 @@ const MediaRelationship = ({
           demand: mainProjectMediaDemand,
         }}
         setFlashMessage={setFlashMessage}
-        sourceId={relationshipSourceId}
-        targetId={relationshipTargetId}
+        sourceId={relationship?.source_id}
+        targetId={relationship?.target_id}
       />
     </div>
   );
@@ -360,13 +367,30 @@ MediaRelationship.propTypes = {
   mainProjectMediaDemand: PropTypes.number.isRequired,
   mainProjectMediaId: PropTypes.string.isRequired,
   relationship: PropTypes.object.isRequired,
-  relationshipSourceId: PropTypes.number.isRequired,
-  relationshipTargetId: PropTypes.number.isRequired,
-  superAdminMask: PropTypes.bool,
 };
 
-MediaRelationship.defaultProps = {
-  superAdminMask: false,
-};
+export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelationship)), graphql`
+  fragment MediaRelationship_relationship on Relationship {
+    source_id
+    target_id
+    id
+    target {
+      id
+      media_slug
+      title
+      description
+      type
+      last_seen
+      show_warning_cover
+      quote
+      imported_from_feed_id
+      media {
+        ...SmallMediaCard_media
+      }
+      ...MediaFeedInformation_projectMedia
+      ...MediaOrigin_projectMedia
+      ...MediaOriginBanner_projectMedia
+    }
+  }
+`);
 
-export default withSetFlashMessage(injectIntl(MediaRelationship));

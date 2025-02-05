@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import cx from 'classnames/bind';
 import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaSlug from './MediaSlug';
+import MediaOrigin from './MediaOrigin';
 import ExternalLink from '../ExternalLink';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
@@ -68,14 +68,7 @@ const MediaCardLargeFooter = ({
   );
 
   return (
-    <div
-      className={cx(
-        styles['media-card-large-footer'],
-        {
-          [styles['media-card-large-footer-modal']]: inModal,
-        })
-      }
-    >
+    <div className={styles['media-card-large-footer']}>
       { /* 1st MediaLargeFooterContent, exclusive for Link, always displays URL above MediaCardLargeActions */}
       { projectMedia.type === 'Link' ?
         <MediaCardLargeFooterContent
@@ -107,26 +100,34 @@ const MediaCardLargeFooter = ({
       { footerBody && !inModal ? <>{transcriptionOrExtractedFooter}</> : null }
       { !inModal ?
         <MediaSlug
-          details={[(
-            <LastRequestDate
-              lastRequestDate={projectMedia.last_seen * 1000}
-              theme="lightText"
-              variant="text"
-            />
-          ), (
-            <RequestsCount
-              requestsCount={projectMedia.requests_count}
-              theme="lightText"
-              variant="text"
-            />
-          ), (
-            <MediaIdentifier
-              mediaType={mediaType}
-              slug={projectMedia.media_slug || projectMedia.title}
-              theme="lightText"
-              variant="text"
-            />
-          ),
+          details={[
+            (
+              <LastRequestDate
+                lastRequestDate={projectMedia.last_seen * 1000}
+                theme="lightText"
+                variant="text"
+              />
+            ),
+            (
+              <RequestsCount
+                requestsCount={projectMedia.requests_count}
+                theme="lightText"
+                variant="text"
+              />
+            ),
+            (
+              <MediaIdentifier
+                mediaType={mediaType}
+                slug={projectMedia.media_slug || projectMedia.title}
+                theme="lightText"
+                variant="text"
+              />
+            ),
+            (
+              <MediaOrigin
+                projectMedia={projectMedia}
+              />
+            ),
           ]}
         />
         : null
@@ -172,5 +173,6 @@ export default createFragmentContainer(MediaCardLargeFooter, graphql`
       data
     }
     ...MediaCardLargeActions_projectMedia
+    ...MediaOrigin_projectMedia
   }
 `);

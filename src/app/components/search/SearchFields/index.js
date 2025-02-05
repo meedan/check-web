@@ -4,12 +4,13 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
+import SearchFieldChannel from './SearchFieldChannel';
+import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import SearchFieldDummy from './SearchFieldDummy';
+import SearchFieldMediaType from './SearchFieldMediaType';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
-import SearchFieldChannel from './SearchFieldChannel';
 import SearchFieldUser from './SearchFieldUser';
-import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -23,7 +24,6 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ListSort, { sortLabels } from '../../cds/inputs/ListSort';
 import CorporateFareIcon from '../../../icons/corporate_fare.svg';
 import DeleteIcon from '../../../icons/delete.svg';
-import DescriptionIcon from '../../../icons/description.svg';
 import ErrorIcon from '../../../icons/error_outline.svg';
 import HowToRegIcon from '../../../icons/person_check.svg';
 import LabelIcon from '../../../icons/label.svg';
@@ -35,66 +35,6 @@ import UnmatchedIcon from '../../../icons/unmatched.svg';
 import styles from '../search.module.css';
 
 const messages = defineMessages({
-  claim: {
-    id: 'search.showClaims',
-    defaultMessage: 'Text',
-    description: 'Describes media type Text',
-  },
-  image: {
-    id: 'search.showImages',
-    defaultMessage: 'Image',
-    description: 'Describes media type Image',
-  },
-  video: {
-    id: 'search.showVideos',
-    defaultMessage: 'Video',
-    description: 'Describes media type Video',
-  },
-  audio: {
-    id: 'search.showAudios',
-    defaultMessage: 'Audio',
-    description: 'Describes media type Audio',
-  },
-  socialMedia: {
-    id: 'search.socialMedia',
-    defaultMessage: 'Social media',
-    description: 'Allow user to filter by social media links',
-  },
-  facebook: {
-    id: 'search.facebook',
-    defaultMessage: 'Facebook post',
-    description: 'Allow user to filter items by facebook posts',
-  },
-  twitter: {
-    id: 'search.twitter',
-    defaultMessage: 'X (Twitter) post',
-    description: 'Allow user to filter items by x (twitter) posts',
-  },
-  tiktok: {
-    id: 'search.tiktok',
-    defaultMessage: 'TikTok post',
-    description: 'Allow user to filter items by tiktok posts',
-  },
-  youtube: {
-    id: 'search.youtube',
-    defaultMessage: 'Youtube video',
-    description: 'Allow user to filter items by youtube videos',
-  },
-  instagram: {
-    id: 'search.instagram',
-    defaultMessage: 'Instagram post',
-    description: 'Allow user to filter items by instagram posts',
-  },
-  telegram: {
-    id: 'search.telegram',
-    defaultMessage: 'Telegram',
-    description: 'Allow user to filter items by Telegram posts',
-  },
-  webLink: {
-    id: 'search.webLink',
-    defaultMessage: 'webLink',
-    description: 'Allow user to filter items by links of type page',
-  },
   read: {
     id: 'search.itemRead',
     defaultMessage: 'Read',
@@ -181,6 +121,8 @@ const SearchFields = ({
         [...stateQuery.team_tasks, {}] : [{}];
     } else if (field === 'range') {
       newQuery.range = { created_at: {} };
+    } else if (field === 'linked_items_count') {
+      newQuery.linked_items_count = { min: 1, max: '' };
     } else {
       newQuery[field] = [];
     }
@@ -255,23 +197,6 @@ const SearchFields = ({
   };
 
   const { statuses } = team.verification_statuses;
-
-  const types = [
-    { value: 'audios', label: intl.formatMessage(messages.audio) },
-    { value: 'images', label: intl.formatMessage(messages.image) },
-    { value: 'videos', label: intl.formatMessage(messages.video) },
-    { value: '', label: '' },
-    { value: 'social_media', label: intl.formatMessage(messages.socialMedia), hasChildren: true },
-    { value: 'facebook', label: intl.formatMessage(messages.facebook), parent: 'social_media' },
-    { value: 'instagram', label: intl.formatMessage(messages.instagram), parent: 'social_media' },
-    { value: 'telegram', label: intl.formatMessage(messages.telegram), parent: 'social_media' },
-    { value: 'tiktok', label: intl.formatMessage(messages.tiktok), parent: 'social_media' },
-    { value: 'twitter', label: intl.formatMessage(messages.twitter), parent: 'social_media' },
-    { value: 'youtube', label: intl.formatMessage(messages.youtube), parent: 'social_media' },
-    { value: '', label: '' },
-    { value: 'claims', label: intl.formatMessage(messages.claim) },
-    { value: 'weblink', label: intl.formatMessage(messages.webLink) },
-  ];
 
   const readValues = [
     { value: '0', label: intl.formatMessage(messages.unread) },
@@ -376,20 +301,12 @@ const SearchFields = ({
       />
     ),
     show: (
-      <FormattedMessage defaultMessage="Media in cluster is" description="Prefix label for field to filter by media type" id="search.show">
-        { label => (
-          <MultiSelectFilter
-            allowSearch={false}
-            icon={<DescriptionIcon />}
-            label={label}
-            options={types}
-            readOnly={readOnlyFields.includes('show')}
-            selected={stateQuery.show}
-            onChange={(newValue) => { handleFilterClick(newValue, 'show'); }}
-            onRemove={() => handleRemoveField('show')}
-          />
-        )}
-      </FormattedMessage>
+      <SearchFieldMediaType
+        query={stateQuery}
+        readOnly={readOnlyFields.includes('show')}
+        onChange={(newValue) => { handleFilterClick(newValue, 'show'); }}
+        onRemove={() => handleRemoveField('show')}
+      />
     ),
     show_similar: (
       <FormattedMessage defaultMessage="Include matched media clusters" description="Label for filter field to display matched media" id="search.showSimilar">

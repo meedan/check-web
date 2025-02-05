@@ -1,11 +1,11 @@
 shared_examples 'login' do
   it 'should sign up using e-mail', bin1: true do
     @driver.navigate.to @config['self_url']
-    expect(@driver.page_source.include?('Please check your email to verify your account')).to be(false)
+    expect(@driver.page_source.include?('Please check your email')).to be(false)
     email = "userTest+#{Time.now.to_i}@email.com"
     register_with_email(false, email, false)
     wait_for_selector('.message')
-    expect(@driver.page_source.include?('Please check your email to verify your account')).to be(true)
+    expect(@driver.page_source.include?('Please check your email')).to be(true)
   end
 
   it 'should register and login using e-mail', bin2: true, quick: true do

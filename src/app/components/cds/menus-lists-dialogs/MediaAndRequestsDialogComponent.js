@@ -16,6 +16,7 @@ const MediaAndRequestsDialogComponent = ({
   dialogTitle,
   feedId,
   mediaHeader,
+  mediaOriginBanner,
   mediaSlug,
   onClick,
   onClose,
@@ -54,7 +55,10 @@ const MediaAndRequestsDialogComponent = ({
         <div className={styles.columns}>
           { context === 'workspace' ?
             <>
-              <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
+              <div>
+                {mediaOriginBanner}
+                <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
+              </div>
               <div>
                 { projectMediaId && projectMediaImportedId && ( // Show the toggle if we have two values to switch between
                   <div className={styles.toggle}>
@@ -93,6 +97,7 @@ const MediaAndRequestsDialogComponent = ({
 MediaAndRequestsDialogComponent.defaultProps = {
   dialogTitle: '',
   mediaHeader: null,
+  mediaOriginBanner: null,
   projectMediaImportedId: null,
   feedId: null,
 };
@@ -101,6 +106,7 @@ MediaAndRequestsDialogComponent.propTypes = {
   dialogTitle: PropTypes.string,
   feedId: PropTypes.number,
   mediaHeader: PropTypes.element,
+  mediaOriginBanner: PropTypes.element,
   mediaSlug: PropTypes.element.isRequired,
   projectMediaId: PropTypes.number.isRequired,
   projectMediaImportedId: PropTypes.number,

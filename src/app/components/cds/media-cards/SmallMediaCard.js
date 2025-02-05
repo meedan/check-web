@@ -14,10 +14,10 @@ const SmallMediaCard = ({
   className, // { type, url, domain, quote, picture, metadata }
   description,
   details,
+  ignoreGeneralContentMask,
   maskContent,
   media,
   onClick,
-  superAdminMask,
   title,
 }) => {
   if (!media) {
@@ -54,7 +54,7 @@ const SmallMediaCard = ({
       }
     >
       <div className={styles.smallMediaCard} onClick={onClick} onKeyDown={onClick}>
-        <ItemThumbnail maskContent={maskContent || superAdminMask} picture={media?.picture} size="small" type={media?.type} url={media?.url} />
+        <ItemThumbnail ignoreGeneralContentMask={ignoreGeneralContentMask} maskContent={maskContent} picture={media?.picture} size="small" type={media?.type} url={media?.url} />
         <div className={styles.smallMediaCardContent}>
           <div className={styles.titleAndUrl}>
             <div className={cx('typography-subtitle2', 'small-media-card__title', styles.row, (media.url ? styles.oneLineDescription : styles.twoLinesDescription))}>
@@ -77,6 +77,7 @@ SmallMediaCard.propTypes = {
   className: PropTypes.string,
   description: PropTypes.string,
   details: PropTypes.array,
+  ignoreGeneralContentMask: PropTypes.bool,
   maskContent: PropTypes.bool,
   media: PropTypes.shape({
     type: PropTypes.string.isRequired,
@@ -86,7 +87,6 @@ SmallMediaCard.propTypes = {
     picture: PropTypes.string, // URL to an image
     metadata: PropTypes.object,
   }).isRequired,
-  superAdminMask: PropTypes.bool,
   title: PropTypes.string,
   onClick: PropTypes.func,
 };
@@ -95,8 +95,8 @@ SmallMediaCard.defaultProps = {
   className: '',
   details: null,
   description: null,
+  ignoreGeneralContentMask: false,
   maskContent: false,
-  superAdminMask: false,
   title: null,
   onClick: () => {},
 };

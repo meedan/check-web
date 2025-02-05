@@ -31,7 +31,6 @@ const Tag = ({
   label,
   onDelete,
   readOnly,
-  ...props
 }) => (
   <>
     {label ?
@@ -43,7 +42,6 @@ const Tag = ({
             [styles['filter-value-removable']]: !readOnly,
           })
         }
-        {...props}
       >
         <span>{label}</span>
         { readOnly ? null : (
@@ -67,7 +65,7 @@ const Tag = ({
         )}
       </div>
       :
-      <div className={cx('multi-select-filter__tag', styles['filter-value'], styles['filter-value-missing'])} {...props}>
+      <div className={cx('multi-select-filter__tag', styles['filter-value'], styles['filter-value-missing'])}>
         <span>
           <FormattedMessage defaultMessage="Property deleted" description="Message shown a placeholder when someone tries to filter a search by a property that the user has deleted" id="filter.tag.deleted" />
         </span>

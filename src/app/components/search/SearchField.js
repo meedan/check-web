@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -231,22 +230,22 @@ const SearchField = ({
 };
 
 SearchField.defaultProps = {
-  isActive: false,
-  inputBaseProps: {},
-  showExpand: false,
-  setParentSearchText: () => {},
   handleClear: () => {},
+  inputBaseProps: {},
+  isActive: false,
   searchQuery: {},
+  setParentSearchText: () => {},
+  showExpand: false,
 };
 
 SearchField.propTypes = {
+  handleClear: PropTypes.func,
+  inputBaseProps: PropTypes.object,
   intl: intlShape.isRequired,
   isActive: PropTypes.bool,
-  inputBaseProps: PropTypes.object,
-  showExpand: PropTypes.bool,
-  setParentSearchText: PropTypes.func,
-  handleClear: PropTypes.func,
   searchQuery: PropTypes.object,
+  setParentSearchText: PropTypes.func,
+  showExpand: PropTypes.bool,
 };
 
 export default injectIntl(SearchField);

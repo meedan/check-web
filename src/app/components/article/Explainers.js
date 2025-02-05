@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -44,7 +43,7 @@ const Explainers = ({ intl, routeParams }) => {
 
   return (
     <Articles
-      filterOptions={['users', 'tags', 'range']}
+      filterOptions={['users', 'tags', 'range', 'language_filter']}
       icon={<BookIcon />}
       sortOptions={sortOptions}
       teamSlug={routeParams.team}
@@ -58,10 +57,10 @@ const Explainers = ({ intl, routeParams }) => {
 Explainers.defaultProps = {};
 
 Explainers.propTypes = {
+  intl: intlShape.isRequired,
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired, // slug
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default injectIntl(Explainers);

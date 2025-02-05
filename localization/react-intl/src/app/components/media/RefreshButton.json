@@ -5,6 +5,11 @@
     "defaultMessage": "Media refreshed successfully"
   },
   {
+    "id": "refreshButton.labelWait",
+    "description": "Button label to indicate that media is being refreshed",
+    "defaultMessage": "Refreshing, please wait…"
+  },
+  {
     "id": "refreshButton.label",
     "description": "Button label to initiate the refresh of media is content",
     "defaultMessage": "Refresh Media"

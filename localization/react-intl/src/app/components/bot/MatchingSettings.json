@@ -1,0 +1,37 @@
+[
+  {
+    "id": "matchingSettings.lowRange",
+    "description": "Label for low end of similarity threshold",
+    "defaultMessage": "Lenient"
+  },
+  {
+    "id": "matchingSettings.highRange",
+    "description": "Label for the high end of the similarity threshold",
+    "defaultMessage": "Strict"
+  },
+  {
+    "id": "matchingSettings.maxWordsHelpMessage",
+    "description": "Message for additional context for the use of the maximum word value",
+    "defaultMessage": "Maximum number of words to perform a keyword search instead of a similarity search."
+  },
+  {
+    "id": "matchingSettings.maxWordsLabel",
+    "description": "Label for maximum matching words input",
+    "defaultMessage": "Maximum words"
+  },
+  {
+    "id": "matchingSettings.similarityThresholdLabel",
+    "description": "Label for the search threshold slider",
+    "defaultMessage": "Search Threshold"
+  },
+  {
+    "id": "matchingSettings.similarityThresholdValueLabel",
+    "description": "Label for value on slider.",
+    "defaultMessage": "Search Threshold: {val}"
+  },
+  {
+    "id": "matchingSettings.similarityThresholdHelpMessage",
+    "description": "Additional context for the use of the value for the search threshold slider",
+    "defaultMessage": "When searching for articles to return based on a user message, how strict should the bot be when comparing text."
+  }
+]

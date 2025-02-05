@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import RemoveableWrapper from '../RemoveableWrapper';
@@ -20,16 +19,16 @@ const SearchFieldDummy = ({
 
 SearchFieldDummy.defaultProps = {
   readOnly: false,
-  onRemove: null,
   version: undefined,
+  onRemove: null,
 };
 
 SearchFieldDummy.propTypes = {
   icon: PropTypes.node.isRequired,
   label: PropTypes.node.isRequired,
   readOnly: PropTypes.bool,
-  onRemove: PropTypes.func,
   version: PropTypes.string,
+  onRemove: PropTypes.func,
 };
 
 export default SearchFieldDummy;

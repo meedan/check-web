@@ -18,6 +18,12 @@ describe('<MediaSimilaritiesComponent />', () => {
               dbid: 1,
               source_id: 1,
               target_id: 1,
+              target: {
+                media_cluster_origin: 1,
+                media_cluster_origin_user: {
+                  name: 'test User',
+                },
+              },
             },
           },
           {
@@ -26,17 +32,19 @@ describe('<MediaSimilaritiesComponent />', () => {
               dbid: 2,
               source_id: 1,
               target_id: 1,
+              media_cluster_origin: 1,
+              media_cluster_origin_user: {
+                name: 'test User',
+              },
             },
           },
         ],
       },
     };
 
-    const superAdminMask = false;
     const wrapper = shallowWithIntl(
       <MediaSimilaritiesComponent
         projectMedia={projectMedia}
-        superAdminMask={superAdminMask}
       />,
     );
 

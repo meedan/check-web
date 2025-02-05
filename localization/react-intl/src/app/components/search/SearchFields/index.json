@@ -1,65 +1,5 @@
 [
   {
-    "id": "search.showClaims",
-    "description": "Describes media type Text",
-    "defaultMessage": "Text"
-  },
-  {
-    "id": "search.showImages",
-    "description": "Describes media type Image",
-    "defaultMessage": "Image"
-  },
-  {
-    "id": "search.showVideos",
-    "description": "Describes media type Video",
-    "defaultMessage": "Video"
-  },
-  {
-    "id": "search.showAudios",
-    "description": "Describes media type Audio",
-    "defaultMessage": "Audio"
-  },
-  {
-    "id": "search.socialMedia",
-    "description": "Allow user to filter by social media links",
-    "defaultMessage": "Social media"
-  },
-  {
-    "id": "search.facebook",
-    "description": "Allow user to filter items by facebook posts",
-    "defaultMessage": "Facebook post"
-  },
-  {
-    "id": "search.twitter",
-    "description": "Allow user to filter items by x (twitter) posts",
-    "defaultMessage": "X (Twitter) post"
-  },
-  {
-    "id": "search.tiktok",
-    "description": "Allow user to filter items by tiktok posts",
-    "defaultMessage": "TikTok post"
-  },
-  {
-    "id": "search.youtube",
-    "description": "Allow user to filter items by youtube videos",
-    "defaultMessage": "Youtube video"
-  },
-  {
-    "id": "search.instagram",
-    "description": "Allow user to filter items by instagram posts",
-    "defaultMessage": "Instagram post"
-  },
-  {
-    "id": "search.telegram",
-    "description": "Allow user to filter items by Telegram posts",
-    "defaultMessage": "Telegram"
-  },
-  {
-    "id": "search.webLink",
-    "description": "Allow user to filter items by links of type page",
-    "defaultMessage": "webLink"
-  },
-  {
     "id": "search.itemRead",
     "description": "Describes media read",
     "defaultMessage": "Read"
@@ -138,11 +78,6 @@
     "id": "search.claim",
     "description": "Prefix label for field to filter by claim",
     "defaultMessage": "Claim is"
-  },
-  {
-    "id": "search.show",
-    "description": "Prefix label for field to filter by media type",
-    "defaultMessage": "Media in cluster is"
   },
   {
     "id": "search.showSimilar",

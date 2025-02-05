@@ -49,6 +49,13 @@
         padding: 0 15px;
       }
     }
+
+    &.iconCenter {
+      :global(.MuiToggleButton-label) {
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        font-size: 20px;
+      }
+    }
   }
 
   &.sizeSmall {
@@ -67,6 +74,13 @@
     :global(.MuiToggleButtonGroup-grouped) {
       padding: 0 10px;
     }
+
+    &.iconCenter {
+      :global(.MuiToggleButton-label) {
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        font-size: 16px;
+      }
+    }
   }
 
   &.sizeLarge {
@@ -75,6 +89,13 @@
 
     :global(.MuiToggleButtonGroup-grouped) {
       padding: 0 20px;
+    }
+
+    &.iconCenter {
+      :global(.MuiToggleButton-label) {
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        font-size: 30px;
+      }
     }
   }
 
@@ -102,12 +123,117 @@
     }
   }
 
+  &.containedLight {
+    border-color: var(--color-beige-86);
+
+    :global(.MuiButtonBase-root) {
+      background-color: var(--color-beige-93);
+
+      &:hover {
+        color: var(--color-blue-54);
+      }
+    }
+
+    :global(.MuiButtonBase-root.Mui-selected) {
+      background-color: var(--color-blue-90);
+      color: var(--color-blue-54);
+    }
+  }
+
   &.outlined {
     :global(.MuiButtonBase-root) {
       background-color: transparent;
 
       &:hover {
         background-color: transparent;
+      }
+    }
+  }
+
+  &.vertical {
+    height: auto;
+
+    :global(.MuiToggleButtonGroup-root) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    :global(.MuiButtonBase-root) {
+      min-height: 42px;
+    }
+
+    button:not(:first-child) {
+      border-left: 0;
+      border-top: 2px solid var(--color-gray-88);
+    }
+
+    :global(.MuiToggleButtonGroup-grouped:not(:first-child)) {
+      border-top-right-radius: 0;
+    }
+
+    :global(.MuiToggleButtonGroup-grouped:not(:last-child)) {
+      border-bottom-left-radius: 0;
+    }
+
+    &.iconCenter {
+      :global(.MuiButtonBase-root) {
+        height: 40px;
+        min-height: 40px;
+        min-width: 40px;
+        width: 40px;
+      }
+
+      &.sizeSmall {
+        :global(.MuiButtonBase-root) {
+          height: 32px;
+          min-height: 32px;
+          min-width: 32px;
+          width: 32px;
+        }
+      }
+
+      &.sizeLarge {
+        :global(.MuiButtonBase-root) {
+          height: 50px;
+          min-height: 50px;
+          min-width: 50px;
+          width: 50px;
+        }
+      }
+    }
+  }
+
+  &.theme-setting {
+    &.contained,
+    &.outlined {
+      :global(.MuiButtonBase-root.Mui-selected):not(:global(.Mui-disabled)) {
+        background-color: var(--color-purple-61);
+        border-color: var(--color-purple-96);
+
+        &:hover {
+          background-color: var(--color-purple-61);
+          border-color: var(--color-purple-61);
+          color: var(--color-white-100);
+        }
+      }
+    }
+
+    &.containedLight {
+      :global(.MuiButtonBase-root.Mui-selected):not(:global(.Mui-disabled)) {
+        background-color: var(--color-purple-96);
+        border-color: var(--color-beige-86);
+        color: var(--color-purple-61);
+
+        &:hover {
+          color: var(--color-purple-61);
+        }
+      }
+    }
+
+    :global(.MuiButtonBase-root) {
+      &:hover {
+        color: var(--color-purple-61);
+        transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
       }
     }
   }
