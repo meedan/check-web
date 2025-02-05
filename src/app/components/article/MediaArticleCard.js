@@ -148,8 +148,8 @@ const MediaArticleCard = ({
               tooltipLabel={(
                 <FormattedMessage
                   defaultMessage="Last Updated"
-                  description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'."
-                  id="sharedItemCard.lastRequested"
+                  description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'."
+                  id="sharedItemCard.lastUpdated"
                 />
               )}
               variant="text"
