@@ -283,7 +283,7 @@ const MediaRelationship = ({
 
   const details = [(
     <LastRequestDate
-      lastRequestDate={+relationship?.target?.last_seen * 1000}
+      lastRequestDate={(+relationship?.target?.last_seen * 1000) || +relationship?.target?.created_at * 1000}
       theme="lightText"
       variant="text"
     />
@@ -381,9 +381,11 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelat
       description
       type
       last_seen
+      created_at
       show_warning_cover
       quote
       imported_from_feed_id
+      requests_count
       media {
         ...SmallMediaCard_media
       }
