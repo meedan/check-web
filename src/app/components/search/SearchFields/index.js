@@ -216,7 +216,7 @@ const SearchFields = ({
     { value: CheckArchivedFlags.UNCONFIRMED.toString(), label: intl.formatMessage(messages.unconfirmed) },
   ];
 
-  const hasClaimOptions = [
+  const hasArticleOptions = [
     { label: intl.formatMessage(messages.notEmpty), value: 'ANY_VALUE', exclusive: true },
     { label: intl.formatMessage(messages.empty), value: 'NO_VALUE', exclusive: true },
   ];
@@ -264,18 +264,18 @@ const SearchFields = ({
   };
 
   const fieldComponents = {
-    has_claim: (
-      <FormattedMessage defaultMessage="Claim is" description="Prefix label for field to filter by claim" id="search.claim">
+    has_article: (
+      <FormattedMessage defaultMessage="Article is" description="Prefix label for field to filter by article" id="search.article">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
             icon={<LabelIcon />}
             label={label}
-            options={hasClaimOptions}
-            readOnly={readOnlyFields.includes('has_claim')}
-            selected={stateQuery.has_claim}
-            onChange={(newValue) => { handleFilterClick(newValue, 'has_claim'); }}
-            onRemove={() => handleRemoveField('has_claim')}
+            options={hasArticleOptions}
+            readOnly={readOnlyFields.includes('has_article')}
+            selected={stateQuery.has_article}
+            onChange={(newValue) => { handleFilterClick(newValue, 'has_article'); }}
+            onRemove={() => handleRemoveField('has_article')}
           />
         )}
       </FormattedMessage>
