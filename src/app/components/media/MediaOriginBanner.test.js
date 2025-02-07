@@ -42,4 +42,9 @@ describe('<MediaOriginBanner />', () => {
     const wrapper = mountWithIntl(<MediaOriginBanner projectMedia={{ ...projectMedia, media_cluster_origin: 99 }} />);
     expect(wrapper.find('FormattedMessage').length).toEqual(0);
   });
+
+  it('should not crash when media cluster origin and media cluster origin user are null', () => {
+    const wrapper = mountWithIntl(<MediaOriginBanner projectMedia={{ media_cluster_origin: null, media_cluster_origin_user: null }} />);
+    expect(wrapper.find('FormattedMessage').length).toEqual(0);
+  });
 });
