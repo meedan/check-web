@@ -113,7 +113,7 @@ const MediaOriginBanner = ({
     media_cluster_relationship: mediaClusterRelationship,
   },
 }) => {
-  const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user?.name, originTimestamp);
+  const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user.name, originTimestamp);
   return (
     <div style={{ marginBottom: '8px' }}>
       <Alert

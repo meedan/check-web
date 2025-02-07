@@ -121,7 +121,7 @@ const MediaOrigin = ({
     media_cluster_origin_user: user = {},
   } = {},
 }) => {
-  const { icon, message, tooltipMessage } = getIconAndMessage(origin, user?.name);
+  const { icon, message, tooltipMessage } = getIconAndMessage(origin, user.name);
 
   return (
     <Tooltip arrow title={tooltipMessage}>
