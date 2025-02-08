@@ -5,7 +5,7 @@
       color: var(--color-gray-96);
       height: 10px;
     }
-    
+
     :global(.MuiSlider-track) {
       display: none;
     }
