@@ -1,0 +1,45 @@
+.sliderComponent {
+  &.marked {
+    :global(.MuiSlider-rail) {
+      border-radius: var(--border-radius-medium);
+      color: var(--color-gray-96);
+      height: 10px;
+    }
+    
+    :global(.MuiSlider-track) {
+      display: none;
+    }
+
+    :global(.MuiSlider-mark) {
+      color: var(--color-gray-88);
+      height: 18px;
+      margin-top: -4px;
+      width: 3px;
+
+      &:hover {
+        border: 12px solid var(--color-blue-32);
+        border-radius: var(--border-radius-max);
+        margin-left: -10px;
+        margin-top: -7px;
+        opacity: .2;
+      }
+    }
+
+    :global(.MuiSlider-thumb) {
+      height: 22px;
+      margin-left: -10px;
+      margin-top: -7px;
+      width: 22px;
+    }
+
+    :global(.MuiSlider-markLabel) {
+      color: var(--color-gray-15);
+      font-weight: 600;
+      top: 36px;
+    }
+
+    :global(.MuiSlider-marked) {
+      margin-bottom: 26px;
+    }
+  }
+}
