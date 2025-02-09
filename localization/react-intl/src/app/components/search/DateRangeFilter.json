@@ -2,7 +2,7 @@
   {
     "id": "search.dateSubmittedHeading",
     "description": "This is a header in a drop down selector, to filter a search by the submission date",
-    "defaultMessage": "Request submitted"
+    "defaultMessage": "Item created"
   },
   {
     "id": "search.dateUpdatedHeading",

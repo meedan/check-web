@@ -16,7 +16,7 @@ import styles from './search.module.css';
 const messages = defineMessages({
   created_at: {
     id: 'search.dateSubmittedHeading',
-    defaultMessage: 'Request submitted',
+    defaultMessage: 'Item created',
     description: 'This is a header in a drop down selector, to filter a search by the submission date',
   },
   updated_at: {

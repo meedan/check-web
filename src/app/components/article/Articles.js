@@ -37,6 +37,11 @@ const adjustFilters = (filters) => {
   } else {
     delete newFilters.updated_at;
   }
+  if (filters.range?.created_at) {
+    newFilters.created_at = JSON.stringify(filters.range.created_at);
+  } else {
+    delete newFilters.created_at;
+  }
 
   // Language
   if (filters.language_filter?.report_language) {
@@ -401,7 +406,7 @@ const Articles = ({
         query={graphql`
           query ArticlesQuery(
             $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
-            $users: [Int], $updated_at: String, $tags: [String], $language: [String], $published_by: [Int],
+            $users: [Int], $updated_at: String, $created_at: String, $tags: [String], $language: [String], $published_by: [Int],
             $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean,
           ) {
             team(slug: $slug) {
@@ -410,12 +415,12 @@ const Articles = ({
               totalArticlesCount: articles_count
               verification_statuses
               articles_count(
-                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, text: $text,
+                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updated_at, created_at: $created_at, language: $language, text: $text,
                 publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported, trashed: $trashed,
               )
               articles(
                 first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
-                user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by,
+                user_ids: $users, tags: $tags, updated_at: $updated_at, created_at: $created_at, language: $language, publisher_ids: $published_by,
                 report_status: $report_status, rating: $verification_status, imported: $imported, text: $text, trashed: $trashed,
               ) {
                 edges {
