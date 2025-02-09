@@ -15,6 +15,7 @@ const SearchResultsCards = ({ projectMedias, team }) => (
         <div className="fact-check-card-wrapper" key={values.fact_check_title}>
           <ArticleCard
             date={values.updated_at_timestamp}
+            isPublished={projectMedia.report_status === 'published'}
             statusColor={status.style?.color}
             statusLabel={status.label || values.status}
             summary={values.fact_check_summary}

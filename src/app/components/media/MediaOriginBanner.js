@@ -105,15 +105,14 @@ const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimesta
   }
 };
 
-const MediaOriginBanner = ({
-  projectMedia: {
+const MediaOriginBanner = ({ projectMedia }) => {
+  const {
     media_cluster_origin: origin,
     media_cluster_origin_timestamp: originTimestamp,
-    media_cluster_origin_user: { name: user } = {},
+    media_cluster_origin_user: user,
     media_cluster_relationship: mediaClusterRelationship,
-  },
-}) => {
-  const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user, originTimestamp);
+  } = projectMedia;
+  const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user?.name, originTimestamp);
   return (
     <div style={{ marginBottom: '8px' }}>
       <Alert
