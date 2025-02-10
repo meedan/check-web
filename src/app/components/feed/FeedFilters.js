@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -311,7 +310,7 @@ const FeedFilters = ({
             />
           </div>
           : null }
-        { disableSave ?
+        { !disableSave ?
           <ButtonMain
             buttonProps={{
               id: 'save-list__button',
@@ -335,23 +334,23 @@ const FeedFilters = ({
 };
 
 FeedFilters.defaultProps = {
-  filterOptions: [],
   currentFilters: {},
   disableSave: false,
   extra: null,
+  filterOptions: [],
 };
 
 FeedFilters.propTypes = {
-  filterOptions: PropTypes.arrayOf(PropTypes.string.isRequired),
   currentFilters: PropTypes.object,
+  disableSave: PropTypes.bool,
+  extra: PropTypes.node,
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     requests_filters: PropTypes.object,
   }).isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  disableSave: PropTypes.bool,
-  extra: PropTypes.node,
+  filterOptions: PropTypes.arrayOf(PropTypes.string.isRequired),
   intl: intlShape.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default withSetFlashMessage(injectIntl(FeedFilters));
