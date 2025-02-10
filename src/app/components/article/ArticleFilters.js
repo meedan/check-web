@@ -174,7 +174,7 @@ const ArticleFilters = ({
                 {connector}
                 <DateRangeFilter
                   filterKey="range"
-                  optionsToHide={['created_at', 'media_published_at', 'report_published_at', 'request_created_at']}
+                  optionsToHide={['media_published_at', 'report_published_at', 'request_created_at']}
                   value={value || { updated_at: {} }}
                   onChange={handleDateRange}
                   onRemove={() => handleRemoveFilter('range')}
