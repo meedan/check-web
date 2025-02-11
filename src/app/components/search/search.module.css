@@ -236,6 +236,10 @@
       border-left: solid 1px var(--color-beige-86);
     }
   }
+
+  .filter-toggle-and-or-operator {
+    font-weight: bold;
+  }
 }
 
 .save-new-list {

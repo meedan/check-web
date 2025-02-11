@@ -247,8 +247,7 @@ const SearchFields = ({
       >
         <span>
           <ButtonMain
-            className="int-search-fields__button--toggle-and-or-operator"
-            customStyle={{ fontWeight: 'bold' }}
+            className={cx('int-search-fields__button--toggle-and-or-operator', styles['filter-toggle-and-or-operator'])}
             label={stateQuery.operator === 'OR' ?
               <FormattedMessage defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" id="search.fieldOr" /> :
               <FormattedMessage defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" id="search.fieldAnd" />
