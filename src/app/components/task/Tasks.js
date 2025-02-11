@@ -272,7 +272,6 @@ const Tasks = ({
                         <FormattedMessage defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." id="metadata.form.save" />
                       }
                       size="default"
-                      style={{ backgroundColor: 'var(--color-green-35)', color: 'var(--color-white-100)' }}
                       theme="validation"
                       variant="contained"
                       onClick={handleSaveAnnotations}
