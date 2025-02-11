@@ -199,7 +199,7 @@
     "unused-files-webpack-plugin": "^3.4.0",
     "url-regex": "^3.2.0",
     "warnings-to-errors-webpack-plugin": "^2.0.1",
-    "webpack": "^4.44.6",
+    "webpack": "^5.97.1",
     "whatwg-fetch": "^2.0.1",
     "xregexp": "^3.1.1",
     "yalc": "^1.0.0-pre.53"
