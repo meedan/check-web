@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -72,23 +71,23 @@ const SearchFieldUser = ({
 };
 
 SearchFieldUser.defaultProps = {
-  selected: [],
   extraOptions: [],
-  onToggleOperator: null,
+  selected: [],
   operator: null,
+  onToggleOperator: null,
 };
 
 SearchFieldUser.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
-  selected: PropTypes.array,
   extraOptions: PropTypes.array,
-  label: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  operator: PropTypes.string,
+  readOnly: PropTypes.bool.isRequired,
+  selected: PropTypes.array,
+  teamSlug: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool.isRequired,
   onToggleOperator: PropTypes.func,
-  operator: PropTypes.string,
 };
 
 export default SearchFieldUser;

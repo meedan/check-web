@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedHTMLMessage } from 'react-intl';
 import Person from '../../icons/person.svg';
 import PersonAdd from '../../icons/person_add.svg';
@@ -104,10 +105,14 @@ const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimesta
   }
 };
 
-const MediaOriginBanner = ({
-  mediaClusterRelationship, origin, originTimestamp, user,
-}) => {
-  const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user, originTimestamp);
+const MediaOriginBanner = ({ projectMedia }) => {
+  const {
+    media_cluster_origin: origin,
+    media_cluster_origin_timestamp: originTimestamp,
+    media_cluster_origin_user: user,
+    media_cluster_relationship: mediaClusterRelationship,
+  } = projectMedia;
+  const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user?.name, originTimestamp);
   return (
     <div style={{ marginBottom: '8px' }}>
       <Alert
@@ -121,24 +126,26 @@ const MediaOriginBanner = ({
 };
 
 MediaOriginBanner.defaultProps = {
-  mediaClusterRelationship: {},
+  projectMedia: PropTypes.object.isRequired,
 };
 
-MediaOriginBanner.propTypes = {
-  mediaClusterRelationship: PropTypes.shape({
-    confirmedBy: PropTypes.shape({
-      name: PropTypes.string,
-    }),
-    target: PropTypes.shape({
-      title: PropTypes.string,
-    }),
-  }),
-  origin: PropTypes.number.isRequired,
-  originTimestamp: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  user: PropTypes.string.isRequired,
-};
+// eslint-disable-next-line import/no-unused-modules
+export { MediaOriginBanner }; // Used in unit test
 
-export default MediaOriginBanner;
+export default createFragmentContainer(MediaOriginBanner, graphql`
+  fragment MediaOriginBanner_projectMedia on ProjectMedia {
+    media_cluster_origin
+    media_cluster_origin_user {
+      name
+    }
+    media_cluster_origin_timestamp
+    media_cluster_relationship {
+      target{
+        title
+      }
+      confirmed_by {
+        name
+      }
+    }
+  }
+`);

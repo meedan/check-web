@@ -125,8 +125,7 @@ const MediaCardLargeFooter = ({
             ),
             (
               <MediaOrigin
-                origin={projectMedia.media_cluster_origin}
-                user={projectMedia.media_cluster_origin_user?.name}
+                projectMedia={projectMedia}
               />
             ),
           ]}
@@ -173,10 +172,7 @@ export default createFragmentContainer(MediaCardLargeFooter, graphql`
     transcription: annotation(annotation_type: "transcription") {
       data
     }
-    media_cluster_origin
-    media_cluster_origin_user {
-      name
-    }
     ...MediaCardLargeActions_projectMedia
+    ...MediaOrigin_projectMedia
   }
 `);

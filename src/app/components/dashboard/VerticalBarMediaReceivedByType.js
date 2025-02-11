@@ -17,7 +17,7 @@ const VerticalBarMediaReceivedByType = ({ intl, statistics }) => (
           Object.entries(statistics.number_of_media_received_by_media_type).map(([name, value]) => ({
             name: getMediaTypeDisplayName(name, intl),
             value,
-          }))
+          })).sort((a, b) => b.value - a.value) // Sort in descending order
         }
         title={title}
       />

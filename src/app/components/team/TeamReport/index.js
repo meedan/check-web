@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -13,14 +12,7 @@ const TeamReport = () => {
       query={graphql`
         query TeamReportQuery($teamSlug: String!) {
           team(slug: $teamSlug) {
-            id
-            permissions
-            get_report
-            get_language
-            get_languages
-            smooch_bot: team_bot_installation(bot_identifier: "smooch") {
-              id
-            }
+            ...TeamReportComponent_team
           }
         }
       `}

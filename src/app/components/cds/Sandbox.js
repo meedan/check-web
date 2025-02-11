@@ -16,6 +16,7 @@ import ListSort from './inputs/ListSort';
 import TextArea from './inputs/TextArea';
 import DatePicker from './inputs/DatePicker';
 import LanguagePickerSelect from './inputs/LanguagePickerSelect';
+import Slider from './inputs/Slider';
 import Time from './inputs/Time';
 import { ToggleButton, ToggleButtonGroup } from './inputs/ToggleButtonGroup';
 import Select from './inputs/Select';
@@ -217,6 +218,9 @@ const SandboxComponent = ({ admin }) => {
   const [checkboxLabel, setCheckboxLabel] = React.useState(Boolean(true));
   const [checkboxDisabled, setCheckboxDisabled] = React.useState(Boolean(false));
   const [checkboxChecked, setCheckboxChecked] = React.useState(Boolean(false));
+
+  const [sliderMarked, setSliderMarked] = React.useState(Boolean(true));
+  const [sliderDisabled, setSliderDisabled] = React.useState(Boolean(true));
 
   const [selectLabel, setSelectLabel] = React.useState(Boolean(true));
   const [selectIconLeft, setSelectIconLeft] = React.useState(Boolean(true));
@@ -1603,6 +1607,60 @@ const SandboxComponent = ({ admin }) => {
                 disabled={checkboxDisabled}
                 label={checkboxLabel ? 'I am a Checkbox label' : null}
                 onChange={() => setCheckboxChecked(!checkboxChecked)}
+              />
+            </div>
+          </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                Slider
+              </div>
+              <ul>
+                <li>
+                  <SwitchComponent
+                    checked={sliderMarked}
+                    label="Marked"
+                    labelPlacement="top"
+                    onChange={() => setSliderMarked(!sliderMarked)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={sliderDisabled}
+                    label="Disabled"
+                    labelPlacement="top"
+                    onChange={() => setSliderDisabled(!sliderDisabled)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentBlockVariants}>
+              <Slider
+                disabled={sliderDisabled}
+                marked={sliderMarked}
+                marks={sliderMarked ? [
+                  {
+                    value: '0.75',
+                    label: 'Lowest',
+                  },
+                  {
+                    value: '0.80',
+                    label: '',
+                  },
+                  {
+                    value: '0.85',
+                    label: '',
+                  },
+                  {
+                    value: '0.90',
+                    label: 'Highest',
+                  },
+                ] : null}
+                max={0.9}
+                min={0.75}
+                step={null}
+                track={!sliderMarked}
+                valueLabelDisplay="auto"
               />
             </div>
           </div>

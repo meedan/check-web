@@ -89,6 +89,30 @@ const SearchKeywordConfigComponent = ({
       parent: 'claim_and_fact_check',
     },
   ];
+  const explainerOptions = [
+    {
+      value: 'explainer',
+      label: (
+        <FormattedMessage
+          defaultMessage="Explainer"
+          description="Label for checkbox to toggle searching for keyword across explainer"
+          id="searchKeywordConfig.explainer"
+        />
+      ),
+      hasChildren: true,
+    },
+    {
+      value: 'explainer_title',
+      label: (
+        <FormattedMessage
+          defaultMessage="Title"
+          description="Label for checkbox to toggle searching for keyword across explainer title"
+          id="searchKeywordConfig.explainerTitle"
+        />
+      ),
+      parent: 'explainer',
+    },
+  ];
   const mediaOptions = [
     {
       value: 'media',
@@ -146,18 +170,6 @@ const SearchKeywordConfigComponent = ({
       parent: 'media',
     },
   ];
-  const noteOption = [
-    {
-      value: 'comments',
-      label: (
-        <FormattedMessage
-          defaultMessage="Notes"
-          description="Label for checkbox to toggle searching for keyword across notes (aka comments)"
-          id="searchKeywordConfig.allNotes"
-        />
-      ),
-    },
-  ];
   const userRequestOptions = [
     {
       value: 'user_and_request',
@@ -197,9 +209,9 @@ const SearchKeywordConfigComponent = ({
   const options = [
     ...claimFactCheckOptions,
     ...hrOption,
-    ...mediaOptions,
+    ...explainerOptions,
     ...hrOption,
-    ...noteOption,
+    ...mediaOptions,
     ...hrOption,
     ...userRequestOptions,
   ];

@@ -517,6 +517,7 @@ const BotPreview = ({ me, team }) => {
               onSendText={handleSendText}
             >
               <ChatFeed
+                className={styles['chat-content']}
                 emptyChatMessage={
                   <div className={styles.emptyChatMessage}>
                     Start chatting with this workspace Tipline Bot by entering a search term into the input below.
@@ -588,45 +589,50 @@ BotPreview.propTypes = {
   team: PropTypes.object.isRequired,
 };
 
-const BotPreviewQueryRenderer = () => (
-  <QueryRenderer
-    environment={Relay.Store}
-    query={graphql`
-      query BotPreviewQueryRendererQuery($teamSlug: String!) {
-        me {
-          email
-          is_admin
-          token
-        }
-        team(slug: $teamSlug) {
-          id
-          avatar
-          get_language_detection
-          get_shorten_outgoing_urls
-          get_outgoing_urls_utm_code
-          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
-            id
-            json_settings
-            lock_version
-            smooch_enabled_integrations(force: true)
-          }
-          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
-            id
-            alegre_settings
-            lock_version
-          }
-          ...LinkManagement_team
-        }
-      }
-    `}
-    render={({ error, props }) => {
-      if (error) return null;
-      if (!props) return null;
+const BotPreviewQueryRenderer = () => {
+  // Keep random argument in state so it's generated only once when component is mounted
+  const [random] = React.useState(String(Math.random()));
 
-      return <BotPreview {...props} />;
-    }}
-    variables={{ teamSlug }}
-  />
-);
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query BotPreviewQueryRendererQuery($teamSlug: String!, $random: String) {
+          me {
+            email
+            is_admin
+            token
+          }
+          team(slug: $teamSlug, random: $random) {
+            id
+            avatar
+            get_language_detection
+            get_shorten_outgoing_urls
+            get_outgoing_urls_utm_code
+            smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+              id
+              json_settings
+              lock_version
+              smooch_enabled_integrations(force: true)
+            }
+            alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+              id
+              alegre_settings
+              lock_version
+            }
+            ...LinkManagement_team
+          }
+        }
+      `}
+      render={({ error, props }) => {
+        if (error) return null;
+        if (!props) return null;
+
+        return <BotPreview {...props} />;
+      }}
+      variables={{ teamSlug, random }}
+    />
+  );
+};
 
 export default BotPreviewQueryRenderer;

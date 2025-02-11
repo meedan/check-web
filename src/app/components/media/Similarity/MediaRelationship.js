@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { commitMutation, graphql } from 'react-relay/compat';
+import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -271,14 +271,8 @@ const MediaRelationship = ({
   mainProjectMediaConfirmedSimilarCount,
   mainProjectMediaDemand,
   mainProjectMediaId,
-  mediaClusterRelationship,
-  origin,
-  originTimestamp,
   relationship,
-  relationshipSourceId,
-  relationshipTargetId,
   setFlashMessage,
-  user,
 }) => {
   const [isSelected, setIsSelected] = React.useState(false);
 
@@ -289,7 +283,7 @@ const MediaRelationship = ({
 
   const details = [(
     <LastRequestDate
-      lastRequestDate={+relationship?.target?.last_seen * 1000}
+      lastRequestDate={(+relationship?.target?.last_seen * 1000) || +relationship?.target?.created_at * 1000}
       theme="lightText"
       variant="text"
     />
@@ -308,8 +302,7 @@ const MediaRelationship = ({
     />
   ), (
     <MediaOrigin
-      origin={origin}
-      user={user}
+      projectMedia={relationship?.target}
     />
   )];
 
@@ -324,10 +317,7 @@ const MediaRelationship = ({
           mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           mediaOriginBanner={
             <MediaOriginBanner
-              mediaClusterRelationship={mediaClusterRelationship}
-              origin={origin}
-              originTimestamp={originTimestamp}
-              user={user}
+              projectMedia={relationship?.target}
             />
           }
           mediaSlug={
@@ -363,8 +353,8 @@ const MediaRelationship = ({
           demand: mainProjectMediaDemand,
         }}
         setFlashMessage={setFlashMessage}
-        sourceId={relationshipSourceId}
-        targetId={relationshipTargetId}
+        sourceId={relationship?.source_id}
+        targetId={relationship?.target_id}
       />
     </div>
   );
@@ -377,8 +367,32 @@ MediaRelationship.propTypes = {
   mainProjectMediaDemand: PropTypes.number.isRequired,
   mainProjectMediaId: PropTypes.string.isRequired,
   relationship: PropTypes.object.isRequired,
-  relationshipSourceId: PropTypes.number.isRequired,
-  relationshipTargetId: PropTypes.number.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(MediaRelationship));
+export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelationship)), graphql`
+  fragment MediaRelationship_relationship on Relationship {
+    source_id
+    target_id
+    id
+    target {
+      id
+      media_slug
+      title
+      description
+      type
+      last_seen
+      created_at
+      show_warning_cover
+      quote
+      imported_from_feed_id
+      requests_count
+      media {
+        ...SmallMediaCard_media
+      }
+      ...MediaFeedInformation_projectMedia
+      ...MediaOrigin_projectMedia
+      ...MediaOriginBanner_projectMedia
+    }
+  }
+`);
+

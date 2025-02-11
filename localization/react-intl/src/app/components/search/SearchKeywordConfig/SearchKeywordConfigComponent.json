@@ -35,6 +35,16 @@
     "defaultMessage": "URLs"
   },
   {
+    "id": "searchKeywordConfig.explainer",
+    "description": "Label for checkbox to toggle searching for keyword across explainer",
+    "defaultMessage": "Explainer"
+  },
+  {
+    "id": "searchKeywordConfig.explainerTitle",
+    "description": "Label for checkbox to toggle searching for keyword across explainer title",
+    "defaultMessage": "Title"
+  },
+  {
     "id": "searchKeywordConfig.media",
     "description": "Label for checkbox to toggle searching for keyword across medias",
     "defaultMessage": "Media"
@@ -58,11 +68,6 @@
     "id": "searchKeywordConfig.mediaUrl",
     "description": "Label for checkbox to toggle searching for keyword across media URLs",
     "defaultMessage": "URL"
-  },
-  {
-    "id": "searchKeywordConfig.allNotes",
-    "description": "Label for checkbox to toggle searching for keyword across notes (aka comments)",
-    "defaultMessage": "Notes"
   },
   {
     "id": "searchKeywordConfig.request",
