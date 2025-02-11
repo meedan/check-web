@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { Slider } from '@material-ui/core';
+import Slider from '../inputs/Slider';
 import styles from './MediaControls.module.css';
 
 const MediaTimeline = ({
