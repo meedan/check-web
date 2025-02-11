@@ -16,7 +16,7 @@ import ListSort from './inputs/ListSort';
 import TextArea from './inputs/TextArea';
 import DatePicker from './inputs/DatePicker';
 import LanguagePickerSelect from './inputs/LanguagePickerSelect';
-import SliderComponent from './inputs/SliderComponent';
+import Slider from './inputs/Slider';
 import Time from './inputs/Time';
 import { ToggleButton, ToggleButtonGroup } from './inputs/ToggleButtonGroup';
 import Select from './inputs/Select';
@@ -1635,7 +1635,7 @@ const SandboxComponent = ({ admin }) => {
               </ul>
             </div>
             <div className={styles.componentBlockVariants}>
-              <SliderComponent
+              <Slider
                 disabled={sliderDisabled}
                 marked={sliderMarked}
                 marks={sliderMarked ? [

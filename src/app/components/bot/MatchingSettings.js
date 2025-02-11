@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import SliderComponent from '../cds/inputs/SliderComponent';
+import Slider from '../cds/inputs/Slider';
 import TextField from '../cds/inputs/TextField';
 import LibraryAddCheckIcon from '../../icons/library_add_check.svg';
 import styles from './BotPreview.module.css';
@@ -83,7 +83,7 @@ const MatchingSettings = ({
           />
         </div>
         <div className={styles['settings-slider-wrapper']}>
-          <SliderComponent
+          <Slider
             disabled={!isAdmin}
             marked
             marks={marks}

@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import Slider from '@material-ui/core/Slider';
+import Slider from '../inputs/Slider';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import VolumeUpIcon from '../../../icons/volume_up.svg';
 import VolumeOffIcon from '../../../icons/volume_off.svg';
