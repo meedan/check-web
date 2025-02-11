@@ -116,7 +116,7 @@ const MediaOriginBanner = ({ projectMedia }) => {
   return (
     <div style={{ marginBottom: '8px' }}>
       <Alert
-        content={<span style={{ color: 'black' }}>{message}</span>}
+        content={message}
         customIcon={icon}
         icon
         variant="info"
