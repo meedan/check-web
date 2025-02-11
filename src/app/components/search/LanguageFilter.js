@@ -90,7 +90,9 @@ const LanguageFilter = ({
                   ))}
                 </Select>
                 <ButtonMain
-                  customStyle={{ color: 'var(--color-gray-15' }}
+                  buttonProps={{
+                    type: null,
+                  }}
                   disabled
                   label={<FormattedMessage defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" id="languageFilter.is" />}
                   size="small"

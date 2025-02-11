@@ -176,7 +176,9 @@ function DateRangeSelectorStartEnd(props) {
         TextFieldComponent={({ onClick, params, value: valueText }) => (
           <>
             <ButtonMain
-              customStyle={{ color: 'var(--color-gray-15' }}
+              buttonProps={{
+                type: null,
+              }}
               disabled
               label={<FormattedMessage defaultMessage="and" description="String displayed between after and before date pickers" id="search.beforeDate" />}
               size="small"
