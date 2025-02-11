@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Slider from '@material-ui/core/Slider';
+import Slider from '../../cds/inputs/Slider';
 import TextField from '../../cds/inputs/TextField';
 import styles from './ThresholdControl.module.css';
 import settingsStyles from '../Settings.module.css';

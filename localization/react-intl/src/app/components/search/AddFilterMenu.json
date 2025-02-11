@@ -20,9 +20,9 @@
     "defaultMessage": "Channel"
   },
   {
-    "id": "addFilterMenu.claim",
-    "description": "Menu option to enable searching items by claim",
-    "defaultMessage": "Claim"
+    "id": "addFilterMenu.article",
+    "description": "Menu option to enable searching items by article",
+    "defaultMessage": "Article"
   },
   {
     "id": "addFilterMenu.createdBy",

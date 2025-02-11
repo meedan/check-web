@@ -87,7 +87,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
                 'annotated_by',
                 'language',
                 'published_by',
-                'has_claim',
+                'has_article',
                 'cluster_published_reports',
                 'cluster_teams',
                 'archived',
