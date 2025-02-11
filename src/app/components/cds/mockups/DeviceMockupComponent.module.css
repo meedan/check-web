@@ -13,6 +13,10 @@
     padding-left: 40px;
     padding-right: 40px;
 
+    .deviceTopDecorationPlaceholder {
+      width: 30px;
+    }
+
     .deviceTopDecorationPill {
       align-items: center;
       background-color: var(--color-beige-76);
