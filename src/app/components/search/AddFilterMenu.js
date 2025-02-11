@@ -88,13 +88,13 @@ const AddFilterMenu = ({
     },
     {
       id: 'add-filter-menu__claim',
-      key: 'has_claim',
+      key: 'has_article',
       icon: <LabelIcon />,
       label: (
         <FormattedMessage
-          defaultMessage="Claim"
-          description="Menu option to enable searching items by claim"
-          id="addFilterMenu.claim"
+          defaultMessage="Article"
+          description="Menu option to enable searching items by article"
+          id="addFilterMenu.article"
         />
       ),
     },

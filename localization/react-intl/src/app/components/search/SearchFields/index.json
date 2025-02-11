@@ -75,9 +75,9 @@
     "defaultMessage": "and"
   },
   {
-    "id": "search.claim",
-    "description": "Prefix label for field to filter by claim",
-    "defaultMessage": "Claim is"
+    "id": "search.article",
+    "description": "Prefix label for field to filter by article",
+    "defaultMessage": "Article is"
   },
   {
     "id": "search.showSimilar",

@@ -35,6 +35,16 @@
     "defaultMessage": "URLs"
   },
   {
+    "id": "searchKeywordConfig.explainer",
+    "description": "Label for checkbox to toggle searching for keyword across explainer",
+    "defaultMessage": "Explainer"
+  },
+  {
+    "id": "searchKeywordConfig.explainerTitle",
+    "description": "Label for checkbox to toggle searching for keyword across explainer title",
+    "defaultMessage": "Title"
+  },
+  {
     "id": "searchKeywordConfig.media",
     "description": "Label for checkbox to toggle searching for keyword across medias",
     "defaultMessage": "Media"
