@@ -102,7 +102,7 @@ export default function MediaTypeDisplayName({ mediaType }) {
 }
 
 MediaTypeDisplayName.MediaTypeShape = PropTypes.oneOf([
-  'Claim', 'Link', 'UploadedImage', 'UploadedVideo', 'UploadedAudio', 'Blank', '-',
+  'Claim', 'Link', 'UploadedImage', 'UploadedVideo', 'UploadedAudio', 'Blank', 'Facebook', 'Instagram', 'Telegram', 'Tiktok', 'Twitter', 'Youtube', '-',
 ]);
 
 MediaTypeDisplayName.propTypes = {
