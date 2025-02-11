@@ -37,7 +37,6 @@ const TeamTagsComponent = ({
   totalCount,
   totalTags,
 }) => {
-  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [showCreateTag, setShowCreateTag] = React.useState(false);
   const [cursor, setCursor] = React.useState(0);
   const [isPaginationLoading, setIsPaginationLoading] = React.useState(false);
@@ -186,13 +185,6 @@ const TeamTagsComponent = ({
                       id="teamTagsComponent.tableHeaderUpdatedAt"
                     />
                   </TableCell>
-                  <TableCell className={styles['table-col-head-items']}>
-                    <FormattedMessage
-                      defaultMessage="Items"
-                      description="Column header in tags table."
-                      id="teamTagsComponent.tableHeaderTagsCount"
-                    />
-                  </TableCell>
                   <TableCell className={styles['table-col-head-action']} padding="checkbox" />
                 </TableRow>
               </TableHead>
@@ -205,11 +197,6 @@ const TeamTagsComponent = ({
                     </TableCell>
                     <TableCell>
                       <TimeBefore date={tag.updated_at} />
-                    </TableCell>
-                    <TableCell>
-                      <a href={`/${teamSlug}/all-items/%7B"tags"%3A%5B"${tag.text}"%5D%7D`} rel="noopener noreferrer" target="_blank">
-                        {tag.tags_count}
-                      </a>
                     </TableCell>
                     <TableCell>
                       <Can permission="create TagText" permissions={permissions}>
