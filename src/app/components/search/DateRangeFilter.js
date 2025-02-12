@@ -252,6 +252,7 @@ function DateRangeSelectorRelative(props) {
         { placeholder => (
           <TextField
             className={styles['filter-input-number']}
+            min={1}
             placeholder={placeholder}
             type="number"
             value={relativeQuantity}
@@ -307,7 +308,7 @@ const DateRangeFilter = ({
     years: 'y',
   };
   const [relativeRange, setRelativeRange] = React.useState((value && value[getValueType()]?.period_type) || relativeRanges.days);
-  const [relativeQuantity, setRelativeQuantity] = React.useState((value && value[getValueType()]?.period) || '0');
+  const [relativeQuantity, setRelativeQuantity] = React.useState((value && value[getValueType()]?.period) || '1');
 
   const getDateStringOrNull = field => (value && value[getValueType()][field]) || null;
 
