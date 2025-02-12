@@ -127,7 +127,6 @@ class AnnotationFilterDate extends React.Component {
             </>
           )}
           cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
-          className="fresh"
           maxDate={this.endDateStringOrNull || undefined}
           okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
           value={this.startDateStringOrNull}
