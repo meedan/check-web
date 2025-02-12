@@ -12,7 +12,7 @@ import CheckContext from '../../CheckContext';
 import { mapGlobalMessage } from '../MappedMessage';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import styles from './user.module.css';
+import styles from '../team/Settings.module.css';
 
 const messages = defineMessages({
   deleteAccount: {
@@ -119,9 +119,9 @@ const UserPrivacy = (props, context) => {
           />
         }
       />
-      <div className={styles['user-setting-details-wrapper']} id="user__privacy">
-        <div className={styles['user-setting-content-container']}>
-          <div className={styles['user-setting-content-container-title']}>
+      <div className={styles['setting-details-wrapper']} id="user__privacy">
+        <div className={styles['setting-content-container']}>
+          <div className={styles['setting-content-container-title']}>
             <FormattedMessage defaultMessage="Your information" description="Page title for the user's privacy information" id="userPrivacy.title" />
           </div>
           <FormattedMessage
@@ -134,7 +134,7 @@ const UserPrivacy = (props, context) => {
               appName,
             }}
           />
-          <div className={styles['user-setting-content-container-inner']}>
+          <div className={styles['setting-content-container-inner']}>
             <FormattedMessage defaultMessage="User Information Requests" description="Title for area instructing how to request data from Check" id="userPrivacy.userRequests" tagName="strong" />
             <br />
             <ul className="bulleted-list">
@@ -161,11 +161,11 @@ const UserPrivacy = (props, context) => {
             </ul>
           </div>
         </div>
-        <div className={styles['user-setting-content-container']}>
-          <div className={styles['user-setting-content-container-title']}>
+        <div className={styles['setting-content-container']}>
+          <div className={styles['setting-content-container-title']}>
             <FormattedMessage defaultMessage="Connected accounts" description="Title for social accounts connected to their app account" id="userPrivacy.connectedAccounts" />
           </div>
-          <ul className={styles['user-setting-content-list']}>
+          <ul className={styles['setting-content-list']}>
             { providers.map(provider => (
               <UserConnectedAccount
                 key={provider.key}
@@ -175,8 +175,8 @@ const UserPrivacy = (props, context) => {
             ))}
           </ul>
         </div>
-        <div className={styles['user-setting-content-container']}>
-          <div className={styles['user-setting-content-container-title']}>
+        <div className={styles['setting-content-container']}>
+          <div className={styles['setting-content-container-title']}>
             <FormattedMessage defaultMessage="Delete your account" description="Page title for the user to delete their account" id="userPrivacy.delete" />
           </div>
           <FormattedMessage

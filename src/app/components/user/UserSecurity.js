@@ -16,7 +16,7 @@ import { getErrorMessage, getErrorObjects } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import inputStyles from '../../styles/css/inputs.module.css';
-import styles from './user.module.css';
+import styles from '../team/Settings.module.css';
 
 const messages = defineMessages({
   passwordInput: {
@@ -225,9 +225,9 @@ const UserSecurity = (props, context) => {
           />
         }
       />
-      <div className={styles['user-setting-details-wrapper']} id="user__security">
-        <div className={styles['user-setting-content-container']}>
-          <div className={styles['user-setting-content-container-title']}>
+      <div className={styles['setting-details-wrapper']} id="user__security">
+        <div className={styles['setting-content-container']}>
+          <div className={styles['setting-content-container-title']}>
             <FormattedMessage defaultMessage="Notifications" description="Section header title for security notification settings" id="userSecurity.notification" />
           </div>
           <div className={inputStyles['form-fieldset']}>
@@ -262,8 +262,8 @@ const UserSecurity = (props, context) => {
             />
           </div>
         </div>
-        <div className={styles['user-setting-content-container']}>
-          <div className={styles['user-setting-content-container-title']}>
+        <div className={styles['setting-content-container']}>
+          <div className={styles['setting-content-container-title']}>
             <FormattedMessage defaultMessage="Two factor authentication" description="Section title for two-factor authentication settings" id="userSecurity.twoFactorAuthentication" />
           </div>
           {can_enable_otp === false ?
@@ -292,8 +292,8 @@ const UserSecurity = (props, context) => {
                 onChange={handleTwoFactorAuthenticationForm.bind(this, 'twoFactor', Boolean(twoFactorAuthentication || showFactorAuthForm))}
               />
               {twoFactorAuthentication || showFactorAuthForm ?
-                <div className={styles['user-setting-content-container-inner']}>
-                  <div className={styles['user-setting-content-container-inner-accent']}>
+                <div className={styles['setting-content-container-inner']}>
+                  <div className={styles['setting-content-container-inner-accent']}>
                     {!showFactorAuthForm ?
                       null :
                       <>
@@ -355,7 +355,7 @@ const UserSecurity = (props, context) => {
                   </div>
                   {showFactorAuthForm ?
                     <>
-                      <div className={styles['user-setting-content-container-inner-accent']}>
+                      <div className={styles['setting-content-container-inner-accent']}>
                         <FormattedMessage
                           defaultMessage="Step 2: Download"
                           description="Sub title for second step in two-factor authentication settings"
@@ -377,7 +377,7 @@ const UserSecurity = (props, context) => {
                           </a>
                         </div>
                       </div>
-                      <div className={styles['user-setting-content-container-inner-accent']}>
+                      <div className={styles['setting-content-container-inner-accent']}>
                         <FormattedMessage
                           defaultMessage="Step 3: Scan"
                           description="Sub title for third step in two-factor authentication settings"
@@ -401,7 +401,7 @@ const UserSecurity = (props, context) => {
                     : null
                   }
                   {showFactorCommonFields ?
-                    <div className={styles['user-setting-content-container-inner-accent']}>
+                    <div className={styles['setting-content-container-inner-accent']}>
                       {showFactorAuthForm ?
                         <FormattedMessage
                           defaultMessage="Step 4: Backup codes"
@@ -449,7 +449,7 @@ const UserSecurity = (props, context) => {
                     : null
                   }
                   {showFactorAuthForm ?
-                    <div className={styles['user-setting-content-container-inner-accent']}>
+                    <div className={styles['setting-content-container-inner-accent']}>
                       <FormattedMessage
                         defaultMessage="Step 5: Verify"
                         description="Sub title for fifth step in two-factor authentication settings"
@@ -496,8 +496,8 @@ const UserSecurity = (props, context) => {
             </>
           }
         </div>
-        <div className={styles['user-setting-content-container']}>
-          <div className={styles['user-setting-content-container-title']}>
+        <div className={styles['setting-content-container']}>
+          <div className={styles['setting-content-container-title']}>
             <FormattedMessage defaultMessage="Change password" description="Section title for making password changes" id="userSecurity.changePassword" />
           </div>
           <div className="user-password-reset__component">

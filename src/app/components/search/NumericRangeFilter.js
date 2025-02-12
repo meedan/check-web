@@ -80,7 +80,9 @@ const NumericRangeFilter = ({
           )}
         </FormattedMessage>
         <ButtonMain
-          customStyle={{ color: 'var(--color-gray-15' }}
+          buttonProps={{
+            type: null,
+          }}
           disabled
           label={<FormattedMessage defaultMessage="and" description="Logical operator AND statement" id="numericRangeFilter.between" />}
           size="small"

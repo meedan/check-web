@@ -17,6 +17,7 @@ import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
+import socialStyles from '../../../styles/css/socials.module.css';
 import smoochBotStyles from './SmoochBot.module.css';
 
 const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }) => {
@@ -44,7 +45,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ec472becaf"
-          icon={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
+          icon={<WhatsAppIcon className={socialStyles['whatsapp-green']} />}
           info={
             isOnline('whatsapp') ?
               <div>
@@ -203,7 +204,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           }
           disabled={false}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot"
-          icon={<TwitterIcon style={{ color: 'var(--xBlack)' }} />}
+          icon={<TwitterIcon className={socialStyles['x-black']} />}
           installationId={installationId}
           label="X (Twitter)"
           online={false}
@@ -214,7 +215,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
-          icon={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
+          icon={<FacebookIcon className={socialStyles['facebook-blue']} />}
           info={
             isOnline('messenger') ?
               <FormattedMessage
@@ -240,7 +241,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ff25899cc2"
-          icon={<TelegramIcon style={{ color: 'var(--telegramBlue)' }} />}
+          icon={<TelegramIcon className={socialStyles['telegram-blue']} />}
           info={
             isOnline('telegram') ?
               <FormattedMessage
@@ -271,7 +272,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_71c06164f3"
-          icon={<ViberIcon style={{ color: 'var(--viberPurple)' }} />}
+          icon={<ViberIcon className={socialStyles['viber-purple']} />}
           info={
             isOnline('viber') ?
               <FormattedMessage
@@ -298,7 +299,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
-          icon={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
+          icon={<LineIcon className={socialStyles['line-green']} />}
           info={
             isOnline('line') ?
               <TextField
@@ -336,7 +337,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_b872d32c4d"
-          icon={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
+          icon={<InstagramIcon className={socialStyles['instagram-pink']} />}
           info={
             isOnline('instagram') ?
               <FormattedMessage

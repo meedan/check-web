@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
@@ -21,7 +20,7 @@ import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import inputStyles from '../../styles/css/inputs.module.css';
-import styles from './user.module.css';
+import styles from '../team/Settings.module.css';
 
 const messages = defineMessages({
   sourceName: {
@@ -380,7 +379,7 @@ class UserInfoEdit extends React.Component {
             : null}
         </div>
 
-        <div className={cx(styles['user-info-primary'], styles['user-setting-content-container'])}>
+        <div className={cx(styles['user-info-primary'], styles['setting-content-container'])}>
           { user.unconfirmed_email ?
             <><ConfirmEmail user={user} /><br /></>
             : null
@@ -471,10 +470,10 @@ class UserInfoEdit extends React.Component {
 }
 
 UserInfoEdit.propTypes = {
+  intl: intlShape.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   setFlashMessage: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default withSetFlashMessage(injectIntl(UserInfoEdit));

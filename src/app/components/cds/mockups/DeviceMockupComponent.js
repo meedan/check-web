@@ -31,7 +31,7 @@ const DeviceMockupComponent = ({
       }
     >
       <div className={styles.deviceTop}>
-        <div style={{ width: '30px' }} />
+        <div className={styles.deviceTopDecorationPlaceholder} />
         <div className={styles.deviceTopDecorationPill}>
           <div className={styles.deviceTopDecorationCircle} />
         </div>

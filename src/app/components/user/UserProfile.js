@@ -1,7 +1,7 @@
 import React from 'react';
 import UserInfoEdit from './UserInfoEdit';
 import SettingsHeader from '../team/SettingsHeader';
-import styles from './user.module.css';
+import styles from '../team/Settings.module.css';
 
 const UserProfile = (props) => {
   const { user } = props;
@@ -11,7 +11,7 @@ const UserProfile = (props) => {
       <SettingsHeader
         title={user.name}
       />
-      <div className={styles['user-setting-details-wrapper']}>
+      <div className={styles['setting-details-wrapper']}>
         <UserInfoEdit user={user} />
       </div>
     </>

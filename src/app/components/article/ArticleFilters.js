@@ -95,8 +95,7 @@ const ArticleFilters = ({
 
   const filterConnector = (
     <ButtonMain
-      className="int-search-fields__button--and-operator"
-      customStyle={{ fontWeight: 'bold' }}
+      className={cx('int-search-fields__button--and-operator', searchStyles['filter-toggle-and-or-operator'])}
       label={<FormattedMessage defaultMessage="and" description="Logical operator 'AND' to be applied when filtering articles by multiple fields." id="search.connectorAnd" />}
       size="small"
       theme="lightInfo"

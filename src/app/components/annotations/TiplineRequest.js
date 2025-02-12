@@ -18,6 +18,7 @@ import {
 } from '../../helpers';
 import Request from '../cds/requests-annotations/Request';
 import RequestReceipt from '../cds/requests-annotations/RequestReceipt';
+import socialStyles from '../../styles/css/socials.module.css';
 import styles from './TiplineRequest.module.css';
 
 const messages = defineMessages({
@@ -30,13 +31,13 @@ const messages = defineMessages({
 
 const SmoochIcon = ({ name }) => {
   switch (name) {
-  case 'whatsapp': return <WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />;
-  case 'messenger': return <FacebookIcon style={{ color: 'var(--facebookBlue)' }} />;
-  case 'twitter': return <TwitterIcon style={{ color: 'var(--xBlack)' }} />;
-  case 'telegram': return <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />;
-  case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)' }} />;
-  case 'line': return <LineIcon style={{ color: 'var(--lineGreen)' }} />;
-  case 'instagram': return <InstagramIcon style={{ color: 'var(--instagramPink)' }} />;
+  case 'whatsapp': return <WhatsAppIcon className={socialStyles['whatsapp-green']} />;
+  case 'messenger': return <FacebookIcon className={socialStyles['facebook-blue']} />;
+  case 'twitter': return <TwitterIcon className={socialStyles['x-black']} />;
+  case 'telegram': return <TelegramIcon className={socialStyles['telegram-blue']} />;
+  case 'viber': return <ViberIcon className={socialStyles['viber-purple']} />;
+  case 'line': return <LineIcon className={socialStyles['line-green']} />;
+  case 'instagram': return <InstagramIcon className={socialStyles['instagram-pink']} />;
   default: return null;
   }
 };

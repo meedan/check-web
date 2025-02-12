@@ -76,7 +76,9 @@ class AnnotationFilterDate extends React.Component {
           TextFieldComponent={({ onClick, params, value: valueText }) => (
             <>
               <ButtonMain
-                customStyle={{ color: 'var(--color-gray-15' }}
+                buttonProps={{
+                  type: null,
+                }}
                 disabled
                 label={<FormattedMessage defaultMessage="after" description="String displayed before a date picker" id="search.afterDate" />}
                 size="small"
@@ -135,7 +137,9 @@ class AnnotationFilterDate extends React.Component {
           TextFieldComponent={({ onClick, params, value: valueText }) => (
             <>
               <ButtonMain
-                customStyle={{ color: 'var(--color-gray-15' }}
+                buttonProps={{
+                  type: null,
+                }}
                 disabled
                 label={<FormattedMessage defaultMessage="and before" description="String displayed between after and before date pickers" id="search.beforeDate" />}
                 size="small"
