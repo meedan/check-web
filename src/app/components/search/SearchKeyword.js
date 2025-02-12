@@ -271,9 +271,9 @@ class SearchKeyword extends React.Component {
                 <>
                   <input
                     accept="image/*,video/*,audio/*"
+                    className={searchStyles['search-form-config-hidden']}
                     id="media-upload"
                     ref={(el) => { this.fileInput = el; }}
-                    style={{ display: 'none' }}
                     type="file"
                     onChange={this.handleUpload}
                   />

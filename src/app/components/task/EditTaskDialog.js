@@ -270,7 +270,7 @@ class EditTaskDialog extends React.Component {
           />
         ),
         value: 'multiple_choice',
-        icon: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
+        icon: <CheckBoxIcon />,
         description: (
           <FormattedMessage
             defaultMessage="Allows you to select one or more predefined options"
