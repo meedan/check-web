@@ -30,11 +30,6 @@
     "defaultMessage": "Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation."
   },
   {
-    "id": "smoochBotIntegrations.twitterDisabled",
-    "description": "Disclaimer displayed on X tipline settings page.",
-    "defaultMessage": "The integration with X is currently not available, following changes to the X API on April 21, 2023."
-  },
-  {
     "id": "smoochBotIntegrations.page",
     "description": "Label for the connected Facebook page for this bot",
     "defaultMessage": "Connected page: {link}"
@@ -73,10 +68,5 @@
     "id": "smoochBotIntegrations.lineChannelSecret",
     "description": "Output of the LINE channel secret paired with the token",
     "defaultMessage": "LINE channel secret"
-  },
-  {
-    "id": "smoochBotIntegrations.instagram",
-    "description": "Label for the connected Instagram profile for this bot",
-    "defaultMessage": "Connected profile: {link}"
   }
 ]
