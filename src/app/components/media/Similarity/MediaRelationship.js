@@ -301,9 +301,11 @@ const MediaRelationship = ({
       variant="text"
     />
   ), (
-    <MediaOrigin
-      projectMedia={relationship?.target}
-    />
+    relationship?.target ? (
+      <MediaOrigin
+        projectMedia={relationship?.target}
+      />
+    ) : null
   )];
 
   const maskContent = relationship?.target?.show_warning_cover;

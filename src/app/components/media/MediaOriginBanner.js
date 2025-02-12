@@ -112,6 +112,14 @@ const MediaOriginBanner = ({ projectMedia }) => {
     media_cluster_origin_user: user,
     media_cluster_relationship: mediaClusterRelationship,
   } = projectMedia;
+
+  // We check for `origin == null` (instead of `!origin`) because TIPLINE_SUBMITTED is 0,
+  // which would evaluate as falsy in a `!origin` check. Using `== null` ensures we only
+  // fallback when `origin` is `null` , not when it's `0`.
+  if (origin == null) {
+    return null;
+  }
+
   const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user?.name, originTimestamp);
   return (
     <div style={{ marginBottom: '8px' }}>

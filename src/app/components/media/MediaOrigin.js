@@ -117,6 +117,14 @@ const getIconAndMessage = (origin, user) => {
 
 const MediaOrigin = ({ projectMedia }) => {
   const { media_cluster_origin: origin, media_cluster_origin_user: user } = projectMedia;
+
+  // We check for `origin == null` (instead of `!origin`) because TIPLINE_SUBMITTED is 0,
+  // which would evaluate as falsy in a `!origin` check. Using `== null` ensures we only
+  // fallback when `origin` is `null` , not when it's `0`.
+  if (origin == null) {
+    return null;
+  }
+
   const { icon, message, tooltipMessage } = getIconAndMessage(origin, user?.name);
 
   return (
