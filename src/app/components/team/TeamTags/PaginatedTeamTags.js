@@ -47,7 +47,6 @@ const PaginatedTeamTags = createPaginationContainer(
             node {
               id
               text
-              tags_count
               updated_at
             }
           }
