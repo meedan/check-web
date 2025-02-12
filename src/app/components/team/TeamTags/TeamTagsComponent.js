@@ -246,7 +246,6 @@ TeamTagsComponent.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    tags_count: PropTypes.number.isRequired,
     updated_at: PropTypes.object.isRequired, // Date object
   }).isRequired).isRequired,
   pageSize: PropTypes.number.isRequired,
