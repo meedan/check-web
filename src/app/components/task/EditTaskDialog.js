@@ -198,7 +198,7 @@ class EditTaskDialog extends React.Component {
           />
         ),
         value: 'number',
-        icon: <NumberIcon style={{ fontSize: '24px' }} />,
+        icon: <NumberIcon />,
         description: (
           <FormattedMessage
             defaultMessage="Allows you to enter a number"

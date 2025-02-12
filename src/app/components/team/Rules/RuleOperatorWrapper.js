@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -74,7 +73,7 @@ const RuleOperatorWrapper = (props) => {
               >
                 <span>
                   <ButtonMain
-                    iconCenter={<ClearIcon style={{ color: props.deleteIconColor }} />}
+                    iconCenter={<ClearIcon />}
                     size="default"
                     theme="lightText"
                     variant="text"
@@ -93,7 +92,6 @@ RuleOperatorWrapper.defaultProps = {
   allowRemove: false,
   operator: 'and',
   operators: ['and', 'or'],
-  deleteIconColor: 'var(--color-gray-37)',
   onSetOperator: null,
 };
 
@@ -101,10 +99,9 @@ RuleOperatorWrapper.propTypes = {
   allowRemove: PropTypes.bool,
   operator: PropTypes.string,
   operators: PropTypes.arrayOf(PropTypes.string),
-  deleteIconColor: PropTypes.string,
-  onSetOperator: PropTypes.func,
   onAdd: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  onSetOperator: PropTypes.func,
 };
 
 export default RuleOperatorWrapper;
