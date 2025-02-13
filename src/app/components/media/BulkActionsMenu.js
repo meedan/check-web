@@ -316,7 +316,7 @@ const BulkActionsMenu = ({
 
 BulkActionsMenu.propTypes = {
   team: PropTypes.object.isRequired,
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   selectedMedia: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectedProjectMedia: PropTypes.arrayOf(PropTypes.object).isRequired,
   onUnselectAll: PropTypes.func.isRequired,

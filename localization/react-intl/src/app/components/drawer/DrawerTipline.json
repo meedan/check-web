@@ -30,11 +30,6 @@
     "defaultMessage": "Suggestions"
   },
   {
-    "id": "projectsComponent.unmatchedMedia",
-    "description": "Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)",
-    "defaultMessage": "Unmatched"
-  },
-  {
     "id": "projectsComponent.lists",
     "description": "List of items with some filters applied",
     "defaultMessage": "Custom Filtered Lists"

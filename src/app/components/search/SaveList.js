@@ -85,7 +85,7 @@ const SaveList = ({
   team,
 }) => {
   // FIXME: Replace pathname context-detection and derived logic with the `page` prop
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|all-items|assigned-to-me|tipline-inbox|suggested-matches|feed|imported-fact-checks|unmatched-media|published)(\/([0-9]+))?/);
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|all-items|assigned-to-me|tipline-inbox|suggested-matches|feed|imported-fact-checks|published)(\/([0-9]+))?/);
 
   if (!page || !currentPath) {
     return null;
@@ -233,7 +233,7 @@ const SaveList = ({
   const handleClick = () => {
     // FIXME: declare core lists globally.
     // From these pages we can just create a new list
-    const coreLists = ['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published'];
+    const coreLists = ['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published'];
     if (coreLists.includes(objectType)) {
       setShowNewDialog(true);
     // From a list page, we can either create a new one or update the one we're seeing
@@ -373,7 +373,7 @@ SaveList.propTypes = {
     shared: PropTypes.bool,
   }), // may be null
   intl: intlShape.isRequired,
-  page: PropTypes.oneOf(['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   query: PropTypes.object.isRequired,
   savedSearch: PropTypes.shape({
     id: PropTypes.string.isRequired,
