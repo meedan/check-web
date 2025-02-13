@@ -301,7 +301,7 @@ const MediaRelationship = ({
       variant="text"
     />
   ), (
-    relationship?.target ? (
+    relationship?.target.media_cluster_origin_user?.name ? (
       <MediaOrigin
         projectMedia={relationship?.target}
       />
@@ -388,6 +388,9 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(MediaRelat
       quote
       imported_from_feed_id
       requests_count
+      media_cluster_origin_user {
+        name
+      }
       media {
         ...SmallMediaCard_media
       }
