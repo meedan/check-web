@@ -18,7 +18,6 @@ import Team from './team/Team';
 import AssignedToMe from './team/AssignedToMe';
 import TiplineInbox from './team/TiplineInbox';
 import SuggestedMatches from './team/SuggestedMatches';
-import UnmatchedMedia from './team/UnmatchedMedia';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
 import CreateFeed from './feed/CreateFeed';
@@ -112,7 +111,6 @@ class Root extends Component {
                   <Route component={AssignedToMe} path=":team/assigned-to-me(/:query)" />
                   <Route component={TiplineInbox} path=":team/tipline-inbox(/:query)" />
                   <Route component={SuggestedMatches} path=":team/suggested-matches(/:query)" />
-                  <Route component={UnmatchedMedia} path=":team/unmatched-media(/:query)" />
                   <Route component={TiplineDashBoard} path=":team/dashboard" />
                   <Route component={CreateFeed} path=":team/feed/create" />
                   <Route component={FeedPage} path=":team/feeds" />

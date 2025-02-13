@@ -725,7 +725,7 @@ SearchFields.propTypes = {
     feedFilters: PropTypes.object,
   }),
   handleSubmit: PropTypes.func.isRequired,
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
   savedSearch: PropTypes.shape({
     filters: PropTypes.string.isRequired,
