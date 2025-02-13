@@ -13,10 +13,8 @@ import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
 import FacebookIcon from '../../../icons/facebook.svg';
 import LineIcon from '../../../icons/line.svg';
 import TelegramIcon from '../../../icons/telegram.svg';
-import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
-import InstagramIcon from '../../../icons/instagram.svg';
 import socialStyles from '../../../styles/css/socials.module.css';
 import smoochBotStyles from './SmoochBot.module.css';
 
@@ -195,24 +193,6 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
         />
         <SmoochBotIntegrationButton
-          deprecationNotice={
-            <FormattedMessage
-              defaultMessage="The integration with X is currently not available, following changes to the X API on April 21, 2023."
-              description="Disclaimer displayed on X tipline settings page."
-              id="smoochBotIntegrations.twitterDisabled"
-            />
-          }
-          disabled={false}
-          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot"
-          icon={<TwitterIcon className={socialStyles['x-black']} />}
-          installationId={installationId}
-          label="X (Twitter)"
-          online={false}
-          readOnly={false}
-          type="twitter"
-          url={null}
-        />
-        <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
           icon={<FacebookIcon className={socialStyles['facebook-blue']} />}
@@ -333,32 +313,6 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           ]}
           readOnly={!isSmoochSet}
           type="line"
-        />
-        <SmoochBotIntegrationButton
-          disabled={!isEnabled}
-          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_b872d32c4d"
-          icon={<InstagramIcon className={socialStyles['instagram-pink']} />}
-          info={
-            isOnline('instagram') ?
-              <FormattedMessage
-                defaultMessage="Connected profile: {link}"
-                description="Label for the connected Instagram profile for this bot"
-                id="smoochBotIntegrations.instagram"
-                values={{
-                  link: (
-                    <a href={`https://instagram.com/${enabledIntegrations.instagram.businessUsername}`} rel="noopener noreferrer" target="_blank">
-                      {enabledIntegrations.instagram.businessName}
-                    </a>
-                  ),
-                }}
-              /> : null
-          }
-          installationId={installationId}
-          label="Instagram"
-          online={isOnline('instagram')}
-          readOnly={!isSmoochSet}
-          type="instagram"
-          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
         />
       </div>
     </React.Fragment>
