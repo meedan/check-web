@@ -83,7 +83,7 @@ const FeedTopBar = ({
     }
 
     return (
-      <div style={{ position: 'relative' }}>
+      <div className={styles.feedTopBarItemWrapper}>
         <Tooltip
           arrow
           placement="top"

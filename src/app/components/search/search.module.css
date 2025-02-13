@@ -19,6 +19,10 @@
     gap: 8px;
     height: 48px;
     padding: 8px;
+
+    .search-form-config-hidden {
+      display: none;
+    }
   }
 }
 

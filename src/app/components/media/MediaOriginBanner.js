@@ -11,6 +11,7 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import CheckMediaOrigin from '../../CheckMediaOrigin';
 import { parseStringUnixTimestamp } from '../../helpers';
 import TimeBefore from '../TimeBefore';
+import dialogStyles from '../../styles/css/dialog.module.css';
 
 const getIconAndMessage = (origin, mediaClusterRelationship, user, originTimestamp) => {
   const formattedTimestamp = <TimeBefore date={parseStringUnixTimestamp(originTimestamp)} />;
@@ -122,14 +123,13 @@ const MediaOriginBanner = ({ projectMedia }) => {
 
   const { icon, message } = getIconAndMessage(origin, mediaClusterRelationship, user?.name, originTimestamp);
   return (
-    <div style={{ marginBottom: '8px' }}>
-      <Alert
-        content={message}
-        customIcon={icon}
-        icon
-        variant="info"
-      />
-    </div>
+    <Alert
+      className={dialogStyles['dialog-alert']}
+      content={message}
+      customIcon={icon}
+      icon
+      variant="info"
+    />
   );
 };
 

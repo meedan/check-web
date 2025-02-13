@@ -38,7 +38,6 @@ class Annotation extends Component {
           <a
             href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`}
             rel="noreferrer noopener"
-            style={{ textDecoration: 'underline' }}
             target="_blank"
           >
             <ParsedText block text={name} />

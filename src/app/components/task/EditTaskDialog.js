@@ -198,7 +198,7 @@ class EditTaskDialog extends React.Component {
           />
         ),
         value: 'number',
-        icon: <NumberIcon style={{ fontSize: '24px' }} />,
+        icon: <NumberIcon />,
         description: (
           <FormattedMessage
             defaultMessage="Allows you to enter a number"
@@ -270,7 +270,7 @@ class EditTaskDialog extends React.Component {
           />
         ),
         value: 'multiple_choice',
-        icon: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
+        icon: <CheckBoxIcon />,
         description: (
           <FormattedMessage
             defaultMessage="Allows you to select one or more predefined options"

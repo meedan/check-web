@@ -6,6 +6,7 @@ import TextField from '../../cds/inputs/TextField';
 import LanguageRegistry, { languageLabel } from '../../../LanguageRegistry';
 import LanguageIcon from '../../../icons/language.svg';
 import ChevronDownIcon from '../../../icons/chevron_down.svg';
+import inputStyles from '../../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
   optionLabel: {
@@ -69,7 +70,7 @@ const LanguagePickerSelect = ({
   };
 
   return (
-    <div id="language-change" style={{ minWidth: '230px' }}>
+    <div className={inputStyles['language-picker-wrapper']} id="language-change">
       <Autocomplete
         disableClearable
         disabled={isDisabled}

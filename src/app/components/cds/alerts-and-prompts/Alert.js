@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 // DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=4-45716&mode=design&t=G3fBIdgR6AWtOlNu-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -120,19 +119,19 @@ Alert.defaultProps = {
 };
 
 Alert.propTypes = {
-  className: PropTypes.string,
-  title: PropTypes.node,
-  content: PropTypes.node,
-  floating: PropTypes.bool,
   banner: PropTypes.bool,
+  buttonLabel: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  className: PropTypes.string,
   contained: PropTypes.bool,
+  content: PropTypes.node,
   customIcon: PropTypes.node,
   extraActions: PropTypes.node,
+  floating: PropTypes.bool,
   icon: PropTypes.bool,
-  buttonLabel: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  title: PropTypes.node,
+  variant: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
   onButtonClick: PropTypes.func,
   onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
 };
 
 export default Alert;

@@ -9,6 +9,7 @@ import {
   Radio,
   RadioGroup,
 } from '@material-ui/core';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
@@ -214,7 +215,7 @@ const SensitiveContentMenu = ({
       onClose={onDismiss}
     >
       <div className={dialogStyles['dialog-content']}>
-        <div className={inputStyles['form-fieldset']} style={{ color: !enableSwitch && (formError === 'no_switch_enabled') ? 'red' : null }}>
+        <div className={inputStyles['form-fieldset']}>
           <SwitchComponent
             checked={enableSwitch}
             className={inputStyles['form-fieldset-field']}
@@ -235,14 +236,20 @@ const SensitiveContentMenu = ({
               value={contentType}
               onChange={e => handleSetContentType(e.target.value)}
             >
-              <div className={inputStyles['form-fieldset-title']} style={{ color: formError === 'no_warning_type' ? 'red' : null }}>
-                <FormattedMessage
-                  defaultMessage="Select a category"
-                  description="Header for sensitive content types"
-                  id="sensitiveContentMenuButton.selectCategory"
-                  tagName="strong"
-                />
-              </div>
+              { formError === 'no_warning_type' &&
+              <Alert
+                className={dialogStyles['dialog-alert']}
+                icon
+                title={
+                  <FormattedMessage
+                    defaultMessage="Select a category"
+                    description="Header for sensitive content types"
+                    id="sensitiveContentMenuButton.selectCategory"
+                  />
+                }
+                variant="error"
+              />
+              }
               <FormControlLabel
                 control={<Radio />}
                 label={<FormattedMessage
