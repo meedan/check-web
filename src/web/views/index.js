@@ -20,6 +20,7 @@ module.exports = ({ config }) => {
       <!DOCTYPE html>
       <html>
         <head>
+          ${uptimeMonitoring(config)}
           <meta name="robots" content="noindex">
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +38,6 @@ module.exports = ({ config }) => {
         </head>
         <body>
           <div id="root"></div>
-          ${uptimeMonitoring(config)}
           ${simpleAnalytics(config)}
         </body>
         <script src="/js/index.bundle${BUNDLE_PREFIX}.js" defer="defer"></script>
