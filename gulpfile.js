@@ -53,7 +53,11 @@ function copy_build_web_config_js() {
   return gulp.src('./config.js').pipe(gulp.dest('./build/web/js'));
 }
 
-gulp.task('copy:build:web', gulp.series(copy_build_web_assets, copy_build_web_config_js));
+function copy_build_web_uptime_js() {
+  return gulp.src('./uptime.js').pipe(gulp.dest('./build/web/js'));
+}
+
+gulp.task('copy:build:web', gulp.series(copy_build_web_assets, copy_build_web_config_js, copy_build_web_uptime_js));
 
 gulp.task('transifex:translations', () => gulp.src('./localization/translations/**/*.json').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/')));
 
