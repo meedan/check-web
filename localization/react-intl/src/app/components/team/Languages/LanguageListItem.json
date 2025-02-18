@@ -6,7 +6,7 @@
   {
     "id": "languageListItem.default",
     "description": "Label to indicate that this language is the default",
-    "defaultMessage": "<strong>{language}</strong> (default)"
+    "defaultMessage": "default"
   },
   {
     "id": "statusListItem.makeDefault",

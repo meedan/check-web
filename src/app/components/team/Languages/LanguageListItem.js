@@ -1,7 +1,6 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FormattedHTMLMessage, FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Menu from '@material-ui/core/Menu';
@@ -194,14 +193,17 @@ const LanguageListItem = ({
         }
       >
         <div>
-          { isDefault ? (
-            <FormattedHTMLMessage
-              defaultMessage="<strong>{language}</strong> (default)"
-              description="Label to indicate that this language is the default"
-              id="languageListItem.default"
-              values={{ language: languageLabelFull(code) }}
-            />
-          ) : <strong>{ languageLabelFull(code) }</strong>
+          <strong>{ languageLabelFull(code) }</strong>
+          { isDefault &&
+            <>
+              <br />
+              <FormattedMessage
+                defaultMessage="default"
+                description="Label to indicate that this language is the default"
+                id="languageListItem.default"
+                tagName="small"
+              />
+            </>
           }
         </div>
         <div className={settingsStyles['setting-content-list-actions']}>
@@ -354,6 +356,8 @@ const LanguageListItem = ({
 };
 
 LanguageListItem.propTypes = {
+  code: PropTypes.string.isRequired,
+  setLanguages: PropTypes.func.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     get_language: PropTypes.string.isRequired,
@@ -366,8 +370,6 @@ LanguageListItem.propTypes = {
       )).isRequired,
     }).isRequired,
   }).isRequired,
-  code: PropTypes.string.isRequired,
-  setLanguages: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(injectIntl(LanguageListItem), graphql`

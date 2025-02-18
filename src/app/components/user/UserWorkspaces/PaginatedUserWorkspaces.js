@@ -162,14 +162,14 @@ const UserWorkspacesComponent = ({
                   </div>
                   <div>
                     <strong>{team.name}</strong>
-                    <p className={styles['member-count']}>
-                      <FormattedMessage
-                        defaultMessage="{membersCount, plural, one {# member} other {# members}}"
-                        description="Count of members of a workspace"
-                        id="switchTeams.member"
-                        values={{ membersCount: team.members_count }}
-                      />
-                    </p>
+                    <br />
+                    <FormattedMessage
+                      defaultMessage="{membersCount, plural, one {# member} other {# members}}"
+                      description="Count of members of a workspace"
+                      id="switchTeams.member"
+                      tagName="small"
+                      values={{ membersCount: team.members_count }}
+                    />
                   </div>
                   <div className={styles['setting-content-list-actions']}>
                     <ButtonMain
