@@ -311,11 +311,7 @@ const StatusesComponent = ({ setFlashMessage, team }) => {
 
 StatusesComponent.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
-  team: PropTypes.shape({
-    verification_statuses: PropTypes.object.isRequired,
-    get_language: PropTypes.string.isRequired,
-    get_languages: PropTypes.string.isRequired,
-  }).isRequired,
+  team: PropTypes.object.isRequired,
 };
 
 // eslint-disable-next-line import/no-unused-modules
