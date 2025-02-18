@@ -10,7 +10,7 @@ const simpleAnalytics = config => config.useAnalytics ?
     </noscript>` : '';
 
 const uptimeMonitoring = config => config.uptimeId ?
-  `<script>(function(w,d,s){w._uptime_rum2={};w._uptime_rum2.errors=[];w._uptime_rum2.uuid='${config.uptimeId}';w._uptime_rum2.url='https://rumcollector.uptime.com';s=document.createElement('script');s.async=1;s.src='https://rum.uptime.com/static/rum/compiled/v2/rum.js';d.getElementsByTagName('head')[0].appendChild(s);w.addEventListener('error',function(e){w._uptime_rum2.errors.push({t:new Date(),err:e})});})(window,document);</script>`
+  `<script async src="/js/uptime.js?uptimeId=${config.uptimeId}"></script>`
   : '';
 
 module.exports = ({ config }) => {
@@ -20,6 +20,7 @@ module.exports = ({ config }) => {
       <!DOCTYPE html>
       <html>
         <head>
+          ${uptimeMonitoring(config)}
           <meta name="robots" content="noindex">
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +38,6 @@ module.exports = ({ config }) => {
         </head>
         <body>
           <div id="root"></div>
-          ${uptimeMonitoring(config)}
           ${simpleAnalytics(config)}
         </body>
         <script src="/js/index.bundle${BUNDLE_PREFIX}.js" defer="defer"></script>

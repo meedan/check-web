@@ -20,6 +20,12 @@ function pushQueryStringValue(key, value) {
   window.history.pushState({}, '', url);
 }
 
+function replaceQueryStringValue(key, value) {
+  const url = new URL(window.location);
+  url.searchParams.set(key, value);
+  window.history.replaceState({}, '', url);
+}
+
 function deleteQueryStringValue(key) {
   const url = new URL(window.location);
   url.searchParams.delete(key);
@@ -141,6 +147,7 @@ export {
   getPathnameAndSearch,
   getQueryStringValue,
   pushQueryStringValue,
+  replaceQueryStringValue,
   deleteQueryStringValue,
   pageSize,
 }; // eslint-disable-line import/prefer-default-export
