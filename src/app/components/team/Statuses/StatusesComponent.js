@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -319,14 +318,15 @@ StatusesComponent.propTypes = {
   }).isRequired,
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { StatusesComponent }; // Used in unit test
+
 export default createFragmentContainer(withSetFlashMessage(StatusesComponent), graphql`
   fragment StatusesComponent_team on Team {
     id
     verification_statuses
     get_language
     get_languages
-    smooch_bot: team_bot_installation(bot_identifier: "smooch") {
-      id
-    }
+    ...EditStatusDialog_team
   }
 `);

@@ -1,5 +1,6 @@
 /* eslint-disable react/sort-prop-types */
 import React from 'react';
+import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
@@ -266,4 +267,13 @@ EditStatusDialog.defaultProps = {
   defaultValue: null,
 };
 
-export default EditStatusDialog;
+// eslint-disable-next-line import/no-unused-modules
+export { EditStatusDialog }; // Used in unit test
+
+export default createFragmentContainer(EditStatusDialog, graphql`
+  fragment EditStatusDialog_team on Team {
+    smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+      id
+    }
+  }
+`);

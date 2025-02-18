@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -611,7 +610,6 @@ SimilarityComponent.propTypes = {
 export default createFragmentContainer(withSetFlashMessage(SimilarityComponent), graphql`
   fragment SimilarityComponent_team on Team {
     id
-    name
     permissions
     alegre_bot: team_bot_installation(bot_identifier: "alegre") {
       id
