@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -253,14 +252,14 @@ const EditStatusDialog = ({
 EditStatusDialog.propTypes = {
   defaultLanguage: PropTypes.string.isRequired,
   defaultValue: PropTypes.object,
-  onCancel: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   team: PropTypes.shape({
     smooch_bot: PropTypes.shape({
       id: PropTypes.string,
     }),
   }).isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 EditStatusDialog.defaultProps = {
