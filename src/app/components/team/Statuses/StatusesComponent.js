@@ -1,8 +1,8 @@
-/* eslint-disable react/sort-prop-types */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 
 import cx from 'classnames/bind';
@@ -311,12 +311,22 @@ const StatusesComponent = ({ setFlashMessage, team }) => {
 };
 
 StatusesComponent.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
   team: PropTypes.shape({
     verification_statuses: PropTypes.object.isRequired,
     get_language: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
-  setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(StatusesComponent);
+export default createFragmentContainer(withSetFlashMessage(StatusesComponent), graphql`
+  fragment StatusesComponent_team on Team {
+    id
+    verification_statuses
+    get_language
+    get_languages
+    smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+      id
+    }
+  }
+`);

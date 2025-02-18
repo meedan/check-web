@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -20,13 +19,7 @@ const Statuses = props => (
     query={graphql`
       query StatusesQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
-          id
-          verification_statuses
-          get_language
-          get_languages
-          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
-            id
-          }
+          ...StatusesComponent_team
         }
       }
     `}
