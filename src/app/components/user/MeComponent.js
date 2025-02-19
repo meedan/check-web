@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
@@ -9,36 +9,39 @@ import PageTitle from '../PageTitle';
 import UserWorkspaces from '../user/UserWorkspaces';
 import styles from '../team/Settings.module.css';
 
-class MeComponent extends React.Component {
-  UNSAFE_componentWillMount() {
-    const { tab } = this.props.params;
+const MeComponent = ({ me, params }) => {
+  const { tab } = params;
 
+  // eslint-disable-next-line
+  console.log('MeComponent', me, tab, params);
+
+  useEffect(() => {
     if (!tab) {
       browserHistory.push('/check/me/profile');
     }
-  }
+  }, [tab]);
 
-  render() {
-    const user = this.props.me;
-    const { tab } = this.props.params;
-
-    return (
-      <PageTitle prefix={user.name}>
-        <div className={cx('source', styles['settings-wrapper'])}>
-          <div className={styles['settings-content']}>
-            { tab === 'profile' ? <UserProfile user={user} /> : null}
-            { tab === 'teams' || tab === 'workspaces' ? <UserWorkspaces user={user} /> : null}
-            { tab === 'privacy' ? <UserPrivacy user={user} /> : null}
-            { tab === 'security' ? <UserSecurity user={user} /> : null}
-          </div>
+  return (
+    <PageTitle prefix={me.name}>
+      <div className={cx('source', styles['settings-wrapper'])}>
+        <div className={styles['settings-content']}>
+          {tab === 'profile' && <UserProfile user={me} />}
+          {(tab === 'teams' || tab === 'workspaces') && <UserWorkspaces user={me} />}
+          {tab === 'privacy' && <UserPrivacy user={me} />}
+          {tab === 'security' && <UserSecurity user={me} />}
         </div>
-      </PageTitle>
-    );
-  }
-}
+      </div>
+    </PageTitle>
+  );
+};
 
-MeComponent.contextTypes = {
-  store: PropTypes.object,
+MeComponent.propTypes = {
+  me: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  params: PropTypes.shape({
+    tab: PropTypes.string,
+  }).isRequired,
 };
 
 export default MeComponent;
