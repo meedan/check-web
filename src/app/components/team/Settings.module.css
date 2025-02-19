@@ -101,6 +101,7 @@
         background-color: var(--color-white-100);
         border-radius: var(--border-radius-default);
         padding: 16px;
+        position: relative;
 
         .setting-content-container-title {
           align-items: center;
@@ -319,15 +320,6 @@
 
             &.team-avatar {
               flex: 0 0 auto;
-            }
-
-            p {
-              color: var(--color-gray-37);
-              margin: 3px 0 0 26px;
-
-              &.member-count {
-                margin: 3px 0 0;
-              }
             }
 
             &.setting-content-list-actions {

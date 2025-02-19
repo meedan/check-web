@@ -1,13 +1,7 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import SaveTag from './SaveTag';
 import TeamTagsActions from './TeamTagsActions';
 import BlankState from '../../layout/BlankState';
@@ -168,53 +162,44 @@ const TeamTagsComponent = ({
           </BlankState>
           :
           <div className={settingsStyles['setting-content-container']}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell className={styles['table-col-head-name']}>
-                    <FormattedMessage
-                      defaultMessage="Name"
-                      description="Column header in tags table."
-                      id="teamTagsComponent.tableHeaderName"
-                    />
-                  </TableCell>
-                  <TableCell className={styles['table-col-head-updated']}>
-                    <FormattedMessage
-                      defaultMessage="Updated"
-                      description="Column header in tags table."
-                      id="teamTagsComponent.tableHeaderUpdatedAt"
-                    />
-                  </TableCell>
-                  <TableCell className={styles['table-col-head-action']} padding="checkbox" />
-                </TableRow>
-              </TableHead>
-              { isPaginationLoading && <Loader size="medium" theme="grey" variant="inline" /> }
-              <TableBody className={isPaginationLoading && styles['tags-hide']}>
-                { tags.slice(cursor, cursor + pageSize).map(tag => (
-                  <TableRow className="team-tags__row" key={tag.id}>
-                    <TableCell>
-                      {tag.text}
-                    </TableCell>
-                    <TableCell>
-                      <TimeBefore date={tag.updated_at} />
-                    </TableCell>
-                    <TableCell>
-                      <Can permission="create TagText" permissions={permissions}>
-                        <TeamTagsActions
-                          pageSize={pageSize}
-                          relay={relay}
-                          rules={rules}
-                          rulesSchema={rulesSchema}
-                          tag={tag}
-                          teamDbid={teamDbid}
-                          teamId={teamId}
-                        />
-                      </Can>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            { isPaginationLoading &&
+              <div className={styles['tags-loader']}>
+                <Loader size="small" theme="grey" variant="inline" />
+              </div>
+            }
+            <ul className={settingsStyles['setting-content-list']}>
+              { tags.slice(cursor, cursor + pageSize).map(tag => (
+                <li className="team-tags__row" key={tag.id}>
+                  <div>
+                    <strong>{tag.text}</strong>
+                    <br />
+                    <Tooltip
+                      arrow
+                      title={
+                        <FormattedMessage defaultMessage="Last Updated: {count}" description="The date the last time this tag was updated" id="teamTagsComponent.lastUpdated" values={{ count: tag.updated_at }} />
+                      }
+                    >
+                      <small>
+                        <TimeBefore date={tag.updated_at} />
+                      </small>
+                    </Tooltip>
+                  </div>
+                  <Can permission="create TagText" permissions={permissions}>
+                    <div className={settingsStyles['setting-content-list-actions']}>
+                      <TeamTagsActions
+                        pageSize={pageSize}
+                        relay={relay}
+                        rules={rules}
+                        rulesSchema={rulesSchema}
+                        tag={tag}
+                        teamDbid={teamDbid}
+                        teamId={teamId}
+                      />
+                    </div>
+                  </Can>
+                </li>
+              ))}
+            </ul>
           </div>
         }
       </div>
@@ -238,17 +223,17 @@ TeamTagsComponent.defaultProps = {
 };
 
 TeamTagsComponent.propTypes = {
-  teamId: PropTypes.string.isRequired,
-  teamDbid: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
   permissions: PropTypes.string.isRequired,
-  rulesSchema: PropTypes.object.isRequired,
   rules: PropTypes.arrayOf(PropTypes.object),
+  rulesSchema: PropTypes.object.isRequired,
   tags: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     updated_at: PropTypes.object.isRequired, // Date object
   }).isRequired).isRequired,
-  pageSize: PropTypes.number.isRequired,
+  teamDbid: PropTypes.number.isRequired,
+  teamId: PropTypes.string.isRequired,
 };
 
 export default TeamTagsComponent;

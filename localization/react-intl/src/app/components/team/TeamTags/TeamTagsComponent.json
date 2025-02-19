@@ -35,13 +35,8 @@
     "defaultMessage": "No Workspace Tags"
   },
   {
-    "id": "teamTagsComponent.tableHeaderName",
-    "description": "Column header in tags table.",
-    "defaultMessage": "Name"
-  },
-  {
-    "id": "teamTagsComponent.tableHeaderUpdatedAt",
-    "description": "Column header in tags table.",
-    "defaultMessage": "Updated"
+    "id": "teamTagsComponent.lastUpdated",
+    "description": "The date the last time this tag was updated",
+    "defaultMessage": "Last Updated: {count}"
   }
 ]
