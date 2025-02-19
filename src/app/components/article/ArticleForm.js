@@ -199,7 +199,12 @@ const ArticleForm = ({
                 <div className={styles['article-form-info-content']}>
                   { article.created_at &&
                     <div className="typography-body2">
-                      {article.author.name}, <FormattedDate day="numeric" hour="numeric" minute="numeric" month="long" value={new Date(article.created_at * 1000)} year="numeric" />
+                      {article.author?.name ?
+                        <>
+                          {article.author.name}, <FormattedDate day="numeric" hour="numeric" minute="numeric" month="long" value={new Date(article.created_at * 1000)} year="numeric" />
+                        </>
+                        : <FormattedDate day="numeric" hour="numeric" minute="numeric" month="long" value={new Date(article.created_at * 1000)} year="numeric" />
+                      }
                     </div>
                   }
                   { article.updated_at &&
