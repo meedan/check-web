@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -599,10 +598,7 @@ const SimilarityComponent = ({
 
 SimilarityComponent.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
-  team: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  team: PropTypes.object.isRequired,
   user: PropTypes.shape({
     is_admin: PropTypes.bool.isRequired,
   }).isRequired,
@@ -611,7 +607,6 @@ SimilarityComponent.propTypes = {
 export default createFragmentContainer(withSetFlashMessage(SimilarityComponent), graphql`
   fragment SimilarityComponent_team on Team {
     id
-    name
     permissions
     alegre_bot: team_bot_installation(bot_identifier: "alegre") {
       id

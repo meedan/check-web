@@ -1,7 +1,8 @@
 
 import React from 'react';
-import StatusesComponent from './StatusesComponent';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
+import { StatusesComponent } from './StatusesComponent';
+import StatusListItem from './StatusListItem';
+import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 const statuses = [
   {
@@ -42,19 +43,16 @@ const team = {
 };
 
 describe('<StatusesComponent/>', () => {
-  it('should render statuses and languages', () => {
-    const wrapper = mountWithIntl(<StatusesComponent
+  it('should render statuses', () => {
+    const wrapper = shallowWithIntl(<StatusesComponent
+      setFlashMessage={() => {}}
       team={team}
     />);
-    expect(wrapper.find('.status-actions__menu').hostNodes()).toHaveLength(3);
-    // languages
-    expect(wrapper.find('#language-change').hostNodes()).toHaveLength(1);
-    // statuses
-    expect(wrapper.find('.component__settings-header h5').text()).toMatch('Statuses [3]');
-    expect(wrapper.html()).toMatch('Undetermined');
-    expect(wrapper.html()).toMatch('True');
-    expect(wrapper.html()).toMatch('In Progress');
-    expect(wrapper.html()).toMatch('New status');
+    const statusItems = wrapper.find(StatusListItem);
+    expect(statusItems).toHaveLength(3);
+    statusItems.forEach((item) => {
+      expect(item.prop('defaultLanguage')).toEqual('en');
+    });
   });
 });
 
