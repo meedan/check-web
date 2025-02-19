@@ -198,7 +198,7 @@ const LanguageListItem = ({
             <>
               <br />
               <FormattedMessage
-                defaultMessage="default"
+                defaultMessage="default tipline language"
                 description="Label to indicate that this language is the default"
                 id="languageListItem.default"
                 tagName="small"
