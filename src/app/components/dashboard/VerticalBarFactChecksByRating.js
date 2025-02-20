@@ -19,7 +19,7 @@ const VerticalBarFactChecksByRating = ({ language, statistics, team }) => (
             name: getStatus(team.verification_statuses, name, language).label || name,
             value,
             color: getStatusStyle(getStatus(team.verification_statuses, name), 'color'),
-          }))
+          })).sort((a, b) => b.value - a.value) // Sort in descending order
         }
         title={title}
       />
