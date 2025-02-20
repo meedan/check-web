@@ -10,6 +10,8 @@ const TimelineTiplineMessageVolume = ({ statistics }) => (
       Object.entries(statistics.number_of_messages_by_date).map(([date, value]) => ({
         date: `${date}T23:59:59.000Z`,
         value,
+        incomingValue: statistics.number_of_incoming_messages_by_date[date],
+        outgoingValue: statistics.number_of_outgoing_messages_by_date[date],
       }))
     }
     title={
@@ -19,13 +21,25 @@ const TimelineTiplineMessageVolume = ({ statistics }) => (
         id="timelineTiplineMessageVolume.title"
       />
     }
-    tooltipFormatter={value => [(
-      <FormattedMessage
-        defaultMessage="• {messageCount} Messages"
-        description="Tooltip for the tipline message volume widget"
-        id="timelineTiplineMessageVolume.tooltip"
-        values={{ messageCount: value }}
-      />
+    tooltipFormatter={(value, name, props) => [(
+      <>
+        <div>
+          <FormattedMessage
+            defaultMessage="• {messageCount} Incoming Messages"
+            description="Tooltip for the tipline message volume widget"
+            id="timelineTiplineMessageVolume.tooltipIncoming"
+            values={{ messageCount: props.payload.incomingValue }}
+          />
+        </div>
+        <div>
+          <FormattedMessage
+            defaultMessage="• {messageCount} Outgoing Messages"
+            description="Tooltip for the tipline message volume widget"
+            id="timelineTiplineMessageVolume.tooltipOutgoing"
+            values={{ messageCount: props.payload.outgoingValue }}
+          />
+        </div>
+      </>
     )]}
   />
 );
@@ -39,5 +53,7 @@ TimelineTiplineMessageVolume.propTypes = {
 export default createFragmentContainer(TimelineTiplineMessageVolume, graphql`
   fragment TimelineTiplineMessageVolume_statistics on TeamStatistics {
     number_of_messages_by_date
+    number_of_incoming_messages_by_date
+    number_of_outgoing_messages_by_date
   }
 `);

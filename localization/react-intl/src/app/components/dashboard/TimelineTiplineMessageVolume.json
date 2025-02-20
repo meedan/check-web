@@ -5,8 +5,13 @@
     "defaultMessage": "Tipline Message Volume"
   },
   {
-    "id": "timelineTiplineMessageVolume.tooltip",
+    "id": "timelineTiplineMessageVolume.tooltipIncoming",
     "description": "Tooltip for the tipline message volume widget",
-    "defaultMessage": "• {messageCount} Messages"
+    "defaultMessage": "• {messageCount} Incoming Messages"
+  },
+  {
+    "id": "timelineTiplineMessageVolume.tooltipOutgoing",
+    "description": "Tooltip for the tipline message volume widget",
+    "defaultMessage": "• {messageCount} Outgoing Messages"
   }
 ]

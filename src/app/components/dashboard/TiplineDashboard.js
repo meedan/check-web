@@ -109,7 +109,7 @@ TiplineDashboard.propTypes = {
   period: PropTypes.string.isRequired,
   platform: PropTypes.string,
   team: PropTypes.shape({
-    data_report: PropTypes.object,
+    data_report: PropTypes.array,
     get_language: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
