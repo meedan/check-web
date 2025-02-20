@@ -38,9 +38,7 @@ const MediaArticleCard = ({
     <Card className={styles.mediaArticleCard}>
       { variant === 'fact-check' && !publishedAt ?
         <Alert
-          border
           className={styles.mediaArticleCardAlert}
-          contained
           content={
             <FormattedMessage
               defaultMessage="This Fact-Check will not be returned to Tipline users until it is published"
@@ -48,6 +46,7 @@ const MediaArticleCard = ({
               id="mediaArticleCard.unpublishedAlertContent"
             />
           }
+          placement="contained"
           variant="warning"
         />
         : null

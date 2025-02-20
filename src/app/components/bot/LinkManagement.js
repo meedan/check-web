@@ -99,7 +99,6 @@ const LinkManagement = ({
             <Alert
               border
               className={inputStyles['form-fieldset-field']}
-              contained
               content={
                 <FormattedHTMLMessage
                   defaultMessage="<strong>Before:</strong> https://www.example.com/your-link<br /><strong>After:</strong> https://chck.media/x1y2z3w4/{code}"
@@ -108,6 +107,7 @@ const LinkManagement = ({
                   values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
                 />
               }
+              placement="contained"
               title={<FormattedMessage defaultMessage="All links sent via Check will be rewritten." description="Text displayed in the title of a warning box on team details page when link shortening is on" id="teamDetails.warnTitle" />}
               variant="warning"
             />
