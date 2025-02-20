@@ -383,6 +383,7 @@ const ArticleForm = ({
                 }
                 { articleType === 'fact-check' && isPublished && (
                   <Alert
+                    border
                     buttonLabel={<FormattedMessage defaultMessage="Update Report" description="Label of alert button in article form." id="articleForm.reportPublishedLabel" />}
                     className={styles['article-form-alert']}
                     contained

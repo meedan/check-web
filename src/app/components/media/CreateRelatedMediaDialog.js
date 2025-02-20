@@ -242,7 +242,7 @@ class CreateRelatedMediaDialog extends React.Component {
           }
           { mode === 'existing' &&
             <>
-              { this.props.message && <><Alert contained title={this.props.message} variant="error" /><br /></> }
+              { this.props.message && <><Alert border contained title={this.props.message} variant="error" /><br /></> }
               <AutoCompleteMediaItem
                 customFilter={this.props.customFilter}
                 dbid={media ? media.dbid : null}

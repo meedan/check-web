@@ -55,6 +55,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
           content: key => (
             <div className="int-flash-message__toast" key={key}>
               <Alert
+                border
                 className={cx(
                   {
                     [styles['persist-alert-flash-message']]: persist,
@@ -78,6 +79,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
           content: key => (
             <div className="int-flash-message__toast" key={key}>
               <Alert
+                border
                 className={cx(
                   {
                     [styles['persist-alert-flash-message']]: persist,
@@ -102,6 +104,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
         content: key => (
           <div className="int-flash-message__toast" key={key}>
             <Alert
+              border
               className={cx(
                 {
                   [styles['persist-alert-flash-message']]: persist,

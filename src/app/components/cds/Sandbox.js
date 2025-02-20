@@ -168,6 +168,7 @@ const SandboxComponent = ({ admin }) => {
   const [alertTitle, setAlertTitle] = React.useState(Boolean(true));
   const [alertContent, setAlertContent] = React.useState(Boolean(true));
   const [alertClosable, setAlertClosable] = React.useState(Boolean(true));
+  const [alertBorder, setAlertBorder] = React.useState(Boolean(false));
   const [toastLink, setToastLink] = React.useState(Boolean(false));
   const [toastBreaks, setToastBreaks] = React.useState(Boolean(false));
 
@@ -1846,11 +1847,20 @@ const SandboxComponent = ({ admin }) => {
                     onChange={() => setAlertClosable(!alertClosable)}
                   />
                 </li>
+                <li>
+                  <SwitchComponent
+                    checked={alertBorder}
+                    label="Border"
+                    labelPlacement="top"
+                    onChange={() => setAlertBorder(!alertBorder)}
+                  />
+                </li>
               </ul>
             </div>
             <div className={styles.componentInlineVariants}>
               <Alert
                 banner={alertPlacement === 'banner'}
+                border={alertBorder}
                 buttonLabel={alertButton && <span>alert action</span>}
                 contained={alertPlacement === 'contained'}
                 content={alertContent && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>}

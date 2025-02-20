@@ -38,6 +38,7 @@ const MediaArticleCard = ({
     <Card className={styles.mediaArticleCard}>
       { variant === 'fact-check' && !publishedAt ?
         <Alert
+          border
           className={styles.mediaArticleCardAlert}
           contained
           content={

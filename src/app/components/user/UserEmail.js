@@ -4,6 +4,7 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 
 const UserEmail = () => (
   <Alert
+    border
     contained
     content={
       <FormattedMessage

@@ -112,6 +112,7 @@ const NewsletterScheduler = ({
 
       { lastDeliveryError === 'CONTENT_HASNT_CHANGED' ?
         <Alert
+          border
           contained
           title={
             <FormattedMessage
@@ -126,6 +127,7 @@ const NewsletterScheduler = ({
 
       { lastDeliveryError === 'RSS_ERROR' ?
         <Alert
+          border
           contained
           title={
             <FormattedMessage

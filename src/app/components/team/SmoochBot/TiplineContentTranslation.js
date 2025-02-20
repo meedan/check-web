@@ -116,6 +116,7 @@ const TiplineContentTranslation = ({
       <div className={styles['content-translation-details']}>
         { !value &&
           <Alert
+            border
             className={styles['content-translation-details-default']}
             contained
             content={defaultValue}
@@ -147,6 +148,7 @@ const TiplineContentTranslation = ({
               onClick={() => { setDefaultExpanded(!defaultExpanded); }}
             />
             <Alert
+              border
               className={styles['default-bot-response-content']}
               contained
               content={defaultValue}

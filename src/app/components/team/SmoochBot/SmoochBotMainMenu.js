@@ -74,6 +74,7 @@ const SmoochBotMainMenu = ({
     <React.Fragment>
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
         <Alert
+          border
           contained
           content={
             <FormattedMessage
@@ -98,6 +99,7 @@ const SmoochBotMainMenu = ({
       </div>
       { collapseLanguages ?
         <Alert
+          border
           className={settingsStyles['tipline-settings-menu-count-alert']}
           contained
           content={

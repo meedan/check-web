@@ -57,6 +57,7 @@ class WebPageMediaCard extends Component {
             }
             { data.error ?
               <Alert
+                border
                 className={cx('web-page-media-card__error', styles['webpage-media-card-error'])}
                 contained
                 content={

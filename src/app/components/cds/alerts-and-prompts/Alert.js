@@ -23,6 +23,7 @@ const buttonTheme = alertVariant => buttonThemes[alertVariant] || 'info';
 
 const Alert = ({
   banner,
+  border,
   buttonLabel,
   className,
   contained,
@@ -48,6 +49,7 @@ const Alert = ({
         [styles.floating]: floating,
         [styles.banner]: banner,
         [styles.contained]: contained,
+        [styles.border]: border,
       })
     }
   >
@@ -107,6 +109,7 @@ Alert.defaultProps = {
   variant: 'info',
   content: null,
   title: null,
+  border: false,
   buttonLabel: null,
   customIcon: null,
   extraActions: null,
@@ -120,6 +123,7 @@ Alert.defaultProps = {
 
 Alert.propTypes = {
   banner: PropTypes.bool,
+  border: PropTypes.bool,
   buttonLabel: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   className: PropTypes.string,
   contained: PropTypes.bool,

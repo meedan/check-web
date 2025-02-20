@@ -97,6 +97,7 @@ const LinkManagement = ({
               )}
             </FormattedMessage>
             <Alert
+              border
               className={inputStyles['form-fieldset-field']}
               contained
               content={

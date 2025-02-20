@@ -59,6 +59,7 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
       }
       { (hasFactCheck && hasExplainer) ?
         <Alert
+          border
           contained
           content={
             <FormattedMessage

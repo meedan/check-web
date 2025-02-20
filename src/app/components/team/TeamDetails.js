@@ -250,6 +250,7 @@ const TeamDetails = ({
                       )}
                     </FormattedMessage>
                     <Alert
+                      border
                       className={inputStyles['form-fieldset-field']}
                       contained
                       content={

@@ -15,6 +15,7 @@ const ConfirmEmail = (props) => {
 
   return (
     <Alert
+      border
       buttonLabel={<FormattedMessage defaultMessage="Resend" description="Button label to allow the user to resend their email address confirmation" id="ConfirmEmail.resendConfirmation" />}
       contained
       content={

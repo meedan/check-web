@@ -500,6 +500,7 @@ function SearchResultsComponent({
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         { tooManyResults ?
           <Alert
+            border
             contained
             title={
               <FormattedMessage
