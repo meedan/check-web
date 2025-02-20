@@ -694,7 +694,6 @@ const SaveFeed = (props) => {
                 </> : null
               }
               <Alert
-                banner
                 className={styles.paragraphMarginTop}
                 content={
                   <FormattedMessage
@@ -703,6 +702,7 @@ const SaveFeed = (props) => {
                     id="alert.sharedFeedRealTimeAlertContent"
                   />
                 }
+                placement="banner"
                 title={
                   <FormattedMessage
                     defaultMessage="Shared feed data updates may not occur in real time"

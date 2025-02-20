@@ -48,7 +48,7 @@ class ConfirmDialog extends React.Component {
           <h6>{this.props.title}</h6>
         </div>
         <div className={styles['dialog-content']}>
-          { this.props.message && <><Alert contained title={this.props.message} variant="error" /><br /></> }
+          { this.props.message && <><Alert placement="contained" title={this.props.message} variant="error" /><br /></> }
           {this.props.blurb}
           { this.props.handleConfirm ?
             <div className={inputStyles['form-fieldset']}>

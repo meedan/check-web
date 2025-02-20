@@ -22,18 +22,16 @@ const buttonThemes = {
 const buttonTheme = alertVariant => buttonThemes[alertVariant] || 'info';
 
 const Alert = ({
-  banner,
   border,
   buttonLabel,
   className,
-  contained,
   content,
   customIcon,
   extraActions,
-  floating,
   icon,
   onButtonClick,
   onClose,
+  placement,
   title,
   variant,
 }) => (
@@ -46,9 +44,10 @@ const Alert = ({
         [styles.success]: variant === 'success',
         [styles.warning]: variant === 'warning',
         [styles.error]: variant === 'error',
-        [styles.floating]: floating,
-        [styles.banner]: banner,
-        [styles.contained]: contained,
+        [styles.default]: placement === 'default',
+        [styles.floating]: placement === 'floating',
+        [styles.banner]: placement === 'banner',
+        [styles.contained]: placement === 'contained',
         [styles.border]: border,
       })
     }
@@ -115,23 +114,19 @@ Alert.defaultProps = {
   extraActions: null,
   onButtonClick: null,
   onClose: null,
-  floating: false,
-  banner: false,
-  contained: false,
+  placement: 'default',
   icon: true,
 };
 
 Alert.propTypes = {
-  banner: PropTypes.bool,
   border: PropTypes.bool,
   buttonLabel: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   className: PropTypes.string,
-  contained: PropTypes.bool,
   content: PropTypes.node,
   customIcon: PropTypes.node,
   extraActions: PropTypes.node,
-  floating: PropTypes.bool,
   icon: PropTypes.bool,
+  placement: PropTypes.oneOf(['default', 'banner', 'contained', 'floating']),
   title: PropTypes.node,
   variant: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
   onButtonClick: PropTypes.func,

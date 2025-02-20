@@ -12,7 +12,6 @@ const StatusMessage = ({ message }) => {
 
   return (
     <Alert
-      border
       className={cx(styles['status-message'], 'test__status-message')}
       content={message}
       icon

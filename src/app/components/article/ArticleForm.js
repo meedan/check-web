@@ -386,9 +386,9 @@ const ArticleForm = ({
                     border
                     buttonLabel={<FormattedMessage defaultMessage="Update Report" description="Label of alert button in article form." id="articleForm.reportPublishedLabel" />}
                     className={styles['article-form-alert']}
-                    contained
                     content={<FormattedMessage defaultMessage="To make edits, pause this report. This will stop the report from being sent out to users until it is published again" description="Text of alert box in article form." id="articleForm.reportPublishedBody" />}
                     icon
+                    placement="contained"
                     title={<FormattedMessage defaultMessage="Report is published" description="Title of alert box in article form." id="articleForm.reportPublishedTitle" />}
                     variant="success"
                     onButtonClick={() => handleGoToReport(article.claim_description?.project_media?.dbid)}

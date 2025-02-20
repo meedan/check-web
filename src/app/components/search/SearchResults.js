@@ -501,7 +501,7 @@ function SearchResultsComponent({
         { tooManyResults ?
           <Alert
             border
-            contained
+            placement="contained"
             title={
               <FormattedMessage
                 defaultMessage="Browsing this list is limited to the first {max, number} results. Use the filters above to refine this list."

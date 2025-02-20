@@ -118,9 +118,9 @@ const TiplineContentTranslation = ({
           <Alert
             border
             className={styles['content-translation-details-default']}
-            contained
             content={defaultValue}
             icon={false}
+            placement="contained"
             title={intl.formatMessage(messages.defaultText)}
             variant="info"
           />
@@ -150,9 +150,9 @@ const TiplineContentTranslation = ({
             <Alert
               border
               className={styles['default-bot-response-content']}
-              contained
               content={defaultValue}
               icon={false}
+              placement="contained"
               title={intl.formatMessage(messages.defaultText)}
               variant="info"
             />

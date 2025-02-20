@@ -113,7 +113,7 @@ const NewsletterScheduler = ({
       { lastDeliveryError === 'CONTENT_HASNT_CHANGED' ?
         <Alert
           border
-          contained
+          placement="contained"
           title={
             <FormattedMessage
               defaultMessage="The newsletter was not sent because its content has not been updated since the last successful delivery."
@@ -128,7 +128,7 @@ const NewsletterScheduler = ({
       { lastDeliveryError === 'RSS_ERROR' ?
         <Alert
           border
-          contained
+          placement="contained"
           title={
             <FormattedMessage
               defaultMessage="The newsletter was not sent because no content could be retrieved from the RSS feed."

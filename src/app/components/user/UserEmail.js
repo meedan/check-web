@@ -5,7 +5,6 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 const UserEmail = () => (
   <Alert
     border
-    contained
     content={
       <FormattedMessage
         defaultMessage="To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address."
@@ -13,6 +12,7 @@ const UserEmail = () => (
         id="userEmail.text"
       />
     }
+    placement="contained"
     title={<FormattedMessage defaultMessage="Add your email" description="Alert title for prompting the user to add their email address in order to receive notifications" id="userEmail.alertTitle" />}
     variant="warning"
   />

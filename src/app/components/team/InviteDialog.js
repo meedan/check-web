@@ -151,7 +151,7 @@ const InviteDialog = ({
         />
       </div>
       <div className={styles['dialog-content']}>
-        { errorMessage && <><Alert border contained title={errorMessage} variant="error" /><br /></> }
+        { errorMessage && <><Alert border placement="contained" title={errorMessage} variant="error" /><br /></> }
         <div className={inputStyles['form-fieldset']}>
           <div className={inputStyles['form-fieldset-field']}>
             <FormattedMessage defaultMessage="example: team_member@example.org, team_member2@example.org" description="Placeholder for input for invited emails" id="inviteDialog.textInputPlaceholder">

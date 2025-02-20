@@ -150,7 +150,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
             <Alert
               border
               className={cx(styles['no-admin-alert'])}
-              contained
+              placement="contained"
               title={<FormattedMessage defaultMessage="You are not the admin of this workspace. Please contact your workspace administrator if you think this is in error." description="An error message that informs the user that they are not the administrator of this workspace and as such cannot perform any actions on this page." id="feedInvitation.notAdmin" />}
               variant="error"
             />
@@ -159,7 +159,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
             <Alert
               border
               className={cx(styles['no-admin-alert'])}
-              contained
+              placement="contained"
               title={<FormattedMessage defaultMessage="You have already accepted this invitation." description="An informational message that appears if the user tries to accept an invitation that they have already accepted." id="feedInvitation.alreadyAccepted" />}
               variant="info"
             />

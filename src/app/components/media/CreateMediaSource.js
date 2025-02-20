@@ -172,7 +172,7 @@ function CreateMediaSource({
 
   return (
     <React.Fragment>
-      { message && <><Alert border contained title={message} variant="error" /><br /></> }
+      { message && <><Alert border placement="contained" title={message} variant="error" /><br /></> }
       <div className={inputStyles['form-inner-wrapper']}>
         <div className={styles['media-sources-header']}>
           <div className={styles['media-sources-header-left']}>

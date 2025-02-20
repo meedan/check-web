@@ -59,7 +59,6 @@ class WebPageMediaCard extends Component {
               <Alert
                 border
                 className={cx('web-page-media-card__error', styles['webpage-media-card-error'])}
-                contained
                 content={
                   <FormattedMessage
                     defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
@@ -67,6 +66,7 @@ class WebPageMediaCard extends Component {
                     id="webPageMediaCard.Error"
                   />
                 }
+                placement="contained"
                 variant="error"
               /> : null
             }

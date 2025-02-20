@@ -62,7 +62,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
                   })
                 }
                 content={msg}
-                floating
+                placement="floating"
                 variant={variant}
                 onClose={() => { closeSnackbar(key); }}
               />
@@ -86,7 +86,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
                   })
                 }
                 content={<>{createFriendlyErrorMessage(msg)}</>}
-                floating
+                placement="floating"
                 title={<>{createFriendlyErrorMessageTitle(msg)}</>}
                 variant={variant}
                 onClose={() => { closeSnackbar(key); }}
@@ -111,7 +111,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
                 })
               }
               content={message}
-              floating
+              placement="floating"
               variant={variant}
               onClose={() => { closeSnackbar(key); }}
             />
@@ -191,9 +191,9 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
   if (message) {
     return (
       <Alert
-        banner
         className={cx('home__message', styles['alert-flash-home-message'])}
         content={message}
+        placement="banner"
         variant="info"
         onClose={resetMessage}
       />

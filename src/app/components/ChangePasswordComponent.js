@@ -107,7 +107,7 @@ function ChangePasswordComponent({
 
   return (
     <div className={cx('int-user-password-change__password-input', inputStyles['form-fieldset'])}>
-      { errorMsg && <><Alert border contained title={errorMsg} variant="error" /><br /></> }
+      { errorMsg && <><Alert border placement="contained" title={errorMsg} variant="error" /><br /></> }
       {showCurrentPassword === true ? (
         <TextField
           className={cx('int-user-password-change__password-input-field', inputStyles['form-fieldset-field'])}
