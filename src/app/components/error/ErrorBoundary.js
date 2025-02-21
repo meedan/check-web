@@ -13,6 +13,14 @@ const messages = defineMessages({
   },
 });
 
+const saveError = (error) => {
+  window.localStorage.setItem('checkError', JSON.stringify({
+    name: error.name,
+    message: error.message,
+    stack: error.stack,
+  }));
+};
+
 const notifySentry = (
   error,
   component,
@@ -42,6 +50,7 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false };
 
     window.onerror = (message, source, lineno, colno, error) => {
+      saveError(error);
       notifySentry(error, 'window');
     };
   }
@@ -62,6 +71,7 @@ class ErrorBoundary extends React.Component {
       }
     };
 
+    saveError(error);
     notifySentry(error, component, callIntercom);
   }
 
