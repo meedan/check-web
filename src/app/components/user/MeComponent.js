@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
@@ -9,11 +10,11 @@ import PageTitle from '../PageTitle';
 import UserWorkspaces from '../user/UserWorkspaces';
 import styles from '../team/Settings.module.css';
 
-const MeComponent = ({ me, params }) => {
+const MeComponent = ({ params, user }) => {
   const { tab } = params;
 
   // eslint-disable-next-line
-  console.log('MeComponent', me, tab, params);
+  console.log('MeComponent', user, tab, params);
 
   useEffect(() => {
     if (!tab) {
@@ -22,13 +23,13 @@ const MeComponent = ({ me, params }) => {
   }, [tab]);
 
   return (
-    <PageTitle prefix={me.name}>
+    <PageTitle prefix={user.name}>
       <div className={cx('source', styles['settings-wrapper'])}>
         <div className={styles['settings-content']}>
-          {tab === 'profile' && <UserProfile user={me} />}
-          {(tab === 'teams' || tab === 'workspaces') && <UserWorkspaces user={me} />}
-          {tab === 'privacy' && <UserPrivacy user={me} />}
-          {tab === 'security' && <UserSecurity user={me} />}
+          {tab === 'profile' && <UserProfile user={user} />}
+          {(tab === 'teams' || tab === 'workspaces') && <UserWorkspaces user={user} />}
+          {tab === 'privacy' && <UserPrivacy user={user} />}
+          {tab === 'security' && <UserSecurity user={user} />}
         </div>
       </div>
     </PageTitle>
@@ -36,12 +37,21 @@ const MeComponent = ({ me, params }) => {
 };
 
 MeComponent.propTypes = {
-  me: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
   params: PropTypes.shape({
     tab: PropTypes.string,
   }).isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default MeComponent;
+export default createFragmentContainer(MeComponent, {
+  user: graphql`
+    fragment MeComponent_user on Me {
+      name
+      ...UserProfile_user
+      ...UserSecurity_user
+      ...UserPrivacy_user
+    }
+  `,
+});

@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
@@ -59,6 +59,10 @@ const UserSecurity = (props, context) => {
   if (user.get_send_failed_login_notifications == null) {
     sendFailedLoginValue = true;
   }
+
+  // eslint-disable-next-line
+  console.log('UserSecurity', user);
+
   const [twoFactorAuthentication, setTwoFactorAuthentication] = React.useState(user.two_factor.otp_required);
   const [showFactorAuthForm, setShowFactorAuthForm] = React.useState(false);
   const [sendSuccessfulLogin, setSendSuccessfulLogin] = React.useState(sendSuccessfulLoginValue);
@@ -101,8 +105,8 @@ const UserSecurity = (props, context) => {
     };
     const onSuccess = (response) => {
       const { userTwoFactorAuthentication: { user: { two_factor } } } = response;
-      setTwoFactorAuthentication(two_factor.otp_required);
-      setShowFactorCommonFields(two_factor.otp_required);
+      setTwoFactorAuthentication(two_factor?.otp_required);
+      setShowFactorCommonFields(two_factor?.otp_required);
       setShowFactorAuthForm(false);
       setBackupCodes([]);
       setPassword('');
@@ -521,4 +525,17 @@ UserSecurity.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withSetFlashMessage(injectIntl(UserSecurity));
+// export default withSetFlashMessage(injectIntl(UserSecurity));
+
+
+export default createFragmentContainer(withSetFlashMessage(injectIntl(UserSecurity)), {
+  user: graphql`
+    fragment UserSecurity_user on Me {
+      id
+      dbid
+      get_send_successful_login_notifications
+      get_send_failed_login_notifications
+      two_factor
+    }
+  `,
+});

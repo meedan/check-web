@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
@@ -80,6 +80,7 @@ const UserPrivacy = (props, context) => {
 
   const { user } = props;
   const { currentUser } = new CheckContext({ props, context }).getContextStore();
+  const { providers } = user;
 
   if (!currentUser || !user || currentUser.dbid !== user.dbid) {
     return null;
@@ -105,8 +106,6 @@ const UserPrivacy = (props, context) => {
       <FormattedMessage defaultMessage="Privacy Policy" description="Link text for the privacy policy" id="userPrivacy.ppLink" />
     </a>
   );
-
-  const { providers } = props.user;
 
   return (
     <>
@@ -216,4 +215,11 @@ UserPrivacy.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(UserPrivacy);
+export default createFragmentContainer(injectIntl(UserPrivacy), {
+  user: graphql`
+    fragment UserPrivacy_user on Me {
+      dbid
+      providers
+    }
+  `,
+});
