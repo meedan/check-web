@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation } from 'react-relay/compat';
@@ -183,10 +182,10 @@ ChangePasswordComponent.defaultProps = {
 };
 
 ChangePasswordComponent.propTypes = {
-  type: PropTypes.string.isRequired,
+  showConfirm: PropTypes.func,
   showCurrentPassword: PropTypes.bool,
   token: PropTypes.string,
-  showConfirm: PropTypes.func,
+  type: PropTypes.string.isRequired,
   user: PropTypes.object,
 };
 

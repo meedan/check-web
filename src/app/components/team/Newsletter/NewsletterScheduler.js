@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
@@ -257,21 +256,21 @@ NewsletterScheduler.defaultProps = {
 };
 
 NewsletterScheduler.propTypes = {
-  type: PropTypes.oneOf(['rss', 'static']).isRequired,
-  timezone: PropTypes.string.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  sendEvery: PropTypes.string,
-  sendOn: PropTypes.number, // Timestamp
-  time: PropTypes.string,
-  subscribersCount: PropTypes.number,
-  parentErrors: PropTypes.object,
-  lastDeliveryError: PropTypes.oneOf(['CONTENT_HASNT_CHANGED', 'RSS_ERROR']),
-  lastSentAt: PropTypes.number, // Timestamp
-  lastScheduledAt: PropTypes.number, // Timestamp
-  lastScheduledBy: PropTypes.string, // User name
-  scheduled: PropTypes.bool,
   disabled: PropTypes.bool,
   intl: intlShape.isRequired,
+  lastDeliveryError: PropTypes.oneOf(['CONTENT_HASNT_CHANGED', 'RSS_ERROR']),
+  lastScheduledAt: PropTypes.number, // Timestamp
+  lastScheduledBy: PropTypes.string, // User name
+  lastSentAt: PropTypes.number, // Timestamp
+  parentErrors: PropTypes.object,
+  scheduled: PropTypes.bool,
+  sendEvery: PropTypes.string,
+  sendOn: PropTypes.number, // Timestamp
+  subscribersCount: PropTypes.number,
+  time: PropTypes.string,
+  timezone: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['rss', 'static']).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default injectIntl(NewsletterScheduler);
