@@ -48,7 +48,7 @@ const TiplineDashboard = ({
             selectedLanguage={language || 'all'}
             onSubmit={onChangeLanguage}
           />
-          <PlatformSelect installations={team.team_bot_installation} value={platform || 'all'} onChange={onChangePlatform} />
+          <PlatformSelect platforms={team.statistics_platforms} value={platform || 'all'} onChange={onChangePlatform} />
         </div>
         <div>
           <ExportList filters={{ language, period, platform }} type="tipline_dashboard" />
@@ -149,9 +149,7 @@ const TiplineDashboardQueryRenderer = ({ routeParams }) => {
                 get_language
                 get_languages
                 data_report
-                team_bot_installation(bot_identifier: "smooch") {
-                  ...PlatformSelect_smooch_bot
-                }
+                statistics_platforms
                 statistics(period: $period, platform: $platform, language: $language) {
                   ...ListTopMediaTags_statistics
                   ...ListTopRequestedMediaClusters_statistics
