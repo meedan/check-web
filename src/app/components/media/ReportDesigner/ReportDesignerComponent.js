@@ -192,7 +192,6 @@ const ReportDesignerComponent = (props) => {
         {data.state === 'published' ?
           <>
             <Alert
-              banner
               content={
                 <FormattedMessage
                   defaultMessage="To make edits, pause this report. This will stop the report from being sent out to users until it is published again."
@@ -201,6 +200,7 @@ const ReportDesignerComponent = (props) => {
                 />
               }
               icon
+              placement="banner"
               title={
                 <FormattedMessage
                   defaultMessage="Report is published"

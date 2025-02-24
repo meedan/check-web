@@ -59,7 +59,6 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
       }
       { (hasFactCheck && hasExplainer) ?
         <Alert
-          contained
           content={
             <FormattedMessage
               defaultMessage="When a claim & fact-check article is added, it will be prioritized as the only article to be delivered as a response to requests that match this item."
@@ -67,6 +66,7 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
               id="mediaArticlesDisplay.readOnlyAlertContent"
             />
           }
+          placement="contained"
           title={
             <FormattedMessage
               defaultMessage="Claim & Fact-Check Added"
