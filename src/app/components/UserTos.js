@@ -1,18 +1,18 @@
 import React from 'react';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, commitMutation, QueryRenderer } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
 import Alert from './cds/alerts-and-prompts/Alert';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import Loader from './cds/loading/Loader';
+import ErrorBoundary from './error/ErrorBoundary';
 import UserTosForm from './UserTosForm';
 import { stringHelper } from '../customHelpers';
-import AboutRoute from '../relay/AboutRoute';
-import RelayContainer from '../relay/RelayContainer';
 import dialogStyles from '../styles/css/dialog.module.css';
 
-const UserTosComponent = (props) => {
+const UserTosComponent = ({ about, setOpenDialog, user }) => {
   const [checkedTos, setCheckedTos] = React.useState(false);
   const [message, setMessage] = React.useState('');
 
@@ -22,7 +22,7 @@ const UserTosComponent = (props) => {
 
   const handleSubmit = () => {
     const onSuccess = () => {
-      props.setOpenDialog(false);
+      setOpenDialog(false);
     };
     const onFailure = () => {
       setMessage(<FormattedMessage defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists." description="Message displayed in error notification when an operation fails unexpectedly" id="global.unknownError" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />);
@@ -40,7 +40,7 @@ const UserTosComponent = (props) => {
         `,
         variables: {
           input: {
-            id: props.user.id,
+            id: user.id,
             accept_terms: true,
           },
         },
@@ -55,7 +55,6 @@ const UserTosComponent = (props) => {
       setMessage(<FormattedMessage defaultMessage="You must agree to the Terms of Service and Privacy Policy" description="Message to the user that they must review the application terms of service" id="userTos.validation" />);
     }
   };
-  const { about, user } = props;
 
   const actions = [
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -99,32 +98,32 @@ UserTosComponent.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-const UserTosContainer = Relay.createContainer(injectIntl(UserTosComponent), {
-  fragments: {
-    about: () => Relay.QL`
-      fragment on About {
-        terms_last_updated_at
-      }
-    `,
-  },
-});
 
-const UserTos = (props) => {
-  const route = new AboutRoute();
-  const { user } = props;
+const UserTos = ({ user }) => {
+  // Fix: remove debug and add back !user.accepted_terms
   const [openDialog, setOpenDialog] = React.useState(user && user.dbid && !user.accepted_terms);
-
   return (
     <Dialog className={dialogStyles['dialog-window']} open={openDialog}>
-      <RelayContainer
-        Component={UserTosContainer}
-        renderFetched={data =>
-          <UserTosContainer {...data} setOpenDialog={setOpenDialog} user={user} />
-        }
-        route={route}
-      />
+      <ErrorBoundary component="UserTos">
+        <QueryRenderer
+          environment={Relay.Store}
+          query={graphql`
+            query UserTosQuery {
+              about {
+                terms_last_updated_at
+              }
+            }
+          `}
+          render={({ error, props }) => {
+            if (!error && props) {
+              return <UserTosComponent about={props.about} setOpenDialog={setOpenDialog} user={user} />;
+            }
+            return <Loader size="large" theme="white" variant="page" />;
+          }}
+        />
+      </ErrorBoundary>
     </Dialog>
   );
 };
 
-export default UserTos;
+export default injectIntl(UserTos);
