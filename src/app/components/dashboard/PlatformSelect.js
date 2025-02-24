@@ -23,12 +23,8 @@ const PlatformSelect = ({
       {text => <option value="all">{text}</option>}
     </FormattedMessage>
     { platforms.length ?
-      Object.entries(humanTiplineNames).map(([k, v]) => {
-        if (platforms.indexOf(String(k).toLowerCase()) > -1) {
-          return <option key={k} value={String(k).toLowerCase()}>{v}</option>;
-        }
-        return null;
-      })
+      platforms.map(p =>
+        <option key={p} value={p}>{humanTiplineNames[String(p).toUpperCase()]}</option>)
       :
       <FormattedMessage
         defaultMessage="No available platforms"
