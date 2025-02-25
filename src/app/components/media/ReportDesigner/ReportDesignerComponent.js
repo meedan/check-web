@@ -1,5 +1,7 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import Relay from 'react-relay/classic';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
@@ -25,6 +27,12 @@ import styles from './ReportDesigner.module.css';
 const ReportDesignerComponent = (props) => {
   const { media, media: { team } } = props;
 
+  // eslint-disable-next-line
+  console.log('ReportDesignerComponent: ', props);
+  // eslint-disable-next-line
+  console.log('ReportDesignerComponent media: ', media);
+  // eslint-disable-next-line
+  console.log('ReportDesignerComponent team: ', team);
   const savedReportData = props.media?.dynamic_annotation_report_design || { data: { options: { } } };
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultReportLanguage = languages && languages.length === 1 ? languages[0] : null;
@@ -179,7 +187,8 @@ const ReportDesignerComponent = (props) => {
     window.open('https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_274b08eeab');
   };
 
-  const { location, routeParams } = props;
+  const { location } = window;
+  const { routeParams } = props;
   let prefixUrl = `/${team.slug}`;
   if (routeParams.projectId || routeParams.listId) {
     const { listUrl } = getListUrlQueryAndIndex(routeParams, location.query);
@@ -271,5 +280,29 @@ ReportDesignerComponent.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-// TODO: createFragmentContainer
-export default withSetFlashMessage(ReportDesignerComponent);
+export default createFragmentContainer(withSetFlashMessage(ReportDesignerComponent), {
+  media: graphql`
+    fragment ReportDesignerComponent_media on ProjectMedia {
+      id
+      dbid
+      archived
+      permissions
+      last_status
+      dynamic_annotation_report_design {
+        id
+        dbid
+        data
+      }
+      media {
+        picture
+      }
+      team {
+        slug
+        get_language
+        get_languages
+        verification_statuses
+      }
+      ...ReportDesignerTopBar_media
+    }
+  `,
+});

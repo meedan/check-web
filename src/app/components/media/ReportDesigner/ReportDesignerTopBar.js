@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -432,4 +433,29 @@ ReportDesignerTopBar.propTypes = {
   onStatusChange: PropTypes.func.isRequired,
 };
 
-export default injectIntl(ReportDesignerTopBar);
+export default createFragmentContainer(injectIntl(ReportDesignerTopBar), {
+  media: graphql`
+    fragment ReportDesignerTopBar_media on ProjectMedia {
+      dbid
+      last_status
+      dynamic_annotation_report_design {
+        dbid
+        data
+        sent_count
+      }
+      demand
+
+      media {
+        picture
+      }
+      show_warning_cover
+      team {
+        verification_statuses
+        get_languages
+        alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+          alegre_settings
+        }
+      }
+    }
+  `,
+});
