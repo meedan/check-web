@@ -10,6 +10,11 @@
     "defaultMessage": "Dashboard"
   },
   {
+    "id": "articlesComponent.allArticles",
+    "description": "Label for a list displayed on the left sidebar that includes all articles",
+    "defaultMessage": "All Articles"
+  },
+  {
     "id": "articlesComponent.claimAndFactChecks",
     "description": "Label for a list displayed on the left sidebar that includes items that have claim & fact-checks",
     "defaultMessage": "Claim & Fact-Checks"

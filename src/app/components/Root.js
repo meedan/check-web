@@ -39,10 +39,10 @@ import Explainers from './article/Explainers';
 import FactChecks from './article/FactChecks';
 import ImportedArticles from './article/ImportedArticles';
 import PublishedArticles from './article/PublishedArticles';
+import TrashedArticles from './article/TrashedArticles';
+import AllArticles from './article/AllArticles';
 import TiplineDashBoard from './dashboard/TiplineDashboard';
 import ArticlesDashboard from './dashboard/ArticlesDashboard';
-
-import TrashedArticles from './article/TrashedArticles';
 
 class Root extends Component {
   static logPageView() {
@@ -126,6 +126,7 @@ class Root extends Component {
                   <Route component={ImportedArticles} path=":team/articles/imported-fact-checks" />
                   <Route component={PublishedArticles} path=":team/articles/published" />
                   <Route component={TrashedArticles} path=":team/articles/trash" />
+                  <Route component={AllArticles} path=":team/articles/all" />
                   <Route component={NotFound} path="*" public />
                 </Route>
               </Router>

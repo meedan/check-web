@@ -182,7 +182,7 @@ const ArticleFilters = ({
             );
           }
 
-          if (filter === 'article_type') {
+          if (filter === 'article_type' && typeFilter[0]) {
             return (
               <React.Fragment key={filter}>
                 {connector}
@@ -354,7 +354,7 @@ ArticleFilters.propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   teamSlug: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
+  type: PropTypes.oneOf(['explainer', 'fact-check', null]).isRequired,
   onChangeArticleType: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
