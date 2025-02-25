@@ -6,13 +6,10 @@ import DescriptionIcon from '../../icons/description.svg';
 
 const AllArticles = ({ routeParams }) => (
   <Articles
-    articleTypeReadOnly={false}
-    defaultFilters={{ article_type: null }}
-    filterOptions={['users', 'tags', 'range']}
+    filterOptions={['users', 'tags', 'range', 'language_filter']}
     icon={<DescriptionIcon />}
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="All Articles" description="Title of the all articles page." id="allArticles.title" />}
-    type={null}
   />
 );
 

@@ -6,6 +6,7 @@ import PublishedIcon from '../../icons/playlist_add_check.svg';
 
 const PublishedArticles = ({ routeParams }) => (
   <Articles
+    articleTypeReadOnly
     defaultFilters={{ report_status: 'published' }}
     filterOptions={['users', 'tags', 'range', 'verification_status', 'language_filter', 'published_by']}
     icon={<PublishedIcon />}

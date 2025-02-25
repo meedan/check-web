@@ -6,6 +6,7 @@ import FileDownloadIcon from '../../icons/file_download.svg';
 
 const ImportedArticles = ({ routeParams }) => (
   <Articles
+    articleTypeReadOnly
     defaultFilters={{ imported: true }}
     filterOptions={['tags', 'range', 'imported', 'language_filter']}
     icon={<FileDownloadIcon />}

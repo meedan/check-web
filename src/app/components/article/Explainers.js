@@ -6,6 +6,7 @@ import BookIcon from '../../icons/book.svg';
 
 const Explainers = ({ routeParams }) => (
   <Articles
+    articleTypeReadOnly
     filterOptions={['users', 'tags', 'range', 'language_filter']}
     icon={<BookIcon />}
     teamSlug={routeParams.team}

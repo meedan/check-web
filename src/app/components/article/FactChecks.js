@@ -6,6 +6,7 @@ import FactCheckIcon from '../../icons/fact_check.svg';
 
 const FactChecks = ({ routeParams }) => (
   <Articles
+    articleTypeReadOnly
     filterOptions={['users', 'tags', 'range', 'language_filter', 'published_by', 'report_status', 'verification_status']}
     icon={<FactCheckIcon />}
     teamSlug={routeParams.team}

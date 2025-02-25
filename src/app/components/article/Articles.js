@@ -114,7 +114,6 @@ const ArticlesComponent = ({
   filters,
   icon,
   intl,
-  onChangeArticleType,
   onChangeSearchParams,
   page,
   reloadData,
@@ -131,8 +130,8 @@ const ArticlesComponent = ({
     { value: 'updated_at', label: intl.formatMessage(messages.sortDate) },
   ];
 
-  let articleDbidFromUrl = null;
-  let articleTypeFromUrl = getQueryStringValue('factCheckId');
+  let articleTypeFromUrl = null;
+  let articleDbidFromUrl = getQueryStringValue('factCheckId');
   if (articleDbidFromUrl) {
     articleTypeFromUrl = 'fact-check';
   } else {
@@ -274,7 +273,6 @@ const ArticlesComponent = ({
             statuses={statuses.statuses}
             teamSlug={team.slug}
             type={type}
-            onChangeArticleType={onChangeArticleType}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -372,6 +370,7 @@ const ArticlesComponent = ({
 };
 
 ArticlesComponent.defaultProps = {
+  articleTypeReadOnly: false,
   page: 1,
   sort: 'updated_at',
   sortType: 'DESC',
@@ -382,10 +381,10 @@ ArticlesComponent.defaultProps = {
   articles: [],
   articlesCount: 0,
   type: null,
-  onChangeArticleType: null,
 };
 
 ArticlesComponent.propTypes = {
+  articleTypeReadOnly: PropTypes.bool,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -421,7 +420,6 @@ ArticlesComponent.propTypes = {
   }).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
   type: PropTypes.oneOf(['explainer', 'fact-check', null]),
-  onChangeArticleType: PropTypes.func,
   onChangeSearchParams: PropTypes.func.isRequired,
 };
 
@@ -436,7 +434,6 @@ const Articles = ({
   defaultFilters,
   filterOptions,
   icon,
-  onChangeArticleType,
   teamSlug,
   title,
   type,
@@ -545,7 +542,6 @@ const Articles = ({
                 team={props.team}
                 title={title}
                 type={type}
-                onChangeArticleType={onChangeArticleType}
                 onChangeSearchParams={handleChangeSearchParams}
               />
             );
@@ -569,11 +565,10 @@ const Articles = ({
 };
 
 Articles.defaultProps = {
-  articleTypeReadOnly: true,
+  articleTypeReadOnly: false,
   filterOptions: [],
   defaultFilters: {},
   type: null,
-  onChangeArticleType: null,
 };
 
 Articles.propTypes = {
@@ -584,7 +579,6 @@ Articles.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
   type: PropTypes.oneOf(['explainer', 'fact-check', null]),
-  onChangeArticleType: PropTypes.func,
 };
 
 export default Articles;
