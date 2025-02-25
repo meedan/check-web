@@ -35,7 +35,7 @@ describe('<Articles />', () => {
         nodeType: 'Explainer',
       },
     ];
-    const wrapper = shallowWithIntl(<ArticlesComponent {...articlesProps} articles={explainers} type="explainer" intl={mockIntl} />);
+    const wrapper = shallowWithIntl(<ArticlesComponent {...articlesProps} articles={explainers} intl={mockIntl} type="explainer" />);
     expect(wrapper.find('ArticleCard')).toHaveLength(2);
   });
 
@@ -68,7 +68,7 @@ describe('<Articles />', () => {
         nodeType: 'FactCheck',
       },
     ];
-    const wrapper = shallowWithIntl(<ArticlesComponent {...articlesProps} articles={explainers} type={null} intl={mockIntl} />);
+    const wrapper = shallowWithIntl(<ArticlesComponent {...articlesProps} articles={explainers} intl={mockIntl} type={null} />);
     expect(wrapper.find('ArticleCard')).toHaveLength(2);
   });
 });
