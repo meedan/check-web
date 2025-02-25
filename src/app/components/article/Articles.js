@@ -105,7 +105,7 @@ const adjustFilters = (filters) => {
   return newFilters;
 };
 
-const ArticlesComponentWithoutIntl = ({
+const ArticlesComponent = ({
   articleTypeReadOnly,
   articles,
   articlesCount,
@@ -371,7 +371,7 @@ const ArticlesComponentWithoutIntl = ({
   );
 };
 
-ArticlesComponentWithoutIntl.defaultProps = {
+ArticlesComponent.defaultProps = {
   page: 1,
   sort: 'updated_at',
   sortType: 'DESC',
@@ -381,10 +381,11 @@ ArticlesComponentWithoutIntl.defaultProps = {
   statuses: {},
   articles: [],
   articlesCount: 0,
+  type: null,
   onChangeArticleType: null,
 };
 
-ArticlesComponentWithoutIntl.propTypes = {
+ArticlesComponent.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -419,12 +420,12 @@ ArticlesComponentWithoutIntl.propTypes = {
     slug: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
-  type: PropTypes.oneOf(['explainer', 'fact-check', null]).isRequired,
+  type: PropTypes.oneOf(['explainer', 'fact-check', null]),
   onChangeArticleType: PropTypes.func,
   onChangeSearchParams: PropTypes.func.isRequired,
 };
 
-const ArticlesComponent = injectIntl(ArticlesComponentWithoutIntl);
+const ArticlesComponentWithIntl = injectIntl(ArticlesComponent);
 
 // Used in unit test
 // eslint-disable-next-line import/no-unused-modules
@@ -528,7 +529,7 @@ const Articles = ({
         render={({ error, props, retry }) => {
           if (!error && props) {
             return (
-              <ArticlesComponent
+              <ArticlesComponentWithIntl
                 articleTypeReadOnly={articleTypeReadOnly}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
