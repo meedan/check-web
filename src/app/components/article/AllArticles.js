@@ -2,25 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Articles from './Articles';
-import BookIcon from '../../icons/book.svg';
+import DescriptionIcon from '../../icons/description.svg';
 
-const Explainers = ({ routeParams }) => (
+const AllArticles = ({ routeParams }) => (
   <Articles
-    articleTypeReadOnly
     filterOptions={['users', 'tags', 'range', 'language_filter']}
-    icon={<BookIcon />}
+    icon={<DescriptionIcon />}
     teamSlug={routeParams.team}
-    title={<FormattedMessage defaultMessage="Explainers" description="Title of the explainers page." id="explainers.title" />}
-    type="explainer"
+    title={<FormattedMessage defaultMessage="All Articles" description="Title of the all articles page." id="allArticles.title" />}
   />
 );
 
-Explainers.defaultProps = {};
+AllArticles.defaultProps = {};
 
-Explainers.propTypes = {
+AllArticles.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired, // slug
   }).isRequired,
 };
 
-export default Explainers;
+export default AllArticles;

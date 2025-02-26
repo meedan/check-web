@@ -180,7 +180,7 @@ const DrawerRail = ({
                   })
                 }
                 id="side-rail__articles"
-                to={`/${team.slug}/articles/fact-checks`}
+                to={`/${team.slug}/articles/all`}
                 onClick={() => setDrawerTypeChange('articles')}
               >
                 <DescriptionIcon />

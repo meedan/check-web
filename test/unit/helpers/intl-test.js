@@ -80,3 +80,15 @@ export function mountWithIntlProvider(node, intlProviderProps = {}) {
 export function shallowWithIntl(node) {
   return shallow(nodeWithIntlProp(node), { context: { intl, store } });
 }
+
+// Mock the intl object to fix the warning about prop is required
+export const mockIntl = {
+  formatMessage: jest.fn(),
+  formatHTMLMessage: jest.fn(),
+  formatDate: jest.fn(),
+  formatTime: jest.fn(),
+  formatRelative: jest.fn(),
+  formatNumber: jest.fn(),
+  formatPlural: jest.fn(),
+  now: jest.fn(),
+};
