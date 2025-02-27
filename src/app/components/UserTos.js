@@ -10,7 +10,6 @@ import dialogStyles from '../styles/css/dialog.module.css';
 
 
 const UserTos = ({ user }) => {
-  // Fix: remove debug and add back !user.accepted_terms
   const [openDialog, setOpenDialog] = React.useState(user && user.dbid && !user.accepted_terms);
   return (
     <Dialog className={dialogStyles['dialog-window']} open={openDialog}>

@@ -60,9 +60,6 @@ const UserSecurity = (props, context) => {
     sendFailedLoginValue = true;
   }
 
-  // eslint-disable-next-line
-  console.log('UserSecurity', user);
-
   const [twoFactorAuthentication, setTwoFactorAuthentication] = React.useState(user.two_factor.otp_required);
   const [showFactorAuthForm, setShowFactorAuthForm] = React.useState(false);
   const [sendSuccessfulLogin, setSendSuccessfulLogin] = React.useState(sendSuccessfulLoginValue);

@@ -13,9 +13,6 @@ import styles from '../team/Settings.module.css';
 const MeComponent = ({ params, user }) => {
   const { tab } = params;
 
-  // eslint-disable-next-line
-  console.log('MeComponent', user, tab, params);
-
   useEffect(() => {
     if (!tab) {
       browserHistory.push('/check/me/profile');
