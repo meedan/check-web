@@ -35,8 +35,8 @@ describe('<ReportDesignerComponent />', () => {
       },
     },
     routeParams: {
-      mediaId: "995",
-      team: "bechtelar-ankunding-and-christiansen",
+      mediaId: '995',
+      team: 'bechtelar-ankunding-and-christiansen',
     },
     location: {
       query: {

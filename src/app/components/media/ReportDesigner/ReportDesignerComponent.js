@@ -26,12 +26,6 @@ import styles from './ReportDesigner.module.css';
 const ReportDesignerComponent = (props) => {
   const { media, media: { team } } = props;
 
-  // eslint-disable-next-line
-  console.log('ReportDesignerComponent: ', props);
-  // eslint-disable-next-line
-  console.log('ReportDesignerComponent media: ', media);
-  // eslint-disable-next-line
-  console.log('ReportDesignerComponent team: ', team);
   const savedReportData = props.media?.dynamic_annotation_report_design || { data: { options: { } } };
   const languages = safelyParseJSON(team.get_languages) || ['en'];
   const defaultReportLanguage = languages && languages.length === 1 ? languages[0] : null;
