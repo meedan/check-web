@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl, mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import LastRequestDate from './LastRequestDate';
+import { shallowWithIntl, mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('LastRequestDate', () => {
   it('doesn\'t render if no valid date is provided', () => {
