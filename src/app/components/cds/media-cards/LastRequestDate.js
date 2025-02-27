@@ -14,6 +14,8 @@ const LastRequestDate = ({
   tooltipLabel,
   variant,
 }) => {
+  if (!lastRequestDate || isNaN(new Date(lastRequestDate))) return null;
+
   const buttonContent = (
     <span>
       <ButtonMain
