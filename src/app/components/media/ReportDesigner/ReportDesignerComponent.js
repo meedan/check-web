@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -293,9 +292,6 @@ export default createFragmentContainer(withSetFlashMessage(ReportDesignerCompone
         dbid
         data
       }
-      media {
-        picture
-      }
       team {
         slug
         get_language
@@ -303,6 +299,8 @@ export default createFragmentContainer(withSetFlashMessage(ReportDesignerCompone
         verification_statuses
       }
       ...ReportDesignerTopBar_media
+      ...ReportDesignerPreview_media
+      ...ReportDesignerForm_media
     }
   `,
 });

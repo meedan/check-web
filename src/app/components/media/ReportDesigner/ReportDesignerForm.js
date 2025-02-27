@@ -1,5 +1,5 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
@@ -550,10 +550,24 @@ ReportDesignerForm.defaultProps = {
 
 ReportDesignerForm.propTypes = {
   data: PropTypes.object.isRequired,
-  media: PropTypes.object.isRequired,
-  onUpdate: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  media: PropTypes.object.isRequired,
   pending: PropTypes.bool,
+  onUpdate: PropTypes.func.isRequired,
 };
 
-export default ReportDesignerForm;
+export default createFragmentContainer(ReportDesignerForm, {
+  media: graphql`
+    fragment ReportDesignerForm_media on ProjectMedia {
+      media {
+        picture
+      }
+    }
+  `,
+  team: graphql`
+    fragment ReportDesignerForm_team on Team {
+      get_languages
+      get_report
+    }
+  `,
+});
