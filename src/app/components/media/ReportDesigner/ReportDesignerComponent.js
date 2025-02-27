@@ -279,6 +279,10 @@ ReportDesignerComponent.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
 };
 
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { ReportDesignerComponent };
+
 export default createFragmentContainer(withSetFlashMessage(ReportDesignerComponent), {
   media: graphql`
     fragment ReportDesignerComponent_media on ProjectMedia {

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReportDesignerTopBar from './ReportDesignerTopBar';
+import { ReportDesignerTopBar } from './ReportDesignerTopBar';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ReportDesignerTopBar />', () => {

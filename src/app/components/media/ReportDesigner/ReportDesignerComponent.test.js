@@ -1,7 +1,7 @@
 import React from 'react';
-import ReportDesignerComponent from './ReportDesignerComponent';
+import { ReportDesignerComponent } from './ReportDesignerComponent';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
+import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 describe('<ReportDesignerComponent />', () => {
@@ -35,18 +35,19 @@ describe('<ReportDesignerComponent />', () => {
       },
     },
     routeParams: {
-      projectId: '1',
+      mediaId: "995",
+      team: "bechtelar-ankunding-and-christiansen",
     },
     location: {
       query: {
-        listPath: '',
+        listPath: '/bechtelar-ankunding-and-christiansen/media/995/report',
       },
     },
     setFlashMessage: () => {},
   };
 
   it('should allow status change for Unconfirmed items', () => {
-    const wrapper = mountWithIntl(<ReportDesignerComponent {...props} />);
+    const wrapper = shallowWithIntl(<ReportDesignerComponent {...props} />);
     expect(wrapper.find(ReportDesignerTopBar)).toHaveLength(1);
     expect(wrapper.find(ReportDesignerTopBar).props().readOnly).toEqual(false);
   });

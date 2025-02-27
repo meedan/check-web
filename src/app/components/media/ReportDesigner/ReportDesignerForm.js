@@ -556,6 +556,10 @@ ReportDesignerForm.propTypes = {
   onUpdate: PropTypes.func.isRequired,
 };
 
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { ReportDesignerForm };
+
 export default createFragmentContainer(ReportDesignerForm, {
   media: graphql`
     fragment ReportDesignerForm_media on ProjectMedia {

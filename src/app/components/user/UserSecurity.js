@@ -525,9 +525,6 @@ UserSecurity.contextTypes = {
   store: PropTypes.object,
 };
 
-// export default withSetFlashMessage(injectIntl(UserSecurity));
-
-
 export default createFragmentContainer(withSetFlashMessage(injectIntl(UserSecurity)), {
   user: graphql`
     fragment UserSecurity_user on Me {

@@ -433,6 +433,10 @@ ReportDesignerTopBar.propTypes = {
   onStatusChange: PropTypes.func.isRequired,
 };
 
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { ReportDesignerTopBar };
+
 export default createFragmentContainer(injectIntl(ReportDesignerTopBar), {
   media: graphql`
     fragment ReportDesignerTopBar_media on ProjectMedia {
