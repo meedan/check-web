@@ -180,7 +180,7 @@ const UserPrivacy = (props, context) => {
             <FormattedMessage defaultMessage="Delete your account" description="Page title for the user to delete their account" id="userPrivacy.delete" />
           </div>
           <FormattedMessage
-            defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
+            defaultMessage="If you delete your account, your personal information will be erased. Annotations, and workspace activity will become pseudonymous and remain on {appName}."
             description="Text to tell the user what will happen to their personal information when their account is removed"
             id="userPrivacy.deleteAccountText"
             tagName="p"

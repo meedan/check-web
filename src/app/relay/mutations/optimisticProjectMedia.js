@@ -56,7 +56,6 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
           'read ProjectMedia': true,
           'update ProjectMedia': false,
           'destroy ProjectMedia': false,
-          'create Comment': false,
           'create Flag': false,
           'create Status': false,
           'create Tag': false,
