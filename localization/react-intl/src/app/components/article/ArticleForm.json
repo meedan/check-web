@@ -40,9 +40,14 @@
     "defaultMessage": "Create & Publish"
   },
   {
+    "id": "articleForm.createdByLabel",
+    "description": "Label to convey when the item was created",
+    "defaultMessage": "Created by:"
+  },
+  {
     "id": "articleForm.editedByLabel",
     "description": "Label to convey when the item was last edited",
-    "defaultMessage": "Edited by:"
+    "defaultMessage": "Last Edited:"
   },
   {
     "id": "articleForm.publishedAtDate",

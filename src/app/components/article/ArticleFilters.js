@@ -38,24 +38,12 @@ const ArticleFilters = ({
   extra,
   filterOptions,
   intl,
-  onChangeArticleType,
   onSubmit,
   statuses,
   teamSlug,
   type,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
-
-  const [typeFilter, setTypeFilter] = React.useState([type]);
-
-  // handling the setting here before sending it up to the page to prevent the page from re-rendering with an empty article_type.
-  const handleTypeFilter = (value) => {
-    if (!value.length) {
-      setTypeFilter([]);
-    } else {
-      onChangeArticleType(value);
-    }
-  };
 
   const handleAddFilter = (filter) => {
     const newFilters = { ...filters };
@@ -182,7 +170,7 @@ const ArticleFilters = ({
             );
           }
 
-          if (filter === 'article_type') {
+          if (filter === 'article_type' && type) {
             return (
               <React.Fragment key={filter}>
                 {connector}
@@ -195,9 +183,8 @@ const ArticleFilters = ({
                     { value: 'fact-check', label: intl.formatMessage(messages.factCheck) },
                   ]}
                   readOnly={articleTypeReadOnly}
-                  selected={typeFilter}
+                  selected={[type]}
                   single
-                  onChange={(newValue) => { handleTypeFilter(newValue); }}
                 />
               </React.Fragment>
             );
@@ -339,7 +326,7 @@ ArticleFilters.defaultProps = {
   defaultFilters: {},
   extra: null,
   filterOptions: [],
-  onChangeArticleType: null,
+  type: null,
 };
 
 ArticleFilters.propTypes = {
@@ -354,8 +341,7 @@ ArticleFilters.propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   teamSlug: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
-  onChangeArticleType: PropTypes.func,
+  type: PropTypes.oneOf(['explainer', 'fact-check', null]),
   onSubmit: PropTypes.func.isRequired,
 };
 

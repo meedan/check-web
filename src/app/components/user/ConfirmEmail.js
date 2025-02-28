@@ -15,8 +15,8 @@ const ConfirmEmail = (props) => {
 
   return (
     <Alert
+      border
       buttonLabel={<FormattedMessage defaultMessage="Resend" description="Button label to allow the user to resend their email address confirmation" id="ConfirmEmail.resendConfirmation" />}
-      contained
       content={
         <FormattedMessage
           defaultMessage="Please check your email to verify your account."
@@ -24,6 +24,7 @@ const ConfirmEmail = (props) => {
           id="ConfirmEmail.content"
         />
       }
+      placement="contained"
       title={<FormattedMessage defaultMessage="Confirm your email" description="Container title for confirming user email address" id="ConfirmEmail.title" />}
       variant="warning"
       onButtonClick={handleResend}

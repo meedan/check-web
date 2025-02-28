@@ -128,6 +128,7 @@ const MediaOriginBanner = ({ projectMedia }) => {
       content={message}
       customIcon={icon}
       icon
+      placement="contained"
       variant="info"
     />
   );

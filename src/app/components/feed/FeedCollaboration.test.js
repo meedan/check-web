@@ -1,6 +1,6 @@
 import React from 'react';
 import { FeedCollaboration } from './FeedCollaboration';
-import { shallowWithIntl, mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import { shallowWithIntl, mountWithIntl, mockIntl } from '../../../../test/unit/helpers/intl-test';
 
 const feed = {
   dbid: 1,
@@ -18,18 +18,6 @@ const feed = {
   },
   team: { dbid: 123 },
 
-};
-
-// Mock the intl object to fix the warning about prop is required
-const mockIntl = {
-  formatMessage: jest.fn(),
-  formatHTMLMessage: jest.fn(),
-  formatDate: jest.fn(),
-  formatTime: jest.fn(),
-  formatRelative: jest.fn(),
-  formatNumber: jest.fn(),
-  formatPlural: jest.fn(),
-  now: jest.fn(),
 };
 
 describe('<FeedCollaboration />', () => {

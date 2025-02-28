@@ -11,6 +11,7 @@ import TrashIcon from '../../icons/delete.svg';
 import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
 import BarChartIcon from '../../icons/bar_chart.svg';
+import DescriptionIcon from '../../icons/description.svg';
 import styles from './Projects/Projects.module.css';
 
 const DrawerArticlesComponent = ({ team }) => {
@@ -60,6 +61,28 @@ const DrawerArticlesComponent = ({ team }) => {
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Dashboard" description="Label for the dashboard displayed on the left sidebar" id="articlesComponent.dashboard" tagName="span" />
               </div>
+            </li>
+          </Link>
+          <Link
+            className={styles.linkList}
+            to={`/${team.slug}/articles/all`}
+            onClick={() => { handleSpecialLists('all'); }}
+          >
+            <li
+              className={cx(
+                'projects-list__all',
+                styles.listItem,
+                styles.listItem_containsCount,
+                {
+                  [styles.listItem_active]: activeItem.type === 'all',
+                })
+              }
+            >
+              <DescriptionIcon className={styles.listIcon} />
+              <div className={styles.listLabel}>
+                <FormattedMessage defaultMessage="All Articles" description="Label for a list displayed on the left sidebar that includes all articles" id="articlesComponent.allArticles" tagName="span" />
+              </div>
+              <DrawerListCounter numberOfItems={team.articlesCount} />
             </li>
           </Link>
           <Link
@@ -191,6 +214,7 @@ const DrawerArticles = () => {
         query DrawerArticlesQuery($teamSlug: String!) {
           team(slug: $teamSlug) {
             slug
+            articlesCount: articles_count
             factChecksCount: articles_count(article_type: "fact-check")
             explainersCount: articles_count(article_type: "explainer")
             publishedCount: articles_count(article_type: "fact-check", report_status: "published")

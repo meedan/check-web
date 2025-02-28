@@ -85,9 +85,10 @@ const LanguagesComponent = ({ team }) => {
         }
         title={
           <FormattedMessage
-            defaultMessage="Language"
+            defaultMessage="Supported Languages [{languageCount}]"
             description="Title of Language settings page"
             id="languagesComponent.title"
+            values={{ languageCount: languages.length }}
           />
         }
       />
@@ -150,14 +151,6 @@ const LanguagesComponent = ({ team }) => {
           />
         </div>
         <div className={settingsStyles['setting-content-container']}>
-          <div className={settingsStyles['setting-content-container-title']}>
-            <FormattedMessage
-              defaultMessage="Supported Languages [{languageCount}]"
-              description="Title of the active languages list section in language settings page"
-              id="languagesComponent.languages"
-              values={{ languageCount: languages.length }}
-            />
-          </div>
           <ul className={settingsStyles['setting-content-list']}>
             {languages.map(l => (
               <LanguageListItem

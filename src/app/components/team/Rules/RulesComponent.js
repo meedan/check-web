@@ -1,8 +1,7 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Rule from './Rule';
 import RulesTable from './RulesTable';
@@ -184,11 +183,20 @@ const RulesComponent = (props) => {
 };
 
 RulesComponent.propTypes = {
-  team: PropTypes.object.isRequired,
-  setFlashMessage: PropTypes.func.isRequired,
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
+  team: PropTypes.object.isRequired,
 };
 
-export default injectIntl(withSetFlashMessage(RulesComponent));
+// eslint-disable-next-line import/no-unused-modules
+export { RulesComponent }; // Used in unit test
+
+export default createFragmentContainer(injectIntl(withSetFlashMessage(RulesComponent)),
+  graphql`
+    fragment RulesComponent_team on Team {
+      id
+      get_rules
+      rules_json_schema
+    }
+  `,
+);

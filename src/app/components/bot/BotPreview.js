@@ -410,7 +410,6 @@ const BotPreview = ({ me, team }) => {
     <>
       { settingsHaveChanged && (
         <Alert
-          banner
           buttonLabel={
             <FormattedMessage
               defaultMessage="Apply Changes to Live Bot"
@@ -434,6 +433,7 @@ const BotPreview = ({ me, team }) => {
               onClick={() => setConfirmBeforeReset(true)}
             />
           }
+          placement="banner"
           title={
             <FormattedMessage
               defaultMessage="Changes Made to Bot Settings"

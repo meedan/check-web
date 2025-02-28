@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import ArticleFilters from './ArticleFilters';
 import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
 import { ExplainerFormQueryRenderer } from './ExplainerForm';
@@ -25,6 +25,46 @@ import Loader from '../cds/loading/Loader';
 import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
+
+const messages = defineMessages({
+  sortTitle: {
+    id: 'articles.sortTitle',
+    defaultMessage: 'Title',
+    description: 'Label for sort criteria option displayed in a drop-down in the articles page.',
+  },
+  sortLanguage: {
+    id: 'articles.sortLanguage',
+    defaultMessage: 'Language',
+    description: 'Label for sort criteria option displayed in a drop-down in the articles page.',
+  },
+  sortDate: {
+    id: 'articles.sortDate',
+    defaultMessage: 'Updated (date)',
+    description: 'Label for sort criteria option displayed in a drop-down in the articles page.',
+  },
+});
+
+const updateMutationExplainer = graphql`
+  mutation ArticlesUpdateExplainerMutation($input: UpdateExplainerInput!) {
+    updateExplainer(input: $input) {
+      explainer {
+        id
+        tags
+      }
+    }
+  }
+`;
+
+const updateMutationFactCheck = graphql`
+  mutation ArticlesUpdateFactCheckMutation($input: UpdateFactCheckInput!) {
+    updateFactCheck(input: $input) {
+      fact_check {
+        id
+        tags
+      }
+    }
+  }
+`;
 
 // This converts the filters keys to the argument names expected by the articles field in the GraphQL query
 // The original keys are used in `ArticleFilters` to display the filters
@@ -73,25 +113,40 @@ const ArticlesComponent = ({
   filterOptions,
   filters,
   icon,
-  onChangeArticleType,
+  intl,
   onChangeSearchParams,
   page,
   reloadData,
   sort,
-  sortOptions,
   sortType,
   statuses,
   team,
   title,
   type,
-  updateMutation,
 }) => {
-  let articleDbidFromUrl = null;
+  const sortOptions = [
+    { value: 'title', label: intl.formatMessage(messages.sortTitle) },
+    { value: 'language', label: intl.formatMessage(messages.sortLanguage) },
+    { value: 'updated_at', label: intl.formatMessage(messages.sortDate) },
+  ];
 
-  if (type === 'fact-check') articleDbidFromUrl = getQueryStringValue('factCheckId');
-  if (type === 'explainer') articleDbidFromUrl = getQueryStringValue('explainerId');
+  let articleTypeFromUrl = null;
+  let articleDbidFromUrl = getQueryStringValue('factCheckId');
+  if (articleDbidFromUrl) {
+    articleTypeFromUrl = 'fact-check';
+  } else {
+    articleDbidFromUrl = getQueryStringValue('explainerId');
+    if (articleDbidFromUrl) {
+      articleTypeFromUrl = 'explainer';
+    }
+  }
 
-  const [selectedArticleDbid, setSelectedArticleDbid] = React.useState(articleDbidFromUrl);
+  const articleTypeFilter = {};
+  if (type) {
+    articleTypeFilter.article_type = type;
+  }
+
+  const [selectedArticle, setSelectedArticle] = React.useState({ id: articleDbidFromUrl, type: articleTypeFromUrl });
 
   // Track when number of articles increases: When it happens, it's because a new article was created, so refresh the list
   const [totalArticlesCount, setTotalArticlesCount] = React.useState(team.totalArticlesCount);
@@ -125,8 +180,8 @@ const ArticlesComponent = ({
   };
 
   const handleCloseSlideout = () => {
-    setSelectedArticleDbid(null);
-    deleteQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId');
+    if (selectedArticle.type) deleteQueryStringValue(selectedArticle.type === 'explainer' ? 'explainerId' : 'factCheckId');
+    setSelectedArticle({});
   };
 
   const onCompleted = () => {
@@ -149,7 +204,7 @@ const ArticlesComponent = ({
       'error');
   };
 
-  const handleUpdateTags = (id, tags) => {
+  const handleUpdateTags = (id, tags, updateMutation) => {
     commitMutation(Relay.Store, {
       mutation: updateMutation,
       variables: {
@@ -164,11 +219,11 @@ const ArticlesComponent = ({
   };
 
   const handleClick = (article) => {
-    if (article.dbid !== selectedArticleDbid) {
-      setSelectedArticleDbid(null);
+    if (article.dbid !== selectedArticle.id) {
+      setSelectedArticle({});
       setTimeout(() => {
-        setSelectedArticleDbid(article.dbid);
-        pushQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
+        setSelectedArticle({ id: article.dbid, type: article.type });
+        pushQueryStringValue(article.type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
       }, 10);
     }
   };
@@ -212,13 +267,12 @@ const ArticlesComponent = ({
           />
           <ArticleFilters
             articleTypeReadOnly={articleTypeReadOnly}
-            currentFilters={{ ...filters, article_type: type }}
-            defaultFilters={{ ...defaultFilters, article_type: type }}
+            currentFilters={{ ...filters, ...articleTypeFilter }}
+            defaultFilters={{ ...defaultFilters, ...articleTypeFilter }}
             filterOptions={filterOptions}
             statuses={statuses.statuses}
             teamSlug={team.slug}
             type={type}
-            onChangeArticleType={onChangeArticleType}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -235,7 +289,7 @@ const ArticlesComponent = ({
                 pageSize={pageSize}
                 onChangePage={handleChangePage}
               />
-              <ExportList filters={adjustFilters(filters)} type={type.replace('-', '_')} />
+              <ExportList filters={adjustFilters(filters)} type={type ? type.replace('-', '_') : 'articles'} />
             </div>
           </div>
           : null
@@ -254,6 +308,16 @@ const ArticlesComponent = ({
 
         <div className={searchResultsStyles['search-results-scroller']}>
           {articles.map((article) => {
+            let articleType = null;
+            let updateMutation = null;
+            if (article.nodeType === 'Explainer') {
+              articleType = 'explainer';
+              updateMutation = updateMutationExplainer;
+            } else if (article.nodeType === 'FactCheck') {
+              articleType = 'fact-check';
+              updateMutation = updateMutationFactCheck;
+            }
+
             let currentStatus = null;
             if (article.rating) {
               currentStatus = getStatus(statuses, article.rating);
@@ -264,7 +328,7 @@ const ArticlesComponent = ({
             return (
               <ArticleCard
                 date={article.updated_at}
-                handleClick={() => handleClick(article)}
+                handleClick={() => handleClick({ ...article, type: articleType })}
                 isPublished={article.report_status === 'published'}
                 key={article.id}
                 languageCode={article.language !== 'und' ? article.language : null}
@@ -277,24 +341,24 @@ const ArticlesComponent = ({
                 teamSlug={team.slug}
                 title={isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title}
                 url={article.url}
-                variant={type}
-                onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
+                variant={articleType}
+                onChangeTags={(tags) => { handleUpdateTags(article.id, tags, updateMutation); }}
               />
             );
           })}
         </div>
 
         <>
-          {selectedArticleDbid && type === 'fact-check' && (
+          {selectedArticle.type === 'fact-check' && (
             <ClaimFactCheckFormQueryRenderer
-              factCheckId={selectedArticleDbid}
+              factCheckId={selectedArticle.id}
               teamSlug={team.slug}
               onClose={handleCloseSlideout}
             />
           )}
-          {selectedArticleDbid && type === 'explainer' && (
+          {selectedArticle.type === 'explainer' && (
             <ExplainerFormQueryRenderer
-              explainerId={selectedArticleDbid}
+              explainerId={selectedArticle.id}
               teamSlug={team.slug}
               onClose={handleCloseSlideout}
             />
@@ -306,20 +370,21 @@ const ArticlesComponent = ({
 };
 
 ArticlesComponent.defaultProps = {
+  articleTypeReadOnly: false,
   page: 1,
   sort: 'updated_at',
   sortType: 'DESC',
-  sortOptions: [],
   filterOptions: [],
   filters: {},
   defaultFilters: {},
   statuses: {},
   articles: [],
   articlesCount: 0,
-  onChangeArticleType: null,
+  type: null,
 };
 
 ArticlesComponent.propTypes = {
+  articleTypeReadOnly: PropTypes.bool,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -344,12 +409,9 @@ ArticlesComponent.propTypes = {
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   filters: PropTypes.object,
   icon: PropTypes.node.isRequired,
+  intl: intlShape.isRequired,
   page: PropTypes.number,
   sort: PropTypes.oneOf(['title', 'language', 'updated_at']),
-  sortOptions: PropTypes.arrayOf(PropTypes.exact({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired, // Localizable string
-  })),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   statuses: PropTypes.object,
   team: PropTypes.shape({
@@ -357,11 +419,11 @@ ArticlesComponent.propTypes = {
     slug: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
-  updateMutation: PropTypes.object.isRequired,
-  onChangeArticleType: PropTypes.func,
+  type: PropTypes.oneOf(['explainer', 'fact-check', null]),
   onChangeSearchParams: PropTypes.func.isRequired,
 };
+
+const ArticlesComponentWithIntl = injectIntl(ArticlesComponent);
 
 // Used in unit test
 // eslint-disable-next-line import/no-unused-modules
@@ -372,12 +434,9 @@ const Articles = ({
   defaultFilters,
   filterOptions,
   icon,
-  onChangeArticleType,
-  sortOptions,
   teamSlug,
   title,
   type,
-  updateMutation,
 }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
@@ -426,6 +485,7 @@ const Articles = ({
               ) {
                 edges {
                   node {
+                    nodeType: __typename
                     ... on Explainer {
                       id
                       dbid
@@ -466,7 +526,7 @@ const Articles = ({
         render={({ error, props, retry }) => {
           if (!error && props) {
             return (
-              <ArticlesComponent
+              <ArticlesComponentWithIntl
                 articleTypeReadOnly={articleTypeReadOnly}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
@@ -477,14 +537,11 @@ const Articles = ({
                 page={page}
                 reloadData={retry}
                 sort={sort}
-                sortOptions={sortOptions}
                 sortType={sortType}
                 statuses={props.team.verification_statuses}
                 team={props.team}
                 title={title}
                 type={type}
-                updateMutation={updateMutation}
-                onChangeArticleType={onChangeArticleType}
                 onChangeSearchParams={handleChangeSearchParams}
               />
             );
@@ -508,11 +565,10 @@ const Articles = ({
 };
 
 Articles.defaultProps = {
-  articleTypeReadOnly: true,
-  sortOptions: [],
+  articleTypeReadOnly: false,
   filterOptions: [],
   defaultFilters: {},
-  onChangeArticleType: null,
+  type: null,
 };
 
 Articles.propTypes = {
@@ -520,15 +576,9 @@ Articles.propTypes = {
   defaultFilters: PropTypes.object,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   icon: PropTypes.node.isRequired,
-  sortOptions: PropTypes.arrayOf(PropTypes.exact({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired, // Localizable string
-  })),
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
-  updateMutation: PropTypes.object.isRequired,
-  onChangeArticleType: PropTypes.func,
+  type: PropTypes.oneOf(['explainer', 'fact-check', null]),
 };
 
 export default Articles;

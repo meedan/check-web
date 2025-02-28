@@ -500,7 +500,8 @@ function SearchResultsComponent({
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         { tooManyResults ?
           <Alert
-            contained
+            border
+            placement="contained"
             title={
               <FormattedMessage
                 defaultMessage="Browsing this list is limited to the first {max, number} results. Use the filters above to refine this list."

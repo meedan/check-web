@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -151,7 +150,7 @@ const InviteDialog = ({
         />
       </div>
       <div className={styles['dialog-content']}>
-        { errorMessage && <><Alert contained title={errorMessage} variant="error" /><br /></> }
+        { errorMessage && <><Alert border placement="contained" title={errorMessage} variant="error" /><br /></> }
         <div className={inputStyles['form-fieldset']}>
           <div className={inputStyles['form-fieldset-field']}>
             <FormattedMessage defaultMessage="example: team_member@example.org, team_member2@example.org" description="Placeholder for input for invited emails" id="inviteDialog.textInputPlaceholder">
@@ -220,11 +219,11 @@ const InviteDialog = ({
 
 InviteDialog.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }).isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default withSetFlashMessage(InviteDialog);

@@ -7,7 +7,7 @@
   {
     "id": "languagesComponent.title",
     "description": "Title of Language settings page",
-    "defaultMessage": "Language"
+    "defaultMessage": "Supported Languages [{languageCount}]"
   },
   {
     "id": "languagesComponent.languageDetection",
@@ -38,10 +38,5 @@
     "id": "languagesComponent.alertTitleDisabled",
     "description": "Title for extra information about the language detection toggle switch when it is disabled",
     "defaultMessage": "Language detection is disabled"
-  },
-  {
-    "id": "languagesComponent.languages",
-    "description": "Title of the active languages list section in language settings page",
-    "defaultMessage": "Supported Languages [{languageCount}]"
   }
 ]

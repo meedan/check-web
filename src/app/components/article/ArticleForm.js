@@ -159,10 +159,19 @@ const ArticleForm = ({
             { mode === 'edit' &&
               <div className={styles['article-form-info']}>
                 <div className={styles['article-form-info-labels']}>
+                  { article.created_at &&
+                    <div className="typography-subtitle2">
+                      <FormattedMessage
+                        defaultMessage="Created by:"
+                        description="Label to convey when the item was created"
+                        id="articleForm.createdByLabel"
+                      />
+                    </div>
+                  }
                   { article.updated_at &&
                     <div className="typography-subtitle2">
                       <FormattedMessage
-                        defaultMessage="Edited by:"
+                        defaultMessage="Last Edited:"
                         description="Label to convey when the item was last edited"
                         id="articleForm.editedByLabel"
                       />
@@ -188,9 +197,19 @@ const ArticleForm = ({
                   }
                 </div>
                 <div className={styles['article-form-info-content']}>
+                  { article.created_at &&
+                    <div className="typography-body2">
+                      {article.author?.name ?
+                        <>
+                          {article.author.name}, <FormattedDate day="numeric" hour="numeric" minute="numeric" month="long" value={new Date(article.created_at * 1000)} year="numeric" />
+                        </>
+                        : <FormattedDate day="numeric" hour="numeric" minute="numeric" month="long" value={new Date(article.created_at * 1000)} year="numeric" />
+                      }
+                    </div>
+                  }
                   { article.updated_at &&
                     <div className="typography-body2">
-                      {article.user.name}, <FormattedDate day="numeric" month="long" value={new Date(article.updated_at * 1000)} year="numeric" />
+                      {article.user.name}, <FormattedDate day="numeric" hour="numeric" minute="numeric" month="long" value={new Date(article.updated_at * 1000)} year="numeric" />
                     </div>
                   }
                   { publishedAt && articleType === 'fact-check' &&
@@ -364,11 +383,12 @@ const ArticleForm = ({
                 }
                 { articleType === 'fact-check' && isPublished && (
                   <Alert
+                    border
                     buttonLabel={<FormattedMessage defaultMessage="Update Report" description="Label of alert button in article form." id="articleForm.reportPublishedLabel" />}
                     className={styles['article-form-alert']}
-                    contained
                     content={<FormattedMessage defaultMessage="To make edits, pause this report. This will stop the report from being sent out to users until it is published again" description="Text of alert box in article form." id="articleForm.reportPublishedBody" />}
                     icon
+                    placement="contained"
                     title={<FormattedMessage defaultMessage="Report is published" description="Title of alert box in article form." id="articleForm.reportPublishedTitle" />}
                     variant="success"
                     onButtonClick={() => handleGoToReport(article.claim_description?.project_media?.dbid)}
@@ -678,7 +698,11 @@ export default createFragmentContainer(ArticleForm, graphql`
       tags
       rating
       report_status
+      author {
+        name
+      }
       updated_at
+      created_at
       user {
         name
       }
@@ -702,7 +726,11 @@ export default createFragmentContainer(ArticleForm, graphql`
       url
       language
       tags
+      author {
+        name
+      }
       updated_at
+      created_at
       user {
         name
       }
