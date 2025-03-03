@@ -41,7 +41,6 @@ const ArticleFilters = ({
   onSubmit,
   statuses,
   teamSlug,
-  type,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
 
@@ -170,7 +169,7 @@ const ArticleFilters = ({
             );
           }
 
-          if (filter === 'article_type' && type) {
+          if (filter === 'article_type') {
             return (
               <React.Fragment key={filter}>
                 {connector}
@@ -183,8 +182,10 @@ const ArticleFilters = ({
                     { value: 'fact-check', label: intl.formatMessage(messages.factCheck) },
                   ]}
                   readOnly={articleTypeReadOnly}
-                  selected={[type]}
+                  selected={value || []}
                   single
+                  onChange={(newValue) => { handleOptionChange('article_type', newValue); }}
+                  onRemove={() => handleRemoveFilter('article_type')}
                 />
               </React.Fragment>
             );
@@ -277,7 +278,7 @@ const ArticleFilters = ({
         })}
         <AddFilterMenu
           addedFields={Object.keys(filters)}
-          showOptions={filterOptions}
+          showOptions={filterOptions.concat(['article_type'])}
           team={{}}
           onSelect={handleAddFilter}
         />
@@ -326,7 +327,6 @@ ArticleFilters.defaultProps = {
   defaultFilters: {},
   extra: null,
   filterOptions: [],
-  type: null,
 };
 
 ArticleFilters.propTypes = {
@@ -341,7 +341,6 @@ ArticleFilters.propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   teamSlug: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['explainer', 'fact-check', null]),
   onSubmit: PropTypes.func.isRequired,
 };
 
