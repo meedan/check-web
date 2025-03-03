@@ -295,6 +295,7 @@ export default createFragmentContainer(withSetFlashMessage(ReportDesignerCompone
         get_language
         get_languages
         verification_statuses
+        ...ReportDesignerForm_team
       }
       ...ReportDesignerTopBar_media
       ...ReportDesignerPreview_media

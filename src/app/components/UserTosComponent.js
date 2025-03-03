@@ -55,7 +55,7 @@ const UserTosComponent = ({ about, setOpenDialog, user }) => {
 
   const actions = [
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-    <div style={{ cursor: 'pointer' }} onClick={handleValidate.bind(this)}>
+    <div style={{ cursor: 'pointer' }} onClick={handleValidate}>
       <ButtonMain
         buttonProps={{
           id: 'tos__save',
@@ -67,7 +67,7 @@ const UserTosComponent = ({ about, setOpenDialog, user }) => {
         size="default"
         theme="info"
         variant="contained"
-        onClick={() => handleSubmit()}
+        onClick={handleSubmit}
       />
     </div>,
   ];
@@ -77,7 +77,7 @@ const UserTosComponent = ({ about, setOpenDialog, user }) => {
       { message && <Alert className={dialogStyles['dialog-alert']} content={message} variant="error" /> }
       <UserTosForm
         checkedTos={checkedTos}
-        handleCheckTos={handleCheckTos.bind(this)}
+        handleCheckTos={handleCheckTos}
         showTitle
         termsLastUpdatedAt={about.terms_last_updated_at}
         user={user}
@@ -97,8 +97,8 @@ UserTosComponent.propTypes = {
 
 export default createFragmentContainer(UserTosComponent, {
   about: graphql`
-      fragment UserTosComponent_about on About {
-        terms_last_updated_at
-      }
-    `,
+    fragment UserTosComponent_about on About {
+      terms_last_updated_at
+    }
+  `,
 });
