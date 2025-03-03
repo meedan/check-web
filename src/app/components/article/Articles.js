@@ -17,8 +17,8 @@ import ListSort from '../cds/inputs/ListSort';
 import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import {
   getQueryStringValue,
-  pushQueryStringValue,
-  deleteQueryStringValue,
+  deleteAndPushQueryStringValue,
+  deleteQueryStringValues,
   pageSize,
 } from '../../urlHelpers';
 import Loader from '../cds/loading/Loader';
@@ -180,7 +180,7 @@ const ArticlesComponent = ({
   };
 
   const handleCloseSlideout = () => {
-    if (selectedArticle.type) deleteQueryStringValue(selectedArticle.type === 'explainer' ? 'explainerId' : 'factCheckId');
+    if (selectedArticle.type) deleteQueryStringValues(['explainerId', 'factCheckId']);
     setSelectedArticle({});
   };
 
@@ -223,7 +223,7 @@ const ArticlesComponent = ({
       setSelectedArticle({});
       setTimeout(() => {
         setSelectedArticle({ id: article.dbid, type: article.type });
-        pushQueryStringValue(article.type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
+        deleteAndPushQueryStringValue(article.type === 'explainer' ? 'factCheckId' : 'explainerId', article.type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
       }, 10);
     }
   };
