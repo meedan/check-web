@@ -50,6 +50,11 @@
     "defaultMessage": "Media (count)"
   },
   {
+    "id": "addFilterMenu.articleType",
+    "description": "Menu option to enable searching items by article type",
+    "defaultMessage": "Article (type)"
+  },
+  {
     "id": "addFilterMenu.mediaType",
     "description": "Menu option to enable searching items by media type",
     "defaultMessage": "Media (type)"

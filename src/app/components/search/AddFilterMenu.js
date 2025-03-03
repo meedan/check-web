@@ -159,6 +159,18 @@ const AddFilterMenu = ({
       ),
     },
     {
+      id: 'add-filter-menu__article-type',
+      key: 'article_type',
+      icon: <DescriptionIcon />,
+      label: (
+        <FormattedMessage
+          defaultMessage="Article (type)"
+          description="Menu option to enable searching items by article type"
+          id="addFilterMenu.articleType"
+        />
+      ),
+    },
+    {
       id: 'add-filter-menu__media-type',
       key: 'show',
       icon: <DescriptionIcon />,

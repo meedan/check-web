@@ -102,11 +102,14 @@ const adjustFilters = (filters) => {
     newFilters.rating = filters.verification_status;
   }
 
+  if (filters.article_type && filters.article_type.length === 0) {
+    delete newFilters.article_type;
+  }
+
   return newFilters;
 };
 
 const ArticlesComponent = ({
-  articleTypeReadOnly,
   articles,
   articlesCount,
   defaultFilters,
@@ -122,7 +125,6 @@ const ArticlesComponent = ({
   statuses,
   team,
   title,
-  type,
 }) => {
   const sortOptions = [
     { value: 'title', label: intl.formatMessage(messages.sortTitle) },
@@ -139,11 +141,6 @@ const ArticlesComponent = ({
     if (articleDbidFromUrl) {
       articleTypeFromUrl = 'explainer';
     }
-  }
-
-  const articleTypeFilter = {};
-  if (type) {
-    articleTypeFilter.article_type = type;
   }
 
   const [selectedArticle, setSelectedArticle] = React.useState({ id: articleDbidFromUrl, type: articleTypeFromUrl });
@@ -266,13 +263,12 @@ const ArticlesComponent = ({
             onChange={handleChangeSort}
           />
           <ArticleFilters
-            articleTypeReadOnly={articleTypeReadOnly}
-            currentFilters={{ ...filters, ...articleTypeFilter }}
-            defaultFilters={{ ...defaultFilters, ...articleTypeFilter }}
+            articleTypeReadOnly={Boolean(defaultFilters.article_type)}
+            currentFilters={{ ...filters }}
+            defaultFilters={{ ...defaultFilters }}
             filterOptions={filterOptions}
             statuses={statuses.statuses}
             teamSlug={team.slug}
-            type={type}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -289,7 +285,7 @@ const ArticlesComponent = ({
                 pageSize={pageSize}
                 onChangePage={handleChangePage}
               />
-              <ExportList filters={adjustFilters(filters)} type={type ? type.replace('-', '_') : 'articles'} />
+              <ExportList filters={adjustFilters(filters)} type={defaultFilters.article_type ? defaultFilters.article_type.replace('-', '_') : 'articles'} />
             </div>
           </div>
           : null
@@ -370,7 +366,6 @@ const ArticlesComponent = ({
 };
 
 ArticlesComponent.defaultProps = {
-  articleTypeReadOnly: false,
   page: 1,
   sort: 'updated_at',
   sortType: 'DESC',
@@ -380,11 +375,9 @@ ArticlesComponent.defaultProps = {
   statuses: {},
   articles: [],
   articlesCount: 0,
-  type: null,
 };
 
 ArticlesComponent.propTypes = {
-  articleTypeReadOnly: PropTypes.bool,
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -419,7 +412,6 @@ ArticlesComponent.propTypes = {
     slug: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
-  type: PropTypes.oneOf(['explainer', 'fact-check', null]),
   onChangeSearchParams: PropTypes.func.isRequired,
 };
 
@@ -430,13 +422,11 @@ const ArticlesComponentWithIntl = injectIntl(ArticlesComponent);
 export { ArticlesComponent, adjustFilters };
 
 const Articles = ({
-  articleTypeReadOnly,
   defaultFilters,
   filterOptions,
   icon,
   teamSlug,
   title,
-  type,
 }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
@@ -465,7 +455,7 @@ const Articles = ({
         key={new Date().getTime()}
         query={graphql`
           query ArticlesQuery(
-            $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
+            $slug: String!, $article_type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
             $users: [Int], $updated_at: String, $created_at: String, $tags: [String], $language: [String], $published_by: [Int],
             $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean,
           ) {
@@ -475,11 +465,11 @@ const Articles = ({
               totalArticlesCount: articles_count
               verification_statuses
               articles_count(
-                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updated_at, created_at: $created_at, language: $language, text: $text,
+                article_type: $article_type, user_ids: $users, tags: $tags, updated_at: $updated_at, created_at: $created_at, language: $language, text: $text,
                 publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported, trashed: $trashed,
               )
               articles(
-                first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
+                first: $pageSize, article_type: $article_type, offset: $offset, sort: $sort, sort_type: $sortType,
                 user_ids: $users, tags: $tags, updated_at: $updated_at, created_at: $created_at, language: $language, publisher_ids: $published_by,
                 report_status: $report_status, rating: $verification_status, imported: $imported, text: $text, trashed: $trashed,
               ) {
@@ -527,7 +517,6 @@ const Articles = ({
           if (!error && props) {
             return (
               <ArticlesComponentWithIntl
-                articleTypeReadOnly={articleTypeReadOnly}
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
                 defaultFilters={defaultFilters}
@@ -541,7 +530,6 @@ const Articles = ({
                 statuses={props.team.verification_statuses}
                 team={props.team}
                 title={title}
-                type={type}
                 onChangeSearchParams={handleChangeSearchParams}
               />
             );
@@ -551,7 +539,6 @@ const Articles = ({
         }}
         variables={{
           slug: teamSlug,
-          type,
           pageSize,
           sort,
           sortType,
@@ -565,20 +552,16 @@ const Articles = ({
 };
 
 Articles.defaultProps = {
-  articleTypeReadOnly: false,
   filterOptions: [],
   defaultFilters: {},
-  type: null,
 };
 
 Articles.propTypes = {
-  articleTypeReadOnly: PropTypes.bool,
   defaultFilters: PropTypes.object,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   icon: PropTypes.node.isRequired,
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
-  type: PropTypes.oneOf(['explainer', 'fact-check', null]),
 };
 
 export default Articles;
