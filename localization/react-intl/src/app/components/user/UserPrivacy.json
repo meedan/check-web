@@ -62,7 +62,7 @@
   {
     "id": "userPrivacy.deleteAccountText",
     "description": "Text to tell the user what will happen to their personal information when their account is removed",
-    "defaultMessage": "If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
+    "defaultMessage": "If you delete your account, your personal information will be erased. Annotations, and workspace activity will become pseudonymous and remain on {appName}."
   },
   {
     "id": "userPrivacy.deleteAccountButton",
