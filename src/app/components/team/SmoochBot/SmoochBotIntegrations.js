@@ -187,7 +187,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           label="WhatsApp"
           online={isOnline('whatsapp')}
           permanentDisconnection
-          readOnly={isWabaSet || isCapiSet}
+          readOnly={!(isWabaSet || isCapiSet)}
           skipUrlConfirmation
           type="whatsapp"
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
