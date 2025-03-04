@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -110,11 +109,10 @@ ReportImagePreview.defaultProps = {
 };
 
 ReportImagePreview.propTypes = {
-  template: PropTypes.string.isRequired,
-  image: PropTypes.string, // or null
-  teamAvatar: PropTypes.string, // or null
-  date: PropTypes.string, // or null
-  style: PropTypes.object, // or null. TODO nix this prop
+  // or null
+  date: PropTypes.string,
+  defaultReport: PropTypes.object,
+  image: PropTypes.string, // or null. TODO nix this prop
   params: PropTypes.shape({
     headline: PropTypes.string.isRequired,
     description: PropTypes.string, // or null
@@ -122,8 +120,10 @@ ReportImagePreview.propTypes = {
     url: PropTypes.string, // or null
     theme_color: PropTypes.string.isRequired,
     dark_overlay: PropTypes.bool, // or null
-  }).isRequired,
-  defaultReport: PropTypes.object, // or null
+  }).isRequired, // or null
+  style: PropTypes.object, // or null
+  teamAvatar: PropTypes.string,
+  template: PropTypes.string.isRequired, // or null
 };
 
 export default ReportImagePreview;

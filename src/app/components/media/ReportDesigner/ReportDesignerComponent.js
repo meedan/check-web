@@ -1,5 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
@@ -179,7 +180,8 @@ const ReportDesignerComponent = (props) => {
     window.open('https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_274b08eeab');
   };
 
-  const { location, routeParams } = props;
+  const { location } = window;
+  const { routeParams } = props;
   let prefixUrl = `/${team.slug}`;
   if (routeParams.projectId || routeParams.listId) {
     const { listUrl } = getListUrlQueryAndIndex(routeParams, location.query);
@@ -271,5 +273,33 @@ ReportDesignerComponent.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-// TODO: createFragmentContainer
-export default withSetFlashMessage(ReportDesignerComponent);
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { ReportDesignerComponent };
+
+export default createFragmentContainer(withSetFlashMessage(ReportDesignerComponent), {
+  media: graphql`
+    fragment ReportDesignerComponent_media on ProjectMedia {
+      id
+      dbid
+      archived
+      permissions
+      last_status
+      dynamic_annotation_report_design {
+        id
+        dbid
+        data
+      }
+      team {
+        slug
+        get_language
+        get_languages
+        verification_statuses
+        ...ReportDesignerForm_team
+      }
+      ...ReportDesignerTopBar_media
+      ...ReportDesignerPreview_media
+      ...ReportDesignerForm_media
+    }
+  `,
+});

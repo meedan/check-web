@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -61,17 +60,17 @@ ReportDesignerConfirmableButton.defaultProps = {
 };
 
 ReportDesignerConfirmableButton.propTypes = {
-  label: PropTypes.object.isRequired,
-  icon: PropTypes.object.isRequired,
-  title: PropTypes.object.isRequired,
-  content: PropTypes.object.isRequired,
-  onConfirm: PropTypes.func,
-  onClose: PropTypes.func,
-  theme: PropTypes.string,
-  disabled: PropTypes.bool,
   cancelLabel: PropTypes.object,
-  proceedLabel: PropTypes.object,
+  content: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
+  icon: PropTypes.object.isRequired,
+  label: PropTypes.object.isRequired,
   noCancel: PropTypes.bool,
+  proceedLabel: PropTypes.object,
+  theme: PropTypes.string,
+  title: PropTypes.object.isRequired,
+  onClose: PropTypes.func,
+  onConfirm: PropTypes.func,
 };
 
 export default ReportDesignerConfirmableButton;

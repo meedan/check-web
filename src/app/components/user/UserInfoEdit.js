@@ -1,5 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages, intlShape } from 'react-intl';
 import LinkifyIt from 'linkify-it';
@@ -471,9 +472,23 @@ class UserInfoEdit extends React.Component {
 
 UserInfoEdit.propTypes = {
   intl: intlShape.isRequired,
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(UserInfoEdit));
+export default createFragmentContainer(withSetFlashMessage(injectIntl(UserInfoEdit)), {
+  user: graphql`
+    fragment UserInfoEdit_user on Me {
+      id
+      dbid
+      name
+      email
+      unconfirmed_email
+      get_send_email_notifications
+      source {
+        id
+        dbid
+        created_at
+      }
+    }
+  `,
+});

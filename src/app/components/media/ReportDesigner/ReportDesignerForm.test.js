@@ -1,5 +1,5 @@
 import React from 'react';
-import ReportDesignerForm from './ReportDesignerForm';
+import { ReportDesignerForm } from './ReportDesignerForm';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ReportDesignerForm />', () => {
