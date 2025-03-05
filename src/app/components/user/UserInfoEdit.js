@@ -488,6 +488,7 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(UserInfoEd
         id
         dbid
         created_at
+        image
       }
     }
   `,
