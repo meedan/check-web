@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -48,7 +47,7 @@ class ConfirmDialog extends React.Component {
           <h6>{this.props.title}</h6>
         </div>
         <div className={styles['dialog-content']}>
-          { this.props.message && <><Alert contained title={this.props.message} variant="error" /><br /></> }
+          { this.props.message && <><Alert placement="contained" title={this.props.message} variant="error" /><br /></> }
           {this.props.blurb}
           { this.props.handleConfirm ?
             <div className={inputStyles['form-fieldset']}>
@@ -108,19 +107,19 @@ ConfirmDialog.defaultProps = {
 };
 
 ConfirmDialog.propTypes = {
+  blurb: PropTypes.node,
+  cancelButtonLabel: PropTypes.node,
+  checkBoxLabel: PropTypes.node,
+  continueButtonLabel: PropTypes.node,
+  disabled: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
   handleConfirm: PropTypes.func,
+  message: PropTypes.object,
   open: PropTypes.bool.isRequired,
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,
   ]).isRequired,
-  message: PropTypes.object,
-  blurb: PropTypes.node,
-  disabled: PropTypes.bool,
-  checkBoxLabel: PropTypes.node,
-  continueButtonLabel: PropTypes.node,
-  cancelButtonLabel: PropTypes.node,
 };
 
 export default ConfirmDialog;

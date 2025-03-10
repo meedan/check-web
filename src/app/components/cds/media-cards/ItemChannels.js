@@ -12,6 +12,7 @@ import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
 import CheckChannels, { humanTiplineNames } from '../../../CheckChannels';
 import CheckPropTypes from '../../../CheckPropTypes';
+import socialStyles from '../../../styles/css/socials.module.css';
 import styles from './Card.module.css';
 
 const ItemChannels = ({
@@ -36,13 +37,13 @@ const ItemChannels = ({
 
     function tiplineIcon(name) {
       switch (name) {
-      case 'WHATSAPP': return <WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />;
-      case 'MESSENGER': return <FacebookIcon style={{ color: 'var(--facebookBlue)' }} />;
-      case 'TWITTER': return <TwitterIcon style={{ color: 'var(--xBlack)' }} />;
-      case 'TELEGRAM': return <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />;
-      case 'VIBER': return <ViberIcon style={{ color: 'var(--viberPurple)' }} />;
-      case 'LINE': return <LineIcon style={{ color: 'var(--lineGreen)' }} />;
-      case 'INSTAGRAM': return <InstagramIcon style={{ color: 'var(--instagramPink)' }} />;
+      case 'WHATSAPP': return <WhatsAppIcon className={socialStyles['whatsapp-green']} />;
+      case 'MESSENGER': return <FacebookIcon className={socialStyles['facebook-blue']} />;
+      case 'TWITTER': return <TwitterIcon className={socialStyles['x-black']} />;
+      case 'TELEGRAM': return <TelegramIcon className={socialStyles['telegram-blue']} />;
+      case 'VIBER': return <ViberIcon className={socialStyles['viber-purple']} />;
+      case 'LINE': return <LineIcon className={socialStyles['viber-purple']} />;
+      case 'INSTAGRAM': return <InstagramIcon className={socialStyles['instagram-pink']} />;
       default: return null;
       }
     }

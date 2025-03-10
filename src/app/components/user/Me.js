@@ -1,29 +1,30 @@
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import MeComponent from './MeComponent';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Loader from '../cds/loading/Loader';
-import MeRoute from '../../relay/MeRoute';
-import meFragment from '../../relay/meFragment';
 
-const MeContainer = Relay.createContainer(MeComponent, {
-  fragments: {
-    me: () => meFragment,
-  },
-});
+const Me = ({ params }) => (
+  <ErrorBoundary component="Me">
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query MeQuery {
+          me {
+            ...MeComponent_user
+          }
+        }
+      `}
+      render={({ error, props }) => {
+        if (!error && props) {
+          return <MeComponent params={params} user={props.me} />;
+        }
+        return <Loader size="large" theme="white" variant="page" />;
+      }}
+    />
+  </ErrorBoundary>
+);
 
-const Me = (props) => {
-  const route = new MeRoute();
-  return (
-    <ErrorBoundary component="Me">
-      <Relay.RootContainer
-        Component={MeContainer}
-        renderFetched={data => <MeContainer {...props} {...data} />}
-        renderLoading={() => <Loader size="large" theme="white" variant="page" />}
-        route={route}
-      />
-    </ErrorBoundary>
-  );
-};
 
 export default Me;

@@ -1,6 +1,6 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import Relay from 'react-relay/classic';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages, intlShape } from 'react-intl';
 import LinkifyIt from 'linkify-it';
@@ -21,7 +21,7 @@ import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import inputStyles from '../../styles/css/inputs.module.css';
-import styles from './user.module.css';
+import styles from '../team/Settings.module.css';
 
 const messages = defineMessages({
   sourceName: {
@@ -380,7 +380,7 @@ class UserInfoEdit extends React.Component {
             : null}
         </div>
 
-        <div className={cx(styles['user-info-primary'], styles['user-setting-content-container'])}>
+        <div className={cx(styles['user-info-primary'], styles['setting-content-container'])}>
           { user.unconfirmed_email ?
             <><ConfirmEmail user={user} /><br /></>
             : null
@@ -471,10 +471,25 @@ class UserInfoEdit extends React.Component {
 }
 
 UserInfoEdit.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  setFlashMessage: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(UserInfoEdit));
+export default createFragmentContainer(withSetFlashMessage(injectIntl(UserInfoEdit)), {
+  user: graphql`
+    fragment UserInfoEdit_user on Me {
+      id
+      dbid
+      name
+      email
+      unconfirmed_email
+      get_send_email_notifications
+      source {
+        id
+        dbid
+        created_at
+        image
+      }
+    }
+  `,
+});

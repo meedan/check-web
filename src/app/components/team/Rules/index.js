@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -19,9 +18,7 @@ const Rules = props => (
     query={graphql`
       query RulesQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
-          id
-          get_rules
-          rules_json_schema
+          ...RulesComponent_team
         }
       }
     `}

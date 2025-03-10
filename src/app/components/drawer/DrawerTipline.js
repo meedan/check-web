@@ -22,14 +22,12 @@ import InboxIcon from '../../icons/inbox.svg';
 import LightbulbIcon from '../../icons/lightbulb.svg';
 import ListIcon from '../../icons/list.svg';
 import PersonIcon from '../../icons/person.svg';
-import UnmatchedIcon from '../../icons/unmatched.svg';
 import Can from '../Can';
 import DeleteIcon from '../../icons/delete.svg';
 import ReportIcon from '../../icons/report.svg';
 import { withSetFlashMessage } from '../FlashMessage';
 import { assignedToMeDefaultQuery } from '../team/AssignedToMe';
 import { suggestedMatchesDefaultQuery } from '../team/SuggestedMatches';
-import { unmatchedMediaDefaultQuery } from '../team/UnmatchedMedia';
 import { tiplineInboxDefaultQuery } from '../team/TiplineInbox';
 import styles from './Projects/Projects.module.css';
 
@@ -214,31 +212,6 @@ const DrawerTiplineComponent = ({
                   <FormattedMessage defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1" id="projectsComponent.suggestedMatches" tagName="span" />
                 </div>
                 <ProjectsCoreListCounter query={suggestedMatchesDefaultQuery} />
-              </li>
-            </Link>
-          }
-
-          { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
-            <Link
-              className={styles.linkList}
-              to={`/${team.slug}/unmatched-media`}
-              onClick={() => { handleSpecialLists('unmatched-media'); }}
-            >
-              <li
-                className={cx(
-                  'projects-list__unmatched-media',
-                  styles.listItem,
-                  styles.listItem_containsCount,
-                  {
-                    [styles.listItem_active]: activeItem.type === 'unmatched-media',
-                  })
-                }
-              >
-                <UnmatchedIcon className={styles.listIcon} />
-                <div className={styles.listLabel}>
-                  <FormattedMessage defaultMessage="Unmatched" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" id="projectsComponent.unmatchedMedia" tagName="span" />
-                </div>
-                <ProjectsCoreListCounter query={unmatchedMediaDefaultQuery} />
               </li>
             </Link>
           }

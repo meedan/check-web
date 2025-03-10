@@ -251,7 +251,7 @@ function SearchResultsComponent({
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-fact-checks|/tipline-inbox|/suggested-matches|/unmatched-media|/spam|(/feed/[0-9]+/(shared|feed)))$')) {
+    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-fact-checks|/tipline-inbox|/suggested-matches|/spam|(/feed/[0-9]+/(shared|feed)))$')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
@@ -500,7 +500,8 @@ function SearchResultsComponent({
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         { tooManyResults ?
           <Alert
-            contained
+            border
+            placement="contained"
             title={
               <FormattedMessage
                 defaultMessage="Browsing this list is limited to the first {max, number} results. Use the filters above to refine this list."
@@ -631,7 +632,7 @@ SearchResultsComponent.propTypes = {
   listActions: PropTypes.node, // or undefined
   listSubtitle: PropTypes.object,
   mediaUrlPrefix: PropTypes.string.isRequired,
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
   pusher: pusherShape.isRequired,
   query: PropTypes.object.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined

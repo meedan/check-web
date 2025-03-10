@@ -55,13 +55,14 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
           content: key => (
             <div className="int-flash-message__toast" key={key}>
               <Alert
+                border
                 className={cx(
                   {
                     [styles['persist-alert-flash-message']]: persist,
                   })
                 }
                 content={msg}
-                floating
+                placement="floating"
                 variant={variant}
                 onClose={() => { closeSnackbar(key); }}
               />
@@ -78,13 +79,14 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
           content: key => (
             <div className="int-flash-message__toast" key={key}>
               <Alert
+                border
                 className={cx(
                   {
                     [styles['persist-alert-flash-message']]: persist,
                   })
                 }
                 content={<>{createFriendlyErrorMessage(msg)}</>}
-                floating
+                placement="floating"
                 title={<>{createFriendlyErrorMessageTitle(msg)}</>}
                 variant={variant}
                 onClose={() => { closeSnackbar(key); }}
@@ -102,13 +104,14 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
         content: key => (
           <div className="int-flash-message__toast" key={key}>
             <Alert
+              border
               className={cx(
                 {
                   [styles['persist-alert-flash-message']]: persist,
                 })
               }
               content={message}
-              floating
+              placement="floating"
               variant={variant}
               onClose={() => { closeSnackbar(key); }}
             />
@@ -188,9 +191,9 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
   if (message) {
     return (
       <Alert
-        banner
         className={cx('home__message', styles['alert-flash-home-message'])}
         content={message}
+        placement="banner"
         variant="info"
         onClose={resetMessage}
       />

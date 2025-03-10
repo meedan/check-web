@@ -1,5 +1,5 @@
 import React from 'react';
-import EditStatusDialog from './EditStatusDialog';
+import { EditStatusDialog } from './EditStatusDialog';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<EditStatusDialog />', () => {

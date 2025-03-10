@@ -20,9 +20,9 @@
     "defaultMessage": "Channel"
   },
   {
-    "id": "addFilterMenu.claim",
-    "description": "Menu option to enable searching items by claim",
-    "defaultMessage": "Claim"
+    "id": "addFilterMenu.article",
+    "description": "Menu option to enable searching items by article",
+    "defaultMessage": "Article"
   },
   {
     "id": "addFilterMenu.createdBy",
@@ -48,6 +48,11 @@
     "id": "addFilterMenu.similarMedias",
     "description": "Menu option to enable searching items by matched medias",
     "defaultMessage": "Media (count)"
+  },
+  {
+    "id": "addFilterMenu.articleType",
+    "description": "Menu option to enable searching items by article type",
+    "defaultMessage": "Article (type)"
   },
   {
     "id": "addFilterMenu.mediaType",

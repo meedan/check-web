@@ -16,8 +16,10 @@ import styles from './search.module.css';
 
 const OperatorToggle = ({ onClick, operator }) => (
   <ButtonMain
+    buttonProps={{
+      type: !onClick ? null : 'button',
+    }}
     className="int-multi-select-filter__button--operator-toggle"
-    customStyle={{ color: 'var(--color-gray-15' }}
     disabled={!onClick}
     label={operator === 'and' ? <FormattedMessage defaultMessage="and" description="Logical operator to be applied when filtering by multiple tags" id="search.and" /> : <FormattedMessage defaultMessage="or" description="Logical operator to be applied when filtering by multiple tags" id="search.or" />}
     size="small"

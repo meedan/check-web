@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation } from 'react-relay/compat';
@@ -107,7 +106,7 @@ function ChangePasswordComponent({
 
   return (
     <div className={cx('int-user-password-change__password-input', inputStyles['form-fieldset'])}>
-      { errorMsg && <><Alert contained title={errorMsg} variant="error" /><br /></> }
+      { errorMsg && <><Alert border placement="contained" title={errorMsg} variant="error" /><br /></> }
       {showCurrentPassword === true ? (
         <TextField
           className={cx('int-user-password-change__password-input-field', inputStyles['form-fieldset-field'])}
@@ -183,10 +182,10 @@ ChangePasswordComponent.defaultProps = {
 };
 
 ChangePasswordComponent.propTypes = {
-  type: PropTypes.string.isRequired,
+  showConfirm: PropTypes.func,
   showCurrentPassword: PropTypes.bool,
   token: PropTypes.string,
-  showConfirm: PropTypes.func,
+  type: PropTypes.string.isRequired,
   user: PropTypes.object,
 };
 

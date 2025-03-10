@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, FormattedRelative } from 'react-intl';
@@ -23,7 +22,7 @@ export default function RulesTable(props) {
     updated_at: rule.updated_at,
     actions: rule.actions,
     index,
-  }));
+  })).filter(row => !/add_tag/.test(JSON.stringify(row.actions)));
 
   const [selected, setSelected] = React.useState([]);
   const [orderBy, setOrderBy] = React.useState('updated_at');
@@ -128,7 +127,7 @@ export default function RulesTable(props) {
                 onSort={handleSort}
               />
               <TableBody>
-                {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
+                {sortedRows.map((row) => {
                   const { index, name } = row;
                   const isItemSelected = isSelected(index);
                   const labelId = `rules-table-checkbox-${index}`;
@@ -175,7 +174,7 @@ export default function RulesTable(props) {
 
 RulesTable.propTypes = {
   rules: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  onClickRule: PropTypes.func.isRequired,
   onAddRule: PropTypes.func.isRequired,
+  onClickRule: PropTypes.func.isRequired,
   onDeleteRules: PropTypes.func.isRequired,
 };

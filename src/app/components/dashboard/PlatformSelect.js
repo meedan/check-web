@@ -7,6 +7,7 @@ import ShareIcon from '../../icons/share.svg';
 
 const PlatformSelect = ({
   onChange,
+  platforms,
   value,
 }) => (
   <Select
@@ -21,15 +22,27 @@ const PlatformSelect = ({
     >
       {text => <option value="all">{text}</option>}
     </FormattedMessage>
-    {
-      Object.entries(humanTiplineNames).map(([k, v]) => (
-        <option key={k} value={String(k).toLowerCase()}>{v}</option>
-      ))
+    { platforms.length ?
+      platforms.map(p =>
+        <option key={p} value={p}>{humanTiplineNames[String(p).toUpperCase()]}</option>)
+      :
+      <FormattedMessage
+        defaultMessage="No available platforms"
+        description="Option when there are no tipline platforms with data"
+        id="platformSelect.noPlatforms"
+      >
+        {text => <option disabled value="">{text}</option>}
+      </FormattedMessage>
     }
   </Select>
 );
 
+PlatformSelect.defaultProps = {
+  platforms: null,
+};
+
 PlatformSelect.propTypes = {
+  platforms: PropTypes.array,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

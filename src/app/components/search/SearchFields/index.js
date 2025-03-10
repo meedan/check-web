@@ -216,7 +216,7 @@ const SearchFields = ({
     { value: CheckArchivedFlags.UNCONFIRMED.toString(), label: intl.formatMessage(messages.unconfirmed) },
   ];
 
-  const hasClaimOptions = [
+  const hasArticleOptions = [
     { label: intl.formatMessage(messages.notEmpty), value: 'ANY_VALUE', exclusive: true },
     { label: intl.formatMessage(messages.empty), value: 'NO_VALUE', exclusive: true },
   ];
@@ -247,8 +247,7 @@ const SearchFields = ({
       >
         <span>
           <ButtonMain
-            className="int-search-fields__button--toggle-and-or-operator"
-            customStyle={{ fontWeight: 'bold' }}
+            className={cx('int-search-fields__button--toggle-and-or-operator', styles['filter-toggle-and-or-operator'])}
             label={stateQuery.operator === 'OR' ?
               <FormattedMessage defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" id="search.fieldOr" /> :
               <FormattedMessage defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" id="search.fieldAnd" />
@@ -264,18 +263,18 @@ const SearchFields = ({
   };
 
   const fieldComponents = {
-    has_claim: (
-      <FormattedMessage defaultMessage="Claim is" description="Prefix label for field to filter by claim" id="search.claim">
+    has_article: (
+      <FormattedMessage defaultMessage="Article is" description="Prefix label for field to filter by article" id="search.article">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
             icon={<LabelIcon />}
             label={label}
-            options={hasClaimOptions}
-            readOnly={readOnlyFields.includes('has_claim')}
-            selected={stateQuery.has_claim}
-            onChange={(newValue) => { handleFilterClick(newValue, 'has_claim'); }}
-            onRemove={() => handleRemoveField('has_claim')}
+            options={hasArticleOptions}
+            readOnly={readOnlyFields.includes('has_article')}
+            selected={stateQuery.has_article}
+            onChange={(newValue) => { handleFilterClick(newValue, 'has_article'); }}
+            onRemove={() => handleRemoveField('has_article')}
           />
         )}
       </FormattedMessage>
@@ -726,7 +725,7 @@ SearchFields.propTypes = {
     feedFilters: PropTypes.object,
   }),
   handleSubmit: PropTypes.func.isRequired,
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
   savedSearch: PropTypes.shape({
     filters: PropTypes.string.isRequired,

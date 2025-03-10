@@ -18,7 +18,6 @@ import Team from './team/Team';
 import AssignedToMe from './team/AssignedToMe';
 import TiplineInbox from './team/TiplineInbox';
 import SuggestedMatches from './team/SuggestedMatches';
-import UnmatchedMedia from './team/UnmatchedMedia';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
 import CreateFeed from './feed/CreateFeed';
@@ -40,10 +39,10 @@ import Explainers from './article/Explainers';
 import FactChecks from './article/FactChecks';
 import ImportedArticles from './article/ImportedArticles';
 import PublishedArticles from './article/PublishedArticles';
+import TrashedArticles from './article/TrashedArticles';
+import AllArticles from './article/AllArticles';
 import TiplineDashBoard from './dashboard/TiplineDashboard';
 import ArticlesDashboard from './dashboard/ArticlesDashboard';
-
-import TrashedArticles from './article/TrashedArticles';
 
 class Root extends Component {
   static logPageView() {
@@ -112,7 +111,6 @@ class Root extends Component {
                   <Route component={AssignedToMe} path=":team/assigned-to-me(/:query)" />
                   <Route component={TiplineInbox} path=":team/tipline-inbox(/:query)" />
                   <Route component={SuggestedMatches} path=":team/suggested-matches(/:query)" />
-                  <Route component={UnmatchedMedia} path=":team/unmatched-media(/:query)" />
                   <Route component={TiplineDashBoard} path=":team/dashboard" />
                   <Route component={CreateFeed} path=":team/feed/create" />
                   <Route component={FeedPage} path=":team/feeds" />
@@ -128,6 +126,7 @@ class Root extends Component {
                   <Route component={ImportedArticles} path=":team/articles/imported-fact-checks" />
                   <Route component={PublishedArticles} path=":team/articles/published" />
                   <Route component={TrashedArticles} path=":team/articles/trash" />
+                  <Route component={AllArticles} path=":team/articles/all" />
                   <Route component={NotFound} path="*" public />
                 </Route>
               </Router>

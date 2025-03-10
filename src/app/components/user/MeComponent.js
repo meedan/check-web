@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
@@ -7,38 +8,47 @@ import UserPrivacy from './UserPrivacy';
 import UserSecurity from './UserSecurity';
 import PageTitle from '../PageTitle';
 import UserWorkspaces from '../user/UserWorkspaces';
-import styles from './user.module.css';
+import styles from '../team/Settings.module.css';
 
-class MeComponent extends React.Component {
-  UNSAFE_componentWillMount() {
-    const { tab } = this.props.params;
+const MeComponent = ({ params, user }) => {
+  const { tab } = params;
 
+  useEffect(() => {
     if (!tab) {
       browserHistory.push('/check/me/profile');
     }
-  }
+  }, [tab]);
 
-  render() {
-    const user = this.props.me;
-    const { tab } = this.props.params;
-
-    return (
-      <PageTitle prefix={user.name}>
-        <div className={cx('source', styles['user-settings-wrapper'])}>
-          <div className={styles['user-content']}>
-            { tab === 'profile' ? <UserProfile user={user} /> : null}
-            { tab === 'teams' || tab === 'workspaces' ? <UserWorkspaces user={user} /> : null}
-            { tab === 'privacy' ? <UserPrivacy user={user} /> : null}
-            { tab === 'security' ? <UserSecurity user={user} /> : null}
-          </div>
+  return (
+    <PageTitle prefix={user.name}>
+      <div className={cx('source', styles['settings-wrapper'])}>
+        <div className={styles['settings-content']}>
+          {tab === 'profile' && <UserProfile user={user} />}
+          {(tab === 'teams' || tab === 'workspaces') && <UserWorkspaces user={user} />}
+          {tab === 'privacy' && <UserPrivacy user={user} />}
+          {tab === 'security' && <UserSecurity user={user} />}
         </div>
-      </PageTitle>
-    );
-  }
-}
-
-MeComponent.contextTypes = {
-  store: PropTypes.object,
+      </div>
+    </PageTitle>
+  );
 };
 
-export default MeComponent;
+MeComponent.propTypes = {
+  params: PropTypes.shape({
+    tab: PropTypes.string,
+  }).isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default createFragmentContainer(MeComponent, {
+  user: graphql`
+    fragment MeComponent_user on Me {
+      name
+      ...UserProfile_user
+      ...UserSecurity_user
+      ...UserPrivacy_user
+    }
+  `,
+});

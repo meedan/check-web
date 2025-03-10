@@ -1,4 +1,5 @@
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
@@ -206,4 +207,20 @@ ReportDesignerPreview.propTypes = {
   media: PropTypes.object.isRequired,
 };
 
-export default ReportDesignerPreview;
+export default createFragmentContainer(ReportDesignerPreview, {
+  media: graphql`
+    fragment ReportDesignerPreview_media on ProjectMedia {
+      last_status
+      show_warning_cover
+      media {
+        picture
+      }
+      team {
+        avatar
+        get_report
+        get_report_design_image_template
+        verification_statuses
+      }
+    }
+  `,
+});

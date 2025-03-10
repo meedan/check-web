@@ -16,6 +16,7 @@ import ListSort from './inputs/ListSort';
 import TextArea from './inputs/TextArea';
 import DatePicker from './inputs/DatePicker';
 import LanguagePickerSelect from './inputs/LanguagePickerSelect';
+import Slider from './inputs/Slider';
 import Time from './inputs/Time';
 import { ToggleButton, ToggleButtonGroup } from './inputs/ToggleButtonGroup';
 import Select from './inputs/Select';
@@ -167,6 +168,7 @@ const SandboxComponent = ({ admin }) => {
   const [alertTitle, setAlertTitle] = React.useState(Boolean(true));
   const [alertContent, setAlertContent] = React.useState(Boolean(true));
   const [alertClosable, setAlertClosable] = React.useState(Boolean(true));
+  const [alertBorder, setAlertBorder] = React.useState(Boolean(false));
   const [toastLink, setToastLink] = React.useState(Boolean(false));
   const [toastBreaks, setToastBreaks] = React.useState(Boolean(false));
 
@@ -217,6 +219,9 @@ const SandboxComponent = ({ admin }) => {
   const [checkboxLabel, setCheckboxLabel] = React.useState(Boolean(true));
   const [checkboxDisabled, setCheckboxDisabled] = React.useState(Boolean(false));
   const [checkboxChecked, setCheckboxChecked] = React.useState(Boolean(false));
+
+  const [sliderMarked, setSliderMarked] = React.useState(Boolean(true));
+  const [sliderDisabled, setSliderDisabled] = React.useState(Boolean(true));
 
   const [selectLabel, setSelectLabel] = React.useState(Boolean(true));
   const [selectIconLeft, setSelectIconLeft] = React.useState(Boolean(true));
@@ -1606,6 +1611,60 @@ const SandboxComponent = ({ admin }) => {
               />
             </div>
           </div>
+          <div className={styles.componentWrapper}>
+            <div className={styles.componentControls}>
+              <div className={cx('typography-subtitle2', [styles.componentName])}>
+                Slider
+              </div>
+              <ul>
+                <li>
+                  <SwitchComponent
+                    checked={sliderMarked}
+                    label="Marked"
+                    labelPlacement="top"
+                    onChange={() => setSliderMarked(!sliderMarked)}
+                  />
+                </li>
+                <li>
+                  <SwitchComponent
+                    checked={sliderDisabled}
+                    label="Disabled"
+                    labelPlacement="top"
+                    onChange={() => setSliderDisabled(!sliderDisabled)}
+                  />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.componentBlockVariants}>
+              <Slider
+                disabled={sliderDisabled}
+                marked={sliderMarked}
+                marks={sliderMarked ? [
+                  {
+                    value: '0.75',
+                    label: 'Lowest',
+                  },
+                  {
+                    value: '0.80',
+                    label: '',
+                  },
+                  {
+                    value: '0.85',
+                    label: '',
+                  },
+                  {
+                    value: '0.90',
+                    label: 'Highest',
+                  },
+                ] : null}
+                max={0.9}
+                min={0.75}
+                step={null}
+                track={!sliderMarked}
+                valueLabelDisplay="auto"
+              />
+            </div>
+          </div>
         </section>
       }
       { (categoryTab === 'all' || categoryTab === 'chips') &&
@@ -1788,16 +1847,23 @@ const SandboxComponent = ({ admin }) => {
                     onChange={() => setAlertClosable(!alertClosable)}
                   />
                 </li>
+                <li>
+                  <SwitchComponent
+                    checked={alertBorder}
+                    label="Border"
+                    labelPlacement="top"
+                    onChange={() => setAlertBorder(!alertBorder)}
+                  />
+                </li>
               </ul>
             </div>
             <div className={styles.componentInlineVariants}>
               <Alert
-                banner={alertPlacement === 'banner'}
+                border={alertBorder}
                 buttonLabel={alertButton && <span>alert action</span>}
-                contained={alertPlacement === 'contained'}
                 content={alertContent && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>}
-                floating={alertPlacement === 'floating'}
                 icon={alertIcon}
+                placement={alertPlacement}
                 title={alertTitle && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>}
                 variant={alertVariant}
                 onClose={alertClosable ? () => {} : null}

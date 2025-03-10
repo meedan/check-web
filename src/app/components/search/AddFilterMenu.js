@@ -88,13 +88,13 @@ const AddFilterMenu = ({
     },
     {
       id: 'add-filter-menu__claim',
-      key: 'has_claim',
+      key: 'has_article',
       icon: <LabelIcon />,
       label: (
         <FormattedMessage
-          defaultMessage="Claim"
-          description="Menu option to enable searching items by claim"
-          id="addFilterMenu.claim"
+          defaultMessage="Article"
+          description="Menu option to enable searching items by article"
+          id="addFilterMenu.article"
         />
       ),
     },
@@ -155,6 +155,18 @@ const AddFilterMenu = ({
           defaultMessage="Media (count)"
           description="Menu option to enable searching items by matched medias"
           id="addFilterMenu.similarMedias"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__article-type',
+      key: 'article_type',
+      icon: <DescriptionIcon />,
+      label: (
+        <FormattedMessage
+          defaultMessage="Article (type)"
+          description="Menu option to enable searching items by article type"
+          id="addFilterMenu.articleType"
         />
       ),
     },

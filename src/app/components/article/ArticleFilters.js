@@ -38,24 +38,11 @@ const ArticleFilters = ({
   extra,
   filterOptions,
   intl,
-  onChangeArticleType,
   onSubmit,
   statuses,
   teamSlug,
-  type,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
-
-  const [typeFilter, setTypeFilter] = React.useState([type]);
-
-  // handling the setting here before sending it up to the page to prevent the page from re-rendering with an empty article_type.
-  const handleTypeFilter = (value) => {
-    if (!value.length) {
-      setTypeFilter([]);
-    } else {
-      onChangeArticleType(value);
-    }
-  };
 
   const handleAddFilter = (filter) => {
     const newFilters = { ...filters };
@@ -95,8 +82,7 @@ const ArticleFilters = ({
 
   const filterConnector = (
     <ButtonMain
-      className="int-search-fields__button--and-operator"
-      customStyle={{ fontWeight: 'bold' }}
+      className={cx('int-search-fields__button--and-operator', searchStyles['filter-toggle-and-or-operator'])}
       label={<FormattedMessage defaultMessage="and" description="Logical operator 'AND' to be applied when filtering articles by multiple fields." id="search.connectorAnd" />}
       size="small"
       theme="lightInfo"
@@ -174,7 +160,7 @@ const ArticleFilters = ({
                 {connector}
                 <DateRangeFilter
                   filterKey="range"
-                  optionsToHide={['created_at', 'media_published_at', 'report_published_at', 'request_created_at']}
+                  optionsToHide={['media_published_at', 'report_published_at', 'request_created_at']}
                   value={value || { updated_at: {} }}
                   onChange={handleDateRange}
                   onRemove={() => handleRemoveFilter('range')}
@@ -196,9 +182,10 @@ const ArticleFilters = ({
                     { value: 'fact-check', label: intl.formatMessage(messages.factCheck) },
                   ]}
                   readOnly={articleTypeReadOnly}
-                  selected={typeFilter}
+                  selected={value || []}
                   single
-                  onChange={(newValue) => { handleTypeFilter(newValue); }}
+                  onChange={(newValue) => { handleOptionChange('article_type', newValue); }}
+                  onRemove={() => handleRemoveFilter('article_type')}
                 />
               </React.Fragment>
             );
@@ -291,7 +278,7 @@ const ArticleFilters = ({
         })}
         <AddFilterMenu
           addedFields={Object.keys(filters)}
-          showOptions={filterOptions}
+          showOptions={filterOptions.concat(['article_type'])}
           team={{}}
           onSelect={handleAddFilter}
         />
@@ -340,7 +327,6 @@ ArticleFilters.defaultProps = {
   defaultFilters: {},
   extra: null,
   filterOptions: [],
-  onChangeArticleType: null,
 };
 
 ArticleFilters.propTypes = {
@@ -355,8 +341,6 @@ ArticleFilters.propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   teamSlug: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
-  onChangeArticleType: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
 

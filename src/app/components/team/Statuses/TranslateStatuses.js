@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -217,12 +216,12 @@ const TranslateStatuses = ({
 };
 
 TranslateStatuses.propTypes = {
+  currentLanguage: PropTypes.string.isRequired,
+  defaultLanguage: PropTypes.string.isRequired,
   statuses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  defaultLanguage: PropTypes.string.isRequired,
-  currentLanguage: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

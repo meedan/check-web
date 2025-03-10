@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import ArticleFilters from './ArticleFilters';
 import { ClaimFactCheckFormQueryRenderer } from './ClaimFactCheckForm';
 import { ExplainerFormQueryRenderer } from './ExplainerForm';
@@ -17,14 +17,54 @@ import ListSort from '../cds/inputs/ListSort';
 import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import {
   getQueryStringValue,
-  pushQueryStringValue,
-  deleteQueryStringValue,
+  deleteAndPushQueryStringValue,
+  deleteQueryStringValues,
   pageSize,
 } from '../../urlHelpers';
 import Loader from '../cds/loading/Loader';
 import PageTitle from '../PageTitle';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
+
+const messages = defineMessages({
+  sortTitle: {
+    id: 'articles.sortTitle',
+    defaultMessage: 'Title',
+    description: 'Label for sort criteria option displayed in a drop-down in the articles page.',
+  },
+  sortLanguage: {
+    id: 'articles.sortLanguage',
+    defaultMessage: 'Language',
+    description: 'Label for sort criteria option displayed in a drop-down in the articles page.',
+  },
+  sortDate: {
+    id: 'articles.sortDate',
+    defaultMessage: 'Updated (date)',
+    description: 'Label for sort criteria option displayed in a drop-down in the articles page.',
+  },
+});
+
+const updateMutationExplainer = graphql`
+  mutation ArticlesUpdateExplainerMutation($input: UpdateExplainerInput!) {
+    updateExplainer(input: $input) {
+      explainer {
+        id
+        tags
+      }
+    }
+  }
+`;
+
+const updateMutationFactCheck = graphql`
+  mutation ArticlesUpdateFactCheckMutation($input: UpdateFactCheckInput!) {
+    updateFactCheck(input: $input) {
+      fact_check {
+        id
+        tags
+      }
+    }
+  }
+`;
 
 // This converts the filters keys to the argument names expected by the articles field in the GraphQL query
 // The original keys are used in `ArticleFilters` to display the filters
@@ -36,6 +76,11 @@ const adjustFilters = (filters) => {
     newFilters.updated_at = JSON.stringify(filters.range.updated_at);
   } else {
     delete newFilters.updated_at;
+  }
+  if (filters.range?.created_at) {
+    newFilters.created_at = JSON.stringify(filters.range.created_at);
+  } else {
+    delete newFilters.created_at;
   }
 
   // Language
@@ -57,36 +102,48 @@ const adjustFilters = (filters) => {
     newFilters.rating = filters.verification_status;
   }
 
+  if (filters.article_type && filters.article_type.length === 0) {
+    delete newFilters.article_type;
+  }
+
   return newFilters;
 };
 
 const ArticlesComponent = ({
-  articleTypeReadOnly,
   articles,
   articlesCount,
   defaultFilters,
   filterOptions,
   filters,
   icon,
-  onChangeArticleType,
+  intl,
   onChangeSearchParams,
   page,
   reloadData,
   sort,
-  sortOptions,
   sortType,
   statuses,
   team,
   title,
-  type,
-  updateMutation,
 }) => {
-  let articleDbidFromUrl = null;
+  const sortOptions = [
+    { value: 'title', label: intl.formatMessage(messages.sortTitle) },
+    { value: 'language', label: intl.formatMessage(messages.sortLanguage) },
+    { value: 'updated_at', label: intl.formatMessage(messages.sortDate) },
+  ];
 
-  if (type === 'fact-check') articleDbidFromUrl = getQueryStringValue('factCheckId');
-  if (type === 'explainer') articleDbidFromUrl = getQueryStringValue('explainerId');
+  let articleTypeFromUrl = null;
+  let articleDbidFromUrl = getQueryStringValue('factCheckId');
+  if (articleDbidFromUrl) {
+    articleTypeFromUrl = 'fact-check';
+  } else {
+    articleDbidFromUrl = getQueryStringValue('explainerId');
+    if (articleDbidFromUrl) {
+      articleTypeFromUrl = 'explainer';
+    }
+  }
 
-  const [selectedArticleDbid, setSelectedArticleDbid] = React.useState(articleDbidFromUrl);
+  const [selectedArticle, setSelectedArticle] = React.useState({ id: articleDbidFromUrl, type: articleTypeFromUrl });
 
   // Track when number of articles increases: When it happens, it's because a new article was created, so refresh the list
   const [totalArticlesCount, setTotalArticlesCount] = React.useState(team.totalArticlesCount);
@@ -120,8 +177,8 @@ const ArticlesComponent = ({
   };
 
   const handleCloseSlideout = () => {
-    setSelectedArticleDbid(null);
-    deleteQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId');
+    if (selectedArticle.type) deleteQueryStringValues(['explainerId', 'factCheckId']);
+    setSelectedArticle({});
   };
 
   const onCompleted = () => {
@@ -144,7 +201,7 @@ const ArticlesComponent = ({
       'error');
   };
 
-  const handleUpdateTags = (id, tags) => {
+  const handleUpdateTags = (id, tags, updateMutation) => {
     commitMutation(Relay.Store, {
       mutation: updateMutation,
       variables: {
@@ -159,11 +216,11 @@ const ArticlesComponent = ({
   };
 
   const handleClick = (article) => {
-    if (article.dbid !== selectedArticleDbid) {
-      setSelectedArticleDbid(null);
+    if (article.dbid !== selectedArticle.id) {
+      setSelectedArticle({});
       setTimeout(() => {
-        setSelectedArticleDbid(article.dbid);
-        pushQueryStringValue(type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
+        setSelectedArticle({ id: article.dbid, type: article.type });
+        deleteAndPushQueryStringValue(article.type === 'explainer' ? 'factCheckId' : 'explainerId', article.type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
       }, 10);
     }
   };
@@ -206,14 +263,12 @@ const ArticlesComponent = ({
             onChange={handleChangeSort}
           />
           <ArticleFilters
-            articleTypeReadOnly={articleTypeReadOnly}
-            currentFilters={{ ...filters, article_type: type }}
-            defaultFilters={{ ...defaultFilters, article_type: type }}
+            articleTypeReadOnly={Boolean(defaultFilters.article_type)}
+            currentFilters={{ ...filters }}
+            defaultFilters={{ ...defaultFilters }}
             filterOptions={filterOptions}
             statuses={statuses.statuses}
             teamSlug={team.slug}
-            type={type}
-            onChangeArticleType={onChangeArticleType}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -230,7 +285,7 @@ const ArticlesComponent = ({
                 pageSize={pageSize}
                 onChangePage={handleChangePage}
               />
-              <ExportList filters={adjustFilters(filters)} type={type.replace('-', '_')} />
+              <ExportList filters={adjustFilters(filters)} type={defaultFilters.article_type ? defaultFilters.article_type.replace('-', '_') : 'articles'} />
             </div>
           </div>
           : null
@@ -249,6 +304,16 @@ const ArticlesComponent = ({
 
         <div className={searchResultsStyles['search-results-scroller']}>
           {articles.map((article) => {
+            let articleType = null;
+            let updateMutation = null;
+            if (article.nodeType === 'Explainer') {
+              articleType = 'explainer';
+              updateMutation = updateMutationExplainer;
+            } else if (article.nodeType === 'FactCheck') {
+              articleType = 'fact-check';
+              updateMutation = updateMutationFactCheck;
+            }
+
             let currentStatus = null;
             if (article.rating) {
               currentStatus = getStatus(statuses, article.rating);
@@ -259,7 +324,7 @@ const ArticlesComponent = ({
             return (
               <ArticleCard
                 date={article.updated_at}
-                handleClick={() => handleClick(article)}
+                handleClick={() => handleClick({ ...article, type: articleType })}
                 isPublished={article.report_status === 'published'}
                 key={article.id}
                 languageCode={article.language !== 'und' ? article.language : null}
@@ -269,26 +334,27 @@ const ArticlesComponent = ({
                 statusLabel={currentStatus ? currentStatus.label : null}
                 summary={isFactCheckValueBlank(summary) ? article.claim_description?.context : summary}
                 tags={article.tags}
+                teamSlug={team.slug}
                 title={isFactCheckValueBlank(article.title) ? article.claim_description?.description : article.title}
                 url={article.url}
-                variant={type}
-                onChangeTags={(tags) => { handleUpdateTags(article.id, tags); }}
+                variant={articleType}
+                onChangeTags={(tags) => { handleUpdateTags(article.id, tags, updateMutation); }}
               />
             );
           })}
         </div>
 
         <>
-          {selectedArticleDbid && type === 'fact-check' && (
+          {selectedArticle.type === 'fact-check' && (
             <ClaimFactCheckFormQueryRenderer
-              factCheckId={selectedArticleDbid}
+              factCheckId={selectedArticle.id}
               teamSlug={team.slug}
               onClose={handleCloseSlideout}
             />
           )}
-          {selectedArticleDbid && type === 'explainer' && (
+          {selectedArticle.type === 'explainer' && (
             <ExplainerFormQueryRenderer
-              explainerId={selectedArticleDbid}
+              explainerId={selectedArticle.id}
               teamSlug={team.slug}
               onClose={handleCloseSlideout}
             />
@@ -303,14 +369,12 @@ ArticlesComponent.defaultProps = {
   page: 1,
   sort: 'updated_at',
   sortType: 'DESC',
-  sortOptions: [],
   filterOptions: [],
   filters: {},
   defaultFilters: {},
   statuses: {},
   articles: [],
   articlesCount: 0,
-  onChangeArticleType: null,
 };
 
 ArticlesComponent.propTypes = {
@@ -338,12 +402,9 @@ ArticlesComponent.propTypes = {
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   filters: PropTypes.object,
   icon: PropTypes.node.isRequired,
+  intl: intlShape.isRequired,
   page: PropTypes.number,
   sort: PropTypes.oneOf(['title', 'language', 'updated_at']),
-  sortOptions: PropTypes.arrayOf(PropTypes.exact({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired, // Localizable string
-  })),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   statuses: PropTypes.object,
   team: PropTypes.shape({
@@ -351,27 +412,21 @@ ArticlesComponent.propTypes = {
     slug: PropTypes.string.isRequired,
   }).isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
-  updateMutation: PropTypes.object.isRequired,
-  onChangeArticleType: PropTypes.func,
   onChangeSearchParams: PropTypes.func.isRequired,
 };
+
+const ArticlesComponentWithIntl = injectIntl(ArticlesComponent);
 
 // Used in unit test
 // eslint-disable-next-line import/no-unused-modules
 export { ArticlesComponent, adjustFilters };
 
 const Articles = ({
-  articleTypeReadOnly,
   defaultFilters,
   filterOptions,
   icon,
-  onChangeArticleType,
-  sortOptions,
   teamSlug,
   title,
-  type,
-  updateMutation,
 }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
@@ -400,8 +455,8 @@ const Articles = ({
         key={new Date().getTime()}
         query={graphql`
           query ArticlesQuery(
-            $slug: String!, $type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
-            $users: [Int], $updated_at: String, $tags: [String], $language: [String], $published_by: [Int],
+            $slug: String!, $article_type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
+            $users: [Int], $updated_at: String, $created_at: String, $tags: [String], $language: [String], $published_by: [Int],
             $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean,
           ) {
             team(slug: $slug) {
@@ -410,16 +465,17 @@ const Articles = ({
               totalArticlesCount: articles_count
               verification_statuses
               articles_count(
-                article_type: $type, user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, text: $text,
+                article_type: $article_type, user_ids: $users, tags: $tags, updated_at: $updated_at, created_at: $created_at, language: $language, text: $text,
                 publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported, trashed: $trashed,
               )
               articles(
-                first: $pageSize, article_type: $type, offset: $offset, sort: $sort, sort_type: $sortType,
-                user_ids: $users, tags: $tags, updated_at: $updated_at, language: $language, publisher_ids: $published_by,
+                first: $pageSize, article_type: $article_type, offset: $offset, sort: $sort, sort_type: $sortType,
+                user_ids: $users, tags: $tags, updated_at: $updated_at, created_at: $created_at, language: $language, publisher_ids: $published_by,
                 report_status: $report_status, rating: $verification_status, imported: $imported, text: $text, trashed: $trashed,
               ) {
                 edges {
                   node {
+                    nodeType: __typename
                     ... on Explainer {
                       id
                       dbid
@@ -460,8 +516,7 @@ const Articles = ({
         render={({ error, props, retry }) => {
           if (!error && props) {
             return (
-              <ArticlesComponent
-                articleTypeReadOnly={articleTypeReadOnly}
+              <ArticlesComponentWithIntl
                 articles={props.team.articles.edges.map(edge => edge.node)}
                 articlesCount={props.team.articles_count}
                 defaultFilters={defaultFilters}
@@ -471,14 +526,10 @@ const Articles = ({
                 page={page}
                 reloadData={retry}
                 sort={sort}
-                sortOptions={sortOptions}
                 sortType={sortType}
                 statuses={props.team.verification_statuses}
                 team={props.team}
                 title={title}
-                type={type}
-                updateMutation={updateMutation}
-                onChangeArticleType={onChangeArticleType}
                 onChangeSearchParams={handleChangeSearchParams}
               />
             );
@@ -488,7 +539,6 @@ const Articles = ({
         }}
         variables={{
           slug: teamSlug,
-          type,
           pageSize,
           sort,
           sortType,
@@ -502,27 +552,16 @@ const Articles = ({
 };
 
 Articles.defaultProps = {
-  articleTypeReadOnly: true,
-  sortOptions: [],
   filterOptions: [],
   defaultFilters: {},
-  onChangeArticleType: null,
 };
 
 Articles.propTypes = {
-  articleTypeReadOnly: PropTypes.bool,
   defaultFilters: PropTypes.object,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   icon: PropTypes.node.isRequired,
-  sortOptions: PropTypes.arrayOf(PropTypes.exact({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired, // Localizable string
-  })),
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
-  type: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
-  updateMutation: PropTypes.object.isRequired,
-  onChangeArticleType: PropTypes.func,
 };
 
 export default Articles;

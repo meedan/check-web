@@ -10,6 +10,10 @@
     gap: 12px;
     padding: 6px;
 
+    .feedTopBarItemWrapper {
+      position: relative;
+    }
+
     .feedTopBarItem {
       align-items: center;
       border: 2px solid var(--color-blue-54);

@@ -49,7 +49,9 @@ const AnnotationFilterNumber = ({
   return (
     <>
       <ButtonMain
-        customStyle={{ color: 'var(--color-gray-15' }}
+        buttonProps={{
+          type: null,
+        }}
         disabled
         label={<FormattedMessage defaultMessage="between" description="Filter operator denoting user is filtering by numbers between two values" id="numericRangeFilter.between" />}
         size="small"
@@ -69,7 +71,9 @@ const AnnotationFilterNumber = ({
         )}
       </FormattedMessage>
       <ButtonMain
-        customStyle={{ color: 'var(--color-gray-15' }}
+        buttonProps={{
+          type: null,
+        }}
         disabled
         label={<FormattedMessage defaultMessage="and" description="Logical operator AND statement" id="numericRangeFilter.and" />}
         size="small"

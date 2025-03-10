@@ -198,7 +198,7 @@ class EditTaskDialog extends React.Component {
           />
         ),
         value: 'number',
-        icon: <NumberIcon style={{ fontSize: '24px' }} />,
+        icon: <NumberIcon />,
         description: (
           <FormattedMessage
             defaultMessage="Allows you to enter a number"
@@ -270,7 +270,7 @@ class EditTaskDialog extends React.Component {
           />
         ),
         value: 'multiple_choice',
-        icon: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
+        icon: <CheckBoxIcon />,
         description: (
           <FormattedMessage
             defaultMessage="Allows you to select one or more predefined options"
@@ -392,7 +392,7 @@ class EditTaskDialog extends React.Component {
           />
         </div>
         <div className={dialogStyles['dialog-content']}>
-          { this.props.message && <><Alert contained title={this.props.message} variant="error" /><br /></> }
+          { this.props.message && <><Alert border placement="contained" title={this.props.message} variant="error" /><br /></> }
           <div className={inputStyles['form-fieldset']}>
             <FormattedMessage defaultMessage="Enter a title for this annotation" description="Input Placeholder for the Title field for custom annotation field" id="task.TitlePlaceholder">
               {placeholder => (

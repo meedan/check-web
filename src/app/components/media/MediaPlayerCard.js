@@ -44,7 +44,6 @@ const MediaPlayerCard = ({
     <article className={cx('video-media-card', styles['video-media-card'])}>
       { errorAlert &&
       <Alert
-        banner
         buttonLabel="Download video"
         content={
           <FormattedMessage
@@ -53,6 +52,7 @@ const MediaPlayerCard = ({
             id="mediaPlayer.errorContent"
           />
         }
+        placement="banner"
         title={
           <FormattedMessage
             defaultMessage="A Playback Error Occurred."

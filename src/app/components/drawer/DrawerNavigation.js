@@ -1,5 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Drawer from '@material-ui/core/Drawer';
 import DrawerRail from './DrawerRail';
@@ -34,12 +35,16 @@ const DrawerNavigation = (parentProps) => {
             query={graphql`
               query DrawerNavigationQuery($teamSlug: String!) {
                 find_public_team(slug: $teamSlug) {
+                  dbid
                   ...DrawerRail_team
                 }
               }
             `}
             render={({ error, props }) => {
               if (!error && props) {
+                if (!props.find_public_team.dbid) {
+                  browserHistory.push('/check/not-found');
+                }
                 return (
                   <>
                     <DrawerRail

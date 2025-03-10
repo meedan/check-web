@@ -14,15 +14,22 @@ function getQueryStringValue(key) {
   return params.get(key);
 }
 
-function pushQueryStringValue(key, value) {
+function replaceQueryStringValue(key, value) {
   const url = new URL(window.location);
   url.searchParams.set(key, value);
+  window.history.replaceState({}, '', url);
+}
+
+function deleteQueryStringValues(keys) {
+  const url = new URL(window.location);
+  keys.map(key => url.searchParams.delete(key));
   window.history.pushState({}, '', url);
 }
 
-function deleteQueryStringValue(key) {
+function deleteAndPushQueryStringValue(deleteKey, pushKey, value) {
   const url = new URL(window.location);
-  url.searchParams.delete(key);
+  url.searchParams.delete(deleteKey);
+  url.searchParams.set(pushKey, value);
   window.history.pushState({}, '', url);
 }
 
@@ -140,7 +147,8 @@ export {
   getListUrlQueryAndIndex,
   getPathnameAndSearch,
   getQueryStringValue,
-  pushQueryStringValue,
-  deleteQueryStringValue,
+  replaceQueryStringValue,
+  deleteQueryStringValues,
+  deleteAndPushQueryStringValue,
   pageSize,
 }; // eslint-disable-line import/prefer-default-export

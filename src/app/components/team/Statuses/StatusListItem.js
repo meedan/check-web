@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -57,29 +56,18 @@ const StatusListItem = ({
   return (
     <li>
       <div>
-        {isDefault ? (
-          <FormattedMessage
-            defaultMessage="{statusLabel}"
-            description="The label of the user created status, with an additional note in parenthesis if the label is the default"
-            id="statusListItem.default"
-            values={{
-              statusLabel: (
-                <StatusLabel color={status.style.color}>
-                  {statusLabel}
-                  <small>
-                    (default)
-                  </small>
-                </StatusLabel>
-              ),
-            }}
-          />
-        ) : (
-          <StatusLabel color={status.style.color}>
-            {statusLabel}
-          </StatusLabel>
-        )
-        }
-        <p>{statusDescription}</p>
+        <StatusLabel color={status.style.color}>
+          {statusLabel}
+          {isDefault &&
+            <FormattedMessage
+              defaultMessage="(default)"
+              description="The label of the user created status, with an additional note in parenthesis if the label is the default"
+              id="statusListItem.default"
+              tagName="small"
+            />
+          }
+        </StatusLabel>
+        <small>{statusDescription}</small>
         <StatusMessage message={statusMessage} />
       </div>
       <div className={settingsStyles['setting-content-list-actions']}>
@@ -107,14 +95,14 @@ const StatusListItem = ({
 StatusListItem.propTypes = {
   defaultLanguage: PropTypes.string.isRequired,
   isDefault: PropTypes.bool,
-  onDelete: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
-  onMakeDefault: PropTypes.func.isRequired,
   preventDelete: PropTypes.bool,
   status: PropTypes.shape({
     id: PropTypes.string.isRequired,
     locales: PropTypes.object.isRequired,
   }).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onMakeDefault: PropTypes.func.isRequired,
 };
 
 StatusListItem.defaultProps = {

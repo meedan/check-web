@@ -7,7 +7,7 @@ describe('<Alert />', () => {
     const wrapper = shallow(<Alert
       content={<span>Bar</span>}
       title={<span>Foo</span>}
-      type="success"
+      variant="success"
     />);
     expect(wrapper.html()).toMatch('Foo');
     const content = wrapper.find('.test__alert-content');

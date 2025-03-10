@@ -32,9 +32,6 @@ function noFilters(query_) {
   if (/\/(tipline-inbox|imported-fact-checks)+/.test(window.location.pathname)) {
     delete query.channels;
   }
-  if (/\/(unmatched-media)+/.test(window.location.pathname)) {
-    delete query.unmatched;
-  }
   if (/\/(suggested-matches)+/.test(window.location.pathname)) {
     delete query.suggestions_count;
   }
@@ -126,7 +123,7 @@ Search.propTypes = {
   listActions: PropTypes.node, // or undefined
   listSubtitle: PropTypes.object,
   mediaUrlPrefix: PropTypes.string.isRequired,
-  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
   query: PropTypes.object.isRequired, // may be empty
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   resultType: PropTypes.string, // 'default' or 'feed', for now

@@ -76,7 +76,9 @@ class AnnotationFilterDate extends React.Component {
           TextFieldComponent={({ onClick, params, value: valueText }) => (
             <>
               <ButtonMain
-                customStyle={{ color: 'var(--color-gray-15' }}
+                buttonProps={{
+                  type: null,
+                }}
                 disabled
                 label={<FormattedMessage defaultMessage="after" description="String displayed before a date picker" id="search.afterDate" />}
                 size="small"
@@ -125,9 +127,9 @@ class AnnotationFilterDate extends React.Component {
             </>
           )}
           cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+          className="fresh"
           maxDate={this.endDateStringOrNull || undefined}
           okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
-          style={{ margin: '0 16px' }}
           value={this.startDateStringOrNull}
           onChange={this.handleChangeStartDate}
         />
@@ -135,7 +137,9 @@ class AnnotationFilterDate extends React.Component {
           TextFieldComponent={({ onClick, params, value: valueText }) => (
             <>
               <ButtonMain
-                customStyle={{ color: 'var(--color-gray-15' }}
+                buttonProps={{
+                  type: null,
+                }}
                 disabled
                 label={<FormattedMessage defaultMessage="and before" description="String displayed between after and before date pickers" id="search.beforeDate" />}
                 size="small"

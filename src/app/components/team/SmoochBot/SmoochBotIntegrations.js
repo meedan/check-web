@@ -13,10 +13,9 @@ import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
 import FacebookIcon from '../../../icons/facebook.svg';
 import LineIcon from '../../../icons/line.svg';
 import TelegramIcon from '../../../icons/telegram.svg';
-import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
-import InstagramIcon from '../../../icons/instagram.svg';
+import socialStyles from '../../../styles/css/socials.module.css';
 import smoochBotStyles from './SmoochBot.module.css';
 
 const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }) => {
@@ -44,7 +43,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ec472becaf"
-          icon={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
+          icon={<WhatsAppIcon className={socialStyles['whatsapp-green']} />}
           info={
             isOnline('whatsapp') ?
               <div>
@@ -188,33 +187,15 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           label="WhatsApp"
           online={isOnline('whatsapp')}
           permanentDisconnection
-          readOnly={isWabaSet || isCapiSet}
+          readOnly={!(isWabaSet || isCapiSet)}
           skipUrlConfirmation
           type="whatsapp"
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
         />
         <SmoochBotIntegrationButton
-          deprecationNotice={
-            <FormattedMessage
-              defaultMessage="The integration with X is currently not available, following changes to the X API on April 21, 2023."
-              description="Disclaimer displayed on X tipline settings page."
-              id="smoochBotIntegrations.twitterDisabled"
-            />
-          }
-          disabled={false}
-          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot"
-          icon={<TwitterIcon style={{ color: 'var(--xBlack)' }} />}
-          installationId={installationId}
-          label="X (Twitter)"
-          online={false}
-          readOnly={false}
-          type="twitter"
-          url={null}
-        />
-        <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
-          icon={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
+          icon={<FacebookIcon className={socialStyles['facebook-blue']} />}
           info={
             isOnline('messenger') ?
               <FormattedMessage
@@ -240,7 +221,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ff25899cc2"
-          icon={<TelegramIcon style={{ color: 'var(--telegramBlue)' }} />}
+          icon={<TelegramIcon className={socialStyles['telegram-blue']} />}
           info={
             isOnline('telegram') ?
               <FormattedMessage
@@ -271,7 +252,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_71c06164f3"
-          icon={<ViberIcon style={{ color: 'var(--viberPurple)' }} />}
+          icon={<ViberIcon className={socialStyles['viber-purple']} />}
           info={
             isOnline('viber') ?
               <FormattedMessage
@@ -298,7 +279,7 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
         <SmoochBotIntegrationButton
           disabled={!isEnabled}
           helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
-          icon={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
+          icon={<LineIcon className={socialStyles['line-green']} />}
           info={
             isOnline('line') ?
               <TextField
@@ -332,32 +313,6 @@ const SmoochBotIntegrations = ({ enabledIntegrations, installationId, settings }
           ]}
           readOnly={!isSmoochSet}
           type="line"
-        />
-        <SmoochBotIntegrationButton
-          disabled={!isEnabled}
-          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_b872d32c4d"
-          icon={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
-          info={
-            isOnline('instagram') ?
-              <FormattedMessage
-                defaultMessage="Connected profile: {link}"
-                description="Label for the connected Instagram profile for this bot"
-                id="smoochBotIntegrations.instagram"
-                values={{
-                  link: (
-                    <a href={`https://instagram.com/${enabledIntegrations.instagram.businessUsername}`} rel="noopener noreferrer" target="_blank">
-                      {enabledIntegrations.instagram.businessName}
-                    </a>
-                  ),
-                }}
-              /> : null
-          }
-          installationId={installationId}
-          label="Instagram"
-          online={isOnline('instagram')}
-          readOnly={!isSmoochSet}
-          type="instagram"
-          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
         />
       </div>
     </React.Fragment>

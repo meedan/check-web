@@ -157,7 +157,7 @@ const MediaArticlesComponent = ({
         ) : (
           <>
             <div className={cx('typography-body1', styles.articlesSidebarNoArticle)}>
-              <DescriptionIcon style={{ fontSize: 'var(--font-size-h4)' }} />
+              <DescriptionIcon />
               <div>
                 <FormattedMessage
                   defaultMessage="No articles are being delivered to Tipline users who send requests that match this Media."

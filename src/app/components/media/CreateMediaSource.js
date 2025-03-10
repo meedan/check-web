@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -172,7 +171,7 @@ function CreateMediaSource({
 
   return (
     <React.Fragment>
-      { message && <><Alert contained title={message} variant="error" /><br /></> }
+      { message && <><Alert border placement="contained" title={message} variant="error" /><br /></> }
       <div className={inputStyles['form-inner-wrapper']}>
         <div className={styles['media-sources-header']}>
           <div className={styles['media-sources-header-left']}>
@@ -361,9 +360,9 @@ CreateMediaSource.defaultProps = {
 
 CreateMediaSource.propTypes = {
   media: PropTypes.object.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  relateToExistingSource: PropTypes.func.isRequired,
   name: PropTypes.string,
+  relateToExistingSource: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default CreateMediaSource;

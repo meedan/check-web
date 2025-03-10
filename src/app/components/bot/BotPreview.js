@@ -223,13 +223,14 @@ const submitMatchingSettings = ({
 
 const BotPreview = ({ me, team }) => {
   let smoochIntegrations = { '-': { displayName: 'No tiplines enabled' } };
+  const storageKey = `${teamSlug}BotPreviewMessageHistory`; // ensure that message history is tied to a specific workspace
 
   if (team.smooch_bot?.smooch_enabled_integrations && Object.keys(team.smooch_bot.smooch_enabled_integrations)[0]) {
     smoochIntegrations = team.smooch_bot.smooch_enabled_integrations;
   }
   const firstPlatform = Object.keys(smoochIntegrations)[0];
 
-  const savedHistory = safelyParseJSON(window.storage.getValue('botPreviewMessageHistory'), []);
+  const savedHistory = safelyParseJSON(window.storage.getValue(storageKey), []);
 
   // FIXME: When the Feature Flag is removed, we probably should just use:
   // const userRole = UserUtil.myRole(window.Check.store.getState().app.context.currentUser, TeamSlug)
@@ -348,7 +349,7 @@ const BotPreview = ({ me, team }) => {
     }
 
     setMessageHistory(newHistory);
-    window.storage.set('botPreviewMessageHistory', JSON.stringify(newHistory));
+    window.storage.set(storageKey, JSON.stringify(newHistory));
   };
 
   const sendQuery = (text) => {
@@ -394,13 +395,13 @@ const BotPreview = ({ me, team }) => {
     ];
 
     setMessageHistory(newHistory);
-    window.storage.set('botPreviewMessageHistory', JSON.stringify(newHistory));
+    window.storage.set(storageKey, JSON.stringify(newHistory));
   };
 
   const resetHistory = () => {
     setDialogOpen(false);
     setMessageHistory([]);
-    window.storage.set('botPreviewMessageHistory', JSON.stringify([]));
+    window.storage.set(storageKey, JSON.stringify([]));
   };
 
   if (!me.is_admin) return null;
@@ -409,7 +410,6 @@ const BotPreview = ({ me, team }) => {
     <>
       { settingsHaveChanged && (
         <Alert
-          banner
           buttonLabel={
             <FormattedMessage
               defaultMessage="Apply Changes to Live Bot"
@@ -433,6 +433,7 @@ const BotPreview = ({ me, team }) => {
               onClick={() => setConfirmBeforeReset(true)}
             />
           }
+          placement="banner"
           title={
             <FormattedMessage
               defaultMessage="Changes Made to Bot Settings"

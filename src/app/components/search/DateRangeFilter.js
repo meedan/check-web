@@ -16,7 +16,7 @@ import styles from './search.module.css';
 const messages = defineMessages({
   created_at: {
     id: 'search.dateSubmittedHeading',
-    defaultMessage: 'Request submitted',
+    defaultMessage: 'Item created',
     description: 'This is a header in a drop down selector, to filter a search by the submission date',
   },
   updated_at: {
@@ -166,9 +166,9 @@ function DateRangeSelectorStartEnd(props) {
           </>
         )}
         cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" id="global.cancel" />}
+        className="fresh"
         maxDate={getEndDateStringOrNull() || undefined}
         okLabel={<FormattedMessage defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" id="global.ok" />}
-        style={{ margin: '0 16px' }}
         value={getStartDateStringOrNull()}
         onChange={handleChangeStartDate}
       />
@@ -176,7 +176,9 @@ function DateRangeSelectorStartEnd(props) {
         TextFieldComponent={({ onClick, params, value: valueText }) => (
           <>
             <ButtonMain
-              customStyle={{ color: 'var(--color-gray-15' }}
+              buttonProps={{
+                type: null,
+              }}
               disabled
               label={<FormattedMessage defaultMessage="and" description="String displayed between after and before date pickers" id="search.beforeDate" />}
               size="small"
@@ -250,6 +252,7 @@ function DateRangeSelectorRelative(props) {
         { placeholder => (
           <TextField
             className={styles['filter-input-number']}
+            min={1}
             placeholder={placeholder}
             type="number"
             value={relativeQuantity}
@@ -305,7 +308,7 @@ const DateRangeFilter = ({
     years: 'y',
   };
   const [relativeRange, setRelativeRange] = React.useState((value && value[getValueType()]?.period_type) || relativeRanges.days);
-  const [relativeQuantity, setRelativeQuantity] = React.useState((value && value[getValueType()]?.period) || '0');
+  const [relativeQuantity, setRelativeQuantity] = React.useState((value && value[getValueType()]?.period) || '1');
 
   const getDateStringOrNull = field => (value && value[getValueType()][field]) || null;
 

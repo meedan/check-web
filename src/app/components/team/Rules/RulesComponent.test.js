@@ -1,5 +1,5 @@
 import React from 'react';
-import RulesComponent from './RulesComponent';
+import { RulesComponent } from './RulesComponent';
 import schema from './../../../../../test/unit/mocks/rules-schema';
 import rules from './../../../../../test/unit/mocks/rules';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
