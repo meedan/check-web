@@ -243,7 +243,27 @@ class Annotation extends Component {
     case 'update_dynamic':
       if (object.annotation_type === 'verification_status') {
         const statusChanges = safelyParseJSON(activity.object_changes_json);
-        if (statusChanges.assigned_to_id) {
+        if (statusChanges.locked) {
+          if (statusChanges.locked[1]) {
+            contentTemplate = (
+              <FormattedMessage
+                defaultMessage="Item status locked by {author}"
+                description="Log entry indicating an item status has been locked"
+                id="annotation.statusLocked"
+                values={{ author: authorName }}
+              />
+            );
+          } else {
+            contentTemplate = (
+              <FormattedMessage
+                defaultMessage="Item status unlocked by {author}"
+                description="Log entry indicating an item status has been unlocked"
+                id="annotation.statusUnlocked"
+                values={{ author: authorName }}
+              />
+            );
+          }
+        } else if (statusChanges.assigned_to_id) {
           const assignment = safelyParseJSON(activity.meta);
           if (assignment.assigned_to_name) {
             contentTemplate = (
