@@ -10,16 +10,6 @@
     "defaultMessage": "Assign to…"
   },
   {
-    "id": "mediaActions.unlockStatus",
-    "description": "Menu item to unlock an item status so it can be changed",
-    "defaultMessage": "Unlock status"
-  },
-  {
-    "id": "mediaActions.lockStatus",
-    "description": "Menu item to lock an item status so it cannot be changed",
-    "defaultMessage": "Lock status"
-  },
-  {
     "id": "mediaActions.sendToTrash",
     "description": "Menu item to move the current item to the trash list",
     "defaultMessage": "Send to Trash"

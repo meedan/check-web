@@ -50,16 +50,6 @@
     "defaultMessage": "Item unassigned from {name} by {author}"
   },
   {
-    "id": "annotation.statusLocked",
-    "description": "Log entry indicating an item status has been locked",
-    "defaultMessage": "Item status locked by {author}"
-  },
-  {
-    "id": "annotation.statusUnlocked",
-    "description": "Log entry indicating an item status has been unlocked",
-    "defaultMessage": "Item status unlocked by {author}"
-  },
-  {
     "id": "annotation.mediaAssigned",
     "description": "Log entry indicating an item has been assigned",
     "defaultMessage": "Item assigned to {name} by {author}"

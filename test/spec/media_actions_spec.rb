@@ -26,26 +26,6 @@ shared_examples 'media actions' do
     expect(title1 != title2).to be(true)
   end
 
-  it 'should lock and unlock status', bin2: true do
-    api_create_team_and_claim_and_redirect_to_media_page
-    wait_for_selector('.test__media')
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__assign')
-    expect(@driver.page_source.include?('Lock status')).to be(true)
-    wait_for_selector('.media-actions__lock-status').click
-    @driver.navigate.refresh
-    wait_for_selector('.test__media')
-    wait_for_selector('.media-actions__icon').click
-    expect(@driver.page_source.include?('Unlock status')).to be(true)
-    wait_for_selector('.media-actions__lock-status').click
-    @driver.navigate.refresh
-    wait_for_selector('.test__media')
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__assign')
-    expect(@driver.page_source.include?('Lock status')).to be(true)
-    expect(@driver.page_source.include?('Unlock status')).to be(false)
-  end
-
   it 'should not create duplicated media', bin1: true do
     api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: @media_url })
     id1 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i

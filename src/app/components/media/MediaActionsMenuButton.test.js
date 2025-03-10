@@ -21,7 +21,6 @@ describe('<MediaActionsMenuButton />', () => {
     handleSendToTrash: () => {},
     handleSendToSpam: () => {},
     handleAssign: () => {},
-    handleStatusLock: () => {},
   };
 
   it('should allow sending Unconfirmed items to the Trash and to Spam', () => {
