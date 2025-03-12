@@ -246,7 +246,7 @@ class CreateRelatedMediaDialog extends React.Component {
               <AutoCompleteMediaItem
                 customFilter={this.props.customFilter}
                 dbid={media ? media.dbid : null}
-                disablePublished={Boolean(this.props.disablePublished)}
+                // disablePublished={Boolean(this.props.disablePublished)}
                 ignoreGeneralContentMask={false}
                 key={action}
                 media={media}

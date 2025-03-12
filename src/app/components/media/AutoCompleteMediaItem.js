@@ -239,16 +239,20 @@ const AutoCompleteMediaItem = (props, context) => {
         return;
       }
 
+      // eslint-disable-next-line
+      console.log('Search response:', response.data.search);
+      // eslint-disable-next-line
+      console.log('custom Filter:', props.customFilter);
       // The rest of this code is synchronous, so it can't be aborted.
       try {
         const { team } = response.data.search;
         let items = response.data.search.medias.edges.map(({ node }) => node);
+        // eslint-disable-next-line
+        console.log('Items:', items);
         if (props.customFilter) {
           items = props.customFilter(items);
-        } else {
-          items = items
-            .filter(({ is_confirmed_similar_to_another_item }) =>
-              !is_confirmed_similar_to_another_item);
+          // eslint-disable-next-line
+          console.log('Filtered items:', items);
         }
         items = items
           .filter(({ dbid }) => dbid !== props.dbid);
