@@ -122,7 +122,7 @@ const FeedActions = ({
               <Alert
                 content={
                   <ul className="bulleted-list">
-                    <li>{feed.saved_search.title}</li>
+                    <li>{feed.saved_search?.title}</li>
                   </ul>
                 }
                 title={
