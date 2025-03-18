@@ -243,12 +243,8 @@ const AutoCompleteMediaItem = (props, context) => {
       try {
         const { team } = response.data.search;
         let items = response.data.search.medias.edges.map(({ node }) => node);
-        // eslint-disable-next-line
-        console.log('Items:', items);
         if (props.customFilter) {
           items = props.customFilter(items);
-          // eslint-disable-next-line
-          console.log('Filtered items:', items);
         }
         items = items
           .filter(({ dbid }) => dbid !== props.dbid);
