@@ -413,3 +413,11 @@ body[dir='rtl'] {
     }
   }
 }
+
+.disabled-card {
+  opacity: .45;
+
+  &:hover {
+    opacity: 1;
+  }
+}

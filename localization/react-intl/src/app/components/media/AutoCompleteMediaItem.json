@@ -43,5 +43,10 @@
     "id": "autoCompleteMediaItem.cantSelectPublished",
     "description": "Tooltip error message about when media can be imported",
     "defaultMessage": "Media cannot be imported from items that have their report published"
+  },
+  {
+    "id": "autoCompleteMediaItem.factcheckInUseTooltip",
+    "description": "Tooltip message displayed on article cards on item page for fact-check type articles.",
+    "defaultMessage": "This Claim & Fact-Check article is already applied to another media cluster<br /><br />Remove it from its current media cluster in order to add it here."
   }
 ]
