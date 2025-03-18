@@ -245,6 +245,10 @@ const AutoCompleteMediaItem = (props, context) => {
         let items = response.data.search.medias.edges.map(({ node }) => node);
         if (props.customFilter) {
           items = props.customFilter(items);
+        } else {
+          items = items
+            .filter(({ is_confirmed_similar_to_another_item }) =>
+              !is_confirmed_similar_to_another_item);
         }
         items = items
           .filter(({ dbid }) => dbid !== props.dbid);
@@ -343,6 +347,8 @@ const AutoCompleteMediaItem = (props, context) => {
             if (projectMedia.fact_check?.rating) {
               currentStatus = getStatus(searchResult.team.verification_statuses, projectMedia.fact_check.rating);
             }
+
+            const factCheckInUse = projectMedia.media.type !== 'Blank';
 
             return (
               <div
