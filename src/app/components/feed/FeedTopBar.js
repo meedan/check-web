@@ -137,8 +137,10 @@ const FeedTopBar = ({
     );
   };
 
-  const currentOrg = feed.teams?.edges.find(feedTeam => feedTeam.node.slug === team.slug).node;
-  const teamsWithoutCurrentOrg = feed.teams?.edges.filter(feedTeam => feedTeam.node.slug !== team.slug);
+  const currentOrg = feed.feed_teams?.edges.find(feedTeam => feedTeam.node.team.slug === team.slug).node.team;
+  const teamsWithoutCurrentOrg = feed.feed_teams?.edges
+    .filter(feedTeam => feedTeam.node.team.slug !== team.slug)
+    .filter(feedTeam => Boolean(feedTeam.node.saved_search_id));
 
   return (
     <div className={searchResultsStyles['search-results-top-extra']}>
@@ -159,7 +161,7 @@ const FeedTopBar = ({
               dbid,
               name,
               slug,
-            } = feedTeam.node;
+            } = feedTeam.node.team;
             return (
               <OrgFilterButton
                 avatar={avatar}
@@ -240,13 +242,16 @@ export default createFragmentContainer(FeedTopBar, graphql`
     dbid
     published
     permissions
-    teams(first: 1000) {
+    feed_teams(first: 1000) {
       edges {
         node {
-          dbid
-          avatar
-          name
-          slug
+          saved_search_id
+          team {
+            dbid
+            avatar
+            name
+            slug
+          }
         }
       }
     }
