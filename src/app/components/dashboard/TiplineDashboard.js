@@ -48,7 +48,7 @@ const TiplineDashboard = ({
             selectedLanguage={language || 'all'}
             onSubmit={onChangeLanguage}
           />
-          <PlatformSelect platforms={[...new Set([...team.statistics_platforms, ...Object.keys(team.team_bot_installation?.smooch_enabled_integrations)])]} value={platform || 'all'} onChange={onChangePlatform} />
+          <PlatformSelect platforms={[...new Set([...team.statistics_platforms, ...Object.keys(team.team_bot_installation?.smooch_enabled_integrations || {})])]} value={platform || 'all'} onChange={onChangePlatform} />
         </div>
         <div>
           <ExportList filters={{ language, period, platform }} type="tipline_dashboard" />
