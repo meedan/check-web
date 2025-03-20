@@ -21,13 +21,6 @@ const FeedTopBar = ({
   team,
   teamFilters,
 }) => {
-  const hasList = Boolean(feed.saved_search);
-
-  const handleClick = () => {
-    const customListDbid = feed.current_feed_team.saved_search?.dbid || feed.saved_search.dbid;
-    browserHistory.push(`/${team.slug}/list/${customListDbid}`);
-  };
-
   const handleClickAdd = () => {
     browserHistory.push(`/${team.slug}/feed/${feed.dbid}/edit`);
   };
@@ -39,6 +32,7 @@ const FeedTopBar = ({
   const OrgFilterButton = ({
     avatar,
     current,
+    customListDbid,
     dbid,
     enabled,
     name,
@@ -97,7 +91,7 @@ const FeedTopBar = ({
               {
                 [styles.feedTopBarButton]: enabled,
                 [styles.feedTopBarButtonDisabled]: !enabled,
-                [styles.feedTopBarButtonHasList]: current && hasList,
+                [styles.feedTopBarButtonHasList]: current && customListDbid,
               })
             }
             onClick={handleFilterClick}
@@ -107,7 +101,7 @@ const FeedTopBar = ({
               current && (
                 <div className="typography-body2">
                   {
-                    hasList ?
+                    customListDbid ?
                       <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
                         <span className={styles.feedListTitle}>{feed.current_feed_team?.saved_search?.title || feed.saved_search.title}</span>
                       </div> :
@@ -117,7 +111,7 @@ const FeedTopBar = ({
             }
           </button>
         </Tooltip>
-        { current && hasList && (
+        { current && customListDbid && (
           <Tooltip
             arrow
             placement="right"
@@ -134,7 +128,7 @@ const FeedTopBar = ({
                 size="small"
                 theme="lightText"
                 variant="contained"
-                onClick={handleClick}
+                onClick={() => browserHistory.push(`/${team.slug}/list/${customListDbid}`)}
               />
             </span>
           </Tooltip>
@@ -153,6 +147,7 @@ const FeedTopBar = ({
           <OrgFilterButton
             avatar={currentOrg.avatar}
             current
+            customListDbid={feed.current_feed_team?.saved_search?.dbid || feed.saved_search?.dbid}
             dbid={currentOrg.dbid}
             enabled={teamFilters.includes(currentOrg.dbid)}
             name={currentOrg.name}
