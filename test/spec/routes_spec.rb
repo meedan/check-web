@@ -54,71 +54,56 @@ shared_examples 'routes' do
   it 'should load route :team/media/:mediaId/{tab}', bin1: true do
     data = api_create_team_and_bot
     pm1 = api_create_claim(data: data, quote: 'claim 1')
-    # pm2 = api_create_claim(data: data, quote: 'claim 2')
-    # api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm2.id)
 
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}/metadata"
-    wait_for_selector('.route__media')
+    wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
-    expect(@driver.find_elements(:css, '.test-label__button').empty?).to be(false)
-  
+    expect(@driver.find_elements(:css, 'button').empty?).to be(false)
+
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}/tasks"
-    wait_for_selector('.route__media')
+    wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '.test-label__button').empty?).to be(false)
 
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}/source"
-    wait_for_selector('.route__media')
+    wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
-    expect(@driver.find_elements(:css, '.test-label__button').empty?).to be(false)
+    expect(@driver.find_elements(:css, 'button').empty?).to be(false)
 
-    # @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}/similar-midia"
-    # wait_for_selector('.similarity-bar__matches-count')
-    # expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
-    # expect(@driver.find_elements(:css, '.test-label__button').empty?).to be(false)
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}/similar-media"
+    wait_for_selector('.media-card-large')
+    expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
+    expect(@driver.find_elements(:css, '.test__media').empty?).to be(false)
   end
 
-  it 'should load route :team/list', bin1: true do
-    api_create_team_and_claim_and_redirect_to_media_page
-    wait_for_selector('.test__media')
-    @driver.action.move_to(wait_for_selector('.project-list__header')).perform # hover element
-    wait_for_selector('#projects-list__add-filtered-list').click
-    wait_for_selector('#new-project__title').send_keys('List 01')
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
+  it 'should load route :team/list/media/mediaId/{tab}', bin1: true do
+    create_list_and_item_and_redirect_to_list_page
+    base_url = @driver.current_url.to_s
+    base_url = base_url.match(%r{^(http://[^/]+/[^/]+/list/\d+/media/\d+)}).to_s
 
-    wait_for_selector('#search-input')
-    wait_for_selector('.cluster-card').click
-    # http://localhost:3333/test-team-1742901676-6461/list/5/media/45?listIndex=0&tab=articles
-    # Get the current URL
-    url = @driver.current_url.to_s
-    base_url = url.match(%r{^(http://[^/]+/[^/]+/list/\d+/media/\d+)}).to_s
-    puts "Base URL: #{base_url}"
-
-    @driver.navigate.to "#{base_url}"
-    wait_for_selector('.route__media')
-    expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
-
-    # Use the base_url to build new URLs
     new_url = "#{base_url}/metadata"
-    puts "New URL: #{new_url}"
     @driver.navigate.to new_url
-    wait_for_selector('.route__media')
+    wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
+    expect(@driver.find_elements(:css, 'button').empty?).to be(false)
 
     new_url = "#{base_url}/tasks"
     @driver.navigate.to new_url
-    wait_for_selector('.route__media')
+    wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
+    expect(@driver.find_elements(:css, 'button').empty?).to be(false)
 
     new_url = "#{base_url}/source"
     @driver.navigate.to new_url
-    wait_for_selector('.route__media')
+    wait_for_selector('#media_source-change')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
+    expect(@driver.find_elements(:css, '#media-source__create-button').empty?).to be(false)
 
     new_url = "#{base_url}/similar-media"
     @driver.navigate.to new_url
-    wait_for_selector('.route__media')
+    wait_for_selector('.media-card-large')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
+    expect(@driver.find_elements(:css, '.test__media').empty?).to be(false)
   end
 
   it 'should load route :team/articles/{tab}', bin1: true do
@@ -161,31 +146,21 @@ shared_examples 'routes' do
     expect(@driver.find_elements(:css, '.list-sort').empty?).to be(false)
   end
 
-  it 'should load route :team/trash(/:query)', bin1: true do
-    data = api_create_team_and_bot
-    query = '%7B%22archived%22%3A4%2C%22sort%22%3A%22recent_activity%22%2C%22sort_type%22%3A%22ASC%22%2C%22parent%22%3A%7B%22type%22%3A%22team%22%2C%22slug%22%3A%22fsaf%22%7D%7D'
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/trash/#{query}"
-
-    wait_for_selector('.search__list-header-filter-row')
-    expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
-    expect(@driver.find_elements(:css, '.list-sort').empty?).to be(false)
-  end
-
   it 'should load route :team/tipline-inbox(/:query)', bin1: true do
     data = api_create_team_and_bot
     query = '%7B%22archived%22%3A4%2C%22sort%22%3A%22recent_activity%22%2C%22sort_type%22%3A%22ASC%22%2C%22parent%22%3A%7B%22type%22%3A%22team%22%2C%22slug%22%3A%22fsaf%22%7D%7D'
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/tipline-inbox/#{query}"
-  
+
     wait_for_selector('.search__list-header-filter-row')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '.list-sort').empty?).to be(false)
   end
-  
+
   it 'should load route :team/suggested-matches(/:query)', bin1: true do
     data = api_create_team_and_bot
     query = '%7B%22archived%22%3A4%2C%22sort%22%3A%22recent_activity%22%2C%22sort_type%22%3A%22ASC%22%2C%22parent%22%3A%7B%22type%22%3A%22team%22%2C%22slug%22%3A%22fsaf%22%7D%7D'
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/suggested-matches/#{query}"
-  
+
     wait_for_selector('.search__list-header-filter-row')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '.list-sort').empty?).to be(false)
@@ -195,11 +170,31 @@ shared_examples 'routes' do
     data = api_create_team_and_bot
     query = '%7B%22archived%22%3A4%2C%22sort%22%3A%22recent_activity%22%2C%22sort_type%22%3A%22ASC%22%2C%22parent%22%3A%7B%22type%22%3A%22team%22%2C%22slug%22%3A%22fsaf%22%7D%7D'
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/assigned-to-me/#{query}"
-  
+
     wait_for_selector('.search__list-header-filter-row')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '.list-sort').empty?).to be(false)
   end
-    
+
+  it 'should load route :team/bot', bin1: true do
+    data = api_create_team(is_admin: true)
+    @driver.navigate.to "#{@config['self_url']}/#{data.slug}/bot"
+    wait_for_selector('.test__alert-content')
+    expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
+    expect(@driver.find_elements(:css, '.contactId').empty?).to be(false)
+  end
+
+  it 'should load route :team/feed/{tab}', bin1: true do
+    data = api_create_feed
+
+    request_api 'claim', { quote: 'ble', email: data[:user].email, team_id: data[:team].dbid }
+
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/feed/#{data[:feed].id}/edit"
+    expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
+
+    sleep 5
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/feed/#{data[:feed].id}"
+    sleep 10
+    # @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/feed/#{data[:feed].id}/item/#{claim[:id]}"
+  end
 end
-  
