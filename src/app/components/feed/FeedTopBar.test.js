@@ -9,13 +9,15 @@ const feed = {
     dbid: 1,
     title: 'Test',
   },
-  teams: {
+  feed_teams: {
     edges: [
       {
         node: {
-          dbid: 1,
-          slug: 'test',
-          avatar: 'https://example.com',
+          team: {
+            dbid: 1,
+            slug: 'test',
+            avatar: 'https://example.com',
+          },
         },
       },
     ],
