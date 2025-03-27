@@ -295,4 +295,14 @@ module AppSpecHelpers
     wait_for_selector('.media-articles-card__card').click
     wait_for_selector('.article-card')
   end
+
+  def create_list_and_item_and_redirect_to_list_page
+    data = api_create_saved_search
+    sleep 2
+    claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid }
+    sleep 2
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/list/#{data[:saved_search].id}/media/#{claim.media_id}"
+    puts claim
+    { data: data, claim: claim }
+  end
 end

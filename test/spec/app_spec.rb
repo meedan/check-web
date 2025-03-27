@@ -13,6 +13,7 @@ require_relative './login_spec_helpers'
 require_relative './media_actions_spec'
 require_relative './media_spec'
 require_relative './list_spec'
+require_relative './routes_spec'
 require_relative './rules_spec'
 require_relative './search_spec'
 require_relative './status_spec'
@@ -102,6 +103,7 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'media actions'
     include_examples 'annotation'
     include_examples 'list'
+    include_examples 'routes'
     include_examples 'rules'
     include_examples 'search'
     include_examples 'source'
@@ -125,24 +127,6 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('.login__form')
       wait_for_selector('.login__icon')
       expect(@driver.find_element(:css, '.login__heading span').text == 'Iniciar sessão').to be(true)
-    end
-
-    it 'should access user confirmed page', bin1: true do
-      @driver.navigate.to "#{@config['self_url']}/check/user/confirm/confirmed"
-      title = wait_for_selector('.confirm__heading')
-      expect(title.text == 'Account Confirmed').to be(true)
-    end
-
-    it 'should access user unconfirmed page', bin1: true do
-      @driver.navigate.to "#{@config['self_url']}/check/user/confirm/unconfirmed"
-      unconfirmed_msg = wait_for_selector('.confirm_content').text
-      expect(unconfirmed_msg.include?('Sorry, an error occurred while confirming your account')).to be(true)
-    end
-
-    it 'should access user already confirmed page', bin1: true do
-      @driver.navigate.to "#{@config['self_url']}/check/user/confirm/already-confirmed"
-      title = wait_for_selector('.confirm__heading')
-      expect(title.text == 'Account Already Confirmed').to be(true)
     end
 
     it 'should redirect to 404 page', bin4: true do

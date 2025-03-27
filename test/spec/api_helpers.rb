@@ -33,9 +33,43 @@ module ApiHelpers
   def api_create_and_confirm_user(params = {})
     email = params[:email] || "test-#{Time.now.to_i}-#{rand(1000)}@test.com"
     password = params[:password] || 'checkTest@12'
-    user = request_api 'user', { name: 'User With Email', email: email, password: password, password_confirmation: password, provider: '' }
+    is_admin = params[:is_admin] || false
+    user = request_api 'user', { name: 'User With Email', email: email, password: password, password_confirmation: password, provider: '', is_admin: is_admin }
     request_api 'confirm_user', { email: email }
     user
+  end
+
+  def api_create_feed(params = {})
+    team_data = params[:team_data] || api_create_team_and_bot(params)
+    puts "Creating feed for team #{team_data[:team].dbid} and user #{team_data[:user].dbid}"
+
+    email = params[:email] || team_data[:user].email
+    claim = request_api 'claim', { quote: 'bla', email: email, team_id: team_data[:team].dbid }
+    puts claim.inspect
+
+    feed_params = {
+      team_id: team_data[:team].dbid,
+      email: email
+    }
+
+    feed = request_api('create_feed', feed_params)
+
+    { feed: feed, team: team_data[:team], user: team_data[:user] }
+  end
+
+  def api_create_saved_search(params = {})
+    team_data = params[:team_data] || api_create_team_and_bot(params)
+    email = params[:email] || team_data[:user].email
+    sleep 2
+
+    saved_search_params = {
+      team_id: team_data[:team].dbid,
+      email: email
+    }
+
+    saved_search = request_api('create_saved_search', saved_search_params)
+
+    { saved_search: saved_search, team: team_data[:team], user: team_data[:user] }
   end
 
   def api_register_and_login_with_email(params = {})
@@ -46,7 +80,7 @@ module ApiHelpers
 
   def api_create_team(params = {})
     team_name = params[:team] || "TestTeam#{Time.now.to_i}-#{rand(99_999)}"
-    user = params[:user] || api_register_and_login_with_email
+    user = params[:user] || api_register_and_login_with_email(is_admin: params[:is_admin])
     options = { name: team_name, email: user.email }
     options[:private] = true if params[:private]
     request_api 'team', options
