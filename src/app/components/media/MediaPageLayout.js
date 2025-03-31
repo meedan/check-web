@@ -24,7 +24,7 @@ export default function MediaPageLayout({
       ) : null}
       <div className={styles['media-actions-bar']}>
         <MediaActionsBar
-          key={`media-actions-bar-${listUrl}-${projectMediaId}`
+          key={`media-actions-bar-${listUrl}-${projectMediaId}`}
           listIndex={listIndex}
           listQuery={listQuery}
           listUrl={listUrl}
@@ -33,7 +33,7 @@ export default function MediaPageLayout({
       </div>
       <div className={cx('test__media', styles['media-item'])}>
         <Media
-          key={`media-${listUrl}-${projectMediaId}`
+          key={`media-${listUrl}-${projectMediaId}`}
           projectMediaId={projectMediaId}
           view={view}
         />
