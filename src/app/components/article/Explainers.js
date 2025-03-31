@@ -7,7 +7,7 @@ import BookIcon from '../../icons/book.svg';
 const Explainers = ({ routeParams }) => (
   <Articles
     defaultFilters={{ article_type: 'explainer' }}
-    filterOptions={['users', 'tags', 'range', 'language_filter']}
+    filterOptions={['users', 'tags', 'range', 'language_filter', 'channels']}
     icon={<BookIcon />}
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="Explainers" description="Title of the explainers page." id="explainers.title" />}
