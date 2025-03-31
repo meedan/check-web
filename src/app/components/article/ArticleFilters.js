@@ -282,12 +282,13 @@ const ArticleFilters = ({
                   icon={<DescriptionIcon />}
                   label={<FormattedMessage defaultMessage="Article channel is" description="Prefix label for field to filter by article channel." id="articleFilters.articleChannel" />}
                   options={[
-                    { value: 'api', label: 'api' },
-                    { value: 'manual', label: 'manual' },
-                    { value: 'imported', label: 'imported' },
-                    { value: 'zapier', label: 'zapier' },
+                    { value: 'api', label: 'API' },
+                    { value: 'manual', label: 'Manual' },
+                    { value: 'imported', label: 'Imported' },
+                    { value: 'zapier', label: 'Zapier' },
                   ]}
                   selected={value || []}
+                  single
                   onChange={newValue => handleOptionChange('channels', newValue)}
                   onRemove={() => handleRemoveFilter('channels')}
                 />
