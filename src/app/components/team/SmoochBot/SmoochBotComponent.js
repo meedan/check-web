@@ -1,10 +1,9 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { injectIntl, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import SmoochBotConfig from './SmoochBotConfig';
-import { placeholders } from './localizables';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import UserUtil from '../../user/UserUtil';
 import SettingsHeader from '../SettingsHeader';
@@ -21,7 +20,6 @@ import settingsStyles from '../Settings.module.css';
 
 const SmoochBotComponent = ({
   currentUser,
-  intl,
   setFlashMessage,
   smoochBotDbid,
   team,
@@ -122,28 +120,22 @@ const SmoochBotComponent = ({
       const updatedValue = JSON.parse(JSON.stringify(settings));
       updatedValue.smooch_workflows.push({
         smooch_workflow_language: languageCode,
-        smooch_message_smooch_bot_result_changed:
-          intl.formatMessage(placeholders.smooch_message_smooch_bot_result_changed),
-        smooch_message_smooch_bot_message_confirmed:
-          intl.formatMessage(placeholders.smooch_message_smooch_bot_message_confirmed),
-        smooch_message_smooch_bot_message_type_unsupported:
-          intl.formatMessage(placeholders.smooch_message_smooch_bot_message_type_unsupported),
-        smooch_message_smooch_bot_disabled:
-          intl.formatMessage(placeholders.smooch_message_smooch_bot_disabled),
-        smooch_message_smooch_bot_greetings:
-          intl.formatMessage(placeholders.smooch_message_smooch_bot_greetings),
-        smooch_message_smooch_bot_option_not_available:
-          intl.formatMessage(placeholders.smooch_message_smooch_bot_option_not_available),
+        smooch_message_smooch_bot_result_changed: '',
+        smooch_message_smooch_bot_message_confirmed: '',
+        smooch_message_smooch_bot_message_type_unsupported: '',
+        smooch_message_smooch_bot_disabled: '',
+        smooch_message_smooch_bot_greetings: '',
+        smooch_message_smooch_bot_option_not_available: '',
         smooch_state_main: {
-          smooch_menu_message: intl.formatMessage(placeholders.smooch_state_main),
+          smooch_menu_message: '',
           smooch_menu_options: [],
         },
         smooch_state_secondary: {
-          smooch_menu_message: intl.formatMessage(placeholders.smooch_state_secondary),
+          smooch_menu_message: '',
           smooch_menu_options: [],
         },
         smooch_state_query: {
-          smooch_menu_message: intl.formatMessage(placeholders.smooch_state_query),
+          smooch_menu_message: '',
           smooch_menu_options: [],
         },
       });
@@ -285,7 +277,6 @@ const SmoochBotComponent = ({
 
 SmoochBotComponent.propTypes = {
   currentUser: PropTypes.object.isRequired, // FIXME: List the fields needed
-  intl: intlShape.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   smoochBotDbid: PropTypes.number.isRequired,
   team: PropTypes.object.isRequired, // FIXME: List the fields needed
