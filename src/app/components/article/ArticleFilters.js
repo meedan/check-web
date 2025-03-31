@@ -274,6 +274,27 @@ const ArticleFilters = ({
             );
           }
 
+          if (filter === 'channels') {
+            return (
+              <React.Fragment key={filter}>
+                {connector}
+                <MultiSelectFilter
+                  icon={<DescriptionIcon />}
+                  label={<FormattedMessage defaultMessage="Article channel is" description="Prefix label for field to filter by article channel." id="articleFilters.articleChannel" />}
+                  options={[
+                    { value: 'api', label: 'api' },
+                    { value: 'manual', label: 'manual' },
+                    { value: 'imported', label: 'imported' },
+                    { value: 'zapier', label: 'zapier' },
+                  ]}
+                  selected={value || []}
+                  onChange={newValue => handleOptionChange('channels', newValue)}
+                  onRemove={() => handleRemoveFilter('channels')}
+                />
+              </React.Fragment>
+            );
+          }
+
           return null;
         })}
         <AddFilterMenu
