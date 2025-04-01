@@ -267,7 +267,7 @@ const ArticleFilters = ({
                   options={[
                     { value: 'api', label: 'API' },
                     { value: 'manual', label: 'Manual' },
-                    { value: 'imported', label: 'Imported' },
+                    { value: 'imported', label: 'Batch' },
                     { value: 'zapier', label: 'Zapier' },
                   ]}
                   readOnly={Boolean(defaultFilters.channels)}
