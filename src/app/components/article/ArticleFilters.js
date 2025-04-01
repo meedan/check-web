@@ -288,7 +288,6 @@ const ArticleFilters = ({
                     { value: 'zapier', label: 'Zapier' },
                   ]}
                   selected={value || []}
-                  single
                   onChange={newValue => handleOptionChange('channels', newValue)}
                   onRemove={() => handleRemoveFilter('channels')}
                 />
