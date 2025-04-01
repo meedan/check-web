@@ -123,7 +123,7 @@ class Root extends Component {
                   <Route component={Explainers} path=":team/articles/explainers" />
                   <Route component={FactChecks} path=":team/articles/fact-checks" />
                   <Route component={ArticlesDashboard} path=":team/articles/dashboard" />
-                  <Route component={ImportedArticles} path=":team/articles/imported-fact-checks" />
+                  <Route component={ImportedArticles} path=":team/articles/imported" />
                   <Route component={PublishedArticles} path=":team/articles/published" />
                   <Route component={TrashedArticles} path=":team/articles/trash" />
                   <Route component={AllArticles} path=":team/articles/all" />

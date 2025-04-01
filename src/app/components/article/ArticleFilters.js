@@ -14,8 +14,6 @@ import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import LabelIcon from '../../icons/label.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
-import SearchFieldChannel from '../search/SearchFields/SearchFieldChannel';
-import CheckChannels from '../../CheckChannels';
 import searchStyles from '../search/search.module.css';
 
 const messages = defineMessages({
@@ -103,21 +101,6 @@ const ArticleFilters = ({
         {Object.keys(filters).map((filter, i) => {
           const value = filters[filter];
           const connector = ((i === 0) ? null : filterConnector);
-
-          if (filter === 'imported') {
-            return (
-              <React.Fragment key={filter}>
-                {connector}
-                <SearchFieldChannel
-                  // Little hack here to hardcode the channel for imported articles
-                  query={{ channels: value && CheckChannels.FETCH }}
-                  readOnly
-                  onChange={newValue => handleOptionChange('channels', newValue)}
-                  onRemove={() => handleRemoveFilter('channels')}
-                />
-              </React.Fragment>
-            );
-          }
 
           if (filter === 'users') {
             return (
@@ -287,6 +270,7 @@ const ArticleFilters = ({
                     { value: 'imported', label: 'Imported' },
                     { value: 'zapier', label: 'Zapier' },
                   ]}
+                  readOnly={defaultFilters.channels}
                   selected={value || []}
                   onChange={newValue => handleOptionChange('channels', newValue)}
                   onRemove={() => handleRemoveFilter('channels')}
