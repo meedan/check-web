@@ -270,7 +270,7 @@ const ArticleFilters = ({
                     { value: 'imported', label: 'Imported' },
                     { value: 'zapier', label: 'Zapier' },
                   ]}
-                  readOnly={defaultFilters.channels}
+                  readOnly={Boolean(defaultFilters.channels)}
                   selected={value || []}
                   onChange={newValue => handleOptionChange('channels', newValue)}
                   onRemove={() => handleRemoveFilter('channels')}
