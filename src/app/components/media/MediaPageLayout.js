@@ -24,7 +24,7 @@ export default function MediaPageLayout({
       ) : null}
       <div className={styles['media-actions-bar']}>
         <MediaActionsBar
-          key={`${listUrl}-${projectMediaId}` /* TODO test MediaActionsBar is sane, then nix key */}
+          key={`media-actions-bar-${listUrl}-${projectMediaId}`}
           listIndex={listIndex}
           listQuery={listQuery}
           listUrl={listUrl}
@@ -32,7 +32,11 @@ export default function MediaPageLayout({
         />
       </div>
       <div className={cx('test__media', styles['media-item'])}>
-        <Media projectMediaId={projectMediaId} view={view} />
+        <Media
+          key={`media-${listUrl}-${projectMediaId}`}
+          projectMediaId={projectMediaId}
+          view={view}
+        />
       </div>
     </div>
   );
