@@ -30,9 +30,9 @@ const messages = defineMessages({
     description: 'Filter option that refers to items created via a tipline',
   },
   imported: {
-    id: 'searchFieldChannel.imported',
-    defaultMessage: 'Imported',
-    description: 'Filter option that refers to items imported from external systems',
+    id: 'searchFieldChannel.batchImported',
+    defaultMessage: 'Batch',
+    description: 'Filter option that refers to items batch-imported from external systems',
   },
   webForm: {
     id: 'searchFieldChannel.webForm',
