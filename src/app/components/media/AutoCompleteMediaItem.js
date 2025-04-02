@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -102,7 +102,7 @@ const AutoCompleteMediaItem = (props, context) => {
 
   const query = {
     keyword: encodeURIComponent(searchText),
-    show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
+    show: ['claims', 'links', 'images', 'videos', 'audios', 'blank'],
     eslimit: 50,
     archived: [CheckArchivedFlags.NONE, CheckArchivedFlags.UNCONFIRMED],
     show_similar: Boolean(props.customFilter),
@@ -347,6 +347,9 @@ const AutoCompleteMediaItem = (props, context) => {
             if (projectMedia.fact_check?.rating) {
               currentStatus = getStatus(searchResult.team.verification_statuses, projectMedia.fact_check.rating);
             }
+
+            const factCheckInUse = projectMedia.media.type !== 'Blank';
+
             return (
               <div
                 className={props.multiple ? styles['media-item-autocomplete-multiple'] : 'autocomplete-media-item__select'}
@@ -378,24 +381,41 @@ const AutoCompleteMediaItem = (props, context) => {
                   </Tooltip> : null
                 }
                 { props.selectedItemType === 'fact-check' ?
-                  <ArticleCard
-                    className={selectedDbid === projectMedia.dbid ? styles['media-item-autocomplete-selected-item'] : null}
-                    date={projectMedia.fact_check.updated_at}
-                    handleClick={e => handleClick(e, projectMedia.dbid)}
-                    isPublished={projectMedia.fact_check.report_status === 'published'}
-                    key={projectMedia.id}
-                    languageCode={projectMedia.fact_check.language !== 'und' ? projectMedia.fact_check.language : null}
-                    publishedAt={projectMedia.fact_check.claim_description?.updated_at}
-                    readOnly
-                    statusColor={currentStatus ? currentStatus.style?.color : null}
-                    statusLabel={currentStatus ? currentStatus.label : null}
-                    summary={isFactCheckValueBlank(projectMedia.fact_check.summary) ? projectMedia.fact_check.claim_description?.description : projectMedia.fact_check.summary}
-                    tags={projectMedia.fact_check.tags}
-                    title={isFactCheckValueBlank(projectMedia.fact_check.title) ? projectMedia.fact_check.claim_description?.context : projectMedia.fact_check.title}
-                    url={projectMedia.fact_check.url}
-                    variant="fact-check"
-                    onChangeTags={() => {}}
-                  />
+                  <Tooltip
+                    arrow
+                    disableFocusListener={!factCheckInUse}
+                    disableHoverListener={!factCheckInUse}
+                    disableTouchListener={!factCheckInUse}
+                    title={
+                      factCheckInUse ?
+                        <FormattedHTMLMessage defaultMessage="This Claim & Fact-Check article is already applied to another media cluster<br /><br />Remove it from its current media cluster in order to add it here." description="Tooltip message displayed on article cards on item page for fact-check type articles." id="autoCompleteMediaItem.factcheckInUseTooltip" />
+                        : ''
+                    }
+                  >
+                    <span>
+                      <ArticleCard
+                        className={cx(
+                          selectedDbid === projectMedia.dbid ? styles['media-item-autocomplete-selected-item'] : null,
+                          factCheckInUse ? styles['disabled-card'] : null,
+                        )}
+                        date={projectMedia.fact_check.updated_at}
+                        handleClick={factCheckInUse ? null : (e => handleClick(e, projectMedia.dbid))}
+                        isPublished={projectMedia.fact_check.report_status === 'published'}
+                        key={projectMedia.id}
+                        languageCode={projectMedia.fact_check.language !== 'und' ? projectMedia.fact_check.language : null}
+                        publishedAt={projectMedia.fact_check.claim_description?.updated_at}
+                        readOnly
+                        statusColor={currentStatus ? currentStatus.style?.color : null}
+                        statusLabel={currentStatus ? currentStatus.label : null}
+                        summary={isFactCheckValueBlank(projectMedia.fact_check.summary) ? projectMedia.fact_check.claim_description?.description : projectMedia.fact_check.summary}
+                        tags={projectMedia.fact_check.tags}
+                        title={isFactCheckValueBlank(projectMedia.fact_check.title) ? projectMedia.fact_check.claim_description?.context : projectMedia.fact_check.title}
+                        url={projectMedia.fact_check.url}
+                        variant="fact-check"
+                        onChangeTags={() => {}}
+                      />
+                    </span>
+                  </Tooltip>
                   :
                   <Link className={styles['media-item-autocomplete-link']} to={projectMedia.full_url}>
                     <SmallMediaCard
@@ -457,7 +477,6 @@ AutoCompleteMediaItem.defaultProps = {
   ignoreGeneralContentMask: true,
   multiple: false,
   showFilters: false,
-  typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
 };
 
 AutoCompleteMediaItem.propTypes = {
@@ -467,7 +486,6 @@ AutoCompleteMediaItem.propTypes = {
   ignoreGeneralContentMask: PropTypes.bool,
   multiple: PropTypes.bool,
   showFilters: PropTypes.bool,
-  typesToShow: PropTypes.arrayOf(PropTypes.string),
   // onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
 };
 

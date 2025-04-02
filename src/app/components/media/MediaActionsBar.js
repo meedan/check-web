@@ -167,24 +167,6 @@ class MediaActionsBarComponent extends Component {
     );
   }
 
-  handleStatusLock() {
-    const { media } = this.props;
-
-    const statusAttr = {
-      parent_type: 'project_media',
-      annotated: media,
-      annotation: {
-        status_id: media.last_status_obj?.id,
-        locked: !media.last_status_obj?.locked,
-      },
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateStatusMutation(statusAttr),
-      { onFailure: this.fail },
-    );
-  }
-
   handleAssign() {
     this.setState({ assignmentDialogOpened: true });
   }
@@ -293,7 +275,6 @@ class MediaActionsBarComponent extends Component {
                 handleRefresh={this.handleRefresh.bind(this)}
                 handleSendToSpam={this.handleSendToSpam.bind(this)}
                 handleSendToTrash={this.handleSendToTrash.bind(this)}
-                handleStatusLock={this.handleStatusLock.bind(this)}
                 isParent={isParent}
                 key={media.id /* close menu if we navigate to a different projectMedia */}
                 projectMedia={media}

@@ -457,7 +457,7 @@ const Articles = ({
           query ArticlesQuery(
             $slug: String!, $article_type: String!, $pageSize: Int, $sort: String, $sortType: String, $offset: Int,
             $users: [Int], $updated_at: String, $created_at: String, $tags: [String], $language: [String], $published_by: [Int],
-            $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean,
+            $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean, $channels: [String]
           ) {
             team(slug: $slug) {
               name
@@ -466,12 +466,12 @@ const Articles = ({
               verification_statuses
               articles_count(
                 article_type: $article_type, user_ids: $users, tags: $tags, updated_at: $updated_at, created_at: $created_at, language: $language, text: $text,
-                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported, trashed: $trashed,
+                publisher_ids: $published_by, report_status: $report_status, rating: $verification_status, imported: $imported, trashed: $trashed, channel: $channels
               )
               articles(
                 first: $pageSize, article_type: $article_type, offset: $offset, sort: $sort, sort_type: $sortType,
                 user_ids: $users, tags: $tags, updated_at: $updated_at, created_at: $created_at, language: $language, publisher_ids: $published_by,
-                report_status: $report_status, rating: $verification_status, imported: $imported, text: $text, trashed: $trashed,
+                report_status: $report_status, rating: $verification_status, imported: $imported, text: $text, trashed: $trashed, channel: $channels
               ) {
                 edges {
                   node {

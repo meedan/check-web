@@ -35,7 +35,6 @@ class MediaActionsMenuButton extends React.PureComponent {
     handleSendToTrash: PropTypes.func.isRequired,
     handleSendToSpam: PropTypes.func.isRequired,
     handleAssign: PropTypes.func.isRequired,
-    handleStatusLock: PropTypes.func.isRequired,
   };
 
   state = {
@@ -63,7 +62,6 @@ class MediaActionsMenuButton extends React.PureComponent {
       handleItemHistory,
       handleSendToSpam,
       handleSendToTrash,
-      handleStatusLock,
       isParent,
       projectMedia,
     } = this.props;
@@ -81,21 +79,6 @@ class MediaActionsMenuButton extends React.PureComponent {
               primary={
                 <FormattedMessage defaultMessage="Assign to…" description="Menu item to select a team to assign item" id="mediaActions.assignOrUnassign" />
               }
-            />
-          </MenuItem>));
-      }
-
-      if (can(projectMedia.permissions, 'lock Annotation') && projectMedia.archived === CheckArchivedFlags.NONE) {
-        menuItems.push((
-          <MenuItem
-            className="media-actions__lock-status"
-            key="mediaActions.lockStatus"
-            onClick={e => this.handleActionAndClose(e, handleStatusLock)}
-          >
-            <ListItemText
-              primary={projectMedia.last_status_obj?.locked ?
-                <FormattedMessage defaultMessage="Unlock status" description="Menu item to unlock an item status so it can be changed" id="mediaActions.unlockStatus" /> :
-                <FormattedMessage defaultMessage="Lock status" description="Menu item to lock an item status so it cannot be changed" id="mediaActions.lockStatus" />}
             />
           </MenuItem>));
       }

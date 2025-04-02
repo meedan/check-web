@@ -2458,7 +2458,7 @@
 		"developer_comment": "Text to display when there are no media tags"
 	},
 	"listTopMediaTags.manageTags": {
-		"string": "Manage Tags",
+		"string": "Управувајте со таговите",
 		"developer_comment": "Label for the button to manage tags"
 	},
 	"listTopMediaTags.title": {
@@ -3186,7 +3186,7 @@
 		"developer_comment": "Banner displayed after items are accepted or rejected successfully"
 	},
 	"message.unsupportedMessage": {
-		"string": "Unsupported message",
+		"string": "Неподдржана порака",
 		"developer_comment": "Fallback used in the conversation history when a type of message is not supported"
 	},
 	"metadata.couldNotSave": {
@@ -7052,7 +7052,7 @@
 		"developer_comment": "Tooltip labeling a chat log with a user"
 	},
 	"tiplineInbox.title": {
-		"string": "Inbox",
+		"string": "Сандаче",
 		"developer_comment": "Title for the tipline inbox listing of items"
 	},
 	"tos.title": {

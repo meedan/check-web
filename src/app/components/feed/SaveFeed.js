@@ -62,6 +62,7 @@ const updateMutation = graphql`
     updateFeed(input: $input) {
       feed {
         dbid
+        saved_search_id
         saved_search {
           is_part_of_feeds
         }
