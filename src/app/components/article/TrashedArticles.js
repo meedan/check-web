@@ -7,7 +7,7 @@ import TrashIcon from '../../icons/delete.svg';
 const TrashedArticles = ({ routeParams }) => (
   <Articles
     defaultFilters={{ trashed: true }}
-    filterOptions={['users', 'tags', 'range', 'language_filter']}
+    filterOptions={['users', 'tags', 'range', 'language_filter', 'channels']}
     icon={<TrashIcon />}
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="Trash" description="Title of the trashed articles page." id="trashedArticles.title" />}

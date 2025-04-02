@@ -55,6 +55,11 @@
     "defaultMessage": "Rating is"
   },
   {
+    "id": "articleFilters.articleChannel",
+    "description": "Prefix label for field to filter by article channel.",
+    "defaultMessage": "Article channel is"
+  },
+  {
     "id": "articleFilters.applyFilters",
     "description": "Button to perform query with specified filters",
     "defaultMessage": "Apply"

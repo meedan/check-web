@@ -7,7 +7,7 @@ import PublishedIcon from '../../icons/playlist_add_check.svg';
 const PublishedArticles = ({ routeParams }) => (
   <Articles
     defaultFilters={{ article_type: 'fact-check', report_status: 'published' }}
-    filterOptions={['users', 'tags', 'range', 'verification_status', 'language_filter', 'published_by']}
+    filterOptions={['users', 'tags', 'range', 'verification_status', 'language_filter', 'published_by', 'channels']}
     icon={<PublishedIcon />}
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="Published" description="Title of the published articles page." id="publishedArticles.title" />}

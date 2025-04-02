@@ -6,8 +6,8 @@ import FileDownloadIcon from '../../icons/file_download.svg';
 
 const ImportedArticles = ({ routeParams }) => (
   <Articles
-    defaultFilters={{ article_type: 'fact-check', imported: true }}
-    filterOptions={['tags', 'range', 'imported', 'language_filter']}
+    defaultFilters={{ channels: ['api', 'zapier', 'imported'] }}
+    filterOptions={['tags', 'range', 'imported', 'language_filter', 'channels']}
     icon={<FileDownloadIcon />}
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="Imported" description="Title of the imported articles page." id="importedArticles.title" />}

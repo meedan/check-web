@@ -131,22 +131,22 @@ const DrawerArticlesComponent = ({ team }) => {
           </Link>
           <Link
             className={styles.linkList}
-            to={`/${team.slug}/articles/imported-fact-checks`}
-            onClick={() => { handleSpecialLists('imported-fact-checks'); }}
+            to={`/${team.slug}/articles/imported`}
+            onClick={() => { handleSpecialLists('imported'); }}
           >
             <li
               className={cx(
-                'projects-list__imported-fact-checks',
+                'projects-list__imported',
                 styles.listItem,
                 styles.listItem_containsCount,
                 {
-                  [styles.listItem_active]: activeItem.type === 'imported-fact-checks',
+                  [styles.listItem_active]: activeItem.type === 'imported',
                 })
               }
             >
               <FileDownloadIcon className={styles.listIcon} />
               <div className={styles.listLabel}>
-                <FormattedMessage defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" id="projectsComponent.importedReports" tagName="span" />
+                <FormattedMessage defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported articles' channel" id="projectsComponent.importedReports" tagName="span" />
               </div>
               <DrawerListCounter numberOfItems={team.importedCount} />
             </li>
@@ -218,7 +218,7 @@ const DrawerArticles = () => {
             factChecksCount: articles_count(article_type: "fact-check")
             explainersCount: articles_count(article_type: "explainer")
             publishedCount: articles_count(article_type: "fact-check", report_status: "published")
-            importedCount: articles_count(article_type: "fact-check", imported: true)
+            importedCount: articles_count(channel: ["api", "zapier", "imported"])
             trashCount: articles_count(trashed: true)
             ...NewArticleButton_team
           }

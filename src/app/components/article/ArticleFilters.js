@@ -14,8 +14,6 @@ import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import LabelIcon from '../../icons/label.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
-import SearchFieldChannel from '../search/SearchFields/SearchFieldChannel';
-import CheckChannels from '../../CheckChannels';
 import searchStyles from '../search/search.module.css';
 
 const messages = defineMessages({
@@ -103,21 +101,6 @@ const ArticleFilters = ({
         {Object.keys(filters).map((filter, i) => {
           const value = filters[filter];
           const connector = ((i === 0) ? null : filterConnector);
-
-          if (filter === 'imported') {
-            return (
-              <React.Fragment key={filter}>
-                {connector}
-                <SearchFieldChannel
-                  // Little hack here to hardcode the channel for imported articles
-                  query={{ channels: value && CheckChannels.FETCH }}
-                  readOnly
-                  onChange={newValue => handleOptionChange('channels', newValue)}
-                  onRemove={() => handleRemoveFilter('channels')}
-                />
-              </React.Fragment>
-            );
-          }
 
           if (filter === 'users') {
             return (
@@ -270,6 +253,28 @@ const ArticleFilters = ({
                     />
                   )}
                 </FormattedMessage>
+              </React.Fragment>
+            );
+          }
+
+          if (filter === 'channels') {
+            return (
+              <React.Fragment key={filter}>
+                {connector}
+                <MultiSelectFilter
+                  icon={<DescriptionIcon />}
+                  label={<FormattedMessage defaultMessage="Article channel is" description="Prefix label for field to filter by article channel." id="articleFilters.articleChannel" />}
+                  options={[
+                    { value: 'api', label: 'API' },
+                    { value: 'manual', label: 'Manual' },
+                    { value: 'imported', label: 'Batch' },
+                    { value: 'zapier', label: 'Zapier' },
+                  ]}
+                  readOnly={Boolean(defaultFilters.channels)}
+                  selected={value || []}
+                  onChange={newValue => handleOptionChange('channels', newValue)}
+                  onRemove={() => handleRemoveFilter('channels')}
+                />
               </React.Fragment>
             );
           }
