@@ -129,7 +129,7 @@ shared_examples 'app' do |webdriver_url|
       expect(@driver.find_element(:css, '.login__heading span').text == 'Iniciar sessão').to be(true)
     end
 
-    it 'should redirect to 404 page', bin4: true do
+    it 'should redirect to 404 page', bin3: true do
       api_register_and_login_with_email
       @driver.navigate.to "#{@config['self_url']}/something-that-does-not-exist"
       title = wait_for_selector('.not-found__component')

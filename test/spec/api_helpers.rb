@@ -44,8 +44,6 @@ module ApiHelpers
     puts "Creating feed for team #{team_data[:team].dbid} and user #{team_data[:user].dbid}"
 
     email = params[:email] || team_data[:user].email
-    claim = request_api 'claim', { quote: 'bla', email: email, team_id: team_data[:team].dbid }
-    puts claim.inspect
 
     feed_params = {
       team_id: team_data[:team].dbid,
@@ -54,8 +52,37 @@ module ApiHelpers
 
     feed = request_api('create_feed', feed_params)
 
+    puts "feed: ",feed
+
+    sleep 5
+
     { feed: feed, team: team_data[:team], user: team_data[:user] }
   end
+
+  def api_create_feed_invitation(params = {})
+  data = params[:data] || api_create_feed(params)
+  user = params[:user] || data[:user]
+
+  # puts "data: ", data
+  # puts "feed: ", data[:feed]
+  # puts "user: ", user
+  puts "user, #{data[:user].inspect}"
+  puts "Creating feed invitation for team #{data[:team].dbid} and user #{user}"
+
+  feed_invitation_params = {
+    team_id: data[:team].dbid,
+    email: user.email,
+    feed: data[:feed],
+    user: data[:user]
+  }
+
+  puts
+  puts "feed_invitation ", feed_invitation_params
+
+  feed_invitation = request_api('create_feed_invitation', feed_invitation_params)
+
+  { feed_invitation: feed_invitation, feed: data[:feed], team: data[:team], user: user }
+end
 
   def api_create_saved_search(params = {})
     team_data = params[:team_data] || api_create_team_and_bot(params)
@@ -67,7 +94,7 @@ module ApiHelpers
       email: email
     }
 
-    saved_search = request_api('create_saved_search', saved_search_params)
+    saved_search = request_api('create_saved_search_list', saved_search_params)
 
     { saved_search: saved_search, team: team_data[:team], user: team_data[:user] }
   end
