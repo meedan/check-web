@@ -194,7 +194,7 @@ shared_examples 'routes' do
   end
 
   it 'should load route :team/feed/{tab}', bin1: true do
-    data = api_create_feed
+    data = api_create_feed_with_item
 
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/feed/#{data[:feed].feed['id']}/edit"
     wait_for_selector('#create-feed__description')
@@ -207,16 +207,17 @@ shared_examples 'routes' do
     expect(@driver.find_elements(:css, '#feed-item-page').empty?).to be(false)
   end
 
-  it 'should load route :team/feed/invitation', bin3: true do
-    data = api_create_feed
-    user = api_create_and_confirm_user
-    team = api_create_team(user: user)
+  it 'should load route :team/feeds/invitation', bin3: true do
     
-    api_create_feed_invitation(data: data, user: user)
+    data = api_create_feed_invitation
+    user = data[:user2]
+    team = data[:team]
+    @driver.navigate.to "#{api_path}session?email=#{user.email}"
+    sleep 2
     @driver.navigate.to "#{@config['self_url']}/#{team.slug}/feeds"
+    sleep 2
+    @driver.navigate.to "#{@config['self_url']}/#{team.slug}/feed/#{data[:feed_invitation].feed['id']}/invitation"
+    sleep 2
 
-    puts "FeedId: #{data[:feed].feed['id']}"
-
-    @driver.navigate.to "#{@config['self_url']}/#{team.slug}/feed/#{data[:feed].feed['id']}/invitation"
   end
 end
