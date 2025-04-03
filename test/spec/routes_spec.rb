@@ -129,7 +129,6 @@ shared_examples 'routes' do
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/dashboard"
     wait_for_selector('.recharts-responsive-container')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
-
   end
 
   it 'should load route :team/feeds', bin2: true do
