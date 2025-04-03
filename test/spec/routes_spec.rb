@@ -193,7 +193,7 @@ shared_examples 'routes' do
     expect(@driver.find_elements(:css, '.contactId').empty?).to be(false)
   end
 
-  it 'should load route :team/feed/{tab}', bin1: true do
+  it 'should load route :team/feed/{tab}', bin3: true do
     data = api_create_feed_with_item
 
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/feed/#{data[:feed].feed['id']}/edit"
@@ -207,17 +207,18 @@ shared_examples 'routes' do
     expect(@driver.find_elements(:css, '#feed-item-page').empty?).to be(false)
   end
 
-  it 'should load route :team/feeds/invitation', bin3: true do
-    
+  it 'should load route :team/feed/invitation', bin3: true do
     data = api_create_feed_invitation
     user = data[:user2]
     team = data[:team]
+
+    #log in with user 2
     @driver.navigate.to "#{api_path}session?email=#{user.email}"
     sleep 2
-    @driver.navigate.to "#{@config['self_url']}/#{team.slug}/feeds"
-    sleep 2
-    @driver.navigate.to "#{@config['self_url']}/#{team.slug}/feed/#{data[:feed_invitation].feed['id']}/invitation"
-    sleep 2
 
+    @driver.navigate.to "#{@config['self_url']}/#{team.slug}/feed/#{data[:feed_invitation].feed['id']}/invitation"
+    wait_for_selector('.feed-invitation-container-card')
+    expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
+    expect(@driver.find_elements(:css, '.int-feed-invitation-respond__button--accept').empty?).to be(false)
   end
 end

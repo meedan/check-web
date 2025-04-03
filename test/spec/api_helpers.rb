@@ -67,8 +67,8 @@ module ApiHelpers
 
   feed_invitation_params = {
     team_id: team.dbid,
-    email: user.email,
-    email2: user2.email
+    email: user2.email,
+    email2: user.email
   }
 
   feed_invitation = request_api('create_feed_invitation', feed_invitation_params)
