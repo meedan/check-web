@@ -52,30 +52,29 @@ module ApiHelpers
 
     feed = request_api('create_feed_with_item', feed_params)
 
-    puts "feed: ",feed
+    puts 'feed: ', feed
 
     sleep 5
 
     { feed: feed, team: team_data[:team], user: team_data[:user] }
   end
 
-  def api_create_feed_invitation(params = {})
+  def api_create_feed_invitation(_params = {})
+    user = api_create_and_confirm_user
+    team = api_create_team(user: user)
+    user2 = api_create_and_confirm_user
 
-  user = api_create_and_confirm_user
-  team = api_create_team(user:user)
-  user2 = api_create_and_confirm_user
+    feed_invitation_params = {
+      team_id: team.dbid,
+      email: user2.email,
+      email2: user.email
+    }
 
-  feed_invitation_params = {
-    team_id: team.dbid,
-    email: user2.email,
-    email2: user.email
-  }
+    feed_invitation = request_api('create_feed_invitation', feed_invitation_params)
+    team2 = api_create_team(user: user2)
 
-  feed_invitation = request_api('create_feed_invitation', feed_invitation_params)
-  team2 = api_create_team(user:user2)
-
-  { feed_invitation: feed_invitation, user2: user2, team: team2 }
-end
+    { feed_invitation: feed_invitation, user2: user2, team: team2 }
+  end
 
   def api_create_saved_search(params = {})
     team_data = params[:team_data] || api_create_team_and_bot(params)

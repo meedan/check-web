@@ -133,7 +133,7 @@ shared_examples 'routes' do
 
   it 'should load route :team/feeds', bin2: true do
     data = api_create_team_and_bot
-   
+
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/feed/create"
     wait_for_selector('#create-feed__description')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
@@ -211,7 +211,7 @@ shared_examples 'routes' do
     user = data[:user2]
     team = data[:team]
 
-    #log in with user 2
+    # log in with user 2
     @driver.navigate.to "#{api_path}session?email=#{user.email}"
     sleep 2
 
