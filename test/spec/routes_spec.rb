@@ -76,38 +76,32 @@ shared_examples 'routes' do
     expect(@driver.find_elements(:css, '.test__media').empty?).to be(false)
   end
 
-  it 'should load route :team/list/media/mediaId/{tab}', bin2: true do
-    create_list_and_item_and_redirect_to_list_page
-    wait_for_selector('.test__media')
-    base_url = @driver.current_url.to_s
-    base_url = base_url.match(%r{^(http://[^/]+/[^/]+/list/\d+/media/\d+)}).to_s
-
-    new_url = "#{base_url}/metadata"
-    @driver.navigate.to new_url
+  it 'should load route :team/list/media/mediaId/{tab}', bin4: true do
+    data = api_create_list_and_item
+    base_url = "#{@config['self_url']}/#{data[:data][:team].slug}/list/#{data[:data][:saved_search].id}/media/#{data[:claim].id}"
+  
+    @driver.navigate.to "#{base_url}/metadata"
     wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, 'button').empty?).to be(false)
 
-    new_url = "#{base_url}/tasks"
-    @driver.navigate.to new_url
+    @driver.navigate.to "#{base_url}/tasks"
     wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, 'button').empty?).to be(false)
 
-    new_url = "#{base_url}/source"
-    @driver.navigate.to new_url
+    @driver.navigate.to "#{base_url}/source"
     wait_for_selector('#media_source-change')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '#media-source__create-button').empty?).to be(false)
 
-    new_url = "#{base_url}/similar-media"
-    @driver.navigate.to new_url
+    @driver.navigate.to "#{base_url}/similar-media"
     wait_for_selector('.media-card-large')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '.test__media').empty?).to be(false)
   end
 
-  it 'should load route :team/articles/{tab}', bin3: true do
+  it 'should load route :team/articles/{tab}', bin4: true do
     data = api_create_team
     sleep 2
 

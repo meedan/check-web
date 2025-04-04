@@ -199,9 +199,12 @@ module ApiHelpers
     options = params[:options] || '[]'
     data = api_create_team_and_bot(params)
     request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
+    sleep 1
     request_api 'link', { url: url || @media_url, email: data[:user].email, team_id: data[:team].dbid }
+    sleep 1
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
+  
 
   def api_create_team_metadata_and_claim(params = {})
     quote = params[:quote] || 'Claim'
@@ -211,6 +214,14 @@ module ApiHelpers
     request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
     request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
+  end
+
+  def api_create_list_and_item
+    data = api_create_saved_search
+    sleep 2
+    claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid }
+    sleep 2
+    {data: data, claim: claim}
   end
 
   def api_create_claim(params = {})
