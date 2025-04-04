@@ -15,6 +15,7 @@ const SmoochBotConfig = (props) => {
   const {
     currentLanguage,
     hasUnsavedChanges,
+    installation,
     languages,
     onEditingResource,
     resources,
@@ -158,6 +159,8 @@ const SmoochBotConfig = (props) => {
               /> : null }
             { currentOption === 'smooch_content' ?
               <SmoochBotContentAndTranslation
+                currentLanguage={currentLanguage}
+                installation={installation}
                 key={currentLanguage}
                 value={value.smooch_workflows[currentWorkflowIndex]}
                 onChangeImage={handleChangeImage}
