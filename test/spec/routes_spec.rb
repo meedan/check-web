@@ -6,7 +6,6 @@ shared_examples 'routes' do
     expect(@driver.find_elements(:css, '#source__name-container').empty?).to be(false)
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.page_source.include?('An unexpected error happened.')).to be(false)
-      
 
     @driver.navigate.to "#{@config['self_url']}/check/me/profile"
     wait_for_selector('.source__name-input')
