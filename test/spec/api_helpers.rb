@@ -120,7 +120,7 @@ module ApiHelpers
     sleep 2
     claim.full_url = "#{@config['self_url']}/#{data[:team].slug}/media/#{claim.id}"
     @driver.quit if quit
-    {claim: claim, team: data[:team]}
+    { claim: claim, team: data[:team] }
   end
 
   def api_create_team_claims_sources_and_redirect_to_all_items(params = {})

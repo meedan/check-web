@@ -78,6 +78,7 @@ shared_examples 'routes' do
 
   it 'should load route :team/list/media/mediaId/{tab}', bin2: true do
     create_list_and_item_and_redirect_to_list_page
+    wait_for_selector('.test__media')
     base_url = @driver.current_url.to_s
     base_url = base_url.match(%r{^(http://[^/]+/[^/]+/list/\d+/media/\d+)}).to_s
 
