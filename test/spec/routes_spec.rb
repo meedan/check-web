@@ -108,17 +108,19 @@ shared_examples 'routes' do
   end
 
   it 'should load route :team/articles/{tab}', bin3: true do
-    data = api_create_team_and_bot
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/articles/dashboard"
+    data = api_create_team
+    sleep 2
+
+    @driver.navigate.to "#{@config['self_url']}/#{data.slug}/articles/dashboard"
     wait_for_selector('.recharts-responsive-container')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
 
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/articles/imported-fact-checks"
+    @driver.navigate.to "#{@config['self_url']}/#{data.slug}/articles/imported"
     wait_for_selector('.search__list-header-filter-row')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '.list-sort').empty?).to be(false)
 
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/articles/published"
+    @driver.navigate.to "#{@config['self_url']}/#{data.slug}/articles/published"
     wait_for_selector('.search__list-header-filter-row')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '.list-sort').empty?).to be(false)

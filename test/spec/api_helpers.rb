@@ -41,20 +41,14 @@ module ApiHelpers
 
   def api_create_feed_with_item(params = {})
     team_data = params[:team_data] || api_create_team_and_bot(params)
-    puts "Creating feed for team #{team_data[:team].dbid} and user #{team_data[:user].dbid}"
-
     email = params[:email] || team_data[:user].email
-
     feed_params = {
       team_id: team_data[:team].dbid,
       email: email
     }
 
     feed = request_api('create_feed_with_item', feed_params)
-
-    puts 'feed: ', feed
-
-    sleep 5
+    sleep 2
 
     { feed: feed, team: team_data[:team], user: team_data[:user] }
   end
@@ -63,6 +57,7 @@ module ApiHelpers
     user = api_create_and_confirm_user
     team = api_create_team(user: user)
     user2 = api_create_and_confirm_user
+    sleep 2
 
     feed_invitation_params = {
       team_id: team.dbid,
@@ -87,6 +82,7 @@ module ApiHelpers
     }
 
     saved_search = request_api('create_saved_search_list', saved_search_params)
+    sleep 2
 
     { saved_search: saved_search, team: team_data[:team], user: team_data[:user] }
   end
@@ -162,8 +158,8 @@ module ApiHelpers
   def api_create_team_and_claim_and_redirect_to_media_page(params = {})
     params.merge!({ quit: false })
     media = api_create_team_and_claim(params)
-    @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
+    @driver.navigate.to "#{media.full_url}?listIndex=0"
   end
 
   def api_create_claim_and_go_to_search_page

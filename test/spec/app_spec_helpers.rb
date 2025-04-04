@@ -300,9 +300,9 @@ module AppSpecHelpers
     data = api_create_saved_search
     sleep 2
     claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid }
-    sleep 2
+    sleep 1
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/list/#{data[:saved_search].id}/media/#{claim.media_id}"
-    puts claim
     { data: data, claim: claim }
+    sleep 2
   end
 end
