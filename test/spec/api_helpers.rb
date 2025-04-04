@@ -204,7 +204,6 @@ module ApiHelpers
     sleep 1
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
-  
 
   def api_create_team_metadata_and_claim(params = {})
     quote = params[:quote] || 'Claim'
@@ -221,7 +220,7 @@ module ApiHelpers
     sleep 2
     claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid }
     sleep 2
-    {data: data, claim: claim}
+    { data: data, claim: claim }
   end
 
   def api_create_claim(params = {})

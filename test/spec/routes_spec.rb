@@ -79,7 +79,7 @@ shared_examples 'routes' do
   it 'should load route :team/list/media/mediaId/{tab}', bin4: true do
     data = api_create_list_and_item
     base_url = "#{@config['self_url']}/#{data[:data][:team].slug}/list/#{data[:data][:saved_search].id}/media/#{data[:claim].id}"
-  
+
     @driver.navigate.to "#{base_url}/metadata"
     wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
