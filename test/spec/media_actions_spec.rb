@@ -1,5 +1,5 @@
 shared_examples 'media actions' do
-  it 'should create an item and assign it', bin4: true do
+  it 'should create an item and assign it', bin3: true do
     api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.test__media')
     expect(@driver.page_source.include?('Assignments updated successfully')).to be(false)
@@ -15,7 +15,7 @@ shared_examples 'media actions' do
     expect(@driver.page_source.include?('Item assigned to')).to be(true)
   end
 
-  it 'should refresh media', bin1: true do
+  it 'should refresh media', bin3: true do
     api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'http://api:3000/test/random' })
     title1 = wait_for_selector('.media-card-large__title').text
     expect((title1 =~ /Test/).nil?).to be(false)
@@ -26,7 +26,7 @@ shared_examples 'media actions' do
     expect(title1 != title2).to be(true)
   end
 
-  it 'should not create duplicated media', bin1: true do
+  it 'should not create duplicated media', bin2: true do
     api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: @media_url })
     id1 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1.positive?).to be(true)

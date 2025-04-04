@@ -1,5 +1,5 @@
 shared_examples 'search' do
-  it 'sort by date that the media was created', bin4: true do
+  it 'sort by date that the media was created', bin2: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector('.cluster-card')
     expect(@driver.page_source.include?('My search result')).to be(true)
@@ -16,7 +16,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should search by keywords', bin4: true, quick: true do
+  it 'should search by keywords', bin1: true, quick: true do
     api_create_team_claims_sources_and_redirect_to_all_items({ count: 2 })
     verbose_wait # wait for the items to be indexed in Elasticsearch
     # find all medias with an empty search

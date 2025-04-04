@@ -1,5 +1,5 @@
 shared_examples 'rules' do
-  it 'should set, edit and delete rules', bin3: true do
+  it 'should set, edit and delete rules', bin4: true do
     user = api_register_and_login_with_email
     t = api_create_team(user: user)
 

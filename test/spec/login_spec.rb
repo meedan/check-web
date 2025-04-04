@@ -36,7 +36,7 @@ shared_examples 'login' do
     expect(send_msg.include?('If this email address exists, you will receive an email from')).to be(true)
   end
 
-  it 'should redirect to login page if not logged in and team is private', bin4: true do
+  it 'should redirect to login page if not logged in and team is private', bin3: true do
     t = api_create_team(private: true, user: OpenStruct.new(email: 'anonymous@test.test'))
     @driver.navigate.to "#{@config['self_url']}/#{t.slug}/all-items"
     wait_for_selector('.login__form')

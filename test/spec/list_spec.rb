@@ -1,6 +1,7 @@
 shared_examples 'list' do
   it 'should save filters to a list', bin1: true do
     api_create_team_and_claim_and_redirect_to_media_page
+    wait_for_selector('.test__media')
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     expect(@driver.find_elements(:css, '.list-sort-desc').empty?).to be(true)
