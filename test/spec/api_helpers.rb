@@ -116,6 +116,7 @@ module ApiHelpers
     quit = params[:quit] || false
     quote = params[:quote] || 'Claim'
     data = api_create_team_and_bot(params)
+    sleep 1
     claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }
     sleep 2
     claim.full_url = "#{@config['self_url']}/#{data[:team].slug}/media/#{claim.id}"
@@ -125,11 +126,12 @@ module ApiHelpers
 
   def api_create_team_claims_sources_and_redirect_to_all_items(params = {})
     count = params[:count]
-    data = api_create_team_and_bot(params)
+    data = api_create_team_and_bot
     count.times do |i|
       request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid }
       sleep 1
     end
+    sleep 2
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
 

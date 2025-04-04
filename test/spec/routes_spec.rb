@@ -134,22 +134,22 @@ shared_examples 'routes' do
   end
 
   it 'should load route :team/feeds', bin2: true do
-    data = api_create_team_and_bot
+    data = api_create_team
 
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/feed/create"
+    @driver.navigate.to "#{@config['self_url']}/#{data.slug}/feed/create"
     wait_for_selector('#create-feed__description')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '#create-feed__title').empty?).to be(false)
 
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/feeds"
+    @driver.navigate.to "#{@config['self_url']}/#{data.slug}/feeds"
     wait_for_selector('.projects-list__add-feed')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
   end
 
   it 'should load route :team/spam(/:query)', bin3: true do
-    data = api_create_team_and_bot
+    data = api_create_team
     query = '%7B%22archived%22%3A4%2C%22sort%22%3A%22recent_activity%22%2C%22sort_type%22%3A%22ASC%22%2C%22parent%22%3A%7B%22type%22%3A%22team%22%2C%22slug%22%3A%22fsaf%22%7D%7D'
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/spam/#{query}"
+    @driver.navigate.to "#{@config['self_url']}/#{data.slug}/spam/#{query}"
 
     wait_for_selector('.search__list-header-filter-row')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
@@ -177,9 +177,9 @@ shared_examples 'routes' do
   end
 
   it 'should load route :team/assigned-to-me(/:query)', bin3: true do
-    data = api_create_team_and_bot
+    data = api_create_team
     query = '%7B%22archived%22%3A4%2C%22sort%22%3A%22recent_activity%22%2C%22sort_type%22%3A%22ASC%22%2C%22parent%22%3A%7B%22type%22%3A%22team%22%2C%22slug%22%3A%22fsaf%22%7D%7D'
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/assigned-to-me/#{query}"
+    @driver.navigate.to "#{@config['self_url']}/#{data.slug}/assigned-to-me/#{query}"
 
     wait_for_selector('.search__list-header-filter-row')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
