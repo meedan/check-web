@@ -53,25 +53,24 @@ shared_examples 'routes' do
   end
 
   it 'should load route :team/media/:mediaId/{tab}', bin1: true do
-    data = api_create_team_and_bot
-    pm1 = api_create_claim(data: data, quote: 'claim 1')
+    data = api_create_team_and_claim
 
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}/metadata"
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{data[:claim].id}/metadata"
     wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, 'button').empty?).to be(false)
 
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}/tasks"
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{data[:claim].id}/tasks"
     wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '.test-label__button').empty?).to be(false)
 
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}/source"
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{data[:claim].id}/source"
     wait_for_selector('.test-label__button')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, 'button').empty?).to be(false)
 
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}/similar-media"
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{data[:claim].id}/similar-media"
     wait_for_selector('.media-card-large')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
     expect(@driver.find_elements(:css, '.test__media').empty?).to be(false)
@@ -127,8 +126,8 @@ shared_examples 'routes' do
   end
 
   it 'should load route :team/dashboard', bin: true do
-    data = api_create_team_and_bot
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/dashboard"
+    data = api_create_team
+    @driver.navigate.to "#{@config['self_url']}/#{data.slug}/dashboard"
     wait_for_selector('.recharts-responsive-container')
     expect(@driver.page_source.include?('This page does not exist or you do not have authorized access.')).to be(false)
   end

@@ -117,9 +117,10 @@ module ApiHelpers
     quote = params[:quote] || 'Claim'
     data = api_create_team_and_bot(params)
     claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }
+    sleep 2
     claim.full_url = "#{@config['self_url']}/#{data[:team].slug}/media/#{claim.id}"
     @driver.quit if quit
-    claim
+    {claim: claim, team: data[:team]}
   end
 
   def api_create_team_claims_sources_and_redirect_to_all_items(params = {})
@@ -159,12 +160,13 @@ module ApiHelpers
     params.merge!({ quit: false })
     media = api_create_team_and_claim(params)
     sleep 2
-    @driver.navigate.to "#{media.full_url}?listIndex=0"
+    @driver.navigate.to "#{media[:claim].full_url}?listIndex=0"
+    sleep 2
   end
 
   def api_create_claim_and_go_to_search_page
     media = api_create_team_and_claim({ quit: false, quote: 'My search result' })
-    @driver.navigate.to media.full_url
+    @driver.navigate.to media[:claim].full_url
 
     sleep 3 # wait for Sidekiq
 
