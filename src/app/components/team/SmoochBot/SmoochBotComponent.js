@@ -207,6 +207,7 @@ const SmoochBotComponent = ({
               currentUser={currentUser}
               enabledIntegrations={installation.smooch_enabled_integrations}
               hasUnsavedChanges={hasUnsavedChanges}
+              installation={installation}
               installationId={installation.id}
               languages={validLanguages}
               resources={team.tipline_resources.edges.map(edge => edge.node).filter(node => node.language === currentLanguage)}
