@@ -33,9 +33,58 @@ module ApiHelpers
   def api_create_and_confirm_user(params = {})
     email = params[:email] || "test-#{Time.now.to_i}-#{rand(1000)}@test.com"
     password = params[:password] || 'checkTest@12'
-    user = request_api 'user', { name: 'User With Email', email: email, password: password, password_confirmation: password, provider: '' }
+    is_admin = params[:is_admin] || false
+    user = request_api 'user', { name: 'User With Email', email: email, password: password, password_confirmation: password, provider: '', is_admin: is_admin }
     request_api 'confirm_user', { email: email }
     user
+  end
+
+  def api_create_feed_with_item(params = {})
+    team_data = params[:team_data] || api_create_team_and_bot(params)
+    email = params[:email] || team_data[:user].email
+    feed_params = {
+      team_id: team_data[:team].dbid,
+      email: email
+    }
+
+    feed = request_api('create_feed_with_item', feed_params)
+    sleep 2
+
+    { feed: feed, team: team_data[:team], user: team_data[:user] }
+  end
+
+  def api_create_feed_invitation(_params = {})
+    user = api_create_and_confirm_user
+    team = api_create_team(user: user)
+    user2 = api_create_and_confirm_user
+    sleep 2
+
+    feed_invitation_params = {
+      team_id: team.dbid,
+      email: user2.email,
+      email2: user.email
+    }
+
+    feed_invitation = request_api('create_feed_invitation', feed_invitation_params)
+    team2 = api_create_team(user: user2)
+
+    { feed_invitation: feed_invitation, user2: user2, team: team2 }
+  end
+
+  def api_create_saved_search(params = {})
+    team_data = params[:team_data] || api_create_team_and_bot(params)
+    email = params[:email] || team_data[:user].email
+    sleep 2
+
+    saved_search_params = {
+      team_id: team_data[:team].dbid,
+      email: email
+    }
+
+    saved_search = request_api('create_saved_search_list', saved_search_params)
+    sleep 2
+
+    { saved_search: saved_search, team: team_data[:team], user: team_data[:user] }
   end
 
   def api_register_and_login_with_email(params = {})
@@ -46,7 +95,7 @@ module ApiHelpers
 
   def api_create_team(params = {})
     team_name = params[:team] || "TestTeam#{Time.now.to_i}-#{rand(99_999)}"
-    user = params[:user] || api_register_and_login_with_email
+    user = params[:user] || api_register_and_login_with_email(is_admin: params[:is_admin])
     options = { name: team_name, email: user.email }
     options[:private] = true if params[:private]
     request_api 'team', options
@@ -67,19 +116,22 @@ module ApiHelpers
     quit = params[:quit] || false
     quote = params[:quote] || 'Claim'
     data = api_create_team_and_bot(params)
+    sleep 1
     claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }
+    sleep 2
     claim.full_url = "#{@config['self_url']}/#{data[:team].slug}/media/#{claim.id}"
     @driver.quit if quit
-    claim
+    { claim: claim, team: data[:team] }
   end
 
   def api_create_team_claims_sources_and_redirect_to_all_items(params = {})
     count = params[:count]
-    data = api_create_team_and_bot(params)
+    data = api_create_team_and_bot
     count.times do |i|
       request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid }
       sleep 1
     end
+    sleep 2
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
 
@@ -109,13 +161,14 @@ module ApiHelpers
   def api_create_team_and_claim_and_redirect_to_media_page(params = {})
     params.merge!({ quit: false })
     media = api_create_team_and_claim(params)
-    @driver.navigate.to "#{media.full_url}?listIndex=0"
+    sleep 2
+    @driver.navigate.to "#{media[:claim].full_url}?listIndex=0"
     sleep 2
   end
 
   def api_create_claim_and_go_to_search_page
     media = api_create_team_and_claim({ quit: false, quote: 'My search result' })
-    @driver.navigate.to media.full_url
+    @driver.navigate.to media[:claim].full_url
 
     sleep 3 # wait for Sidekiq
 
@@ -146,7 +199,9 @@ module ApiHelpers
     options = params[:options] || '[]'
     data = api_create_team_and_bot(params)
     request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
+    sleep 1
     request_api 'link', { url: url || @media_url, email: data[:user].email, team_id: data[:team].dbid }
+    sleep 1
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
 
@@ -158,6 +213,14 @@ module ApiHelpers
     request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
     request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
+  end
+
+  def api_create_list_and_item
+    data = api_create_saved_search
+    sleep 2
+    claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid }
+    sleep 2
+    { data: data, claim: claim }
   end
 
   def api_create_claim(params = {})

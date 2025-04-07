@@ -41,20 +41,6 @@ module TeamSpecHelpers
     wait_for_selector('.team')
   end
 
-  def approve_join_team(options = {})
-    subdomain = options[:subdomain]
-    @driver.navigate.to "#{@config['self_url']}/#{subdomain}"
-    wait_for_selector('button.team-member-requests__user-button--approve').click
-    wait_for_selector_none('.team-member-requests__user-button--deny')
-  end
-
-  def disapprove_join_team(options = {})
-    subdomain = options[:subdomain]
-    @driver.navigate.to "#{@config['self_url']}/#{subdomain}"
-    wait_for_selector('button.team-member-requests__user-button--deny').click
-    wait_for_selector_none('.team-member-requests__user-button--approve')
-  end
-
   def change_the_member_role_to(rule_class)
     wait_for_selector('#mui-component-select-role-select', :css, 29, index: 1).click
     wait_for_selector('ul[role=listbox]')

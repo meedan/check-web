@@ -1,5 +1,5 @@
 shared_examples 'similarity' do
-  it 'should import and export items', bin4: true do
+  it 'should import and export items', bin1: true do
     api_create_team_claims_sources_and_redirect_to_all_items({ count: 3 })
     verbose_wait 3 # Wait for the items to be indexed in ElasticSearch
     wait_for_selector('.search__results-heading')
