@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { labels } from './localizables';
+import { FormattedMessage } from 'react-intl';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import smoochBotStyles from './SmoochBot.module.css';
+
+const labels = {
+  smooch_settings: <FormattedMessage defaultMessage="Platforms" description="Label for the bot platform settings area" id="smoochBot.labelSettings" />,
+  smooch_main_menu: <FormattedMessage defaultMessage="Main Menu" description="Label for the bot Main menu content area" id="smoochBot.labelMainMenu" />,
+  smooch_content: <FormattedMessage defaultMessage="Content & Translation" description="Button label in tipline settings page" id="smoochBot.labelContent" />,
+};
 
 const SmoochBotSidebar = ({
   currentOption,
