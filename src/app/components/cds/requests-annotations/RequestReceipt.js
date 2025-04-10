@@ -7,6 +7,7 @@ import SearchIcon from '../../../icons/search.svg';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import EditNoteIcon from '../../../icons/edit_note.svg';
 import RecommendIcon from '../../../icons/recommend.svg';
+import DownVoteIcon from '../../../icons/downvote.svg';
 import styles from './RequestReceipt.module.css';
 
 const messages = defineMessages({
@@ -39,6 +40,16 @@ const messages = defineMessages({
     id: 'requestReceipt.positiveFeedback',
     defaultMessage: 'Search result – positive feedback',
     description: 'Message displayed when user has given a positive feedback over the fact-check sent for this request',
+  },
+  irrelevant_search_result_requests: {
+    id: 'requestReceipt.negativeFeedback',
+    defaultMessage: 'Search result – negative feedback',
+    description: 'Message displayed when user has given a negative feedback over the fact-check sent for this request',
+  },
+  default_requests: {
+    id: 'requestReceipt.default',
+    defaultMessage: 'No results returned',
+    description: 'Message displayed when no results are returned for this request',
   },
 });
 
@@ -75,6 +86,14 @@ const RequestReceipt = ({ events, intl }) => {
     relevant_search_result_requests: {
       icon: <RecommendIcon />,
       color: 'green',
+    },
+    irrelevant_search_result_requests: {
+      icon: <DownVoteIcon />,
+      color: 'pink',
+    },
+    default_requests: {
+      icon: <SearchIcon />,
+      color: 'gray',
     },
   };
 
