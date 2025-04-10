@@ -28,5 +28,15 @@
     "id": "requestReceipt.positiveFeedback",
     "description": "Message displayed when user has given a positive feedback over the fact-check sent for this request",
     "defaultMessage": "Search result – positive feedback"
+  },
+  {
+    "id": "requestReceipt.negativeFeedback",
+    "description": "Message displayed when user has given a negative feedback over the fact-check sent for this request",
+    "defaultMessage": "Search result – negative feedback"
+  },
+  {
+    "id": "requestReceipt.default",
+    "description": "Message displayed when no results are returned for this request",
+    "defaultMessage": "No results returned"
   }
 ]
