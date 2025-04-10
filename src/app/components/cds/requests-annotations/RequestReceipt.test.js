@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import RequestReceipt from './RequestReceipt';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import DownVoteIcon from '../../../icons/downvote.svg';
 import FactCheckIcon from '../../../icons/fact_check.svg';
@@ -9,8 +9,7 @@ import EditNoteIcon from '../../../icons/edit_note.svg';
 import SearchIcon from '../../../icons/search.svg';
 
 describe('<RequestReceipt />', () => {
-
-it('should display "no results" label', () => {
+  it('should display "no results" label', () => {
     const events = [
       { type: 'default_requests' },
     ];
@@ -91,7 +90,7 @@ it('should display "no results" label', () => {
     const wrapper = mountWithIntl(<RequestReceipt events={events} />);
     const tooltip = wrapper.find(Tooltip);
     const tooltipContent = mountWithIntl(tooltip.prop('title'));
-  
+
     expect(tooltipContent.find('li').at(0).text()).toContain('Fact-check sent on');
     expect(tooltipContent.find('li').at(1).text()).toContain('Search result – negative feedback');
   });
