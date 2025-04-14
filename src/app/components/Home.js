@@ -389,22 +389,6 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
           team_bot_installation(bot_identifier: "smooch") {
             smooch_enabled_integrations
           }
-          projects(first: 1) {
-            edges {
-              node {
-                id
-                dbid
-                title
-                team {
-                  id
-                  dbid
-                  avatar
-                  name
-                  slug
-                }
-              }
-            }
-          }
         }
       }
     `,
