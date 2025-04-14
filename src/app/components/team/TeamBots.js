@@ -5,6 +5,7 @@ import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
 import ApiKeys from './ApiKeys';
 import TeamBot from './TeamBot';
+import Webhooks from './Webhooks';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import CreateTeamBotInstallationMutation from '../../relay/mutations/CreateTeamBotInstallationMutation';
@@ -103,6 +104,7 @@ class TeamBots extends Component {
     return (
       <>
         <ApiKeys team={team} />
+        <Webhooks team={team} />
         { root.team_bots_listed.edges.map((teamBot) => {
           const bot = teamBot.node;
           const installation = this.getInstallation(bot.id);

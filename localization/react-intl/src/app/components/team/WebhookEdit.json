@@ -1,0 +1,37 @@
+[
+  {
+    "id": "webhookEdit.newButton",
+    "description": "Button that opens the api key creation dialog",
+    "defaultMessage": "New Webhook"
+  },
+  {
+    "id": "webhookEdit.dialogTitle",
+    "description": "Title of a dialog box to create API keys",
+    "defaultMessage": "New Webhook"
+  },
+  {
+    "id": "webhookEdit.webhookName",
+    "description": "Label for webhook name input",
+    "defaultMessage": "Webhook name"
+  },
+  {
+    "id": "webhookEdit.webhookUrl",
+    "description": "Label for webhook URL input",
+    "defaultMessage": "Webhook URL"
+  },
+  {
+    "id": "webhookEdit.headers",
+    "description": "Label for webhook headers input",
+    "defaultMessage": "Headers (Optional)"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "global.save",
+    "description": "Generic label for a button or link for a user to press when they wish to save an action or setting",
+    "defaultMessage": "Save"
+  }
+]
