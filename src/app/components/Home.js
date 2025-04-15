@@ -121,9 +121,6 @@ class HomeComponent extends Component {
     if (/^check\/me\(\/:tab\)/.test(children.props.route.path)) {
       return 'me';
     }
-    if (/^:team\/project\/:projectId\(\/:query\)/.test(children.props.route.path)) {
-      return 'project';
-    }
     return null;
   }
 
