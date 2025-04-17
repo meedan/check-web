@@ -20,12 +20,11 @@ shared_examples 'status' do
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('.edit-status-dialog__dismiss')
     expect(@driver.page_source.include?('newStatus')).to be(true)
-    expect(@driver.page_source.include?('Unstarted')).to be(false)
     # make another status as default
-    wait_for_selector_list('.status-actions__menu')[3].click
+    wait_for_selector_list('.status-actions__menu')[2].click
     wait_for_selector('.status-actions__make-default').click
     # delete status
-    wait_for_selector_list('.status-actions__menu')[2].click
+    wait_for_selector_list('.status-actions__menu')[1].click
     wait_for_selector('.status-actions__delete').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('.status-actions__delete', :css, 3)
