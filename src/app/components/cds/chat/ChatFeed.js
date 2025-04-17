@@ -41,6 +41,11 @@ const ChatFeed = ({
   const parseItem = (item) => {
     let output = '';
 
+    // Skip Messenger template messages sent outside the 24h window to avoid duplicates and unsupported messages in the chat
+    if (item.payload?.override?.messenger?.payload?.tag === 'ACCOUNT_UPDATE' && item.payload?.override?.messenger?.payload?.messaging_type === 'MESSAGE_TAG') {
+      return null;
+    }
+
     // Items from us have text directly in the payload, items from users have it in a messages sub-object
     if (item.payload?.text && typeof item.payload?.text === 'string') {
       // Smooch templates are raw text objects that start with the text `&((namespace` and look like
@@ -88,6 +93,11 @@ const ChatFeed = ({
     >
       {parseHistory(history).map((item, index, array) => {
         const content = parseItem(item);
+
+        if (content === null) {
+          return null;
+        }
+
         let dateHeader = null;
         // check to see if the previous item in the array renders a different day in our local timezone
         // and then insert a date header if we have crossed a local date boundary between messages
@@ -104,7 +114,7 @@ const ChatFeed = ({
         }
         const dateTime = +item.sent_at * 1000;
         return (
-          <div dateTime={dateTime}>
+          <div dateTime={dateTime} key={item.dbid}>
             <Message
               content={content}
               dateTime={dateTime}
@@ -119,7 +129,9 @@ const ChatFeed = ({
             { dateHeader }
           </div>
         );
-      }).sort((a, b) => +b.props.dateTime - +a.props.dateTime)}
+      })
+        .filter(item => item !== null) // Filter out null values
+        .sort((a, b) => +b.props.dateTime - +a.props.dateTime)}
       <div className={`typography-body2 ${styles.date}`}>
         {history.length > 0 ? convertSentAtToLocaleDateString(history[history.length - 1].sent_at) : null}
       </div>

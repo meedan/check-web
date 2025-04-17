@@ -17,8 +17,6 @@ describe('<Message />', () => {
       />,
     );
 
-    // eslint-disable-next-line
-    // console.log(wrapper.debug());
     expect(wrapper.find('.typography-body1').text()).toContain('Unsupported message');
     expect(wrapper.find(IconBot).length).toBe(1);
   });
