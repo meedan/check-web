@@ -62,7 +62,7 @@ describe('<ChatFeed />', () => {
       <ChatFeed history={history} intl={{ locale: 'en' }} />,
     );
 
-    expect(wrapper.find(Message).length).toBe(1); // Only one valid messages are rendered
+    expect(wrapper.find(Message).length).toBe(1); // Only one valid message is rendered
     expect(wrapper.text()).toContain('Valid message');
     expect(wrapper.text()).not.toContain('*FACT CHECK: NO Guinness World Record for Duterte birthday rallies*');
     expect(wrapper.text()).not.toContain('Unsupported message');
