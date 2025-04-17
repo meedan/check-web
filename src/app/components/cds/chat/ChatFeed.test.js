@@ -25,10 +25,10 @@ describe('<ChatFeed />', () => {
       {
         dbid: 2,
         direction: 'outgoing',
-        language: "en",
-        platform: "Facebook Messenger",
-        uid: "pizza112",
-        external_id: "pizza1723",
+        language: 'en',
+        platform: 'Facebook Messenger',
+        uid: 'pizza112',
+        external_id: 'pizza1723',
         payload: {
           text: 'Valid message',
         },
