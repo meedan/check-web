@@ -42,7 +42,7 @@ const ChatFeed = ({
     let output = '';
 
     // Skip Messenger template messages sent outside the 24h window to avoid duplicates and unsupported messages in the chat
-    if (item.payload?.override?.messenger?.payload?.tag === 'ACCOUNT_UPDATE' && item.payload?.override?.messenger?.payload?.messaging_type === 'MESSAGE_TAG') {
+    if (item.event === null && item.payload?.override?.messenger?.payload?.tag === 'ACCOUNT_UPDATE' && item.payload?.override?.messenger?.payload?.messaging_type === 'MESSAGE_TAG') {
       return null;
     }
 
