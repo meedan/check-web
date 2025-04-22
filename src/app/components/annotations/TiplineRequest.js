@@ -122,6 +122,8 @@ const TiplineRequest = ({
     [
       'timeout_search_requests',
       'relevant_search_result_requests',
+      'irrelevant_search_result_requests',
+      'default_requests',
     ].includes(activity.smooch_request_type)
   ) {
     reportHistory.push({ type: activity.smooch_request_type });

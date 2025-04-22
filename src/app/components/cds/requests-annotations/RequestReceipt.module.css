@@ -28,6 +28,14 @@
   }
 }
 
+.receipt-pink {
+  background-color: var(--color-pink-96);
+
+  .receipt-icon {
+    color: var(--color-pink-40);
+  }
+}
+
 .receipt-yellow {
   background-color: var(--color-orange-95);
 
