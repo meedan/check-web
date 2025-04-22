@@ -30,7 +30,7 @@ const NewProject = ({
             dbid
           }
           team {
-            saved_searches(first: 10000) {
+            saved_searches(first: 10000, list_type: "media") {
               edges {
                 node {
                   id

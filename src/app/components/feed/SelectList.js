@@ -21,7 +21,7 @@ const SelectListQueryRenderer = ({
     query={graphql`
       query SelectListQuery($slug: String!) {
         team(slug: $slug) {
-          saved_searches(first: 1000) {
+          saved_searches(first: 1000, list_type: "media") {
             edges {
               node {
                 dbid

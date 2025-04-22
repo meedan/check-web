@@ -386,7 +386,7 @@ const DrawerTipline = () => {
             smooch_bot: team_bot_installation(bot_identifier: "smooch") {
               id
             }
-            saved_searches(first: 10000) {
+            saved_searches(first: 10000, list_type: "media") {
               edges {
                 node {
                   id
