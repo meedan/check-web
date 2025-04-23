@@ -1,15 +1,14 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
-import cx from 'classnames/bind';
 import QuickFilterMenu from './QuickFilterMenu';
-import ShareIcon from '../../icons/share.svg';
+import OrgFilterButton from './OrgFilterButton';
 import AddIcon from '../../icons/add_circle.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import TeamAvatar from '../team/TeamAvatar';
 import Can from '../Can';
 import styles from './FeedTopBar.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
@@ -25,117 +24,20 @@ const FeedTopBar = ({
     browserHistory.push(`/${team.slug}/feed/${feed.dbid}/edit`);
   };
 
+  const handleFilterClick = (dbid, enabled) => {
+    if (enabled) {
+      const newTeamFilters = teamFilters.filter(item => item !== dbid);
+      setTeamFilters(newTeamFilters);
+    } else {
+      const newTeamFilters = [...teamFilters];
+      newTeamFilters.push(dbid);
+      setTeamFilters(newTeamFilters);
+    }
+  };
+
   if (!feed.published) {
     return null;
   }
-
-  const OrgFilterButton = ({
-    avatar,
-    current,
-    customListDbid,
-    dbid,
-    enabled,
-    name,
-    slug,
-  }) => {
-    const handleFilterClick = () => {
-      // remove this team from the filter
-      if (enabled) {
-        const newTeamFilters = teamFilters.filter(item => item !== dbid);
-        setTeamFilters(newTeamFilters);
-      } else {
-        const newTeamFilters = [...teamFilters]; // need to clone array here
-        newTeamFilters.push(dbid);
-        // add this team back to the filter
-        setTeamFilters(newTeamFilters);
-      }
-    };
-
-    let message;
-    if (!enabled) {
-      message = (
-        <FormattedMessage
-          defaultMessage="Show items from {orgName}"
-          description="Tooltip message displayed on button that the user presses in order to show items from an organization."
-          id="feedTopBar.showItems"
-          values={{
-            orgName: name,
-          }}
-        />
-      );
-    } else {
-      message = (
-        <FormattedMessage
-          defaultMessage="Hide items from {orgName}"
-          description="Tooltip message displayed on button that the user presses in order to hide items from an organization."
-          id="feedTopBar.hideItems"
-          values={{
-            orgName: name,
-          }}
-        />
-      );
-    }
-
-    return (
-      <div className={styles.feedTopBarItemWrapper}>
-        <Tooltip
-          arrow
-          placement="top"
-          title={message}
-        >
-          <button
-            className={cx(
-              'feed-top-bar-item',
-              'int-feed-top-bar__button--filter-org',
-              styles.feedTopBarItem,
-              {
-                [styles.feedTopBarButton]: enabled,
-                [styles.feedTopBarButtonDisabled]: !enabled,
-                [styles.feedTopBarButtonHasList]: current && customListDbid,
-              })
-            }
-            onClick={handleFilterClick}
-          >
-            <TeamAvatar className={styles.feedListAvatar} size="24px" team={{ avatar, slug }} />
-            {
-              current && (
-                <div className="typography-body2">
-                  {
-                    customListDbid ?
-                      <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
-                        <span className={styles.feedListTitle}>{feed.current_feed_team?.saved_search?.title || feed.saved_search.title}</span>
-                      </div> :
-                      <span className={styles.feedNoListTitle}><FormattedMessage defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." id="feedTopBar.noListSelected" /></span>
-                  }
-                </div>)
-            }
-          </button>
-        </Tooltip>
-        { current && customListDbid && (
-          <Tooltip
-            arrow
-            placement="right"
-            title={<FormattedMessage
-              defaultMessage="Go to custom list"
-              description="Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
-              id="feedTopBar.customList"
-            />}
-          >
-            <span className={styles.feedTopBarCustomListButton}>
-              <ButtonMain
-                className={cx(styles.feedListIcon, 'int-feed-top-bar__icon-button--settings')}
-                iconCenter={<ShareIcon />}
-                size="small"
-                theme="lightText"
-                variant="contained"
-                onClick={() => browserHistory.push(`/${team.slug}/list/${customListDbid}`)}
-              />
-            </span>
-          </Tooltip>
-        )}
-      </div>
-    );
-  };
 
   const currentOrg = feed.feed_teams?.edges.find(feedTeam => feedTeam.node.team.slug === team.slug).node.team;
   const teamsWithoutCurrentOrg = feed.feed_teams?.edges
@@ -152,8 +54,10 @@ const FeedTopBar = ({
             customListDbid={feed.current_feed_team?.saved_search?.dbid || feed.saved_search?.dbid}
             dbid={currentOrg.dbid}
             enabled={teamFilters.includes(currentOrg.dbid)}
+            feed={feed}
             name={currentOrg.name}
             slug={currentOrg.slug}
+            onClick={handleFilterClick}
           />
           { teamsWithoutCurrentOrg.map((feedTeam) => {
             const {
@@ -165,10 +69,14 @@ const FeedTopBar = ({
             return (
               <OrgFilterButton
                 avatar={avatar}
+                current={false}
                 dbid={dbid}
                 enabled={teamFilters.includes(dbid)}
+                feed={feed}
+                key={dbid}
                 name={name}
                 slug={slug}
+                onClick={handleFilterClick}
               />
             );
           // sort the remaining items alphabetically per locale
@@ -180,7 +88,7 @@ const FeedTopBar = ({
               title={
                 <FormattedMessage
                   defaultMessage="Add a collaborating organization"
-                  description="Tooltip message displayed on a button that takes the user toa page where they can add an organization to this shared feed with an expectation to collaborate with the organization."
+                  description="Tooltip message displayed on a button that takes the user to a page where they can add an organization to this shared feed with an expectation to collaborate with the organization."
                   id="feedTopBar.addOrg"
                 />
               }
