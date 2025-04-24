@@ -191,9 +191,7 @@ const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequests
 });
 
 const MediaRequests = (props) => {
-  const projectId = props.media.project_id;
-  const ids = `${props.media.dbid},${projectId}`;
-  const route = new MediaRoute({ ids });
+  const route = new MediaRoute({ ids: `${props.media.dbid}` });
   const { all, media, style } = props;
 
   const Container = all ? MediaAllRequestsContainer : MediaOwnRequestsContainer;

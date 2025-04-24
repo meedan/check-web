@@ -219,14 +219,9 @@ const MediaTasks = (props) => {
     media = {
       dbid: parseInt(params.mediaId, 10),
     };
-    if (params.projectId) {
-      media.project_id = parseInt(params.projectId, 10);
-    }
   }
 
-  const projectId = media.project_id;
-  const ids = `${media.dbid},${projectId}`;
-  const route = new MediaRoute({ ids });
+  const route = new MediaRoute({ ids: `${media.dbid}` });
 
   return (
     <ErrorBoundary component="MediaTasks">
