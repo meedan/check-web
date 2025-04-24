@@ -5,9 +5,19 @@
     "defaultMessage": "New Webhook"
   },
   {
-    "id": "webhookEdit.dialogTitle",
-    "description": "Title of a dialog box to create API keys",
+    "id": "global.edit",
+    "description": "Generic label for a button or link for a user to press when they wish to edit content or functionality",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "webhookEdit.dialogTitleCreate",
+    "description": "Title of a dialog box to create new webhooks",
     "defaultMessage": "New Webhook"
+  },
+  {
+    "id": "webhookEdit.dialogTitleEdit",
+    "description": "Title of a dialog box to edit webhook settings",
+    "defaultMessage": "Edit Webhook"
   },
   {
     "id": "webhookEdit.webhookName",

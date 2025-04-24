@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
-import ApiKeyEntry from './ApiKeyEntry';
+import WebhookEntry from './WebhookEntry';
 import WebhookEdit from './WebhookEdit';
 import BlankState from '../layout/BlankState';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -16,10 +16,10 @@ import settingsStyles from './Settings.module.css';
 import styles from './ApiKeys.module.css';
 
 const Webhooks = ({ team }) => {
-  const apiKeys = team.api_keys;
+  const { webhooks } = team;
 
   const [expand, setExpand] = React.useState(false);
-  const [toggleChecked, setToggleChecked] = React.useState(apiKeys.edges.length !== 0);
+  const [toggleChecked, setToggleChecked] = React.useState(webhooks.edges.length !== 0);
   return (
     <div className={cx('api-keys', settingsStyles['setting-content-container'])}>
       <div className={settingsStyles['setting-content-container-title']}>
@@ -27,7 +27,7 @@ const Webhooks = ({ team }) => {
           defaultMessage="External Webhooks"
           description="Title of the webhook management widget"
           id="webhooks.title"
-          values={{ count: apiKeys.edges.length }}
+          values={{ count: webhooks.edges.length }}
         />
         <div className={settingsStyles['setting-content-container-actions']}>
           <ButtonMain
@@ -64,12 +64,12 @@ const Webhooks = ({ team }) => {
               defaultMessage="Webhooks [{count}]"
               description="Title of the webhook management widget"
               id="webhooks.countHeader"
-              values={{ count: apiKeys.edges.length }}
+              values={{ count: webhooks.edges.length }}
             />
             <WebhookEdit />
           </div>
           <div className={styles['api-keys']}>
-            {apiKeys.edges.length === 0 &&
+            {webhooks.edges.length === 0 &&
               <div className={styles['apikey-entry-root']}>
                 <BlankState noMargin>
                   <FormattedMessage
@@ -87,7 +87,7 @@ const Webhooks = ({ team }) => {
                 </div>
               </div>
             }
-            {apiKeys.edges.map(ak => (<ApiKeyEntry apiKey={ak.node} key={ak.node.dbid} />))}
+            {webhooks.edges.map(w => (<WebhookEntry key={w.node.dbid} webhook={w.node} />))}
           </div>
           <div className={`typography-caption ${styles['api-keys-footer']}`}>
             <HelpIcon />
@@ -120,7 +120,7 @@ const Webhooks = ({ team }) => {
 
 Webhooks.propTypes = {
   team: PropTypes.shape({
-    api_keys: PropTypes.shape({
+    webhooks: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
     }).isRequired,
   }).isRequired,
@@ -129,11 +129,11 @@ Webhooks.propTypes = {
 export { Webhooks }; // eslint-disable-line import/no-unused-modules
 export default createFragmentContainer(Webhooks, graphql`
   fragment Webhooks_team on Team {
-    api_keys(first: 10000) {
+    webhooks(first: 10000) {
       edges {
         node {
           dbid
-          ...ApiKeyEntry_apiKey
+          ...WebhookEntry_webhook
         }
       }
     }

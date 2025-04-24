@@ -1,5 +1,6 @@
 import React from 'react';
-import { graphql, commitMutation } from 'react-relay/compat';
+import PropTypes from 'prop-types';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,10 +11,11 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Select from '../cds/inputs/Select';
 import TextField from '../cds/inputs/TextField';
 import LimitedTextField from '../layout/inputs/LimitedTextField';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import { getErrorMessageForRelayModernProblem, safelyParseJSON } from '../../helpers';
 import styles from '../../styles/css/dialog.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 import AddIcon from '../../icons/add.svg';
+import EditIcon from '../../icons/edit.svg';
 
 const mutation = graphql`
   mutation WebhookEditMutation($input: CreateApiKeyInput!) {
@@ -26,12 +28,15 @@ const mutation = graphql`
   }
 `;
 
-const WebhookEdit = () => {
+const WebhookEdit = ({ webhook }) => {
+  const parsedEvents = safelyParseJSON(webhook?.events);
+  const selectedEvent = parsedEvents && parsedEvents.length > 0 ? parsedEvents[0].event : null;
+
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [eventType, setEventType] = React.useState('report_status_changed');
-  const [name, setName] = React.useState('');
-  const [url, setUrl] = React.useState('');
-  const [headers, setHeaders] = React.useState('');
+  const [eventType, setEventType] = React.useState(selectedEvent);
+  const [name, setName] = React.useState(webhook ? webhook.name : '');
+  const [url, setUrl] = React.useState(webhook ? webhook.request_url : '');
+  const [headers, setHeaders] = React.useState(webhook ? webhook.headers : '');
   const [error, setError] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -75,27 +80,55 @@ const WebhookEdit = () => {
 
   return (
     <>
-      <ButtonMain
-        className="webhook-edit__open-dialog-button"
-        iconLeft={<AddIcon />}
-        label={
-          <FormattedMessage
-            defaultMessage="New Webhook"
-            description="Button that opens the api key creation dialog"
-            id="webhookEdit.newButton"
-          />
-        }
-        size="small"
-        onClick={() => setDialogOpen(true)}
-      />
+      { !webhook && (
+        <ButtonMain
+          className="webhook-edit__open-dialog-button"
+          iconLeft={<AddIcon />}
+          label={
+            <FormattedMessage
+              defaultMessage="New Webhook"
+              description="Button that opens the api key creation dialog"
+              id="webhookEdit.newButton"
+            />
+          }
+          size="small"
+          onClick={() => setDialogOpen(true)}
+        />
+      )}
+      { webhook && (
+        <ButtonMain
+          className="webhook-edit__open-dialog-button"
+          iconLeft={<EditIcon />}
+          label={
+            <FormattedMessage
+              defaultMessage="Edit"
+              description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
+              id="global.edit"
+            />
+          }
+          theme="text"
+          variant="outlined"
+          onClick={() => setDialogOpen(true)}
+        />
+      )}
       <Dialog className={styles['dialog-window']} open={dialogOpen}>
         <div className={styles['dialog-title']}>
-          <FormattedMessage
-            defaultMessage="New Webhook"
-            description="Title of a dialog box to create API keys"
-            id="webhookEdit.dialogTitle"
-            tagName="h6"
-          />
+          { !webhook &&
+            <FormattedMessage
+              defaultMessage="New Webhook"
+              description="Title of a dialog box to create new webhooks"
+              id="webhookEdit.dialogTitleCreate"
+              tagName="h6"
+            />
+          }
+          { webhook &&
+            <FormattedMessage
+              defaultMessage="Edit Webhook"
+              description="Title of a dialog box to edit webhook settings"
+              id="webhookEdit.dialogTitleEdit"
+              tagName="h6"
+            />
+          }
         </div>
         <div className={styles['dialog-content']}>
           <div className={inputStyles['form-fieldset']}>
@@ -127,18 +160,19 @@ const WebhookEdit = () => {
                   />
                 }
                 required
-                value={name}
+                value={url}
                 onChange={e => setUrl(e.target.value)}
               />
             </div>
             <div className={inputStyles['form-fieldset-field']}>
               <Select
                 label="Event"
+                required
                 value={eventType}
                 onChange={e => setEventType(e.target.value)}
               >
-                <option value="explainer">explainer (default)</option>
-                <option value="fact-check">fact-check</option>
+                <option value="update_annotation_verification_status-check">Item Status Changed</option>
+                <option value="publish_report">Report Published</option>
               </Select>
             </div>
             <div className={inputStyles['form-fieldset-field']}>
@@ -194,6 +228,28 @@ const WebhookEdit = () => {
   );
 };
 
-WebhookEdit.propTypes = {}; // No props
+WebhookEdit.propTypes = {
+  webhook: PropTypes.shape({
+    name: PropTypes.string,
+    events: PropTypes.string,
+    headers: PropTypes.string,
+    request_url: PropTypes.string,
+  }),
+};
+
+WebhookEdit.defaultProps = {
+  webhook: null,
+};
 
 export default WebhookEdit;
+
+const WebhookEditContainer = createFragmentContainer(WebhookEdit, graphql`
+  fragment WebhookEditContainer_webhook on Webhook {
+    name
+    events
+    headers
+    request_url
+  }
+`);
+
+export { WebhookEditContainer }; // eslint-disable-line import/no-unused-modules
