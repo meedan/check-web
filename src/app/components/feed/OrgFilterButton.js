@@ -13,9 +13,9 @@ const OrgFilterButton = ({
   avatar,
   current,
   customListDbid,
+  customListTitle,
   dbid,
   enabled,
-  feed,
   name,
   onClick,
   slug,
@@ -72,7 +72,7 @@ const OrgFilterButton = ({
                 {
                   customListDbid ?
                     <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
-                      <span className={styles.feedListTitle}>{feed.current_feed_team?.saved_search?.title || feed.saved_search.title}</span>
+                      <span className={styles.feedListTitle}>{customListTitle}</span>
                     </div> :
                     <span className={styles.feedNoListTitle}><FormattedMessage defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." id="feedTopBar.noListSelected" /></span>
                 }
@@ -112,7 +112,6 @@ OrgFilterButton.propTypes = {
   customListDbid: PropTypes.number.isRequired,
   dbid: PropTypes.number.isRequired,
   enabled: PropTypes.bool.isRequired,
-  feed: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,

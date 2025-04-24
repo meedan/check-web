@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -52,6 +51,7 @@ const FeedTopBar = ({
             avatar={currentOrg.avatar}
             current
             customListDbid={feed.current_feed_team?.saved_search?.dbid || feed.saved_search?.dbid}
+            customListTitle={feed.current_feed_team?.saved_search?.title || feed.saved_search?.title}
             dbid={currentOrg.dbid}
             enabled={teamFilters.includes(currentOrg.dbid)}
             feed={feed}
