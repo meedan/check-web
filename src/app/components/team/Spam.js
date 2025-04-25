@@ -33,6 +33,7 @@ export default function Spam({ routeParams }) {
           'cluster_published_reports',
           'archived',
           'published_by',
+          'article_type',
         ]}
         icon={<SpamIcon />}
         mediaUrlPrefix={`/${routeParams.team}/media`}

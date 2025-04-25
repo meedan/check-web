@@ -57,6 +57,7 @@ const SavedSearch = ({ routeParams }) => (
                   'cluster_teams',
                   'cluster_published_reports',
                   'published_by',
+                  'article_type',
                 ]}
                 icon={<ListIcon />}
                 listActions={
