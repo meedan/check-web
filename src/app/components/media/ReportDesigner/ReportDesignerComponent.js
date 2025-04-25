@@ -183,7 +183,7 @@ const ReportDesignerComponent = (props) => {
   const { location } = window;
   const { routeParams } = props;
   let prefixUrl = `/${team.slug}`;
-  if (routeParams.projectId || routeParams.listId) {
+  if (routeParams.listId) {
     const { listUrl } = getListUrlQueryAndIndex(routeParams, location.query);
     prefixUrl = listUrl;
   }

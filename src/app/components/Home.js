@@ -121,9 +121,6 @@ class HomeComponent extends Component {
     if (/^check\/me\(\/:tab\)/.test(children.props.route.path)) {
       return 'me';
     }
-    if (/^:team\/project\/:projectId\(\/:query\)/.test(children.props.route.path)) {
-      return 'project';
-    }
     return null;
   }
 
@@ -388,22 +385,6 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
           verification_statuses
           team_bot_installation(bot_identifier: "smooch") {
             smooch_enabled_integrations
-          }
-          projects(first: 1) {
-            edges {
-              node {
-                id
-                dbid
-                title
-                team {
-                  id
-                  dbid
-                  avatar
-                  name
-                  slug
-                }
-              }
-            }
           }
         }
       }

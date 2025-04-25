@@ -7,7 +7,7 @@ import MediaSimilarityBarComponent from './MediaSimilarityBarComponent';
 import { can } from '../../Can';
 
 const MediaSimilarityBar = ({ projectMedia }) => {
-  const ids = `${projectMedia.dbid},0,${projectMedia.team.dbid}`; // Project ID doesn't matter
+  const ids = `${projectMedia.dbid}`;
 
   return (
     <QueryRenderer

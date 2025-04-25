@@ -39,8 +39,8 @@ const mediaSuggestionsQuery = graphql`
   }
 `;
 
-const MediaSuggestions = ({ dbid, teamDbid }) => {
-  const ids = `${dbid},0,${teamDbid}`; // Project ID doesn't matter
+const MediaSuggestions = ({ dbid }) => {
+  const ids = `${dbid}`;
   const pageSize = 4;
 
   return (
@@ -64,12 +64,7 @@ const MediaSuggestions = ({ dbid, teamDbid }) => {
 };
 
 MediaSuggestions.propTypes = {
-  projectMedia: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-    team: PropTypes.shape({
-      dbid: PropTypes.number.isRequired,
-    }).isRequired,
-  }).isRequired,
+  dbid: PropTypes.number.isRequired,
 };
 
 export default MediaSuggestions;

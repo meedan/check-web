@@ -345,14 +345,5 @@ export default createFragmentContainer((withPusher(SearchKeyword)), graphql`
     verification_statuses
     pusher_channel
     name
-    projects(first: 10000) {
-      edges {
-        node {
-          title
-          dbid
-          id
-        }
-      }
-    }
   }
 `);
