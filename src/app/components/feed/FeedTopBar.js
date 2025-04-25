@@ -50,7 +50,6 @@ const FeedTopBar = ({
           <OrgFilterButton
             current
             enabled={teamFilters.includes(currentOrg.dbid)}
-            feed={feed}
             savedSearch={feed.current_feed_team?.saved_search || feed.saved_search}
             team={currentOrg}
             onClick={handleFilterClick}
@@ -60,7 +59,6 @@ const FeedTopBar = ({
               <OrgFilterButton
                 current={false}
                 enabled={teamFilters.includes(feedTeam.node.team.dbid)}
-                feed={feed}
                 key={feedTeam.node.team.dbid}
                 savedSearch={feedTeam.node.saved_search}
                 team={feedTeam.node.team}
