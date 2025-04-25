@@ -33,6 +33,7 @@ export default function Trash({ routeParams }) {
           'cluster_published_reports',
           'archived',
           'published_by',
+          'article_type',
         ]}
         icon={<DeleteIcon />}
         mediaUrlPrefix={`/${routeParams.team}/media`}
