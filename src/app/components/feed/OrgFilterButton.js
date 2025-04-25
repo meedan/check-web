@@ -20,30 +20,22 @@ const OrgFilterButton = ({
   const {
     avatar, dbid, name, slug,
   } = team;
-  let message;
-  if (!enabled) {
-    message = (
-      <FormattedMessage
-        defaultMessage="Show items from {orgName}"
-        description="Tooltip message displayed on button that the user presses in order to show items from an organization."
-        id="feedTopBar.showItems"
-        values={{
-          orgName: name,
-        }}
-      />
-    );
-  } else {
-    message = (
-      <FormattedMessage
-        defaultMessage="Hide items from {orgName}"
-        description="Tooltip message displayed on button that the user presses in order to hide items from an organization."
-        id="feedTopBar.hideItems"
-        values={{
-          orgName: name,
-        }}
-      />
-    );
-  }
+
+  const message = enabled ? (
+    <FormattedMessage
+      defaultMessage="Hide items from {orgName}"
+      description="Tooltip message displayed on button that the user presses in order to hide items from an organization."
+      id="feedTopBar.hideItems"
+      values={{ orgName: name }}
+    />
+  ) : (
+    <FormattedMessage
+      defaultMessage="Show items from {orgName}"
+      description="Tooltip message displayed on button that the user presses in order to show items from an organization."
+      id="feedTopBar.showItems"
+      values={{ orgName: name }}
+    />
+  );
 
   return (
     <div className={styles.feedTopBarItemWrapper}>

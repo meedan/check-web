@@ -1,13 +1,13 @@
 [
   {
-    "id": "feedTopBar.showItems",
-    "description": "Tooltip message displayed on button that the user presses in order to show items from an organization.",
-    "defaultMessage": "Show items from {orgName}"
-  },
-  {
     "id": "feedTopBar.hideItems",
     "description": "Tooltip message displayed on button that the user presses in order to hide items from an organization.",
     "defaultMessage": "Hide items from {orgName}"
+  },
+  {
+    "id": "feedTopBar.showItems",
+    "description": "Tooltip message displayed on button that the user presses in order to show items from an organization.",
+    "defaultMessage": "Show items from {orgName}"
   },
   {
     "id": "feedTopBar.noListSelected",
