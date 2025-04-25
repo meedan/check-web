@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
@@ -10,16 +11,15 @@ import TeamAvatar from '../team/TeamAvatar';
 import styles from './FeedTopBar.module.css';
 
 const OrgFilterButton = ({
-  avatar,
   current,
-  customListDbid,
-  customListTitle,
-  dbid,
   enabled,
-  name,
   onClick,
-  slug,
+  savedSearch,
+  team,
 }) => {
+  const {
+    avatar, dbid, name, slug,
+  } = team;
   let message;
   if (!enabled) {
     message = (
@@ -60,7 +60,7 @@ const OrgFilterButton = ({
             {
               [styles.feedTopBarButton]: enabled,
               [styles.feedTopBarButtonDisabled]: !enabled,
-              [styles.feedTopBarButtonHasList]: current && customListDbid,
+              [styles.feedTopBarButtonHasList]: current && savedSearch?.dbid,
             })
           }
           onClick={() => onClick(dbid, enabled)}
@@ -70,9 +70,9 @@ const OrgFilterButton = ({
             current && (
               <div className="typography-body2">
                 {
-                  customListDbid ?
+                  savedSearch?.dbid ?
                     <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
-                      <span className={styles.feedListTitle}>{customListTitle}</span>
+                      <span className={styles.feedListTitle}>{savedSearch?.title}</span>
                     </div> :
                     <span className={styles.feedNoListTitle}><FormattedMessage defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." id="feedTopBar.noListSelected" /></span>
                 }
@@ -80,7 +80,7 @@ const OrgFilterButton = ({
           }
         </button>
       </Tooltip>
-      { current && customListDbid && (
+      { current && savedSearch?.dbid && (
         <Tooltip
           arrow
           placement="right"
@@ -97,7 +97,7 @@ const OrgFilterButton = ({
               size="small"
               theme="lightText"
               variant="contained"
-              onClick={() => browserHistory.push(`/${slug}/list/${customListDbid}`)}
+              onClick={() => browserHistory.push(`/${slug}/list/${savedSearch.dbid}`)}
             />
           </span>
         </Tooltip>
@@ -106,15 +106,33 @@ const OrgFilterButton = ({
   );
 };
 
+OrgFilterButton.defaultProps = {
+  savedSearch: null,
+};
+
 OrgFilterButton.propTypes = {
-  avatar: PropTypes.string.isRequired,
   current: PropTypes.bool.isRequired,
-  customListDbid: PropTypes.number.isRequired,
-  dbid: PropTypes.number.isRequired,
   enabled: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  slug: PropTypes.string.isRequired,
+  savedSearch: PropTypes.shape({
+    dbid: PropTypes.number,
+    title: PropTypes.string,
+  }),
   onClick: PropTypes.func.isRequired,
 };
 
-export default OrgFilterButton;
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { OrgFilterButton };
+
+export default createFragmentContainer(OrgFilterButton, graphql`
+  fragment OrgFilterButton_team on PublicTeam {
+    avatar
+    dbid
+    name
+    slug
+  }
+  fragment OrgFilterButton_savedSearch on SavedSearch {
+    dbid
+    title
+  }
+`);

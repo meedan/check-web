@@ -48,39 +48,29 @@ const FeedTopBar = ({
       <div className={styles.feedTopBarContainer}>
         <div className={`${styles.feedTopBarLeft} feed-top-bar`}>
           <OrgFilterButton
-            avatar={currentOrg.avatar}
             current
             customListDbid={feed.current_feed_team?.saved_search?.dbid || feed.saved_search?.dbid}
-            customListTitle={feed.current_feed_team?.saved_search?.title || feed.saved_search?.title}
-            dbid={currentOrg.dbid}
             enabled={teamFilters.includes(currentOrg.dbid)}
             feed={feed}
-            name={currentOrg.name}
-            slug={currentOrg.slug}
+            savedSearch={feed.current_feed_team?.saved_search || feed.saved_search}
+            team={currentOrg}
             onClick={handleFilterClick}
           />
-          { teamsWithoutCurrentOrg.map((feedTeam) => {
-            const {
-              avatar,
-              dbid,
-              name,
-              slug,
-            } = feedTeam.node.team;
-            return (
+          { teamsWithoutCurrentOrg.map(feedTeam =>
+            (
               <OrgFilterButton
-                avatar={avatar}
                 current={false}
-                dbid={dbid}
-                enabled={teamFilters.includes(dbid)}
+                customListDbid={feedTeam.node.saved_search_id}
+                enabled={teamFilters.includes(feedTeam.node.team.dbid)}
                 feed={feed}
-                key={dbid}
-                name={name}
-                slug={slug}
+                key={feedTeam.node.team.dbid}
+                savedSearch={feedTeam.node.saved_search}
+                team={feedTeam.node.team}
                 onClick={handleFilterClick}
               />
-            );
+            ),
           // sort the remaining items alphabetically per locale
-          }).sort((a, b) => a.props.name.localeCompare(b.props.name))}
+          ).sort((a, b) => a.props.name.localeCompare(b.props.name))}
           <Can permission="update Feed" permissions={feed.permissions}>
             <Tooltip
               arrow
@@ -132,7 +122,6 @@ FeedTopBar.propTypes = {
   setTeamFilters: PropTypes.func.isRequired,
   team: PropTypes.shape({
     slug: PropTypes.string.isRequired,
-    avatar: PropTypes.string,
   }).isRequired,
   teamFilters: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
@@ -144,7 +133,6 @@ export { FeedTopBar };
 export default createFragmentContainer(FeedTopBar, graphql`
   fragment FeedTopBar_team on Team {
     slug
-    avatar
   }
   fragment FeedTopBar_feed on Feed {
     dbid
@@ -155,23 +143,20 @@ export default createFragmentContainer(FeedTopBar, graphql`
         node {
           saved_search_id
           team {
-            dbid
-            avatar
-            name
             slug
+            dbid
+            ...OrgFilterButton_team
           }
         }
       }
     }
     current_feed_team {
       saved_search {
-        dbid
-        title
+        ...OrgFilterButton_savedSearch
       }
     }
     saved_search {
-      dbid
-      title
+      ...OrgFilterButton_savedSearch
     }
   }
 `);
