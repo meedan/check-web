@@ -49,7 +49,6 @@ const FeedTopBar = ({
         <div className={`${styles.feedTopBarLeft} feed-top-bar`}>
           <OrgFilterButton
             current
-            customListDbid={feed.current_feed_team?.saved_search?.dbid || feed.saved_search?.dbid}
             enabled={teamFilters.includes(currentOrg.dbid)}
             feed={feed}
             savedSearch={feed.current_feed_team?.saved_search || feed.saved_search}
@@ -60,7 +59,6 @@ const FeedTopBar = ({
             (
               <OrgFilterButton
                 current={false}
-                customListDbid={feedTeam.node.saved_search_id}
                 enabled={teamFilters.includes(feedTeam.node.team.dbid)}
                 feed={feed}
                 key={feedTeam.node.team.dbid}
