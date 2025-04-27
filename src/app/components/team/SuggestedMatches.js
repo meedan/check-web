@@ -29,6 +29,7 @@ const SuggestedMatches = ({ routeParams }) => {
           'cluster_teams',
           'cluster_published_reports',
           'published_by',
+          'article_type',
         ]}
         icon={<LightbulbIcon />}
         listSubtitle={<FormattedMessage defaultMessage="Media Clusters List" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}

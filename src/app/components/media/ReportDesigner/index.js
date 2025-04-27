@@ -7,7 +7,7 @@ import ErrorBoundary from '../../error/ErrorBoundary';
 import Loader from '../../cds/loading/Loader';
 
 const ReportDesigner = ({ params }) => {
-  const ids = `${params.mediaId},${params.projectId}`;
+  const ids = `${params.mediaId}`;
 
   return (
     <ErrorBoundary component="ReportDesigner">
@@ -35,7 +35,6 @@ const ReportDesigner = ({ params }) => {
 ReportDesigner.propTypes = {
   params: PropTypes.shape({
     mediaId: PropTypes.string.isRequired,
-    projectId: PropTypes.string,
   }).isRequired,
 };
 

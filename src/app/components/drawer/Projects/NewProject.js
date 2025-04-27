@@ -65,6 +65,7 @@ const NewProject = ({
     const input = {
       title: newTitle,
       team_id: team.dbid,
+      list_type: 'media',
     };
 
     commitMutation(Store, {
