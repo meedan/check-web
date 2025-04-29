@@ -4,23 +4,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter, Link } from 'react-router';
-import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
-import ProjectsListItem from './Projects/ProjectsListItem';
-import NewProject from './Projects/NewProject';
 import ProjectsCoreListCounter from './Projects/ProjectsCoreListCounter';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import DrawerCustomLists from './DrawerCustomLists';
 import CreateMedia from '../media/CreateMedia';
-import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import AddIcon from '../../icons/add_filled.svg';
 import BarChartIcon from '../../icons/bar_chart.svg';
 import PermMediaIcon from '../../icons/perm_media.svg';
-import ExpandLessIcon from '../../icons/chevron_down.svg';
-import ExpandMoreIcon from '../../icons/chevron_right.svg';
-import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import InboxIcon from '../../icons/inbox.svg';
 import LightbulbIcon from '../../icons/lightbulb.svg';
-import ListIcon from '../../icons/list.svg';
 import PersonIcon from '../../icons/person.svg';
 import Can from '../Can';
 import DeleteIcon from '../../icons/delete.svg';
@@ -34,20 +25,8 @@ import styles from './Projects/Projects.module.css';
 const DrawerTiplineComponent = ({
   currentUser,
   location,
-  savedSearches,
   team,
 }) => {
-  const [showNewListDialog, setShowNewListDialog] = React.useState(false);
-  const getBooleanPref = (key, fallback) => {
-    const inStore = window.storage.getValue(key);
-    if (inStore === null) return fallback;
-    return (inStore === 'true');
-  };
-
-
-  const [listsExpanded, setListsExpanded] =
-    React.useState(getBooleanPref('drawer.listsExpanded', true));
-
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
   const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
@@ -64,11 +43,6 @@ const DrawerTiplineComponent = ({
 
   const handleSpecialLists = (listId) => {
     setActiveItem({ type: listId, id: null });
-  };
-
-  const handleToggleListsExpand = () => {
-    setListsExpanded(!listsExpanded);
-    window.storage.set('drawer.listsExpanded', !listsExpanded);
   };
 
   const handleTrash = () => {
@@ -215,59 +189,11 @@ const DrawerTiplineComponent = ({
               </li>
             </Link>
           }
-
-          {/* Lists Header */}
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-          <li className={cx(styles.listItem, styles.listHeader, styles.listItem_containsCount, 'project-list__header')} onClick={handleToggleListsExpand}>
-            { listsExpanded ? <ExpandLessIcon className={styles.listIcon} /> : <ExpandMoreIcon className={styles.listIcon} /> }
-            <div className={styles.listLabel}>
-              <FormattedMessage defaultMessage="Custom Filtered Lists" description="List of items with some filters applied" id="projectsComponent.lists" tagName="span" />
-            </div>
-            <Can permission="create Project" permissions={team.permissions}>
-              <Tooltip arrow title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Tooltip for button that opens list creation dialog" id="projectsComponent.newListButton" />}>
-                <div className={cx(styles.listItemCount, styles.listAddListButton)}>
-                  <ButtonMain
-                    buttonProps={{
-                      id: 'projects-list__add-filtered-list',
-                    }}
-                    iconCenter={<AddIcon />}
-                    size="default"
-                    theme="text"
-                    variant="text"
-                    onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
-                  />
-                </div>
-              </Tooltip>
-            </Can>
-          </li>
-
-          {/* Lists */}
-          <React.Fragment>
-            <Collapse className={styles.listCollapseWrapper} in={listsExpanded}>
-              { savedSearches.length === 0 ?
-                <li className={cx(styles.listItem, styles.listItem_containsCount, styles.listItem_empty)}>
-                  <div className={styles.listLabel}>
-                    <span>
-                      <FormattedMessage defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" id="projectsComponent.noCustomLists" tagName="em" />
-                    </span>
-                  </div>
-                </li> :
-                <>
-                  {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
-                    <ProjectsListItem
-                      icon={search.is_part_of_feeds ? <SharedFeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} /> : <ListIcon className={styles.listIcon} />}
-                      isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
-                      key={search.id}
-                      project={search}
-                      routePrefix="list"
-                      teamSlug={team.slug}
-                      tooltip={search.title}
-                    />
-                  ))}
-                </>
-              }
-            </Collapse>
-          </React.Fragment>
+          {/* Custom Lists */}
+          <DrawerCustomLists
+            listType="media"
+            teamSlug={team.slug}
+          />
         </ul>
       </div>
       <ul className={cx(styles.listWrapper, styles.listFooter)}>
@@ -325,18 +251,6 @@ const DrawerTiplineComponent = ({
           </li>
         </Link>
       </ul>
-
-      {/* Dialog to create list */}
-
-      <NewProject
-        buttonLabel={<FormattedMessage defaultMessage="Create List" description="Label for a button to create a new list displayed on the left sidebar." id="projectsComponent.createList" />}
-        errorMessage={<FormattedMessage defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" id="projectsComponent.newListErrorMessage" />}
-        open={showNewListDialog}
-        successMessage={<FormattedMessage defaultMessage="Filtered List created successfully" description="Success message when new list is created" id="projectsComponent.newListSuccessMessage" />}
-        team={team}
-        title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Title for a dialog to create a new list displayed on the left sidebar." id="projectsComponent.newList" />}
-        onClose={() => { setShowNewListDialog(false); }}
-      />
     </React.Fragment>
   );
 };
@@ -345,11 +259,6 @@ DrawerTiplineComponent.propTypes = {
   currentUser: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }).isRequired,
-  savedSearches: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     slug: PropTypes.string.isRequired,
@@ -386,17 +295,6 @@ const DrawerTipline = () => {
             smooch_bot: team_bot_installation(bot_identifier: "smooch") {
               id
             }
-            saved_searches(first: 10000, list_type: "media") {
-              edges {
-                node {
-                  id
-                  dbid
-                  title
-                  is_part_of_feeds
-                  medias_count: items_count
-                }
-              }
-            }
             trash_count
             spam_count
           }
@@ -411,7 +309,6 @@ const DrawerTipline = () => {
           <DrawerTiplineComponent
             currentUser={props.me}
             location={location}
-            savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
             team={props.team}
           />
         );

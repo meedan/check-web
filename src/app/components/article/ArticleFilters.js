@@ -9,6 +9,7 @@ import SearchFieldUser from '../search/SearchFields/SearchFieldUser';
 import SearchFieldTag from '../search/SearchFields/SearchFieldTag';
 import DateRangeFilter from '../search/DateRangeFilter';
 import LanguageFilter from '../search/LanguageFilter';
+import SaveList from '../search/SaveList';
 import PersonIcon from '../../icons/person.svg';
 import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
@@ -93,6 +94,8 @@ const ArticleFilters = ({
 
   // We can reset if have applied filters or the state query is dirty
   const canReset = JSON.stringify(currentFilters) !== JSON.stringify(defaultFilters) || canApply;
+
+  const canSave = true;
 
   return (
     <>
@@ -317,6 +320,11 @@ const ArticleFilters = ({
                 theme="lightText"
                 variant="contained"
                 onClick={handleReset}
+              />
+            )}
+            { canSave && (
+              <SaveList
+                team={teamSlug}
               />
             )}
           </div>

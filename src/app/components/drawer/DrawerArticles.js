@@ -226,8 +226,11 @@ const DrawerArticles = () => {
       `}
       render={({ error, props }) => {
         if (!props || error) return null;
-
-        return <DrawerArticlesComponent team={props.team} />;
+        return (
+          <DrawerArticlesComponent
+            team={props.team}
+          />
+        );
       }}
       variables={{ teamSlug }}
     />
