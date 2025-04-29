@@ -9,6 +9,7 @@ const PublishedArticles = ({ routeParams }) => (
     defaultFilters={{ article_type: 'fact-check', report_status: 'published' }}
     filterOptions={['users', 'tags', 'range', 'verification_status', 'language_filter', 'published_by', 'channels']}
     icon={<PublishedIcon />}
+    pageName="published"
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="Published" description="Title of the published articles page." id="publishedArticles.title" />}
   />

@@ -41,14 +41,14 @@ const messages = defineMessages({
 });
 
 const createMutation = graphql`
-  mutation SaveListCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
+  mutation SaveListCreateSavedSearchMutation($input: CreateSavedSearchInput!, $listType: String!) {
     createSavedSearch(input: $input) {
       saved_search {
         id
         dbid
       }
       team {
-        saved_searches(first: 10000, list_type: "media") {
+        saved_searches(first: 10000, list_type: $listType) {
           edges {
             node {
               id
@@ -78,25 +78,24 @@ const updateMutation = graphql`
 const SaveList = ({
   feedTeam,
   intl,
+  listType,
   page,
   query,
+  routePrefix,
   savedSearch,
   setFlashMessage,
   team,
 }) => {
   // FIXME: Replace pathname context-detection and derived logic with the `page` prop
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|all-items|assigned-to-me|tipline-inbox|suggested-matches|feed|imported-fact-checks|published)(\/([0-9]+))?/);
-
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|articles|all-items|assigned-to-me|tipline-inbox|suggested-matches|feed|imported-fact-checks|published)(\/([0-9]+))?/);
   if (!page || !currentPath) {
     return null;
   }
-
   if (['spam', 'trash'].includes(page)) {
     return null;
   }
 
   const objectType = page || currentPath[1];
-
   const [title, setTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);
   const [operation, setOperation] = React.useState('CREATE'); // or 'UPDATE'
@@ -156,7 +155,7 @@ const SaveList = ({
     setTitle('');
     handleClose();
     if (operation === 'CREATE' && response.createSavedSearch) {
-      browserHistory.push(`/${team.slug}/list/${response.createSavedSearch.saved_search.dbid}`);
+      browserHistory.push(`/${team.slug}/${routePrefix}/${response.createSavedSearch.saved_search.dbid}`);
     }
   };
 
@@ -171,7 +170,7 @@ const SaveList = ({
     if (operation === 'CREATE') {
       input.team_id = team.dbid;
       input.title = title;
-      input.list_type = 'media';
+      input.list_type = listType;
       mutation = createMutation;
     } else if (operation === 'UPDATE') {
       input.id = savedSearch.id;
@@ -182,6 +181,7 @@ const SaveList = ({
       mutation,
       variables: {
         input,
+        listType,
       },
       onCompleted: (response, error) => {
         if (error) {
@@ -234,11 +234,11 @@ const SaveList = ({
   const handleClick = () => {
     // FIXME: declare core lists globally.
     // From these pages we can just create a new list
-    const coreLists = ['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published'];
+    const coreLists = ['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published', 'fact-checks', 'explainers'];
     if (coreLists.includes(objectType)) {
       setShowNewDialog(true);
     // From a list page, we can either create a new one or update the one we're seeing
-    } else if (objectType === 'list') {
+    } else if (objectType === 'list' || objectType === 'articles') {
       setOperation('UPDATE');
       setShowExistingDialog(true);
     // Save feed filters

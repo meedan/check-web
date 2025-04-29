@@ -699,8 +699,10 @@ const SearchFields = ({
         { canSave && (
           <SaveList
             feedTeam={feedTeam}
+            listType="media"
             page={page}
             query={stateQuery}
+            routePrefix="list"
             savedSearch={savedSearch}
             team={team}
           />

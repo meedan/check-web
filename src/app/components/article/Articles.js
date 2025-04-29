@@ -120,7 +120,9 @@ const ArticlesComponent = ({
   listActions,
   onChangeSearchParams,
   page,
+  pageName,
   reloadData,
+  savedSearch,
   sort,
   sortType,
   statuses,
@@ -273,8 +275,11 @@ const ArticlesComponent = ({
             currentFilters={{ ...filters }}
             defaultFilters={{ ...defaultFilters }}
             filterOptions={filterOptions}
+            pageName={pageName}
+            permissions={team.permissions}
+            savedSearch={savedSearch}
             statuses={statuses.statuses}
-            teamSlug={team.slug}
+            team={team}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -432,6 +437,8 @@ const Articles = ({
   filterOptions,
   icon,
   listActions,
+  pageName,
+  savedSearch,
   teamSlug,
   title,
 }) => {
@@ -467,8 +474,10 @@ const Articles = ({
             $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean, $channels: [String]
           ) {
             team(slug: $slug) {
+              dbid
               name
               slug
+              permissions
               totalArticlesCount: articles_count
               verification_statuses
               articles_count(
@@ -532,7 +541,9 @@ const Articles = ({
                 icon={icon}
                 listActions={listActions}
                 page={page}
+                pageName={pageName}
                 reloadData={retry}
+                savedSearch={savedSearch}
                 sort={sort}
                 sortType={sortType}
                 statuses={props.team.verification_statuses}

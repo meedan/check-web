@@ -8,6 +8,7 @@ const AllArticles = ({ routeParams }) => (
   <Articles
     filterOptions={['users', 'tags', 'range', 'language_filter', 'channels']}
     icon={<DescriptionIcon />}
+    pageName="all-items"
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="All Articles" description="Title of the all articles page." id="allArticles.title" />}
   />

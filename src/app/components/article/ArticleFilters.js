@@ -38,8 +38,10 @@ const ArticleFilters = ({
   filterOptions,
   intl,
   onSubmit,
+  pageName,
+  savedSearch,
   statuses,
-  teamSlug,
+  team,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
 
@@ -115,7 +117,7 @@ const ArticleFilters = ({
                       icon={<PersonIcon />}
                       label={label}
                       selected={value || []}
-                      teamSlug={teamSlug}
+                      teamSlug={team.slug}
                       value={value}
                       onChange={(newValue) => { handleOptionChange('users', newValue.map(userId => parseInt(userId, 10))); }}
                       onRemove={() => handleRemoveFilter('users')}
@@ -132,7 +134,7 @@ const ArticleFilters = ({
                 {connector}
                 <SearchFieldTag
                   query={value ? filters : { tags: [] }}
-                  teamSlug={teamSlug}
+                  teamSlug={team.slug}
                   onChange={(newValue) => { handleOptionChange('tags', newValue); }}
                   onRemove={() => handleRemoveFilter('tags')}
                 />
@@ -183,7 +185,7 @@ const ArticleFilters = ({
                 {connector}
                 <LanguageFilter
                   optionsToHide={['request_language', 'language']}
-                  teamSlug={teamSlug}
+                  teamSlug={team.slug}
                   value={value}
                   onChange={(newValue) => { handleOptionChange('language_filter', newValue); }}
                   onRemove={() => handleRemoveFilter('language_filter')}
@@ -202,7 +204,7 @@ const ArticleFilters = ({
                       icon={<HowToRegIcon />}
                       label={label}
                       selected={value || []}
-                      teamSlug={teamSlug}
+                      teamSlug={team.slug}
                       value={value}
                       onChange={(newValue) => { handleOptionChange('published_by', newValue.map(userId => parseInt(userId, 10))); }}
                       onRemove={() => handleRemoveFilter('published_by')}
@@ -324,7 +326,12 @@ const ArticleFilters = ({
             )}
             { canSave && (
               <SaveList
-                team={teamSlug}
+                listType="article"
+                page={pageName}
+                query={defaultFilters}
+                routePrefix="articles"
+                savedSearch={savedSearch}
+                team={team}
               />
             )}
           </div>
@@ -353,7 +360,7 @@ ArticleFilters.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  teamSlug: PropTypes.string.isRequired,
+  team: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
