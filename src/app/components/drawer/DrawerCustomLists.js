@@ -18,6 +18,7 @@ import Can from '../Can';
 import styles from './Projects/Projects.module.css';
 
 const DrawerCustomListsComponent = ({
+  listType,
   location,
   routePrefix,
   savedSearches,
@@ -106,7 +107,9 @@ const DrawerCustomListsComponent = ({
       <NewProject
         buttonLabel={<FormattedMessage defaultMessage="Create List" description="Label for a button to create a new list displayed on the left sidebar." id="drawerCustomLists.createList" />}
         errorMessage={<FormattedMessage defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" id="drawerCustomLists.newListErrorMessage" />}
+        listType={listType}
         open={showNewListDialog}
+        routePrefix={routePrefix}
         successMessage={<FormattedMessage defaultMessage="Filtered List created successfully" description="Success message when new list is created" id="drawerCustomLists.newListSuccessMessage" />}
         team={team}
         title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Title for a dialog to create a new list displayed on the left sidebar." id="drawerCustomLists.newList" />}
@@ -160,6 +163,7 @@ const DrawerCustomLists = ({ listType, routePrefix, teamSlug }) => (
 
       return (
         <DrawerCustomListsComponent
+          listType={listType}
           location={location}
           routePrefix={routePrefix}
           savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}

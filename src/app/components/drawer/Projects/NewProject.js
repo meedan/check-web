@@ -12,8 +12,10 @@ import { withSetFlashMessage } from '../../FlashMessage';
 const NewProject = ({
   buttonLabel,
   errorMessage,
+  listType,
   onClose,
   open,
+  routePrefix,
   setFlashMessage,
   successMessage,
   team,
@@ -24,13 +26,13 @@ const NewProject = ({
 
   const mutations = {
     list: graphql`
-      mutation NewProjectCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
+      mutation NewProjectCreateSavedSearchMutation($input: CreateSavedSearchInput!, $listType: String!) {
         createSavedSearch(input: $input) {
           saved_search {
             dbid
           }
           team {
-            saved_searches(first: 10000, list_type: "media") {
+            saved_searches(first: 10000, list_type: $listType) {
               edges {
                 node {
                   id
@@ -65,13 +67,14 @@ const NewProject = ({
     const input = {
       title: newTitle,
       team_id: team.dbid,
-      list_type: 'media',
+      list_type: listType,
     };
 
     commitMutation(Store, {
       mutation: mutations.list,
       variables: {
         input,
+        listType,
       },
       onCompleted: (response, error) => {
         if (error) {
@@ -79,7 +82,7 @@ const NewProject = ({
         } else {
           handleSuccess(response);
           const listId = response.createSavedSearch.saved_search.dbid;
-          browserHistory.push(`/${team.slug}/list/${listId}`);
+          browserHistory.push(`/${team.slug}/${routePrefix}/${listId}`);
         }
       },
       onError: () => {
