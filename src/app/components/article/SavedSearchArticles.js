@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import Articles from './Articles';
+import ProjectActions from '../drawer/Projects/ProjectActions';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import ListIcon from '../../icons/list.svg';
@@ -41,6 +42,32 @@ const SavedSearchArticles = ({ routeParams }) => (
               defaultFilters={query}
               filterOptions={['users', 'tags', 'range', 'verification_status', 'language_filter', 'published_by', 'channels']}
               icon={<ListIcon />}
+              listActions={
+                <ProjectActions
+                  deleteMutation={graphql`
+                    mutation SavedSearchArticlesDestroySavedSearchMutation($input: DestroySavedSearchInput!) {
+                      destroySavedSearch(input: $input) {
+                        deletedId
+                        team {
+                          id
+                        }
+                      }
+                    }
+                  `}
+                  object={props.saved_search}
+                  updateMutation={graphql`
+                    mutation SavedSearchArticlesUpdateSavedSearchMutation($input: UpdateSavedSearchInput!) {
+                      updateSavedSearch(input: $input) {
+                        saved_search {
+                          id
+                          title
+                          medias_count: items_count
+                        }
+                      }
+                    }
+                  `}
+                />
+              }
               teamSlug={routeParams.team}
               title={props.saved_search?.title}
             />

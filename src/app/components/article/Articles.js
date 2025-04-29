@@ -117,6 +117,7 @@ const ArticlesComponent = ({
   filters,
   icon,
   intl,
+  listActions,
   onChangeSearchParams,
   page,
   reloadData,
@@ -242,6 +243,11 @@ const ArticlesComponent = ({
                 {icon}
                 {title}
               </h6>
+              { listActions &&
+                <div className={searchResultsStyles.searchHeaderActions}>
+                  {listActions}
+                </div>
+              }
             </div>
           </div>
           <div className={searchStyles['search-form']}>
@@ -425,6 +431,7 @@ const Articles = ({
   defaultFilters,
   filterOptions,
   icon,
+  listActions,
   teamSlug,
   title,
 }) => {
@@ -523,6 +530,7 @@ const Articles = ({
                 filterOptions={filterOptions}
                 filters={filters}
                 icon={icon}
+                listActions={listActions}
                 page={page}
                 reloadData={retry}
                 sort={sort}
