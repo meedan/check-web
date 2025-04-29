@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import DrawerListCounter from './Projects/DrawerListCounter';
+import DrawerCustomLists from './DrawerCustomLists';
 import NewArticleButton from '../article/NewArticleButton';
 import PublishedIcon from '../../icons/fact_check.svg';
 import TrashIcon from '../../icons/delete.svg';
@@ -173,6 +174,13 @@ const DrawerArticlesComponent = ({ team }) => {
               <DrawerListCounter numberOfItems={team.publishedCount} />
             </li>
           </Link>
+
+          {/* Custom Lists */}
+          <DrawerCustomLists
+            listType="article"
+            routePrefix="articles"
+            teamSlug={team.slug}
+          />
         </ul>
       </div>
       <ul className={cx(styles.listWrapper, styles.listFooter)}>

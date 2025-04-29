@@ -19,6 +19,7 @@ import styles from './Projects/Projects.module.css';
 
 const DrawerCustomListsComponent = ({
   location,
+  routePrefix,
   savedSearches,
   team,
 }) => {
@@ -86,11 +87,11 @@ const DrawerCustomListsComponent = ({
               {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
                 <ProjectsListItem
                   icon={search.is_part_of_feeds ? <SharedFeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} /> : <ListIcon className={styles.listIcon} />}
-                  isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
+                  isActive={activeItem.type === routePrefix && activeItem.id === search.dbid}
                   key={search.id}
                   mediasCount={search.medias_count}
                   project={search}
-                  routePrefix="list"
+                  routePrefix={routePrefix}
                   teamSlug={team.slug}
                   tooltip={search.title}
                 />
@@ -129,7 +130,7 @@ DrawerCustomListsComponent.propTypes = {
   }).isRequired,
 };
 
-const DrawerCustomLists = ({ listType, teamSlug }) => (
+const DrawerCustomLists = ({ listType, routePrefix, teamSlug }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
@@ -160,6 +161,7 @@ const DrawerCustomLists = ({ listType, teamSlug }) => (
       return (
         <DrawerCustomListsComponent
           location={location}
+          routePrefix={routePrefix}
           savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
           team={props.team}
         />

@@ -192,6 +192,7 @@ const DrawerTiplineComponent = ({
           {/* Custom Lists */}
           <DrawerCustomLists
             listType="media"
+            routePrefix="list"
             teamSlug={team.slug}
           />
         </ul>
