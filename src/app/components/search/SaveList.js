@@ -108,7 +108,6 @@ const SaveList = ({
   if (!can(team.permissions, 'update Team')) {
     return null;
   }
-
   const feedFilters = {};
   if (objectType === 'feed') {
     // Don't show the button if it's a shared feed and nothing changed

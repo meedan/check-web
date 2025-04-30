@@ -95,9 +95,9 @@ const ArticleFilters = ({
   const canApply = JSON.stringify(filters) !== JSON.stringify(currentFilters);
 
   // We can reset if have applied filters or the state query is dirty
-  const canReset = JSON.stringify(currentFilters) !== JSON.stringify(defaultFilters) || canApply;
+  const canSave = JSON.stringify(currentFilters) !== JSON.stringify(defaultFilters);
 
-  const canSave = true;
+  const canReset = canApply || canSave;
 
   return (
     <>
@@ -328,7 +328,7 @@ const ArticleFilters = ({
               <SaveList
                 listType="article"
                 page={pageName}
-                query={defaultFilters}
+                query={filters}
                 routePrefix="articles"
                 savedSearch={savedSearch}
                 team={team}

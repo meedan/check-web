@@ -22,6 +22,7 @@ const SavedSearch = ({ routeParams }) => (
             dbid
             title
             filters
+            list_type
             feeds(first: 100) {
               edges {
                 node {

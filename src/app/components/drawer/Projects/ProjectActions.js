@@ -115,7 +115,7 @@ const ProjectActions = ({
           handleError();
         } else {
           handleSuccess(response);
-          const retPath = `/${team.slug}/all-items`;
+          const retPath = object.list_type === 'article' ? `/${team.slug}/articles/all` : `/${team.slug}/all-items`;
           browserHistory.push(retPath);
         }
       },
