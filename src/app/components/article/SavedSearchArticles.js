@@ -83,7 +83,7 @@ const SavedSearchArticles = ({ routeParams }) => (
               }
               pageName="articles"
               query={query}
-              savedSearch={props.savedSearch}
+              savedSearch={props.saved_search}
               teamSlug={routeParams.team}
               title={props.saved_search?.title}
             />
