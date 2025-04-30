@@ -8,6 +8,7 @@ import ChooseExistingArticleButton from './ChooseExistingArticleButton';
 import NewArticleButton from './NewArticleButton';
 import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
 import MediaArticlesDisplay from './MediaArticlesDisplay';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -24,6 +25,8 @@ const addExplainerMutation = graphql`
       project_media {
         id
         ...MediaArticlesDisplay_projectMedia
+        has_tipline_requests_that_never_received_articles
+        number_of_tipline_requests_that_never_received_articles_by_time
       }
     }
   }
@@ -56,12 +59,21 @@ const MediaArticlesComponent = ({
   const [confirmReplaceFactCheck, setConfirmReplaceFactCheck] = React.useState(null);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const hasArticle = projectMedia.articles_count > 0;
+  const [showAlert, setShowAlert] = React.useState(false);
+
+  // eslint-disable-next-line
+  console.log('projectMedia numbeer of tipline requests: ', projectMedia.number_of_tipline_requests_that_never_received_articles_by_time);
+  // eslint-disable-next-line
+  console.log('projectMedia tipline requests?', projectMedia.has_tipline_requests_that_never_received_articles);
 
   if (adding) {
     return <Loader size="large" theme="white" variant="inline" />;
   }
 
-  const onCompleted = () => {
+  const onCompleted = (nodeType) => {
+    // eslint-disable-next-line
+    console.log('onCompleted: ', nodeType);
+    setShowAlert(true);
     setFlashMessage(
       <FormattedMessage
         defaultMessage="Article added successfully!"
@@ -71,6 +83,13 @@ const MediaArticlesComponent = ({
       'success');
     setAdding(false);
     onUpdate();
+
+    if (nodeType === 'Explainer') {
+      // eslint-disable-next-line
+      console.log('inside explainer if');
+      // if (nodeType === 'Explainer' && projectMedia.has_tipline_requests_that_never_received_articles) {
+      setShowAlert(true);
+    }
   };
 
   const onError = (error) => {
@@ -103,7 +122,7 @@ const MediaArticlesComponent = ({
         variables: {
           input,
         },
-        onCompleted,
+        onCompleted: () => onCompleted(nodeType),
         onError,
       });
     }
@@ -134,6 +153,10 @@ const MediaArticlesComponent = ({
     }
   };
 
+  const handleAlertButtonClick = () => {
+    // eslint-disable-next-line
+    console.log('Alert button clicked');
+  };
   return (
     <div className={cx(mediaStyles['media-articles'], styles.articlesSidebar)} id="articles-sidebar">
       <div className={styles.articlesSidebarTopBar}>
@@ -151,6 +174,37 @@ const MediaArticlesComponent = ({
           onCreate={onUpdate}
         />
       </div>
+      {showAlert && (
+        <Alert
+          buttonLabel={
+            <FormattedMessage
+              defaultMessage="Send to previous requests"
+              description="Label for the button in the alert to send articles."
+              id="mediaArticles.sendArticlesButton"
+            />
+          }
+          content={
+            <FormattedMessage
+              defaultMessage="You can deliver new articles added to users who have previously submitted this media, but did not receive a response in the past 30 days."
+              description="Message for the alert when there are unanswered requests."
+              id="mediaArticles.unansweredRequestsMessage"
+            />
+          }
+          icon
+          placement="default"
+          title={
+            <FormattedMessage
+              defaultMessage="Articles added"
+              description="Title for the alert when explainers are added."
+              id="mediaArticles.unansweredRequestsTitle"
+            />
+          }
+          variant="success"
+          onButtonClick={handleAlertButtonClick}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
+
       <div className={cx('typography-body1', styles.articlesSidebarScroller)}>
         { hasArticle ? (
           <MediaArticlesDisplay projectMedia={projectMedia} onUpdate={onUpdate} />
@@ -251,6 +305,8 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
               }
               ...MediaArticlesDisplay_projectMedia
               ...NewArticleButton_projectMedia
+              has_tipline_requests_that_never_received_articles
+              number_of_tipline_requests_that_never_received_articles_by_time
             }
           }
         `}
