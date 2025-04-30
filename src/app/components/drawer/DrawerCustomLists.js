@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import React from 'react';
@@ -90,7 +91,6 @@ const DrawerCustomListsComponent = ({
                   icon={search.is_part_of_feeds ? <SharedFeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} /> : <ListIcon className={styles.listIcon} />}
                   isActive={activeItem.type === routePrefix && activeItem.id === search.dbid}
                   key={search.id}
-                  mediasCount={search.medias_count}
                   project={search}
                   routePrefix={routePrefix}
                   teamSlug={team.slug}
@@ -120,6 +120,9 @@ const DrawerCustomListsComponent = ({
 };
 
 DrawerCustomListsComponent.propTypes = {
+  listType: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  routePrefix: PropTypes.string.isRequired,
   savedSearch: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,

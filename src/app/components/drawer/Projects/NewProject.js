@@ -136,11 +136,13 @@ NewProject.defaultProps = {
 
 NewProject.propTypes = {
   team: PropTypes.object.isRequired,
+  listType: PropTypes.string.isRequired,
   open: PropTypes.bool,
   title: PropTypes.object.isRequired,
   buttonLabel: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   errorMessage: PropTypes.node.isRequired,
+  routePrefix: PropTypes.string.isRequired,
   successMessage: PropTypes.node.isRequired,
 };
 

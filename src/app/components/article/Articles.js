@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -276,7 +277,6 @@ const ArticlesComponent = ({
             defaultFilters={{ ...defaultFilters }}
             filterOptions={filterOptions}
             pageName={pageName}
-            permissions={team.permissions}
             savedSearch={savedSearch}
             statuses={statuses.statuses}
             team={team}
@@ -573,12 +573,21 @@ const Articles = ({
 Articles.defaultProps = {
   filterOptions: [],
   defaultFilters: {},
+  listActions: undefined,
+  savedSearch: null,
 };
 
 Articles.propTypes = {
   defaultFilters: PropTypes.object,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   icon: PropTypes.node.isRequired,
+  listActions: PropTypes.node, // or undefined
+  pageName: PropTypes.oneOf(['all-items', 'imported-fact-checks', 'fact-checks', 'explainers', 'published', 'articles', 'trash']).isRequired,
+  savedSearch: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    filters: PropTypes.string.isRequired,
+  }),
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
 };

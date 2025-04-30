@@ -360,7 +360,12 @@ ArticleFilters.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  team: PropTypes.object.isRequired,
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+    permissions: PropTypes.string.isRequired,
+  }).isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
