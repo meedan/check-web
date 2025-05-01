@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import React from 'react';
@@ -152,7 +151,7 @@ const DrawerCustomLists = ({ listType, routePrefix, teamSlug }) => (
                 dbid
                 title
                 is_part_of_feeds
-                medias_count: items_count
+                ...ProjectsListItem_savedSearch
               }
             }
           }

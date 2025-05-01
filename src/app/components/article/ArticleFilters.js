@@ -347,6 +347,7 @@ ArticleFilters.defaultProps = {
   defaultFilters: {},
   extra: null,
   filterOptions: [],
+  savedSearch: null,
 };
 
 ArticleFilters.propTypes = {
@@ -356,6 +357,12 @@ ArticleFilters.propTypes = {
   extra: PropTypes.node,
   filterOptions: PropTypes.arrayOf(PropTypes.string.isRequired),
   intl: intlShape.isRequired,
+  pageName: PropTypes.oneOf(['all-items', 'imported-fact-checks', 'fact-checks', 'explainers', 'published', 'articles', 'trash']).isRequired,
+  savedSearch: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    filters: PropTypes.string.isRequired,
+  }),
   statuses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
@@ -91,4 +92,8 @@ ProjectsListItem.propTypes = {
   onClick: PropTypes.func,
 };
 
-export default ProjectsListItem;
+export default createFragmentContainer(ProjectsListItem, graphql`
+  fragment ProjectsListItem_savedSearch on SavedSearch {
+    medias_count: items_count
+  }
+`);

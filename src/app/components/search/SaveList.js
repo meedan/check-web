@@ -373,7 +373,7 @@ SaveList.propTypes = {
     shared: PropTypes.bool,
   }), // may be null
   intl: intlShape.isRequired,
-  page: PropTypes.oneOf(['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
+  page: PropTypes.oneOf(['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'fact-checks', 'explainers', 'suggested-matches', 'published', 'list', 'articles', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   query: PropTypes.object.isRequired,
   savedSearch: PropTypes.shape({
     id: PropTypes.string.isRequired,
