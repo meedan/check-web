@@ -341,13 +341,6 @@ const BulkActionsMenuRenderer = (parentProps) => {
             dbid
             name
             permissions
-            projects(first: 10000) {
-              edges {
-                node {
-                  dbid
-                }
-              }
-            }
             ...BulkActionsAssign_team
             ...BulkActionsStatus_team
             ...BulkActionsTag_team

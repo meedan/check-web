@@ -17,6 +17,7 @@ export default function AllItems({ routeParams }) {
           'cluster_published_reports',
           'feed_fact_checked_by',
           'published_by',
+          'article_type',
         ]}
         icon={<PermMediaIcon />}
         listSubtitle={<FormattedMessage defaultMessage="Media Clusters List" description="Displayed on top of the tipline lists title on the search results page." id="search.tiplineSubHeader" />}

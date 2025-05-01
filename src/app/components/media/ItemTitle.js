@@ -363,7 +363,7 @@ const ItemTitle = ({ projectMediaId }) => (
       return null;
     }}
     variables={{
-      id: `${projectMediaId},,`,
+      id: `${projectMediaId}`,
     }}
   />
 );

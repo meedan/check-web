@@ -171,6 +171,7 @@ const SaveList = ({
     if (operation === 'CREATE') {
       input.team_id = team.dbid;
       input.title = title;
+      input.list_type = 'media';
       mutation = createMutation;
     } else if (operation === 'UPDATE') {
       input.id = savedSearch.id;

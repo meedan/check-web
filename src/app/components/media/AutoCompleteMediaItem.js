@@ -195,16 +195,6 @@ const AutoCompleteMediaItem = (props, context) => {
                     }
                   }
                 }
-                projects(first: 10000) {
-                  edges {
-                    node {
-                      id
-                      dbid
-                      title
-                      search_id
-                    }
-                  }
-                }
               }
             }
           }

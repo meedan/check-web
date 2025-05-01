@@ -42,7 +42,7 @@ const ProjectMedia = (parentProps, context) => {
           return null;
         }}
         variables={{
-          ids: `${projectMediaId},,`,
+          ids: `${projectMediaId}`,
         }}
       />
     </ErrorBoundary>

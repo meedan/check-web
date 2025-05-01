@@ -268,7 +268,7 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
         }}
         variables={{
           slug: teamSlug,
-          ids: `${projectMediaDbid},,`,
+          ids: `${projectMediaDbid}`,
           updateCount, // Used to force a refresh
         }}
       />
