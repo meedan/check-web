@@ -15,6 +15,9 @@ const TeamIntegrations = () => (<QueryRenderer
   query={graphql`
     query TeamIntegrationsQuery {
       root {
+        current_user {
+          is_admin
+        }
         current_team {
           id
           dbid

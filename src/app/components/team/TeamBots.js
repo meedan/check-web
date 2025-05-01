@@ -104,7 +104,7 @@ class TeamBots extends Component {
     return (
       <>
         <ApiKeys team={team} />
-        <Webhooks team={team} />
+        { root.current_user.is_admin && <Webhooks team={team} /> }
         { root.team_bots_listed.edges.map((teamBot) => {
           const bot = teamBot.node;
           const installation = this.getInstallation(bot.id);
