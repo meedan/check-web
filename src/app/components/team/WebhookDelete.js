@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import Webhooks from './Webhooks'; // eslint-disable-line no-unused-vars
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -24,7 +25,9 @@ const WebhookDelete = ({ webhookId }) => {
     const mutation = graphql`
       mutation WebhookDeleteMutation($input: DestroyBotUserInput!) {
         destroyWebhook(input: $input) {
-          deletedId
+          team {
+            ...Webhooks_team
+          }
         }
       }
     `;
@@ -68,7 +71,7 @@ const WebhookDelete = ({ webhookId }) => {
           <div>
             <FormattedHTMLMessage
               defaultMessage="Are you sure you want to delete this webhook? This action cannot be undone."
-              description="Dialog body for API key deletion"
+              description="Dialog body for webhook deletion"
               id="webhookDelete.body"
               tagName="p"
             />
@@ -90,14 +93,14 @@ const WebhookDelete = ({ webhookId }) => {
         proceedLabel={
           <FormattedHTMLMessage
             defaultMessage="Delete Webhook"
-            description="Dialog submit button label for API key deletion"
+            description="Dialog submit button label for webhook deletion"
             id="webhookDelete.submitLabel"
           />
         }
         title={
           <FormattedMessage
-            defaultMessage="Delete API Key?"
-            description="Dialog title for API key deletion"
+            defaultMessage="Delete Webhook?"
+            description="Dialog title for webhook deletion"
             id="webhookDelete.title"
           />
         }

@@ -2,52 +2,124 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
-import ApiKeys from './ApiKeys'; // eslint-disable-line no-unused-vars
+// For using the Webhooks_team fragment in the mutation
+import Webhooks from './Webhooks'; // eslint-disable-line no-unused-vars
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Select from '../cds/inputs/Select';
 import TextField from '../cds/inputs/TextField';
-import LimitedTextField from '../layout/inputs/LimitedTextField';
-import { getErrorMessageForRelayModernProblem, safelyParseJSON } from '../../helpers';
+import { getErrorMessageForRelayModernProblem, validateURL } from '../../helpers';
 import styles from '../../styles/css/dialog.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 import AddIcon from '../../icons/add.svg';
 import EditIcon from '../../icons/edit.svg';
 
-const mutation = graphql`
-  mutation WebhookEditMutation($input: CreateApiKeyInput!) {
-    createApiKey(input: $input) {
+const messages = defineMessages({
+  update_annotation_verification_status: {
+    id: 'webhookEdit.eventTypeItemStatusChanged',
+    defaultMessage: 'Item Status Changed',
+    description: 'Label for the event type when the status of an item changes',
+  },
+  publish_report: {
+    id: 'webhookEdit.eventTypeReportPublished',
+    defaultMessage: 'Report Published',
+    description: 'Label for the event type when a report is published',
+  },
+});
+
+const createMutation = graphql`
+  mutation WebhookEditCreateMutation($input: CreateBotUserInput!) {
+    createWebhook(input: $input) {
       team {
         id
-        ...ApiKeys_team
+        ...Webhooks_team
       }
     }
   }
 `;
 
-const WebhookEdit = ({ webhook }) => {
-  const parsedEvents = safelyParseJSON(webhook?.events);
-  const selectedEvent = parsedEvents && parsedEvents.length > 0 ? parsedEvents[0].event : null;
+const updateMutation = graphql`
+  mutation WebhookEditUpdateMutation($input: UpdateBotUserInput!) {
+    updateWebhook(input: $input) {
+      team {
+        id
+        ...Webhooks_team
+      }
+    }
+  }
+`;
+
+const validateHeaders = (headers) => {
+  let parsedHeaders = null;
+
+  try {
+    parsedHeaders = JSON.parse(headers);
+  } catch (e) {
+    return false;
+  }
+
+  // parsedHeaders should be an object and have at least one key-value pair
+  if (
+    typeof parsedHeaders === 'object' &&
+    !Array.isArray(parsedHeaders) &&
+    Object.keys(parsedHeaders).length > 0
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
+const buildEvents = (eventType) => {
+  let events = null;
+
+  if (eventType === 'update_annotation_verification_status') {
+    events = [{
+      event: 'update_annotation_verification_status',
+      graphql: 'project_media { dbid last_status }',
+    }];
+  }
+
+  if (eventType === 'publish_report') {
+    events = [{
+      event: 'publish_report',
+      graphql: 'project_media { dbid fact_check { title summary rating language updated_at url } fact_check_published_on }',
+    }];
+  }
+
+  return JSON.stringify(events);
+};
+
+const WebhookEdit = ({ intl, webhook }) => {
+  const selectedEvent = webhook?.events?.length ? webhook.events[0].event : 'update_annotation_verification_status';
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [eventType, setEventType] = React.useState(selectedEvent);
   const [name, setName] = React.useState(webhook ? webhook.name : '');
   const [url, setUrl] = React.useState(webhook ? webhook.request_url : '');
-  const [headers, setHeaders] = React.useState(webhook ? webhook.headers : '');
-  const [error, setError] = React.useState(false);
+  const [headers, setHeaders] = React.useState(webhook?.headers ? JSON.stringify(webhook.headers) : '');
+  const [nameError, setNameError] = React.useState(false);
+  const [urlError, setUrlError] = React.useState(false);
+  const [headersError, setHeadersError] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const resetForm = () => {
     setName('');
     setHeaders('');
+    setUrl('');
+    setEventType('update_annotation_verification_status');
+    setNameError(false);
+    setUrlError(false);
+    setHeadersError(false);
   };
 
+  const headersPlaceHolder = '{ "MyHeader": "value", "MyOtherHeader": "value" }';
+
   const handleSubmit = () => {
-    if (!name || !url) {
-      setError(true);
+    if (nameError || urlError || headersError) {
       return;
     }
 
@@ -57,11 +129,14 @@ const WebhookEdit = ({ webhook }) => {
     };
 
     commitMutation(Store, {
-      mutation,
+      mutation: webhook ? updateMutation : createMutation,
       variables: {
         input: {
-          title: name,
-          headers,
+          id: webhook ? webhook.id : undefined,
+          name,
+          request_url: url,
+          events: buildEvents(eventType),
+          headers: headers || null,
         },
       },
       onCompleted: (response, err) => {
@@ -69,7 +144,26 @@ const WebhookEdit = ({ webhook }) => {
           handleError(err);
         } else {
           setDialogOpen(false);
-          resetForm();
+          if (!webhook) {
+            setFlashMessage(
+              <FormattedMessage
+                defaultMessage="Webhook created"
+                description="Success message when a webhook is created"
+                id="webhookEdit.createSuccess"
+              />,
+              'success',
+            );
+            resetForm();
+          } else {
+            setFlashMessage(
+              <FormattedMessage
+                defaultMessage="Webhook updated"
+                description="Success message when a webhook is updated"
+                id="webhookEdit.updateSuccess"
+              />,
+              'success',
+            );
+          }
         }
       },
       onError: (err) => {
@@ -77,6 +171,34 @@ const WebhookEdit = ({ webhook }) => {
       },
     });
   };
+
+  let headersHelpContent = null;
+
+  if (!headers) {
+    headersHelpContent = (
+      <FormattedMessage
+        defaultMessage="Use JSON format key-value pairs"
+        description="Help content for webhook headers input"
+        id="webhookEdit.headersHelp"
+      />
+    );
+  } else if (!headersError) {
+    headersHelpContent = (
+      <FormattedMessage
+        defaultMessage="✓ Valid JSON format"
+        description="Help content for valid webhook headers input"
+        id="webhookEdit.headersValid"
+      />
+    );
+  } else {
+    headersHelpContent = (
+      <FormattedMessage
+        defaultMessage="Invalid JSON object"
+        description="Error message for invalid webhook headers input"
+        id="webhookEdit.headersError"
+      />
+    );
+  }
 
   return (
     <>
@@ -87,7 +209,7 @@ const WebhookEdit = ({ webhook }) => {
           label={
             <FormattedMessage
               defaultMessage="New Webhook"
-              description="Button that opens the api key creation dialog"
+              description="Button that opens the webhook creation dialog"
               id="webhookEdit.newButton"
             />
           }
@@ -135,7 +257,7 @@ const WebhookEdit = ({ webhook }) => {
             <div className={inputStyles['form-fieldset-field']}>
               <TextField
                 className="webhook-edit__name-field"
-                error={error}
+                error={nameError}
                 label={
                   <FormattedMessage
                     defaultMessage="Webhook name"
@@ -145,13 +267,14 @@ const WebhookEdit = ({ webhook }) => {
                 }
                 required
                 value={name}
+                onBlur={() => setNameError(!name.trim())}
                 onChange={e => setName(e.target.value)}
               />
             </div>
             <div className={inputStyles['form-fieldset-field']}>
               <TextField
                 className="webhook-edit__url-field"
-                error={error}
+                error={urlError}
                 label={
                   <FormattedMessage
                     defaultMessage="Webhook URL"
@@ -161,6 +284,7 @@ const WebhookEdit = ({ webhook }) => {
                 }
                 required
                 value={url}
+                onBlur={() => setUrlError(!validateURL(url))}
                 onChange={e => setUrl(e.target.value)}
               />
             </div>
@@ -171,13 +295,19 @@ const WebhookEdit = ({ webhook }) => {
                 value={eventType}
                 onChange={e => setEventType(e.target.value)}
               >
-                <option value="update_annotation_verification_status-check">Item Status Changed</option>
-                <option value="publish_report">Report Published</option>
+                <option value="update_annotation_verification_status">
+                  {intl.formatMessage(messages.update_annotation_verification_status)}
+                </option>
+                <option value="publish_report">
+                  {intl.formatMessage(messages.publish_report)}
+                </option>
               </Select>
             </div>
             <div className={inputStyles['form-fieldset-field']}>
-              <LimitedTextField
+              <TextField
                 className="webhook-edit__headers-field"
+                error={headersError}
+                helpContent={headersHelpContent}
                 label={
                   <FormattedMessage
                     defaultMessage="Headers (Optional)"
@@ -185,11 +315,14 @@ const WebhookEdit = ({ webhook }) => {
                     id="webhookEdit.headers"
                   />
                 }
-                maxChars={720}
-                placeholder="[{ 'key': 'value' }]"
+                placeholder={headersPlaceHolder}
                 required={false}
                 value={headers}
-                onChange={e => setHeaders(e.target.value)}
+                onBlur={() => setHeadersError(headers && !validateHeaders(headers))}
+                onChange={(e) => {
+                  setHeaders(e.target.value);
+                  setHeadersError(e.target.value && !validateHeaders(e.target.value));
+                }}
               />
             </div>
           </div>
@@ -207,8 +340,10 @@ const WebhookEdit = ({ webhook }) => {
             theme="text"
             variant="text"
             onClick={() => {
+              if (!webhook) {
+                resetForm();
+              }
               setDialogOpen(false);
-              resetForm();
             }}
           />
           <ButtonMain
@@ -231,8 +366,11 @@ const WebhookEdit = ({ webhook }) => {
 WebhookEdit.propTypes = {
   webhook: PropTypes.shape({
     name: PropTypes.string,
-    events: PropTypes.string,
-    headers: PropTypes.string,
+    events: PropTypes.arrayOf(PropTypes.shape({
+      event: PropTypes.string,
+      graphql: PropTypes.string,
+    })),
+    headers: PropTypes.object,
     request_url: PropTypes.string,
   }),
 };
@@ -241,10 +379,11 @@ WebhookEdit.defaultProps = {
   webhook: null,
 };
 
-export default WebhookEdit;
+export default injectIntl(WebhookEdit);
 
-const WebhookEditContainer = createFragmentContainer(WebhookEdit, graphql`
+const WebhookEditContainer = createFragmentContainer(injectIntl(WebhookEdit), graphql`
   fragment WebhookEditContainer_webhook on Webhook {
+    id
     name
     events
     headers
@@ -252,4 +391,4 @@ const WebhookEditContainer = createFragmentContainer(WebhookEdit, graphql`
   }
 `);
 
-export { WebhookEditContainer }; // eslint-disable-line import/no-unused-modules
+export { WebhookEditContainer, messages }; // eslint-disable-line import/no-unused-modules

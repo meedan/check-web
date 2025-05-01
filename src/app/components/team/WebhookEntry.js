@@ -1,21 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
 import WebhookDelete from './WebhookDelete';
-import { WebhookEditContainer } from './WebhookEdit';
+import { WebhookEditContainer, messages } from './WebhookEdit';
 import TextField from '../cds/inputs/TextField';
-import { safelyParseJSON } from '../../helpers';
 import styles from './ApiKeys.module.css';
 
-const WebhookEntry = ({ webhook }) => {
-  const parsedEvents = safelyParseJSON(webhook.events);
-  const selectedEvent = parsedEvents && parsedEvents.length > 0 ? parsedEvents[0].event : null;
+const WebhookEntry = ({ intl, webhook }) => {
+  const selectedEvent = webhook?.events?.length ? webhook.events[0].event : null;
 
-  console.log('webhook', webhook); // eslint-disable-line no-console
-  console.log('parsedEvents', parsedEvents); // eslint-disable-line no-console
-  console.log('selectedEvent', selectedEvent); // eslint-disable-line no-console
   return (
     <div className={cx('api-key', styles['apikey-entry-root'])}>
       <div className={`typography-subtitle2 ${styles['key-title']}`}>
@@ -36,7 +31,7 @@ const WebhookEntry = ({ webhook }) => {
             />
           }
           readOnly
-          value={selectedEvent}
+          value={intl?.formatMessage(messages[selectedEvent]) || selectedEvent}
         />
         <div className={styles['key-row__buttons']}>
           <WebhookEditContainer webhook={webhook} />
@@ -49,15 +44,18 @@ const WebhookEntry = ({ webhook }) => {
 
 WebhookEntry.propTypes = {
   webhook: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    events: PropTypes.string.isRequired,
-    request_url: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    events: PropTypes.arrayOf(PropTypes.shape({
+      event: PropTypes.string,
+      graphql: PropTypes.string,
+    })),
+    request_url: PropTypes.string,
   }).isRequired,
 };
 
 
 export { WebhookEntry }; // eslint-disable-line import/no-unused-modules
-export default createFragmentContainer(WebhookEntry, graphql`
+export default createFragmentContainer(injectIntl(WebhookEntry), graphql`
   fragment WebhookEntry_webhook on Webhook {
     id
     name

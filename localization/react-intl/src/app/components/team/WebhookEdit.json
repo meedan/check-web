@@ -1,7 +1,42 @@
 [
   {
+    "id": "webhookEdit.eventTypeItemStatusChanged",
+    "description": "Label for the event type when the status of an item changes",
+    "defaultMessage": "Item Status Changed"
+  },
+  {
+    "id": "webhookEdit.eventTypeReportPublished",
+    "description": "Label for the event type when a report is published",
+    "defaultMessage": "Report Published"
+  },
+  {
+    "id": "webhookEdit.createSuccess",
+    "description": "Success message when a webhook is created",
+    "defaultMessage": "Webhook created"
+  },
+  {
+    "id": "webhookEdit.updateSuccess",
+    "description": "Success message when a webhook is updated",
+    "defaultMessage": "Webhook updated"
+  },
+  {
+    "id": "webhookEdit.headersHelp",
+    "description": "Help content for webhook headers input",
+    "defaultMessage": "Use JSON format key-value pairs"
+  },
+  {
+    "id": "webhookEdit.headersValid",
+    "description": "Help content for valid webhook headers input",
+    "defaultMessage": "✓ Valid JSON format"
+  },
+  {
+    "id": "webhookEdit.headersError",
+    "description": "Error message for invalid webhook headers input",
+    "defaultMessage": "Invalid JSON object"
+  },
+  {
     "id": "webhookEdit.newButton",
-    "description": "Button that opens the api key creation dialog",
+    "description": "Button that opens the webhook creation dialog",
     "defaultMessage": "New Webhook"
   },
   {

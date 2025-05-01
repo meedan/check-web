@@ -6,7 +6,7 @@
   },
   {
     "id": "webhookDelete.body",
-    "description": "Dialog body for API key deletion",
+    "description": "Dialog body for webhook deletion",
     "defaultMessage": "Are you sure you want to delete this webhook? This action cannot be undone."
   },
   {
@@ -16,12 +16,12 @@
   },
   {
     "id": "webhookDelete.submitLabel",
-    "description": "Dialog submit button label for API key deletion",
+    "description": "Dialog submit button label for webhook deletion",
     "defaultMessage": "Delete Webhook"
   },
   {
     "id": "webhookDelete.title",
-    "description": "Dialog title for API key deletion",
-    "defaultMessage": "Delete API Key?"
+    "description": "Dialog title for webhook deletion",
+    "defaultMessage": "Delete Webhook?"
   }
 ]
