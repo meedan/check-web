@@ -26,7 +26,6 @@ const addExplainerMutation = graphql`
         id
         ...MediaArticlesDisplay_projectMedia
         has_tipline_requests_that_never_received_articles
-        number_of_tipline_requests_that_never_received_articles_by_time
       }
     }
   }
@@ -53,27 +52,19 @@ const addFactCheckMutation = graphql`
 const MediaArticlesComponent = ({
   onUpdate,
   projectMedia,
+  showAlert,
   team,
 }) => {
   const [adding, setAdding] = React.useState(false);
   const [confirmReplaceFactCheck, setConfirmReplaceFactCheck] = React.useState(null);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const hasArticle = projectMedia.articles_count > 0;
-  const [showAlert, setShowAlert] = React.useState(false);
-
-  // eslint-disable-next-line
-  console.log('projectMedia numbeer of tipline requests: ', projectMedia.number_of_tipline_requests_that_never_received_articles_by_time);
-  // eslint-disable-next-line
-  console.log('projectMedia tipline requests?', projectMedia.has_tipline_requests_that_never_received_articles);
 
   if (adding) {
     return <Loader size="large" theme="white" variant="inline" />;
   }
 
   const onCompleted = (nodeType) => {
-    // eslint-disable-next-line
-    console.log('onCompleted: ', nodeType);
-    setShowAlert(true);
     setFlashMessage(
       <FormattedMessage
         defaultMessage="Article added successfully!"
@@ -82,14 +73,7 @@ const MediaArticlesComponent = ({
       />,
       'success');
     setAdding(false);
-    onUpdate();
-
-    if (nodeType === 'Explainer') {
-      // eslint-disable-next-line
-      console.log('inside explainer if');
-      // if (nodeType === 'Explainer' && projectMedia.has_tipline_requests_that_never_received_articles) {
-      setShowAlert(true);
-    }
+    onUpdate(nodeType === 'Explainer');
   };
 
   const onError = (error) => {
@@ -155,8 +139,9 @@ const MediaArticlesComponent = ({
 
   const handleAlertButtonClick = () => {
     // eslint-disable-next-line
-    console.log('Alert button clicked');
+    window.alert('Alert button clicked');
   };
+
   return (
     <div className={cx(mediaStyles['media-articles'], styles.articlesSidebar)} id="articles-sidebar">
       <div className={styles.articlesSidebarTopBar}>
@@ -201,7 +186,7 @@ const MediaArticlesComponent = ({
           }
           variant="success"
           onButtonClick={handleAlertButtonClick}
-          onClose={() => setShowAlert(false)}
+          onClose={() => onUpdate(false)}
         />
       )}
 
@@ -263,6 +248,10 @@ const MediaArticlesComponent = ({
   );
 };
 
+MediaArticlesComponent.defaultProps = {
+  showAlert: false,
+};
+
 MediaArticlesComponent.propTypes = {
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
@@ -272,6 +261,7 @@ MediaArticlesComponent.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   }).isRequired,
+  showAlert: PropTypes.bool,
   team: PropTypes.shape({
     slug: PropTypes.string.isRequired,
   }).isRequired,
@@ -280,9 +270,11 @@ MediaArticlesComponent.propTypes = {
 
 const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
   const [updateCount, setUpdateCount] = React.useState(0);
+  const [showAlert, setShowAlert] = React.useState(false);
 
   // FIXME: Shouldn't be needed if Relay works as expected
-  const handleUpdate = () => {
+  const handleUpdate = (showAlertIfUnansweredRequests) => {
+    setShowAlert(Boolean(showAlertIfUnansweredRequests));
     setUpdateCount(updateCount + 1);
   };
 
@@ -300,13 +292,12 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
               dbid
               type
               articles_count
+              has_tipline_requests_that_never_received_articles
               claim_description {
                 id
               }
               ...MediaArticlesDisplay_projectMedia
               ...NewArticleButton_projectMedia
-              has_tipline_requests_that_never_received_articles
-              number_of_tipline_requests_that_never_received_articles_by_time
             }
           }
         `}
@@ -315,6 +306,7 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
             return (
               <MediaArticlesComponent
                 projectMedia={props.project_media}
+                showAlert={showAlert && props.project_media.has_tipline_requests_that_never_received_articles}
                 team={props.team}
                 onUpdate={handleUpdate}
               />
