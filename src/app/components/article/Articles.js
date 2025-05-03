@@ -477,7 +477,7 @@ const Articles = ({
               dbid
               name
               slug
-              permissions
+              ...ArticleFilters_team
               totalArticlesCount: articles_count
               verification_statuses
               articles_count(

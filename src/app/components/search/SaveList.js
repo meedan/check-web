@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { commitMutation, graphql } from 'react-relay/compat';
+import { createFragmentContainer, commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import Radio from '@material-ui/core/Radio';
@@ -388,4 +388,8 @@ SaveList.propTypes = {
   }).isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(SaveList));
+export default createFragmentContainer(withSetFlashMessage(injectIntl(SaveList)), graphql`
+  fragment SaveList_team on Team {
+    permissions
+  }
+`);

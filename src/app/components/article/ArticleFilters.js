@@ -1,4 +1,5 @@
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import cx from 'classnames/bind';
@@ -376,4 +377,8 @@ ArticleFilters.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default injectIntl(ArticleFilters);
+export default createFragmentContainer(injectIntl(ArticleFilters), graphql`
+  fragment ArticleFilters_team on Team {
+    ...SaveList_team
+  }
+`);
