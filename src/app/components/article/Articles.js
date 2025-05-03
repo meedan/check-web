@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
