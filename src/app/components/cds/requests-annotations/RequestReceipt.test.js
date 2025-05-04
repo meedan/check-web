@@ -45,21 +45,21 @@ describe('<RequestReceipt />', () => {
     expect(wrapper.find(SearchIcon).length).toEqual(1);
   });
 
-  it('should display "Fact-check sent on" label', () => {
+  it('should display "Article sent on" label', () => {
     const events = [
       { type: 'smooch_report_sent_at', date: 1681234567 },
     ];
     const wrapper = mountWithIntl(<RequestReceipt events={events} />);
-    expect(wrapper.text()).toContain('Fact-check sent on');
+    expect(wrapper.text()).toContain('Article sent on');
     expect(wrapper.find(FactCheckIcon).length).toBe(1);
   });
 
-  it('should display "Fact-check delivered on" label', () => {
+  it('should display "Article delivered on" label', () => {
     const events = [
       { type: 'smooch_report_received_at', date: 1681237890 },
     ];
     const wrapper = mountWithIntl(<RequestReceipt events={events} />);
-    expect(wrapper.text()).toContain('Fact-check delivered on');
+    expect(wrapper.text()).toContain('Article delivered on');
     expect(wrapper.find(FactCheckIcon).length).toBe(1);
   });
 
@@ -79,7 +79,7 @@ describe('<RequestReceipt />', () => {
     ];
     const wrapper = mountWithIntl(<RequestReceipt events={events} />);
     expect(wrapper.find(FactCheckIcon).length).toEqual(1);
-    expect(wrapper.text()).toContain('Fact-check delivered on');
+    expect(wrapper.text()).toContain('Article delivered on');
   });
 
   it('should render multiple events in the tooltip', () => {
@@ -91,7 +91,7 @@ describe('<RequestReceipt />', () => {
     const tooltip = wrapper.find(Tooltip);
     const tooltipContent = mountWithIntl(tooltip.prop('title'));
 
-    expect(tooltipContent.find('li').at(0).text()).toContain('Fact-check sent on');
+    expect(tooltipContent.find('li').at(0).text()).toContain('Article sent on');
     expect(tooltipContent.find('li').at(1).text()).toContain('Search result – negative feedback');
   });
 });
