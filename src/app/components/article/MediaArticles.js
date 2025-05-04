@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import ChooseExistingArticleButton from './ChooseExistingArticleButton';
 import NewArticleButton from './NewArticleButton';
 import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
 import MediaArticlesDisplay from './MediaArticlesDisplay';
+import SendExplainersToPreviousRequests from './SendExplainersToPreviousRequests';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -22,6 +23,9 @@ import mediaStyles from '../media/media.module.css';
 const addExplainerMutation = graphql`
   mutation MediaArticlesCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
     createExplainerItem(input: $input) {
+      explainer_item {
+        dbid
+      }
       project_media {
         id
         ...MediaArticlesDisplay_projectMedia
@@ -50,13 +54,14 @@ const addFactCheckMutation = graphql`
 `;
 
 const MediaArticlesComponent = ({
+  explainerItemDbidsToSend,
   onUpdate,
   projectMedia,
-  showAlert,
   team,
 }) => {
   const [adding, setAdding] = React.useState(false);
   const [confirmReplaceFactCheck, setConfirmReplaceFactCheck] = React.useState(null);
+  const [confirmSendExplainers, setConfirmSendExplainers] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const hasArticle = projectMedia.articles_count > 0;
 
@@ -64,7 +69,7 @@ const MediaArticlesComponent = ({
     return <Loader size="large" theme="white" variant="inline" />;
   }
 
-  const onCompleted = (nodeType) => {
+  const onCompleted = (nodeType, response) => {
     setFlashMessage(
       <FormattedMessage
         defaultMessage="Article added successfully!"
@@ -73,7 +78,8 @@ const MediaArticlesComponent = ({
       />,
       'success');
     setAdding(false);
-    onUpdate(nodeType === 'Explainer');
+    const explainerItemDbid = response?.createExplainerItem?.explainer_item?.dbid;
+    onUpdate(explainerItemDbid);
   };
 
   const onError = (error) => {
@@ -106,7 +112,7 @@ const MediaArticlesComponent = ({
         variables: {
           input,
         },
-        onCompleted: () => onCompleted(nodeType),
+        onCompleted: response => onCompleted(nodeType, response),
         onError,
       });
     }
@@ -138,8 +144,7 @@ const MediaArticlesComponent = ({
   };
 
   const handleAlertButtonClick = () => {
-    // eslint-disable-next-line
-    window.alert('Alert button clicked');
+    setConfirmSendExplainers(true);
   };
 
   return (
@@ -159,18 +164,18 @@ const MediaArticlesComponent = ({
           onCreate={onUpdate}
         />
       </div>
-      {showAlert && (
+      {explainerItemDbidsToSend.length > 0 && (
         <Alert
           buttonLabel={
             <FormattedMessage
-              defaultMessage="Send to previous requests"
+              defaultMessage="Send to Previous Requests"
               description="Label for the button in the alert to send articles."
               id="mediaArticles.sendArticlesButton"
             />
           }
           content={
-            <FormattedMessage
-              defaultMessage="You can deliver new articles added to users who have previously submitted this media, but did not receive a response in the past 30 days."
+            <FormattedHTMLMessage
+              defaultMessage="You can deliver new articles added to users who have previously submitted this media, but did not receive a response in the past <b>30 days</b>."
               description="Message for the alert when there are unanswered requests."
               id="mediaArticles.unansweredRequestsMessage"
             />
@@ -179,14 +184,15 @@ const MediaArticlesComponent = ({
           placement="default"
           title={
             <FormattedMessage
-              defaultMessage="Articles added"
+              defaultMessage="Articles Added [{numberOfExplainersToSend}]"
               description="Title for the alert when explainers are added."
               id="mediaArticles.unansweredRequestsTitle"
+              values={{ numberOfExplainersToSend: explainerItemDbidsToSend.length }}
             />
           }
           variant="success"
           onButtonClick={handleAlertButtonClick}
-          onClose={() => onUpdate(false)}
+          onClose={onUpdate}
         />
       )}
 
@@ -244,15 +250,26 @@ const MediaArticlesComponent = ({
         onCancel={() => { setConfirmReplaceFactCheck(null); }}
         onProceed={handleReplace}
       />
+
+      {/* Dialog for sending explainers to previous requests */}
+      { confirmSendExplainers && (
+        <SendExplainersToPreviousRequests
+          explainerItemDbidsToSend={explainerItemDbidsToSend}
+          projectMedia={projectMedia}
+          onClose={() => { setConfirmSendExplainers(false); }}
+          onSubmit={onUpdate}
+        />
+      )}
     </div>
   );
 };
 
 MediaArticlesComponent.defaultProps = {
-  showAlert: false,
+  explainerItemDbidsToSend: [],
 };
 
 MediaArticlesComponent.propTypes = {
+  explainerItemDbidsToSend: PropTypes.arrayOf(PropTypes.number),
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
@@ -261,7 +278,6 @@ MediaArticlesComponent.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   }).isRequired,
-  showAlert: PropTypes.bool,
   team: PropTypes.shape({
     slug: PropTypes.string.isRequired,
   }).isRequired,
@@ -270,11 +286,15 @@ MediaArticlesComponent.propTypes = {
 
 const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
   const [updateCount, setUpdateCount] = React.useState(0);
-  const [showAlert, setShowAlert] = React.useState(false);
+  const [explainerItemDbidsToSend, setExplainerItemDbidsToSend] = React.useState([]);
 
   // FIXME: Shouldn't be needed if Relay works as expected
-  const handleUpdate = (showAlertIfUnansweredRequests) => {
-    setShowAlert(Boolean(showAlertIfUnansweredRequests));
+  const handleUpdate = (explainerItemDbid) => {
+    if (explainerItemDbid) {
+      setExplainerItemDbidsToSend(explainerItemDbidsToSend.concat([explainerItemDbid]));
+    } else {
+      setExplainerItemDbidsToSend([]);
+    }
     setUpdateCount(updateCount + 1);
   };
 
@@ -292,12 +312,14 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
               dbid
               type
               articles_count
+              fact_check_id
               has_tipline_requests_that_never_received_articles
               claim_description {
                 id
               }
               ...MediaArticlesDisplay_projectMedia
               ...NewArticleButton_projectMedia
+              ...SendExplainersToPreviousRequests_projectMedia
             }
           }
         `}
@@ -305,8 +327,8 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
           if (!error && props) {
             return (
               <MediaArticlesComponent
+                explainerItemDbidsToSend={(!props.project_media.fact_check_id && props.project_media.has_tipline_requests_that_never_received_articles) ? explainerItemDbidsToSend : []}
                 projectMedia={props.project_media}
-                showAlert={showAlert && props.project_media.has_tipline_requests_that_never_received_articles}
                 team={props.team}
                 onUpdate={handleUpdate}
               />
