@@ -161,7 +161,10 @@ const MediaArticlesComponent = ({
           disabled={projectMedia.type === 'Blank'}
           projectMedia={projectMedia}
           team={team}
-          onCreate={onUpdate}
+          onCreate={(response) => {
+            const explainerItemDbid = response?.createExplainerItem?.explainer_item?.dbid;
+            onUpdate(explainerItemDbid);
+          }}
         />
       </div>
       {explainerItemDbidsToSend.length > 0 && (
