@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl, mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { SendExplainersToPreviousRequests } from './SendExplainersToPreviousRequests';
+import { shallowWithIntl, mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 const onClose = () => {};
 const onSubmit = () => {};
@@ -11,7 +11,12 @@ const projectMedia = {
     30: 3,
   },
 };
-const defaultProps = { onClose, onSubmit, projectMedia, explainerItemDbidsToSend: [1, 2] };
+const defaultProps = {
+  onClose,
+  onSubmit,
+  projectMedia,
+  explainerItemDbidsToSend: [1, 2],
+};
 
 describe('<SendExplainersToPreviousRequests />', () => {
   it('should render the component', () => {
