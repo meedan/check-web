@@ -32,17 +32,21 @@ const SendExplainersToPreviousRequests = ({
     setCount(projectMedia.ranges[`${value}`]);
   };
 
-  const onCompleted = () => {
-    setFlashMessage(
-      <FormattedMessage
-        defaultMessage="Articles successfully scheduled to be delivered!"
-        description="Banner displayed after an article is successfully sent to previous requests."
-        id="sendExplainersToPreviousRequests.success"
-      />,
-      'success');
+  const onCompleted = (response) => {
+    if (!response?.sendExplainersToPreviousRequests?.success) {
+      setFlashMessage(<GenericUnknownErrorMessage />);
+    } else {
+      setFlashMessage(
+        <FormattedMessage
+          defaultMessage="Articles successfully scheduled to be delivered!"
+          description="Banner displayed after an article is successfully sent to previous requests."
+          id="sendExplainersToPreviousRequests.success"
+        />,
+        'success');
+      onSubmit();
+      onClose();
+    }
     setSending(false);
-    onSubmit();
-    onClose();
   };
 
   const onError = (error) => {

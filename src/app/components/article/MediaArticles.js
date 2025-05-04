@@ -69,7 +69,7 @@ const MediaArticlesComponent = ({
     return <Loader size="large" theme="white" variant="inline" />;
   }
 
-  const onCompleted = (nodeType, response) => {
+  const onCompleted = (response) => {
     setFlashMessage(
       <FormattedMessage
         defaultMessage="Article added successfully!"
@@ -112,7 +112,7 @@ const MediaArticlesComponent = ({
         variables: {
           input,
         },
-        onCompleted: response => onCompleted(nodeType, response),
+        onCompleted,
         onError,
       });
     }
