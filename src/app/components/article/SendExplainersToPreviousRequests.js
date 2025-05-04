@@ -206,6 +206,10 @@ SendExplainersToPreviousRequests.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { SendExplainersToPreviousRequests };
+
 export default createFragmentContainer(SendExplainersToPreviousRequests, graphql`
   fragment SendExplainersToPreviousRequests_projectMedia on ProjectMedia {
     ranges: number_of_tipline_requests_that_never_received_articles_by_time
