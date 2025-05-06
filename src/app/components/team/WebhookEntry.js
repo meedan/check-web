@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import cx from 'classnames/bind';
 import WebhookDelete from './WebhookDelete';
 import { WebhookEditContainer, messages } from './WebhookEdit';
@@ -43,13 +43,15 @@ const WebhookEntry = ({ intl, webhook }) => {
 };
 
 WebhookEntry.propTypes = {
+  intl: intlShape.isRequired,
   webhook: PropTypes.shape({
-    name: PropTypes.string,
-    events: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    events: PropTypes.arrayOf(PropTypes.exact({
       event: PropTypes.string,
       graphql: PropTypes.string,
     })),
-    request_url: PropTypes.string,
+    request_url: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
 // For using the Webhooks_team fragment in the mutation
 import Webhooks from './Webhooks'; // eslint-disable-line no-unused-vars
@@ -114,6 +114,12 @@ const WebhookEdit = ({ intl, webhook }) => {
     setNameError(false);
     setUrlError(false);
     setHeadersError(false);
+  };
+
+  const validateForm = () => {
+    setNameError(!name.trim());
+    setUrlError(!validateURL(url));
+    setHeadersError(headers && !validateHeaders(headers));
   };
 
   const headersPlaceHolder = '{ "MyHeader": "value", "MyOtherHeader": "value" }';
@@ -267,7 +273,7 @@ const WebhookEdit = ({ intl, webhook }) => {
                 }
                 required
                 value={name}
-                onBlur={() => setNameError(!name.trim())}
+                onBlur={validateForm}
                 onChange={e => setName(e.target.value)}
               />
             </div>
@@ -284,7 +290,7 @@ const WebhookEdit = ({ intl, webhook }) => {
                 }
                 required
                 value={url}
-                onBlur={() => setUrlError(!validateURL(url))}
+                onBlur={validateForm}
                 onChange={e => setUrl(e.target.value)}
               />
             </div>
@@ -293,6 +299,7 @@ const WebhookEdit = ({ intl, webhook }) => {
                 label="Event"
                 required
                 value={eventType}
+                onBlur={validateForm}
                 onChange={e => setEventType(e.target.value)}
               >
                 <option value="update_annotation_verification_status">
@@ -318,7 +325,7 @@ const WebhookEdit = ({ intl, webhook }) => {
                 placeholder={headersPlaceHolder}
                 required={false}
                 value={headers}
-                onBlur={() => setHeadersError(headers && !validateHeaders(headers))}
+                onBlur={validateForm}
                 onChange={(e) => {
                   setHeaders(e.target.value);
                   setHeadersError(e.target.value && !validateHeaders(e.target.value));
@@ -364,14 +371,16 @@ const WebhookEdit = ({ intl, webhook }) => {
 };
 
 WebhookEdit.propTypes = {
+  intl: intlShape.isRequired,
   webhook: PropTypes.shape({
-    name: PropTypes.string,
-    events: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    events: PropTypes.arrayOf(PropTypes.exact({
       event: PropTypes.string,
       graphql: PropTypes.string,
     })),
     headers: PropTypes.object,
-    request_url: PropTypes.string,
+    request_url: PropTypes.string.isRequired,
   }),
 };
 
