@@ -8,7 +8,7 @@ import cx from 'classnames/bind';
 import { logout } from '../../redux/actions.js';
 import { withSetFlashMessage } from '../FlashMessage.js';
 import LogoutIcon from '../../icons/logout.svg';
-import styles from './Projects/SavedSearches.module.css';
+import styles from './SavedSearches/SavedSearches.module.css';
 
 const messages = defineMessages({
   userSettings: {

@@ -8,7 +8,7 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
 import ListIcon from '../../icons/list.svg';
 import { safelyParseJSON } from '../../helpers';
-import SavedSearchActions from '../drawer/Projects/SavedSearchActions';
+import SavedSearchActions from '../drawer/SavedSearches/SavedSearchActions';
 
 const SavedSearch = ({ routeParams }) => (
   <ErrorBoundary component="SavedSearch">

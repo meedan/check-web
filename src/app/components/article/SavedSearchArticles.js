@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import Articles from './Articles';
-import SavedSearchActions from '../drawer/Projects/SavedSearchActions';
+import SavedSearchActions from '../drawer/SavedSearches/SavedSearchActions';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import ListIcon from '../../icons/list.svg';

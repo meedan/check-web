@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter, Link } from 'react-router';
 import cx from 'classnames/bind';
-import TiplineCoreListCounter from './Projects/TiplineCoreListCounter';
+import TiplineCoreListCounter from './SavedSearches/TiplineCoreListCounter';
 import DrawerCustomLists from './DrawerCustomLists';
 import CreateMedia from '../media/CreateMedia';
 import BarChartIcon from '../../icons/bar_chart.svg';
@@ -20,7 +20,7 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { assignedToMeDefaultQuery } from '../team/AssignedToMe';
 import { suggestedMatchesDefaultQuery } from '../team/SuggestedMatches';
 import { tiplineInboxDefaultQuery } from '../team/TiplineInbox';
-import styles from './Projects/SavedSearches.module.css';
+import styles from './SavedSearches/SavedSearches.module.css';
 
 const DrawerTiplineComponent = ({
   currentUser,

@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
-import SavedSearchesListItem from './Projects/SavedSearchesListItem';
-import NewSavedSearch from './Projects/NewSavedSearch';
+import SavedSearchesListItem from './SavedSearches/SavedSearchesListItem';
+import NewSavedSearch from './SavedSearches/NewSavedSearch';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import AddIcon from '../../icons/add_filled.svg';
@@ -15,7 +15,7 @@ import ExpandMoreIcon from '../../icons/chevron_right.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import ListIcon from '../../icons/list.svg';
 import Can from '../Can';
-import styles from './Projects/SavedSearches.module.css';
+import styles from './SavedSearches/SavedSearches.module.css';
 
 const DrawerCustomListsComponent = ({
   listType,

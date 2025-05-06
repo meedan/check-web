@@ -8,7 +8,7 @@ const TiplineCoreListCounter = ({ query }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query TiplineCoreListCounter($query: String!) {
+      query TiplineCoreListCounterQuery($query: String!) {
         search(query: $query) {
           number_of_results
         }

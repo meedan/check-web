@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import DrawerListCounter from './Projects/DrawerListCounter';
+import DrawerListCounter from './SavedSearches/DrawerListCounter';
 import DrawerCustomLists from './DrawerCustomLists';
 import NewArticleButton from '../article/NewArticleButton';
 import PublishedIcon from '../../icons/fact_check.svg';
@@ -13,7 +13,7 @@ import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
 import BarChartIcon from '../../icons/bar_chart.svg';
 import DescriptionIcon from '../../icons/description.svg';
-import styles from './Projects/SavedSearches.module.css';
+import styles from './SavedSearches/SavedSearches.module.css';
 
 const DrawerArticlesComponent = ({ team }) => {
   // Get/set which list item should be highlighted

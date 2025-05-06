@@ -8,7 +8,7 @@ import cx from 'classnames/bind';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
 import { withSetFlashMessage } from '../FlashMessage';
-import styles from './Projects/SavedSearches.module.css';
+import styles from './SavedSearches/SavedSearches.module.css';
 
 const messages = defineMessages({
   annotations: {
