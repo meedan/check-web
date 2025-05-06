@@ -13,7 +13,7 @@ import FileDownloadIcon from '../../icons/file_download.svg';
 import BookIcon from '../../icons/book.svg';
 import BarChartIcon from '../../icons/bar_chart.svg';
 import DescriptionIcon from '../../icons/description.svg';
-import styles from './Projects/Projects.module.css';
+import styles from './Projects/SavedSearches.module.css';
 
 const DrawerArticlesComponent = ({ team }) => {
   // Get/set which list item should be highlighted

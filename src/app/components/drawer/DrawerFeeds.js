@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, defineMessages } from 'react-intl';
 import { browserHistory, withRouter } from 'react-router';
 import cx from 'classnames/bind';
-import ProjectsListItem from './Projects/ProjectsListItem';
+import SavedSearchesListItem from './Projects/SavedSearchesListItem';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../icons/add.svg';
 import Can from '../Can';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import { withSetFlashMessage } from '../FlashMessage';
-import styles from './Projects/Projects.module.css';
+import styles from './Projects/SavedSearches.module.css';
 
 const messages = defineMessages({
   pendingInvitationFeedTooltip: {
@@ -118,7 +118,7 @@ const DrawerFeedsComponent = ({
                   break;
                 }
                 return (
-                  <ProjectsListItem
+                  <SavedSearchesListItem
                     className={cx(
                       {
                         [styles.listItemInvited]: feed.type === 'FeedInvitation',

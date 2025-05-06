@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
 import DrawerListCounter from './DrawerListCounter';
-import styles from './Projects.module.css';
+import styles from './SavedSearches.module.css';
 
-const ProjectsListItem = ({
+const SavedSearchesListItem = ({
   className,
   icon,
   isActive,
@@ -31,7 +31,7 @@ const ProjectsListItem = ({
     >
       <li
         className={cx(
-          'project-list__link',
+          'save-search-list__link',
           styles.listItem,
           styles.listItem_containsCount,
           {
@@ -64,7 +64,7 @@ const ProjectsListItem = ({
   return <Item />;
 };
 
-ProjectsListItem.defaultProps = {
+SavedSearchesListItem.defaultProps = {
   className: '',
   icon: null,
   isActive: false,
@@ -73,7 +73,7 @@ ProjectsListItem.defaultProps = {
   onClick: null,
 };
 
-ProjectsListItem.propTypes = {
+SavedSearchesListItem.propTypes = {
   className: PropTypes.string,
   icon: PropTypes.node,
   isActive: PropTypes.bool,
@@ -83,7 +83,6 @@ ProjectsListItem.propTypes = {
     title: PropTypes.string,
     name: PropTypes.string,
     medias_count: PropTypes.number,
-    project_group_id: PropTypes.number,
   }).isRequired,
   routePrefix: PropTypes.string.isRequired,
   routeSuffix: PropTypes.string,
@@ -92,8 +91,8 @@ ProjectsListItem.propTypes = {
   onClick: PropTypes.func,
 };
 
-export default createFragmentContainer(ProjectsListItem, graphql`
-  fragment ProjectsListItem_savedSearch on SavedSearch {
+export default createFragmentContainer(SavedSearchesListItem, graphql`
+  fragment SavedSearchesListItem_savedSearch on SavedSearch {
     medias_count: items_count
   }
 `);

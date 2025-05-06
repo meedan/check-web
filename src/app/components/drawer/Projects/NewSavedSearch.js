@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -9,7 +8,7 @@ import TextField from '../../cds/inputs/TextField';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
-const NewProject = ({
+const NewSavedSearch = ({
   buttonLabel,
   errorMessage,
   listType,
@@ -26,7 +25,7 @@ const NewProject = ({
 
   const mutations = {
     list: graphql`
-      mutation NewProjectCreateSavedSearchMutation($input: CreateSavedSearchInput!, $listType: String!) {
+      mutation NewSavedSearchCreateSavedSearchMutation($input: CreateSavedSearchInput!, $listType: String!) {
         createSavedSearch(input: $input) {
           saved_search {
             dbid
@@ -118,7 +117,7 @@ const NewProject = ({
           )}
         </FormattedMessage>
       }
-      cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Dialog label for the cancel button to close the dialog" id="newProject.cancel" />}
+      cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Dialog label for the cancel button to close the dialog" id="NewSavedSearch.cancel" />}
       isSaving={saving}
       open={open}
       proceedDisabled={!newTitle}
@@ -130,20 +129,20 @@ const NewProject = ({
   );
 };
 
-NewProject.defaultProps = {
+NewSavedSearch.defaultProps = {
   open: false,
 };
 
-NewProject.propTypes = {
-  team: PropTypes.object.isRequired,
+NewSavedSearch.propTypes = {
+  buttonLabel: PropTypes.object.isRequired,
+  errorMessage: PropTypes.node.isRequired,
   listType: PropTypes.string.isRequired,
   open: PropTypes.bool,
-  title: PropTypes.object.isRequired,
-  buttonLabel: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired,
-  errorMessage: PropTypes.node.isRequired,
   routePrefix: PropTypes.string.isRequired,
   successMessage: PropTypes.node.isRequired,
+  team: PropTypes.object.isRequired,
+  title: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(NewProject);
+export default withSetFlashMessage(NewSavedSearch);

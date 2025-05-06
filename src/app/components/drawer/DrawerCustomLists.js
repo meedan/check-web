@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
-import ProjectsListItem from './Projects/ProjectsListItem';
-import NewProject from './Projects/NewProject';
+import SavedSearchesListItem from './Projects/SavedSearchesListItem';
+import NewSavedSearch from './Projects/NewSavedSearch';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import AddIcon from '../../icons/add_filled.svg';
@@ -15,7 +15,7 @@ import ExpandMoreIcon from '../../icons/chevron_right.svg';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import ListIcon from '../../icons/list.svg';
 import Can from '../Can';
-import styles from './Projects/Projects.module.css';
+import styles from './Projects/SavedSearches.module.css';
 
 const DrawerCustomListsComponent = ({
   listType,
@@ -86,7 +86,7 @@ const DrawerCustomListsComponent = ({
             </li> :
             <>
               {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
-                <ProjectsListItem
+                <SavedSearchesListItem
                   icon={search.is_part_of_feeds ? <SharedFeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} /> : <ListIcon className={styles.listIcon} />}
                   isActive={activeItem.type === routePrefix && activeItem.id === search.dbid}
                   key={search.id}
@@ -103,7 +103,7 @@ const DrawerCustomListsComponent = ({
 
       {/* Dialog to create list */}
 
-      <NewProject
+      <NewSavedSearch
         buttonLabel={<FormattedMessage defaultMessage="Create List" description="Label for a button to create a new list displayed on the left sidebar." id="drawerCustomLists.createList" />}
         errorMessage={<FormattedMessage defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" id="drawerCustomLists.newListErrorMessage" />}
         listType={listType}
@@ -151,7 +151,7 @@ const DrawerCustomLists = ({ listType, routePrefix, teamSlug }) => (
                 dbid
                 title
                 is_part_of_feeds
-                ...ProjectsListItem_savedSearch
+                ...SavedSearchesListItem_savedSearch
               }
             }
           }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import { getCompactNumber } from '../../../helpers';
-import styles from './Projects.module.css';
+import styles from './SavedSearches.module.css';
 
 const DrawerListCounter = ({ intl, numberOfItems }) => (
   <div className={styles.listItemCount} title={numberOfItems}>

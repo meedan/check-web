@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter, Link } from 'react-router';
 import cx from 'classnames/bind';
-import ProjectsCoreListCounter from './Projects/ProjectsCoreListCounter';
+import TiplineCoreListCounter from './Projects/TiplineCoreListCounter';
 import DrawerCustomLists from './DrawerCustomLists';
 import CreateMedia from '../media/CreateMedia';
 import BarChartIcon from '../../icons/bar_chart.svg';
@@ -20,7 +20,7 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { assignedToMeDefaultQuery } from '../team/AssignedToMe';
 import { suggestedMatchesDefaultQuery } from '../team/SuggestedMatches';
 import { tiplineInboxDefaultQuery } from '../team/TiplineInbox';
-import styles from './Projects/Projects.module.css';
+import styles from './Projects/SavedSearches.module.css';
 
 const DrawerTiplineComponent = ({
   currentUser,
@@ -138,7 +138,7 @@ const DrawerTiplineComponent = ({
               <div className={styles.listLabel}>
                 <FormattedMessage defaultMessage="Assigned to Me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" id="projectsComponent.assignedToMe" tagName="span" />
               </div>
-              <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
+              <TiplineCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
             </li>
           </Link>
           { team.smooch_bot?.id &&
@@ -161,7 +161,7 @@ const DrawerTiplineComponent = ({
                 <div className={styles.listLabel}>
                   <FormattedMessage defaultMessage="Inbox" description="Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted" id="projectsComponent.tiplineInbox" tagName="span" />
                 </div>
-                <ProjectsCoreListCounter query={{ ...tiplineInboxDefaultQuery, verification_status: [team.verification_statuses.default] }} />
+                <TiplineCoreListCounter query={{ ...tiplineInboxDefaultQuery, verification_status: [team.verification_statuses.default] }} />
               </li>
             </Link>
           }
@@ -185,7 +185,7 @@ const DrawerTiplineComponent = ({
                 <div className={styles.listLabel}>
                   <FormattedMessage defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1" id="projectsComponent.suggestedMatches" tagName="span" />
                 </div>
-                <ProjectsCoreListCounter query={suggestedMatchesDefaultQuery} />
+                <TiplineCoreListCounter query={suggestedMatchesDefaultQuery} />
               </li>
             </Link>
           }

@@ -4,11 +4,11 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import DrawerListCounter from './DrawerListCounter';
 
-const ProjectsCoreListCounter = ({ query }) => (
+const TiplineCoreListCounter = ({ query }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query ProjectsCoreListCounterQuery($query: String!) {
+      query TiplineCoreListCounter($query: String!) {
         search(query: $query) {
           number_of_results
         }
@@ -26,8 +26,8 @@ const ProjectsCoreListCounter = ({ query }) => (
   />
 );
 
-ProjectsCoreListCounter.propTypes = {
+TiplineCoreListCounter.propTypes = {
   query: PropTypes.object.isRequired, // CheckSearch JSON query
 };
 
-export default ProjectsCoreListCounter;
+export default TiplineCoreListCounter;
