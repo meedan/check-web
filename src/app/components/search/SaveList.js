@@ -390,6 +390,8 @@ SaveList.propTypes = {
 
 export default createFragmentContainer(withSetFlashMessage(injectIntl(SaveList)), graphql`
   fragment SaveList_team on Team {
+    dbid
+    slug
     permissions
   }
 `);

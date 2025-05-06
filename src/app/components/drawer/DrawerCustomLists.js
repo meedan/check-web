@@ -90,8 +90,8 @@ const DrawerCustomListsComponent = ({
                   icon={search.is_part_of_feeds ? <SharedFeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} /> : <ListIcon className={styles.listIcon} />}
                   isActive={activeItem.type === routePrefix && activeItem.id === search.dbid}
                   key={search.id}
-                  project={search}
                   routePrefix={routePrefix}
+                  savedSearch={search}
                   teamSlug={team.slug}
                   tooltip={search.title}
                 />

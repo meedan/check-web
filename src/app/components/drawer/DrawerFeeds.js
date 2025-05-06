@@ -127,7 +127,7 @@ const DrawerFeedsComponent = ({
                     icon={itemIcon}
                     isActive={isActive('feed', feed.dbid)}
                     key={feed.id}
-                    project={feed}
+                    savedSearch={feed}
                     teamSlug={team.slug}
                     tooltip={feed.type === 'FeedInvitation' ? intl.formatMessage(messages.pendingInvitationFeedTooltip, { feedTitle: feed.title }) : feed.title}
                     onClick={handleClick}
