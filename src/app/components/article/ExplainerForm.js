@@ -12,6 +12,9 @@ import { getErrorMessageForRelayModernProblem } from '../../helpers';
 const addMutation = graphql`
   mutation ExplainerFormCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
     createExplainerItem(input: $input) {
+      explainer_item {
+        dbid
+      }
       project_media {
         id
       }
@@ -104,7 +107,7 @@ const ExplainerForm = ({
           onFailure(err);
         } else {
           onSuccess();
-          onCreate();
+          onCreate(response2);
         }
       },
       onError: (err) => {
