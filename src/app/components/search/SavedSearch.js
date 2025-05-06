@@ -3,13 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
-import Alert from '../cds/alerts-and-prompts/Alert';
 import ListIcon from '../../icons/list.svg';
 import { safelyParseJSON } from '../../helpers';
-import ProjectActions from '../drawer/Projects/ProjectActions';
+import SavedSearchActions from '../drawer/Projects/SavedSearchActions';
 
 const SavedSearch = ({ routeParams }) => (
   <ErrorBoundary component="SavedSearch">
@@ -62,70 +61,8 @@ const SavedSearch = ({ routeParams }) => (
                 ]}
                 icon={<ListIcon />}
                 listActions={
-                  <ProjectActions
-                    deleteMessage={
-                      props.saved_search?.is_part_of_feeds ?
-                        <>
-                          <FormattedHTMLMessage
-                            defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
-                            description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
-                            id="savedSearch.deleteMessageWarning"
-                            tagName="p"
-                            values={{
-                              teamName: props.saved_search?.team ? props.saved_search.team.name : '',
-                            }}
-                          />
-                          <Alert
-                            content={
-                              <ul className="bulleted-list">
-                                {props.saved_search?.feeds?.edges.map(feed => (
-                                  <li key={feed.node.id}>{feed.node.name}</li>
-                                ))}
-                              </ul>
-                            }
-                            title={
-                              <FormattedHTMLMessage
-                                defaultMessage="<strong>Deleting list will result in no content for the following shared feeds:</strong>"
-                                description="Warning displayed on edit feed page when no list is selected."
-                                id="saveFeed.deleteCustomListWarning"
-                              />
-                            }
-                            variant="warning"
-                          />
-                        </>
-                        :
-                        <FormattedHTMLMessage
-                          defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it."
-                          description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
-                          id="savedSearch.deleteMessage"
-                          tagName="p"
-                          values={{
-                            teamName: props.saved_search?.team ? props.saved_search.team.name : '',
-                          }}
-                        />
-                    }
-                    deleteMutation={graphql`
-                      mutation SavedSearchDestroySavedSearchMutation($input: DestroySavedSearchInput!) {
-                        destroySavedSearch(input: $input) {
-                          deletedId
-                          team {
-                            id
-                          }
-                        }
-                      }
-                    `}
-                    object={props.saved_search}
-                    updateMutation={graphql`
-                      mutation SavedSearchUpdateSavedSearchMutation($input: UpdateSavedSearchInput!) {
-                        updateSavedSearch(input: $input) {
-                          saved_search {
-                            id
-                            title
-                            medias_count: items_count
-                          }
-                        }
-                      }
-                    `}
+                  <SavedSearchActions
+                    savedSearch={props.saved_search}
                   />
                 }
                 listSubtitle={<FormattedMessage defaultMessage="Custom Media Clusters List" description="Displayed on top of the custom list title on the search results page." id="savedSearch.subtitle" />}

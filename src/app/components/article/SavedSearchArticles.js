@@ -3,9 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { FormattedHTMLMessage } from 'react-intl';
 import Articles from './Articles';
-import ProjectActions from '../drawer/Projects/ProjectActions';
+import SavedSearchActions from '../drawer/Projects/SavedSearchActions';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import ListIcon from '../../icons/list.svg';
@@ -45,40 +44,8 @@ const SavedSearchArticles = ({ routeParams }) => (
               filterOptions={['users', 'tags', 'range', 'verification_status', 'language_filter', 'published_by', 'channels']}
               icon={<ListIcon />}
               listActions={
-                <ProjectActions
-                  deleteMessage={
-                    <FormattedHTMLMessage
-                      defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it."
-                      description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
-                      id="savedSearchArticles.deleteMessage"
-                      tagName="p"
-                      values={{
-                        teamName: props.saved_search?.team ? props.saved_search.team.name : '',
-                      }}
-                    />
-                  }
-                  deleteMutation={graphql`
-                    mutation SavedSearchArticlesDestroySavedSearchMutation($input: DestroySavedSearchInput!) {
-                      destroySavedSearch(input: $input) {
-                        deletedId
-                        team {
-                          id
-                        }
-                      }
-                    }
-                  `}
-                  object={props.saved_search}
-                  updateMutation={graphql`
-                    mutation SavedSearchArticlesUpdateSavedSearchMutation($input: UpdateSavedSearchInput!) {
-                      updateSavedSearch(input: $input) {
-                        saved_search {
-                          id
-                          title
-                          medias_count: items_count
-                        }
-                      }
-                    }
-                  `}
+                <SavedSearchActions
+                  savedSearch={props.saved_search}
                 />
               }
               pageName="articles"
