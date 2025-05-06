@@ -19,7 +19,7 @@ import IconMoreVert from '../../../icons/more_vert.svg';
 
 const messages = defineMessages({
   actionsTooltip: {
-    id: 'SavedSearchActions.tooltip',
+    id: 'savedSearchActions.tooltip',
     defaultMessage: 'Actions',
     description: 'Toolitp for the button that shows actions that can be performed on a list',
   },
@@ -53,7 +53,7 @@ const SavedSearchActions = ({
       <FormattedMessage
         defaultMessage="Error, please try again"
         description="Generic error message displayed when it's not possible to update or delete a list"
-        id="SavedSearchActions.defaultErrorMessage"
+        id="savedSearchActions.defaultErrorMessage"
       />
     ), 'error');
   };
@@ -64,7 +64,7 @@ const SavedSearchActions = ({
       <FormattedMessage
         defaultMessage="Done"
         description="Generic success message displayed when a list is updated or deleted"
-        id="SavedSearchActions.savedSuccessfully"
+        id="savedSearchActions.savedSuccessfully"
       />
     ), 'success');
     setNewTitle('');
@@ -187,7 +187,7 @@ const SavedSearchActions = ({
               <FormattedMessage
                 defaultMessage="Rename"
                 description="'Rename' here is an infinitive verb"
-                id="SavedSearchActions.rename"
+                id="savedSearchActions.rename"
               />
             }
           />
@@ -198,7 +198,7 @@ const SavedSearchActions = ({
               <FormattedMessage
                 defaultMessage="Delete"
                 description="'Delete' here is an infinitive verb"
-                id="SavedSearchActions.delete"
+                id="savedSearchActions.delete"
               />
             }
           />
@@ -216,7 +216,7 @@ const SavedSearchActions = ({
               <FormattedMessage
                 defaultMessage="Title"
                 description="Label for the title input when renaming a list"
-                id="projectsComponent.title"
+                id="savedSearchActions.title"
               />
             }
             variant="outlined"
@@ -231,14 +231,14 @@ const SavedSearchActions = ({
           <FormattedMessage
             defaultMessage="Rename list"
             description="'Rename' here is an infinitive verb"
-            id="projectsComponent.renameType"
+            id="savedSearchActions.renameType"
           />
         }
         title={
           <FormattedMessage
             defaultMessage="Rename list"
             description="'Rename' here is an infinitive verb"
-            id="projectsComponent.renameType"
+            id="savedSearchActions.renameType"
           />
         }
         onCancel={handleClose}
@@ -299,14 +299,14 @@ const SavedSearchActions = ({
           <FormattedMessage
             defaultMessage="Delete list"
             description="'Delete' here is an infinitive verb"
-            id="projectsComponent.deleteType"
+            id="savedSearchActions.deleteType"
           />
         }
         title={
           <FormattedMessage
             defaultMessage="Delete list?"
             description="'Delete' here is an infinitive verb"
-            id="projectsComponent.deleteTitleType"
+            id="savedSearchActions.deleteTitleType"
           />
         }
         onCancel={handleClose}

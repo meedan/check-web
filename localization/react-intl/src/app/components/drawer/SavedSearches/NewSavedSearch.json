@@ -1,16 +1,16 @@
 [
   {
-    "id": "projectsComponent.placeholder",
+    "id": "newSavedSearch.placeholder",
     "description": "Placeholder for creating a new custom list",
     "defaultMessage": "Enter a short, easily remembered name for this custom list"
   },
   {
-    "id": "projectsComponent.title",
+    "id": "newSavedSearch.title",
     "description": "Text field label for the title input",
     "defaultMessage": "Title"
   },
   {
-    "id": "NewSavedSearch.cancel",
+    "id": "newSavedSearch.cancel",
     "description": "Dialog label for the cancel button to close the dialog",
     "defaultMessage": "Cancel"
   }

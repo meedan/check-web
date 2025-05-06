@@ -96,7 +96,7 @@ const NewSavedSearch = ({
         <FormattedMessage
           defaultMessage="Enter a short, easily remembered name for this custom list"
           description="Placeholder for creating a new custom list"
-          id="projectsComponent.placeholder"
+          id="newSavedSearch.placeholder"
         >
           { placeholder => (
             <TextField
@@ -108,7 +108,7 @@ const NewSavedSearch = ({
                 <FormattedMessage
                   defaultMessage="Title"
                   description="Text field label for the title input"
-                  id="projectsComponent.title"
+                  id="newSavedSearch.title"
                 />
               }
               placeholder={placeholder}
@@ -117,7 +117,7 @@ const NewSavedSearch = ({
           )}
         </FormattedMessage>
       }
-      cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Dialog label for the cancel button to close the dialog" id="NewSavedSearch.cancel" />}
+      cancelLabel={<FormattedMessage defaultMessage="Cancel" description="Dialog label for the cancel button to close the dialog" id="newSavedSearch.cancel" />}
       isSaving={saving}
       open={open}
       proceedDisabled={!newTitle}
