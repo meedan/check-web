@@ -1,0 +1,7 @@
+[
+  {
+    "id": "webhookEntry.listeningFor",
+    "description": "Label for text field that shows the event selected for notifying the webhook",
+    "defaultMessage": "Listening for"
+  }
+]
