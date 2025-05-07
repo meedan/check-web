@@ -41,7 +41,7 @@ const SavedSearchArticles = ({ routeParams }) => (
           return (
             <Articles
               defaultFilters={defaultQuery}
-              filterOptions={['users', 'tags', 'range', 'verification_status', 'language_filter', 'published_by', 'channels']}
+              filterOptions={['users', 'tags', 'range', 'article_type', 'language_filter', 'channels']}
               icon={<ListIcon />}
               listActions={
                 <SavedSearchActions

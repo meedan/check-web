@@ -162,8 +162,6 @@ const SavedSearchActions = ({
   const handleDeleteClick = () => {
     setShowDeleteDialog(true);
   };
-  // eslint-disable-next-line
-  console.log('permissions', team.permissions);
 
   return (
     <Can permission="create SavedSearch" permissions={team.permissions}>
