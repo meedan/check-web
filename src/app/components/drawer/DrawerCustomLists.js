@@ -19,7 +19,6 @@ import styles from './SavedSearches/SavedSearches.module.css';
 
 const DrawerCustomListsComponent = ({
   listType,
-  location,
   routePrefix,
   savedSearches,
   team,
@@ -33,6 +32,7 @@ const DrawerCustomListsComponent = ({
   const [listsExpanded, setListsExpanded] =
     React.useState(getBooleanPref('drawer.listsExpanded', true));
   // Get/set which list item should be highlighted
+  const { location } = window;
   const pathParts = window.location.pathname.split('/');
   const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
   React.useEffect(() => {
@@ -120,7 +120,6 @@ const DrawerCustomListsComponent = ({
 
 DrawerCustomListsComponent.propTypes = {
   listType: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
   routePrefix: PropTypes.string.isRequired,
   savedSearch: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -161,12 +160,9 @@ const DrawerCustomLists = ({ listType, routePrefix, teamSlug }) => (
     render={({ error, props }) => {
       if (!props || error) return null;
 
-      const { location } = window;
-
       return (
         <DrawerCustomListsComponent
           listType={listType}
-          location={location}
           routePrefix={routePrefix}
           savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
           team={props.team}
