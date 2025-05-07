@@ -1,0 +1,37 @@
+[
+  {
+    "id": "webhooks.title",
+    "description": "Title of the webhook management widget",
+    "defaultMessage": "External Webhooks"
+  },
+  {
+    "id": "webhooks.toggleLabel",
+    "description": "Description of the webhook management widget toggle switch",
+    "defaultMessage": "Manage integrations with external systems. Subscribe to events from Check."
+  },
+  {
+    "id": "webhooks.countHeader",
+    "description": "Title of the webhook management widget",
+    "defaultMessage": "Webhooks [{count}]"
+  },
+  {
+    "id": "webhooks.empty",
+    "description": "Label for initial state when there are no API keys created for the current workspace",
+    "defaultMessage": "No Webhooks"
+  },
+  {
+    "id": "webhooks.emptyBlurb",
+    "description": "Subtitle for initial state when there are no webhooks created for the current workspace",
+    "defaultMessage": "Add a new integration to be notified of Check events"
+  },
+  {
+    "id": "webhooks.footer",
+    "description": "Footer text in API key creation widget",
+    "defaultMessage": "Check out our guide to using the {checkApi} or to troubleshoot common issues."
+  },
+  {
+    "id": "webhooks.footerSupport",
+    "description": "Footer text in API key creation widget",
+    "defaultMessage": "Connect with us directly for support."
+  }
+]

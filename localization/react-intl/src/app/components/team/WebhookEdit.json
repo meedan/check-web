@@ -1,0 +1,87 @@
+[
+  {
+    "id": "webhookEdit.eventTypeItemStatusChanged",
+    "description": "Label for the event type when the status of an item changes",
+    "defaultMessage": "Item Status Changed"
+  },
+  {
+    "id": "webhookEdit.eventTypeReportPublished",
+    "description": "Label for the event type when a report is published",
+    "defaultMessage": "Report Published"
+  },
+  {
+    "id": "webhookEdit.createSuccess",
+    "description": "Success message when a webhook is created",
+    "defaultMessage": "Webhook created"
+  },
+  {
+    "id": "webhookEdit.updateSuccess",
+    "description": "Success message when a webhook is updated",
+    "defaultMessage": "Webhook updated"
+  },
+  {
+    "id": "webhookEdit.headersHelp",
+    "description": "Help content for webhook headers input",
+    "defaultMessage": "Use JSON format key-value pairs"
+  },
+  {
+    "id": "webhookEdit.headersValid",
+    "description": "Help content for valid webhook headers input",
+    "defaultMessage": "✓ Valid JSON format"
+  },
+  {
+    "id": "webhookEdit.headersError",
+    "description": "Error message for invalid webhook headers input",
+    "defaultMessage": "Invalid JSON object"
+  },
+  {
+    "id": "webhookEdit.newButton",
+    "description": "Button that opens the webhook creation dialog",
+    "defaultMessage": "New Webhook"
+  },
+  {
+    "id": "global.edit",
+    "description": "Generic label for a button or link for a user to press when they wish to edit content or functionality",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "webhookEdit.dialogTitleCreate",
+    "description": "Title of a dialog box to create new webhooks",
+    "defaultMessage": "New Webhook"
+  },
+  {
+    "id": "webhookEdit.dialogTitleEdit",
+    "description": "Title of a dialog box to edit webhook settings",
+    "defaultMessage": "Edit Webhook"
+  },
+  {
+    "id": "webhookEdit.webhookName",
+    "description": "Label for webhook name input",
+    "defaultMessage": "Webhook name"
+  },
+  {
+    "id": "webhookEdit.webhookUrl",
+    "description": "Label for webhook URL input",
+    "defaultMessage": "Webhook URL"
+  },
+  {
+    "id": "webhookEdit.eventType",
+    "description": "Label for webhook event type select",
+    "defaultMessage": "Event"
+  },
+  {
+    "id": "webhookEdit.headers",
+    "description": "Label for webhook headers input",
+    "defaultMessage": "Headers (Optional)"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "global.save",
+    "description": "Generic label for a button or link for a user to press when they wish to save an action or setting",
+    "defaultMessage": "Save"
+  }
+]
