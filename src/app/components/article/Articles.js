@@ -271,7 +271,7 @@ const ArticlesComponent = ({
             onChange={handleChangeSort}
           />
           <ArticleFilters
-            articleTypeReadOnly={Boolean(defaultFilters.article_type && !savedSearch)}
+            articleTypeReadOnly={defaultFilters.article_type && !savedSearch}
             currentFilters={{ ...filters }}
             defaultFilters={{ ...defaultFilters }}
             filterOptions={filterOptions}

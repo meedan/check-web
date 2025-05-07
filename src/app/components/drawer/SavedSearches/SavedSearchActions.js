@@ -214,7 +214,7 @@ const SavedSearchActions = ({
               <FormattedMessage
                 defaultMessage="Title"
                 description="Label for the title input when renaming a list"
-                id="projectActions.title"
+                id="projectsComponent.title"
               />
             }
             variant="outlined"
@@ -229,14 +229,14 @@ const SavedSearchActions = ({
           <FormattedMessage
             defaultMessage="Rename list"
             description="'Rename' here is an infinitive verb"
-            id="projectActions.renameType"
+            id="projectsComponent.renameType"
           />
         }
         title={
           <FormattedMessage
             defaultMessage="Rename list"
             description="'Rename' here is an infinitive verb"
-            id="projectActions.renameType"
+            id="projectsComponent.renameType"
           />
         }
         onCancel={handleClose}
@@ -253,7 +253,7 @@ const SavedSearchActions = ({
                   <FormattedHTMLMessage
                     defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
                     description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
-                    id="projectActions.deleteMessageWarning"
+                    id="savedSearch.deleteMessageWarning"
                     tagName="p"
                     values={{
                       teamName: savedSearch?.team ? savedSearch.team.name : '',
@@ -281,7 +281,7 @@ const SavedSearchActions = ({
                 <FormattedHTMLMessage
                   defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it."
                   description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
-                  id="projectActions.deleteMessage"
+                  id="savedSearch.deleteMessage"
                   tagName="p"
                   values={{
                     teamName: savedSearch?.team ? savedSearch.team.name : '',
@@ -297,14 +297,14 @@ const SavedSearchActions = ({
           <FormattedMessage
             defaultMessage="Delete list"
             description="'Delete' here is an infinitive verb"
-            id="projectActions.deleteType"
+            id="projectsComponent.deleteType"
           />
         }
         title={
           <FormattedMessage
             defaultMessage="Delete list?"
             description="'Delete' here is an infinitive verb"
-            id="projectActions.deleteTitleType"
+            id="projectsComponent.deleteTitleType"
           />
         }
         onCancel={handleClose}
