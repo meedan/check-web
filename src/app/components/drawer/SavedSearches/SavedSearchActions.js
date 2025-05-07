@@ -19,7 +19,7 @@ import IconMoreVert from '../../../icons/more_vert.svg';
 
 const messages = defineMessages({
   actionsTooltip: {
-    id: 'savedSearchActions.tooltip',
+    id: 'projectActions.tooltip',
     defaultMessage: 'Actions',
     description: 'Toolitp for the button that shows actions that can be performed on a list',
   },
@@ -53,7 +53,7 @@ const SavedSearchActions = ({
       <FormattedMessage
         defaultMessage="Error, please try again"
         description="Generic error message displayed when it's not possible to update or delete a list"
-        id="savedSearchActions.defaultErrorMessage"
+        id="projectActions.defaultErrorMessage"
       />
     ), 'error');
   };
@@ -64,7 +64,7 @@ const SavedSearchActions = ({
       <FormattedMessage
         defaultMessage="Done"
         description="Generic success message displayed when a list is updated or deleted"
-        id="savedSearchActions.savedSuccessfully"
+        id="projectActions.savedSuccessfully"
       />
     ), 'success');
     setNewTitle('');
@@ -185,7 +185,7 @@ const SavedSearchActions = ({
               <FormattedMessage
                 defaultMessage="Rename"
                 description="'Rename' here is an infinitive verb"
-                id="savedSearchActions.rename"
+                id="projectActions.rename"
               />
             }
           />
@@ -196,7 +196,7 @@ const SavedSearchActions = ({
               <FormattedMessage
                 defaultMessage="Delete"
                 description="'Delete' here is an infinitive verb"
-                id="savedSearchActions.delete"
+                id="projectActions.delete"
               />
             }
           />
@@ -214,7 +214,7 @@ const SavedSearchActions = ({
               <FormattedMessage
                 defaultMessage="Title"
                 description="Label for the title input when renaming a list"
-                id="savedSearchActions.title"
+                id="projectActions.title"
               />
             }
             variant="outlined"
@@ -229,14 +229,14 @@ const SavedSearchActions = ({
           <FormattedMessage
             defaultMessage="Rename list"
             description="'Rename' here is an infinitive verb"
-            id="savedSearchActions.renameType"
+            id="projectActions.renameType"
           />
         }
         title={
           <FormattedMessage
             defaultMessage="Rename list"
             description="'Rename' here is an infinitive verb"
-            id="savedSearchActions.renameType"
+            id="projectActions.renameType"
           />
         }
         onCancel={handleClose}
@@ -253,7 +253,7 @@ const SavedSearchActions = ({
                   <FormattedHTMLMessage
                     defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
                     description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
-                    id="savedSearchActions.deleteMessageWarning"
+                    id="projectActions.deleteMessageWarning"
                     tagName="p"
                     values={{
                       teamName: savedSearch?.team ? savedSearch.team.name : '',
@@ -281,7 +281,7 @@ const SavedSearchActions = ({
                 <FormattedHTMLMessage
                   defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it."
                   description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
-                  id="savedSearchActions.deleteMessage"
+                  id="projectActions.deleteMessage"
                   tagName="p"
                   values={{
                     teamName: savedSearch?.team ? savedSearch.team.name : '',
@@ -297,14 +297,14 @@ const SavedSearchActions = ({
           <FormattedMessage
             defaultMessage="Delete list"
             description="'Delete' here is an infinitive verb"
-            id="savedSearchActions.deleteType"
+            id="projectActions.deleteType"
           />
         }
         title={
           <FormattedMessage
             defaultMessage="Delete list?"
             description="'Delete' here is an infinitive verb"
-            id="savedSearchActions.deleteTitleType"
+            id="projectActions.deleteTitleType"
           />
         }
         onCancel={handleClose}

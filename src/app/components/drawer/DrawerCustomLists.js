@@ -53,10 +53,10 @@ const DrawerCustomListsComponent = ({
       <li className={cx(styles.listItem, styles.listHeader, styles.listItem_containsCount, 'project-list__header')} onClick={handleToggleListsExpand}>
         { listsExpanded ? <ExpandLessIcon className={styles.listIcon} /> : <ExpandMoreIcon className={styles.listIcon} /> }
         <div className={styles.listLabel}>
-          <FormattedMessage defaultMessage="Custom Filtered Lists" description="List of items with some filters applied" id="drawerCustomLists.lists" tagName="span" />
+          <FormattedMessage defaultMessage="Custom Filtered Lists" description="List of items with some filters applied" id="projectsComponent.lists" tagName="span" />
         </div>
         <Can permission="create Project" permissions={team.permissions}>
-          <Tooltip arrow title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Tooltip for button that opens list creation dialog" id="drawerCustomLists.newListButton" />}>
+          <Tooltip arrow title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Tooltip for button that opens list creation dialog" id="projectsComponent.newListButton" />}>
             <div className={cx(styles.listItemCount, styles.listAddListButton)}>
               <ButtonMain
                 buttonProps={{
@@ -80,7 +80,7 @@ const DrawerCustomListsComponent = ({
             <li className={cx(styles.listItem, styles.listItem_containsCount, styles.listItem_empty)}>
               <div className={styles.listLabel}>
                 <span>
-                  <FormattedMessage defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" id="drawerCustomLists.noCustomLists" tagName="em" />
+                  <FormattedMessage defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" id="projectsComponent.noCustomLists" tagName="em" />
                 </span>
               </div>
             </li> :
@@ -104,14 +104,14 @@ const DrawerCustomListsComponent = ({
       {/* Dialog to create list */}
 
       <NewSavedSearch
-        buttonLabel={<FormattedMessage defaultMessage="Create List" description="Label for a button to create a new list displayed on the left sidebar." id="drawerCustomLists.createList" />}
-        errorMessage={<FormattedMessage defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" id="drawerCustomLists.newListErrorMessage" />}
+        buttonLabel={<FormattedMessage defaultMessage="Create List" description="Label for a button to create a new list displayed on the left sidebar." id="projectsComponent.createList" />}
+        errorMessage={<FormattedMessage defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" id="projectsComponent.newListErrorMessage" />}
         listType={listType}
         open={showNewListDialog}
         routePrefix={routePrefix}
-        successMessage={<FormattedMessage defaultMessage="Filtered List created successfully" description="Success message when new list is created" id="drawerCustomLists.newListSuccessMessage" />}
+        successMessage={<FormattedMessage defaultMessage="Filtered List created successfully" description="Success message when new list is created" id="projectsComponent.newListSuccessMessage" />}
         team={team}
-        title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Title for a dialog to create a new list displayed on the left sidebar." id="drawerCustomLists.newList" />}
+        title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Title for a dialog to create a new list displayed on the left sidebar." id="projectsComponent.newList" />}
         onClose={() => { setShowNewListDialog(false); }}
       />
     </React.Fragment>
