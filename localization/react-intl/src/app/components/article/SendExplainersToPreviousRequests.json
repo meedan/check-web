@@ -1,0 +1,62 @@
+[
+  {
+    "id": "sendExplainersToPreviousRequests.success",
+    "description": "Banner displayed after an article is successfully sent to previous requests.",
+    "defaultMessage": "Articles successfully scheduled to be delivered!"
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.intro",
+    "description": "Message displayed in the confirmation dialog that appears when sending explainers to previous requests.",
+    "defaultMessage": "You can deliver new articles to users who have previously submitted requests with this media, but <b>did not</b> receive a response."
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.selectRangeHelp",
+    "description": "Help content for the range select.",
+    "defaultMessage": "{count, plural, one {Articles will be delivered to <b>one</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}"
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.selectRangeLabel",
+    "description": "Label for the range select.",
+    "defaultMessage": "Send to users who have not received a response"
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.oneDay",
+    "description": "Label for the 24 hours option in the range select.",
+    "defaultMessage": "Last: 24 hours"
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.sevenDays",
+    "description": "Label for the 7 days option in the range select.",
+    "defaultMessage": "Last: 7 days"
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.thirtyDays",
+    "description": "Label for the 30 days option in the range select.",
+    "defaultMessage": "Last: 30 days"
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.alertContent",
+    "description": "Message for the alert that is displayed when the selected range is not 24 hours.",
+    "defaultMessage": "Reminder that messages send to users outside of the past 24 hours are considered <u>business initiated conversations</u> and may incur additional charges."
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.alertTitle",
+    "description": "Title for the alert that is displayed when the selected range is not 24 hours.",
+    "defaultMessage": "Business Conversations"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.proceedLabel",
+    "description": "'Send' here is an infinitive verb. Label of the proceed button of the confirmation dialog that appears when sending explainers to previous requests.",
+    "defaultMessage": "Send to Previous Requests"
+  },
+  {
+    "id": "sendExplainersToPreviousRequests.title",
+    "description": "Title of the confirmation dialog that appears when sending explainers to previous requests.",
+    "defaultMessage": "Send to Previous Requests?"
+  }
+]

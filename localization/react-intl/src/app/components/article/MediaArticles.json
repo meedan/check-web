@@ -5,6 +5,21 @@
     "defaultMessage": "Article added successfully!"
   },
   {
+    "id": "mediaArticles.sendArticlesButton",
+    "description": "Label for the button in the alert to send articles.",
+    "defaultMessage": "Send to Previous Requests"
+  },
+  {
+    "id": "mediaArticles.unansweredRequestsMessage",
+    "description": "Message for the alert when there are unanswered requests.",
+    "defaultMessage": "You can deliver new articles added to users who have previously submitted this media, but did not receive a response in the past <b>30 days</b>."
+  },
+  {
+    "id": "mediaArticles.unansweredRequestsTitle",
+    "description": "Title for the alert when explainers are added.",
+    "defaultMessage": "Articles Added [{numberOfExplainersToSend}]"
+  },
+  {
     "id": "mediaArticles.noArticlesAddedToItem",
     "description": "Message displayed on articles sidebar when an item has no articles.",
     "defaultMessage": "No articles are being delivered to Tipline users who send requests that match this Media."
