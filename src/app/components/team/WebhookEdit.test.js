@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallowWithIntl, mockIntl } from '../../../../test/unit/helpers/intl-test';
 import { WebhookEdit } from './WebhookEdit';
+import { shallowWithIntl, mockIntl } from '../../../../test/unit/helpers/intl-test';
 
 const webhook = {
   id: '123',
