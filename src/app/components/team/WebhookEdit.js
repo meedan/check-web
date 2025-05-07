@@ -296,7 +296,14 @@ const WebhookEdit = ({ intl, webhook }) => {
             </div>
             <div className={inputStyles['form-fieldset-field']}>
               <Select
-                label="Event"
+                className="webhook-edit__event-select"
+                label={
+                  <FormattedMessage
+                    defaultMessage="Event"
+                    description="Label for webhook event type select"
+                    id="webhookEdit.eventType"
+                  />
+                }
                 required
                 value={eventType}
                 onBlur={validateForm}
@@ -400,4 +407,4 @@ const WebhookEditContainer = createFragmentContainer(injectIntl(WebhookEdit), gr
   }
 `);
 
-export { WebhookEditContainer, messages }; // eslint-disable-line import/no-unused-modules
+export { WebhookEdit, WebhookEditContainer, messages }; // eslint-disable-line import/no-unused-modules

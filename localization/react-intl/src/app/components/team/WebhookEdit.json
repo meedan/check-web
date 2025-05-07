@@ -65,6 +65,11 @@
     "defaultMessage": "Webhook URL"
   },
   {
+    "id": "webhookEdit.eventType",
+    "description": "Label for webhook event type select",
+    "defaultMessage": "Event"
+  },
+  {
     "id": "webhookEdit.headers",
     "description": "Label for webhook headers input",
     "defaultMessage": "Headers (Optional)"
