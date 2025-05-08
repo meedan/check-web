@@ -1,36 +1,37 @@
 import React from 'react';
+import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
 import DrawerListCounter from './DrawerListCounter';
-import styles from './Projects.module.css';
+import styles from './SavedSearches.module.css';
 
-const ProjectsListItem = ({
+const SavedSearchesListItem = ({
   className,
   icon,
   isActive,
   onClick,
-  project,
   routePrefix,
   routeSuffix,
+  savedSearch,
   teamSlug,
   tooltip,
 }) => {
   const handleClick = () => {
     if (onClick) {
-      onClick(routePrefix, project.dbid);
+      onClick(routePrefix, savedSearch.dbid);
     }
   };
 
   const Item = listItemProps => (
     <Link
       className={styles.linkList}
-      to={`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`}
+      to={`/${teamSlug}/${routePrefix}/${savedSearch.dbid}${routeSuffix}`}
       onClick={handleClick}
     >
       <li
         className={cx(
-          'project-list__link',
+          'save-search-list__link',
           styles.listItem,
           styles.listItem_containsCount,
           {
@@ -38,7 +39,7 @@ const ProjectsListItem = ({
             [styles.listItem_active]: isActive,
           })
         }
-        key={`${project.id}-${project.title}`}
+        key={`${savedSearch.id}-${savedSearch.title}`}
         title={tooltip}
         {...listItemProps}
       >
@@ -52,10 +53,10 @@ const ProjectsListItem = ({
           }
         >
           <span>
-            {project.title || project.name}
+            {savedSearch.title || savedSearch.name}
           </span>
         </div>
-        <DrawerListCounter numberOfItems={project.medias_count} />
+        <DrawerListCounter numberOfItems={savedSearch.medias_count} />
       </li>
     </Link>
   );
@@ -63,7 +64,7 @@ const ProjectsListItem = ({
   return <Item />;
 };
 
-ProjectsListItem.defaultProps = {
+SavedSearchesListItem.defaultProps = {
   className: '',
   icon: null,
   isActive: false,
@@ -72,23 +73,28 @@ ProjectsListItem.defaultProps = {
   onClick: null,
 };
 
-ProjectsListItem.propTypes = {
+SavedSearchesListItem.propTypes = {
   className: PropTypes.string,
   icon: PropTypes.node,
   isActive: PropTypes.bool,
-  project: PropTypes.shape({
+  routePrefix: PropTypes.string.isRequired,
+  routeSuffix: PropTypes.string,
+  savedSearch: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string,
     name: PropTypes.string,
     medias_count: PropTypes.number,
-    project_group_id: PropTypes.number,
   }).isRequired,
-  routePrefix: PropTypes.string.isRequired,
-  routeSuffix: PropTypes.string,
   teamSlug: PropTypes.string.isRequired,
   tooltip: PropTypes.node,
   onClick: PropTypes.func,
 };
 
-export default ProjectsListItem;
+export default createFragmentContainer(SavedSearchesListItem, graphql`
+  fragment SavedSearchesListItem_savedSearch on SavedSearch {
+    dbid
+    title
+    medias_count: items_count
+  }
+`);

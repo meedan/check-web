@@ -9,6 +9,7 @@ const ImportedArticles = ({ routeParams }) => (
     defaultFilters={{ channels: ['api', 'zapier', 'imported'] }}
     filterOptions={['tags', 'range', 'imported', 'language_filter', 'channels']}
     icon={<FileDownloadIcon />}
+    pageName="imported-fact-checks"
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="Imported" description="Title of the imported articles page." id="importedArticles.title" />}
   />
