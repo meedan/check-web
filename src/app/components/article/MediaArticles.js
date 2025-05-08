@@ -62,6 +62,7 @@ const MediaArticlesComponent = ({
   const [adding, setAdding] = React.useState(false);
   const [confirmReplaceFactCheck, setConfirmReplaceFactCheck] = React.useState(null);
   const [confirmSendExplainers, setConfirmSendExplainers] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(true);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const hasArticle = projectMedia.articles_count > 0;
 
@@ -167,7 +168,7 @@ const MediaArticlesComponent = ({
           }}
         />
       </div>
-      {explainerItemDbidsToSend.length > 0 && (
+      {explainerItemDbidsToSend.length > 0 && showAlert && (
         <Alert
           buttonLabel={
             <FormattedMessage
@@ -195,7 +196,7 @@ const MediaArticlesComponent = ({
           }
           variant="success"
           onButtonClick={handleAlertButtonClick}
-          onClose={onUpdate}
+          onClose={() => { setShowAlert(false); }}
         />
       )}
 
