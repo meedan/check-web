@@ -63,7 +63,13 @@ const ArticleFilters = ({
   };
 
   const handleSubmit = () => {
-    onSubmit(filters);
+    const newFilters = { ...filters };
+    // Creator filter called `users` and mapped to `user_ids` for article filters so no need to keep the `user_ids` when save article filters.
+    if (newFilters.user_ids) {
+      delete newFilters.user_ids;
+    }
+    setFilters(newFilters);
+    onSubmit(newFilters);
   };
 
   const handleReset = () => {
@@ -276,7 +282,7 @@ const ArticleFilters = ({
                     { value: 'imported', label: 'Batch' },
                     { value: 'zapier', label: 'Zapier' },
                   ]}
-                  readOnly={Boolean(defaultFilters.channels)}
+                  readOnly={Boolean(defaultFilters.channels && !savedSearch)}
                   selected={value || []}
                   onChange={newValue => handleOptionChange('channels', newValue)}
                   onRemove={() => handleRemoveFilter('channels')}
