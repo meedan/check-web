@@ -282,7 +282,7 @@ const ArticleFilters = ({
                     { value: 'imported', label: 'Batch' },
                     { value: 'zapier', label: 'Zapier' },
                   ]}
-                  readOnly={Boolean(defaultFilters.channels)}
+                  readOnly={Boolean(defaultFilters.channels && !savedSearch)}
                   selected={value || []}
                   onChange={newValue => handleOptionChange('channels', newValue)}
                   onRemove={() => handleRemoveFilter('channels')}
