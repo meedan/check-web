@@ -9,6 +9,7 @@ const FactChecks = ({ routeParams }) => (
     defaultFilters={{ article_type: 'fact-check' }}
     filterOptions={['users', 'tags', 'range', 'language_filter', 'published_by', 'report_status', 'verification_status', 'channels']}
     icon={<FactCheckIcon />}
+    pageName="fact-checks"
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="Claim & Fact-Checks" description="Title of the fact-checks page." id="factChecks.title" />}
   />

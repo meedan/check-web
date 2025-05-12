@@ -117,9 +117,12 @@ const ArticlesComponent = ({
   filters,
   icon,
   intl,
+  listActions,
   onChangeSearchParams,
   page,
+  pageName,
   reloadData,
+  savedSearch,
   sort,
   sortType,
   statuses,
@@ -242,6 +245,11 @@ const ArticlesComponent = ({
                 {icon}
                 {title}
               </h6>
+              { listActions &&
+                <div className={searchResultsStyles.searchHeaderActions}>
+                  {listActions}
+                </div>
+              }
             </div>
           </div>
           <div className={searchStyles['search-form']}>
@@ -263,12 +271,14 @@ const ArticlesComponent = ({
             onChange={handleChangeSort}
           />
           <ArticleFilters
-            articleTypeReadOnly={Boolean(defaultFilters.article_type)}
+            articleTypeReadOnly={Boolean(defaultFilters.article_type && !savedSearch)}
             currentFilters={{ ...filters }}
             defaultFilters={{ ...defaultFilters }}
             filterOptions={filterOptions}
+            pageName={pageName}
+            savedSearch={savedSearch}
             statuses={statuses.statuses}
-            teamSlug={team.slug}
+            team={team}
             onSubmit={handleChangeFilters}
           />
         </div>
@@ -425,6 +435,9 @@ const Articles = ({
   defaultFilters,
   filterOptions,
   icon,
+  listActions,
+  pageName,
+  savedSearch,
   teamSlug,
   title,
 }) => {
@@ -460,8 +473,10 @@ const Articles = ({
             $report_status: [String], $verification_status: [String], $imported: Boolean, $text: String, $trashed: Boolean, $channels: [String]
           ) {
             team(slug: $slug) {
+              dbid
               name
               slug
+              ...ArticleFilters_team
               totalArticlesCount: articles_count
               verification_statuses
               articles_count(
@@ -523,8 +538,11 @@ const Articles = ({
                 filterOptions={filterOptions}
                 filters={filters}
                 icon={icon}
+                listActions={listActions}
                 page={page}
+                pageName={pageName}
                 reloadData={retry}
+                savedSearch={savedSearch}
                 sort={sort}
                 sortType={sortType}
                 statuses={props.team.verification_statuses}
@@ -554,12 +572,21 @@ const Articles = ({
 Articles.defaultProps = {
   filterOptions: [],
   defaultFilters: {},
+  listActions: undefined,
+  savedSearch: null,
 };
 
 Articles.propTypes = {
   defaultFilters: PropTypes.object,
   filterOptions: PropTypes.arrayOf(PropTypes.string),
   icon: PropTypes.node.isRequired,
+  listActions: PropTypes.node, // or undefined
+  pageName: PropTypes.oneOf(['all-items', 'imported-fact-checks', 'fact-checks', 'explainers', 'published', 'articles', 'trash']).isRequired,
+  savedSearch: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    filters: PropTypes.string.isRequired,
+  }),
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired, // <FormattedMessage />
 };

@@ -9,6 +9,7 @@ const TrashedArticles = ({ routeParams }) => (
     defaultFilters={{ trashed: true }}
     filterOptions={['users', 'tags', 'range', 'language_filter', 'channels']}
     icon={<TrashIcon />}
+    pageName="trash"
     teamSlug={routeParams.team}
     title={<FormattedMessage defaultMessage="Trash" description="Title of the trashed articles page." id="trashedArticles.title" />}
   />

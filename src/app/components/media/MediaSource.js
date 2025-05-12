@@ -147,10 +147,9 @@ const MediaSource = ({ params, projectMedia }) => {
 
   // Accessing through /.../source
   if (params) {
-    ids = `${params.mediaId},${params.projectId}`;
+    ids = `${params.mediaId}`;
   } else {
-    const projectId = projectMedia.project_id;
-    ids = `${projectMedia.dbid},${projectId}`;
+    ids = `${projectMedia.dbid}`;
   }
 
   return (

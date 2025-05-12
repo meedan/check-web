@@ -12,24 +12,24 @@ import styles from './RequestReceipt.module.css';
 
 const messages = defineMessages({
   smooch_report_sent_at: {
-    id: 'requestReceipt.factCheckSent',
-    defaultMessage: 'Fact-check sent on {date}',
-    description: 'Message displayed when user request has a fact-check sent',
+    id: 'requestReceipt.articleSent',
+    defaultMessage: 'Article sent on {date}',
+    description: 'Message displayed when user request has an article sent',
   },
   smooch_report_received_at: {
-    id: 'requestReceipt.factCheckDelivered',
-    defaultMessage: 'Fact-check delivered on {date}',
-    description: 'Message displayed when user request has a fact-check delivered',
+    id: 'requestReceipt.articleDelivered',
+    defaultMessage: 'Article delivered on {date}',
+    description: 'Message displayed when user request has an article delivered',
   },
   smooch_report_correction_sent_at: {
     id: 'requestReceipt.updateSent',
     defaultMessage: 'Correction sent on {date}',
-    description: 'Message displayed when user request has a fact-check update sent',
+    description: 'Message displayed when user request has an article update sent',
   },
   smooch_report_update_received_at: {
     id: 'requestReceipt.updateDelivered',
     defaultMessage: 'Correction delivered on {date}',
-    description: 'Message displayed when user request has a fact-check update delivered',
+    description: 'Message displayed when user request has an article update delivered',
   },
   timeout_search_requests: {
     id: 'requestReceipt.noFeedback',

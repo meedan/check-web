@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -9,11 +8,13 @@ import TextField from '../../cds/inputs/TextField';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
-const NewProject = ({
+const NewSavedSearch = ({
   buttonLabel,
   errorMessage,
+  listType,
   onClose,
   open,
+  routePrefix,
   setFlashMessage,
   successMessage,
   team,
@@ -24,13 +25,13 @@ const NewProject = ({
 
   const mutations = {
     list: graphql`
-      mutation NewProjectCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
+      mutation NewSavedSearchCreateSavedSearchMutation($input: CreateSavedSearchInput!, $listType: String!) {
         createSavedSearch(input: $input) {
           saved_search {
             dbid
           }
           team {
-            saved_searches(first: 10000) {
+            saved_searches(first: 10000, list_type: $listType) {
               edges {
                 node {
                   id
@@ -65,13 +66,14 @@ const NewProject = ({
     const input = {
       title: newTitle,
       team_id: team.dbid,
-      list_type: 'media',
+      list_type: listType,
     };
 
     commitMutation(Store, {
       mutation: mutations.list,
       variables: {
         input,
+        listType,
       },
       onCompleted: (response, error) => {
         if (error) {
@@ -79,7 +81,7 @@ const NewProject = ({
         } else {
           handleSuccess(response);
           const listId = response.createSavedSearch.saved_search.dbid;
-          browserHistory.push(`/${team.slug}/list/${listId}`);
+          browserHistory.push(`/${team.slug}/${routePrefix}/${listId}`);
         }
       },
       onError: () => {
@@ -127,18 +129,20 @@ const NewProject = ({
   );
 };
 
-NewProject.defaultProps = {
+NewSavedSearch.defaultProps = {
   open: false,
 };
 
-NewProject.propTypes = {
-  team: PropTypes.object.isRequired,
-  open: PropTypes.bool,
-  title: PropTypes.object.isRequired,
+NewSavedSearch.propTypes = {
   buttonLabel: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired,
   errorMessage: PropTypes.node.isRequired,
+  listType: PropTypes.string.isRequired,
+  open: PropTypes.bool,
+  routePrefix: PropTypes.string.isRequired,
   successMessage: PropTypes.node.isRequired,
+  team: PropTypes.object.isRequired,
+  title: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(NewProject);
+export default withSetFlashMessage(NewSavedSearch);

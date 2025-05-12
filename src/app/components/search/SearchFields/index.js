@@ -699,8 +699,10 @@ const SearchFields = ({
         { canSave && (
           <SaveList
             feedTeam={feedTeam}
+            listType="media"
             page={page}
             query={stateQuery}
+            routePrefix="list"
             savedSearch={savedSearch}
             team={team}
           />
@@ -753,7 +755,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     id
     dbid
     slug
-    permissions
+    ...SaveList_team
     verification_statuses
     get_tipline_inbox_filters
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {

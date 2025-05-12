@@ -41,6 +41,7 @@ import ImportedArticles from './article/ImportedArticles';
 import PublishedArticles from './article/PublishedArticles';
 import TrashedArticles from './article/TrashedArticles';
 import AllArticles from './article/AllArticles';
+import SavedSearchArticles from './article/SavedSearchArticles';
 import TiplineDashBoard from './dashboard/TiplineDashboard';
 import ArticlesDashboard from './dashboard/ArticlesDashboard';
 
@@ -127,6 +128,7 @@ class Root extends Component {
                   <Route component={PublishedArticles} path=":team/articles/published" />
                   <Route component={TrashedArticles} path=":team/articles/trash" />
                   <Route component={AllArticles} path=":team/articles/all" />
+                  <Route component={SavedSearchArticles} path=":team/articles/:savedSearchId(/:query)" />
                   <Route component={NotFound} path="*" public />
                 </Route>
               </Router>

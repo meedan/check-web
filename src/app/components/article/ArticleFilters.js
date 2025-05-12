@@ -1,4 +1,5 @@
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import cx from 'classnames/bind';
@@ -9,6 +10,7 @@ import SearchFieldUser from '../search/SearchFields/SearchFieldUser';
 import SearchFieldTag from '../search/SearchFields/SearchFieldTag';
 import DateRangeFilter from '../search/DateRangeFilter';
 import LanguageFilter from '../search/LanguageFilter';
+import SaveList from '../search/SaveList';
 import PersonIcon from '../../icons/person.svg';
 import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
@@ -37,8 +39,10 @@ const ArticleFilters = ({
   filterOptions,
   intl,
   onSubmit,
+  pageName,
+  savedSearch,
   statuses,
-  teamSlug,
+  team,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
 
@@ -59,7 +63,13 @@ const ArticleFilters = ({
   };
 
   const handleSubmit = () => {
-    onSubmit(filters);
+    const newFilters = { ...filters };
+    // Creator filter called `users` and mapped to `user_ids` for article filters so no need to keep the `user_ids` when save article filters.
+    if (newFilters.user_ids) {
+      delete newFilters.user_ids;
+    }
+    setFilters(newFilters);
+    onSubmit(newFilters);
   };
 
   const handleReset = () => {
@@ -92,7 +102,9 @@ const ArticleFilters = ({
   const canApply = JSON.stringify(filters) !== JSON.stringify(currentFilters);
 
   // We can reset if have applied filters or the state query is dirty
-  const canReset = JSON.stringify(currentFilters) !== JSON.stringify(defaultFilters) || canApply;
+  const canSave = JSON.stringify(currentFilters) !== JSON.stringify(defaultFilters);
+
+  const canReset = canApply || canSave;
 
   return (
     <>
@@ -112,7 +124,7 @@ const ArticleFilters = ({
                       icon={<PersonIcon />}
                       label={label}
                       selected={value || []}
-                      teamSlug={teamSlug}
+                      teamSlug={team.slug}
                       value={value}
                       onChange={(newValue) => { handleOptionChange('users', newValue.map(userId => parseInt(userId, 10))); }}
                       onRemove={() => handleRemoveFilter('users')}
@@ -129,7 +141,7 @@ const ArticleFilters = ({
                 {connector}
                 <SearchFieldTag
                   query={value ? filters : { tags: [] }}
-                  teamSlug={teamSlug}
+                  teamSlug={team.slug}
                   onChange={(newValue) => { handleOptionChange('tags', newValue); }}
                   onRemove={() => handleRemoveFilter('tags')}
                 />
@@ -180,7 +192,7 @@ const ArticleFilters = ({
                 {connector}
                 <LanguageFilter
                   optionsToHide={['request_language', 'language']}
-                  teamSlug={teamSlug}
+                  teamSlug={team.slug}
                   value={value}
                   onChange={(newValue) => { handleOptionChange('language_filter', newValue); }}
                   onRemove={() => handleRemoveFilter('language_filter')}
@@ -199,7 +211,7 @@ const ArticleFilters = ({
                       icon={<HowToRegIcon />}
                       label={label}
                       selected={value || []}
-                      teamSlug={teamSlug}
+                      teamSlug={team.slug}
                       value={value}
                       onChange={(newValue) => { handleOptionChange('published_by', newValue.map(userId => parseInt(userId, 10))); }}
                       onRemove={() => handleRemoveFilter('published_by')}
@@ -270,7 +282,7 @@ const ArticleFilters = ({
                     { value: 'imported', label: 'Batch' },
                     { value: 'zapier', label: 'Zapier' },
                   ]}
-                  readOnly={Boolean(defaultFilters.channels)}
+                  readOnly={Boolean(defaultFilters.channels && !savedSearch)}
                   selected={value || []}
                   onChange={newValue => handleOptionChange('channels', newValue)}
                   onRemove={() => handleRemoveFilter('channels')}
@@ -319,6 +331,16 @@ const ArticleFilters = ({
                 onClick={handleReset}
               />
             )}
+            { canSave && (
+              <SaveList
+                listType="article"
+                page={pageName}
+                query={filters}
+                routePrefix="articles"
+                savedSearch={savedSearch}
+                team={team}
+              />
+            )}
           </div>
         )}
       </div>
@@ -332,6 +354,7 @@ ArticleFilters.defaultProps = {
   defaultFilters: {},
   extra: null,
   filterOptions: [],
+  savedSearch: null,
 };
 
 ArticleFilters.propTypes = {
@@ -341,12 +364,27 @@ ArticleFilters.propTypes = {
   extra: PropTypes.node,
   filterOptions: PropTypes.arrayOf(PropTypes.string.isRequired),
   intl: intlShape.isRequired,
+  pageName: PropTypes.oneOf(['all-items', 'imported-fact-checks', 'fact-checks', 'explainers', 'published', 'articles', 'trash']).isRequired,
+  savedSearch: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    filters: PropTypes.string.isRequired,
+  }),
   statuses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  teamSlug: PropTypes.string.isRequired,
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+    permissions: PropTypes.string.isRequired,
+  }).isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default injectIntl(ArticleFilters);
+export default createFragmentContainer(injectIntl(ArticleFilters), graphql`
+  fragment ArticleFilters_team on Team {
+    ...SaveList_team
+  }
+`);

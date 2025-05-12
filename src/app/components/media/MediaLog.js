@@ -213,9 +213,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
 });
 
 const MediaLog = (props) => {
-  const projectId = props.media.project_id;
-  const ids = `${props.media.dbid},${projectId}`;
-  const route = new MediaRoute({ ids });
+  const route = new MediaRoute({ ids: props.media.dbid.toString() });
 
   return (
     <Relay.RootContainer

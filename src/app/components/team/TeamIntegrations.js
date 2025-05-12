@@ -6,6 +6,7 @@ import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import SettingsHeader from './SettingsHeader';
 import ApiKeys from './ApiKeys'; // eslint-disable-line no-unused-vars
+import Webhooks from './Webhooks'; // eslint-disable-line no-unused-vars
 import TeamBots from './TeamBots';
 import settingsStyles from './Settings.module.css';
 
@@ -14,10 +15,14 @@ const TeamIntegrations = () => (<QueryRenderer
   query={graphql`
     query TeamIntegrationsQuery {
       root {
+        current_user {
+          is_admin
+        }
         current_team {
           id
           dbid
           ...ApiKeys_team
+          ...Webhooks_team
           team_bot_installations(first: 10000) {
             edges {
               node {

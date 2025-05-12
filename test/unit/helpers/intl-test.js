@@ -28,16 +28,9 @@ function nodeWithIntlProp(node) {
 }
 
 const store = {
-  currentUser: {
-  },
+  currentUser: {},
 
-  team: {
-    projects: {
-      edges: [
-        { node: { dbid: 1 } },
-      ],
-    },
-  },
+  team: {},
 
   getState() {
     return {

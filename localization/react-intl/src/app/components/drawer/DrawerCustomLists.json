@@ -1,0 +1,37 @@
+[
+  {
+    "id": "projectsComponent.lists",
+    "description": "List of items with some filters applied",
+    "defaultMessage": "Custom Filtered Lists"
+  },
+  {
+    "id": "projectsComponent.newListButton",
+    "description": "Tooltip for button that opens list creation dialog",
+    "defaultMessage": "New Custom Filtered List"
+  },
+  {
+    "id": "projectsComponent.noCustomLists",
+    "description": "Displayed under the custom list header when there are no lists in it",
+    "defaultMessage": "No custom lists"
+  },
+  {
+    "id": "projectsComponent.createList",
+    "description": "Label for a button to create a new list displayed on the left sidebar.",
+    "defaultMessage": "Create List"
+  },
+  {
+    "id": "projectsComponent.newListErrorMessage",
+    "description": "Error message when creating new list fails",
+    "defaultMessage": "Could not create list, please try again"
+  },
+  {
+    "id": "projectsComponent.newListSuccessMessage",
+    "description": "Success message when new list is created",
+    "defaultMessage": "Filtered List created successfully"
+  },
+  {
+    "id": "projectsComponent.newList",
+    "description": "Title for a dialog to create a new list displayed on the left sidebar.",
+    "defaultMessage": "New Custom Filtered List"
+  }
+]

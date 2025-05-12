@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import ChooseExistingArticleButton from './ChooseExistingArticleButton';
 import NewArticleButton from './NewArticleButton';
 import MediaArticlesTeamArticles from './MediaArticlesTeamArticles';
 import MediaArticlesDisplay from './MediaArticlesDisplay';
+import SendExplainersToPreviousRequests from './SendExplainersToPreviousRequests';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -21,9 +23,13 @@ import mediaStyles from '../media/media.module.css';
 const addExplainerMutation = graphql`
   mutation MediaArticlesCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
     createExplainerItem(input: $input) {
+      explainer_item {
+        dbid
+      }
       project_media {
         id
         ...MediaArticlesDisplay_projectMedia
+        has_tipline_requests_that_never_received_articles
       }
     }
   }
@@ -48,12 +54,15 @@ const addFactCheckMutation = graphql`
 `;
 
 const MediaArticlesComponent = ({
+  explainerItemDbidsToSend,
   onUpdate,
   projectMedia,
   team,
 }) => {
   const [adding, setAdding] = React.useState(false);
   const [confirmReplaceFactCheck, setConfirmReplaceFactCheck] = React.useState(null);
+  const [confirmSendExplainers, setConfirmSendExplainers] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(true);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const hasArticle = projectMedia.articles_count > 0;
 
@@ -61,7 +70,7 @@ const MediaArticlesComponent = ({
     return <Loader size="large" theme="white" variant="inline" />;
   }
 
-  const onCompleted = () => {
+  const onCompleted = (response) => {
     setFlashMessage(
       <FormattedMessage
         defaultMessage="Article added successfully!"
@@ -70,7 +79,8 @@ const MediaArticlesComponent = ({
       />,
       'success');
     setAdding(false);
-    onUpdate();
+    const explainerItemDbid = response?.createExplainerItem?.explainer_item?.dbid;
+    onUpdate(explainerItemDbid);
   };
 
   const onError = (error) => {
@@ -134,6 +144,10 @@ const MediaArticlesComponent = ({
     }
   };
 
+  const handleAlertButtonClick = () => {
+    setConfirmSendExplainers(true);
+  };
+
   return (
     <div className={cx(mediaStyles['media-articles'], styles.articlesSidebar)} id="articles-sidebar">
       <div className={styles.articlesSidebarTopBar}>
@@ -148,9 +162,44 @@ const MediaArticlesComponent = ({
           disabled={projectMedia.type === 'Blank'}
           projectMedia={projectMedia}
           team={team}
-          onCreate={onUpdate}
+          onCreate={(response) => {
+            const explainerItemDbid = response?.createExplainerItem?.explainer_item?.dbid;
+            onUpdate(explainerItemDbid);
+          }}
         />
       </div>
+      {explainerItemDbidsToSend.length > 0 && showAlert && (
+        <Alert
+          buttonLabel={
+            <FormattedMessage
+              defaultMessage="Send to Previous Requests"
+              description="Label for the button in the alert to send articles."
+              id="mediaArticles.sendArticlesButton"
+            />
+          }
+          content={
+            <FormattedHTMLMessage
+              defaultMessage="You can deliver new articles added to users who have previously submitted this media, but did not receive a response in the past <b>30 days</b>."
+              description="Message for the alert when there are unanswered requests."
+              id="mediaArticles.unansweredRequestsMessage"
+            />
+          }
+          icon
+          placement="default"
+          title={
+            <FormattedMessage
+              defaultMessage="Articles Added [{numberOfExplainersToSend}]"
+              description="Title for the alert when explainers are added."
+              id="mediaArticles.unansweredRequestsTitle"
+              values={{ numberOfExplainersToSend: explainerItemDbidsToSend.length }}
+            />
+          }
+          variant="success"
+          onButtonClick={handleAlertButtonClick}
+          onClose={() => { setShowAlert(false); }}
+        />
+      )}
+
       <div className={cx('typography-body1', styles.articlesSidebarScroller)}>
         { hasArticle ? (
           <MediaArticlesDisplay projectMedia={projectMedia} onUpdate={onUpdate} />
@@ -205,11 +254,26 @@ const MediaArticlesComponent = ({
         onCancel={() => { setConfirmReplaceFactCheck(null); }}
         onProceed={handleReplace}
       />
+
+      {/* Dialog for sending explainers to previous requests */}
+      { confirmSendExplainers && (
+        <SendExplainersToPreviousRequests
+          explainerItemDbidsToSend={explainerItemDbidsToSend}
+          projectMedia={projectMedia}
+          onClose={() => { setConfirmSendExplainers(false); }}
+          onSubmit={onUpdate}
+        />
+      )}
     </div>
   );
 };
 
+MediaArticlesComponent.defaultProps = {
+  explainerItemDbidsToSend: [],
+};
+
 MediaArticlesComponent.propTypes = {
+  explainerItemDbidsToSend: PropTypes.arrayOf(PropTypes.number),
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
@@ -226,9 +290,15 @@ MediaArticlesComponent.propTypes = {
 
 const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
   const [updateCount, setUpdateCount] = React.useState(0);
+  const [explainerItemDbidsToSend, setExplainerItemDbidsToSend] = React.useState([]);
 
   // FIXME: Shouldn't be needed if Relay works as expected
-  const handleUpdate = () => {
+  const handleUpdate = (explainerItemDbid) => {
+    if (explainerItemDbid) {
+      setExplainerItemDbidsToSend(explainerItemDbidsToSend.concat([explainerItemDbid]));
+    } else {
+      setExplainerItemDbidsToSend([]);
+    }
     setUpdateCount(updateCount + 1);
   };
 
@@ -246,11 +316,14 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
               dbid
               type
               articles_count
+              fact_check_id
+              has_tipline_requests_that_never_received_articles
               claim_description {
                 id
               }
               ...MediaArticlesDisplay_projectMedia
               ...NewArticleButton_projectMedia
+              ...SendExplainersToPreviousRequests_projectMedia
             }
           }
         `}
@@ -258,6 +331,7 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
           if (!error && props) {
             return (
               <MediaArticlesComponent
+                explainerItemDbidsToSend={(!props.project_media.fact_check_id && props.project_media.has_tipline_requests_that_never_received_articles) ? explainerItemDbidsToSend : []}
                 projectMedia={props.project_media}
                 team={props.team}
                 onUpdate={handleUpdate}
@@ -268,7 +342,7 @@ const MediaArticles = ({ projectMediaDbid, teamSlug }) => {
         }}
         variables={{
           slug: teamSlug,
-          ids: `${projectMediaDbid},,`,
+          ids: `${projectMediaDbid}`,
           updateCount, // Used to force a refresh
         }}
       />

@@ -216,7 +216,7 @@ const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
         return null;
       }}
       variables={{
-        ids: `${projectMediaId},,`,
+        ids: `${projectMediaId}`,
       }}
     />
   </ErrorBoundary>

@@ -48,15 +48,6 @@ const TeamTasks = ({ team }) => {
                 }
               }
             }
-            projects(first: 10000) {
-              edges {
-                node {
-                  title,
-                  dbid,
-                  id,
-                }
-              }
-            }
           }
         }
       `}
