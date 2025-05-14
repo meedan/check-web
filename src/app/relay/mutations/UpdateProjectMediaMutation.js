@@ -60,7 +60,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     if (this.props.related_to_id && this.props.obj) {
       return optimisticProjectMedia(
         this.props.obj.text,
-        this.props.project,
         this.props.context,
       );
     }
@@ -68,7 +67,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     if ([CheckArchivedFlags.NONE, CheckArchivedFlags.TRASHED, CheckArchivedFlags.SPAM].indexOf(this.props.archived) !== -1) {
       const response = optimisticProjectMedia(
         this.props.media,
-        this.props.context.project,
         this.props.context,
       );
       response.check_search_team = {
@@ -85,12 +83,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         response.check_search_trash = {
           id: this.props.check_search_trash.id,
           number_of_results: this.props.check_search_trash.number_of_results - 1,
-        };
-      }
-      if (this.props.check_search_project) {
-        response.check_search_project = {
-          id: this.props.check_search_project.id,
-          number_of_results: this.props.check_search_project.number_of_results + 1,
         };
       }
       response.affectedId = this.props.id;
@@ -150,17 +142,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         pathToConnection: ['check_search_team', 'medias'],
         deletedIDFieldName: 'affectedId',
       });
-
-      if (this.props.context.project) {
-        configs.push({
-          type: 'RANGE_DELETE',
-          parentName: 'check_search_project',
-          parentID: this.props.context.project.search_id,
-          connectionName: 'medias',
-          pathToConnection: ['check_search_project', 'medias'],
-          deletedIDFieldName: 'affectedId',
-        });
-      }
     }
 
     if (this.props.archived === CheckArchivedFlags.SPAM) {
@@ -172,16 +153,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         pathToConnection: ['check_search_team', 'medias'],
         deletedIDFieldName: 'affectedId',
       });
-      if (this.props.check_search_project) {
-        configs.push({
-          type: 'RANGE_DELETE',
-          parentName: 'check_search_project',
-          parentID: this.props.check_search_project.id,
-          connectionName: 'medias',
-          pathToConnection: ['check_search_project', 'medias'],
-          deletedIDFieldName: 'affectedId',
-        });
-      }
       if (this.props.check_search_spam) {
         configs.push({
           type: 'RANGE_ADD',
@@ -203,16 +174,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         pathToConnection: ['check_search_team', 'medias'],
         deletedIDFieldName: 'affectedId',
       });
-      if (this.props.check_search_project) {
-        configs.push({
-          type: 'RANGE_DELETE',
-          parentName: 'check_search_project',
-          parentID: this.props.check_search_project.id,
-          connectionName: 'medias',
-          pathToConnection: ['check_search_project', 'medias'],
-          deletedIDFieldName: 'affectedId',
-        });
-      }
       if (this.props.check_search_trash) {
         configs.push({
           type: 'RANGE_ADD',
@@ -234,16 +195,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         edgeName: 'project_mediaEdge',
         rangeBehaviors: () => ('prepend'),
       });
-      if (this.props.check_search_project) {
-        configs.push({
-          type: 'RANGE_ADD',
-          parentName: 'check_search_project',
-          parentID: this.props.check_search_project.id,
-          connectionName: 'medias',
-          edgeName: 'project_mediaEdge',
-          rangeBehaviors: () => ('prepend'),
-        });
-      }
       if (this.props.check_search_trash) {
         configs.push({
           type: 'RANGE_DELETE',
@@ -274,20 +225,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       fragment on ProjectMedia {
         id
         permissions
-      }
-    `,
-    srcProj: () => Relay.QL`
-      fragment on Project {
-        id
-        dbid
-        search_id
-      }
-    `,
-    dstProj: () => Relay.QL`
-      fragment on Project {
-        id
-        dbid
-        search_id
       }
     `,
   };

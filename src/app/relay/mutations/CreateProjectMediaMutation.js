@@ -17,8 +17,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
           id
         }
         team { id, medias_count },
-        check_search_team { id, number_of_results },
-        check_search_project { id, number_of_results }
+        check_search_team { id, number_of_results }
       }
     `;
   }

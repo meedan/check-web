@@ -44,11 +44,6 @@ class MediaActionsBarComponent extends Component {
     return new CheckContext(this).getContextStore();
   }
 
-  currentProject() {
-    const { project } = this.props.media;
-    return project;
-  }
-
   fail(transaction) {
     const fallbackMessage = (
       <FormattedMessage
@@ -377,7 +372,6 @@ const ConnectedMediaActionsBarComponent =
 const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarComponent, {
   initialVariables: {
     contextId: null,
-    projectId: 0,
   },
   fragments: {
     media: () => Relay.QL`
@@ -401,13 +395,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           data
         }
         show_warning_cover
-        project {
-          id
-          dbid
-          title
-          search_id
-          search { id, number_of_results }
-        }
         media {
           type
           url

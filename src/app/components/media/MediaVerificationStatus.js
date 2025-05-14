@@ -27,8 +27,7 @@ class MediaStatus extends Component {
       context.fail(transaction);
     };
 
-    const onSuccess = (data) => {
-      const pm = data.updateDynamic.project_media;
+    const onSuccess = () => {
       if (this.props.callback) {
         this.props.callback();
       } else {
