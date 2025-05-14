@@ -187,14 +187,6 @@ const AutoCompleteMediaItem = (props, context) => {
                 id
                 name
                 verification_statuses
-                project_groups(first: 10000) {
-                  edges {
-                    node {
-                      dbid
-                      title
-                    }
-                  }
-                }
               }
             }
           }

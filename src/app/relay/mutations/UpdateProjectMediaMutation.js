@@ -16,7 +16,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_team { id, number_of_results },
         check_search_spam { id, number_of_results },
         check_search_trash { id, number_of_results },
-        check_search_project { id, number_of_results },
         project_media {
           demand
           requests_count
@@ -25,7 +24,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           log,
           archived,
           permissions,
-          project_id,
           media {
             metadata,
             url,
@@ -110,9 +108,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       update_mt: this.props.update_mt,
       archived: this.props.archived,
     };
-    if (this.props.dstProj) {
-      vars.project_id = this.props.dstProj.dbid;
-    }
     if (this.props.source_id) {
       vars.source_id = this.props.source_id;
     }
@@ -166,33 +161,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           deletedIDFieldName: 'affectedId',
         });
       }
-    }
-
-    if (this.props.srcProj) {
-      configs.push({
-        type: 'RANGE_DELETE',
-        parentName: 'check_search_project',
-        parentID: this.props.srcProj.search_id,
-        connectionName: 'medias',
-        pathToConnection: ['check_search_project', 'medias'],
-        deletedIDFieldName: 'affectedId',
-      });
-
-      ids.check_search_project_was = this.props.srcProj.search_id;
-      ids.project_was = this.props.srcProj.id;
-    }
-
-    if (this.props.dstProj) {
-      configs.push({
-        type: 'RANGE_ADD',
-        parentName: 'check_search_project',
-        parentID: this.props.dstProj.search_id,
-        connectionName: 'medias',
-        edgeName: 'project_mediaEdge',
-        rangeBehaviors: () => ('prepend'),
-      });
-
-      ids.check_search_project = this.props.dstProj.search_id;
     }
 
     if (this.props.archived === CheckArchivedFlags.SPAM) {

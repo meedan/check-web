@@ -32,7 +32,6 @@ describe('<ReportDesignerTopBar />', () => {
       locked: false,
     },
     permissions: JSON.stringify({}),
-    project_id: 1,
     media: {
       url: 'http://meedan.com',
       quote: '',

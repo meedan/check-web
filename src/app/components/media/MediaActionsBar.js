@@ -128,7 +128,6 @@ class MediaActionsBarComponent extends Component {
       new UpdateProjectMediaMutation({
         archived,
         check_search_team: this.props.media.team.search,
-        check_search_project: this.props.media.project ? this.props.media.project.search : null,
         check_search_trash: this.props.media.team.check_search_trash,
         check_search_spam: this.props.media.team.check_search_spam,
         media: this.props.media,
@@ -388,7 +387,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         ${RestoreProjectMedia.getFragment('projectMedia')}
         ${MediaTags.getFragment('projectMedia')}
         dbid
-        project_id
         title
         demand
         description
