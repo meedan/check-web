@@ -13,14 +13,11 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       fragment on CreateProjectMediaPayload {
         project_mediaEdge,
         project_media
-        project { id },
-        project_group { id },
         related_to {
           id
         }
         team { id, medias_count },
-        check_search_team { id, number_of_results },
-        check_search_project { id, number_of_results }
+        check_search_team { id, number_of_results }
       }
     `;
   }
@@ -114,22 +111,9 @@ class CreateProjectMediaMutation extends Relay.Mutation {
             }
             last_status
           },
-          project {
-            id
-            team {
-              id
-              medias_count
-            }
-          },
-          project_group {
-            id
-          },
           check_search_team {
             id
           },
-          check_search_project {
-            id
-          }
         }`,
       ],
     });
