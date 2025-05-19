@@ -39,7 +39,7 @@ const TeamMembersComponent = ({
 
   const sortFunc = {
     name: (a, b) => (a.node.user.name > b.node.user.name ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1),
-    last_active_at: (a, b) => ((a.node.user.last_active_at > b.node.user.last_active_at) ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1),
+    last_active_at: (a, b) => ((a.node.last_active_at > b.node.last_active_at) ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1),
     role: (a, b) => ((a.node.role > b.node.role) ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1),
   };
 
@@ -201,8 +201,8 @@ const TeamMembersComponent = ({
                     </div>
                   </TableCell>
                   <TableCell className={settingsStyles['date-cell']}>
-                    { tu.node.user.last_active_at ?
-                      <TimeBefore date={new Date(tu.node.user.last_active_at * 1000)} />
+                    { tu.node.last_active_at ?
+                      <TimeBefore date={new Date(tu.node.last_active_at * 1000)} />
                       : '-'
                     }
                   </TableCell>
@@ -261,12 +261,12 @@ export default createFragmentContainer(TeamMembersComponent, {
             id
             status
             role
+            last_active_at
             user {
               id
               dbid
               email
               is_bot
-              last_active_at
               name
               profile_image
             }
