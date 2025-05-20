@@ -62,7 +62,6 @@ const PaginatedMediaSuggestions = createPaginationContainer(
               target {
                 id
                 dbid
-                project_id
                 created_at
                 last_seen
                 title
