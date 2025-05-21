@@ -61,70 +61,59 @@ const FeedDataPoints = ({ dataPoints, onChange, readOnly }) => {
           content={
             <>
               <FormattedHTMLMessage
-                defaultMessage="<strong>Published Claim & Fact-Check</strong> data to be shared:"
+                defaultMessage="<strong>Article</strong> data to be shared:"
                 description="Title of the content section on save feed page where a user can select that fact-checks will be shared in this feed."
-                id="feedDataPoints.factChecksContentTitle"
+                id="feedDataPoints.ArticleContentTitle"
               />
               <ul>
                 <FormattedMessage
-                  defaultMessage="Claim"
+                  defaultMessage="Title"
                   description="Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
-                  id="feedDataPoints.feedDataPointClaim"
+                  id="feedDataPoints.feedDataPointArticleTitle"
                   tagName="li"
                 />
                 <FormattedMessage
-                  defaultMessage="Fact-Check title"
-                  description="Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
-                  id="feedDataPoints.feedDataPointTitle"
+                  defaultMessage="Summary"
+                  description="Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+                  id="feedDataPoints.feedDataPointArticleSummary"
                   tagName="li"
                 />
                 <FormattedMessage
-                  defaultMessage="Fact-Check description"
+                  defaultMessage="URL"
                   description="Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
-                  id="feedDataPoints.feedDataPointDescription"
-                  tagName="li"
-                />
-                <FormattedMessage
-                  defaultMessage="Date published"
-                  description="Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
-                  id="feedDataPoints.feedDataPointDataPublished"
+                  id="feedDataPoints.feedDataPointArticleUrl"
                   tagName="li"
                 />
                 <FormattedMessage
                   defaultMessage="Language"
                   description="Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
-                  id="feedDataPoints.feedDataPointLanguage"
+                  id="feedDataPoints.feedDataPointArticleLanguage"
                   tagName="li"
                 />
                 <FormattedMessage
-                  defaultMessage="Rating"
+                  defaultMessage="Claim*"
+                  description="Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+                  id="feedDataPoints.feedDataPointClaim"
+                  tagName="li"
+                />
+                <FormattedMessage
+                  defaultMessage="Rating*"
                   description="Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
                   id="feedDataPoints.feedDataPointRating"
                   tagName="li"
                 />
                 <FormattedMessage
-                  defaultMessage="Article URL"
+                  defaultMessage="Date published*"
                   description="Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
-                  id="feedDataPoints.feedDataPointArticleUrl"
+                  id="feedDataPoints.feedDataPointDataPublished"
                   tagName="li"
                 />
               </ul>
               <div className="typography-body2">
                 <FormattedMessage
-                  defaultMessage="Learn more about {factCheckDataArticleLink}."
+                  defaultMessage="*If article shared is a claim & fact-check"
                   description="Footer of section on save feed page where a user can select that claim & fact-checks will be shared in this feed."
                   id="feedDataPoints.factChecksContentFooter"
-                  values={{
-                    factCheckDataArticleLink: (
-                      <a href="https://help.checkmedia.org/en/articles/8542417-shared-feed-creation#h_7414a7ab59" rel="noopener noreferrer" target="_blank"> {/* FIXME: Put the correct link here */}
-                        <FormattedMessage
-                          defaultMessage="claim & fact-check data"
-                          description="Text of the link to an article that explains fact-check data. This link is displayed on the fact-check data points section on the save feed page."
-                          id="feedDataPoints.factCheckDataArticleLink"
-                        />
-                      </a>
-                    ),
-                  }}
                 />
               </div>
             </>
@@ -133,7 +122,7 @@ const FeedDataPoints = ({ dataPoints, onChange, readOnly }) => {
           readOnly={readOnly}
           title={
             <FormattedMessage
-              defaultMessage="Published Claim & Fact-Checks"
+              defaultMessage="Articles"
               description="Title of section on save feed page where a user can select that fact-checks will be shared in this feed."
               id="feedDataPoints.factChecksTitle"
             />
