@@ -629,8 +629,8 @@ const SaveFeed = (props) => {
 
             { formData.dataPoints.length > 0 ?
               <FeedContent
-                dataPoints={formData.dataPoints}
                 listId={formData.selectedListId}
+                listType="article"
                 onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
                 onRemove={() => handleFormUpdate('selectedListId', null)}
               />
@@ -742,8 +742,8 @@ const SaveFeed = (props) => {
 
             { formData.dataPoints.length > 0 ?
               <FeedContent
-                dataPoints={formData.dataPoints}
                 listId={formData.selectedListId}
+                listType="media"
                 onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
                 onRemove={() => handleFormUpdate('selectedListId', null)}
               />
