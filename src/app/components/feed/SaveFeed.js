@@ -211,6 +211,7 @@ const SaveFeed = (props) => {
     collaboratorsToRemove: [],
     dataPoints: (feed.data_points || []),
   });
+  console.log('formData', formData); // eslint-disable-line no-console
 
   // tracking pending messages to the API for bulk email invites
   // this is not tracked as state, but rather outside the component lifecycle
@@ -627,7 +628,7 @@ const SaveFeed = (props) => {
               onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)}
             />
 
-            { formData.dataPoints.length > 0 ?
+            { formData.dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS) ?
               <FeedContent
                 listId={formData.selectedListId}
                 listType="article"
@@ -740,7 +741,7 @@ const SaveFeed = (props) => {
               onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS)}
             />
 
-            { formData.dataPoints.length > 0 ?
+            { formData.dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
               <FeedContent
                 listId={formData.selectedListId}
                 listType="media"
