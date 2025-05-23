@@ -20,9 +20,9 @@ const SelectListQueryRenderer = ({
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query SelectListQuery($slug: String!) {
+      query SelectListQuery($slug: String!, $listType: String!) {
         team(slug: $slug) {
-          saved_searches(first: 1000, list_type: "media") {
+          saved_searches(first: 1000, list_type: $listType) {
             edges {
               node {
                 dbid
@@ -135,6 +135,7 @@ const SelectListQueryRenderer = ({
     }}
     variables={{
       slug: window.location.pathname.match(/^\/([^/]+)/)[1],
+      listType,
     }}
   />
 );
