@@ -60,6 +60,126 @@
     "defaultMessage": "Description"
   },
   {
+    "id": "feedDataPoints.ArticleContentTitle",
+    "description": "Title of the content section on save feed page where a user can select that fact-checks will be shared in this feed.",
+    "defaultMessage": "<strong>Article</strong> data to be shared:"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointArticleTitle",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointArticleSummary",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Summary"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointArticleUrl",
+    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
+    "defaultMessage": "URL"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointArticleLanguage",
+    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointClaim",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Claim*"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointRating",
+    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
+    "defaultMessage": "Rating*"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointDataPublished",
+    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
+    "defaultMessage": "Date published*"
+  },
+  {
+    "id": "feedDataPoints.factChecksContentFooter",
+    "description": "Footer of section on save feed page where a user can select that claim & fact-checks will be shared in this feed.",
+    "defaultMessage": "*If article shared is a claim & fact-check"
+  },
+  {
+    "id": "feedDataPoints.factChecksTitle",
+    "description": "Title of section on save feed page where a user can select that fact-checks will be shared in this feed.",
+    "defaultMessage": "Articles"
+  },
+  {
+    "id": "feedDataPoints.mediaContentTitle",
+    "description": "Title of the content section on save feed page where a user can select that media data will be shared in this feed.",
+    "defaultMessage": "<strong>Media Cluster</strong> data to be shared:"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointTypeOfMedia",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Type of media (image, video, etc.)"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointNumberOfRequests",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Number of requests for each media in the cluster"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointDateLastSubmitted",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Date last submitted"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointMediaLanguage",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointMediaContent",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Media content when present, such as an image, description, or transcript"
+  },
+  {
+    "id": "feedDataPoints.requestContentTitle",
+    "description": "Title of the content section on save feed page where a user can select that request data will be shared in this feed.",
+    "defaultMessage": "<strong>Request</strong> data to be shared:"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointAnonymizedUserId",
+    "description": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests. 7299e0 doesn't need to be localized.",
+    "defaultMessage": "Anonymized unique user ID (example: 7299e0)"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointDate",
+    "description": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests.",
+    "defaultMessage": "Date"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointPlatform",
+    "description": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests.",
+    "defaultMessage": "Platform (WhatsApp, Telegram, etc.)"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointRequestLanguage",
+    "description": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests.",
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "feedDataPoints.mediaContentFooter",
+    "description": "Footer of section on save feed page where a user can select that media and requests will be shared in this feed.",
+    "defaultMessage": "Learn more about {mediaDataArticleLink}."
+  },
+  {
+    "id": "feedDataPoints.mediaDataArticleLink",
+    "description": "Text of the link to an article that explains media and requests data. This link is displayed on the media/requests data points section on the save feed page.",
+    "defaultMessage": "media & requests data"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointsFactChecksMediaClaimsRequestsTitle",
+    "description": "Title of section on save feed page where a user can select that media clusters and requests will be shared in this feed.",
+    "defaultMessage": "Media Clusters and Requests"
+  },
+  {
     "id": "saveFeed.updateSaveButton",
     "description": "Label to the save button of the shared feed update form",
     "defaultMessage": "Save"

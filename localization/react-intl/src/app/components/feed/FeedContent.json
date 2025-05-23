@@ -1,23 +1,13 @@
 [
   {
-    "id": "saveFeed.feedContentTitle",
+    "id": "saveFeed.feedArticleContentTitle",
     "description": "Title of section where a list can be selected as the content of the feed",
-    "defaultMessage": "Feed content from this workspace"
+    "defaultMessage": "List of Articles to include in Shared Feed"
   },
   {
-    "id": "saveFeed.feedContentBlurbFactChecksOnly",
-    "description": "Helper text for the feed content section when the feed is sharing only claim & fact-checks.",
-    "defaultMessage": "Select a custom filtered list of <strong>published claim & fact-checks</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
-  },
-  {
-    "id": "saveFeed.feedContentBlurbMediaOnly",
-    "description": "Helper text for the feed content section when the feed is sharing only media clusters and requests containing that media.",
-    "defaultMessage": "Select a custom filtered list of <strong>media clusters & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
-  },
-  {
-    "id": "saveFeed.feedContentBlurbFactChecksAndMedia",
-    "description": "Helper text for the feed content section when the feed is sharing fact-checks and media.",
-    "defaultMessage": "Select a custom filtered list of <strong>published claim & fact-checks or media clusters & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+    "id": "saveFeed.feedMediaContentTitle",
+    "description": "Title of section where a list can be selected as the content of the feed",
+    "defaultMessage": "List of Media Clusters to include in Shared Feed"
   },
   {
     "id": "saveFeed.feedContentSelectLabel",
