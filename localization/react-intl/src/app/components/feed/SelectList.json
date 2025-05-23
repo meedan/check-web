@@ -17,7 +17,7 @@
   {
     "id": "saveFeed.noArticleListDescription",
     "description": "Content of a warning displayed on edit feed page when no articles list is selected.",
-    "defaultMessage": "<strong>Request</strong> Select a custom filtered list of <strong>articles</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+    "defaultMessage": "Select a custom filtered list of <strong>articles</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
   },
   {
     "id": "saveFeed.noArticlediaListSelected",
