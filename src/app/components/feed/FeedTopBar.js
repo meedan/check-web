@@ -54,8 +54,9 @@ const FeedTopBar = ({
             team={currentOrg}
             onClick={handleFilterClick}
           />
-          { teamsWithoutCurrentOrg.map(feedTeam =>
-            (
+          { teamsWithoutCurrentOrg
+            .sort((a, b) => a.node.team.name.localeCompare(b.node.team.name))
+            .map(feedTeam => (
               <OrgFilterButton
                 current={false}
                 enabled={teamFilters.includes(feedTeam.node.team.dbid)}
@@ -64,9 +65,7 @@ const FeedTopBar = ({
                 team={feedTeam.node.team}
                 onClick={handleFilterClick}
               />
-            ),
-          // sort the remaining items alphabetically per locale
-          ).sort((a, b) => a.props.name.localeCompare(b.props.name))}
+            ))}
           <Can permission="update Feed" permissions={feed.permissions}>
             <Tooltip
               arrow
@@ -141,6 +140,7 @@ export default createFragmentContainer(FeedTopBar, graphql`
           team {
             slug
             dbid
+            name
             ...OrgFilterButton_team
           }
         }
