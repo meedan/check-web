@@ -363,18 +363,6 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
         source_id
         team_ids
         user_teams
-        current_project {
-          dbid
-          id
-          title
-          team {
-            id
-            dbid
-            avatar
-            name
-            slug
-          }
-        }
         current_team {
           id
           dbid
