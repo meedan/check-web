@@ -12,6 +12,11 @@ else
   if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
   then
     docker compose build web api api-background pender pender-background
+    tail -f check-api/log/test.log &
+    docker-compose logs -f api &
+    docker-compose logs -f api-background &
+    docker-compose logs web &
+    docker-compose logs -f pender &
     docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
   else
     if [[ $GITHUB_JOB_NAME == 'media-similarity-tests' ]]
