@@ -75,6 +75,7 @@ jobs:
         git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
         cd pender
         ls
+        ls config/
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
