@@ -32,10 +32,14 @@ services:
     environment:
       RAILS_ENV: test
       SERVER_PORT: 3200
+      APP: pender
+      DEPLOY_ENV: ci
   pender-background:
     environment:
       RAILS_ENV: test
       SERVER_PORT: 3200
+      APP: pender
+      DEPLOY_ENV: ci
   alegre:
     environment:
       BOILERPLATE_ENV: test
