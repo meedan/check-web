@@ -12,7 +12,7 @@ else
   if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
   then
     echo "debug: docker compose build"
-    docker compose build web api api-background
+    docker compose build web api api-background pender pender-background
     tail -f check-api/log/test.log &
     docker-compose logs -f api &
     docker-compose logs -f api-background &
