@@ -128,6 +128,8 @@ services:
     environment:
       RAILS_ENV: development
       SERVER_PORT: 3200
+      APP: pender
+      DEPLOY_ENV: ci
     networks:
       - dev
   pender-background:
