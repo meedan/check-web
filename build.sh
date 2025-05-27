@@ -12,14 +12,14 @@ else
   if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
   then
     echo "debug: docker compose build"
-    docker compose build web api api-background
+    docker compose build web pender pender-background
     tail -f check-api/log/test.log &
     docker-compose logs -f api &
     docker-compose logs -f api-background &
     docker-compose logs web &
     docker-compose logs -f pender &
     echo "debug: docker compose up"
-    docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background chromedriver
+    docker compose -f docker-compose.yml -f docker-test.yml up -d web pender pender-background chromedriver
     # docker compose -f docker-compose.yml -f docker-test.yml up web api api-background pender pender-background chromedriver
   else
     if [[ $GITHUB_JOB_NAME == 'media-similarity-tests' ]]
@@ -60,7 +60,7 @@ else
     until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
   fi
   # until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
-  until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
+  # until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
   # Uncomment to debug Check API and Alegre. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
   # tail -f check-api/log/test.log &
