@@ -757,7 +757,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     slug
     ...SaveList_team
     verification_statuses
-    get_tipline_inbox_filters
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {
       id
     }

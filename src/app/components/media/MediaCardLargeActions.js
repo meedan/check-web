@@ -162,12 +162,12 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
     }
     picture
     url
-    transcription: annotation(annotation_type: "transcription") {
-      data
-    }
     extracted_text: annotation(annotation_type: "extracted_text") {
       data
+      __typename
     }
+    ...TranscriptionButton_projectMedia
     ...MediaLanguageSwitcher_projectMedia
   }
 `);
+
