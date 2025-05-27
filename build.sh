@@ -19,7 +19,7 @@ else
     docker-compose logs web &
     docker-compose logs -f pender &
     echo "debug: docker compose up"
-    docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background
+    docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background
     # docker compose -f docker-compose.yml -f docker-test.yml up web api api-background pender pender-background chromedriver
   else
     if [[ $GITHUB_JOB_NAME == 'media-similarity-tests' ]]
@@ -59,7 +59,7 @@ else
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
     until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
   fi
-  # until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
+  until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
   until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
   # Uncomment to debug Check API and Alegre. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
