@@ -12,14 +12,14 @@ else
   if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
   then
     echo "debug: docker compose build"
-    docker compose build web api api-background pender pender-background
+    docker compose build web api api-background
     tail -f check-api/log/test.log &
     docker-compose logs -f api &
     docker-compose logs -f api-background &
     docker-compose logs web &
     docker-compose logs -f pender &
     echo "debug: docker compose up"
-    docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background
+    docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background chromedriver
     # docker compose -f docker-compose.yml -f docker-test.yml up web api api-background pender pender-background chromedriver
   else
     if [[ $GITHUB_JOB_NAME == 'media-similarity-tests' ]]
