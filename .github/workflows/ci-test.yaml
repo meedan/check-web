@@ -74,7 +74,9 @@ jobs:
         echo "Using branch $PENDER_BRANCH for Pender"
         git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
         cd pender
+        echo "media-similarity-tests"
         ls 
+        echo "-------"
         ls config/
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
@@ -223,7 +225,9 @@ jobs:
         echo "Using branch $PENDER_BRANCH for Pender"
         git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
         cd pender
+        echo "text-similarity-tests"
         ls 
+        echo "-------"
         ls config/
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
@@ -364,7 +368,9 @@ jobs:
         echo "Using branch $PENDER_BRANCH for Pender"
         git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
         cd pender
+        echo "integration-and-unit-tests"
         ls
+        echo "-------"
         ls config/
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
@@ -499,7 +505,9 @@ jobs:
         echo "Using branch $PENDER_BRANCH for Pender"
         git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
         cd pender
+        echo "unit-tests"
         ls
+        echo "-------"
         ls config/
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
