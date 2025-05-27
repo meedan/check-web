@@ -19,7 +19,7 @@ else
     docker-compose logs web &
     docker-compose logs -f pender &
     echo "debug: docker compose up"
-    docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background
+    docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background chromedriver
     # docker compose -f docker-compose.yml -f docker-test.yml up web api api-background pender pender-background chromedriver
   else
     if [[ $GITHUB_JOB_NAME == 'media-similarity-tests' ]]
