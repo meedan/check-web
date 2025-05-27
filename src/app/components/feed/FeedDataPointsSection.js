@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
+import FeedContent from './FeedContent';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChevronDownIcon from '../../icons/chevron_down.svg';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
@@ -10,6 +11,10 @@ import styles from './SaveFeed.module.css';
 const FeedDataPointsSection = ({
   content,
   enabled,
+  listId,
+  listType,
+  onChange,
+  onRemove,
   onToggle,
   readOnly,
   title,
@@ -34,6 +39,16 @@ const FeedDataPointsSection = ({
           onChange={onToggle}
         />
       </div>
+      <div>
+        { enabled ?
+          <FeedContent
+            listId={listId}
+            listType={listType}
+            onChange={onChange}
+            onRemove={onRemove}
+          />
+          : null }
+      </div>
       <div className={cx(styles.dataPointsSectionBody, expanded ? styles.dataPointsSectionExpanded : styles.dataPointsSectionCollapsed)}>
         <div className={cx(styles.dataPointsSectionBodyContent, 'typography-body2')}>
           {content}
@@ -44,16 +59,22 @@ const FeedDataPointsSection = ({
 };
 
 FeedDataPointsSection.defaultProps = {
-  readOnly: false,
   enabled: false,
+  listId: null,
+  listType: null,
+  readOnly: false,
   onToggle: () => {},
 };
 
 FeedDataPointsSection.propTypes = {
   content: PropTypes.node.isRequired,
   enabled: PropTypes.bool,
+  listId: PropTypes.number,
+  listType: PropTypes.string,
   readOnly: PropTypes.bool,
   title: PropTypes.node.isRequired, // <FormattedMessage />, <FormattedHTMLMessage />, <Element>String</Element>, etc.
+  onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
   onToggle: PropTypes.func,
 };
 

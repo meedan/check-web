@@ -5,7 +5,6 @@ import { createFragmentContainer, graphql, commitMutation } from 'react-relay/co
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import FeedCollaboration from './FeedCollaboration';
-import FeedContent from './FeedContent';
 import FeedMetadata from './FeedMetadata';
 import FeedActions from './FeedActions';
 import FeedDataPointsSection from './FeedDataPointsSection';
@@ -617,6 +616,8 @@ const SaveFeed = (props) => {
                 </>
               }
               enabled={formData.dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)}
+              listId={formData.selectedListId}
+              listType="article"
               readOnly={Boolean(feed.id)}
               title={
                 <FormattedMessage
@@ -625,18 +626,10 @@ const SaveFeed = (props) => {
                   id="feedDataPoints.factChecksTitle"
                 />
               }
+              onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
+              onRemove={() => handleFormUpdate('selectedListId', null)}
               onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)}
             />
-
-            { formData.dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS) ?
-              <FeedContent
-                listId={formData.selectedListId}
-                listType="article"
-                onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
-                onRemove={() => handleFormUpdate('selectedListId', null)}
-              />
-              : null
-            }
 
             <FeedDataPointsSection
               content={
@@ -730,6 +723,8 @@ const SaveFeed = (props) => {
                 </>
               }
               enabled={formData.dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS)}
+              listId={formData.selectedListId}
+              listType="media"
               readOnly={Boolean(feed.id)}
               title={
                 <FormattedMessage
@@ -738,18 +733,10 @@ const SaveFeed = (props) => {
                   id="feedDataPoints.feedDataPointsFactChecksMediaClaimsRequestsTitle"
                 />
               }
+              onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
+              onRemove={() => handleFormUpdate('selectedListId', null)}
               onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS)}
             />
-
-            { formData.dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
-              <FeedContent
-                listId={formData.selectedListId}
-                listType="media"
-                onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
-                onRemove={() => handleFormUpdate('selectedListId', null)}
-              />
-              : null
-            }
           </div>
 
         </div>
