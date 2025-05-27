@@ -59,7 +59,7 @@ else
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
     until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
   fi
-  until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
+  # until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
   until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
   # Uncomment to debug Check API and Alegre. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
