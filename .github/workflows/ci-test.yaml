@@ -369,7 +369,7 @@ jobs:
         cp config/sidekiq.yml.example config/sidekiq.yml || echo "Missing sidekiq.yml.example"
         cp config/cookies.txt.example config/cookies.txt || echo "Missing cookies.txt.example"
         echo "-------"
-        ls -al pender/config
+        ls -al config/
         cd -
 
     -  name: Setup Check API
