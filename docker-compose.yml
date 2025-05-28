@@ -134,7 +134,6 @@ services:
       - dev
   pender-background:
     build: pender
-    command: /app/docker-background.sh
     shm_size: 1G
     volumes:
       - "./pender:/app/pender"
@@ -143,7 +142,7 @@ services:
     environment:
       RAILS_ENV: development
       SERVER_PORT: 3200
-      APP: pender
+      APP: pender-background
       DEPLOY_ENV: ci
     networks:
       - dev
