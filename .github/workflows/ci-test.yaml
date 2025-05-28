@@ -364,9 +364,12 @@ jobs:
         ls
         echo "-------"
         ls config/
-        cp config/config.yml.example config/config.yml
-        cp config/database.yml.example config/database.yml
-        cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/config.yml.example config/config.yml || echo "Missing config.yml.example"
+        cp config/database.yml.example config/database.yml || echo "Missing database.yml.example"
+        cp config/sidekiq.yml.example config/sidekiq.yml || echo "Missing sidekiq.yml.example"
+        cp config/cookies.txt.example config/cookies.txt || echo "Missing cookies.txt.example"
+        echo "-------"
+        ls -al pender/config
         cd -
 
     -  name: Setup Check API
