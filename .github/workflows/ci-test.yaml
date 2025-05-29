@@ -438,7 +438,7 @@ jobs:
           -e ROLE_TO_ASSUME=${{ secrets.AWS_ROLE_TO_ASSUME }} \
           -e AWS_REGION=eu-west-1 \
           -e TEST_RETRY_COUNT=3 \
-          -e ENV_DEPLOY=ci \
+          -e DEPLOY_ENV=ci \
           web npm run tests
     
     - name: After integration tests
