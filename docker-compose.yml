@@ -129,7 +129,7 @@ services:
       RAILS_ENV: development
       SERVER_PORT: 3200
       APP: pender
-      DEPLOY_ENV: ci
+      DEPLOY_ENV: local
     networks:
       - dev
   pender-background:
@@ -143,7 +143,7 @@ services:
       RAILS_ENV: development
       SERVER_PORT: 3200
       APP: pender-background
-      DEPLOY_ENV: ci
+      DEPLOY_ENV: local
     networks:
       - dev
   presto-server:
