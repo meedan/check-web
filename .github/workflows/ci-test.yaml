@@ -77,6 +77,7 @@ jobs:
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
         cd -
 
     -  name: Setup Check API
@@ -224,6 +225,7 @@ jobs:
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
         cd -
 
     -  name: Setup Check API
@@ -360,11 +362,10 @@ jobs:
         echo "Using branch $PENDER_BRANCH for Pender"
         git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
         cd pender
-        echo "integration-and-unit-tests"
-        cp config/config.yml.example config/config.yml || echo "Missing config.yml.example"
-        cp config/database.yml.example config/database.yml || echo "Missing database.yml.example"
-        cp config/sidekiq.yml.example config/sidekiq.yml || echo "Missing sidekiq.yml.example"
-        cp config/cookies.txt.example config/cookies.txt || echo "Missing cookies.txt.example"
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
         cd -
 
     -  name: Setup Check API
@@ -499,6 +500,7 @@ jobs:
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
         cd -
 
     -  name: Setup Check API
