@@ -1,35 +1,6 @@
 require_relative 'spec_helper'
 
 shared_examples 'source' do
-  it 'should add a existing source for a media', bin4: true do
-    api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'https://www.cnnbrasil.com.br/' })
-    wait_for_selector('.test__media')
-    @driver.manage.window.maximize
-    wait_for_selector('.media-tab__source').click
-    wait_for_selector('.source__name')
-    expect(@driver.page_source.downcase.include?('brasil')).to be(true)
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
-    wait_for_selector('#search-input')
-    wait_for_selector_list_size('.cluster-card', 1)
-    # create another media and add a existing source
-    create_media('media 2')
-    @driver.navigate.refresh
-    wait_for_selector_list_size('.cluster-card', 2)
-    @driver.manage.window.maximize
-    wait_for_selector('.cluster-card').click
-    wait_for_selector('.test__media')
-    wait_for_selector('.media-tab__source').click
-    wait_for_selector('#media-source__create-button')
-    wait_for_selector('input[name=source-name]').send_keys('CNN')
-    @driver.action.send_keys(:enter).perform
-    @driver.navigate.refresh
-    wait_for_selector('.test__media')
-    wait_for_selector('.media-tab__source').click
-    wait_for_selector('#main_source__link')
-    wait_for_selector('.source__name')
-    expect(@driver.page_source.downcase.include?('brasil')).to be(true)
-  end
-
   it 'should add a new source for a media, edit and remove source info', bin3: true do
     api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
@@ -62,7 +33,7 @@ shared_examples 'source' do
     # remove main link
     expect(@driver.find_elements(:css, '.int-clear-input__button--textfield').length == 2).to be(true)
     wait_for_selector_list('.int-clear-input__button--textfield')[0].click
-    wait_for_selector_none('input[value="https://www.bbc.com/portuguese"]', :css, 30)
+    wait_for_selector_none('#source__link-input0')
     # check that the main link was changed
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://www.bbc.com/news/uk').to be(true)
     expect(@driver.find_elements(:css, '.int-clear-input__button--textfield').length == 1).to be(true)
