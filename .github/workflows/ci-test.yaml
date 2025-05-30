@@ -77,6 +77,7 @@ jobs:
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
         cd -
 
     -  name: Setup Check API
@@ -224,6 +225,7 @@ jobs:
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
         cd -
 
     -  name: Setup Check API
@@ -363,6 +365,7 @@ jobs:
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
         cd -
 
     -  name: Setup Check API
@@ -436,6 +439,7 @@ jobs:
           -e ROLE_TO_ASSUME=${{ secrets.AWS_ROLE_TO_ASSUME }} \
           -e AWS_REGION=eu-west-1 \
           -e TEST_RETRY_COUNT=3 \
+          -e DEPLOY_ENV=ci \
           web npm run tests
     
     - name: After integration tests
@@ -496,6 +500,7 @@ jobs:
         cp config/config.yml.example config/config.yml
         cp config/database.yml.example config/database.yml
         cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
         cd -
 
     -  name: Setup Check API
