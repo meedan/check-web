@@ -1,27 +1,18 @@
-const optimisticProjectMedia = (media, proj, context, customTeam) => {
+const optimisticProjectMedia = (media, context, customTeam) => {
   let { team } = context;
   if (customTeam) {
     team = Object.assign(team, customTeam);
   }
 
   let title = null;
-  let project = null;
 
   const now = parseInt((new Date().getTime() / 1000), 10).toString();
 
   /* eslint-disable prefer-destructuring */
   if (typeof media === 'object') {
     title = media.title;
-    project = media.project;
   } else {
     title = media;
-    project = proj || context.project;
-  }
-
-  let mediasCount = 0;
-  const counter = document.getElementsByClassName('search__results-heading span')[0];
-  if (counter) {
-    mediasCount = parseInt(counter.innerHTML.replace(/[^0-9]/, ''), 10);
   }
 
   const relayId = btoa(`ProjectMedia/${Math.random()}`);
@@ -41,10 +32,6 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
         updated_at: now,
         last_seen: now,
         share_count: 0,
-        check_search_project: project ? {
-          id: project.search_id,
-          number_of_results: mediasCount + 1,
-        } : null,
         check_search_team: {
           id: team.search_id,
           number_of_results: team.medias_count + 1,
@@ -66,15 +53,6 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
           id: team.id || 'VGVhbS8w\n',
           medias_count: team.medias_count + 1,
         },
-        project: project ? {
-          id: project.id,
-          dbid: project.dbid,
-          team: {
-            slug: team.slug,
-            id: team.id || 'VGVhbS8w\n',
-            medias_count: team.medias_count + 1,
-          },
-        } : null,
       },
     },
     project_media: {

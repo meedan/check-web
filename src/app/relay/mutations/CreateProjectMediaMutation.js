@@ -28,17 +28,9 @@ class CreateProjectMediaMutation extends Relay.Mutation {
     const optimisticResponse =
       optimisticProjectMedia(
         this.props.title,
-        this.props.project,
         { team: this.props.team }, // context -- TODO nix context argument
         this.props.team,
       );
-
-    if (this.props.search && this.props.project) {
-      optimisticResponse.check_search_project = {
-        id: this.props.project.search_id,
-        number_of_results: this.props.search.number_of_results + 1,
-      };
-    }
 
     return optimisticResponse;
   }
@@ -50,7 +42,6 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       url: this.props.url,
       quote: this.props.quote,
       quote_attributions: this.props.quoteAttributions,
-      project_id: this.props.project ? this.props.project.dbid : null,
     };
     if (this.props.related_to_id) {
       vars.related_to_id = this.props.related_to_id;
@@ -66,33 +57,17 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   getConfigs() {
     const configs = [];
     const fieldIDs = {};
-    if (!this.props.related && !this.props.related_to_id &&
-    (this.props.team || this.props.project)) {
+    if (!this.props.related && !this.props.related_to_id && this.props.team) {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_team',
-        parentID: this.props.team ? this.props.team.search_id : this.props.project.team.search_id,
+        parentID: this.props.team.search_id,
         connectionName: 'medias',
         edgeName: 'project_mediaEdge',
         rangeBehaviors: () => ('prepend'),
       });
-      fieldIDs.check_search_team = this.props.team ?
-        this.props.team.search_id :
-        this.props.project.team.search_id;
-      fieldIDs.team = this.props.team ?
-        this.props.team.id :
-        this.props.project.team.id;
-    }
-    if (!this.props.related && !this.props.related_to_id && this.props.project) {
-      configs.push({
-        type: 'RANGE_ADD',
-        parentName: 'check_search_project',
-        parentID: this.props.project.search_id,
-        connectionName: 'medias',
-        edgeName: 'project_mediaEdge',
-        rangeBehaviors: () => ('prepend'),
-      });
-      fieldIDs.check_search_project = this.props.project.search_id;
+      fieldIDs.check_search_team = this.props.team.search_id;
+      fieldIDs.team = this.props.team.id;
     }
     configs.push({
       type: 'FIELDS_CHANGE',
