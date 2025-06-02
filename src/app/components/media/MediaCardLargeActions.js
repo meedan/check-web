@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -163,7 +162,6 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
     picture
     url
     extracted_text: annotation(annotation_type: "extracted_text") {
-      data
       __typename
     }
     ...TranscriptionButton_projectMedia
