@@ -143,7 +143,7 @@ const FeedClustersComponent = ({
         { clusters.length === 0 ?
           <FeedBlankState
             feedDbid={feed.dbid}
-            listDbid={feedTeam.saved_search_id || feed.saved_search_id}
+            listDbid={feedTeam.media_saved_search_id || feed.media_saved_search_id}
             teamSlug={team.slug}
           />
           : null
@@ -204,7 +204,7 @@ FeedClustersComponent.propTypes = {
   }).isRequired,
   feedTeam: PropTypes.shape({
     team_id: PropTypes.number.isRequired,
-    saved_search_id: PropTypes.number,
+    media_saved_search_id: PropTypes.number,
     permissions: PropTypes.string.isRequired, // e.g., '{"update FeedTeam":true}'
   }).isRequired,
   feed: PropTypes.shape({
@@ -213,7 +213,7 @@ FeedClustersComponent.propTypes = {
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
     data_points: PropTypes.arrayOf(PropTypes.number).isRequired,
-    saved_search_id: PropTypes.number,
+    media_saved_search_id: PropTypes.number,
     team: PropTypes.shape({
       slug: PropTypes.string.isRequired,
     }).isRequired,
@@ -291,10 +291,10 @@ const FeedClusters = ({ feedId, teamSlug }) => {
               dbid
               name
               data_points
-              saved_search_id
+              media_saved_search_id
               current_feed_team {
                 id
-                saved_search_id
+                media_saved_search_id
                 ...FeedHeader_feedTeam
               }
               teams(first: 1000) {

@@ -109,7 +109,7 @@ const FeedActions = ({
       {/* "Delete" dialog */}
       <ConfirmProceedDialog
         body={
-          feed.saved_search_id ? (
+          feed.media_saved_search_id ? (
             <>
               <FormattedHTMLMessage
                 defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
@@ -122,7 +122,7 @@ const FeedActions = ({
               <Alert
                 content={
                   <ul className="bulleted-list">
-                    <li>{feed.saved_search?.title}</li>
+                    <li>{feed.media_saved_search?.title}</li>
                   </ul>
                 }
                 title={
@@ -163,7 +163,7 @@ const FeedActions = ({
           />
         }
         title={
-          feed.saved_search_id ? (
+          feed.media_saved_search_id ? (
             <FormattedMessage
               defaultMessage="Are you sure you want to delete this shared feed?"
               description="'Delete' here is an infinitive verb"
@@ -231,8 +231,8 @@ FeedActions.propTypes = {
     team_id: PropTypes.number.isRequired,
     feed: PropTypes.shape({
       permissions: PropTypes.string.isRequired,
-      saved_search_id: PropTypes.number.isRequired,
-      saved_search: PropTypes.shape({
+      media_saved_search_id: PropTypes.number.isRequired,
+      media_saved_search: PropTypes.shape({
         title: PropTypes.string.isRequired,
       }).isRequired,
       teams_count: PropTypes.number.isRequired,
@@ -257,8 +257,8 @@ export default createFragmentContainer(FeedActions, graphql`
     permissions
     feed {
       permissions
-      saved_search_id
-      saved_search {
+      media_saved_search_id
+      media_saved_search {
         title
       }
       teams_count
