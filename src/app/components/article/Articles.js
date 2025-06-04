@@ -23,6 +23,7 @@ import {
 } from '../../urlHelpers';
 import Loader from '../cds/loading/Loader';
 import PageTitle from '../PageTitle';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
@@ -138,11 +139,11 @@ const ArticlesComponent = ({
   let articleTypeFromUrl = null;
   let articleDbidFromUrl = getQueryStringValue('factCheckId');
   if (articleDbidFromUrl) {
-    articleTypeFromUrl = 'fact-check';
+    articleTypeFromUrl = CheckArticleTypes.FACTCHECK;
   } else {
     articleDbidFromUrl = getQueryStringValue('explainerId');
     if (articleDbidFromUrl) {
-      articleTypeFromUrl = 'explainer';
+      articleTypeFromUrl = CheckArticleTypes.EXPLAINER;
     }
   }
 
@@ -317,10 +318,10 @@ const ArticlesComponent = ({
             let articleType = null;
             let updateMutation = null;
             if (article.nodeType === 'Explainer') {
-              articleType = 'explainer';
+              articleType = CheckArticleTypes.EXPLAINER;
               updateMutation = updateMutationExplainer;
             } else if (article.nodeType === 'FactCheck') {
-              articleType = 'fact-check';
+              articleType = CheckArticleTypes.FACTCHECK;
               updateMutation = updateMutationFactCheck;
             }
 
