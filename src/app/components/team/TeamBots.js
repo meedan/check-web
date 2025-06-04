@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Collapse from '@material-ui/core/Collapse';
 import cx from 'classnames/bind';
@@ -184,4 +185,54 @@ class TeamBots extends Component {
   }
 }
 
-export default TeamBots;
+export default createFragmentContainer(TeamBots, {
+  root: graphql`
+    fragment TeamBots_root on RootLevel {
+      current_user {
+        is_admin
+      }
+      current_team {
+        id
+        dbid
+        ...ApiKeys_team
+        ...Webhooks_team
+        team_bot_installations(first: 10000) {
+          edges {
+            node {
+              id
+              json_settings
+              lock_version
+              bot_user {
+                id
+              }
+              team_bot: bot_user {
+                id
+                dbid
+              }
+            }
+          }
+        }
+      }
+      team_bots_listed(first: 10000) {
+        edges {
+          node {
+            id
+            dbid
+            name
+            default
+            identifier
+            description: get_description
+            installation {
+              id
+              json_settings
+              team_bot: bot_user {
+                id
+                dbid
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
+});

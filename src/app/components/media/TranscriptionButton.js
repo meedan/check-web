@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TranscribeIcon from '../../icons/transcribe.svg';
@@ -117,4 +117,12 @@ TranscriptionButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(TranscriptionButton);
+export default createFragmentContainer(withSetFlashMessage(TranscriptionButton), {
+  projectMedia: graphql`
+    fragment TranscriptionButton_projectMedia on ProjectMedia {
+      transcription: annotation(annotation_type: "transcription") {
+        data
+      }
+    }
+  `,
+});
