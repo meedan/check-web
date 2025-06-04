@@ -55,7 +55,7 @@ const DrawerCustomListsComponent = ({
         <div className={styles.listLabel}>
           <FormattedMessage defaultMessage="Custom Filtered Lists" description="List of items with some filters applied" id="projectsComponent.lists" tagName="span" />
         </div>
-        <Can permission="create Project" permissions={team.permissions}>
+        <Can permission="create SavedSearch" permissions={team.permissions}>
           <Tooltip arrow title={<FormattedMessage defaultMessage="New Custom Filtered List" description="Tooltip for button that opens list creation dialog" id="projectsComponent.newListButton" />}>
             <div className={cx(styles.listItemCount, styles.listAddListButton)}>
               <ButtonMain

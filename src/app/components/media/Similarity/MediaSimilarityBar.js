@@ -35,7 +35,6 @@ const MediaSimilarityBar = ({ projectMedia }) => {
                   target {
                     id
                     dbid
-                    project_id
                     created_at
                     last_seen
                     title
