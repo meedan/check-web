@@ -31,10 +31,6 @@ const mediaSuggestionsQuery = graphql`
         medias_count
         id
       }
-      project {
-        id
-        search_id
-      }
     }
   }
 `;
