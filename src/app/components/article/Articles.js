@@ -224,7 +224,7 @@ const ArticlesComponent = ({
       setSelectedArticle({});
       setTimeout(() => {
         setSelectedArticle({ id: article.dbid, type: article.type });
-        deleteAndPushQueryStringValue(article.type === 'explainer' ? 'factCheckId' : 'explainerId', article.type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
+        deleteAndPushQueryStringValue(article.type === CheckArticleTypes.EXPLAINER ? 'factCheckId' : 'explainerId', article.type === CheckArticleTypes.EXPLAINER ? 'explainerId' : 'factCheckId', article.dbid);
       }, 10);
     }
   };
@@ -356,14 +356,14 @@ const ArticlesComponent = ({
         </div>
 
         <>
-          {selectedArticle.type === 'fact-check' && (
+          {selectedArticle.type === CheckArticleTypes.FACTCHECK && (
             <ClaimFactCheckFormQueryRenderer
               factCheckId={selectedArticle.id}
               teamSlug={team.slug}
               onClose={handleCloseSlideout}
             />
           )}
-          {selectedArticle.type === 'explainer' && (
+          {selectedArticle.type === CheckArticleTypes.EXPLAINER && (
             <ExplainerFormQueryRenderer
               explainerId={selectedArticle.id}
               teamSlug={team.slug}

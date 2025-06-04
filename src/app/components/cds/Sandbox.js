@@ -37,6 +37,7 @@ import ParsedText from '../ParsedText';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import { FlashMessageSetterContext } from '../FlashMessage';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 import styles from './sandbox.module.css';
 
 const SandboxComponent = ({ admin }) => {
@@ -99,7 +100,7 @@ const SandboxComponent = ({ admin }) => {
   ];
 
   const [articleCardShared, setArticleCardShared] = React.useState(false);
-  const [articleCardVariant, setArticleCardVariant] = React.useState('fact-check');
+  const [articleCardVariant, setArticleCardVariant] = React.useState(CheckArticleTypes.FACTCHECK);
   const [articleCardLink, setArticleCardLink] = React.useState(Boolean(true));
   const [articleCardTags, setArticleCardTags] = React.useState(Boolean(true));
   const [articleCardPublished, setArticleCardPublished] = React.useState(true);
@@ -563,8 +564,8 @@ const SandboxComponent = ({ admin }) => {
                 isPublished={articleCardPublished}
                 languageCode={articleCardShared ? null : 'en'}
                 publishedAt={1702677106.846}
-                statusColor={articleCardVariant === 'fact-check' ? '#ff0000' : null}
-                statusLabel={articleCardVariant === 'fact-check' ? 'The Status is very very long' : null}
+                statusColor={articleCardVariant === CheckArticleTypes.FACTCHECK ? '#ff0000' : null}
+                statusLabel={articleCardVariant === CheckArticleTypes.FACTCHECK ? 'The Status is very very long' : null}
                 summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
                 tags={articleCardTags ? ['Novel', 'Moby Dick', '19th Century'] : null}
                 teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}

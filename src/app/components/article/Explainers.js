@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Articles from './Articles';
 import BookIcon from '../../icons/book.svg';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 
 const Explainers = ({ routeParams }) => (
   <Articles
-    defaultFilters={{ article_type: 'explainer' }}
+    defaultFilters={{ article_type: CheckArticleTypes.EXPLAINER }}
     filterOptions={['users', 'tags', 'range', 'language_filter', 'channels']}
     icon={<BookIcon />}
     pageName="explainers"

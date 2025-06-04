@@ -13,6 +13,7 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import TrashIcon from '../../icons/delete.svg';
 import UndoIcon from '../../icons/undo.svg';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 
 const updateExplainer = graphql`
   mutation ArticleTrashExplainerMutation($input: UpdateExplainerInput!) {
@@ -90,7 +91,7 @@ const ArticleTrash = ({
     />
   );
 
-  const trashTitle = type === 'explainer' ? (
+  const trashTitle = type === CheckArticleTypes.EXPLAINER ? (
     <FormattedMessage
       defaultMessage="Send Explainer to Trash?"
       description="Title for the trash dialog for explainer articles"
@@ -104,7 +105,7 @@ const ArticleTrash = ({
     />
   );
 
-  const factCheckBody = type === 'fact-check' && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' ? (
+  const factCheckBody = type === CheckArticleTypes.FACTCHECK && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' ? (
     <div>
       {associationWarning}
       {deletionWarning}
@@ -135,7 +136,7 @@ const ArticleTrash = ({
     </div>
   );
 
-  const explainerBody = type === 'explainer' ? (
+  const explainerBody = type === CheckArticleTypes.EXPLAINER ? (
     <div>
       {associationWarning}
       <FormattedMessage
@@ -148,7 +149,7 @@ const ArticleTrash = ({
     </div>
   ) : null;
 
-  const dialogBody = type === 'explainer' ? explainerBody : factCheckBody;
+  const dialogBody = type === CheckArticleTypes.EXPLAINER ? explainerBody : factCheckBody;
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
@@ -181,7 +182,7 @@ const ArticleTrash = ({
 
   const handleProceed = () => {
     setSaving(true);
-    if (type === 'explainer') {
+    if (type === CheckArticleTypes.EXPLAINER) {
       commitMutation(Relay.Store, {
         mutation: updateExplainer,
         variables: {
@@ -202,7 +203,7 @@ const ArticleTrash = ({
           onFailure(err);
         },
       });
-    } else if (type === 'fact-check') {
+    } else if (type === CheckArticleTypes.FACTCHECK) {
       commitMutation(Relay.Store, {
         mutation: updateFactCheck,
         variables: {

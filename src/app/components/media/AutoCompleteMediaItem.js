@@ -19,6 +19,7 @@ import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import SettingsIcon from '../../icons/settings.svg';
 import SearchIcon from '../../icons/search.svg';
 import { getStatus, isFactCheckValueBlank } from '../../helpers';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 import styles from './media.module.css';
 
 // Return { jsonPromise, abort }.
@@ -293,7 +294,7 @@ const AutoCompleteMediaItem = (props, context) => {
               iconLeft={<SearchIcon />}
               id="autocomplete-media-item"
               label={
-                props.selectedItemType === 'fact-check' ?
+                props.selectedItemType === CheckArticleTypes.FACTCHECK ?
                   <FormattedMessage defaultMessage="Search Articles" description="Textfield input label to let the user know they are searching for artilces" id="autoCompleteMediaItem.textFieldArticlesLabel" />
                   : <FormattedMessage defaultMessage="Search Media Clusters" description="Textfield input label to let the user know they are searching for clusters of media" id="autoCompleteMediaItem.textFieldClustersLabel" />
               }
@@ -322,7 +323,7 @@ const AutoCompleteMediaItem = (props, context) => {
             This may be due to a missing ElasticSearch update or a race condition during the update process,
             where fact-check data is temporarily unavailable. This avoids showing stale or invalid data.
             */
-            if (props.selectedItemType === 'fact-check' && !projectMedia.fact_check) {
+            if (props.selectedItemType === CheckArticleTypes.FACTCHECK && !projectMedia.fact_check) {
               return null;
             }
 
@@ -362,7 +363,7 @@ const AutoCompleteMediaItem = (props, context) => {
                     </span>
                   </Tooltip> : null
                 }
-                { props.selectedItemType === 'fact-check' ?
+                { props.selectedItemType === CheckArticleTypes.FACTCHECK ?
                   <Tooltip
                     arrow
                     disableFocusListener={!factCheckInUse}

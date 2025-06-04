@@ -10,6 +10,7 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
+import CheckArticleTypes from '../../../constants/CheckArticleTypes';
 import styles from './ArticleCard.module.css';
 
 const ArticleCard = ({
@@ -75,7 +76,7 @@ const ArticleCard = ({
       </div>
       { statusLabel || date ?
         <div className={styles.cardRight}>
-          { variant === 'fact-check' && (
+          { variant === CheckArticleTypes.FACTCHECK && (
             <div className={styles.cardRightTop}>
               { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
               <ItemReportStatus
@@ -109,7 +110,7 @@ ArticleCard.defaultProps = {
   readOnly: false,
   tags: [],
   onChangeTags: null,
-  variant: 'explainer',
+  variant: CheckArticleTypes.EXPLAINER,
   statusLabel: null,
   projectMediaDbid: null,
   publishedAt: null,
@@ -134,7 +135,7 @@ ArticleCard.propTypes = {
   teamName: PropTypes.string,
   title: PropTypes.string.isRequired,
   url: PropTypes.string,
-  variant: PropTypes.oneOf(['explainer', 'fact-check']),
+  variant: PropTypes.oneOf(Object.values(CheckArticleTypes)),
   onChangeTags: PropTypes.func,
 };
 
