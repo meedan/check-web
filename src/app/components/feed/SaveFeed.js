@@ -204,7 +204,8 @@ const SaveFeed = (props) => {
   const [formData, setFormData] = React.useState({
     title: (feed.name || ''),
     description: (feed.description || ''),
-    selectedListId: (isFeedOwner ? feed.media_saved_search_id : feedTeam.media_saved_search_id),
+    selectedMediaClaimRequestsListId: (isFeedOwner ? feed.media_saved_search_id : feedTeam.media_saved_search_id),
+    selectedArticlesListId: (isFeedOwner ? feed.article_saved_search_id : feedTeam.article_saved_search_id),
     newInvites: [],
     invitesToDelete: [],
     collaboratorsToRemove: [],
@@ -331,7 +332,8 @@ const SaveFeed = (props) => {
     const input = {
       name: formData.title,
       description: formData.description,
-      media_saved_search_id: formData.selectedListId,
+      media_saved_search_id: formData.selectedMediaClaimRequestsListId,
+      article_saved_search_id: formData.selectedArticlesListId,
       licenses,
       dataPoints: formData.dataPoints,
       published: true,
@@ -354,7 +356,8 @@ const SaveFeed = (props) => {
     setSaving(true);
     const input = {
       id: feedTeam.id,
-      media_saved_search_id: formData.selectedListId,
+      media_saved_search_id: formData.selectedMediaClaimRequestsListId,
+      article_saved_search_id: formData.selectedArticlesListId,
     };
 
     commitMutation(Relay.Store, {
@@ -555,22 +558,22 @@ const SaveFeed = (props) => {
 
           <div className={styles.saveFeedCard}>
             <FeedDataPointsSection
-              enabled={formData.dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)}
-              listId={formData.selectedListId}
+              enabled={formData.dataPoints.includes(CheckFeedDataPoints.ARTICLES)}
+              listId={formData.selectedArticlesListId}
               listType="article"
               readOnly={Boolean(feed.id)}
-              onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
-              onRemove={() => handleFormUpdate('selectedListId', null)}
-              onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)}
+              onChange={e => handleFormUpdate('selectedArticlesListId', +e.target.value)}
+              onRemove={() => handleFormUpdate('selectedArticlesListId', null)}
+              onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.ARTICLES)}
             />
 
             <FeedDataPointsSection
               enabled={formData.dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS)}
-              listId={formData.selectedListId}
+              listId={formData.selectedMediaClaimRequestsListId}
               listType="media"
               readOnly={Boolean(feed.id)}
-              onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
-              onRemove={() => handleFormUpdate('selectedListId', null)}
+              onChange={e => handleFormUpdate('selectedMediaClaimRequestsListId', +e.target.value)}
+              onRemove={() => handleFormUpdate('selectedMediaClaimRequestsListId', null)}
               onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS)}
             />
           </div>
