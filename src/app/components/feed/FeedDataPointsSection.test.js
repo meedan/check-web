@@ -5,7 +5,7 @@ import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/in
 describe('<FeedDataPointsSection />', () => {
   it('should render Medias title and content', () => {
     const wrapper = mountWithIntl(<FeedDataPointsSection
-      listType='media'
+      listType="media"
       onChange={() => {}}
       onRemove={() => {}}
     />);
@@ -15,7 +15,7 @@ describe('<FeedDataPointsSection />', () => {
 
   it('should render Articles title and content', () => {
     const wrapper = mountWithIntl(<FeedDataPointsSection
-      listType='article'
+      listType="article"
       onChange={() => {}}
       onRemove={() => {}}
     />);
@@ -26,7 +26,7 @@ describe('<FeedDataPointsSection />', () => {
   it('should set switch state based on enabled value', () => {
     let wrapper = shallowWithIntl(<FeedDataPointsSection
       enabled
-      listType='media'
+      listType="media"
       onChange={() => {}}
       onRemove={() => {}}
     />);
@@ -34,7 +34,7 @@ describe('<FeedDataPointsSection />', () => {
 
     wrapper = shallowWithIntl(<FeedDataPointsSection
       enabled={false}
-      listType='media'
+      listType="media"
       onChange={() => {}}
       onRemove={() => {}}
     />);
@@ -43,18 +43,18 @@ describe('<FeedDataPointsSection />', () => {
 
   it('should disable switch if read-only', () => {
     let wrapper = shallowWithIntl(<FeedDataPointsSection
-      listType='media'
+      listType="media"
+      readOnly
       onChange={() => {}}
       onRemove={() => {}}
-      readOnly
     />);
     expect(wrapper.find('SwitchComponent').prop('disabled')).toBe(true);
 
     wrapper = shallowWithIntl(<FeedDataPointsSection
-      listType='media'
+      listType="media"
+      readOnly={false}
       onChange={() => {}}
       onRemove={() => {}}
-      readOnly={false}
     />);
     expect(wrapper.find('SwitchComponent').prop('disabled')).toBe(false);
   });
