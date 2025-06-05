@@ -8,8 +8,8 @@ import ClaimFactCheckForm from './ClaimFactCheckForm';
 import ExplainerForm from './ExplainerForm';
 import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import styles from './MediaArticlesDisplay.module.css';
 import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import styles from './MediaArticlesDisplay.module.css';
 
 const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
   const [articleToEdit, setArticleToEdit] = React.useState(null);

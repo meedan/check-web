@@ -10,8 +10,8 @@ import MediaLanguageSwitcher from './MediaLanguageSwitcher';
 import SearchIcon from '../../icons/search.svg';
 import OpenInNewIcon from '../../icons/open_in_new.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from './MediaCardLarge.module.css';
 import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import styles from './MediaCardLarge.module.css';
 
 const ExtraMediaActions = ({
   projectMedia,

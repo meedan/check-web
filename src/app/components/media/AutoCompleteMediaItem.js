@@ -20,8 +20,8 @@ import SettingsIcon from '../../icons/settings.svg';
 import SearchIcon from '../../icons/search.svg';
 import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import CheckArticleTypes from '../../constants/CheckArticleTypes';
-import styles from './media.module.css';
 import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import styles from './media.module.css';
 
 // Return { jsonPromise, abort }.
 //

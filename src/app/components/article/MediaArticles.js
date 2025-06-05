@@ -17,9 +17,9 @@ import Loader from '../cds/loading/Loader';
 import { getErrorMessage } from '../../helpers';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import DescriptionIcon from '../../icons/description.svg';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import styles from './Articles.module.css';
 import mediaStyles from '../media/media.module.css';
-import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 const addExplainerMutation = graphql`
   mutation MediaArticlesCreateExplainerItemMutation($input: CreateExplainerItemInput!) {

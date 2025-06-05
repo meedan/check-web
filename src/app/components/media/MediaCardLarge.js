@@ -23,9 +23,9 @@ import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unuse
 import PushPinIcon from '../../icons/push_pin.svg';
 import { getMediaType } from '../../helpers';
 import ErrorBoundary from '../error/ErrorBoundary';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import styles from './MediaCardLarge.module.css';
 import mediaStyles from './media.module.css';
-import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 const MediaCardLarge = ({
   currentUserRole,
