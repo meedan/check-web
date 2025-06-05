@@ -58,8 +58,8 @@ const MediaCardLargeFooter = ({
   }
 
   let footerBody = extractedText || transcription || null;
-  if (projectMedia.type === 'Link' && inModal) footerBody = data.description;
-  if (projectMedia.type === 'Claim' && inModal) footerBody = projectMedia.media.quote;
+  if (projectMedia.type === CheckMediaTypes.LINK && inModal) footerBody = data.description;
+  if (projectMedia.type === CheckMediaTypes.CLAIM && inModal) footerBody = projectMedia.media.quote;
 
   const transcriptionOrExtractedFooter = (
     <MediaCardLargeFooterContent
@@ -71,7 +71,7 @@ const MediaCardLargeFooter = ({
   return (
     <div className={styles['media-card-large-footer']}>
       { /* 1st MediaLargeFooterContent, exclusive for Link, always displays URL above MediaCardLargeActions */}
-      { projectMedia.type === 'Link' ?
+      { projectMedia.type === CheckMediaTypes.LINK ?
         <MediaCardLargeFooterContent
           body={<ExternalLink url={data.url} />}
           title={

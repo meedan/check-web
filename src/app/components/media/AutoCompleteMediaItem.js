@@ -21,6 +21,7 @@ import SearchIcon from '../../icons/search.svg';
 import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import CheckArticleTypes from '../../constants/CheckArticleTypes';
 import styles from './media.module.css';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 // Return { jsonPromise, abort }.
 //
@@ -331,7 +332,7 @@ const AutoCompleteMediaItem = (props, context) => {
               currentStatus = getStatus(searchResult.team.verification_statuses, projectMedia.fact_check.rating);
             }
 
-            const factCheckInUse = projectMedia.media.type !== 'Blank';
+            const factCheckInUse = projectMedia.media.type !== CheckMediaTypes.BLANK;
 
             return (
               <div

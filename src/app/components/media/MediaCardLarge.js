@@ -25,6 +25,7 @@ import { getMediaType } from '../../helpers';
 import ErrorBoundary from '../error/ErrorBoundary';
 import styles from './MediaCardLarge.module.css';
 import mediaStyles from './media.module.css';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 const MediaCardLarge = ({
   currentUserRole,
@@ -44,7 +45,7 @@ const MediaCardLarge = ({
   const isYoutubeChannel = !!media.url?.match(/youtube\.com\/(channel|c)\//);
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
-  const isBlank = media.type === 'Blank';
+  const isBlank = media.type === CheckMediaTypes.BLANK;
   type = getMediaType(media);
 
   const coverImage = media.thumbnail_path || '/images/player_cover.svg';

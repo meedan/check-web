@@ -9,6 +9,7 @@ import ExplainerForm from './ExplainerForm';
 import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import styles from './MediaArticlesDisplay.module.css';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
   const [articleToEdit, setArticleToEdit] = React.useState(null);
@@ -45,7 +46,7 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
           key={factCheck.id}
           languageCode={factCheck.language !== 'und' ? factCheck.language : null}
           publishedAt={publishedAt}
-          removeDisabled={projectMedia.type === 'Blank'}
+          removeDisabled={projectMedia.type === CheckMediaTypes.BLANK}
           statusColor={currentStatus ? currentStatus.style?.color : null}
           statusLabel={currentStatus ? currentStatus.label : null}
           summary={isFactCheckValueBlank(factCheck.summary) ? null : factCheck.summary}
@@ -95,7 +96,7 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
               date={new Date(explainer.updated_at * 1000)}
               id={explainerItem.id}
               languageCode={explainer.language !== 'und' ? explainer.language : null}
-              removeDisabled={projectMedia.type === 'Blank'}
+              removeDisabled={projectMedia.type === CheckMediaTypes.BLANK}
               summary={explainer.description}
               title={explainer.title}
               url={explainer.url}
