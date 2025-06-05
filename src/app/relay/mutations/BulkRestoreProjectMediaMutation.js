@@ -1,5 +1,5 @@
 import Relay from 'react-relay/classic';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 
 class BulkRestoreProjectMediaMutation extends Relay.Mutation {
   getMutation() {

@@ -5,6 +5,7 @@ import cx from 'classnames/bind';
 import ArticleUrl from './ArticleUrl';
 import UnfoldLessIcon from '../../../icons/unfold_less.svg';
 import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
+import CheckArticleTypes from '../../../constants/CheckArticleTypes';
 import styles from './Card.module.css';
 
 const ItemDescription = ({
@@ -91,7 +92,7 @@ ItemDescription.defaultProps = {
   url: null,
   showCollapseButton: false,
   className: null,
-  variant: 'explainer',
+  variant: CheckArticleTypes.EXPLAINER,
 };
 
 ItemDescription.propTypes = {
@@ -100,7 +101,7 @@ ItemDescription.propTypes = {
   description: PropTypes.string,
   title: PropTypes.string.isRequired,
   className: PropTypes.string,
-  variant: PropTypes.oneOf(['explainer', 'fact-check']),
+  variant: PropTypes.oneOf(Object.values(CheckArticleTypes)),
 };
 
 export default ItemDescription;

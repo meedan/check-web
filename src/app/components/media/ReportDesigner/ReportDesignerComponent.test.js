@@ -2,7 +2,7 @@ import React from 'react';
 import { ReportDesignerComponent } from './ReportDesignerComponent';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
-import CheckArchivedFlags from '../../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../../constants/CheckArchivedFlags';
 
 describe('<ReportDesignerComponent />', () => {
   const props = {

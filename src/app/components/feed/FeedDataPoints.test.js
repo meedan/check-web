@@ -1,7 +1,7 @@
 import React from 'react';
 import FeedDataPoints from './FeedDataPoints';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 
 describe('<FeedDataPoints />', () => {
   it('should display warning if read-only', () => {

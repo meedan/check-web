@@ -9,7 +9,7 @@ import PersonCheck from '../../icons/person_check.svg';
 import Bolt from '../../icons/bolt.svg';
 import Tipline from '../../icons/question_answer.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import CheckMediaOrigin from '../../CheckMediaOrigin';
+import CheckMediaOrigin from '../../constants/CheckMediaOrigin';
 
 const getIconAndMessage = (origin, user) => {
   switch (origin) {

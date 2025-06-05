@@ -11,7 +11,7 @@ import { login, request } from '../../redux/actions';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorObjects } from '../../helpers';
-import CheckError from '../../CheckError';
+import CheckError from '../../constants/CheckError';
 import CheckAgreeTerms from '../CheckAgreeTerms';
 import inputStyles from '../../styles/css/inputs.module.css';
 import styles from './login.module.css';

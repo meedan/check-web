@@ -18,7 +18,7 @@ import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import Loader from '../cds/loading/Loader';
 import NotFound from '../NotFound';
 import { can } from '../Can';
-import CheckError from '../../CheckError';
+import CheckError from '../../constants/CheckError';
 import saveFeedStyles from './SaveFeed.module.css';
 import styles from './FeedInvitation.module.css';
 

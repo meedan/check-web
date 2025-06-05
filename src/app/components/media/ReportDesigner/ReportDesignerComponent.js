@@ -18,7 +18,7 @@ import { getStatus, getStatusStyle, safelyParseJSON } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
-import CheckArchivedFlags from '../../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../../constants/CheckArchivedFlags';
 import { getListUrlQueryAndIndex } from '../../../urlHelpers';
 import HelpIcon from '../../../icons/help.svg';
 import styles from './ReportDesigner.module.css';

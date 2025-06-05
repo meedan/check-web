@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import ItemReportStatus from './ItemReportStatus';
 import ItemRating from './ItemRating';
-import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../../constants/CheckFeedDataPoints';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import BookIcon from '../../../icons/book.svg';
 import FactCheckIcon from '../../../icons/fact_check.svg';

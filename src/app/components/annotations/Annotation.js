@@ -16,7 +16,7 @@ import {
   parseStringUnixTimestamp,
   safelyParseJSON,
 } from '../../helpers';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 import styles from './Annotation.module.css';
 
 // TODO Fix a11y issues

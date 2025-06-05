@@ -15,7 +15,7 @@ import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import CreateTeamBotInstallationMutation from '../../../relay/mutations/CreateTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../../relay/mutations/UpdateTeamBotInstallationMutation';
 import { getErrorObjectsForRelayModernProblem } from '../../../helpers';
-import CheckError from '../../../CheckError';
+import CheckError from '../../../constants/CheckError';
 import settingsStyles from '../Settings.module.css';
 
 const SmoochBotComponent = ({

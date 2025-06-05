@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
-import CheckChannels from './CheckChannels';
+import CheckChannels from './constants/CheckChannels';
+import CheckArticleTypes from './constants/CheckArticleTypes';
+import CheckMediaTypes from './constants/CheckMediaTypes';
 
 const CheckPropTypes = {
   reportState: PropTypes.oneOf(['paused', 'published', 'unpublished']),
@@ -14,6 +16,8 @@ const CheckPropTypes = {
     CheckChannels.WEB_FORM,
     CheckChannels.SHARED_DATABASE,
   ]),
+  articleType: PropTypes.oneOf(Object.values(CheckArticleTypes)),
+  mediaType: PropTypes.oneOf(Object.values(CheckMediaTypes)),
 };
 
 export default CheckPropTypes;

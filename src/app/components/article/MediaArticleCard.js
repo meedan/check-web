@@ -14,6 +14,7 @@ import ItemRating from '../cds/media-cards/ItemRating';
 import ArticleUrl from '../cds/media-cards/ArticleUrl';
 import ItemReportStatus from '../cds/media-cards/ItemReportStatus';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 import cardStyles from '../cds/media-cards/Card.module.css';
 import styles from './ArticleCard.module.css';
 
@@ -36,7 +37,7 @@ const MediaArticleCard = ({
 }) => (
   <div className={cx('article-card', styles.articleCard, styles.mediaArticleCardWrapper)}>
     <Card className={styles.mediaArticleCard}>
-      { variant === 'fact-check' && !publishedAt ?
+      { variant === CheckArticleTypes.FACTCHECK && !publishedAt ?
         <Alert
           className={styles.mediaArticleCardAlert}
           content={
@@ -56,11 +57,11 @@ const MediaArticleCard = ({
           <div className={cx('typography-body2-bold', styles.articleCardHeader)}>
             <div className={styles.articleType}>
               <div className={styles.articleIcon}>
-                { variant === 'fact-check' && <FactCheckIcon /> }
-                { variant === 'explainer' && <BookIcon /> }
+                { variant === CheckArticleTypes.FACTCHECK && <FactCheckIcon /> }
+                { variant === CheckArticleTypes.EXPLAINER && <BookIcon /> }
               </div>
-              { variant === 'fact-check' && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
-              { variant === 'explainer' && <FormattedMessage defaultMessage="Explainer" description="Title in an article card on item page." id="mediaArticleCard.explainer" /> }
+              { variant === CheckArticleTypes.FACTCHECK && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
+              { variant === CheckArticleTypes.EXPLAINER && <FormattedMessage defaultMessage="Explainer" description="Title in an article card on item page." id="mediaArticleCard.explainer" /> }
             </div>
           </div>
           <div
@@ -70,7 +71,7 @@ const MediaArticleCard = ({
             )}
           >
             <div className={cardStyles.cardSummaryContent}>
-              { variant === 'fact-check' &&
+              { variant === CheckArticleTypes.FACTCHECK &&
                 <div
                   className={cx(
                     [cardStyles.cardSummaryClaimContent],
@@ -125,7 +126,7 @@ const MediaArticleCard = ({
               size="small"
             />
           ),
-          variant === 'fact-check' && (
+          variant === CheckArticleTypes.FACTCHECK && (
             <ItemReportStatus
               displayLabel
               isPublished={Boolean(publishedAt)}
@@ -178,7 +179,7 @@ MediaArticleCard.defaultProps = {
   claimTitle: null,
   url: null,
   languageCode: null,
-  variant: 'explainer',
+  variant: CheckArticleTypes.EXPLAINER,
   statusLabel: null,
   statusColor: null,
   summary: null,
@@ -201,7 +202,7 @@ MediaArticleCard.propTypes = {
   summary: PropTypes.string,
   title: PropTypes.string.isRequired,
   url: PropTypes.string,
-  variant: PropTypes.oneOf(['explainer', 'fact-check']),
+  variant: PropTypes.oneOf(Object.values(CheckArticleTypes)),
   onClick: PropTypes.func,
   onRemove: PropTypes.func,
 

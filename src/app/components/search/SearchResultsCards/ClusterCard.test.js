@@ -1,6 +1,6 @@
 import React from 'react';
 import ClusterCard from './ClusterCard';
-import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../../constants/CheckFeedDataPoints';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<ClusterCard />', () => {

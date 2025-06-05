@@ -7,7 +7,7 @@ import cx from 'classnames/bind';
 import FeedTeamFactCheckCard from './FeedTeamFactCheckCard';
 import Card from '../cds/media-cards/Card';
 import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import TeamAvatar from '../team/TeamAvatar';
 import styles from './FeedItem.module.css';
 

@@ -14,7 +14,7 @@ import ExportList from '../ExportList';
 import Paginator from '../cds/inputs/Paginator';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import NextIcon from '../../icons/chevron_right.svg';
-import CheckChannels from '../../CheckChannels';
+import CheckChannels from '../../constants/CheckChannels';
 import Loader from '../cds/loading/Loader';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';

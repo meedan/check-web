@@ -17,7 +17,7 @@ import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import PermMediaIcon from '../../icons/perm_media.svg';
 import NoteAltIcon from '../../icons/note_alt.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 import { can } from '../Can';
 import styles from './ItemTitle.module.css';
 

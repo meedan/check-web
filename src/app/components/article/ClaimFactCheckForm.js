@@ -7,6 +7,7 @@ import ArticleForm from './ArticleForm';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 
 const updateClaimMutation = graphql`
   mutation ClaimFactCheckFormUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
@@ -317,7 +318,7 @@ const ClaimFactCheckForm = ({
   return (
     <ArticleForm
       article={article}
-      articleType="fact-check"
+      articleType={CheckArticleTypes.FACTCHECK}
       createFromMediaPage={createFromMediaPage}
       error={error}
       handleBlur={handleBlur}

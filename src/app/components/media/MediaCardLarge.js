@@ -23,6 +23,7 @@ import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unuse
 import PushPinIcon from '../../icons/push_pin.svg';
 import { getMediaType } from '../../helpers';
 import ErrorBoundary from '../error/ErrorBoundary';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import styles from './MediaCardLarge.module.css';
 import mediaStyles from './media.module.css';
 
@@ -44,7 +45,7 @@ const MediaCardLarge = ({
   const isYoutubeChannel = !!media.url?.match(/youtube\.com\/(channel|c)\//);
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
-  const isBlank = media.type === 'Blank';
+  const isBlank = media.type === CheckMediaTypes.BLANK;
   type = getMediaType(media);
 
   const coverImage = media.thumbnail_path || '/images/player_cover.svg';

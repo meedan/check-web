@@ -15,7 +15,7 @@ import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { getErrorObjectsForRelayModernProblem } from '../../../helpers';
-import CheckError from '../../../CheckError';
+import CheckError from '../../../constants/CheckError';
 import inputStyles from '../../../styles/css/inputs.module.css';
 import settingsStyles from '../Settings.module.css';
 
