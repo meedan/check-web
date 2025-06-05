@@ -1,7 +1,7 @@
 import React from 'react';
 import { FeedComponent } from './Feed';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 
 const routeParams = {
   team: 'test',

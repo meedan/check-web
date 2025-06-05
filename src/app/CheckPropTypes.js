@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import CheckChannels from './CheckChannels';
+import CheckChannels from './constants/CheckChannels';
 import CheckArticleTypes from './constants/CheckArticleTypes';
 import CheckMediaTypes from './constants/CheckMediaTypes';
 

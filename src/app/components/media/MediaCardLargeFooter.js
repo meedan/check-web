@@ -7,6 +7,7 @@ import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaSlug from './MediaSlug';
 import MediaOrigin from './MediaOrigin';
 import ExternalLink from '../ExternalLink';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import RequestsCount from '../cds/media-cards/RequestsCount';
@@ -133,7 +134,7 @@ const MediaCardLargeFooter = ({
         : null
       }
       <MediaCardLargeActions
-        bottomSeparator={inModal && footerBody && mediaType !== 'Claim'}
+        bottomSeparator={inModal && footerBody && mediaType !== CheckMediaTypes.CLAIM}
         inModal={inModal}
         projectMedia={projectMedia}
         onClickMore={onClickMore}
@@ -147,7 +148,7 @@ const MediaCardLargeFooter = ({
 MediaCardLargeFooter.propTypes = {
   data: PropTypes.object.isRequired,
   inModal: PropTypes.bool.isRequired,
-  mediaType: PropTypes.string.isRequired,
+  mediaType: PropTypes.oneOf(Object.values(CheckMediaTypes)).isRequired,
   projectMedia: PropTypes.object.isRequired,
   onClickMore: PropTypes.func,
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import SchoolIcon from './icons/school.svg';
-import CorporateFareIcon from './icons/corporate_fare.svg';
-import OpenSourceIcon from './icons/open_source.svg';
+import SchoolIcon from '../icons/school.svg';
+import CorporateFareIcon from '../icons/corporate_fare.svg';
+import OpenSourceIcon from '../icons/open_source.svg';
 
 const CheckFeedLicenses = {
   ACADEMIC: 1,

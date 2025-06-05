@@ -5,7 +5,7 @@ import SpamIcon from '../../icons/report.svg';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 
 export default function Spam({ routeParams }) {
   const defaultQuery = {

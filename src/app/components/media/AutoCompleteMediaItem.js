@@ -6,7 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import cx from 'classnames/bind';
 import { stringHelper } from '../../customHelpers';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import TextField from '../cds/inputs/TextField';

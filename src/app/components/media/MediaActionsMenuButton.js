@@ -7,7 +7,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { can } from '../Can';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 import IconMoreVert from '../../icons/more_vert.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 

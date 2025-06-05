@@ -6,7 +6,7 @@ import PersonAdd from '../../icons/person_add.svg';
 import PersonCheck from '../../icons/person_check.svg';
 import Bolt from '../../icons/bolt.svg';
 import Tipline from '../../icons/question_answer.svg';
-import CheckMediaOrigin from '../../CheckMediaOrigin';
+import CheckMediaOrigin from '../../constants/CheckMediaOrigin';
 
 describe('<MediaOrigin />', () => {
   it('should render a button with the correct icon and message for each type', () => {

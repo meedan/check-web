@@ -18,7 +18,7 @@ import MediaSlug from '../MediaSlug';
 import Loader from '../../cds/loading/Loader';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
-import CheckArchivedFlags from '../../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../../constants/CheckArchivedFlags';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import BulkArchiveProjectMediaMutation from '../../../relay/mutations/BulkArchiveProjectMediaMutation';
 import AcceptIcon from '../../../icons/check_circle.svg';

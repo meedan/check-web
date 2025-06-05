@@ -4,7 +4,8 @@ import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
 import { getTimeZones } from '@vvo/tzdb';
 import ButtonMain from './components/cds/buttons-checkboxes-chips/ButtonMain';
-import CheckError from './CheckError';
+import CheckError from './constants/CheckError';
+import CheckMediaTypes from './constants/CheckMediaTypes';
 
 /**
  * TODO
@@ -343,11 +344,11 @@ function botName(bot) {
  */
 function getMediaType(media) {
   let { type } = media;
-  if (media.url && media.domain === 'youtube.com') type = 'Youtube';
-  if (media.url && media.domain === 'twitter.com') type = 'Twitter';
-  if (media.url && media.domain === 'x.com') type = 'Twitter';
-  if (media.url && media.domain === 'facebook.com') type = 'Facebook';
-  if (media.url && media.domain === 'instagram.com') type = 'Instagram';
+  if (media.url && media.domain === 'youtube.com') type = CheckMediaTypes.YOUTUBE;
+  if (media.url && media.domain === 'twitter.com') type = CheckMediaTypes.TWITTER;
+  if (media.url && media.domain === 'x.com') type = CheckMediaTypes.TWITTER;
+  if (media.url && media.domain === 'facebook.com') type = CheckMediaTypes.FACEBOOK;
+  if (media.url && media.domain === 'instagram.com') type = CheckMediaTypes.INSTAGRAM;
 
   return type;
 }

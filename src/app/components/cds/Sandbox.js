@@ -35,7 +35,8 @@ import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import Loader from '../cds/loading/Loader';
 import ParsedText from '../ParsedText';
 import ClusterCard from '../search/SearchResultsCards/ClusterCard';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import CheckArticleTypes from '../../constants/CheckArticleTypes';
 import styles from './sandbox.module.css';
@@ -710,7 +711,7 @@ const SandboxComponent = ({ admin }) => {
                 lastRequestDate={new Date('2024-01-15T12:00:22Z')}
                 mediaCount={12345}
                 mediaThumbnail={listItemMediaPreview ? mediaThumbnail : null}
-                mediaType="UploadedImage"
+                mediaType={CheckMediaTypes.IMAGE}
                 publishedAt={1702677106846}
                 rating={listItemFactCheck ? 'False' : null}
                 ratingColor={listItemFactCheck ? '#f00' : null}

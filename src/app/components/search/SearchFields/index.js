@@ -18,7 +18,7 @@ import LanguageFilter from '../LanguageFilter';
 import NumericRangeFilter from '../NumericRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
-import CheckArchivedFlags from '../../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../../constants/CheckArchivedFlags';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ListSort, { sortLabels } from '../../cds/inputs/ListSort';

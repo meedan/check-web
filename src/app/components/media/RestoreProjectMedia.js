@@ -8,7 +8,7 @@ import Loader from '../cds/loading/Loader';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 
 function handleRestore({
   context,

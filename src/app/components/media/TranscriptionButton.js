@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TranscribeIcon from '../../icons/transcribe.svg';
 import { withSetFlashMessage } from '../FlashMessage';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 const TranscriptionButton = ({
   onClick,
@@ -72,7 +73,7 @@ const TranscriptionButton = ({
     onClick();
   };
 
-  if (projectMediaType !== 'UploadedAudio' && projectMediaType !== 'UploadedVideo') {
+  if (projectMediaType !== CheckMediaTypes.UPLOADEDAUDIO && projectMediaType !== CheckMediaTypes.UPLOADEDVIDEO) {
     return null;
   }
 
@@ -111,7 +112,7 @@ TranscriptionButton.defaultProps = {
 
 TranscriptionButton.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
-  projectMediaType: PropTypes.string.isRequired,
+  projectMediaType: PropTypes.oneOf(Object.values(CheckMediaTypes)).isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   transcription: PropTypes.object,
   onClick: PropTypes.func.isRequired,
