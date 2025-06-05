@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -753,17 +752,8 @@ SearchFields.contextTypes = {
 export default createFragmentContainer(injectIntl(SearchFields), graphql`
   fragment SearchFields_team on Team {
     id
-    dbid
     slug
     ...SaveList_team
     verification_statuses
-    get_tipline_inbox_filters
-    smooch_bot: team_bot_installation(bot_identifier: "smooch") {
-      id
-    }
-    alegre_bot: team_bot_installation(bot_identifier: "alegre") {
-      id
-      alegre_settings
-    }
   }
 `);
