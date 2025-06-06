@@ -19,7 +19,7 @@ const FeedTeamCard = ({
   team,
 }) => {
   const factChecks = clusterTeam.fact_checks || { edges: [] };
-  const isSharingFactChecks = (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS));
+  const isSharingFactChecks = (feed.data_points?.includes(CheckFeedDataPoints.ARTICLES));
   const expanded = (isSharingFactChecks && selected);
 
   const handleClick = () => {

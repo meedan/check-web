@@ -41,7 +41,7 @@ const FeedTopBar = ({
   const currentOrg = feed.feed_teams?.edges.find(feedTeam => feedTeam.node.team.slug === team.slug).node.team;
   const teamsWithoutCurrentOrg = feed.feed_teams?.edges
     .filter(feedTeam => feedTeam.node.team.slug !== team.slug)
-    .filter(feedTeam => Boolean(feedTeam.node.saved_search_id));
+    .filter(feedTeam => Boolean(feedTeam.node.media_saved_search_id));
 
   return (
     <div className={searchResultsStyles['search-results-top-extra']}>
@@ -50,7 +50,7 @@ const FeedTopBar = ({
           <OrgFilterButton
             current
             enabled={teamFilters.includes(currentOrg.dbid)}
-            savedSearch={feed.current_feed_team?.saved_search || feed.saved_search}
+            savedSearch={feed.current_feed_team?.media_saved_search || feed.media_saved_search}
             team={currentOrg}
             onClick={handleFilterClick}
           />
@@ -61,7 +61,7 @@ const FeedTopBar = ({
                 current={false}
                 enabled={teamFilters.includes(feedTeam.node.team.dbid)}
                 key={feedTeam.node.team.dbid}
-                savedSearch={feedTeam.node.saved_search}
+                savedSearch={feedTeam.node.media_saved_search}
                 team={feedTeam.node.team}
                 onClick={handleFilterClick}
               />
@@ -107,7 +107,7 @@ FeedTopBar.propTypes = {
   feed: PropTypes.shape({
     published: PropTypes.bool.isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
-    saved_search: PropTypes.shape({
+    media_saved_search: PropTypes.shape({
       dbid: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
     }),
@@ -136,7 +136,7 @@ export default createFragmentContainer(FeedTopBar, graphql`
     feed_teams(first: 1000) {
       edges {
         node {
-          saved_search_id
+          media_saved_search_id
           team {
             slug
             dbid
@@ -147,11 +147,11 @@ export default createFragmentContainer(FeedTopBar, graphql`
       }
     }
     current_feed_team {
-      saved_search {
+      media_saved_search {
         ...OrgFilterButton_savedSearch
       }
     }
-    saved_search {
+    media_saved_search {
       ...OrgFilterButton_savedSearch
     }
   }

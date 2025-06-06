@@ -1,23 +1,13 @@
 [
   {
-    "id": "feedDataPoints.title",
-    "description": "Title of section where the data points being shared in a feed can be selected.",
-    "defaultMessage": "What workspace data will be shared in this feed?"
+    "id": "feedDataPoints.factChecksTitle",
+    "description": "Title of section on save feed page where a user can select that fact-checks will be shared in this feed.",
+    "defaultMessage": "Articles"
   },
   {
-    "id": "feedDataPoints.readOnlyAlertContent",
-    "description": "Description of the alert message displayed on data points section of the edit feed page.",
-    "defaultMessage": "Contact {checkSupportLink} to make adjustments to the workspace data of this shared feed."
-  },
-  {
-    "id": "feedDataPoints.contactSupportLinkText",
-    "description": "Text of the contact support link displayed on the alert box of the data points section in the edit feed page.",
-    "defaultMessage": "Check Support"
-  },
-  {
-    "id": "feedDataPoints.readOnlyAlertTitle",
-    "description": "Title of the alert message displayed on data points section of the edit feed page.",
-    "defaultMessage": "This shared feed already contains data from other collaborators."
+    "id": "feedDataPoints.feedDataPointsFactChecksMediaClaimsRequestsTitle",
+    "description": "Title of section on save feed page where a user can select that media clusters and requests will be shared in this feed.",
+    "defaultMessage": "Media Clusters and Requests"
   },
   {
     "id": "feedDataPoints.ArticleContentTitle",
@@ -63,11 +53,6 @@
     "id": "feedDataPoints.factChecksContentFooter",
     "description": "Footer of section on save feed page where a user can select that claim & fact-checks will be shared in this feed.",
     "defaultMessage": "*If article shared is a claim & fact-check"
-  },
-  {
-    "id": "feedDataPoints.factChecksTitle",
-    "description": "Title of section on save feed page where a user can select that fact-checks will be shared in this feed.",
-    "defaultMessage": "Articles"
   },
   {
     "id": "feedDataPoints.mediaContentTitle",
@@ -133,10 +118,5 @@
     "id": "feedDataPoints.mediaDataArticleLink",
     "description": "Text of the link to an article that explains media and requests data. This link is displayed on the media/requests data points section on the save feed page.",
     "defaultMessage": "media & requests data"
-  },
-  {
-    "id": "feedDataPoints.feedDataPointsFactChecksMediaClaimsRequestsTitle",
-    "description": "Title of section on save feed page where a user can select that media clusters and requests will be shared in this feed.",
-    "defaultMessage": "Media Clusters and Requests"
   }
 ]

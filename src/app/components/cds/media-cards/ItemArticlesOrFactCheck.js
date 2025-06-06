@@ -21,7 +21,7 @@ const ItemArticlesOrFactCheck = ({
   let feedContainsFactChecks = null;
 
   if (inSharedFeed) {
-    feedContainsFactChecks = dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS);
+    feedContainsFactChecks = dataPoints.includes(CheckFeedDataPoints.ARTICLES);
   }
 
   // Display ItemRating for workspace clusters that have a fact-check
