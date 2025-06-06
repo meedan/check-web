@@ -229,7 +229,6 @@ const SaveFeed = (props) => {
     collaboratorsToRemove: [],
     dataPoints: (feed.data_points || []),
   });
-  console.log('formData', formData); // eslint-disable-line no-console
 
   // tracking pending messages to the API for bulk email invites
   // this is not tracked as state, but rather outside the component lifecycle
