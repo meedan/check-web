@@ -29,6 +29,9 @@ const createMutation = graphql`
         media_saved_search {
           is_part_of_feeds
         }
+        article_saved_search {
+          is_part_of_feeds
+        }
       }
       team {
         feeds(first: 10000) {
@@ -66,7 +69,14 @@ const updateMutation = graphql`
         media_saved_search {
           is_part_of_feeds
         }
-        saved_search_was {
+        media_saved_search_was {
+          is_part_of_feeds
+        }
+        article_saved_search_id
+        article_saved_search {
+          is_part_of_feeds
+          }
+        article_saved_search_was {
           is_part_of_feeds
         }
       }
@@ -95,6 +105,7 @@ const destroyMutation = graphql`
               dbid
               feed_id
               media_saved_search_id
+              article_saved_search_id
               feed {
                 name
               }
@@ -127,7 +138,14 @@ mutation SaveFeedUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {
       media_saved_search {
         is_part_of_feeds
       }
-      saved_search_was {
+      media_saved_search_was {
+        is_part_of_feeds
+      }
+      article_saved_search_id
+      article_saved_search {
+        is_part_of_feeds
+      }
+      article_saved_search_was {
         is_part_of_feeds
       }
     }
@@ -788,6 +806,7 @@ SaveFeed.defaultProps = {
 SaveFeed.propTypes = {
   feedTeam: PropTypes.shape({
     id: PropTypes.string,
+    article_saved_search_id: PropTypes.number.isRequired,
     media_saved_search_id: PropTypes.number.isRequired,
     team_id: PropTypes.number.isRequired,
     feed: PropTypes.shape({
@@ -795,6 +814,7 @@ SaveFeed.propTypes = {
       dbid: PropTypes.number,
       name: PropTypes.string,
       description: PropTypes.string,
+      article_saved_search_id: PropTypes.number,
       media_saved_search_id: PropTypes.number,
       licenses: PropTypes.arrayOf(PropTypes.number),
       data_points: PropTypes.arrayOf(PropTypes.number),
@@ -810,6 +830,7 @@ export { SaveFeed };
 export default createFragmentContainer(SaveFeed, graphql`
   fragment SaveFeed_feedTeam on FeedTeam {
     id
+    article_saved_search_id
     media_saved_search_id
     team_id
     permissions
@@ -828,6 +849,7 @@ export default createFragmentContainer(SaveFeed, graphql`
         name
         slug
       }
+      article_saved_search_id
       media_saved_search_id
       data_points
       ...FeedCollaboration_feed

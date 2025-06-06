@@ -109,7 +109,7 @@ const FeedActions = ({
       {/* "Delete" dialog */}
       <ConfirmProceedDialog
         body={
-          feed.media_saved_search_id ? (
+          feed.article_saved_search_id || feed.media_saved_search_id ? (
             <>
               <FormattedHTMLMessage
                 defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
@@ -122,7 +122,8 @@ const FeedActions = ({
               <Alert
                 content={
                   <ul className="bulleted-list">
-                    <li>{feed.media_saved_search?.title}</li>
+                    { feed.media_saved_search_id ? <li>{feed.media_saved_search.title}</li> : null }
+                    { feed.article_saved_search_id ? <li>{feed.article_saved_search.title}</li> : null }
                   </ul>
                 }
                 title={
@@ -163,7 +164,7 @@ const FeedActions = ({
           />
         }
         title={
-          feed.media_saved_search_id ? (
+          feed.article_saved_search_id || feed.media_saved_search_id ? (
             <FormattedMessage
               defaultMessage="Are you sure you want to delete this shared feed?"
               description="'Delete' here is an infinitive verb"
@@ -231,6 +232,10 @@ FeedActions.propTypes = {
     team_id: PropTypes.number.isRequired,
     feed: PropTypes.shape({
       permissions: PropTypes.string.isRequired,
+      article_saved_search_id: PropTypes.number.isRequired,
+      article_saved_search: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }).isRequired,
       media_saved_search_id: PropTypes.number.isRequired,
       media_saved_search: PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -259,6 +264,10 @@ export default createFragmentContainer(FeedActions, graphql`
       permissions
       media_saved_search_id
       media_saved_search {
+        title
+      }
+      article_saved_search_id
+      article_saved_search {
         title
       }
       teams_count
