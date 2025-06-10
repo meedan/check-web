@@ -8,6 +8,7 @@ import FeedCollaboration from './FeedCollaboration';
 import FeedMetadata from './FeedMetadata';
 import FeedActions from './FeedActions';
 import FeedDataPointsSection from './FeedDataPointsSection';
+import FeedDataPointsSectionHeader from './FeedDataPointsSectionHeader';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
@@ -574,6 +575,7 @@ const SaveFeed = (props) => {
           )}
 
           <div className={styles.saveFeedCard}>
+            <FeedDataPointsSectionHeader readOnly={Boolean(feed.id)} />
             <FeedDataPointsSection
               enabled={formData.dataPoints.includes(CheckFeedDataPoints.ARTICLES)}
               listId={formData.selectedArticlesListId}
@@ -583,7 +585,6 @@ const SaveFeed = (props) => {
               onRemove={() => handleFormUpdate('selectedArticlesListId', null)}
               onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.ARTICLES)}
             />
-
             <FeedDataPointsSection
               enabled={formData.dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS)}
               listId={formData.selectedMediaClaimRequestsListId}
