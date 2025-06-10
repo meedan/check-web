@@ -31,7 +31,7 @@ const WebhookEntry = ({ intl, webhook }) => {
             />
           }
           readOnly
-          value={intl?.formatMessage(messages[selectedEvent]) || selectedEvent}
+          value={messages[selectedEvent] ? intl?.formatMessage(messages[selectedEvent]) : selectedEvent}
         />
         <div className={styles['key-row__buttons']}>
           <WebhookEditContainer webhook={webhook} />
