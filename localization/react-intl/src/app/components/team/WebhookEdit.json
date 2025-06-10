@@ -10,6 +10,11 @@
     "defaultMessage": "Report Published"
   },
   {
+    "id": "webhookEdit.eventTypeProjectMediaCreated",
+    "description": "Label for the event type when a project media is created",
+    "defaultMessage": "Project Media Created"
+  },
+  {
     "id": "webhookEdit.createSuccess",
     "description": "Success message when a webhook is created",
     "defaultMessage": "Webhook created"

@@ -28,6 +28,11 @@ const messages = defineMessages({
     defaultMessage: 'Report Published',
     description: 'Label for the event type when a report is published',
   },
+  create_project_media: {
+    id: 'webhookEdit.eventTypeProjectMediaCreated',
+    defaultMessage: 'Project Media Created',
+    description: 'Label for the event type when a project media is created',
+  },
 });
 
 const createMutation = graphql`
