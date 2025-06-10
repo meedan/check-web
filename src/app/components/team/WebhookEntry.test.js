@@ -18,12 +18,16 @@ describe('<WebhookEntry />', () => {
 
   it('should display the event name correctly', () => {
     const wrapper = shallowWithIntl(<WebhookEntry intl={mockIntl} webhook={webhook} />);
-    expect(wrapper.find('TextField').prop('value')).toEqual('Publish Report');
+    expect(wrapper.find('span').hostNodes().text()).toEqual('Test Webhook');
+    const eventField = wrapper.findWhere(node => node.prop('value') === 'Report Published');
+    expect(eventField.exists()).toBe(true);
   });
 
   it('should not crash if event code has no matching message', () => {
     webhook.events[0].event = 'unknown_event';
     const wrapper = shallowWithIntl(<WebhookEntry intl={mockIntl} webhook={webhook} />);
-    expect(wrapper.find('TextField').prop('value')).toEqual('unknown_event');
+    expect(wrapper.find('span').hostNodes().text()).toEqual('Test Webhook');
+    const eventField = wrapper.findWhere(node => node.prop('value') === 'unknown_event');
+    expect(eventField.exists()).toBe(true);
   });
 });
