@@ -125,7 +125,7 @@ const SandboxComponent = ({ admin }) => {
   // This triggers when the list item data points are changed
   React.useEffect(() => {
     if (listItemDataPointsFactCheck) {
-      setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
+      setListItemDataPoints([CheckFeedDataPoints.ARTICLES, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
     } else if (!listItemDataPointsFactCheck) {
       setListItemDataPoints([]);
     }

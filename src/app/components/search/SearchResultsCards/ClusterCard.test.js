@@ -38,7 +38,7 @@ describe('<ClusterCard />', () => {
   it('should render a fact check count if feed contains fact checks', () => {
     const wrapper = mountWithIntl(
       <ClusterCard
-        dataPoints={[CheckFeedDataPoints.PUBLISHED_FACT_CHECKS]}
+        dataPoints={[CheckFeedDataPoints.ARTICLES]}
         date={new Date()}
         factCheckCount={3}
         title="Title"
