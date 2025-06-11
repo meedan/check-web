@@ -60,7 +60,7 @@ FeedContent.defaultProps = {
 
 FeedContent.propTypes = {
   listId: PropTypes.number,
-  listType: PropTypes.string,
+  listType: PropTypes.oneOf(['media', 'article']),
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };

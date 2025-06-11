@@ -152,7 +152,7 @@ SelectListQueryRenderer.defaultProps = {
 SelectListQueryRenderer.propTypes = {
   required: PropTypes.bool,
   label: PropTypes.node,
-  listType: PropTypes.string,
+  listType: PropTypes.oneOf(['media', 'article']),
   onChange: PropTypes.func,
   onRemove: PropTypes.func,
   value: PropTypes.oneOfType([

@@ -227,7 +227,7 @@ FeedDataPointsSection.defaultProps = {
 FeedDataPointsSection.propTypes = {
   enabled: PropTypes.bool,
   listId: PropTypes.number,
-  listType: PropTypes.string.isRequired,
+  listType: PropTypes.oneOf(['media', 'article']).isRequired,
   readOnly: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
