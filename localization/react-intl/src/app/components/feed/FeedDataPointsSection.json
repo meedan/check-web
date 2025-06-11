@@ -10,11 +10,6 @@
     "defaultMessage": "Media Clusters and Requests"
   },
   {
-    "id": "feedDataPoints.title",
-    "description": "Title of section where the data points being shared in a feed can be selected.",
-    "defaultMessage": "What workspace data will be shared in this feed?"
-  },
-  {
     "id": "feedDataPoints.ArticleContentTitle",
     "description": "Title of the content section on save feed page where a user can select that fact-checks will be shared in this feed.",
     "defaultMessage": "<strong>Article</strong> data to be shared:"
