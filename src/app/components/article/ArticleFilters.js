@@ -175,7 +175,7 @@ const ArticleFilters = ({
                   label={<FormattedMessage defaultMessage="Article type is" description="Prefix label for field to filter by article type." id="articleFilters.articleType" />}
                   options={[
                     { value: CheckArticleTypes.EXPLAINER, label: intl.formatMessage(messages.explainer) },
-                    { value: CheckArticleTypes.FACTCHECK, label: intl.formatMessage(messages.factCheck) },
+                    { value: CheckArticleTypes.FACT_CHECK, label: intl.formatMessage(messages.factCheck) },
                   ]}
                   readOnly={articleTypeReadOnly}
                   selected={value || []}

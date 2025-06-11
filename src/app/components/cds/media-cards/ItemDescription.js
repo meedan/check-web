@@ -6,6 +6,7 @@ import ArticleUrl from './ArticleUrl';
 import UnfoldLessIcon from '../../../icons/unfold_less.svg';
 import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
 import CheckArticleTypes from '../../../constants/CheckArticleTypes';
+import CheckPropTypes from '../../../CheckPropTypes';
 import styles from './Card.module.css';
 
 const ItemDescription = ({
@@ -101,7 +102,7 @@ ItemDescription.propTypes = {
   description: PropTypes.string,
   title: PropTypes.string.isRequired,
   className: PropTypes.string,
-  variant: PropTypes.oneOf(Object.values(CheckArticleTypes)),
+  variant: CheckPropTypes.articleType,
 };
 
 export default ItemDescription;

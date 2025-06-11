@@ -5,6 +5,7 @@ import cx from 'classnames/bind';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import BookIcon from '../../../icons/book.svg';
 import CheckArticleTypes from '../../../constants/CheckArticleTypes';
+import CheckPropTypes from '../../../CheckPropTypes';
 import styles from './Card.module.css';
 
 const icons = {
@@ -43,7 +44,7 @@ ArticleUrl.defaultProps = {
 
 ArticleUrl.propTypes = {
   url: PropTypes.string,
-  variant: PropTypes.oneOf(Object.values(CheckArticleTypes)),
+  variant: CheckPropTypes.articleType,
   title: PropTypes.string,
   showIcon: PropTypes.bool,
   linkText: PropTypes.string,

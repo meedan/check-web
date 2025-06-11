@@ -7,6 +7,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import DescriptionIcon from '../../icons/description.svg';
 import { withSetFlashMessage } from '../FlashMessage';
 import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import CheckPropTypes from '../../CheckPropTypes';
 
 const OcrButton = ({
   hasExtractedText,
@@ -73,7 +74,7 @@ const OcrButton = ({
     onClick();
   };
 
-  if (projectMediaType !== CheckMediaTypes.UPLOADEDAUDIO || hasExtractedText) {
+  if (projectMediaType !== CheckMediaTypes.UPLOADED_AUDIO || hasExtractedText) {
     return null;
   }
 
@@ -112,7 +113,7 @@ OcrButton.defaultProps = {
 OcrButton.propTypes = {
   hasExtractedText: PropTypes.bool,
   projectMediaId: PropTypes.string.isRequired,
-  projectMediaType: PropTypes.oneOf(Object.values(CheckMediaTypes)).isRequired,
+  projectMediaType: CheckPropTypes.mediaType.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
 };

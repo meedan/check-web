@@ -7,7 +7,7 @@ import CheckArticleTypes from '../../constants/CheckArticleTypes';
 
 const FactChecks = ({ routeParams }) => (
   <Articles
-    defaultFilters={{ article_type: CheckArticleTypes.FACTCHECK }}
+    defaultFilters={{ article_type: CheckArticleTypes.FACT_CHECK }}
     filterOptions={['users', 'tags', 'range', 'language_filter', 'published_by', 'report_status', 'verification_status', 'channels']}
     icon={<FactCheckIcon />}
     pageName="fact-checks"

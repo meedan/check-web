@@ -11,6 +11,7 @@ import SearchIcon from '../../icons/search.svg';
 import OpenInNewIcon from '../../icons/open_in_new.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import CheckPropTypes from '../../CheckPropTypes';
 import styles from './MediaCardLarge.module.css';
 
 const ExtraMediaActions = ({
@@ -18,7 +19,7 @@ const ExtraMediaActions = ({
   reverseImageSearchGoogle,
 }) => {
   const isYoutubeVideo = projectMedia.media.type === CheckMediaTypes.LINK && projectMedia.media.metadata.provider === 'youtube';
-  const isUploadedVideo = projectMedia.media.type === CheckMediaTypes.UPLOADEDVIDEO;
+  const isUploadedVideo = projectMedia.media.type === CheckMediaTypes.UPLOADED_VIDEO;
   const isPicture = !!projectMedia.picture && !isYoutubeVideo;
   const isVideo = isYoutubeVideo || isUploadedVideo;
   const allowsReverseSearch = isPicture || isVideo;
@@ -144,7 +145,7 @@ class MediaExpandedActions extends React.Component {
 MediaExpandedActions.propTypes = {
   projectMedia: PropTypes.shape({
     media: PropTypes.shape({
-      type: PropTypes.string,
+      type: CheckPropTypes.mediaType.isRequired,
       metadata: PropTypes.shape({
         provider: PropTypes.string, // or undefined
       }).isRequired,

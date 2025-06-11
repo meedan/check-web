@@ -65,19 +65,19 @@ const MediaCardLarge = ({
           quote={media.quote}
         />
       ) : null }
-      { type === 'UploadedImage' ? (
+      { type === CheckMediaTypes.UPLOADED_IMAGE ? (
         <ImageMediaCard
           currentUserRole={currentUserRole}
           imagePath={media.embed_path}
           projectMedia={projectMedia}
         />
       ) : null }
-      { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
+      { (type === CheckMediaTypes.UPLOADED_VIDEO || type === CheckMediaTypes.UPLOADED_AUDIO || isYoutube) && !isYoutubeChannel ? (
         <MediaPlayerCard
           coverImage={coverImage}
           currentUserRole={currentUserRole}
           filePath={media.file_path || media.url}
-          isAudio={type === 'UploadedAudio'}
+          isAudio={type === CheckMediaTypes.UPLOADED_AUDIO}
           isYoutube={isYoutube}
           projectMedia={projectMedia}
         />

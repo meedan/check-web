@@ -1,6 +1,6 @@
 const CheckArticleTypes = {
   EXPLAINER: 'explainer',
-  FACTCHECK: 'fact-check',
+  FACT_CHECK: 'fact-check',
 };
 
 export default CheckArticleTypes;

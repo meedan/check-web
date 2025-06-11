@@ -11,6 +11,7 @@ import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemReportStatus from '../../cds/media-cards/ItemReportStatus';
 import CheckArticleTypes from '../../../constants/CheckArticleTypes';
+import CheckPropTypes from '../../../CheckPropTypes';
 import styles from './ArticleCard.module.css';
 
 const ArticleCard = ({
@@ -135,7 +136,7 @@ ArticleCard.propTypes = {
   teamName: PropTypes.string,
   title: PropTypes.string.isRequired,
   url: PropTypes.string,
-  variant: PropTypes.oneOf(Object.values(CheckArticleTypes)),
+  variant: CheckPropTypes.articleType,
   onChangeTags: PropTypes.func,
 };
 

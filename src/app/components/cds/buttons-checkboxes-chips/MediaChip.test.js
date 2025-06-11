@@ -33,6 +33,6 @@ describe('<MediaChip />', () => {
       url="https://qa-assets.checkmedia.org/foobar"
     />);
 
-    expect(wrapper.find('MediaTypeDisplayIcon').props().mediaType).toEqual(CheckMediaTypes.UPLOADEDIMAGE);
+    expect(wrapper.find('MediaTypeDisplayIcon').props().mediaType).toEqual(CheckMediaTypes.UPLOADED_IMAGE);
   });
 });

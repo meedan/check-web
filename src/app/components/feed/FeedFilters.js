@@ -260,9 +260,9 @@ const FeedFilters = ({
                 icon={<DescriptionIcon />}
                 label={<FormattedMessage defaultMessage="Media (type)" description="Field label for feed filter" id="feedFilters.mediaType" />}
                 options={[
-                  { value: CheckMediaTypes.UPLOADEDAUDIO, label: intl.formatMessage(messages.mediaTypeAudio) },
-                  { value: CheckMediaTypes.UPLOADEDIMAGE, label: intl.formatMessage(messages.mediaTypeImage) },
-                  { value: CheckMediaTypes.UPLOADEDVIDEO, label: intl.formatMessage(messages.mediaTypeVideo) },
+                  { value: CheckMediaTypes.UPLOADED_AUDIO, label: intl.formatMessage(messages.mediaTypeAudio) },
+                  { value: CheckMediaTypes.UPLOADED_IMAGE, label: intl.formatMessage(messages.mediaTypeImage) },
+                  { value: CheckMediaTypes.UPLOADED_VIDEO, label: intl.formatMessage(messages.mediaTypeVideo) },
                   { value: CheckMediaTypes.CLAIM, label: intl.formatMessage(messages.mediaTypeText) },
                   { value: CheckMediaTypes.LINK, label: intl.formatMessage(messages.mediaTypeLink) },
                 ]}

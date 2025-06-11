@@ -1,9 +1,9 @@
 const CheckMediaTypes = {
   CLAIM: 'Claim',
   LINK: 'Link',
-  UPLOADEDIMAGE: 'UploadedImage',
-  UPLOADEDVIDEO: 'UploadedVideo',
-  UPLOADEDAUDIO: 'UploadedAudio',
+  UPLOADED_IMAGE: 'UploadedImage',
+  UPLOADED_VIDEO: 'UploadedVideo',
+  UPLOADED_AUDIO: 'UploadedAudio',
   FACEBOOK: 'Facebook',
   INSTAGRAM: 'Instagram',
   TELEGRAM: 'Telegram',

@@ -7,6 +7,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TranscribeIcon from '../../icons/transcribe.svg';
 import { withSetFlashMessage } from '../FlashMessage';
 import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import CheckPropTypes from '../../CheckPropTypes';
 
 const TranscriptionButton = ({
   onClick,
@@ -73,7 +74,7 @@ const TranscriptionButton = ({
     onClick();
   };
 
-  if (projectMediaType !== CheckMediaTypes.UPLOADEDAUDIO && projectMediaType !== CheckMediaTypes.UPLOADEDVIDEO) {
+  if (projectMediaType !== CheckMediaTypes.UPLOADED_AUDIO && projectMediaType !== CheckMediaTypes.UPLOADED_VIDEO) {
     return null;
   }
 
@@ -112,7 +113,7 @@ TranscriptionButton.defaultProps = {
 
 TranscriptionButton.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
-  projectMediaType: PropTypes.oneOf(Object.values(CheckMediaTypes)).isRequired,
+  projectMediaType: CheckPropTypes.mediaType.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   transcription: PropTypes.object,
   onClick: PropTypes.func.isRequired,

@@ -10,6 +10,7 @@ import ExternalLink from '../ExternalLink';
 import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
+import CheckPropTypes from '../../CheckPropTypes';
 import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './MediaCardLarge.module.css';
 
@@ -148,7 +149,7 @@ const MediaCardLargeFooter = ({
 MediaCardLargeFooter.propTypes = {
   data: PropTypes.object.isRequired,
   inModal: PropTypes.bool.isRequired,
-  mediaType: PropTypes.oneOf(Object.values(CheckMediaTypes)).isRequired,
+  mediaType: CheckPropTypes.mediaType.isRequired,
   projectMedia: PropTypes.object.isRequired,
   onClickMore: PropTypes.func,
 };

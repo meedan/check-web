@@ -318,7 +318,7 @@ const ClaimFactCheckForm = ({
   return (
     <ArticleForm
       article={article}
-      articleType={CheckArticleTypes.FACTCHECK}
+      articleType={CheckArticleTypes.FACT_CHECK}
       createFromMediaPage={createFromMediaPage}
       error={error}
       handleBlur={handleBlur}

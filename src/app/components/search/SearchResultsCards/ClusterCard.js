@@ -9,7 +9,7 @@ import Checkbox from '../../cds/buttons-checkboxes-chips/Checkbox';
 import ItemThumbnail from '../../cds/media-cards/ItemThumbnail';
 import ItemArticlesOrFactCheck from '../../cds/media-cards/ItemArticlesOrFactCheck';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
-import CheckMediaTypes from '../../../constants/CheckMediaTypes';
+import CheckPropTypes from '../../../CheckPropTypes';
 import ItemDate from '../../cds/media-cards/ItemDate';
 import ItemWorkspaces from '../../cds/media-cards/ItemWorkspaces';
 import styles from './ItemCard.module.css';
@@ -152,7 +152,7 @@ ClusterCard.propTypes = {
     }),
     show_warning_cover: PropTypes.bool,
   }),
-  mediaType: PropTypes.oneOf(Object.values(CheckMediaTypes)),
+  mediaType: CheckPropTypes.mediaType,
   onCheckboxChange: PropTypes.func,
   publishedAt: PropTypes.instanceOf(Date), // Timestamp
   rating: PropTypes.string,

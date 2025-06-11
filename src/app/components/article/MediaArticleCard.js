@@ -15,6 +15,7 @@ import ArticleUrl from '../cds/media-cards/ArticleUrl';
 import ItemReportStatus from '../cds/media-cards/ItemReportStatus';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CheckArticleTypes from '../../constants/CheckArticleTypes';
+import CheckPropTypes from '../../CheckPropTypes';
 import cardStyles from '../cds/media-cards/Card.module.css';
 import styles from './ArticleCard.module.css';
 
@@ -37,7 +38,7 @@ const MediaArticleCard = ({
 }) => (
   <div className={cx('article-card', styles.articleCard, styles.mediaArticleCardWrapper)}>
     <Card className={styles.mediaArticleCard}>
-      { variant === CheckArticleTypes.FACTCHECK && !publishedAt ?
+      { variant === CheckArticleTypes.FACT_CHECK && !publishedAt ?
         <Alert
           className={styles.mediaArticleCardAlert}
           content={
@@ -57,10 +58,10 @@ const MediaArticleCard = ({
           <div className={cx('typography-body2-bold', styles.articleCardHeader)}>
             <div className={styles.articleType}>
               <div className={styles.articleIcon}>
-                { variant === CheckArticleTypes.FACTCHECK && <FactCheckIcon /> }
+                { variant === CheckArticleTypes.FACT_CHECK && <FactCheckIcon /> }
                 { variant === CheckArticleTypes.EXPLAINER && <BookIcon /> }
               </div>
-              { variant === CheckArticleTypes.FACTCHECK && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
+              { variant === CheckArticleTypes.FACT_CHECK && <FormattedMessage defaultMessage="Claim & Fact-Check" description="Title in an article card on item page." id="mediaArticleCard.factCheck" /> }
               { variant === CheckArticleTypes.EXPLAINER && <FormattedMessage defaultMessage="Explainer" description="Title in an article card on item page." id="mediaArticleCard.explainer" /> }
             </div>
           </div>
@@ -71,7 +72,7 @@ const MediaArticleCard = ({
             )}
           >
             <div className={cardStyles.cardSummaryContent}>
-              { variant === CheckArticleTypes.FACTCHECK &&
+              { variant === CheckArticleTypes.FACT_CHECK &&
                 <div
                   className={cx(
                     [cardStyles.cardSummaryClaimContent],
@@ -126,7 +127,7 @@ const MediaArticleCard = ({
               size="small"
             />
           ),
-          variant === CheckArticleTypes.FACTCHECK && (
+          variant === CheckArticleTypes.FACT_CHECK && (
             <ItemReportStatus
               displayLabel
               isPublished={Boolean(publishedAt)}
@@ -202,7 +203,7 @@ MediaArticleCard.propTypes = {
   summary: PropTypes.string,
   title: PropTypes.string.isRequired,
   url: PropTypes.string,
-  variant: PropTypes.oneOf(Object.values(CheckArticleTypes)),
+  variant: CheckPropTypes.articleType,
   onClick: PropTypes.func,
   onRemove: PropTypes.func,
 

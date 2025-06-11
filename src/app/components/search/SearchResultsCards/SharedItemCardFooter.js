@@ -7,7 +7,7 @@ import OpenInNewIcon from '../../../icons/open_in_new.svg';
 import ItemChannels from '../../cds/media-cards/ItemChannels';
 import SuggestionsCount from '../../cds/media-cards/SuggestionsCount';
 import MediaCount from '../../cds/media-cards/MediaCount';
-import CheckMediaTypes from '../../../constants/CheckMediaTypes';
+import CheckPropTypes from '../../../CheckPropTypes';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import Language from '../../cds/media-cards/Language';
@@ -102,7 +102,7 @@ SharedItemCardFooter.propTypes = {
   languageCode: PropTypes.string,
   lastRequestDate: PropTypes.instanceOf(Date),
   mediaCount: PropTypes.number,
-  mediaType: PropTypes.oneOf(Object.values(CheckMediaTypes)),
+  mediaType: CheckPropTypes.mediaType,
   readOnly: PropTypes.bool,
   requestsCount: PropTypes.number,
   suggestionsCount: PropTypes.number,

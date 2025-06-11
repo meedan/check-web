@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import CheckPropTypes from '../../CheckPropTypes';
 
 const messages = defineMessages({
   Claim: {
@@ -76,11 +76,11 @@ export default function MediaTypeDisplayName({ mediaType }) {
     return <FormattedMessage defaultMessage="Text" description="Label to show that the type of media is text" id="media.typeClaim" />;
   case CheckMediaTypes.LINK:
     return <FormattedMessage defaultMessage="Link" description="Label to show that the type of media is a link" id="media.typeLink" />;
-  case CheckMediaTypes.UPLOADEDIMAGE:
+  case CheckMediaTypes.UPLOADED_IMAGE:
     return <FormattedMessage defaultMessage="Image" description="Label to show that the type of media is an image" id="media.typeImage" />;
-  case CheckMediaTypes.UPLOADEDVIDEO:
+  case CheckMediaTypes.UPLOADED_VIDEO:
     return <FormattedMessage defaultMessage="Video" description="Label to show that the type of media is a video" id="media.typeVideo" />;
-  case CheckMediaTypes.UPLOADEDAUDIO:
+  case CheckMediaTypes.UPLOADED_AUDIO:
     return <FormattedMessage defaultMessage="Audio" description="Label to show that the type of media is an audio file" id="media.typeAudio" />;
   case CheckMediaTypes.BLANK:
     return <FormattedMessage defaultMessage="Imported fact-check" description="Label to show that the type of item is an imported fact-check" id="media.typeBlank" />;
@@ -102,8 +102,6 @@ export default function MediaTypeDisplayName({ mediaType }) {
   }
 }
 
-MediaTypeDisplayName.MediaTypeShape = PropTypes.oneOf(Object.values(CheckMediaTypes));
-
 MediaTypeDisplayName.propTypes = {
-  mediaType: MediaTypeDisplayName.MediaTypeShape.isRequired,
+  mediaType: CheckPropTypes.mediaType.isRequired,
 };

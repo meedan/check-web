@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Audiotrack from '../../icons/audiotrack.svg';
 import Description from '../../icons/description.svg';
 import Facebook from '../../icons/facebook.svg';
@@ -12,6 +11,7 @@ import Telegram from '../../icons/telegram.svg';
 import Tiktok from '../../icons/tiktok.svg';
 import Twitter from '../../icons/twitter.svg';
 import YouTube from '../../icons/youtube.svg';
+import CheckPropTypes from '../../CheckPropTypes';
 import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 export function mediaTypeFromUrl(url) {
@@ -42,11 +42,11 @@ export function mediaTypeFromFilename(fileName) {
 
   if (fileExtension) {
     if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExtension.toLowerCase())) {
-      mediaType = CheckMediaTypes.UPLOADEDIMAGE;
+      mediaType = CheckMediaTypes.UPLOADED_IMAGE;
     } else if (['mp3', 'wav', 'oga', 'ogg', 'm4a'].includes(fileExtension.toLowerCase())) {
-      mediaType = CheckMediaTypes.UPLOADEDAUDIO;
+      mediaType = CheckMediaTypes.UPLOADED_AUDIO;
     } else if (['mp4', 'ogg', 'ogv', 'webm', 'mov', 'm4v'].includes(fileExtension.toLowerCase())) {
-      mediaType = CheckMediaTypes.UPLOADEDVIDEO;
+      mediaType = CheckMediaTypes.UPLOADED_VIDEO;
     }
   }
 
@@ -59,11 +59,11 @@ export default function MediaTypeDisplayIcon({ mediaType }) {
     return <Description />;
   case CheckMediaTypes.LINK:
     return <Public />;
-  case CheckMediaTypes.UPLOADEDIMAGE:
+  case CheckMediaTypes.UPLOADED_IMAGE:
     return <Image />;
-  case CheckMediaTypes.UPLOADEDVIDEO:
+  case CheckMediaTypes.UPLOADED_VIDEO:
     return <Movie />;
-  case CheckMediaTypes.UPLOADEDAUDIO:
+  case CheckMediaTypes.UPLOADED_AUDIO:
     return <Audiotrack />;
   case CheckMediaTypes.FACEBOOK:
     return <Facebook />;
@@ -86,5 +86,5 @@ export default function MediaTypeDisplayIcon({ mediaType }) {
 }
 
 MediaTypeDisplayIcon.propTypes = {
-  mediaType: PropTypes.oneOf(Object.values(CheckMediaTypes)).isRequired,
+  mediaType: CheckPropTypes.mediaType.isRequired,
 };

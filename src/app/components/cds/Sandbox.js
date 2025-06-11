@@ -59,7 +59,7 @@ const SandboxComponent = ({ admin }) => {
   const mediaThumbnail = {
     media: {
       picture: 'https://placekitten.com/200/300',
-      type: 'UploadedImage',
+      type: CheckMediaTypes.UPLOADED_IMAGE,
       url: 'https://placekitten.com/200/300',
     },
     show_warning_cover: false,
@@ -101,7 +101,7 @@ const SandboxComponent = ({ admin }) => {
   ];
 
   const [articleCardShared, setArticleCardShared] = React.useState(false);
-  const [articleCardVariant, setArticleCardVariant] = React.useState(CheckArticleTypes.FACTCHECK);
+  const [articleCardVariant, setArticleCardVariant] = React.useState(CheckArticleTypes.FACT_CHECK);
   const [articleCardLink, setArticleCardLink] = React.useState(Boolean(true));
   const [articleCardTags, setArticleCardTags] = React.useState(Boolean(true));
   const [articleCardPublished, setArticleCardPublished] = React.useState(true);
@@ -565,8 +565,8 @@ const SandboxComponent = ({ admin }) => {
                 isPublished={articleCardPublished}
                 languageCode={articleCardShared ? null : 'en'}
                 publishedAt={1702677106.846}
-                statusColor={articleCardVariant === CheckArticleTypes.FACTCHECK ? '#ff0000' : null}
-                statusLabel={articleCardVariant === CheckArticleTypes.FACTCHECK ? 'The Status is very very long' : null}
+                statusColor={articleCardVariant === CheckArticleTypes.FACT_CHECK ? '#ff0000' : null}
+                statusLabel={articleCardVariant === CheckArticleTypes.FACT_CHECK ? 'The Status is very very long' : null}
                 summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
                 tags={articleCardTags ? ['Novel', 'Moby Dick', '19th Century'] : null}
                 teamAvatar={articleCardShared ? 'https://placekitten.com/300/300' : null}
@@ -711,7 +711,7 @@ const SandboxComponent = ({ admin }) => {
                 lastRequestDate={new Date('2024-01-15T12:00:22Z')}
                 mediaCount={12345}
                 mediaThumbnail={listItemMediaPreview ? mediaThumbnail : null}
-                mediaType={CheckMediaTypes.IMAGE}
+                mediaType={CheckMediaTypes.UPLOADED_IMAGE}
                 publishedAt={1702677106846}
                 rating={listItemFactCheck ? 'False' : null}
                 ratingColor={listItemFactCheck ? '#f00' : null}

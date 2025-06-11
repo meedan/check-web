@@ -7,7 +7,7 @@ import CheckArticleTypes from '../../constants/CheckArticleTypes';
 
 const PublishedArticles = ({ routeParams }) => (
   <Articles
-    defaultFilters={{ article_type: CheckArticleTypes.FACTCHECK, report_status: 'published' }}
+    defaultFilters={{ article_type: CheckArticleTypes.FACT_CHECK, report_status: 'published' }}
     filterOptions={['users', 'tags', 'range', 'verification_status', 'language_filter', 'published_by', 'channels']}
     icon={<PublishedIcon />}
     pageName="published"

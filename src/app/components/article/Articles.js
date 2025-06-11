@@ -139,7 +139,7 @@ const ArticlesComponent = ({
   let articleTypeFromUrl = null;
   let articleDbidFromUrl = getQueryStringValue('factCheckId');
   if (articleDbidFromUrl) {
-    articleTypeFromUrl = CheckArticleTypes.FACTCHECK;
+    articleTypeFromUrl = CheckArticleTypes.FACT_CHECK;
   } else {
     articleDbidFromUrl = getQueryStringValue('explainerId');
     if (articleDbidFromUrl) {
@@ -321,7 +321,7 @@ const ArticlesComponent = ({
               articleType = CheckArticleTypes.EXPLAINER;
               updateMutation = updateMutationExplainer;
             } else if (article.nodeType === 'FactCheck') {
-              articleType = CheckArticleTypes.FACTCHECK;
+              articleType = CheckArticleTypes.FACT_CHECK;
               updateMutation = updateMutationFactCheck;
             }
 
@@ -356,7 +356,7 @@ const ArticlesComponent = ({
         </div>
 
         <>
-          {selectedArticle.type === CheckArticleTypes.FACTCHECK && (
+          {selectedArticle.type === CheckArticleTypes.FACT_CHECK && (
             <ClaimFactCheckFormQueryRenderer
               factCheckId={selectedArticle.id}
               teamSlug={team.slug}

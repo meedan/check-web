@@ -1,5 +1,6 @@
 import React from 'react';
 import { FeedItemHeader } from './FeedItemHeader';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedItemHeader />', () => {
@@ -14,7 +15,7 @@ describe('<FeedItemHeader />', () => {
       title: 'Cluster one center title',
       media: {
         url: null,
-        type: 'UploadedImage',
+        type: CheckMediaTypes.UPLOADED_IMAGE,
         picture: 'https://assets.checkmedia.org/image/1.png',
       },
     },

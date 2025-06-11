@@ -105,7 +105,7 @@ const ArticleTrash = ({
     />
   );
 
-  const factCheckBody = type === CheckArticleTypes.FACTCHECK && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' ? (
+  const factCheckBody = type === CheckArticleTypes.FACT_CHECK && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' ? (
     <div>
       {associationWarning}
       {deletionWarning}
@@ -203,7 +203,7 @@ const ArticleTrash = ({
           onFailure(err);
         },
       });
-    } else if (type === CheckArticleTypes.FACTCHECK) {
+    } else if (type === CheckArticleTypes.FACT_CHECK) {
       commitMutation(Relay.Store, {
         mutation: updateFactCheck,
         variables: {

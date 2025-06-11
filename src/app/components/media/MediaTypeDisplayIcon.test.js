@@ -5,16 +5,16 @@ import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 describe('<MediaTypeDisplayIcon />', () => {
   it('should return icon', () => {
-    const wrapper = shallow(<MediaTypeDisplayIcon mediaType={CheckMediaTypes.UPLOADEDAUDIO} />);
+    const wrapper = shallow(<MediaTypeDisplayIcon mediaType={CheckMediaTypes.UPLOADED_AUDIO} />);
     expect(wrapper.find('svg')).toHaveLength(1);
   });
 
   it('mediaTypeFromFilename should return correct type', () => {
     let type = mediaTypeFromFilename('foo.jpeg');
-    expect(type).toEqual(CheckMediaTypes.UPLOADEDIMAGE);
+    expect(type).toEqual(CheckMediaTypes.UPLOADED_IMAGE);
 
     type = mediaTypeFromFilename('bli.wav');
-    expect(type).toEqual(CheckMediaTypes.UPLOADEDAUDIO);
+    expect(type).toEqual(CheckMediaTypes.UPLOADED_AUDIO);
   });
 
   it('mediaTypeFromUrl should return correct type', () => {
