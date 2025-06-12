@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Loader from '../../cds/loading/Loader';
 import ForwardIcon from '../../../icons/forward.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
-import CheckChannels from '../../../CheckChannels';
+import CheckChannels from '../../../constants/CheckChannels';
 
 const messages = defineMessages({
   manual: {

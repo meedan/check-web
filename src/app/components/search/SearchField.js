@@ -11,6 +11,7 @@ import MediaPreview from '../feed/MediaPreview';
 import SearchIcon from '../../icons/search.svg';
 import ClearIcon from '../../icons/clear.svg';
 import OpenInFullIcon from '../../icons/open_in_full.svg';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import styles from './search.module.css';
 
 const messages = defineMessages({
@@ -70,7 +71,7 @@ const SearchField = ({
 
   let mediaData = {};
   if (searchQuery?.file_type) {
-    const mediaMapping = { image: 'UploadedImage', video: 'UploadedVideo', audio: 'UploadedAudio' };
+    const mediaMapping = { image: CheckMediaTypes.UPLOADED_IMAGE, video: CheckMediaTypes.UPLOADED_VIDEO, audio: CheckMediaTypes.UPLOADED_AUDIO };
     mediaData = {
       picture: searchQuery?.file_url,
       url: searchQuery?.file_url,

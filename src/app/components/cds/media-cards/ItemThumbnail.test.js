@@ -4,6 +4,7 @@ import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import EmptyMediaIcon from '../../../icons/empty_media.svg';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import MediaTypeDisplayIcon from '../../media/MediaTypeDisplayIcon';
+import CheckMediaTypes from '../../../constants/CheckMediaTypes';
 
 describe('<ItemThumbnail />', () => {
   it('should render picture even when there is no media type', () => {
@@ -21,7 +22,7 @@ describe('<ItemThumbnail />', () => {
     const wrapper = mountWithIntl(
       <ItemThumbnail
         maskContent={false}
-        type="UploadedImage"
+        type={CheckMediaTypes.UPLOADED_IMAGE}
         url="http://image-test.com"
       />);
     expect(wrapper.find(MediaTypeDisplayIcon).length).toEqual(1);

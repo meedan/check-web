@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Audiotrack from '../../icons/audiotrack.svg';
 import Description from '../../icons/description.svg';
 import Facebook from '../../icons/facebook.svg';
@@ -12,22 +11,24 @@ import Telegram from '../../icons/telegram.svg';
 import Tiktok from '../../icons/tiktok.svg';
 import Twitter from '../../icons/twitter.svg';
 import YouTube from '../../icons/youtube.svg';
+import CheckPropTypes from '../../CheckPropTypes';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 export function mediaTypeFromUrl(url) {
-  let mediaType = 'Link';
+  let mediaType = CheckMediaTypes.LINK;
 
   if (/^(https?:\/\/)?((www\.)?youtube\.com|youtu\.be)\/.+$/.test(url)) {
-    mediaType = 'Youtube';
+    mediaType = CheckMediaTypes.YOUTUBE;
   } else if (/^(https?:\/\/)?((www\.)?instagram\.com)\/.+$/.test(url)) {
-    mediaType = 'Instagram';
+    mediaType = CheckMediaTypes.INSTAGRAM;
   } else if (/^(https?:\/\/)?((www\.)?(twitter|x)\.com)\/.+$/.test(url)) {
-    mediaType = 'Twitter';
+    mediaType = CheckMediaTypes.TWITTER;
   } else if (/^(https?:\/\/)?((www\.)?facebook\.com|fb\.watch)\/.+$/.test(url)) {
-    mediaType = 'Facebook';
+    mediaType = CheckMediaTypes.FACEBOOK;
   } else if (/^(https?:\/\/)?((www\.)?t\.me)\/.+$/.test(url)) {
-    mediaType = 'Telegram';
+    mediaType = CheckMediaTypes.TELEGRAM;
   } else if (/^(https?:\/\/)?((www\.)?tiktok\.com)\/.+$/.test(url)) {
-    mediaType = 'Tiktok';
+    mediaType = CheckMediaTypes.TIKTOK;
   }
 
   return mediaType;
@@ -41,11 +42,11 @@ export function mediaTypeFromFilename(fileName) {
 
   if (fileExtension) {
     if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExtension.toLowerCase())) {
-      mediaType = 'UploadedImage';
+      mediaType = CheckMediaTypes.UPLOADED_IMAGE;
     } else if (['mp3', 'wav', 'oga', 'ogg', 'm4a'].includes(fileExtension.toLowerCase())) {
-      mediaType = 'UploadedAudio';
+      mediaType = CheckMediaTypes.UPLOADED_AUDIO;
     } else if (['mp4', 'ogg', 'ogv', 'webm', 'mov', 'm4v'].includes(fileExtension.toLowerCase())) {
-      mediaType = 'UploadedVideo';
+      mediaType = CheckMediaTypes.UPLOADED_VIDEO;
     }
   }
 
@@ -54,29 +55,29 @@ export function mediaTypeFromFilename(fileName) {
 
 export default function MediaTypeDisplayIcon({ mediaType }) {
   switch (mediaType) {
-  case 'Claim':
+  case CheckMediaTypes.CLAIM:
     return <Description />;
-  case 'Link':
+  case CheckMediaTypes.LINK:
     return <Public />;
-  case 'UploadedImage':
+  case CheckMediaTypes.UPLOADED_IMAGE:
     return <Image />;
-  case 'UploadedVideo':
+  case CheckMediaTypes.UPLOADED_VIDEO:
     return <Movie />;
-  case 'UploadedAudio':
+  case CheckMediaTypes.UPLOADED_AUDIO:
     return <Audiotrack />;
-  case 'Facebook':
+  case CheckMediaTypes.FACEBOOK:
     return <Facebook />;
-  case 'Instagram':
+  case CheckMediaTypes.INSTAGRAM:
     return <Instagram />;
-  case 'Telegram':
+  case CheckMediaTypes.TELEGRAM:
     return <Telegram />;
-  case 'Tiktok':
+  case CheckMediaTypes.TIKTOK:
     return <Tiktok />;
-  case 'Twitter':
+  case CheckMediaTypes.TWITTER:
     return <Twitter />;
-  case 'Youtube':
+  case CheckMediaTypes.YOUTUBE:
     return <YouTube />;
-  case 'Blank':
+  case CheckMediaTypes.BLANK:
     return <EmptyMedia />;
   case '-':
   default:
@@ -85,5 +86,5 @@ export default function MediaTypeDisplayIcon({ mediaType }) {
 }
 
 MediaTypeDisplayIcon.propTypes = {
-  mediaType: PropTypes.string.isRequired,
+  mediaType: CheckPropTypes.mediaType.isRequired,
 };

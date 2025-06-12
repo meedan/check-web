@@ -20,7 +20,7 @@ import CheckContext from '../../CheckContext';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 import ItemThumbnail from '../cds/media-cards/ItemThumbnail';
 import dialogStyles from '../../styles/css/dialog.module.css';
 import styles from './media.module.css';

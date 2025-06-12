@@ -8,7 +8,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NavigateAwayDialog from '../NavigateAwayDialog';
 import BlankState from '../layout/BlankState';
 import { withSetFlashMessage } from '../FlashMessage';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 import inputStyles from '../../styles/css/inputs.module.css';
 import styles from '../media/media.module.css';
 

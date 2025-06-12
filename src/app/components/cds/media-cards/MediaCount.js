@@ -5,6 +5,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import MediaIcon from '../../../icons/perm_media.svg';
 import MediaTypeDisplayIcon from '../../media/MediaTypeDisplayIcon';
+import CheckPropTypes from '../../../CheckPropTypes';
 import { getCompactNumber } from '../../../helpers';
 
 const MediaCount = ({
@@ -50,7 +51,7 @@ MediaCount.defaultProps = {
 MediaCount.propTypes = {
   intl: intlShape.isRequired,
   mediaCount: PropTypes.number.isRequired,
-  mediaType: PropTypes.string,
+  mediaType: CheckPropTypes.mediaType,
 };
 
 export default injectIntl(MediaCount);

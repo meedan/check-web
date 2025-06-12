@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import SelectListQueryRenderer from './SelectList';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import styles from './SaveFeed.module.css';
 
 const FeedContent = ({

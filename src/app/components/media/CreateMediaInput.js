@@ -7,6 +7,7 @@ import TextArea from '../cds/inputs/TextArea';
 import ClearIcon from '../../icons/clear.svg';
 import UploadFile from '../UploadFile';
 import inputStyles from '../../styles/css/inputs.module.css';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 class CreateMediaInput extends React.Component {
   state = {
@@ -21,11 +22,11 @@ class CreateMediaInput extends React.Component {
     const { claimText, mediaFile, textValue } = this.state;
     const inferMediaTypeFromMimeType = (mimeType) => {
       if (mimeType.match(/^audio/)) {
-        return 'UploadedAudio';
+        return CheckMediaTypes.UPLOADED_AUDIO;
       } else if (mimeType.match(/^image/)) {
-        return 'UploadedImage';
+        return CheckMediaTypes.UPLOADED_IMAGE;
       } else if (mimeType.match(/^video/)) {
-        return 'UploadedVideo';
+        return CheckMediaTypes.UPLOADED_VIDEO;
       }
       return null;
     };
@@ -47,14 +48,14 @@ class CreateMediaInput extends React.Component {
       inputValue = textValue.trim();
       urls = inputValue.match(urlRegex());
       url = urls && urls[0] ? urls[0] : '';
-      mediaType = 'Link';
+      mediaType = CheckMediaTypes.LINK;
       if (!inputValue || !inputValue.length) {
         return null;
       }
       if (!url.length || inputValue !== url) {
         // if anything other than a single url, save it as a quote
         quote = inputValue;
-        mediaType = 'Claim';
+        mediaType = CheckMediaTypes.CLAIM;
       }
     }
 

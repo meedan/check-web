@@ -1,6 +1,6 @@
 import Relay from 'react-relay/classic';
 import optimisticProjectMedia from './optimisticProjectMedia';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 
 class UpdateProjectMediaMutation extends Relay.Mutation {
   getMutation() {

@@ -23,6 +23,7 @@ import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unuse
 import PushPinIcon from '../../icons/push_pin.svg';
 import { getMediaType } from '../../helpers';
 import ErrorBoundary from '../error/ErrorBoundary';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import styles from './MediaCardLarge.module.css';
 import mediaStyles from './media.module.css';
 
@@ -44,7 +45,7 @@ const MediaCardLarge = ({
   const isYoutubeChannel = !!media.url?.match(/youtube\.com\/(channel|c)\//);
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
-  const isBlank = media.type === 'Blank';
+  const isBlank = media.type === CheckMediaTypes.BLANK;
   type = getMediaType(media);
 
   const coverImage = media.thumbnail_path || '/images/player_cover.svg';
@@ -64,19 +65,19 @@ const MediaCardLarge = ({
           quote={media.quote}
         />
       ) : null }
-      { type === 'UploadedImage' ? (
+      { type === CheckMediaTypes.UPLOADED_IMAGE ? (
         <ImageMediaCard
           currentUserRole={currentUserRole}
           imagePath={media.embed_path}
           projectMedia={projectMedia}
         />
       ) : null }
-      { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
+      { (type === CheckMediaTypes.UPLOADED_VIDEO || type === CheckMediaTypes.UPLOADED_AUDIO || isYoutube) && !isYoutubeChannel ? (
         <MediaPlayerCard
           coverImage={coverImage}
           currentUserRole={currentUserRole}
           filePath={media.file_path || media.url}
-          isAudio={type === 'UploadedAudio'}
+          isAudio={type === CheckMediaTypes.UPLOADED_AUDIO}
           isYoutube={isYoutube}
           projectMedia={projectMedia}
         />

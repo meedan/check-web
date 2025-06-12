@@ -10,19 +10,21 @@ import MediaLanguageSwitcher from './MediaLanguageSwitcher';
 import SearchIcon from '../../icons/search.svg';
 import OpenInNewIcon from '../../icons/open_in_new.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import CheckPropTypes from '../../CheckPropTypes';
 import styles from './MediaCardLarge.module.css';
 
 const ExtraMediaActions = ({
   projectMedia,
   reverseImageSearchGoogle,
 }) => {
-  const isYoutubeVideo = projectMedia.media.type === 'Link' && projectMedia.media.metadata.provider === 'youtube';
-  const isUploadedVideo = projectMedia.media.type === 'UploadedVideo';
+  const isYoutubeVideo = projectMedia.media.type === CheckMediaTypes.LINK && projectMedia.media.metadata.provider === 'youtube';
+  const isUploadedVideo = projectMedia.media.type === CheckMediaTypes.UPLOADED_VIDEO;
   const isPicture = !!projectMedia.picture && !isYoutubeVideo;
   const isVideo = isYoutubeVideo || isUploadedVideo;
   const allowsReverseSearch = isPicture || isVideo;
 
-  if (projectMedia.media.type === 'Claim') return null;
+  if (projectMedia.media.type === CheckMediaTypes.CLAIM) return null;
 
   return (
     <>
@@ -93,7 +95,7 @@ class MediaExpandedActions extends React.Component {
     } = this.props;
     const { media } = projectMedia;
 
-    if (media.type === 'Blank') return null;
+    if (media.type === CheckMediaTypes.BLANK) return null;
 
     return (
       <>
@@ -109,9 +111,9 @@ class MediaExpandedActions extends React.Component {
             })
           }
         >
-          { media.type !== 'Claim' ?
+          { media.type !== CheckMediaTypes.CLAIM ?
             <>
-              { media.type === 'Link' ? <RefreshButton projectMediaId={projectMedia.id} /> : null }
+              { media.type === CheckMediaTypes.LINK ? <RefreshButton projectMediaId={projectMedia.id} /> : null }
               <ExtraMediaActions
                 projectMedia={projectMedia}
                 reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
@@ -143,7 +145,7 @@ class MediaExpandedActions extends React.Component {
 MediaExpandedActions.propTypes = {
   projectMedia: PropTypes.shape({
     media: PropTypes.shape({
-      type: PropTypes.string,
+      type: CheckPropTypes.mediaType.isRequired,
       metadata: PropTypes.shape({
         provider: PropTypes.string, // or undefined
       }).isRequired,

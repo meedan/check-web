@@ -19,7 +19,7 @@ import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchivePr
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 
 const BulkActionsMenu = ({
   onUnselectAll,

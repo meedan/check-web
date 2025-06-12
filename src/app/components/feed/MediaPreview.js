@@ -1,12 +1,13 @@
 import React from 'react';
 import MediaPlayerCard from '../media/MediaPlayerCard';
 import AspectRatio from '../layout/AspectRatio';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 const MediaPreview = ({ media }) => {
   let preview = null;
   if (
-    media.type === 'UploadedVideo' ||
-    media.type === 'UploadedAudio' ||
+    media.type === CheckMediaTypes.UPLOADED_VIDEO ||
+    media.type === CheckMediaTypes.UPLOADED_AUDIO ||
     (media.url && media.domain === 'youtube.com')) {
     const coverImage = media.thumbnail_path || '/images/player_cover.svg';
     preview = (

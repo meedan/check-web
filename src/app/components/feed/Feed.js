@@ -8,7 +8,7 @@ import FeedTopBar from './FeedTopBar';
 import FeedHeader from './FeedHeader';
 import FeedClusters from './FeedClusters';
 import ErrorBoundary from '../error/ErrorBoundary';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import Search from '../search/Search';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import { safelyParseJSON } from '../../helpers';

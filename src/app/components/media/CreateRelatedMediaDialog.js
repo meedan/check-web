@@ -15,6 +15,7 @@ import ImportToMediaIcon from '../../icons/import_to_media.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import dialogStyles from '../../styles/css/dialog.module.css';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 import mediaStyles from './media.module.css';
 
 class CreateRelatedMediaDialog extends React.Component {
@@ -37,7 +38,7 @@ class CreateRelatedMediaDialog extends React.Component {
         action,
         selectedItem: null,
         selectedItems: [],
-        selectedItemType: 'fact-check',
+        selectedItemType: CheckArticleTypes.FACT_CHECK,
       });
     } else if (action !== null) {
       this.setState({

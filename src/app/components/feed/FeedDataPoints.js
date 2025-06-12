@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import FeedDataPointsSection from './FeedDataPointsSection';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import { stringHelper } from '../../customHelpers';
 import styles from './SaveFeed.module.css';

@@ -4,7 +4,7 @@ import { TaskComponentTest } from './Task';
 import MetadataNumber from '../metadata/MetadataNumber';
 import MetadataText from '../metadata/MetadataText';
 import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 
 const permissions = JSON.stringify({
   'create Media': true, 'create ClaimDescription': true, 'read Dynamic': true, 'update Dynamic': true,

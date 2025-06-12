@@ -6,6 +6,7 @@ import EmptyMediaIcon from '../../../icons/empty_media.svg';
 import MediaTypeDisplayName from '../../media/MediaTypeDisplayName';
 import MediaTypeDisplayIcon, { mediaTypeFromUrl } from '../../media/MediaTypeDisplayIcon';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
+import CheckMediaTypes from '../../../constants/CheckMediaTypes';
 import styles from './ItemThumbnail.module.css';
 
 const ItemThumbnail = ({
@@ -54,7 +55,7 @@ const ItemThumbnail = ({
   }
 
   let mediaType = type;
-  if (type === 'Link') {
+  if (type === CheckMediaTypes.LINK) {
     // use mediaTypeFromUrl to get the specific social icon
     mediaType = mediaTypeFromUrl(url);
   }

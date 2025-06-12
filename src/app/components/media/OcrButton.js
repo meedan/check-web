@@ -6,6 +6,8 @@ import { FormattedMessage } from 'react-intl';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import DescriptionIcon from '../../icons/description.svg';
 import { withSetFlashMessage } from '../FlashMessage';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
+import CheckPropTypes from '../../CheckPropTypes';
 
 const OcrButton = ({
   hasExtractedText,
@@ -72,7 +74,7 @@ const OcrButton = ({
     onClick();
   };
 
-  if (projectMediaType !== 'UploadedImage' || hasExtractedText) {
+  if (projectMediaType !== CheckMediaTypes.UPLOADED_IMAGE || hasExtractedText) {
     return null;
   }
 
@@ -111,7 +113,7 @@ OcrButton.defaultProps = {
 OcrButton.propTypes = {
   hasExtractedText: PropTypes.bool,
   projectMediaId: PropTypes.string.isRequired,
-  projectMediaType: PropTypes.string.isRequired,
+  projectMediaType: CheckPropTypes.mediaType.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
 };

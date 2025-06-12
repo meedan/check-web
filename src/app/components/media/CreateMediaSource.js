@@ -12,7 +12,7 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
 import { getErrorObjects, getErrorMessage } from '../../helpers';
-import CheckError from '../../CheckError';
+import CheckError from '../../constants/CheckError';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import inputStyles from '../../styles/css/inputs.module.css';
 import styles from '../media/media.module.css';
