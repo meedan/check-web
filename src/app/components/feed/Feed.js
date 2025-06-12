@@ -30,7 +30,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
   const [teamFilters, setTeamFilters] = React.useState(feed?.teams?.edges.map(item => item.node.dbid));
 
   // Redirect to edit FeedTeam if we're not sharing a list and we're not the feed creator
-  if (!isFeedOwner && feedTeam && !feedTeam.media_saved_search_id) {
+  const hasSavedSearch = Boolean(feed.media_saved_search_id || feed.article_saved_search_id);
+  if (!isFeedOwner && feedTeam && !hasSavedSearch) {
     browserHistory.push(`/${routeParams.team}/feed/${feed.dbid}/edit`);
   }
 
@@ -54,6 +55,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     feed: {
       dbid: feed.dbid,
       media_saved_search_id: feed.media_saved_search_id,
+      article_saved_search_id: feed.article_saved_search_id,
     },
   };
 
@@ -172,6 +174,7 @@ const Feed = ({ routeParams }) => (
               published
               filters
               media_saved_search_id
+              article_saved_search_id
               data_points
               teams(first: 1000) {
                 edges {
@@ -184,6 +187,7 @@ const Feed = ({ routeParams }) => (
               current_feed_team {
                 team_id
                 media_saved_search_id
+                article_saved_search_id
                 filters
                 ...FeedHeader_feedTeam
               }
