@@ -74,7 +74,7 @@ const OcrButton = ({
     onClick();
   };
 
-  if (projectMediaType !== CheckMediaTypes.UPLOADED_AUDIO || hasExtractedText) {
+  if (projectMediaType !== CheckMediaTypes.UPLOADED_IMAGE || hasExtractedText) {
     return null;
   }
 
