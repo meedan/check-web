@@ -38,7 +38,7 @@ class CreateRelatedMediaDialog extends React.Component {
         action,
         selectedItem: null,
         selectedItems: [],
-        selectedItemType: CheckArticleTypes.FACTCHECK,
+        selectedItemType: CheckArticleTypes.FACT_CHECK,
       });
     } else if (action !== null) {
       this.setState({

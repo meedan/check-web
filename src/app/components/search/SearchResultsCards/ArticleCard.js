@@ -77,7 +77,7 @@ const ArticleCard = ({
       </div>
       { statusLabel || date ?
         <div className={styles.cardRight}>
-          { variant === CheckArticleTypes.FACTCHECK && (
+          { variant === CheckArticleTypes.FACT_CHECK && (
             <div className={styles.cardRightTop}>
               { statusLabel && <ItemRating className={styles.cardRightTopRating} rating={statusLabel} ratingColor={statusColor} size="small" /> }
               <ItemReportStatus
