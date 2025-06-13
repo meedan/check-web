@@ -9,7 +9,7 @@ import FeedMetadata from './FeedMetadata';
 import FeedActions from './FeedActions';
 import FeedDataPointsSection from './FeedDataPointsSection';
 import FeedDataPointsSectionHeader from './FeedDataPointsSectionHeader';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
