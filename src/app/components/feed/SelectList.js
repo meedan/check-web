@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import ListIcon from '../../icons/list.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Select from '../cds/inputs/Select';
@@ -11,6 +11,7 @@ import styles from './SelectList.module.css';
 
 const SelectListQueryRenderer = ({
   label,
+  listType,
   onChange,
   onRemove,
   required,
@@ -19,9 +20,9 @@ const SelectListQueryRenderer = ({
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query SelectListQuery($slug: String!) {
+      query SelectListQuery($slug: String!, $listType: String!) {
         team(slug: $slug) {
-          saved_searches(first: 1000, list_type: "media") {
+          saved_searches(first: 1000, list_type: $listType) {
             edges {
               node {
                 dbid
@@ -65,14 +66,41 @@ const SelectListQueryRenderer = ({
         }
         return (
           <div className={styles['select-list-container']}>
-            { (required && !value) ?
+            { listType === 'article' && (required && !value) ?
               <div>
                 <Alert
+                  content={
+                    <FormattedHTMLMessage
+                      defaultMessage="Select a custom filtered list of <strong>articles</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+                      description="Content of a warning displayed on edit feed page when no articles list is selected."
+                      id="saveFeed.noArticleListDescription"
+                    />
+                  }
                   title={
                     <FormattedMessage
-                      defaultMessage="Your workspace is not contributing to this shared feed. Select a list below to contribute."
-                      description="Warning displayed on edit feed page when no list is selected."
-                      id="saveFeed.noListSelected"
+                      defaultMessage="Your workspace is not contributing Articles."
+                      description="Warning displayed on edit feed page when no articles list is selected."
+                      id="saveFeed.noArticlediaListSelected"
+                    />
+                  }
+                  variant="warning"
+                />
+              </div> : null }
+            { listType === 'media' && (required && !value) ?
+              <div>
+                <Alert
+                  content={
+                    <FormattedHTMLMessage
+                      defaultMessage="Select a custom filtered list of <strong>media clusters</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+                      description="Content of a warning displayed on edit feed page when no media list is selected."
+                      id="saveFeed.noMediaListDescription"
+                    />
+                  }
+                  title={
+                    <FormattedMessage
+                      defaultMessage="Your workspace is not contributing Media Clusters."
+                      description="Warning displayed on edit feed page when no media list is selected."
+                      id="saveFeed.noMediaListSelected"
                     />
                   }
                   variant="warning"
@@ -107,6 +135,7 @@ const SelectListQueryRenderer = ({
     }}
     variables={{
       slug: window.location.pathname.match(/^\/([^/]+)/)[1],
+      listType,
     }}
   />
 );
@@ -114,6 +143,7 @@ const SelectListQueryRenderer = ({
 SelectListQueryRenderer.defaultProps = {
   required: true,
   label: null,
+  listType: null,
   onChange: null,
   onRemove: null,
   value: null,
@@ -122,6 +152,7 @@ SelectListQueryRenderer.defaultProps = {
 SelectListQueryRenderer.propTypes = {
   required: PropTypes.bool,
   label: PropTypes.node,
+  listType: PropTypes.oneOf(['media', 'article']),
   onChange: PropTypes.func,
   onRemove: PropTypes.func,
   value: PropTypes.oneOfType([

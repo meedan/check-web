@@ -167,7 +167,7 @@ const FeedFilters = ({
     { value: 'media_count', label: intl.formatMessage(sortLabels.sortMediaCount) },
     { value: 'last_request_date', label: intl.formatMessage(sortLabels.sortUpdated) },
   ];
-  if (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)) {
+  if (feed.data_points?.includes(CheckFeedDataPoints.ARTICLES)) {
     sortOptions.push({ value: 'fact_checks_count', label: intl.formatMessage(sortLabels.sortFactChecksCount) });
   }
 
