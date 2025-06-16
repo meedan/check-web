@@ -61,7 +61,7 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
         <Alert
           content={
             <FormattedMessage
-              defaultMessage="When a claim & fact-check article is added, it will be prioritized as the only article to be delivered as a response to requests that match this item."
+              defaultMessage="Your explainer will not be sent to users because this media already has a fact-check attached."
               description="Description of the alert message displayed on data points section of the edit feed page."
               id="mediaArticlesDisplay.readOnlyAlertContent"
             />
@@ -69,7 +69,7 @@ const MediaArticlesDisplay = ({ onUpdate, projectMedia }) => {
           placement="contained"
           title={
             <FormattedMessage
-              defaultMessage="Claim & Fact-Check Added"
+              defaultMessage="Already Has Fact-Check"
               description="Title of the alert message displayed on data points section of the edit feed page."
               id="mediaArticlesDisplay.readOnlyAlertTitle"
             />
