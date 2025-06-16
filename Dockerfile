@@ -40,6 +40,11 @@ RUN true \
     && cd /app/test \
     && BUNDLE_SILENCE_ROOT_WARNING=1 bundle install --jobs 20 --retry 5
 
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
 # startup
 EXPOSE 3333
 CMD ["tini", "--", "bash", "-c", "export BUNDLE_PREFIX=$(date '+%Y%m%d%H%M%S') && npm install && npm run serve:dev"]
