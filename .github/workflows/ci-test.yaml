@@ -427,8 +427,8 @@ jobs:
         IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
       run: | 
         docker ps
-        # docker compose exec web service nginx start
-        # docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start 
+        docker compose exec web service nginx start
+        docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
         docker compose exec -T \
           -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID \
           -e GITHUB_JOB_NAME=$GITHUB_JOB_NAME \
