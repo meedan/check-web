@@ -199,7 +199,7 @@ const FeedDataPointsSection = ({
                 id="feedDataPoints.mediaContentFooter"
                 values={{
                   mediaDataArticleLink: (
-                    <a href="https://help.checkmedia.org/en/articles/8542417-shared-feed-creation#h_7414a7ab59" rel="noopener noreferrer" target="_blank"> {/* FIXME: Put the correct link here */}
+                    <a href="https://help.checkmedia.org/en/articles/6473124-all-you-need-to-know-about-shared-feeds#h_8a42c6b5de" rel="noopener noreferrer" target="_blank">
                       <FormattedMessage
                         defaultMessage="media & requests data"
                         description="Text of the link to an article that explains media and requests data. This link is displayed on the media/requests data points section on the save feed page."
