@@ -8,7 +8,7 @@ import FeedTopBar from './FeedTopBar';
 import FeedHeader from './FeedHeader';
 import FeedClusters from './FeedClusters';
 import ErrorBoundary from '../error/ErrorBoundary';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import Search from '../search/Search';
 import SharedFeedIcon from '../../icons/dynamic_feed.svg';
 import { safelyParseJSON } from '../../helpers';
@@ -30,7 +30,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
   const [teamFilters, setTeamFilters] = React.useState(feed?.teams?.edges.map(item => item.node.dbid));
 
   // Redirect to edit FeedTeam if we're not sharing a list and we're not the feed creator
-  if (!isFeedOwner && feedTeam && !feedTeam.saved_search_id) {
+  const hasSavedSearch = Boolean(feed.media_saved_search_id || feed.article_saved_search_id);
+  if (!isFeedOwner && feedTeam && !hasSavedSearch) {
     browserHistory.push(`/${routeParams.team}/feed/${feed.dbid}/edit`);
   }
 
@@ -53,7 +54,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     page: 'feed',
     feed: {
       dbid: feed.dbid,
-      saved_search_id: feed.saved_search_id,
+      media_saved_search_id: feed.media_saved_search_id,
+      article_saved_search_id: feed.article_saved_search_id,
     },
   };
 
@@ -171,7 +173,8 @@ const Feed = ({ routeParams }) => (
               name
               published
               filters
-              saved_search_id
+              media_saved_search_id
+              article_saved_search_id
               data_points
               teams(first: 1000) {
                 edges {
@@ -183,7 +186,8 @@ const Feed = ({ routeParams }) => (
               }
               current_feed_team {
                 team_id
-                saved_search_id
+                media_saved_search_id
+                article_saved_search_id
                 filters
                 ...FeedHeader_feedTeam
               }

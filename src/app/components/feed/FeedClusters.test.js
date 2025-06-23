@@ -1,6 +1,7 @@
 import React from 'react';
 import { FeedClustersComponent } from './FeedClusters';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 
 describe('<FeedClusters />', () => {
   const feedTeam = {
@@ -33,7 +34,7 @@ describe('<FeedClusters />', () => {
               description: 'Cluster one center description',
               media: {
                 url: null,
-                type: 'UploadedImage',
+                type: CheckMediaTypes.UPLOADED_IMAGE,
                 picture: 'https://assets.checkmedia.org/image/1.png',
               },
             },

@@ -103,7 +103,7 @@ class CheckContext {
     }
   }
 
-  // Get context team and project from URL
+  // Get context team from URL
   setContext() {
     if (this.caller.props.params) {
       const slug = this.getTeamSlug();
@@ -112,24 +112,17 @@ class CheckContext {
       if (slug && (!currentContext.team || currentContext.team.slug !== slug)) {
         newContext.team = { slug };
       }
-      if (this.caller.props.params.projectId && !currentContext.project) {
-        newContext.project = { dbid: parseInt(this.caller.props.params.projectId, 10) };
-      }
       this.setContextStore(newContext);
     }
   }
 
-  // Set context team and project from information from the backend
-  setContextAndRedirect(team, project) {
+  // Set context team from information from the backend
+  setContextAndRedirect(team) {
     let path = '';
     const newContext = {};
     if (team) {
       newContext.team = team;
       path += `/${team.slug}/all-items`;
-    }
-    if (project) {
-      newContext.project = project;
-      path += `/project/${project.dbid}`;
     }
     this.setContextStore(newContext);
 
@@ -148,7 +141,7 @@ class CheckContext {
       redirectToPreviousPageOr('/check/me/workspaces');
       return;
     }
-    this.setContextAndRedirect(userCurrentTeam, null);
+    this.setContextAndRedirect(userCurrentTeam);
   }
 }
 

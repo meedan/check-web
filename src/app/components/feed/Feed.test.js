@@ -1,7 +1,7 @@
 import React from 'react';
 import { FeedComponent } from './Feed';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 
 const routeParams = {
   team: 'test',
@@ -40,7 +40,7 @@ describe('<FeedComponent />', () => {
   it('should show fact-checks', () => {
     routeParams.tab = 'feed';
     team.feed.published = true;
-    team.feed.data_points = [CheckFeedDataPoints.PUBLISHED_FACT_CHECKS];
+    team.feed.data_points = [CheckFeedDataPoints.ARTICLES];
     const component = shallowWithIntl(<FeedComponent routeParams={routeParams} team={team} />);
     expect(component.find('#feed__from-workspace').length).toEqual(0);
     expect(component.find('#feed__fact-checks').length).toEqual(1);

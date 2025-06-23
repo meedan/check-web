@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsIcon from '../../icons/settings.svg';
-import { getLicenseIcon, getLicenseTranslatedName, getLicenseName } from '../../CheckFeedLicenses';
+import { getLicenseIcon, getLicenseTranslatedName, getLicenseName } from '../../constants/CheckFeedLicenses';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Can from '../Can';
 import searchResultsStyles from '../search/SearchResults.module.css';

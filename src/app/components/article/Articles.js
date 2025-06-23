@@ -23,6 +23,7 @@ import {
 } from '../../urlHelpers';
 import Loader from '../cds/loading/Loader';
 import PageTitle from '../PageTitle';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 import searchStyles from '../search/search.module.css';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
@@ -138,11 +139,11 @@ const ArticlesComponent = ({
   let articleTypeFromUrl = null;
   let articleDbidFromUrl = getQueryStringValue('factCheckId');
   if (articleDbidFromUrl) {
-    articleTypeFromUrl = 'fact-check';
+    articleTypeFromUrl = CheckArticleTypes.FACT_CHECK;
   } else {
     articleDbidFromUrl = getQueryStringValue('explainerId');
     if (articleDbidFromUrl) {
-      articleTypeFromUrl = 'explainer';
+      articleTypeFromUrl = CheckArticleTypes.EXPLAINER;
     }
   }
 
@@ -223,7 +224,7 @@ const ArticlesComponent = ({
       setSelectedArticle({});
       setTimeout(() => {
         setSelectedArticle({ id: article.dbid, type: article.type });
-        deleteAndPushQueryStringValue(article.type === 'explainer' ? 'factCheckId' : 'explainerId', article.type === 'explainer' ? 'explainerId' : 'factCheckId', article.dbid);
+        deleteAndPushQueryStringValue(article.type === CheckArticleTypes.EXPLAINER ? 'factCheckId' : 'explainerId', article.type === CheckArticleTypes.EXPLAINER ? 'explainerId' : 'factCheckId', article.dbid);
       }, 10);
     }
   };
@@ -317,10 +318,10 @@ const ArticlesComponent = ({
             let articleType = null;
             let updateMutation = null;
             if (article.nodeType === 'Explainer') {
-              articleType = 'explainer';
+              articleType = CheckArticleTypes.EXPLAINER;
               updateMutation = updateMutationExplainer;
             } else if (article.nodeType === 'FactCheck') {
-              articleType = 'fact-check';
+              articleType = CheckArticleTypes.FACT_CHECK;
               updateMutation = updateMutationFactCheck;
             }
 
@@ -355,14 +356,14 @@ const ArticlesComponent = ({
         </div>
 
         <>
-          {selectedArticle.type === 'fact-check' && (
+          {selectedArticle.type === CheckArticleTypes.FACT_CHECK && (
             <ClaimFactCheckFormQueryRenderer
               factCheckId={selectedArticle.id}
               teamSlug={team.slug}
               onClose={handleCloseSlideout}
             />
           )}
-          {selectedArticle.type === 'explainer' && (
+          {selectedArticle.type === CheckArticleTypes.EXPLAINER && (
             <ExplainerFormQueryRenderer
               explainerId={selectedArticle.id}
               teamSlug={team.slug}

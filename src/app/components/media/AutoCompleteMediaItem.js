@@ -6,7 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import cx from 'classnames/bind';
 import { stringHelper } from '../../customHelpers';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import TextField from '../cds/inputs/TextField';
@@ -19,6 +19,8 @@ import ArticleCard from '../search/SearchResultsCards/ArticleCard';
 import SettingsIcon from '../../icons/settings.svg';
 import SearchIcon from '../../icons/search.svg';
 import { getStatus, isFactCheckValueBlank } from '../../helpers';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import styles from './media.module.css';
 
 // Return { jsonPromise, abort }.
@@ -187,14 +189,6 @@ const AutoCompleteMediaItem = (props, context) => {
                 id
                 name
                 verification_statuses
-                project_groups(first: 10000) {
-                  edges {
-                    node {
-                      dbid
-                      title
-                    }
-                  }
-                }
               }
             }
           }
@@ -301,7 +295,7 @@ const AutoCompleteMediaItem = (props, context) => {
               iconLeft={<SearchIcon />}
               id="autocomplete-media-item"
               label={
-                props.selectedItemType === 'fact-check' ?
+                props.selectedItemType === CheckArticleTypes.FACT_CHECK ?
                   <FormattedMessage defaultMessage="Search Articles" description="Textfield input label to let the user know they are searching for artilces" id="autoCompleteMediaItem.textFieldArticlesLabel" />
                   : <FormattedMessage defaultMessage="Search Media Clusters" description="Textfield input label to let the user know they are searching for clusters of media" id="autoCompleteMediaItem.textFieldClustersLabel" />
               }
@@ -330,7 +324,7 @@ const AutoCompleteMediaItem = (props, context) => {
             This may be due to a missing ElasticSearch update or a race condition during the update process,
             where fact-check data is temporarily unavailable. This avoids showing stale or invalid data.
             */
-            if (props.selectedItemType === 'fact-check' && !projectMedia.fact_check) {
+            if (props.selectedItemType === CheckArticleTypes.FACT_CHECK && !projectMedia.fact_check) {
               return null;
             }
 
@@ -338,7 +332,7 @@ const AutoCompleteMediaItem = (props, context) => {
               currentStatus = getStatus(searchResult.team.verification_statuses, projectMedia.fact_check.rating);
             }
 
-            const factCheckInUse = projectMedia.media.type !== 'Blank';
+            const factCheckInUse = projectMedia.media.type !== CheckMediaTypes.BLANK;
 
             return (
               <div
@@ -370,7 +364,7 @@ const AutoCompleteMediaItem = (props, context) => {
                     </span>
                   </Tooltip> : null
                 }
-                { props.selectedItemType === 'fact-check' ?
+                { props.selectedItemType === CheckArticleTypes.FACT_CHECK ?
                   <Tooltip
                     arrow
                     disableFocusListener={!factCheckInUse}

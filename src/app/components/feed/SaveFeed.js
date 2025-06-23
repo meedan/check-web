@@ -5,10 +5,11 @@ import { createFragmentContainer, graphql, commitMutation } from 'react-relay/co
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import FeedCollaboration from './FeedCollaboration';
-import FeedContent from './FeedContent';
 import FeedMetadata from './FeedMetadata';
 import FeedActions from './FeedActions';
-import FeedDataPoints from './FeedDataPoints';
+import FeedDataPointsSection from './FeedDataPointsSection';
+import FeedDataPointsSectionHeader from './FeedDataPointsSectionHeader';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -26,7 +27,10 @@ const createMutation = graphql`
     createFeed(input: $input) {
       feed {
         dbid
-        saved_search {
+        media_saved_search {
+          is_part_of_feeds
+        }
+        article_saved_search {
           is_part_of_feeds
         }
       }
@@ -62,11 +66,18 @@ const updateMutation = graphql`
     updateFeed(input: $input) {
       feed {
         dbid
-        saved_search_id
-        saved_search {
+        media_saved_search_id
+        media_saved_search {
           is_part_of_feeds
         }
-        saved_search_was {
+        media_saved_search_was {
+          is_part_of_feeds
+        }
+        article_saved_search_id
+        article_saved_search {
+          is_part_of_feeds
+          }
+        article_saved_search_was {
           is_part_of_feeds
         }
       }
@@ -94,7 +105,8 @@ const destroyMutation = graphql`
               id
               dbid
               feed_id
-              saved_search_id
+              media_saved_search_id
+              article_saved_search_id
               feed {
                 name
               }
@@ -123,11 +135,18 @@ mutation SaveFeedUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {
   updateFeedTeam(input: $input) {
     feed_team {
       dbid
-      saved_search_id
-      saved_search {
+      media_saved_search_id
+      media_saved_search {
         is_part_of_feeds
       }
-      saved_search_was {
+      media_saved_search_was {
+        is_part_of_feeds
+      }
+      article_saved_search_id
+      article_saved_search {
+        is_part_of_feeds
+      }
+      article_saved_search_was {
         is_part_of_feeds
       }
     }
@@ -204,7 +223,8 @@ const SaveFeed = (props) => {
   const [formData, setFormData] = React.useState({
     title: (feed.name || ''),
     description: (feed.description || ''),
-    selectedListId: (isFeedOwner ? feed.saved_search_id : feedTeam.saved_search_id),
+    selectedMediaClaimRequestsListId: (isFeedOwner ? feed.media_saved_search_id : feedTeam.media_saved_search_id),
+    selectedArticlesListId: (isFeedOwner ? feed.article_saved_search_id : feedTeam.article_saved_search_id),
     newInvites: [],
     invitesToDelete: [],
     collaboratorsToRemove: [],
@@ -330,7 +350,8 @@ const SaveFeed = (props) => {
     const input = {
       name: formData.title,
       description: formData.description,
-      saved_search_id: formData.selectedListId,
+      media_saved_search_id: formData.selectedMediaClaimRequestsListId,
+      article_saved_search_id: formData.selectedArticlesListId,
       licenses,
       dataPoints: formData.dataPoints,
       published: true,
@@ -353,7 +374,8 @@ const SaveFeed = (props) => {
     setSaving(true);
     const input = {
       id: feedTeam.id,
-      saved_search_id: formData.selectedListId,
+      media_saved_search_id: formData.selectedMediaClaimRequestsListId,
+      article_saved_search_id: formData.selectedArticlesListId,
     };
 
     commitMutation(Relay.Store, {
@@ -438,6 +460,14 @@ const SaveFeed = (props) => {
     />
   ) : feed.description;
 
+  const toggleDataPoint = (enabled, dataPoint) => {
+    const newDataPoints = formData.dataPoints.filter(x => x !== dataPoint);
+    if (enabled) {
+      newDataPoints.push(dataPoint);
+    }
+    handleSetDataPoints(newDataPoints);
+  };
+
   return (
     <PageTitle prefix={pageTitle} team={{ name: props.teamName }} >
       <div className={styles.saveFeedContainer}>
@@ -445,7 +475,7 @@ const SaveFeed = (props) => {
           { feed.id ?
             <div>
               <ButtonMain
-                disabled={!isFeedOwner && !feedTeam.saved_search_id}
+                disabled={!isFeedOwner && !feedTeam.media_saved_search_id}
                 label={
                   <FormattedMessage
                     defaultMessage="View Shared Feed"
@@ -545,21 +575,25 @@ const SaveFeed = (props) => {
           )}
 
           <div className={styles.saveFeedCard}>
-            <FeedDataPoints
-              dataPoints={formData.dataPoints}
+            <FeedDataPointsSectionHeader readOnly={Boolean(feed.id)} />
+            <FeedDataPointsSection
+              enabled={formData.dataPoints.includes(CheckFeedDataPoints.ARTICLES)}
+              listId={formData.selectedArticlesListId}
+              listType="article"
               readOnly={Boolean(feed.id)}
-              onChange={handleSetDataPoints}
+              onChange={e => handleFormUpdate('selectedArticlesListId', +e.target.value)}
+              onRemove={() => handleFormUpdate('selectedArticlesListId', null)}
+              onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.ARTICLES)}
             />
-
-            { formData.dataPoints.length > 0 ?
-              <FeedContent
-                dataPoints={formData.dataPoints}
-                listId={formData.selectedListId}
-                onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
-                onRemove={() => handleFormUpdate('selectedListId', null)}
-              />
-              : null
-            }
+            <FeedDataPointsSection
+              enabled={formData.dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS)}
+              listId={formData.selectedMediaClaimRequestsListId}
+              listType="media"
+              readOnly={Boolean(feed.id)}
+              onChange={e => handleFormUpdate('selectedMediaClaimRequestsListId', +e.target.value)}
+              onRemove={() => handleFormUpdate('selectedMediaClaimRequestsListId', null)}
+              onToggle={enabled => toggleDataPoint(enabled, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS)}
+            />
           </div>
 
         </div>
@@ -772,14 +806,16 @@ SaveFeed.defaultProps = {
 SaveFeed.propTypes = {
   feedTeam: PropTypes.shape({
     id: PropTypes.string,
-    saved_search_id: PropTypes.number.isRequired,
+    article_saved_search_id: PropTypes.number.isRequired,
+    media_saved_search_id: PropTypes.number.isRequired,
     team_id: PropTypes.number.isRequired,
     feed: PropTypes.shape({
       id: PropTypes.string,
       dbid: PropTypes.number,
       name: PropTypes.string,
       description: PropTypes.string,
-      saved_search_id: PropTypes.number,
+      article_saved_search_id: PropTypes.number,
+      media_saved_search_id: PropTypes.number,
       licenses: PropTypes.arrayOf(PropTypes.number),
       data_points: PropTypes.arrayOf(PropTypes.number),
     }),
@@ -794,7 +830,8 @@ export { SaveFeed };
 export default createFragmentContainer(SaveFeed, graphql`
   fragment SaveFeed_feedTeam on FeedTeam {
     id
-    saved_search_id
+    article_saved_search_id
+    media_saved_search_id
     team_id
     permissions
     team {
@@ -812,7 +849,8 @@ export default createFragmentContainer(SaveFeed, graphql`
         name
         slug
       }
-      saved_search_id
+      article_saved_search_id
+      media_saved_search_id
       data_points
       ...FeedCollaboration_feed
       ...FeedMetadata_feed

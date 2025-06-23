@@ -20,7 +20,7 @@ import CheckContext from '../../CheckContext';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 import ItemThumbnail from '../cds/media-cards/ItemThumbnail';
 import dialogStyles from '../../styles/css/dialog.module.css';
 import styles from './media.module.css';
@@ -42,11 +42,6 @@ class MediaActionsBarComponent extends Component {
 
   getContext() {
     return new CheckContext(this).getContextStore();
-  }
-
-  currentProject() {
-    const { project } = this.props.media;
-    return project;
   }
 
   fail(transaction) {
@@ -128,7 +123,6 @@ class MediaActionsBarComponent extends Component {
       new UpdateProjectMediaMutation({
         archived,
         check_search_team: this.props.media.team.search,
-        check_search_project: this.props.media.project ? this.props.media.project.search : null,
         check_search_trash: this.props.media.team.check_search_trash,
         check_search_spam: this.props.media.team.check_search_spam,
         media: this.props.media,
@@ -378,7 +372,6 @@ const ConnectedMediaActionsBarComponent =
 const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarComponent, {
   initialVariables: {
     contextId: null,
-    projectId: 0,
   },
   fragments: {
     media: () => Relay.QL`
@@ -388,7 +381,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         ${RestoreProjectMedia.getFragment('projectMedia')}
         ${MediaTags.getFragment('projectMedia')}
         dbid
-        project_id
         title
         demand
         description
@@ -403,13 +395,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           data
         }
         show_warning_cover
-        project {
-          id
-          dbid
-          title
-          search_id
-          search { id, number_of_results }
-        }
         media {
           type
           url

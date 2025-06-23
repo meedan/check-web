@@ -7,8 +7,10 @@ import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaSlug from './MediaSlug';
 import MediaOrigin from './MediaOrigin';
 import ExternalLink from '../ExternalLink';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
+import CheckPropTypes from '../../CheckPropTypes';
 import RequestsCount from '../cds/media-cards/RequestsCount';
 import styles from './MediaCardLarge.module.css';
 
@@ -57,8 +59,8 @@ const MediaCardLargeFooter = ({
   }
 
   let footerBody = extractedText || transcription || null;
-  if (projectMedia.type === 'Link' && inModal) footerBody = data.description;
-  if (projectMedia.type === 'Claim' && inModal) footerBody = projectMedia.media.quote;
+  if (projectMedia.type === CheckMediaTypes.LINK && inModal) footerBody = data.description;
+  if (projectMedia.type === CheckMediaTypes.CLAIM && inModal) footerBody = projectMedia.media.quote;
 
   const transcriptionOrExtractedFooter = (
     <MediaCardLargeFooterContent
@@ -70,7 +72,7 @@ const MediaCardLargeFooter = ({
   return (
     <div className={styles['media-card-large-footer']}>
       { /* 1st MediaLargeFooterContent, exclusive for Link, always displays URL above MediaCardLargeActions */}
-      { projectMedia.type === 'Link' ?
+      { projectMedia.type === CheckMediaTypes.LINK ?
         <MediaCardLargeFooterContent
           body={<ExternalLink url={data.url} />}
           title={
@@ -133,7 +135,7 @@ const MediaCardLargeFooter = ({
         : null
       }
       <MediaCardLargeActions
-        bottomSeparator={inModal && footerBody && mediaType !== 'Claim'}
+        bottomSeparator={inModal && footerBody && mediaType !== CheckMediaTypes.CLAIM}
         inModal={inModal}
         projectMedia={projectMedia}
         onClickMore={onClickMore}
@@ -147,7 +149,7 @@ const MediaCardLargeFooter = ({
 MediaCardLargeFooter.propTypes = {
   data: PropTypes.object.isRequired,
   inModal: PropTypes.bool.isRequired,
-  mediaType: PropTypes.string.isRequired,
+  mediaType: CheckPropTypes.mediaType.isRequired,
   projectMedia: PropTypes.object.isRequired,
   onClickMore: PropTypes.func,
 };

@@ -15,7 +15,7 @@ import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
 import { urlFromSearchQuery } from '../search/Search';
 import Tasks from '../task/Tasks';
-import CheckError from '../../CheckError';
+import CheckError from '../../constants/CheckError';
 import {
   getErrorMessage,
   getErrorMessageForRelayModernProblem,

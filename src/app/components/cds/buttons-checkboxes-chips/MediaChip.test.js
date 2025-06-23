@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import MediaChip from './MediaChip';
+import CheckMediaTypes from '../../../constants/CheckMediaTypes';
 
 describe('<MediaChip />', () => {
   it('should display short url', () => {
@@ -32,6 +33,6 @@ describe('<MediaChip />', () => {
       url="https://qa-assets.checkmedia.org/foobar"
     />);
 
-    expect(wrapper.find('MediaTypeDisplayIcon').props().mediaType).toEqual('UploadedImage');
+    expect(wrapper.find('MediaTypeDisplayIcon').props().mediaType).toEqual(CheckMediaTypes.UPLOADED_IMAGE);
   });
 });

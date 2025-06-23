@@ -129,7 +129,7 @@ module ApiHelpers
     data = api_create_team_and_bot
     count.times do |i|
       request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid }
-      sleep 1
+      sleep 3
     end
     sleep 2
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"

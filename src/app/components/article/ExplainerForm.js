@@ -8,6 +8,7 @@ import ArticleForm from './ArticleForm';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 
 const addMutation = graphql`
   mutation ExplainerFormCreateExplainerItemMutation($input: CreateExplainerItemInput!) {
@@ -175,7 +176,7 @@ const ExplainerForm = ({
   return (
     <ArticleForm
       article={article}
-      articleType="explainer"
+      articleType={CheckArticleTypes.EXPLAINER}
       error={error}
       handleBlur={handleBlur}
       handleSave={handleSave}

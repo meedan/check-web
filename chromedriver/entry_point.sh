@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 echo 'Starting Nginx...'
-service nginx restart
+service nginx start
+service nginx status
 echo 'Starting regular Chromedriver entry point...'
-/opt/bin/entry_point.sh
+exec /opt/bin/entry_point.sh

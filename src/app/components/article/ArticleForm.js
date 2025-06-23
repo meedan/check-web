@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
 import ArticleTrash from './ArticleTrash.js';
+import CheckArticleTypes from '../../constants/CheckArticleTypes.js';
 import TagList from '../cds/menus-lists-dialogs/TagList.js';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Slideout from '../cds/slideout/Slideout';
@@ -15,6 +16,7 @@ import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import inputStyles from '../../styles/css/inputs.module.css';
+import CheckPropTypes from '../../CheckPropTypes';
 import { safelyParseJSON, truncateLength, isFactCheckValueBlank } from '../../helpers';
 import RatingSelector from '../cds/inputs/RatingSelector';
 import Alert from '../cds/alerts-and-prompts/Alert.js';
@@ -34,10 +36,10 @@ const ArticleForm = ({
 }) => {
   const title = (
     <>
-      {articleType === 'explainer' && mode === 'create' && <FormattedMessage defaultMessage="Create Explainer Article" description="Title for the slideout create explainer form" id="article-form-explainer-create-title" />}
-      {articleType === 'explainer' && mode === 'edit' && <FormattedMessage defaultMessage="Edit Explainer Article" description="Title for the slideout edit explainer form" id="article-form-explainer-edit-title" />}
-      {articleType === 'fact-check' && mode === 'create' && <FormattedMessage defaultMessage="Create New Claim & Fact-Check Article" description="Title for the slideout create fact-check form" id="article-form-fact-check-create-title" />}
-      {articleType === 'fact-check' && mode === 'edit' && <FormattedMessage defaultMessage="Edit Claim & Fact-Check Article" description="Title for the slideout edit fact-check form" id="article-form-fact-check-edit-title" />}
+      {articleType === CheckArticleTypes.EXPLAINER && mode === 'create' && <FormattedMessage defaultMessage="Create Explainer Article" description="Title for the slideout create explainer form" id="article-form-explainer-create-title" />}
+      {articleType === CheckArticleTypes.EXPLAINER && mode === 'edit' && <FormattedMessage defaultMessage="Edit Explainer Article" description="Title for the slideout edit explainer form" id="article-form-explainer-edit-title" />}
+      {articleType === CheckArticleTypes.FACT_CHECK && mode === 'create' && <FormattedMessage defaultMessage="Create New Claim & Fact-Check Article" description="Title for the slideout create fact-check form" id="article-form-fact-check-create-title" />}
+      {articleType === CheckArticleTypes.FACT_CHECK && mode === 'edit' && <FormattedMessage defaultMessage="Edit Claim & Fact-Check Article" description="Title for the slideout edit fact-check form" id="article-form-fact-check-edit-title" />}
     </>
   );
 
@@ -67,9 +69,9 @@ const ArticleForm = ({
   const readOnly = isPublished;
   const publishedAt = isPublished ? article.updated_at : null;
   const isStatusLocked = article.claim_description?.project_media?.last_status_obj?.locked || false;
-  const factCheckFieldsMissing = (articleType === 'fact-check' && (isFactCheckValueBlank(articleTitle) || isFactCheckValueBlank(summary) || !language));
+  const factCheckFieldsMissing = (articleType === CheckArticleTypes.FACT_CHECK && (isFactCheckValueBlank(articleTitle) || isFactCheckValueBlank(summary) || !language));
 
-  const maxCount = articleType === 'explainer' ? 4096 : 900;
+  const maxCount = articleType === CheckArticleTypes.EXPLAINER ? 4096 : 900;
   const [charCount, setCharCount] = React.useState(summary.length + url.length + articleTitle.length);
   const [charCountError, setCharCountError] = React.useState(charCount > maxCount);
   const maxCountErrorMessage = <FormattedMessage defaultMessage="Character Limit Reached" description="Error message for when the character limit is reached" id="articleForm.characterLimitReached" />;
@@ -79,16 +81,16 @@ const ArticleForm = ({
   }, [language]);
 
   useEffect(() => {
-    if (articleType === 'explainer' && articleTitle?.length && summary?.length && language?.length) {
+    if (articleType === CheckArticleTypes.EXPLAINER && articleTitle?.length && summary?.length && language?.length) {
       setIsValid(true);
-    } else if (articleType === 'fact-check' && claimDescription) {
+    } else if (articleType === CheckArticleTypes.FACT_CHECK && claimDescription) {
       setIsValid(true);
     } else {
       setIsValid(false);
     }
-    if (articleType === 'fact-check' && claimDescription && articleTitle && summary && language) {
+    if (articleType === CheckArticleTypes.FACT_CHECK && claimDescription && articleTitle && summary && language) {
       setCanPublish(true);
-    } else if (articleType === 'fact-check') {
+    } else if (articleType === CheckArticleTypes.FACT_CHECK) {
       setCanPublish(false);
     }
   }, [articleTitle, summary, claimDescription, language]);
@@ -149,7 +151,7 @@ const ArticleForm = ({
     />
   ) : secondaryActionButtonLabelFactCheck;
 
-  const mainActionButtonLabel = articleType === 'explainer' ? mainActionButtonLabelExplainer : mainActionButtonLabelFactCheck;
+  const mainActionButtonLabel = articleType === CheckArticleTypes.EXPLAINER ? mainActionButtonLabelExplainer : mainActionButtonLabelFactCheck;
 
   return (
     <Slideout
@@ -177,7 +179,7 @@ const ArticleForm = ({
                       />
                     </div>
                   }
-                  { publishedAt && articleType === 'fact-check' &&
+                  { publishedAt && articleType === CheckArticleTypes.FACT_CHECK &&
                     <div className="typography-subtitle2">
                       <FormattedMessage
                         defaultMessage="Last Published:"
@@ -186,7 +188,7 @@ const ArticleForm = ({
                       />
                     </div>
                   }
-                  { articleType === 'fact-check' && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' &&
+                  { articleType === CheckArticleTypes.FACT_CHECK && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' &&
                     <div className="typography-subtitle2">
                       <FormattedMessage
                         defaultMessage="Media Cluster:"
@@ -212,12 +214,12 @@ const ArticleForm = ({
                       {article.user.name}, <FormattedDate day="numeric" hour="numeric" minute="numeric" month="long" value={new Date(article.updated_at * 1000)} year="numeric" />
                     </div>
                   }
-                  { publishedAt && articleType === 'fact-check' &&
+                  { publishedAt && articleType === CheckArticleTypes.FACT_CHECK &&
                     <div className="typography-body2">
                       <FormattedDate day="numeric" month="long" value={new Date(publishedAt * 1000)} year="numeric" />
                     </div>
                   }
-                  { articleType === 'fact-check' && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' &&
+                  { articleType === CheckArticleTypes.FACT_CHECK && article.claim_description?.project_media && article.claim_description?.project_media?.type !== 'Blank' &&
                     <div className="typography-body2">
                       <ExternalLink maxUrlLength={50} title={article.claim_description?.project_media.title} url={article.claim_description?.project_media.full_url} />
                     </div>
@@ -227,7 +229,7 @@ const ArticleForm = ({
             }
             <div className={inputStyles['form-inner-wrapper']}>
               <div className={styles['article-rating-wrapper']}>
-                { articleType === 'fact-check' && statuses &&
+                { articleType === CheckArticleTypes.FACT_CHECK && statuses &&
                   <RatingSelector
                     disabled={isPublished || isStatusLocked}
                     status={status}
@@ -235,7 +237,7 @@ const ArticleForm = ({
                     onStatusChange={handleStatusChange}
                   />
                 }
-                { articleType === 'fact-check' &&
+                { articleType === CheckArticleTypes.FACT_CHECK &&
                   <div className={inputStyles['form-fieldset-field']}>
                     <Tooltip
                       arrow
@@ -285,7 +287,7 @@ const ArticleForm = ({
               </div>
             </div>
           </div>
-          { articleType === 'fact-check' &&
+          { articleType === CheckArticleTypes.FACT_CHECK &&
             <div className={styles['article-form-container']}>
               <div className={inputStyles['form-inner-wrapper']}>
                 <div className={inputStyles['form-fieldset']} id="article-form">
@@ -364,7 +366,7 @@ const ArticleForm = ({
             </div>
           }
           <div className={styles['article-form-container']}>
-            { claimDescriptionMissing && articleType === 'fact-check' ?
+            { claimDescriptionMissing && articleType === CheckArticleTypes.FACT_CHECK ?
               <div className={styles['article-form-no-claim-container']}>
                 <FormattedHTMLMessage
                   defaultMessage="Start by adding Claim information<br />for this Fact-Check"
@@ -376,12 +378,12 @@ const ArticleForm = ({
             }
             <div className={inputStyles['form-inner-wrapper']}>
               <div className={inputStyles['form-fieldset']} id="article-form">
-                { articleType === 'fact-check' &&
+                { articleType === CheckArticleTypes.FACT_CHECK &&
                   <div className={inputStyles['form-fieldset-title']} id="media__fact-check-title">
                     <FormattedMessage defaultMessage="Fact-check" description="Title of the media fact-check section." id="mediaFactCheck.factCheck" />
                   </div>
                 }
-                { articleType === 'fact-check' && isPublished && (
+                { articleType === CheckArticleTypes.FACT_CHECK && isPublished && (
                   <Alert
                     border
                     buttonLabel={<FormattedMessage defaultMessage="Update Report" description="Label of alert button in article form." id="articleForm.reportPublishedLabel" />}
@@ -396,7 +398,7 @@ const ArticleForm = ({
                 )}
                 <div className={inputStyles['form-inner-wrapper']}>
                   <div className={inputStyles['form-fieldset-field']}>
-                    { articleType === 'explainer' ?
+                    { articleType === CheckArticleTypes.EXPLAINER ?
                       <FormattedMessage
                         defaultMessage="A descriptive title for this explainer article"
                         description="Placeholder instructions for article title field"
@@ -462,7 +464,7 @@ const ArticleForm = ({
                       </FormattedMessage>}
                   </div>
                   <div className={inputStyles['form-fieldset-field']}>
-                    {articleType === 'explainer' ?
+                    {articleType === CheckArticleTypes.EXPLAINER ?
                       <FormattedMessage
                         defaultMessage="Briefly contextualize the narrative of this explainer"
                         description="Placeholder instructions for explainer summary field"
@@ -534,7 +536,7 @@ const ArticleForm = ({
                     }
                   </div>
                   <div className={inputStyles['form-fieldset-field']}>
-                    {articleType === 'explainer' ?
+                    {articleType === CheckArticleTypes.EXPLAINER ?
                       <FormattedMessage
                         defaultMessage="Add a URL to this explainer article"
                         description="Placeholder instructions for URL field"
@@ -646,7 +648,7 @@ const ArticleForm = ({
           onClose={onClose}
         />
       )}
-      secondaryActionButton={(articleType === 'fact-check') && createAndPublish ? (
+      secondaryActionButton={(articleType === CheckArticleTypes.FACT_CHECK) && createAndPublish ? (
         <ButtonMain
           buttonProps={{ id: 'article-form__save-unpublished-button' }}
           disabled={!isValid || saving}
@@ -672,7 +674,7 @@ ArticleForm.defaultProps = {
 
 ArticleForm.propTypes = {
   article: PropTypes.object,
-  articleType: PropTypes.oneOf(['fact-check', 'explainer']).isRequired,
+  articleType: CheckPropTypes.articleType.isRequired,
   createFromMediaPage: PropTypes.bool,
   handleBlur: PropTypes.func.isRequired,
   handleSave: PropTypes.func,

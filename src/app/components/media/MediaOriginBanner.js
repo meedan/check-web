@@ -8,7 +8,7 @@ import PersonCheck from '../../icons/person_check.svg';
 import Bolt from '../../icons/bolt.svg';
 import Tipline from '../../icons/question_answer.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import CheckMediaOrigin from '../../CheckMediaOrigin';
+import CheckMediaOrigin from '../../constants/CheckMediaOrigin';
 import { parseStringUnixTimestamp } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 import dialogStyles from '../../styles/css/dialog.module.css';

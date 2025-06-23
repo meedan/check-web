@@ -6,7 +6,7 @@ import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-i
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ListSort, { sortLabels } from '../cds/inputs/ListSort';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import AddFilterMenu from '../search/AddFilterMenu';
@@ -15,6 +15,7 @@ import DateRangeFilter from '../search/DateRangeFilter';
 import MultiSelectFilter from '../search/MultiSelectFilter';
 import SearchFieldChannel from '../search/SearchFields/SearchFieldChannel';
 import { withSetFlashMessage } from '../FlashMessage';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import searchStyles from '../search/search.module.css';
 
 const messages = defineMessages({
@@ -166,7 +167,7 @@ const FeedFilters = ({
     { value: 'media_count', label: intl.formatMessage(sortLabels.sortMediaCount) },
     { value: 'last_request_date', label: intl.formatMessage(sortLabels.sortUpdated) },
   ];
-  if (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)) {
+  if (feed.data_points?.includes(CheckFeedDataPoints.ARTICLES)) {
     sortOptions.push({ value: 'fact_checks_count', label: intl.formatMessage(sortLabels.sortFactChecksCount) });
   }
 
@@ -259,11 +260,11 @@ const FeedFilters = ({
                 icon={<DescriptionIcon />}
                 label={<FormattedMessage defaultMessage="Media (type)" description="Field label for feed filter" id="feedFilters.mediaType" />}
                 options={[
-                  { value: 'UploadedAudio', label: intl.formatMessage(messages.mediaTypeAudio) },
-                  { value: 'UploadedImage', label: intl.formatMessage(messages.mediaTypeImage) },
-                  { value: 'UploadedVideo', label: intl.formatMessage(messages.mediaTypeVideo) },
-                  { value: 'Claim', label: intl.formatMessage(messages.mediaTypeText) },
-                  { value: 'Link', label: intl.formatMessage(messages.mediaTypeLink) },
+                  { value: CheckMediaTypes.UPLOADED_AUDIO, label: intl.formatMessage(messages.mediaTypeAudio) },
+                  { value: CheckMediaTypes.UPLOADED_IMAGE, label: intl.formatMessage(messages.mediaTypeImage) },
+                  { value: CheckMediaTypes.UPLOADED_VIDEO, label: intl.formatMessage(messages.mediaTypeVideo) },
+                  { value: CheckMediaTypes.CLAIM, label: intl.formatMessage(messages.mediaTypeText) },
+                  { value: CheckMediaTypes.LINK, label: intl.formatMessage(messages.mediaTypeLink) },
                 ]}
                 selected={value || []}
                 onChange={newValue => handleOptionChange('show', newValue)}

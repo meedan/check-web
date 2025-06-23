@@ -15,9 +15,24 @@
     "defaultMessage": "Your workspace needs a Custom Filtered List to contribute."
   },
   {
-    "id": "saveFeed.noListSelected",
-    "description": "Warning displayed on edit feed page when no list is selected.",
-    "defaultMessage": "Your workspace is not contributing to this shared feed. Select a list below to contribute."
+    "id": "saveFeed.noArticleListDescription",
+    "description": "Content of a warning displayed on edit feed page when no articles list is selected.",
+    "defaultMessage": "Select a custom filtered list of <strong>articles</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+  },
+  {
+    "id": "saveFeed.noArticlediaListSelected",
+    "description": "Warning displayed on edit feed page when no articles list is selected.",
+    "defaultMessage": "Your workspace is not contributing Articles."
+  },
+  {
+    "id": "saveFeed.noMediaListDescription",
+    "description": "Content of a warning displayed on edit feed page when no media list is selected.",
+    "defaultMessage": "Select a custom filtered list of <strong>media clusters</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+  },
+  {
+    "id": "saveFeed.noMediaListSelected",
+    "description": "Warning displayed on edit feed page when no media list is selected.",
+    "defaultMessage": "Your workspace is not contributing Media Clusters."
   },
   {
     "id": "selectList.select",

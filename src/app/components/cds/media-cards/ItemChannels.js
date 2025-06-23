@@ -10,7 +10,7 @@ import ViberIcon from '../../../icons/viber.svg';
 import LineIcon from '../../../icons/line.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
-import CheckChannels, { humanTiplineNames } from '../../../CheckChannels';
+import CheckChannels, { humanTiplineNames } from '../../../constants/CheckChannels';
 import CheckPropTypes from '../../../CheckPropTypes';
 import socialStyles from '../../../styles/css/socials.module.css';
 import styles from './Card.module.css';

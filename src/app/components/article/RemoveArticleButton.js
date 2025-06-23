@@ -11,6 +11,8 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
+import CheckPropTypes from '../../CheckPropTypes';
 
 
 const removeExplainerItemMutation = graphql`
@@ -101,7 +103,7 @@ const RemoveArticleButton = ({
       let input = null;
       let mutation = null;
       let configs = null;
-      if (variant === 'explainer') {
+      if (variant === CheckArticleTypes.EXPLAINER) {
         mutation = removeExplainerItemMutation;
         input = {
           id,
@@ -112,7 +114,7 @@ const RemoveArticleButton = ({
             deletedIDFieldName: 'deletedId',
           },
         ];
-      } else if (variant === 'fact-check') {
+      } else if (variant === CheckArticleTypes.FACT_CHECK) {
         mutation = removeClaimDescriptionMutation;
         input = {
           id,
@@ -197,7 +199,7 @@ RemoveArticleButton.defaultProps = {
 };
 
 RemoveArticleButton.propTypes = {
-  variant: PropTypes.oneOf(['explainer', 'fact-check']).isRequired,
+  variant: CheckPropTypes.articleType.isRequired,
   id: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   onRemove: PropTypes.func,

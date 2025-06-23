@@ -20,59 +20,54 @@
     "defaultMessage": "This shared feed already contains data from other collaborators."
   },
   {
-    "id": "feedDataPoints.factChecksContentTitle",
+    "id": "feedDataPoints.ArticleContentTitle",
     "description": "Title of the content section on save feed page where a user can select that fact-checks will be shared in this feed.",
-    "defaultMessage": "<strong>Published Claim & Fact-Check</strong> data to be shared:"
+    "defaultMessage": "<strong>Article</strong> data to be shared:"
   },
   {
-    "id": "feedDataPoints.feedDataPointClaim",
+    "id": "feedDataPoints.feedDataPointArticleTitle",
     "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
-    "defaultMessage": "Claim"
+    "defaultMessage": "Title"
   },
   {
-    "id": "feedDataPoints.feedDataPointTitle",
-    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
-    "defaultMessage": "Fact-Check title"
-  },
-  {
-    "id": "feedDataPoints.feedDataPointDescription",
-    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
-    "defaultMessage": "Fact-Check description"
-  },
-  {
-    "id": "feedDataPoints.feedDataPointDataPublished",
-    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
-    "defaultMessage": "Date published"
-  },
-  {
-    "id": "feedDataPoints.feedDataPointLanguage",
-    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
-    "defaultMessage": "Language"
-  },
-  {
-    "id": "feedDataPoints.feedDataPointRating",
-    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
-    "defaultMessage": "Rating"
+    "id": "feedDataPoints.feedDataPointArticleSummary",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Summary"
   },
   {
     "id": "feedDataPoints.feedDataPointArticleUrl",
     "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
-    "defaultMessage": "Article URL"
+    "defaultMessage": "URL"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointArticleLanguage",
+    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointClaim",
+    "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
+    "defaultMessage": "Claim*"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointRating",
+    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
+    "defaultMessage": "Rating*"
+  },
+  {
+    "id": "feedDataPoints.feedDataPointDataPublished",
+    "description": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks.",
+    "defaultMessage": "Date published*"
   },
   {
     "id": "feedDataPoints.factChecksContentFooter",
     "description": "Footer of section on save feed page where a user can select that claim & fact-checks will be shared in this feed.",
-    "defaultMessage": "Learn more about {factCheckDataArticleLink}."
-  },
-  {
-    "id": "feedDataPoints.factCheckDataArticleLink",
-    "description": "Text of the link to an article that explains fact-check data. This link is displayed on the fact-check data points section on the save feed page.",
-    "defaultMessage": "claim & fact-check data"
+    "defaultMessage": "*If article shared is a claim & fact-check"
   },
   {
     "id": "feedDataPoints.factChecksTitle",
     "description": "Title of section on save feed page where a user can select that fact-checks will be shared in this feed.",
-    "defaultMessage": "Published Claim & Fact-Checks"
+    "defaultMessage": "Articles"
   },
   {
     "id": "feedDataPoints.mediaContentTitle",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { MediaActionsMenuButton } from './MediaActionsMenuButton';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 
 describe('<MediaActionsMenuButton />', () => {
   const props = {

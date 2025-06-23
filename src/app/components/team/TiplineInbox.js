@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
-import CheckChannels from '../../CheckChannels';
+import CheckChannels from '../../constants/CheckChannels';
 import InboxIcon from '../../icons/inbox.svg';
 
 const defaultQuery = {

@@ -7,7 +7,7 @@ import cx from 'classnames/bind';
 import FeedTeamFactCheckCard from './FeedTeamFactCheckCard';
 import Card from '../cds/media-cards/Card';
 import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
-import CheckFeedDataPoints from '../../CheckFeedDataPoints';
+import CheckFeedDataPoints from '../../constants/CheckFeedDataPoints';
 import TeamAvatar from '../team/TeamAvatar';
 import styles from './FeedItem.module.css';
 
@@ -19,7 +19,7 @@ const FeedTeamCard = ({
   team,
 }) => {
   const factChecks = clusterTeam.fact_checks || { edges: [] };
-  const isSharingFactChecks = (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS));
+  const isSharingFactChecks = (feed.data_points?.includes(CheckFeedDataPoints.ARTICLES));
   const expanded = (isSharingFactChecks && selected);
 
   const handleClick = () => {

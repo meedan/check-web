@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Articles from './Articles';
 import FactCheckIcon from '../../icons/fact_check.svg';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 
 const FactChecks = ({ routeParams }) => (
   <Articles
-    defaultFilters={{ article_type: 'fact-check' }}
+    defaultFilters={{ article_type: CheckArticleTypes.FACT_CHECK }}
     filterOptions={['users', 'tags', 'range', 'language_filter', 'published_by', 'report_status', 'verification_status', 'channels']}
     icon={<FactCheckIcon />}
     pageName="fact-checks"

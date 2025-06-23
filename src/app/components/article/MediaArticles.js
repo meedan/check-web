@@ -17,6 +17,7 @@ import Loader from '../cds/loading/Loader';
 import { getErrorMessage } from '../../helpers';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import DescriptionIcon from '../../icons/description.svg';
+import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import styles from './Articles.module.css';
 import mediaStyles from '../media/media.module.css';
 
@@ -152,14 +153,14 @@ const MediaArticlesComponent = ({
     <div className={cx(mediaStyles['media-articles'], styles.articlesSidebar)} id="articles-sidebar">
       <div className={styles.articlesSidebarTopBar}>
         <ChooseExistingArticleButton
-          disabled={projectMedia.type === 'Blank'}
+          disabled={projectMedia.type === CheckMediaTypes.BLANK}
           projectMediaDbid={projectMedia.dbid}
           teamSlug={team.slug}
           onAdd={handleConfirmAdd}
         />
         <NewArticleButton
           buttonMainProps={{ size: 'small', theme: 'text' }}
-          disabled={projectMedia.type === 'Blank'}
+          disabled={projectMedia.type === CheckMediaTypes.BLANK}
           projectMedia={projectMedia}
           team={team}
           onCreate={(response) => {

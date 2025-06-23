@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Select from '../cds/inputs/Select';
-import { humanTiplineNames } from '../../CheckChannels';
+import { humanTiplineNames } from '../../constants/CheckChannels';
 import ShareIcon from '../../icons/share.svg';
 
 const PlatformSelect = ({

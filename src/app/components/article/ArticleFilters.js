@@ -16,6 +16,7 @@ import HowToRegIcon from '../../icons/person_check.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import LabelIcon from '../../icons/label.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
+import CheckArticleTypes from '../../constants/CheckArticleTypes';
 import searchStyles from '../search/search.module.css';
 
 const messages = defineMessages({
@@ -173,8 +174,8 @@ const ArticleFilters = ({
                   icon={<DescriptionIcon />}
                   label={<FormattedMessage defaultMessage="Article type is" description="Prefix label for field to filter by article type." id="articleFilters.articleType" />}
                   options={[
-                    { value: 'explainer', label: intl.formatMessage(messages.explainer) },
-                    { value: 'fact-check', label: intl.formatMessage(messages.factCheck) },
+                    { value: CheckArticleTypes.EXPLAINER, label: intl.formatMessage(messages.explainer) },
+                    { value: CheckArticleTypes.FACT_CHECK, label: intl.formatMessage(messages.factCheck) },
                   ]}
                   readOnly={articleTypeReadOnly}
                   selected={value || []}

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "checkFeedLicenses.licenseNameAcademic",
+    "description": "Feed license",
+    "defaultMessage": "Academic"
+  },
+  {
+    "id": "checkFeedLicenses.licenseNameCommercial",
+    "description": "Feed license",
+    "defaultMessage": "Commercial"
+  },
+  {
+    "id": "checkFeedLicenses.licenseNameOpenSource",
+    "description": "Feed license",
+    "defaultMessage": "Open Source"
+  }
+]

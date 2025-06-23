@@ -62,4 +62,3 @@ else
   # docker-compose logs -f presto-audio &
   # docker-compose logs -f presto-video &
 fi
-

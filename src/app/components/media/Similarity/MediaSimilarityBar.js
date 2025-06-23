@@ -5,6 +5,7 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaSimilarityBarComponent from './MediaSimilarityBarComponent';
 import { can } from '../../Can';
+import CheckMediaTypes from '../../../constants/CheckMediaTypes';
 
 const MediaSimilarityBar = ({ projectMedia }) => {
   const ids = `${projectMedia.dbid}`;
@@ -35,7 +36,6 @@ const MediaSimilarityBar = ({ projectMedia }) => {
                   target {
                     id
                     dbid
-                    project_id
                     created_at
                     last_seen
                     title
@@ -67,7 +67,7 @@ const MediaSimilarityBar = ({ projectMedia }) => {
         if (props) {
           return (
             <MediaSimilarityBarComponent
-              canAdd={can(props.project_media.permissions, 'update ProjectMedia') && props.project_media.type !== 'Blank'}
+              canAdd={can(props.project_media.permissions, 'update ProjectMedia') && props.project_media.type !== CheckMediaTypes.BLANK}
               confirmedMainItemId={props.project_media.confirmedMainItem.id}
               confirmedSimilarCount={props.project_media.confirmedSimilarCount}
               hasMain={props.project_media.hasMain}

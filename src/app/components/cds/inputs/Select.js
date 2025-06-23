@@ -81,7 +81,7 @@ const Select = ({
             <ChevronDownIcon />
           </div>
         </div>
-        { onRemove ?
+        { onRemove && inputProps.value ?
           <Tooltip arrow title={<FormattedMessage defaultMessage="Undo selection" description="Tooltip for button on Select component to remove current selection" id="select.removeSelection" />}>
             <span>
               <ButtonMain
@@ -144,4 +144,3 @@ Select.propTypes = {
 };
 
 export default Select;
-

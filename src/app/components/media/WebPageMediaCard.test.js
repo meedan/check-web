@@ -1,7 +1,7 @@
 import React from 'react';
 import { WebPageMediaCard } from './WebPageMediaCard.js';
 import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 
 describe('<WebPageMediaCard />', () => {
   const webPageWithGoodPicture = {
