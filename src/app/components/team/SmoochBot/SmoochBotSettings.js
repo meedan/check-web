@@ -51,7 +51,7 @@ const SmoochBotSettings = (props) => {
               <FormattedMessage defaultMessage="Search settings" description="Title of Search settings section in the tipline settings page." id="smoochBotSettings.searchSettings" />
             </div>
             <div className={inputStyles['form-fieldset']}>
-              {['smooch_search_text_similarity_threshold', 'smooch_search_max_keyword'].map(field => (
+              {['smooch_search_text_similarity_threshold', 'smooch_search_max_keyword', 'smooch_skip_search'].map(field => (
                 <SmoochBotSetting
                   currentUser={props.currentUser}
                   field={field}
