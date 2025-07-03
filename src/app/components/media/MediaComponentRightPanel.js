@@ -53,6 +53,7 @@ const MediaComponentRightPanel = ({
   const showArticles = !isSecondary;
   const showSources = !isSecondary;
   const showAnnotations = !isSecondary;
+  const requests = isSecondary ? projectMedia.requests_count : projectMedia.demand;
 
   return (
     <ErrorBoundary component="MediaComponentRightPanel">
@@ -73,7 +74,7 @@ const MediaComponentRightPanel = ({
               show: showRequests,
               value: 'requests',
               className: 'media-tab__requests',
-              extraLabel: projectMedia.demand > 0 ? ` [${projectMedia.demand}]` : '',
+              extraLabel: requests > 0 ? ` [${requests}]` : '',
             },
             {
               label: intl.formatMessage(tabLabels.suggestedMedia),
