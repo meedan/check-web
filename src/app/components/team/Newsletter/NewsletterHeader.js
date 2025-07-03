@@ -13,11 +13,6 @@ const messages = defineMessages({
     defaultMessage: 'None',
     description: 'One of the options for a newsletter header type',
   },
-  headerTypeLinkPreview: {
-    id: 'newsletterHeader.headerTypeLinkPreview',
-    defaultMessage: 'Link preview (requires a verified account on WhatsApp)',
-    description: 'One of the options for a newsletter header type',
-  },
   headerTypeImage: {
     id: 'newsletterHeader.headerTypeImage',
     defaultMessage: 'Image',
@@ -37,7 +32,6 @@ const messages = defineMessages({
 
 const headerTypes = {
   none: messages.headerTypeNone,
-  link_preview: messages.headerTypeLinkPreview,
   image: messages.headerTypeImage,
   video: messages.headerTypeVideo,
   audio: messages.headerTypeAudio,
@@ -137,7 +131,7 @@ NewsletterHeader.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.bool,
   fileName: PropTypes.string,
-  headerType: PropTypes.oneOf(['', 'none', 'link_preview', 'image', 'video', 'audio']),
+  headerType: PropTypes.oneOf(['', 'none', 'image', 'video', 'audio']),
   intl: intlShape.isRequired,
   overlayText: PropTypes.string,
   setFile: PropTypes.func.isRequired,

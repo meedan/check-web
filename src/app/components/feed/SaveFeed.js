@@ -372,6 +372,7 @@ const SaveFeed = (props) => {
 
   const handleSaveFeedTeam = () => {
     setSaving(true);
+    setIsEditing(false);
     const input = {
       id: feedTeam.id,
       media_saved_search_id: formData.selectedMediaClaimRequestsListId,
