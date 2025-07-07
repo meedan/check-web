@@ -1,58 +1,19 @@
 /* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
 import Loader from '../cds/loading/Loader';
-import { withPusher, pusherShape } from '../../pusher';
+import { withPusher } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import Annotations from '../annotations/Annotations';
 import TiplineRequest from '../annotations/TiplineRequest';
 import styles from './media.module.css';
 
 class MediaRequestsComponent extends Component {
-  componentDidMount() {
-    this.subscribe();
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.media.dbid !== nextProps.media.dbid) {
-      this.unsubscribe();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.media.dbid !== prevProps.media.dbid) {
-      this.subscribe();
-    }
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  subscribe() {
-    const { clientSessionId, media, pusher } = this.props;
-    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaRequests', (data, run) => {
-      const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `media-requests-${media.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
-  }
-
-  unsubscribe() {
-    const { media, pusher } = this.props;
-    pusher.unsubscribe(media.pusher_channel);
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
   render() {
@@ -92,11 +53,6 @@ class MediaRequestsComponent extends Component {
     );
   }
 }
-
-MediaRequestsComponent.propTypes = {
-  pusher: pusherShape.isRequired,
-  clientSessionId: PropTypes.string.isRequired,
-};
 
 const pageSize = 10;
 

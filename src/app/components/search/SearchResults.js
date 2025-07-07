@@ -9,7 +9,7 @@ import SearchFields from './SearchFields';
 import SelectAllCheckbox from './SelectAllCheckbox';
 import SearchResultsCards from './SearchResultsCards';
 import ClusterCard from './SearchResultsCards/ClusterCard';
-import { withPusher, pusherShape } from '../../pusher';
+import { withPusher } from '../../pusher';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
@@ -43,7 +43,6 @@ function simplifyQuery(query) {
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 function SearchResultsComponent({
-  clientSessionId,
   defaultQuery,
   extra,
   feed,
@@ -54,10 +53,8 @@ function SearchResultsComponent({
   listSubtitle,
   mediaUrlPrefix,
   page,
-  pusher,
   query: appliedQuery,
   readOnlyFields,
-  relay,
   resultType,
   savedSearch,
   search,
@@ -65,7 +62,6 @@ function SearchResultsComponent({
   showExpand,
   title,
 }) {
-  let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
   const [tooManyResults, setTooManyResults] = React.useState(false);
   const [stateQuery, setStateQuery] = React.useState(appliedQuery);
@@ -77,49 +73,6 @@ function SearchResultsComponent({
   const getBeginIndex = () => parseInt(stateQuery.esoffset /* may be invalid */, 10) || 0;
 
   const getEndIndex = () => getBeginIndex() + search.medias.edges.length;
-
-  const unsubscribe = () => {
-    if (pusherChannel) {
-      pusher.unsubscribe(pusherChannel);
-      pusherChannel = null;
-    }
-  };
-
-  const resubscribe = () => {
-    if (pusherChannel !== search.pusher_channel) {
-      unsubscribe();
-    }
-
-    if (search.pusher_channel) {
-      const channel = search.pusher_channel;
-      pusherChannel = channel;
-
-      pusher.subscribe(channel).bind('bulk_update_end', 'Search', (data, run) => {
-        if (run) {
-          relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `search-${channel}`,
-          callback: relay.forceFetch,
-        };
-      });
-
-      pusher.subscribe(channel).bind('media_updated', 'Search', (data, run) => {
-        if (clientSessionId !== data.actor_session_id) {
-          if (run) {
-            relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `search-${channel}`,
-            callback: relay.forceFetch,
-          };
-        }
-        return false;
-      });
-    }
-  };
 
   const handleChangeSelectedIds = (newSelectedProjectMediaIds) => {
     setSelectedProjectMediaIds(newSelectedProjectMediaIds);
@@ -283,14 +236,6 @@ function SearchResultsComponent({
       setTooManyResults(true);
     }
   };
-
-  React.useEffect(() => {
-    resubscribe();
-
-    return function cleanup() {
-      unsubscribe();
-    };
-  });
 
   const projectMedias = search.medias
     ? search.medias.edges.map(({ node }) => node)
@@ -615,7 +560,6 @@ SearchResultsComponent.defaultProps = {
 };
 
 SearchResultsComponent.propTypes = {
-  clientSessionId: PropTypes.string.isRequired,
   extra: PropTypes.func, // or null
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
@@ -633,10 +577,8 @@ SearchResultsComponent.propTypes = {
   listSubtitle: PropTypes.object,
   mediaUrlPrefix: PropTypes.string.isRequired,
   page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'published', 'list', 'feed', 'spam', 'trash', 'assigned-to-me']).isRequired, // FIXME Define listing types as a global constant
-  pusher: pusherShape.isRequired,
   query: PropTypes.object.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  relay: PropTypes.object.isRequired,
   resultType: PropTypes.string, // 'default' or 'feed', for now
   savedSearch: PropTypes.object, // or null
   search: PropTypes.shape({

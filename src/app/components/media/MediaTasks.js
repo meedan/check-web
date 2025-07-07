@@ -7,7 +7,7 @@ import Loader from '../cds/loading/Loader';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Task from '../task/Task';
 import Tasks from '../task/Tasks';
-import { withPusher, pusherShape } from '../../pusher';
+import { withPusher } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import styles from './media.module.css';
@@ -23,8 +23,6 @@ class MediaTasksComponent extends Component {
   }
 
   componentDidMount() {
-    this.subscribe();
-
     // This code only applies if this page is embedded in the browser extension
     if (window.parent !== window) {
       // Auto-resize the iframe
@@ -65,51 +63,12 @@ class MediaTasksComponent extends Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
-    if (this.props.media.dbid !== nextProps.media.dbid) {
-      this.unsubscribe();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.media.dbid !== prevProps.media.dbid) {
-      this.subscribe();
-    }
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   getSelectedTask() {
     return this.state.selectedTask;
   }
 
   getContext() {
     return new CheckContext(this).getContextStore();
-  }
-
-  subscribe() {
-    const { clientSessionId, media, pusher } = this.props;
-    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaTasks', (data, run) => {
-      const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `media-tasks-${media.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
-  }
-
-  unsubscribe() {
-    const { media, pusher } = this.props;
-    pusher.unsubscribe(media.pusher_channel);
   }
 
   render() {
@@ -126,11 +85,6 @@ class MediaTasksComponent extends Component {
 
 MediaTasksComponent.contextTypes = {
   store: PropTypes.object,
-};
-
-MediaTasksComponent.propTypes = {
-  pusher: pusherShape.isRequired,
-  clientSessionId: PropTypes.string.isRequired,
 };
 
 const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksComponent), {

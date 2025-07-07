@@ -18,7 +18,7 @@ import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import PageTitle from '../PageTitle';
-import { withPusher, pusherShape } from '../../pusher';
+import { withPusher } from '../../pusher';
 import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import RequestsCount from '../cds/media-cards/RequestsCount';
@@ -78,7 +78,6 @@ class MediaComponent extends Component {
   }
 
   componentDidMount() {
-    this.subscribe();
     if (!this.props.projectMedia.is_read && !this.getContext().currentUser.is_admin) {
       commitMutation(Store, {
         mutation: graphql`
@@ -113,48 +112,6 @@ class MediaComponent extends Component {
 
   getContext() {
     return new CheckContext(this).getContextStore();
-  }
-
-  subscribe() {
-    const { clientSessionId, projectMedia, pusher } = this.props;
-    pusher.subscribe(projectMedia.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
-      const relationship = JSON.parse(data.message);
-      if (
-        (!relationship.id || clientSessionId !== data.actor_session_id) &&
-        (relationship.source_id === projectMedia.dbid ||
-        relationship.target_id === projectMedia.dbid)
-      ) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `media-${projectMedia.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
-
-    pusher.subscribe(projectMedia.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
-      const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === projectMedia.dbid && clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `media-${projectMedia.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
-  }
-
-  unsubscribe() {
-    const { projectMedia, pusher } = this.props;
-    pusher.unsubscribe(projectMedia.pusher_channel);
   }
 
   render() {
@@ -261,13 +218,6 @@ class MediaComponent extends Component {
     );
   }
 }
-
-MediaComponent.propTypes = {
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  clientSessionId: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/no-typos
-  pusher: pusherShape.isRequired,
-};
 
 MediaComponent.contextTypes = {
   store: PropTypes.object,

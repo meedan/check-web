@@ -32,14 +32,6 @@ class SearchKeyword extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.subscribe();
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   onUploadSuccess = (data) => {
     const cleanQuery = this.props.cleanupQuery(this.props.query);
     cleanQuery.file_handle = data.searchUpload?.file_handle;
@@ -182,28 +174,6 @@ class SearchKeyword extends React.Component {
     this.props.handleSubmit(null, cleanQuery);
   };
 
-  subscribe() {
-    const { clientSessionId, pusher, team } = this.props;
-    pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'SearchKeyword', (data, run) => {
-      if (clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `team-${team.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
-  }
-
-  unsubscribe() {
-    const { pusher, team } = this.props;
-    pusher.unsubscribe(team.pusher_channel, 'tagtext_updated', 'SearchKeyword');
-  }
-
   handleUpload = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -318,7 +288,6 @@ SearchKeyword.propTypes = {
   showExpand: PropTypes.bool,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
-    pusher_channel: PropTypes.string.isRequired,
     verification_statuses: PropTypes.shape({
       statuses: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
@@ -343,7 +312,6 @@ export default createFragmentContainer((withPusher(SearchKeyword)), graphql`
     id
     dbid
     verification_statuses
-    pusher_channel
     name
   }
 `);
