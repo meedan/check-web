@@ -7,7 +7,6 @@ import Loader from '../cds/loading/Loader';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Task from '../task/Task';
 import Tasks from '../task/Tasks';
-import { withPusher } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import styles from './media.module.css';
@@ -87,7 +86,7 @@ MediaTasksComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
+const MediaMetadataContainer = Relay.createContainer(MediaTasksComponent, {
   fragments: {
     about: () => Relay.QL`
       fragment on About {

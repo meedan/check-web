@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import Loader from '../cds/loading/Loader';
-import { withPusher } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import Annotations from '../annotations/Annotations';
 
@@ -33,7 +32,7 @@ const eventTypes = [
   'create_factcheck', 'update_factcheck', 'create_assignment', 'destroy_assignment', 'create_explaineritem', 'destroy_explaineritem', 'replace_projectmedia',
 ];
 
-const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
+const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
   initialVariables: {
     pageSize,
     eventTypes,

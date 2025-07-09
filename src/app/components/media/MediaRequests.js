@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
 import Loader from '../cds/loading/Loader';
-import { withPusher } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import Annotations from '../annotations/Annotations';
 import TiplineRequest from '../annotations/TiplineRequest';
@@ -56,7 +55,7 @@ class MediaRequestsComponent extends Component {
 
 const pageSize = 10;
 
-const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
+const MediaAllRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
   initialVariables: {
     pageSize,
     teamSlug: null,
@@ -101,7 +100,7 @@ const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequests
   },
 });
 
-const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
+const MediaOwnRequestsContainer = Relay.createContainer(MediaRequestsComponent, {
   initialVariables: {
     pageSize,
     teamSlug: null,

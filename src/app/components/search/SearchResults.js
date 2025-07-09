@@ -9,7 +9,6 @@ import SearchFields from './SearchFields';
 import SelectAllCheckbox from './SelectAllCheckbox';
 import SearchResultsCards from './SearchResultsCards';
 import ClusterCard from './SearchResultsCards/ClusterCard';
-import { withPusher } from '../../pusher';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
@@ -593,7 +592,7 @@ SearchResultsComponent.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchResultsComponent as SearchResultsComponentTest };
 
-const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
+const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
   initialVariables: {
     pageSize,
   },

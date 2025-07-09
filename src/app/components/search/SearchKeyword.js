@@ -9,7 +9,6 @@ import SearchField from './SearchField';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Loader from '../cds/loading/Loader';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
 import AttachFileIcon from '../../icons/attach_file.svg';
@@ -282,7 +281,6 @@ SearchKeyword.propTypes = {
   cleanupQuery: PropTypes.func.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  pusher: pusherShape.isRequired,
   query: PropTypes.object.isRequired,
   setStateQuery: PropTypes.func.isRequired,
   showExpand: PropTypes.bool,
@@ -307,7 +305,7 @@ SearchKeyword.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchKeyword as SearchKeywordTest };
 
-export default createFragmentContainer((withPusher(SearchKeyword)), graphql`
+export default createFragmentContainer((SearchKeyword), graphql`
   fragment SearchKeyword_team on Team {
     id
     dbid

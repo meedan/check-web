@@ -18,7 +18,6 @@ import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import PageTitle from '../PageTitle';
-import { withPusher } from '../../pusher';
 import MediaIdentifier from '../cds/media-cards/MediaIdentifier';
 import LastRequestDate from '../cds/media-cards/LastRequestDate';
 import RequestsCount from '../cds/media-cards/RequestsCount';
@@ -223,7 +222,7 @@ MediaComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default createFragmentContainer(withPusher(MediaComponent), graphql`
+export default createFragmentContainer(MediaComponent, graphql`
   fragment MediaComponent_projectMedia on ProjectMedia {
     ...MediaSimilaritiesComponent_projectMedia
     ...MediaCardLarge_projectMedia
