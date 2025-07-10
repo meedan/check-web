@@ -553,7 +553,6 @@ export default createFragmentContainer(SourceInfo, {
       dbid
       image
       name
-      pusher_channel
       medias_count
       permissions
       updated_at
