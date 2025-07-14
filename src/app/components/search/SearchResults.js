@@ -600,7 +600,6 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
     search: () => Relay.QL`
       fragment on CheckSearch {
         id,
-        pusher_channel,
         team {
           ${SearchKeyword.getFragment('team')}
           ${SearchFields.getFragment('team')}
