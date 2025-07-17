@@ -1,4 +1,4 @@
-FROM node:14.20.1-buster AS base
+FROM node:14.21.3-bullseye AS base
 MAINTAINER Meedan <sysops@meedan.com>
 
 # Set a UTF-8 capabable locale
@@ -14,8 +14,8 @@ RUN mkdir -p /usr/local/var/run/watchman && touch /usr/local/var/run/watchman/.n
 RUN true \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-        ruby2.5 \
-        ruby2.5-dev \
+        ruby2.7 \
+        ruby2.7-dev \
         build-essential \
         graphicsmagick \
         tini \
