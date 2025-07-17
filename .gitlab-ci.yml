@@ -25,7 +25,7 @@ build_qa:
     - develop
 
 deploy_qa:
-  image: python:3-alpine
+  image: python:3.7.7
   stage: deploy
   tags:
     - meedan
@@ -35,12 +35,12 @@ deploy_qa:
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
   script:
-    - apk add --no-cache curl jq python3 py3-pip git
-    - pip install setuptools==75.1.0
+    - pip install setuptools==68.0.0
     - pip install urllib3==2.0.6
-    - pip install botocore==1.34.162
-    - pip install boto3==1.34.162
-    - pip install ecs-deploy==1.15.0
+    - pip install botocore==1.33.13
+    - pip install boto3==1.33.13
+    - pip install ecs-deploy==1.14.0
+    - pip install awscli==1.29.59
     - ecs deploy ecs-qa  qa-check-web --image qa-check-web-c $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA -r arn:aws:iam::848416313321:role/ECSSecretsAccessRole --exclusive-secrets --exclusive-env -e qa-check-web-c APP check-web -e qa-check-web-c DEPLOY_ENV qa --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
     - sh scripts/clear-cf-cache.sh
@@ -70,7 +70,7 @@ build_live:
     - master
 
 deploy_live:
-  image: python:3-alpine
+  image: python:3.7.7
   stage: deploy
   when: manual
   tags:
@@ -81,12 +81,12 @@ deploy_live:
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
   script:
-    - apk add --no-cache curl jq python3 py3-pip git
-    - pip install setuptools==75.1.0
+    - pip install setuptools==68.0.0
     - pip install urllib3==2.0.6
-    - pip install botocore==1.34.162
-    - pip install boto3==1.34.162
-    - pip install ecs-deploy==1.15.0
+    - pip install botocore==1.33.13
+    - pip install boto3==1.33.13
+    - pip install ecs-deploy==1.14.0
+    - pip install awscli==1.29.59
     - ecs deploy ecs-live  live-check-web --image live-check-web-c $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA -r arn:aws:iam::848416313321:role/ECSSecretsAccessRole --exclusive-secrets --exclusive-env -e live-check-web-c APP check-web -e live-check-web-c DEPLOY_ENV live --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"
     - sh scripts/clear-cf-cache.sh
