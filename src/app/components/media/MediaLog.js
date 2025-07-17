@@ -1,61 +1,15 @@
 /* eslint-disable react/sort-prop-types */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import Loader from '../cds/loading/Loader';
-import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import Annotations from '../annotations/Annotations';
 
 class MediaLogComponent extends Component {
-  static propTypes = {
-    pusher: pusherShape.isRequired,
-    clientSessionId: PropTypes.string.isRequired,
-  };
-
-  componentDidMount() {
-    this.subscribe();
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.media.dbid !== nextProps.media.dbid) {
-      this.unsubscribe();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.media.dbid !== prevProps.media.dbid) {
-      this.subscribe();
-    }
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  subscribe() {
-    const { clientSessionId, media, pusher } = this.props;
-    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaLog', (data, run) => {
-      const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `media-log-${media.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
-  }
-
-  unsubscribe() {
-    const { media, pusher } = this.props;
-    pusher.unsubscribe(media.pusher_channel);
-  }
-
   render() {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
 
@@ -78,7 +32,7 @@ const eventTypes = [
   'create_factcheck', 'update_factcheck', 'create_assignment', 'destroy_assignment', 'create_explaineritem', 'destroy_explaineritem', 'replace_projectmedia',
 ];
 
-const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
+const MediaLogContainer = Relay.createContainer(MediaLogComponent, {
   initialVariables: {
     pageSize,
     eventTypes,

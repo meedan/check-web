@@ -9,7 +9,6 @@ import SearchField from './SearchField';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Loader from '../cds/loading/Loader';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
 import AttachFileIcon from '../../icons/attach_file.svg';
@@ -30,14 +29,6 @@ class SearchKeyword extends React.Component {
         name: '',
       },
     };
-  }
-
-  componentDidMount() {
-    this.subscribe();
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
   }
 
   onUploadSuccess = (data) => {
@@ -182,28 +173,6 @@ class SearchKeyword extends React.Component {
     this.props.handleSubmit(null, cleanQuery);
   };
 
-  subscribe() {
-    const { clientSessionId, pusher, team } = this.props;
-    pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'SearchKeyword', (data, run) => {
-      if (clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `team-${team.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
-  }
-
-  unsubscribe() {
-    const { pusher, team } = this.props;
-    pusher.unsubscribe(team.pusher_channel, 'tagtext_updated', 'SearchKeyword');
-  }
-
   handleUpload = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -312,13 +281,11 @@ SearchKeyword.propTypes = {
   cleanupQuery: PropTypes.func.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  pusher: pusherShape.isRequired,
   query: PropTypes.object.isRequired,
   setStateQuery: PropTypes.func.isRequired,
   showExpand: PropTypes.bool,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
-    pusher_channel: PropTypes.string.isRequired,
     verification_statuses: PropTypes.shape({
       statuses: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
@@ -338,12 +305,11 @@ SearchKeyword.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchKeyword as SearchKeywordTest };
 
-export default createFragmentContainer((withPusher(SearchKeyword)), graphql`
+export default createFragmentContainer((SearchKeyword), graphql`
   fragment SearchKeyword_team on Team {
     id
     dbid
     verification_statuses
-    pusher_channel
     name
   }
 `);
