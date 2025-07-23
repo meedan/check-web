@@ -80,7 +80,8 @@ jobs:
           --cache-from "type=local,src=/tmp/.buildx-cache" \
           --output "type=image,push=true" \
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH \
-          --file ./production/Dockerfile ./
+          --file ./production/Dockerfile \
+          --build-arg DEPLOY_BRANCH=$BRANCH ./
 
 #    - name: Kick off Terraform deploy in sysops/ if not live
 #      id: sysops-deploy
