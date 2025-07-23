@@ -52,7 +52,7 @@ jobs:
           --cache-to "type=local,dest=/tmp/.buildx-cache" \
           --load \
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          --file ./Dockerfile ./
+          --file ./production/Dockerfile ./
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
 #    - name: Run Unit Tests
@@ -71,13 +71,13 @@ jobs:
           --cache-from "type=local,src=/tmp/.buildx-cache" \
           --output "type=image,push=true" \
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          --file ./Dockerfile ./
+          --file ./production/Dockerfile ./
         # push docker tag to indicate branch
         docker buildx build \
           --cache-from "type=local,src=/tmp/.buildx-cache" \
           --output "type=image,push=true" \
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH \
-          --file ./Dockerfile ./
+          --file ./production/Dockerfile ./
 
 #    - name: Kick off Terraform deploy in sysops/ if not live
 #      id: sysops-deploy
