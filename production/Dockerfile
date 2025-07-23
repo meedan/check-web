@@ -34,6 +34,26 @@ RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest
 COPY --from=icalialabs/watchman:buster /usr/local/bin/watchman /usr/local/bin/watchman
 RUN mkdir -p /usr/local/var/run/watchman && touch /usr/local/var/run/watchman/.not-empty
 
+# install passenger support
+# see: https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/nginx/install/oss/bullseye.html
+RUN true \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        dirmngr \
+        gnupg \
+        apt-transport-https \
+        ca-certificates \
+        curl
+
+RUN true \
+    && curl https://oss-binaries.phusionpassenger.com/auto-software-signing-gpg-key.txt \
+       | gpg --dearmor \
+       | sudo tee /etc/apt/trusted.gpg.d/phusion.gpg >/dev/null
+
+RUN true \
+    && echo deb https://oss-binaries.phusionpassenger.com/apt/passenger bullseye main \
+       > /etc/apt/sources.list.d/passenger.list
+
 # install dependencies
 RUN true \
     && apt-get update \
@@ -46,6 +66,7 @@ RUN true \
         graphicsmagick \
         tini \
         nginx \
+        libnginx-mod-http-passenger \
     && gem install bundler:1.17.1 \
     && rm -rf /var/lib/apt/lists/*
 
