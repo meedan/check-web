@@ -38,6 +38,8 @@ RUN mkdir -p /usr/local/var/run/watchman && touch /usr/local/var/run/watchman/.n
 RUN true \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
+        awscli \
+        jq \
         ruby2.7 \
         ruby2.7-dev \
         build-essential \
