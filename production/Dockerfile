@@ -48,7 +48,7 @@ RUN true \
 RUN true \
     && curl https://oss-binaries.phusionpassenger.com/auto-software-signing-gpg-key.txt \
        | gpg --dearmor \
-       | sudo tee /etc/apt/trusted.gpg.d/phusion.gpg >/dev/null
+       | tee /etc/apt/trusted.gpg.d/phusion.gpg >/dev/null
 
 RUN true \
     && echo deb https://oss-binaries.phusionpassenger.com/apt/passenger bullseye main \
