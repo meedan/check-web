@@ -52,7 +52,8 @@ jobs:
           --cache-to "type=local,dest=/tmp/.buildx-cache" \
           --load \
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          --file ./production/Dockerfile ./
+          --file ./production/Dockerfile \
+          --build-arg DEPLOY_BRANCH=$BRANCH ./
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
 #    - name: Run Unit Tests
@@ -71,7 +72,8 @@ jobs:
           --cache-from "type=local,src=/tmp/.buildx-cache" \
           --output "type=image,push=true" \
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          --file ./production/Dockerfile ./
+          --file ./production/Dockerfile \
+          --build-arg DEPLOY_BRANCH=$BRANCH ./
         # push docker tag to indicate branch
         docker buildx build \
           --cache-from "type=local,src=/tmp/.buildx-cache" \
