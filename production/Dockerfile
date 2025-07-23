@@ -1,7 +1,7 @@
 # meedan/check-web
 
-FROM node:14.20.1-buster AS base
-MAINTAINER sysops@meedan.com
+FROM node:14.21.3-bullseye AS base
+MAINTAINER Meedan <sysops@meedan.com>
 
 #
 # SYSTEM CONFIG
@@ -29,16 +29,26 @@ ENV DEPLOYUSER=checkdeploy \
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest
-RUN apt-get update -qq 
-RUN apt-get install -y dirmngr gnupg \
-    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 \
-    && apt-get install -y apt-transport-https ca-certificates 
-RUN apt-get install -y graphicsmagick awscli jq
-RUN apt-get install -y libgnutls-openssl27 libgnutls30
-RUN update-ca-certificates
-RUN echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger buster main' > /etc/apt/sources.list.d/passenger.list 
-RUN apt-get update -qq
-RUN apt-get install -y passenger 
+
+# TODO develop our own `watchman` image, so we can version it
+COPY --from=icalialabs/watchman:buster /usr/local/bin/watchman /usr/local/bin/watchman
+RUN mkdir -p /usr/local/var/run/watchman && touch /usr/local/var/run/watchman/.not-empty
+
+# install dependencies
+RUN true \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        ruby2.7 \
+        ruby2.7-dev \
+        build-essential \
+        graphicsmagick \
+        tini \
+        nginx \
+    && gem install bundler:1.17.1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# tx client
+RUN curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
 
 # deployment scripts
 COPY production/bin /opt/bin
