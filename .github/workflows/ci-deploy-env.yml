@@ -83,6 +83,31 @@ jobs:
           --file ./production/Dockerfile \
           --build-arg DEPLOY_BRANCH=$BRANCH ./
 
+    - name: Download current task definition
+      run: |
+        # TODO: switch env based on branch, only for develop or master.
+        TASKDEF=qa-check-web
+        aws ecs describe-task-definition \
+          --task-definition $TASKDEF --query taskDefinition \
+          > task-definition.json
+
+    - name: Update task definition
+      id: task-update-in-ecs
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with: 
+        task-definition: task-definition.json
+        container-name: qa-check-web-c
+        image: ${{ steps.push-image-to-ecr.outputs.image }}
+
+   - name: Deploy new ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+      with:
+        task-definition: ${{ steps.task-update-in-ecs.outputs.task-definition }}
+        service: qa-check-web
+        cluster: ecs-qa
+        wait-for-service-stability: true
+
+
 #    - name: Kick off Terraform deploy in sysops/ if not live
 #      id: sysops-deploy
 #      run: |
@@ -96,15 +121,3 @@ jobs:
 #          -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "branch": "'$BRANCH'"}}'
 #        fi
 
-#   - name: Send Slack Notification
-#     id: slack-notify
-#     if: ${{ always() }}
-#     uses: 8398a7/action-slack@v3
-#     with:
-#       status: ${{ job.status }}
-#       author_name: 'Github Actions'
-#       icon_emoji: ':octocat:'
-#       fields: repo,message,author # selectable (default: repo,message)
-#     env:
-#       GITHUB_TOKEN: ${{ secrets.CONFIGURATOR_TOKEN }} # optional
-#       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
