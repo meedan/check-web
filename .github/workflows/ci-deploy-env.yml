@@ -5,7 +5,6 @@ on:
     branches:
       - 'develop'
       - 'master'
-      - '*deploy/*'
 
 jobs:
   build-test-deploy:
@@ -14,7 +13,7 @@ jobs:
     outputs:
       image: ${{ steps.build-image.outputs.image }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -85,21 +84,21 @@ jobs:
 
     - name: Download current task definition
       run: |
-        # TODO: switch env based on branch, only for develop or master.
-        TASKDEF=qa-check-web
+        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
+        DEPLOYENV=$(echo "$BRANCH" | sed -e 's:^develop$:qa:' -e 's:^master$:live:'
+        TASKDEF=$(echo "${DEPLOYENV}-check-web")
         aws ecs describe-task-definition \
-          --task-definition $TASKDEF --query taskDefinition \
-          > task-definition.json
+          --task-definition $TASKDEF --query taskDefinition > task-definition.json
 
     - name: Update task definition
       id: task-update-in-ecs
       uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with: 
+      with:
         task-definition: task-definition.json
         container-name: qa-check-web-c
         image: ${{ steps.push-image-to-ecr.outputs.image }}
 
-   - name: Deploy new ECS task definition
+    - name: Deploy new ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v2
       with:
         task-definition: ${{ steps.task-update-in-ecs.outputs.task-definition }}
