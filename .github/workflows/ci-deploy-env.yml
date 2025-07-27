@@ -47,7 +47,8 @@ jobs:
         ECR_REPOSITORY: ${{ github.event.repository.name }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
+        #TEMP BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
+        BRANCH=develop
         docker buildx build \
           --cache-from "type=local,src=/tmp/.buildx-cache" \
           --cache-to "type=local,dest=/tmp/.buildx-cache" \
