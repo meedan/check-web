@@ -67,7 +67,8 @@ jobs:
         ECR_REPOSITORY: ${{ github.event.repository.name }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
+        #TEMP BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
+        BRANCH=develop
         # push with git sha
         docker buildx build \
           --cache-from "type=local,src=/tmp/.buildx-cache" \
@@ -85,7 +86,8 @@ jobs:
 
     - name: Download current task definition
       run: |
-        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
+        #TEMP: BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
+        BRANCH=develop
         DEPLOYENV=$(echo "$BRANCH" | sed -e 's:^develop$:qa:' -e 's:^master$:live:')
         TASKDEF=$(echo "${DEPLOYENV}-check-web")
         aws ecs describe-task-definition \
