@@ -5,6 +5,7 @@ on:
     branches:
       - 'develop'
       - 'master'
+      - 'bugifx/gha-fixes-CV2-6453'
 
 jobs:
   build-test-deploy:
