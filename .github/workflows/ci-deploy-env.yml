@@ -85,7 +85,7 @@ jobs:
     - name: Download current task definition
       run: |
         BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
-        DEPLOYENV=$(echo "$BRANCH" | sed -e 's:^develop$:qa:' -e 's:^master$:live:'
+        DEPLOYENV=$(echo "$BRANCH" | sed -e 's:^develop$:qa:' -e 's:^master$:live:')
         TASKDEF=$(echo "${DEPLOYENV}-check-web")
         aws ecs describe-task-definition \
           --task-definition $TASKDEF --query taskDefinition > task-definition.json
