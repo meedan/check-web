@@ -14,10 +14,10 @@ jobs:
     outputs:
       image: ${{ steps.build-image.outputs.image }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -82,31 +82,6 @@ jobs:
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH \
           --file ./production/Dockerfile \
           --build-arg DEPLOY_BRANCH=$BRANCH ./
-
-    - name: Download current task definition
-      run: |
-        # TODO: switch env based on branch, only for develop or master.
-        TASKDEF=qa-check-web
-        aws ecs describe-task-definition \
-          --task-definition $TASKDEF --query taskDefinition \
-          > task-definition.json
-
-    - name: Update task definition
-      id: task-update-in-ecs
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with: 
-        task-definition: task-definition.json
-        container-name: qa-check-web-c
-        image: ${{ steps.push-image-to-ecr.outputs.image }}
-
-   - name: Deploy new ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v2
-      with:
-        task-definition: ${{ steps.task-update-in-ecs.outputs.task-definition }}
-        service: qa-check-web
-        cluster: ecs-qa
-        wait-for-service-stability: true
-
 
 #    - name: Kick off Terraform deploy in sysops/ if not live
 #      id: sysops-deploy
