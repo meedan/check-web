@@ -5,7 +5,6 @@ on:
     branches:
       - 'develop'
       - 'master'
-      - 'bugifx/gha-fixes-CV2-6453'
 
 jobs:
   build-test-deploy:
@@ -47,8 +46,7 @@ jobs:
         ECR_REPOSITORY: ${{ github.event.repository.name }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        #TEMP BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
-        BRANCH=develop
+        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
         docker buildx build \
           --cache-from "type=local,src=/tmp/.buildx-cache" \
           --cache-to "type=local,dest=/tmp/.buildx-cache" \
@@ -68,8 +66,7 @@ jobs:
         ECR_REPOSITORY: ${{ github.event.repository.name }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        #TEMP BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
-        BRANCH=develop
+        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
         # push with git sha
         docker buildx build \
           --cache-from "type=local,src=/tmp/.buildx-cache" \
