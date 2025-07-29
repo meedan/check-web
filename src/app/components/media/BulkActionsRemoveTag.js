@@ -30,7 +30,7 @@ const BulkActionsRemoveTag = ({
     const onSuccess = () => {
       setFlashMessage((
         <FormattedMessage
-          defaultMessage="{tags} tags removed from {itemsCount} items"
+          defaultMessage="{tags} tags will be removed from {itemsCount} items. Items without those tags will remain unaffected."
           description="Success message for bulk untagging items"
           id="bulkActionsRemoveTag.success"
           values={{
