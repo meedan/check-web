@@ -2,7 +2,7 @@
   {
     "id": "bulkActionsRemoveTag.success",
     "description": "Success message for bulk untagging items",
-    "defaultMessage": "{tags} tags removed from {itemsCount} items"
+    "defaultMessage": "{tags} tags will be removed from {itemsCount} items. Items without those tags will remain unaffected."
   },
   {
     "id": "tagMenu.search",
