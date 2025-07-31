@@ -42,7 +42,7 @@ else
       echo "Ngrok tunnel: $NGROK_URL"
       sed -i "s~similarity_media_file_url_host: ''~similarity_media_file_url_host: '$NGROK_URL'~g" check-api/config/config.yml
       cat check-api/config/config.yml | grep similarity_media_file_url_host
-      docker compose build web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
+      docker compose build --pull --no-cache web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
       docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
     else
       docker compose build web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
