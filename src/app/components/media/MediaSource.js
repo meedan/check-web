@@ -55,7 +55,6 @@ const MediaSourceComponent = ({ about, projectMedia }) => {
                   dbid
                   image
                   name
-                  pusher_channel
                   medias_count
                   permissions
                   updated_at
@@ -162,7 +161,6 @@ const MediaSource = ({ params, projectMedia }) => {
               id
               dbid
               archived
-              pusher_channel
               permissions
               team {
                 slug

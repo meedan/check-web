@@ -13,14 +13,14 @@ const messages = defineMessages({
     defaultMessage: 'None',
     description: 'One of the options for a newsletter header type',
   },
-  headerTypeLinkPreview: {
-    id: 'newsletterHeader.headerTypeLinkPreview',
-    defaultMessage: 'Link preview (requires a verified account on WhatsApp)',
-    description: 'One of the options for a newsletter header type',
-  },
   headerTypeImage: {
     id: 'newsletterHeader.headerTypeImage',
     defaultMessage: 'Image',
+    description: 'One of the options for a newsletter header type',
+  },
+  headerTypeLinkPreview: {
+    id: 'newsletterHeader.headerTypeLinkPreview',
+    defaultMessage: 'Link preview (requires a verified account on WhatsApp)',
     description: 'One of the options for a newsletter header type',
   },
   headerTypeVideo: {
@@ -37,8 +37,8 @@ const messages = defineMessages({
 
 const headerTypes = {
   none: messages.headerTypeNone,
-  link_preview: messages.headerTypeLinkPreview,
   image: messages.headerTypeImage,
+  link_preview: messages.headerTypeLinkPreview,
   video: messages.headerTypeVideo,
   audio: messages.headerTypeAudio,
 };
@@ -77,11 +77,17 @@ const NewsletterHeader = ({
       value={headerType}
       onChange={(e) => { onUpdateField('headerType', e.target.value); }}
     >
-      {Object.keys(headerTypes).map(type => (
-        <option disabled={!availableHeaderTypes.includes(type)} key={type} value={type}>
-          {intl.formatMessage(headerTypes[type])}
-        </option>
-      ))}
+      {Object.keys(headerTypes)
+        .filter(type => type !== 'link_preview' || availableHeaderTypes.includes('link_preview'))
+        .map(type => (
+          <option
+            disabled={!availableHeaderTypes.includes(type)}
+            key={type}
+            value={type}
+          >
+            {intl.formatMessage(headerTypes[type])}
+          </option>
+        ))}
     </Select>
 
     { (headerType === 'image' || headerType === 'video' || headerType === 'audio') ?
@@ -137,7 +143,7 @@ NewsletterHeader.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.bool,
   fileName: PropTypes.string,
-  headerType: PropTypes.oneOf(['', 'none', 'link_preview', 'image', 'video', 'audio']),
+  headerType: PropTypes.oneOf(['', 'none', 'image', 'link_preview', 'video', 'audio']),
   intl: intlShape.isRequired,
   overlayText: PropTypes.string,
   setFile: PropTypes.func.isRequired,

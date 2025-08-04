@@ -479,6 +479,7 @@ class MediaActionsBar extends React.PureComponent {
     return (
       <Relay.RootContainer
         Component={MediaActionsBarContainer}
+        forceFetch
         renderFetched={data => <MediaActionsBarContainer {...this.props} {...data} />}
         route={route}
       />

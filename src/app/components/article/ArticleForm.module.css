@@ -48,7 +48,7 @@
   padding: 8px;
 
   .article-form-info-labels {
-    align-items: flex-end;
+    align-items: flex-start;
     display: flex;
     flex-flow: column;
     padding-right: 8px;

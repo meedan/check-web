@@ -14,10 +14,10 @@ jobs:
     outputs:
       image: ${{ steps.build-image.outputs.image }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -47,12 +47,14 @@ jobs:
         ECR_REPOSITORY: ${{ github.event.repository.name }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
+        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
         docker buildx build \
           --cache-from "type=local,src=/tmp/.buildx-cache" \
           --cache-to "type=local,dest=/tmp/.buildx-cache" \
           --load \
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          --file ./Dockerfile ./
+          --file ./production/Dockerfile \
+          --build-arg DEPLOY_BRANCH=$BRANCH ./
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
 #    - name: Run Unit Tests
@@ -71,13 +73,15 @@ jobs:
           --cache-from "type=local,src=/tmp/.buildx-cache" \
           --output "type=image,push=true" \
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          --file ./Dockerfile ./
+          --file ./production/Dockerfile \
+          --build-arg DEPLOY_BRANCH=$BRANCH ./
         # push docker tag to indicate branch
         docker buildx build \
           --cache-from "type=local,src=/tmp/.buildx-cache" \
           --output "type=image,push=true" \
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH \
-          --file ./Dockerfile ./
+          --file ./production/Dockerfile \
+          --build-arg DEPLOY_BRANCH=$BRANCH ./
 
 #    - name: Kick off Terraform deploy in sysops/ if not live
 #      id: sysops-deploy
@@ -92,15 +96,3 @@ jobs:
 #          -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "branch": "'$BRANCH'"}}'
 #        fi
 
-#   - name: Send Slack Notification
-#     id: slack-notify
-#     if: ${{ always() }}
-#     uses: 8398a7/action-slack@v3
-#     with:
-#       status: ${{ job.status }}
-#       author_name: 'Github Actions'
-#       icon_emoji: ':octocat:'
-#       fields: repo,message,author # selectable (default: repo,message)
-#     env:
-#       GITHUB_TOKEN: ${{ secrets.CONFIGURATOR_TOKEN }} # optional
-#       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required

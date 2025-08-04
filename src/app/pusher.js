@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import deepEqual from 'deep-equal';
 import ifvisible from 'ifvisible.js';
 import { safelyParseJSON } from './helpers';
-import { ClientSessionIdContext } from './ClientSessionId';
 
 function createPusher({
   clientSessionId,
@@ -209,28 +207,4 @@ function getPusherContextValueForClientSessionId(clientSessionId) {
 const PusherContext = React.createContext({ subscribe: () => {}, unsubscribe: () => {} });
 PusherContext.displayName = 'PusherContext';
 
-function withPusher(Component) {
-  const inner = React.forwardRef((props, ref) => {
-    const pusher = React.useContext(PusherContext);
-    // TODO streamline design, so components don't need to check
-    // clientSessionId.
-    const clientSessionId = React.useContext(ClientSessionIdContext);
-    return <Component clientSessionId={clientSessionId} pusher={pusher} ref={ref} {...props} />;
-  });
-  inner.displayName = `WithPusher(${Component.displayName || Component.name || 'Component'})`;
-  return inner;
-}
-
-const pusherShape = PropTypes.shape({
-  /**
-   * Usage: subscribe(channel)(eventName, component, callback)
-   */
-  subscribe: PropTypes.func.isRequired,
-
-  /**
-   * Usage: unsubscribe(channel, eventName, component)
-   */
-  unsubscribe: PropTypes.func.isRequired,
-});
-
-export { getPusherContextValueForClientSessionId, PusherContext, withPusher, pusherShape };
+export { getPusherContextValueForClientSessionId, PusherContext };
