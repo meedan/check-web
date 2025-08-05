@@ -96,6 +96,6 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/meedan/sysops/actions/workflows/deploy_${{ github.event.repository.name }}.yml/dispatches \
           -u ${{ secrets.SYSOPS_RW_GITHUB_TOKEN }} \
-          -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "type": "push", "image": "env.IMAGE_URI"}}'
+          -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "type": "push", "image": "env.IMAGE_URI", "branch": "'$BRANCH'"}}'
         fi
 
