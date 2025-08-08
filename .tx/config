@@ -1,0 +1,9 @@
+[main]
+host = https://app.transifex.com
+
+[o:meedan:p:check-2:r:WebStructuredjson]
+file_filter   = localization/translations/<lang>/WebStructured.json
+source_file   = localization/transifex/WebStructured.json
+type          = STRUCTURED_JSON
+minimum_perc  = 0
+resource_name = WebStructured
