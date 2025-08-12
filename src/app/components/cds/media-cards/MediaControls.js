@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import MediaTimeline from './MediaTimeline';
 import MediaVolume from './MediaVolume';
 import MediaPlaybackSpeed from './MediaPlaybackSpeed';
@@ -33,12 +32,18 @@ const MediaControls = ({
   }, []);
 
   const togglePlay = () => {
-    if (isPlaying) {
-      videoRef.current?.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current?.play();
-      setIsPlaying(true);
+    try {
+      if (isPlaying) {
+        videoRef.current?.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current?.play();
+        setIsPlaying(true);
+      }
+    } catch (err) {
+      if (err.name === 'NotSupportedError') {
+        setIsPlaying(false);
+      }
     }
   };
 
