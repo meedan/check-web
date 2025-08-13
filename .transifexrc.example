@@ -1,0 +1,3 @@
+[https://app.transifex.com]
+rest_hostname = https://rest.api.transifex.com
+token         = "<personal token generated from https://app.transifex.com/user/settings/api/>"
