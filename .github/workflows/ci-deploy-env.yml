@@ -90,7 +90,7 @@ jobs:
         curl \
         -X POST \
         -H "Accept: application/vnd.github.v3+json" \
-        https://api.github.com/repos/meedan/sysops/actions/workflows/deploy_${{ github.event.repository.name }}.yml/dispatches \
+        https://api.github.com/repos/meedan/sysops/actions/workflows/deploy_check_web.yml/dispatches \
         -u ${{ secrets.SYSOPS_RW_GITHUB_TOKEN }} \
         -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "type": "push"}}'
 
@@ -101,7 +101,7 @@ jobs:
         curl \
         -X POST \
         -H "Accept: application/vnd.github.v3+json" \
-        https://api.github.com/repos/meedan/sysops/actions/workflows/deploy_${{ github.event.repository.name }}.yml/dispatches \
+        https://api.github.com/repos/meedan/sysops/actions/workflows/deploy_check_web.yml/dispatches \
         -u ${{ secrets.SYSOPS_RW_GITHUB_TOKEN }} \
         -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "type": "tag"}}'
 
