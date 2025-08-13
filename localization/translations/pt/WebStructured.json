@@ -2934,7 +2934,7 @@
 		"developer_comment": "Message for Tipline Submitted"
 	},
 	"mediaOrigin.tiplineSubmittedTooltip": {
-		"string": "Original cluster media submitted by Tipline User",
+		"string": "Mídia original do grupo enviada por Usuário da Tipline",
 		"developer_comment": "Tooltip message for Tipline Submitted"
 	},
 	"mediaOrigin.userAdded": {
