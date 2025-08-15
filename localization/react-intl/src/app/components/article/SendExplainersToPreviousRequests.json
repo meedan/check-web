@@ -12,7 +12,7 @@
   {
     "id": "sendExplainersToPreviousRequests.selectRangeHelp",
     "description": "Help content for the range select.",
-    "defaultMessage": "{count, plural, one {Articles will be delivered to  <b>#</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}"
+    "defaultMessage": "{count, plural, one {Articles will be delivered to <b>#</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}"
   },
   {
     "id": "sendExplainersToPreviousRequests.selectRangeLabel",

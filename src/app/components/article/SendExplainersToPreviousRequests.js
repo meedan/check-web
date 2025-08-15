@@ -98,7 +98,7 @@ const SendExplainersToPreviousRequests = ({
           <Select
             helpContent={
               <FormattedHTMLMessage
-                defaultMessage="{count, plural, one {Articles will be delivered to  <b>#</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}"
+                defaultMessage="{count, plural, one {Articles will be delivered to <b>#</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}"
                 description="Help content for the range select."
                 id="sendExplainersToPreviousRequests.selectRangeHelp"
                 values={{ count }}
