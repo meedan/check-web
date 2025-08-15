@@ -1,8 +1,13 @@
 [
   {
-    "id": "bulkActionsRemoveTag.success",
-    "description": "Success message for bulk untagging items",
-    "defaultMessage": "{tags} tags will be removed from {itemsCount} items. Items without those tags will remain unaffected."
+    "id": "bulkActionsRemoveTag.successPart1",
+    "description": "Success message for bulk untagging items. Prepends to string bulkActionsRemoveTag.successPart2",
+    "defaultMessage": "{tags} tags removed from"
+  },
+  {
+    "id": "bulkActionsRemoveTag.successPart2",
+    "description": "Success message for bulk untagging items. Appends to string bulkActionsRemoveTag.successPart1",
+    "defaultMessage": "{itemsCount} items. Items without those tags will remain unaffected."
   },
   {
     "id": "tagMenu.search",
