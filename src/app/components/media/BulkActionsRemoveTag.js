@@ -29,15 +29,25 @@ const BulkActionsRemoveTag = ({
     };
     const onSuccess = () => {
       setFlashMessage((
-        <FormattedMessage
-          defaultMessage="{tags} tags will be removed from {itemsCount} items. Items without those tags will remain unaffected."
-          description="Success message for bulk untagging items"
-          id="bulkActionsRemoveTag.success"
-          values={{
-            tags: selectedValueText,
-            itemsCount: selectedMedia.length,
-          }}
-        />
+        <>
+          <FormattedMessage
+            defaultMessage="{tags} tags removed from"
+            description="Success message for bulk untagging items. Prepends to string bulkActionsRemoveTag.successPart2"
+            id="bulkActionsRemoveTag.successPart1"
+            values={{
+              tags: selectedValueText,
+            }}
+          />
+          <FormattedMessage
+            defaultMessage="{itemsCount} items. Items without those tags will remain unaffected."
+            description="Success message for bulk untagging items. Appends to string bulkActionsRemoveTag.successPart1"
+            id="bulkActionsRemoveTag.successPart2"
+            values={{
+              itemsCount: selectedMedia.length,
+            }}
+          />
+
+        </>
       ), 'success');
       onDismiss();
     };
