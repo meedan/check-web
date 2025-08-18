@@ -37,7 +37,7 @@ describe('<SendExplainersToPreviousRequests />', () => {
 
   it('should show counter based on selected range', () => {
     const wrapper = mountWithIntl(<SendExplainersToPreviousRequests {...defaultProps} projectMedia={{ ranges: { 1: 1, 7: 10, 30: 100 } }} />);
-    expect(wrapper.text()).toContain('Articles will be delivered to one user');
+    expect(wrapper.text()).toContain('Articles will be delivered to 1 user');
 
     wrapper.find('select').simulate('change', { target: { value: 7 } });
     expect(wrapper.text()).toContain('Articles will be delivered to 10 users');
@@ -46,7 +46,7 @@ describe('<SendExplainersToPreviousRequests />', () => {
     expect(wrapper.text()).toContain('Articles will be delivered to 100 users');
 
     wrapper.find('select').simulate('change', { target: { value: 1 } });
-    expect(wrapper.text()).toContain('Articles will be delivered to one user');
+    expect(wrapper.text()).toContain('Articles will be delivered to 1 user');
   });
 
   it('should disable the button if there are no users', () => {

@@ -7,7 +7,7 @@
   {
     "id": "timelineTiplineMessageVolume.tooltipIncoming",
     "description": "Tooltip for the tipline message volume widget",
-    "defaultMessage": "• {messageCount} {messageCount, plural, one {Incoming Message} other {Incoming Messages}}"
+    "defaultMessage": "• {messageCount, plural, one {# Incoming Message} other {# Incoming Messages}}"
   },
   {
     "id": "timelineTiplineMessageVolume.tooltipOutgoing",
