@@ -265,7 +265,7 @@ class HomeComponent extends Component {
         if (user.is_admin) {
           return true;
         }
-        const teams = JSON.parse(user.user_teams);
+        const teams = typeof user?.user_teams === 'string' ? JSON.parse(user.user_teams) : {};
         const team = teams[teamSlug] || {};
         return team.status === 'member';
       }
