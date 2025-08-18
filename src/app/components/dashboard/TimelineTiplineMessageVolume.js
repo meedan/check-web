@@ -25,19 +25,21 @@ const TimelineTiplineMessageVolume = ({ statistics }) => (
       <>
         <div>
           <FormattedMessage
-            defaultMessage="• {messageCount} Incoming Messages"
+            defaultMessage="• {messageCount, plural, one {# Incoming Message} other {# Incoming Messages}}"
             description="Tooltip for the tipline message volume widget"
             id="timelineTiplineMessageVolume.tooltipIncoming"
             values={{ messageCount: props.payload.incomingValue }}
           />
         </div>
         <div>
-          <FormattedMessage
-            defaultMessage="• {messageCount} Outgoing Messages"
-            description="Tooltip for the tipline message volume widget"
-            id="timelineTiplineMessageVolume.tooltipOutgoing"
-            values={{ messageCount: props.payload.outgoingValue }}
-          />
+          <div>
+            <FormattedMessage
+              defaultMessage="• {messageCount, plural, one {# Outgoing Message} other {# Outgoing Messages}}"
+              description="Tooltip for the tipline message volume widget"
+              id="timelineTiplineMessageVolume.tooltipOutgoing"
+              values={{ messageCount: props.payload.outgoingValue }}
+            />
+          </div>
         </div>
       </>
     )]}
