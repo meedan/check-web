@@ -1098,9 +1098,13 @@
 		"string": "{numItems, plural, zero {لم تتم إزالة أي وسم} one {إزالة وسم واحد} two {إزالة وسمَيْن} few {إزالة # وسوم} many {إزالة # وسما} other {إزالة # وسم}}",
 		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
 	},
-	"bulkActionsRemoveTag.success": {
-		"string": "ستتم إزالة {tags} وسوم من {itemsCount} عناصر. لن تتأثر العناصر التي دون تلك الوسوم.",
-		"developer_comment": "Success message for bulk untagging items"
+	"bulkActionsRemoveTag.successPart1": {
+		"string": "{tags} tags removed from",
+		"developer_comment": "Success message for bulk untagging items. Prepends to string bulkActionsRemoveTag.successPart2"
+	},
+	"bulkActionsRemoveTag.successPart2": {
+		"string": "{itemsCount} items. Items without those tags will remain unaffected.",
+		"developer_comment": "Success message for bulk untagging items. Appends to string bulkActionsRemoveTag.successPart1"
 	},
 	"bulkActionsStatus.dialogBody": {
 		"string": "{publishedCount, plural, zero {لا عنصر لتغيير الحالة} one {لا يمكن تغيير حالة عنصر واحد لأن تقاريره منشورة حاليا. يرجى تحريره.} two {لا يمكن تغيير حالة عنصرين لأن تقاريرهم منشورة حاليا. يرجى تحرير كل منها على حدة.} few {لا يمكن تغيير حالة # عناصر لأن تقاريرهم منشورة حاليا. يرجى تحرير كل منها على حدة.} many {لا يمكن تغيير حالة # عنصرا لأن تقاريرهم منشورة حاليا. يرجى تحرير كل منها على حدة.} other {لا يمكن تغيير حالة # عنصر لأن تقاريرهم منشورة حاليا. يرجى تحرير كل منها على حدة.}}",
@@ -5119,10 +5123,10 @@
 	},
 	"sendExplainersToPreviousRequests.alertTitle": {
 		"string": "محادثات العمل",
-		"developer_comment": "Title for the alert that is displayed when the selected range is not 24 hours."
+		"developer_comment": "Business conversations, or Business Initiated Converstaions, are conversations started by messages send to users by the Check partner organization outside when no other message has been sent or recieved in the past 24 hours."
 	},
 	"sendExplainersToPreviousRequests.intro": {
-		"string": "يمكنك تسليم مقالات جديدة إلى المستخدمين الذين أرسلوا طلبات لهذه المادة الإعلامية مسبقا والذين <b>لم</b>  يتلقوا ردا.",
+		"string": "You can deliver new articles to users who have previously submitted requests for this media, but <b>did not</b> receive a response.",
 		"developer_comment": "Message displayed in the confirmation dialog that appears when sending explainers to previous requests."
 	},
 	"sendExplainersToPreviousRequests.oneDay": {
@@ -5134,7 +5138,7 @@
 		"developer_comment": "'Send' here is an infinitive verb. Label of the proceed button of the confirmation dialog that appears when sending explainers to previous requests."
 	},
 	"sendExplainersToPreviousRequests.selectRangeHelp": {
-		"string": "{count, plural, zero {لن يتم تسليم المقالات إلى </b>أي</b> مستخدم لم يسبق له استلام المقالات} one {سيتم تسليم المقالات إلى مستخدم <b>واحد</b> لم يسبق له استلام المقالات } two {سيتم تسليم المقالات إلى مستخدمَين <b>اثنين</b> لم يسبق لهما استلام المقالات } few {سيتم تسليم المقالات إلى <b>#</b> مستخدمين لم يسبق لهم استلام المقالات } many {سيتم تسليم المقالات إلى <b>#</b> مستخدماً لم يسبق لهم استلام المقالات } other {سيتم تسليم المقالات إلى <b>#</b> مستخدم لم يسبق لهم استلام المقالات }}",
+		"string": "{count, plural, one {Articles will be delivered to <b>#</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}",
 		"developer_comment": "Help content for the range select."
 	},
 	"sendExplainersToPreviousRequests.selectRangeLabel": {
@@ -7076,11 +7080,11 @@
 		"developer_comment": "Title for the tipline message volume widget"
 	},
 	"timelineTiplineMessageVolume.tooltipIncoming": {
-		"string": "‫• {messageCount} رسالة واردة",
+		"string": "• {messageCount, plural, one {# Incoming Message} other {# Incoming Messages}}",
 		"developer_comment": "Tooltip for the tipline message volume widget"
 	},
 	"timelineTiplineMessageVolume.tooltipOutgoing": {
-		"string": "‫• {messageCount} رسالة صادرة",
+		"string": "• {messageCount, plural, one {# Outgoing Message} other {# Outgoing Messages}}",
 		"developer_comment": "Tooltip for the tipline message volume widget"
 	},
 	"tiplineDashboard.loading": {

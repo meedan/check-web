@@ -1098,9 +1098,13 @@
 		"string": "{numItems, plural, one {Избришете # таг} other {Избришете # тагови}}",
 		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
 	},
-	"bulkActionsRemoveTag.success": {
-		"string": "{tags} tags will be removed from {itemsCount} items. Items without those tags will remain unaffected.",
-		"developer_comment": "Success message for bulk untagging items"
+	"bulkActionsRemoveTag.successPart1": {
+		"string": "{tags} tags removed from",
+		"developer_comment": "Success message for bulk untagging items. Prepends to string bulkActionsRemoveTag.successPart2"
+	},
+	"bulkActionsRemoveTag.successPart2": {
+		"string": "{itemsCount} items. Items without those tags will remain unaffected.",
+		"developer_comment": "Success message for bulk untagging items. Appends to string bulkActionsRemoveTag.successPart1"
 	},
 	"bulkActionsStatus.dialogBody": {
 		"string": "{publishedCount, plural, one {Статусот на 1 статија не можеше да се промени затоа што нејзиниот извештај моментално е објавен. Изменете ја поединечно.} other {Статусот на # статии не можеше да се промени затоа што нивните извештаи моментално се објавени. Изменете ги поединечно.}}",
@@ -5119,10 +5123,10 @@
 	},
 	"sendExplainersToPreviousRequests.alertTitle": {
 		"string": "Business Conversations",
-		"developer_comment": "Title for the alert that is displayed when the selected range is not 24 hours."
+		"developer_comment": "Business conversations, or Business Initiated Converstaions, are conversations started by messages send to users by the Check partner organization outside when no other message has been sent or recieved in the past 24 hours."
 	},
 	"sendExplainersToPreviousRequests.intro": {
-		"string": "You can deliver new articles to users who have previously submitted requests with this media, but <b>did not</b> receive a response.",
+		"string": "You can deliver new articles to users who have previously submitted requests for this media, but <b>did not</b> receive a response.",
 		"developer_comment": "Message displayed in the confirmation dialog that appears when sending explainers to previous requests."
 	},
 	"sendExplainersToPreviousRequests.oneDay": {
@@ -5134,7 +5138,7 @@
 		"developer_comment": "'Send' here is an infinitive verb. Label of the proceed button of the confirmation dialog that appears when sending explainers to previous requests."
 	},
 	"sendExplainersToPreviousRequests.selectRangeHelp": {
-		"string": "{count, plural, one {Articles will be delivered to <b>one</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}",
+		"string": "{count, plural, one {Articles will be delivered to <b>#</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}",
 		"developer_comment": "Help content for the range select."
 	},
 	"sendExplainersToPreviousRequests.selectRangeLabel": {
@@ -7076,11 +7080,11 @@
 		"developer_comment": "Title for the tipline message volume widget"
 	},
 	"timelineTiplineMessageVolume.tooltipIncoming": {
-		"string": "• {messageCount} Incoming Messages",
+		"string": "• {messageCount, plural, one {# Incoming Message} other {# Incoming Messages}}",
 		"developer_comment": "Tooltip for the tipline message volume widget"
 	},
 	"timelineTiplineMessageVolume.tooltipOutgoing": {
-		"string": "• {messageCount} Outgoing Messages",
+		"string": "• {messageCount, plural, one {# Outgoing Message} other {# Outgoing Messages}}",
 		"developer_comment": "Tooltip for the tipline message volume widget"
 	},
 	"tiplineDashboard.loading": {

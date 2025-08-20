@@ -1098,9 +1098,13 @@
 		"string": "{numItems, plural, one {Eliminar # etiqueta} many {Eliminar # etiquetas} other {Eliminar # etiquetas}}",
 		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
 	},
-	"bulkActionsRemoveTag.success": {
-		"string": "{tags} etiquetas serán eliminadas de {itemsCount} ítems. Ítems sin esas etiquetas no serán afectados. ",
-		"developer_comment": "Success message for bulk untagging items"
+	"bulkActionsRemoveTag.successPart1": {
+		"string": "{tags} etiquetas eliminadas de",
+		"developer_comment": "Success message for bulk untagging items. Prepends to string bulkActionsRemoveTag.successPart2"
+	},
+	"bulkActionsRemoveTag.successPart2": {
+		"string": "{itemsCount} ítems. Los ítems sin esas etiquetas no serán afectados.",
+		"developer_comment": "Success message for bulk untagging items. Appends to string bulkActionsRemoveTag.successPart1"
 	},
 	"bulkActionsStatus.dialogBody": {
 		"string": "{publishedCount, plural, one {El estado de 1 ítem no pudo ser cambiado porque su reporte está actualmente publicado. Por favor edítalo individualmente.} many {El estado de # ítems no pudo ser cambiado porque sus reportes están actualmente publicados. Por favor edítalos individualmente.} other {El estado de # ítems no pudo ser cambiado porque sus reportes están actualmente publicados. Por favor edítalos individualmente.}}",
@@ -5114,15 +5118,15 @@
 		"developer_comment": "Label for list selector"
 	},
 	"sendExplainersToPreviousRequests.alertContent": {
-		"string": "Recordatorio de que los mensajes enviados a lo(a)s usuario(a)s fuera de las últimas 24 horas son considerados <u>conversaciones iniciadas por la empresa</u> y pueden generar cargos adicionales.",
+		"string": "Recordatorio de que los mensajes enviados a lo(a)s usuario(a)s fuera de las últimas 24 horas son considerados <u>conversaciones iniciadas por empresas</u> y pueden generar cargos adicionales.",
 		"developer_comment": "Message for the alert that is displayed when the selected range is not 24 hours."
 	},
 	"sendExplainersToPreviousRequests.alertTitle": {
-		"string": "Business Conversations",
-		"developer_comment": "Title for the alert that is displayed when the selected range is not 24 hours."
+		"string": "Conversaciones Iniciadas por Empresas",
+		"developer_comment": "Business conversations, or Business Initiated Converstaions, are conversations started by messages send to users by the Check partner organization outside when no other message has been sent or recieved in the past 24 hours."
 	},
 	"sendExplainersToPreviousRequests.intro": {
-		"string": "Puedes entregar nuevos artículos a usuario(a)s que previamente enviaron solicitudes con este medio pero <b>no</b> recibieron una respuesta.",
+		"string": "Puedes entregar nuevos artículos a usuario(a)s que previamente enviaron solicitudes para este medio pero <b>no</b> recibieron una respuesta.",
 		"developer_comment": "Message displayed in the confirmation dialog that appears when sending explainers to previous requests."
 	},
 	"sendExplainersToPreviousRequests.oneDay": {
@@ -7076,11 +7080,11 @@
 		"developer_comment": "Title for the tipline message volume widget"
 	},
 	"timelineTiplineMessageVolume.tooltipIncoming": {
-		"string": " • {messageCount} Mensajes Entrantes",
+		"string": "• {messageCount, plural, one {# Mensaje Entrante} other {# Mensajes Entrantes}}",
 		"developer_comment": "Tooltip for the tipline message volume widget"
 	},
 	"timelineTiplineMessageVolume.tooltipOutgoing": {
-		"string": " • {messageCount} Mensajes Salientes",
+		"string": "• {messageCount, plural, one {# Mensaje Saliente} other {# Mensajes Salientes}}",
 		"developer_comment": "Tooltip for the tipline message volume widget"
 	},
 	"tiplineDashboard.loading": {

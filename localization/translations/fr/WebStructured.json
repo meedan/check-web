@@ -1098,9 +1098,13 @@
 		"string": "{numItems, plural, one {Supprimer # étiquette} many {Supprimer # d’étiquettes} other {Supprimer # étiquettes}}",
 		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
 	},
-	"bulkActionsRemoveTag.success": {
-		"string": "{tags} étiquettes seront supprimées de {itemsCount} éléments. Les éléments sans étiquette ne seront pas affectés.",
-		"developer_comment": "Success message for bulk untagging items"
+	"bulkActionsRemoveTag.successPart1": {
+		"string": "{tags} étiquettes ont été supprimées de ",
+		"developer_comment": "Success message for bulk untagging items. Prepends to string bulkActionsRemoveTag.successPart2"
+	},
+	"bulkActionsRemoveTag.successPart2": {
+		"string": "{itemsCount} éléments. Les éléments sans étiquette ne seront pas affectés.",
+		"developer_comment": "Success message for bulk untagging items. Appends to string bulkActionsRemoveTag.successPart1"
 	},
 	"bulkActionsStatus.dialogBody": {
 		"string": "{publishedCount, plural, one {L’état d’un élément n’a pas pu être modifié, car son rapport est publié actuellement. Modifiez-le individuellement.} many {L’état de # éléments n’a pas pu être modifié, car leurs rapports sont publiés actuellement. Modifiez-les individuellement.} other {L’état de # éléments n’a pas pu être modifié, car leurs rapports sont publiés actuellement. Modifiez-les individuellement.}}",
@@ -5119,7 +5123,7 @@
 	},
 	"sendExplainersToPreviousRequests.alertTitle": {
 		"string": "Conversations professionnelles",
-		"developer_comment": "Title for the alert that is displayed when the selected range is not 24 hours."
+		"developer_comment": "Business conversations, or Business Initiated Converstaions, are conversations started by messages send to users by the Check partner organization outside when no other message has been sent or recieved in the past 24 hours."
 	},
 	"sendExplainersToPreviousRequests.intro": {
 		"string": "Vous pouvez remettre de nouveaux articles aux utilisateurs qui ont déjà envoyé des demandes pour ce média, mais qui <b>n’ont pas</b> reçu de réponse.",
@@ -5134,7 +5138,7 @@
 		"developer_comment": "'Send' here is an infinitive verb. Label of the proceed button of the confirmation dialog that appears when sending explainers to previous requests."
 	},
 	"sendExplainersToPreviousRequests.selectRangeHelp": {
-		"string": "{count, plural, one {Les articles seront remis à <b>un</b> utilisateur qui n’a pas encore reçu d’articles} many {Les articles seront remis à <b>#</b> utilisateurs qui n’ont pas encore reçu d’articles} other {Les articles seront remis à <b>#</b> utilisateurs qui n’ont pas encore reçu d’articles}}",
+		"string": "{count, plural, one {Les articles seront remis à <b>#</b> utilisateur qui n’a pas encore reçu d’articles} many {Les articles seront remis à <b>#</b> utilisateurs qui n’ont pas encore reçu d’articles} other {Les articles seront remis à <b>#</b> utilisateurs qui n’ont pas encore reçu d’articles}}",
 		"developer_comment": "Help content for the range select."
 	},
 	"sendExplainersToPreviousRequests.selectRangeLabel": {
@@ -7076,11 +7080,11 @@
 		"developer_comment": "Title for the tipline message volume widget"
 	},
 	"timelineTiplineMessageVolume.tooltipIncoming": {
-		"string": "• {messageCount} messages entrants",
+		"string": "• {messageCount, plural, one {# message entrant} other {# messages entrants}}",
 		"developer_comment": "Tooltip for the tipline message volume widget"
 	},
 	"timelineTiplineMessageVolume.tooltipOutgoing": {
-		"string": "• {messageCount} messages sortants",
+		"string": "• {messageCount, plural, one {# message sortant} other {# messages sortants}}",
 		"developer_comment": "Tooltip for the tipline message volume widget"
 	},
 	"tiplineDashboard.loading": {
