@@ -59,6 +59,10 @@
 		"string": "Toutes",
 		"developer_comment": "Checkbox label for toggling select/unselect all"
 	},
+	"NewSavedSearch.cancel": {
+		"string": "Annuler",
+		"developer_comment": "Dialog label for the cancel button to close the dialog"
+	},
 	"SaveFeed.deleteButton": {
 		"string": "Supprimer le fil partagé",
 		"developer_comment": "Menu option to delete the selected shared feed"
@@ -71,6 +75,26 @@
 		"string": "Quitter le fil partagé",
 		"developer_comment": "Menu option to leave the selected shared feed"
 	},
+	"SavedSearchActions.defaultErrorMessage": {
+		"string": "Une erreur s’est produite, réessayez.",
+		"developer_comment": "Generic error message displayed when it's not possible to update or delete a list"
+	},
+	"SavedSearchActions.delete": {
+		"string": "Supprimer",
+		"developer_comment": "'Delete' here is an infinitive verb"
+	},
+	"SavedSearchActions.rename": {
+		"string": "Renommer",
+		"developer_comment": "'Rename' here is an infinitive verb"
+	},
+	"SavedSearchActions.savedSuccessfully": {
+		"string": "Terminé",
+		"developer_comment": "Generic success message displayed when a list is updated or deleted"
+	},
+	"SavedSearchActions.tooltip": {
+		"string": "Actions",
+		"developer_comment": "Toolitp for the button that shows actions that can be performed on a list"
+	},
 	"SearchFieldChannel.label": {
 		"string": "Le canal est",
 		"developer_comment": "Prefix label for field to filter by item channel"
@@ -80,7 +104,7 @@
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
 	"SearchKeywordConfigComponent.all": {
-		"string": "Tout sélectionner",
+		"string": "Tout choisir",
 		"developer_comment": "Label for checkbox to toggle selection of all checkboxes in menu"
 	},
 	"SearchKeywordConfigComponent.resetLabel": {
@@ -159,6 +183,14 @@
 		"string": "Annotation",
 		"developer_comment": "Menu option to enable searching items by annotation fields"
 	},
+	"addFilterMenu.article": {
+		"string": "Article",
+		"developer_comment": "Menu option to enable searching items by article"
+	},
+	"addFilterMenu.articleType": {
+		"string": "Article (type)",
+		"developer_comment": "Menu option to enable searching items by article type"
+	},
 	"addFilterMenu.assignedTo": {
 		"string": "Attribution",
 		"developer_comment": "Menu option to enable searching items by assigned users"
@@ -166,10 +198,6 @@
 	"addFilterMenu.channel": {
 		"string": "Canal",
 		"developer_comment": "Menu option to enable searching items by channel"
-	},
-	"addFilterMenu.claim": {
-		"string": "Affirmation",
-		"developer_comment": "Menu option to enable searching items by claim"
 	},
 	"addFilterMenu.createdBy": {
 		"string": "Créateur",
@@ -278,6 +306,10 @@
 	"alert.sharedFeedRealTimeAlertTitle": {
 		"string": "Les mises à jour des données des flux partagés peuvent ne pas être en temps réel",
 		"developer_comment": "Alert box warning title to tell the user the shared feed they are updating or creating may not have real time updates"
+	},
+	"allArticles.title": {
+		"string": "Tous les articles",
+		"developer_comment": "Title of the all articles page."
 	},
 	"annotation.addItem": {
 		"string": "Vérification des faits ajoutée par {author}",
@@ -551,7 +583,7 @@
 		"developer_comment": "Footer text in API key creation widget"
 	},
 	"apiKeys.footerSupport": {
-		"string": "Connectez-vous directement avec nous pour obtenir de l’assistance.",
+		"string": "Contactez-nous directement pour obtenir de l’assistance.",
 		"developer_comment": "Footer text in API key creation widget"
 	},
 	"apiKeys.title": {
@@ -581,6 +613,10 @@
 	"articleFilters.applyFilters": {
 		"string": "Appliquer",
 		"developer_comment": "Button to perform query with specified filters"
+	},
+	"articleFilters.articleChannel": {
+		"string": "Le canal d’articles est",
+		"developer_comment": "Prefix label for field to filter by article channel."
 	},
 	"articleFilters.articleType": {
 		"string": "Le type de l’article est",
@@ -646,8 +682,12 @@
 		"string": "Contexte supplémentaire",
 		"developer_comment": "Title of claim additional context field."
 	},
+	"articleForm.createdByLabel": {
+		"string": "Créé par :",
+		"developer_comment": "Label to convey when the item was created"
+	},
 	"articleForm.editedByLabel": {
-		"string": "Modifié par :",
+		"string": "Dernière modification :",
 		"developer_comment": "Label to convey when the item was last edited"
 	},
 	"articleForm.explainerSummary": {
@@ -814,6 +854,18 @@
 		"string": "Il n’y a aucun article ici.",
 		"developer_comment": "Empty message that is displayed when there are no articles to display."
 	},
+	"articles.sortDate": {
+		"string": "Mis à jour (date)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the articles page."
+	},
+	"articles.sortLanguage": {
+		"string": "Langue",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the articles page."
+	},
+	"articles.sortTitle": {
+		"string": "Titre",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the articles page."
+	},
 	"articles.subheader": {
 		"string": "Liste des articles",
 		"developer_comment": "Sub header for the articles lists to indicate they are in the articles section"
@@ -825,6 +877,10 @@
 	"articles.updateTagsSuccess": {
 		"string": "Les étiquettes ont été mises à jour.",
 		"developer_comment": "Banner displayed after article tags are updated successfully."
+	},
+	"articlesComponent.allArticles": {
+		"string": "Tous les articles",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes all articles"
 	},
 	"articlesComponent.articles": {
 		"string": "Articles",
@@ -869,6 +925,10 @@
 	"autoCompleteMediaItem.error": {
 		"string": "Désolé, une erreur est survenue lors de la recherche. Réessayez et envoyer un courriel à {supportEmail} si la situation persiste.",
 		"developer_comment": "Status message when a search resulted in an error"
+	},
+	"autoCompleteMediaItem.factcheckInUseTooltip": {
+		"string": "Cet article d’affirmation et vérification des faits est déjà associé à un autre groupe de médias<br /><br />Supprimez-le de son groupe de médias actuel pour l’ajouter ici.",
+		"developer_comment": "Tooltip message displayed on article cards on item page for fact-check type articles."
 	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "Aucun élément correspondant n’a été trouvé",
@@ -1023,7 +1083,7 @@
 		"developer_comment": "Menu option for bulk untagging selected items"
 	},
 	"bulkActionsRemoveTag.dialogBody": {
-		"string": "Les étiquettes <strong>{tags}</strong> seront supprimées des éléments sélectionnés.<br /><br /><strong>Cette action ne peut pas être annulée.</strong> Voulez-vous poursuivre ?",
+		"string": "Les étiquettes <strong>{tags}</strong> seront supprimées des éléments choisis.<br /><br /><strong>Cette action ne peut pas être annulée.</strong> Voulez-vous poursuivre ?",
 		"developer_comment": "Body of dialog warning that bulk untagging items"
 	},
 	"bulkActionsRemoveTag.dialogTitle": {
@@ -1039,7 +1099,7 @@
 		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
 	},
 	"bulkActionsRemoveTag.success": {
-		"string": "{tags} étiquettes ont été supprimées de {itemsCount} éléments",
+		"string": "{tags} étiquettes seront supprimées de {itemsCount} éléments. Les éléments sans étiquette ne seront pas affectés.",
 		"developer_comment": "Success message for bulk untagging items"
 	},
 	"bulkActionsStatus.dialogBody": {
@@ -1419,7 +1479,7 @@
 		"developer_comment": "Label for closing dropdown when user is done selecting tags"
 	},
 	"customAutocomplete.select": {
-		"string": "Sélectionner",
+		"string": "Choisir",
 		"developer_comment": "Verb. Label for generic dropdown component"
 	},
 	"customFiltersManager.enterNumber": {
@@ -1530,18 +1590,6 @@
 		"string": "L’article a été créé. La présence de ce nouvel article partout peut prendre un certain temps.",
 		"developer_comment": "Save item action success message"
 	},
-	"explainers.sortDate": {
-		"string": "Mise à jour (date)",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the explainers page."
-	},
-	"explainers.sortLanguage": {
-		"string": "Langue",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the explainers page."
-	},
-	"explainers.sortTitle": {
-		"string": "Titre",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the explainers page."
-	},
 	"explainers.title": {
 		"string": "Articles explicatifs",
 		"developer_comment": "Title of the explainers page."
@@ -1569,18 +1617,6 @@
 	"exportList.tooltip": {
 		"string": "Exportez les contenus",
 		"developer_comment": "Tooltip for the export list button"
-	},
-	"factChecks.sortDate": {
-		"string": "Mise à jour (date)",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
-	},
-	"factChecks.sortLanguage": {
-		"string": "Langue",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
-	},
-	"factChecks.sortTitle": {
-		"string": "Titre",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
 	},
 	"factChecks.title": {
 		"string": "Affirmation et vérifications des faits",
@@ -1670,40 +1706,48 @@
 		"string": "Nouveau fil partagé",
 		"developer_comment": "Button label create new shared feed"
 	},
+	"feedDataPoints.ArticleContentTitle": {
+		"string": "Données <strong>d’article</strong> à partager :",
+		"developer_comment": "Title of the content section on save feed page where a user can select that fact-checks will be shared in this feed."
+	},
 	"feedDataPoints.contactSupportLinkText": {
 		"string": "Assistance de Check",
 		"developer_comment": "Text of the contact support link displayed on the alert box of the data points section in the edit feed page."
 	},
-	"feedDataPoints.factCheckDataArticleLink": {
-		"string": "données d’affirmation et de vérification des faits",
-		"developer_comment": "Text of the link to an article that explains fact-check data. This link is displayed on the fact-check data points section on the save feed page."
-	},
 	"feedDataPoints.factChecksContentFooter": {
-		"string": "En apprendre davantage sur {factCheckDataArticleLink}.",
+		"string": "* Si l’article partagé est une affirmation et une vérification des faits",
 		"developer_comment": "Footer of section on save feed page where a user can select that claim & fact-checks will be shared in this feed."
 	},
-	"feedDataPoints.factChecksContentTitle": {
-		"string": "Données d’ <strong>affirmation et de vérification des faits publiées</strong> à partager :",
-		"developer_comment": "Title of the content section on save feed page where a user can select that fact-checks will be shared in this feed."
-	},
 	"feedDataPoints.factChecksTitle": {
-		"string": "Affirmation et vérifications des faits publiées",
+		"string": "Articles",
 		"developer_comment": "Title of section on save feed page where a user can select that fact-checks will be shared in this feed."
 	},
 	"feedDataPoints.feedDataPointAnonymizedUserId": {
 		"string": "ID utilisateur unique anonymisé (exemple : 7299e0)",
 		"developer_comment": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests. 7299e0 doesn't need to be localized."
 	},
+	"feedDataPoints.feedDataPointArticleLanguage": {
+		"string": "Langue",
+		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
+	},
+	"feedDataPoints.feedDataPointArticleSummary": {
+		"string": "Résumé",
+		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+	},
+	"feedDataPoints.feedDataPointArticleTitle": {
+		"string": "Titre",
+		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+	},
 	"feedDataPoints.feedDataPointArticleUrl": {
-		"string": "URL de l’article",
+		"string": "URL",
 		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
 	},
 	"feedDataPoints.feedDataPointClaim": {
-		"string": "Affirmation",
+		"string": "Affirmation*",
 		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
 	},
 	"feedDataPoints.feedDataPointDataPublished": {
-		"string": "Date de publication",
+		"string": "Date de publication*",
 		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
 	},
 	"feedDataPoints.feedDataPointDate": {
@@ -1713,14 +1757,6 @@
 	"feedDataPoints.feedDataPointDateLastSubmitted": {
 		"string": "Date du dernier envoi",
 		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
-	},
-	"feedDataPoints.feedDataPointDescription": {
-		"string": "Description de la vérification des faits",
-		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
-	},
-	"feedDataPoints.feedDataPointLanguage": {
-		"string": "Langue",
-		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
 	},
 	"feedDataPoints.feedDataPointMediaContent": {
 		"string": "Contenu multimédia, le cas échéant, tel qu’une image, une description ou une transcription",
@@ -1739,16 +1775,12 @@
 		"developer_comment": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests."
 	},
 	"feedDataPoints.feedDataPointRating": {
-		"string": "Évaluation",
+		"string": "Évaluation*",
 		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
 	},
 	"feedDataPoints.feedDataPointRequestLanguage": {
 		"string": "Langue",
 		"developer_comment": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests."
-	},
-	"feedDataPoints.feedDataPointTitle": {
-		"string": "Titre de la vérification des faits",
-		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
 	},
 	"feedDataPoints.feedDataPointTypeOfMedia": {
 		"string": "Type de média (image, vidéo, etc.)",
@@ -1779,7 +1811,7 @@
 		"developer_comment": "Title of the alert message displayed on data points section of the edit feed page."
 	},
 	"feedDataPoints.requestContentTitle": {
-		"string": "Données de <strong>requêtes</strong> à partager :",
+		"string": "Données de <strong>demandes</strong> à partager :",
 		"developer_comment": "Title of the content section on save feed page where a user can select that request data will be shared in this feed."
 	},
 	"feedDataPoints.title": {
@@ -2088,7 +2120,7 @@
 	},
 	"feedTopBar.addOrg": {
 		"string": "Ajoutez un organisme collaborateur",
-		"developer_comment": "Tooltip message displayed on a button that takes the user toa page where they can add an organization to this shared feed with an expectation to collaborate with the organization."
+		"developer_comment": "Tooltip message displayed on a button that takes the user to a page where they can add an organization to this shared feed with an expectation to collaborate with the organization."
 	},
 	"feedTopBar.customList": {
 		"string": "Accédez à la liste personnalisée",
@@ -2355,7 +2387,7 @@
 		"developer_comment": "This connects two selection fields and will read like 'Media language' is 'English'"
 	},
 	"languageListItem.default": {
-		"string": "<strong>{language}</strong> (par défaut)",
+		"string": "langue par défaut de la ligne info Tipline",
 		"developer_comment": "Label to indicate that this language is the default"
 	},
 	"languageListItem.deleteConfirmationText": {
@@ -2405,12 +2437,8 @@
 		"string": "Activer la détection de la langue",
 		"developer_comment": "Label for a switch where the user toggles auto language detection"
 	},
-	"languagesComponent.languages": {
-		"string": "Langues prises en charge [{languageCount}]",
-		"developer_comment": "Title of the active languages list section in language settings page"
-	},
 	"languagesComponent.title": {
-		"string": "Langue",
+		"string": "Langues prises en charge [{languageCount}]",
 		"developer_comment": "Title of Language settings page"
 	},
 	"limitedTextAreaWithCounter.counter": {
@@ -2633,10 +2661,6 @@
 		"string": "Historique de l’élément",
 		"developer_comment": "Menu item to view the history of changes to the item"
 	},
-	"mediaActions.lockStatus": {
-		"string": "Verrouiller l’état",
-		"developer_comment": "Menu item to lock an item status so it cannot be changed"
-	},
 	"mediaActions.sendToSpam": {
 		"string": "Marquer comme indésirable",
 		"developer_comment": "Menu item to move the current item to the spam list"
@@ -2648,10 +2672,6 @@
 	"mediaActions.tooltip": {
 		"string": "Actions sur l’élément",
 		"developer_comment": "Button to call of the menu of actions that can be performed on an item"
-	},
-	"mediaActions.unlockStatus": {
-		"string": "Déverrouiller l’état",
-		"developer_comment": "Menu item to unlock an item status so it can be changed"
 	},
 	"mediaActionsBar.assignmentNotesPlaceholder": {
 		"string": "Ajoutez une note facultative dans le courriel envoyé aux membres assignés de l’espace de travail",
@@ -2749,9 +2769,21 @@
 		"string": "Aucun article n’est remis aux utilisateurs de la ligne info Tipline qui envoient des demandes correspondant à ce média.",
 		"developer_comment": "Message displayed on articles sidebar when an item has no articles."
 	},
+	"mediaArticles.sendArticlesButton": {
+		"string": "Envoyer aux demandes précédentes",
+		"developer_comment": "Label for the button in the alert to send articles."
+	},
 	"mediaArticles.success": {
 		"string": "L’article a été ajouté",
 		"developer_comment": "Banner displayed after an article is successfully added to an item."
+	},
+	"mediaArticles.unansweredRequestsMessage": {
+		"string": "Vous pouvez remettre les nouveaux articles ajoutés aux utilisateurs qui ont déjà envoyé ce média, mais qui n’ont pas reçu de réponse au cours des <b>30 derniers jours</b>.",
+		"developer_comment": "Message for the alert when there are unanswered requests."
+	},
+	"mediaArticles.unansweredRequestsTitle": {
+		"string": "Articles ajoutés [{numberOfExplainersToSend}]",
+		"developer_comment": "Title for the alert when explainers are added."
 	},
 	"mediaArticlesCard.explainer": {
 		"string": "Article explicatif",
@@ -2778,11 +2810,11 @@
 		"developer_comment": "Title for the list of articles being delivered to users of the tipline for this cluster of media"
 	},
 	"mediaArticlesDisplay.readOnlyAlertContent": {
-		"string": "Si un article d’affirmation et de vérification des faits est ajouté, il est priorisé. Seul cet article est remis en réponse aux demandes qui correspondent à cet élément.",
+		"string": "Votre article explicatif ne sera pas envoyé aux utilisateurs, car ce média comporte déjà une vérification des faits.",
 		"developer_comment": "Description of the alert message displayed on data points section of the edit feed page."
 	},
 	"mediaArticlesDisplay.readOnlyAlertTitle": {
-		"string": "L’affirmation et la vérification des faits ont été ajoutées",
+		"string": "Comporte déjà une vérification des faits",
 		"developer_comment": "Title of the alert message displayed on data points section of the edit feed page."
 	},
 	"mediaArticlesTeamArticles.noResults": {
@@ -3653,6 +3685,10 @@
 		"string": "Plateformes : toutes",
 		"developer_comment": "Option to select all platforms"
 	},
+	"platformSelect.noPlatforms": {
+		"string": "Aucune plateforme n’est proposée",
+		"developer_comment": "Option when there are no tipline platforms with data"
+	},
 	"privacy.policy.title": {
 		"string": "Politique de confidentialité",
 		"developer_comment": "Link text to go to the app privacy policy document"
@@ -3703,7 +3739,7 @@
 	},
 	"projectsComponent.importedReports": {
 		"string": "Importés",
-		"developer_comment": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel"
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items from the 'Imported articles' channel"
 	},
 	"projectsComponent.lists": {
 		"string": "Listes personnalisées",
@@ -4145,13 +4181,21 @@
 		"string": "Vous devez ajouter un titre, un résumé et une langue à la vérification des faits afin de publier le rapport.",
 		"developer_comment": "Text with a reason why user can not publish a report"
 	},
-	"requestReceipt.factCheckDelivered": {
-		"string": "Vérification des faits remise le {date}",
-		"developer_comment": "Message displayed when user request has a fact-check delivered"
+	"requestReceipt.articleDelivered": {
+		"string": "Article remis le {date}",
+		"developer_comment": "Message displayed when user request has an article delivered"
 	},
-	"requestReceipt.factCheckSent": {
-		"string": "Vérification des faits envoyée le {date}",
-		"developer_comment": "Message displayed when user request has a fact-check sent"
+	"requestReceipt.articleSent": {
+		"string": "Article envoyé le {date}",
+		"developer_comment": "Message displayed when user request has an article sent"
+	},
+	"requestReceipt.default": {
+		"string": "Aucun résultat n’a été trouvé",
+		"developer_comment": "Message displayed when no results are returned for this request"
+	},
+	"requestReceipt.negativeFeedback": {
+		"string": "Résultat de la recherche – rétroaction négative",
+		"developer_comment": "Message displayed when user has given a negative feedback over the fact-check sent for this request"
 	},
 	"requestReceipt.noFeedback": {
 		"string": "Résultat de la recherche – aucune rétroaction",
@@ -4163,11 +4207,11 @@
 	},
 	"requestReceipt.updateDelivered": {
 		"string": "Correction remise le {date}",
-		"developer_comment": "Message displayed when user request has a fact-check update delivered"
+		"developer_comment": "Message displayed when user request has an article update delivered"
 	},
 	"requestReceipt.updateSent": {
 		"string": "Correction envoyée le {date}",
-		"developer_comment": "Message displayed when user request has a fact-check update sent"
+		"developer_comment": "Message displayed when user request has an article update sent"
 	},
 	"roleSelect.admin": {
 		"string": "Administrateur"
@@ -4286,11 +4330,11 @@
 		"developer_comment": "Label for proceeding to delete the selected rules"
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
-		"string": "{numSelected, plural, one {# règle est sélectionnée pour la suppression. Voulez-vous la supprimer ? Vous ne pourrez pas annuler cette action.} many {# de règles sont sélectionnées pour la suppression. Voulez-vous les supprimer ? Vous ne pourrez pas annuler cette action.} other {# règles sont sélectionnées pour la suppression. Voulez-vous les supprimer ? Vous ne pourrez pas annuler cette action.}}",
+		"string": "{numSelected, plural, one {# règle est choisie pour la suppression. Voulez-vous la supprimer ? Vous ne pourrez pas annuler cette action.} many {# de règles sont choisies pour la suppression. Voulez-vous les supprimer ? Vous ne pourrez pas annuler cette action.} other {# règles sont choisies pour la suppression. Voulez-vous les supprimer ? Vous ne pourrez pas annuler cette action.}}",
 		"developer_comment": "Details of what will happen when one or more rules are deleted show in a modal confirmation"
 	},
 	"rulesTableToolbar.deleteConfirmationTitle": {
-		"string": "Voulez-vous supprimer les règles sélectionnées ?",
+		"string": "Voulez-vous supprimer les règles choisies ?",
 		"developer_comment": "Title for the confirmation dialog when the user is trying to delete rules"
 	},
 	"rulesTableToolbar.helpContext": {
@@ -4302,7 +4346,7 @@
 		"developer_comment": "Button label to save the changes to the current rule"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {# sélectionnée} many {# de sélectionnées} other {# sélectionnées}}",
+		"string": "{numSelected, plural, one {# choisie} many {# de choisies} other {# choisies}}",
 		"developer_comment": "When rules are selected to perform bulk actions on, this text tells the user how many have been selected"
 	},
 	"rulesTableToolbar.title": {
@@ -4393,33 +4437,25 @@
 		"string": "Donnez une description facultative à ce fil partagé.",
 		"developer_comment": "Placeholder text for feed description field"
 	},
+	"saveFeed.feedArticleContentTitle": {
+		"string": "Liste des articles à inclure dans le fil partagé",
+		"developer_comment": "Title of section where a list can be selected as the content of the feed"
+	},
 	"saveFeed.feedCollaboratorWarning": {
 		"string": "Pour demander que ce fil partagé soit modifié, contactez l’organisme qui l’a créé : <strong>{organizer}</strong>",
 		"developer_comment": "Warning displayed on edit feed page when logged in as a collaborating org."
-	},
-	"saveFeed.feedContentBlurbFactChecksAndMedia": {
-		"string": "Choisissez une liste personnalisée filtrée d’ <strong>affirmation et de vérifications des faits publiées ou de groupes de médias et de demandes</strong> dans votre espace de travail afin de les partager avec ce fil partagé. Vous pourrez mettre cette liste à jour n’importe quand.",
-		"developer_comment": "Helper text for the feed content section when the feed is sharing fact-checks and media."
-	},
-	"saveFeed.feedContentBlurbFactChecksOnly": {
-		"string": "Choisissez une liste personnalisée filtrée d’ <strong>affirmations et de vérifications des faits publiées</strong> dans votre espace de travail afin de les partager avec ce fil partagé. Vous pourrez mettre cette liste à jour n’importe quand.",
-		"developer_comment": "Helper text for the feed content section when the feed is sharing only claim & fact-checks."
-	},
-	"saveFeed.feedContentBlurbMediaOnly": {
-		"string": "Choisissez une liste personnalisée filtrée de <strong>groupes de médias et de demandes</strong> dans votre espace de travail afin de les partager avec ce fil partagé. Vous pourrez mettre cette liste à jour n’importe quand.",
-		"developer_comment": "Helper text for the feed content section when the feed is sharing only media clusters and requests containing that media."
 	},
 	"saveFeed.feedContentSelectLabel": {
 		"string": "Liste personnalisée",
 		"developer_comment": "Helper text for the feed content list select drop-down."
 	},
-	"saveFeed.feedContentTitle": {
-		"string": "Contenu du fil provenant de cet espace de travail",
-		"developer_comment": "Title of section where a list can be selected as the content of the feed"
-	},
 	"saveFeed.feedDetailsTitle": {
 		"string": "Détails du fil",
 		"developer_comment": "Title of section where the details of the feed are filled. e.g.: title, description"
+	},
+	"saveFeed.feedMediaContentTitle": {
+		"string": "Liste des groupes de médias à inclure dans le fil partagé",
+		"developer_comment": "Title of section where a list can be selected as the content of the feed"
 	},
 	"saveFeed.invitationConfirmationDialogBody": {
 		"string": "Un courriel sera envoyé aux collaborateurs listés pour les inviter à contribuer à ce fil partagé.",
@@ -4445,9 +4481,21 @@
 		"string": "Quitter le fil partagé ?",
 		"developer_comment": "'Leave' here is an infinitive verb"
 	},
-	"saveFeed.noListSelected": {
-		"string": "Votre espace de travail ne contribue pas à ce fil partagé. Choisissez une liste ci-dessous pour y contribuer.",
-		"developer_comment": "Warning displayed on edit feed page when no list is selected."
+	"saveFeed.noArticleListDescription": {
+		"string": "Choisissez une liste personnalisée filtrée d’ <strong>articles</strong> dans votre espace de travail pour les partager avec ce fil partagé. Vous pourrez mettre cette liste à jour n’importe quand.",
+		"developer_comment": "Content of a warning displayed on edit feed page when no articles list is selected."
+	},
+	"saveFeed.noArticlediaListSelected": {
+		"string": "Votre espace de travail ne partage aucun article.",
+		"developer_comment": "Warning displayed on edit feed page when no articles list is selected."
+	},
+	"saveFeed.noMediaListDescription": {
+		"string": "Choisissez une liste personnalisée filtrée de <strong>groupes de médias</strong> dans votre espace de travail pour les partager avec ce fil partagé. Vous pourrez mettre cette liste à jour n’importe quand.",
+		"developer_comment": "Content of a warning displayed on edit feed page when no media list is selected."
+	},
+	"saveFeed.noMediaListSelected": {
+		"string": "Votre espace de travail ne partage aucun groupe de médias.",
+		"developer_comment": "Warning displayed on edit feed page when no media list is selected."
 	},
 	"saveFeed.sharedFeedPageEditSubtitle": {
 		"string": "Modifier | {feedName}",
@@ -4569,6 +4617,18 @@
 		"string": "Liste personnalisée de groupes de médias",
 		"developer_comment": "Displayed on top of the custom list title on the search results page."
 	},
+	"savedSearchActions.deleteMessage": {
+		"string": "Confirmez-vous ? Cette liste est partagée avec tous les utilisateurs de {teamName}. Après suppression, personne ne pourra y accéder.",
+		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
+	},
+	"savedSearchActions.deleteMessageWarning": {
+		"string": "Confirmez-vous ? Cette liste est partagée avec tous les utilisateurs de {teamName}. Après suppression, personne ne pourra y accéder.<br /><br />",
+		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
+	},
+	"savedSearchArticles.deleteMessage": {
+		"string": "Confirmez-vous ? Cette liste est partagée avec tous les utilisateurs de {teamName}. Après suppression, personne ne pourra y accéder.",
+		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
+	},
 	"search.afterDate": {
 		"string": "après",
 		"developer_comment": "String displayed before a date picker"
@@ -4597,6 +4657,10 @@
 		"string": "La demande est",
 		"developer_comment": "Prefix label for field to filter by Tipline request"
 	},
+	"search.article": {
+		"string": "L’article est",
+		"developer_comment": "Prefix label for field to filter by article"
+	},
 	"search.articleLanguage": {
 		"string": "Langue des articles",
 		"developer_comment": "Label for article language filter"
@@ -4608,10 +4672,6 @@
 	"search.beforeDate": {
 		"string": "et le",
 		"developer_comment": "String displayed between after and before date pickers"
-	},
-	"search.claim": {
-		"string": "L’affirmation est",
-		"developer_comment": "Prefix label for field to filter by claim"
 	},
 	"search.clear": {
 		"string": "Effacer",
@@ -4642,11 +4702,11 @@
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like \"Report published more than 10 months ago\"."
 	},
 	"search.datePublishedHeading": {
-		"string": "Rapport publié",
+		"string": "Date de publication des rapports",
 		"developer_comment": "This is a heading in a drop down selector, to filter a search by a report published date"
 	},
 	"search.dateRequestHeading": {
-		"string": "Demande envoyée",
+		"string": "Date d’envoi des demandes",
 		"developer_comment": "This is a heading in a drop down selector, to filter a search by request created dates"
 	},
 	"search.dateStartEnd": {
@@ -4654,11 +4714,11 @@
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like \"Report published between February 3, 2022 and February 9, 2022\"."
 	},
 	"search.dateSubmittedHeading": {
-		"string": "Demande envoyée",
+		"string": "Création de l’article",
 		"developer_comment": "This is a header in a drop down selector, to filter a search by the submission date"
 	},
 	"search.dateUpdatedHeading": {
-		"string": "Élément mis à jour",
+		"string": "Date de mise à jour des éléments",
 		"developer_comment": "This is a heading in a drop down selector, to filter a search by date updated"
 	},
 	"search.empty": {
@@ -4885,13 +4945,13 @@
 		"string": "API",
 		"developer_comment": "Filter option that refers to items created via the API"
 	},
+	"searchFieldChannel.batchImported": {
+		"string": "Importation en lot",
+		"developer_comment": "Filter option that refers to items batch-imported from external systems"
+	},
 	"searchFieldChannel.browserExtension": {
 		"string": "Extension pour navigateurs",
 		"developer_comment": "Filter option that refers to items created via the browser extension"
-	},
-	"searchFieldChannel.imported": {
-		"string": "Importés",
-		"developer_comment": "Filter option that refers to items imported from external systems"
 	},
 	"searchFieldChannel.manual": {
 		"string": "Manuels",
@@ -4916,6 +4976,14 @@
 	"searchKeywordConfig.claimDescriptionContext": {
 		"string": "Contexte",
 		"developer_comment": "Label for checkbox to toggle searching for keyword across context data"
+	},
+	"searchKeywordConfig.explainer": {
+		"string": "Article explicatif",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across explainer"
+	},
+	"searchKeywordConfig.explainerTitle": {
+		"string": "Titre",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across explainer title"
 	},
 	"searchKeywordConfig.factCheck": {
 		"string": "Vérification des faits",
@@ -5018,7 +5086,7 @@
 		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
 	},
 	"searchResults.sortUpdated": {
-		"string": "Mise à jour (date)",
+		"string": "Mis à jour (date)",
 		"developer_comment": "Label for sort criteria option displayed in a drop-down in listing pages"
 	},
 	"searchResults.tooManyResults": {
@@ -5026,7 +5094,7 @@
 		"developer_comment": "An alert message that informs the user that their query is too large and need to narrow their filters if they want to continue search for items."
 	},
 	"select.removeSelection": {
-		"string": "Annulez la sélection",
+		"string": "Annulez le choix",
 		"developer_comment": "Tooltip for button on Select component to remove current selection"
 	},
 	"selectList.noListButtonLabel": {
@@ -5044,6 +5112,50 @@
 	"selectList.select": {
 		"string": "Choisir une liste…",
 		"developer_comment": "Label for list selector"
+	},
+	"sendExplainersToPreviousRequests.alertContent": {
+		"string": "Rappel : Les messages envoyés à des utilisateurs par delà les 24  dernières heures sont considérés comme des <u>conversations initiées par l’entreprise</u> et peuvent entraîner des frais supplémentaires.",
+		"developer_comment": "Message for the alert that is displayed when the selected range is not 24 hours."
+	},
+	"sendExplainersToPreviousRequests.alertTitle": {
+		"string": "Conversations professionnelles",
+		"developer_comment": "Title for the alert that is displayed when the selected range is not 24 hours."
+	},
+	"sendExplainersToPreviousRequests.intro": {
+		"string": "Vous pouvez remettre de nouveaux articles aux utilisateurs qui ont déjà envoyé des demandes pour ce média, mais qui <b>n’ont pas</b> reçu de réponse.",
+		"developer_comment": "Message displayed in the confirmation dialog that appears when sending explainers to previous requests."
+	},
+	"sendExplainersToPreviousRequests.oneDay": {
+		"string": "24 dernières heures",
+		"developer_comment": "Label for the 24 hours option in the range select."
+	},
+	"sendExplainersToPreviousRequests.proceedLabel": {
+		"string": "Envoyer aux demandes précédentes",
+		"developer_comment": "'Send' here is an infinitive verb. Label of the proceed button of the confirmation dialog that appears when sending explainers to previous requests."
+	},
+	"sendExplainersToPreviousRequests.selectRangeHelp": {
+		"string": "{count, plural, one {Les articles seront remis à <b>un</b> utilisateur qui n’a pas encore reçu d’articles} many {Les articles seront remis à <b>#</b> utilisateurs qui n’ont pas encore reçu d’articles} other {Les articles seront remis à <b>#</b> utilisateurs qui n’ont pas encore reçu d’articles}}",
+		"developer_comment": "Help content for the range select."
+	},
+	"sendExplainersToPreviousRequests.selectRangeLabel": {
+		"string": "Envoyer aux utilisateurs qui n’ont pas reçu de réponse",
+		"developer_comment": "Label for the range select."
+	},
+	"sendExplainersToPreviousRequests.sevenDays": {
+		"string": "7 derniers jours",
+		"developer_comment": "Label for the 7 days option in the range select."
+	},
+	"sendExplainersToPreviousRequests.success": {
+		"string": "La remise des articles a été programmée",
+		"developer_comment": "Banner displayed after an article is successfully sent to previous requests."
+	},
+	"sendExplainersToPreviousRequests.thirtyDays": {
+		"string": "30 derniers jours",
+		"developer_comment": "Label for the 30 days option in the range select."
+	},
+	"sendExplainersToPreviousRequests.title": {
+		"string": "Envoyer aux demandes précédentes ?",
+		"developer_comment": "Title of the confirmation dialog that appears when sending explainers to previous requests."
 	},
 	"sendTiplineMessage.inputLabel": {
 		"string": "Message",
@@ -5310,10 +5422,6 @@
 		"string": "Service Tipline",
 		"developer_comment": "Page title for tipling settings page"
 	},
-	"smoochBotContentAndTranslation.addMoreInformationDefault": {
-		"string": "Êtes-vous prêt à envoyer ?",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
-	},
 	"smoochBotContentAndTranslation.addMoreInformationDescription": {
 		"string": "Message envoyé aux utilisateurs après qu’ils ont envoyé du contenu, pour confirmer que tous les renseignements qu’ils veulent envoyer ont été indiqués.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
@@ -5338,10 +5446,6 @@
 		"string": "Développer, réduire les détails du contenu",
 		"developer_comment": "Tooltip for the button to show or hide a content details in the list"
 	},
-	"smoochBotContentAndTranslation.feedbackDefault": {
-		"string": "Cette vérification des faits répond-elle à votre question ?",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
-	},
 	"smoochBotContentAndTranslation.feedbackDescription": {
 		"string": "Après retour des vérifications des faits à l’utilisateur, le robot assure automatiquement un suivi pour demander si les résultats sont satisfaisants.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
@@ -5349,10 +5453,6 @@
 	"smoochBotContentAndTranslation.feedbackTitle": {
 		"string": "Invite de rétroaction",
 		"developer_comment": "Title of a customizable string of the tipline bot."
-	},
-	"smoochBotContentAndTranslation.greetingsDefault": {
-		"string": "Bienvenue sur notre robot de vérification des faits. Utilisez le menu principal pour naviguer.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.greetingsDescription": {
 		"string": "Le premier message envoyé à l’utilisateur. Il présente votre organisation et le service que vous proposez grâce à ce robot.",
@@ -5362,10 +5462,6 @@
 		"string": "Message d’accueil",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
-	"smoochBotContentAndTranslation.moreContentPromptDefault": {
-		"string": "Ajoutez plus de contenu.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
-	},
 	"smoochBotContentAndTranslation.moreContentPromptDescription": {
 		"string": "Ce message est affiché si l’utilisateur choisit l’option d’ajouter plus de contenu.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
@@ -5373,10 +5469,6 @@
 	"smoochBotContentAndTranslation.moreContentPromptTitle": {
 		"string": "Ajouter plus de contenu.",
 		"developer_comment": "Title of a customizable string of the tipline bot."
-	},
-	"smoochBotContentAndTranslation.negativeFeedbackDefault": {
-		"string": "Nous vous remercions de votre rétroaction. Elle a été signalée aux journalistes de notre équipe et vous recevrez une mise à jour dans cette conversation si une nouvelle vérification des faits est publiée.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.negativeFeedbackDescription": {
 		"string": "Si l’utilisateur n’est pas satisfait, ce message l’informe que le contenu a été envoyé aux journalistes.",
@@ -5386,10 +5478,6 @@
 		"string": "Rétroaction négative",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
-	"smoochBotContentAndTranslation.newsletterDefault": {
-		"string": "Abonnez-vous maintenant pour que les faits les plus importants vous soient remis directement sur WhatsApp, toutes les semaines. {subscription_status}.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
-	},
 	"smoochBotContentAndTranslation.newsletterDescription": {
 		"string": "Ce message informe l’utilisateur de l’état de son abonnement. Vous devez garder les espaces réservés tels quels (ne pas traduire le contenu entre crochets).",
 		"developer_comment": "Description of a customizable string of the tipline bot."
@@ -5397,10 +5485,6 @@
 	"smoochBotContentAndTranslation.newsletterTitle": {
 		"string": "Adhésion ou non à l’infolettre",
 		"developer_comment": "Title of a customizable string of the tipline bot."
-	},
-	"smoochBotContentAndTranslation.noSearchResultDefault": {
-		"string": "Aucune vérification des faits n’a été trouvée. Cela a été signalé aux journalistes de notre équipe et vous recevrez une mise à jour dans cette conversation si les faits des renseignements sont vérifiés.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noSearchResultDescription": {
 		"string": "Si le robot ne trouve aucune vérification des faits pertinente dans votre base de données, il informe les utilisateurs que le contenu a été envoyé aux journalistes.",
@@ -5410,10 +5494,6 @@
 		"string": "Aucun résultat de recherche",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
-	"smoochBotContentAndTranslation.noticeOfInactivityDefault": {
-		"string": "Notre robot est inactif actuellement. Rendez-vous sur *insert URL* pour consulter les dernières vérifications des faits.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
-	},
 	"smoochBotContentAndTranslation.noticeOfInactivityDescription": {
 		"string": "Si la ligne info Tipline est définie comme inactive, ce message est envoyé pour répondre à n’importe message d’utilisateur.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
@@ -5421,10 +5501,6 @@
 	"smoochBotContentAndTranslation.noticeOfInactivityTitle": {
 		"string": "Robot inactif",
 		"developer_comment": "Title of a customizable string of the tipline bot."
-	},
-	"smoochBotContentAndTranslation.optionNotAvailableDefault": {
-		"string": "Je suis désolé, je n’ai pas compris votre message.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.optionNotAvailableDescription": {
 		"string": "Message envoyé si la réponse de l’utilisateur n’est pas une option valide.",
@@ -5442,10 +5518,6 @@
 		"string": "Tapez le contenu personnalisé ou la traduction ici.",
 		"developer_comment": "Placeholder used in all fields under tipline content and translation settings."
 	},
-	"smoochBotContentAndTranslation.positiveFeedbackDefault": {
-		"string": "Merci. Parlez de cette ligne info autour de vous pour nous aider à combattre la mésinformation. *insérer_le_lien_du_point_d’entrée*",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
-	},
 	"smoochBotContentAndTranslation.positiveFeedbackDescription": {
 		"string": "Si l’utilisateur est satisfait, le but du message et de le remercier de sa rétroaction.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
@@ -5454,10 +5526,6 @@
 		"string": "Rétroaction positive",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
-	"smoochBotContentAndTranslation.submissionPromptDefault": {
-		"string": "Saisissez la question, le lien, l’image ou la vidéo dont vous voulez que les faits soient vérifiés.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
-	},
 	"smoochBotContentAndTranslation.submissionPromptDescription": {
 		"string": "Ce message demande à l’utilisateur d’envoyer du contenu pour en vérifier les faits.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
@@ -5465,10 +5533,6 @@
 	"smoochBotContentAndTranslation.submissionPromptTitle": {
 		"string": "Invite de contenu",
 		"developer_comment": "Title of a customizable string of the tipline bot."
-	},
-	"smoochBotContentAndTranslation.submissionReceivedDefault": {
-		"string": "Merci. Nous recherchons des vérifications des faits. Cela pourrait prendre une minute.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDescription": {
 		"string": "Confirmation retournée à l’utilisateur après envoi du contenu.",
@@ -5485,10 +5549,6 @@
 	"smoochBotContentAndTranslation.textFieldTitleDefault": {
 		"string": "Personnaliser la réponse du robot",
 		"developer_comment": "Title for the textfield where users can enter custom text for a bot response"
-	},
-	"smoochBotContentAndTranslation.timeoutDefault": {
-		"string": "Merci de nous avoir contactés. Appuyez sur n’importe quelle touche pour lancer une nouvelle conversation.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.timeoutDescription": {
 		"string": "Après 15 minutes d’inactivité, ce message est envoyé aux utilisateurs pour clore la conversation.",
@@ -5590,10 +5650,6 @@
 		"string": "Point d’entrée",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
 	},
-	"smoochBotIntegrations.instagram": {
-		"string": "Profil connecté : {link}",
-		"developer_comment": "Label for the connected Instagram profile for this bot"
-	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
 		"string": "Jeton d’accès du canal LINE",
 		"developer_comment": "Output of the LINE bot token"
@@ -5630,10 +5686,6 @@
 		"string": "Jeton du robot Telegram",
 		"developer_comment": "Output of the telegram bot token"
 	},
-	"smoochBotIntegrations.twitterDisabled": {
-		"string": "L’intégration à X n’est actuellement pas proposée à la suite de changements dans l’API de X le 21 avril 2023.",
-		"developer_comment": "Disclaimer displayed on X tipline settings page."
-	},
 	"smoochBotIntegrations.viberPublicAccount": {
 		"string": "Compte public Viber connecté : {name}",
 		"developer_comment": "Name of the connected viber account for this bot"
@@ -5643,7 +5695,7 @@
 		"developer_comment": "Output of the viber bot token"
 	},
 	"smoochBotMainMenu.alertTitle": {
-		"string": "Il y a {numberOfOptions} options, dont toutes les langues sur cet espace de travail. Seulement {numberOfLanguages} langues seront envoyées aux utilisateurs s’ils sélectionnent l’option « Langues ».",
+		"string": "Il y a {numberOfOptions} options, dont toutes les langues sur cet espace de travail. Seulement {numberOfLanguages} langues seront envoyées aux utilisateurs s’ils choisissent l’option « Langues ».",
 		"developer_comment": "Title of an alert box displayed on tipline main menu settings page when there are more than 10 options."
 	},
 	"smoochBotMainMenu.languages": {
@@ -6112,7 +6164,7 @@
 		"developer_comment": "Title for the dialog of deleting language content"
 	},
 	"statusListItem.default": {
-		"string": "{statusLabel}",
+		"string": "(valeur par défaut)",
 		"developer_comment": "The label of the user created status, with an additional note in parenthesis if the label is the default"
 	},
 	"statusListItem.makeDefault": {
@@ -6899,21 +6951,13 @@
 		"string": "Catégorisez automatiquement les éléments par mot-clé. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">En apprendre davantage sur les étiquettes.</a>",
 		"developer_comment": "Context description for the functionality of this page"
 	},
+	"teamTagsComponent.lastUpdated": {
+		"string": "Dernière mise à jour : {count}",
+		"developer_comment": "The date the last time this tag was updated"
+	},
 	"teamTagsComponent.newTag": {
 		"string": "Nouvelle étiquette",
 		"developer_comment": "Button label for calling the new tag creation modal"
-	},
-	"teamTagsComponent.tableHeaderName": {
-		"string": "Nom",
-		"developer_comment": "Column header in tags table."
-	},
-	"teamTagsComponent.tableHeaderTagsCount": {
-		"string": "Éléments",
-		"developer_comment": "Column header in tags table."
-	},
-	"teamTagsComponent.tableHeaderUpdatedAt": {
-		"string": "Mises à jour",
-		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.title": {
 		"string": "Étiquettes [{count}]",
@@ -7031,8 +7075,12 @@
 		"string": "Volume de messages de la ligne info Tipline",
 		"developer_comment": "Title for the tipline message volume widget"
 	},
-	"timelineTiplineMessageVolume.tooltip": {
-		"string": "• {messageCount} messages",
+	"timelineTiplineMessageVolume.tooltipIncoming": {
+		"string": "• {messageCount} messages entrants",
+		"developer_comment": "Tooltip for the tipline message volume widget"
+	},
+	"timelineTiplineMessageVolume.tooltipOutgoing": {
+		"string": "• {messageCount} messages sortants",
 		"developer_comment": "Tooltip for the tipline message volume widget"
 	},
 	"tiplineDashboard.loading": {
@@ -7106,10 +7154,6 @@
 	"trashedArticles.title": {
 		"string": "Corbeille",
 		"developer_comment": "Title of the trashed articles page."
-	},
-	"unmatchedMedia.title": {
-		"string": "Groupes de médias sans correspondance",
-		"developer_comment": "Title of the unmatched media list page"
 	},
 	"upload.dragMessage": {
 		"string": "Faites glisser un fichier ici ou",
@@ -7251,7 +7295,7 @@
 		"developer_comment": "Confirmation for the user to know what will happen when they remove their account"
 	},
 	"userPrivacy.deleteAccountText": {
-		"string": "Si vous supprimez votre compte, vos renseignements personnels seront effacés. Les commentaires, annotations et l’activité des espaces de travail deviendront pseudonymes et resteront sur {appName}.",
+		"string": "Si vous supprimez votre compte, vos renseignements personnels seront effacés. Les annotations et l’activité des espaces de travail deviendront pseudonymes et resteront sur {appName}.",
 		"developer_comment": "Text to tell the user what will happen to their personal information when their account is removed"
 	},
 	"userPrivacy.description": {
@@ -7453,6 +7497,114 @@
 	"webPageMediaCard.Error": {
 		"string": "Cet élément n’a pas pu être identifié. Il a peut-être été supprimé ou n’est visible que pour les utilisateurs connectés. Cliquez sur le lien ci-dessus pour y accéder.",
 		"developer_comment": "Error message displayed when link data is unavailable"
+	},
+	"webhookDelete.body": {
+		"string": "Voulez-vous supprimer ce point d’ancrage Web ? Cette action ne peut pas être annulée.",
+		"developer_comment": "Dialog body for webhook deletion"
+	},
+	"webhookDelete.checkboxLabel": {
+		"string": "Oui, supprimer le point d’ancrage Web",
+		"developer_comment": "Dialog body for webhook deletion"
+	},
+	"webhookDelete.submitLabel": {
+		"string": "Supprimer le point d’ancrage Web",
+		"developer_comment": "Dialog submit button label for webhook deletion"
+	},
+	"webhookDelete.title": {
+		"string": "Supprimer le point d’ancrage Web ?",
+		"developer_comment": "Dialog title for webhook deletion"
+	},
+	"webhookEdit.createSuccess": {
+		"string": "Un point d’ancrage Web a été créé",
+		"developer_comment": "Success message when a webhook is created"
+	},
+	"webhookEdit.dialogTitleCreate": {
+		"string": "Nouveau point d’ancrage Web",
+		"developer_comment": "Title of a dialog box to create new webhooks"
+	},
+	"webhookEdit.dialogTitleEdit": {
+		"string": "Modifier le point d’ancrage Web",
+		"developer_comment": "Title of a dialog box to edit webhook settings"
+	},
+	"webhookEdit.eventType": {
+		"string": "Événement",
+		"developer_comment": "Label for webhook event type select"
+	},
+	"webhookEdit.eventTypeItemStatusChanged": {
+		"string": "L’état d’un élément a changé",
+		"developer_comment": "Label for the event type when the status of an item changes"
+	},
+	"webhookEdit.eventTypeProjectMediaCreated": {
+		"string": "Un média a été créé pour le projet",
+		"developer_comment": "Label for the event type when a project media is created"
+	},
+	"webhookEdit.eventTypeReportPublished": {
+		"string": "Un rapport a été publié",
+		"developer_comment": "Label for the event type when a report is published"
+	},
+	"webhookEdit.headers": {
+		"string": "En-têtes (facultatif)",
+		"developer_comment": "Label for webhook headers input"
+	},
+	"webhookEdit.headersError": {
+		"string": "L’objet JSON est invalide",
+		"developer_comment": "Error message for invalid webhook headers input"
+	},
+	"webhookEdit.headersHelp": {
+		"string": "Utilisez des paires clé-valeur au format JSON",
+		"developer_comment": "Help content for webhook headers input"
+	},
+	"webhookEdit.headersValid": {
+		"string": "✓ Le format JSON est valide",
+		"developer_comment": "Help content for valid webhook headers input"
+	},
+	"webhookEdit.newButton": {
+		"string": "Nouveau point d’ancrage Web",
+		"developer_comment": "Button that opens the webhook creation dialog"
+	},
+	"webhookEdit.updateSuccess": {
+		"string": "Le point d’ancrage Web a été mis à jour",
+		"developer_comment": "Success message when a webhook is updated"
+	},
+	"webhookEdit.webhookName": {
+		"string": "Nom du point d’ancrage Web",
+		"developer_comment": "Label for webhook name input"
+	},
+	"webhookEdit.webhookUrl": {
+		"string": "URL du point d’ancrage Web",
+		"developer_comment": "Label for webhook URL input"
+	},
+	"webhookEntry.listeningFor": {
+		"string": "À l’écoute de",
+		"developer_comment": "Label for text field that shows the event selected for notifying the webhook"
+	},
+	"webhooks.countHeader": {
+		"string": "Points d’ancrage Web [{count}]",
+		"developer_comment": "Title of the webhook management widget"
+	},
+	"webhooks.empty": {
+		"string": "Aucun point d’ancrage Web",
+		"developer_comment": "Label for initial state when there are no API keys created for the current workspace"
+	},
+	"webhooks.emptyBlurb": {
+		"string": "Ajouter une nouvelle intégration pour être averti des événements Check",
+		"developer_comment": "Subtitle for initial state when there are no webhooks created for the current workspace"
+	},
+	"webhooks.footer": {
+		"string": "Consultez notre guide d’utilisation de {checkApi}, aussi pour résoudre les problèmes courants.",
+		"developer_comment": "Footer text in API key creation widget"
+	},
+	"webhooks.footerSupport": {
+		"string": "Contactez-nous directement pour obtenir de l’assistance.",
+		"developer_comment": "Footer text in API key creation widget"
+	},
+	"webhooks.title": {
+		"string": "Points d’ancrage Web externes",
+		"developer_comment": "Title of the webhook management widget"
+	},
+	"webhooks.toggleLabel": {
+		"string": "Gérer les intégrations avec des systèmes externes. S’abonner aux événements de Check.",
+		"developer_comment": "Description of the webhook management widget toggle switch"
 	},
 	"workspaceMenu.botBuilder": {
 		"string": "Constructeur de robot",
