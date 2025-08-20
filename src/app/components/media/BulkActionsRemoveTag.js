@@ -32,7 +32,7 @@ const BulkActionsRemoveTag = ({
         <>
           <FormattedMessage
             defaultMessage="{tagsCount, plural, one {# tag removed from} other {# tags removed from}}"
-            description="Success message for bulk untagging items (tags part)"
+            description="Success message for bulk untagging items (tags part). Prepends to string bulkActionsRemoveTag.successPart2"
             id="bulkActionsRemoveTag.successPart1"
             values={{
               tagsCount: selectedValueText.length,
@@ -41,7 +41,7 @@ const BulkActionsRemoveTag = ({
 
           <FormattedMessage
             defaultMessage="{itemsCount, plural, one {# item. Item without those tags will remain unaffected.} other {# items. Items without those tags will remain unaffected.}}"
-            description="Success message for bulk untagging items (items part)"
+            description="Success message for bulk untagging items (items part). Appends to string bulkActionsRemoveTag.successPart1"
             id="bulkActionsRemoveTag.successPart2"
             values={{
               itemsCount: selectedMedia.length,
