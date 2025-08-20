@@ -19,7 +19,7 @@ import UserTos from './UserTos';
 import CheckContext from '../CheckContext';
 import { withClientSessionId } from '../ClientSessionId';
 import { stringHelper } from '../customHelpers';
-import { bemClass } from '../helpers';
+import { bemClass, safelyParseJSON } from '../helpers';
 import MeRoute from '../relay/MeRoute';
 import styles from './Home.module.css';
 
@@ -265,7 +265,7 @@ class HomeComponent extends Component {
         if (user.is_admin) {
           return true;
         }
-        const teams = JSON.parse(user.user_teams);
+        const teams = safelyParseJSON(user.user_teams);
         const team = teams[teamSlug] || {};
         return team.status === 'member';
       }
