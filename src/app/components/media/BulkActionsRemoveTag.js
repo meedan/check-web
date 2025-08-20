@@ -40,7 +40,7 @@ const BulkActionsRemoveTag = ({
           />
 
           <FormattedMessage
-            defaultMessage="{itemsCount, plural, one {# item. Item without those tags will remain unaffected.} other {# items. Items without those tags will remain unaffected.}}"
+            defaultMessage="{itemsCount, plural, one {# item. Items without those tags will remain unaffected.} other {# items. Items without those tags will remain unaffected.}}"
             description="Success message for bulk untagging items (items part). Appends to string bulkActionsRemoveTag.successPart1"
             id="bulkActionsRemoveTag.successPart2"
             values={{
