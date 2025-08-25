@@ -120,18 +120,18 @@ const NewsletterScheduler = ({
       </div>
 
       { showDeliveryError && lastDeliveryError === 'CONTENT_HASNT_CHANGED' &&
-      <Alert
-        border
-        placement="contained"
-        title={
-          <FormattedMessage
-            defaultMessage="The newsletter was not sent because its content has not been updated since the last successful delivery."
-            description="Text displayed in an error box on newsletter settings page when RSS content has not changed"
-            id="newsletterScheduler.errorContentHasntChanged"
-          />
-        }
-        variant="error"
-      />
+        <Alert
+          border
+          placement="contained"
+          title={
+            <FormattedMessage
+              defaultMessage="The newsletter was not sent because its content has not been updated since the last successful delivery."
+              description="Text displayed in an error box on newsletter settings page when RSS content has not changed"
+              id="newsletterScheduler.errorContentHasntChanged"
+            />
+          }
+          variant="error"
+        />
       }
 
       { showDeliveryError && lastDeliveryError === 'RSS_ERROR' &&
