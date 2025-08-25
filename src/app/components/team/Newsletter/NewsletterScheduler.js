@@ -134,7 +134,7 @@ const NewsletterScheduler = ({
       />
       }
 
-      { showDeliveryError && lastDeliveryError === 'RSS_ERROR' ?
+      { showDeliveryError && lastDeliveryError === 'RSS_ERROR' &&
         <Alert
           border
           placement="contained"
@@ -146,7 +146,7 @@ const NewsletterScheduler = ({
             />
           }
           variant="error"
-        /> : null
+        />
       }
 
       <div className={styles['newsletter-scheduler-schedule']}>
