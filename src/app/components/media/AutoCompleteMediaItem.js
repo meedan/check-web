@@ -106,7 +106,7 @@ const AutoCompleteMediaItem = (props, context) => {
     keyword: encodeURIComponent(searchText),
     show: ['claims', 'links', 'images', 'videos', 'audios', 'blank'],
     eslimit: 50,
-    archived: [CheckArchivedFlags.NONE, CheckArchivedFlags.UNCONFIRMED],
+    archived: [CheckArchivedFlags.NONE, CheckArchivedFlags.UNCONFIRMED, CheckArchivedFlags.FACTCHECK_IMPORT],
     show_similar: Boolean(props.customFilter),
     sort: 'score',
   };
