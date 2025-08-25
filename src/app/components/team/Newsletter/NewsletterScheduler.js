@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
 import cx from 'classnames/bind';
@@ -50,6 +50,16 @@ const NewsletterScheduler = ({
   const weekDays = getWeekDays(intl.locale);
   const weekDaysLabels = weekDays.labels;
   const weekDaysValues = weekDays.values;
+  const [showDeliveryError, setShowDeliveryError] = useState(!!lastDeliveryError);
+
+  useEffect(() => {
+    setShowDeliveryError(!!lastDeliveryError);
+  }, [lastDeliveryError]);
+
+  const handleUpdate = (field, value) => {
+    setShowDeliveryError(false);
+    onUpdate(field, value);
+  };
 
   return (
     <div className={`${styles['newsletter-scheduler']} ${scheduled ? styles['newsletter-scheduled'] : styles['newsletter-paused']}`}>
@@ -109,22 +119,22 @@ const NewsletterScheduler = ({
         }
       </div>
 
-      { lastDeliveryError === 'CONTENT_HASNT_CHANGED' ?
-        <Alert
-          border
-          placement="contained"
-          title={
-            <FormattedMessage
-              defaultMessage="The newsletter was not sent because its content has not been updated since the last successful delivery."
-              description="Text displayed in an error box on newsletter settings page when RSS content has not changed"
-              id="newsletterScheduler.errorContentHasntChanged"
-            />
-          }
-          variant="error"
-        /> : null
+      { showDeliveryError && lastDeliveryError === 'CONTENT_HASNT_CHANGED' &&
+      <Alert
+        border
+        placement="contained"
+        title={
+          <FormattedMessage
+            defaultMessage="The newsletter was not sent because its content has not been updated since the last successful delivery."
+            description="Text displayed in an error box on newsletter settings page when RSS content has not changed"
+            id="newsletterScheduler.errorContentHasntChanged"
+          />
+        }
+        variant="error"
+      />
       }
 
-      { lastDeliveryError === 'RSS_ERROR' ?
+      { showDeliveryError && lastDeliveryError === 'RSS_ERROR' ?
         <Alert
           border
           placement="contained"
@@ -211,7 +221,7 @@ const NewsletterScheduler = ({
             size="default"
             theme="alert"
             variant="contained"
-            onClick={() => { onUpdate('scheduled', false); }}
+            onClick={() => handleUpdate('scheduled', false)}
           /> :
           <ButtonMain
             disabled={disabled}
@@ -222,7 +232,7 @@ const NewsletterScheduler = ({
             size="default"
             theme="validation"
             variant="contained"
-            onClick={() => { onUpdate('scheduled', true); }}
+            onClick={() => handleUpdate('scheduled', true)}
           />
         }
         { subscribersCount !== null &&
@@ -243,7 +253,7 @@ const NewsletterScheduler = ({
 
 NewsletterScheduler.defaultProps = {
   sendEvery: ['wednesday'],
-  sendOn: '',
+  sendOn: null,
   time: '09:00',
   subscribersCount: null,
   parentErrors: {},
