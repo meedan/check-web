@@ -28,6 +28,7 @@ basic-auth.sh
 yalc.lock
 .eslintcache
 .stylelintcache
+.transifexrc
 
 # Sentry Auth Token
 .env.sentry-build-plugin

@@ -90,7 +90,7 @@ const SendExplainersToPreviousRequests = ({
         <div className={styles.sendExplainersToPreviousRequests}>
           <div className="typography-body1">
             <FormattedHTMLMessage
-              defaultMessage="You can deliver new articles to users who have previously submitted requests with this media, but <b>did not</b> receive a response."
+              defaultMessage="You can deliver new articles to users who have previously submitted requests for this media, but <b>did not</b> receive a response."
               description="Message displayed in the confirmation dialog that appears when sending explainers to previous requests."
               id="sendExplainersToPreviousRequests.intro"
             />
@@ -98,7 +98,7 @@ const SendExplainersToPreviousRequests = ({
           <Select
             helpContent={
               <FormattedHTMLMessage
-                defaultMessage="{count, plural, one {Articles will be delivered to <b>one</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}"
+                defaultMessage="{count, plural, one {Articles will be delivered to <b>#</b> user who have not received articles} other {Articles will be delivered to <b>#</b> users who have not received articles}}"
                 description="Help content for the range select."
                 id="sendExplainersToPreviousRequests.selectRangeHelp"
                 values={{ count }}
@@ -151,7 +151,7 @@ const SendExplainersToPreviousRequests = ({
               title={
                 <FormattedMessage
                   defaultMessage="Business Conversations"
-                  description="Title for the alert that is displayed when the selected range is not 24 hours."
+                  description="Business conversations, or Business Initiated Converstaions, are conversations started by messages send to users by the Check partner organization outside when no other message has been sent or recieved in the past 24 hours."
                   id="sendExplainersToPreviousRequests.alertTitle"
                 />
               }
