@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
 import cx from 'classnames/bind';
@@ -50,6 +50,16 @@ const NewsletterScheduler = ({
   const weekDays = getWeekDays(intl.locale);
   const weekDaysLabels = weekDays.labels;
   const weekDaysValues = weekDays.values;
+  const [showDeliveryError, setShowDeliveryError] = useState(!!lastDeliveryError);
+
+  useEffect(() => {
+    setShowDeliveryError(!!lastDeliveryError);
+  }, [lastDeliveryError]);
+
+  const handleUpdate = (field, value) => {
+    setShowDeliveryError(false);
+    onUpdate(field, value);
+  };
 
   return (
     <div className={`${styles['newsletter-scheduler']} ${scheduled ? styles['newsletter-scheduled'] : styles['newsletter-paused']}`}>
@@ -109,7 +119,7 @@ const NewsletterScheduler = ({
         }
       </div>
 
-      { lastDeliveryError === 'CONTENT_HASNT_CHANGED' ?
+      { showDeliveryError && lastDeliveryError === 'CONTENT_HASNT_CHANGED' &&
         <Alert
           border
           placement="contained"
@@ -121,10 +131,10 @@ const NewsletterScheduler = ({
             />
           }
           variant="error"
-        /> : null
+        />
       }
 
-      { lastDeliveryError === 'RSS_ERROR' ?
+      { showDeliveryError && lastDeliveryError === 'RSS_ERROR' &&
         <Alert
           border
           placement="contained"
@@ -136,7 +146,7 @@ const NewsletterScheduler = ({
             />
           }
           variant="error"
-        /> : null
+        />
       }
 
       <div className={styles['newsletter-scheduler-schedule']}>
@@ -211,7 +221,7 @@ const NewsletterScheduler = ({
             size="default"
             theme="alert"
             variant="contained"
-            onClick={() => { onUpdate('scheduled', false); }}
+            onClick={() => handleUpdate('scheduled', false)}
           /> :
           <ButtonMain
             disabled={disabled}
@@ -222,7 +232,7 @@ const NewsletterScheduler = ({
             size="default"
             theme="validation"
             variant="contained"
-            onClick={() => { onUpdate('scheduled', true); }}
+            onClick={() => handleUpdate('scheduled', true)}
           />
         }
         { subscribersCount !== null &&
@@ -243,7 +253,7 @@ const NewsletterScheduler = ({
 
 NewsletterScheduler.defaultProps = {
   sendEvery: ['wednesday'],
-  sendOn: '',
+  sendOn: null,
   time: '09:00',
   subscribersCount: null,
   parentErrors: {},
