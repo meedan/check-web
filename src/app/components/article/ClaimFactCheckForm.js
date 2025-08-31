@@ -231,8 +231,6 @@ const ClaimFactCheckForm = ({
     const input = { ...claim };
     if (projectMedia) {
       input.project_media_id = projectMedia.dbid;
-    } else {
-      input.enable_create_blank_media = true;
     }
     commitMutation(Relay.Store, {
       mutation: createClaimMutation,
