@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - 'develop'
-      - 'master'
-      - '*deploy/*'
+    tags:
+      - 'v*'
 
 jobs:
   build-test-deploy:
@@ -83,19 +83,27 @@ jobs:
           --file ./production/Dockerfile \
           --build-arg DEPLOY_BRANCH=$BRANCH ./
 
-    - name: Kick off Terraform deploy in sysops/ if not live
-      id: sysops-deploy
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
-      env:
-        IMAGE_URI: format('{0}/{1}:{2}', ${{ steps.login-ecr.outputs.registry }}, ${{ github.event.repository.name }}, ${{ github.sha }})
+    - name: Kick off Terraform deploy in sysops/ for QA deployment
+      id: sysops-deploy-qa
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/develop')
       run: |
-        BRANCH=$(echo "${GITHUB_REF#refs/*/}" | sed 's/.*\///')
-        if [[ "$BRANCH" != master ]]; then
-          curl \
-          -X POST \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/meedan/sysops/actions/workflows/deploy_${{ github.event.repository.name }}.yml/dispatches \
-          -u ${{ secrets.SYSOPS_RW_GITHUB_TOKEN }} \
-          -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "type": "push", "image": "env.IMAGE_URI", "branch": "'$BRANCH'"}}'
-        fi
+        curl --fail-with-body \
+        -X POST \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer ${{ secrets.SYSOPS_RW_GITHUB_TOKEN }}" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        https://api.github.com/repos/meedan/sysops/actions/workflows/deploy_check_web.yml/dispatches \
+        -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "type": "push"}}'
+
+    - name: Kick off Terraform deploy in sysops/ for Live
+      id: sysops-deploy-live
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+      run: |
+        curl --fail-with-body \
+        -X POST \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer ${{ secrets.SYSOPS_RW_GITHUB_TOKEN }}" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        https://api.github.com/repos/meedan/sysops/actions/workflows/deploy_check_web.yml/dispatches \
+        -d '{"ref": "master", "inputs": {"git_sha": "${{ github.sha }}", "type": "tag"}}'
 
