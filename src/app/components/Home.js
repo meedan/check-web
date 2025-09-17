@@ -278,23 +278,13 @@ class HomeComponent extends Component {
       );
     }
 
-    let userTiplines = '';
-    if (user && user.current_team && user.current_team.team_bot_installation && user.current_team.team_bot_installation.smooch_enabled_integrations) {
-      userTiplines = Object.keys(user.current_team.team_bot_installation.smooch_enabled_integrations).join(', ');
-    }
-
     return (
       <React.Fragment>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           {config.intercomAppId && user.dbid && window.parent === window ?
             <Intercom
               appID={config.intercomAppId}
-              check_workspace={teamSlug}
-              data={(user && user.current_team) ? user.current_team.get_data_report_url : ''}
-              email={user.email}
-              name={user.name}
-              tipline={userTiplines}
-              user_id={user.dbid}
+              intercom_user_jwt={user.intercom_user_jwt}
             /> : null
           }
           <Favicon animated={false} url={`/images/logo/${config.appName}.ico`} />
@@ -363,6 +353,7 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
         source_id
         team_ids
         user_teams
+        intercom_user_jwt
         current_team {
           id
           dbid
