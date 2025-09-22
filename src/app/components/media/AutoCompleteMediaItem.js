@@ -20,7 +20,6 @@ import SettingsIcon from '../../icons/settings.svg';
 import SearchIcon from '../../icons/search.svg';
 import { getStatus, isFactCheckValueBlank } from '../../helpers';
 import CheckArticleTypes from '../../constants/CheckArticleTypes';
-import CheckMediaTypes from '../../constants/CheckMediaTypes';
 import styles from './media.module.css';
 
 // Return { jsonPromise, abort }.
@@ -151,6 +150,7 @@ const AutoCompleteMediaItem = (props, context) => {
                     description
                     picture
                     type
+                    archived
                     last_seen
                     requests_count
                     linked_items_count
@@ -332,7 +332,7 @@ const AutoCompleteMediaItem = (props, context) => {
               currentStatus = getStatus(searchResult.team.verification_statuses, projectMedia.fact_check.rating);
             }
 
-            const factCheckInUse = projectMedia.media.type !== CheckMediaTypes.BLANK;
+            const factCheckInUse = projectMedia.archived !== CheckArchivedFlags.FACTCHECK_IMPORT;
 
             return (
               <div
