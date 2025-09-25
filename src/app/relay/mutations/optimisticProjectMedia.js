@@ -31,7 +31,6 @@ const optimisticProjectMedia = (media, context, customTeam) => {
         created_at: now,
         updated_at: now,
         last_seen: now,
-        share_count: 0,
         check_search_team: {
           id: team.search_id,
           number_of_results: team.medias_count + 1,
