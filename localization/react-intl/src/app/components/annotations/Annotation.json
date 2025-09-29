@@ -116,7 +116,7 @@
   {
     "id": "annotation.importedFromFeed",
     "description": "Log entry indicating an item has been imported from a feedd",
-    "defaultMessage": "Item imported from {feed_name}"
+    "defaultMessage": "Item imported from shared feed: {feed_name}"
   },
   {
     "id": "annotation.createProjectMedia",

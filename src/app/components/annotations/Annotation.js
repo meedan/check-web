@@ -484,7 +484,7 @@ class Annotation extends Component {
         contentTemplate = (
           <span>
             <FormattedMessage
-              defaultMessage="Item imported from {feed_name}"
+              defaultMessage="Item imported from shared feed: {feed_name}"
               description="Log entry indicating an item has been imported from a feedd"
               id="annotation.importedFromFeed"
               values={{
