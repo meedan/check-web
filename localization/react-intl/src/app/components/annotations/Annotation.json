@@ -114,6 +114,11 @@
     "defaultMessage": "Source {name} added by {author}"
   },
   {
+    "id": "annotation.importedFromFeed",
+    "description": "Log entry indicating an item has been imported from a feedd",
+    "defaultMessage": "Item imported from shared feed: {feed_name}"
+  },
+  {
     "id": "annotation.createProjectMedia",
     "description": "Log entry indicating an item has been created",
     "defaultMessage": "Item created by {author}"

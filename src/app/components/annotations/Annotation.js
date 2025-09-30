@@ -466,7 +466,7 @@ class Annotation extends Component {
     }
     case 'create_projectmedia': {
       const meta = safelyParseJSON(activity.meta);
-      if (meta && meta.add_source) {
+      if (meta?.add_source) {
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -476,6 +476,19 @@ class Annotation extends Component {
               values={{
                 name: meta.source_name,
                 author: 'Check',
+              }}
+            />
+          </span>
+        );
+      } else if (meta?.feed_name) {
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              defaultMessage="Item imported from shared feed: {feed_name}"
+              description="Log entry indicating an item has been imported from a feedd"
+              id="annotation.importedFromFeed"
+              values={{
+                feed_name: meta.feed_name,
               }}
             />
           </span>
