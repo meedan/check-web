@@ -5,6 +5,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import CheckArchivedFlags from '../../constants/CheckArchivedFlags';
 import AddIcon from '../../icons/add.svg';
 import BookIcon from '../../icons/book.svg';
 import UnavilableIcon from '../../icons/do_not_disturb.svg';
@@ -16,7 +17,7 @@ import styles from './Articles.module.css';
 const MediaArticlesCard = ({ article, onAdd, team }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
-  const factCheckInUse = (article.nodeType === 'FactCheck' && article.claim_description?.project_media?.id && article.claim_description?.project_media?.type !== 'Blank');
+  const factCheckInUse = (article.nodeType === 'FactCheck' && article.claim_description?.project_media?.id && article.claim_description?.project_media?.archived !== CheckArchivedFlags.FACTCHECK_IMPORT);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -112,7 +113,7 @@ MediaArticlesCard.propTypes = {
       description: PropTypes.string,
       project_media: PropTypes.shape({
         id: PropTypes.string,
-        type: PropTypes.string,
+        archived: PropTypes.number,
       }),
     }),
     nodeType: PropTypes.oneOf(['FactCheck', 'Explainer']).isRequired,
@@ -147,7 +148,7 @@ export default createFragmentContainer(MediaArticlesCard, graphql`
         context
         project_media {
           id
-          type
+          archived
         }
       }
     }
