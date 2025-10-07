@@ -13,7 +13,7 @@ shared_examples 'articles' do
     fill_field('#article-form__summary', 'fact check sumary')
     wait_for_selector('#article-form__url').click
     wait_for_selector('#article-form__save-button').click
-    wait_for_selector_none('#article-form__save-button')
+    wait_for_selector('.test__alert-content')
     @driver.navigate.refresh
     wait_for_selector('.article-card')
     wait_for_selector('#side-rail__tipline').click
@@ -44,7 +44,7 @@ shared_examples 'articles' do
     fill_field('#article-form__summary', 'fact check sumary')
     wait_for_selector('#article-form__url').click
     wait_for_selector('#article-form__save-button').click
-    wait_for_selector_none('#article-form__save-button')
+    wait_for_selector('.test__alert-content')
     @driver.navigate.refresh
     wait_for_selector('.article-card')
     wait_for_selector('#side-rail__tipline').click
