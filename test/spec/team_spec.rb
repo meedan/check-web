@@ -1,7 +1,7 @@
 shared_examples 'team' do
   it 'should duplicate team', bin1: true do
     team = "testteam#{Time.now.to_i}"
-    api_create_team(team: team)
+    api_create_team(team: team, is_admin: true)
     @driver.navigate.to "#{@config['self_url']}/#{team}/settings/workspace"
     wait_for_selector('#team-details__update-button')
     expect(@driver.page_source.include?('duplicated-team')).to be(false)
