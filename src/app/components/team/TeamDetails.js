@@ -7,6 +7,7 @@ import CreateTeamDialog from './CreateTeamDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamAvatar from './TeamAvatar';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import Checkbox from '../cds/buttons-checkboxes-chips/Checkbox';
 import TextField from '../cds/inputs/TextField';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -27,12 +28,14 @@ const TeamDetails = ({
   const [showDuplicateTeamDialog, setShowDuplicateTeamDialog] = React.useState(false);
   const [avatar, setAvatar] = React.useState(null);
   const [name, setName] = React.useState(team.name);
+  const [inactive, setInactive] = React.useState(team.inactive);
   const [editProfileImg, setEditProfileImg] = React.useState(false);
   const [shortenOutgoingUrls, setShortenOutgoingUrls] = React.useState(team.get_shorten_outgoing_urls);
   const [utmCode, setUtmCode] = React.useState(team.get_outgoing_urls_utm_code);
   const [isSaving, setIsSaving] = React.useState(false);
 
   const canEditTeam = can(team.permissions, 'update Team');
+  const canActivateTeam = can(team.permissions, 'activate Team');
   const hasRssNewsletters = Boolean(team.tipline_newsletters.edges.find(tn => tn.node.content_type === 'rss'));
   const hasScheduledNewsletters = Boolean(team.tipline_newsletters.edges.find(tn => tn.node.enabled));
 
@@ -73,6 +76,7 @@ const TeamDetails = ({
           outgoing_urls_utm_code: utmCode,
           avatar,
           name,
+          inactive,
         }),
         { onSuccess, onFailure },
       );
@@ -181,7 +185,23 @@ const TeamDetails = ({
               onChange={e => setName(e.target.value)}
             />
           </div>
-
+          {
+            canActivateTeam ?
+              <div className={settingsStyles['setting-content-container']}>
+                <Checkbox
+                  checked={inactive}
+                  label={
+                    <FormattedHTMLMessage
+                      defaultMessage="Inactive"
+                      description="Label for workspace inactive team"
+                      id="teamDetails.inactive"
+                    />
+                  }
+                  onChange={() => setInactive(!inactive)}
+                />
+              </div>
+              : null
+          }
           <div className={settingsStyles['setting-content-container']}>
             <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage defaultMessage="Link Management" description="Title of the link management section in team details page" id="teamDetails.linkManagement" />
@@ -285,6 +305,7 @@ export default createFragmentContainer(withSetFlashMessage(TeamDetails), graphql
     id
     public_team_id
     name
+    inactive
     avatar
     permissions
     get_shorten_outgoing_urls

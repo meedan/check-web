@@ -30,6 +30,11 @@
     "defaultMessage": "Workspace name"
   },
   {
+    "id": "teamDetails.inactive",
+    "description": "Label for workspace inactive team",
+    "defaultMessage": "Inactive"
+  },
+  {
     "id": "teamDetails.linkManagement",
     "description": "Title of the link management section in team details page",
     "defaultMessage": "Link Management"
