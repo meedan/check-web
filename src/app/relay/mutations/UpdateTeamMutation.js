@@ -15,6 +15,7 @@ class UpdateTeamMutation extends Relay.Mutation {
         check_search_spam { id, number_of_results },
         team {
           name
+          inactive
           id
           description
           avatar
@@ -40,6 +41,7 @@ class UpdateTeamMutation extends Relay.Mutation {
     const options = {
       id: this.props.id,
       name: this.props.name,
+      inactive: this.props.inactive,
       description: this.props.description,
       empty_trash: this.props.empty_trash,
       contact: this.props.contact,
@@ -89,7 +91,7 @@ class UpdateTeamMutation extends Relay.Mutation {
         children: [Relay.QL`
           fragment on UpdateTeamPayload {
             team {
-              name, id, description, avatar,
+              name, id, description, avatar, inactive,
               get_shorten_outgoing_urls,
               get_outgoing_urls_utm_code,
               get_report,

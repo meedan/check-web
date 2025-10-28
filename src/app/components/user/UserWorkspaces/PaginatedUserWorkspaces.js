@@ -37,6 +37,7 @@ const userWorkspacesQuery = graphql`
 
 const UserWorkspacesComponent = ({
   currentTeam,
+  isAdmin,
   numberOfTeams,
   pageSize,
   relay,
@@ -115,15 +116,16 @@ const UserWorkspacesComponent = ({
     <>
       <SettingsHeader
         actionButton={
-          <ButtonMain
-            label={
-              <FormattedMessage defaultMessage="Create" description="Button label for initiating creating a new team workspace" id="switchTeams.newTeamLink" />
-            }
-            size="default"
-            theme="info"
-            variant="contained"
-            onClick={() => setShowCreateTeamDialog(true)}
-          />
+          isAdmin ?
+            <ButtonMain
+              label={
+                <FormattedMessage defaultMessage="Create" description="Button label for initiating creating a new team workspace" id="switchTeams.newTeamLink" />
+              }
+              size="default"
+              theme="info"
+              variant="contained"
+              onClick={() => setShowCreateTeamDialog(true)}
+            /> : null
         }
         title={
           <FormattedMessage
@@ -200,6 +202,7 @@ const UserWorkspacesComponent = ({
 
 UserWorkspacesComponent.propTypes = {
   currentTeam: PropTypes.number.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   numberOfTeams: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   teams: PropTypes.arrayOf(PropTypes.shape({
@@ -217,6 +220,7 @@ const PaginatedUserWorkspaces = createPaginationContainer(
   props => (
     <UserWorkspacesComponent
       currentTeam={props.root.current_team_id}
+      isAdmin={props.root.is_admin}
       numberOfTeams={props.root.accessible_teams_count}
       pageSize={props.pageSize}
       relay={props.relay}
@@ -227,6 +231,7 @@ const PaginatedUserWorkspaces = createPaginationContainer(
   {
     root: graphql`
       fragment PaginatedUserWorkspaces_root on Me {
+        is_admin
         current_team_id
         accessible_teams_count
         accessible_teams(first: $pageSize, after: $after) @connection(key: "PaginatedUserWorkspaces_accessible_teams") {
