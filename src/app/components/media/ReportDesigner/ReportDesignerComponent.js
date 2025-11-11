@@ -221,7 +221,7 @@ const ReportDesignerComponent = (props) => {
           prefixUrl={prefixUrl}
           readOnly={
             !can(media.permissions, 'update ProjectMedia') ||
-            (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
+            (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED && media.archived !== CheckArchivedFlags.FACTCHECK_IMPORT) ||
             pending
           }
           state={data.state}

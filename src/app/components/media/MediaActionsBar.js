@@ -257,7 +257,7 @@ class MediaActionsBarComponent extends Component {
                 <MediaStatus
                   media={media}
                   readonly={(
-                    (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
+                    (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED && media.archived !== CheckArchivedFlags.FACTCHECK_IMPORT) ||
                     media.last_status_obj?.locked ||
                     published
                   )}
