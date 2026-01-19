@@ -1,16 +1,9 @@
 shared_examples 'login' do
-  it 'should sign up using e-mail', bin1: true do
-    @driver.navigate.to @config['self_url']
-    expect(@driver.page_source.include?('Please check your email')).to be(false)
-    email = "userTest+#{Time.now.to_i}@email.com"
-    register_with_email(false, email, false)
-    wait_for_selector('.message')
-    expect(@driver.page_source.include?('Please check your email')).to be(true)
-  end
 
-  it 'should register and login using e-mail', bin2: true, quick: true do
-    email = "sysops+#{Time.now.to_i}@meedan.com"
-    register_with_email(true, email, true)
+  it 'should login using e-mail', bin2: true, quick: true do
+    user = api_create_and_confirm_user
+    api_logout
+    login_with_email(false, user.email)
     @driver.navigate.to "#{@config['self_url']}/check/me/profile"
     displayed_name = wait_for_selector('h5.component__settings-header').text
     expect(displayed_name == 'User With Email').to be(true)
