@@ -1,5 +1,4 @@
 shared_examples 'login' do
-
   it 'should login using e-mail', bin2: true, quick: true do
     user = api_create_and_confirm_user
     api_logout
