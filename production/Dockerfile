@@ -46,7 +46,7 @@ RUN true \
         curl
 
 RUN true \
-    && curl https://oss-binaries.phusionpassenger.com/auto-software-signing-gpg-key.txt \
+    && curl https://oss-binaries.phusionpassenger.com/auto-software-signing-gpg-key-2025.txt \
        | gpg --dearmor \
        | tee /etc/apt/trusted.gpg.d/phusion.gpg >/dev/null
 
