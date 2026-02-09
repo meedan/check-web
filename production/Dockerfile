@@ -45,10 +45,10 @@ RUN true \
         ca-certificates \
         curl
 
+# Use `apt-key` to fix deployment, but we should update it during upgrades since apt-key is deprecated.
+
 RUN true \
-    && curl https://oss-binaries.phusionpassenger.com/auto-software-signing-gpg-key.txt \
-       | gpg --dearmor \
-       | tee /etc/apt/trusted.gpg.d/phusion.gpg >/dev/null
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D870AB033FB45BD1
 
 RUN true \
     && echo deb https://oss-binaries.phusionpassenger.com/apt/passenger bullseye main \
