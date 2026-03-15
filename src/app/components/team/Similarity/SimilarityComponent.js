@@ -471,33 +471,6 @@ const SimilarityComponent = ({
             </div>
             <div className={settingsStyles['setting-content-container']}>
               <SwitchComponent
-                checked={settings.audio_similarity_enabled}
-                label="Audio matching"
-                labelPlacement="end"
-                onChange={() => handleSettingsChange('audio_similarity_enabled', !settings.audio_similarity_enabled)}
-              />
-              { settings.audio_similarity_enabled &&
-                <div className={cx(settingsStyles['setting-content-container-inner'], inputStyles['form-fieldset'])}>
-                  <ThresholdControl
-                    disabled={!settings.audio_similarity_enabled}
-                    label="Audio matching threshold"
-                    type="matching"
-                    value={Number(settings.audio_hash_matching_threshold * 100).toFixed()}
-                    onChange={newValue => handleThresholdChange('audio_hash_matching_threshold', newValue)}
-                  />
-                  <ThresholdControl
-                    disabled={!settings.audio_similarity_enabled}
-                    error={(settings.audio_hash_suggestion_threshold > settings.audio_hash_matching_threshold)}
-                    label="Audio suggestion threshold"
-                    type="suggestion"
-                    value={Number(settings.audio_hash_suggestion_threshold * 100).toFixed()}
-                    onChange={newValue => handleThresholdChange('audio_hash_suggestion_threshold', newValue)}
-                  />
-                </div>
-              }
-            </div>
-            <div className={settingsStyles['setting-content-container']}>
-              <SwitchComponent
                 checked={settings.transcription_similarity_enabled}
                 label="Automated transcription"
                 labelPlacement="end"
