@@ -75,7 +75,7 @@
     "@material-ui/icons": "^5.0.0-beta.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "enzyme": "^3.3.0",
-    "jest": "^25.4.0"
+    "jest": "^30.2.0"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -124,7 +124,7 @@
     "eslint-plugin-relay": "^1.8.3",
     "eslint-plugin-require-path-exists": "1.1.7",
     "eslint-plugin-sort-destructure-keys": "^2.0.0",
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "file-loader": "^6.2.0",
     "graphql": "^14.6.0",
     "gulp": "^4.0.2",
