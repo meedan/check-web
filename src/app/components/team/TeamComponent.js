@@ -84,7 +84,7 @@ class TeamComponent extends Component {
             { tab === 'tipline'
               ? <SmoochBot currentUser={this.getCurrentUser()} />
               : null }
-            { tab === 'newsletter' && team.get_tipline_newsletter_enabled
+            { tab === 'newsletter' && team.get_tipline_newsletter_enabled !== 0
               ? <Newsletter />
               : null }
             { tab === 'rules'

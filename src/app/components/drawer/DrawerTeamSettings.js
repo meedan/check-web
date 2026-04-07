@@ -137,7 +137,7 @@ const DrawerTeamSettingsComponent = ({
               </div>
             </li>
           </Link>
-          { isAdminOrEditor && team.get_tipline_newsletter_enabled ?
+          { isAdminOrEditor && team.get_tipline_newsletter_enabled !== 0 ?
             <Link className={cx('team-settings__newsletter-tab', styles.linkList)} title={intl.formatMessage(messages.newsletter)} to={`/${team.slug}/settings/newsletter`}>
               <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'newsletter' })}>
                 <div className={styles.listLabel}>
