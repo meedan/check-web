@@ -84,7 +84,7 @@ class TeamComponent extends Component {
             { tab === 'tipline'
               ? <SmoochBot currentUser={this.getCurrentUser()} />
               : null }
-            { tab === 'newsletter'
+            { tab === 'newsletter' && team.get_tipline_newsletter_enabled !== 0
               ? <Newsletter />
               : null }
             { tab === 'rules'
@@ -138,6 +138,7 @@ export default createFragmentContainer(TeamComponent, {
       name
       slug
       permissions
+      get_tipline_newsletter_enabled
       ...TeamDetails_team
       alegre_bot: team_bot_installation(bot_identifier: "alegre") {
         id
