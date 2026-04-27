@@ -24,8 +24,8 @@ const SmoochBotConfig = (props) => {
   } = props;
   const defaultOption = 'smooch_content';
   const [currentOption, setCurrentOption] = React.useState(defaultOption);
-  const team = props?.currentUser?.current_team;
-  const environment = createEnvironment(props?.currentUser?.token, team.slug);
+  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+  const environment = createEnvironment(props?.currentUser?.token, teamSlug);
 
   // Look for the workflow in the current selected language
   let currentWorkflowIndex = 0;
