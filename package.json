@@ -75,7 +75,7 @@
     "@material-ui/icons": "^5.0.0-beta.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "enzyme": "^3.3.0",
-    "jest": "^25.4.0"
+    "jest": "^30.3.0"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -98,7 +98,7 @@
     "@react-google-maps/api": "1.8.7",
     "@sentry/cli": "^2.20.0",
     "@sentry/react": "^7.119.1",
-    "@sentry/webpack-plugin": "^2.5.0",
+    "@sentry/webpack-plugin": "^5.2.1",
     "@svgr/webpack": "^5.5.0",
     "@vvo/tzdb": "^6.39.0",
     "babel-loader": "^8.1.0",
