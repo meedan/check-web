@@ -1,0 +1,13 @@
+name: Install ngrok
+description: Install ngrok CLI without apt sources or system upgrades
+runs:
+  using: composite
+  steps:
+    - name: Install ngrok binary
+      shell: bash
+      run: |
+        set -euo pipefail
+        curl -fsSL https://ngrok-agent.s3.amazonaws.com/ngrok-v3-stable-linux-amd64.tgz -o /tmp/ngrok.tgz
+        sudo tar -xzf /tmp/ngrok.tgz -C /usr/local/bin ngrok
+        rm -f /tmp/ngrok.tgz
+        ngrok version

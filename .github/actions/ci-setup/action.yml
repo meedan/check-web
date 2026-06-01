@@ -1,0 +1,135 @@
+name: CI setup
+description: AWS, Docker, and Meedan service repos for check-web CI
+inputs:
+  profile:
+    description: unit, integration, or similarity
+    required: true
+  aws-access-key-id:
+    required: true
+  aws-secret-access-key:
+    required: true
+  aws-role-to-assume:
+    required: true
+  decryption-password:
+    required: false
+    default: ''
+runs:
+  using: composite
+  steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        role-to-assume: ${{ inputs.aws-role-to-assume }}
+        aws-region: eu-west-1
+
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Decrypt credentials for Alegre
+      if: inputs.profile == 'similarity'
+      shell: bash
+      env:
+        DECRYPTION_PASSWORD: ${{ inputs.decryption-password }}
+      run: |
+        set -euo pipefail
+        openssl enc -aes-256-cbc -d \
+          -in test/google_credentials.json.enc \
+          -out test/google_credentials.json \
+          -k "$DECRYPTION_PASSWORD"
+
+    - name: Clone Meedan dependencies
+      shell: bash
+      env:
+        CI_PROFILE: ${{ inputs.profile }}
+        GITHUB_BRANCH: ${{ env.GITHUB_BRANCH }}
+      run: |
+        set -euo pipefail
+
+        resolve_branch() {
+          local repo="$1"
+          local default_branch="$2"
+          if git ls-remote --exit-code --heads "https://github.com/meedan/${repo}.git" "$GITHUB_BRANCH" >/dev/null 2>&1; then
+            echo "$GITHUB_BRANCH"
+          else
+            echo "$default_branch"
+          fi
+        }
+
+        clone_repo() {
+          local repo="$1"
+          local default_branch="$2"
+          local branch
+          branch="$(resolve_branch "$repo" "$default_branch")"
+          echo "Using branch ${branch} for ${repo}"
+          git clone --depth 1 --branch="$branch" "https://github.com/meedan/${repo}.git"
+        }
+
+        setup_pender() {
+          clone_repo pender main
+          cd pender
+          cp config/config.yml.example config/config.yml
+          cp config/database.yml.example config/database.yml
+          cp config/sidekiq.yml.example config/sidekiq.yml
+          cp config/cookies.txt.example config/cookies.txt
+          cd -
+        }
+
+        setup_check_api() {
+          clone_repo check-api develop
+          cd check-api
+          cp config/config.yml.example config/config.yml
+          cp config/database.yml.example config/database.yml
+          cp config/sidekiq.yml.example config/sidekiq.yml
+          cd -
+        }
+
+        setup_alegre() {
+          clone_repo alegre develop
+          cd alegre
+          cp .env_file.test .env_file
+          cp ../test/google_credentials.json google_credentials.json
+          cd -
+        }
+
+        setup_presto() {
+          clone_repo presto master
+          cd presto
+          cp .env_file.test .env_file
+          cp ../test/google_credentials.json google_credentials.json
+          cd -
+        }
+
+        case "$CI_PROFILE" in
+          unit)
+            setup_check_api
+            ;;
+          integration)
+            setup_pender
+            setup_check_api
+            ;;
+          similarity)
+            setup_pender
+            setup_check_api
+            setup_alegre
+            setup_presto
+            ;;
+          *)
+            echo "Unknown CI profile: $CI_PROFILE"
+            exit 1
+            ;;
+        esac
+
+    - name: Setup configuration files
+      shell: bash
+      run: |
+        set -euo pipefail
+        cp config.js.example config.js
+        cp config.js.example test/config.js
+        cp config-build.js.example config-build.js
+        cp config-server.js.example config-server.js
+        cp test/config.yml.example test/config.yml
