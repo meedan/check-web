@@ -92,7 +92,9 @@ runs:
           clone_repo alegre develop
           cd alegre
           cp .env_file.test .env_file
-          cp ../test/google_credentials.json google_credentials.json
+          if [ -f ../test/google_credentials.json ]; then
+            cp ../test/google_credentials.json google_credentials.json
+          fi
           cd -
         }
 
@@ -100,23 +102,49 @@ runs:
           clone_repo presto master
           cd presto
           cp .env_file.test .env_file
-          cp ../test/google_credentials.json google_credentials.json
+          if [ -f ../test/google_credentials.json ]; then
+            cp ../test/google_credentials.json google_credentials.json
+          fi
           cd -
+        }
+
+        # docker-compose.yml references these env files for all services; compose
+        # validates them even when only `web` is running.
+        ensure_compose_env_files() {
+          mkdir -p alegre presto
+          if [ ! -f alegre/.env_file ]; then
+            if [ -f alegre/.env_file.test ]; then
+              cp alegre/.env_file.test alegre/.env_file
+            else
+              echo "# CI placeholder" > alegre/.env_file
+            fi
+          fi
+          if [ ! -f presto/.env_file ]; then
+            if [ -f presto/.env_file.test ]; then
+              cp presto/.env_file.test presto/.env_file
+            else
+              echo "# CI placeholder" > presto/.env_file
+            fi
+          fi
         }
 
         case "$CI_PROFILE" in
           unit)
             setup_check_api
+            ensure_compose_env_files
             ;;
           integration)
             setup_pender
             setup_check_api
+            setup_alegre
+            ensure_compose_env_files
             ;;
           similarity)
             setup_pender
             setup_check_api
             setup_alegre
             setup_presto
+            ensure_compose_env_files
             ;;
           *)
             echo "Unknown CI profile: $CI_PROFILE"
