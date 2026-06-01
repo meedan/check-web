@@ -17,18 +17,13 @@ env:
 
 jobs:
   media-similarity-tests:
-    runs-on: 
-      labels: check-web
+    runs-on: ubuntu-latest
     if: >
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
       contains(github.event.head_commit.message, '[full ci]') ||
       contains(github.event.head_commit.message, '[media similarity tests]')
     steps:
-    - name: Set permissions for _work directory
-      run: |
-        sudo chown -R $USER:$USER $GITHUB_WORKSPACE
-        sudo chmod 755 $GITHUB_WORKSPACE
     - uses: actions/checkout@v4
 
     - name: Configure AWS Credentials
@@ -171,19 +166,13 @@ jobs:
     
   text-similarity-tests:
     needs: [media-similarity-tests]
-    runs-on: 
-      labels: check-web
+    runs-on: ubuntu-latest
     if: >
       success() || 
       github.ref == 'refs/heads/develop' ||
       github.ref == 'refs/heads/master' ||
       contains(github.event.head_commit.message, '[text similarity tests]')
     steps:
-    - name: Set permissions for _work directory
-      run: |
-        sudo chown -R $USER:$USER $GITHUB_WORKSPACE
-        sudo chmod 755 $GITHUB_WORKSPACE
-  
     - uses: actions/checkout@v4
 
     - name: Configure AWS Credentials
