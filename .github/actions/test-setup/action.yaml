@@ -121,6 +121,8 @@ runs:
 
     - name: Before Script
       shell: bash
+      env:
+        GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
         GITHUB_JOB_NAME="${{ inputs.test_type }}" GITHUB_BRANCH="$GITHUB_BRANCH" ./build.sh
         MAX_WEB_CURL=3000

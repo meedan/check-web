@@ -8,6 +8,10 @@ on:
     branches:
       - develop
 
+env:
+  GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
+  GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+
 jobs:
   media-similarity-tests:
     runs-on: ubuntu-latest
@@ -28,10 +32,10 @@ jobs:
           aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws_role_to_assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         env:
-          GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
           DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
           IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
+          NGROK_AUTH: ${{ secrets.NGROK_AUTH }}
       - name: Upload failure artifacts
         if: failure()
         uses: actions/upload-artifact@v4
@@ -70,7 +74,6 @@ jobs:
           aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws_role_to_assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         env:
-          GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
           DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
           IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
@@ -111,7 +114,6 @@ jobs:
           aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws_role_to_assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         env:
-          GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
           DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
           IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
@@ -154,7 +156,6 @@ jobs:
           aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws_role_to_assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         env:
-          GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
           DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
           IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
