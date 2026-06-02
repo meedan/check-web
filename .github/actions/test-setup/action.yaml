@@ -152,7 +152,19 @@ runs:
           # Nginx may already be running in CI images; avoid failing the whole job on restart issues.
           docker compose exec web bash -lc "service nginx status >/dev/null 2>&1 || service nginx start || true"
           if docker compose -f docker-compose.yml -f docker-test.yml config --services | rg -x "chromedriver" >/dev/null 2>&1; then
+            docker compose -f docker-compose.yml -f docker-test.yml up -d chromedriver || true
             docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver bash -lc "service nginx status >/dev/null 2>&1 || service nginx start || true"
+            CHROMEDRIVER_WAIT_MAX=60
+            CHROMEDRIVER_WAIT_COUNT=0
+            until docker compose exec web bash -lc "getent hosts chromedriver >/dev/null 2>&1"; do
+              sleep 1
+              CHROMEDRIVER_WAIT_COUNT=$((CHROMEDRIVER_WAIT_COUNT + 1))
+              if [ "$CHROMEDRIVER_WAIT_COUNT" -ge "$CHROMEDRIVER_WAIT_MAX" ]; then
+                echo "chromedriver service did not become resolvable after ${CHROMEDRIVER_WAIT_MAX}s"
+                docker compose -f docker-compose.yml -f docker-test.yml ps || true
+                exit 1
+              fi
+            done
           fi
         fi
 
