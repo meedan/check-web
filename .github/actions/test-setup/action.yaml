@@ -172,8 +172,8 @@ runs:
       shell: bash
       run: |
         docker compose exec web bash -c "[ -f test/file.json ] && python -m json.tool test/file.json || echo 'File does not exist'" || true
-        size=$(du -k build/web/js/index.bundle.js 2>/dev/null | cut -f1)
-        size2=$(du -k build/web/js/vendor.bundle.js 2>/dev/null | cut -f1)
+        size=$(du -k build/web/js/index.bundle.js 2>/dev/null | cut -f1 || true)
+        size2=$(du -k build/web/js/vendor.bundle.js 2>/dev/null | cut -f1 || true)
         size=${size:-0}
         size2=${size2:-0}
         totalsize=$((size+size2))
