@@ -23,12 +23,13 @@ jobs:
         uses: ./.github/actions/test-setup
         with:
           test_type: media-similarity-tests
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws_role_to_assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         env:
           GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
           IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
       - name: Upload failure artifacts
@@ -64,12 +65,13 @@ jobs:
         uses: ./.github/actions/test-setup
         with:
           test_type: text-similarity-tests
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws_role_to_assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         env:
           GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
           IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
       - name: Upload failure artifacts
@@ -104,12 +106,13 @@ jobs:
         uses: ./.github/actions/test-setup
         with:
           test_type: integration-and-unit-tests
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws_role_to_assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         env:
           GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
           IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
       - name: Upload failure artifacts
@@ -146,12 +149,13 @@ jobs:
         uses: ./.github/actions/test-setup
         with:
           test_type: unit-tests
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws_role_to_assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         env:
           GITHUB_BRANCH: ${{ github.head_ref || github.ref_name }}
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           DECRYPTION_PASSWORD: ${{ secrets.DECRYPTION_PASSWORD }}
           IMGUR_CLIENT_ID: ${{ secrets.IMGUR_CLIENT_ID }}
       - name: Upload failure artifacts

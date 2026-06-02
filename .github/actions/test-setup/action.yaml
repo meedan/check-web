@@ -5,21 +5,36 @@ inputs:
   test_type:
     description: Test job type
     required: true
+  aws_access_key_id:
+    description: Bootstrap AWS access key id
+    required: false
+  aws_secret_access_key:
+    description: Bootstrap AWS secret access key
+    required: false
+  aws_session_token:
+    description: Optional bootstrap AWS session token
+    required: false
+  aws_role_to_assume:
+    description: AWS role arn to assume
+    required: false
 
 runs:
   using: composite
   steps:
     - name: Configure AWS Credentials
-      if: ${{ inputs.test_type != 'unit-tests' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' && env.AWS_ROLE_TO_ASSUME != '' }}
+      if: ${{ inputs.test_type != 'unit-tests' && inputs.aws_access_key_id != '' && inputs.aws_secret_access_key != '' && inputs.aws_role_to_assume != '' }}
+      continue-on-error: true
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-        role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+        aws-access-key-id: ${{ inputs.aws_access_key_id }}
+        aws-secret-access-key: ${{ inputs.aws_secret_access_key }}
+        aws-session-token: ${{ inputs.aws_session_token }}
+        role-to-assume: ${{ inputs.aws_role_to_assume }}
         aws-region: eu-west-1
 
     - name: Login to Amazon ECR
-      if: ${{ inputs.test_type != 'unit-tests' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' && env.AWS_ROLE_TO_ASSUME != '' }}
+      if: ${{ inputs.test_type != 'unit-tests' && inputs.aws_access_key_id != '' && inputs.aws_secret_access_key != '' && inputs.aws_role_to_assume != '' }}
+      continue-on-error: true
       uses: aws-actions/amazon-ecr-login@v2
 
     - name: Decrypt credentials for Alegre
