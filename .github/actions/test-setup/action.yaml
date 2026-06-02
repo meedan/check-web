@@ -177,15 +177,18 @@ runs:
           fi
         fi
 
+        # Pass bootstrap secrets into Docker. configure-aws-credentials overwrites runner
+        # AWS_* env vars with temporary role credentials that also need AWS_SESSION_TOKEN.
         if [ "${{ inputs.test_type }}" = "integration-and-unit-tests" ]; then
           docker compose exec -T \
             -e IMGUR_CLIENT_ID="$IMGUR_CLIENT_ID" \
             -e GITHUB_JOB_NAME="${{ inputs.test_type }}" \
             -e GITHUB_BRANCH="$GITHUB_BRANCH" \
             -e AWS_ENDPOINT="$AWS_ENDPOINT" \
-            -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
-            -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
-            -e ROLE_TO_ASSUME="$AWS_ROLE_TO_ASSUME" \
+            -e AWS_ACCESS_KEY_ID="${{ inputs.aws_access_key_id }}" \
+            -e AWS_SECRET_ACCESS_KEY="${{ inputs.aws_secret_access_key }}" \
+            -e AWS_SESSION_TOKEN="${{ inputs.aws_session_token }}" \
+            -e ROLE_TO_ASSUME="${{ inputs.aws_role_to_assume }}" \
             -e AWS_REGION=eu-west-1 \
             -e TEST_RETRY_COUNT=3 \
             -e DEPLOY_ENV=ci \
@@ -198,9 +201,10 @@ runs:
             -e GITHUB_JOB_NAME="${{ inputs.test_type }}" \
             -e GITHUB_BRANCH="$GITHUB_BRANCH" \
             -e AWS_ENDPOINT="$AWS_ENDPOINT" \
-            -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
-            -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
-            -e ROLE_TO_ASSUME="$AWS_ROLE_TO_ASSUME" \
+            -e AWS_ACCESS_KEY_ID="${{ inputs.aws_access_key_id }}" \
+            -e AWS_SECRET_ACCESS_KEY="${{ inputs.aws_secret_access_key }}" \
+            -e AWS_SESSION_TOKEN="${{ inputs.aws_session_token }}" \
+            -e ROLE_TO_ASSUME="${{ inputs.aws_role_to_assume }}" \
             -e AWS_REGION=eu-west-1 \
             -e TEST_RETRY_COUNT=3 \
             web npm run tests
