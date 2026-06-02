@@ -124,9 +124,11 @@ module AppSpecHelpers
     return if @driver.page_source.include?('Extracted Text')
 
     ocr_button = @driver.find_elements(:css, '#ocr-button__extract-text').find do |e|
-      e.displayed?
-    rescue Selenium::WebDriver::Error::StaleElementReferenceError
-      false
+      begin
+        e.displayed?
+      rescue Selenium::WebDriver::Error::StaleElementReferenceError
+        false
+      end
     end
     ocr_button.click if ocr_button
 
