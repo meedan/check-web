@@ -10,6 +10,7 @@ runs:
   using: composite
   steps:
     - name: Configure AWS Credentials
+      if: ${{ inputs.test_type != 'unit-tests' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' && env.AWS_ROLE_TO_ASSUME != '' }}
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
@@ -18,12 +19,17 @@ runs:
         aws-region: eu-west-1
 
     - name: Login to Amazon ECR
+      if: ${{ inputs.test_type != 'unit-tests' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' && env.AWS_ROLE_TO_ASSUME != '' }}
       uses: aws-actions/amazon-ecr-login@v2
 
     - name: Decrypt credentials for Alegre
       shell: bash
       run: |
-        openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k "$DECRYPTION_PASSWORD"
+        if [ -n "$DECRYPTION_PASSWORD" ]; then
+          openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k "$DECRYPTION_PASSWORD"
+        else
+          echo '{}' > test/google_credentials.json
+        fi
 
     - name: Setup UTF-8 Capable locale
       shell: bash
