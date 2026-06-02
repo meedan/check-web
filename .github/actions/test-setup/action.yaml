@@ -149,8 +149,11 @@ runs:
         docker ps
 
         if [ "${{ inputs.test_type }}" = "media-similarity-tests" ] || [ "${{ inputs.test_type }}" = "text-similarity-tests" ] || [ "${{ inputs.test_type }}" = "integration-and-unit-tests" ]; then
-          docker compose exec web service nginx start
-          docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
+          # Nginx may already be running in CI images; avoid failing the whole job on restart issues.
+          docker compose exec web bash -lc "service nginx status >/dev/null 2>&1 || service nginx start || true"
+          if docker compose -f docker-compose.yml -f docker-test.yml config --services | rg -x "chromedriver" >/dev/null 2>&1; then
+            docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver bash -lc "service nginx status >/dev/null 2>&1 || service nginx start || true"
+          fi
         fi
 
         if [ "${{ inputs.test_type }}" = "integration-and-unit-tests" ]; then
