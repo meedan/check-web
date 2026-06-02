@@ -120,6 +120,30 @@ module AppSpecHelpers
     end while (old_url == current_url && c < count)
   end
 
+  def wait_for_extracted_text_from_image(timeout: 120)
+    return if @driver.page_source.include?('Extracted Text')
+
+    ocr_button = @driver.find_elements(:css, '#ocr-button__extract-text').find do |e|
+      e.displayed?
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
+      false
+    end
+    ocr_button.click if ocr_button
+
+    Selenium::WebDriver::Wait.new(timeout: timeout).until do
+      source = @driver.page_source
+      source.include?('Extracted Text') || source.include?('Text extraction completed')
+    end
+
+    return if @driver.page_source.include?('Extracted Text')
+
+    @driver.navigate.refresh
+    wait_for_selector('.image-media-card')
+    Selenium::WebDriver::Wait.new(timeout: timeout).until do
+      @driver.page_source.include?('Extracted Text')
+    end
+  end
+
   def wait_for_size_change(size, selector, type = :css, count = 30, test = 'unknown')
     c = 0
     begin

@@ -133,9 +133,10 @@ shared_examples 'similarity' do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/ocr.png')
-    verbose_wait 4
+    verbose_wait 1
     wait_for_selector('.cluster-card').click
     wait_for_selector('.image-media-card')
+    wait_for_extracted_text_from_image
     expect(@driver.page_source.include?('Extracted Text')).to be(true)
     expect(@driver.page_source.include?('Test')).to be(true)
   end
