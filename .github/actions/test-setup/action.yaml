@@ -154,13 +154,20 @@ runs:
           if docker compose -f docker-compose.yml -f docker-test.yml config --services | rg -x "chromedriver" >/dev/null 2>&1; then
             docker compose -f docker-compose.yml -f docker-test.yml up -d chromedriver || true
             docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver bash -lc "service nginx status >/dev/null 2>&1 || service nginx start || true"
-            CHROMEDRIVER_WAIT_MAX=60
+            WEB_CONTAINER_ID=$(docker compose ps -q web)
+            CHROMEDRIVER_CONTAINER_ID=$(docker compose -f docker-compose.yml -f docker-test.yml ps -q chromedriver)
+            WEB_NETWORK=$(docker inspect -f '{{range $k, $v := .NetworkSettings.Networks}}{{printf "%s\n" $k}}{{end}}' "$WEB_CONTAINER_ID" | head -n 1)
+            if [ -n "$WEB_NETWORK" ] && [ -n "$CHROMEDRIVER_CONTAINER_ID" ]; then
+              docker network connect --alias chromedriver "$WEB_NETWORK" "$CHROMEDRIVER_CONTAINER_ID" || true
+            fi
+            CHROMEDRIVER_WAIT_MAX=90
             CHROMEDRIVER_WAIT_COUNT=0
-            until docker compose exec web bash -lc "getent hosts chromedriver >/dev/null 2>&1"; do
+            until docker compose exec web bash -lc "getent hosts chromedriver >/dev/null 2>&1 && (echo >/dev/tcp/chromedriver/4444) >/dev/null 2>&1"; do
               sleep 1
               CHROMEDRIVER_WAIT_COUNT=$((CHROMEDRIVER_WAIT_COUNT + 1))
               if [ "$CHROMEDRIVER_WAIT_COUNT" -ge "$CHROMEDRIVER_WAIT_MAX" ]; then
-                echo "chromedriver service did not become resolvable after ${CHROMEDRIVER_WAIT_MAX}s"
+                echo "chromedriver did not become reachable at chromedriver:4444 after ${CHROMEDRIVER_WAIT_MAX}s"
+                docker compose ps || true
                 docker compose -f docker-compose.yml -f docker-test.yml ps || true
                 exit 1
               fi
