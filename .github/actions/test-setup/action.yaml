@@ -37,6 +37,12 @@ runs:
       continue-on-error: true
       uses: aws-actions/amazon-ecr-login@v2
 
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
     - name: Decrypt credentials for Alegre
       shell: bash
       run: |
@@ -123,6 +129,8 @@ runs:
       shell: bash
       env:
         GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        DOCKER_BUILDKIT: 1
+        COMPOSE_DOCKER_CLI_BUILD: 1
       run: |
         GITHUB_JOB_NAME="${{ inputs.test_type }}" GITHUB_BRANCH="$GITHUB_BRANCH" ./build.sh
         MAX_WEB_CURL=3000

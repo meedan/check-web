@@ -130,7 +130,7 @@ module AppSpecHelpers
         false
       end
     end
-    ocr_button.click if ocr_button
+    ocr_button&.click
 
     Selenium::WebDriver::Wait.new(timeout: timeout).until do
       source = @driver.page_source

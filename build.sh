@@ -1,5 +1,50 @@
 #!/bin/bash
 # set -e 
+
+retry_compose() {
+  local max_attempts=3
+  local wait_seconds=15
+  local attempt=1
+
+  while [ "$attempt" -le "$max_attempts" ]; do
+    if docker compose "$@"; then
+      return 0
+    fi
+    if [ "$attempt" -eq "$max_attempts" ]; then
+      echo "docker compose $* failed after $max_attempts attempts"
+      return 1
+    fi
+    echo "docker compose $* failed (attempt $attempt/$max_attempts), retrying in ${wait_seconds}s..."
+    sleep "$wait_seconds"
+    attempt=$((attempt + 1))
+    wait_seconds=$((wait_seconds * 2))
+  done
+}
+
+pull_check_web_base_images() {
+  local images=("node:14.21.3-bullseye" "icalialabs/watchman:buster")
+  local max_attempts=3
+  local wait_seconds=15
+
+  for image in "${images[@]}"; do
+    local attempt=1
+    while [ "$attempt" -le "$max_attempts" ]; do
+      if docker pull "$image"; then
+        break
+      fi
+      if [ "$attempt" -eq "$max_attempts" ]; then
+        echo "docker pull $image failed after $max_attempts attempts"
+        return 1
+      fi
+      echo "docker pull $image failed (attempt $attempt/$max_attempts), retrying in ${wait_seconds}s..."
+      sleep "$wait_seconds"
+      attempt=$((attempt + 1))
+      wait_seconds=$((wait_seconds * 2))
+    done
+    wait_seconds=15
+  done
+}
+
 # Running only unit tests
 is_integration_job=false
 if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' || $GITHUB_JOB_NAME == 'media-similarity-tests' || $GITHUB_JOB_NAME == 'text-similarity-tests' ]]; then
@@ -8,15 +53,17 @@ fi
 if [[ $GITHUB_BRANCH != 'develop' && $GITHUB_BRANCH != 'master' && ! $GITHUB_COMMIT_MESSAGE =~ \[full\ ci\] && ! $GITHUB_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[text\ similarity\ tests\] && ! $GITHUB_COMMIT_MESSAGE =~ \[media\ similarity\ tests\] && "$is_integration_job" != true ]]
 then
   echo "Running only unit tests"
-  docker compose build web
-  docker compose -f docker-compose.yml -f docker-test.yml up -d web
+  pull_check_web_base_images
+  retry_compose build web
+  retry_compose -f docker-compose.yml -f docker-test.yml up -d web
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
 # Running all tests
 else
   if [[ $GITHUB_JOB_NAME == 'integration-and-unit-tests' ]]
   then
-    docker compose build web api api-background pender pender-background postgres elasticsearch
-    docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
+    pull_check_web_base_images
+    retry_compose build web api api-background pender pender-background postgres elasticsearch
+    retry_compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
   else
     if [[ $GITHUB_JOB_NAME == 'media-similarity-tests' ]]
     then
@@ -45,11 +92,13 @@ else
       echo "Ngrok tunnel: $NGROK_URL"
       sed -i "s~similarity_media_file_url_host: ''~similarity_media_file_url_host: '$NGROK_URL'~g" check-api/config/config.yml
       cat check-api/config/config.yml | grep similarity_media_file_url_host
-      docker compose build web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
-      docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
+      pull_check_web_base_images
+      retry_compose build web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
+      retry_compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-audio presto-image presto-video
     else
-      docker compose build web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
-      docker compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
+      pull_check_web_base_images
+      retry_compose build web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
+      retry_compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver alegre presto-server presto-mean-tokens
     fi
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
     until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
