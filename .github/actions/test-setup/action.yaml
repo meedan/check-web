@@ -1,0 +1,187 @@
+name: Test setup and execution
+description: Shared CI setup and test runner for check-web
+
+inputs:
+  test_type:
+    description: Test job type
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+        aws-region: eu-west-1
+
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Decrypt credentials for Alegre
+      shell: bash
+      run: |
+        openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k "$DECRYPTION_PASSWORD"
+
+    - name: Setup UTF-8 Capable locale
+      shell: bash
+      run: |
+        export LC_ALL=C.UTF-8
+        export LANG=C.UTF-8
+        export LANGUAGE=C.UTF-8
+
+    - name: Setup Pender
+      shell: bash
+      run: |
+        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git "$GITHUB_BRANCH" >/dev/null && echo "$GITHUB_BRANCH") || echo 'main')
+        echo "Using branch $PENDER_BRANCH for Pender"
+        git clone --branch="$PENDER_BRANCH" https://github.com/meedan/pender.git
+        cd pender
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
+        cd -
+
+    - name: Setup Check API
+      shell: bash
+      run: |
+        export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git "$GITHUB_BRANCH" >/dev/null && echo "$GITHUB_BRANCH") || echo 'develop')
+        echo "Using branch $CHECK_API_BRANCH for Check API"
+        git clone --branch="$CHECK_API_BRANCH" https://github.com/meedan/check-api.git
+        cd check-api
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cd -
+
+    - name: Setup Alegre
+      shell: bash
+      run: |
+        export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git "$GITHUB_BRANCH" >/dev/null && echo "$GITHUB_BRANCH") || echo 'develop')
+        echo "Using branch $ALEGRE_BRANCH for Alegre"
+        git clone --branch="$ALEGRE_BRANCH" https://github.com/meedan/alegre.git
+        cd alegre
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
+
+    - name: Setup Presto
+      shell: bash
+      run: |
+        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git "$GITHUB_BRANCH" >/dev/null && echo "$GITHUB_BRANCH") || echo 'master')
+        echo "Using branch $PRESTO_BRANCH for Presto"
+        git clone --branch="$PRESTO_BRANCH" https://github.com/meedan/presto.git
+        cd presto
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
+
+    - name: Setup Configuration Files
+      shell: bash
+      run: |
+        cp config.js.example config.js
+        cp config.js.example test/config.js
+        cp config-build.js.example config-build.js
+        cp config-server.js.example config-server.js
+        cp test/config.yml.example test/config.yml
+
+    - name: Setup ngrok for media tests
+      if: ${{ inputs.test_type == 'media-similarity-tests' }}
+      shell: bash
+      run: |
+        export GITHUB_TAG=0.0.0
+        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null
+        echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list
+        sudo apt-get update
+        sudo apt-get install -y ngrok
+
+    - name: Before Script
+      shell: bash
+      run: |
+        GITHUB_JOB_NAME="${{ inputs.test_type }}" GITHUB_BRANCH="$GITHUB_BRANCH" ./build.sh
+        MAX_WEB_CURL=3000
+        WEB_CURL_COUNT=0
+        until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do
+          printf .
+          sleep 1
+          WEB_CURL_COUNT=$((++WEB_CURL_COUNT))
+        done
+        if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then
+          echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"
+          exit 1
+        fi
+        docker ps
+
+    - name: Run linter
+      shell: bash
+      run: |
+        docker compose exec web npm run linter
+        docker compose exec web npm run test:integration:lint
+
+    - name: Run selected tests
+      shell: bash
+      run: |
+        set -e
+        docker ps
+
+        if [ "${{ inputs.test_type }}" = "media-similarity-tests" ] || [ "${{ inputs.test_type }}" = "text-similarity-tests" ] || [ "${{ inputs.test_type }}" = "integration-and-unit-tests" ]; then
+          docker compose exec web service nginx start
+          docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver service nginx start
+        fi
+
+        if [ "${{ inputs.test_type }}" = "integration-and-unit-tests" ]; then
+          docker compose exec -T \
+            -e IMGUR_CLIENT_ID="$IMGUR_CLIENT_ID" \
+            -e GITHUB_JOB_NAME="${{ inputs.test_type }}" \
+            -e GITHUB_BRANCH="$GITHUB_BRANCH" \
+            -e AWS_ENDPOINT="$AWS_ENDPOINT" \
+            -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+            -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
+            -e ROLE_TO_ASSUME="$AWS_ROLE_TO_ASSUME" \
+            -e AWS_REGION=eu-west-1 \
+            -e TEST_RETRY_COUNT=3 \
+            -e DEPLOY_ENV=ci \
+            web npm run tests
+        elif [ "${{ inputs.test_type }}" = "unit-tests" ]; then
+          docker compose exec -T -e GITHUB_JOB_NAME="${{ inputs.test_type }}" web npm run tests
+        else
+          docker compose exec -T \
+            -e IMGUR_CLIENT_ID="$IMGUR_CLIENT_ID" \
+            -e GITHUB_JOB_NAME="${{ inputs.test_type }}" \
+            -e GITHUB_BRANCH="$GITHUB_BRANCH" \
+            -e AWS_ENDPOINT="$AWS_ENDPOINT" \
+            -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+            -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
+            -e ROLE_TO_ASSUME="$AWS_ROLE_TO_ASSUME" \
+            -e AWS_REGION=eu-west-1 \
+            -e TEST_RETRY_COUNT=3 \
+            web npm run tests
+        fi
+
+    - name: Post test diagnostics
+      if: always()
+      shell: bash
+      run: |
+        docker compose exec web bash -c "[ -f test/file.json ] && python -m json.tool test/file.json || echo 'File does not exist'" || true
+        size=$(du -k build/web/js/index.bundle.js 2>/dev/null | cut -f1)
+        size2=$(du -k build/web/js/vendor.bundle.js 2>/dev/null | cut -f1)
+        size=${size:-0}
+        size2=${size2:-0}
+        totalsize=$((size+size2))
+        echo "Your bundle size is $totalsize kb"
+        if [ "${{ inputs.test_type }}" = "media-similarity-tests" ]; then
+          pkill -9 ngrok || true
+        fi
+
+    - name: Cleanup Docker Resources (non-blocking)
+      if: always()
+      shell: bash
+      run: |
+        echo "Cleaning up Docker resources..."
+        docker compose down --volumes --remove-orphans || true
+        docker container prune -f || true
+        docker image prune -af || true
+        docker volume prune -f || true
