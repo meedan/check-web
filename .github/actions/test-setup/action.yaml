@@ -1,0 +1,244 @@
+name: Test setup and execution
+description: Shared CI setup and test runner for check-web
+
+inputs:
+  test_type:
+    description: Test job type
+    required: true
+  aws_access_key_id:
+    description: Bootstrap AWS access key id
+    required: false
+  aws_secret_access_key:
+    description: Bootstrap AWS secret access key
+    required: false
+  aws_session_token:
+    description: Optional bootstrap AWS session token
+    required: false
+  aws_role_to_assume:
+    description: AWS role arn to assume
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Configure AWS Credentials
+      if: ${{ inputs.test_type != 'unit-tests' && inputs.aws_access_key_id != '' && inputs.aws_secret_access_key != '' && inputs.aws_role_to_assume != '' }}
+      continue-on-error: true
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ inputs.aws_access_key_id }}
+        aws-secret-access-key: ${{ inputs.aws_secret_access_key }}
+        aws-session-token: ${{ inputs.aws_session_token }}
+        role-to-assume: ${{ inputs.aws_role_to_assume }}
+        aws-region: eu-west-1
+
+    - name: Login to Amazon ECR
+      if: ${{ inputs.test_type != 'unit-tests' && inputs.aws_access_key_id != '' && inputs.aws_secret_access_key != '' && inputs.aws_role_to_assume != '' }}
+      continue-on-error: true
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Decrypt credentials for Alegre
+      shell: bash
+      run: |
+        if [ -n "$DECRYPTION_PASSWORD" ]; then
+          openssl enc -aes-256-cbc -d -in test/google_credentials.json.enc -out test/google_credentials.json -k "$DECRYPTION_PASSWORD"
+        else
+          echo '{}' > test/google_credentials.json
+        fi
+
+    - name: Setup UTF-8 Capable locale
+      shell: bash
+      run: |
+        export LC_ALL=C.UTF-8
+        export LANG=C.UTF-8
+        export LANGUAGE=C.UTF-8
+
+    - name: Setup Pender
+      shell: bash
+      run: |
+        export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git "$GITHUB_BRANCH" >/dev/null && echo "$GITHUB_BRANCH") || echo 'main')
+        echo "Using branch $PENDER_BRANCH for Pender"
+        git clone --branch="$PENDER_BRANCH" https://github.com/meedan/pender.git
+        cd pender
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cp config/cookies.txt.example config/cookies.txt
+        cd -
+
+    - name: Setup Check API
+      shell: bash
+      run: |
+        export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git "$GITHUB_BRANCH" >/dev/null && echo "$GITHUB_BRANCH") || echo 'develop')
+        echo "Using branch $CHECK_API_BRANCH for Check API"
+        git clone --branch="$CHECK_API_BRANCH" https://github.com/meedan/check-api.git
+        cd check-api
+        cp config/config.yml.example config/config.yml
+        cp config/database.yml.example config/database.yml
+        cp config/sidekiq.yml.example config/sidekiq.yml
+        cd -
+
+    - name: Setup Alegre
+      shell: bash
+      run: |
+        export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git "$GITHUB_BRANCH" >/dev/null && echo "$GITHUB_BRANCH") || echo 'develop')
+        echo "Using branch $ALEGRE_BRANCH for Alegre"
+        git clone --branch="$ALEGRE_BRANCH" https://github.com/meedan/alegre.git
+        cd alegre
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
+
+    - name: Setup Presto
+      shell: bash
+      run: |
+        export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git "$GITHUB_BRANCH" >/dev/null && echo "$GITHUB_BRANCH") || echo 'master')
+        echo "Using branch $PRESTO_BRANCH for Presto"
+        git clone --branch="$PRESTO_BRANCH" https://github.com/meedan/presto.git
+        cd presto
+        cp .env_file.test .env_file
+        cp ../test/google_credentials.json google_credentials.json
+        cd -
+
+    - name: Setup Configuration Files
+      shell: bash
+      run: |
+        cp config.js.example config.js
+        cp config.js.example test/config.js
+        cp config-build.js.example config-build.js
+        cp config-server.js.example config-server.js
+        cp test/config.yml.example test/config.yml
+
+    - name: Setup ngrok for media tests
+      if: ${{ inputs.test_type == 'media-similarity-tests' }}
+      shell: bash
+      run: |
+        export GITHUB_TAG=0.0.0
+        curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null
+        echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list
+        sudo apt-get update
+        sudo apt-get install -y ngrok
+
+    - name: Before Script
+      shell: bash
+      env:
+        GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        DOCKER_BUILDKIT: 1
+        COMPOSE_DOCKER_CLI_BUILD: 1
+      run: |
+        GITHUB_JOB_NAME="${{ inputs.test_type }}" GITHUB_BRANCH="$GITHUB_BRANCH" ./build.sh
+        MAX_WEB_CURL=3000
+        WEB_CURL_COUNT=0
+        until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do
+          printf .
+          sleep 1
+          WEB_CURL_COUNT=$((++WEB_CURL_COUNT))
+        done
+        if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then
+          echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"
+          exit 1
+        fi
+        docker ps
+
+    - name: Run linter
+      shell: bash
+      run: |
+        docker compose exec web npm run linter
+        docker compose exec web npm run test:integration:lint
+
+    - name: Run selected tests
+      shell: bash
+      run: |
+        set -e
+        docker ps
+
+        if [ "${{ inputs.test_type }}" = "media-similarity-tests" ] || [ "${{ inputs.test_type }}" = "text-similarity-tests" ] || [ "${{ inputs.test_type }}" = "integration-and-unit-tests" ]; then
+          # Nginx may already be running in CI images; avoid failing the whole job on restart issues.
+          docker compose exec web bash -lc "service nginx status >/dev/null 2>&1 || service nginx start || true"
+          if docker compose -f docker-compose.yml -f docker-test.yml config --services | rg -x "chromedriver" >/dev/null 2>&1; then
+            docker compose -f docker-compose.yml -f docker-test.yml up -d chromedriver || true
+            docker compose -f docker-compose.yml -f docker-test.yml exec chromedriver bash -lc "service nginx status >/dev/null 2>&1 || service nginx start || true"
+            WEB_CONTAINER_ID=$(docker compose ps -q web)
+            CHROMEDRIVER_CONTAINER_ID=$(docker compose -f docker-compose.yml -f docker-test.yml ps -q chromedriver)
+            WEB_NETWORK=$(docker inspect -f '{{range $k, $v := .NetworkSettings.Networks}}{{printf "%s\n" $k}}{{end}}' "$WEB_CONTAINER_ID" | head -n 1)
+            if [ -n "$WEB_NETWORK" ] && [ -n "$CHROMEDRIVER_CONTAINER_ID" ]; then
+              docker network connect --alias chromedriver "$WEB_NETWORK" "$CHROMEDRIVER_CONTAINER_ID" || true
+            fi
+            CHROMEDRIVER_WAIT_MAX=90
+            CHROMEDRIVER_WAIT_COUNT=0
+            until docker compose exec web bash -lc "getent hosts chromedriver >/dev/null 2>&1 && (echo >/dev/tcp/chromedriver/4444) >/dev/null 2>&1"; do
+              sleep 1
+              CHROMEDRIVER_WAIT_COUNT=$((CHROMEDRIVER_WAIT_COUNT + 1))
+              if [ "$CHROMEDRIVER_WAIT_COUNT" -ge "$CHROMEDRIVER_WAIT_MAX" ]; then
+                echo "chromedriver did not become reachable at chromedriver:4444 after ${CHROMEDRIVER_WAIT_MAX}s"
+                docker compose ps || true
+                docker compose -f docker-compose.yml -f docker-test.yml ps || true
+                exit 1
+              fi
+            done
+          fi
+        fi
+
+        # Pass bootstrap secrets into Docker. configure-aws-credentials overwrites runner
+        # AWS_* env vars with temporary role credentials that also need AWS_SESSION_TOKEN.
+        if [ "${{ inputs.test_type }}" = "integration-and-unit-tests" ]; then
+          docker compose exec -T \
+            -e IMGUR_CLIENT_ID="$IMGUR_CLIENT_ID" \
+            -e GITHUB_JOB_NAME="${{ inputs.test_type }}" \
+            -e GITHUB_BRANCH="$GITHUB_BRANCH" \
+            -e AWS_ENDPOINT="$AWS_ENDPOINT" \
+            -e AWS_ACCESS_KEY_ID="${{ inputs.aws_access_key_id }}" \
+            -e AWS_SECRET_ACCESS_KEY="${{ inputs.aws_secret_access_key }}" \
+            -e AWS_SESSION_TOKEN="${{ inputs.aws_session_token }}" \
+            -e ROLE_TO_ASSUME="${{ inputs.aws_role_to_assume }}" \
+            -e AWS_REGION=eu-west-1 \
+            -e TEST_RETRY_COUNT=3 \
+            -e DEPLOY_ENV=ci \
+            web npm run tests
+        elif [ "${{ inputs.test_type }}" = "unit-tests" ]; then
+          docker compose exec -T -e GITHUB_JOB_NAME="${{ inputs.test_type }}" web npm run tests
+        else
+          docker compose exec -T \
+            -e IMGUR_CLIENT_ID="$IMGUR_CLIENT_ID" \
+            -e GITHUB_JOB_NAME="${{ inputs.test_type }}" \
+            -e GITHUB_BRANCH="$GITHUB_BRANCH" \
+            -e AWS_ENDPOINT="$AWS_ENDPOINT" \
+            -e AWS_ACCESS_KEY_ID="${{ inputs.aws_access_key_id }}" \
+            -e AWS_SECRET_ACCESS_KEY="${{ inputs.aws_secret_access_key }}" \
+            -e AWS_SESSION_TOKEN="${{ inputs.aws_session_token }}" \
+            -e ROLE_TO_ASSUME="${{ inputs.aws_role_to_assume }}" \
+            -e AWS_REGION=eu-west-1 \
+            -e TEST_RETRY_COUNT=3 \
+            web npm run tests
+        fi
+
+    - name: Post test diagnostics
+      if: always()
+      shell: bash
+      run: |
+        docker compose exec web bash -c "[ -f test/file.json ] && python -m json.tool test/file.json || echo 'File does not exist'" || true
+        size=$(du -k build/web/js/index.bundle.js 2>/dev/null | cut -f1 || true)
+        size2=$(du -k build/web/js/vendor.bundle.js 2>/dev/null | cut -f1 || true)
+        size=${size:-0}
+        size2=${size2:-0}
+        totalsize=$((size+size2))
+        echo "Your bundle size is $totalsize kb"
+        if [ "${{ inputs.test_type }}" = "media-similarity-tests" ]; then
+          pkill -9 ngrok || true
+        fi
+
+    - name: Cleanup Docker Resources (non-blocking)
+      if: always()
+      shell: bash
+      run: |
+        echo "Cleaning up Docker resources..."
+        docker compose down --volumes --remove-orphans || true
+        docker container prune -f || true
+        docker image prune -af || true
+        docker volume prune -f || true
