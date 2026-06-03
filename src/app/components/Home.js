@@ -5,7 +5,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import Favicon from 'react-favicon';
 import isEqual from 'lodash.isequal';
-import Intercom from 'react-intercom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import * as Sentry from '@sentry/react';
@@ -13,6 +12,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import LoginContainer from './login/LoginContainer';
 import InviteNewAccount from './login/InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
+import SupportButton from './SupportButton';
 import DrawerNavigation from './drawer/DrawerNavigation';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import UserTos from './UserTos';
@@ -281,12 +281,7 @@ class HomeComponent extends Component {
     return (
       <React.Fragment>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          {config.intercomAppId && user.dbid && window.parent === window ?
-            <Intercom
-              appID={config.intercomAppId}
-              intercom_user_jwt={user.intercom_user_jwt}
-            /> : null
-          }
+          {user.dbid && window.parent === window ? <SupportButton /> : null}
           <Favicon animated={false} url={`/images/logo/${config.appName}.ico`} />
           <BrowserSupport />
           <UserTos user={user} />
