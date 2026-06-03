@@ -63,7 +63,8 @@ else
   then
     pull_check_web_base_images
     retry_compose build web api api-background pender pender-background postgres elasticsearch
-    retry_compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
+    retry_compose -f docker-compose.yml -f docker-test.yml up -d elasticsearch postgres redis web api api-background pender pender-background chromedriver
+    until curl --silent -f "http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=60s"; do printf .; sleep 2; done
   else
     if [[ $GITHUB_JOB_NAME == 'media-similarity-tests' ]]
     then
