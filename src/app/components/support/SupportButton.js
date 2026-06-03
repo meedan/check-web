@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { stringHelper } from '../../customHelpers';
 import styles from './support_button.module.css';
 
-const SUPPORT_EMAIL = 'support@yourcompany.com';
-
-export default function SupportButton() {
+export default function SupportButton({ name }) {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
   const btnRef = useRef(null);
@@ -74,13 +73,13 @@ export default function SupportButton() {
           {/* Header */}
           <div className={styles['support-popup__header']}>
             <div className={styles['support-popup__header-row']}>
+              <span className={styles['support-popup__title']}>Hi { name }!</span>
               <div className={styles['support-popup__avatar']}>
                 <span aria-label="waving hand" role="img">👋</span>
               </div>
-              <span className={styles['support-popup__title']}>Hi there!</span>
             </div>
             <p className={styles['support-popup__subtitle']}>
-              We usually respond within a few hours. Drop us a line anytime.
+              Need help?
             </p>
           </div>
 
@@ -89,7 +88,7 @@ export default function SupportButton() {
             {/* Email card */}
             <a
               className={styles['support-popup__email-card']}
-              href={`mailto:${SUPPORT_EMAIL}`}
+              href={`mailto:${stringHelper('SUPPORT_EMAIL')}`}
             >
               <div className={styles['support-popup__email-icon']}>
                 <svg fill="none" height="18" viewBox="0 0 24 24" width="18">
@@ -99,7 +98,7 @@ export default function SupportButton() {
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p className={styles['support-popup__email-label']}>Email us</p>
-                <p className={styles['support-popup__email-address']}>{SUPPORT_EMAIL}</p>
+                <p className={styles['support-popup__email-address']}>{stringHelper('SUPPORT_EMAIL')}</p>
               </div>
               <svg className={styles['support-popup__email-chevron']} fill="none" height="14" viewBox="0 0 24 24" width="14">
                 <path d="M9 18l6-6-6-6" stroke="#6b7280" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />

@@ -12,7 +12,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import LoginContainer from './login/LoginContainer';
 import InviteNewAccount from './login/InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
-import SupportButton from './SupportButton';
+import SupportButton from './support/SupportButton';
 import DrawerNavigation from './drawer/DrawerNavigation';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import UserTos from './UserTos';
@@ -281,7 +281,10 @@ class HomeComponent extends Component {
     return (
       <React.Fragment>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          {user.dbid && window.parent === window ? <SupportButton /> : null}
+          {user.dbid && window.parent === window ?
+            <SupportButton
+              name={user.name}
+            /> : null}
           <Favicon animated={false} url={`/images/logo/${config.appName}.ico`} />
           <BrowserSupport />
           <UserTos user={user} />
