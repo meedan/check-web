@@ -69,12 +69,6 @@
 }
 
 /* ─── Popup header ───────────────────────────────────────────── */
-.support-popup__logo {
-  display: block;
-  margin-bottom: 14px;
-  width: 200px;
-}
-
 .support-popup__header {
   background: linear-gradient(135deg, rgba(200 90 15) 0%, rgba(250 182 137) 100%);
   padding: 20px 20px 32px;

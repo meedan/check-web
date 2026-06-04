@@ -91,11 +91,6 @@ function SupportButton({ intl, name }) {
         >
           {/* Header */}
           <div className={styles['support-popup__header']}>
-            <img
-              alt="Meedan logo"
-              className={styles['support-popup__logo']}
-              src="https://downloads.intercomcdn.com/i/o/163524/da5b8d0ce9d7b863b3082e70/3bcb72b0eaf574b04ddc82db9a26b6ac.png"
-            />
             <div className={styles['support-popup__header-row']}>
               <span className={styles['support-popup__title']}>{intl.formatMessage(messages.support_title, { name })}</span>
               <div className={styles['support-popup__avatar']}>
