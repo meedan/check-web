@@ -309,9 +309,11 @@ module AppSpecHelpers
 
   def add_related_item(item_name)
     wait_for_selector('#create-media-dialog__dismiss-button')
-    wait_for_selector('#autocomplete-media-item').send_keys(item_name)
-    wait_for_text_change(' ', '#autocomplete-media-item', :css)
-    wait_for_selector('.small-media-card__title').click
+    autocomplete = wait_for_selector('#autocomplete-media-item')
+    autocomplete.send_keys(:control, 'a', :delete)
+    autocomplete.send_keys(item_name)
+    wait_for_text_change(' ', '#autocomplete-media-item', :css, 30)
+    wait_for_selector('.small-media-card__title', :css, 30, true).click
     wait_for_selector('#create-media-dialog__submit-button').click
   end
 
