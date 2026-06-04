@@ -1,8 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { defineMessages, injectIntl } from 'react-intl';
 import { stringHelper } from '../../customHelpers';
 import styles from './support_button.module.css';
 
-export default function SupportButton({ name }) {
+const messages = defineMessages({
+  support_title: {
+    id: 'supportButton.title',
+    defaultMessage: 'Hi {name}!',
+    description: 'Message displayed for support popup title',
+  },
+  support_email: {
+    id: 'supportButton.email',
+    defaultMessage: 'Email us',
+    description: 'Message displayed for email label',
+  },
+  support_subtitle: {
+    id: 'supportButton.subTitle',
+    defaultMessage: 'Need help?',
+    description: 'Message displayed for support popup subtitle',
+  },
+});
+
+function SupportButton({ intl, name }) {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
   const btnRef = useRef(null);
@@ -52,7 +71,7 @@ export default function SupportButton({ name }) {
         {isOpen ? (
           // X icon
           <svg fill="none" height="18" viewBox="0 0 18 18" width="18">
-            <path d="M2 2l14 14M16 2L2 16" stroke="#fff" strokeLinecap="round" strokeWidth="2.2" />
+            <path d="M4 7l5 5 5-5" stroke="#fff" strokeLinecap="round" strokeWidth="2.2" />
           </svg>
         ) : (
           // Chat bubble icon
@@ -72,14 +91,19 @@ export default function SupportButton({ name }) {
         >
           {/* Header */}
           <div className={styles['support-popup__header']}>
+            <img
+              alt="Meedan logo"
+              className={styles['support-popup__logo']}
+              src="https://downloads.intercomcdn.com/i/o/163524/da5b8d0ce9d7b863b3082e70/3bcb72b0eaf574b04ddc82db9a26b6ac.png"
+            />
             <div className={styles['support-popup__header-row']}>
-              <span className={styles['support-popup__title']}>Hi { name }!</span>
+              <span className={styles['support-popup__title']}>{intl.formatMessage(messages.support_title, { name })}</span>
               <div className={styles['support-popup__avatar']}>
                 <span aria-label="waving hand" role="img">👋</span>
               </div>
             </div>
             <p className={styles['support-popup__subtitle']}>
-              Need help?
+              {intl.formatMessage(messages.support_subtitle)}
             </p>
           </div>
 
@@ -97,7 +121,7 @@ export default function SupportButton({ name }) {
                 </svg>
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <p className={styles['support-popup__email-label']}>Email us</p>
+                <p className={styles['support-popup__email-label']}>{intl.formatMessage(messages.support_email)}</p>
                 <p className={styles['support-popup__email-address']}>{stringHelper('SUPPORT_EMAIL')}</p>
               </div>
               <svg className={styles['support-popup__email-chevron']} fill="none" height="14" viewBox="0 0 24 24" width="14">
@@ -110,3 +134,5 @@ export default function SupportButton({ name }) {
     </>
   );
 }
+
+export default injectIntl(SupportButton);

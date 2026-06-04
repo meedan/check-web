@@ -1,0 +1,17 @@
+[
+  {
+    "id": "supportButton.title",
+    "description": "Message displayed for support popup title",
+    "defaultMessage": "Hi {name}!"
+  },
+  {
+    "id": "supportButton.email",
+    "description": "Message displayed for email label",
+    "defaultMessage": "Email us"
+  },
+  {
+    "id": "supportButton.subTitle",
+    "description": "Message displayed for support popup subtitle",
+    "defaultMessage": "Need help?"
+  }
+]
