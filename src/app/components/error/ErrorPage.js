@@ -34,7 +34,6 @@ const ErrorPage = ({
       </p>
     </div>
     <SupportButton
-      name="Sawyyyyyyy"
       sentryUrl={sentryUrl}
     />
   </PageTitle>
