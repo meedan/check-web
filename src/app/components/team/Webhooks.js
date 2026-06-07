@@ -100,16 +100,6 @@ const Webhooks = ({ team }) => {
                   checkApi: <ExternalLink className="webhooks__api-doc-link" url="https://help.checkmedia.org/en/articles/8773856-check-api-introduction">Check API</ExternalLink>,
                 }}
               />
-              {' '}
-              { /* The following <a /> element requires Intercom to be configured. Make sure `intercomAppId` is set correctly in config.js  */}
-              { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a className="webhooks__intercom-link" href="#" onClick={(e) => { if (Intercom) { Intercom('showNewMessage'); e.preventDefault(); } }}>
-                <FormattedMessage
-                  defaultMessage="Connect with us directly for support."
-                  description="Footer text in API key creation widget"
-                  id="webhooks.footerSupport"
-                />
-              </a>
             </div>
           </div>
         </div>

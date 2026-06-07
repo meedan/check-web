@@ -351,7 +351,6 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
         source_id
         team_ids
         user_teams
-        intercom_user_jwt
         current_team {
           id
           dbid

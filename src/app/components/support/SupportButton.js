@@ -21,7 +21,16 @@ const messages = defineMessages({
   },
 });
 
-function SupportButton({ intl, name }) {
+const buildMailto = (sentryUrl) => {
+  if (!sentryUrl) return `mailto:${stringHelper('SUPPORT_EMAIL')}`;
+  const subject = encodeURIComponent('Bug Report: Sentry Error');
+  const body = encodeURIComponent(
+    `Hi Support Team,\n\nI encountered an error. Please find the Sentry details below:\n\n${sentryUrl}\n\nAdditional context:\n[Please describe what you were doing when the error occurred]`,
+  );
+  return `mailto:${stringHelper('SUPPORT_EMAIL')}?subject=${subject}&body=${body}`;
+};
+
+function SupportButton({ intl, name, sentryUrl }) {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
   const btnRef = useRef(null);
@@ -107,7 +116,7 @@ function SupportButton({ intl, name }) {
             {/* Email card */}
             <a
               className={styles['support-popup__email-card']}
-              href={`mailto:${stringHelper('SUPPORT_EMAIL')}`}
+              href={buildMailto(sentryUrl)}
             >
               <div className={styles['support-popup__email-icon']}>
                 <svg fill="none" height="18" viewBox="0 0 24 24" width="18">

@@ -28,10 +28,5 @@
     "id": "apiKeys.footer",
     "description": "Footer text in API key creation widget",
     "defaultMessage": "Check out our guide to using the {checkApi} or to troubleshoot common issues."
-  },
-  {
-    "id": "apiKeys.footerSupport",
-    "description": "Footer text in API key creation widget",
-    "defaultMessage": "Connect with us directly for support."
   }
 ]
