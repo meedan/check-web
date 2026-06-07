@@ -19,19 +19,29 @@ const messages = defineMessages({
     defaultMessage: 'Need help?',
     description: 'Message displayed for support popup subtitle',
   },
+  support_email_subject: {
+    id: 'supportButton.emailSubject',
+    defaultMessage: 'Bug Report: Sentry Error',
+    description: 'Email subject when user have trouble with Check',
+  },
+  support_email_body: {
+    id: 'supportButton.emailBody',
+    defaultMessage: 'Hi Support Team,\n\nI encountered an error. Please find the Sentry details below:\n\n{sentryUrl}\n\nAdditional context:\n[Please describe what you were doing when the error occurred]',
+    description: 'Email body when user have trouble with Check',
+  },
 });
 
-const buildMailto = (sentryUrl) => {
+const buildMailto = (intl, sentryUrl) => {
   if (!sentryUrl) return `mailto:${stringHelper('SUPPORT_EMAIL')}`;
-  const subject = encodeURIComponent('Bug Report: Sentry Error');
+  const subject = encodeURIComponent(intl.formatMessage(messages.support_email_subject));
   const body = encodeURIComponent(
-    `Hi Support Team,\n\nI encountered an error. Please find the Sentry details below:\n\n${sentryUrl}\n\nAdditional context:\n[Please describe what you were doing when the error occurred]`,
+    intl.formatMessage(messages.support_email_body, { sentryUrl }),
   );
   return `mailto:${stringHelper('SUPPORT_EMAIL')}?subject=${subject}&body=${body}`;
 };
 
 function SupportButton({ intl, name, sentryUrl }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(Boolean(sentryUrl));
   const popupRef = useRef(null);
   const btnRef = useRef(null);
 
@@ -116,7 +126,7 @@ function SupportButton({ intl, name, sentryUrl }) {
             {/* Email card */}
             <a
               className={styles['support-popup__email-card']}
-              href={buildMailto(sentryUrl)}
+              href={buildMailto(intl, sentryUrl)}
             >
               <div className={styles['support-popup__email-icon']}>
                 <svg fill="none" height="18" viewBox="0 0 24 24" width="18">
