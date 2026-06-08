@@ -84,6 +84,7 @@ function SupportButton({ intl, name, sentryUrl }) {
         aria-expanded={isOpen}
         aria-label="Open support"
         className={[styles['support-btn'], isOpen && styles['is-open']].filter(Boolean).join(' ')}
+        id="support-button"
         ref={btnRef}
         onClick={() => setIsOpen(v => !v)}
       >
