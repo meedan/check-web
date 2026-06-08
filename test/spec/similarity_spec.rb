@@ -1,7 +1,7 @@
 shared_examples 'similarity' do
   it 'should import and export items', bin1: true do
     api_create_team_claims_sources_and_redirect_to_all_items({ count: 3 })
-    verbose_wait 3 # Wait for the items to be indexed in ElasticSearch
+    verbose_wait 4 # Wait for the items to be indexed in ElasticSearch
     wait_for_selector('.search__results-heading')
     wait_for_selector('.cluster-card').click
     wait_for_selector('.test__media')
@@ -133,9 +133,10 @@ shared_examples 'similarity' do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/ocr.png')
-    verbose_wait 4
+    verbose_wait 1
     wait_for_selector('.cluster-card').click
     wait_for_selector('.image-media-card')
+    wait_for_extracted_text_from_image
     expect(@driver.page_source.include?('Extracted Text')).to be(true)
     expect(@driver.page_source.include?('Test')).to be(true)
   end

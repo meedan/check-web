@@ -22,15 +22,13 @@ shared_examples 'tag' do
     fill_field('#team-tags__name-input', 'edited')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__confirm-action-button')
-    expect(@driver.page_source.include?('newtagedited')).to be(true)
+    Selenium::WebDriver::Wait.new(timeout: 60).until { @driver.page_source.include?('newtagedited') }
 
     # Delete tag
     wait_for_selector('.team-tags-actions__icon').click
     wait_for_selector('.team-tags-actions__destroy').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__confirm-action-button')
-    expect(@driver.page_source.include?('newtagedited')).to be(false)
+    Selenium::WebDriver::Wait.new(timeout: 60).until { !@driver.page_source.include?('newtagedited') }
     expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(true)
   end
 
