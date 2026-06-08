@@ -1,0 +1,27 @@
+[
+  {
+    "id": "supportButton.title",
+    "description": "Message displayed for support popup title",
+    "defaultMessage": "Hi {name}!"
+  },
+  {
+    "id": "supportButton.email",
+    "description": "Message displayed for email label",
+    "defaultMessage": "Email us"
+  },
+  {
+    "id": "supportButton.subTitle",
+    "description": "Message displayed for support popup subtitle",
+    "defaultMessage": "Need help?"
+  },
+  {
+    "id": "supportButton.emailSubject",
+    "description": "Email subject when user have trouble with Check",
+    "defaultMessage": "Bug Report: Sentry Error"
+  },
+  {
+    "id": "supportButton.emailBody",
+    "description": "Email body when user have trouble with Check",
+    "defaultMessage": "Hi Support Team,\n\nI encountered an error. Please find the Sentry details below:\n\n{sentryUrl}\n\nAdditional context:\n[Please describe what you were doing when the error occurred]"
+  }
+]

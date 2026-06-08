@@ -30,12 +30,6 @@ window.config = {
   //
   opencageApiKey: null, // '<OPENCAGE API KEY>',
 
-  // Intercom is used for user support https://www.intercom.com/
-  //
-  // OPTIONAL
-  //
-  intercomAppId: null, // '<INTERCOM APP ID>',
-
   // Sentry is used to capture exceptions that happen in the browser
   //
   // OPTIONAL

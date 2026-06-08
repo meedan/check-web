@@ -1,0 +1,168 @@
+/* ─── Animations ─────────────────────────────────────────────── */
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(250 182 137 / .4);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(250 182 137 / 0);
+  }
+}
+
+/* ─── Floating trigger button ────────────────────────────────── */
+.support-btn {
+  align-items: center;
+  animation: pulse 3s ease-in-out infinite;
+  background: linear-gradient(135deg, rgba(241 117 34), rgba(255 165 90));
+  border: none;
+  border-radius: var(--border-radius-large);
+  bottom: 28px;
+  box-shadow: 0 4px 20px rgba(241 117 34 / .45);
+  color: rgba(225 225 225);
+  cursor: pointer;
+  display: flex;
+  height: 54px;
+  justify-content: center;
+  position: fixed;
+  right: 28px;
+  transition: background .2s, transform .2s;
+  width: 54px;
+  z-index: var(--z-index-max);
+}
+
+.support-btn:hover {
+  background: linear-gradient(135deg, rgba(241 117 34), rgba(255 150 70));
+  transform: scale(1.07);
+}
+
+.support-btn.is-open {
+  background: linear-gradient(135deg, rgba(200 90 15), rgba(241 117 34));
+}
+
+/* ─── Popup panel ────────────────────────────────────────────── */
+.support-popup {
+  animation: pop-in .22s cubic-bezier(.34, 1.56, .64, 1) both;
+  background: var(--color-surface);
+  border: 1px solid rgba(255 255 255 / .08);
+  border-radius: var(--border-radius-large);
+  bottom: 94px;
+  box-shadow: 0 24px 64px rgba(0 0 0 / .5), 0 0 0 1px rgba(250 182 137 / .15);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  overflow: hidden;
+  position: fixed;
+  right: 28px;
+  width: 320px;
+  z-index: var(--z-index-max);
+}
+
+/* ─── Popup header ───────────────────────────────────────────── */
+.support-popup__header {
+  background: linear-gradient(135deg, rgba(200 90 15) 0%, rgba(250 182 137) 100%);
+  padding: 20px 20px 32px;
+  position: relative;
+}
+
+.support-popup__header-row {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.support-popup__avatar {
+  align-items: center;
+  background: rgba(255 255 255 / .2);
+  border-radius: var(--border-radius-default);
+  display: flex;
+  font-size: var(--font-size-button);
+  height: 32px;
+  justify-content: center;
+  width: 32px;
+}
+
+.support-popup__title {
+  color: rgba(20 22 26);
+  font-size: var(--font-size-subtitle-1);
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.support-popup__subtitle {
+  color: rgba(255 255 255 / .85);
+  font-size: var(--font-size-overline);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ─── Popup body ─────────────────────────────────────────────── */
+.support-popup__body {
+  background: var(--color-white-100);
+  border-radius: var(--border-radius-large, 16px) var(--border-radius-large, 16px) var(--border-radius-zero, 0) var(--border-radius-zero, 0);
+  margin-top: -16px;
+  padding: 20px;
+  position: relative;
+}
+
+/* ─── Email card ─────────────────────────────────────────────── */
+.support-popup__email-card {
+  align-items: center;
+  background: rgba(255 255 255 / .04);
+  border: 1px solid rgba(255 255 255 / .08);
+  border-radius: var(--border-radius-large, 16px);
+  cursor: pointer;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: background .15s, border-color .15s;
+}
+
+.support-popup__email-card:hover {
+  background: rgba(250 182 137 / .12);
+  border-color: rgba(250 182 137 / .4);
+}
+
+.support-popup__email-icon {
+  align-items: center;
+  background: linear-gradient(135deg, rgba(250 182 137), rgba(255 165 90));
+  border-radius: var(--border-radius-default);
+  display: flex;
+  flex-shrink: 0;
+  height: 38px;
+  justify-content: center;
+  width: 38px;
+}
+
+.support-popup__email-label {
+  color: rgba(20 22 26);
+  font-size: var(--font-size-overline);
+  font-weight: 600;
+  margin: 0;
+}
+
+.support-popup__email-address {
+  color: rgba(20 22 26);
+  font-size: var(--font-size-overline);
+  margin: 2px 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.support-popup__email-chevron {
+  flex-shrink: 0;
+}
