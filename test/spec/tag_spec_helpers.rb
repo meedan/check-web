@@ -12,7 +12,7 @@ module TagSpecHelpers
     fill_field('#team-tags__name-input', tag_name)
     @driver.action.send_keys(:enter).perform
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__confirm-action-button')
+    wait_for_selector('.team-tags__row')
   end
 
   def delete_tag(_tag_name)

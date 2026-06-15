@@ -5,12 +5,14 @@ import cx from 'classnames/bind';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { stringHelper } from '../../customHelpers';
 import PageTitle from '../PageTitle';
+import SupportButton from '../support/SupportButton';
 import styles from './ErrorPage.module.css';
 
 const ErrorPage = ({
   cardText,
   cardTitle,
   pageTitle,
+  sentryUrl,
 }) => (
   <PageTitle
     prefix={pageTitle}
@@ -31,6 +33,9 @@ const ErrorPage = ({
         {cardText}
       </p>
     </div>
+    <SupportButton
+      sentryUrl={sentryUrl}
+    />
   </PageTitle>
 );
 
@@ -38,12 +43,14 @@ ErrorPage.defaultProps = {
   pageTitle: null,
   cardTitle: null,
   cardText: null,
+  sentryUrl: null,
 };
 
 ErrorPage.propTypes = {
   pageTitle: PropTypes.string,
   cardTitle: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   cardText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  sentryUrl: PropTypes.string,
 };
 
 export default ErrorPage;

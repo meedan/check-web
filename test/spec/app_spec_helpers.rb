@@ -120,6 +120,32 @@ module AppSpecHelpers
     end while (old_url == current_url && c < count)
   end
 
+  def wait_for_extracted_text_from_image(timeout: 120)
+    return if @driver.page_source.include?('Extracted Text')
+
+    ocr_button = @driver.find_elements(:css, '#ocr-button__extract-text').find do |e|
+      begin
+        e.displayed?
+      rescue Selenium::WebDriver::Error::StaleElementReferenceError
+        false
+      end
+    end
+    ocr_button&.click
+
+    Selenium::WebDriver::Wait.new(timeout: timeout).until do
+      source = @driver.page_source
+      source.include?('Extracted Text') || source.include?('Text extraction completed')
+    end
+
+    return if @driver.page_source.include?('Extracted Text')
+
+    @driver.navigate.refresh
+    wait_for_selector('.image-media-card')
+    Selenium::WebDriver::Wait.new(timeout: timeout).until do
+      @driver.page_source.include?('Extracted Text')
+    end
+  end
+
   def wait_for_size_change(size, selector, type = :css, count = 30, test = 'unknown')
     c = 0
     begin
@@ -283,9 +309,11 @@ module AppSpecHelpers
 
   def add_related_item(item_name)
     wait_for_selector('#create-media-dialog__dismiss-button')
-    wait_for_selector('#autocomplete-media-item').send_keys(item_name)
-    wait_for_text_change(' ', '#autocomplete-media-item', :css)
-    wait_for_selector('.small-media-card__title').click
+    autocomplete = wait_for_selector('#autocomplete-media-item')
+    autocomplete.send_keys(:control, 'a', :delete)
+    autocomplete.send_keys(item_name)
+    wait_for_text_change(' ', '#autocomplete-media-item', :css, 30)
+    wait_for_selector('.small-media-card__title', :css, 30, true).click
     wait_for_selector('#create-media-dialog__submit-button').click
   end
 

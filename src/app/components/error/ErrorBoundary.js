@@ -1,22 +1,13 @@
 import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import * as Sentry from '@sentry/react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ErrorPage from './ErrorPage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 
-const messages = defineMessages({
-  askSupport: {
-    id: 'errorBoundary.message',
-    defaultMessage: 'Hello, I\'m having trouble with Check. The web interface has just crashed and is blocking me from doing work!',
-    description: 'Prefilled support request message when Check UI crashes',
-  },
-});
-
 const notifySentry = (
   error,
   component,
-  callIntercom,
 ) => {
   let eventId = '';
   if (config.sentryDsn) {
@@ -28,18 +19,14 @@ const notifySentry = (
       },
     });
   }
-  // even if sentry isn't configured we should still call Intercom
-  if (callIntercom) {
-    // this url links directly to the sentry issue page
-    const sentryIssueUrl = `https://sentry.io/${config.sentryOrg}/${config.sentryProject}/?query=${eventId}`;
-    callIntercom({ url: sentryIssueUrl });
-  }
+  const sentryIssueUrl = `https://sentry.io/${config.sentryOrg}/${config.sentryProject}/?query=${eventId}`;
+  return sentryIssueUrl;
 };
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, sentryUrl: null };
 
     window.onerror = (message, source, lineno, colno, error) => {
       notifySentry(error, 'window');
@@ -51,18 +38,9 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error) {
-    const { component, intl } = this.props;
-
-    const callIntercom = (data) => {
-      if (window.Intercom) {
-        Intercom(
-          'showNewMessage',
-          `${intl.formatMessage(messages.askSupport)}\n\n${data.url}`,
-        );
-      }
-    };
-
-    notifySentry(error, component, callIntercom);
+    const { component } = this.props;
+    const sentryUrl = notifySentry(error, component);
+    this.setState({ sentryUrl });
   }
 
   render() {
@@ -78,6 +56,7 @@ class ErrorBoundary extends React.Component {
             />
           }
           pageTitle={null}
+          sentryUrl={this.state.sentryUrl}
         />
       );
     }
@@ -87,3 +66,4 @@ class ErrorBoundary extends React.Component {
 }
 
 export default injectIntl(ErrorBoundary);
+

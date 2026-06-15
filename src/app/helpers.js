@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
 import { getTimeZones } from '@vvo/tzdb';
-import ButtonMain from './components/cds/buttons-checkboxes-chips/ButtonMain';
 import CheckError from './constants/CheckError';
 import CheckMediaTypes from './constants/CheckMediaTypes';
 
@@ -188,7 +187,6 @@ function getErrorObjectsForRelayModernProblem(errorOrErrors) {
 
 // Requires an CheckNetworkLayer c. 2019 object with the `code` and `message` properties
 function createFriendlyErrorMessage(error) {
-  const friendlyMessage = CheckError.getMessageFromCode(error.code);
   return (
     <>
       <FormattedMessage
@@ -197,28 +195,6 @@ function createFriendlyErrorMessage(error) {
         id="check.helpers.report_please"
         tagName="p"
       />
-      <FormattedMessage
-        defaultMessage="Click the 'send' arrow to the right to send the report."
-        description="This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
-        id="check.helpers.intercom_help"
-        tagName="p"
-      >
-        {help_text => (
-          <ButtonMain
-            label={
-              <FormattedMessage
-                defaultMessage="Report issue"
-                description="This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
-                id="check.helpers.report_issue"
-              />
-            }
-            size="default"
-            theme="lightError"
-            variant="contained"
-            onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
-          />
-        )}
-      </FormattedMessage>
       <details>
         <FormattedMessage
           defaultMessage="More info…"

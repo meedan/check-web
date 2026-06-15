@@ -18,15 +18,15 @@ shared_examples 'search' do
 
   it 'should search by keywords', bin1: true, quick: true do
     api_create_team_claims_sources_and_redirect_to_all_items({ count: 2 })
-    verbose_wait # wait for the items to be indexed in Elasticsearch
+    verbose_wait 2 # wait for the items to be indexed in Elasticsearch
     # find all medias with an empty search
-    wait_for_selector('.cluster-card', :css, 20, true)
+    wait_for_selector('.cluster-card', :css, 30, true)
     expect(@driver.find_elements(:css, '.cluster-card').size).to eq 2
     # search by keywords
     wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
     wait_for_selector('#search-input').send_keys('Claim 0')
     @driver.action.send_keys(:enter).perform
-    wait_for_selector('.cluster-card', :css, 20, true)
+    wait_for_selector('.cluster-card', :css, 30, true)
     expect(@driver.find_elements(:css, '.cluster-card').size).to eq 1
   end
 
