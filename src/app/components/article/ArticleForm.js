@@ -387,13 +387,14 @@ const ArticleForm = ({
                           }}
                           defaultValue={articleTitle}
                           label={<FormattedMessage defaultMessage="Title" description="Label for explainer title field" id="articleForm.explainerTitle" />}
-                          maxChars={35}
+                          maxChars={800}
                           maxHeight="266px"
-                          maxLength={35}
+                          maxLength={800}
                           name="title"
                           placeholder={placeholder}
                           required
                           rows="1"
+                          value={articleTitle}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
@@ -418,12 +419,13 @@ const ArticleForm = ({
                           defaultValue={isFactCheckValueBlank(articleTitle) ? null : articleTitle}
                           disabled={readOnly}
                           label={<FormattedMessage defaultMessage="Title" description="Label for fact-check title field" id="articleForm.factCheckTitle" />}
-                          maxChars={35}
+                          maxChars={800}
                           maxHeight="266px"
-                          maxLength={35}
+                          maxLength={800}
                           name="title"
                           placeholder={placeholder}
                           rows="1"
+                          value={articleTitle}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
@@ -458,6 +460,7 @@ const ArticleForm = ({
                             placeholder={placeholder}
                             required
                             rows="1"
+                            value={summary}
                             onBlur={(e) => {
                               const newValue = e.target.value.trim();
                               if (newValue.length) {
@@ -491,6 +494,7 @@ const ArticleForm = ({
                             placeholder={placeholder}
                             required={false}
                             rows="1"
+                            value={summary}
                             onBlur={(e) => {
                               const newValue = e.target.value.trim();
                               if (newValue.length) {
@@ -519,9 +523,10 @@ const ArticleForm = ({
                             }}
                             defaultValue={url}
                             label={<FormattedMessage defaultMessage="Article URL" description="Label for article URL field" id="articleForm.explainerUrl" />}
-                            maxChars={35}
-                            maxLength={35}
+                            maxChars={600}
+                            maxLength={600}
                             placeholder={placeholder}
+                            value={url}
                             onBlur={(e) => {
                               const newValue = e.target.value;
                               let newUrl = newValue;
@@ -550,9 +555,10 @@ const ArticleForm = ({
                             disabled={readOnly}
                             key={`article-form__url-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
                             label={<FormattedMessage defaultMessage="Article URL" description="Label for article URL field" id="articleForm.factCheckUrl" />}
-                            maxChars={35}
-                            maxLength={35}
+                            maxChars={600}
+                            maxLength={600}
                             placeholder={placeholder}
+                            value={url}
                             onBlur={(e) => {
                               const newValue = e.target.value;
                               let newUrl = newValue;
