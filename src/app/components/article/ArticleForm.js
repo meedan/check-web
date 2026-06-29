@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
-import cx from 'classnames/bind';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
 import ArticleTrash from './ArticleTrash.js';
 import CheckArticleTypes from '../../constants/CheckArticleTypes.js';
@@ -11,9 +10,8 @@ import Slideout from '../cds/slideout/Slideout';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconReport from '../../icons/fact_check.svg';
 import IconUnpublishedReport from '../../icons/unpublished_report.svg';
-import ErrorIcon from '../../icons/error.svg';
 import TextArea from '../cds/inputs/TextArea';
-import TextField from '../cds/inputs/TextField';
+import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import inputStyles from '../../styles/css/inputs.module.css';
 import CheckPropTypes from '../../CheckPropTypes';
@@ -57,10 +55,6 @@ const ArticleForm = ({
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
   const statuses = team.verification_statuses || null;
 
-  const [summaryError, setSummaryError] = React.useState(false);
-  const [titleError, setTitleError] = React.useState(false);
-  const [claimDescriptionError, setClaimDescriptionError] = React.useState(false);
-
   const [isValid, setIsValid] = React.useState(false);
   const [canPublish, setCanPublish] = React.useState(false);
   const createAndPublish = createFromMediaPage && canPublish;
@@ -70,11 +64,6 @@ const ArticleForm = ({
   const publishedAt = isPublished ? article.updated_at : null;
   const isStatusLocked = article.claim_description?.project_media?.last_status_obj?.locked || false;
   const factCheckFieldsMissing = (articleType === CheckArticleTypes.FACT_CHECK && (isFactCheckValueBlank(articleTitle) || isFactCheckValueBlank(summary) || !language));
-
-  const maxCount = articleType === CheckArticleTypes.EXPLAINER ? 4096 : 900;
-  const [charCount, setCharCount] = React.useState(summary.length + url.length + articleTitle.length);
-  const [charCountError, setCharCountError] = React.useState(charCount > maxCount);
-  const maxCountErrorMessage = <FormattedMessage defaultMessage="Character Limit Reached" description="Error message for when the character limit is reached" id="articleForm.characterLimitReached" />;
 
   React.useEffect(() => {
     setLanguage(language || defaultArticleLanguage);
@@ -94,16 +83,6 @@ const ArticleForm = ({
       setCanPublish(false);
     }
   }, [articleTitle, summary, claimDescription, language]);
-
-  React.useEffect(() => {
-    const count = summary.length + url.length + articleTitle.length;
-    setCharCount(count);
-    if (count > maxCount) {
-      setCharCountError(true);
-    } else {
-      setCharCountError(false);
-    }
-  }, [articleTitle, summary, url]);
 
   const handleGoToReport = (projectMediaDbid) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
@@ -304,7 +283,6 @@ const ArticleForm = ({
                         <TextArea
                           className="article-form__description"
                           defaultValue={claimDescription || ''}
-                          error={claimDescriptionError}
                           id="article-form__description"
                           label={
                             <FormattedMessage
@@ -319,10 +297,7 @@ const ArticleForm = ({
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
-                              setClaimDescriptionError(false);
                               handleBlur('claim description', newValue);
-                            } else {
-                              setClaimDescriptionError(true);
                             }
                             setClaimDescription(newValue);
                           }}
@@ -404,28 +379,26 @@ const ArticleForm = ({
                         description="Placeholder instructions for article title field"
                         id="articleForm.explainerTitleInputPlaceholder"
                       >
-                        { placeholder => (<TextArea
+                        { placeholder => (<LimitedTextArea
                           autoGrow
                           className="article-form__title"
                           componentProps={{
                             id: 'article-form__title',
                           }}
                           defaultValue={articleTitle}
-                          error={titleError || (charCountError && articleTitle.length)}
-                          helpContent={charCountError && articleTitle.length ? maxCountErrorMessage : null}
                           label={<FormattedMessage defaultMessage="Title" description="Label for explainer title field" id="articleForm.explainerTitle" />}
+                          maxChars={800}
                           maxHeight="266px"
+                          maxLength={800}
                           name="title"
                           placeholder={placeholder}
                           required
                           rows="1"
+                          value={articleTitle}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
-                              setTitleError(false);
                               handleBlur('title', newValue);
-                            } else {
-                              setTitleError(true);
                             }
                             setArticleTitle(newValue);
                           }}
@@ -437,7 +410,7 @@ const ArticleForm = ({
                         description="Placeholder instructions for article title field"
                         id="articleForm.factCheckTitleInputPlaceholder"
                       >
-                        { placeholder => (<TextArea
+                        { placeholder => (<LimitedTextArea
                           autoGrow
                           className="article-form__title"
                           componentProps={{
@@ -445,13 +418,14 @@ const ArticleForm = ({
                           }}
                           defaultValue={isFactCheckValueBlank(articleTitle) ? null : articleTitle}
                           disabled={readOnly}
-                          error={titleError || (charCountError && articleTitle.length)}
-                          helpContent={charCountError && articleTitle.length ? maxCountErrorMessage : null}
                           label={<FormattedMessage defaultMessage="Title" description="Label for fact-check title field" id="articleForm.factCheckTitle" />}
+                          maxChars={800}
                           maxHeight="266px"
+                          maxLength={800}
                           name="title"
                           placeholder={placeholder}
                           rows="1"
+                          value={articleTitle}
                           onBlur={(e) => {
                             const newValue = e.target.value.trim();
                             if (newValue.length) {
@@ -471,28 +445,26 @@ const ArticleForm = ({
                         id="articleForm.explainerSummaryPlaceholder"
                       >
                         { placeholder => (
-                          <TextArea
+                          <LimitedTextArea
                             autoGrow
                             className="article-form__summary"
                             componentProps={{
                               id: 'article-form__summary',
                             }}
                             defaultValue={truncateLength(summary, 4096 - articleTitle.length - url.length - 3)}
-                            error={summaryError || (charCountError && summary.length)}
-                            helpContent={charCountError && summary.length ? maxCountErrorMessage : null}
                             label={<FormattedMessage defaultMessage="Summary" description="Label for article summary field" id="articleForm.explainerSummary" />}
+                            maxChars={3956}
                             maxHeight="500px"
+                            maxLength={3956}
                             name="summary"
                             placeholder={placeholder}
                             required
                             rows="1"
+                            value={summary}
                             onBlur={(e) => {
                               const newValue = e.target.value.trim();
                               if (newValue.length) {
-                                setSummaryError(false);
                                 handleBlur('description', newValue);
-                              } else {
-                                setSummaryError(true);
                               }
                               setSummary(newValue);
                             }}
@@ -506,7 +478,7 @@ const ArticleForm = ({
                         id="articleForm.factCheckSummaryPlaceholder"
                       >
                         { placeholder => (
-                          <TextArea
+                          <LimitedTextArea
                             autoGrow
                             className="article-form__summary"
                             componentProps={{
@@ -514,14 +486,15 @@ const ArticleForm = ({
                             }}
                             defaultValue={isFactCheckValueBlank(summary) ? null : truncateLength(summary, 900 - articleTitle.length - url.length - 3)}
                             disabled={readOnly}
-                            error={summaryError || (charCountError && summary.length)}
-                            helpContent={charCountError && summary.length ? maxCountErrorMessage : null}
                             key={`article-form__summary-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
                             label={<FormattedMessage defaultMessage="Summary" description="Label for article summary field" id="articleForm.summary" />}
+                            maxChars={3956}
+                            maxLength={3956}
                             name="summary"
                             placeholder={placeholder}
                             required={false}
                             rows="1"
+                            value={summary}
                             onBlur={(e) => {
                               const newValue = e.target.value.trim();
                               if (newValue.length) {
@@ -543,16 +516,17 @@ const ArticleForm = ({
                         id="articleForm.explainerUrlPlaceholder"
                       >
                         { placeholder => (
-                          <TextField
+                          <LimitedTextArea
                             className="article-form__url"
                             componentProps={{
                               id: 'article-form__url',
                             }}
                             defaultValue={url}
-                            error={charCountError && url.length}
-                            helpContent={charCountError && url.length ? maxCountErrorMessage : null}
                             label={<FormattedMessage defaultMessage="Article URL" description="Label for article URL field" id="articleForm.explainerUrl" />}
+                            maxChars={600}
+                            maxLength={600}
                             placeholder={placeholder}
+                            value={url}
                             onBlur={(e) => {
                               const newValue = e.target.value;
                               let newUrl = newValue;
@@ -572,18 +546,19 @@ const ArticleForm = ({
                         id="articleForm.factCheckUrlPlaceholder"
                       >
                         { placeholder => (
-                          <TextField
+                          <LimitedTextArea
                             className="article-form__url"
                             componentProps={{
                               id: 'article-form__url',
                             }}
                             defaultValue={url}
                             disabled={readOnly}
-                            error={charCountError && url.length}
-                            helpContent={charCountError && url.length ? maxCountErrorMessage : null}
                             key={`article-form__url-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
                             label={<FormattedMessage defaultMessage="Article URL" description="Label for article URL field" id="articleForm.factCheckUrl" />}
+                            maxChars={600}
+                            maxLength={600}
                             placeholder={placeholder}
+                            value={url}
                             onBlur={(e) => {
                               const newValue = e.target.value;
                               let newUrl = newValue;
@@ -598,23 +573,6 @@ const ArticleForm = ({
                         )}
                       </FormattedMessage>
                     }
-                  </div>
-                  <div className={inputStyles['input-wrapper']}>
-                    <div className={cx(
-                      [inputStyles['help-container']],
-                      {
-                        'int-error__message--textfield': charCountError,
-                        [inputStyles['error-label']]: charCountError,
-                      })}
-                    >
-                      { charCountError && <ErrorIcon className={inputStyles['error-icon']} />}
-                      <FormattedMessage
-                        defaultMessage="{count, plural, one {# character left} other {# characters left}}"
-                        description="Label for the character count remaining in the combined text fields"
-                        id="articleForm.characterCount"
-                        values={{ count: maxCount - charCount }}
-                      />
-                    </div>
                   </div>
                 </div>
                 { languages.length > 1 ?
