@@ -3,6 +3,7 @@ import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import { Link } from 'react-router';
 import CreateTeamDialog from './CreateTeamDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamAvatar from './TeamAvatar';
@@ -202,6 +203,19 @@ const TeamDetails = ({
               </div>
               : null
           }
+          {
+            team.data_export_download_url ?
+              <div className={settingsStyles['setting-content-container']}>
+                <Link target="_blank" to={team.data_export_download_url}>
+                  <FormattedMessage
+                    defaultMessage="Download Workspace Data"
+                    description="Link to download workspace exported data (CSV) files"
+                    id="teamDetails.downloadExportedData"
+                  />
+                </Link>
+              </div>
+              : null
+          }
           <div className={settingsStyles['setting-content-container']}>
             <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage defaultMessage="Link Management" description="Title of the link management section in team details page" id="teamDetails.linkManagement" />
@@ -310,6 +324,7 @@ export default createFragmentContainer(withSetFlashMessage(TeamDetails), graphql
     permissions
     get_shorten_outgoing_urls
     get_outgoing_urls_utm_code
+    data_export_download_url
     tipline_newsletters(first: 10000) {
       edges {
         node {
