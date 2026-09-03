@@ -45,6 +45,16 @@
     "defaultMessage": "Receive a notification for {loginTrial} consecutive failed login attempts"
   },
   {
+    "id": "userSecurity.downloadWorkspaceExportedData",
+    "description": "Section title for download workspace exported data",
+    "defaultMessage": "Download Workspace Exported Data"
+  },
+  {
+    "id": "userSecurity.downloadExportedData",
+    "description": "Link to download workspace exported data (CSV) files",
+    "defaultMessage": "Download {Workspace} Workspace Data"
+  },
+  {
     "id": "userSecurity.twoFactorAuthentication",
     "description": "Section title for two-factor authentication settings",
     "defaultMessage": "Two factor authentication"
