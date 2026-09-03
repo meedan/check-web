@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
+import { Link } from 'react-router';
 import AppleAppStoreIcon from '../../icons/apple_appstore_download.svg';
 import GooglePlayAppStoreIcon from '../../icons/googleplay_appstore_download.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -263,6 +264,31 @@ const UserSecurity = (props, context) => {
             />
           </div>
         </div>
+        {
+          user.workspaces_download_url ?
+            <div className={styles['setting-content-container']}>
+              <div className={styles['setting-content-container-title']}>
+                <FormattedMessage defaultMessage="Download Workspace Exported Data" description="Section title for download workspace exported data" id="userSecurity.downloadWorkspaceExportedData" />
+              </div>
+              <ul>
+                {Object.entries(user.workspaces_download_url).map(([workspace, downloadUrl]) => (
+                  <li>
+                    <Link target="_blank" to={downloadUrl}>
+                      <FormattedMessage
+                        defaultMessage="Download {Workspace} Workspace Data"
+                        description="Link to download workspace exported data (CSV) files"
+                        id="userSecurity.downloadExportedData"
+                        values={{
+                          Workspace: workspace,
+                        }}
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            : null
+        }
         <div className={styles['setting-content-container']}>
           <div className={styles['setting-content-container-title']}>
             <FormattedMessage defaultMessage="Two factor authentication" description="Section title for two-factor authentication settings" id="userSecurity.twoFactorAuthentication" />
@@ -530,6 +556,7 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(UserSecuri
       get_send_successful_login_notifications
       get_send_failed_login_notifications
       two_factor
+      workspaces_download_url
     }
   `,
 });
