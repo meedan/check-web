@@ -43,8 +43,6 @@ const TeamDetails = ({
   const canExportData = can(team.permissions, 'create CheckDataExport') || true;
   const { check_data_export: checkDataExport } = team;
   const [checkDataExportStatus, setCheckDataExportStatus] = React.useState(checkDataExport?.status);
-  // eslint-disable-next-line no-console
-  console.log('checkDataExportStatus', checkDataExportStatus);
 
   const handleImageChange = (file) => {
     setAvatar(file);
@@ -103,9 +101,7 @@ const TeamDetails = ({
   };
 
   const handleSuccess = (response) => {
-    // eslint-disable-next-line no-console
-    console.log('handleSuccess', response);
-    setCheckDataExportStatus('requested');
+    setCheckDataExportStatus(response.createCheckDataExport.check_data_export.status);
     setIsSaving(false);
     setFlashMessage((
       <FormattedMessage
@@ -123,11 +119,15 @@ const TeamDetails = ({
         mutation TeamDetailsCreateCheckDataExportMutation($input: CreateCheckDataExportInput!) {
           createCheckDataExport(input: $input) {
             check_data_export {
-              dbid
               status
-              created_at
-              user {
-                name
+              team {
+                check_data_export {
+                  status
+                  user {
+                    name
+                  }
+                  created_at
+                }
               }
             }
           }
@@ -280,7 +280,7 @@ const TeamDetails = ({
                   />
                 </div>
                 {
-                  checkDataExportStatus === 'undefined' ?
+                  checkDataExportStatus === undefined ?
                     <ButtonMain
                       buttonProps={{
                         id: 'team-details__request-export-button',
