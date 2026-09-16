@@ -42,7 +42,9 @@ const TeamDetails = ({
 
   const canExportData = can(team.permissions, 'create CheckDataExport') || true;
   const { check_data_export: checkDataExport } = team;
-  const checkDataExportStatus = checkDataExport?.status;
+  const [checkDataExportStatus, setCheckDataExportStatus] = React.useState(checkDataExport?.status);
+  // eslint-disable-next-line no-console
+  console.log('checkDataExportStatus', checkDataExportStatus);
 
   const handleImageChange = (file) => {
     setAvatar(file);
@@ -100,7 +102,10 @@ const TeamDetails = ({
     ), 'error');
   };
 
-  const handleSuccess = () => {
+  const handleSuccess = (response) => {
+    // eslint-disable-next-line no-console
+    console.log('handleSuccess', response);
+    setCheckDataExportStatus('requested');
     setIsSaving(false);
     setFlashMessage((
       <FormattedMessage
@@ -137,7 +142,7 @@ const TeamDetails = ({
         if (error) {
           handleError();
         } else {
-          handleSuccess();
+          handleSuccess(response);
         }
       },
       onError: () => {
@@ -275,7 +280,7 @@ const TeamDetails = ({
                   />
                 </div>
                 {
-                  checkDataExport === null ?
+                  checkDataExportStatus === 'undefined' ?
                     <ButtonMain
                       buttonProps={{
                         id: 'team-details__request-export-button',
@@ -302,8 +307,8 @@ const TeamDetails = ({
                       description="Show details about the user who request workspace exported data"
                       id="teamDetails.exportDataInfo"
                       values={{
-                        name: checkDataExport.user?.name,
-                        date: <TimeBefore date={parseStringUnixTimestamp(checkDataExport.created_at)} />,
+                        name: checkDataExport?.user?.name,
+                        date: <TimeBefore date={parseStringUnixTimestamp(checkDataExport?.created_at)} />,
                       }}
                     />
                     : null
@@ -315,8 +320,8 @@ const TeamDetails = ({
                       description="Show details about the user who request workspace exported data"
                       id="teamDetails.generatedExportDataInfo"
                       values={{
-                        name: checkDataExport.user?.name,
-                        date: <TimeBefore date={parseStringUnixTimestamp(checkDataExport.created_at)} />,
+                        name: checkDataExport?.user?.name,
+                        date: <TimeBefore date={parseStringUnixTimestamp(checkDataExport?.created_at)} />,
                       }}
                     />
                     : null
