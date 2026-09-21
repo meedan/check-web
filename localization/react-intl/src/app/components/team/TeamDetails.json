@@ -57,12 +57,12 @@
   {
     "id": "teamDetails.exportDataInfo",
     "description": "Show details about the user who request workspace exported data",
-    "defaultMessage": "The export was requested by {name} on {date}."
+    "defaultMessage": "The export was requested by {name} ({email}) - {date}."
   },
   {
     "id": "teamDetails.generatedExportDataInfo",
     "description": "Show details about the user who request workspace exported data",
-    "defaultMessage": "The export was requested by {name} on {date}. It has been generated and can be downloaded by the requesting user from their user page."
+    "defaultMessage": "The export was requested by {name} ({email}) on {date}. It has been generated and can be downloaded by the requesting user from their user page."
   },
   {
     "id": "teamDetails.linkManagement",

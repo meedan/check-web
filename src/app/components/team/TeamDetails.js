@@ -125,6 +125,7 @@ const TeamDetails = ({
                   status
                   user {
                     name
+                    email
                   }
                   created_at
                 }
@@ -303,11 +304,12 @@ const TeamDetails = ({
                 {
                   checkDataExportStatus === 'requested' ?
                     <FormattedMessage
-                      defaultMessage="The export was requested by {name} on {date}."
+                      defaultMessage="The export was requested by {name} ({email}) - {date}."
                       description="Show details about the user who request workspace exported data"
                       id="teamDetails.exportDataInfo"
                       values={{
                         name: checkDataExport?.user?.name,
+                        email: checkDataExport?.user?.email,
                         date: <TimeBefore date={parseStringUnixTimestamp(checkDataExport?.created_at)} />,
                       }}
                     />
@@ -316,11 +318,12 @@ const TeamDetails = ({
                 {
                   checkDataExportStatus === 'generated' ?
                     <FormattedMessage
-                      defaultMessage="The export was requested by {name} on {date}. It has been generated and can be downloaded by the requesting user from their user page."
+                      defaultMessage="The export was requested by {name} ({email}) on {date}. It has been generated and can be downloaded by the requesting user from their user page."
                       description="Show details about the user who request workspace exported data"
                       id="teamDetails.generatedExportDataInfo"
                       values={{
                         name: checkDataExport?.user?.name,
+                        email: checkDataExport?.user?.email,
                         date: <TimeBefore date={parseStringUnixTimestamp(checkDataExport?.created_at)} />,
                       }}
                     />
@@ -441,6 +444,7 @@ export default createFragmentContainer(withSetFlashMessage(TeamDetails), graphql
       status
       user {
         name
+        email
       }
       created_at
     }
