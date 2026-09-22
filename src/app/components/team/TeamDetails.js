@@ -1,5 +1,5 @@
 import React from 'react';
-import { Relay, Store } from 'react-relay/classic';
+import Relay, { Store } from 'react-relay/classic';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
@@ -40,7 +40,7 @@ const TeamDetails = ({
   const hasRssNewsletters = Boolean(team.tipline_newsletters.edges.find(tn => tn.node.content_type === 'rss'));
   const hasScheduledNewsletters = Boolean(team.tipline_newsletters.edges.find(tn => tn.node.enabled));
 
-  const canExportData = can(team.permissions, 'create CheckDataExport') || true;
+  const canExportData = can(team.permissions, 'create CheckDataExport');
   const { check_data_export: checkDataExport } = team;
   const [checkDataExportStatus, setCheckDataExportStatus] = React.useState(checkDataExport?.status);
 
@@ -135,9 +135,7 @@ const TeamDetails = ({
         }
       `,
       variables: {
-        input: {
-          status: 'requested',
-        },
+        input: {},
       },
       onCompleted: (response, error) => {
         if (error) {
