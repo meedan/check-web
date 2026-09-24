@@ -54,9 +54,18 @@ RUN true \
     && echo deb https://oss-binaries.phusionpassenger.com/apt/passenger bullseye main \
        > /etc/apt/sources.list.d/passenger.list
 
+# Use Debian Snapshot because Bullseye reached EOL on August 31, 2026.
+RUN true \
+    && printf '%s\n' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260805T215856Z bullseye main' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260805T215856Z bullseye-security main' \
+    > /etc/apt/sources.list \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean \
+    && apt-get update
+
 # install dependencies
 RUN true \
-    && apt-get update \
     && apt-get install -y --no-install-recommends \
         awscli \
         jq \

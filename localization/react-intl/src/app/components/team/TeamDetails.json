@@ -5,6 +5,16 @@
     "defaultMessage": "Workspace details saved successfully"
   },
   {
+    "id": "teamDetails.checkDataExportErrorMessage",
+    "description": "Error message displayed when it's not possible to create CheckDataExport request",
+    "defaultMessage": "Could not create Check Data Export request"
+  },
+  {
+    "id": "teamDetails.checkDataExportSuccessfully",
+    "description": "Success message displayed when CheckDataExport are saved",
+    "defaultMessage": "Check Data Export created successfully"
+  },
+  {
     "id": "teamDetails.duplicateWorkspace",
     "description": "Label of a button to duplicate a workspace",
     "defaultMessage": "Duplicate workspace"
@@ -33,6 +43,26 @@
     "id": "teamDetails.inactive",
     "description": "Label for workspace inactive team",
     "defaultMessage": "Inactive"
+  },
+  {
+    "id": "teamDetails.exportDataTitle",
+    "description": "Title of the workspace export data in team details page",
+    "defaultMessage": "Export workspace data"
+  },
+  {
+    "id": "teamDetails.requestExport",
+    "description": "Label of the button that allow user to request an export for workspace data",
+    "defaultMessage": "Request export"
+  },
+  {
+    "id": "teamDetails.exportDataInfo",
+    "description": "Show details about the user who request workspace exported data",
+    "defaultMessage": "The export was requested by {name} ({email}) - {date}."
+  },
+  {
+    "id": "teamDetails.generatedExportDataInfo",
+    "description": "Show details about the user who request workspace exported data",
+    "defaultMessage": "The export was requested by {name} ({email}) on {date}. It has been generated and can be downloaded by the requesting user from their user page."
   },
   {
     "id": "teamDetails.linkManagement",
