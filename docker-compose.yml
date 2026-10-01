@@ -60,7 +60,7 @@ services:
     networks:
       - dev
   minio:
-    image: quay.io/minio/minio:latest
+    image: pgsty/silo:RELEASE.2026-09-16T00-00-00Z
     command: server /data --console-address ":9001"
     ports:
       - "9000:9000"
