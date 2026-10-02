@@ -36,8 +36,18 @@ RUN mkdir -p /usr/local/var/run/watchman && touch /usr/local/var/run/watchman/.n
 
 # install passenger support
 # see: https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/nginx/install/oss/bullseye.html
+
+# Use Debian Snapshot because Bullseye reached EOL on August 31, 2026.
 RUN true \
-    && apt-get update \
+    && printf '%s\n' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260805T215856Z bullseye main' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260805T215856Z bullseye-security main' \
+    > /etc/apt/sources.list \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean \
+    && apt-get update
+
+RUN true \
     && apt-get install -y --no-install-recommends \
         dirmngr \
         gnupg \
