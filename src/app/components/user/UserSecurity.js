@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
-import { Link } from 'react-router';
+import config from 'config';
 import AppleAppStoreIcon from '../../icons/apple_appstore_download.svg';
 import GooglePlayAppStoreIcon from '../../icons/googleplay_appstore_download.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -213,6 +213,29 @@ const UserSecurity = (props, context) => {
     return null;
   }
 
+  const handleDownload = async (token) => {
+    const response = await fetch(
+      `${config.restBaseUrl}workspace/${token}/data_download`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: currentUser.dbid,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      // handle error
+      return;
+    }
+    const { url } = await response.json();
+    const newTab = window.open('about:blank', '_blank');
+    newTab.location.href = url;
+  };
+
   // TODO: Read loginTrail from config
   const loginTrial = 4;
 
@@ -270,10 +293,11 @@ const UserSecurity = (props, context) => {
               <div className={styles['setting-content-container-title']}>
                 <FormattedMessage defaultMessage="Download Workspace Exported Data" description="Section title for download workspace exported data" id="userSecurity.downloadWorkspaceExportedData" />
               </div>
-              <ul>
+              <div className={inputStyles['form-fieldset-field']}>
                 {Object.entries(user.workspaces_data_export_url).map(([workspace, downloadUrl]) => (
-                  <li>
-                    <Link target="_blank" to={downloadUrl}>
+                  <ButtonMain
+                    className={inputStyles['form-fieldset-field']}
+                    label={
                       <FormattedMessage
                         defaultMessage="Download {Workspace} Workspace Data"
                         description="Link to download workspace exported data (CSV) files"
@@ -282,10 +306,14 @@ const UserSecurity = (props, context) => {
                           Workspace: workspace,
                         }}
                       />
-                    </Link>
-                  </li>
+                    }
+                    size="default"
+                    theme="info"
+                    variant="contained"
+                    onClick={() => handleDownload(downloadUrl)}
+                  />
                 ))}
-              </ul>
+              </div>
             </div>
             : null
         }
