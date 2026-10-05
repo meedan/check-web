@@ -1,6 +1,6 @@
 import React from 'react';
-import Relay from 'react-relay/classic';
-import { createFragmentContainer, graphql } from 'react-relay/compat';
+import Relay, { Store } from 'react-relay/classic';
+import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import CreateTeamDialog from './CreateTeamDialog';
@@ -11,7 +11,8 @@ import Checkbox from '../cds/buttons-checkboxes-chips/Checkbox';
 import TextField from '../cds/inputs/TextField';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
-import { getErrorMessage } from '../../helpers';
+import TimeBefore from '../TimeBefore';
+import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import Alert from '../cds/alerts-and-prompts/Alert';
@@ -38,6 +39,10 @@ const TeamDetails = ({
   const canActivateTeam = can(team.permissions, 'activate Team');
   const hasRssNewsletters = Boolean(team.tipline_newsletters.edges.find(tn => tn.node.content_type === 'rss'));
   const hasScheduledNewsletters = Boolean(team.tipline_newsletters.edges.find(tn => tn.node.enabled));
+
+  const canExportData = can(team.permissions, 'create CheckDataExport');
+  const { check_data_export: checkDataExport } = team;
+  const [checkDataExportStatus, setCheckDataExportStatus] = React.useState(checkDataExport?.status);
 
   const handleImageChange = (file) => {
     setAvatar(file);
@@ -82,6 +87,67 @@ const TeamDetails = ({
       );
       setIsSaving(true);
     }
+  };
+
+  const handleError = () => {
+    setIsSaving(false);
+    setFlashMessage((
+      <FormattedMessage
+        defaultMessage="Could not create Check Data Export request"
+        description="Error message displayed when it's not possible to create CheckDataExport request"
+        id="teamDetails.checkDataExportErrorMessage"
+      />
+    ), 'error');
+  };
+
+  const handleSuccess = (response) => {
+    setCheckDataExportStatus(response.createCheckDataExport.check_data_export.status);
+    setIsSaving(false);
+    setFlashMessage((
+      <FormattedMessage
+        defaultMessage="Check Data Export created successfully"
+        description="Success message displayed when CheckDataExport are saved"
+        id="teamDetails.checkDataExportSuccessfully"
+      />
+    ), 'success');
+  };
+
+  const handleRequestExport = () => {
+    setIsSaving(true);
+    commitMutation(Store, {
+      mutation: graphql`
+        mutation TeamDetailsCreateCheckDataExportMutation($input: CreateCheckDataExportInput!) {
+          createCheckDataExport(input: $input) {
+            check_data_export {
+              status
+              team {
+                check_data_export {
+                  status
+                  user {
+                    name
+                    email
+                  }
+                  created_at
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {},
+      },
+      onCompleted: (response, error) => {
+        if (error) {
+          handleError();
+        } else {
+          handleSuccess(response);
+        }
+      },
+      onError: () => {
+        handleError();
+      },
+    });
   };
 
   return (
@@ -202,6 +268,68 @@ const TeamDetails = ({
               </div>
               : null
           }
+          {
+            canExportData ?
+              <div className={settingsStyles['setting-content-container']}>
+                <div className={settingsStyles['setting-content-container-title']}>
+                  <FormattedMessage
+                    defaultMessage="Export workspace data"
+                    description="Title of the workspace export data in team details page"
+                    id="teamDetails.exportDataTitle"
+                  />
+                </div>
+                {
+                  checkDataExportStatus === undefined ?
+                    <ButtonMain
+                      buttonProps={{
+                        id: 'team-details__request-export-button',
+                      }}
+                      disabled={!canExportData || isSaving}
+                      label={
+                        <FormattedMessage
+                          defaultMessage="Request export"
+                          description="Label of the button that allow user to request an export for workspace data"
+                          id="teamDetails.requestExport"
+                        />
+                      }
+                      size="default"
+                      theme="info"
+                      variant="contained"
+                      onClick={handleRequestExport}
+                    />
+                    : null
+                }
+                {
+                  checkDataExportStatus === 'requested' ?
+                    <FormattedMessage
+                      defaultMessage="The export was requested by {name} ({email}) - {date}."
+                      description="Show details about the user who request workspace exported data"
+                      id="teamDetails.exportDataInfo"
+                      values={{
+                        name: checkDataExport?.user?.name,
+                        email: checkDataExport?.user?.email,
+                        date: <TimeBefore date={parseStringUnixTimestamp(checkDataExport?.created_at)} />,
+                      }}
+                    />
+                    : null
+                }
+                {
+                  checkDataExportStatus === 'generated' ?
+                    <FormattedMessage
+                      defaultMessage="The export was requested by {name} ({email}) on {date}. It has been generated and can be downloaded by the requesting user from their user page."
+                      description="Show details about the user who request workspace exported data"
+                      id="teamDetails.generatedExportDataInfo"
+                      values={{
+                        name: checkDataExport?.user?.name,
+                        email: checkDataExport?.user?.email,
+                        date: <TimeBefore date={parseStringUnixTimestamp(checkDataExport?.created_at)} />,
+                      }}
+                    />
+                    : null
+                }
+              </div>
+              : null
+          }
           <div className={settingsStyles['setting-content-container']}>
             <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage defaultMessage="Link Management" description="Title of the link management section in team details page" id="teamDetails.linkManagement" />
@@ -310,6 +438,14 @@ export default createFragmentContainer(withSetFlashMessage(TeamDetails), graphql
     permissions
     get_shorten_outgoing_urls
     get_outgoing_urls_utm_code
+    check_data_export {
+      status
+      user {
+        name
+        email
+      }
+      created_at
+    }
     tipline_newsletters(first: 10000) {
       edges {
         node {
