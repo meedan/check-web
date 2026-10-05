@@ -14,7 +14,7 @@ import SwitchComponent from '../cds/inputs/SwitchComponent';
 import ChangePasswordComponent from '../ChangePasswordComponent';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage, getErrorObjects } from '../../helpers';
-import { withSetFlashMessage } from '../FlashMessage';
+import { withSetFlashMessage, FlashMessageSetterContext } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import inputStyles from '../../styles/css/inputs.module.css';
 import styles from '../team/Settings.module.css';
@@ -212,23 +212,23 @@ const UserSecurity = (props, context) => {
   if (!currentUser || !user || currentUser.dbid !== user.dbid) {
     return null;
   }
-
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const handleDownload = async (token) => {
     const response = await fetch(
-      `${config.restBaseUrl}workspace/${token}/data_download`,
+      `${config.restBaseUrl}workspace/${token}/${currentUser.dbid}/data_download`,
       {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user_id: currentUser.dbid,
-        }),
+        method: 'GET',
       },
     );
 
     if (!response.ok) {
-      // handle error
+      setFlashMessage(
+        <FormattedMessage
+          defaultMessage="Could not download exported data, please try again later or contact support if the error persists."
+          description="Error message when user could not download exported data."
+          id="userSettings.downloadExportError"
+        />,
+        'error');
       return;
     }
     const { url } = await response.json();
@@ -293,7 +293,7 @@ const UserSecurity = (props, context) => {
               <div className={styles['setting-content-container-title']}>
                 <FormattedMessage defaultMessage="Download Workspace Exported Data" description="Section title for download workspace exported data" id="userSecurity.downloadWorkspaceExportedData" />
               </div>
-              <div className={inputStyles['form-fieldset-field']}>
+              <div className={inputStyles['form-fieldset']}>
                 {Object.entries(user.workspaces_data_export_url).map(([workspace, downloadUrl]) => (
                   <ButtonMain
                     className={inputStyles['form-fieldset-field']}
