@@ -215,9 +215,10 @@ const UserSecurity = (props, context) => {
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const handleDownload = async (token) => {
     const response = await fetch(
-      `${config.restBaseUrl}workspace/${token}/${currentUser.dbid}/data_download`,
+      `${config.restBaseUrl}workspace/${token}/data_download`,
       {
         method: 'GET',
+        credentials: 'include',
       },
     );
 
@@ -232,8 +233,7 @@ const UserSecurity = (props, context) => {
       return;
     }
     const { url } = await response.json();
-    const newTab = window.open('about:blank', '_blank');
-    newTab.location.href = url;
+    window.location.href = url;
   };
 
   // TODO: Read loginTrail from config
