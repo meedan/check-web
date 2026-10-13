@@ -16,6 +16,7 @@ import SupportButton from './support/SupportButton';
 import DrawerNavigation from './drawer/DrawerNavigation';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import UserTos from './UserTos';
+import CheckSunset from './CheckSunset';
 import CheckContext from '../CheckContext';
 import { withClientSessionId } from '../ClientSessionId';
 import { stringHelper } from '../customHelpers';
@@ -287,6 +288,7 @@ class HomeComponent extends Component {
             /> : null}
           <Favicon animated={false} url={`/images/logo/${config.appName}.ico`} />
           <BrowserSupport />
+          <CheckSunset />
           <UserTos user={user} />
           <div
             className={[
