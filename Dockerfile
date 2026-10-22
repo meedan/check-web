@@ -10,9 +10,18 @@ ENV LANGUAGE C.UTF-8
 COPY --from=icalialabs/watchman:buster /usr/local/bin/watchman /usr/local/bin/watchman
 RUN mkdir -p /usr/local/var/run/watchman && touch /usr/local/var/run/watchman/.not-empty
 
+# Use Debian Snapshot because Bullseye reached EOL on August 31, 2026.
+RUN true \
+    && printf '%s\n' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260805T215856Z bullseye main' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260805T215856Z bullseye-security main' \
+    > /etc/apt/sources.list \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean \
+    && apt-get update
+
 # install dependencies
 RUN true \
-    && apt-get update \
     && apt-get install -y --no-install-recommends \
         ruby2.7 \
         ruby2.7-dev \
