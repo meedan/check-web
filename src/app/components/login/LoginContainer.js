@@ -4,6 +4,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import cx from 'classnames/bind';
 import Login from './Login';
 import BrowserSupport from '../BrowserSupport';
+import CheckSunset from '../CheckSunset';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Footer from '../Footer';
 import PageTitle from '../PageTitle';
@@ -13,6 +14,7 @@ const LoginContainer = props => (
   <PageTitle>
     <div className={styles['login-wrapper']}>
       <BrowserSupport />
+      <CheckSunset />
       <div className={cx('login-container', styles['login-container'])} id="login-container">
         <Favicon animated={false} url={`/images/logo/${config.appName}.ico`} />
         {props.message &&
